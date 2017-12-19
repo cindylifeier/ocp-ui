@@ -217,6 +217,7 @@
     "compression": "1.6.2",
     "cross-env": "5.0.0",
     "express": "4.15.3",
+    "fhir.js": "0.0.20",
     "fontfaceobserver": "2.0.9",
     "history": "4.6.3",
     "hoist-non-react-statics": "2.1.1",
@@ -226,6 +227,7 @@
     "ip": "1.1.5",
     "lodash": "4.17.4",
     "minimist": "1.2.0",
+    "net": "1.0.2",
     "prop-types": "15.5.10",
     "react": "15.6.1",
     "react-dom": "15.6.1",
@@ -241,6 +243,7 @@
     "reselect": "3.0.1",
     "sanitize.css": "4.1.0",
     "styled-components": "2.0.0",
+    "tls": "0.0.1",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3"
   },
