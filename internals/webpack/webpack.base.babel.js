@@ -122,4 +122,7 @@ module.exports = (options) => ({
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
+  node: {
+    fs: 'empty', // https://github.com/webpack-contrib/css-loader/issues/447#issuecomment-285598881
+  },
 });
