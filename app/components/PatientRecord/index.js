@@ -6,9 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { Card, CardText, Drawer, FontIcon, IconButton, Paper, Subheader } from 'material-ui';
-import messages from './messages';
 import css from './PatientRecord.css';
 import FhirUtil from '../../utils/FhirUtil';
 import genericAvatar from '../../images/generic-avatar.png';
@@ -28,22 +26,21 @@ class PatientRecord extends React.PureComponent { // eslint-disable-line react/p
   render() {
     return (
       <div>
-        <FormattedMessage {...messages.header} />
         <Paper className={css.paper}>
           <div>
             <img src={genericAvatar} className={css.img} alt="avatar" />
-            <p>
+            <div>
               <strong>Name: </strong>{FhirUtil.getFhirPatientName(this.props.patient)}
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>DOB: </strong>{FhirUtil.getFhirPatientBirthDate(this.props.patient)}
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>SSN: </strong>{FhirUtil.getFhirPatientSsn(this.props.patient)}
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>Gender: </strong>{FhirUtil.getFhirPatientGender(this.props.patient)}
-            </p>
+            </div>
             <IconButton tooltip="View details" onClick={this.viewDetails}>
               <FontIcon className="fa fa-chevron-circle-right" />
             </IconButton>
@@ -93,9 +90,9 @@ class PatientRecord extends React.PureComponent { // eslint-disable-line react/p
                 <div>
                   <div>
                     <h3>Email</h3>
-                    <p style={{ maxWidth: '50%' }}>
+                    <div style={{ maxWidth: '50%' }}>
                       {FhirUtil.getEmail(this.props.patient)}
-                    </p>
+                    </div>
                   </div>
                   <div>
                     <h3>Emergency Contact</h3>
