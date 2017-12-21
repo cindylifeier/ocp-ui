@@ -1,4 +1,17 @@
 
-.textColor{
-  color: blue;
+conent {
+  marginTop: 15;
+}
+
+taskCard {
+  height: '100vh';
+}
+
+consultCard {
+  height: '49vh'
+}
+
+requestCard {
+  marginTop: '2vh';
+  height: '49vh';
 }

@@ -11,7 +11,8 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 import messages from './messages';
 import styles from './HomePage.css';
 
@@ -22,7 +23,63 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <h1 className={styles.textColor}>
           <FormattedMessage {...messages.header} />
         </h1>
-        <RaisedButton label="Testing material UI default buttom" />
+        <Card style={styles.taskCard}>
+          <CardHeader title="TASKS" />
+          <Divider />
+          <CardText>
+            <p>
+              There are many variations of passages of Lorem Ipsum available, but the
+              majority have suffered alteration in some form, by injected humour, or
+              randomised words which do not look even slightly believable. If you are going
+              to use a passage of Lorem Ipsum, you need to be sure there is not anything
+              embarrassing hidden in the middle of text. All the Lorem Ipsum generators on
+              the Internet tend to repeat predefined chunks as necessary, making this the
+              first true generator on the Internet. It uses a dictionary of over 200 Latin
+              words, combined with a handful of model sentence structures, to generate
+              Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
+              always free from repetition, injected humour, or non-characteristic words
+              etc.
+            </p>
+          </CardText>
+        </Card>
+        <Card style={styles.consultCard}>
+          <CardHeader title="OPEN CONSULTS" />
+          <Divider />
+          <CardText>
+            <p>
+              There are many variations of passages of Lorem Ipsum available, but the
+              majority have suffered alteration in some form, by injected humour, or
+              randomised words which do not look even slightly believable. If you are going
+              to use a passage of Lorem Ipsum, you need to be sure there is not anything
+              embarrassing hidden in the middle of text. All the Lorem Ipsum generators on
+              the Internet tend to repeat predefined chunks as necessary, making this the
+              first true generator on the Internet. It uses a dictionary of over 200 Latin
+              words, combined with a handful of model sentence structures, to generate
+              Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
+              always free from repetition, injected humour, or non-characteristic words
+              etc.
+            </p>
+          </CardText>
+        </Card>
+        <Card style={styles.requestCard}>
+          <CardHeader title="OPEN REQUESTS" />
+          <Divider />
+          <CardText>
+            <p>
+              There are many variations of passages of Lorem Ipsum available, but the
+              majority have suffered alteration in some form, by injected humour, or
+              randomised words which do not look even slightly believable. If you are going
+              to use a passage of Lorem Ipsum, you need to be sure there is not anything
+              embarrassing hidden in the middle of text. All the Lorem Ipsum generators on
+              the Internet tend to repeat predefined chunks as necessary, making this the
+              first true generator on the Internet. It uses a dictionary of over 200 Latin
+              words, combined with a handful of model sentence structures, to generate
+              Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
+              always free from repetition, injected humour, or non-characteristic words
+              etc.
+            </p>
+          </CardText>
+        </Card>
       </div>
     );
   }
