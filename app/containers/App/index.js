@@ -13,15 +13,23 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
+import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
+
+import css from './App.css';
+import { LoginPage } from '../LoginPage/index';
+
 
 export default function App() {
   return (
-    <div>
+    <div className={css.App}>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/patients/:id" component={PatientDetailsPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
