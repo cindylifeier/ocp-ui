@@ -1,17 +1,49 @@
 
-conent {
-  marginTop: 15;
+body {
+  margin: 5px;
 }
 
-taskCard {
-  height: '100vh';
+.container {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 300px 600px 600px;
+  background-color: #fff;
+  color: #444;
 }
 
-consultCard {
-  height: '49vh'
+.box {
+  background-color: #fff;
+  color: #fff;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 150%;
+
 }
 
-requestCard {
-  marginTop: '2vh';
-  height: '49vh';
+.header {
+  grid-column: 1/4 ;
+  grid-row: 1;
+  /*     height: 500px; */
 }
+
+.sidebar {
+  grid-column: 1 ;
+  grid-row: 2/4;
+  height: 560px;
+}
+.task {
+  grid-column: 2 ;
+  grid-row: 2 / 4;
+  /*     height: 500px; */
+}
+.consult {
+  grid-column: 3 ;
+  grid-row: 2 ;
+}
+.request {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+
+
