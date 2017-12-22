@@ -26,7 +26,7 @@ export default function App() {
   return (
     <div className={css.App}>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={LoginPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/home" component={HomePage} />
         <Route path="/patients/:id" component={PatientDetailsPage} />
