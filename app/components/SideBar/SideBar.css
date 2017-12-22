@@ -1,21 +1,21 @@
 
 .nav {
-  backgroundColor: #076F7D;
+  background-color: #076F7D;
   height: 102vh;
 }
 
 .button {
-  width: 80%;
-  marginBottom: 2;
-  borderRadius: 25;
+  width: 90%;
+  margin-bottom: 2px;
+  border-radius: 25px;
 }
 
 .searchBox {
   width: 60%;
-  borderRadius: 25;
+  border-radius: 25px;
 }
 
 .marginTopBottom15 {
-  marginTop: 15px;
-  marginBottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }

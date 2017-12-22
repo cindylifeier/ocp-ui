@@ -49,8 +49,7 @@
   },
   "pre-commit": "lint:staged",
   "babel": {
-    "plugins": [
-    ],
+    "plugins": [],
     "presets": [
       [
         "env",
