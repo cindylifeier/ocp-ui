@@ -13,10 +13,8 @@ import withContext from '../../utils/withContext';
 function SampleComponent() {
   return (
     <div>
-      <FormattedMessage {...messages.header} />
       <h1>
-        This is the sample component!
-        This is the sample component!
+        <FormattedMessage {...messages.header} />
       </h1>
     </div>
   );
