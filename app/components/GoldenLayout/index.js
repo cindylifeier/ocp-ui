@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 // Import Golden Layout Style sheet
 import 'golden-layout/src/css/goldenlayout-base.css';
@@ -16,16 +17,20 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
   constructor(props) {
     super(props);
     this.layout = null;
+    this.locationRegistry = [];
+    this.initLayout = this.initLayout.bind(this);
+    this.destroyLayout = this.destroyLayout.bind(this);
+    this.registerLocation = this.registerLocation.bind(this);
   }
 
   componentDidMount() {
-    const initLayout = initGoldenLayout(document.getElementById(this.props.containerId), this.props.componentMetadata, this.props.stateMetadata);
+    const initLayout = this.initLayout();
     this.layout = initLayout;
   }
 
   componentDidUpdate() {
     this.destroyLayout();
-    const newLayout = initGoldenLayout(document.getElementById(this.props.containerId), this.props.componentMetadata, this.props.stateMetadata);
+    const newLayout = this.initLayout();
     this.layout = newLayout;
   }
 
@@ -33,10 +38,24 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
     this.destroyLayout();
   }
 
+  initLayout() {
+    return initGoldenLayout(document.getElementById(this.props.containerId),
+      this.props.componentMetadata,
+      this.props.stateMetadata,
+      this.registerLocation);
+  }
+
   destroyLayout() {
+    // Clean up React Components created by Golden Layout callbacks
+    this.locationRegistry.forEach((location) => ReactDOM.unmountComponentAtNode(document.getElementById(location)));
+    this.locationRegistry = [];
     if (this.layout) {
       this.layout.destroy();
     }
+  }
+
+  registerLocation(location) {
+    this.locationRegistry.push(location);
   }
 
   render() {

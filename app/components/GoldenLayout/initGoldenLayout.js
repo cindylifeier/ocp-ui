@@ -1,11 +1,11 @@
 import GoldenLayout from 'golden-layout';
 
-function initGoldenLayout(root, componentMetadata, stateMetadata) {
+function initGoldenLayout(root, componentMetadata, stateMetadata, registerLocation) {
   const layout = new GoldenLayout(stateMetadata, root);
 
   // Register all react components
   componentMetadata.forEach((metadata) => {
-    layout.registerComponent(metadata.name, (container) => registerComponentWithCallback(container, metadata.factoryMethod));
+    layout.registerComponent(metadata.name, (container) => registerComponentWithCallback(container, metadata.factoryMethod, registerLocation));
   });
 
   layout.init();
@@ -20,11 +20,14 @@ const nextId = ((function createNextId() {
   };
 })());
 
-function registerComponentWithCallback(container, callback) {
+function registerComponentWithCallback(container, callback, registerLocation) {
   const itsId = nextId();
   const location = `component_${itsId}`;
   container.getElement().html(`<div id="${location}"></div>`);
-  setTimeout(() => callback(location), 1);
+  setTimeout(() => {
+    callback(location);
+    registerLocation(location);
+  }, 1);
 }
 
 export default initGoldenLayout;
