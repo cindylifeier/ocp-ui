@@ -1,10 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 import GoldenLayout from 'golden-layout';
-
-window.React = React;
-window.ReactDOM = ReactDOM;
 
 function initGoldenLayout(root, componentMetadata, stateMetadata) {
   const layout = new GoldenLayout(stateMetadata, root);
