@@ -151,6 +151,10 @@ const initialStateMetadata =
     maximisedItemId: null,
   };
 
+const componentMetadata = [
+  { name: 'sample', text: 'sample', factoryMethod: createSampleComponent },
+];
+
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
@@ -166,9 +170,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <div>
           <GoldenLayout
             containerId="golden-home"
-            componentMetadata={[
-              { name: 'sample', text: 'sample', factoryMethod: createSampleComponent },
-            ]}
+            componentMetadata={componentMetadata}
             stateMetadata={initialStateMetadata}
           />
         </div>
