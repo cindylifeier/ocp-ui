@@ -7,7 +7,7 @@ import { history, store } from '../context';
 import { translationMessages } from '../i18n';
 
 export default function withContext(Component) {
-  const SuperComponent = typeof Component === 'function' ? React.Component : Component;
+  const SuperComponent = Component.prototype instanceof React.Component ? Component : React.Component;
 
   class WithContext extends SuperComponent {
     render() {
