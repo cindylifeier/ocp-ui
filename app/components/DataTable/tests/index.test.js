@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import OcpTable from '../index';
+// import DataTable from '../index';
 
-describe('<OcpTable />', () => {
+describe('<DataTable />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -19,43 +19,50 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import style from './Locations.css';
-import OcpTable from '../../components/OcpTable';
 import { LOCATION_TABLE_HEADERS, LOCATIONS } from './constants';
+import { showInActiveLocations, showSuspendedLocations } from './actions';
+import DataTable from '../../components/DataTable/index';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
   render() {
-    const items = LOCATIONS.filter((location) => (location.status !== 'Suspended' && location.status !== 'Inactive'));
+    // const items = LOCATIONS.filter((location) => (location.status !== 'Suspended' && location.status !== 'Inactive'));
 
     return (
       <div>
-        <span>
-          <FormattedMessage {...messages.inactive} >
-            {(msg) => (
-              <Checkbox
-                className={style.inlineElement}
-                label={msg}
-                labelPosition="left"
-              />
-            )}
-          </FormattedMessage>
-          <FormattedMessage {...messages.suspended} >
-            {(msg) => (
-              <Checkbox
-                className={style.inlineElement}
-                label={msg}
-                labelPosition="left"
-              />
-            )}
-          </FormattedMessage>
-        </span>
-        <OcpTable headers={LOCATION_TABLE_HEADERS} items={items}></OcpTable>
+        <form>
+          <span>
+            <FormattedMessage {...messages.inactive} >
+              {(msg) => (
+                <Checkbox
+                  className={style.inlineElement}
+                  label={msg}
+                  labelPosition="left"
+                  onCheck={this.props.onCheckShowInActive}
+                />
+              )}
+            </FormattedMessage>
+            <FormattedMessage {...messages.suspended} >
+              {(msg) => (
+                <Checkbox
+                  className={style.inlineElement}
+                  label={msg}
+                  labelPosition="left"
+                  onCheck={this.props.onCheckShowSuspended}
+                />
+              )}
+            </FormattedMessage>
+          </span>
+        </form>
+        <DataTable headers={LOCATION_TABLE_HEADERS} items={LOCATIONS}></DataTable>
       </div>
     );
   }
 }
 
 Locations.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onCheckShowInActive: PropTypes.func,
+  onCheckShowSuspended: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -65,6 +72,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onCheckShowInActive: (evt) => dispatch(showInActiveLocations(evt.target.value)),
+    onCheckShowSuspended: (evt) => dispatch(showSuspendedLocations(evt.target.value)),
   };
 }
 

@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for OcpTable
+ * Asynchronously loads the component for DataTable
  *
  */
 

@@ -1,10 +1,11 @@
 /**
 *
-* OcpTable
+* DataTable
 *
 */
 
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -15,9 +16,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-
-class OcpTable extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
+class DataTable extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   createTableHeaderColumns() {
     return this.props.headers.map((header) => (
       <TableHeaderColumn key={`${header.id}`}>{header.name}</TableHeaderColumn>
@@ -61,7 +60,8 @@ class OcpTable extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
-OcpTable.defaultProps = {
+
+DataTable.defaultProps = {
   displaySelectAll: false,
   adjustForCheckbox: false,
   displayRowCheckbox: false,
@@ -69,7 +69,7 @@ OcpTable.defaultProps = {
   showRowHover: true,
 };
 
-OcpTable.propTypes = {
+DataTable.propTypes = {
   displaySelectAll: PropTypes.bool,
   adjustForCheckbox: PropTypes.bool,
   displayRowCheckbox: PropTypes.bool,
@@ -79,4 +79,4 @@ OcpTable.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default OcpTable;
+export default DataTable;
