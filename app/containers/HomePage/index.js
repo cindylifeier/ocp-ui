@@ -11,13 +11,13 @@
 
 import React from 'react';
 // import { FormattedMessage } from 'react-intl';
-import { Card, CardHeader, CardText, Divider } from 'material-ui';
+import { Card, CardHeader, CardText, Divider, RaisedButton } from 'material-ui';
 // import messages from './messages';
 
 import styles from './HomePage.css';
-import Header from '../../components/Header/index';
-import SideBar from '../../components/SideBar/index';
-
+import Header from '../../components/Header';
+import SideBar from '../../components/SideBar';
+import { Locations } from '../Locations';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -31,22 +31,15 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </div>
         <div className={`${styles.box} ${styles.task}`}>
           <Card style={styles.taskCard}>
-            <CardHeader title="TASKS" />
+            <CardHeader title="Location" />
             <Divider />
             <CardText>
-              <p>
-                There are many variations of passages of Lorem Ipsum available, but the
-                majority have suffered alteration in some form, by injected humour, or
-                randomised words which do not look even slightly believable. If you are going
-                to use a passage of Lorem Ipsum, you need to be sure there is not anything
-                embarrassing hidden in the middle of text. All the Lorem Ipsum generators on
-                the Internet tend to repeat predefined chunks as necessary, making this the
-                first true generator on the Internet. It uses a dictionary of over 200 Latin
-                words, combined with a handful of model sentence structures, to generate
-                Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
-                always free from repetition, injected humour, or non-characteristic words
-                etc.
-              </p>
+              <RaisedButton
+                label="Show Location"
+                primary
+              >
+              </RaisedButton>
+              <Locations></Locations>
             </CardText>
           </Card>
         </div>
