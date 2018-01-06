@@ -16,10 +16,12 @@ const selectLocationsDomain = (state) => state.get('locations');
 
 const makeSelectLocations = () => createSelector(
   selectLocationsDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('locations')
 );
 
+
 export default makeSelectLocations;
+
 export {
   selectLocationsDomain,
 };

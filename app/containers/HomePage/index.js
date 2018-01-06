@@ -17,7 +17,7 @@ import { Card, CardHeader, CardText, Divider, RaisedButton } from 'material-ui';
 import styles from './HomePage.css';
 import Header from '../../components/Header';
 import SideBar from '../../components/SideBar';
-import { Locations } from '../Locations';
+import Locations from '../Locations/Loadable';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

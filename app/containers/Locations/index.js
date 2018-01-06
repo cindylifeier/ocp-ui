@@ -24,10 +24,8 @@ import { showInActiveLocations, showSuspendedLocations } from './actions';
 import DataTable from '../../components/DataTable/index';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   render() {
-    // const items = LOCATIONS.filter((location) => (location.status !== 'Suspended' && location.status !== 'Inactive'));
-
+    const items = LOCATIONS.filter((location) => (location.status !== 'Suspended' && location.status !== 'Inactive'));
     return (
       <div>
         <form>
@@ -38,7 +36,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
                   className={style.inlineElement}
                   label={msg}
                   labelPosition="left"
-                  onCheck={this.props.onCheckShowInActive}
+                  onCheck={this.props.onCheckShowInactive}
                 />
               )}
             </FormattedMessage>
@@ -54,14 +52,14 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
             </FormattedMessage>
           </span>
         </form>
-        <DataTable headers={LOCATION_TABLE_HEADERS} items={LOCATIONS}></DataTable>
+        <DataTable headers={LOCATION_TABLE_HEADERS} items={items}></DataTable>
       </div>
     );
   }
 }
 
 Locations.propTypes = {
-  onCheckShowInActive: PropTypes.func,
+  onCheckShowInactive: PropTypes.func,
   onCheckShowSuspended: PropTypes.func,
 };
 
@@ -71,9 +69,12 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
-    onCheckShowInActive: (evt) => dispatch(showInActiveLocations(evt.target.value)),
-    onCheckShowSuspended: (evt) => dispatch(showSuspendedLocations(evt.target.value)),
+    onCheckShowInactive: (evt, checked) => {
+      dispatch(showInActiveLocations(checked));
+    },
+    onCheckShowSuspended: (evt, checked) => {
+      dispatch(showSuspendedLocations(checked));
+    },
   };
 }
 
