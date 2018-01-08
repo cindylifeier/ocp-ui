@@ -29,7 +29,7 @@ const initialStateMetadata =
       popoutWholeStack: false,
       blockedPopoutsThrowError: true,
       closePopoutsOnUnload: true,
-      showPopoutIcon: true,
+      showPopoutIcon: false,
       showMaximiseIcon: true,
       showCloseIcon: true,
       responsiveMode: 'onload',
