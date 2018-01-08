@@ -46,8 +46,15 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   destroyLayout() {
+    // TODO: need to implement cleaning up popped out panels as well, because GoldenLayout removes the div, but React is not aware to of this to unmount the component and these components stays orphan
     // Clean up React Components created by Golden Layout callbacks
-    this.locationRegistry.forEach((location) => ReactDOM.unmountComponentAtNode(document.getElementById(location)));
+    this.locationRegistry.forEach((location) => {
+      // if the node still exists at known location, unmount React component
+      const node = document.getElementById(location);
+      if (node) {
+        ReactDOM.unmountComponentAtNode(node);
+      }
+    });
     this.locationRegistry = [];
     if (this.layout) {
       this.layout.destroy();
