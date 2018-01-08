@@ -1,10 +1,4 @@
-import ReactDOM from 'react-dom';
-import withContext from '../../utils/withContext';
 import SampleComponent from './index';
+import renderFactory from '../../utils/goldenLayout/renderFactory';
 
-export default function renderSampleComponent(location) {
-  ReactDOM.render(
-    withContext(SampleComponent),
-    document.getElementById(location)
-  );
-}
+export default renderFactory(SampleComponent);
