@@ -11,7 +11,7 @@
 
 import React from 'react';
 // import { FormattedMessage } from 'react-intl';
-import { Card, CardHeader, CardText, Divider, RaisedButton } from 'material-ui';
+import { Card, CardHeader, CardText, Divider } from 'material-ui';
 // import messages from './messages';
 
 import styles from './HomePage.css';
@@ -34,11 +34,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             <CardHeader title="Location" />
             <Divider />
             <CardText>
-              <RaisedButton
-                label="Show Location"
-                primary
-              >
-              </RaisedButton>
               <Locations></Locations>
             </CardText>
           </Card>
