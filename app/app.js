@@ -13,7 +13,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 // Import Material-UI Theme Provider
 import { MuiThemeProvider } from 'material-ui';
@@ -39,18 +38,14 @@ import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
-import configureStore from './configureStore';
-
 // Import i18n messages
 import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
 
-// Create redux store with history
-const initialState = {};
-const history = createHistory();
-const store = configureStore(initialState, history);
+import { store, history } from './context';
+
 const MOUNT_NODE = document.getElementById('app');
 
 const render = (messages) => {
