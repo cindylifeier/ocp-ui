@@ -15,7 +15,7 @@ import styles from './HomePage.css';
 import Header from '../../components/Header/index';
 import SideBar from '../../components/SideBar/index';
 import GoldenLayout from '../../components/GoldenLayout/Loadable';
-import { createSampleComponent } from '../../components/SampleComponent';
+import renderSampleComponent from '../../components/SampleComponent/render';
 
 // import messages from './messages';
 
@@ -152,7 +152,7 @@ const initialStateMetadata =
   };
 
 const componentMetadata = [
-  { name: 'sample', text: 'sample', factoryMethod: createSampleComponent },
+  { name: 'sample', text: 'Sample', factoryMethod: renderSampleComponent },
 ];
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
