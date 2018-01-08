@@ -1,14 +1,9 @@
 import initGoldenLayout from '../initGoldenLayout';
 
-const mockInstance = {};
+let mockInstance = {};
 
 function clearMockInstance() {
-  delete mockInstance.stateMetadata;
-  delete mockInstance.root;
-  delete mockInstance.init;
-  delete mockInstance.registerComponent;
-  delete mockInstance.constructed;
-  delete mockInstance.callbacks;
+  mockInstance = {};
 }
 
 const mockHtmlFunc = jest.fn();
