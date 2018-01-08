@@ -7,22 +7,18 @@ import { history, store } from '../context';
 import { translationMessages } from '../i18n';
 
 export default function withContext(Component) {
-  const SuperComponent = Component.prototype instanceof React.Component ? Component : React.Component;
-
-  class WithContext extends SuperComponent {
-    render() {
-      return (
-        <Provider store={store}>
-          <LanguageProvider messages={translationMessages}>
-            <ConnectedRouter history={history}>
-              <MuiThemeProvider>
-                <Component {...this.props} />
-              </MuiThemeProvider>
-            </ConnectedRouter>
-          </LanguageProvider>
-        </Provider>
-      );
-    }
+  function WithContext(props) {
+    return (
+      <Provider store={store}>
+        <LanguageProvider messages={translationMessages}>
+          <ConnectedRouter history={history}>
+            <MuiThemeProvider>
+              <Component {...props} />
+            </MuiThemeProvider>
+          </ConnectedRouter>
+        </LanguageProvider>
+      </Provider>
+    );
   }
 
   const wrappedComponentName = Component.displayName
