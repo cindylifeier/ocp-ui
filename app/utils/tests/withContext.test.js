@@ -4,6 +4,8 @@ import withContext from '../withContext';
 
 const children = (<h1>Test</h1>);
 
+const FUNCTION_TYPE = 'function';
+
 function SampleFunctionalComponentWithoutAnyName() {
   return children;
 }
@@ -24,7 +26,7 @@ describe('withContext', () => {
   it('should export a default withContext function', () => {
     // Assert
     expect(withContext).not.toBeNull();
-    expect(typeof withContext).toBe('function');
+    expect(typeof withContext).toBe(FUNCTION_TYPE);
   });
 
   it('should wrap functional component without any name and render', () => {
@@ -38,7 +40,7 @@ describe('withContext', () => {
     );
 
     // Assert
-    expect(WrappedComponent.type.prototype).toBeInstanceOf(React.Component);
+    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
     expect(renderedComponent).toMatchSnapshot();
   });
 
@@ -53,7 +55,7 @@ describe('withContext', () => {
     );
 
     // Assert
-    expect(WrappedComponent.type.prototype).toBeInstanceOf(React.Component);
+    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
     expect(renderedComponent).toMatchSnapshot();
   });
 
@@ -68,7 +70,7 @@ describe('withContext', () => {
     );
 
     // Assert
-    expect(WrappedComponent.type.prototype).toBeInstanceOf(toBeWrappedComponent);
+    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
     expect(renderedComponent).toMatchSnapshot();
   });
 
@@ -83,7 +85,7 @@ describe('withContext', () => {
     );
 
     // Assert
-    expect(WrappedComponent.type.prototype).toBeInstanceOf(React.Component);
+    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
     expect(renderedComponent.contains(children)).toBe(true);
   });
 
@@ -98,7 +100,7 @@ describe('withContext', () => {
     );
 
     // Assert
-    expect(WrappedComponent.type.prototype).toBeInstanceOf(React.Component);
+    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
     expect(renderedComponent.contains(children)).toBe(true);
   });
 
@@ -113,7 +115,7 @@ describe('withContext', () => {
     );
 
     // Assert
-    expect(WrappedComponent.type.prototype).toBeInstanceOf(toBeWrappedComponent);
+    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
     expect(renderedComponent.contains(children)).toBe(true);
   });
 });
