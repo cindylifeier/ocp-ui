@@ -38,28 +38,8 @@ class SideBar extends React.PureComponent { // eslint-disable-line react/prefer-
               <RaisedButton
                 className={styles.button}
                 buttonStyle={{ borderRadius: 25 }}
-                label="MY CPRS LIST"
-              />
-              <RaisedButton
-                className={styles.button}
-                buttonStyle={{ borderRadius: 25 }}
                 label="RECENT PATIENT"
                 containerElement={<Link to="/patients" />}
-              />
-              <RaisedButton
-                className={styles.button}
-                buttonStyle={{ borderRadius: 25 }}
-                label="CLINICS"
-              />
-              <RaisedButton
-                className={styles.button}
-                buttonStyle={{ borderRadius: 25 }}
-                label="WARDS"
-              />
-              <RaisedButton
-                className={styles.button}
-                buttonStyle={{ borderRadius: 25 }}
-                label="NATIONWIDE"
               />
             </div>
           </CardText>
