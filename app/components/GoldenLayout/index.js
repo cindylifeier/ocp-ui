@@ -13,11 +13,36 @@ import 'golden-layout/src/css/goldenlayout-light-theme.css';
 import initGoldenLayout from './initGoldenLayout';
 import './GoldenLayout.css';
 
+function generateRandomId() {
+  let text = '';
+  const possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < 5; i += 1) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+}
+
+function generateUniqueId() {
+  let uniqueId = null;
+  while (!uniqueId) {
+    const candidateId = generateRandomId();
+    if (!document.getElementById(uniqueId)) {
+      uniqueId = candidateId;
+    }
+  }
+  return uniqueId;
+}
+
 class GoldenLayout extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.layout = null;
     this.locationRegistry = [];
+    this.state = {
+      containerId: this.props.containerId || generateUniqueId(),
+    };
     this.initLayout = this.initLayout.bind(this);
     this.destroyLayout = this.destroyLayout.bind(this);
     this.registerLocation = this.registerLocation.bind(this);
@@ -39,7 +64,7 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   initLayout() {
-    return initGoldenLayout(document.getElementById(this.props.containerId),
+    return initGoldenLayout(document.getElementById(this.state.containerId),
       this.props.componentMetadata,
       this.props.stateMetadata,
       this.registerLocation);
@@ -67,14 +92,14 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     return (
-      <div id={this.props.containerId}>
+      <div id={this.state.containerId}>
       </div>
     );
   }
 }
 
 GoldenLayout.propTypes = {
-  containerId: PropTypes.string.isRequired,
+  containerId: PropTypes.string,
   stateMetadata: PropTypes.shape({
     content: PropTypes.arrayOf(PropTypes.shape({
       type: PropTypes.string.isRequired,
