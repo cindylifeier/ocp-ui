@@ -18,6 +18,7 @@ import styles from './HomePage.css';
 import Header from '../../components/Header';
 import SideBar from '../../components/SideBar';
 import Locations from '../Locations/Loadable';
+import Organizations from '../Organizations';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -29,9 +30,18 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <div className={`${styles.box} ${styles.sidebar}`}>
           <SideBar />
         </div>
-        <div className={`${styles.box} ${styles.task}`}>
+        <div className={`${styles.box} ${styles.organizations}`}>
           <Card style={styles.taskCard}>
-            <CardHeader title="Location" />
+            <CardHeader title="Organizations" />
+            <Divider />
+            <CardText>
+              <Organizations></Organizations>
+            </CardText>
+          </Card>
+        </div>
+        <div className={`${styles.box} ${styles.locations}`}>
+          <Card style={styles.taskCard}>
+            <CardHeader title="Locations" />
             <Divider />
             <CardText>
               <Locations></Locations>
