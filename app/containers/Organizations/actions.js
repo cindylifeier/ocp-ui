@@ -4,12 +4,24 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { LOAD_ORGANIZATIONS, LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCESS } from './constants';
 
-export function defaultAction() {
+export function loadOrganizations() {
   return {
-    type: DEFAULT_ACTION,
+    type: LOAD_ORGANIZATIONS,
+  };
+}
+
+export function loadOrganizationsSuccess(organizations) {
+  return {
+    type: LOAD_ORGANIZATIONS_SUCCESS,
+    organizations,
+  };
+}
+
+export function loadOrganizationsError(err) {
+  return {
+    type: LOAD_ORGANIZATIONS_ERROR,
+    err,
   };
 }

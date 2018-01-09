@@ -1,6 +1,20 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 
 // Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { LOAD_ORGANIZATIONS } from './constants';
+import getOrganizations from './api';
+import { loadOrganizationsError, loadOrganizationsSuccess } from './actions';
+
+export function* getOrganizationsFromApi() {
+  try {
+    const organizations = yield call(getOrganizations);
+    yield put(loadOrganizationsSuccess(organizations));
+  } catch (err) {
+    yield put(loadOrganizationsError(err));
+  }
+}
+
+export default function* loadOrganizations() {
+  yield takeLatest(LOAD_ORGANIZATIONS, getOrganizationsFromApi);
 }

@@ -17,19 +17,41 @@ import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { loadOrganizations } from './actions';
+import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
+import styles from './Organizations.css';
 
-export class Organizations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Organizations extends React.PureComponent {
+  componentDidMount() {
+    this.props.loadOrganizations();
+  }
+
   render() {
+    const { organizations } = this.props;
     return (
-      <div>
-        <FormattedMessage {...messages.header} />
+      <div className={styles.root}>
+        <h3><FormattedMessage {...messages.header} /></h3>
+        {organizations.loading && <RefreshIndicatorLoading />}
+        {organizations.data && organizations.data.length > 0 &&
+        <ul>
+          {organizations.data
+            .map((organization) => (
+              <li key={`${organization.identifier.system}|${organization.identifier.value}`}>
+                <span>{organization.name}</span>
+              </li>
+            ))}
+        </ul>}
       </div>
     );
   }
 }
 
 Organizations.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  loadOrganizations: PropTypes.func.isRequired,
+  organizations: PropTypes.shape({
+    data: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -38,7 +60,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    loadOrganizations: () => dispatch(loadOrganizations()),
   };
 }
 
