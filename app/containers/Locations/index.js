@@ -18,10 +18,9 @@ import makeSelectLocations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import style from './Locations.css';
+import styles from './Locations.css';
 import { LOCATION_TABLE_HEADERS } from './constants';
 import {
-  getLocations,
   hideInActiveLocations,
   hideSuspendedLocations,
   showInActiveLocations,
@@ -30,57 +29,48 @@ import {
 import DataTable from '../../components/DataTable/index';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount() {
-    this.props.getLocations(getLocations());
-  }
   render() {
     const { locations } = this.props;
     return (
-      <div>
-        <form>
-          <span>
+      <div className={styles.container} >
+        <div >
+          <div className={`${styles.box} ${styles.showInactive}`} >
             <FormattedMessage {...messages.inactive} >
               {(msg) => (
                 <Checkbox
-                  className={style.inlineElement}
+                  className={styles.box}
                   label={msg}
                   labelPosition="left"
                   onCheck={this.props.onCheckShowInactive}
                 />
               )}
             </FormattedMessage>
+          </div>
+          <div className={`${styles.box} ${styles.showSuspended}`}>
             <FormattedMessage {...messages.suspended} >
               {(msg) => (
                 <Checkbox
-                  className={style.inlineElement}
+                  className={styles.box}
                   label={msg}
                   labelPosition="left"
                   onCheck={this.props.onCheckShowSuspended}
                 />
               )}
             </FormattedMessage>
-          </span>
-        </form>
-        <DataTable headers={LOCATION_TABLE_HEADERS} items={locations}></DataTable>
+          </div>
+          <div className={`${styles.box} ${styles.dataTable}`}>
+            <DataTable headers={LOCATION_TABLE_HEADERS} items={locations}></DataTable>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 Locations.propTypes = {
-  getLocations: PropTypes.func,
   onCheckShowInactive: PropTypes.func,
   onCheckShowSuspended: PropTypes.func,
   locations: PropTypes.array,
-  // locations: PropTypes.arrayOf(
-  //                         PropTypes.shape({
-  //                           id: PropTypes.string.isRequired,
-  //                           name: PropTypes.string.isRequired,
-  //                           status: PropTypes.string.isRequired,
-  //                           telecom: PropTypes.string.isRequired,
-  //                           address: PropTypes.string.isRequired,
-  //                         }).isRequired
-  //             ).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -89,7 +79,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLocations: () => dispatch(getLocations()),
     onCheckShowInactive: (evt, checked) => {
       if (checked) {
         dispatch(showInActiveLocations(checked));

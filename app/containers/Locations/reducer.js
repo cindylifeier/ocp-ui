@@ -7,11 +7,12 @@
 import { fromJS } from 'immutable';
 
 import {
-  GET_LOCATIONS, LOCATIONS,
+  LOCATIONS,
   SHOW_INACTIVE_LOCATIONS,
   SHOW_SUSPENDED_LOCATIONS,
   HIDE_INACTIVE_LOCATIONS,
   HIDE_SUSPENDED_LOCATIONS,
+  GET_LOCATIONS_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -20,7 +21,8 @@ const initialState = fromJS({
 
 function locationsReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_LOCATIONS: {
+    case GET_LOCATIONS_SUCCESS: {
+      console.log(action.locations);
       const filteredLocations = LOCATIONS.filter((item) => (item.status === 'Active'));
       return state.set('locations', filteredLocations);
     }

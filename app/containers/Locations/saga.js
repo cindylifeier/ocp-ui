@@ -1,17 +1,20 @@
 
-// import { put, takeLatest } from 'redux-saga/effects';
-// import { GET_LOCATIONS, LOCATIONS } from './constants';
-// import { getLocationError, getLocationSuccess } from './actions';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { GET_LOCATIONS, LOCATION_TABLE_HEADERS } from './constants';
+import { getLocationError, getLocationSuccess } from './actions';
+import { ApiService } from '../../utils/ApiService';
 
 /**
- * getLocationsByOrganizationId locations request/response handler
+ * Get locations by Organization id
+ * @params action: the action
  */
-export function* getLocationsByOrganizationId() {
-  // try {
-  //   yield put(getLocationSuccess(LOCATIONS));
-  // } catch (err) {
-  //   yield put(getLocationError(err));
-  // }
+export function* getLocationsByOrganizationId(action) {
+  try {
+    const locations = yield call(ApiService.getLocationsById, action.organizationId);
+    yield put(getLocationSuccess(locations, LOCATION_TABLE_HEADERS));
+  } catch (err) {
+    yield put(getLocationError(err));
+  }
 }
 
 /**
@@ -22,5 +25,5 @@ export default function* getLocations() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  // yield takeLatest(GET_LOCATIONS, getLocationsByOrganizationId);
+  yield takeLatest(GET_LOCATIONS, getLocationsByOrganizationId);
 }

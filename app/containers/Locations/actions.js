@@ -48,9 +48,10 @@ export function hideSuspendedLocations(checked) {
   };
 }
 
-export function getLocations() {
+export function getLocations(organizationId) {
   return {
     type: GET_LOCATIONS,
+    organizationId,
   };
 }
 
