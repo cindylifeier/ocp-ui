@@ -19,48 +19,71 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './Locations.css';
-import { LOCATION_TABLE_HEADERS } from './constants';
 import {
   hideInActiveLocations,
   hideSuspendedLocations,
   showInActiveLocations,
   showSuspendedLocations,
 } from './actions';
-import DataTable from '../../components/DataTable/index';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  getTelecoms(telecoms) {
+    return telecoms.map((entry) =>
+      (
+        <div>
+          {entry.system}: {entry.value}
+        </div>
+      )
+    );
+  }
+
+  getAddress(address) {
+    return address ? (<div>{ address.line1} {address.line2}, {address.city}, {address.state} {address.postalCode} </div>) : '';
+  }
+
+  createGridRows() {
+    return this.props.locations.map((location) => (
+      <div key={`location-${location.name}`} className={styles.col}>
+        <div>{location.name}</div>
+        <div>{location.status}</div>
+        <div>{this.getTelecoms(location.telecoms)}</div>
+        <div>{this.getAddress(location.address)} </div>
+      </div>
+    ));
+  }
   render() {
-    const { locations } = this.props;
     return (
       <div className={styles.container} >
-        <div >
-          <div className={`${styles.box} ${styles.showInactive}`} >
-            <FormattedMessage {...messages.inactive} >
-              {(msg) => (
-                <Checkbox
-                  className={styles.box}
-                  label={msg}
-                  labelPosition="left"
-                  onCheck={this.props.onCheckShowInactive}
-                />
-              )}
-            </FormattedMessage>
+        <FormattedMessage {...messages.inactive} >
+          {(msg) => (
+            <Checkbox
+              className={styles.box}
+              label={msg}
+              labelPosition="left"
+              onCheck={this.props.onCheckShowInactive}
+            />
+          )}
+        </FormattedMessage>
+        <FormattedMessage {...messages.suspended} >
+          {(msg) => (
+            <Checkbox
+              className={styles.box}
+              label={msg}
+              labelPosition="left"
+              onCheck={this.props.onCheckShowSuspended}
+            />
+          )}
+        </FormattedMessage>
+        <div className={styles.header}>
+          <div className={styles.col}>
+            <div>Name</div>
+            <div>Status</div>
+            <div>Telecoms</div>
+            <div>Address</div>
           </div>
-          <div className={`${styles.box} ${styles.showSuspended}`}>
-            <FormattedMessage {...messages.suspended} >
-              {(msg) => (
-                <Checkbox
-                  className={styles.box}
-                  label={msg}
-                  labelPosition="left"
-                  onCheck={this.props.onCheckShowSuspended}
-                />
-              )}
-            </FormattedMessage>
-          </div>
-          <div className={`${styles.box} ${styles.dataTable}`}>
-            <DataTable headers={LOCATION_TABLE_HEADERS} items={locations}></DataTable>
-          </div>
+        </div>
+        <div className={styles.row}>
+          { this.createGridRows()}
         </div>
       </div>
     );

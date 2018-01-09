@@ -22,9 +22,7 @@ const initialState = fromJS({
 function locationsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LOCATIONS_SUCCESS: {
-      console.log(action.locations);
-      const filteredLocations = LOCATIONS.filter((item) => (item.status === 'Active'));
-      return state.set('locations', filteredLocations);
+      return state.set('locations', action.locations);
     }
     case SHOW_INACTIVE_LOCATIONS: {
       const locations = state.get('locations');
