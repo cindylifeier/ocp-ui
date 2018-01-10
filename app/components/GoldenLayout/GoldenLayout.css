@@ -1,0 +1,8 @@
+:global .lm_root {
+  height: 100vh;
+}
+
+/*Enable scroll content*/
+:global .lm_content {
+  overflow: auto;
+}
