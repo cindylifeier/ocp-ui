@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-const mockData = fromJS([
+const mockData = fromJS([ // eslint-disable-line no-unused-vars
   {
     identifier: {
       system: 'http://orionhealth.com/fhir/apps/organizationids',
@@ -86,13 +86,13 @@ const mockData = fromJS([
 
 export default function getOrganizations() {
   // TODO: enable this when web service is implemented
-  // return fetch('/organizations')
-  //   .then(resp => resp.json())
-  //   .then(mapToFrontendOrganizationList);
-
-  // stubbing backend call with fake latency
-  return new Promise((resolve) => setTimeout(() => resolve(mockData.toJS()), 1000))
+  return fetch('http://localhost:8444/organizations')
+    .then((resp) => resp.json())
     .then(mapToFrontendOrganizationList);
+
+  // // stubbing backend call with fake latency
+  // return new Promise((resolve) => setTimeout(() => resolve(mockData.toJS()), 1000))
+  //   .then(mapToFrontendOrganizationList);
 }
 
 function mapToFrontendOrganizationList(resp) {
@@ -100,7 +100,7 @@ function mapToFrontendOrganizationList(resp) {
 }
 
 function mapToFrontendOrganization(org) {
-  const { name, address: addressArr, telecoms, identifier, status: statusBool } = org;
+  const { name, addresses: addressArr, telecoms, id, active: statusBool } = org;
   const [firstAddress] = addressArr;
   const { line1, line2, city, stateCode, postalCode, countryCode } = firstAddress;
   const address = [line1, line2, city, stateCode, postalCode, countryCode]
@@ -109,7 +109,7 @@ function mapToFrontendOrganization(org) {
   const [firstTelecom] = telecoms;
   const { value: telephone } = firstTelecom || { value: '' };
   // const id = `${identifier.system}|${identifier.value}`;
-  const id = `${identifier.value}`;
+  // const id = `${identifier.value}`;
   const status = statusBool ? 'Active' : 'Inactive';
   const rs = { name, address, telephone, id, status };
   return rs;
