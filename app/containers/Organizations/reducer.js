@@ -5,15 +5,18 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCESS } from './constants';
+import { LOAD_ORGANIZATIONS, LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCESS } from './constants';
 
 const initialState = fromJS({
-  loading: true,
+  loading: false,
   data: [],
 });
 
 function organizationsReducer(state = initialState, action) {
   switch (action.type) {
+    case LOAD_ORGANIZATIONS:
+      return state
+        .set('loading', true);
     case LOAD_ORGANIZATIONS_SUCCESS:
       return state
         .set('loading', false)

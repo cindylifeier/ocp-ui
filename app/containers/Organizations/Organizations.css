@@ -1,3 +1,7 @@
 .root {
   padding: 10px;
 }
+
+.textCenter {
+  text-align: center;
+}

@@ -84,12 +84,13 @@ const mockData = fromJS([ // eslint-disable-line no-unused-vars
   },
 ]);
 
-export default function getOrganizations() {
-  // TODO: enable this when web service is implemented
-  return fetch('http://localhost:8444/organizations')
+export default function getOrganizations(query) {
+  const param = query ? `?name=${query}` : '';
+  return fetch(`http://localhost:8444/organizations${param}`)
     .then((resp) => resp.json())
     .then(mapToFrontendOrganizationList);
 
+  // TODO: remove mock data call
   // // stubbing backend call with fake latency
   // return new Promise((resolve) => setTimeout(() => resolve(mockData.toJS()), 1000))
   //   .then(mapToFrontendOrganizationList);

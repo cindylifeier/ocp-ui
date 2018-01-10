@@ -22,10 +22,17 @@ import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import styles from './Organizations.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
+import SearchBar from '../../components/SearchBar/Loadable';
 
 export class Organizations extends React.PureComponent {
-  componentDidMount() {
-    this.props.loadOrganizations();
+
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(query) {
+    this.props.loadOrganizations(query);
   }
 
   render() {
@@ -33,12 +40,21 @@ export class Organizations extends React.PureComponent {
     return (
       <div className={styles.root}>
         <h3><FormattedMessage {...messages.header} /></h3>
+
+        <SearchBar
+          minimumLength={3}
+          onSearch={this.handleSearch}
+        />
+
         {organizations.loading && <RefreshIndicatorLoading />}
-        {organizations.data && organizations.data.length > 0 &&
+        {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
         <OrganizationTable>
-          {organizations.data.map((org) =>
-            (<OrganizationTableRow key={org.id} {...org} />))}
-        </OrganizationTable>
+          {organizations.data.map((org) => (<OrganizationTableRow key={org.id} {...org} />))}
+        </OrganizationTable>) ||
+
+        <div className={styles.textCenter}>
+          <span>No organizations found</span>
+        </div>
         }
       </div>
     );
@@ -59,7 +75,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadOrganizations: () => dispatch(loadOrganizations()),
+    loadOrganizations: (query) => dispatch(loadOrganizations(query)),
   };
 }
 
