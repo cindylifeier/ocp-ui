@@ -5,12 +5,9 @@
  */
 
 import {
-  SHOW_INACTIVE_LOCATIONS,
-  SHOW_SUSPENDED_LOCATIONS,
-  GET_LOCATIONS,
-  DEFAULT_ACTION, GET_LOCATIONS_SUCCESS,
-  HIDE_SUSPENDED_LOCATIONS,
-  HIDE_INACTIVE_LOCATIONS,
+  GET_FILTERED_LOCATIONS,
+  DEFAULT_ACTION,
+  GET_ACTIVE_LOCATIONS, GET_LOCATIONS_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -19,43 +16,21 @@ export function defaultAction() {
   };
 }
 
-export function showInActiveLocations(checked) {
+export function getFilteredLocations(status) {
   return {
-    type: SHOW_INACTIVE_LOCATIONS,
-    checked,
+    type: GET_FILTERED_LOCATIONS,
+    status,
   };
 }
 
-export function hideInActiveLocations(checked) {
+export function getActiveLocations(organizationId) {
   return {
-    type: HIDE_INACTIVE_LOCATIONS,
-    checked,
-  };
-}
-
-
-export function showSuspendedLocations(checked) {
-  return {
-    type: SHOW_SUSPENDED_LOCATIONS,
-    checked,
-  };
-}
-
-export function hideSuspendedLocations(checked) {
-  return {
-    type: HIDE_SUSPENDED_LOCATIONS,
-    checked,
-  };
-}
-
-export function getLocations(organizationId) {
-  return {
-    type: GET_LOCATIONS,
+    type: GET_ACTIVE_LOCATIONS,
     organizationId,
   };
 }
 
-export function getLocationSuccess(locations, headers) {
+export function getLocationsSuccess(locations, headers) {
   return {
     type: GET_LOCATIONS_SUCCESS,
     locations,
@@ -65,7 +40,7 @@ export function getLocationSuccess(locations, headers) {
 
 export function getLocationError(error) {
   return {
-    type: GET_LOCATIONS,
+    type: GET_ACTIVE_LOCATIONS,
     error,
   };
 }

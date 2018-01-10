@@ -21,10 +21,12 @@ export const LOCATIONS = [
 
 export const DEFAULT_ACTION = 'app/Locations/DEFAULT_ACTION';
 
-export const SHOW_INACTIVE_LOCATIONS = 'app/Locations/SHOW_INACTIVE_LOCATIONS';
-export const HIDE_INACTIVE_LOCATIONS = 'app/Locations/HIDE_INACTIVE_LOCATIONS';
-export const SHOW_SUSPENDED_LOCATIONS = 'app/Locations/SHOW_SUSPENDED_LOCATIONS';
-export const HIDE_SUSPENDED_LOCATIONS = 'app/Locations/HIDE_SUSPENDED_LOCATIONS';
-export const GET_LOCATIONS = 'app/Locations/GET_LOCATIONS';
+export const GET_FILTERED_LOCATIONS = 'app/Locations/GET_FILTERED_LOCATIONS';
+export const GET_ACTIVE_LOCATIONS = 'app/Locations/GET_ACTIVE_LOCATIONS';
 export const GET_LOCATIONS_SUCCESS = 'app/Locations/GET_LOCATIONS_SUCCESS';
+export const SHOW_LOCATIONS = 'app/Locations/SHOW_LOCATIONS';
+
+export const STATUS_ACTIVE = 'active';
+export const STATUS_INACTIVE = 'inactive';
+export const STATUS_SUSPENDED = 'suspended';
 

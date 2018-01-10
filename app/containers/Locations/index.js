@@ -20,11 +20,9 @@ import saga from './saga';
 import messages from './messages';
 import styles from './Locations.css';
 import {
-  hideInActiveLocations,
-  hideSuspendedLocations,
-  showInActiveLocations,
-  showSuspendedLocations,
+  getFilteredLocations,
 } from './actions';
+import { STATUS_ACTIVE, STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   getTelecoms(telecoms) {
@@ -60,6 +58,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
               className={styles.box}
               label={msg}
               labelPosition="left"
+              id="inactiveCheckBox"
               onCheck={this.props.onCheckShowInactive}
             />
           )}
@@ -70,6 +69,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
               className={styles.box}
               label={msg}
               labelPosition="left"
+              id="suspendedCheckBox"
               onCheck={this.props.onCheckShowSuspended}
             />
           )}
@@ -104,16 +104,27 @@ function mapDispatchToProps(dispatch) {
   return {
     onCheckShowInactive: (evt, checked) => {
       if (checked) {
-        dispatch(showInActiveLocations(checked));
+        dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_INACTIVE]));
       } else {
-        dispatch(hideInActiveLocations(checked));
+        const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox').checked;
+        if (isSuspendedCheckBoxChecked) {
+          dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_SUSPENDED]));
+        } else {
+          dispatch(getFilteredLocations([STATUS_ACTIVE]));
+        }
       }
     },
     onCheckShowSuspended: (evt, checked) => {
       if (checked) {
-        dispatch(showSuspendedLocations(checked));
+        dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_SUSPENDED]));
       } else {
-        dispatch(hideSuspendedLocations(checked));
+        const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox').checked;
+        if (isInactiveCheckBoxChecked) {
+          dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_INACTIVE]));
+        } else {
+          dispatch(getFilteredLocations([STATUS_ACTIVE]));
+        }
+        dispatch(getFilteredLocations(checked));
       }
     },
   };
