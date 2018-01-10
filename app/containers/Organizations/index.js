@@ -20,6 +20,8 @@ import messages from './messages';
 import { loadOrganizations } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import styles from './Organizations.css';
+import OrganizationTable from '../../components/OrganizationTable/Loadable';
+import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 
 export class Organizations extends React.PureComponent {
   componentDidMount() {
@@ -33,14 +35,11 @@ export class Organizations extends React.PureComponent {
         <h3><FormattedMessage {...messages.header} /></h3>
         {organizations.loading && <RefreshIndicatorLoading />}
         {organizations.data && organizations.data.length > 0 &&
-        <ul>
-          {organizations.data
-            .map((organization) => (
-              <li key={`${organization.identifier.system}|${organization.identifier.value}`}>
-                <span>{organization.name}</span>
-              </li>
-            ))}
-        </ul>}
+        <OrganizationTable>
+          {organizations.data.map((org) =>
+            (<OrganizationTableRow key={org.id} {...org} />))}
+        </OrganizationTable>
+        }
       </div>
     );
   }

@@ -87,6 +87,30 @@ const mockData = fromJS([
 export default function getOrganizations() {
   // TODO: enable this when web service is implemented
   // return fetch('/organizations')
-  //   .then(resp => resp.json());
-  return new Promise((resolve) => setTimeout(() => resolve(mockData.toJS()), 1000));
+  //   .then(resp => resp.json())
+  //   .then(mapToFrontendOrganizationList);
+
+  // stubbing backend call with fake latency
+  return new Promise((resolve) => setTimeout(() => resolve(mockData.toJS()), 1000))
+    .then(mapToFrontendOrganizationList);
+}
+
+function mapToFrontendOrganizationList(resp) {
+  return resp.map(mapToFrontendOrganization);
+}
+
+function mapToFrontendOrganization(org) {
+  const { name, address: addressArr, telecoms, identifier, status: statusBool } = org;
+  const [firstAddress] = addressArr;
+  const { line1, line2, city, stateCode, postalCode, countryCode } = firstAddress;
+  const address = [line1, line2, city, stateCode, postalCode, countryCode]
+    .filter((i) => i && i !== '')
+    .join(', ');
+  const [firstTelecom] = telecoms;
+  const { value: telephone } = firstTelecom || { value: '' };
+  // const id = `${identifier.system}|${identifier.value}`;
+  const id = `${identifier.value}`;
+  const status = statusBool ? 'Active' : 'Inactive';
+  const rs = { name, address, telephone, id, status };
+  return rs;
 }
