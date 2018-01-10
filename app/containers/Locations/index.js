@@ -51,41 +51,59 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   }
   render() {
     return (
-      <div className={styles.container} >
-        <FormattedMessage {...messages.inactive} >
-          {(msg) => (
-            <Checkbox
-              className={styles.box}
-              label={msg}
-              labelPosition="left"
-              id="inactiveCheckBox"
-              onCheck={this.props.onCheckShowInactive}
-            />
-          )}
-        </FormattedMessage>
-        <FormattedMessage {...messages.suspended} >
-          {(msg) => (
-            <Checkbox
-              className={styles.box}
-              label={msg}
-              labelPosition="left"
-              id="suspendedCheckBox"
-              onCheck={this.props.onCheckShowSuspended}
-            />
-          )}
-        </FormattedMessage>
-        <div className={styles.header}>
-          <div className={styles.col}>
-            <div>Name</div>
-            <div>Status</div>
-            <div>Telecoms</div>
-            <div>Address</div>
+      <div>
+        <div>
+          <FormattedMessage {...messages.inactive} >
+            {(msg) => (
+              <Checkbox
+                className={styles.box}
+                label={msg}
+                labelPosition="left"
+                id="inactiveCheckBox"
+                onCheck={this.props.onCheckShowInactive}
+              />
+            )}
+          </FormattedMessage>
+          <FormattedMessage {...messages.suspended} >
+            {(msg) => (
+              <Checkbox
+                className={styles.box}
+                label={msg}
+                labelPosition="left"
+                id="suspendedCheckBox"
+                onCheck={this.props.onCheckShowSuspended}
+              />
+            )}
+          </FormattedMessage>
+        </div>
+        <div className={styles.table}>
+          <div className={styles.rowGridContainer}>
+            <div className={styles.cellGridItem}>Name</div>
+            <div className={styles.cellGridItem}>Address</div>
+            <div className={styles.cellGridItem}>Telecoms</div>
+            <div className={styles.cellGridItem}>Status</div>
+          </div>
+          <div className={styles.rowGridContainer}>
+            <div className={styles.cellGridItem}>BlueCross Blue Shield</div>
+            <div className={styles.cellGridItem}>212 Franklin Street, Columbia MD, 00221</div>
+            <div className={styles.cellGridItem}>305-222-3254</div>
+            <div className={styles.cellGridItem}>Active</div>
+          </div>
+          <div className={styles.rowGridContainer}>
+            <div className={styles.cellGridItem}>BlueCross Blue Shield</div>
+            <div className={styles.cellGridItem}>212 Franklin Street, Columbia MD, 00221</div>
+            <div className={styles.cellGridItem}>305-222-3254</div>
+            <div className={styles.cellGridItem}>Inactive</div>
+          </div>
+          <div className={styles.rowGridContainer}>
+            <div className={styles.cellGridItem}>BlueCross Blue Shield</div>
+            <div className={styles.cellGridItem}>212 Franklin Street, Columbia MD, 00221</div>
+            <div className={styles.cellGridItem}>305-222-3254</div>
+            <div className={styles.cellGridItem}>Suspended</div>
           </div>
         </div>
-        <div className={styles.row}>
-          { this.createGridRows()}
-        </div>
       </div>
+
     );
   }
 }
