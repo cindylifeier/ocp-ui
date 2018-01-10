@@ -20,7 +20,7 @@ class StatusCheckbox extends React.PureComponent { // eslint-disable-line react/
             <Checkbox
               label={msg}
               labelPosition="right"
-              id="inactiveCheckBox"
+              id={this.props.elementId}
               onCheck={this.props.handleCheck}
             />
           )}
@@ -33,6 +33,7 @@ class StatusCheckbox extends React.PureComponent { // eslint-disable-line react/
 StatusCheckbox.propTypes = {
   messages: PropTypes.object,
   handleCheck: PropTypes.func,
+  elementId: PropTypes.string,
 };
 
 export default StatusCheckbox;
