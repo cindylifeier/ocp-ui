@@ -7,10 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Checkbox } from 'material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -23,12 +21,13 @@ import {
   getFilteredLocations,
 } from './actions';
 import { STATUS_ACTIVE, STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
+import StatusCheckbox from '../../components/StatusCheckbox';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   getTelecoms(telecoms) {
     return telecoms.map((entry) =>
       (
-        <div>
+        <div key={entry.value}>
           {entry.system}: {entry.value}
         </div>
       )
@@ -38,10 +37,44 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   getAddress(address) {
     return address ? (<div>{ address.line1} {address.line2}, {address.city}, {address.state} {address.postalCode} </div>) : '';
   }
-
-  createGridRows() {
+  createTable() {
+    return (
+      <div>
+        <div>
+          <StatusCheckbox
+            messages={messages.inactive}
+            elementId="inactiveCheckBox"
+            handleCheck={this.props.onCheckShowInactive}
+          >
+          </StatusCheckbox>
+          <StatusCheckbox
+            messages={messages.suspended}
+            elementId="suspendedCheckBox"
+            handleCheck={this.props.onCheckShowSuspended}
+          >
+          </StatusCheckbox>
+        </div>
+        <div className={styles.table}>
+          <div className={styles.rowGridContainer}>
+            <div className={styles.cellGridItem}>Name</div>
+            <div className={styles.cellGridItem}>Status</div>
+            <div className={styles.cellGridItem}>Telecoms</div>
+            <div className={styles.cellGridItem}>Address</div>
+          </div>
+          {this.createRows()}
+        </div>
+      </div>
+    );
+  }
+  createLocationTable() {
+    if (this.props.locations && !this.props.locations[0]) {
+      return (<h3> No locations loaded. Please select an organization to view its locations.</h3>);
+    }
+    return this.createTable();
+  }
+  createRows() {
     return this.props.locations.map((location) => (
-      <div key={`location-${location.name}`} className={styles.col}>
+      <div key={`location-${location.resourceURL}`} className={styles.rowGridContainer}>
         <div>{location.name}</div>
         <div>{location.status}</div>
         <div>{this.getTelecoms(location.telecoms)}</div>
@@ -50,68 +83,22 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     ));
   }
   render() {
-    return (
-      <div>
-        <div>
-          <FormattedMessage {...messages.inactive} >
-            {(msg) => (
-              <Checkbox
-                className={styles.box}
-                label={msg}
-                labelPosition="left"
-                id="inactiveCheckBox"
-                onCheck={this.props.onCheckShowInactive}
-              />
-            )}
-          </FormattedMessage>
-          <FormattedMessage {...messages.suspended} >
-            {(msg) => (
-              <Checkbox
-                className={styles.box}
-                label={msg}
-                labelPosition="left"
-                id="suspendedCheckBox"
-                onCheck={this.props.onCheckShowSuspended}
-              />
-            )}
-          </FormattedMessage>
-        </div>
-        <div className={styles.table}>
-          <div className={styles.rowGridContainer}>
-            <div className={styles.cellGridItem}>Name</div>
-            <div className={styles.cellGridItem}>Address</div>
-            <div className={styles.cellGridItem}>Telecoms</div>
-            <div className={styles.cellGridItem}>Status</div>
-          </div>
-          <div className={styles.rowGridContainer}>
-            <div className={styles.cellGridItem}>BlueCross Blue Shield</div>
-            <div className={styles.cellGridItem}>212 Franklin Street, Columbia MD, 00221</div>
-            <div className={styles.cellGridItem}>305-222-3254</div>
-            <div className={styles.cellGridItem}>Active</div>
-          </div>
-          <div className={styles.rowGridContainer}>
-            <div className={styles.cellGridItem}>BlueCross Blue Shield</div>
-            <div className={styles.cellGridItem}>212 Franklin Street, Columbia MD, 00221</div>
-            <div className={styles.cellGridItem}>305-222-3254</div>
-            <div className={styles.cellGridItem}>Inactive</div>
-          </div>
-          <div className={styles.rowGridContainer}>
-            <div className={styles.cellGridItem}>BlueCross Blue Shield</div>
-            <div className={styles.cellGridItem}>212 Franklin Street, Columbia MD, 00221</div>
-            <div className={styles.cellGridItem}>305-222-3254</div>
-            <div className={styles.cellGridItem}>Suspended</div>
-          </div>
-        </div>
-      </div>
-
-    );
+    return this.createLocationTable();
   }
 }
 
 Locations.propTypes = {
   onCheckShowInactive: PropTypes.func,
   onCheckShowSuspended: PropTypes.func,
-  locations: PropTypes.array,
+  locations: PropTypes.arrayOf({
+    locations: PropTypes.shape({
+      name: PropTypes.string,
+      status: PropTypes.string,
+      resourceUrl: PropTypes.string,
+      telecoms: PropTypes.Object,
+      address: PropTypes.Object,
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -121,29 +108,26 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onCheckShowInactive: (evt, checked) => {
+      const status = [STATUS_ACTIVE];
+      const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox').checked;
       if (checked) {
-        dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_INACTIVE]));
-      } else {
-        const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox').checked;
-        if (isSuspendedCheckBoxChecked) {
-          dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_SUSPENDED]));
-        } else {
-          dispatch(getFilteredLocations([STATUS_ACTIVE]));
-        }
+        status.push(STATUS_INACTIVE);
       }
+      if (isSuspendedCheckBoxChecked) {
+        status.push(STATUS_SUSPENDED);
+      }
+      dispatch(getFilteredLocations(status));
     },
     onCheckShowSuspended: (evt, checked) => {
+      const status = [STATUS_ACTIVE];
+      const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox').checked;
       if (checked) {
-        dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_SUSPENDED]));
-      } else {
-        const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox').checked;
-        if (isInactiveCheckBoxChecked) {
-          dispatch(getFilteredLocations([STATUS_ACTIVE, STATUS_INACTIVE]));
-        } else {
-          dispatch(getFilteredLocations([STATUS_ACTIVE]));
-        }
-        dispatch(getFilteredLocations(checked));
+        status.push(STATUS_SUSPENDED);
       }
+      if (isInactiveCheckBoxChecked) {
+        status.push(STATUS_INACTIVE);
+      }
+      dispatch(getFilteredLocations(status));
     },
   };
 }

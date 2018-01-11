@@ -23,18 +23,19 @@ export function getFilteredLocations(status) {
   };
 }
 
-export function getActiveLocations(organizationId) {
+export function getActiveLocations(organizationId, status) {
   return {
     type: GET_ACTIVE_LOCATIONS,
     organizationId,
+    status,
   };
 }
 
-export function getLocationsSuccess(locations, headers) {
+export function getLocationsSuccess(locations, organizationId) {
   return {
     type: GET_LOCATIONS_SUCCESS,
     locations,
-    headers,
+    organizationId,
   };
 }
 

@@ -20,8 +20,14 @@ const makeSelectLocations = () => createSelector(
 );
 
 
+const makeSelectOrganizationId = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('organizationId'),
+);
+
 export default makeSelectLocations;
 
 export {
   selectLocationsDomain,
+  makeSelectOrganizationId,
 };
