@@ -26,18 +26,22 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     return telecoms.map((entry) =>
       (
         <div key={entry.value}>
-          {entry.system}: {entry.value}
+          {entry.system}: {entry.value},
         </div>
       )
     );
   }
 
   getAddress(address) {
-    return address ? (<div>{ address.line1} {address.line2}, {address.city}, {address.state} {address.postalCode} </div>) : '';
+    return address ? (<div>
+      {address.line1}
+      {address.line2},
+      {address.city}, {address.stateCode} {address.postalCode},
+      {address.countryCode}</div>) : '';
   }
   createRows() {
     return this.props.locations.map((location) => (
-      <div key={`location-${location.resourceURL}`} className={styles.gridRow}>
+      <div key={`location-${location.logicalId}`} className={styles.gridRow}>
         <div>{location.name}</div>
         <div>{location.status}</div>
         <div>{this.getTelecoms(location.telecoms)}</div>

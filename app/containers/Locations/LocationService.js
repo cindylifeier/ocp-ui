@@ -15,6 +15,7 @@ LocationService.getLocationsByIdAndStatus = function (organizationId, status) {
 function createUrl(organizationId, status) {
   const initialParams = 'page=1&status=';
   let queryParams = '';
+  // TODO: Get url dynamically
   const baseUrl = `http://localhost:8444/organizations/${organizationId}`.concat('/locations?');
   if (status && status.length === 1) {
     queryParams = `${initialParams}${status[0]}`;
