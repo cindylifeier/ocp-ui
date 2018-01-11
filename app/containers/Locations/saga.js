@@ -6,8 +6,8 @@ import {
 }
 from './constants';
 import { getLocationsError, getLocationsSuccess } from './actions';
-import { ApiService } from '../../utils/ApiService';
 import { makeSelectOrganizationId } from './selectors';
+import LocationService from './LocationService';
 
 /**
  * Get locations by Organization id and status
@@ -16,7 +16,7 @@ import { makeSelectOrganizationId } from './selectors';
 export function* getLocationsByOrganizationIdAndStatus(action) {
   try {
     const organizationId = yield select(makeSelectOrganizationId());
-    const locations = yield call(ApiService.getLocationsByIdAndStatus, organizationId, action.status);
+    const locations = yield call(LocationService.getLocationsByIdAndStatus, organizationId, action.status);
     yield put(getLocationsSuccess(locations, action.organizationId));
   } catch (err) {
     yield put(getLocationsError(err));
