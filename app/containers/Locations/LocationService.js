@@ -13,6 +13,7 @@ LocationService.getLocationsByIdAndStatus = function (organizationId, status) {
 };
 
 function createUrl(organizationId, status) {
+  // TODO: Refactore code to pass page number when implementing pagination
   const initialParams = 'page=1&status=';
   let queryParams = '';
   // TODO: Get url dynamically
