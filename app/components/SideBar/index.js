@@ -10,7 +10,6 @@ import React from 'react';
 // import messages from './messages';
 import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import styles from './SideBar.css';
@@ -21,7 +20,7 @@ class SideBar extends React.PureComponent { // eslint-disable-line react/prefer-
       <div>
         <Card className={styles.nav}>
           <CardText>
-            <div>
+            <div className={styles.container}>
               <input
                 className={styles.searchBox}
                 placeholder="Search My Site"
@@ -29,7 +28,6 @@ class SideBar extends React.PureComponent { // eslint-disable-line react/prefer-
               <span>
                 <IconButton iconClassName="fa fa-search" />
               </span>
-              <Divider className={styles.marginTopBottom15} />
               <RaisedButton
                 className={styles.button}
                 buttonStyle={{ borderRadius: 25 }}
