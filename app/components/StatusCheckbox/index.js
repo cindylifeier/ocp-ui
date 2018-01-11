@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 class StatusCheckbox extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <span>
         <FormattedMessage {...this.props.messages} >
           {(msg) => (
             <Checkbox
@@ -25,7 +25,7 @@ class StatusCheckbox extends React.PureComponent { // eslint-disable-line react/
             />
           )}
         </FormattedMessage>
-      </div>
+      </span>
     );
   }
 }
