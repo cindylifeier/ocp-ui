@@ -1,18 +1,18 @@
 
 import {
-  defaultAction,
+  getFilteredLocations,
 } from '../actions';
 import {
-  DEFAULT_ACTION,
+  GET_FILTERED_LOCATIONS,
 } from '../constants';
 
 describe('Locations actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_FILTERED_LOCATIONS,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getFilteredLocations()).toEqual(expected);
     });
   });
 });
