@@ -6,7 +6,7 @@ import {
 }
 from './constants';
 import { getLocationsError, getLocationsSuccess } from './actions';
-import { makeSelectOrganizationId } from './selectors';
+import { makeSelectOrganization } from './selectors';
 import LocationService from './LocationService';
 
 /**
@@ -15,9 +15,9 @@ import LocationService from './LocationService';
  */
 export function* getLocationsByOrganizationIdAndStatus(action) {
   try {
-    const organizationId = yield select(makeSelectOrganizationId());
-    const locations = yield call(LocationService.getLocationsByIdAndStatus, organizationId, action.status);
-    yield put(getLocationsSuccess(locations, action.organizationId));
+    const organization = yield select(makeSelectOrganization());
+    const locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status);
+    yield put(getLocationsSuccess(locations));
   } catch (err) {
     yield put(getLocationsError(err));
   }

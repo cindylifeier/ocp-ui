@@ -12,7 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectLocations from './selectors';
+import { makeSelectLocations, makeSelectOrganization } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -41,7 +41,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   }
   createRows() {
     return this.props.locations.map((location) => (
-      <div key={`location-${location.logicalId}`} className={styles.gridRow}>
+      <div key={`location-${location.logicalId}`} className={styles.rowGridContainer}>
         <div>{location.name}</div>
         <div>{location.status}</div>
         <div>{this.getTelecoms(location.telecoms)}</div>
@@ -52,8 +52,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   createTable() {
     return (
       <div>
-        <div className={styles.gridContainer}>
-          <div className={styles.gridAction}>
+        <div className={styles.wrapper}>
+          <div className={styles.actionGridContainer}>
             <StatusCheckbox
               messages={messages.inactive}
               elementId="inactiveCheckBox"
@@ -66,12 +66,13 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
               handleCheck={this.props.onCheckShowSuspended}
             >
             </StatusCheckbox>
+            <div> <strong>Organization Name: </strong>{ this.props.organization.name}</div>
           </div>
-          <div className={styles.gridRow}>
-            <div className={styles.gridCell}>Name</div>
-            <div className={styles.gridCell}>Status</div>
-            <div className={styles.gridCell}>Telecoms</div>
-            <div className={styles.gridCell}>Address</div>
+          <div className={styles.rowGridContainer}>
+            <div className={styles.cellGridContainer}>Name</div>
+            <div className={styles.cellGridContainer}>Status</div>
+            <div className={styles.cellGridContainer}>Telecoms</div>
+            <div className={styles.cellGridContainer}>Address</div>
           </div>
           {this.createRows()}
         </div>
@@ -90,22 +91,26 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
 }
 
 Locations.propTypes = {
-  onCheckShowInactive: PropTypes.func,
-  onCheckShowSuspended: PropTypes.func,
+  onCheckShowInactive: PropTypes.func.isRequired,
+  onCheckShowSuspended: PropTypes.func.isRequired,
+  organization: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  }),
   locations: PropTypes.arrayOf({
     locations: PropTypes.shape({
-      name: PropTypes.string,
-      status: PropTypes.string,
-      resourceUrl: PropTypes.string,
-      telecoms: PropTypes.Object,
-      address: PropTypes.Object,
+      name: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
+      resourceUrl: PropTypes.string.isRequired,
+      telecoms: PropTypes.object.isRequired,
+      address: PropTypes.object.isRequired,
     }),
-  }),
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   locations: makeSelectLocations(),
-  // organizationId: makeSelectOrganizationId(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -115,7 +120,7 @@ function mapDispatchToProps(dispatch) {
       if (checked) {
         status.push(STATUS_INACTIVE);
       }
-
+      // TODO: Find a better way to get the value of the other checkbox.
       const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox');
       if (isSuspendedCheckBoxChecked && isSuspendedCheckBoxChecked.checked) {
         status.push(STATUS_SUSPENDED);
@@ -127,7 +132,7 @@ function mapDispatchToProps(dispatch) {
       if (checked) {
         status.push(STATUS_SUSPENDED);
       }
-
+      // TODO: Find a better way to get the value of the other checkbox.
       const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox');
       if (isInactiveCheckBoxChecked && isInactiveCheckBoxChecked.checked) {
         status.push(STATUS_INACTIVE);
