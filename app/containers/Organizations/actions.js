@@ -6,10 +6,12 @@
 
 import { LOAD_ORGANIZATIONS, LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCESS } from './constants';
 
-export function loadOrganizations(query) {
+export function loadOrganizations(query, includeInactive, searchType) {
   return {
     type: LOAD_ORGANIZATIONS,
     query,
+    includeInactive,
+    searchType,
   };
 }
 

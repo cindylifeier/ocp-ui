@@ -78,7 +78,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadOrganizations: (query) => dispatch(loadOrganizations(query)),
+    loadOrganizations: (query, includeInactive, searchType) => dispatch(loadOrganizations(query, includeInactive, searchType)),
   };
 }
 
