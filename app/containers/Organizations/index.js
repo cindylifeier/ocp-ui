@@ -22,9 +22,11 @@ import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import styles from './Organizations.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
-import SearchBar from '../../components/SearchBar/Loadable';
+import SearchBar from '../../components/SearchBar';
 
 export class Organizations extends React.PureComponent {
+
+  static SEARCH_BAR_TEXT_LENGTH = 3;
 
   constructor(props) {
     super(props);
@@ -42,19 +44,20 @@ export class Organizations extends React.PureComponent {
         <h3><FormattedMessage {...messages.header} /></h3>
 
         <SearchBar
-          minimumLength={3}
+          minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
           onSearch={this.handleSearch}
         />
 
         {organizations.loading && <RefreshIndicatorLoading />}
-        {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
-        <OrganizationTable>
-          {organizations.data.map((org) => (<OrganizationTableRow key={org.id} {...org} />))}
-        </OrganizationTable>) ||
 
-        <div className={styles.textCenter}>
+        {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
+          <OrganizationTable>
+            {organizations.data.map((org) => (<OrganizationTableRow key={org.id} {...org} />))}
+          </OrganizationTable>) ||
+
+        (<div className={styles.textCenter}>
           <span>No organizations found</span>
-        </div>
+        </div>)
         }
       </div>
     );
