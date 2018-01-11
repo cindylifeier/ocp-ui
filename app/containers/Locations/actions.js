@@ -6,17 +6,11 @@
 
 import {
   GET_FILTERED_LOCATIONS,
-  DEFAULT_ACTION,
   GET_ACTIVE_LOCATIONS,
   GET_LOCATIONS_SUCCESS,
   GET_LOCATIONS_ERROR,
 } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 
 export function getFilteredLocations(status) {
   return {
@@ -25,10 +19,11 @@ export function getFilteredLocations(status) {
   };
 }
 
-export function getActiveLocations(organizationId, status) {
+export function getActiveLocations(organizationId, organizationName, status) {
   return {
     type: GET_ACTIVE_LOCATIONS,
     organizationId,
+    organizationName,
     status,
   };
 }
