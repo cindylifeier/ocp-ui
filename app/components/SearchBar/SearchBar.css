@@ -7,3 +7,9 @@
   font-size: 12px;
   font-style: italic;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  padding: 10px;
+}
