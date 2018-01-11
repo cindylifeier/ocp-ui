@@ -1,22 +1,23 @@
 
-.table {
-  /* The table: a grid with one colunm and multiple rows */
+.gridContainer {
   padding: 10px;
 }
+.gridAction {
+  display: grid;
+  grid-template-columns: auto;
+}
 
-.rowGridContainer {
-  /* The row: a grid with multiple columns and one row */
+.gridRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px;
 }
 
-.rowGridContainer:nth-child(even) {
+.gridRow:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.cellGridItem {
-  /* You still can style the innest content */
+.gridCell {
   color: rgb(51, 51, 51);
   font-family: "Arial Bold", "Arial";
   font-size: 12px;

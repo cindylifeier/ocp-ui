@@ -7,7 +7,9 @@
 import {
   GET_FILTERED_LOCATIONS,
   DEFAULT_ACTION,
-  GET_ACTIVE_LOCATIONS, GET_LOCATIONS_SUCCESS,
+  GET_ACTIVE_LOCATIONS,
+  GET_LOCATIONS_SUCCESS,
+  GET_LOCATIONS_ERROR,
 } from './constants';
 
 export function defaultAction() {
@@ -39,9 +41,9 @@ export function getLocationsSuccess(locations, organizationId) {
   };
 }
 
-export function getLocationError(error) {
+export function getLocationsError(error) {
   return {
-    type: GET_ACTIVE_LOCATIONS,
+    type: GET_LOCATIONS_ERROR,
     error,
   };
 }

@@ -17,9 +17,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './Locations.css';
-import {
-  getFilteredLocations,
-} from './actions';
+import { getFilteredLocations } from './actions';
 import { STATUS_ACTIVE, STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
 import StatusCheckbox from '../../components/StatusCheckbox';
 
@@ -37,29 +35,39 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   getAddress(address) {
     return address ? (<div>{ address.line1} {address.line2}, {address.city}, {address.state} {address.postalCode} </div>) : '';
   }
+  createRows() {
+    return this.props.locations.map((location) => (
+      <div key={`location-${location.resourceURL}`} className={styles.gridRow}>
+        <div>{location.name}</div>
+        <div>{location.status}</div>
+        <div>{this.getTelecoms(location.telecoms)}</div>
+        <div>{this.getAddress(location.address)} </div>
+      </div>
+    ));
+  }
   createTable() {
     return (
       <div>
-        <div>
-          <StatusCheckbox
-            messages={messages.inactive}
-            elementId="inactiveCheckBox"
-            handleCheck={this.props.onCheckShowInactive}
-          >
-          </StatusCheckbox>
-          <StatusCheckbox
-            messages={messages.suspended}
-            elementId="suspendedCheckBox"
-            handleCheck={this.props.onCheckShowSuspended}
-          >
-          </StatusCheckbox>
-        </div>
-        <div className={styles.table}>
-          <div className={styles.rowGridContainer}>
-            <div className={styles.cellGridItem}>Name</div>
-            <div className={styles.cellGridItem}>Status</div>
-            <div className={styles.cellGridItem}>Telecoms</div>
-            <div className={styles.cellGridItem}>Address</div>
+        <div className={styles.gridContainer}>
+          <div className={styles.gridAction}>
+            <StatusCheckbox
+              messages={messages.inactive}
+              elementId="inactiveCheckBox"
+              handleCheck={this.props.onCheckShowInactive}
+            >
+            </StatusCheckbox>
+            <StatusCheckbox
+              messages={messages.suspended}
+              elementId="suspendedCheckBox"
+              handleCheck={this.props.onCheckShowSuspended}
+            >
+            </StatusCheckbox>
+          </div>
+          <div className={styles.gridRow}>
+            <div className={styles.gridCell}>Name</div>
+            <div className={styles.gridCell}>Status</div>
+            <div className={styles.gridCell}>Telecoms</div>
+            <div className={styles.gridCell}>Address</div>
           </div>
           {this.createRows()}
         </div>
@@ -71,16 +79,6 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       return (<h3> No locations loaded. Please select an organization to view its locations.</h3>);
     }
     return this.createTable();
-  }
-  createRows() {
-    return this.props.locations.map((location) => (
-      <div key={`location-${location.resourceURL}`} className={styles.rowGridContainer}>
-        <div>{location.name}</div>
-        <div>{location.status}</div>
-        <div>{this.getTelecoms(location.telecoms)}</div>
-        <div>{this.getAddress(location.address)} </div>
-      </div>
-    ));
   }
   render() {
     return this.createLocationTable();
@@ -103,28 +101,31 @@ Locations.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locations: makeSelectLocations(),
+  // organizationId: makeSelectOrganizationId(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onCheckShowInactive: (evt, checked) => {
       const status = [STATUS_ACTIVE];
-      const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox').checked;
       if (checked) {
         status.push(STATUS_INACTIVE);
       }
-      if (isSuspendedCheckBoxChecked) {
+
+      const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox');
+      if (isSuspendedCheckBoxChecked && isSuspendedCheckBoxChecked.checked) {
         status.push(STATUS_SUSPENDED);
       }
       dispatch(getFilteredLocations(status));
     },
     onCheckShowSuspended: (evt, checked) => {
       const status = [STATUS_ACTIVE];
-      const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox').checked;
       if (checked) {
         status.push(STATUS_SUSPENDED);
       }
-      if (isInactiveCheckBoxChecked) {
+
+      const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox');
+      if (isInactiveCheckBoxChecked && isInactiveCheckBoxChecked.checked) {
         status.push(STATUS_INACTIVE);
       }
       dispatch(getFilteredLocations(status));
