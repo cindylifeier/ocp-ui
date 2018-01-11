@@ -3,8 +3,6 @@
  * Locations constants
  *
  */
-
-export const DEFAULT_ACTION = 'app/Locations/DEFAULT_ACTION';
 /**
  *  Locations action types
  * @type {string}
