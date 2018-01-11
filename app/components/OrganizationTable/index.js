@@ -22,7 +22,10 @@ function OrganizationTable(props) {
         <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderId} /></div>
         <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderStatus} /></div>
       </div>
-      {props.children}
+      {React.Children.map(props.children, (child, i) => {
+        const striped = !(i % 2);
+        return React.cloneElement(child, { striped });
+      })}
     </div>
   );
 }
