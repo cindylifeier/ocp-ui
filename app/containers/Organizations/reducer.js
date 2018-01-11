@@ -22,7 +22,9 @@ function organizationsReducer(state = initialState, action) {
         .set('loading', false)
         .set('data', action.organizations);
     case LOAD_ORGANIZATIONS_ERROR:
-      return state.set('loading', false);
+      return state
+        .set('loading', false)
+        .set('data', []);
     default:
       return state;
   }
