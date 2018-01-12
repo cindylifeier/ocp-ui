@@ -25,8 +25,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   constructor(props) {
     super(props);
     this.state = {
-      inactiveChehckboc: false,
-      suspendedCheckbox: false,
+      inactiveStatus: false,
+      suspendedStatus: false,
     };
     this.handleInactiveChecked = this.handleInactiveChecked.bind(this);
     this.handleSuspendedChecked = this.handleSuspendedChecked.bind(this);
@@ -49,24 +49,27 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       {address.countryCode}</div>) : '';
   }
   handleInactiveChecked(event, newValue) {
-    this.setState({ inactiveChehckboc: newValue });
-    const suspendedStatus = this.state.suspendedCheckbox;
+    this.setState({ inactiveStatus: newValue });
+    const suspendedStatus = this.state.suspendedStatus;
     this.props.onCheckShowInactive(event, newValue, suspendedStatus);
   }
   handleSuspendedChecked(event, newValue) {
-    this.setState({ suspendedCheckbox: newValue });
-    const inactiveStatus = this.state.inactiveChehckboc;
+    this.setState({ suspendedStatus: newValue });
+    const inactiveStatus = this.state.inactiveStatus;
     this.props.onCheckShowSuspended(event, newValue, inactiveStatus);
   }
   createRows() {
-    return this.props.locations.map((location) => (
-      <div key={`location-${location.resourceURL}`} className={styles.rowGridContainer}>
-        <div>{location.name}</div>
-        <div>{location.status}</div>
-        <div>{this.getTelecoms(location.telecoms)}</div>
-        <div>{this.getAddress(location.address)} </div>
-      </div>
-    ));
+    if (this.props.locations && this.props.locations.data) {
+      return this.props.locations.data.map((location) => (
+        <div key={`location-${location.resourceURL}`} className={styles.rowGridContainer}>
+          <div>{location.name}</div>
+          <div>{location.status}</div>
+          <div>{this.getTelecoms(location.telecoms)}</div>
+          <div>{this.getAddress(location.address)} </div>
+        </div>
+      ));
+    }
+    return '<div></div>';
   }
   createTable() {
     return (
@@ -85,7 +88,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
               handleCheck={this.handleSuspendedChecked}
             >
             </StatusCheckbox>
-            <div> <strong>Organization Name: </strong>{ this.props.organization.name}</div>
+            <div> <strong>Organization Name: </strong>
+              { this.props.locations && this.props.locations.organization ? this.props.locations.organization.name : ''}</div>
           </div>
           <div className={styles.rowGridContainer}>
             <div className={styles.cellGridContainer}>Name</div>
@@ -99,7 +103,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     );
   }
   createLocationTable() {
-    if (this.props.locations && !this.props.locations[0]) {
+    if (!this.props.locations || !this.props.locations.data || !this.props.locations.data[0]) {
       return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its locations.</h3></div>);
     }
     return this.createTable();
@@ -112,19 +116,10 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
 Locations.propTypes = {
   onCheckShowInactive: PropTypes.func.isRequired,
   onCheckShowSuspended: PropTypes.func.isRequired,
-  organization: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
+  locations: PropTypes.shape({
+    data: PropTypes.array,
+    organization: PropTypes.object,
   }),
-  locations: PropTypes.arrayOf({
-    locations: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      resourceUrl: PropTypes.string.isRequired,
-      telecoms: PropTypes.object.isRequired,
-      address: PropTypes.object.isRequired,
-    }),
-  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

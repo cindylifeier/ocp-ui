@@ -12,14 +12,14 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  locations: {},
+  data: [],
   organization: {},
 });
 
 function locationsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LOCATIONS_SUCCESS:
-      return state.setIn(['locations'], action.locations);
+      return state.set('data', action.locations);
     case GET_ACTIVE_LOCATIONS: {
       const organization = { id: action.organizationId, name: action.organizationName };
       return state.setIn(['organization'], organization);
