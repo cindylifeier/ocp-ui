@@ -19,12 +19,11 @@ export function getFilteredLocations(status) {
   };
 }
 
-export function getActiveLocations(organizationId, organizationName, status) {
+export function getActiveLocations(organizationId, organizationName) {
   return {
     type: GET_ACTIVE_LOCATIONS,
     organizationId,
     organizationName,
-    status,
   };
 }
 

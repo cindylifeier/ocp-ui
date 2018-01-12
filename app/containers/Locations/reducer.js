@@ -19,7 +19,7 @@ const initialState = fromJS({
 function locationsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LOCATIONS_SUCCESS:
-      return state.setIn(['locations'], action.locations.elements);
+      return state.setIn(['locations'], action.locations);
     case GET_ACTIVE_LOCATIONS: {
       const organization = { id: action.organizationId, name: action.organizationName };
       return state.setIn(['organization'], organization);

@@ -18,10 +18,19 @@ import saga from './saga';
 import messages from './messages';
 import styles from './Locations.css';
 import { getFilteredLocations } from './actions';
-import { STATUS_ACTIVE, STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
+import { STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
 import StatusCheckbox from '../../components/StatusCheckbox';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      inactiveChehckboc: false,
+      suspendedCheckbox: false,
+    };
+    this.handleInactiveChecked = this.handleInactiveChecked.bind(this);
+    this.handleSuspendedChecked = this.handleSuspendedChecked.bind(this);
+  }
   getTelecoms(telecoms) {
     return telecoms.map((entry) =>
       (
@@ -39,9 +48,19 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       {address.city}, {address.stateCode} {address.postalCode},
       {address.countryCode}</div>) : '';
   }
+  handleInactiveChecked(event, newValue) {
+    this.setState({ inactiveChehckboc: newValue });
+    const suspendedStatus = this.state.suspendedCheckbox;
+    this.props.onCheckShowInactive(event, newValue, suspendedStatus);
+  }
+  handleSuspendedChecked(event, newValue) {
+    this.setState({ suspendedCheckbox: newValue });
+    const inactiveStatus = this.state.inactiveChehckboc;
+    this.props.onCheckShowSuspended(event, newValue, inactiveStatus);
+  }
   createRows() {
     return this.props.locations.map((location) => (
-      <div key={`location-${location.logicalId}`} className={styles.rowGridContainer}>
+      <div key={`location-${location.resourceURL}`} className={styles.rowGridContainer}>
         <div>{location.name}</div>
         <div>{location.status}</div>
         <div>{this.getTelecoms(location.telecoms)}</div>
@@ -57,13 +76,13 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
             <StatusCheckbox
               messages={messages.inactive}
               elementId="inactiveCheckBox"
-              handleCheck={this.props.onCheckShowInactive}
+              handleCheck={this.handleInactiveChecked}
             >
             </StatusCheckbox>
             <StatusCheckbox
               messages={messages.suspended}
               elementId="suspendedCheckBox"
-              handleCheck={this.props.onCheckShowSuspended}
+              handleCheck={this.handleSuspendedChecked}
             >
             </StatusCheckbox>
             <div> <strong>Organization Name: </strong>{ this.props.organization.name}</div>
@@ -81,7 +100,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   }
   createLocationTable() {
     if (this.props.locations && !this.props.locations[0]) {
-      return (<h3> No locations loaded. Please select an organization to view its locations.</h3>);
+      return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its locations.</h3></div>);
     }
     return this.createTable();
   }
@@ -115,26 +134,22 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onCheckShowInactive: (evt, checked) => {
-      const status = [STATUS_ACTIVE];
+    onCheckShowInactive: (evt, checked, suspendedCheckboxStatus) => {
+      const status = [];
       if (checked) {
         status.push(STATUS_INACTIVE);
       }
-      // TODO: Find a better way to get the value of the other checkbox.
-      const isSuspendedCheckBoxChecked = document.getElementById('suspendedCheckBox');
-      if (isSuspendedCheckBoxChecked && isSuspendedCheckBoxChecked.checked) {
+      if (suspendedCheckboxStatus) {
         status.push(STATUS_SUSPENDED);
       }
       dispatch(getFilteredLocations(status));
     },
-    onCheckShowSuspended: (evt, checked) => {
-      const status = [STATUS_ACTIVE];
+    onCheckShowSuspended: (evt, checked, inactiveCheckboxStatus) => {
+      const status = [];
       if (checked) {
         status.push(STATUS_SUSPENDED);
       }
-      // TODO: Find a better way to get the value of the other checkbox.
-      const isInactiveCheckBoxChecked = document.getElementById('inactiveCheckBox');
-      if (isInactiveCheckBoxChecked && isInactiveCheckBoxChecked.checked) {
+      if (inactiveCheckboxStatus) {
         status.push(STATUS_INACTIVE);
       }
       dispatch(getFilteredLocations(status));

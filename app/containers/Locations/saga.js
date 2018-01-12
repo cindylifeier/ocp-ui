@@ -16,7 +16,12 @@ import LocationService from './LocationService';
 export function* getLocationsByOrganizationIdAndStatus(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status);
+    let locations;
+    if (action.status) {
+      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status);
+    } else if (!action.status) {
+      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, []);
+    }
     yield put(getLocationsSuccess(locations));
   } catch (err) {
     yield put(getLocationsError(err));
