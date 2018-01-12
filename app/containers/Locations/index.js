@@ -59,9 +59,9 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.props.onCheckShowSuspended(event, newValue, inactiveStatus);
   }
   createRows() {
-    if (this.props.locations && this.props.locations.data) {
-      return this.props.locations.data.map((location) => (
-        <div key={`location-${location.resourceURL}`} className={styles.rowGridContainer}>
+    if (this.props.data) {
+      return this.props.data.map((location) => (
+        <div key={location.logicalId} className={styles.rowGridContainer}>
           <div>{location.name}</div>
           <div>{location.status}</div>
           <div>{this.getTelecoms(location.telecoms)}</div>
@@ -89,7 +89,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
             >
             </StatusCheckbox>
             <div> <strong>Organization Name: </strong>
-              { this.props.locations && this.props.locations.organization ? this.props.locations.organization.name : ''}</div>
+              {this.props.organization ? this.props.organization.name : ''}</div>
           </div>
           <div className={styles.rowGridContainer}>
             <div className={styles.cellGridContainer}>Name</div>
@@ -103,10 +103,11 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     );
   }
   createLocationTable() {
-    if (!this.props.locations || !this.props.locations.data || !this.props.locations.data[0]) {
-      return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its locations.</h3></div>);
+    const { data } = this.props;
+    if (data && data.length > 0) {
+      return this.createTable();
     }
-    return this.createTable();
+    return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its locations.</h3></div>);
   }
   render() {
     return this.createLocationTable();
@@ -116,14 +117,12 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
 Locations.propTypes = {
   onCheckShowInactive: PropTypes.func.isRequired,
   onCheckShowSuspended: PropTypes.func.isRequired,
-  locations: PropTypes.shape({
-    data: PropTypes.array,
-    organization: PropTypes.object,
-  }),
+  data: PropTypes.array,
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  locations: makeSelectLocations(),
+  data: makeSelectLocations(),
   organization: makeSelectOrganization(),
 });
 

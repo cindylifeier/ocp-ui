@@ -16,7 +16,7 @@ const selectLocationsDomain = (state) => state.get('locations');
 
 const makeSelectLocations = () => createSelector(
   selectLocationsDomain,
-  (substate) => substate.get('locations')
+  (substate) => substate.get('data').toJS()
 );
 
 
@@ -24,11 +24,6 @@ const makeSelectOrganization = () => createSelector(
   selectLocationsDomain,
   (substate) => substate.get('organization'),
 );
-//
-// const makeSelectOrganizationName = () => createSelector(
-//   selectLocationsDomain,
-//   (substate) => substate.get('organizationName'),
-// );
 
 
 export {
