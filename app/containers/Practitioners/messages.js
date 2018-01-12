@@ -16,6 +16,6 @@ export default defineMessages({
   },
   inactive: {
     id: 'app.containers.Locations.checkbox.inactive',
-    defaultMessage: 'Include nactive',
+    defaultMessage: 'Include inactive',
   },
 });
