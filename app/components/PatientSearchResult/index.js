@@ -68,7 +68,7 @@ function PatientSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
         </div>
-        {displayPatientSearchResult(searchResult)}
+        {displayPatientSearchResult(searchResult.elements)}
       </div>
     );
   }
