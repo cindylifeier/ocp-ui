@@ -22,9 +22,9 @@ export default defineMessages({
     id: 'app.components.SearchBar.validationMessage',
     defaultMessage: 'Minimum {minimumLength} characters',
   },
-  includeInactive: {
-    id: 'app.components.SearchBar.includeInactive',
-    defaultMessage: 'Include inactive',
+  showInactive: {
+    id: 'app.components.SearchBar.showInactive',
+    defaultMessage: 'Show inactive',
   },
   searchByName: {
     id: 'app.components.SearchBar.searchByName',

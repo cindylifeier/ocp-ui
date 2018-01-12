@@ -6,10 +6,10 @@ import { LOAD_ORGANIZATIONS } from './constants';
 import getOrganizations from './api';
 import { loadOrganizationsError, loadOrganizationsSuccess } from './actions';
 
-export function* getOrganizationsFromApi({ query }) {
+export function* getOrganizationsFromApi({ searchValue, showInactive, searchType }) {
   try {
-    if (query) {
-      const organizations = yield call(getOrganizations, query);
+    if (searchValue) {
+      const organizations = yield call(getOrganizations, searchValue, showInactive, searchType);
       yield put(loadOrganizationsSuccess(organizations));
     }
   } catch (err) {
