@@ -35,8 +35,8 @@ export class Organizations extends React.PureComponent {
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
-  handleSearch(query) {
-    this.props.loadOrganizations(query);
+  handleSearch(searchValue, showInactive, searchType) {
+    this.props.loadOrganizations(searchValue, showInactive, searchType);
   }
 
   handleRowClick({ id, name }) {
@@ -47,7 +47,7 @@ export class Organizations extends React.PureComponent {
     const { organizations } = this.props;
     return (
       <div className={styles.root}>
-        <h3><FormattedMessage {...messages.header} /></h3>
+        <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
 
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
@@ -91,7 +91,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadOrganizations: (query, includeInactive, searchType) => dispatch(loadOrganizations(query, includeInactive, searchType)),
+    loadOrganizations: (searchValue, showInactive, searchType) => dispatch(loadOrganizations(searchValue, showInactive, searchType)),
     getActiveLocations: (organizationId, organizationName) => dispatch(getActiveLocations(organizationId, organizationName)),
   };
 }
