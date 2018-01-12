@@ -5,6 +5,7 @@
  */
 
 import ApiService from '../../utils/ApiService';
+import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const LocationService = {};
 LocationService.getLocationsByIdAndStatus = function (organizationId, status) {
@@ -16,8 +17,8 @@ function createUrl(organizationId, status) {
   // TODO: Refactore code to pass page number when implementing pagination
   const initialParams = 'page=1&status=active,';
   let queryParams = '';
-  // TODO: Get url dynamically
-  const baseUrl = `http://localhost:8444/organizations/${organizationId}`.concat('/locations?');
+  const apiBaseUrl = getApiBaseUrl();
+  const baseUrl = `${apiBaseUrl}/organizations/${organizationId}`.concat('/locations?');
   if (status && status.length === 0) {
     queryParams = initialParams;
   } else if (status && status.length === 1) {
