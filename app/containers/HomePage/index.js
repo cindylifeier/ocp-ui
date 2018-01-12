@@ -19,6 +19,7 @@ import renderSampleComponent from '../../components/SampleComponent/render';
 import renderOrganizations from '../Organizations/render';
 import renderPractitioners from '../Practitioners/render';
 import renderLocationsComponent from '../../containers/Locations/render';
+import renderPatientsComponent from '../Patients/render';
 
 // import messages from './messages';
 
@@ -134,9 +135,9 @@ const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Sample Four',
+            title: 'Patients',
             type: 'component',
-            componentName: 'sample',
+            componentName: 'patients',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -159,6 +160,7 @@ const componentMetadata = [
   { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
   { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
   { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
+  { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
 ];
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
