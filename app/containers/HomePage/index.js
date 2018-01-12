@@ -158,8 +158,8 @@ const componentMetadata = [
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={styles.container}>
-        <div className={`${styles.box} ${styles.header}`} >
+      <div className={styles.gridContainer}>
+        <div className={`${styles.gridItem} ${styles.header}`} >
           <Header />
         </div>
         <div className={styles.content}>
@@ -169,7 +169,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             stateMetadata={initialStateMetadata}
           />
         </div>
-        <div className={`${styles.box} ${styles.panel}`} >
+        <div className={`${styles.gridItem} ${styles.panel}`} >
           <SideBar />
         </div>
       </div>

@@ -1,21 +1,23 @@
-.button {
-  margin-bottom: 2px;
-  border-radius: 25px;
-  grid-column: 2 / span 10;
-}
-
-.searchBox {
-  border-radius: 25px;
-  grid-column: 2 / span 7;
-}
-
-.container > span {
-  grid-column: 10 / span 2;
-}
-
-.container {
+.gridContainer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   width: 100%;
   min-width:220px;
 }
+
+.searchBoxGridItem {
+  border-radius: 25px;
+  grid-column: 2 / span 7;
+}
+
+.menuGridItem {
+  margin-bottom: 2px;
+  border-radius: 25px;
+  grid-column: 2 / span 10;
+}
+
+.searchIconGridItem{
+  grid-column: 10 / span 2;
+}
+
+
