@@ -1,5 +1,6 @@
 .root {
-  margin: 10px;
+  top: -20px;
+  position: relative;
 }
 
 .validationMessage {
@@ -11,5 +12,5 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, auto);
-  padding: 10px;
+  padding-left: 10px;
 }
