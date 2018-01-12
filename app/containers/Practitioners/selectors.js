@@ -9,17 +9,24 @@ const selectPractitionersDomain = (state) => state.get('practitioners');
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by Practitioners
- */
-
-const makeSelectPractitioners = () => createSelector(
+const makeSelectSearchLoading = () => createSelector(
   selectPractitionersDomain,
-  (substate) => substate.toJS()
+  (practitionersState) => practitionersState.get('loading'),
 );
 
-export default makeSelectPractitioners;
+const makeSelectSearchError = () => createSelector(
+  selectPractitionersDomain,
+  (practitionersState) => practitionersState.get('error'),
+);
+
+const makeSelectSearchResult = () => createSelector(
+  selectPractitionersDomain,
+  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'result']),
+);
+
 export {
   selectPractitionersDomain,
+  makeSelectSearchLoading,
+  makeSelectSearchError,
+  makeSelectSearchResult,
 };
