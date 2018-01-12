@@ -42,11 +42,11 @@ function displayPractitionerSearchResult(practitioners) {
   return (
     practitioners && practitioners.map((practitioner) => (
       <div key={uniqueId()} className={styles.rowGridContainer}>
-        <div className={styles.cellGridItem}>{practitioner.name[0].firstName ? practitioner.name[0].firstName : ''}</div>
-        <div className={styles.cellGridItem}>{practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}</div>
-        <div className={styles.cellGridItem}>{practitioner.active ? 'Active' : 'Inactive'}</div>
-        <div className={styles.cellGridItem}>{getTelecom(practitioner)}</div>
-        <div className={styles.cellGridItem}>{getAddress(practitioner)}</div>
+        <div className={styles['cell-grid-item']}>{practitioner.name[0].firstName ? practitioner.name[0].firstName : ''}</div>
+        <div className={styles['cell-grid-item']}>{practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}</div>
+        <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
+        <div className={styles['cell-grid-item']}>{getTelecom(practitioner)}</div>
+        <div className={styles['cell-grid-item']}>{getAddress(practitioner)}</div>
       </div>
     )));
 }
