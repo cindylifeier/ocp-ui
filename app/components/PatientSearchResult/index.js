@@ -53,11 +53,11 @@ function PatientSearchResult({ loading, error, searchResult }) {
     return (<p>No match search result.</p>);
   }
 
-  if (searchResult !== false && searchResult.length === 0) {
+  if (searchResult !== false && searchResult.elements !== null && searchResult.elements.length === 0) {
     return (<p>No match search result.</p>);
   }
 
-  if (searchResult !== false && searchResult.length !== 0) {
+  if (searchResult !== false && searchResult.elements !== null && searchResult.elements.length !== 0) {
     return (
       <div className={styles.table}>
         <div className={styles.rowGridContainer}>
@@ -68,7 +68,7 @@ function PatientSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
         </div>
-        {displayPatientSearchResult(searchResult)}
+        {displayPatientSearchResult(searchResult.elements)}
       </div>
     );
   }
