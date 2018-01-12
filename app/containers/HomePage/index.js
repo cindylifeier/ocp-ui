@@ -17,6 +17,9 @@ import SideBar from '../../components/SideBar/index';
 import GoldenLayout from '../../components/GoldenLayout/Loadable';
 import renderSampleComponent from '../../components/SampleComponent/render';
 import renderOrganizations from '../Organizations/render';
+import renderPractitioners from '../Practitioners/render';
+import renderLocationsComponent from '../../containers/Locations/render';
+import renderPatientsComponent from '../Patients/render';
 
 // import messages from './messages';
 
@@ -92,9 +95,9 @@ const initialStateMetadata =
           width: 50,
           height: 50,
           content: [{
-            title: 'Sample Two',
+            title: 'Practitioners',
             type: 'component',
-            componentName: 'sample',
+            componentName: 'practitioners',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -116,9 +119,9 @@ const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Sample Three',
+            title: 'Location',
             type: 'component',
-            componentName: 'sample',
+            componentName: 'locations',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -132,9 +135,9 @@ const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Sample Four',
+            title: 'Patients',
             type: 'component',
-            componentName: 'sample',
+            componentName: 'patients',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -155,6 +158,9 @@ const initialStateMetadata =
 const componentMetadata = [
   { name: 'sample', text: 'Sample', factoryMethod: renderSampleComponent },
   { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
+  { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
+  { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
+  { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
 ];
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -162,10 +168,10 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <div className={styles.container}>
 
-        <div className={`${styles.box} ${styles.header}`} >
+        <div className={`${styles.box} ${styles.header}`}>
           <Header />
         </div>
-        <div className={`${styles.box} ${styles.sidebar}`} >
+        <div className={`${styles.box} ${styles.sidebar}`}>
           <SideBar />
         </div>
 

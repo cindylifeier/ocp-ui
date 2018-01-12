@@ -23,6 +23,7 @@ import styles from './Organizations.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
+import { getActiveLocations } from '../Locations/actions';
 
 export class Organizations extends React.PureComponent {
 
@@ -39,8 +40,7 @@ export class Organizations extends React.PureComponent {
   }
 
   handleRowClick({ id, name }) {
-    // TODO: dispatch action to load locations
-    console.log(id, name);
+    this.props.getActiveLocations(id, name);
   }
 
   render() {
@@ -78,6 +78,7 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   loadOrganizations: PropTypes.func.isRequired,
+  getActiveLocations: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
@@ -91,6 +92,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadOrganizations: (searchValue, showInactive, searchType) => dispatch(loadOrganizations(searchValue, showInactive, searchType)),
+    getActiveLocations: (organizationId, organizationName) => dispatch(getActiveLocations(organizationId, organizationName)),
   };
 }
 
