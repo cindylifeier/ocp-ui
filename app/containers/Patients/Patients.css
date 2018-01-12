@@ -1,0 +1,19 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 4fr 2fr 4fr 1fr;
+  grid-column-gap: 10px;
+}
+
+.paper {
+  height: 43px;
+}
+
+.searchField {
+  margin: auto 16px;
+  width: 40%
+}
+
+.checkBox {
+  padding-top: 10px;
+  max-width: 95%;
+}
