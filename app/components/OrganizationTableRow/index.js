@@ -8,14 +8,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './OrganizationTableRow.css';
 
+const ENTER_KEY = 'Enter';
+
 function OrganizationTableRow(props) {
   const { name, address, telephone, id, status, striped, onRowClick } = props;
   return (
     <div
       className={`${styles.rowGridContainerOrganization} ${striped ? styles.striped : ''}`}
       onClick={() => onRowClick && onRowClick(props)}
+      onKeyPress={(e) => {
+        if (e.key === ENTER_KEY) {
+          if (onRowClick) {
+            onRowClick(props);
+          }
+        }
+        e.preventDefault();
+      }}
       role="button"
-      tabIndex="-1"
+      tabIndex="0"
     >
       <div className={styles.cellGridItem}>&gt;</div>
       <div className={styles.cellGridItem}>{name}</div>
