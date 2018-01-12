@@ -30,7 +30,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Telecoms</div>
           <div className={styles.cellGridHeaderItem}>Address</div>
         </div>
-        {displayPractitionerSearchResult(searchResult)}
+        {displayPractitionerSearchResult(searchResult.elements)}
       </div>
     );
   }

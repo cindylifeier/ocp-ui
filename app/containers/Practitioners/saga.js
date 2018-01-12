@@ -6,7 +6,8 @@ import request from '../../utils/request';
 
 export function* loadSearchResult({ searchTerms, searchType, includeInactive }) {
   const query = `searchType=${searchType}&searchValue=${searchTerms}&showInactive=${includeInactive}`;
-  const requestURL = `http://localhost:8444/practitioners/search?${query}`;
+  const apiBaseURL = 'http://localhost:8446/ocp-fis';
+  const requestURL = `${apiBaseURL}/practitioners/search?${query}`;
 
   try {
     const searchPractitionerResult = yield call(request, requestURL);
