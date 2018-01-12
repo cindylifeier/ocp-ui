@@ -137,7 +137,7 @@ Practitioners.propTypes = {
     PropTypes.bool,
   ]),
   searchResult: PropTypes.oneOfType([
-    PropTypes.array,
+    PropTypes.object,
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
