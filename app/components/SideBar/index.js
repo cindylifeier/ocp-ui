@@ -38,7 +38,7 @@ class SideBar extends React.PureComponent { // eslint-disable-line react/prefer-
               <RaisedButton
                 className={styles.button}
                 buttonStyle={{ borderRadius: 25 }}
-                label="RECENT PATIENT"
+                label="RECENT PATIENTS"
                 containerElement={<Link to="/patients" />}
               />
             </div>
