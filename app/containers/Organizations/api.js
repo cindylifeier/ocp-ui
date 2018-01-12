@@ -1,6 +1,7 @@
 import queryString from '../../utils/queryString';
+import getApiBaseUrl from '../../apiBaseUrlConfig';
 
-const baseApiUrl = 'http://localhost:8446/ocp-fis';
+const baseApiUrl = getApiBaseUrl();
 
 export default function getOrganizations(searchValue, showInactive, searchType) {
   const params = queryString({ searchValue, showInactive, searchType });
