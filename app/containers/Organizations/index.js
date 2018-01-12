@@ -31,10 +31,16 @@ export class Organizations extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   handleSearch(query) {
     this.props.loadOrganizations(query);
+  }
+
+  handleRowClick({ id, name }) {
+    // TODO: dispatch action to load locations
+    console.log(id, name);
   }
 
   render() {
@@ -52,7 +58,13 @@ export class Organizations extends React.PureComponent {
 
         {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
           <OrganizationTable>
-            {organizations.data.map((org) => (<OrganizationTableRow key={org.id} {...org} />))}
+            {organizations.data.map((org) => (
+              <OrganizationTableRow
+                key={org.id}
+                {...org}
+                onRowClick={this.handleRowClick}
+              />
+            ))}
           </OrganizationTable>) ||
 
         (<div className={styles.textCenter}>

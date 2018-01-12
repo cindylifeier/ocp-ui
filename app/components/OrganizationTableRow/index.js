@@ -9,9 +9,14 @@ import PropTypes from 'prop-types';
 import styles from './OrganizationTableRow.css';
 
 function OrganizationTableRow(props) {
-  const { name, address, telephone, id, status, striped } = props;
+  const { name, address, telephone, id, status, striped, onRowClick } = props;
   return (
-    <div className={`${styles.rowGridContainerOrganization} ${striped ? styles.striped : ''}`}>
+    <div
+      className={`${styles.rowGridContainerOrganization} ${striped ? styles.striped : ''}`}
+      onClick={() => onRowClick && onRowClick(props)}
+      role="button"
+      tabIndex="-1"
+    >
       <div className={styles.cellGridItem}>&gt;</div>
       <div className={styles.cellGridItem}>{name}</div>
       <div className={styles.cellGridItem}>{address}</div>
@@ -29,6 +34,7 @@ OrganizationTableRow.propTypes = {
   id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   striped: PropTypes.bool,
+  onRowClick: PropTypes.func,
 };
 
 export default OrganizationTableRow;
