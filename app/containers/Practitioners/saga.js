@@ -3,10 +3,11 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { searchPractitionersError, searchPractitionersSuccess } from './actions';
 import { LOAD_PRACTITIONER_SEARCH_RESULT } from './constants';
 import request from '../../utils/request';
+import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 export function* loadSearchResult({ searchTerms, searchType, includeInactive }) {
   const query = `searchType=${searchType}&searchValue=${searchTerms}&showInactive=${includeInactive}`;
-  const apiBaseURL = 'http://localhost:8446/ocp-fis';
+  const apiBaseURL = getApiBaseUrl();
   const requestURL = `${apiBaseURL}/practitioners/search?${query}`;
 
   try {
