@@ -1,0 +1,52 @@
+.table {
+  padding: 10px;
+  background-color: white;
+}
+
+.cell-grid-item {
+  color: rgb(51, 51, 51);
+  font-family: "Arial Bold", "Arial";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: left;
+  margin: 0;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.rowGridContainer:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.rowGridContainer:first-child {
+  background-color: #f2f2f2;
+  font-size: 20px;
+}
+
+.rowGridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 25% 25%;
+  grid-gap: 5px;
+  border-bottom: 1px outset rgb(51, 51, 51);
+}
+
+.cellGridItem, .cellGridHeaderItem {
+  color: rgb(51, 51, 51);
+  font-family: "Arial Bold", "Arial";
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: normal;
+  text-align: left;
+  margin: 0;
+  word-break: break-all;
+  padding: 2px;
+}
+
+.cellGridHeaderItem {
+  font-size: 13px;
+}
