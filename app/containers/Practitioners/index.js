@@ -24,7 +24,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './Practitioners.css';
-import { ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { loadPractitionerSearchResult } from './actions';
 
@@ -32,7 +32,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.state = {
-      searchTerms: '',
+      searchTerms: EMPTY_STRING,
       searchType: SEARCH_TYPE.NAME,
       includeInactive: false,
     };
@@ -119,6 +119,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
               <IconButton
                 iconClassName="fa fa-search"
                 onClick={this.handleSearch}
+                disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
               />
             </div>
           </div>

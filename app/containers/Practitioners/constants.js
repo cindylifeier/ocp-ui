@@ -4,6 +4,7 @@
  *
  */
 export const ENTER_KEY_CODE = 13;
+export const EMPTY_STRING = '';
 export const SEARCH_TERM_MIN_LENGTH = 3;
 export const SEARCH_TYPE = {
   NAME: 'name',
