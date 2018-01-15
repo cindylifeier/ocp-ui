@@ -20,7 +20,7 @@ export function* getLocationsByOrganizationIdAndStatus(action) {
     if (action.status) {
       locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status, action.currentPage);
     } else if (!action.status) {
-      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, [], 1);
+      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, [], action.currentPage);
     }
     yield put(getLocationsSuccess(locations));
   } catch (err) {

@@ -40,7 +40,8 @@ export class Organizations extends React.PureComponent {
   }
 
   handleRowClick({ id, name }) {
-    this.props.getActiveLocations(id, name);
+    const currentPage = 1;
+    this.props.getActiveLocations(id, name, currentPage);
   }
 
   render() {
@@ -92,7 +93,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadOrganizations: (searchValue, showInactive, searchType) => dispatch(loadOrganizations(searchValue, showInactive, searchType)),
-    getActiveLocations: (organizationId, organizationName) => dispatch(getActiveLocations(organizationId, organizationName)),
+    getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
   };
 }
 
