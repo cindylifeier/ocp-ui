@@ -7,7 +7,7 @@
 
 .actionGridContainer {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,1fr);
   margin-top: 10px;
   margin-bottom: 10px;
 }

@@ -17,7 +17,7 @@ import styles from './SearchBar.css';
 const iconButtonStyle = { top: '26px', height: '30px' };
 const checkboxStyle = { marginTop: '40px', height: '30px' };
 const dropdownMenuStyle = { top: '24px', height: '40px', width: '200px' };
-const searchTextFieldStyle = { width: '200px' };
+const searchTextFieldStyle = { width: '100px' };
 
 const SEARCH_BY_NAME = 'name';
 const SEARCH_BY_ID = 'logicalId';
@@ -83,39 +83,47 @@ class SearchBar extends React.PureComponent {
     return (
       <div className={styles.root}>
         <form>
-          <div className={styles.grid}>
-            <TextField
-              style={searchTextFieldStyle}
-              errorText={searchValue.trim() !== EMPTY_STRING && !searchValueValid ?
-                <FormattedMessage {...messages.validationMessage} values={{ minimumLength }} /> : EMPTY_STRING}
-              hintText={<FormattedMessage {...messages.hintText} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText} />}
-              value={searchValue}
-              onChange={this.handleSearchValueChange}
-              onKeyPress={this.handleKeyPress}
-            />
-            <DropDownMenu
-              style={dropdownMenuStyle}
-              value={this.state.searchType}
-              onChange={this.handleSearchTypeDropdown}
-            >
-              <MenuItem value={SEARCH_BY_NAME} primaryText={<FormattedMessage {...messages.searchByName} />} />
-              <MenuItem value={SEARCH_BY_ID} primaryText={<FormattedMessage {...messages.searchById} />} />
-            </DropDownMenu>
-            <Checkbox
-              label={<FormattedMessage {...messages.showInactive} />}
-              checked={showInactive}
-              onCheck={this.handleCheckShowInactive}
-              style={checkboxStyle}
-            />
-            <IconButton
-              style={iconButtonStyle}
-              tooltip={<FormattedMessage {...messages.buttonTooltip} />}
-              disabled={!searchValueValid}
-              onClick={this.handleSearch}
-            >
-              <ActionSearch />
-            </IconButton>
+          <div className={styles.gridContainer}>
+            <div className={styles.gridItem}>
+              <TextField
+                style={searchTextFieldStyle}
+                errorText={searchValue.trim() !== EMPTY_STRING && !searchValueValid ?
+                  <FormattedMessage {...messages.validationMessage} values={{ minimumLength }} /> : EMPTY_STRING}
+                hintText={<FormattedMessage {...messages.hintText} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText} />}
+                value={searchValue}
+                onChange={this.handleSearchValueChange}
+                onKeyPress={this.handleKeyPress}
+              />
+            </div>
+            <div className={styles.gridItem}>
+              <DropDownMenu
+                style={dropdownMenuStyle}
+                value={this.state.searchType}
+                onChange={this.handleSearchTypeDropdown}
+              >
+                <MenuItem value={SEARCH_BY_NAME} primaryText={<FormattedMessage {...messages.searchByName} />} />
+                <MenuItem value={SEARCH_BY_ID} primaryText={<FormattedMessage {...messages.searchById} />} />
+              </DropDownMenu>
+            </div>
+            <div className={styles.gridItem}>
+              <Checkbox
+                label={<FormattedMessage {...messages.includeInactive} />}
+                checked={showInactive}
+                onCheck={this.handleCheckShowInactive}
+                style={checkboxStyle}
+              />
+            </div>
+            <div className={styles.gridItem}>
+              <IconButton
+                style={iconButtonStyle}
+                tooltip={<FormattedMessage {...messages.buttonTooltip} />}
+                disabled={!searchValueValid}
+                onClick={this.handleSearch}
+              >
+                <ActionSearch />
+              </IconButton>
+            </div>
           </div>
 
         </form>

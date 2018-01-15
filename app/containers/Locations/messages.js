@@ -12,10 +12,10 @@ export default defineMessages({
   },
   inactive: {
     id: 'app.containers.Locations.checkbox.inactive',
-    defaultMessage: 'Show Inactive',
+    defaultMessage: 'Include Inactive',
   },
   suspended: {
     id: 'app.containers.Locations.checkbox.suspended',
-    defaultMessage: 'Show Suspended',
+    defaultMessage: 'Include Suspended',
   },
 });

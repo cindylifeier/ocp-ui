@@ -8,11 +8,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   hintText: {
     id: 'app.components.SearchBar.hintText',
-    defaultMessage: 'Enter search criteria',
+    defaultMessage: 'Name or ID',
   },
   floatingLabelText: {
     id: 'app.components.SearchBar.floatingLabelText',
-    defaultMessage: 'Search',
+    defaultMessage: 'Name or ID',
   },
   buttonTooltip: {
     id: 'app.components.SearchBar.buttonTooltip',
@@ -22,16 +22,16 @@ export default defineMessages({
     id: 'app.components.SearchBar.validationMessage',
     defaultMessage: 'Minimum {minimumLength} characters',
   },
-  showInactive: {
-    id: 'app.components.SearchBar.showInactive',
-    defaultMessage: 'Show inactive',
+  includeInactive: {
+    id: 'app.components.SearchBar.includeInactive',
+    defaultMessage: 'Include inactive',
   },
   searchByName: {
     id: 'app.components.SearchBar.searchByName',
-    defaultMessage: 'Search by Name',
+    defaultMessage: 'By Name',
   },
   searchById: {
     id: 'app.components.SearchBar.searchById',
-    defaultMessage: 'Search by ID',
+    defaultMessage: 'By ID',
   },
 });
