@@ -20,6 +20,9 @@ const initialState = fromJS({
   includeInactive: false,
   searchPatients: {
     result: false,
+    totalPages: 0,
+    currentPageSize: 0,
+    currentPage: 0,
   },
 });
 
@@ -32,10 +35,13 @@ function patientsReducer(state = initialState, action) {
         .set('searchType', action.searchType)
         .set('searchTerms', action.searchTerms)
         .set('includeInactive', action.includeInactive)
-        .setIn(['searchPatients', 'result'], false);
+        .setIn(['searchPatients', 'result'], action.searchResult);
     case SEARCH_PATIENTS_SUCCESS:
       return state
         .setIn(['searchPatients', 'result'], action.searchResult)
+        .setIn(['searchPatients', 'currentPage'], action.searchResult.currentPage)
+        .setIn(['searchPatients', 'currentPageSize'], action.searchResult.currentPageSize)
+        .setIn(['searchPatients', 'totalPages'], action.searchResult.totalNumberOfPages)
         .set('loading', false);
     case SEARCH_PATIENTS_ERROR:
       return state

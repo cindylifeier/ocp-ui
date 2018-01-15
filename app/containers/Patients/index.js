@@ -13,13 +13,15 @@ import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectCurrentPage, makeSelectCurrentPageSize,
+  makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult, makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -36,16 +38,18 @@ export class Patients extends React.Component {
       searchTerms: '',
       searchType: SEARCH_TYPE.NAME,
       includeInactive: false,
+      currentPage: 1,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangeSearchTerms = this.handleChangeSearchTerms.bind(this);
     this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
+    this.handleChangePage = this.handleChangePage.bind(this);
   }
 
   handleSearch() {
     if (this.state.searchTerms && this.state.searchTerms.trim().length > 0) {
-      this.props.onSubmitForm(this.state.searchTerms, this.state.searchType, this.state.includeInactive);
+      this.props.onSubmitForm(this.state.searchTerms, this.state.searchType, this.state.includeInactive, this.state.currentPage);
     }
   }
 
@@ -59,6 +63,11 @@ export class Patients extends React.Component {
 
   handleChangeShowInactive(event, checked) {
     this.setState({ includeInactive: checked });
+  }
+
+  handleChangePage(newPage) {
+    this.setState({ currentPage: newPage });
+    this.props.onChangePage(this.state.searchTerms, this.state.searchType, this.state.includeInactive, newPage);
   }
 
   preventEnterSubmission(event) {
@@ -128,6 +137,20 @@ export class Patients extends React.Component {
         </form>
         <br />
         <PatientSearchResult {...searchResultProps} />
+        <div className={styles.pagination}>
+          {this.props.searchResult &&
+          <UltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            boundaryPagesRange={1}
+            siblingPagesRange={1}
+            hidePreviousAndNextPageLinks={false}
+            hideFirstAndLastPageLinks={false}
+            hideEllipsis={false}
+            onChange={this.handleChangePage}
+          />
+          }
+        </div>
       </div>
     );
   }
@@ -144,6 +167,9 @@ Patients.propTypes = {
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  onChangePage: PropTypes.func,
 };
 
 
@@ -151,13 +177,18 @@ const mapStateToProps = createStructuredSelector({
   searchResult: makeSelectSearchResult(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
+  currentPage: makeSelectCurrentPage(),
+  currentPageSize: makeSelectCurrentPageSize(),
+  totalPages: makeSelectTotalPages(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitForm: (searchTerms, searchType, includeInactive) => {
-      dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive));
+      const currentPage = 1;
+      dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
+    onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
   };
 }
 

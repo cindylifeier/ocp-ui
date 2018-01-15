@@ -15,3 +15,9 @@ export const SEARCH_TYPE = {
   NAME: 'name',
   IDENTIFIER: 'identifier',
 };
+
+/**
+ *  Constants to hold the default pagination page size
+ * @type {number}
+ */
+export const DEFAULT_PAGE_SIZE = 10;
