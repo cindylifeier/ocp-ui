@@ -25,5 +25,5 @@ export const STATUS_SUSPENDED = 'suspended';
  *  Constants to hold the default pagination page size
  * @type {number}
  */
-export const DEFAULT_PAGE_SIZE = 1;
+export const DEFAULT_PAGE_SIZE = 10;
 
