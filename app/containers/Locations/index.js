@@ -13,7 +13,7 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPageSize, makeSelectLocations,
+  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectLocations,
   makeSelectOrganization, makeSelectTotalElements,
 } from './selectors';
 import reducer from './reducer';
@@ -120,7 +120,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
         </div>
         <div className={styles.pagination}>
           <UltimatePagination
-            currentPage={this.state.currentPage}
+            currentPage={this.props.currentPage}
             totalPages={this.props.totalElements}
             boundaryPagesRange={1}
             siblingPagesRange={1}
@@ -152,11 +152,13 @@ Locations.propTypes = {
   data: PropTypes.array,
   organization: PropTypes.object,
   totalElements: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectLocations(),
   organization: makeSelectOrganization(),
+  currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
   totalElements: makeSelectTotalElements(),
 });
