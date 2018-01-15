@@ -25,9 +25,15 @@ const makeSelectOrganization = () => createSelector(
   (substate) => substate.get('organization'),
 );
 
+const makeSelectTotalElements = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('totalElements'),
+);
+
 
 export {
   makeSelectLocations,
   selectLocationsDomain,
   makeSelectOrganization,
+  makeSelectTotalElements,
 };
