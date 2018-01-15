@@ -17,7 +17,7 @@ import styles from './SearchBar.css';
 const iconButtonStyle = { top: '26px', height: '30px' };
 const checkboxStyle = { marginTop: '40px', height: '30px' };
 const dropdownMenuStyle = { top: '24px', height: '40px', width: '200px' };
-const searchTextFieldStyle = { width: '200px' };
+const searchTextFieldStyle = { width: '100px' };
 
 const SEARCH_BY_NAME = 'name';
 const SEARCH_BY_ID = 'logicalId';
@@ -103,7 +103,7 @@ class SearchBar extends React.PureComponent {
               <MenuItem value={SEARCH_BY_ID} primaryText={<FormattedMessage {...messages.searchById} />} />
             </DropDownMenu>
             <Checkbox
-              label={<FormattedMessage {...messages.showInactive} />}
+              label={<FormattedMessage {...messages.includeInactive} />}
               checked={showInactive}
               onCheck={this.handleCheckShowInactive}
               style={checkboxStyle}
