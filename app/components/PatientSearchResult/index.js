@@ -44,12 +44,10 @@ function PatientSearchResult({ loading, error, searchResult }) {
   }
 
   if (error !== false) {
-    console.log(error);
     return (<p>Error!</p>);
   }
 
   if (error !== false) {
-    console.log(error);
     return (<p>No match search result.</p>);
   }
 
