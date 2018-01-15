@@ -16,11 +16,13 @@ export function loadPractitionerSearchResult(searchTerms, searchType, includeIna
   };
 }
 
-export function searchPractitionersSuccess(searchResult, searchTerms) {
+export function searchPractitionersSuccess(searchResult, searchTerms, searchType, includeInactive) {
   return {
     type: SEARCH_PRACTITIONERS_SUCCESS,
     searchResult,
-    searchTerms,
+    queryParameters: {
+      searchTerms, searchType, includeInactive,
+    },
   };
 }
 

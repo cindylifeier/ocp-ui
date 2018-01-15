@@ -12,7 +12,7 @@ export function* loadSearchResult({ searchTerms, searchType, includeInactive, cu
 
   try {
     const searchPractitionerResult = yield call(request, requestURL);
-    yield put(searchPractitionersSuccess(searchPractitionerResult, searchTerms));
+    yield put(searchPractitionersSuccess(searchPractitionerResult, searchTerms, searchType, includeInactive));
   } catch (error) {
     yield put(searchPractitionersError(error));
   }
