@@ -9,8 +9,14 @@
   font-style: italic;
 }
 
-.grid {
+.gridContainer {
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr 1fr;
+  grid-template-columns: 2fr 3fr 3fr 1fr;
   padding-left: 10px;
+  max-width: 650px;
+}
+
+.gridItem {
+  position: relative;
+  height: auto;
 }
