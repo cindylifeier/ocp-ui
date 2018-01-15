@@ -19,7 +19,20 @@ const makeSelectOrganizations = () => createSelector(
   (substate) => substate.toJS()
 );
 
-export default makeSelectOrganizations;
+
+const makeSelectCurrentPage = () => createSelector(
+  selectOrganizationsDomain,
+  (substate) => substate.get('currentPage'),
+);
+
+const makeSelectTotalNumberOfPages = () => createSelector(
+  selectOrganizationsDomain,
+  (substate) => substate.get('totalNumberOfPages'),
+);
+
 export {
   selectOrganizationsDomain,
+  makeSelectOrganizations,
+  makeSelectCurrentPage,
+  makeSelectTotalNumberOfPages,
 };
