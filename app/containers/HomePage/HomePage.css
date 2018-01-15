@@ -1,42 +1,56 @@
-.header {
-  grid-area: header;
+
+body {
+  margin: 5px;
 }
 
-.content {
-  grid-area: content;
-}
-
-.panel {
-  grid-area: sidebar;
-}
-
-.gridContainer {
-  color: #444;
-  width: auto;
-  background-color: #fff;
-  margin: 0 auto;
+.container {
   display: grid;
-  grid-row-gap: 5px;
-  grid-template-areas:
-    "header"
-    "content"
-    "sidebar";
+  grid-gap: 5px;
+  grid-template-columns: 300px 1200px;
+  background-color: #fff;
+  color: #444;
 }
 
-.gridItem {
+.box {
   background-color: #fff;
   color: #fff;
   border-radius: 5px;
   padding: 3px;
   font-size: 150%;
+
 }
 
-/* Desktops and laptops ----------- */
-@media only screen and (min-width: 1224px) {
-  .gridContainer {
-    grid-template-columns: 1fr 4fr;
-    grid-template-areas:
-      "header header"
-      "sidebar content";
-  }
+.header {
+  grid-column: 1/4 ;
+  grid-row: 1;
+  /*     height: 500px; */
 }
+
+.sidebar {
+  grid-column: 1 ;
+  grid-row: 2/4;
+  height: 560px;
+}
+.organizations {
+  grid-column: 2 ;
+  grid-row: 2;
+  /*     height: 500px; */
+}
+
+.locations {
+  grid-column: 2 ;
+  grid-row: 3;
+  /*     height: 500px; */
+}
+
+.consult {
+  grid-column: 3 ;
+  grid-row: 2 ;
+}
+.request {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+
+

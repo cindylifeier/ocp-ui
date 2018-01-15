@@ -23,6 +23,7 @@ import styles from './Organizations.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
+import { getActiveLocations } from '../Locations/actions';
 
 export class Organizations extends React.PureComponent {
 
@@ -34,20 +35,19 @@ export class Organizations extends React.PureComponent {
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
-  handleSearch(query) {
-    this.props.loadOrganizations(query);
+  handleSearch(searchValue, showInactive, searchType) {
+    this.props.loadOrganizations(searchValue, showInactive, searchType);
   }
 
   handleRowClick({ id, name }) {
-    // TODO: dispatch action to load locations
-    console.log(id, name);
+    this.props.getActiveLocations(id, name);
   }
 
   render() {
     const { organizations } = this.props;
     return (
       <div className={styles.root}>
-        <h3><FormattedMessage {...messages.header} /></h3>
+        <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
 
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
@@ -78,6 +78,7 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   loadOrganizations: PropTypes.func.isRequired,
+  getActiveLocations: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
@@ -90,7 +91,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadOrganizations: (query, includeInactive, searchType) => dispatch(loadOrganizations(query, includeInactive, searchType)),
+    loadOrganizations: (searchValue, showInactive, searchType) => dispatch(loadOrganizations(searchValue, showInactive, searchType)),
+    getActiveLocations: (organizationId, organizationName) => dispatch(getActiveLocations(organizationId, organizationName)),
   };
 }
 

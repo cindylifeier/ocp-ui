@@ -13,29 +13,32 @@ import { ActionSearch } from 'material-ui/svg-icons';
 import messages from './messages';
 import styles from './SearchBar.css';
 
-const ENTER_KEY = 'Enter';
-
 // Material UI Styles
-const iconButtonStyle = { marginTop: '25px' };
-const checkboxStyle = { marginTop: '40px' };
-const dropdownMenuStyle = { marginTop: '15px' };
+const iconButtonStyle = { top: '26px', height: '30px' };
+const checkboxStyle = { marginTop: '40px', height: '30px' };
+const dropdownMenuStyle = { top: '24px', height: '40px', width: '200px' };
+const searchTextFieldStyle = { width: '200px' };
 
 const SEARCH_BY_NAME = 'name';
-const SEARCH_BY_ID = 'id';
+const SEARCH_BY_ID = 'logicalId';
+
+const ENTER_KEY = 'Enter';
+
+const EMPTY_STRING = '';
 
 class SearchBar extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.handleSearchValueChange = this.handleSearchValueChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleCheckIncludeInactive = this.handleCheckIncludeInactive.bind(this);
+    this.handleCheckShowInactive = this.handleCheckShowInactive.bind(this);
     this.handleSearchTypeDropdown = this.handleSearchTypeDropdown.bind(this);
-    this.isQueryValid = this.isQueryValid.bind(this);
+    this.isSearchValueValid = this.isSearchValueValid.bind(this);
     this.state = {
-      query: '',
-      includeInactive: false,
+      searchValue: EMPTY_STRING,
+      showInactive: false,
       searchType: SEARCH_BY_NAME,
     };
   }
@@ -47,47 +50,48 @@ class SearchBar extends React.PureComponent {
     }
   }
 
-  handleQueryChange(event, newValue) {
-    this.setState({ query: newValue });
+  handleSearchValueChange(event, newValue) {
+    this.setState({ searchValue: newValue });
   }
 
   handleSearch() {
-    if (this.isQueryValid()) {
-      const { query, includeInactive, searchType } = this.state;
-      this.props.onSearch(query, includeInactive, searchType);
+    if (this.isSearchValueValid()) {
+      const { searchValue, showInactive, searchType } = this.state;
+      this.props.onSearch(searchValue, showInactive, searchType);
     }
   }
 
-  handleCheckIncludeInactive() {
-    this.setState((oldState) => ({ includeInactive: !oldState.includeInactive }));
+  handleCheckShowInactive() {
+    this.setState((oldState) => ({ showInactive: !oldState.showInactive }));
   }
 
   handleSearchTypeDropdown(event, index, value) {
     this.setState({ searchType: value });
   }
 
-  isQueryValid() {
+  isSearchValueValid() {
     const { minimumLength } = this.props;
-    const { query } = this.state;
-    const queryTrimmed = query.trim();
-    return queryTrimmed !== '' && queryTrimmed.length >= minimumLength;
+    const { searchValue } = this.state;
+    const searchValueTrimmed = searchValue.trim();
+    return searchValueTrimmed !== EMPTY_STRING && searchValueTrimmed.length >= minimumLength;
   }
 
   render() {
     const { minimumLength } = this.props;
-    const { query, includeInactive } = this.state;
-    const queryValid = this.isQueryValid();
+    const { searchValue, showInactive } = this.state;
+    const searchValueValid = this.isSearchValueValid();
     return (
       <div className={styles.root}>
         <form>
           <div className={styles.grid}>
             <TextField
-              errorText={query.trim() !== '' && !queryValid ?
-                <FormattedMessage {...messages.validationMessage} values={{ minimumLength }} /> : ''}
+              style={searchTextFieldStyle}
+              errorText={searchValue.trim() !== EMPTY_STRING && !searchValueValid ?
+                <FormattedMessage {...messages.validationMessage} values={{ minimumLength }} /> : EMPTY_STRING}
               hintText={<FormattedMessage {...messages.hintText} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText} />}
-              value={query}
-              onChange={this.handleQueryChange}
+              value={searchValue}
+              onChange={this.handleSearchValueChange}
               onKeyPress={this.handleKeyPress}
             />
             <DropDownMenu
@@ -99,15 +103,15 @@ class SearchBar extends React.PureComponent {
               <MenuItem value={SEARCH_BY_ID} primaryText={<FormattedMessage {...messages.searchById} />} />
             </DropDownMenu>
             <Checkbox
-              label={<FormattedMessage {...messages.includeInactive} />}
-              checked={includeInactive}
-              onCheck={this.handleCheckIncludeInactive}
+              label={<FormattedMessage {...messages.showInactive} />}
+              checked={showInactive}
+              onCheck={this.handleCheckShowInactive}
               style={checkboxStyle}
             />
             <IconButton
               style={iconButtonStyle}
               tooltip={<FormattedMessage {...messages.buttonTooltip} />}
-              disabled={!queryValid}
+              disabled={!searchValueValid}
               onClick={this.handleSearch}
             >
               <ActionSearch />

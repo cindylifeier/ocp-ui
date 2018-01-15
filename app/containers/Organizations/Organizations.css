@@ -4,6 +4,10 @@
   margin: 10px;
 }
 
+.header {
+  margin: 5px
+}
+
 .textCenter {
   text-align: center;
 }
