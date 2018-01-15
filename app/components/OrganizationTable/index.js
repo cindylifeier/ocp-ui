@@ -14,11 +14,11 @@ function OrganizationTable(props) {
   return (
     <div className={styles.table}>
       <div className={styles.rowGridContainer}>
-        <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderOrganization} /></div>
-        <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderAddress} /></div>
-        <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderTelephone} /></div>
-        <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderId} /></div>
-        <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderStatus} /></div>
+        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderOrganization} /></div>
+        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderAddress} /></div>
+        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderTelephone} /></div>
+        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderId} /></div>
+        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderStatus} /></div>
       </div>
       {React.Children.map(props.children, (child, i) => {
         const striped = !(i % 2);
