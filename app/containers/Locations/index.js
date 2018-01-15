@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
   makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectLocations,
-  makeSelectOrganization, makeSelectTotalElements,
+  makeSelectOrganization, makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -121,7 +121,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
         <div className={styles.pagination}>
           <UltimatePagination
             currentPage={this.props.currentPage}
-            totalPages={this.props.totalElements}
+            totalPages={this.props.totalNumberOfPages}
             boundaryPagesRange={1}
             siblingPagesRange={1}
             hidePreviousAndNextPageLinks={false}
@@ -151,8 +151,8 @@ Locations.propTypes = {
   onChangePage: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
-  totalElements: PropTypes.number,
   currentPage: PropTypes.number,
+  totalNumberOfPages: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -160,7 +160,7 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
-  totalElements: makeSelectTotalElements(),
+  totalNumberOfPages: makeSelectTotalNumberOfPages(),
 });
 
 function mapDispatchToProps(dispatch) {
