@@ -29,13 +29,13 @@ import { loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
 import styles from './Patients.css';
 import messages from './messages';
-import { ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 
 export class Patients extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerms: '',
+      searchTerms: EMPTY_STRING,
       searchType: SEARCH_TYPE.NAME,
       includeInactive: false,
       currentPage: 1,
@@ -96,7 +96,7 @@ export class Patients extends React.Component {
                   style={{ width: '45%' }}
                   hintText="Name or ID"
                   underlineShow={false}
-                  errorText={this.state.searchTerms.trim().length > 0 && this.state.searchTerms.length < 3 ?
+                  errorText={this.state.searchTerms.trim().length > 0 && this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH ?
                     <FormattedMessage {...messages.searchTermsInvalid} values={{ SEARCH_TERM_MIN_LENGTH }} /> : ''}
                   value={this.state.searchTerms}
                   onChange={this.handleChangeSearchTerms}
@@ -129,6 +129,7 @@ export class Patients extends React.Component {
               <div className={styles.centerElement}>
                 <IconButton
                   iconClassName="fa fa-search"
+                  disabled={this.state.searchTerms.trim() === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
                   onClick={this.handleSearch}
                 />
               </div>
