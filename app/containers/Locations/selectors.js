@@ -35,9 +35,9 @@ const makeSelectCurrentPageSize = () => createSelector(
   (substate) => substate.get('currentPageSize'),
 );
 
-const makeSelectTotalElements = () => createSelector(
+const makeSelectTotalNumberOfPages = () => createSelector(
   selectLocationsDomain,
-  (substate) => substate.get('totalElements'),
+  (substate) => substate.get('totalNumberOfPages'),
 );
 
 
@@ -47,5 +47,5 @@ export {
   makeSelectOrganization,
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
-  makeSelectTotalElements,
+  makeSelectTotalNumberOfPages,
 };
