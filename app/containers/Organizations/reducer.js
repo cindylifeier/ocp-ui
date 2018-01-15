@@ -10,6 +10,8 @@ import { LOAD_ORGANIZATIONS, LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCES
 const initialState = fromJS({
   loading: false,
   data: [],
+  currentPage: 0,
+  totalNumberOfPages: 0,
 });
 
 function organizationsReducer(state = initialState, action) {
@@ -20,7 +22,9 @@ function organizationsReducer(state = initialState, action) {
     case LOAD_ORGANIZATIONS_SUCCESS:
       return state
         .set('loading', false)
-        .set('data', action.organizations);
+        .set('data', action.organizations.elements)
+        .setIn(['totalNumberOfPages'], action.organizations.totalNumberOfPages)
+        .setIn(['currentPage'], action.organizations.currentPage);
     case LOAD_ORGANIZATIONS_ERROR:
       return state
         .set('loading', false)

@@ -6,12 +6,13 @@
 
 import { LOAD_ORGANIZATIONS, LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCESS } from './constants';
 
-export function loadOrganizations(searchValue, showInactive, searchType) {
+export function loadOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
     type: LOAD_ORGANIZATIONS,
     searchValue,
     showInactive,
     searchType,
+    currentPage,
   };
 }
 
