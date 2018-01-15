@@ -1,21 +1,23 @@
-
-.nav {
-  background-color: #076F7D;
-  height: 102vh;
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 100%;
+  min-width:220px;
 }
 
-.button {
-  width: 90%;
+.searchBoxGridItem {
+  border-radius: 25px;
+  grid-column: 2 / span 7;
+}
+
+.menuGridItem {
   margin-bottom: 2px;
   border-radius: 25px;
+  grid-column: 2 / span 10;
 }
 
-.searchBox {
-  width: 60%;
-  border-radius: 25px;
+.searchIconGridItem{
+  grid-column: 10 / span 2;
 }
 
-.marginTopBottom15 {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
+
