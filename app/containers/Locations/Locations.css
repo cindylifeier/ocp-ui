@@ -49,3 +49,8 @@
 .cellGridHeaderItem {
   font-size: 15px;
 }
+
+
+.pagination {
+  text-align: center;
+}

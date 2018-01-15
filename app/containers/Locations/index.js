@@ -9,10 +9,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectLocations, makeSelectOrganization } from './selectors';
+import {
+  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectLocations,
+  makeSelectOrganization, makeSelectTotalElements,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -27,9 +30,11 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.state = {
       inactiveStatus: false,
       suspendedStatus: false,
+      currentPage: 1,
     };
     this.handleInactiveChecked = this.handleInactiveChecked.bind(this);
     this.handleSuspendedChecked = this.handleSuspendedChecked.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
   getTelecoms(telecoms) {
     return telecoms.map((entry) =>
@@ -57,6 +62,20 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.setState({ suspendedStatus: newValue });
     const inactiveStatus = this.state.inactiveStatus;
     this.props.onCheckShowSuspended(event, newValue, inactiveStatus);
+  }
+
+  handlePageClick(currentPage) {
+    const status = [];
+    this.setState({ currentPage });
+    if (this.state.inactiveStatus) {
+      status.push(STATUS_INACTIVE);
+    }
+
+    if (this.state.suspendedStatus) {
+      status.push(STATUS_SUSPENDED);
+    }
+
+    this.props.onChangePage(status, currentPage);
   }
   createRows() {
     if (this.props.data) {
@@ -101,6 +120,18 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
             {this.createRows()}
           </div>
         </div>
+        <div className={styles.pagination}>
+          <UltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalElements}
+            boundaryPagesRange={1}
+            siblingPagesRange={1}
+            hidePreviousAndNextPageLinks={false}
+            hideFirstAndLastPageLinks={false}
+            hideEllipsis={false}
+            onChange={this.handlePageClick}
+          />
+        </div>
       </div>
     );
   }
@@ -119,13 +150,19 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
 Locations.propTypes = {
   onCheckShowInactive: PropTypes.func.isRequired,
   onCheckShowSuspended: PropTypes.func.isRequired,
+  onChangePage: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
+  totalElements: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectLocations(),
   organization: makeSelectOrganization(),
+  currentPage: makeSelectCurrentPage(),
+  currentPageSize: makeSelectCurrentPageSize(),
+  totalElements: makeSelectTotalElements(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -138,7 +175,8 @@ function mapDispatchToProps(dispatch) {
       if (suspendedCheckboxStatus) {
         status.push(STATUS_SUSPENDED);
       }
-      dispatch(getFilteredLocations(status));
+      const currentPage = 1;
+      dispatch(getFilteredLocations(status, currentPage));
     },
     onCheckShowSuspended: (evt, checked, inactiveCheckboxStatus) => {
       const status = [];
@@ -148,8 +186,10 @@ function mapDispatchToProps(dispatch) {
       if (inactiveCheckboxStatus) {
         status.push(STATUS_INACTIVE);
       }
-      dispatch(getFilteredLocations(status));
+      const currentPage = 1;
+      dispatch(getFilteredLocations(status, currentPage));
     },
+    onChangePage: (status, currentPage) => dispatch(getFilteredLocations(status, currentPage)),
   };
 }
 
