@@ -30,3 +30,8 @@
   margin: 0;
   overflow-wrap: break-words;
 }
+
+
+.pagination {
+  text-align: center;
+}
