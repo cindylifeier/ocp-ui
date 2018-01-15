@@ -12,7 +12,7 @@ export default defineMessages({
   },
   inactive: {
     id: 'app.containers.Patients.checkbox.inactive',
-    defaultMessage: 'Show Inactive',
+    defaultMessage: 'Include inactive',
   },
   searchTermsInvalid: {
     id: 'app.containers.Patients.header',
