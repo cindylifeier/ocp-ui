@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { searchPractitionersError, searchPractitionersSuccess } from './actions';
-import { LOAD_PRACTITIONER_SEARCH_RESULT } from './constants';
+import { DEFAULT_PAGE_SIZE, LOAD_PRACTITIONER_SEARCH_RESULT } from './constants';
 import request from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 
-export function* loadSearchResult({ searchTerms, searchType, includeInactive }) {
-  const query = `searchType=${searchType}&searchValue=${searchTerms}&showInactive=${includeInactive}`;
+export function* loadSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
+  const query = `searchType=${searchType}&searchValue=${searchTerms}&showInactive=${includeInactive}&page=${currentPage}&size=${DEFAULT_PAGE_SIZE}`;
   const apiBaseURL = getApiBaseUrl();
   const requestURL = `${apiBaseURL}/practitioners/search?${query}`;
 

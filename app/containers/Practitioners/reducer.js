@@ -15,6 +15,9 @@ const initialState = fromJS({
   error: false,
   searchPractitioners: {
     result: false,
+    totalPages: 0,
+    currentPageSize: 0,
+    currentPage: 0,
   },
 });
 
@@ -28,6 +31,9 @@ function practitionersReducer(state = initialState, action) {
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
         .setIn(['searchPractitioners', 'result'], action.searchResult)
+        .setIn(['searchPractitioners', 'currentPage'], action.searchResult.currentPage)
+        .setIn(['searchPractitioners', 'currentPageSize'], action.searchResult.currentPageSize)
+        .setIn(['searchPractitioners', 'totalPages'], action.searchResult.totalNumberOfPages)
         .set('loading', false);
     case SEARCH_PRACTITIONERS_ERROR:
       return state

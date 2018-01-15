@@ -6,12 +6,13 @@
 
 import { LOAD_PRACTITIONER_SEARCH_RESULT, SEARCH_PRACTITIONERS_ERROR, SEARCH_PRACTITIONERS_SUCCESS } from './constants';
 
-export function loadPractitionerSearchResult(searchTerms, searchType, includeInactive) {
+export function loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage) {
   return {
     type: LOAD_PRACTITIONER_SEARCH_RESULT,
     searchTerms,
     searchType,
     includeInactive,
+    currentPage,
   };
 }
 
