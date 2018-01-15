@@ -15,7 +15,7 @@ LocationService.getLocationsByIdAndStatus = function (organizationId, status, cu
 };
 
 function createUrl(organizationId, status, currentPage) {
-  const initialParams = `page=${currentPage}&size=${DEFAULT_PAGE_SIZE}&status=active,`;
+  const initialParams = `pageNumber=${currentPage}&pageSize=${DEFAULT_PAGE_SIZE}&statusList=active,`;
   let queryParams = '';
   const apiBaseUrl = getApiBaseUrl();
   const baseUrl = `${apiBaseUrl}/organizations/${organizationId}`.concat('/locations?');
