@@ -6,16 +6,16 @@
 
 import ApiService from '../../utils/ApiService';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { DEFAULT_PAGE_SIZE } from './constants';
 
 const LocationService = {};
-LocationService.getLocationsByIdAndStatus = function (organizationId, status) {
-  const url = createUrl(organizationId, status);
+LocationService.getLocationsByIdAndStatus = function (organizationId, status, currentPage) {
+  const url = createUrl(organizationId, status, currentPage);
   return ApiService.getData(url);
 };
 
-function createUrl(organizationId, status) {
-  // TODO: Refactore code to pass page number when implementing pagination
-  const initialParams = 'page=1&status=active,';
+function createUrl(organizationId, status, currentPage) {
+  const initialParams = `page=${currentPage}&size=${DEFAULT_PAGE_SIZE}&status=active,`;
   let queryParams = '';
   const apiBaseUrl = getApiBaseUrl();
   const baseUrl = `${apiBaseUrl}/organizations/${organizationId}`.concat('/locations?');
