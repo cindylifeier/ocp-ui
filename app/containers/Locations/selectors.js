@@ -25,9 +25,27 @@ const makeSelectOrganization = () => createSelector(
   (substate) => substate.get('organization'),
 );
 
+const makeSelectCurrentPage = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('currentPage'),
+);
+
+const makeSelectCurrentPageSize = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('currentPageSize'),
+);
+
+const makeSelectTotalElements = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('totalElements'),
+);
+
 
 export {
   makeSelectLocations,
   selectLocationsDomain,
   makeSelectOrganization,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectTotalElements,
 };

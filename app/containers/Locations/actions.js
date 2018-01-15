@@ -12,18 +12,20 @@ import {
 } from './constants';
 
 
-export function getFilteredLocations(status) {
+export function getFilteredLocations(status, currentPage) {
   return {
     type: GET_FILTERED_LOCATIONS,
     status,
+    currentPage,
   };
 }
 
-export function getActiveLocations(organizationId, organizationName) {
+export function getActiveLocations(organizationId, organizationName, currentPage) {
   return {
     type: GET_ACTIVE_LOCATIONS,
     organizationId,
     organizationName,
+    currentPage,
   };
 }
 
