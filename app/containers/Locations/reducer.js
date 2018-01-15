@@ -15,6 +15,7 @@ const initialState = fromJS({
   data: [],
   organization: {},
   totalElements: 0,
+  currentPageSize: 0,
 });
 
 function locationsReducer(state = initialState, action) {
