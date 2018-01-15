@@ -1,19 +1,24 @@
+.wrapper {
+  padding: 10px;
+  background-color: white;
+  margin: 10px;
+  position: relative;
+}
+
 .gridContainer {
   display: grid;
-  grid-template-columns: 4fr 2fr 4fr 1fr;
-  grid-column-gap: 10px;
+  grid-template-columns: 3fr 3fr 3fr 1fr;
+  margin-top: 5px;
 }
 
-.paper {
-  height: 43px;
+.gridItem {
+  position: relative;
+  height: auto;
 }
 
-.searchField {
-  margin: auto 16px;
-  width: 40%
-}
-
-.checkBox {
-  padding-top: 10px;
-  max-width: 95%;
+.centerElement {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
 }
