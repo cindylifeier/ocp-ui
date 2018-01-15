@@ -11,10 +11,10 @@ import styles from './OrganizationTableRow.css';
 const ENTER_KEY = 'Enter';
 
 function OrganizationTableRow(props) {
-  const { name, address, telephone, id, status, striped, onRowClick } = props;
+  const { name, address, telephone, id, status, onRowClick } = props;
   return (
     <div
-      className={`${styles.rowGridContainerOrganization} ${striped ? styles.striped : ''}`}
+      className={styles.rowGridContainer}
       onClick={() => onRowClick && onRowClick(props)}
       onKeyPress={(e) => {
         if (e.key === ENTER_KEY) {
@@ -27,7 +27,6 @@ function OrganizationTableRow(props) {
       role="button"
       tabIndex="0"
     >
-      <div className={styles.cellGridItem}>&gt;</div>
       <div className={styles.cellGridItem}>{name}</div>
       <div className={styles.cellGridItem}>{address}</div>
       <div className={styles.cellGridItem}>{telephone}</div>
@@ -43,7 +42,6 @@ OrganizationTableRow.propTypes = {
   telephone: PropTypes.string,
   id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  striped: PropTypes.bool,
   onRowClick: PropTypes.func,
 };
 

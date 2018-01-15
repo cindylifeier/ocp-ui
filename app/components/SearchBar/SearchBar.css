@@ -11,6 +11,6 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: 3fr 3fr 3fr 1fr;
   padding-left: 10px;
 }

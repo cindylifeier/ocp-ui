@@ -10,12 +10,10 @@ import styles from './OrganizationTable.css';
 import Organization from '../../components/OrganizationTableRow/Loadable';
 import messages from './messages';
 
-
 function OrganizationTable(props) {
   return (
     <div className={styles.table}>
-      <div className={styles.rowGridContainerOrganization}>
-        <div className={styles.cellGridItem} />
+      <div className={styles.rowGridContainer}>
         <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderOrganization} /></div>
         <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderAddress} /></div>
         <div className={styles.cellGridItem}><FormattedMessage {...messages.tableColumnHeaderTelephone} /></div>
