@@ -3,6 +3,7 @@
   background-color: white;
   margin: 10px;
   position: relative;
+  min-width: 600px;
 }
 
 .gridContainer {

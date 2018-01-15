@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -77,12 +76,12 @@ export class Patients extends React.Component {
     };
 
     return (
-      <div>
+      <div className={styles.wrapper}>
         <h3><FormattedMessage {...messages.header} /></h3>
         <form>
           <div className={styles.gridContainer}>
-            <div>
-              <Paper className={styles.paper}>
+            <div className={styles.gridItem}>
+              <div className={styles.centerElement}>
                 <TextField
                   className={styles.searchField}
                   style={{ width: '45%' }}
@@ -94,10 +93,10 @@ export class Patients extends React.Component {
                   onChange={this.handleChangeSearchTerms}
                   onKeyPress={this.preventEnterSubmission}
                 />
-              </Paper>
+              </div>
             </div>
-            <div>
-              <Paper className={styles.paper}>
+            <div className={styles.gridItem}>
+              <div className={styles.centerElement}>
                 <DropDownMenu
                   value={this.state.searchType}
                   onChange={this.handleChangeSearchType}
@@ -105,23 +104,25 @@ export class Patients extends React.Component {
                   <MenuItem value={SEARCH_TYPE.NAME} primaryText="By Name" />
                   <MenuItem value={SEARCH_TYPE.IDENTIFIER} primaryText="By ID" />
                 </DropDownMenu>
-              </Paper>
+              </div>
             </div>
-            <div>
-              <Paper className={styles.paper}>
+            <div className={styles.gridItem}>
+              <div className={styles.centerElement}>
                 <Checkbox
                   className={styles.checkBox}
                   label={<FormattedMessage {...messages.inactive} />}
                   value={this.state.includeInactive}
                   onCheck={this.handleChangeShowInactive}
                 />
-              </Paper>
+              </div>
             </div>
-            <div>
-              <IconButton
-                iconClassName="fa fa-search"
-                onClick={this.handleSearch}
-              />
+            <div className={styles.gridItem}>
+              <div className={styles.centerElement}>
+                <IconButton
+                  iconClassName="fa fa-search"
+                  onClick={this.handleSearch}
+                />
+              </div>
             </div>
           </div>
         </form>
