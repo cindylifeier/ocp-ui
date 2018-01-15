@@ -13,7 +13,7 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectLocations,
+  makeSelectCurrentPage, makeSelectLocations,
   makeSelectOrganization, makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
@@ -161,7 +161,6 @@ const mapStateToProps = createStructuredSelector({
   data: makeSelectLocations(),
   organization: makeSelectOrganization(),
   currentPage: makeSelectCurrentPage(),
-  currentPageSize: makeSelectCurrentPageSize(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
 });
 
