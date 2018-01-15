@@ -153,8 +153,8 @@ Locations.propTypes = {
   onChangePage: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
-  currentPage: PropTypes.number,
-  totalNumberOfPages: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
+  totalNumberOfPages: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

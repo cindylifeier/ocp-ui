@@ -111,8 +111,8 @@ export class Organizations extends React.PureComponent {
 Organizations.propTypes = {
   loadOrganizations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
-  currentPage: PropTypes.number,
-  totalNumberOfPages: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
+  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
