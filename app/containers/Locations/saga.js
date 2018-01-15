@@ -18,9 +18,9 @@ export function* getLocationsByOrganizationIdAndStatus(action) {
     const organization = yield select(makeSelectOrganization());
     let locations;
     if (action.status) {
-      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status);
+      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status, action.currentPage);
     } else if (!action.status) {
-      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, []);
+      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, [], 1);
     }
     yield put(getLocationsSuccess(locations));
   } catch (err) {
