@@ -17,12 +17,13 @@ export function defaultAction() {
   };
 }
 
-export function loadPatientSearchResult(searchTerms, searchType, includeInactive) {
+export function loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage) {
   return {
     type: LOAD_PATIENT_SEARCH_RESULT,
     searchTerms,
     searchType,
     includeInactive,
+    currentPage,
   };
 }
 

@@ -15,15 +15,19 @@ import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult } from './selectors';
+import {
+  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectSearchError, makeSelectSearchLoading,
+  makeSelectSearchResult, makeSelectTotalPages,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './Practitioners.css';
-import { ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { loadPractitionerSearchResult } from './actions';
 
@@ -31,13 +35,15 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.state = {
-      searchTerms: '',
+      searchTerms: EMPTY_STRING,
       searchType: SEARCH_TYPE.NAME,
       includeInactive: false,
+      currentPage: 1,
     };
     this.handleChangeSearchTerms = this.handleChangeSearchTerms.bind(this);
     this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
+    this.handleChangePage = this.handleChangePage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -53,9 +59,14 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.setState({ includeInactive: checked });
   }
 
+  handleChangePage(newPage) {
+    this.setState({ currentPage: newPage });
+    this.props.onChangePage(this.state.searchTerms, this.state.searchType, this.state.includeInactive, newPage);
+  }
+
   handleSearch() {
     if (this.state.searchTerms && this.state.searchTerms.trim().length > 0) {
-      this.props.onSubmitForm(this.state.searchTerms, this.state.searchType, this.state.includeInactive);
+      this.props.onSubmitForm(this.state.searchTerms, this.state.searchType, this.state.includeInactive, this.state.currentPage);
     }
   }
 
@@ -116,6 +127,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
                 <IconButton
                   iconClassName="fa fa-search"
                   onClick={this.handleSearch}
+                  disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
                 />
               </div>
             </div>
@@ -123,6 +135,20 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         </form>
         <br />
         <PractitionerSearchResult {...searchResultProps} />
+        <div className={styles.pagination}>
+          {this.props.searchResult &&
+          <UltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            boundaryPagesRange={1}
+            siblingPagesRange={1}
+            hidePreviousAndNextPageLinks={false}
+            hideFirstAndLastPageLinks={false}
+            hideEllipsis={false}
+            onChange={this.handleChangePage}
+          />
+          }
+        </div>
       </div>
     );
   }
@@ -138,10 +164,16 @@ Practitioners.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  onChangePage: PropTypes.func,
   onSubmitForm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
+  currentPage: makeSelectCurrentPage(),
+  currentPageSize: makeSelectCurrentPageSize(),
+  totalPages: makeSelectTotalPages(),
   searchResult: makeSelectSearchResult(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
@@ -150,8 +182,10 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitForm: (searchTerms, searchType, includeInactive) => {
-      dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive));
+      const currentPage = 1;
+      dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
+    onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
   };
 }
 
