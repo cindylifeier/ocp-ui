@@ -15,8 +15,8 @@ const initialState = fromJS({
   data: [],
   organization: {},
   totalElements: 0,
-  currentPageSize: 0,
   currentPage: 0,
+  totalNumberOfPages: 0,
 });
 
 function locationsReducer(state = initialState, action) {
@@ -24,7 +24,7 @@ function locationsReducer(state = initialState, action) {
     case GET_LOCATIONS_SUCCESS:
       return state.set('data', fromJS((action.locations && action.locations.elements) || []))
         .setIn(['totalElements'], action.locations.totalElements)
-        .setIn(['currentPageSize'], action.locations.currentPageSize)
+        .setIn(['totalNumberOfPages'], action.locations.totalNumberOfPages)
         .setIn(['currentPage'], action.locations.currentPage);
     case GET_ACTIVE_LOCATIONS: {
       const organization = { id: action.organizationId, name: action.organizationName };

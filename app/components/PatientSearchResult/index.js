@@ -61,8 +61,8 @@ function PatientSearchResult({ loading, error, searchResult }) {
     return (
       <div className={styles.table}>
         <div className={styles.rowGridContainer}>
-          <div className={styles.cellGridHeaderItem}>FirstName</div>
-          <div className={styles.cellGridHeaderItem}>LastName</div>
+          <div className={styles.cellGridHeaderItem}>First Name</div>
+          <div className={styles.cellGridHeaderItem}>Last Name</div>
           <div className={styles.cellGridHeaderItem}>DOB</div>
           <div className={styles.cellGridHeaderItem}>Gender</div>
           <div className={styles.cellGridHeaderItem}>Identifier</div>

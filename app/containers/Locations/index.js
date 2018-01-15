@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
   makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectLocations,
-  makeSelectOrganization, makeSelectTotalElements,
+  makeSelectOrganization, makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -81,10 +81,10 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     if (this.props.data) {
       return this.props.data.map((location) => (
         <div key={location.logicalId} className={styles.rowGridContainer}>
-          <div>{location.name}</div>
-          <div>{location.status}</div>
-          <div>{this.getTelecoms(location.telecoms)}</div>
-          <div>{this.getAddress(location.address)} </div>
+          <div className={styles.cellGridItem}>{location.name}</div>
+          <div className={styles.cellGridItem}>{location.status}</div>
+          <div className={styles.cellGridItem}>{this.getTelecoms(location.telecoms)}</div>
+          <div className={styles.cellGridItem}>{this.getAddress(location.address)} </div>
         </div>
       ));
     }
@@ -94,6 +94,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     return (
       <div>
         <div className={styles.wrapper}>
+          <div> <strong>Organization Name: </strong>
+            {this.props.organization ? this.props.organization.name : ''}</div>
           <div className={styles.actionGridContainer}>
             <StatusCheckbox
               messages={messages.inactive}
@@ -107,21 +109,21 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
               handleCheck={this.handleSuspendedChecked}
             >
             </StatusCheckbox>
-            <div> <strong>Organization Name: </strong>
-              {this.props.organization ? this.props.organization.name : ''}</div>
           </div>
-          <div className={styles.rowGridContainer}>
-            <div className={styles.cellGridContainer}>Name</div>
-            <div className={styles.cellGridContainer}>Status</div>
-            <div className={styles.cellGridContainer}>Telecoms</div>
-            <div className={styles.cellGridContainer}>Address</div>
+          <div className={styles.table}>
+            <div className={styles.rowGridContainer}>
+              <div className={styles.cellGridHeaderItem}>Name</div>
+              <div className={styles.cellGridHeaderItem}>Status</div>
+              <div className={styles.cellGridHeaderItem}>Telecoms</div>
+              <div className={styles.cellGridHeaderItem}>Address</div>
+            </div>
+            {this.createRows()}
           </div>
-          {this.createRows()}
         </div>
         <div className={styles.pagination}>
           <UltimatePagination
             currentPage={this.props.currentPage}
-            totalPages={this.props.totalElements}
+            totalPages={this.props.totalNumberOfPages}
             boundaryPagesRange={1}
             siblingPagesRange={1}
             hidePreviousAndNextPageLinks={false}
@@ -151,8 +153,8 @@ Locations.propTypes = {
   onChangePage: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
-  totalElements: PropTypes.number,
   currentPage: PropTypes.number,
+  totalNumberOfPages: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -160,7 +162,7 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
-  totalElements: makeSelectTotalElements(),
+  totalNumberOfPages: makeSelectTotalNumberOfPages(),
 });
 
 function mapDispatchToProps(dispatch) {
