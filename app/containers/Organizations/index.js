@@ -44,9 +44,7 @@ export class Organizations extends React.PureComponent {
   }
 
   handleSearch(searchValue, showInactive, searchType) {
-    this.setState({ searchValue });
-    this.setState({ showInactive });
-    this.setState({ searchType });
+    this.setState({ searchValue, showInactive, searchType });
     this.props.loadOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
   }
 
@@ -56,7 +54,6 @@ export class Organizations extends React.PureComponent {
   }
 
   handlePageClick(currentPage) {
-    console.log(currentPage);
     this.setState({ currentPage });
     this.props.loadOrganizations(this.state.searchValue, this.state.showInactive, this.state.searchType, currentPage);
   }
