@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardText, Drawer, FontIcon, IconButton, Paper, Subheader } from 'material-ui';
-import css from './style.css';
+import styles from './style.css';
 import FhirUtil from '../../utils/FhirUtil';
 import genericAvatar from '../../images/generic-avatar.png';
 import { homeUse, mobileUse, tempUse, workUse } from '../../utils/constants';
@@ -26,9 +26,9 @@ class PatientRecord extends React.PureComponent { // eslint-disable-line react/p
   render() {
     return (
       <div>
-        <Paper className={css.paper}>
+        <Paper className={styles.paper}>
           <div>
-            <img src={genericAvatar} className={css.img} alt="avatar" />
+            <img src={genericAvatar} className={styles.img} alt="avatar" />
             <div>
               <strong>Name: </strong>{FhirUtil.getFhirPatientName(this.props.patient)}
             </div>
