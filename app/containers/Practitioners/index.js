@@ -26,7 +26,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './Practitioners.css';
+import styles from './style.css';
 import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { loadPractitionerSearchResult } from './actions';
