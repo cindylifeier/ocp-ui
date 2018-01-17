@@ -16,7 +16,7 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import { DropDownMenu } from 'material-ui';
-import styles from './Header.css';
+import styles from './style.css';
 import LogoutButton from '../LogoutButton/index';
 
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function

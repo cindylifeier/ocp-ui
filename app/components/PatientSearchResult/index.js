@@ -8,7 +8,7 @@ import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
-import styles from './PatientSearchResult.css';
+import styles from './style.css';
 
 function displayPatientSearchResult(patients) {
   return patients && patients.map((patient) => (

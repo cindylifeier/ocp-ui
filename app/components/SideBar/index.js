@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import styles from './SideBar.css';
+import styles from './style.css';
 
 class SideBar extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

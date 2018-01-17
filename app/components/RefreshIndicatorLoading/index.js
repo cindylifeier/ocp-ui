@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RefreshIndicator } from 'material-ui';
-import styles from './RefreshIndicatorLoading.css';
+import styles from './style.css';
 
 function RefreshIndicatorLoading() {
   return (
