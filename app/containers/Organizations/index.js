@@ -20,7 +20,7 @@ import saga from './saga';
 import messages from './messages';
 import { loadOrganizations } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import styles from './style.css';
+import styles from './styles.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';

@@ -19,7 +19,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './style.css';
+import styles from './styles.css';
 import { getFilteredLocations } from './actions';
 import { STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
 import StatusCheckbox from '../../components/StatusCheckbox';

@@ -11,7 +11,7 @@
 
 import React from 'react';
 // import { FormattedMessage } from 'react-intl';
-import styles from './style.css';
+import styles from './styles.css';
 import Header from '../../components/Header/index';
 import SideBar from '../../components/SideBar/index';
 import GoldenLayout from '../../components/GoldenLayout/Loadable';

@@ -18,7 +18,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 
-import styles from './style.css';
+import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
 
 

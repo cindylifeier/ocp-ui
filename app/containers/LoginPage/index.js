@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { AppBar, Card, RaisedButton, TextField } from 'material-ui';
 
-import styles from './style.css';
+import styles from './styles.css';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
