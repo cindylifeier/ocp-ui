@@ -5,7 +5,7 @@ import { DEFAULT_PAGE_SIZE, LOAD_PRACTITIONER_SEARCH_RESULT } from './constants'
 import request from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 
-export function* loadSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
+export function* fetchSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
   const query = `searchType=${searchType}&searchValue=${searchTerms}&showInactive=${includeInactive}&page=${currentPage}&size=${DEFAULT_PAGE_SIZE}`;
   const apiBaseURL = getApiBaseUrl();
   const requestURL = `${apiBaseURL}/practitioners/search?${query}`;
@@ -18,6 +18,9 @@ export function* loadSearchResult({ searchTerms, searchType, includeInactive, cu
   }
 }
 
+/**
+ * Root saga manages watcher lifecycle
+ */
 export default function* watchFetchPractitioners() {
-  yield takeLatest(LOAD_PRACTITIONER_SEARCH_RESULT, loadSearchResult);
+  yield takeLatest(LOAD_PRACTITIONER_SEARCH_RESULT, fetchSearchResult);
 }

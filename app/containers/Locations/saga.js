@@ -13,7 +13,7 @@ import LocationService from './LocationService';
  * Get locations by Organization id and status
  * @params action: the action whick contains the status and organization id in the payload
  */
-export function* getLocationsByOrganizationIdAndStatus(action) {
+export function* fetchLocationsByOrganizationIdAndStatus(action) {
   try {
     const organization = yield select(makeSelectOrganization());
     let locations;
@@ -31,7 +31,7 @@ export function* getLocationsByOrganizationIdAndStatus(action) {
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* getLocations() {
-  yield takeLatest(GET_ACTIVE_LOCATIONS, getLocationsByOrganizationIdAndStatus);
-  yield takeLatest(GET_FILTERED_LOCATIONS, getLocationsByOrganizationIdAndStatus);
+export default function* watchFetchLocations() {
+  yield takeLatest(GET_ACTIVE_LOCATIONS, fetchLocationsByOrganizationIdAndStatus);
+  yield takeLatest(GET_FILTERED_LOCATIONS, fetchLocationsByOrganizationIdAndStatus);
 }

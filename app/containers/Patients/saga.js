@@ -1,20 +1,24 @@
-import { put, takeLatest } from 'redux-saga/effects';
-import { LOAD_PATIENT_SEARCH_RESULT, DEFAULT_PAGE_SIZE } from './constants';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { DEFAULT_PAGE_SIZE, LOAD_PATIENT_SEARCH_RESULT } from './constants';
 import { searchPatientsError, searchPatientsSuccess } from './actions';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
+import request from '../../utils/request';
 
-export function* loadSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
+export function* fetchSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
   const apiBaseURL = getApiBaseUrl();
   const requestURL = `${apiBaseURL}/patients/search?value=${searchTerms}&showInactive=${includeInactive}&type=${searchType}&page=${currentPage}&size=${DEFAULT_PAGE_SIZE}`;
 
   try {
-    const searchPatientResult = yield fetch(requestURL).then((resp) => resp.json());
+    const searchPatientResult = yield call(request, requestURL);
     yield put(searchPatientsSuccess(searchPatientResult));
   } catch (error) {
     yield put(searchPatientsError(error));
   }
 }
 
-export default function* getPatients() {
-  yield takeLatest(LOAD_PATIENT_SEARCH_RESULT, loadSearchResult);
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* watchFetchPatients() {
+  yield takeLatest(LOAD_PATIENT_SEARCH_RESULT, fetchSearchResult);
 }
