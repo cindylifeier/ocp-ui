@@ -31,6 +31,9 @@ function practitionersReducer(state = initialState, action) {
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
         .setIn(['searchPractitioners', 'result'], action.searchResult)
+        .setIn(['searchPractitioners', 'queryParameters', 'searchTerms'], action.queryParameters.searchTerms)
+        .setIn(['searchPractitioners', 'queryParameters', 'searchType'], action.queryParameters.searchType)
+        .setIn(['searchPractitioners', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)
         .setIn(['searchPractitioners', 'currentPage'], action.searchResult.currentPage)
         .setIn(['searchPractitioners', 'currentPageSize'], action.searchResult.currentPageSize)
         .setIn(['searchPractitioners', 'totalPages'], action.searchResult.totalNumberOfPages)

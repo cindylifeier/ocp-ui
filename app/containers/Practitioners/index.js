@@ -20,8 +20,9 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectSearchError, makeSelectSearchLoading,
-  makeSelectSearchResult, makeSelectTotalPages,
+  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType, makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -61,7 +62,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
   handleChangePage(newPage) {
     this.setState({ currentPage: newPage });
-    this.props.onChangePage(this.state.searchTerms, this.state.searchType, this.state.includeInactive, newPage);
+    this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
   }
 
   handleSearch() {
@@ -164,6 +165,9 @@ Practitioners.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
+  searchTerms: PropTypes.string,
+  searchType: PropTypes.string,
+  includeInactive: PropTypes.bool,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
@@ -174,6 +178,9 @@ const mapStateToProps = createStructuredSelector({
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
   totalPages: makeSelectTotalPages(),
+  searchTerms: makeSelectQuerySearchTerms(),
+  searchType: makeSelectQuerySearchType(),
+  includeInactive: makeSelectQueryIncludeInactive(),
   searchResult: makeSelectSearchResult(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
