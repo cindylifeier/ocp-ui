@@ -1,22 +1,29 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
-// Individual exports for testing
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { LOAD_ORGANIZATIONS } from './constants';
-import getOrganizations from './api';
+import { DEFAULT_PAGE_SIZE, LOAD_ORGANIZATIONS } from './constants';
 import { loadOrganizationsError, loadOrganizationsSuccess } from './actions';
+import queryString from '../../utils/queryString';
+import getApiBaseUrl from '../../apiBaseUrlConfig';
+import request from '../../utils/request';
+import { mapToFrontendOrganizationList } from './api';
 
-export function* getOrganizationsFromApi({ searchValue, showInactive, searchType, currentPage }) {
+const baseApiUrl = getApiBaseUrl();
+
+export function* fetchSearchOrganizationsResult({ searchValue, showInactive, searchType, currentPage }) {
+  const params = queryString({ searchValue, showInactive, searchType, size: DEFAULT_PAGE_SIZE, page: currentPage });
+  const requestURL = `${baseApiUrl}/organizations/search${params}`;
   try {
     if (searchValue) {
-      const organizations = yield call(getOrganizations, searchValue, showInactive, searchType, currentPage);
-      yield put(loadOrganizationsSuccess(organizations));
+      const organizations = yield call(request, requestURL);
+      yield put(loadOrganizationsSuccess(mapToFrontendOrganizationList(organizations)));
     }
   } catch (err) {
     yield put(loadOrganizationsError(err));
   }
 }
 
-export default function* loadOrganizations() {
-  yield takeLatest(LOAD_ORGANIZATIONS, getOrganizationsFromApi);
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* watchFetchOrganizations() {
+  yield takeLatest(LOAD_ORGANIZATIONS, fetchSearchOrganizationsResult);
 }

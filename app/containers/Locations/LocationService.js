@@ -4,14 +4,14 @@
  *
  */
 
-import ApiService from '../../utils/ApiService';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE } from './constants';
+import request from '../../utils/request';
 
 const LocationService = {};
 LocationService.getLocationsByIdAndStatus = function (organizationId, status, currentPage) {
   const url = createUrl(organizationId, status, currentPage);
-  return ApiService.getData(url);
+  return request(url);
 };
 
 function createUrl(organizationId, status, currentPage) {

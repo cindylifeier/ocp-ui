@@ -4,7 +4,7 @@ import { makeSelectPatientId } from './selectors';
 import { FhirService } from '../../utils/FhirService';
 import { loadPatientError, loadPatientSuccess } from './actions';
 
-export function* getPatient() {
+export function* fetchPatientData() {
   // Select patientId from store
   const patientId = yield select(makeSelectPatientId());
   const fhir = new FhirService();
@@ -18,7 +18,9 @@ export function* getPatient() {
   }
 }
 
-// Individual exports for testing
-export default function* patientData() {
-  yield takeLatest(LOAD_PATIENT, getPatient);
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* watchFetchPatientData() {
+  yield takeLatest(LOAD_PATIENT, fetchPatientData);
 }
