@@ -5,12 +5,12 @@
  */
 export const ENTER_KEY_CODE = 13;
 export const SEARCH_TERM_MIN_LENGTH = 3;
-export const DEFAULT_ACTION = 'app/Patients/DEFAULT_ACTION';
+export const DEFAULT_ACTION = 'ocpui/Patients/DEFAULT_ACTION';
 export const EMPTY_STRING = '';
 
-export const SEARCH_PATIENTS_SUCCESS = 'app/Patients/GET_PATIENTS_SUCCESS';
-export const SEARCH_PATIENTS_ERROR = 'app/Patients/SEARCH_PATIENTS_ERROR';
-export const LOAD_PATIENT_SEARCH_RESULT = 'app/Patients/LOAD_PATIENT_SEARCH_RESULT';
+export const SEARCH_PATIENTS_SUCCESS = 'ocpui/Patients/GET_PATIENTS_SUCCESS';
+export const SEARCH_PATIENTS_ERROR = 'ocpui/Patients/SEARCH_PATIENTS_ERROR';
+export const LOAD_PATIENT_SEARCH_RESULT = 'ocpui/Patients/LOAD_PATIENT_SEARCH_RESULT';
 
 export const SEARCH_TYPE = {
   NAME: 'name',
