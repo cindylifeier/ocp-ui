@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardText, Drawer, FontIcon, IconButton, Paper, Subheader } from 'material-ui';
-import styles from './style.css';
+import styles from './styles.css';
 import FhirUtil from '../../utils/FhirUtil';
 import genericAvatar from '../../images/generic-avatar.png';
 import { homeUse, mobileUse, tempUse, workUse } from '../../utils/constants';

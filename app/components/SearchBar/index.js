@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { Checkbox, DropDownMenu, IconButton, MenuItem, TextField } from 'material-ui';
 
 import messages from './messages';
-import styles from './style.css';
+import styles from './styles.css';
 
 // Material UI Styles
 const iconButtonStyle = { top: '26px', height: '30px' };
