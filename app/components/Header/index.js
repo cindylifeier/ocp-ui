@@ -7,7 +7,7 @@ import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import styles from './Header.css';
+import styles from './styles.css';
 import LogoutButton from '../LogoutButton/index';
 
 function Header() {
