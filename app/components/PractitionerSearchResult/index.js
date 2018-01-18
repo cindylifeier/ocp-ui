@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
+import { EMPTY_STRING } from '../../containers/Practitioners/constants';
 
 // import styled from 'styled-components';
 function PractitionerSearchResult({ loading, error, searchResult }) {
@@ -27,8 +28,8 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>First Name</div>
           <div className={styles.cellGridHeaderItem}>Last Name</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
-          <div className={styles.cellGridHeaderItem}>Telecoms</div>
-          <div className={styles.cellGridHeaderItem}>Address</div>
+          <div className={styles.cellGridHeaderItem}>Role</div>
+          <div className={styles.cellGridHeaderItem}>Identifier</div>
         </div>
         {displayPractitionerSearchResult(searchResult.elements)}
       </div>
@@ -42,34 +43,29 @@ function displayPractitionerSearchResult(practitioners) {
   return (
     practitioners && practitioners.map((practitioner) => (
       <div key={uniqueId()} className={styles.rowGridContainer}>
-        <div className={styles['cell-grid-item']}>{practitioner.name[0].firstName ? practitioner.name[0].firstName : ''}</div>
-        <div className={styles['cell-grid-item']}>{practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}</div>
+        <div className={styles['cell-grid-item']}>
+          {practitioner.name[0].firstName ? practitioner.name[0].firstName : ''}
+        </div>
+        <div className={styles['cell-grid-item']}>
+          {practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}
+        </div>
         <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
-        <div className={styles['cell-grid-item']}>{getTelecom(practitioner)}</div>
-        <div className={styles['cell-grid-item']}>{getAddress(practitioner)}</div>
+        <div className={styles['cell-grid-item']}>{practitioner.role ? practitioner.role : ''}</div>
+        <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
       </div>
     )));
 }
 
 // Todo: Refactor to make reuseable
-function getTelecom(practitioner) {
-  const telecoms = practitioner.telecoms;
-  let value;
-  for (let i = 0; i < telecoms.length; i += 1) {
-    if (telecoms[i].system === 'PHONE') {
-      value = telecoms[i].value;
-    }
-  }
-  return value;
-}
-
-function getAddress(practitioner) {
-  const address = practitioner.address[0];
-  let value;
-  if (address != null) {
-    value = `${address.line1} ${address.line2} ${address.city} ${address.stateCode} ${address.postalCode} ${address.countryCode}`;
-  }
-  return value;
+function mapToIdentifier(practitioner) {
+  const identifiers = practitioner.identifiers;
+  return identifiers && identifiers
+    .map((identifier) => {
+      const system = identifier.system !== EMPTY_STRING ? identifier.system : 'No system found';
+      const value = identifier.value !== EMPTY_STRING ? identifier.value : 'No value found';
+      return `${system}: ${value}`;
+    })
+    .join(', ');
 }
 
 PractitionerSearchResult.propTypes = {
