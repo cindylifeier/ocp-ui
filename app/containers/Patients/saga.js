@@ -10,7 +10,7 @@ export function* fetchSearchResult({ searchTerms, searchType, includeInactive, c
 
   try {
     const searchPatientResult = yield call(request, requestURL);
-    yield put(searchPatientsSuccess(searchPatientResult));
+    yield put(searchPatientsSuccess(searchPatientResult, searchTerms, searchType, includeInactive));
   } catch (error) {
     yield put(searchPatientsError(error));
   }
