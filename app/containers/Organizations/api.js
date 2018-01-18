@@ -21,11 +21,14 @@ function mapToFrontendOrganizationList(resp) {
 function mapToFrontendOrganization(org) {
   const { name, addresses: addressArr, telecoms, logicalId: id, active: statusBool } = org;
   // format address
-  const [firstAddress] = addressArr;
-  const { line1, line2, city, stateCode, postalCode, countryCode } = firstAddress;
-  const address = [line1, line2, city, stateCode, postalCode, countryCode]
-    .filter((i) => i && i !== '')
-    .join(', ');
+  let address = '';
+  if (addressArr.length > 0) {
+    const [firstAddress] = addressArr;
+    const { line1, line2, city, stateCode, postalCode, countryCode } = firstAddress;
+    address = [line1, line2, city, stateCode, postalCode, countryCode]
+      .filter((i) => i && i !== '')
+      .join(', ');
+  }
   // format telephone
   const [firstTelecom] = telecoms;
   const { value: telephone } = firstTelecom || { value: '' };
