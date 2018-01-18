@@ -20,8 +20,9 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectSearchError, makeSelectSearchLoading,
-  makeSelectSearchResult, makeSelectTotalPages,
+  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult, makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -67,7 +68,7 @@ export class Patients extends React.PureComponent {
 
   handleChangePage(newPage) {
     this.setState({ currentPage: newPage });
-    this.props.onChangePage(this.state.searchTerms, this.state.searchType, this.state.includeInactive, newPage);
+    this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
   }
 
   preventEnterSubmission(event) {
@@ -171,6 +172,9 @@ Patients.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
+  searchTerms: PropTypes.string,
+  searchType: PropTypes.string,
+  includeInactive: PropTypes.bool,
 };
 
 
@@ -181,6 +185,9 @@ const mapStateToProps = createStructuredSelector({
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
   totalPages: makeSelectTotalPages(),
+  searchTerms: makeSelectQuerySearchTerms(),
+  searchType: makeSelectQuerySearchType(),
+  includeInactive: makeSelectQueryIncludeInactive(),
 });
 
 function mapDispatchToProps(dispatch) {
