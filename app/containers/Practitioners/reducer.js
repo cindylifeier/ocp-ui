@@ -30,18 +30,18 @@ function practitionersReducer(state = initialState, action) {
         .setIn(['searchPractitioners', 'result'], false);
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
+        .set('loading', false)
         .setIn(['searchPractitioners', 'result'], action.searchResult)
         .setIn(['searchPractitioners', 'queryParameters', 'searchTerms'], action.queryParameters.searchTerms)
         .setIn(['searchPractitioners', 'queryParameters', 'searchType'], action.queryParameters.searchType)
         .setIn(['searchPractitioners', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)
         .setIn(['searchPractitioners', 'currentPage'], action.searchResult.currentPage)
         .setIn(['searchPractitioners', 'currentPageSize'], action.searchResult.currentPageSize)
-        .setIn(['searchPractitioners', 'totalPages'], action.searchResult.totalNumberOfPages)
-        .set('loading', false);
+        .setIn(['searchPractitioners', 'totalPages'], action.searchResult.totalNumberOfPages);
     case SEARCH_PRACTITIONERS_ERROR:
       return state
-        .set('error', action.error)
-        .set('loading', false);
+        .set('loading', false)
+        .set('error', action.error);
     default: {
       return state;
     }

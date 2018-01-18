@@ -5,12 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-  LOAD_PATIENT_SEARCH_RESULT,
-  SEARCH_PATIENTS_ERROR,
-  SEARCH_PATIENTS_SUCCESS,
-  SEARCH_TYPE,
-} from './constants';
+import { LOAD_PATIENT_SEARCH_RESULT, SEARCH_PATIENTS_ERROR, SEARCH_PATIENTS_SUCCESS, SEARCH_TYPE } from './constants';
 
 const initialState = fromJS({
   loading: false,
@@ -38,11 +33,11 @@ function patientsReducer(state = initialState, action) {
         .setIn(['searchPatients', 'result'], action.searchResult);
     case SEARCH_PATIENTS_SUCCESS:
       return state
+        .set('loading', false)
         .setIn(['searchPatients', 'result'], action.searchResult)
         .setIn(['searchPatients', 'currentPage'], action.searchResult.currentPage)
         .setIn(['searchPatients', 'currentPageSize'], action.searchResult.currentPageSize)
-        .setIn(['searchPatients', 'totalPages'], action.searchResult.totalNumberOfPages)
-        .set('loading', false);
+        .setIn(['searchPatients', 'totalPages'], action.searchResult.totalNumberOfPages);
     case SEARCH_PATIENTS_ERROR:
       return state
         .set('error', action.error)

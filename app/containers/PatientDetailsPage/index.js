@@ -19,7 +19,7 @@ import saga from './saga';
 import PatientRecord from '../../components/PatientRecord';
 import { loadPatient } from './actions';
 
-export class PatientDetailsPage extends React.Component { // eslint-disable-line react/prefer-stateless-
+export class PatientDetailsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-
   componentWillMount() {
     const { match } = this.props;
     this.props.loadPatient(match.params.id);

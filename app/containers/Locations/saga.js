@@ -1,13 +1,8 @@
-
-import { call, put, takeLatest, select } from 'redux-saga/effects';
-import {
-  GET_ACTIVE_LOCATIONS,
-  GET_FILTERED_LOCATIONS,
-}
-from './constants';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS } from './constants';
 import { getLocationsError, getLocationsSuccess } from './actions';
 import { makeSelectOrganization } from './selectors';
-import LocationService from './LocationService';
+import searchLocationsByIdAndStatus from './api';
 
 /**
  * Get locations by Organization id and status
@@ -18,9 +13,9 @@ export function* fetchLocationsByOrganizationIdAndStatus(action) {
     const organization = yield select(makeSelectOrganization());
     let locations;
     if (action.status) {
-      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, action.status, action.currentPage);
+      locations = yield call(searchLocationsByIdAndStatus, organization.id, action.status, action.currentPage);
     } else if (!action.status) {
-      locations = yield call(LocationService.getLocationsByIdAndStatus, organization.id, [], action.currentPage);
+      locations = yield call(searchLocationsByIdAndStatus, organization.id, [], action.currentPage);
     }
     yield put(getLocationsSuccess(locations));
   } catch (err) {
