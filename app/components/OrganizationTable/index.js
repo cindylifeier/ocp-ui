@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styles from './OrganizationTable.css';
+import styles from './styles.css';
 import Organization from '../../components/OrganizationTableRow/Loadable';
 import messages from './messages';
 
