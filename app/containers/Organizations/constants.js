@@ -4,9 +4,9 @@
  *
  */
 
-export const LOAD_ORGANIZATIONS = 'app/Organizations/LOAD_ORGANIZATIONS';
-export const LOAD_ORGANIZATIONS_SUCCESS = 'app/Organizations/LOAD_ORGANIZATIONS_SUCCESS';
-export const LOAD_ORGANIZATIONS_ERROR = 'app/Organizations/LOAD_ORGANIZATIONS_ERROR';
+export const LOAD_ORGANIZATIONS = 'ocpui/Organizations/LOAD_ORGANIZATIONS';
+export const LOAD_ORGANIZATIONS_SUCCESS = 'ocpui/Organizations/LOAD_ORGANIZATIONS_SUCCESS';
+export const LOAD_ORGANIZATIONS_ERROR = 'ocpui/Organizations/LOAD_ORGANIZATIONS_ERROR';
 
 /**
  *  Constants to hold the default pagination page size

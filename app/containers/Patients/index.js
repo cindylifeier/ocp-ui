@@ -32,7 +32,7 @@ import styles from './styles.css';
 import messages from './messages';
 import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 
-export class Patients extends React.Component {
+export class Patients extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -8,16 +8,16 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE } from './constants';
 import request from '../../utils/request';
 
-const LocationService = {};
-LocationService.getLocationsByIdAndStatus = function (organizationId, status, currentPage) {
+const apiBaseUrl = getApiBaseUrl();
+
+export default function searchLocationsByIdAndStatus(organizationId, status, currentPage) {
   const url = createUrl(organizationId, status, currentPage);
   return request(url);
-};
+}
 
 function createUrl(organizationId, status, currentPage) {
   const initialParams = `pageNumber=${currentPage}&pageSize=${DEFAULT_PAGE_SIZE}&statusList=active,`;
   let queryParams = '';
-  const apiBaseUrl = getApiBaseUrl();
   const baseUrl = `${apiBaseUrl}/organizations/${organizationId}`.concat('/locations?');
   if (status && status.length === 0) {
     queryParams = initialParams;
@@ -28,5 +28,3 @@ function createUrl(organizationId, status, currentPage) {
   }
   return baseUrl.concat(queryParams);
 }
-
-export default LocationService;
