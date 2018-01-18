@@ -27,7 +27,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
-import styles from './Patients.css';
+import styles from './styles.css';
 import messages from './messages';
 import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 
