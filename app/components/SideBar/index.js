@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import styles from './SideBar.css';
+import styles from './styles.css';
 
 function SideBar() {
   return (

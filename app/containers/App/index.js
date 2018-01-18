@@ -18,13 +18,13 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 
-import css from './App.css';
+import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
 
 
 export default function App() {
   return (
-    <div className={css.App}>
+    <div className={styles.App}>
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route path="/login" component={LoginPage} />
