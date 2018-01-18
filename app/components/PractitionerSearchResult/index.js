@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
-import { EMPTY_STRING } from '../../containers/Practitioners/constants';
+import { EMPTY_STRING } from '../../containers/App/constants';
 
 // import styled from 'styled-components';
 function PractitionerSearchResult({ loading, error, searchResult }) {

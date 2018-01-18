@@ -10,3 +10,15 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+
+/**
+ *  Constants to hold the default pagination page size
+ * @type {number}
+ */
+export const DEFAULT_PAGE_SIZE = 10;
+
+/**
+ *  Other constants
+ */
+export const ENTER_KEY = 'Enter';
+export const EMPTY_STRING = '';
