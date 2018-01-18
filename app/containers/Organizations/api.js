@@ -1,8 +1,21 @@
-export function mapToFrontendOrganizationList(resp) {
-  const mappReponse = resp;
-  const organizationElements = (resp.elements || []).map(mapToFrontendOrganization);
-  mappReponse.elements = organizationElements;
-  return mappReponse;
+import queryString from '../../utils/queryString';
+import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { DEFAULT_PAGE_SIZE } from './constants';
+import request from '../../utils/request';
+
+const baseApiUrl = getApiBaseUrl();
+
+export default function searchOrganizations(searchValue, showInactive, searchType, page) {
+  const params = queryString({ searchValue, showInactive, searchType, size: DEFAULT_PAGE_SIZE, page });
+  const requestURL = `${baseApiUrl}/organizations/search${params}`;
+  return request(requestURL)
+    .then(mapToFrontendOrganizationList);
+}
+
+function mapToFrontendOrganizationList(resp) {
+  const mapResponse = resp;
+  mapResponse.elements = (resp.elements || []).map(mapToFrontendOrganization);
+  return mapResponse;
 }
 
 function mapToFrontendOrganization(org) {

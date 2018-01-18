@@ -13,8 +13,8 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectLocations,
-  makeSelectOrganization, makeSelectTotalNumberOfPages,
+  makeSelectCurrentPage, makeSelectLocations, makeSelectOrganization,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -24,7 +24,7 @@ import { getFilteredLocations } from './actions';
 import { STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
 import StatusCheckbox from '../../components/StatusCheckbox';
 
-export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -36,13 +36,14 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.handleSuspendedChecked = this.handleSuspendedChecked.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
   }
+
   getTelecoms(telecoms) {
     return telecoms.map((entry) =>
       (
         <div key={entry.value}>
           {entry.system}: {entry.value},
         </div>
-      )
+      ),
     );
   }
 
@@ -53,11 +54,13 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       {address.city}, {address.stateCode} {address.postalCode},
       {address.countryCode}</div>) : '';
   }
+
   handleInactiveChecked(event, newValue) {
     this.setState({ inactiveStatus: newValue });
     const suspendedStatus = this.state.suspendedStatus;
     this.props.onCheckShowInactive(event, newValue, suspendedStatus);
   }
+
   handleSuspendedChecked(event, newValue) {
     this.setState({ suspendedStatus: newValue });
     const inactiveStatus = this.state.inactiveStatus;
@@ -77,6 +80,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
 
     this.props.onChangePage(status, currentPage);
   }
+
   createRows() {
     if (this.props.data) {
       return this.props.data.map((location) => (
@@ -90,11 +94,12 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     }
     return '<div></div>';
   }
+
   createTable() {
     return (
       <div>
         <div className={styles.wrapper}>
-          <div> <strong>Organization Name: </strong>
+          <div><strong>Organization Name: </strong>
             {this.props.organization ? this.props.organization.name : ''}</div>
           <div className={styles.actionGridContainer}>
             <StatusCheckbox
@@ -135,13 +140,16 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       </div>
     );
   }
+
   createLocationTable() {
     const { data } = this.props;
     if (data && data.length > 0) {
       return this.createTable();
     }
-    return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its locations.</h3></div>);
+    return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its
+      locations.</h3></div>);
   }
+
   render() {
     return this.createLocationTable();
   }
