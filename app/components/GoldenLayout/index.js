@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import 'golden-layout/src/css/goldenlayout-base.css';
 import 'golden-layout/src/css/goldenlayout-light-theme.css';
 import initGoldenLayout from './initGoldenLayout';
-import './GoldenLayout.css';
+import './styles.css';
 
 function generateRandomId() {
   let text = '';
