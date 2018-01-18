@@ -6,7 +6,7 @@ import searchPatients from './api';
 export function* fetchSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
   try {
     const searchPatientResult = yield call(searchPatients, searchTerms, searchType, includeInactive, currentPage);
-    yield put(searchPatientsSuccess(searchPatientResult));
+    yield put(searchPatientsSuccess(searchPatientResult, searchTerms, searchType, includeInactive));
   } catch (error) {
     yield put(searchPatientsError(error));
   }

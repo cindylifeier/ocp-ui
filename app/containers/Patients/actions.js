@@ -27,10 +27,13 @@ export function loadPatientSearchResult(searchTerms, searchType, includeInactive
   };
 }
 
-export function searchPatientsSuccess(searchResult) {
+export function searchPatientsSuccess(searchResult, searchTerms, searchType, includeInactive) {
   return {
     type: SEARCH_PATIENTS_SUCCESS,
     searchResult,
+    queryParameters: {
+      searchTerms, searchType, includeInactive,
+    },
   };
 }
 
