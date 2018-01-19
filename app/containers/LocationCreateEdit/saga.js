@@ -1,6 +1,24 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { GET_US_STATES } from '../App/constants';
+// import { makeSelectOrganization } from '../Locations/selectors';
+import { makeSelectUsStates } from '../App/selectors';
+import { getUsStateError, getUsStateFromStore, getUsStateSuccess } from '../App/actions';
+
+export function* getUsState(action) {
+  try {
+    let usStates = yield select(makeSelectUsStates());
+    if (usStates && usStates.length > 0) {
+      yield put(getUsStateFromStore());
+    } else if (usStates.length === 0) {
+      usStates = yield call('', action.lookupTypes);
+      yield put(getUsStateSuccess(usStates));
+    }
+  } catch (err) {
+    yield put(getUsStateError(err));
+  }
+}
 
 // Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+export default function* watchGetUsStatesSaga() {
+  yield takeLatest(GET_US_STATES, getUsState);
 }
