@@ -22,7 +22,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
-  usState: [],
+  usStates: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -33,9 +33,8 @@ function appReducer(state = initialState, action) {
         .set('error', false);
     case GET_US_STATES_SUCCESS:
       return state
-        .setIn('usStates', action.usStates)
-        .set('loading', false)
-        .set('currentUser', action.username);
+        .set('usStates', fromJS((action.usStates && action.usStates) || []))
+        .set('loading', false);
     case GET_US_STATES_ERROR:
       return state
         .set('error', action.error)
