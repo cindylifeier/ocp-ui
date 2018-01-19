@@ -95,10 +95,10 @@ export class Organizations extends React.PureComponent {
             </div>
           </div>
         ) ||
-
-        (<div className={styles.textCenter}>
-          <span>No organizations found</span>
-        </div>)
+        ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
+          <div className={styles.textCenter}>
+            <span>No organizations found</span>
+          </div>))
         }
       </div>
     );
