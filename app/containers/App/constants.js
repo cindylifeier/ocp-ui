@@ -10,3 +10,11 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+
+/**
+ *  US state related constants
+ * @type {string}
+ */
+export const GET_US_STATES = 'ocpui/App/GET_US_STATES';
+export const GET_US_STATES_SUCCESS = 'ocpui/App/GET_US_STATES_SUCCESS';
+export const GET_US_STATES_ERROR = 'ocpui/App/GET_US_STATES_ERROR';
