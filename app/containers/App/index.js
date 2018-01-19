@@ -18,10 +18,11 @@ import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
+import { LoginPage } from '../LoginPage/index';
+import { ManagePractitionerPage } from '../ManagePractitionerPage';
+import Layout from '../../components/Layout';
 
 import styles from './styles.css';
-import { LoginPage } from '../LoginPage/index';
-import Layout from '../../components/Layout';
 
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/login" component={LoginPage} />
           <Layout>
             <Route path="/home" component={HomePage} />
+            <Route path="/manage-practitioner" component={ManagePractitionerPage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
           </Layout>
           <Route component={NotFoundPage} />
