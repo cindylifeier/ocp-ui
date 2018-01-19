@@ -1,24 +1,46 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { GET_US_STATES } from '../App/constants';
-import { makeSelectUsStates } from '../App/selectors';
-import { getUsStateError, getUsStateFromStore, getUsStateSuccess } from '../App/actions';
-import getLookupStates from './api';
+import { GET_LOOKUPS, USPSSTATES } from '../App/constants';
+import { makeSelectUspsStates } from '../App/selectors';
+import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from '../App/actions';
+import getLookups from './api';
+//
+// export function* getUsState(action) {
+//   try {
+//     let usStates = yield select(makeSelectUspsStates());
+//     if (usStates && usStates.length > 0) {
+//       yield put(getLookupsFromStore());
+//     } else if (usStates.length === 0) {
+//       usStates = yield call(getLookups, action.lookupTypes);
+//       yield put(getLookupsSuccess(usStates));
+//     }
+//   } catch (err) {
+//     yield put(getLookupsError(err));
+//   }
+// }
 
-export function* getUsState(action) {
+export function* getLookupData(action) {
   try {
-    let usStates = yield select(makeSelectUsStates());
-    if (usStates && usStates.length > 0) {
-      yield put(getUsStateFromStore());
-    } else if (usStates.length === 0) {
-      usStates = yield call(getLookupStates, action.lookupTypes);
-      yield put(getUsStateSuccess(usStates));
+    let lookups;
+    const lookupTypeNotInStore = [];
+    if (action.lookupTypes.includes(USPSSTATES)) {
+      const uspsStates = yield select(makeSelectUspsStates());
+      if (uspsStates && uspsStates.length === 0) {
+        lookupTypeNotInStore.push(USPSSTATES);
+      }
+    }
+    if (lookupTypeNotInStore.length > 0) {
+      lookups = yield call(getLookups, action.lookupTypes);
+      yield put(getLookupsSuccess(lookups));
+    } else {
+      yield put(getLookupsFromStore());
     }
   } catch (err) {
-    yield put(getUsStateError(err));
+    yield put(getLookupsError(err));
   }
 }
 
+
 // Individual exports for testing
 export default function* watchGetUsStatesSaga() {
-  yield takeLatest(GET_US_STATES, getUsState);
+  yield takeLatest(GET_LOOKUPS, getLookupData);
 }
