@@ -5,31 +5,34 @@
  */
 
 import {
-  GET_US_STATES, GET_US_STATES_ERROR, GET_US_STATES_FROM_STORE, GET_US_STATES_SUCCESS,
+  GET_LOOKUPS,
+  GET_LOOKUPS_ERROR,
+  GET_LOOKUPS_FROM_STORE,
+  GET_LOOKUPS_SUCCESS,
 } from './constants';
 
-export function getUsStateAction(lookupTypes) {
+export function getLookupsAction(lookupTypes) {
   return {
-    type: GET_US_STATES,
+    type: GET_LOOKUPS,
     lookupTypes,
   };
 }
 
-export function getUsStateSuccess(usStates) {
+export function getLookupsSuccess(lookups) {
   return {
-    type: GET_US_STATES_SUCCESS,
-    usStates,
+    type: GET_LOOKUPS_SUCCESS,
+    lookups,
   };
 }
-export function getUsStateFromStore() {
+export function getLookupsFromStore() {
   return {
-    type: GET_US_STATES_FROM_STORE,
+    type: GET_LOOKUPS_FROM_STORE,
   };
 }
 
-export function getUsStateError(error) {
+export function getLookupsError(error) {
   return {
-    type: GET_US_STATES_ERROR,
+    type: GET_LOOKUPS_ERROR,
     error,
   };
 }
