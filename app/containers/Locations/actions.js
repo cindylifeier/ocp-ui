@@ -12,11 +12,12 @@ import {
 } from './constants';
 
 
-export function getFilteredLocations(status, currentPage) {
+export function getFilteredLocations(currentPage, includeInactive, includeSuspended) {
   return {
     type: GET_FILTERED_LOCATIONS,
-    status,
     currentPage,
+    includeInactive,
+    includeSuspended,
   };
 }
 
@@ -29,11 +30,13 @@ export function getActiveLocations(organizationId, organizationName, currentPage
   };
 }
 
-export function getLocationsSuccess(locations, organizationId) {
+export function getLocationsSuccess(locations, organizationId, includeInactive, includeSuspended) {
   return {
     type: GET_LOCATIONS_SUCCESS,
     locations,
     organizationId,
+    includeInactive,
+    includeSuspended,
   };
 }
 
