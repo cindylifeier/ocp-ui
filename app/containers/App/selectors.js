@@ -9,13 +9,13 @@ const makeSelectLocation = () => createSelector(
   (routeState) => routeState.get('location').toJS()
 );
 
-const makeSelectUsStates = () => createSelector(
+const makeSelectUspsStates = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('usStates').toJS()
+  (globalState) => globalState.get('uspsStates').toJS()
 );
 
 
 export {
   makeSelectLocation,
-  makeSelectUsStates,
+  makeSelectUspsStates,
 };
