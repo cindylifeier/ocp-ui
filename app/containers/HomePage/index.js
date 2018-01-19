@@ -18,8 +18,10 @@ import GoldenLayout from '../../components/GoldenLayout/Loadable';
 import renderSampleComponent from '../../components/SampleComponent/render';
 import renderOrganizations from '../Organizations/render';
 import renderPractitioners from '../Practitioners/render';
-import renderLocationsComponent from '../../containers/Locations/render';
-import renderPatientsComponent from '../Patients/render';
+import renderLocationCreateEditComponent from '../../containers/LocationCreateEdit/render';
+import renderPatientCreateEditComponent from '../../containers/PatientCreateEdit/render';
+// import renderLocationsComponent from '../../containers/Locations/render';
+// import renderPatientsComponent from '../Patients/render';
 
 // import messages from './messages';
 
@@ -119,9 +121,9 @@ const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Location',
+            title: 'Location Create Edit',
             type: 'component',
-            componentName: 'locations',
+            componentName: 'locationCreateEdit',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -135,9 +137,9 @@ const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Patients',
+            title: 'Patient Create Edit',
             type: 'component',
-            componentName: 'patients',
+            componentName: 'patientCreateEdit',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -159,8 +161,10 @@ const componentMetadata = [
   { name: 'sample', text: 'Sample', factoryMethod: renderSampleComponent },
   { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
   { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
-  { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
-  { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
+  { name: 'locationCreateEdit', text: 'LocationCreateEdit', factoryMethod: renderLocationCreateEditComponent },
+  { name: 'patientCreateEdit', text: 'PatientCreateEdit', factoryMethod: renderPatientCreateEditComponent },
+  // { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
+  // { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
 ];
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
