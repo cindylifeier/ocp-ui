@@ -17,4 +17,13 @@ export const DEFAULT_LOCALE = 'en';
  */
 export const GET_US_STATES = 'ocpui/App/GET_US_STATES';
 export const GET_US_STATES_SUCCESS = 'ocpui/App/GET_US_STATES_SUCCESS';
+export const GET_US_STATES_FROM_STORE = 'ocpui/App/GET_US_STATES_FROM_STORE';
 export const GET_US_STATES_ERROR = 'ocpui/App/GET_US_STATES_ERROR';
+
+
+/**
+ * Look up types constants
+ * @type {string}
+ */
+export const US_STATES = 'state';
+
