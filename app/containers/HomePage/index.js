@@ -10,16 +10,16 @@
  */
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
-import styles from './styles.css';
-import Header from '../../components/Header/index';
-import SideBar from '../../components/SideBar/index';
 import GoldenLayout from '../../components/GoldenLayout/Loadable';
 import renderSampleComponent from '../../components/SampleComponent/render';
 import renderOrganizations from '../Organizations/render';
 import renderPractitioners from '../Practitioners/render';
 import renderLocationsComponent from '../../containers/Locations/render';
 import renderPatientsComponent from '../Patients/render';
+import SideBar from '../../components/SideBar';
+import styles from './styles.css';
 
 // import messages from './messages';
 
@@ -166,19 +166,22 @@ const componentMetadata = [
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={styles.gridContainer}>
-        <div className={`${styles.gridItem} ${styles.header}`}>
-          <Header />
-        </div>
-        <div className={styles.content}>
-          <GoldenLayout
-            containerId="golden-home"
-            componentMetadata={componentMetadata}
-            stateMetadata={initialStateMetadata}
-          />
-        </div>
-        <div className={`${styles.gridItem} ${styles.panel}`}>
-          <SideBar />
+      <div>
+        <Helmet>
+          <title>Home</title>
+          <meta name="description" content="home page of Omnibus Care Plan application" />
+        </Helmet>
+        <div className={styles.gridContainer}>
+          <div className={`${styles.gridItem} ${styles.panel}`}>
+            <SideBar />
+          </div>
+          <div className={`${styles.gridItem} ${styles.content}`}>
+            <GoldenLayout
+              containerId="golden-home"
+              componentMetadata={componentMetadata}
+              stateMetadata={initialStateMetadata}
+            />
+          </div>
         </div>
       </div>
     );

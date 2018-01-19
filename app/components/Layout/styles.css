@@ -6,8 +6,17 @@
   display: grid;
   grid-row-gap: 5px;
   grid-template-areas:
-    "sidebar"
-    "content";
+    "header"
+    "content"
+    "footer";
+}
+
+.header {
+  grid-area: header;
+}
+
+.footer {
+  grid-area: footer;
 }
 
 .content {
@@ -24,13 +33,4 @@
   border-radius: 5px;
   padding: 3px;
   font-size: 150%;
-}
-
-/* Desktops and laptops ----------- */
-@media only screen and (min-width: 1224px) {
-  .gridContainer {
-    grid-template-columns: 1fr 4fr;
-    grid-template-areas:
-      "sidebar content";
-  }
 }
