@@ -17,9 +17,16 @@ import makeSelectLocationCreateEdit from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { getUsStateAction } from '../App/actions';
+import { US_STATES } from '../App/constants';
+import { makeSelectUsStates } from '../App/selectors';
 
 export class LocationCreateEdit extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    this.props.getUsStates();
+  }
   render() {
+    console.log(this.props.usStates);
     return (
       <div>
         <FormattedMessage {...messages.header} />
@@ -29,16 +36,18 @@ export class LocationCreateEdit extends React.PureComponent { // eslint-disable-
 }
 
 LocationCreateEdit.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getUsStates: PropTypes.func.isRequired,
+  usStates: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locationcreateedit: makeSelectLocationCreateEdit(),
+  usStates: makeSelectUsStates(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getUsStates: () => dispatch(getUsStateAction([US_STATES])),
   };
 }
 
