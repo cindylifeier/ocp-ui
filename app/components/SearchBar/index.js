@@ -11,6 +11,7 @@ import { Checkbox, DropDownMenu, IconButton, MenuItem, TextField } from 'materia
 
 import messages from './messages';
 import styles from './styles.css';
+import { EMPTY_STRING, ENTER_KEY } from '../../containers/App/constants';
 
 // Material UI Styles
 const iconButtonStyle = { top: '26px', height: '30px' };
@@ -20,10 +21,6 @@ const searchTextFieldStyle = { width: '100px' };
 
 const SEARCH_BY_NAME = 'name';
 const SEARCH_BY_ID = 'logicalId';
-
-const ENTER_KEY = 'Enter';
-
-const EMPTY_STRING = '';
 
 class SearchBar extends React.PureComponent {
 

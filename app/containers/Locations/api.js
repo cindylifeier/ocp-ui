@@ -5,7 +5,7 @@
  */
 
 import getApiBaseUrl from '../../apiBaseUrlConfig';
-import { DEFAULT_PAGE_SIZE } from './constants';
+import { DEFAULT_PAGE_SIZE } from '../App/constants';
 import request from '../../utils/request';
 
 const apiBaseUrl = getApiBaseUrl();
