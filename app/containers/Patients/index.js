@@ -20,8 +20,9 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectSearchError, makeSelectSearchLoading,
-  makeSelectSearchResult, makeSelectTotalPages,
+  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType, makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -29,7 +30,8 @@ import { loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
 import styles from './styles.css';
 import messages from './messages';
-import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 
 export class Patients extends React.PureComponent {
   constructor(props) {
@@ -67,11 +69,11 @@ export class Patients extends React.PureComponent {
 
   handleChangePage(newPage) {
     this.setState({ currentPage: newPage });
-    this.props.onChangePage(this.state.searchTerms, this.state.searchType, this.state.includeInactive, newPage);
+    this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
   }
 
   preventEnterSubmission(event) {
-    if (event.which === ENTER_KEY_CODE) {
+    if (event.key === ENTER_KEY) {
       event.preventDefault();
     }
   }
@@ -171,6 +173,9 @@ Patients.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
+  searchTerms: PropTypes.string,
+  searchType: PropTypes.string,
+  includeInactive: PropTypes.bool,
 };
 
 
@@ -181,6 +186,9 @@ const mapStateToProps = createStructuredSelector({
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
   totalPages: makeSelectTotalPages(),
+  searchTerms: makeSelectQuerySearchTerms(),
+  searchType: makeSelectQuerySearchType(),
+  includeInactive: makeSelectQueryIncludeInactive(),
 });
 
 function mapDispatchToProps(dispatch) {

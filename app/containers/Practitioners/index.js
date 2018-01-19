@@ -28,9 +28,10 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { loadPractitionerSearchResult } from './actions';
+import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -72,7 +73,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   }
 
   preventEnterSubmission(event) {
-    if (event.key === ENTER_KEY_CODE) {
+    if (event.key === ENTER_KEY) {
       event.preventDefault();
     }
   }

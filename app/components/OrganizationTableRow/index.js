@@ -7,8 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.css';
-
-const ENTER_KEY = 'Enter';
+import { ENTER_KEY } from '../../containers/App/constants';
 
 function OrganizationTableRow(props) {
   const { name, address, telephone, id, status, onRowClick } = props;
