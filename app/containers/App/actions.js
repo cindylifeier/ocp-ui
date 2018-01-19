@@ -15,10 +15,10 @@ export function getUsStateAction(lookupTypes) {
   };
 }
 
-export function getUsStateSuccess(usState) {
+export function getUsStateSuccess(usStates) {
   return {
     type: GET_US_STATES_SUCCESS,
-    usState,
+    usStates,
   };
 }
 export function getUsStateFromStore() {

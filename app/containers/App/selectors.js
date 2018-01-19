@@ -11,7 +11,7 @@ const makeSelectLocation = () => createSelector(
 
 const makeSelectUsStates = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('usStates')
+  (globalState) => globalState.get('usStates').toJS()
 );
 
 
