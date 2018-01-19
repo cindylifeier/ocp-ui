@@ -18,9 +18,19 @@ export default defineMessages({
     id: 'app.components.SearchBar.buttonTooltip',
     defaultMessage: 'Search',
   },
-  validationMessage: {
-    id: 'app.components.SearchBar.validationMessage',
-    defaultMessage: 'Minimum {minimumLength} characters',
+  validation: {
+    minLength: {
+      id: 'app.components.SearchBar.validation.minLength',
+      defaultMessage: 'Minimum {minimumLength} characters',
+    },
+    required: {
+      id: 'app.components.SearchBar.validation.required',
+      defaultMessage: 'Required',
+    },
+    invalid: {
+      id: 'app.components.SearchBar.validation.invalid',
+      defaultMessage: 'Invalid value',
+    },
   },
   includeInactive: {
     id: 'app.components.SearchBar.includeInactive',
