@@ -17,6 +17,7 @@ function StatusCheckbox(props) {
             labelPosition="right"
             id={props.elementId}
             onCheck={props.handleCheck}
+            checked={props.checked}
           />
         )}
       </FormattedMessage>
@@ -28,6 +29,7 @@ StatusCheckbox.propTypes = {
   messages: PropTypes.object,
   handleCheck: PropTypes.func,
   elementId: PropTypes.string,
+  checked: PropTypes.bool,
 };
 
 export default StatusCheckbox;
