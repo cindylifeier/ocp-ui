@@ -17,16 +17,16 @@ import makeSelectLocationCreateEdit from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getUsStateAction } from '../App/actions';
-import { US_STATES } from '../App/constants';
-import { makeSelectUsStates } from '../App/selectors';
+import { getLookupsAction } from '../App/actions';
+import { USPSSTATES } from '../App/constants';
+import { makeSelectUspsStates } from '../App/selectors';
 
 export class LocationCreateEdit extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     this.props.getUsStates();
   }
   render() {
-    console.log(this.props.usStates);
+    console.log(this.props.uspsStates);
     return (
       <div>
         <FormattedMessage {...messages.header} />
@@ -37,17 +37,17 @@ export class LocationCreateEdit extends React.PureComponent { // eslint-disable-
 
 LocationCreateEdit.propTypes = {
   getUsStates: PropTypes.func.isRequired,
-  usStates: PropTypes.array,
+  uspsStates: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locationcreateedit: makeSelectLocationCreateEdit(),
-  usStates: makeSelectUsStates(),
+  uspsStates: makeSelectUspsStates(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsStates: () => dispatch(getUsStateAction([US_STATES])),
+    getUsStates: () => dispatch(getLookupsAction([USPSSTATES])),
   };
 }
 
