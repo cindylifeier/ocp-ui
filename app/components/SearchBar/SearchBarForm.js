@@ -34,7 +34,6 @@ function SearchBarForm(props) {
             hintText={<FormattedMessage {...messages.hintText} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText} />}
           />
-
         </div>
         <div className={styles.gridItem}>
           <SelectField
@@ -51,7 +50,6 @@ function SearchBarForm(props) {
             label={<FormattedMessage {...messages.includeInactive} />}
             style={checkboxStyle}
           />
-
         </div>
         <div className={styles.gridItem}>
           <IconButton
