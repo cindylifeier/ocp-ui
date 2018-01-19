@@ -35,6 +35,16 @@ const makeSelectTotalNumberOfPages = () => createSelector(
   (substate) => substate.get('totalNumberOfPages'),
 );
 
+const makeSelectIncludeInactive = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('includeInactive'),
+);
+
+const makeSelectIncludeSuspended = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('includeSuspended'),
+);
+
 
 export {
   makeSelectLocations,
@@ -42,4 +52,6 @@ export {
   makeSelectOrganization,
   makeSelectCurrentPage,
   makeSelectTotalNumberOfPages,
+  makeSelectIncludeInactive,
+  makeSelectIncludeSuspended,
 };
