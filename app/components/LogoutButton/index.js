@@ -6,17 +6,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import withRouter from 'react-router-dom/es/withRouter';
-import styles from './styles.css';
+import ActionLogout from 'material-ui/svg-icons/action/exit-to-app';
 
 function LogoutButton(props) {
   return (
     <IconButton
       tooltip="Sign out"
-      iconClassName={styles.logoutIcon}
       onClick={() => {
         props.history.push('/login');
       }}
-    />
+    >
+      <ActionLogout />
+    </IconButton>
   );
 }
 

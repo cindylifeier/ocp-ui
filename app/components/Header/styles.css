@@ -10,26 +10,11 @@
   color: white !important;
 }
 
-.homeIcon:before {
-  content: "\f015";
-  font-family: FontAwesome;
-  color: #99CCCC;
+.iconButton svg {
+  fill: #99CCCC !important;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 
-.addressBookIcon:before {
-  content: "\f2b9";
-  font-family: FontAwesome;
-  color: #99CCCC;
-}
-
-.questionCircleIcon:before {
-  content: "\f059";
-  font-family: FontAwesome;
-  color: #99CCCC;
-}
-
-.homeIcon:hover{
-  content: "\f015";
-  font-family: FontAwesome;
-  color: #24b9f3;
+.iconButton:hover svg {
+  fill: white !important;
 }
