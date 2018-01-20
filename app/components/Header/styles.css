@@ -17,7 +17,13 @@
 }
 
 .addressBookIcon:before {
-  content: "\f015";
+  content: "\f2b9";
+  font-family: FontAwesome;
+  color: #99CCCC;
+}
+
+.questionCircleIcon:before {
+  content: "\f059";
   font-family: FontAwesome;
   color: #99CCCC;
 }

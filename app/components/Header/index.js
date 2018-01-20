@@ -22,7 +22,7 @@ function Header() {
         />
         <FlatButton
           label="Patients"
-          icon={<FontIcon className="fa fa-address-book" />}
+          icon={<FontIcon className={styles.addressBookIcon} />}
           containerElement={<Link to="/patients" />}
           className={styles.font}
         />
@@ -31,7 +31,7 @@ function Header() {
         <ToolbarSeparator />
         <IconButton
           tooltip="Help"
-          iconClassName="fa fa-question-circle"
+          iconClassName={styles.questionCircleIcon}
         />
         <LogoutButton />
       </ToolbarGroup>
