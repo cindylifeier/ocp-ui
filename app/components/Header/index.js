@@ -16,13 +16,15 @@ function Header() {
       <ToolbarGroup firstChild>
         <FlatButton
           label="Home"
-          icon={<FontIcon className="fa fa-home" />}
+          icon={<FontIcon className={styles.homeIcon} />}
           containerElement={<Link to="/home" />}
+          className={styles.font}
         />
         <FlatButton
           label="Patients"
           icon={<FontIcon className="fa fa-address-book" />}
           containerElement={<Link to="/patients" />}
+          className={styles.font}
         />
       </ToolbarGroup>
       <ToolbarGroup lastChild>

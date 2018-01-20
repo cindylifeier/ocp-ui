@@ -1,0 +1,29 @@
+.toolbar {
+  background-color: rgba(32, 60, 85, 1) !important;
+}
+
+.font {
+  color: #99CCCC !important;
+}
+
+.font:hover {
+  color: white !important;
+}
+
+.homeIcon:before {
+  content: "\f015";
+  font-family: FontAwesome;
+  color: #99CCCC;
+}
+
+.addressBookIcon:before {
+  content: "\f015";
+  font-family: FontAwesome;
+  color: #99CCCC;
+}
+
+.homeIcon:hover{
+  content: "\f015";
+  font-family: FontAwesome;
+  color: #24b9f3;
+}

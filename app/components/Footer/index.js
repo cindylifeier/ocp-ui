@@ -12,10 +12,11 @@ import styles from './styles.css';
 function Footer() {
   const year = new Date().getFullYear();
   return (
-    <div className={styles.footer}>
+    <div>
       <AppBar
         title={<FormattedMessage {...messages.header} values={{ year }} />}
         showMenuIconButton={false}
+        className={styles.footer}
       />
     </div>
   );
