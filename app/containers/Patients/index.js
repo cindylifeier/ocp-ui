@@ -87,7 +87,7 @@ export class Patients extends React.PureComponent {
     };
 
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.card}>
         <h3><FormattedMessage {...messages.header} /></h3>
         <form>
           <div className={styles.gridContainer}>
