@@ -1,36 +1,32 @@
 .gridContainer {
+  position: absolute;
+  width: 100%;
   color: #444;
-  width: auto;
-  background-color: #fff;
   margin: 0 auto;
   display: grid;
-  grid-row-gap: 5px;
-  grid-template-areas:
-    "header"
-    "content"
-    "footer";
+  grid-row-gap: 2px;
+}
+
+.header, .footer{
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  background-color: #94f393;
 }
 
 .header {
-  grid-area: header;
+  top: 0;
 }
 
 .footer {
-  grid-area: footer;
+  bottom: 0;
 }
 
 .content {
-  grid-area: content;
+  position: relative;
+  width: 100%;
+  padding-top: 57px;
+  padding-bottom: 65px;
 }
 
-.panel {
-  grid-area: sidebar;
-}
 
-.gridItem {
-  background-color: #fff;
-  color: #fff;
-  border-radius: 5px;
-  padding: 3px;
-  font-size: 150%;
-}
