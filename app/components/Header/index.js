@@ -26,7 +26,7 @@ function Header() {
         </span>
         <span className={styles.iconButton}>
           <FlatButton
-            label="Home"
+            label="Patients"
             icon={<ActionPatients />}
             containerElement={<Link to="/home" />}
             className={styles.font}
