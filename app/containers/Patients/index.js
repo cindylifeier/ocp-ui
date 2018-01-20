@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -130,10 +131,11 @@ export class Patients extends React.PureComponent {
             <div className={styles.gridItem}>
               <div className={styles.centerElement}>
                 <IconButton
-                  iconClassName="fa fa-search"
                   disabled={this.state.searchTerms.trim() === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
                   onClick={this.handleSearch}
-                />
+                >
+                  <ActionSearch />
+                </IconButton>
               </div>
             </div>
           </div>

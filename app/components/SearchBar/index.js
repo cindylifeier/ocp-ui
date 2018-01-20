@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Checkbox, DropDownMenu, IconButton, MenuItem, TextField } from 'material-ui';
-
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import messages from './messages';
 import styles from './styles.css';
 import { EMPTY_STRING, ENTER_KEY } from '../../containers/App/constants';
@@ -113,11 +113,12 @@ class SearchBar extends React.PureComponent {
             <div className={styles.gridItem}>
               <IconButton
                 style={iconButtonStyle}
-                iconClassName="fa fa-search"
                 tooltip={<FormattedMessage {...messages.buttonTooltip} />}
                 disabled={!searchValueValid}
                 onClick={this.handleSearch}
-              />
+              >
+                <ActionSearch />
+              </IconButton>
             </div>
           </div>
 

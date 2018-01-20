@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import styles from './styles.css';
 
 function SideBar() {
@@ -20,7 +21,9 @@ function SideBar() {
               placeholder="Search My Site"
             />
             <div className={styles.searchIconGridItem}>
-              <IconButton iconClassName="fa fa-search" />
+              <IconButton>
+                <ActionSearch />
+              </IconButton>
             </div>
             <RaisedButton
               className={styles.menuGridItem}
