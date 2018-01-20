@@ -12,7 +12,7 @@ import styles from './styles.css';
 function SideBar() {
   return (
     <div>
-      <Card>
+      <Card className={styles.wrapper}>
         <CardText>
           <div className={styles.gridContainer}>
             <input
