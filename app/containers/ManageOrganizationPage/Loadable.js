@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for PatientCreateEdit
+ * Asynchronously loads the component for ManageOrganizationPage
  *
  */
 

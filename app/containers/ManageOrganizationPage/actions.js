@@ -1,6 +1,6 @@
 /*
  *
- * PatientCreateEdit actions
+ * ManageOrganizationPage actions
  *
  */
 

@@ -1,6 +1,6 @@
 /*
  *
- * PatientCreateEdit reducer
+ * ManageOrganizationPage reducer
  *
  */
 
@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({});
 
-function patientCreateEditReducer(state = initialState, action) {
+function manageOrganizationPageReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +20,4 @@ function patientCreateEditReducer(state = initialState, action) {
   }
 }
 
-export default patientCreateEditReducer;
+export default manageOrganizationPageReducer;
