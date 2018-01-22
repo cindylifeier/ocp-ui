@@ -22,7 +22,7 @@ import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
 import Layout from '../../components/Layout';
-import { ManageOrganizationPage } from '../ManageOrganizationPage';
+import ManageOrganizationPage from '../ManageOrganizationPage';
 
 
 export default function App() {
