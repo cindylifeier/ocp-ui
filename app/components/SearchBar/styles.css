@@ -1,5 +1,5 @@
 .root {
-  top: -20px;
+  top: -30px;
   position: relative;
 }
 
@@ -19,4 +19,5 @@
 .gridItem {
   position: relative;
   height: auto;
+  margin: 10px;
 }

@@ -82,7 +82,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   createTable() {
     return (
       <div>
-        <div className={styles.wrapper}>
+        <div className={styles.card}>
           <div><strong>Organization Name: </strong>
             {this.props.organization ? this.props.organization.name : ''}</div>
           <div className={styles.actionGridContainer}>
@@ -109,19 +109,19 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
               <div className={styles.cellGridHeaderItem}>Address</div>
             </div>
             {this.createRows()}
+            <div className={styles.pagination}>
+              <UltimatePagination
+                currentPage={this.props.currentPage}
+                totalPages={this.props.totalNumberOfPages}
+                boundaryPagesRange={1}
+                siblingPagesRange={1}
+                hidePreviousAndNextPageLinks={false}
+                hideFirstAndLastPageLinks={false}
+                hideEllipsis={false}
+                onChange={this.handlePageClick}
+              />
+            </div>
           </div>
-        </div>
-        <div className={styles.pagination}>
-          <UltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalNumberOfPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
-            onChange={this.handlePageClick}
-          />
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.SideBar.header',
+    id: 'ocpui.components.SideBar.header',
     defaultMessage: 'This is the SideBar component !',
   },
 });

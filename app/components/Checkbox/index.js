@@ -10,11 +10,12 @@ import PropTypes from 'prop-types';
 import { Field } from 'formik';
 
 function CheckboxBridge(props) {
-  const { field: { name, value }, form: { setFieldValue }, ...rest } = props;
+  const { field: { name, value }, form: { setFieldValue, setFieldTouched }, ...rest } = props;
   return (
     <MUICheckbox
       checked={value}
       onCheck={(event, checked) => setFieldValue(name, checked)}
+      onFocus={() => setFieldTouched(name)}
       {...rest}
     />
   );
