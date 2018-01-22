@@ -20,7 +20,7 @@ import saga from './saga';
 import messages from './messages';
 import { makeSelectLocationTypes, makeSelectTelecomSystems, makeSelectUspsStates } from '../App/selectors';
 import { getPatientLookupsAction } from '../App/actions';
-import { LOCATIONTYPE, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { IDENTIFIERSYSTEMS, LOCATIONTYPE, TELECOMSYSTEM, TELECOMUSE, USPSSTATES } from '../App/constants';
 
 
 export class PatientCreateEdit extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -31,14 +31,18 @@ export class PatientCreateEdit extends React.PureComponent { // eslint-disable-l
     return (
       <div>
         <FormattedMessage {...messages.header} />
-        <RaisedButton onClick={this.props.getLookups} label="Load Data" ></RaisedButton>
+        <br /><br />
+        <RaisedButton onClick={this.props.getLookups1} label="Load Data1" ></RaisedButton>
+        <br /><br />
+        <RaisedButton onClick={this.props.getLookups2} label="Load Data2" ></RaisedButton>
       </div>
     );
   }
 }
 
 PatientCreateEdit.propTypes = {
-  getLookups: PropTypes.func.isRequired,
+  getLookups1: PropTypes.func.isRequired,
+  getLookups2: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
   locationTypes: PropTypes.array,
   telecomSystems: PropTypes.array,
@@ -53,7 +57,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getPatientLookupsAction([USPSSTATES, LOCATIONTYPE, TELECOMSYSTEM])),
+    getLookups1: () => dispatch(getPatientLookupsAction([USPSSTATES, LOCATIONTYPE, TELECOMSYSTEM])),
+    getLookups2: () => dispatch(getPatientLookupsAction([IDENTIFIERSYSTEMS, TELECOMSYSTEM, TELECOMUSE])),
   };
 }
 
