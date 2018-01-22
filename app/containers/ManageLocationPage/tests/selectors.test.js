@@ -1,7 +1,7 @@
 // import { fromJS } from 'immutable';
-// import { selectLocationCreateEditDomain } from '../selectors';
+// import { selectManageLocationPageDomain } from '../selectors';
 
-describe('selectLocationCreateEditDomain', () => {
+describe('selectManageLocationPageDomain', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

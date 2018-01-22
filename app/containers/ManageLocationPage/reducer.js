@@ -1,6 +1,6 @@
 /*
  *
- * LocationCreateEdit reducer
+ * ManageLocationPage reducer
  *
  */
 
@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({});
 
-function locationCreateEditReducer(state = initialState, action) {
+function manageLocationPageReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +20,4 @@ function locationCreateEditReducer(state = initialState, action) {
   }
 }
 
-export default locationCreateEditReducer;
+export default manageLocationPageReducer;
