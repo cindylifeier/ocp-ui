@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.containers.LoginPage.header',
+    id: 'ocpui.containers.LoginPage.header',
     defaultMessage: 'This is LoginPage container !',
   },
 });

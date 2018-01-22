@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.containers.PatientDetailsPage.header',
+    id: 'ocpui.containers.PatientDetailsPage.header',
     defaultMessage: 'This is PatientDetailsPage container !',
   },
 });
