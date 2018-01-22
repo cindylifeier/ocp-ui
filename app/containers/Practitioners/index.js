@@ -5,12 +5,14 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import TextField from 'material-ui/TextField';
+import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -88,7 +90,16 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <div className={styles.wrapper}>
-        <h3><FormattedMessage {...messages.header} /></h3>
+        <div className={styles.gridHeaderContainer}>
+          <div className={styles.gridItem}>
+            <h3><FormattedMessage {...messages.header} /></h3>
+          </div>
+          <div className={styles.gridItem}>
+            <Link to="/manage-practitioner">
+              <FontIcon className="fa fa-plus-circle" />
+            </Link>
+          </div>
+        </div>
         <form>
           <div className={styles.gridContainer}>
             <div className={styles.gridItem}>

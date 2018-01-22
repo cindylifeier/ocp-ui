@@ -7,7 +7,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -16,7 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectManagePractitionerPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import ManagePractitioner from '../../components/ManagePractitioner';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -26,7 +25,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
+        <ManagePractitioner />
       </div>
     );
   }
