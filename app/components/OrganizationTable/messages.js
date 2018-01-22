@@ -7,23 +7,23 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   tableColumnHeaderOrganization: {
-    id: 'app.components.OrganizationTable.TableColumnHeader.Organization',
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Organization',
     defaultMessage: 'Organization',
   },
   tableColumnHeaderAddress: {
-    id: 'app.components.OrganizationTable.TableColumnHeader.Address',
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Address',
     defaultMessage: 'Address',
   },
   tableColumnHeaderTelephone: {
-    id: 'app.components.OrganizationTable.TableColumnHeader.Telephone',
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Telephone',
     defaultMessage: 'Telephone',
   },
   tableColumnHeaderId: {
-    id: 'app.components.OrganizationTable.TableColumnHeader.Id',
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Id',
     defaultMessage: 'ID',
   },
   tableColumnHeaderStatus: {
-    id: 'app.components.OrganizationTable.TableColumnHeader.Status',
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Status',
     defaultMessage: 'Status',
   },
 });
