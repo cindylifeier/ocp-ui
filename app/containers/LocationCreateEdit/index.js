@@ -17,16 +17,23 @@ import makeSelectLocationCreateEdit from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getLookupsAction } from '../App/actions';
-import { USPSSTATES } from '../App/constants';
-import { makeSelectUspsStates } from '../App/selectors';
+import { getLookationLookupsAction } from '../App/actions';
+import { ADDRESSTYPE, LOCATIONSTATUS, LOCATIONTYPE, USPSSTATES } from '../App/constants';
+import {
+  makeSelectAddressTypes, makeSelectLocationStatuses, makeSelectLocationTypes,
+  makeSelectUspsStates,
+} from '../App/selectors';
 
 export class LocationCreateEdit extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    this.props.getUsStates();
+    this.props.getLookups();
   }
   render() {
-    console.log(this.props.uspsStates);
+    const { uspsStates, locationTypes, locationStatuses, addressTypes } = this.props;
+    console.log(uspsStates);
+    console.log(locationTypes);
+    console.log(locationStatuses);
+    console.log(addressTypes);
     return (
       <div>
         <FormattedMessage {...messages.header} />
@@ -36,18 +43,24 @@ export class LocationCreateEdit extends React.PureComponent { // eslint-disable-
 }
 
 LocationCreateEdit.propTypes = {
-  getUsStates: PropTypes.func.isRequired,
+  getLookups: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
+  locationTypes: PropTypes.array,
+  locationStatuses: PropTypes.array,
+  addressTypes: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locationcreateedit: makeSelectLocationCreateEdit(),
   uspsStates: makeSelectUspsStates(),
+  locationTypes: makeSelectLocationTypes(),
+  locationStatuses: makeSelectLocationStatuses(),
+  addressTypes: makeSelectAddressTypes(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsStates: () => dispatch(getLookupsAction([USPSSTATES])),
+    getLookups: () => dispatch(getLookationLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONTYPE, ADDRESSTYPE])),
   };
 }
 
