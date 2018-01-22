@@ -1,6 +1,15 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { GET_LOOKUPS, USPSSTATES } from '../App/constants';
-import { makeSelectUspsStates } from '../App/selectors';
+import {
+  ADDRESSTYPE, ADDRESSUSE, GET_LOCATION_LOOKUPS, GET_PATIENT_LOOKUPS, IDENTIFIERSYSTEMS, LOCATIONSTATUS, LOCATIONTYPE,
+  TELECOMSYSTEM, TELECOMUSE,
+  USPSSTATES,
+} from '../App/constants';
+import {
+  makeSelectAddressTypes, makeSelectAddressUses, makeSelectIdentifierSystems, makeSelectLocationStatuses,
+  makeSelectLocationTypes,
+  makeSelectTelecomSystems, makeSelectTelecomUses,
+  makeSelectUspsStates,
+} from '../App/selectors';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from '../App/actions';
 import getLookups from './api';
 //
@@ -18,18 +27,50 @@ import getLookups from './api';
 //   }
 // }
 
+function* isLookupTypeInStore(selectedTypes, verifyingType, makeSelectorType) {
+  if (selectedTypes.includes(verifyingType)) {
+    const dataFromStore = yield select(makeSelectorType());
+    if (dataFromStore && dataFromStore.length > 0) {
+      return true;
+    }
+  }
+  console.log(false);
+  return false;
+}
+
+
 export function* getLookupData(action) {
   try {
     let lookups;
-    const lookupTypeNotInStore = [];
-    if (action.lookupTypes.includes(USPSSTATES)) {
-      const uspsStates = yield select(makeSelectUspsStates());
-      if (uspsStates && uspsStates.length === 0) {
-        lookupTypeNotInStore.push(USPSSTATES);
-      }
+    const lookupTypesNotInStore = [];
+    if (!(yield isLookupTypeInStore(action.lookupTypes, USPSSTATES, makeSelectUspsStates)) && action.lookupTypes.includes(USPSSTATES)) {
+      lookupTypesNotInStore.push(USPSSTATES);
     }
-    if (lookupTypeNotInStore.length > 0) {
-      lookups = yield call(getLookups, action.lookupTypes);
+    if (!(yield isLookupTypeInStore(action.lookupTypes, LOCATIONSTATUS, makeSelectLocationStatuses))
+      && action.lookupTypes.includes(LOCATIONSTATUS)) {
+      lookupTypesNotInStore.push(LOCATIONSTATUS);
+    }
+    if (!(yield isLookupTypeInStore(action.lookupTypes, LOCATIONTYPE, makeSelectLocationTypes)) && action.lookupTypes.includes(LOCATIONTYPE)) {
+      lookupTypesNotInStore.push(LOCATIONTYPE);
+    }
+    if (!(yield isLookupTypeInStore(action.lookupTypes, ADDRESSTYPE, makeSelectAddressTypes)) && action.lookupTypes.includes(ADDRESSTYPE)) {
+      lookupTypesNotInStore.push(ADDRESSTYPE);
+    }
+    if (!(yield isLookupTypeInStore(action.lookupTypes, ADDRESSUSE, makeSelectAddressUses)) && action.lookupTypes.includes(ADDRESSUSE)) {
+      lookupTypesNotInStore.push(ADDRESSUSE);
+    }
+    if (!(yield isLookupTypeInStore(action.lookupTypes, IDENTIFIERSYSTEMS, makeSelectIdentifierSystems)) && action.lookupTypes.includes(IDENTIFIERSYSTEMS)) {
+      lookupTypesNotInStore.push(IDENTIFIERSYSTEMS);
+    }
+    if (!(yield isLookupTypeInStore(action.lookupTypes, TELECOMSYSTEM, makeSelectTelecomSystems)) && action.lookupTypes.includes(TELECOMSYSTEM)) {
+      lookupTypesNotInStore.push(TELECOMSYSTEM);
+    }
+    if (!(yield isLookupTypeInStore(action.lookupTypes, TELECOMUSE, makeSelectTelecomUses)) && action.lookupTypes.includes(TELECOMUSE)) {
+      lookupTypesNotInStore.push(TELECOMUSE);
+    }
+
+    if (lookupTypesNotInStore.length > 0) {
+      lookups = yield call(getLookups, lookupTypesNotInStore);
       yield put(getLookupsSuccess(lookups));
     } else {
       yield put(getLookupsFromStore());
@@ -42,5 +83,6 @@ export function* getLookupData(action) {
 
 // Individual exports for testing
 export default function* watchGetUsStatesSaga() {
-  yield takeLatest(GET_LOOKUPS, getLookupData);
+  yield takeLatest(GET_LOCATION_LOOKUPS, getLookupData);
+  yield takeLatest(GET_PATIENT_LOOKUPS, getLookupData);
 }
