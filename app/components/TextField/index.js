@@ -10,12 +10,17 @@ import PropTypes from 'prop-types';
 import { Field } from 'formik';
 
 function TextFieldBridge(props) {
-  const { field: { name, value }, form: { handleChange }, ...rest } = props;
+  const { field: { name, value }, form: { handleChange, handleBlur, setFieldTouched, errors }, ...rest } = props;
   return (
     <MUITextField
       name={name}
       value={value}
-      onChange={handleChange}
+      onChange={(event) => {
+        handleChange(event);
+        setFieldTouched(name);
+      }}
+      onBlur={handleBlur}
+      errorText={errors[name]}
       {...rest}
     />);
 }
@@ -38,6 +43,9 @@ TextFieldBridge.propTypes = {
   }).isRequired,
   form: PropTypes.shape({
     handleChange: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+    setFieldTouched: PropTypes.func.isRequired,
+    errors: PropTypes.object,
   }).isRequired,
 };
 
