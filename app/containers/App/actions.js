@@ -5,18 +5,26 @@
  */
 
 import {
-  GET_LOOKUPS,
+  GET_LOCATION_LOOKUPS,
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_FROM_STORE,
-  GET_LOOKUPS_SUCCESS,
+  GET_LOOKUPS_SUCCESS, GET_PATIENT_LOOKUPS,
 } from './constants';
 
-export function getLookupsAction(lookupTypes) {
+export function getLookationLookupsAction(lookupTypes) {
   return {
-    type: GET_LOOKUPS,
+    type: GET_LOCATION_LOOKUPS,
     lookupTypes,
   };
 }
+
+export function getPatientLookupsAction(lookupTypes) {
+  return {
+    type: GET_PATIENT_LOOKUPS,
+    lookupTypes,
+  };
+}
+
 
 export function getLookupsSuccess(lookups) {
   return {
