@@ -10,7 +10,10 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import { FloatingActionButton } from 'material-ui';
+import { ContentAdd } from 'material-ui/svg-icons';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -57,10 +60,18 @@ export class Organizations extends React.PureComponent {
     this.setState({ currentPage });
     this.props.loadOrganizations(this.state.searchValue, this.state.showInactive, this.state.searchType, currentPage);
   }
+
   render() {
     const { organizations } = this.props;
     return (
       <div className={styles.root}>
+        <FloatingActionButton
+          className={styles.addButton}
+          mini
+          containerElement={<Link to="/manage-organization" />}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
         <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
 
         <SearchBar
