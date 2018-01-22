@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.StatusCheckbox.header',
+    id: 'ocpui.components.StatusCheckbox.header',
     defaultMessage: 'This is the StatusCheckbox component !',
   },
 });

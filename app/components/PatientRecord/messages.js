@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.PatientRecord.header',
+    id: 'ocpui.components.PatientRecord.header',
     defaultMessage: 'This is the PatientRecord component !',
   },
 });

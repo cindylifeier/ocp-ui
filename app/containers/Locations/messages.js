@@ -7,15 +7,15 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.containers.Locations.header',
+    id: 'ocpui.containers.Locations.header',
     defaultMessage: 'This is Locations container !',
   },
   inactive: {
-    id: 'app.containers.Locations.checkbox.inactive',
+    id: 'ocpui.containers.Locations.checkbox.inactive',
     defaultMessage: 'Include Inactive',
   },
   suspended: {
-    id: 'app.containers.Locations.checkbox.suspended',
+    id: 'ocpui.containers.Locations.checkbox.suspended',
     defaultMessage: 'Include Suspended',
   },
 });
