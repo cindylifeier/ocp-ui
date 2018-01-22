@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { IconButton, MenuItem } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 
 import styles from './styles.css';
 import messages from './messages';
@@ -54,11 +55,12 @@ function SearchBarForm(props) {
         <div className={styles.gridItem}>
           <IconButton
             style={iconButtonStyle}
-            iconClassName="fa fa-search"
             tooltip={<FormattedMessage {...messages.buttonTooltip} />}
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
-          />
+          >
+            <ActionSearch />
+          </IconButton>
         </div>
       </div>
     </Form>
