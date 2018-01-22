@@ -22,6 +22,7 @@ import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
 import Layout from '../../components/Layout';
+import { ManageOrganizationPage } from '../ManageOrganizationPage';
 
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/login" component={LoginPage} />
           <Layout>
             <Route path="/home" component={HomePage} />
+            <Route path="/manage-organization" component={ManageOrganizationPage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
           </Layout>
           <Route component={NotFoundPage} />
