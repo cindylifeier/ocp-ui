@@ -8,10 +8,10 @@ import {
   GET_LOCATION_LOOKUPS,
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_FROM_STORE,
-  GET_LOOKUPS_SUCCESS, GET_PATIENT_LOOKUPS,
+  GET_LOOKUPS_SUCCESS, GET_ORGANIZATION_LOOKUPS, GET_PATIENT_LOOKUPS,
 } from './constants';
 
-export function getLookationLookupsAction(lookupTypes) {
+export function getLocationLookupsAction(lookupTypes) {
   return {
     type: GET_LOCATION_LOOKUPS,
     lookupTypes,
@@ -25,6 +25,12 @@ export function getPatientLookupsAction(lookupTypes) {
   };
 }
 
+export function getOrganizationLookupsAction(lookupTypes) {
+  return {
+    type: GET_ORGANIZATION_LOOKUPS,
+    lookupTypes,
+  };
+}
 
 export function getLookupsSuccess(lookups) {
   return {
