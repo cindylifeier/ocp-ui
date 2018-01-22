@@ -10,9 +10,6 @@ import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 
-import { Checkbox, DropDownMenu, IconButton, MenuItem, TextField } from 'material-ui';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import messages from './messages';
 import styles from './styles.css';
 import messages from './messages';
 import SearchBarForm, { SEARCH_BY_ID, SEARCH_BY_NAME } from './SearchBarForm';
