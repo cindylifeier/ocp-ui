@@ -22,6 +22,8 @@ import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
 import Layout from '../../components/Layout';
+import ManageLocationPage from '../ManageLocationPage/index';
+import ManageOrganizationPage from '../ManageOrganizationPage/index';
 
 
 export default function App() {
@@ -40,6 +42,8 @@ export default function App() {
           <Layout>
             <Route path="/home" component={HomePage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
+            <Route path="/manage-location/" component={ManageLocationPage} />
+            <Route path="/manage-organization/" component={ManageOrganizationPage} />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>
