@@ -14,8 +14,49 @@ const makeSelectUspsStates = () => createSelector(
   (globalState) => globalState.get('uspsStates').toJS()
 );
 
+const makeSelectLocationTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('locationTypes').toJS()
+);
+
+const makeSelectLocationStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('locationStatuses').toJS()
+);
+
+const makeSelectAddressTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('addressTypes').toJS()
+);
+
+const makeSelectAddressUses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('addressUses').toJS()
+);
+
+const makeSelectIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('identifierSystems').toJS()
+);
+
+const makeSelectTelecomSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('telecomSystems').toJS()
+);
+
+const makeSelectTelecomUses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('telecomUses').toJS()
+);
 
 export {
   makeSelectLocation,
   makeSelectUspsStates,
+  makeSelectLocationTypes,
+  makeSelectLocationStatuses,
+  makeSelectAddressTypes,
+  makeSelectAddressUses,
+  makeSelectIdentifierSystems,
+  makeSelectTelecomUses,
+  makeSelectTelecomSystems,
 };
