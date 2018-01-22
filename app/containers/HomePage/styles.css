@@ -20,10 +20,10 @@
 
 .gridItem {
   background-color: #fff;
-  color: #fff;
+  color: rgb(51, 51, 51);
   border-radius: 5px;
   padding: 3px;
-  font-size: 150%;
+  font-size: 100%;
 }
 
 /* Desktops and laptops ----------- */

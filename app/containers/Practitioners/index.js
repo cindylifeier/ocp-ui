@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -22,8 +23,14 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType, makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
@@ -89,7 +96,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     };
 
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.card}>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
             <h3><FormattedMessage {...messages.header} /></h3>
@@ -138,10 +145,11 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
             <div className={styles.gridItem}>
               <div className={styles.centerElement}>
                 <IconButton
-                  iconClassName="fa fa-search"
                   onClick={this.handleSearch}
                   disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
-                />
+                >
+                  <ActionSearch />
+                </IconButton>
               </div>
             </div>
           </div>
