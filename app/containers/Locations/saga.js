@@ -1,7 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS } from './constants';
+import {
+  GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS, STATUS_ACTIVE, STATUS_INACTIVE,
+  STATUS_SUSPENDED } from './constants';
 import { getLocationsError, getLocationsSuccess } from './actions';
-import { makeSelectOrganization } from './selectors';
+import { makeSelectIncludeInactive, makeSelectIncludeSuspended, makeSelectOrganization } from './selectors';
 import searchLocationsByIdAndStatus from './api';
 
 /**
@@ -11,13 +13,14 @@ import searchLocationsByIdAndStatus from './api';
 export function* fetchLocationsByOrganizationIdAndStatus(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    let locations;
-    if (action.status) {
-      locations = yield call(searchLocationsByIdAndStatus, organization.id, action.status, action.currentPage);
-    } else if (!action.status) {
-      locations = yield call(searchLocationsByIdAndStatus, organization.id, [], action.currentPage);
-    }
-    yield put(getLocationsSuccess(locations));
+    const includeInactive = yield select(makeSelectIncludeInactive());
+    const includeSuspended = yield select(makeSelectIncludeSuspended());
+    const status = [];
+    status.push(STATUS_ACTIVE);
+    if (includeInactive) status.push(STATUS_INACTIVE);
+    if (includeSuspended) status.push(STATUS_SUSPENDED);
+    const locations = yield call(searchLocationsByIdAndStatus, organization.id, status, action.currentPage);
+    yield put(getLocationsSuccess(locations, includeInactive, includeSuspended));
   } catch (err) {
     yield put(getLocationsError(err));
   }

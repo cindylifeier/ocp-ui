@@ -12,7 +12,8 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { Route, Switch } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -20,18 +21,29 @@ import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
+import Layout from '../../components/Layout';
 
 
 export default function App() {
   return (
-    <div className={styles.App}>
-      <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/home" component={HomePage} />
-        <Route path="/patients/:id" component={PatientDetailsPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+    <div>
+      <Helmet
+        titleTemplate="%s - Omnibus Care Plan"
+        defaultTitle="Omnibus Care Plan"
+      >
+        <meta name="description" content="Omnibus Care Plan application" />
+      </Helmet>
+      <div className={styles.App}>
+        <Switch>
+          <Route exact path="/" component={LoginPage} />
+          <Route path="/login" component={LoginPage} />
+          <Layout>
+            <Route path="/home" component={HomePage} />
+            <Route path="/patients/:id" component={PatientDetailsPage} />
+          </Layout>
+          <Route component={NotFoundPage} />
+        </Switch>
+      </div>
     </div>
   );
 }

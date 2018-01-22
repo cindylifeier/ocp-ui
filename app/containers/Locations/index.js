@@ -13,7 +13,8 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectLocations, makeSelectOrganization,
+  makeSelectCurrentPage, makeSelectIncludeInactive, makeSelectIncludeSuspended, makeSelectLocations,
+  makeSelectOrganization,
   makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
@@ -21,20 +22,17 @@ import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import { getFilteredLocations } from './actions';
-import { STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
 import StatusCheckbox from '../../components/StatusCheckbox';
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      inactiveStatus: false,
-      suspendedStatus: false,
       currentPage: 1,
     };
-    this.handleInactiveChecked = this.handleInactiveChecked.bind(this);
-    this.handleSuspendedChecked = this.handleSuspendedChecked.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
+    this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
   }
 
   getTelecoms(telecoms) {
@@ -55,30 +53,16 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
       {address.countryCode}</div>) : '';
   }
 
-  handleInactiveChecked(event, newValue) {
-    this.setState({ inactiveStatus: newValue });
-    const suspendedStatus = this.state.suspendedStatus;
-    this.props.onCheckShowInactive(event, newValue, suspendedStatus);
+  handleIncludeInactive(event, checked) {
+    this.props.onCheckIncludeInactive(event, checked, this.props.includeSuspended);
   }
 
-  handleSuspendedChecked(event, newValue) {
-    this.setState({ suspendedStatus: newValue });
-    const inactiveStatus = this.state.inactiveStatus;
-    this.props.onCheckShowSuspended(event, newValue, inactiveStatus);
+  handleIncludeSuspended(event, checked) {
+    this.props.onCheckIncludeSuspended(event, checked, this.props.includeInactive);
   }
 
   handlePageClick(currentPage) {
-    const status = [];
-    this.setState({ currentPage });
-    if (this.state.inactiveStatus) {
-      status.push(STATUS_INACTIVE);
-    }
-
-    if (this.state.suspendedStatus) {
-      status.push(STATUS_SUSPENDED);
-    }
-
-    this.props.onChangePage(status, currentPage);
+    this.props.onChangePage(currentPage, this.props.includeInactive, this.props.includeSuspended);
   }
 
   createRows() {
@@ -105,13 +89,15 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             <StatusCheckbox
               messages={messages.inactive}
               elementId="inactiveCheckBox"
-              handleCheck={this.handleInactiveChecked}
+              checked={this.props.includeInactive}
+              handleCheck={this.handleIncludeInactive}
             >
             </StatusCheckbox>
             <StatusCheckbox
               messages={messages.suspended}
               elementId="suspendedCheckBox"
-              handleCheck={this.handleSuspendedChecked}
+              checked={this.props.includeSuspended}
+              handleCheck={this.handleIncludeSuspended}
             >
             </StatusCheckbox>
           </div>
@@ -156,13 +142,15 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 }
 
 Locations.propTypes = {
-  onCheckShowInactive: PropTypes.func.isRequired,
-  onCheckShowSuspended: PropTypes.func.isRequired,
+  onCheckIncludeInactive: PropTypes.func.isRequired,
+  onCheckIncludeSuspended: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
   totalNumberOfPages: PropTypes.number,
+  includeInactive: PropTypes.bool,
+  includeSuspended: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -170,33 +158,21 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   currentPage: makeSelectCurrentPage(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  includeInactive: makeSelectIncludeInactive(),
+  includeSuspended: makeSelectIncludeSuspended(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onCheckShowInactive: (evt, checked, suspendedCheckboxStatus) => {
-      const status = [];
-      if (checked) {
-        status.push(STATUS_INACTIVE);
-      }
-      if (suspendedCheckboxStatus) {
-        status.push(STATUS_SUSPENDED);
-      }
+    onCheckIncludeInactive: (evt, checked, includeSuspended) => {
       const currentPage = 1;
-      dispatch(getFilteredLocations(status, currentPage));
+      dispatch(getFilteredLocations(currentPage, checked, includeSuspended));
     },
-    onCheckShowSuspended: (evt, checked, inactiveCheckboxStatus) => {
-      const status = [];
-      if (checked) {
-        status.push(STATUS_SUSPENDED);
-      }
-      if (inactiveCheckboxStatus) {
-        status.push(STATUS_INACTIVE);
-      }
+    onCheckIncludeSuspended: (evt, checked, includeInactive) => {
       const currentPage = 1;
-      dispatch(getFilteredLocations(status, currentPage));
+      dispatch(getFilteredLocations(currentPage, includeInactive, checked));
     },
-    onChangePage: (status, currentPage) => dispatch(getFilteredLocations(status, currentPage)),
+    onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
   };
 }
 

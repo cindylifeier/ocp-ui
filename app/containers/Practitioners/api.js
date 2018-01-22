@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_SIZE } from './constants';
+import { DEFAULT_PAGE_SIZE } from '../App/constants';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 import request from '../../utils/request';
 import queryString from '../../utils/queryString';
