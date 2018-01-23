@@ -13,23 +13,6 @@ import ManagePatientForm from './ManagePatientForm';
 import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/ManagePatientPage/constants';
 
-const initialValues = {
-  firstName: '',
-  middleName: '',
-  lastName: '',
-  roleType: '',
-  identifierType: '',
-  identifierValue: '',
-  address1: '',
-  address2: '',
-  city: '',
-  state: '',
-  postalCode: '',
-  country: '',
-  email: '',
-  phone: '',
-};
-
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -37,7 +20,6 @@ function ManagePatient(props) {
   return (
     <div>
       <Formik
-        initialValues={initialValues}
         onSubmit={(values, actions) => {
           onSave(values);
           actions.setSubmitting(false);
@@ -52,6 +34,8 @@ function ManagePatient(props) {
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           gender: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          dob: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),

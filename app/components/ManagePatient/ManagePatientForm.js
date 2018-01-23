@@ -8,6 +8,7 @@ import messages from './messages';
 import styles from './styles.css';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
+import DatePicker from '../DatePicker';
 
 // Todo: Get from global store
 const gendersLookup = [{ code: 'male', name: 'male' }, { code: 'female', name: 'female' }];
@@ -45,6 +46,13 @@ function ManagePatientForm(props) {
               name="lastName"
               hintText={<FormattedMessage {...messages.hintText.lastName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
+            />
+          </div>
+          <div className={styles.gridItem}>
+            <DatePicker
+              name="dob"
+              hintText={<FormattedMessage {...messages.hintText.dob} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.dob} />}
             />
           </div>
           <div className={styles.gridItem}>
@@ -134,7 +142,6 @@ function ManagePatientForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
             />
           </div>
-          <div />
           <div className={styles.gridItem}>
             <TextField
               name="city"

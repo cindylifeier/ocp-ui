@@ -45,6 +45,10 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.hintText.lastName',
       defaultMessage: 'Last Name',
     },
+    dob: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.dob',
+      defaultMessage: 'Date of Birth',
+    },
     gender: {
       id: 'ocpui.components.ManagePatient.manageForm.hintText.gender',
       defaultMessage: 'Gender',
@@ -118,6 +122,10 @@ export default defineMessages({
     lastName: {
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.lastName',
       defaultMessage: 'Last Name',
+    },
+    dob: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.dob',
+      defaultMessage: 'Date of Birth',
     },
     gender: {
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.gender',
