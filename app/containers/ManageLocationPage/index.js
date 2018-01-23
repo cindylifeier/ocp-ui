@@ -20,11 +20,11 @@ import saga from './saga';
 import messages from './messages';
 import { getLookupsAction } from '../App/actions';
 import {
-  ADDRESSTYPE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONTYPE, TELECOMSYSTEM,
+  ADDRESSTYPE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
   USPSSTATES,
 } from '../App/constants';
 import {
-  makeSelectAddressTypes, makeSelectLocationStatuses, makeSelectLocationTypes,
+  makeSelectAddressTypes, makeSelectLocationStatuses, makeSelectLocationPhysicalTypes,
   makeSelectUspsStates,
 } from '../App/selectors';
 
@@ -66,15 +66,15 @@ ManageLocationPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   managelocationpage: makeSelectManageLocationPage(),
   uspsStates: makeSelectUspsStates(),
-  locationTypes: makeSelectLocationTypes(),
+  locationTypes: makeSelectLocationPhysicalTypes(),
   locationStatuses: makeSelectLocationStatuses(),
   addressTypes: makeSelectAddressTypes(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONTYPE, ADDRESSTYPE])),
-    getLookups1: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE])),
+    getLookups1: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
   };
 }
 
