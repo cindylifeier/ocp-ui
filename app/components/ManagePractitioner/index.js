@@ -6,13 +6,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Divider from 'material-ui/Divider';
 import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
 import yup from 'yup';
 import ManagePractitionerForm from './ManagePractitionerForm';
 import messages from './messages';
-import styles from './styles.css';
 import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constants';
 
 const initialValues = {
@@ -36,9 +34,7 @@ function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const { onSave } = props;
   return (
-    <div className={styles.card}>
-      <h4 className={styles.font}><FormattedMessage {...messages.header} /></h4>
-      <Divider />
+    <div>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
@@ -47,13 +43,13 @@ function ManagePractitioner(props) {
         }}
         validationSchema={yup.object().shape({
           lastName: yup.string()
-            .required((<FormattedMessage {...messages.manageForm.validation.required} />))
+            .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
-              <FormattedMessage {...messages.manageForm.validation.minLength} values={{ minimumLength }} />)),
+              <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           identifierType: yup.string()
-            .required((<FormattedMessage {...messages.manageForm.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
-            .required((<FormattedMessage {...messages.manageForm.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={ManagePractitionerForm}
       />

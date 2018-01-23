@@ -19,35 +19,35 @@ function ManagePractitionerForm(props) {
   const { isSubmitting, dirty, isValid } = props;
   return (
     <div>
-      <h4><FormattedMessage {...messages.manageForm.title} /></h4>
+      <h4><FormattedMessage {...messages.title} /></h4>
       <Form>
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
             <TextField
               name="firstName"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.firstName} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.firstName} />}
+              hintText={<FormattedMessage {...messages.hintText.firstName} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
             />
           </div>
           <div className={styles.gridItem}>
             <TextField
               name="middleName"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.middleName} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.middleName} />}
+              hintText={<FormattedMessage {...messages.hintText.middleName} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.middleName} />}
             />
           </div>
           <div className={styles.gridItem}>
             <TextField
               name="lastName"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.lastName} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.lastName} />}
+              hintText={<FormattedMessage {...messages.hintText.lastName} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
             />
           </div>
           <div className={styles.gridItem}>
             <SelectField
               name="roleType"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.roleType} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.roleType} />}
+              hintText={<FormattedMessage {...messages.hintText.roleType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.roleType} />}
             >
               {roleTypesLookup && roleTypesLookup.map((roleType) =>
                 <MenuItem key={roleType.code} value={roleType.code} primaryText={roleType.name} />,
@@ -57,8 +57,8 @@ function ManagePractitionerForm(props) {
           <div className={styles.gridItem}>
             <SelectField
               name="identifierType"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.identifierType} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.identifierType} />}
+              hintText={<FormattedMessage {...messages.hintText.identifierType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
             >
               {identifierTypesLookup && identifierTypesLookup.map((identifierType) =>
                 <MenuItem key={identifierType.code} value={identifierType.code} primaryText={identifierType.name} />,
@@ -68,37 +68,37 @@ function ManagePractitionerForm(props) {
           <div className={styles.gridItem}>
             <TextField
               name="identifierValue"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.identifierValue} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.identifierValue} />}
+              hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
             />
           </div>
           <div className={styles.gridItem}>
             <TextField
               name="address1"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.address1} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.address1} />}
+              hintText={<FormattedMessage {...messages.hintText.address1} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
             />
           </div>
           <div className={styles.gridItem}>
             <TextField
               name="address2"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.address2} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.address2} />}
+              hintText={<FormattedMessage {...messages.hintText.address2} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
             />
           </div>
           <div />
           <div className={styles.gridItem}>
             <TextField
               name="city"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.city} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.city} />}
+              hintText={<FormattedMessage {...messages.hintText.city} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
             />
           </div>
           <div className={styles.gridItem}>
             <SelectField
               name="state"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.state} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.state} />}
+              hintText={<FormattedMessage {...messages.hintText.state} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
             >
               {uspsStatesLookup && uspsStatesLookup.map((uspsState) =>
                 <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.name} />,
@@ -108,15 +108,15 @@ function ManagePractitionerForm(props) {
           <div className={styles.gridItem}>
             <TextField
               name="postalCode"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.postalCode} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.postalCode} />}
+              hintText={<FormattedMessage {...messages.hintText.postalCode} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
             />
           </div>
           <div className={styles.gridItem}>
             <SelectField
               name="country"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.country} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.country} />}
+              hintText={<FormattedMessage {...messages.hintText.country} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
             >
               {countriesLookup && countriesLookup.map((country) =>
                 <MenuItem key={country.code} value={country.code} primaryText={country.name} />,
@@ -126,15 +126,15 @@ function ManagePractitionerForm(props) {
           <div className={styles.gridItem}>
             <TextField
               name="email"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.email} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.email} />}
+              hintText={<FormattedMessage {...messages.hintText.email} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.email} />}
             />
           </div>
           <div className={styles.gridItem}>
             <TextField
               name="phone"
-              hintText={<FormattedMessage {...messages.manageForm.hintText.phone} />}
-              floatingLabelText={<FormattedMessage {...messages.manageForm.floatingLabelText.phone} />}
+              hintText={<FormattedMessage {...messages.hintText.phone} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.phone} />}
             />
           </div>
         </div>

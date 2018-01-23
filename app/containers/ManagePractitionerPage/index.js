@@ -7,8 +7,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import Divider from 'material-ui/Divider';
+import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -16,6 +19,8 @@ import makeSelectManagePractitionerPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManagePractitioner from '../../components/ManagePractitioner';
+import messages from './messages';
+import styles from './styles.css';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -30,19 +35,28 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
+    const { match } = this.props;
     return (
       <div>
         <Helmet>
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
-        <ManagePractitioner onSave={this.handleSave} />
+        <div className={styles.card}>
+          <h4 className={styles.font}>
+            {match.params.id ? <FormattedMessage {...messages.editHeader} /> : <FormattedMessage {...messages.createHeader} />}
+          </h4>
+          <Divider />
+          <ManagePractitioner onSave={this.handleSave} />
+        </div>
       </div>
     );
   }
 }
 
-ManagePractitionerPage.propTypes = {};
+ManagePractitionerPage.propTypes = {
+  match: PropTypes.object,
+};
 
 const mapStateToProps = createStructuredSelector({
   managepractitionerpage: makeSelectManagePractitionerPage(),

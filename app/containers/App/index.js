@@ -40,7 +40,8 @@ export default function App() {
           <Route path="/login" component={LoginPage} />
           <Layout>
             <Route path="/home" component={HomePage} />
-            <Route path="/manage-practitioner" component={ManagePractitionerPage} />
+            <Route exact path="/manage-practitioner" component={ManagePractitionerPage} />
+            <Route path="/manage-practitioner/:id" component={ManagePractitionerPage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
           </Layout>
           <Route component={NotFoundPage} />
