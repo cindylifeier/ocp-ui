@@ -1,4 +1,8 @@
 import { createSelector } from 'reselect';
+import {
+  ADDRESSTYPE, ADDRESSUSE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONTYPE, TELECOMSYSTEM, TELECOMUSE,
+  USPSSTATES,
+} from './constants';
 
 const selectGlobal = (state) => state.get('global');
 
@@ -11,42 +15,47 @@ const makeSelectLocation = () => createSelector(
 
 const makeSelectUspsStates = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('uspsStates').toJS()
+  (globalState) => globalState.get(USPSSTATES).toJS()
 );
 
 const makeSelectLocationTypes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('locationTypes').toJS()
+  (globalState) => globalState.get(LOCATIONTYPE).toJS()
 );
 
 const makeSelectLocationStatuses = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('locationStatuses').toJS()
+  (globalState) => globalState.get(LOCATIONSTATUS).toJS()
 );
 
 const makeSelectAddressTypes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('addressTypes').toJS()
+  (globalState) => globalState.get(ADDRESSTYPE).toJS()
 );
 
 const makeSelectAddressUses = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('addressUses').toJS()
+  (globalState) => globalState.get(ADDRESSUSE).toJS()
 );
 
 const makeSelectIdentifierSystems = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('identifierSystems').toJS()
+  (globalState) => globalState.get(IDENTIFIERSYSTEM).toJS()
 );
 
 const makeSelectTelecomSystems = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('telecomSystems').toJS()
+  (globalState) => globalState.get(TELECOMSYSTEM).toJS()
 );
 
 const makeSelectTelecomUses = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('telecomUses').toJS()
+  (globalState) => globalState.get(TELECOMUSE).toJS()
+);
+
+const makeSelectLookups = (name) => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(name).toJS()
 );
 
 export {
@@ -59,4 +68,5 @@ export {
   makeSelectIdentifierSystems,
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
+  makeSelectLookups,
 };
