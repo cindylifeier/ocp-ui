@@ -7,41 +7,41 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   hintText: {
-    id: 'app.components.SearchBar.hintText',
+    id: 'ocpui.components.SearchBar.hintText',
     defaultMessage: 'Name or ID',
   },
   floatingLabelText: {
-    id: 'app.components.SearchBar.floatingLabelText',
+    id: 'ocpui.components.SearchBar.floatingLabelText',
     defaultMessage: 'Name or ID',
   },
   buttonTooltip: {
-    id: 'app.components.SearchBar.buttonTooltip',
+    id: 'ocpui.components.SearchBar.buttonTooltip',
     defaultMessage: 'Search',
   },
   validation: {
     minLength: {
-      id: 'app.components.SearchBar.validation.minLength',
+      id: 'ocpui.components.SearchBar.validation.minLength',
       defaultMessage: 'Minimum {minimumLength} characters',
     },
     required: {
-      id: 'app.components.SearchBar.validation.required',
+      id: 'ocpui.components.SearchBar.validation.required',
       defaultMessage: 'Required',
     },
     invalid: {
-      id: 'app.components.SearchBar.validation.invalid',
+      id: 'ocpui.components.SearchBar.validation.invalid',
       defaultMessage: 'Invalid value',
     },
   },
   includeInactive: {
-    id: 'app.components.SearchBar.includeInactive',
+    id: 'ocpui.components.SearchBar.includeInactive',
     defaultMessage: 'Include inactive',
   },
   searchByName: {
-    id: 'app.components.SearchBar.searchByName',
+    id: 'ocpui.components.SearchBar.searchByName',
     defaultMessage: 'By Name',
   },
   searchById: {
-    id: 'app.components.SearchBar.searchById',
+    id: 'ocpui.components.SearchBar.searchById',
     defaultMessage: 'By ID',
   },
 });

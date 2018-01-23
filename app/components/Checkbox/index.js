@@ -34,7 +34,7 @@ function Checkbox(props) {
 CheckboxBridge.propTypes = {
   field: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.bool.isRequired,
+    value: PropTypes.bool,
   }).isRequired,
   form: PropTypes.shape({
     setFieldValue: PropTypes.func.isRequired,

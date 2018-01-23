@@ -64,7 +64,7 @@ export class Organizations extends React.PureComponent {
   render() {
     const { organizations } = this.props;
     return (
-      <div className={styles.root}>
+      <div className={styles.card}>
         <FloatingActionButton
           className={styles.addButton}
           mini
