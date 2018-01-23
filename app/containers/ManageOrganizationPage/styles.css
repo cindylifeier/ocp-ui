@@ -1,14 +1,13 @@
 .root {
-  margin: 20px;
+  background-color: #E0F2F1;
 }
 
 .gridContainer {
   color: #444;
   width: auto;
-  background-color: #fff;
-  margin: 0 auto;
+  margin:0 1%;
   display: grid;
-  grid-column-gap: 30px;
+  grid-column-gap: 3px;
   grid-template-columns: 1fr;
   grid-template-areas:
     "name"
@@ -26,41 +25,9 @@
     "save";
 }
 
-/* Tablet landscape ----------- */
-@media only screen and (min-width: 768px) {
-  .gridContainer {
-    grid-template-columns: 3fr 1fr;
-    grid-template-areas:
-      "name idtype"
-      "id status"
-      "address1 address1"
-      "address2 address2"
-      "city city"
-      "state zip"
-      "country ."
-      "telecomSystem telecomValue"
-      "save .";
-  }
-}
-
-/* Desktops and laptops ----------- */
-@media only screen and (min-width: 1200px) {
-  .gridContainer {
-    grid-template-columns: 3fr 1fr 3fr 1fr;
-    grid-template-areas:
-      "name idtype id status"
-      "address1 address1 address2 address2"
-      "city city state zip"
-      "country . telecomSystem telecomValue"
-      "save . . .";
-  }
-}
-
 .gridItem {
-  background-color: #fff;
   border-radius: 5px;
-  padding: 3px;
-  font-size: 150%;
+  font-size: 100%;
 }
 
 .name {
@@ -113,4 +80,94 @@
 
 .save {
   grid-area: save;
+}
+
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    padding: 0 2vw;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "name idtype"
+      "id status"
+      "address1 address1"
+      "address2 address2"
+      "city city"
+      "state zip"
+      "country ."
+      "telecomSystem telecomValue"
+      "save .";
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .name {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
+
+  .idtype {
+    grid-column: 4 / span 1;
+    grid-row: 1;
+  }
+
+  .id {
+    grid-column: 5 / span 1;
+    grid-row: 1;
+  }
+
+  .status {
+    grid-column: 7 / span 1;
+    grid-row: 1;
+  }
+
+  .address1 {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+  }
+
+  .address2 {
+    grid-column: 4 / span 2;
+    grid-row: 2;
+  }
+
+  .city {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+
+  .state {
+    grid-column: 4 / span 1;
+    grid-row: 3;
+  }
+
+  .zip {
+    grid-column: 5 / span 1;
+    grid-row: 3;
+  }
+
+  .country {
+    grid-column: 1 / span 2;
+    grid-row: 4;
+  }
+
+  .telecomSystem {
+    grid-column: 4 / span 1;
+    grid-row: 4;
+  }
+
+  .telecomValue {
+    grid-column: 5 / span 1;
+    grid-row: 4;
+  }
+
+  .save {
+    grid-column: 1 / span 1;
+    grid-row: 5;
+  }
 }
