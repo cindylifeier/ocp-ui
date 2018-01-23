@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.Footer.header',
+    id: 'ocpui.components.Footer.header',
     defaultMessage: 'Copyright © {year}',
   },
 });

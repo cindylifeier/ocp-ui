@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.containers.Organizations.header',
+    id: 'ocpui.containers.Organizations.header',
     defaultMessage: 'Organizations',
   },
 });

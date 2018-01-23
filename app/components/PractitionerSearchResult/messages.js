@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.PractitionerSearchResult.header',
+    id: 'ocpui.components.PractitionerSearchResult.header',
     defaultMessage: 'This is the PractitionerSearchResult component !',
   },
 });
