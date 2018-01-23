@@ -80,6 +80,10 @@
 
 .buttonGroup {
   grid-area: buttonGroup;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1vw;
+  grid-auto-columns: minmax(100px,10vw);
 }
 
 .cancel {
@@ -171,11 +175,8 @@
   }
 
   .buttonGroup {
-    grid-column: 10 / span 1;
+    grid-column: 12 / span 1;
     grid-row: 5;
-    display: grid;
-    grid-auto-flow: column;
-    grid-column-gap: 3px;
   }
 
 }
