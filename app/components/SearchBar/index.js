@@ -14,7 +14,7 @@ import styles from './styles.css';
 import messages from './messages';
 import SearchBarForm, { SEARCH_BY_ID, SEARCH_BY_NAME } from './SearchBarForm';
 
-const initialValues = { searchValue: '', showInactive: false, searchType: SEARCH_BY_NAME };
+const initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
 const regexMatchesSearchTypes = new RegExp(`(${SEARCH_BY_NAME}|${SEARCH_BY_ID})`);
 
 function SearchBar(props) {
