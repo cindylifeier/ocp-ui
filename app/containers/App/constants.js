@@ -15,9 +15,7 @@ export const DEFAULT_LOCALE = 'en';
  *  US state related constants
  * @type {string}
  */
-export const GET_LOCATION_LOOKUPS = 'ocpui/App/GET_LOCATION_LOOKUPS';
-export const GET_PATIENT_LOOKUPS = 'ocpui/App/GET_PATIENT_LOOKUPS';
-export const GET_ORGANIZATION_LOOKUPS = 'ocpui/App/GET_ORGANIZATION_LOOKUPS';
+export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
 export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
