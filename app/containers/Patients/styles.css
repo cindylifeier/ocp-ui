@@ -21,6 +21,12 @@
   margin-top: 5px;
 }
 
+.gridHeaderContainer {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-top: 5px;
+}
+
 .gridItem {
   position: relative;
   height: auto;
