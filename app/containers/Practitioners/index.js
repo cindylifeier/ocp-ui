@@ -12,9 +12,9 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import TextField from 'material-ui/TextField';
-import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -103,7 +103,9 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
           </div>
           <div className={styles.gridItem}>
             <Link to="/manage-practitioner">
-              <FontIcon className="fa fa-plus-circle" />
+              <IconButton>
+                <ContentAddCircle />
+              </IconButton>
             </Link>
           </div>
         </div>

@@ -18,6 +18,17 @@ import saga from './saga';
 import ManagePractitioner from '../../components/ManagePractitioner';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  handleSave(values) {
+    // Todo: remove it
+    console.log(values);
+  }
+
   render() {
     return (
       <div>
@@ -25,7 +36,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
-        <ManagePractitioner />
+        <ManagePractitioner onSave={this.handleSave} />
       </div>
     );
   }
