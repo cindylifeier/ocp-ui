@@ -42,6 +42,7 @@ export default function App() {
             <Route path="/home" component={HomePage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
             <Route path="/manage-patient" component={ManagePatientPage} />
+            <Route path="/manage-patient/:id" component={ManagePatientPage} />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>
