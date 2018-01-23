@@ -60,7 +60,7 @@ export class Organizations extends React.PureComponent {
   render() {
     const { organizations } = this.props;
     return (
-      <div className={styles.root}>
+      <div className={styles.card}>
         <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
 
         <SearchBar

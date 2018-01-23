@@ -13,13 +13,13 @@ import styles from './styles.css';
 function Layout(props) {
   return (
     <div className={styles.gridContainer}>
-      <div className={`${styles.gridItem} ${styles.header}`}>
+      <div className={styles.header}>
         <Header />
       </div>
       <div className={styles.content}>
         <main>{props.children}</main>
       </div>
-      <div className={`${styles.gridItem} ${styles.footer}`}>
+      <div className={styles.footer}>
         <Footer />
       </div>
     </div>
