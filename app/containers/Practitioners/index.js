@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -87,7 +88,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     };
 
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.card}>
         <h3><FormattedMessage {...messages.header} /></h3>
         <form>
           <div className={styles.gridContainer}>
@@ -127,10 +128,11 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
             <div className={styles.gridItem}>
               <div className={styles.centerElement}>
                 <IconButton
-                  iconClassName="fa fa-search"
                   onClick={this.handleSearch}
                   disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
-                />
+                >
+                  <ActionSearch />
+                </IconButton>
               </div>
             </div>
           </div>

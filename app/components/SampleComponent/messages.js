@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.SampleComponent.header',
+    id: 'ocpui.components.SampleComponent.header',
     defaultMessage: 'This is the SampleComponent component !',
   },
 });
