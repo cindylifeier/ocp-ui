@@ -30,7 +30,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
               floatingLabelText="Verify code"
               type="password"
             /><br />
-            <RaisedButton label="Sign in" primary onClick={() => { this.props.history.push('/home'); }} />
+            <RaisedButton label="Sign in" primary onClick={() => { this.props.history.push('/ocp-ui/home'); }} />
           </form>
         </Card>
       </div>
