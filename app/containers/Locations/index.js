@@ -46,11 +46,9 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   }
 
   getAddress(address) {
-    return address ? (<div>
-      {address.line1}
-      {address.line2},
-      {address.city}, {address.stateCode} {address.postalCode},
-      {address.countryCode}</div>) : '';
+    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
+    return addressStr ? (<div>{ addressStr }</div>) : '';
   }
 
   handleIncludeInactive(event, checked) {
