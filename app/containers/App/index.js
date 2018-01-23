@@ -13,6 +13,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { compose } from 'redux';
 import { Route, Switch } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
@@ -22,9 +23,12 @@ import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
 import Layout from '../../components/Layout';
+import ManageLocationPage from '../ManageLocationPage/index';
+import saga from './saga';
+import injectSaga from '../../utils/injectSaga';
 
 
-export default function App() {
+export function App() {
   return (
     <div>
       <Helmet
@@ -40,6 +44,7 @@ export default function App() {
           <Layout>
             <Route path="/home" component={HomePage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
+            <Route path="/manage-location/" component={ManageLocationPage} />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>
@@ -47,3 +52,9 @@ export default function App() {
     </div>
   );
 }
+
+const withSaga = injectSaga({ key: 'App', saga });
+
+export default compose(
+  withSaga,
+)(App);
