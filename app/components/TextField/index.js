@@ -10,11 +10,10 @@ import PropTypes from 'prop-types';
 import { Field } from 'formik';
 
 function TextFieldBridge(props) {
-  const { field: { name, value }, form: { handleChange, handleBlur, setFieldTouched, errors }, ...rest } = props;
+  const { field: { name }, form: { handleChange, handleBlur, setFieldTouched, errors }, ...rest } = props;
   return (
     <MUITextField
       name={name}
-      value={value}
       onChange={(event) => {
         handleChange(event);
         setFieldTouched(name);
