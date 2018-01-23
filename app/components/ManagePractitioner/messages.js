@@ -19,6 +19,14 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.required',
       defaultMessage: 'Required',
     },
+    email: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.validation.email',
+      defaultMessage: 'Email must be a valid email',
+    },
+    postalCode: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.validation.postalCode',
+      defaultMessage: 'Must be with formats: 12345 or 12345-6789',
+    },
     invalid: {
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',

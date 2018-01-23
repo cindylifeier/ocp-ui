@@ -32,6 +32,7 @@ const initialValues = {
 
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
+  const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const { onSave } = props;
   return (
     <div>
@@ -50,6 +51,10 @@ function ManagePractitioner(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
+          email: yup.string()
+            .email((<FormattedMessage {...messages.validation.email} />)),
+          postalCode: yup.string()
+            .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
         render={ManagePractitionerForm}
       />
