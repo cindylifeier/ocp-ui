@@ -12,7 +12,8 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Formik } from 'formik';
-import { MenuItem, RaisedButton } from 'material-ui';
+import { MenuItem, RaisedButton, FlatButton } from 'material-ui';
+import { teal500, white } from 'material-ui/styles/colors';
 import yup from 'yup';
 
 import injectSaga from 'utils/injectSaga';
@@ -188,19 +189,19 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                     <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
                       <RaisedButton
                         type="submit"
-                        primary
+                        backgroundColor={teal500}
+                        labelColor={white}
                         label={<FormattedMessage {...messages.form.saveButton} />}
                         //  disabled={!dirty || isSubmitting || !isValid}
                       />
-                      <RaisedButton
+                      <FlatButton
                         type="button"
-                        primary
+                        default
                         label="CANCEL"
                         //  disabled={!dirty || isSubmitting || !isValid}
                       />
                     </div>
                   </div>
-
                 </Form>
               );
             }}
