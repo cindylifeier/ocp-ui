@@ -15,12 +15,12 @@ export default defineMessages({
       id: 'ocpui.containers.ManageOrganizationPage.form.name',
       defaultMessage: 'Organization Name',
     },
-    idType: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.idType',
+    identifierSystem: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.identifierSystem',
       defaultMessage: 'ID',
     },
-    idValue: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.idValue',
+    identifierValue: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.identifierValue',
       defaultMessage: 'Please enter ID #',
     },
     status: {

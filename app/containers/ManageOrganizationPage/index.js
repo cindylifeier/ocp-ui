@@ -25,81 +25,19 @@ import messages from './messages';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import styles from './styles.css';
-
-const initialValues = {
-  name: '',
-  idType: '',
-  idValue: '',
-  status: '',
-  address1: '',
-  address2: '',
-  city: '',
-  state: '',
-  zip: '',
-  country: '',
-};
+import { IDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { getLookupsAction } from '../App/actions';
+import { makeSelectIdentifierSystems, makeSelectTelecomSystems, makeSelectUspsStates } from '../App/selectors';
 
 const emailPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
 
-const uspsStatesLookup = [{ code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' }, {
-  code: 'AS',
-  name: 'American Samoa',
-}, { code: 'AZ', name: 'Arizona' }, { code: 'AR', name: 'Arkansas' }, { code: 'CA', name: 'California' }, {
-  code: 'CO',
-  name: 'Colorado',
-}, { code: 'CT', name: 'Connecticut' }, { code: 'DE', name: 'Delaware' }, {
-  code: 'DC',
-  name: 'District of Columbia',
-}, { code: 'FM', name: 'Federated States of Micronesia' }, { code: 'FL', name: 'Florida' }, {
-  code: 'GA',
-  name: 'Georgia',
-}, { code: 'GU', name: 'Guam' }, { code: 'HI', name: 'Hawaii' }, { code: 'ID', name: 'Idaho' }, {
-  code: 'IL',
-  name: 'Illinois',
-}, { code: 'IN', name: 'Indiana' }, { code: 'IA', name: 'Iowa' }, { code: 'KS', name: 'Kansas' }, {
-  code: 'KY',
-  name: 'Kentucky',
-}, { code: 'LA', name: 'Louisiana' }, { code: 'ME', name: 'Maine' }, {
-  code: 'MH',
-  name: 'Marshall Islands',
-}, { code: 'MD', name: 'Maryland' }, { code: 'MA', name: 'Massachusetts' }, {
-  code: 'MI',
-  name: 'Michigan',
-}, { code: 'MN', name: 'Minnesota' }, { code: 'MS', name: 'Mississippi' }, {
-  code: 'MO',
-  name: 'Missouri',
-}, { code: 'MT', name: 'Montana' }, { code: 'NE', name: 'Nebraska' }, { code: 'NV', name: 'Nevada' }, {
-  code: 'NH',
-  name: 'New Hampshire',
-}, { code: 'NJ', name: 'New Jersey' }, { code: 'NM', name: 'New Mexico' }, {
-  code: 'NY',
-  name: 'New York',
-}, { code: 'NC', name: 'North Carolina' }, { code: 'ND', name: 'North Dakota' }, {
-  code: 'MP',
-  name: 'Northern Mariana Islands',
-}, { code: 'OH', name: 'Ohio' }, { code: 'OK', name: 'Oklahoma' }, { code: 'OR', name: 'Oregon' }, {
-  code: 'PW',
-  name: 'Palau',
-}, { code: 'PA', name: 'Pennsylvania' }, { code: 'PR', name: 'Puerto Rico' }, {
-  code: 'RI',
-  name: 'Rhode Island',
-}, { code: 'SC', name: 'South Carolina' }, { code: 'SD', name: 'South Dakota' }, {
-  code: 'TN',
-  name: 'Tennessee',
-}, { code: 'TX', name: 'Texas' }, { code: 'UT', name: 'Utah' }, { code: 'VT', name: 'Vermont' }, {
-  code: 'VI',
-  name: 'Virgin Islands',
-}, { code: 'VA', name: 'Virginia' }, { code: 'WA', name: 'Washington' }, {
-  code: 'WV',
-  name: 'West Virginia',
-}, { code: 'WI', name: 'Wisconsin' }, { code: 'WY', name: 'Wyoming' }];
-
-const countriesLookup = [{ code: 'us', name: 'Unites States' }, { code: 'ca', name: 'Canada' }];
-
-const telecomSystemsLookup = [{ code: 'PHONE', name: 'Phone' }, { code: 'EMAIL', name: 'Email Address' }];
-
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    this.props.getLookups();
+  }
+
   render() {
+    const { uspsStates, identifierSystems, telecomSystems } = this.props;
     return (
       <div className={styles.root}>
         <Helmet>
@@ -110,13 +48,12 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
         <div>
           <Formik
-            initialValues={initialValues}
             validationSchema={yup.object().shape({
               name: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              idType: yup.string()
+              identifierSystem: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              idValue: yup.string()
+              identifierValue: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               status: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
@@ -129,12 +66,16 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
               zip: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .matches(emailPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
-              country: yup.string()
+              telecomSystem: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              telecomValue: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
             })}
             onSubmit={(values, actions) => {
               console.log('submitted', values);
+              console.log('json', JSON.stringify(values));
               actions.setSubmitting(false);
+              // this.props.createOrganization(values);
             }}
             render={(props) => {
               const { isSubmitting, dirty, isValid } = props;
@@ -150,22 +91,25 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.idtype}`}>
+                    <div className={`${styles.gridItem} ${styles.identifierSystem}`}>
                       <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.idType} />}
-                        name="idType"
+                        floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
+                        name="identifierSystem"
                         fullWidth
                       >
-                        <MenuItem value="npi" primaryText="NPI" />
-                        <MenuItem value="tax" primaryText="Tax ID" />
-                        <MenuItem value="local" primaryText="Local ID" />
+                        {identifierSystems && identifierSystems.map((identifierSystem) => (
+                          <MenuItem
+                            key={identifierSystem.uri}
+                            value={identifierSystem.uri}
+                            primaryText={identifierSystem.display}
+                          />))}
                       </SelectField>
                     </div>
-                    <div className={`${styles.gridItem} ${styles.id}`}>
+                    <div className={`${styles.gridItem} ${styles.identifierValue}`}>
                       <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.idValue} />}
+                        floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
                         fullWidth
-                        name="idValue"
+                        name="identifierValue"
                       />
                     </div>
                     <div className={`${styles.gridItem} ${styles.status}`}>
@@ -174,9 +118,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                         name="status"
                       >
-                        <MenuItem value="active" primaryText="Active" />
-                        <MenuItem value="inactive" primaryText="Inactive" />
-                        <MenuItem value="suspended" primaryText="Suspended" />
+                        <MenuItem value="true" primaryText="Active" />
+                        <MenuItem value="false" primaryText="Inactive" />
                       </SelectField>
                     </div>
                     <div className={`${styles.gridItem} ${styles.address1}`}>
@@ -206,11 +149,11 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                         name="state"
                       >
-                        {uspsStatesLookup.map((state) => (
+                        {uspsStates && uspsStates.map((state) => (
                           <MenuItem
                             key={state.code}
                             value={state.code}
-                            primaryText={state.name}
+                            primaryText={state.display}
                           />))}
                       </SelectField>
                     </div>
@@ -221,31 +164,17 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="zip"
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.country}`}>
-                      <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.country} />}
-                        fullWidth
-                        name="country"
-                      >
-                        {countriesLookup.map((country) => (
-                          <MenuItem
-                            key={country.code}
-                            value={country.code}
-                            primaryText={country.name}
-                          />))}
-                      </SelectField>
-                    </div>
                     <div className={`${styles.gridItem} ${styles.telecomSystem}`}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
                         fullWidth
                         name="telecomSystem"
                       >
-                        {telecomSystemsLookup.map((telecomSystem) => (
+                        {telecomSystems && telecomSystems.map((telecomSystem) => (
                           <MenuItem
                             key={telecomSystem.code}
                             value={telecomSystem.code}
-                            primaryText={telecomSystem.name}
+                            primaryText={telecomSystem.display}
                           />))}
                       </SelectField>
                     </div>
@@ -284,16 +213,35 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 }
 
 ManageOrganizationPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getLookups: PropTypes.func.isRequired,
+  uspsStates: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  identifierSystems: PropTypes.arrayOf(PropTypes.shape({
+    uri: PropTypes.string.isRequired,
+    oid: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
 };
 
 const mapStateToProps = createStructuredSelector({
   manageorganizationpage: makeSelectManageOrganizationPage(),
+  uspsStates: makeSelectUspsStates(),
+  identifierSystems: makeSelectIdentifierSystems(),
+  telecomSystems: makeSelectTelecomSystems(),
 });
 
 function mapDispatchToProps(dispatch) {
+  // TODO: add identifier systems and statuses for Organization when implemented
   return {
-    dispatch,
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM])),
+    // createOrganization: (organization) => dispatch(createOrganization(organization)),
   };
 }
 
