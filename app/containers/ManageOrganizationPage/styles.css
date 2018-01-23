@@ -22,7 +22,7 @@
     "country"
     "telecomSystem"
     "telecomValue"
-    "save";
+    "buttonGroup";
 }
 
 .gridItem {
@@ -78,8 +78,12 @@
   grid-area: telecomValue;
 }
 
-.save {
-  grid-area: save;
+.buttonGroup {
+  grid-area: buttonGroup;
+}
+
+.cancel {
+  grid-area: cancel;
 }
 
 /* Tablet landscape ----------- */
@@ -96,7 +100,7 @@
       "state zip"
       "country ."
       "telecomSystem telecomValue"
-      "save .";
+      "buttonGroup .";
   }
 }
 
@@ -166,8 +170,12 @@
     grid-row: 4;
   }
 
-  .save {
-    grid-column: 1 / span 1;
+  .buttonGroup {
+    grid-column: 10 / span 1;
     grid-row: 5;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 3px;
   }
+
 }

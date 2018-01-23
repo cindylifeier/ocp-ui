@@ -256,11 +256,17 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="telecomValue"
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.save}`}>
+                    <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
                       <RaisedButton
                         type="submit"
                         primary
                         label={<FormattedMessage {...messages.form.saveButton} />}
+                        //  disabled={!dirty || isSubmitting || !isValid}
+                      />
+                      <RaisedButton
+                        type="button"
+                        primary
+                        label="CANCEL"
                         //  disabled={!dirty || isSubmitting || !isValid}
                       />
                     </div>
