@@ -1,14 +1,14 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { GET_ORGANIZATION_LOOKUPS } from '../App/constants';
-import { getLookups, getLookupTypesNotInStore } from '../../utils/LookupService';
+import { GET_LOOKUPS } from '../App/constants';
+import { fetchLookups, getLookupTypesNotInStore } from '../../utils/LookupService';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from '../App/actions';
 
 
-export function* getOrganizationLookups(action) {
+export function* getLookups(action) {
   try {
     const lookupTypesNotInStore = yield getLookupTypesNotInStore(action);
     if (lookupTypesNotInStore.length > 0) {
-      const lookups = yield call(getLookups, lookupTypesNotInStore);
+      const lookups = yield call(fetchLookups, lookupTypesNotInStore);
       yield put(getLookupsSuccess(lookups));
     } else {
       yield put(getLookupsFromStore());
@@ -18,7 +18,6 @@ export function* getOrganizationLookups(action) {
   }
 }
 
-// Individual exports for testing
-export default function* watchGetOrganizationLookupsSaga() {
-  yield takeLatest(GET_ORGANIZATION_LOOKUPS, getOrganizationLookups);
+export default function* watchGetLookupsSaga() {
+  yield takeLatest(GET_LOOKUPS, getLookups);
 }
