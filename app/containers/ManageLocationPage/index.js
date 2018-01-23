@@ -18,7 +18,7 @@ import makeSelectManageLocationPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getLocationLookupsAction } from '../App/actions';
+import { getLookupsAction } from '../App/actions';
 import {
   ADDRESSTYPE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONTYPE, TELECOMSYSTEM,
   USPSSTATES,
@@ -73,8 +73,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLocationLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONTYPE, ADDRESSTYPE])),
-    getLookups1: () => dispatch(getLocationLookupsAction([USPSSTATES, LOCATIONTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONTYPE, ADDRESSTYPE])),
+    getLookups1: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
   };
 }
 
