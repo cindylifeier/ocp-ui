@@ -1,7 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { GET_LOOKUPS } from '../App/constants';
-import { fetchLookups, getLookupTypesNotInStore } from '../../utils/LookupService';
+import { getLookupTypesNotInStore } from '../../utils/LookupService';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from '../App/actions';
+import { fetchLookups } from './api';
 
 
 export function* getLookups(action) {

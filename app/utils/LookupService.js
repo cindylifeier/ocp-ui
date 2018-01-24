@@ -1,7 +1,6 @@
 import { select } from 'redux-saga/effects';
 import { makeSelectLookups } from '../containers/App/selectors';
-import getApiBaseUrl from '../apiBaseUrlConfig';
-import request from './request';
+
 
 function* isLookupTypeInStore(lookupType) {
   const dataFromStore = yield select(makeSelectLookups(lookupType));
@@ -22,11 +21,4 @@ export function* getLookupTypesNotInStore(action) {
     i += 1;
   }
   return lookupTypesNotInStore;
-}
-
-export function fetchLookups(lookupTypes) {
-  const apiBaseURL = getApiBaseUrl();
-  const lookupKeyList = lookupTypes.join();
-  const requestURL = `${apiBaseURL}/lookups?lookUpTypeList=${lookupKeyList}`;
-  return request(requestURL);
 }
