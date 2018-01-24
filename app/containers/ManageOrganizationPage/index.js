@@ -23,10 +23,11 @@ import messages from './messages';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import styles from './styles.css';
-import { ORGANIZATIONIDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
+  makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
 } from '../App/selectors';
@@ -72,7 +73,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { uspsStates, organizationIdentifierSystems, telecomSystems, history: { goBack } } = this.props;
+    const { uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack } } = this.props;
     return (
       <div className={styles.root}>
         <Helmet>
@@ -105,11 +106,11 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="identifierSystem"
                         fullWidth
                       >
-                        {organizationIdentifierSystems && organizationIdentifierSystems.map((identifierSystem) => (
+                        {organizationIdentifierSystems && organizationIdentifierSystems.map(({ uri, display }) => (
                           <MenuItem
-                            key={identifierSystem.uri}
-                            value={identifierSystem.uri}
-                            primaryText={identifierSystem.display}
+                            key={uri}
+                            value={uri}
+                            primaryText={display}
                           />))}
                       </SelectField>
                     </div>
@@ -126,8 +127,12 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                         name="status"
                       >
-                        <MenuItem value="true" primaryText="Active" />
-                        <MenuItem value="false" primaryText="Inactive" />
+                        {organizationStatuses && organizationStatuses.map(({ code, display }) => (
+                          <MenuItem
+                            key={code.toString()}
+                            value={code.toString()}
+                            primaryText={display}
+                          />))}
                       </SelectField>
                     </div>
                     <div className={`${styles.gridItem} ${styles.address1}`}>
@@ -237,6 +242,10 @@ ManageOrganizationPage.propTypes = {
     oid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  organizationStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.bool.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   telecomSystems: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
@@ -247,13 +256,13 @@ ManageOrganizationPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   uspsStates: makeSelectUspsStates(),
   organizationIdentifierSystems: makeSelectOrganizationIdentifierSystems(),
+  organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
 });
 
 function mapDispatchToProps(dispatch) {
-  // TODO: add statuses for Organization when implemented
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
   };
 }
