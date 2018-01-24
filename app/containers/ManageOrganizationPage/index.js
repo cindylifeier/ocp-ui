@@ -23,7 +23,7 @@ import messages from './messages';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import styles from './styles.css';
-import { IDENTIFIERSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { ORGANIZATIONIDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
@@ -253,7 +253,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   // TODO: add statuses for Organization when implemented
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
   };
 }
