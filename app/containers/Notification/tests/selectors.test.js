@@ -1,7 +1,7 @@
 // import { fromJS } from 'immutable';
-// import { selectManageOrganizationPageDomain } from '../selectors';
+// import { selectNotificationDomain } from '../selectors';
 
-describe('selectManageOrganizationPageDomain', () => {
+describe('selectNotificationDomain', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -4,12 +4,12 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { CREATE_ORGANIZATION } from './constants';
 
-export function defaultAction() {
+export function createOrganization(organization, callback) {
   return {
-    type: DEFAULT_ACTION,
+    type: CREATE_ORGANIZATION,
+    organization,
+    callback,
   };
 }

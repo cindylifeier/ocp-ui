@@ -12,15 +12,14 @@
   grid-template-columns: 1fr;
   grid-template-areas:
     "name"
-    "idtype"
-    "id"
+    "identifierSystem"
+    "identifierValue"
     "status"
     "address1"
     "address2"
     "city"
     "state"
     "zip"
-    "country"
     "telecomSystem"
     "telecomValue"
     "buttonGroup";
@@ -35,12 +34,12 @@
   grid-area: name;
 }
 
-.idtype {
-  grid-area: idtype;
+.identifierSystem {
+  grid-area: identifierSystem;
 }
 
-.id {
-  grid-area: id;
+.identifierValue {
+  grid-area: identifierValue;
 }
 
 .status {
@@ -65,10 +64,6 @@
 
 .zip {
   grid-area: zip;
-}
-
-.country {
-  grid-area: country;
 }
 
 .telecomSystem {
@@ -97,13 +92,12 @@
     padding: 0 2vw;
     grid-template-columns: 2fr 1fr;
     grid-template-areas:
-      "name idtype"
-      "id status"
+      "name identifierSystem"
+      "identifierValue status"
       "address1 address1"
       "address2 address2"
       "city city"
       "state zip"
-      "country ."
       "telecomSystem telecomValue"
       "buttonGroup .";
   }
@@ -120,12 +114,12 @@
     grid-row: 1;
   }
 
-  .idtype {
+  .identifierSystem {
     grid-column: 5 / span 1;
     grid-row: 1;
   }
 
-  .id {
+  .identifierValue {
     grid-column: 6 / span 2;
     grid-row: 1;
   }
@@ -160,18 +154,13 @@
     grid-row: 3;
   }
 
-  .country {
-    grid-column: 1 / span 3;
-    grid-row: 4;
-  }
-
   .telecomSystem {
-    grid-column: 5 / span 1;
+    grid-column: 1 / span 1;
     grid-row: 4;
   }
 
   .telecomValue {
-    grid-column: 6 / span 2;
+    grid-column: 2 / span 2;
     grid-row: 4;
   }
 

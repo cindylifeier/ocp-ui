@@ -8,7 +8,7 @@
  *  ManageOrganizationPage action types
  *  @type {string}
  */
-export const DEFAULT_ACTION = 'ocpui/ManageOrganizationPage/DEFAULT_ACTION';
+export const CREATE_ORGANIZATION = 'ocpui/ManageOrganizationPage/CREATE_ORGANIZATION';
 
 
 /**
