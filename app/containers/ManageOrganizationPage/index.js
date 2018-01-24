@@ -31,10 +31,8 @@ import { getLookupsAction } from '../App/actions';
 import { makeSelectIdentifierSystems, makeSelectTelecomSystems, makeSelectUspsStates } from '../App/selectors';
 import { createOrganization } from './actions';
 
-
-const emailPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   static validationSchema = yup.object().shape({
     name: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
@@ -52,7 +50,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       .required((<FormattedMessage {...messages.validation.required} />)),
     zip: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />))
-      .matches(emailPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
+      .matches(ManageOrganizationPage.zipPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
     telecomSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     telecomValue: yup.string()
