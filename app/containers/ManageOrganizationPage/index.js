@@ -17,9 +17,6 @@ import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
 import { teal500, white } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectManageOrganizationPage from './selectors';
-import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
@@ -242,7 +239,6 @@ ManageOrganizationPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  manageorganizationpage: makeSelectManageOrganizationPage(),
   uspsStates: makeSelectUspsStates(),
   identifierSystems: makeSelectIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
@@ -258,11 +254,9 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'manageOrganizationPage', reducer });
 const withSaga = injectSaga({ key: 'manageOrganizationPage', saga });
 
 export default compose(
-  withReducer,
   withSaga,
   withConnect,
 )(ManageOrganizationPage);
