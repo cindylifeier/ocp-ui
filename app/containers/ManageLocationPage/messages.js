@@ -8,6 +8,10 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.containers.ManageLocationPage.header',
-    defaultMessage: 'This is ManageLocationPage container !',
+    defaultMessage: 'General Information',
+  },
+  organizatoinNameLabel: {
+    id: 'app.containers.ManageLocationPage.organizatoinNameLabel',
+    defaultMessage: 'Organization',
   },
 });
