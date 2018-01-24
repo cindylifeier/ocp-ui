@@ -1,0 +1,23 @@
+.root {
+  top: -30px;
+  position: relative;
+}
+
+.validationMessage {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr 1fr;
+  padding-left: 10px;
+  max-width: 650px;
+}
+
+.gridItem {
+  position: relative;
+  height: auto;
+  margin: 10px;
+}
