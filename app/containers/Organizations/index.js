@@ -70,7 +70,7 @@ export class Organizations extends React.PureComponent {
           backgroundColor={teal500}
           className={styles.addButton}
           mini
-          containerElement={<Link to="/manage-organization" />}
+          containerElement={<Link to="/ocp-ui/manage-organization" />}
         >
           <ContentAdd />
         </FloatingActionButton>
