@@ -9,17 +9,12 @@ const selectManagePractitionerPageDomain = (state) => state.get('managePractitio
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by ManagePractitionerPage
- */
-
-const makeSelectManagePractitionerPage = () => createSelector(
+const makeSelectSavePractitionerError = () => createSelector(
   selectManagePractitionerPageDomain,
-  (substate) => substate.toJS()
+  (subState) => subState.get('error'),
 );
 
-export default makeSelectManagePractitionerPage;
 export {
   selectManagePractitionerPageDomain,
+  makeSelectSavePractitionerError,
 };
