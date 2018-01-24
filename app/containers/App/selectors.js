@@ -3,8 +3,8 @@ import {
   ADDRESSTYPE,
   ADDRESSUSE,
   IDENTIFIERSYSTEM,
+  LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
-  LOCATIONTYPE,
   PRACTITIONERROLES,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -25,9 +25,9 @@ const makeSelectUspsStates = () => createSelector(
   (globalState) => globalState.get(USPSSTATES).toJS(),
 );
 
-const makeSelectLocationTypes = () => createSelector(
+const makeSelectLocationPhysicalTypes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(LOCATIONTYPE).toJS(),
+  (globalState) => globalState.get(LOCATIONPHYSICALTYPE).toJS(),
 );
 
 const makeSelectLocationStatuses = () => createSelector(
@@ -73,7 +73,7 @@ const makeSelectLookups = (name) => createSelector(
 export {
   makeSelectLocation,
   makeSelectUspsStates,
-  makeSelectLocationTypes,
+  makeSelectLocationPhysicalTypes,
   makeSelectLocationStatuses,
   makeSelectAddressTypes,
   makeSelectAddressUses,

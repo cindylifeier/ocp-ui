@@ -19,8 +19,8 @@ import {
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_SUCCESS,
   IDENTIFIERSYSTEM,
+  LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
-  LOCATIONTYPE,
   PRACTITIONERROLES,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -32,7 +32,7 @@ const initialState = fromJS({
   loading: false,
   error: false,
   USPSSTATES: [],
-  LOCATIONTYPE: [],
+  LOCATIONPHYSICALTYPE: [],
   LOCATIONSTATUS: [],
   ADDRESSTYPE: [],
   ADDRESSUSE: [],
@@ -57,7 +57,7 @@ function appReducer(state = initialState, action) {
         .set(TELECOMSYSTEM, fromJS((action.lookups && action.lookups.telecomSystems) || state.get(TELECOMSYSTEM)))
         .set(TELECOMUSE, fromJS((action.lookups && action.lookups.telecomUses) || state.get(TELECOMUSE)))
         .set(LOCATIONSTATUS, fromJS((action.lookups && action.lookups.locationStatuses) || state.get(LOCATIONSTATUS)))
-        .set(LOCATIONTYPE, fromJS((action.lookups && action.lookups.locationTypes) || state.get(LOCATIONTYPE)))
+        .set(LOCATIONPHYSICALTYPE, fromJS((action.lookups && action.lookups.locationPhysicalTypes) || state.get(LOCATIONPHYSICALTYPE)))
         .set(PRACTITIONERROLES, fromJS((action.lookups && action.lookups.practitionerRoles) || state.get(PRACTITIONERROLES)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
