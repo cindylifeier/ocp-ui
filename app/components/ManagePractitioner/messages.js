@@ -19,10 +19,6 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.required',
       defaultMessage: 'Required',
     },
-    email: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.validation.email',
-      defaultMessage: 'Email must be a valid email',
-    },
     postalCode: {
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.postalCode',
       defaultMessage: 'Must be with formats: 12345 or 12345-6789',
@@ -57,13 +53,13 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.hintText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    email: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.email',
-      defaultMessage: 'Email',
+    telecomType: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.telecomType',
+      defaultMessage: 'Telecom Type',
     },
-    phone: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.phone',
-      defaultMessage: 'Phone',
+    telecomValue: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.telecomValue',
+      defaultMessage: 'Telecom Value',
     },
     address1: {
       id: 'ocpui.components.ManagePractitioner.manageForm.hintText.address1',
@@ -115,13 +111,13 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    email: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.email',
-      defaultMessage: 'Email',
+    telecomType: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.telecomType',
+      defaultMessage: 'Telecom Type',
     },
-    phone: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.phone',
-      defaultMessage: 'Phone',
+    telecomValue: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.telecomValue',
+      defaultMessage: 'Telecom Value',
     },
     address1: {
       id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.address1',

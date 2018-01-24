@@ -16,7 +16,13 @@ import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constan
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave } = props;
+  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = props;
+  const lookUpFormData = {
+    uspsStates,
+    identifierSystems,
+    telecomSystems,
+    practitionerRoles,
+  };
   return (
     <div>
       <Formik
@@ -25,20 +31,24 @@ function ManagePractitioner(props) {
           actions.setSubmitting(false);
         }}
         validationSchema={yup.object().shape({
+          firstName: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .min(minimumLength, (
+              <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           lastName: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+          roleType: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          email: yup.string()
-            .email((<FormattedMessage {...messages.validation.email} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
-        render={ManagePractitionerForm}
+        render={(formikProps) => <ManagePractitionerForm {...formikProps} {...lookUpFormData} />}
       />
     </div>
   );
@@ -46,6 +56,10 @@ function ManagePractitioner(props) {
 
 ManagePractitioner.propTypes = {
   onSave: PropTypes.func.isRequired,
+  uspsStates: PropTypes.array.isRequired,
+  identifierSystems: PropTypes.array.isRequired,
+  telecomSystems: PropTypes.array.isRequired,
+  practitionerRoles: PropTypes.array.isRequired,
 };
 
 export default ManagePractitioner;

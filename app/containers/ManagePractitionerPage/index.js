@@ -15,12 +15,19 @@ import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectManagePractitionerPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManagePractitioner from '../../components/ManagePractitioner';
 import messages from './messages';
 import styles from './styles.css';
+import {
+  makeSelectIdentifierSystems,
+  makeSelectPractitionerRoles,
+  makeSelectTelecomSystems,
+  makeSelectUspsStates,
+} from '../App/selectors';
+import { IDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { getLookupsAction } from '../App/actions';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -29,13 +36,23 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
     this.handleSave = this.handleSave.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getLookUpFormData();
+  }
+
   handleSave(values) {
     // Todo: remove it
     console.log(values);
   }
 
   render() {
-    const { match } = this.props;
+    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = this.props;
+    const lookUpData = {
+      uspsStates,
+      identifierSystems,
+      telecomSystems,
+      practitionerRoles,
+    };
     return (
       <div>
         <Helmet>
@@ -44,10 +61,11 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
         </Helmet>
         <div className={styles.card}>
           <h4 className={styles.font}>
-            {match.params.id ? <FormattedMessage {...messages.editHeader} /> : <FormattedMessage {...messages.createHeader} />}
+            {match.params.id ? <FormattedMessage {...messages.editHeader} />
+              : <FormattedMessage {...messages.createHeader} />}
           </h4>
           <Divider />
-          <ManagePractitioner onSave={this.handleSave} />
+          <ManagePractitioner {...lookUpData} onSave={this.handleSave} />
         </div>
       </div>
     );
@@ -56,15 +74,23 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
 
 ManagePractitionerPage.propTypes = {
   match: PropTypes.object,
+  getLookUpFormData: PropTypes.func.isRequired,
+  uspsStates: PropTypes.array,
+  identifierSystems: PropTypes.array,
+  telecomSystems: PropTypes.array,
+  practitionerRoles: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  managepractitionerpage: makeSelectManagePractitionerPage(),
+  uspsStates: makeSelectUspsStates(),
+  identifierSystems: makeSelectIdentifierSystems(),
+  telecomSystems: makeSelectTelecomSystems(),
+  practitionerRoles: makeSelectPractitionerRoles(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
   };
 }
 

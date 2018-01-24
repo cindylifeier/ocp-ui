@@ -20,7 +20,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
 import { LoginPage } from '../LoginPage/index';
-import { ManagePractitionerPage } from '../ManagePractitionerPage';
+import ManagePractitionerPage from '../ManagePractitionerPage';
 import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage/index';
 import saga from './saga';

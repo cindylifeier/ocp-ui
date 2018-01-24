@@ -13,10 +13,18 @@
 import { fromJS } from 'immutable';
 
 import {
+  ADDRESSTYPE,
+  ADDRESSUSE,
   GET_LOOKUPS,
+  GET_LOOKUPS_ERROR,
   GET_LOOKUPS_SUCCESS,
-  GET_LOOKUPS_ERROR, USPSSTATES, LOCATIONTYPE, LOCATIONSTATUS, ADDRESSTYPE, ADDRESSUSE, IDENTIFIERSYSTEM, TELECOMSYSTEM,
+  IDENTIFIERSYSTEM,
+  LOCATIONSTATUS,
+  LOCATIONTYPE,
+  PRACTITIONERROLES,
+  TELECOMSYSTEM,
   TELECOMUSE,
+  USPSSTATES,
 } from './constants';
 
 // The initial state of the App
@@ -31,6 +39,7 @@ const initialState = fromJS({
   IDENTIFIERSYSTEM: [],
   TELECOMSYSTEM: [],
   TELECOMUSE: [],
+  PRACTITIONERROLES: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -49,6 +58,7 @@ function appReducer(state = initialState, action) {
         .set(TELECOMUSE, fromJS((action.lookups && action.lookups.telecomUses) || state.get(TELECOMUSE)))
         .set(LOCATIONSTATUS, fromJS((action.lookups && action.lookups.locationStatuses) || state.get(LOCATIONSTATUS)))
         .set(LOCATIONTYPE, fromJS((action.lookups && action.lookups.locationTypes) || state.get(LOCATIONTYPE)))
+        .set(PRACTITIONERROLES, fromJS((action.lookups && action.lookups.practitionerRoles) || state.get(PRACTITIONERROLES)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

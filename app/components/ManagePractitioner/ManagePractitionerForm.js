@@ -9,14 +9,8 @@ import styles from './styles.css';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
 
-// Todo: Get from global store
-const roleTypesLookup = [{ code: 'doctor', name: 'Doctor' }, { code: 'nurse', name: 'Nurse' }];
-const identifierTypesLookup = [{ code: 'npi', name: 'NPI' }, { code: 'tax', name: 'Tax ID' }];
-const uspsStatesLookup = [{ code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' }];
-const countriesLookup = [{ code: 'us', name: 'Unites States' }, { code: 'uk', name: 'United Kingdom' }];
-
 function ManagePractitionerForm(props) {
-  const { isSubmitting, dirty, isValid } = props;
+  const { isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = props;
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -49,8 +43,8 @@ function ManagePractitionerForm(props) {
               hintText={<FormattedMessage {...messages.hintText.roleType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.roleType} />}
             >
-              {roleTypesLookup && roleTypesLookup.map((roleType) =>
-                <MenuItem key={roleType.code} value={roleType.code} primaryText={roleType.name} />,
+              {practitionerRoles && practitionerRoles.map((roleType) =>
+                <MenuItem key={roleType.code} value={roleType.code} primaryText={roleType.display} />,
               )}
             </SelectField>
           </div>
@@ -60,8 +54,8 @@ function ManagePractitionerForm(props) {
               hintText={<FormattedMessage {...messages.hintText.identifierType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
             >
-              {identifierTypesLookup && identifierTypesLookup.map((identifierType) =>
-                <MenuItem key={identifierType.code} value={identifierType.code} primaryText={identifierType.name} />,
+              {identifierSystems && identifierSystems.map((identifierType) =>
+                <MenuItem key={identifierType.uri} value={identifierType.uri} primaryText={identifierType.display} />,
               )}
             </SelectField>
           </div>
@@ -100,8 +94,8 @@ function ManagePractitionerForm(props) {
               hintText={<FormattedMessage {...messages.hintText.state} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
             >
-              {uspsStatesLookup && uspsStatesLookup.map((uspsState) =>
-                <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.name} />,
+              {uspsStates && uspsStates.map((uspsState) =>
+                <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
               )}
             </SelectField>
           </div>
@@ -113,28 +107,28 @@ function ManagePractitionerForm(props) {
             />
           </div>
           <div className={styles.gridItem}>
-            <SelectField
+            <TextField
               name="country"
               hintText={<FormattedMessage {...messages.hintText.country} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
+            />
+          </div>
+          <div className={styles.gridItem}>
+            <SelectField
+              name="telecomType"
+              hintText={<FormattedMessage {...messages.hintText.telecomType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
             >
-              {countriesLookup && countriesLookup.map((country) =>
-                <MenuItem key={country.code} value={country.code} primaryText={country.name} />,
+              {telecomSystems && telecomSystems.map((telecomType) =>
+                <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
               )}
             </SelectField>
           </div>
           <div className={styles.gridItem}>
             <TextField
-              name="email"
-              hintText={<FormattedMessage {...messages.hintText.email} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.email} />}
-            />
-          </div>
-          <div className={styles.gridItem}>
-            <TextField
-              name="phone"
-              hintText={<FormattedMessage {...messages.hintText.phone} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.phone} />}
+              name="telecomValue"
+              hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
             />
           </div>
         </div>
@@ -154,6 +148,25 @@ ManagePractitionerForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  uspsStates: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  identifierSystems: PropTypes.arrayOf(PropTypes.shape({
+    uri: PropTypes.string.isRequired,
+    oid: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  practitionerRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
 };
 
 export default ManagePractitionerForm;
