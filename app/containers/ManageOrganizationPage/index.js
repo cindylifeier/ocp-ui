@@ -12,9 +12,9 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Formik } from 'formik';
-import { MenuItem, RaisedButton, FlatButton } from 'material-ui';
-import { teal500, white } from 'material-ui/styles/colors';
 import yup from 'yup';
+import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
+import { teal500, white } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -29,16 +29,51 @@ import styles from './styles.css';
 import { IDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import { makeSelectIdentifierSystems, makeSelectTelecomSystems, makeSelectUspsStates } from '../App/selectors';
+import { createOrganization } from './actions';
+
 
 const emailPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static validationSchema = yup.object().shape({
+    name: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    identifierSystem: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    identifierValue: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    status: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    address1: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    city: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    state: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    zip: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .matches(emailPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
+    telecomSystem: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    telecomValue: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+  });
+
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentWillMount() {
     this.props.getLookups();
   }
 
+  handleSubmit(values, actions) {
+    this.props.createOrganization(values, () => actions.setSubmitting(false));
+  }
+
   render() {
-    const { uspsStates, identifierSystems, telecomSystems } = this.props;
+    const { uspsStates, identifierSystems, telecomSystems, history: { goBack } } = this.props;
     return (
       <div className={styles.root}>
         <Helmet>
@@ -49,39 +84,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
         <div>
           <Formik
-            validationSchema={yup.object().shape({
-              name: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              identifierSystem: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              identifierValue: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              status: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              address1: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              city: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              state: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              zip: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />))
-                .matches(emailPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
-              telecomSystem: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              telecomValue: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-            })}
-            onSubmit={(values, actions) => {
-              console.log('submitted', values);
-              console.log('json', JSON.stringify(values));
-              actions.setSubmitting(false);
-              // this.props.createOrganization(values);
-            }}
+            validationSchema={ManageOrganizationPage.validationSchema}
+            onSubmit={this.handleSubmit}
             render={(props) => {
               const { isSubmitting, dirty, isValid } = props;
-              // TODO: remove console.log
-              console.log(isSubmitting, dirty, isValid);
               return (
                 <Form>
                   <div className={styles.gridContainer}>
@@ -191,14 +197,16 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         type="submit"
                         backgroundColor={teal500}
                         labelColor={white}
-                        label={<FormattedMessage {...messages.form.saveButton} />}
-                        //  disabled={!dirty || isSubmitting || !isValid}
+                        label={isSubmitting ?
+                          <FormattedMessage {...messages.form.savingButton} /> :
+                          <FormattedMessage {...messages.form.saveButton} />}
+                        disabled={!dirty || isSubmitting || !isValid}
                       />
                       <FlatButton
                         type="button"
                         default
-                        label="CANCEL"
-                        //  disabled={!dirty || isSubmitting || !isValid}
+                        label={<FormattedMessage {...messages.form.cancelButton} />}
+                        onClick={goBack}
                       />
                     </div>
                   </div>
@@ -215,6 +223,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
 ManageOrganizationPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
+  createOrganization: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   uspsStates: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -242,7 +254,7 @@ function mapDispatchToProps(dispatch) {
   // TODO: add identifier systems and statuses for Organization when implemented
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM])),
-    // createOrganization: (organization) => dispatch(createOrganization(organization)),
+    createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
   };
 }
 

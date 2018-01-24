@@ -63,6 +63,14 @@ export default defineMessages({
       id: 'ocpui.containers.ManageOrganizationPage.form.saveButton',
       defaultMessage: 'Save',
     },
+    savingButton: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.savingButton',
+      defaultMessage: 'Saving...',
+    },
+    cancelButton: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.cancelButton',
+      defaultMessage: 'Cancel',
+    },
   },
   validation: {
     required: {
