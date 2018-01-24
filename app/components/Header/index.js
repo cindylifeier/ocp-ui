@@ -20,7 +20,7 @@ function Header() {
           <FlatButton
             label="Home"
             icon={<ActionHome />}
-            containerElement={<Link to="/home" />}
+            containerElement={<Link to="/ocp-ui/home" />}
             className={styles.font}
           />
         </span>
@@ -28,7 +28,7 @@ function Header() {
           <FlatButton
             label="Patients"
             icon={<ActionPatients />}
-            containerElement={<Link to="/home" />}
+            containerElement={<Link to="/ocp-ui/home" />}
             className={styles.font}
           />
         </span>

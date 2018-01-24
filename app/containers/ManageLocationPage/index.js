@@ -19,7 +19,7 @@ import saga from './saga';
 import messages from './messages';
 import { getLookupsAction } from '../App/actions';
 import {
-  ADDRESSTYPE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
+  ADDRESSTYPE, LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
   USPSSTATES, ADDRESSUSE,
 } from '../App/constants';
 import {
@@ -28,7 +28,7 @@ import {
   makeSelectTelecomSystems,
   makeSelectUspsStates, makeSelectAddressUses,
 } from '../App/selectors';
-import ManageLocation from '../../components/ManageLocation/index';
+import ManageLocation from '../../components/ManageLocation';
 
 
 export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -81,8 +81,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE, ADDRESSUSE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
-    createLocation: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE, ADDRESSUSE, TELECOMSYSTEM, LOCATIONIDENTIFIERSYSTEM])),
+    createLocation: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, LOCATIONIDENTIFIERSYSTEM])),
   };
 }
 

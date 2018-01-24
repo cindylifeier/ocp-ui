@@ -7,7 +7,7 @@
   grid-row-gap: 2px;
 }
 
-.header, .footer{
+.header{
   position: fixed;
   width: 100%;
   z-index: 99;
@@ -17,15 +17,11 @@
   top: 0;
 }
 
-.footer {
-  bottom: 0;
-}
-
 .content {
   position: relative;
   width: 100%;
   padding-top: 57px;
-  padding-bottom: 65px;
+  padding-bottom: 5px;
 }
 
 
