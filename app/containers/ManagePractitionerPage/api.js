@@ -1,30 +1,47 @@
 import request from '../../utils/request';
+import getApiBaseUrl from '../../apiBaseUrlConfig';
+
+const apiBaseURL = getApiBaseUrl();
 
 export default function createPractitioner(practitionerFormData) {
-  const practitionerData = {
-    firstName: practitionerFormData.firstName,
-    middleName: practitionerFormData.middleName,
-    lastName: practitionerFormData.lastName,
-    roleType: practitionerFormData.roleType,
-    identifierType: practitionerFormData.identifierType,
-    identifierValue: practitionerFormData.identifierValue,
-    address1: practitionerFormData.address1,
-    address2: practitionerFormData.address2,
-    city: practitionerFormData.city,
-    state: practitionerFormData.state,
-    postalCode: practitionerFormData.postalCode,
-    country: practitionerFormData.country,
-    email: practitionerFormData.email,
-    phone: practitionerFormData.phone,
-  };
-
-  // Todo: Change url to bff
-  const requestURL = 'http://localhost:8444/practitioners';
+  const requestURL = `${apiBaseURL}/practitioners`;
   return request(requestURL, {
     method: 'POST',
-    body: JSON.stringify(practitionerData),
+    body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {
       'Content-Type': 'application/json',
     },
   });
+}
+
+function mapToBffPractitioner(practitionerData) {
+  const {
+    firstName, lastName, roleType, identifierType, identifierValue,
+    address1, address2, city, state, postalCode, country, telecomType, telecomValue,
+  } = practitionerData;
+
+  const identifiers = [{
+    system: identifierType,
+    value: identifierValue,
+  }];
+  const name = [{
+    firstName,
+    lastName,
+  }];
+  const telecoms = [{
+    system: telecomType,
+    value: telecomValue,
+  }];
+  const address = [{
+    line1: address1,
+    line2: address2,
+    city,
+    stateCode: state,
+    postalCode,
+    countryCode: country,
+  }];
+  const practitionerRoles = [{
+    code: roleType,
+  }];
+  return { identifiers, name, telecoms, address, practitionerRoles };
 }
