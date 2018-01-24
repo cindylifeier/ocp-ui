@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
@@ -132,13 +133,21 @@ function ManagePractitionerForm(props) {
             />
           </div>
         </div>
-        <RaisedButton
-          type="submit"
-          className={styles.saveButton}
-          label="Save"
-          primary
-          disabled={!dirty || isSubmitting || !isValid}
-        />
+        <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
+          <Link to="/home">
+            <RaisedButton
+              label="Cancel"
+              primary
+              disabled={isSubmitting}
+            />
+          </Link>
+          <RaisedButton
+            type="submit"
+            label="Save"
+            primary
+            disabled={!dirty || isSubmitting || !isValid}
+          />
+        </div>
       </Form>
     </div>
   );

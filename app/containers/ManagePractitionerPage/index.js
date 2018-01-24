@@ -28,6 +28,8 @@ import {
 } from '../App/selectors';
 import { IDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
+import { makeSelectSavePractitionerError } from './selectors';
+import { savePractitioner } from './actions';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -40,14 +42,14 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
     this.props.getLookUpFormData();
   }
 
-  handleSave(values) {
-    // Todo: remove it
-    console.log(values);
+  handleSave(practitionerFormData) {
+    this.props.onSaveForm(practitionerFormData);
   }
 
   render() {
-    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = this.props;
-    const lookUpData = {
+    const { match, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = this.props;
+    const formProps = {
+      error,
       uspsStates,
       identifierSystems,
       telecomSystems,
@@ -65,7 +67,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
               : <FormattedMessage {...messages.createHeader} />}
           </h4>
           <Divider />
-          <ManagePractitioner {...lookUpData} onSave={this.handleSave} />
+          <ManagePractitioner {...formProps} onSave={this.handleSave} />
         </div>
       </div>
     );
@@ -79,6 +81,11 @@ ManagePractitionerPage.propTypes = {
   identifierSystems: PropTypes.array,
   telecomSystems: PropTypes.array,
   practitionerRoles: PropTypes.array,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  onSaveForm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -86,11 +93,13 @@ const mapStateToProps = createStructuredSelector({
   identifierSystems: makeSelectIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
   practitionerRoles: makeSelectPractitionerRoles(),
+  error: makeSelectSavePractitionerError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
+    onSaveForm: (practitionerFormData) => dispatch(savePractitioner(practitionerFormData)),
   };
 }
 

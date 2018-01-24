@@ -9,8 +9,17 @@
   max-height: 70px;
 }
 
-.saveButton {
+.buttonGroup {
   margin-top: 30px;
   position: absolute;
   right: 10px;
+  grid-area: buttonGroup;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1vw;
+  grid-auto-columns: minmax(100px, 10vw);
+}
+
+.disabledLink {
+  width: 100%;
 }

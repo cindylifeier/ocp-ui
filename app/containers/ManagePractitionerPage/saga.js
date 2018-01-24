@@ -1,6 +1,21 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+import { savePractitionerError } from './actions';
+import { SAVE_PRACTITIONER } from './constants';
+import createPractitioner from './api';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+export function* createPractitionerWorker({ practitionerFormData }) {
+  try {
+    yield call(createPractitioner, practitionerFormData);
+    yield put(push('/home'));
+  } catch (error) {
+    yield put(savePractitionerError(error));
+  }
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* watchSavePractitioner() {
+  yield takeLatest(SAVE_PRACTITIONER, createPractitionerWorker);
 }
