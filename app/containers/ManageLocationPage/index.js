@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { RaisedButton } from 'material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectManageLocationPage from './selectors';
@@ -21,24 +20,29 @@ import messages from './messages';
 import { getLookupsAction } from '../App/actions';
 import {
   ADDRESSTYPE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
-  USPSSTATES,
+  USPSSTATES, ADDRESSUSE,
 } from '../App/constants';
 import {
   makeSelectAddressTypes, makeSelectLocationStatuses, makeSelectLocationPhysicalTypes,
-  makeSelectUspsStates,
+  makeSelectIdentifierSystems,
+  makeSelectTelecomSystems,
+  makeSelectUspsStates, makeSelectAddressUses,
 } from '../App/selectors';
+import ManageLocation from '../../components/ManageLocation/index';
 
 
 export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleCreateLocation = this.handleCreateLocation.bind(this);
+  }
   componentWillMount() {
     this.props.getLookups();
   }
+  handleCreateLocation() {
+    this.props.createLocation();
+  }
   render() {
-    const { uspsStates, locationTypes, locationStatuses, addressTypes } = this.props;
-    console.log(uspsStates);
-    console.log(locationTypes);
-    console.log(locationStatuses);
-    console.log(addressTypes);
     return (
       <div>
         <Helmet>
@@ -48,33 +52,37 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
         <FormattedMessage {...messages.header} />
         <br />
         <br />
-        <RaisedButton onClick={this.props.getLookups1} label="Get Lookups" ></RaisedButton>
+        <p><FormattedMessage {...messages.organizatoinNameLabel} /></p>
+        <ManageLocation
+          {...this.props}
+          onCreateLocation={this.handleCreateLocation}
+        >
+        </ManageLocation>
       </div>
     );
   }
 }
 
 ManageLocationPage.propTypes = {
+  createLocation: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
-  getLookups1: PropTypes.func.isRequired,
-  uspsStates: PropTypes.array,
-  locationTypes: PropTypes.array,
-  locationStatuses: PropTypes.array,
-  addressTypes: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   managelocationpage: makeSelectManageLocationPage(),
   uspsStates: makeSelectUspsStates(),
-  locationTypes: makeSelectLocationPhysicalTypes(),
+  locationPhysicalTypes: makeSelectLocationPhysicalTypes(),
   locationStatuses: makeSelectLocationStatuses(),
   addressTypes: makeSelectAddressTypes(),
+  telecomSystems: makeSelectTelecomSystems(),
+  addressUses: makeSelectAddressUses(),
+  identifierSystems: makeSelectIdentifierSystems(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE])),
-    getLookups1: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE, ADDRESSUSE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
+    createLocation: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
   };
 }
 
