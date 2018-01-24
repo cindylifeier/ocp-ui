@@ -16,17 +16,12 @@ import makeSelectNotification from './selectors';
 import reducer from './reducer';
 import { resetNotification } from './actions';
 
-const snackbarBodyStyle = { backgroundColor: 'white' };
-const snackbarContentStyle = { color: 'black' };
-
 export class Notification extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     const { notification: { open, message } } = this.props;
     return (
       <Snackbar
-        bodyStyle={snackbarBodyStyle}
-        contentStyle={snackbarContentStyle}
         open={open}
         message={message}
         autoHideDuration={3000}
