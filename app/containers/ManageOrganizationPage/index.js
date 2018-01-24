@@ -79,7 +79,9 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           <title>Manage Organization</title>
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
-        <h2><FormattedMessage {...messages.header} /></h2>
+        <div className={styles.title}>
+          <h2><FormattedMessage {...messages.header} /></h2>
+        </div>
 
         <div>
           <Formik

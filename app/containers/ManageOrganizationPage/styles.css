@@ -2,6 +2,10 @@
   background-color: white;
 }
 
+.title {
+  margin-left: 1vw;
+}
+
 .gridContainer {
   color: #444;
   width: auto;
