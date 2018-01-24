@@ -5,11 +5,18 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  SAVE_PATIENT, SAVE_PATIENT_ERROR,
 } from './constants';
 
-export function defaultAction() {
+export function savePatient(patientFormData) {
   return {
-    type: DEFAULT_ACTION,
+    type: SAVE_PATIENT,
+    patientFormData,
+  };
+}
+
+export function savePatientError() {
+  return {
+    type: SAVE_PATIENT_ERROR,
   };
 }

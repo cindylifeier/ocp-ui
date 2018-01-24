@@ -15,12 +15,13 @@ import Divider from 'material-ui/Divider';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectManagePatientPage from './selectors';
+import { makeSelecSavePatientError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import ManagePatient from '../../components/ManagePatient';
+import { savePatient } from './actions';
 
 export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -29,9 +30,8 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave(values) {
-    // Todo: remove it
-    console.log(values);
+  handleSave(patientFormData) {
+    this.props.onSaveForm(patientFormData);
   }
 
   render() {
@@ -56,15 +56,16 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
 
 ManagePatientPage.propTypes = {
   match: PropTypes.object,
+  onSaveForm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  managepatientpage: makeSelectManagePatientPage(),
+  error: makeSelecSavePatientError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onSaveForm: (patientFormData) => { dispatch(savePatient(patientFormData)); },
   };
 }
 

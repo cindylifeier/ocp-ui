@@ -26,7 +26,7 @@ import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage/index';
 import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
-import { ManagePatientPage } from '../ManagePatientPage/index';
+import ManagePatientPage from '../ManagePatientPage/index';
 
 
 export function App() {
@@ -46,7 +46,7 @@ export function App() {
             <Route path="/home" component={HomePage} />
             <Route path="/patients/:id" component={PatientDetailsPage} />
             <Route path="/manage-location/" component={ManageLocationPage} />
-            <Route path="/manage-patient" component={ManagePatientPage} />
+            <Route exact path="/manage-patient" component={ManagePatientPage} />
             <Route path="/manage-patient/:id" component={ManagePatientPage} />
           </Layout>
           <Route component={NotFoundPage} />

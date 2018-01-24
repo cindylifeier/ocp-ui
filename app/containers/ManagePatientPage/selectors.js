@@ -14,12 +14,12 @@ const selectManagePatientPageDomain = (state) => state.get('managePatientPage');
  * Default selector used by ManagePatientPage
  */
 
-const makeSelectManagePatientPage = () => createSelector(
+const makeSelecSavePatientError = () => createSelector(
   selectManagePatientPageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('error'),
 );
 
-export default makeSelectManagePatientPage;
 export {
   selectManagePatientPageDomain,
+  makeSelecSavePatientError,
 };

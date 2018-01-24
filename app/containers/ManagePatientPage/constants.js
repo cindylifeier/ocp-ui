@@ -8,7 +8,8 @@
  *  ManagePatientPage action types
  *  @type {string}
  */
-export const DEFAULT_ACTION = 'ocpui/ManagePatientPage/DEFAULT_ACTION';
+export const SAVE_PATIENT = 'ocpui/ManagePatientPage/SAVE_PATIENT';
+export const SAVE_PATIENT_ERROR = 'ocpui/ManagePatientPage/SAVE_PATIENT_ERROR';
 
 
 /**
