@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import {
-  ADDRESSTYPE, ADDRESSUSE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONTYPE, TELECOMSYSTEM, TELECOMUSE,
+  ADDRESSTYPE, ADDRESSUSE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONTYPE, ORGANIZATIONIDENTIFIERSYSTEM, TELECOMSYSTEM,
+  TELECOMUSE,
   USPSSTATES,
 } from './constants';
 
@@ -43,6 +44,11 @@ const makeSelectIdentifierSystems = () => createSelector(
   (globalState) => globalState.get(IDENTIFIERSYSTEM).toJS()
 );
 
+const makeSelectOrganizationIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ORGANIZATIONIDENTIFIERSYSTEM).toJS()
+);
+
 const makeSelectTelecomSystems = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(TELECOMSYSTEM).toJS()
@@ -66,6 +72,7 @@ export {
   makeSelectAddressTypes,
   makeSelectAddressUses,
   makeSelectIdentifierSystems,
+  makeSelectOrganizationIdentifierSystems,
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
   makeSelectLookups,

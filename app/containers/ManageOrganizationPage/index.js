@@ -23,9 +23,13 @@ import messages from './messages';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import styles from './styles.css';
-import { IDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { IDENTIFIERSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { makeSelectIdentifierSystems, makeSelectTelecomSystems, makeSelectUspsStates } from '../App/selectors';
+import {
+  makeSelectOrganizationIdentifierSystems,
+  makeSelectTelecomSystems,
+  makeSelectUspsStates,
+} from '../App/selectors';
 import { createOrganization } from './actions';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -68,7 +72,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { uspsStates, identifierSystems, telecomSystems, history: { goBack } } = this.props;
+    const { uspsStates, organizationIdentifierSystems, telecomSystems, history: { goBack } } = this.props;
     return (
       <div className={styles.root}>
         <Helmet>
@@ -99,7 +103,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="identifierSystem"
                         fullWidth
                       >
-                        {identifierSystems && identifierSystems.map((identifierSystem) => (
+                        {organizationIdentifierSystems && organizationIdentifierSystems.map((identifierSystem) => (
                           <MenuItem
                             key={identifierSystem.uri}
                             value={identifierSystem.uri}
@@ -226,7 +230,7 @@ ManageOrganizationPage.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  identifierSystems: PropTypes.arrayOf(PropTypes.shape({
+  organizationIdentifierSystems: PropTypes.arrayOf(PropTypes.shape({
     uri: PropTypes.string.isRequired,
     oid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -240,14 +244,14 @@ ManageOrganizationPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   uspsStates: makeSelectUspsStates(),
-  identifierSystems: makeSelectIdentifierSystems(),
+  organizationIdentifierSystems: makeSelectOrganizationIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
 });
 
 function mapDispatchToProps(dispatch) {
-  // TODO: add identifier systems and statuses for Organization when implemented
+  // TODO: add statuses for Organization when implemented
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
   };
 }
