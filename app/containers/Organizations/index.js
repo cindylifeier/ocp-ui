@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { FloatingActionButton } from 'material-ui';
 import { ContentAdd } from 'material-ui/svg-icons';
+import { teal500 } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -66,6 +67,7 @@ export class Organizations extends React.PureComponent {
     return (
       <div className={styles.card}>
         <FloatingActionButton
+          backgroundColor={teal500}
           className={styles.addButton}
           mini
           containerElement={<Link to="/manage-organization" />}
