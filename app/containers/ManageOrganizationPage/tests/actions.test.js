@@ -1,18 +1,18 @@
-
-import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+import { createOrganization } from '../actions';
+import { CREATE_ORGANIZATION } from '../constants';
 
 describe('ManageOrganizationPage actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('CREATE_ORGANIZATION Action', () => {
+    it('has a type of CREATE_ORGANIZATION', () => {
+      const name = 'name';
+      const organization = { name };
+      const callback = jest.fn();
       const expected = {
-        type: DEFAULT_ACTION,
+        type: CREATE_ORGANIZATION,
+        organization,
+        callback,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(createOrganization(organization, callback)).toEqual(expected);
     });
   });
 });
