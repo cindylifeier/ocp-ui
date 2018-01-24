@@ -27,6 +27,7 @@ import ManageLocationPage from '../ManageLocationPage/index';
 import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
 import ManageOrganizationPage from '../ManageOrganizationPage';
+import Notification from '../Notification';
 
 
 export function App() {
@@ -50,6 +51,7 @@ export function App() {
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>
+        <Notification />
       </div>
     </div>
   );
