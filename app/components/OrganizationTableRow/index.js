@@ -51,7 +51,13 @@ function OrganizationTableRow(props) {
       <div className={styles.cellGridItem}>{status}</div>
       <div>
         <IconMenu
-          iconButtonElement={<IconButton iconStyle={iconStyles.icon} style={iconStyles.iconButton}><ImageFlashOn /></IconButton>}
+          iconButtonElement={
+            <span className={styles.iconButton}>
+              <IconButton iconStyle={iconStyles.icon} style={iconStyles.iconButton}>
+                <ImageFlashOn />
+              </IconButton>
+            </span>
+          }
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
