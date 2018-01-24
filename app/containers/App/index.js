@@ -45,8 +45,8 @@ export function App() {
             <Route path="/ocp-ui/home" component={HomePage} />
             <Route path="/ocp-ui/patients/:id" component={PatientDetailsPage} />
             <Route path="/ocp-ui/manage-location/" component={ManageLocationPage} />
-            <Route component={NotFoundPage} />
           </Layout>
+          <Route component={NotFoundPage} />
 
         </Switch>
       </div>
