@@ -13,7 +13,7 @@ function LogoutButton(props) {
     <IconButton
       tooltip="Sign out"
       onClick={() => {
-        props.history.push('/login');
+        props.history.push('/ocp-ui/login');
       }}
     >
       <ActionLogout />
