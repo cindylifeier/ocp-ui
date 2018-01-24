@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import {
-  ADDRESSTYPE, ADDRESSUSE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONTYPE, TELECOMSYSTEM, TELECOMUSE,
+  ADDRESSTYPE, ADDRESSUSE, ADMINISTRATIVEGENDER, IDENTIFIERSYSTEM, LANGUAGE, LOCATIONSTATUS, LOCATIONTYPE,
+  PATIENTIDENTIFIERSYSTEM, TELECOMSYSTEM,
+  TELECOMUSE, USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
   USPSSTATES,
 } from './constants';
 
@@ -58,6 +60,37 @@ const makeSelectLookups = (name) => createSelector(
   (globalState) => globalState.get(name).toJS()
 );
 
+const makeSelectPatientIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PATIENTIDENTIFIERSYSTEM).toJS()
+);
+
+const makeSelectAdministrativeGenders = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ADMINISTRATIVEGENDER).toJS()
+);
+
+const makeSelectUsCoreRaces = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(USCORERACE).toJS()
+);
+
+const makeSelectUsCoreEthnicities = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(USCOREETHNICITY).toJS()
+);
+
+const makeSelectUsCoreBirthSexes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(USCOREBIRTHSEX).toJS()
+);
+
+const makeSelectLanguages = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(LANGUAGE).toJS()
+);
+
+
 export {
   makeSelectLocation,
   makeSelectUspsStates,
@@ -69,4 +102,10 @@ export {
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
   makeSelectLookups,
+  makeSelectPatientIdentifierSystems,
+  makeSelectAdministrativeGenders,
+  makeSelectUsCoreRaces,
+  makeSelectUsCoreEthnicities,
+  makeSelectUsCoreBirthSexes,
+  makeSelectLanguages,
 };
