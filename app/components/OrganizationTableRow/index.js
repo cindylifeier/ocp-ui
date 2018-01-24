@@ -52,11 +52,13 @@ function OrganizationTableRow(props) {
       <div>
         <IconMenu
           iconButtonElement={
-            <span className={styles.iconButton}>
-              <IconButton iconStyle={iconStyles.icon} style={iconStyles.iconButton}>
-                <ImageFlashOn />
-              </IconButton>
-            </span>
+            (<IconButton
+              className={styles.iconButton}
+              iconStyle={iconStyles.icon}
+              style={iconStyles.iconButton}
+            >
+              <ImageFlashOn />
+            </IconButton>)
           }
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
