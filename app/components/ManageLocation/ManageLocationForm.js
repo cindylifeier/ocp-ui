@@ -70,8 +70,8 @@ function ManageLocationForm(props) {
             name="identifierSystem"
             floatingLabelText={<FormattedMessage {...messages.identifierSystemTypeFloatingLabelText} />}
           >
-            {identifierSystems && identifierSystems.map((identifier) => (
-              <MenuItem value={identifier.code} primaryText={identifier.display} key={uniqueId()} />
+            {identifierSystems && identifierSystems.map((identifierSystem) => (
+              <MenuItem key={uniqueId()} value={identifierSystem.display} primaryText={identifierSystem.display} />
             ))}
           </SelectField>
         </div>
