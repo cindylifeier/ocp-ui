@@ -65,9 +65,9 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.ethnicity',
       defaultMessage: 'Ethnicity',
     },
-    birthsex: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.birthsex',
-      defaultMessage: 'Birthsex',
+    birthSex: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.birthSex',
+      defaultMessage: 'Birth Sex',
     },
     identifierType: {
       id: 'ocpui.components.ManagePatient.manageForm.hintText.identifierType',
@@ -143,9 +143,9 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.ethnicity',
       defaultMessage: 'Ethnicity',
     },
-    birthsex: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.birthsex',
-      defaultMessage: 'Birthsex',
+    birthSex: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.birthSex',
+      defaultMessage: 'Birth Sex',
     },
     identifierType: {
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.identifierType',

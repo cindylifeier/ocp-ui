@@ -10,18 +10,8 @@ import TextField from '../TextField';
 import SelectField from '../SelectField';
 import DatePicker from '../DatePicker';
 
-// Todo: Get from global store
-const gendersLookup = [{ code: 'male', name: 'male' }, { code: 'female', name: 'female' }];
-const identifierTypesLookup = [{ code: 'ssn', name: 'SSN' }, { code: 'tax', name: 'Tax ID' }, { code: 'dl', name: 'Driver License' }];
-const uspsStatesLookup = [{ code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' }];
-const countriesLookup = [{ code: 'us', name: 'Unites States' }, { code: 'uk', name: 'United Kingdom' }];
-const languagesLookup = [{ code: 'en', name: 'English' }, { code: 'es', name: 'Spanish' }];
-const racesLookup = [{ code: '1002-5', name: 'American Indian or Alaska Native' }, { code: '2106-3', name: 'White' }];
-const ethnicitiesLookup = [{ code: '2135-2', name: 'Hispanic or Latino' }, { code: '2186-5', name: 'Non Hispanic or Latino' }];
-const birthsexesLookup = [{ code: 'F', name: 'Female' }, { code: 'M', name: 'Male' }, { code: 'UNK', name: 'Unknown' }];
-
 function ManagePatientForm(props) {
-  const { isSubmitting, dirty, isValid } = props;
+  const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages } = props;
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -51,6 +41,7 @@ function ManagePatientForm(props) {
           <div className={styles.gridItem}>
             <DatePicker
               name="dob"
+              maxDate={new Date()}
               hintText={<FormattedMessage {...messages.hintText.dob} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.dob} />}
             />
@@ -61,8 +52,8 @@ function ManagePatientForm(props) {
               hintText={<FormattedMessage {...messages.hintText.gender} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.gender} />}
             >
-              {gendersLookup && gendersLookup.map((genderType) =>
-                <MenuItem key={genderType.code} value={genderType.code} primaryText={genderType.name} />,
+              {administrativeGenders && administrativeGenders.map((genderType) =>
+                <MenuItem key={genderType.code} value={genderType.code} primaryText={genderType.display} />,
               )}
             </SelectField>
           </div>
@@ -72,8 +63,8 @@ function ManagePatientForm(props) {
               hintText={<FormattedMessage {...messages.hintText.identifierType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
             >
-              {identifierTypesLookup && identifierTypesLookup.map((identifierType) =>
-                <MenuItem key={identifierType.code} value={identifierType.code} primaryText={identifierType.name} />,
+              {patientIdentifierSystems && patientIdentifierSystems.reverse().map((identifierType) =>
+                <MenuItem key={identifierType.oid} value={identifierType.oid} primaryText={identifierType.display} />,
               )}
             </SelectField>
           </div>
@@ -90,8 +81,8 @@ function ManagePatientForm(props) {
               hintText={<FormattedMessage {...messages.hintText.language} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.language} />}
             >
-              {languagesLookup && languagesLookup.map((languageType) =>
-                <MenuItem key={languageType.code} value={languageType.code} primaryText={languageType.name} />,
+              {languages && languages.map((languageType) =>
+                <MenuItem key={languageType.code} value={languageType.code} primaryText={languageType.display} />,
               )}
             </SelectField>
           </div>
@@ -101,8 +92,8 @@ function ManagePatientForm(props) {
               hintText={<FormattedMessage {...messages.hintText.race} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.race} />}
             >
-              {racesLookup && racesLookup.map((raceType) =>
-                <MenuItem key={raceType.code} value={raceType.code} primaryText={raceType.name} />,
+              {usCoreRaces && usCoreRaces.map((raceType) =>
+                <MenuItem key={raceType.code} value={raceType.code} primaryText={raceType.display} />,
               )}
             </SelectField>
           </div>
@@ -112,19 +103,19 @@ function ManagePatientForm(props) {
               hintText={<FormattedMessage {...messages.hintText.ethnicity} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.ethnicity} />}
             >
-              {ethnicitiesLookup && ethnicitiesLookup.map((ethnicityType) =>
-                <MenuItem key={ethnicityType.code} value={ethnicityType.code} primaryText={ethnicityType.name} />,
+              {usCoreEthnicities && usCoreEthnicities.map((ethnicityType) =>
+                <MenuItem key={ethnicityType.code} value={ethnicityType.code} primaryText={ethnicityType.display} />,
               )}
             </SelectField>
           </div>
           <div className={styles.gridItem}>
             <SelectField
-              name="birthsex"
-              hintText={<FormattedMessage {...messages.hintText.birthsex} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.birthsex} />}
+              name="birthSex"
+              hintText={<FormattedMessage {...messages.hintText.birthSex} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.birthSex} />}
             >
-              {birthsexesLookup && birthsexesLookup.map((birthsexType) =>
-                <MenuItem key={birthsexType.code} value={birthsexType.code} primaryText={birthsexType.name} />,
+              {usCoreBirthSexes && usCoreBirthSexes.map((birthsexType) =>
+                <MenuItem key={birthsexType.code} value={birthsexType.code} primaryText={birthsexType.display} />,
               )}
             </SelectField>
           </div>
@@ -155,8 +146,8 @@ function ManagePatientForm(props) {
               hintText={<FormattedMessage {...messages.hintText.state} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
             >
-              {uspsStatesLookup && uspsStatesLookup.map((uspsState) =>
-                <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.name} />,
+              {uspsStates && uspsStates.map((uspsState) =>
+                <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
               )}
             </SelectField>
           </div>
@@ -168,15 +159,12 @@ function ManagePatientForm(props) {
             />
           </div>
           <div className={styles.gridItem}>
-            <SelectField
+            <TextField
               name="country"
               hintText={<FormattedMessage {...messages.hintText.country} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
             >
-              {countriesLookup && countriesLookup.map((country) =>
-                <MenuItem key={country.code} value={country.code} primaryText={country.name} />,
-              )}
-            </SelectField>
+            </TextField>
           </div>
           <div className={styles.gridItem}>
             <TextField
@@ -209,6 +197,34 @@ ManagePatientForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  uspsStates: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  patientIdentifierSystems: PropTypes.arrayOf(PropTypes.shape({
+    oid: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  administrativeGenders: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  usCoreRaces: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  usCoreEthnicities: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  usCoreBirthSexes: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  languages: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
 };
 
 export default ManagePatientForm;

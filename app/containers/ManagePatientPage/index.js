@@ -22,6 +22,18 @@ import messages from './messages';
 import styles from './styles.css';
 import ManagePatient from '../../components/ManagePatient';
 import { savePatient } from './actions';
+import {
+  makeSelectAdministrativeGenders, makeSelectLanguages, makeSelectPatientIdentifierSystems,
+  makeSelectUsCoreBirthSexes,
+  makeSelectUsCoreEthnicities,
+  makeSelectUsCoreRaces,
+  makeSelectUspsStates,
+} from '../App/selectors';
+import {
+  ADMINISTRATIVEGENDER, LANGUAGE, PATIENTIDENTIFIERSYSTEM, USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
+  USPSSTATES,
+} from '../App/constants';
+import { getLookupsAction } from '../App/actions';
 
 export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -30,12 +42,26 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
     this.handleSave = this.handleSave.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getLookUpFormData();
+  }
+
   handleSave(patientFormData) {
     this.props.onSaveForm(patientFormData);
   }
 
   render() {
-    const { match } = this.props;
+    const { match, error, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages } = this.props;
+    const formProps = {
+      error,
+      uspsStates,
+      patientIdentifierSystems,
+      administrativeGenders,
+      usCoreRaces,
+      usCoreEthnicities,
+      usCoreBirthSexes,
+      languages,
+    };
     return (
       <div>
         <Helmet>
@@ -47,7 +73,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
             {match.params.id ? <FormattedMessage {...messages.editHeader} /> : <FormattedMessage {...messages.createHeader} />}
           </h4>
           <Divider />
-          <ManagePatient onSave={this.handleSave} />
+          <ManagePatient {...formProps} onSave={this.handleSave} />
         </div>
       </div>
     );
@@ -57,15 +83,36 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
 ManagePatientPage.propTypes = {
   match: PropTypes.object,
   onSaveForm: PropTypes.func,
+  getLookUpFormData: PropTypes.func.isRequired,
+  uspsStates: PropTypes.array,
+  patientIdentifierSystems: PropTypes.array,
+  administrativeGenders: PropTypes.array,
+  usCoreRaces: PropTypes.array,
+  usCoreEthnicities: PropTypes.array,
+  usCoreBirthSexes: PropTypes.array,
+  languages: PropTypes.array,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
 };
 
 const mapStateToProps = createStructuredSelector({
   error: makeSelecSavePatientError(),
+  uspsStates: makeSelectUspsStates(),
+  patientIdentifierSystems: makeSelectPatientIdentifierSystems(),
+  administrativeGenders: makeSelectAdministrativeGenders(),
+  usCoreRaces: makeSelectUsCoreRaces(),
+  usCoreEthnicities: makeSelectUsCoreEthnicities(),
+  usCoreBirthSexes: makeSelectUsCoreBirthSexes(),
+  languages: makeSelectLanguages(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onSaveForm: (patientFormData) => { dispatch(savePatient(patientFormData)); },
+    getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE])),
   };
 }
 
