@@ -2,16 +2,17 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 import request from '../../utils/request';
 
 const apiBaseUrl = getApiBaseUrl();
+const headers = {
+  'Content-Type': 'application/json',
+};
 
 export function createOrganizationApiCall(organizationFormData) {
   const requestUrl = `${apiBaseUrl}/organizations`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
   return request(requestUrl, {
     method: 'POST',
+    headers,
     body,
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 }
 
