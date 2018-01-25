@@ -21,6 +21,8 @@ import {
   LOCATIONIDENTIFIERSYSTEM,
   LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
+  ORGANIZATIONIDENTIFIERSYSTEM,
+  ORGANIZATIONSTATUS,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   TELECOMSYSTEM,
@@ -41,6 +43,8 @@ const initialState = fromJS({
   PRACTITIONERIDENTIFIERSYSTEM: [],
   TELECOMSYSTEM: [],
   TELECOMUSE: [],
+  ORGANIZATIONIDENTIFIERSYSTEM: [],
+  ORGANIZATIONSTATUS: [],
   PRACTITIONERROLES: [],
 });
 
@@ -61,6 +65,8 @@ function appReducer(state = initialState, action) {
         .set(TELECOMUSE, fromJS((action.lookups && action.lookups.telecomUses) || state.get(TELECOMUSE)))
         .set(LOCATIONSTATUS, fromJS((action.lookups && action.lookups.locationStatuses) || state.get(LOCATIONSTATUS)))
         .set(LOCATIONPHYSICALTYPE, fromJS((action.lookups && action.lookups.locationPhysicalTypes) || state.get(LOCATIONPHYSICALTYPE)))
+        .set(ORGANIZATIONIDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.organizationIdentifierSystems) || state.get(ORGANIZATIONIDENTIFIERSYSTEM)))
+        .set(ORGANIZATIONSTATUS, fromJS((action.lookups && action.lookups.organizationStatuses) || state.get(ORGANIZATIONSTATUS)))
         .set(PRACTITIONERROLES, fromJS((action.lookups && action.lookups.practitionerRoles) || state.get(PRACTITIONERROLES)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
