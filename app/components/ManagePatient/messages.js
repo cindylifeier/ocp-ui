@@ -77,13 +77,13 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.hintText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    email: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.email',
-      defaultMessage: 'Email',
+    telecomType: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomType',
+      defaultMessage: 'Telecom Type',
     },
-    phone: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.phone',
-      defaultMessage: 'Phone',
+    telecomValue: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomValue',
+      defaultMessage: 'Telecom Value',
     },
     address1: {
       id: 'ocpui.components.ManagePatient.manageForm.hintText.address1',
@@ -155,13 +155,13 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    email: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.email',
-      defaultMessage: 'Email',
+    telecomType: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomType',
+      defaultMessage: 'Telecom Type',
     },
-    phone: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.phone',
-      defaultMessage: 'Phone',
+    telecomValue: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomValue',
+      defaultMessage: 'Telecom Value',
     },
     address1: {
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.address1',

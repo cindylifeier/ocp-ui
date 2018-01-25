@@ -14,27 +14,12 @@ import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/ManagePatientPage/constants';
 
 const initialValues = {
-  firstName: 'abc',
-  middleName: 'dfv',
-  lastName: 'ghj',
-  gender: 'male',
-  dob: new Date('2010,1,22'),
-  identifierType: 'ssn',
-  identifierValue: '1234',
-  address1: '',
-  address2: '',
-  city: '',
-  state: '',
-  postalCode: '',
-  country: '',
-  email: '',
-  phone: '',
 };
 
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages } = props;
+  const { onSave, error, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
   const lookUpFormData = {
     uspsStates,
     patientIdentifierSystems,
@@ -43,6 +28,7 @@ function ManagePatient(props) {
     usCoreEthnicities,
     usCoreBirthSexes,
     languages,
+    telecomSystems,
   };
   return (
     <div>
@@ -61,21 +47,20 @@ function ManagePatient(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          gender: yup.string()
+          genderCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-         /* dob: yup.date()
-            .required((<FormattedMessage {...messages.validation.required} />)),*/
+          birthDate: yup.date()
+            .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          email: yup.string()
-            .email((<FormattedMessage {...messages.validation.email} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
         render={(formikProps) => <ManagePatientForm {...formikProps} {...lookUpFormData} />}
       />
+      {error ? <p>Save practitioner failed!</p> : null}
     </div>
   );
 }
@@ -89,6 +74,11 @@ ManagePatient.propTypes = {
   usCoreEthnicities: PropTypes.array.isRequired,
   usCoreBirthSexes: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
+  telecomSystems: PropTypes.array.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
 };
 
 export default ManagePatient;

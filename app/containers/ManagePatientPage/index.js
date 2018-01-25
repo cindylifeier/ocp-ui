@@ -23,14 +23,14 @@ import styles from './styles.css';
 import ManagePatient from '../../components/ManagePatient';
 import { savePatient } from './actions';
 import {
-  makeSelectAdministrativeGenders, makeSelectLanguages, makeSelectPatientIdentifierSystems,
+  makeSelectAdministrativeGenders, makeSelectLanguages, makeSelectPatientIdentifierSystems, makeSelectTelecomSystems,
   makeSelectUsCoreBirthSexes,
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreRaces,
   makeSelectUspsStates,
 } from '../App/selectors';
 import {
-  ADMINISTRATIVEGENDER, LANGUAGE, PATIENTIDENTIFIERSYSTEM, USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
+  ADMINISTRATIVEGENDER, LANGUAGE, PATIENTIDENTIFIERSYSTEM, TELECOMSYSTEM, USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
   USPSSTATES,
 } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
@@ -51,7 +51,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { match, error, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages } = this.props;
+    const { match, error, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
     const formProps = {
       error,
       uspsStates,
@@ -61,6 +61,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       usCoreEthnicities,
       usCoreBirthSexes,
       languages,
+      telecomSystems,
     };
     return (
       <div>
@@ -91,6 +92,7 @@ ManagePatientPage.propTypes = {
   usCoreEthnicities: PropTypes.array,
   usCoreBirthSexes: PropTypes.array,
   languages: PropTypes.array,
+  telecomSystems: PropTypes.array,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
@@ -106,13 +108,14 @@ const mapStateToProps = createStructuredSelector({
   usCoreEthnicities: makeSelectUsCoreEthnicities(),
   usCoreBirthSexes: makeSelectUsCoreBirthSexes(),
   languages: makeSelectLanguages(),
+  telecomSystems: makeSelectTelecomSystems(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onSaveForm: (patientFormData) => { dispatch(savePatient(patientFormData)); },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE])),
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM])),
   };
 }
 

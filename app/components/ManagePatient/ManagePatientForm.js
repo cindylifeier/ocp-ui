@@ -11,7 +11,7 @@ import SelectField from '../SelectField';
 import DatePicker from '../DatePicker';
 
 function ManagePatientForm(props) {
-  const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages } = props;
+  const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -40,7 +40,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={styles.gridItem}>
             <DatePicker
-              name="dob"
+              name="birthDate"
               maxDate={new Date()}
               hintText={<FormattedMessage {...messages.hintText.dob} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.dob} />}
@@ -48,7 +48,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={styles.gridItem}>
             <SelectField
-              name="gender"
+              name="genderCode"
               hintText={<FormattedMessage {...messages.hintText.gender} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.gender} />}
             >
@@ -167,17 +167,21 @@ function ManagePatientForm(props) {
             </TextField>
           </div>
           <div className={styles.gridItem}>
-            <TextField
-              name="email"
-              hintText={<FormattedMessage {...messages.hintText.email} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.email} />}
-            />
+            <SelectField
+              name="telecomType"
+              hintText={<FormattedMessage {...messages.hintText.telecomType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
+            >
+              {telecomSystems && telecomSystems.map((telecomType) =>
+                <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
+              )}
+            </SelectField>
           </div>
           <div className={styles.gridItem}>
             <TextField
-              name="phone"
-              hintText={<FormattedMessage {...messages.hintText.phone} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.phone} />}
+              name="telecomValue"
+              hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
             />
           </div>
         </div>
@@ -223,6 +227,11 @@ ManagePatientForm.propTypes = {
   })),
   languages: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
 };
