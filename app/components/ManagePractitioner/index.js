@@ -17,7 +17,7 @@ import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constan
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioner } = props;
+  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioner } = props;
   const formData = {
     uspsStates,
     identifierSystems,
@@ -30,8 +30,7 @@ function ManagePractitioner(props) {
       <Formik
         initialValues={setFormData(practitioner)}
         onSubmit={(values, actions) => {
-          onSave(values);
-          actions.setSubmitting(false);
+          onSave(values, actions);
         }}
         validationSchema={yup.object().shape({
           firstName: yup.string()
@@ -53,17 +52,12 @@ function ManagePractitioner(props) {
         })}
         render={(formikProps) => <ManagePractitionerForm {...formikProps} {...formData} />}
       />
-      {isEmpty(error) ? null : <p>Save practitioner failed!</p>}
     </div>
   );
 }
 
 ManagePractitioner.propTypes = {
   onSave: PropTypes.func.isRequired,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
   uspsStates: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,

@@ -6,10 +6,11 @@
 
 import { SAVE_PRACTITIONER, SAVE_PRACTITIONER_ERROR } from './constants';
 
-export function savePractitioner(practitionerFormData) {
+export function savePractitioner(practitionerFormData, handleSubmitting) {
   return {
     type: SAVE_PRACTITIONER,
     practitionerFormData,
+    handleSubmitting,
   };
 }
 

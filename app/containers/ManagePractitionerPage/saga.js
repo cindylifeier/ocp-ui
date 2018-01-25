@@ -5,13 +5,15 @@ import { SAVE_PRACTITIONER } from './constants';
 import createPractitioner from './api';
 import { showNotification } from '../Notification/actions';
 
-export function* createPractitionerWorker({ practitionerFormData }) {
+export function* createPractitionerWorker(action) {
   try {
-    yield call(createPractitioner, practitionerFormData);
+    yield call(createPractitioner, action.practitionerFormData);
     yield put(showNotification('Successfully created the practitioner.'));
+    yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
     yield put(showNotification('Failed to create the practitioner.'));
+    yield call(action.handleSubmitting);
     yield put(savePractitionerError(error));
   }
 }
