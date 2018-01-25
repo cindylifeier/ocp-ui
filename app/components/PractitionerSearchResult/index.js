@@ -41,7 +41,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
   if (searchResult !== false) {
     return (
       <div className={styles.table}>
-        <div className={styles.rowGridContainer}>
+        <div className={styles.rowGridHeaderContainer}>
           <div className={styles.cellGridHeaderItem}>First Name</div>
           <div className={styles.cellGridHeaderItem}>Last Name</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
