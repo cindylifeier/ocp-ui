@@ -3,7 +3,7 @@ import request from '../../utils/request';
 
 const apiBaseUrl = getApiBaseUrl();
 
-export default function createOrganizationApiCall(organizationFormData) {
+export function createOrganizationApiCall(organizationFormData) {
   const requestUrl = `${apiBaseUrl}/organizations`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
   return request(requestUrl, {

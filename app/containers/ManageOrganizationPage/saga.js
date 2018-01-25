@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 import { CREATE_ORGANIZATION } from './constants';
 import { showNotification } from '../Notification/actions';
-import createOrganizationApiCall from './api';
+import { createOrganizationApiCall } from './api';
 
 export function* createOrganization(action) {
   try {
