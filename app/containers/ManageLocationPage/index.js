@@ -20,7 +20,7 @@ import saga from './saga';
 import messages from './messages';
 import { getLookupsAction } from '../App/actions';
 import {
-  ADDRESSTYPE, IDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
+  ADDRESSTYPE, LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
   USPSSTATES,
 } from '../App/constants';
 import {
@@ -74,7 +74,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE])),
-    getLookups1: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, IDENTIFIERSYSTEM])),
+    getLookups1: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, LOCATIONIDENTIFIERSYSTEM])),
   };
 }
 

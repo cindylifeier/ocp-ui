@@ -19,13 +19,13 @@ import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
+
 import { LoginPage } from '../LoginPage/index';
-import ManagePractitionerPage from '../ManagePractitionerPage';
 import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage/index';
+import ManagePractitionerPage from '../ManagePractitionerPage';
 import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
-
 import styles from './styles.css';
 
 
@@ -40,14 +40,13 @@ export function App() {
       </Helmet>
       <div className={styles.App}>
         <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/login" component={LoginPage} />
+          <Route exact path="/ocp-ui" component={LoginPage} />
+          <Route path="/ocp-ui/login" component={LoginPage} />
           <Layout>
-            <Route path="/home" component={HomePage} />
-            <Route exact path="/manage-practitioner" component={ManagePractitionerPage} />
-            <Route path="/manage-practitioner/:id" component={ManagePractitionerPage} />
-            <Route path="/patients/:id" component={PatientDetailsPage} />
-            <Route path="/manage-location/" component={ManageLocationPage} />
+            <Route path="/ocp-ui/home" component={HomePage} />
+            <Route path="/ocp-ui/patients/:id" component={PatientDetailsPage} />
+            <Route path="/ocp-ui/manage-location/" component={ManageLocationPage} />
+            <Route path="/ocp-ui/manage-practitioner/:id" component={ManagePractitionerPage} />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>

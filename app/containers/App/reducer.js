@@ -18,7 +18,7 @@ import {
   GET_LOOKUPS,
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_SUCCESS,
-  IDENTIFIERSYSTEM,
+  LOCATIONIDENTIFIERSYSTEM,
   LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
   PRACTITIONERROLES,
@@ -36,7 +36,7 @@ const initialState = fromJS({
   LOCATIONSTATUS: [],
   ADDRESSTYPE: [],
   ADDRESSUSE: [],
-  IDENTIFIERSYSTEM: [],
+  LOCATIONIDENTIFIERSYSTEM: [],
   TELECOMSYSTEM: [],
   TELECOMUSE: [],
   PRACTITIONERROLES: [],
@@ -53,7 +53,7 @@ function appReducer(state = initialState, action) {
         .set(USPSSTATES, fromJS((action.lookups && action.lookups.uspsStates) || state.get(USPSSTATES)))
         .set(ADDRESSTYPE, fromJS((action.lookups && action.lookups.addressTypes) || state.get(ADDRESSTYPE)))
         .set(ADDRESSUSE, fromJS((action.lookups && action.lookups.addressUses) || state.get(ADDRESSUSE)))
-        .set(IDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.identifierSystems) || state.get(IDENTIFIERSYSTEM)))
+        .set(LOCATIONIDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.locationIdentifierSystems) || state.get(LOCATIONIDENTIFIERSYSTEM)))
         .set(TELECOMSYSTEM, fromJS((action.lookups && action.lookups.telecomSystems) || state.get(TELECOMSYSTEM)))
         .set(TELECOMUSE, fromJS((action.lookups && action.lookups.telecomUses) || state.get(TELECOMUSE)))
         .set(LOCATIONSTATUS, fromJS((action.lookups && action.lookups.locationStatuses) || state.get(LOCATIONSTATUS)))
