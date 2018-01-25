@@ -10,8 +10,4 @@ export default defineMessages({
     id: 'app.containers.ManageLocationPage.header',
     defaultMessage: 'General Information',
   },
-  organizatoinNameLabel: {
-    id: 'app.containers.ManageLocationPage.organizatoinNameLabel',
-    defaultMessage: 'Organization',
-  },
 });
