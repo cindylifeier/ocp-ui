@@ -106,6 +106,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.telecomUseFloatingLabelText',
     defaultMessage: 'Telecom Use',
   },
+  saveLocationError: {
+    id: 'ocpui.components.ManageLocation.saveLocationError',
+    defaultMessage: 'Error in saving location!',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageLocation.manageForm.validation.minLength',

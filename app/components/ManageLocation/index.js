@@ -21,7 +21,7 @@ const initialValues = { };
 function ManageLocation(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, error } = props;
+  const { onSave } = props;
   return (
     <div className={styles.root} >
       <Formik
@@ -76,17 +76,12 @@ function ManageLocation(props) {
         })}
         render={(formikProps) => <ManageLocationForm {...formikProps} {...props} />}
       />
-      {error ? <p>Error in saving location!</p> : ''}
     </div>
   );
 }
 
 ManageLocation.propTypes = {
   onSave: PropTypes.func.isRequired,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
 };
 
 export default ManageLocation;
