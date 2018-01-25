@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
+import find from 'lodash/find';
 import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
@@ -30,6 +31,7 @@ import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTA
 import { getLookupsAction } from '../App/actions';
 import { makeSelectSavePractitionerError } from './selectors';
 import { savePractitioner } from './actions';
+import { makeSelectSearchResult } from '../Practitioners/selectors';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -47,13 +49,19 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = this.props;
+    const { match, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioners } = this.props;
+    const practitionerLogicalId = match.params.id;
+    let practitioner = {};
+    if (practitionerLogicalId) {
+      practitioner = getPractitionerById(practitioners, practitionerLogicalId);
+    }
     const formProps = {
       error,
       uspsStates,
       identifierSystems,
       telecomSystems,
       practitionerRoles,
+      practitioner,
     };
     return (
       <div>
@@ -63,7 +71,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
         </Helmet>
         <div className={styles.card}>
           <h4 className={styles.font}>
-            {match.params.id ? <FormattedMessage {...messages.editHeader} />
+            {practitionerLogicalId ? <FormattedMessage {...messages.editHeader} />
               : <FormattedMessage {...messages.createHeader} />}
           </h4>
           <Divider />
@@ -81,6 +89,7 @@ ManagePractitionerPage.propTypes = {
   identifierSystems: PropTypes.array,
   telecomSystems: PropTypes.array,
   practitionerRoles: PropTypes.array,
+  practitioners: PropTypes.any,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
@@ -94,6 +103,7 @@ const mapStateToProps = createStructuredSelector({
   telecomSystems: makeSelectTelecomSystems(),
   practitionerRoles: makeSelectPractitionerRoles(),
   error: makeSelectSavePractitionerError(),
+  practitioners: makeSelectSearchResult(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -113,3 +123,7 @@ export default compose(
   withSaga,
   withConnect,
 )(ManagePractitionerPage);
+
+function getPractitionerById(practitionerSearchResult, logicalId) {
+  return find(practitionerSearchResult.elements, { logicalId });
+}

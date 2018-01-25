@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -68,7 +69,9 @@ function displayPractitionerSearchResult(practitioners) {
           {practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}
         </div>
         <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
-        <div className={styles['cell-grid-item']}>{practitioner.role ? practitioner.role : ''}</div>
+        <div className={styles['cell-grid-item']}>
+          {mapToPractitionerRole(practitioner)}
+        </div>
         <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
         <div>
           <IconMenu
@@ -84,7 +87,11 @@ function displayPractitionerSearchResult(practitioners) {
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
-            <MenuItem className={styles.menuItem} primaryText="Edit" />
+            <MenuItem
+              className={styles.menuItem}
+              primaryText="Edit"
+              containerElement={<Link to={`/ocp-ui/manage-practitioner/${practitioner.logicalId}`} />}
+            />
             <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
           </IconMenu>
         </div>
@@ -101,6 +108,13 @@ function mapToIdentifier(practitioner) {
       const value = identifier.value !== EMPTY_STRING ? identifier.value : 'No value found';
       return `${system}: ${value}`;
     })
+    .join(', ');
+}
+
+function mapToPractitionerRole(practitioner) {
+  const practitionerRoles = practitioner.practitionerRoles;
+  return practitionerRoles && practitionerRoles
+    .map((practitionerRole) => practitionerRole.display !== EMPTY_STRING ? practitionerRole.display : '')
     .join(', ');
 }
 

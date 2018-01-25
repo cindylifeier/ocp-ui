@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
 import yup from 'yup';
@@ -16,12 +17,13 @@ import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constan
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = props;
+  const { onSave, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioner } = props;
   const lookUpFormData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
     practitionerRoles,
+    practitioner,
   };
   return (
     <div>
@@ -50,7 +52,7 @@ function ManagePractitioner(props) {
         })}
         render={(formikProps) => <ManagePractitionerForm {...formikProps} {...lookUpFormData} />}
       />
-      {error ? <p>Save practitioner failed!</p> : null}
+      {isEmpty(error) ? null : <p>Save practitioner failed!</p>}
     </div>
   );
 }
@@ -65,6 +67,7 @@ ManagePractitioner.propTypes = {
   identifierSystems: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
   practitionerRoles: PropTypes.array.isRequired,
+  practitioner: PropTypes.any,
 };
 
 export default ManagePractitioner;
