@@ -1,6 +1,21 @@
-// import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { POST_CREATE_LOCATION } from './constants';
+import { createLocationError, createLocationSuccess } from './actions';
+import createLocaiton from './api';
 
-// Individual exports for testing
-export default function* watchCreatLocationSaga() {
-  // yield takeLatest(GET_LOOKUPS, getLocationLookups);
+export function* handleCreateLocation(action) {
+  try {
+    const createLocationResponse = yield call(createLocaiton, action.location, action.organizationId);
+    yield put(createLocationSuccess(createLocationResponse));
+  } catch (err) {
+    yield put(createLocationError(err));
+  }
+}
+
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* watchCreateLocation() {
+  yield takeLatest(POST_CREATE_LOCATION, handleCreateLocation);
 }
