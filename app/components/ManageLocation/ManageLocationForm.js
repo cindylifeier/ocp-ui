@@ -74,7 +74,7 @@ function ManageLocationForm(props) {
             name="managingLocationLogicalId"
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
-            floatingLabelText={<FormattedMessage {...messages.locationPartOfFloatingLabelText} />}
+            floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
           />
         </div>
       </div>
