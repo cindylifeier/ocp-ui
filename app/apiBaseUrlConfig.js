@@ -1,5 +1,5 @@
 function getApiBaseUrl() {
-  return '/ocp-ui-api/ocp-fis';
+  return 'http://localhost/ocp-ui-api/ocp-fis';
 }
 
 export default getApiBaseUrl;
