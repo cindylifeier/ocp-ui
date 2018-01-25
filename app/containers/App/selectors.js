@@ -1,9 +1,17 @@
 import { createSelector } from 'reselect';
 import {
-  ADDRESSTYPE, ADDRESSUSE, LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM, TELECOMUSE,
+  ADDRESSTYPE,
+  ADDRESSUSE,
+  LOCATIONIDENTIFIERSYSTEM,
+  LOCATIONPHYSICALTYPE,
+  LOCATIONSTATUS,
+  ORGANIZATIONIDENTIFIERSYSTEM,
+  ORGANIZATIONSTATUS,
+  TELECOMSYSTEM,
+  TELECOMUSE,
+  USPSSTATES,
   PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, LANGUAGE,
   USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
-  USPSSTATES,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -12,52 +20,62 @@ const selectRoute = (state) => state.get('route');
 
 const makeSelectLocation = () => createSelector(
   selectRoute,
-  (routeState) => routeState.get('location').toJS()
+  (routeState) => routeState.get('location').toJS(),
 );
 
 const makeSelectUspsStates = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USPSSTATES).toJS()
+  (globalState) => globalState.get(USPSSTATES).toJS(),
 );
 
 const makeSelectLocationPhysicalTypes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(LOCATIONPHYSICALTYPE).toJS()
+  (globalState) => globalState.get(LOCATIONPHYSICALTYPE).toJS(),
 );
 
 const makeSelectLocationStatuses = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(LOCATIONSTATUS).toJS()
+  (globalState) => globalState.get(LOCATIONSTATUS).toJS(),
 );
 
 const makeSelectAddressTypes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(ADDRESSTYPE).toJS()
+  (globalState) => globalState.get(ADDRESSTYPE).toJS(),
 );
 
 const makeSelectAddressUses = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(ADDRESSUSE).toJS()
+  (globalState) => globalState.get(ADDRESSUSE).toJS(),
 );
 
 const makeSelectLocationIdentifierSystems = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(LOCATIONIDENTIFIERSYSTEM).toJS()
+  (globalState) => globalState.get(LOCATIONIDENTIFIERSYSTEM).toJS(),
+);
+
+const makeSelectOrganizationIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ORGANIZATIONIDENTIFIERSYSTEM).toJS(),
+);
+
+const makeSelectOrganizationStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ORGANIZATIONSTATUS).toJS(),
 );
 
 const makeSelectTelecomSystems = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(TELECOMSYSTEM).toJS()
+  (globalState) => globalState.get(TELECOMSYSTEM).toJS(),
 );
 
 const makeSelectTelecomUses = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(TELECOMUSE).toJS()
+  (globalState) => globalState.get(TELECOMUSE).toJS(),
 );
 
 const makeSelectLookups = (name) => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(name).toJS()
+  (globalState) => globalState.get(name).toJS(),
 );
 
 const makeSelectPatientIdentifierSystems = () => createSelector(
@@ -99,6 +117,8 @@ export {
   makeSelectAddressTypes,
   makeSelectAddressUses,
   makeSelectLocationIdentifierSystems,
+  makeSelectOrganizationIdentifierSystems,
+  makeSelectOrganizationStatuses,
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
   makeSelectLookups,

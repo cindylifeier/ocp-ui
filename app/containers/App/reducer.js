@@ -13,10 +13,19 @@
 import { fromJS } from 'immutable';
 
 import {
+  ADDRESSTYPE,
+  ADDRESSUSE,
   GET_LOOKUPS,
+  GET_LOOKUPS_ERROR,
   GET_LOOKUPS_SUCCESS,
-  GET_LOOKUPS_ERROR, USPSSTATES, LOCATIONPHYSICALTYPE, LOCATIONSTATUS, ADDRESSTYPE, ADDRESSUSE, LOCATIONIDENTIFIERSYSTEM, TELECOMSYSTEM,
+  LOCATIONIDENTIFIERSYSTEM,
+  LOCATIONPHYSICALTYPE,
+  LOCATIONSTATUS,
+  ORGANIZATIONIDENTIFIERSYSTEM,
+  ORGANIZATIONSTATUS,
+  TELECOMSYSTEM,
   TELECOMUSE,
+  USPSSTATES,
   PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE,
 } from './constants';
 
@@ -32,6 +41,8 @@ const initialState = fromJS({
   LOCATIONIDENTIFIERSYSTEM: [],
   TELECOMSYSTEM: [],
   TELECOMUSE: [],
+  ORGANIZATIONIDENTIFIERSYSTEM: [],
+  ORGANIZATIONSTATUS: [],
   PATIENTIDENTIFIERSYSTEM: [],
   ADMINISTRATIVEGENDER: [],
   USCORERACE: [],
@@ -56,6 +67,8 @@ function appReducer(state = initialState, action) {
         .set(TELECOMUSE, fromJS((action.lookups && action.lookups.telecomUses) || state.get(TELECOMUSE)))
         .set(LOCATIONSTATUS, fromJS((action.lookups && action.lookups.locationStatuses) || state.get(LOCATIONSTATUS)))
         .set(LOCATIONPHYSICALTYPE, fromJS((action.lookups && action.lookups.locationPhysicalTypes) || state.get(LOCATIONPHYSICALTYPE)))
+        .set(ORGANIZATIONIDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.organizationIdentifierSystems) || state.get(ORGANIZATIONIDENTIFIERSYSTEM)))
+        .set(ORGANIZATIONSTATUS, fromJS((action.lookups && action.lookups.organizationStatuses) || state.get(ORGANIZATIONSTATUS)))
         .set(PATIENTIDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.patientIdentifierSystems) || state.get(PATIENTIDENTIFIERSYSTEM)))
         .set(ADMINISTRATIVEGENDER, fromJS((action.lookups && action.lookups.administrativeGenders) || state.get(ADMINISTRATIVEGENDER)))
         .set(USCORERACE, fromJS((action.lookups && action.lookups.usCoreRaces) || state.get(USCORERACE)))
