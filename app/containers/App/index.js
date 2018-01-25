@@ -29,6 +29,8 @@ import ManageOrganizationPage from '../ManageOrganizationPage';
 import Notification from '../Notification';
 import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
+import ManageOrganizationPage from '../ManageOrganizationPage';
+import Notification from '../Notification';
 
 
 export function App() {

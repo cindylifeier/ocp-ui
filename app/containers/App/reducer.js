@@ -41,11 +41,11 @@ const initialState = fromJS({
   ADDRESSUSE: [],
   LOCATIONIDENTIFIERSYSTEM: [],
   PRACTITIONERIDENTIFIERSYSTEM: [],
+  PRACTITIONERROLES: [],
   TELECOMSYSTEM: [],
   TELECOMUSE: [],
   ORGANIZATIONIDENTIFIERSYSTEM: [],
   ORGANIZATIONSTATUS: [],
-  PRACTITIONERROLES: [],
 });
 
 function appReducer(state = initialState, action) {
