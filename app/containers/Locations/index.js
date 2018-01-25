@@ -90,24 +90,22 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
           <div className={styles.cellGridItem}>{location.status}</div>
           <div className={styles.cellGridItem}>{this.getTelecoms(location.telecoms)}</div>
           <div className={styles.cellGridItem}>{this.getAddress(location.address)} </div>
-          <div>
-            <IconMenu
-              iconButtonElement={
-                (<IconButton
-                  className={styles.iconButton}
-                  iconStyle={iconStyles.icon}
-                  style={iconStyles.iconButton}
-                >
-                  <ActionList />
-                </IconButton>)
-              }
-              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            >
-              <MenuItem className={styles.menuItem} primaryText="Edit" />
-              <MenuItem className={styles.menuItem} primaryText="Remove" />
-            </IconMenu>
-          </div>
+          <IconMenu
+            iconButtonElement={
+              (<IconButton
+                className={styles.iconButton}
+                iconStyle={iconStyles.icon}
+                style={iconStyles.iconButton}
+              >
+                <ActionList />
+              </IconButton>)
+            }
+            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          >
+            <MenuItem className={styles.menuItem} primaryText="Edit" />
+            <MenuItem className={styles.menuItem} primaryText="Remove" />
+          </IconMenu>
         </div>
       ));
     }

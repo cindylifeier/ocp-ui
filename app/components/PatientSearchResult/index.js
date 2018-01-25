@@ -1,8 +1,8 @@
 /**
-*
-* PatientSearchResult
-*
-*/
+ *
+ * PatientSearchResult
+ *
+ */
 
 import React from 'react';
 import IconMenu from 'material-ui/IconMenu';
@@ -36,25 +36,23 @@ function displayPatientSearchResult(patients) {
       <div className={styles.cellGridItem}>{getDOB(patient.birthDate)}</div>
       <div className={styles.cellGridItem}>{patient.genderCode}</div>
       <div className={styles.cellGridItem}>{getIdentifiers(patient.identifier)}</div>
-      <div className={styles.cellGridItem}>{patient.active ? 'active' : 'inactive' }</div>
-      <div>
-        <IconMenu
-          iconButtonElement={
-            (<IconButton
-              className={styles.iconButton}
-              iconStyle={iconStyles.icon}
-              style={iconStyles.iconButton}
-            >
-              <ActionList />
-            </IconButton>)
-          }
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-        >
-          <MenuItem className={styles.menuItem} primaryText="Edit" />
-          <MenuItem className={styles.menuItem} primaryText="Remove" />
-        </IconMenu>
-      </div>
+      <div className={styles.cellGridItem}>{patient.active ? 'active' : 'inactive'}</div>
+      <IconMenu
+        iconButtonElement={
+          (<IconButton
+            className={styles.iconButton}
+            iconStyle={iconStyles.icon}
+            style={iconStyles.iconButton}
+          >
+            <ActionList />
+          </IconButton>)
+        }
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+      >
+        <MenuItem className={styles.menuItem} primaryText="Edit" />
+        <MenuItem className={styles.menuItem} primaryText="Remove" />
+      </IconMenu>
     </div>
   ));
 }
@@ -71,7 +69,7 @@ function getIdentifiers(identifier) {
 }
 
 function getDOB(birthDate) {
-  return birthDate ? (<div>{ birthDate.monthValue}/{birthDate.dayOfMonth}/{birthDate.year}</div>) : '';
+  return birthDate ? (<div>{birthDate.monthValue}/{birthDate.dayOfMonth}/{birthDate.year}</div>) : '';
 }
 
 function PatientSearchResult({ loading, error, searchResult }) {
