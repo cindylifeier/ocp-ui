@@ -11,9 +11,12 @@ import IconButton from 'material-ui/IconButton';
 import ImageFlashOn from 'material-ui/svg-icons/image/flash-on';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import styles from './styles.css';
 import { ENTER_KEY } from '../../containers/App/constants';
+import messages from './messages';
+
 
 const iconStyles = {
   iconButton: {
@@ -66,11 +69,11 @@ function OrganizationTableRow(props) {
         >
           <MenuItem
             className={styles.menuItem}
-            primaryText="Edit"
+            primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
           />
-          <MenuItem className={styles.menuItem} primaryText="Add Location" />
-          <MenuItem className={styles.menuItem} primaryText="Remove" />
+          <MenuItem className={styles.menuItem} primaryText={<FormattedMessage {...messages.addLocation} />} />
+          <MenuItem className={styles.menuItem} primaryText={<FormattedMessage {...messages.remove} />} />
         </IconMenu>
       </div>
     </div>
