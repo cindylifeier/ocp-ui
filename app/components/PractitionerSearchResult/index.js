@@ -5,11 +5,28 @@
  */
 
 import React from 'react';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import ImageFlashOn from 'material-ui/svg-icons/image/flash-on';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
 import { EMPTY_STRING } from '../../containers/App/constants';
+
+const iconStyles = {
+  iconButton: {
+    position: 'relative',
+  },
+  icon: {
+    width: '100%',
+    height: 26,
+    position: 'absolute',
+    top: '0',
+    right: '0',
+  },
+};
 
 // import styled from 'styled-components';
 function PractitionerSearchResult({ loading, error, searchResult }) {
@@ -30,6 +47,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Status</div>
           <div className={styles.cellGridHeaderItem}>Role</div>
           <div className={styles.cellGridHeaderItem}>Identifier</div>
+          <div></div>
         </div>
         {displayPractitionerSearchResult(searchResult.elements)}
       </div>
@@ -52,6 +70,25 @@ function displayPractitionerSearchResult(practitioners) {
         <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
         <div className={styles['cell-grid-item']}>{practitioner.role ? practitioner.role : ''}</div>
         <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
+        <div>
+          <IconMenu
+            iconButtonElement={
+              (<IconButton
+                className={styles.iconButton}
+                iconStyle={iconStyles.icon}
+                style={iconStyles.iconButton}
+              >
+                <ImageFlashOn />
+              </IconButton>)
+            }
+            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          >
+            <MenuItem className={styles.menuItem} primaryText="Edit" />
+            <MenuItem className={styles.menuItem} primaryText="Add Location" />
+            <MenuItem className={styles.menuItem} primaryText="Remove" />
+          </IconMenu>
+        </div>
       </div>
     )));
 }
