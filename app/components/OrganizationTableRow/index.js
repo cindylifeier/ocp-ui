@@ -9,8 +9,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ImageFlashOn from 'material-ui/svg-icons/image/flash-on';
-
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import styles from './styles.css';
 import { ENTER_KEY } from '../../containers/App/constants';
 
@@ -63,7 +64,11 @@ function OrganizationTableRow(props) {
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
-          <MenuItem className={styles.menuItem} primaryText="Edit" />
+          <MenuItem
+            className={styles.menuItem}
+            primaryText="Edit"
+            containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
+          />
           <MenuItem className={styles.menuItem} primaryText="Add Location" />
           <MenuItem className={styles.menuItem} primaryText="Remove" />
         </IconMenu>
