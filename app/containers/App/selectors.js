@@ -56,7 +56,6 @@ const makeSelectLocationIdentifierSystems = () => createSelector(
 const makeSelectPractitionerIdentifierSystems = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(PRACTITIONERIDENTIFIERSYSTEM).toJS(),
-  (globalState) => globalState.get(LOCATIONIDENTIFIERSYSTEM).toJS(),
 );
 
 const makeSelectOrganizationIdentifierSystems = () => createSelector(
