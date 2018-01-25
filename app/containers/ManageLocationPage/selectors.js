@@ -19,7 +19,13 @@ const makeSelectManageLocationPage = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const makeSelectSaveLocationError = () => createSelector(
+  selectManageLocationPageDomain,
+  (substate) => substate.get('error'),
+);
+
 export default makeSelectManageLocationPage;
 export {
   selectManageLocationPageDomain,
+  makeSelectSaveLocationError,
 };
