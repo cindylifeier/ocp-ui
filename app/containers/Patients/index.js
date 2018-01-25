@@ -96,7 +96,7 @@ export class Patients extends React.PureComponent {
             <h3><FormattedMessage {...messages.header} /></h3>
           </div>
           <div className={styles.gridItem}>
-            <Link to="/manage-patient">
+            <Link to="/ocp-ui/manage-patient">
               <IconButton>
                 <ContentAddCircle />
               </IconButton>
