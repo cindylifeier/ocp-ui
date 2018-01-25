@@ -10,6 +10,14 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.header',
     defaultMessage: 'This is the ManageLocation component !',
   },
+  organizatoinNameLabel: {
+    id: 'app.containers.ManageLocationPage.organizatoinNameLabel',
+    defaultMessage: 'Organization',
+  },
+  mainLabel: {
+    id: 'app.containers.ManageLocationPage.mainLabel',
+    defaultMessage: 'General Information',
+  },
   locationNameHintText: {
     id: 'ocpui.components.ManageLocation.locationNameHintText',
     defaultMessage: 'Location Name',
