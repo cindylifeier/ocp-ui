@@ -85,8 +85,7 @@ function displayPractitionerSearchResult(practitioners) {
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
             <MenuItem className={styles.menuItem} primaryText="Edit" />
-            <MenuItem className={styles.menuItem} primaryText="Add Location" />
-            <MenuItem className={styles.menuItem} primaryText="Remove" />
+            <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
           </IconMenu>
         </div>
       </div>
