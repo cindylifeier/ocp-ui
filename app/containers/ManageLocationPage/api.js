@@ -4,7 +4,7 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 const apiBaseUrl = getApiBaseUrl();
 
 export default function createLocation(location, organizationId) {
-  const url = `${apiBaseUrl}/organizations/${organizationId}/location`;
+  const url = `${apiBaseUrl}/organization/${organizationId}/location`;
   console.log(JSON.stringify(mapToBffLocation(location)));
   return request(url, {
     method: 'POST',
@@ -20,6 +20,7 @@ function mapToBffLocation(rawlocation) {
   location.name = rawlocation.name;
   location.managingLocationLogicalId = '';
   location.status = '';
+  location.resourceURL = '';
   location.physicalType = rawlocation.physicalType;
   const { identifierSystem, identifierValue } = rawlocation;
   location.identifiers = [{
