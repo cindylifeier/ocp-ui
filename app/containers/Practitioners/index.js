@@ -102,11 +102,11 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
             <h3><FormattedMessage {...messages.header} /></h3>
           </div>
           <div className={styles.gridItem}>
-            <Link to="/manage-practitioner">
-              <IconButton>
-                <ContentAddCircle />
-              </IconButton>
-            </Link>
+            <IconButton
+              containerElement={<Link to="/ocp-ui/manage-practitioner" />}
+            >
+              <ContentAddCircle />
+            </IconButton>
           </div>
         </div>
         <form>

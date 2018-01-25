@@ -21,12 +21,12 @@ import ManagePractitioner from '../../components/ManagePractitioner';
 import messages from './messages';
 import styles from './styles.css';
 import {
-  makeSelectIdentifierSystems,
+  makeSelectPractitionerIdentifierSystems,
   makeSelectPractitionerRoles,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
 } from '../App/selectors';
-import { IDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import { makeSelectSavePractitionerError } from './selectors';
 import { savePractitioner } from './actions';
@@ -90,7 +90,7 @@ ManagePractitionerPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   uspsStates: makeSelectUspsStates(),
-  identifierSystems: makeSelectIdentifierSystems(),
+  identifierSystems: makeSelectPractitionerIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
   practitionerRoles: makeSelectPractitionerRoles(),
   error: makeSelectSavePractitionerError(),
@@ -98,7 +98,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, IDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
+    getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
     onSaveForm: (practitionerFormData) => dispatch(savePractitioner(practitionerFormData)),
   };
 }

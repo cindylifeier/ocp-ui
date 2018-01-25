@@ -5,6 +5,7 @@ import {
   LOCATIONIDENTIFIERSYSTEM,
   LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
+  PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -50,6 +51,11 @@ const makeSelectLocationIdentifierSystems = () => createSelector(
   (globalState) => globalState.get(LOCATIONIDENTIFIERSYSTEM).toJS(),
 );
 
+const makeSelectPractitionerIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PRACTITIONERIDENTIFIERSYSTEM).toJS(),
+);
+
 const makeSelectTelecomSystems = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(TELECOMSYSTEM).toJS(),
@@ -78,6 +84,7 @@ export {
   makeSelectAddressTypes,
   makeSelectAddressUses,
   makeSelectLocationIdentifierSystems,
+  makeSelectPractitionerIdentifierSystems,
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
   makeSelectPractitionerRoles,

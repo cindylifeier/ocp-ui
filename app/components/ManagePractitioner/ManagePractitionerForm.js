@@ -134,13 +134,12 @@ function ManagePractitionerForm(props) {
           </div>
         </div>
         <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-          <Link to="/home">
-            <RaisedButton
-              label="Cancel"
-              primary
-              disabled={isSubmitting}
-            />
-          </Link>
+          <RaisedButton
+            label="Cancel"
+            primary
+            disabled={isSubmitting}
+            containerElement={<Link to="/ocp-ui/home" />}
+          />
           <RaisedButton
             type="submit"
             label="Save"
