@@ -19,7 +19,19 @@ export const SEARCH_BY_NAME = 'name';
 export const SEARCH_BY_ID = 'logicalId';
 
 function ManageLocationForm(props) {
-  const { uspsStates, locationPhysicalTypes, addressUses, locationStatuses, addressTypes, identifierSystems, telecomSystems } = props;
+  const {
+    uspsStates,
+    locationPhysicalTypes,
+    addressUses,
+    locationStatuses,
+    addressTypes,
+    identifierSystems,
+    telecomSystems,
+    telecomUses,
+    isSubmitting,
+    dirty,
+    isValid,
+  } = props;
   return (
     <Form>
       <div className={styles.gridContainer}>
@@ -94,6 +106,17 @@ function ManageLocationForm(props) {
           >
             {telecomSystems && telecomSystems.map((telecomSystem) => (
               <MenuItem value={telecomSystem.code} primaryText={telecomSystem.display} key={uniqueId()} />
+            ))}
+          </SelectField>
+        </div>
+        <div className={styles.gridItem}>
+          <SelectField
+            name="telecomUse"
+            autoWidth
+            floatingLabelText={<FormattedMessage {...messages.telecomUseFloatingLabelText} />}
+          >
+            {telecomUses && telecomUses.map((telecomUse) => (
+              <MenuItem value={telecomUse.code} primaryText={telecomUse.display} key={uniqueId()} />
             ))}
           </SelectField>
         </div>
@@ -183,7 +206,12 @@ function ManageLocationForm(props) {
       </div>
       <div className={styles.gridContainer}>
         <div className={styles.gridItem}>
-          <RaisedButton label="Save"></RaisedButton>
+          <RaisedButton
+            label="Save"
+            type="submit"
+            primary
+            disabled={!dirty || isSubmitting || !isValid}
+          ></RaisedButton>
         </div>
       </div>
     </Form>
@@ -195,9 +223,13 @@ ManageLocationForm.propTypes = {
   locationPhysicalTypes: PropTypes.array.isRequired,
   locationStatuses: PropTypes.array.isRequired,
   addressTypes: PropTypes.array.isRequired,
+  telecomUses: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
   addressUses: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
 };
 
 export default ManageLocationForm;
