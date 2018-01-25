@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import ImageFlashOn from 'material-ui/svg-icons/image/flash-on';
+import ActionList from 'material-ui/svg-icons/action/list';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
@@ -73,28 +73,26 @@ function displayPractitionerSearchResult(practitioners) {
           {mapToPractitionerRole(practitioner)}
         </div>
         <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
-        <div>
-          <IconMenu
-            iconButtonElement={
-              (<IconButton
-                className={styles.iconButton}
-                iconStyle={iconStyles.icon}
-                style={iconStyles.iconButton}
-              >
-                <ImageFlashOn />
-              </IconButton>)
-            }
-            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-          >
-            <MenuItem
-              className={styles.menuItem}
-              primaryText="Edit"
-              containerElement={<Link to={`/ocp-ui/manage-practitioner/${practitioner.logicalId}`} />}
-            />
-            <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
-          </IconMenu>
-        </div>
+        <IconMenu
+          iconButtonElement={
+            (<IconButton
+              className={styles.iconButton}
+              iconStyle={iconStyles.icon}
+              style={iconStyles.iconButton}
+            >
+              <ActionList />
+            </IconButton>)
+          }
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        >
+          <MenuItem
+            className={styles.menuItem}
+            primaryText="Edit"
+            containerElement={<Link to={`/ocp-ui/manage-practitioner/${practitioner.logicalId}`} />}
+          />
+          <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
+        </IconMenu>
       </div>
     )));
 }
