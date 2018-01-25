@@ -20,6 +20,7 @@ export const SEARCH_BY_ID = 'logicalId';
 
 function ManageLocationForm(props) {
   const {
+    error,
     uspsStates,
     locationPhysicalTypes,
     addressUses,
@@ -213,6 +214,9 @@ function ManageLocationForm(props) {
             disabled={!dirty || isSubmitting || !isValid}
           ></RaisedButton>
         </div>
+        <div className={styles.gridItem}>
+          {error ? <p className={styles.validationMessage}>{<FormattedMessage {...messages.saveLocationError} />}</p> : ''}
+        </div>
       </div>
     </Form>
   );
@@ -230,6 +234,10 @@ ManageLocationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
 };
 
 export default ManageLocationForm;
