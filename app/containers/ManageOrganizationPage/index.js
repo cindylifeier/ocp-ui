@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
+import find from 'lodash/find';
 import { teal500, white } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
@@ -32,6 +33,7 @@ import {
   makeSelectUspsStates,
 } from '../App/selectors';
 import { createOrganization } from './actions';
+import { makeSelectOrganizationsData } from '../Organizations/selectors';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -42,13 +44,13 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierValue: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
-    address1: yup.string()
+    line1: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     city: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
-    state: yup.string()
+    stateCode: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
-    zip: yup.string()
+    postalCode: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />))
       .matches(ManageOrganizationPage.zipPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
     telecomSystem: yup.string()
@@ -66,19 +68,51 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitCreate = this.handleSubmitCreate.bind(this);
+    this.handleSubmitUpdate = this.handleSubmitUpdate.bind(this);
   }
 
   componentWillMount() {
     this.props.getLookups();
   }
 
-  handleSubmit(values, actions) {
+  handleSubmitCreate(values, actions) {
     this.props.createOrganization(values, () => actions.setSubmitting(false));
+    console.log('submitted create', values);
+  }
+
+  handleSubmitUpdate(values/* , actions*/) {
+    // TODO: implement
+    // this.props.updateOrganization(id, values, () => actions.setSubmitting(false));
+    console.log('submitted update', values);
   }
 
   render() {
-    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack } } = this.props;
+    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack }, organizations } = this.props;
+    console.log(organizations);
+    let initialValues = {};
+    const editingOrganization = find(organizations, { logicalId: id });
+    if (editingOrganization) {
+      console.log('editingOrganization', editingOrganization);
+      const {
+        name,
+        identifiers: [{ system: identifierSystem, value: identifierValue }],
+        addresses: [address],
+        telecoms: [{ system: telecomSystem, value: telecomValue }],
+        active,
+      } = editingOrganization;
+      initialValues = {
+        name,
+        status: active.toString(),
+        identifierSystem,
+        identifierValue,
+        telecomSystem,
+        telecomValue,
+        ...address,
+      };
+      console.log('computed initialValues', initialValues);
+    }
+
     return (
       <div className={styles.root}>
         <Helmet>
@@ -86,13 +120,16 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
         <div className={styles.title}>
-          <h2><FormattedMessage {...messages.header} /></h2>
+          <h2><FormattedMessage {...messages.header} /> - {editingOrganization ?
+            <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />}
+          </h2>
         </div>
 
         <div>
           <Formik
             validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
-            onSubmit={this.handleSubmit}
+            initialValues={initialValues}
+            onSubmit={editingOrganization ? this.handleSubmitUpdate : this.handleSubmitCreate}
             render={(props) => {
               const { isSubmitting, dirty, isValid } = props;
               return (
@@ -100,8 +137,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                   <div className={styles.gridContainer}>
                     <div className={`${styles.gridItem} ${styles.name}`}>
                       <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.name} />}
                         name="name"
+                        floatingLabelText={<FormattedMessage {...messages.form.name} />}
                         fullWidth
                       />
                     </div>
@@ -141,18 +178,18 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           />))}
                       </SelectField>
                     </div>}
-                    <div className={`${styles.gridItem} ${styles.address1}`}>
+                    <div className={`${styles.gridItem} ${styles.line1}`}>
                       <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.address1} />}
+                        floatingLabelText={<FormattedMessage {...messages.form.line1} />}
                         fullWidth
-                        name="address1"
+                        name="line1"
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.address2}`}>
+                    <div className={`${styles.gridItem} ${styles.line2}`}>
                       <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.address2} />}
+                        floatingLabelText={<FormattedMessage {...messages.form.line2} />}
                         fullWidth
-                        name="address2"
+                        name="line2"
                       />
                     </div>
                     <div className={`${styles.gridItem} ${styles.city}`}>
@@ -164,9 +201,9 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                     </div>
                     <div className={`${styles.gridItem} ${styles.state}`}>
                       <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.state} />}
+                        floatingLabelText={<FormattedMessage {...messages.form.stateCode} />}
                         fullWidth
-                        name="state"
+                        name="stateCode"
                       >
                         {uspsStates && uspsStates.map((state) => (
                           <MenuItem
@@ -178,9 +215,9 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                     </div>
                     <div className={`${styles.gridItem} ${styles.zip}`}>
                       <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.zip} />}
+                        floatingLabelText={<FormattedMessage {...messages.form.postalCode} />}
                         fullWidth
-                        name="zip"
+                        name="postalCode"
                       />
                     </div>
                     <div className={`${styles.gridItem} ${styles.telecomSystem}`}>
@@ -189,11 +226,11 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                         name="telecomSystem"
                       >
-                        {telecomSystems && telecomSystems.map((telecomSystem) => (
+                        {telecomSystems && telecomSystems.map((telSystem) => (
                           <MenuItem
-                            key={telecomSystem.code}
-                            value={telecomSystem.code}
-                            primaryText={telecomSystem.display}
+                            key={telSystem.code}
+                            value={telSystem.code}
+                            primaryText={telSystem.display}
                           />))}
                       </SelectField>
                     </div>
@@ -262,6 +299,31 @@ ManageOrganizationPage.propTypes = {
       id: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  organizations: PropTypes.arrayOf(PropTypes.shape({
+    active: PropTypes.bool,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      postalCode: PropTypes.string,
+      stateCode: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      display: PropTypes.string,
+      oid: PropTypes.string,
+      priority: PropTypes.number,
+    })),
+    logicalId: PropTypes.string,
+    name: PropTypes.string,
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+  })),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -269,6 +331,7 @@ const mapStateToProps = createStructuredSelector({
   organizationIdentifierSystems: makeSelectOrganizationIdentifierSystems(),
   organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
+  organizations: makeSelectOrganizationsData(),
 });
 
 function mapDispatchToProps(dispatch) {

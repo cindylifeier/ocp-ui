@@ -32,7 +32,7 @@ const makeSelectTotalNumberOfPages = () => createSelector(
 
 const makeSelectOrganizationsData = () => createSelector(
   selectOrganizationsDomain,
-  (substate) => substate.get('data').toJS(),
+  (substate) => substate && substate.get('data').toJS(),
 );
 
 export {

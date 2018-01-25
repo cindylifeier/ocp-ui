@@ -16,7 +16,7 @@ export default function createOrganizationApiCall(organizationFormData) {
 }
 
 function mapToBackendOrganization(organizationFormData) {
-  const { name, identifierSystem, identifierValue, status, address1: line1, address2: line2, city, state: stateCode, zip: postalCode, telecomSystem, telecomValue } = organizationFormData;
+  const { name, identifierSystem, identifierValue, status, line1, line2, city, stateCode, postalCode, telecomSystem, telecomValue } = organizationFormData;
   const active = status === 'true';
   const address = {
     line1,
