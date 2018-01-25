@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
@@ -16,7 +15,6 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectSaveLocationError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import { getLookupsAction } from '../App/actions';
 import {
   ADDRESSTYPE, LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
@@ -36,6 +34,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     super(props);
     this.state = {
       organizationId: 902,
+      organizarionName: '',
       locationId: 0,
     };
     this.handleCreateLocation = this.handleCreateLocation.bind(this);
@@ -48,6 +47,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     this.props.createLocation(location, this.state.organizationId);
   }
   render() {
+    const organizationName = this.state.organizarionName;
     const {
       error,
       uspsStates,
@@ -68,6 +68,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       telecomUses,
       addressUses,
       identifierSystems,
+      organizationName,
     };
 
     return (
@@ -76,10 +77,6 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
           <title>ManageLocationPage</title>
           <meta name="description" content="Manage Location Page" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
-        <br />
-        <br />
-        <p><FormattedMessage {...messages.organizatoinNameLabel} /></p>
         <ManageLocation
           {...localProps}
           onSave={this.handleCreateLocation}
