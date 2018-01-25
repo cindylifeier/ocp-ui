@@ -26,9 +26,9 @@ export function createLocationSuccess(location) {
   };
 }
 
-export function createLocationError(location) {
+export function createLocationError(error) {
   return {
     type: CREATE_LOCATION_ERROR,
-    location,
+    error,
   };
 }
