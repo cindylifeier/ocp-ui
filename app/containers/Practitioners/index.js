@@ -11,10 +11,12 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { FloatingActionButton } from 'material-ui';
+import { ContentAdd } from 'material-ui/svg-icons';
+import { teal500 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -102,11 +104,14 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
             <h3><FormattedMessage {...messages.header} /></h3>
           </div>
           <div className={styles.gridItem}>
-            <IconButton
+            <FloatingActionButton
+              backgroundColor={teal500}
+              className={styles.addButton}
+              mini
               containerElement={<Link to="/ocp-ui/manage-practitioner" />}
             >
-              <ContentAddCircle />
-            </IconButton>
+              <ContentAdd />
+            </FloatingActionButton>
           </div>
         </div>
         <form>
