@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
-import { MenuItem, RaisedButton } from 'material-ui';
+import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
+import { teal500, white } from 'material-ui/styles/colors';
 import uniqueId from 'lodash/uniqueId';
 import styles from './styles.css';
 import messages from './messages';
@@ -12,7 +13,7 @@ import SelectField from '../SelectField';
 
 
 // Material UI Styles
-const locationTextFieldStyle = { width: '150px' };
+const fieldStyle = { width: '15vw' };
 const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
 
 export const SEARCH_BY_NAME = 'name';
@@ -39,7 +40,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="name"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.locationNameHintText} />}
             floatingLabelText={<FormattedMessage {...messages.locationNameFloatingLabelText} />}
@@ -69,11 +70,11 @@ function ManageLocationForm(props) {
         </div>
         <div className={styles.gridItem}>
           <TextField
+            style={fieldStyle}
             name="managingLocationLogicalId"
-            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
-            hintText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
-            floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
+            hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
+            floatingLabelText={<FormattedMessage {...messages.locationPartOfFloatingLabelText} />}
           />
         </div>
       </div>
@@ -91,7 +92,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="identifierValue"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.identifierValueHintText} />}
             floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
@@ -124,7 +125,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="telecomSystemValue"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.telecomSystemValueHintText} />}
             floatingLabelText={<FormattedMessage {...messages.telecomSystemValueFloatingLabelText} />}
@@ -147,7 +148,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="line1"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.address1HintText} />}
             floatingLabelText={<FormattedMessage {...messages.address1FloatingLabelText} />}
@@ -156,7 +157,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="line2"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.address2HintText} />}
             floatingLabelText={<FormattedMessage {...messages.address2FloatingLabelText} />}
@@ -167,7 +168,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="city"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.cityHintText} />}
             floatingLabelText={<FormattedMessage {...messages.cityFloatingLabelText} />}
@@ -186,7 +187,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="postalCode"
-            style={locationTextFieldStyle}
+            style={fieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.postalCodeHintText} />}
             floatingLabelText={<FormattedMessage {...messages.postalCodeFloatingLabelText} />}
@@ -207,12 +208,21 @@ function ManageLocationForm(props) {
       </div>
       <div className={styles.gridContainer}>
         <div className={styles.gridItem}>
-          <RaisedButton
-            label="Save"
-            type="submit"
-            primary
-            disabled={!dirty || isSubmitting || !isValid}
-          ></RaisedButton>
+          <div className={styles.buttonGroup}>
+            <RaisedButton
+              backgroundColor={teal500}
+              labelColor={white}
+              label="Save"
+              type="submit"
+              primary
+              disabled={!dirty || isSubmitting || !isValid}
+            />
+            <FlatButton
+              type="button"
+              label="Cancel"
+              default
+            />
+          </div>
         </div>
         <div className={styles.gridItem}>
           {error ? <p className={styles.validationMessage}>{<FormattedMessage {...messages.saveLocationError} />}</p> : ''}
