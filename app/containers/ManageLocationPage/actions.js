@@ -19,10 +19,10 @@ export function createLocation(location, organizationId) {
   };
 }
 
-export function createLocationSuccess(location) {
+export function createLocationSuccess(respone) {
   return {
     type: CREATE_LOCATION_SUCCESS,
-    location,
+    respone,
   };
 }
 

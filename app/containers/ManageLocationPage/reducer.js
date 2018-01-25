@@ -9,7 +9,9 @@ import {
   CREATE_LOCATION_ERROR, CREATE_LOCATION_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  error: false,
+});
 
 function manageLocationPageReducer(state = initialState, action) {
   switch (action.type) {
