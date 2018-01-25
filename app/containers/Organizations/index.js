@@ -29,6 +29,7 @@ import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
 import { getActiveLocations } from '../Locations/actions';
+import { fromBackendToFrontendOrganization } from './mappings';
 
 export class Organizations extends React.PureComponent {
 
@@ -86,7 +87,7 @@ export class Organizations extends React.PureComponent {
         {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
           <div>
             <OrganizationTable>
-              {organizations.data.map((org) => (
+              {organizations.data.map(fromBackendToFrontendOrganization).map((org) => (
                 <OrganizationTableRow
                   key={org.id}
                   {...org}
