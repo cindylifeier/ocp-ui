@@ -30,8 +30,8 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.locationPhysicalType',
     defaultMessage: 'Location Type',
   },
-  locationPartOfFloatingLabelText: {
-    id: 'ocpui.components.ManageLocation.locationPartOfFloatingLabelText',
+  managingLocationLogicalIdFloatingLabelText: {
+    id: 'ocpui.components.ManageLocation.managingLocationLogicalIdFloatingLabelText',
     defaultMessage: 'Location Part Of',
   },
   identifierSystemTypeFloatingLabelText: {

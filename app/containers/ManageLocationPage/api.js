@@ -18,7 +18,7 @@ export default function createLocation(location, organizationId) {
 function mapToBffLocation(rawlocation) {
   const location = {};
   location.name = rawlocation.name;
-  location.managingLocationLogicalId = '';
+  location.managingLocationLogicalId = rawlocation.managingLocationLogicalId;
   location.status = '';
   location.resourceURL = '';
   location.physicalType = rawlocation.physicalType;

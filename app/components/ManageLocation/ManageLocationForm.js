@@ -12,7 +12,7 @@ import SelectField from '../SelectField';
 
 
 // Material UI Styles
-const locationNameTextFieldStyle = { width: '150px' };
+const locationTextFieldStyle = { width: '150px' };
 const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
 
 export const SEARCH_BY_NAME = 'name';
@@ -39,7 +39,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="name"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.locationNameHintText} />}
             floatingLabelText={<FormattedMessage {...messages.locationNameFloatingLabelText} />}
@@ -69,11 +69,11 @@ function ManageLocationForm(props) {
         </div>
         <div className={styles.gridItem}>
           <TextField
-            name="LocationPartOf"
-            style={locationNameTextFieldStyle}
+            name="managingLocationLogicalId"
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
-            hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
-            floatingLabelText={<FormattedMessage {...messages.locationPartOfFloatingLabelText} />}
+            hintText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
+            floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
           />
         </div>
       </div>
@@ -91,7 +91,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="identifierValue"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.identifierValueHintText} />}
             floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
@@ -124,7 +124,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="telecomSystemValue"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.telecomSystemValueHintText} />}
             floatingLabelText={<FormattedMessage {...messages.telecomSystemValueFloatingLabelText} />}
@@ -147,7 +147,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="line1"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.address1HintText} />}
             floatingLabelText={<FormattedMessage {...messages.address1FloatingLabelText} />}
@@ -156,7 +156,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="line2"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.address2HintText} />}
             floatingLabelText={<FormattedMessage {...messages.address2FloatingLabelText} />}
@@ -167,7 +167,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="city"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.cityHintText} />}
             floatingLabelText={<FormattedMessage {...messages.cityFloatingLabelText} />}
@@ -186,7 +186,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <TextField
             name="postalCode"
-            style={locationNameTextFieldStyle}
+            style={locationTextFieldStyle}
             floatingLabelStyle={floatingLabelStyle}
             hintText={<FormattedMessage {...messages.postalCodeHintText} />}
             floatingLabelText={<FormattedMessage {...messages.postalCodeFloatingLabelText} />}

@@ -39,7 +39,7 @@ function ManageLocation(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           physicalType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          LocationPartOf: yup.string()
+          managingLocationLogicalId: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
