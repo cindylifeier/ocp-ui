@@ -22,13 +22,13 @@ function organizationsReducer(state = initialState, action) {
     case LOAD_ORGANIZATIONS_SUCCESS:
       return state
         .set('loading', false)
-        .set('data', action.organizations.elements)
+        .set('data', fromJS(action.organizations.elements))
         .setIn(['totalNumberOfPages'], action.organizations.totalNumberOfPages)
         .setIn(['currentPage'], action.organizations.currentPage);
     case LOAD_ORGANIZATIONS_ERROR:
       return state
         .set('loading', false)
-        .set('data', []);
+        .set('data', fromJS([]));
     default:
       return state;
   }
