@@ -35,14 +35,12 @@ import { createOrganization } from './actions';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  static validationSchema = yup.object().shape({
+  static validationSchemaShape = {
     name: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierValue: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    status: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     address1: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
@@ -56,6 +54,13 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
     telecomSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     telecomValue: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+  };
+  static validationSchemaCreate = yup.object().shape(ManageOrganizationPage.validationSchemaShape);
+
+  static validationSchemaUpdate = yup.object().shape({
+    ...ManageOrganizationPage.validationSchemaShape,
+    status: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
   });
 
@@ -73,7 +78,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack } } = this.props;
+    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack } } = this.props;
     return (
       <div className={styles.root}>
         <Helmet>
@@ -86,7 +91,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
         <div>
           <Formik
-            validationSchema={ManageOrganizationPage.validationSchema}
+            validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
             onSubmit={this.handleSubmit}
             render={(props) => {
               const { isSubmitting, dirty, isValid } = props;
@@ -121,6 +126,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="identifierValue"
                       />
                     </div>
+                    {id &&
                     <div className={`${styles.gridItem} ${styles.status}`}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.status} />}
@@ -134,7 +140,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={display}
                           />))}
                       </SelectField>
-                    </div>
+                    </div>}
                     <div className={`${styles.gridItem} ${styles.address1}`}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.address1} />}
@@ -251,6 +257,11 @@ ManageOrganizationPage.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
