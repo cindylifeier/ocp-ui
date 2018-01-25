@@ -31,11 +31,19 @@ function ManageLocationForm(props) {
     telecomSystems,
     telecomUses,
     isSubmitting,
+    organizationName,
     dirty,
     isValid,
   } = props;
   return (
     <Form>
+      <div className={styles.gridContainer}>
+        <div className={styles.gridItem}>
+          <br />
+          {<FormattedMessage {...messages.mainLabel} />}<br />
+          {<FormattedMessage {...messages.organizatoinNameLabel} />}: <strong>{organizationName}</strong>
+        </div>
+      </div>
       <div className={styles.gridContainer}>
         <div className={styles.gridItem}>
           <TextField
@@ -244,6 +252,7 @@ ManageLocationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  organizationName: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
