@@ -50,7 +50,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div></div>
         </div>
-        {displayPractitionerSearchResult(searchResult.elements)}
+        {displayPractitionerSearchResult(searchResult)}
       </div>
     );
   }

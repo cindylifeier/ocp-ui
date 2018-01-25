@@ -51,7 +51,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   render() {
     const { match, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioners } = this.props;
     const practitionerLogicalId = match.params.id;
-    let practitioner = {};
+    let practitioner = null;
     if (practitionerLogicalId) {
       practitioner = getPractitionerById(practitioners, practitionerLogicalId);
     }
@@ -125,5 +125,5 @@ export default compose(
 )(ManagePractitionerPage);
 
 function getPractitionerById(practitionerSearchResult, logicalId) {
-  return find(practitionerSearchResult.elements, { logicalId });
+  return find(practitionerSearchResult, { logicalId });
 }

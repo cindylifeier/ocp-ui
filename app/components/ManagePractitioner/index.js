@@ -18,7 +18,7 @@ function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const { onSave, error, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioner } = props;
-  const lookUpFormData = {
+  const formData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
@@ -28,6 +28,7 @@ function ManagePractitioner(props) {
   return (
     <div>
       <Formik
+        initialValues={setFormData(practitioner)}
         onSubmit={(values, actions) => {
           onSave(values);
           actions.setSubmitting(false);
@@ -50,7 +51,7 @@ function ManagePractitioner(props) {
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
-        render={(formikProps) => <ManagePractitionerForm {...formikProps} {...lookUpFormData} />}
+        render={(formikProps) => <ManagePractitionerForm {...formikProps} {...formData} />}
       />
       {isEmpty(error) ? null : <p>Save practitioner failed!</p>}
     </div>
@@ -71,3 +72,25 @@ ManagePractitioner.propTypes = {
 };
 
 export default ManagePractitioner;
+
+function setFormData(practitioner) {
+  // Todo: Set address and telecoms
+  let formData = null;
+  if (!isEmpty(practitioner)) {
+    const { identifiers, name, practitionerRoles } = practitioner;
+    const [firstIdentifier] = identifiers;
+    const { system, value } = firstIdentifier || {};
+    const [firstRole] = practitionerRoles;
+    const { code } = firstRole;
+    const [fName] = name;
+    const { firstName, lastName } = fName;
+    formData = {
+      firstName,
+      lastName,
+      roleType: code,
+      identifierType: system,
+      identifierValue: value,
+    };
+  }
+  return formData;
+}

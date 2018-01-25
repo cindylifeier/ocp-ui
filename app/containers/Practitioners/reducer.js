@@ -6,7 +6,8 @@
 
 import { fromJS } from 'immutable';
 import {
-  LOAD_PRACTITIONER_SEARCH_RESULT, SEARCH_PRACTITIONERS_ERROR,
+  LOAD_PRACTITIONER_SEARCH_RESULT,
+  SEARCH_PRACTITIONERS_ERROR,
   SEARCH_PRACTITIONERS_SUCCESS,
 } from './constants';
 
@@ -31,7 +32,7 @@ function practitionersReducer(state = initialState, action) {
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
         .set('loading', false)
-        .setIn(['searchPractitioners', 'result'], action.searchResult)
+        .setIn(['searchPractitioners', 'result'], action.searchResult.elements)
         .setIn(['searchPractitioners', 'queryParameters', 'searchTerms'], action.queryParameters.searchTerms)
         .setIn(['searchPractitioners', 'queryParameters', 'searchType'], action.queryParameters.searchType)
         .setIn(['searchPractitioners', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)

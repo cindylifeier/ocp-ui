@@ -189,7 +189,7 @@ Practitioners.propTypes = {
     PropTypes.bool,
   ]),
   searchResult: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.array,
     PropTypes.bool,
   ]),
   searchTerms: PropTypes.string,
