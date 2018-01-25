@@ -100,8 +100,24 @@ export default defineMessages({
   },
   telecomSystemTypeFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.telecomSystemTypeFloatingLabelText',
-    defaultMessage: 'Telecom System Type',
+    defaultMessage: 'Telecom System',
   },
-
-
+  telecomUseFloatingLabelText: {
+    id: 'ocpui.components.ManageLocation.telecomUseFloatingLabelText',
+    defaultMessage: 'Telecom Use',
+  },
+  validation: {
+    minLength: {
+      id: 'ocpui.components.ManageLocation.manageForm.validation.minLength',
+      defaultMessage: 'Minimum {minimumLength} characters',
+    },
+    required: {
+      id: 'ocpui.components.ManageLocation.manageForm.validation.required',
+      defaultMessage: 'Required',
+    },
+    postalCode: {
+      id: 'ocpui.components.ManageLocation.manageForm.validation.postalCode',
+      defaultMessage: 'Must be with formats: 12345 or 12345-6789',
+    },
+  },
 });
