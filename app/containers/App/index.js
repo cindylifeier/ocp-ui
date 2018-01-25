@@ -40,12 +40,12 @@ export function App() {
       </Helmet>
       <div className={styles.App}>
         <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/login" component={LoginPage} />
+          <Route exact path="/ocp-ui" component={LoginPage} />
+          <Route path="/ocp-ui/login" component={LoginPage} />
           <Layout>
-            <Route path="/home" component={HomePage} />
-            <Route path="/patients/:id" component={PatientDetailsPage} />
-            <Route path="/manage-location/" component={ManageLocationPage} />
+            <Route path="/ocp-ui/home" component={HomePage} />
+            <Route path="/ocp-ui/patients/:id" component={PatientDetailsPage} />
+            <Route path="/ocp-ui/manage-location/" component={ManageLocationPage} />
             <Route exact path="/manage-patient" component={ManagePatientPage} />
             <Route path="/manage-patient/:id" component={ManagePatientPage} />
           </Layout>
