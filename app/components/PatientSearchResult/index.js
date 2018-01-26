@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import ActionList from 'material-ui/svg-icons/action/list';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
@@ -34,7 +34,7 @@ function displayPatientSearchResult(patients) {
     <div key={`patient-${uniqueId()}`} className={styles.rowGridContainer}>
       <div className={styles.cellGridItem}>{patient.name[0] != null ? patient.name[0].firstName : null}</div>
       <div className={styles.cellGridItem}>{patient.name[0] != null ? patient.name[0].lastName : null}</div>
-      <div className={styles.cellGridItem}>{getDOB(patient.birthDate)}</div>
+      <div className={styles.cellGridItem}>{patient.birthDate}</div>
       <div className={styles.cellGridItem}>{patient.genderCode}</div>
       <div className={styles.cellGridItem}>{getIdentifiers(patient.identifier)}</div>
       <div className={styles.cellGridItem}>{patient.active ? 'active' : 'inactive'}</div>
@@ -45,7 +45,7 @@ function displayPatientSearchResult(patients) {
             iconStyle={iconStyles.icon}
             style={iconStyles.iconButton}
           >
-            <ActionList />
+            <NavigationMenu />
           </IconButton>)
         }
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -73,10 +73,6 @@ function getIdentifiers(identifier) {
   );
 }
 
-function getDOB(birthDate) {
-  return birthDate ? (<div>{birthDate.monthValue}/{birthDate.dayOfMonth}/{birthDate.year}</div>) : '';
-}
-
 function PatientSearchResult({ loading, error, searchResult }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
@@ -90,11 +86,11 @@ function PatientSearchResult({ loading, error, searchResult }) {
     return (<p>No match search result.</p>);
   }
 
-  if (searchResult !== false && searchResult.elements !== null && searchResult.elements.length === 0) {
+  if (searchResult !== false && searchResult !== null && searchResult.length === 0) {
     return (<p>No match search result.</p>);
   }
 
-  if (searchResult !== false && searchResult.elements !== null && searchResult.elements.length !== 0) {
+  if (searchResult !== false && searchResult !== null && searchResult.length !== 0) {
     return (
       <div className={styles.table}>
         <div className={styles.rowGridHeaderContainer}>
@@ -106,7 +102,7 @@ function PatientSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Status</div>
           <div></div>
         </div>
-        {displayPatientSearchResult(searchResult.elements)}
+        {displayPatientSearchResult(searchResult)}
       </div>
     );
   }

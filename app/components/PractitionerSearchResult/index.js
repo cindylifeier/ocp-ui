@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import ActionList from 'material-ui/svg-icons/action/list';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
@@ -80,7 +80,7 @@ function displayPractitionerSearchResult(practitioners) {
               iconStyle={iconStyles.icon}
               style={iconStyles.iconButton}
             >
-              <ActionList />
+              <NavigationMenu />
             </IconButton>)
           }
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}

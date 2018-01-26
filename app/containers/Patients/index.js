@@ -14,7 +14,9 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import { FloatingActionButton } from 'material-ui';
+import { ContentAdd } from 'material-ui/svg-icons';
+import { teal500 } from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { createStructuredSelector } from 'reselect';
@@ -23,13 +25,19 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType, makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadPatientSearchResult } from './actions';
+import { initializePatients, loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
 import styles from './styles.css';
 import messages from './messages';
@@ -50,6 +58,10 @@ export class Patients extends React.PureComponent {
     this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializePatients();
   }
 
   handleSearch() {
@@ -96,11 +108,14 @@ export class Patients extends React.PureComponent {
             <h3><FormattedMessage {...messages.header} /></h3>
           </div>
           <div className={styles.gridItem}>
-            <Link to="/ocp-ui/manage-patient">
-              <IconButton>
-                <ContentAddCircle />
-              </IconButton>
-            </Link>
+            <FloatingActionButton
+              backgroundColor={teal500}
+              className={styles.addButton}
+              mini
+              containerElement={<Link to="/ocp-ui/manage-patient" />}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
           </div>
         </div>
         <form>
@@ -181,7 +196,7 @@ Patients.propTypes = {
     PropTypes.bool,
   ]),
   searchResult: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.array,
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
@@ -191,6 +206,7 @@ Patients.propTypes = {
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
+  initializePatients: PropTypes.func,
 };
 
 
@@ -213,6 +229,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
+    initializePatients: () => dispatch(initializePatients()),
   };
 }
 
