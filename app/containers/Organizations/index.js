@@ -22,7 +22,7 @@ import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOf
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { loadOrganizations } from './actions';
+import { initializeOrganizations, loadOrganizations } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import styles from './styles.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
@@ -46,6 +46,10 @@ export class Organizations extends React.PureComponent {
       showInactive: false,
       searchType: 'name',
     };
+  }
+
+  componentWillMount() {
+    this.props.initializeOrganizations();
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -120,6 +124,7 @@ export class Organizations extends React.PureComponent {
 }
 
 Organizations.propTypes = {
+  initializeOrganizations: PropTypes.func.isRequired,
   loadOrganizations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
@@ -138,6 +143,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializeOrganizations: () => dispatch(initializeOrganizations()),
     loadOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(loadOrganizations(searchValue, showInactive, searchType, currentPage)),
     getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
   };
