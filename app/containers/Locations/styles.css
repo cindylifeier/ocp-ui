@@ -85,3 +85,7 @@
 .iconButton:hover svg {
   fill: #26A69A !important;
 }
+
+.menuItem{
+  display: inline-block;
+}
