@@ -42,7 +42,7 @@ import styles from './styles.css';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { initializePractitioners, loadPractitionerSearchResult } from './actions';
-import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
+import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from '../App/constants';
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -112,7 +112,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
               backgroundColor={teal500}
               className={styles.addButton}
               mini
-              containerElement={<Link to="/ocp-ui/manage-practitioner" />}
+              containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
             >
               <ContentAdd />
             </FloatingActionButton>

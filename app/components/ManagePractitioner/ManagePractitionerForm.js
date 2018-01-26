@@ -9,6 +9,7 @@ import messages from './messages';
 import styles from './styles.css';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
+import { HOME_URL } from '../../containers/App/constants';
 
 function ManagePractitionerForm(props) {
   const { isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoles } = props;
@@ -138,7 +139,7 @@ function ManagePractitionerForm(props) {
             label="Cancel"
             primary
             disabled={isSubmitting}
-            containerElement={<Link to="/ocp-ui/home" />}
+            containerElement={<Link to={HOME_URL} />}
           />
           <RaisedButton
             type="submit"

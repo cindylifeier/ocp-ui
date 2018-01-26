@@ -29,6 +29,7 @@ import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
 import { getActiveLocations } from '../Locations/actions';
+import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 
 export class Organizations extends React.PureComponent {
 
@@ -70,7 +71,7 @@ export class Organizations extends React.PureComponent {
           backgroundColor={teal500}
           className={styles.addButton}
           mini
-          containerElement={<Link to="/ocp-ui/manage-organization" />}
+          containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
         >
           <ContentAdd />
         </FloatingActionButton>

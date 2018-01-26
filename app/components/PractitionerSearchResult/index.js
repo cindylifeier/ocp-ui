@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
-import { EMPTY_STRING } from '../../containers/App/constants';
+import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from '../../containers/App/constants';
 
 const iconStyles = {
   iconButton: {
@@ -89,7 +89,7 @@ function displayPractitionerSearchResult(practitioners) {
           <MenuItem
             className={styles.menuItem}
             primaryText="Edit"
-            containerElement={<Link to={`/ocp-ui/manage-practitioner/${practitioner.logicalId}`} />}
+            containerElement={<Link to={`${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`} />}
           />
           <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
         </IconMenu>
