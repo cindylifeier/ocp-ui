@@ -2,21 +2,32 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 import request from '../../utils/request';
 
 const apiBaseUrl = getApiBaseUrl();
+const headers = {
+  'Content-Type': 'application/json',
+};
 
-export default function createOrganizationApiCall(organizationFormData) {
+export function createOrganizationApiCall(organizationFormData) {
   const requestUrl = `${apiBaseUrl}/organizations`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
   return request(requestUrl, {
     method: 'POST',
+    headers,
     body,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  });
+}
+
+export function updateOrganizationApiCall(id, organizationFormData) {
+  const requestUrl = `${apiBaseUrl}/organizations/${id}`;
+  const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
+  return request(requestUrl, {
+    method: 'PUT',
+    headers,
+    body,
   });
 }
 
 function mapToBackendOrganization(organizationFormData) {
-  const { name, identifierSystem, identifierValue, status, address1: line1, address2: line2, city, state: stateCode, zip: postalCode, telecomSystem, telecomValue } = organizationFormData;
+  const { name, identifierSystem, identifierValue, status, line1, line2, city, stateCode, postalCode, telecomSystem, telecomValue } = organizationFormData;
   const active = status === 'true';
   const address = {
     line1,
