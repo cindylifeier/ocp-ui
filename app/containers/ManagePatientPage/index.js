@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
+import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -33,6 +34,8 @@ import {
   USPSSTATES,
 } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
+import { makeSelectSearchResult } from '../Patients/selectors';
+import { mapToFrontendPatientForm } from './api';
 
 export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -50,7 +53,12 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { match, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
+    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
+    const patientId = match.params.id;
+    let patient = null;
+    if (patientId) {
+      patient = mapToFrontendPatientForm(getPatientById(patients, patientId));
+    }
     const formProps = {
       uspsStates,
       patientIdentifierSystems,
@@ -60,9 +68,10 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       usCoreBirthSexes,
       languages,
       telecomSystems,
+      patient,
     };
     return (
-      <div>
+      <div className={styles.wrapper}>
         <Helmet>
           <title>Manage Patient</title>
           <meta name="description" content="Manage patient page of Omnibus Care Plan application" />
@@ -80,7 +89,11 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
 }
 
 ManagePatientPage.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
   onSaveForm: PropTypes.func,
   getLookUpFormData: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
@@ -91,6 +104,7 @@ ManagePatientPage.propTypes = {
   usCoreBirthSexes: PropTypes.array,
   languages: PropTypes.array,
   telecomSystems: PropTypes.array,
+  patients: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -102,6 +116,7 @@ const mapStateToProps = createStructuredSelector({
   usCoreBirthSexes: makeSelectUsCoreBirthSexes(),
   languages: makeSelectLanguages(),
   telecomSystems: makeSelectTelecomSystems(),
+  patients: makeSelectSearchResult(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -122,3 +137,7 @@ export default compose(
   withSaga,
   withConnect,
 )(ManagePatientPage);
+
+function getPatientById(patients, id) {
+  return find(patients, { id });
+}

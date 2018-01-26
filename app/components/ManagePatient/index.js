@@ -13,13 +13,10 @@ import ManagePatientForm from './ManagePatientForm';
 import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/ManagePatientPage/constants';
 
-const initialValues = {
-};
-
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
+  const { onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
   const lookUpFormData = {
     uspsStates,
     patientIdentifierSystems,
@@ -33,7 +30,7 @@ function ManagePatient(props) {
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues={patient}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -49,8 +46,6 @@ function ManagePatient(props) {
           genderCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           birthDate: yup.date()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          language: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -75,6 +70,7 @@ ManagePatient.propTypes = {
   usCoreBirthSexes: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
+  patient: PropTypes.object,
 };
 
 export default ManagePatient;
