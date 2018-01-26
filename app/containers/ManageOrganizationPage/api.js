@@ -16,6 +16,16 @@ export function createOrganizationApiCall(organizationFormData) {
   });
 }
 
+export function updateOrganizationApiCall(id, organizationFormData) {
+  const requestUrl = `${apiBaseUrl}/organizations/${id}`;
+  const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
+  return request(requestUrl, {
+    method: 'PUT',
+    headers,
+    body,
+  });
+}
+
 function mapToBackendOrganization(organizationFormData) {
   const { name, identifierSystem, identifierValue, status, line1, line2, city, stateCode, postalCode, telecomSystem, telecomValue } = organizationFormData;
   const active = status === 'true';

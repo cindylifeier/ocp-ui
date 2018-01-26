@@ -32,7 +32,7 @@ import {
   makeSelectTelecomSystems,
   makeSelectUspsStates,
 } from '../App/selectors';
-import { createOrganization } from './actions';
+import { createOrganization, updateOrganization } from './actions';
 import { makeSelectOrganizationsData } from '../Organizations/selectors';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -78,22 +78,18 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
   handleSubmitCreate(values, actions) {
     this.props.createOrganization(values, () => actions.setSubmitting(false));
-    console.log('submitted create', values);
   }
 
-  handleSubmitUpdate(values/* , actions*/) {
-    // TODO: implement
-    // this.props.updateOrganization(id, values, () => actions.setSubmitting(false));
-    console.log('submitted update', values);
+  handleSubmitUpdate(values, actions) {
+    const { match: { params: { id } } } = this.props;
+    this.props.updateOrganization(id, values, () => actions.setSubmitting(false));
   }
 
   render() {
     const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack }, organizations } = this.props;
-    console.log(organizations);
     let initialValues = {};
     const editingOrganization = find(organizations, { logicalId: id });
     if (editingOrganization) {
-      console.log('editingOrganization', editingOrganization);
       const {
         name,
         identifiers: [{ system: identifierSystem, value: identifierValue }],
@@ -110,7 +106,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
         telecomValue,
         ...address,
       };
-      console.log('computed initialValues', initialValues);
     }
 
     return (
@@ -273,6 +268,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 ManageOrganizationPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   createOrganization: PropTypes.func.isRequired,
+  updateOrganization: PropTypes.func.isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
   }).isRequired,
@@ -338,6 +334,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
+    updateOrganization: (id, organization, callback) => dispatch(updateOrganization(id, organization, callback)),
   };
 }
 
