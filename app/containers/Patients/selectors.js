@@ -25,7 +25,7 @@ const makeSelectSearchError = () => createSelector(
 
 const makeSelectSearchResult = () => createSelector(
   selectPatients,
-  (patientsState) => patientsState.getIn(['searchPatients', 'result']),
+  (patientsState) => patientsState && patientsState.getIn(['searchPatients', 'result']),
 );
 
 const makeSelectCurrentPageSize = () => createSelector(

@@ -1,3 +1,7 @@
+.wrapper {
+  background-color: white;
+}
+
 .card {
   margin: 10px;
   position: relative;

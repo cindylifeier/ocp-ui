@@ -5,15 +5,15 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  INITIALIZE_PATIENTS,
   LOAD_PATIENT_SEARCH_RESULT,
   SEARCH_PATIENTS_ERROR,
   SEARCH_PATIENTS_SUCCESS,
 } from './constants';
 
-export function defaultAction() {
+export function initializePatients() {
   return {
-    type: DEFAULT_ACTION,
+    type: INITIALIZE_PATIENTS,
   };
 }
 

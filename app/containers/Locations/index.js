@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import ActionList from 'material-ui/svg-icons/action/list';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -97,7 +97,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
                 iconStyle={iconStyles.icon}
                 style={iconStyles.iconButton}
               >
-                <ActionList />
+                <NavigationMenu />
               </IconButton>)
             }
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
