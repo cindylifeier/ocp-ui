@@ -7,12 +7,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
+import identity from 'lodash/identity';
+import pickBy from 'lodash/pickBy';
 import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
 import yup from 'yup';
 import ManagePractitionerForm from './ManagePractitionerForm';
 import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constants';
+import { EMPTY_STRING } from '../../containers/App/constants';
 
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
@@ -68,23 +73,77 @@ ManagePractitioner.propTypes = {
 export default ManagePractitioner;
 
 function setFormData(practitioner) {
-  // Todo: Set address and telecoms
   let formData = null;
   if (!isEmpty(practitioner)) {
-    const { identifiers, name, practitionerRoles } = practitioner;
-    const [firstIdentifier] = identifiers;
-    const { system, value } = firstIdentifier || {};
-    const [firstRole] = practitionerRoles;
-    const { code } = firstRole;
-    const [fName] = name;
-    const { firstName, lastName } = fName;
-    formData = {
-      firstName,
-      lastName,
-      roleType: code,
-      identifierType: system,
-      identifierValue: value,
+    formData = merge(mapPractitionerToFirstIdentifier(practitioner), mapPractitionerToFirstName(practitioner),
+      mapPractitionerToFirstRole(practitioner), mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner));
+  }
+  return pickBy(formData, identity);
+}
+
+function mapPractitionerToFirstIdentifier(practitioner) {
+  let identifier = {};
+  if (practitioner.identifiers.length > 0) {
+    const firstIdentifier = practitioner.identifiers[0];
+    identifier = {
+      identifierType: setEmptyStringWhenUndefined(firstIdentifier.system),
+      identifierValue: setEmptyStringWhenUndefined(firstIdentifier.value),
     };
   }
-  return formData;
+  return identifier;
+}
+
+function mapPractitionerToFirstName(practitioner) {
+  let name = {};
+  if (practitioner.name.length > 0) {
+    const fName = practitioner.name[0];
+    name = {
+      firstName: setEmptyStringWhenUndefined(fName.firstName),
+      lastName: setEmptyStringWhenUndefined(fName.lastName),
+    };
+  }
+  return name;
+}
+
+function mapPractitionerToFirstRole(practitioner) {
+  let role = {};
+  if (practitioner.practitionerRoles.length > 0) {
+    const firstRole = practitioner.practitionerRoles[0];
+    role = {
+      roleType: setEmptyStringWhenUndefined(firstRole.code),
+    };
+  }
+  return role;
+}
+
+function mapPractitionerToAddress(practitioner) {
+  let address = {};
+  if (practitioner.address.length > 0) {
+    const firstAddress = practitioner.address[0];
+    address = {
+      address1: setEmptyStringWhenUndefined(firstAddress.line1),
+      address2: setEmptyStringWhenUndefined(firstAddress.line2),
+      city: setEmptyStringWhenUndefined(firstAddress.city),
+      state: setEmptyStringWhenUndefined(firstAddress.stateCode),
+      postalCode: setEmptyStringWhenUndefined(firstAddress.postalCode),
+      country: setEmptyStringWhenUndefined(firstAddress.countryCode),
+    };
+  }
+  return address;
+}
+
+function mapPractitionerToFirstTelecoms(practitioner) {
+  let telecom = {};
+  if (practitioner.telecoms.length > 0) {
+    const firstTelecom = practitioner.telecoms[0];
+    telecom = {
+      telecomType: setEmptyStringWhenUndefined(firstTelecom.system),
+      telecomValue: setEmptyStringWhenUndefined(firstTelecom.value),
+    };
+  }
+  return telecom;
+}
+
+function setEmptyStringWhenUndefined(value) {
+  return isUndefined(value) ? EMPTY_STRING : value;
 }
