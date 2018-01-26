@@ -67,7 +67,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       practitioner,
     };
     return (
-      <div>
+      <div className={styles.wrapper}>
         <Helmet>
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />

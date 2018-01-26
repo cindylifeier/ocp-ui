@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { teal500, white } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import messages from './messages';
 import styles from './styles.css';
 import TextField from '../TextField';
@@ -18,28 +20,28 @@ function ManagePatientForm(props) {
       <h4><FormattedMessage {...messages.title} /></h4>
       <Form>
         <div className={styles.gridContainer}>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.firstName}`}>
             <TextField
               name="firstName"
               hintText={<FormattedMessage {...messages.hintText.firstName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.middleName}`}>
             <TextField
               name="middleName"
               hintText={<FormattedMessage {...messages.hintText.middleName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.middleName} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.lastName}`}>
             <TextField
               name="lastName"
               hintText={<FormattedMessage {...messages.hintText.lastName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.birthDate}`}>
             <DatePicker
               name="birthDate"
               maxDate={new Date()}
@@ -47,7 +49,7 @@ function ManagePatientForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.dob} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.genderCode}`}>
             <SelectField
               name="genderCode"
               hintText={<FormattedMessage {...messages.hintText.gender} />}
@@ -58,7 +60,7 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.identifierType}`}>
             <SelectField
               name="identifierType"
               hintText={<FormattedMessage {...messages.hintText.identifierType} />}
@@ -69,14 +71,14 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.identifierValue}`}>
             <TextField
               name="identifierValue"
               hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.language}`}>
             <SelectField
               name="language"
               hintText={<FormattedMessage {...messages.hintText.language} />}
@@ -87,7 +89,7 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.race}`}>
             <SelectField
               name="race"
               hintText={<FormattedMessage {...messages.hintText.race} />}
@@ -98,7 +100,7 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.ethnicity}`}>
             <SelectField
               name="ethnicity"
               hintText={<FormattedMessage {...messages.hintText.ethnicity} />}
@@ -109,7 +111,7 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.birthSex}`}>
             <SelectField
               name="birthSex"
               hintText={<FormattedMessage {...messages.hintText.birthSex} />}
@@ -120,28 +122,28 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.address1}`}>
             <TextField
               name="address1"
               hintText={<FormattedMessage {...messages.hintText.address1} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.address2}`}>
             <TextField
               name="address2"
               hintText={<FormattedMessage {...messages.hintText.address2} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.city}`}>
             <TextField
               name="city"
               hintText={<FormattedMessage {...messages.hintText.city} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.state}`}>
             <SelectField
               name="state"
               hintText={<FormattedMessage {...messages.hintText.state} />}
@@ -152,14 +154,14 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.postalCode}`}>
             <TextField
               name="postalCode"
               hintText={<FormattedMessage {...messages.hintText.postalCode} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
             />
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.country}`}>
             <TextField
               name="country"
               hintText={<FormattedMessage {...messages.hintText.country} />}
@@ -167,7 +169,7 @@ function ManagePatientForm(props) {
             >
             </TextField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.telecomType}`}>
             <SelectField
               name="telecomType"
               hintText={<FormattedMessage {...messages.hintText.telecomType} />}
@@ -178,27 +180,28 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={styles.gridItem}>
+          <div className={`${styles.gridItem} ${styles.telecomValue}`}>
             <TextField
               name="telecomValue"
               hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
             />
           </div>
-        </div>
-        <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-          <RaisedButton
-            label="Cancel"
-            primary
-            disabled={isSubmitting}
-            containerElement={<Link to="/ocp-ui/home" />}
-          />
-          <RaisedButton
-            type="submit"
-            label="Save"
-            primary
-            disabled={!dirty || isSubmitting || !isValid}
-          />
+          <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
+            <RaisedButton
+              type="submit"
+              label="Save"
+              backgroundColor={teal500}
+              labelColor={white}
+              disabled={!dirty || isSubmitting || !isValid}
+            />
+            <FlatButton
+              label="Cancel"
+              default
+              disabled={isSubmitting}
+              containerElement={<Link to="/ocp-ui/home" />}
+            />
+          </div>
         </div>
       </Form>
     </div>

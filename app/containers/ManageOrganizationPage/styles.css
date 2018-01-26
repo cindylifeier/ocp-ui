@@ -86,10 +86,6 @@
   grid-auto-columns: minmax(100px,10vw);
 }
 
-.cancel {
-  grid-area: cancel;
-}
-
 /* Tablet landscape ----------- */
 @media only screen and (min-width: 768px) {
   .gridContainer {

@@ -71,7 +71,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       patient,
     };
     return (
-      <div>
+      <div className={styles.wrapper}>
         <Helmet>
           <title>Manage Patient</title>
           <meta name="description" content="Manage patient page of Omnibus Care Plan application" />
