@@ -19,8 +19,8 @@
     "identifierSystem"
     "identifierValue"
     "status"
-    "address1"
-    "address2"
+    "line1"
+    "line2"
     "city"
     "state"
     "zip"
@@ -50,12 +50,12 @@
   grid-area: status;
 }
 
-.address1 {
-  grid-area: address1;
+.line1 {
+  grid-area: line1;
 }
 
-.address2 {
-  grid-area: address2;
+.line2 {
+  grid-area: line2;
 }
 
 .city {
@@ -98,8 +98,8 @@
     grid-template-areas:
       "name identifierSystem"
       "identifierValue status"
-      "address1 address1"
-      "address2 address2"
+      "line1 line1"
+      "line2 line2"
       "city city"
       "state zip"
       "telecomSystem telecomValue"
@@ -133,12 +133,12 @@
     grid-row: 1;
   }
 
-  .address1 {
+  .line1 {
     grid-column: 1 / span 3;
     grid-row: 2;
   }
 
-  .address2 {
+  .line2 {
     grid-column: 5 / span 3;
     grid-row: 2;
   }
