@@ -1,21 +1,178 @@
 .gridContainer {
+  color: #444;
+  width: auto;
+  margin-right: 10vw;
+  margin-bottom: 1vh;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1px;
+  padding: 0 2vw;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "firstName"
+    "middleName"
+    "lastName"
+    "birthDate"
+    "genderCode"
+    "identifierType"
+    "identifierValue"
+    "language"
+    "race"
+    "ethnicity"
+    "birthSex"
+    "address1"
+    "address2"
+    "city"
+    "state"
+    "postalCode"
+    "country"
+    "telecomType"
+    "telecomValue"
+    "buttonGroup";
+}
+
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "firstName lastName"
+      "middleName birthDate"
+      "genderCode ."
+      "identifierType identifierValue"
+      "language race"
+      "ethnicity birthSex"
+      "address1 ."
+      "address2 ."
+      "city state"
+      "postalCode country"
+      "telecomType telecomValue"
+      "buttonGroup .";
+  }
+
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(3,1fr);
+    grid-template-areas:
+      "firstName middleName lastName"
+      "birthDate genderCode language"
+      "identifierType identifierValue ."
+      "birthSex race ethnicity"
+      "address1 address2 postalCode"
+      "city state country"
+      "telecomType telecomValue ."
+      "buttonGroup . .";
+  }
 }
 
 .gridItem {
-  position: relative;
-  max-height: 70px;
+  border-radius: 5px;
+  font-size: 100%;
+}
+
+.firstName {
+  grid-area: firstName;
+  display: grid;
+}
+
+
+.middleName {
+  grid-area: middleName;
+  display: grid;
+}
+
+.lastName {
+  grid-area: lastName;
+  display: grid;
+}
+
+.birthDate {
+  grid-area: birthDate;
+  display: grid;
+}
+
+.genderCode {
+  grid-area: genderCode;
+  display: grid;
+}
+
+.identifierType {
+  grid-area: identifierType;
+  display: grid;
+}
+
+.identifierValue {
+  grid-area: identifierValue;
+  display: grid;
+}
+
+.language {
+  grid-area: language;
+  display: grid;
+}
+
+.race {
+  grid-area: race;
+  display: grid;
+}
+
+.ethnicity {
+  grid-area: ethnicity;
+  display: grid;
+}
+
+.birthSex {
+  grid-area: birthSex;
+  display: grid;
+}
+
+.address1 {
+  grid-area: address1;
+  display: grid;
+}
+
+.address2 {
+  grid-area: address2;
+  display: grid;
+}
+
+.city {
+  grid-area: city;
+  display: grid;
+}
+
+.state {
+  grid-area: state;
+  display: grid;
+}
+
+.postalCode {
+  grid-area: postalCode;
+  display: grid;
+}
+
+.country {
+  grid-area: country;
+  display: grid;
+}
+
+.telecomType {
+  grid-area: telecomType;
+  display: grid;
+}
+
+.telecomValue {
+  grid-area: telecomValue;
+  display: grid;
 }
 
 .buttonGroup {
-  margin-top: 30px;
-  position: absolute;
-  right: 10px;
   grid-area: buttonGroup;
   display: grid;
   grid-auto-flow: column;
   grid-column-gap: 1vw;
-  grid-auto-columns: minmax(100px, 10vw);
+  margin-bottom: 1vh;
+  grid-auto-columns: minmax(100px,120px);
 }
