@@ -47,8 +47,6 @@ function ManagePatient(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           birthDate: yup.date()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          language: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
