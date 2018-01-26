@@ -1,23 +1,44 @@
+.root {
+  background-color: white;
+}
+
 .gridContainer {
+  background-color: inherit;
+  color: #444;
+  width: auto;
+  margin:0 1%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1px;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "firstName"
+    "middleName"
+    "lastName"
+    "roleType"
+    "identifierType"
+    "identifierValue"
+    "address1"
+    "address2"
+    "city"
+    "state"
+    "country"
+    "telecomType"
+    "telecomValue";
+    "buttonGroup"
 }
 
 .gridItem {
-  position: relative;
-  max-height: 70px;
+  border-radius: 5px;
+  font-size: 100%;
 }
 
 .buttonGroup {
-  margin-top: 30px;
-  position: absolute;
-  right: 10px;
   grid-area: buttonGroup;
   display: grid;
   grid-auto-flow: column;
   grid-column-gap: 1vw;
-  grid-auto-columns: minmax(100px, 10vw);
+  grid-auto-columns: minmax(100px,10vw);
 }
 
 .disabledLink {
