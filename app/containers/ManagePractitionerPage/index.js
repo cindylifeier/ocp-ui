@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
 import find from 'lodash/find';
+import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
@@ -44,6 +45,10 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   handleSave(practitionerFormData, actions) {
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      merge(practitionerFormData, { logicalId });
+    }
     this.props.onSaveForm(practitionerFormData, () => actions.setSubmitting(false));
   }
 

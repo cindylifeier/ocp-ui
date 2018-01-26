@@ -3,10 +3,29 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseURL = getApiBaseUrl();
 
-export default function createPractitioner(practitionerFormData) {
+export default function savePractitioner(practitionerFormData) {
+  if (practitionerFormData.logicalId) {
+    updatePractitioner(practitionerFormData.logicalId, practitionerFormData);
+  } else {
+    createPractitioner(practitionerFormData);
+  }
+}
+
+function createPractitioner(practitionerFormData) {
   const requestURL = `${apiBaseURL}/practitioners`;
   return request(requestURL, {
     method: 'POST',
+    body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+function updatePractitioner(logicalId, practitionerFormData) {
+  const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
+  return request(requestURL, {
+    method: 'PUT',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {
       'Content-Type': 'application/json',

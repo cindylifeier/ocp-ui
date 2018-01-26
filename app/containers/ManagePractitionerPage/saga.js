@@ -2,17 +2,17 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 import { savePractitionerError } from './actions';
 import { SAVE_PRACTITIONER } from './constants';
-import createPractitioner from './api';
+import savePractitioner from './api';
 import { showNotification } from '../Notification/actions';
 
-export function* createPractitionerWorker(action) {
+export function* savePractitionerWorker(action) {
   try {
-    yield call(createPractitioner, action.practitionerFormData);
-    yield put(showNotification('Successfully created the practitioner.'));
+    yield call(savePractitioner, action.practitionerFormData);
+    yield put(showNotification(`Successfully ${getNotificationAction(action.practitionerFormData)} the practitioner.`));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification('Failed to create the practitioner.'));
+    yield put(showNotification(`Failed to ${getNotificationAction(action.practitionerFormData)} the practitioner.`));
     yield call(action.handleSubmitting);
     yield put(savePractitionerError(error));
   }
@@ -22,5 +22,13 @@ export function* createPractitionerWorker(action) {
  * Root saga manages watcher lifecycle
  */
 export default function* watchSavePractitioner() {
-  yield takeLatest(SAVE_PRACTITIONER, createPractitionerWorker);
+  yield takeLatest(SAVE_PRACTITIONER, savePractitionerWorker);
+}
+
+function getNotificationAction(practitionerFormData) {
+  let action = 'create';
+  if (practitionerFormData.logicalId) {
+    action = 'edit';
+  }
+  return action;
 }
