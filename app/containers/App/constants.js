@@ -31,11 +31,21 @@ export const LOCATIONPHYSICALTYPE = 'LOCATIONPHYSICALTYPE';
 export const ADDRESSTYPE = 'ADDRESSTYPE';
 export const ADDRESSUSE = 'ADDRESSUSE';
 export const LOCATIONIDENTIFIERSYSTEM = 'LOCATIONIDENTIFIERSYSTEM';
+export const PRACTITIONERIDENTIFIERSYSTEM = 'PRACTITIONERIDENTIFIERSYSTEM';
+export const PRACTITIONERROLES = 'PRACTITIONERROLES';
 export const TELECOMSYSTEM = 'TELECOMSYSTEM';
 export const TELECOMUSE = 'TELECOMUSE';
 export const ORGANIZATIONIDENTIFIERSYSTEM = 'ORGANIZATIONIDENTIFIERSYSTEM';
 export const ORGANIZATIONSTATUS = 'ORGANIZATIONSTATUS';
 
+/**
+ *  Constants to hold the internal urls
+ * @type {string}
+ */
+export const LOGIN_URL = '/ocp-ui/login';
+export const HOME_URL = '/ocp-ui/home';
+export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
+export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 
 /**
  *  Constants to hold the default pagination page size

@@ -5,11 +5,15 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { FloatingActionButton } from 'material-ui';
+import { ContentAdd } from 'material-ui/svg-icons';
+import { teal500 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -21,8 +25,14 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType, makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
@@ -31,8 +41,8 @@ import messages from './messages';
 import styles from './styles.css';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
-import { loadPractitionerSearchResult } from './actions';
-import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
+import { initializePractitioners, loadPractitionerSearchResult } from './actions';
+import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from '../App/constants';
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -48,6 +58,10 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializePractitioners();
   }
 
   handleChangeSearchTerms(event, newValue) {
@@ -89,7 +103,21 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <div className={styles.card}>
-        <h3><FormattedMessage {...messages.header} /></h3>
+        <div className={styles.gridHeaderContainer}>
+          <div className={styles.gridItem}>
+            <h3><FormattedMessage {...messages.header} /></h3>
+          </div>
+          <div className={styles.gridItem}>
+            <FloatingActionButton
+              backgroundColor={teal500}
+              className={styles.addButton}
+              mini
+              containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          </div>
+        </div>
         <form>
           <div className={styles.gridContainer}>
             <div className={styles.gridItem}>
@@ -165,7 +193,7 @@ Practitioners.propTypes = {
     PropTypes.bool,
   ]),
   searchResult: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.array,
     PropTypes.bool,
   ]),
   searchTerms: PropTypes.string,
@@ -175,6 +203,7 @@ Practitioners.propTypes = {
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
   onSubmitForm: PropTypes.func,
+  initializePractitioners: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -196,6 +225,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
+    initializePractitioners: () => dispatch(initializePractitioners()),
   };
 }
 
