@@ -16,9 +16,15 @@
 }
 
 .header {
-  margin: 5px
+  margin: 5px;
 }
 
 .textCenter {
   text-align: center;
+}
+
+.addButton {
+  right: 0px;
+  position: absolute;
+  margin-right: 15px;
 }
