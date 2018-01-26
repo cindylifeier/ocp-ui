@@ -11,6 +11,7 @@ import { compose } from 'redux';
 import { AppBar, Card, RaisedButton, TextField } from 'material-ui';
 
 import styles from './styles.css';
+import { HOME_URL } from '../App/constants';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -30,7 +31,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
               floatingLabelText="Verify code"
               type="password"
             /><br />
-            <RaisedButton label="Sign in" primary onClick={() => { this.props.history.push('/ocp-ui/home'); }} />
+            <RaisedButton label="Sign in" primary onClick={() => { this.props.history.push(HOME_URL); }} />
           </form>
         </Card>
       </div>
