@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { teal500, white } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import messages from './messages';
 import styles from './styles.css';
 import TextField from '../TextField';
@@ -133,20 +135,21 @@ function ManagePractitionerForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
             />
           </div>
-        </div>
-        <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-          <RaisedButton
-            label="Cancel"
-            primary
-            disabled={isSubmitting}
-            containerElement={<Link to={HOME_URL} />}
-          />
-          <RaisedButton
-            type="submit"
-            label="Save"
-            primary
-            disabled={!dirty || isSubmitting || !isValid}
-          />
+          <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
+            <RaisedButton
+              type="submit"
+              label="Save"
+              backgroundColor={teal500}
+              labelColor={white}
+              disabled={!dirty || isSubmitting || !isValid}
+            />
+            <FlatButton
+              label="Cancel"
+              default
+              disabled={isSubmitting}
+              containerElement={<Link to={HOME_URL} />}
+            />
+          </div>
         </div>
       </Form>
     </div>
