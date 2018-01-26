@@ -34,7 +34,7 @@ function displayPatientSearchResult(patients) {
     <div key={`patient-${uniqueId()}`} className={styles.rowGridContainer}>
       <div className={styles.cellGridItem}>{patient.name[0] != null ? patient.name[0].firstName : null}</div>
       <div className={styles.cellGridItem}>{patient.name[0] != null ? patient.name[0].lastName : null}</div>
-      <div className={styles.cellGridItem}>{getDOB(patient.birthDate)}</div>
+      <div className={styles.cellGridItem}>{patient.birthDate}</div>
       <div className={styles.cellGridItem}>{patient.genderCode}</div>
       <div className={styles.cellGridItem}>{getIdentifiers(patient.identifier)}</div>
       <div className={styles.cellGridItem}>{patient.active ? 'active' : 'inactive'}</div>
@@ -71,10 +71,6 @@ function getIdentifiers(identifier) {
       </div>
     )
   );
-}
-
-function getDOB(birthDate) {
-  return birthDate ? (<div>{birthDate.monthValue}/{birthDate.dayOfMonth}/{birthDate.year}</div>) : '';
 }
 
 function PatientSearchResult({ loading, error, searchResult }) {
