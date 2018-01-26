@@ -17,11 +17,11 @@ import reducer from './reducer';
 import saga from './saga';
 import { getLookupsAction } from '../App/actions';
 import {
-  ADDRESSTYPE, LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
+  LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
   USPSSTATES, ADDRESSUSE, TELECOMUSE,
 } from '../App/constants';
 import {
-  makeSelectAddressTypes, makeSelectLocationStatuses, makeSelectLocationPhysicalTypes,
+  makeSelectLocationStatuses, makeSelectLocationPhysicalTypes,
   makeSelectTelecomSystems,
   makeSelectUspsStates, makeSelectAddressUses, makeSelectTelecomUses, makeSelectLocationIdentifierSystems,
 } from '../App/selectors';
@@ -50,7 +50,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     this.props.getLookups();
   }
   handleSaveLocation(location) {
-    console.log(location);
+    // console.log(location);
     if (this.state.locationId && location) {
       this.props.updateLocation(location, this.state.organizationId);
     } else {
@@ -64,7 +64,6 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       uspsStates,
       locationPhysicalTypes,
       locationStatuses,
-      addressTypes,
       telecomSystems,
       telecomUses,
       addressUses,
@@ -75,7 +74,6 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       uspsStates,
       locationPhysicalTypes,
       locationStatuses,
-      addressTypes,
       telecomSystems,
       telecomUses,
       addressUses,
@@ -109,7 +107,6 @@ ManageLocationPage.propTypes = {
   uspsStates: PropTypes.array,
   locationPhysicalTypes: PropTypes.array,
   locationStatuses: PropTypes.array,
-  addressTypes: PropTypes.array,
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
   location: PropTypes.object,
@@ -125,7 +122,6 @@ const mapStateToProps = createStructuredSelector({
   uspsStates: makeSelectUspsStates(),
   locationPhysicalTypes: makeSelectLocationPhysicalTypes(),
   locationStatuses: makeSelectLocationStatuses(),
-  addressTypes: makeSelectAddressTypes(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
   addressUses: makeSelectAddressUses(),
@@ -136,7 +132,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE, ADDRESSUSE, TELECOMSYSTEM, TELECOMUSE, LOCATIONIDENTIFIERSYSTEM])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSUSE, TELECOMSYSTEM, TELECOMUSE, LOCATIONIDENTIFIERSYSTEM])),
     createLocation: (location, organizationId) => dispatch(createLocation(location, organizationId)),
     updateLocation: (location, organizationId) => dispatch(updateLocation(location, organizationId)),
     getLocation: (locationId) => dispatch(getLocation(locationId)),

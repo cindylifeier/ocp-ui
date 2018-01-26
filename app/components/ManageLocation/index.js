@@ -34,12 +34,7 @@ function ManageLocation(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          status: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          physicalType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           managingLocationLogicalId: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           identifierSystem: yup.string()
@@ -48,30 +43,17 @@ function ManageLocation(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          telecomSystem: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          telecomUse: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           telecomSystemValue: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          addressType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           line1: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           city: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          stateCode: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
-          use: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={(formikProps) => <ManageLocationForm {...formikProps} {...props} />}
       />

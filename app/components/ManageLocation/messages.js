@@ -46,10 +46,6 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.identifierSystemTypeFloatingLabelText',
     defaultMessage: 'Identifier System',
   },
-  addressTypesFloatingLabelText: {
-    id: 'ocpui.components.ManageLocation.addressTypesFloatingLabelText',
-    defaultMessage: 'Address Type',
-  },
   address1HintText: {
     id: 'ocpui.components.ManageLocation.address1HintText',
     defaultMessage: 'Address 1',

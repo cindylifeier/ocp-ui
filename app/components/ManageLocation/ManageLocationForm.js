@@ -28,7 +28,6 @@ function ManageLocationForm(props) {
     locationPhysicalTypes,
     addressUses,
     locationStatuses,
-    addressTypes,
     identifierSystems,
     telecomSystems,
     telecomUses,
@@ -145,18 +144,6 @@ function ManageLocationForm(props) {
       </div>
       <div className={styles.gridContainer}>
         <div className={styles.gridItem}>
-          <SelectField
-            name="addressType"
-            floatingLabelText={<FormattedMessage {...messages.addressTypesFloatingLabelText} />}
-          >
-            {addressTypes && addressTypes.map((addressType) => (
-              <MenuItem key={uniqueId()} value={addressType.code} primaryText={addressType.display} />
-            ))}
-          </SelectField>
-        </div>
-      </div>
-      <div className={styles.gridContainer}>
-        <div className={styles.gridItem}>
           <TextField
             name="line1"
             style={fieldStyle}
@@ -247,7 +234,6 @@ ManageLocationForm.propTypes = {
   uspsStates: PropTypes.array.isRequired,
   locationPhysicalTypes: PropTypes.array.isRequired,
   locationStatuses: PropTypes.array.isRequired,
-  addressTypes: PropTypes.array.isRequired,
   telecomUses: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
   addressUses: PropTypes.array.isRequired,
