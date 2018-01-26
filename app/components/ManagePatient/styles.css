@@ -10,7 +10,6 @@
   grid-template-columns: 1fr;
   grid-template-areas:
     "firstName"
-    "middleName"
     "lastName"
     "birthDate"
     "genderCode"
@@ -37,7 +36,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "firstName lastName"
-      "middleName birthDate"
+      "birthDate ."
       "genderCode ."
       "identifierType identifierValue"
       "language race"
@@ -56,7 +55,7 @@
   .gridContainer {
     grid-template-columns: repeat(3,1fr);
     grid-template-areas:
-      "firstName middleName lastName"
+      "firstName lastName ."
       "birthDate genderCode language"
       "identifierType identifierValue ."
       "birthSex race ethnicity"
@@ -74,12 +73,6 @@
 
 .firstName {
   grid-area: firstName;
-  display: grid;
-}
-
-
-.middleName {
-  grid-area: middleName;
   display: grid;
 }
 
