@@ -32,7 +32,7 @@ function ManageLocationForm(props) {
     telecomSystems,
     telecomUses,
     isSubmitting,
-    organizationName,
+    organization,
     location,
   } = props;
   return (
@@ -41,7 +41,7 @@ function ManageLocationForm(props) {
         <div className={styles.gridItem}>
           <br />
           {<FormattedMessage {...messages.mainLabel} />}<br />
-          {<FormattedMessage {...messages.organizatoinNameLabel} />}: <strong>{organizationName}</strong>
+          {<FormattedMessage {...messages.organizatoinNameLabel} />}: <strong>{organization.name}</strong>
         </div>
       </div>
       <div className={styles.gridContainer}>
@@ -241,7 +241,7 @@ ManageLocationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
-  organizationName: PropTypes.string.isRequired,
+  organization: PropTypes.object.isRequired,
   location: PropTypes.object,
   error: PropTypes.oneOfType([
     PropTypes.object,

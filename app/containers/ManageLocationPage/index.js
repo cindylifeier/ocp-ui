@@ -27,14 +27,13 @@ import {
 } from '../App/selectors';
 import ManageLocation from '../../components/ManageLocation/index';
 import { createLocation, getLocation, updateLocation } from './actions';
+import { makeSelectOrganization } from '../Locations/selectors';
 
 
 export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      organizationId: 902,
-      organizarionName: '',
       locationId: 0,
     };
     this.handleSaveLocation = this.handleSaveLocation.bind(this);
@@ -52,13 +51,12 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
   handleSaveLocation(location) {
     // console.log(location);
     if (this.state.locationId && location) {
-      this.props.updateLocation(location, this.state.organizationId);
+      this.props.updateLocation(location, this.props.organization.id);
     } else {
-      this.props.createLocation(location, this.state.organizationId);
+      this.props.createLocation(location, this.props.organization.id);
     }
   }
   render() {
-    const organizationName = this.state.organizarionName;
     const {
       error,
       uspsStates,
@@ -68,7 +66,8 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       telecomUses,
       addressUses,
       identifierSystems,
-      location } = this.props;
+      location,
+      organization } = this.props;
     const localProps = {
       error,
       uspsStates,
@@ -79,7 +78,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       addressUses,
       identifierSystems,
       location,
-      organizationName,
+      organization,
     };
 
     return (
@@ -111,6 +110,7 @@ ManageLocationPage.propTypes = {
   telecomUses: PropTypes.array,
   location: PropTypes.object,
   addressUses: PropTypes.array,
+  organization: PropTypes.object,
   identifierSystems: PropTypes.array,
   error: PropTypes.oneOfType([
     PropTypes.object,
@@ -123,6 +123,7 @@ const mapStateToProps = createStructuredSelector({
   locationPhysicalTypes: makeSelectLocationPhysicalTypes(),
   locationStatuses: makeSelectLocationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
+  organization: makeSelectOrganization(),
   telecomUses: makeSelectTelecomUses(),
   addressUses: makeSelectAddressUses(),
   identifierSystems: makeSelectLocationIdentifierSystems(),
