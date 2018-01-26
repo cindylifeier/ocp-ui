@@ -1,0 +1,21 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1px;
+}
+
+.gridItem {
+  position: relative;
+  max-height: 70px;
+}
+
+.buttonGroup {
+  margin-top: 30px;
+  position: absolute;
+  right: 10px;
+  grid-area: buttonGroup;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1vw;
+  grid-auto-columns: minmax(100px, 10vw);
+}

@@ -29,6 +29,7 @@ import ManageOrganizationPage from '../ManageOrganizationPage';
 import Notification from '../Notification';
 import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
+import ManagePatientPage from '../ManagePatientPage/index';
 
 
 export function App() {
@@ -50,6 +51,7 @@ export function App() {
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
             <Route path="/ocp-ui/manage-location/" component={ManageLocationPage} />
             <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
+            <Route path="/ocp-ui/manage-patient/:id?" component={ManagePatientPage} />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>

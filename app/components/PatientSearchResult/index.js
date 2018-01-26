@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -50,8 +51,12 @@ function displayPatientSearchResult(patients) {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
-        <MenuItem className={styles.menuItem} primaryText="Edit" />
-        <MenuItem className={styles.menuItem} primaryText="Remove" />
+        <MenuItem
+          className={styles.menuItem}
+          primaryText="Edit"
+          containerElement={<Link to={`/ocp-ui/manage-patient/${patient.id}`} />}
+        />
+        <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
       </IconMenu>
     </div>
   ));

@@ -14,6 +14,8 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -89,7 +91,18 @@ export class Patients extends React.PureComponent {
 
     return (
       <div className={styles.card}>
-        <h3><FormattedMessage {...messages.header} /></h3>
+        <div className={styles.gridHeaderContainer}>
+          <div className={styles.gridItem}>
+            <h3><FormattedMessage {...messages.header} /></h3>
+          </div>
+          <div className={styles.gridItem}>
+            <Link to="/ocp-ui/manage-patient">
+              <IconButton>
+                <ContentAddCircle />
+              </IconButton>
+            </Link>
+          </div>
+        </div>
         <form>
           <div className={styles.gridContainer}>
             <div className={styles.gridItem}>
