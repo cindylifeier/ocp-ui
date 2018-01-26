@@ -19,7 +19,7 @@ const initialValues = {
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, error, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
+  const { onSave, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
   const lookUpFormData = {
     uspsStates,
     patientIdentifierSystems,
@@ -35,8 +35,7 @@ function ManagePatient(props) {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          onSave(values);
-          actions.setSubmitting(false);
+          onSave(values, actions);
         }}
         validationSchema={yup.object().shape({
           lastName: yup.string()
@@ -60,7 +59,6 @@ function ManagePatient(props) {
         })}
         render={(formikProps) => <ManagePatientForm {...formikProps} {...lookUpFormData} />}
       />
-      {error ? <p>Save practitioner failed!</p> : null}
     </div>
   );
 }
@@ -75,10 +73,6 @@ ManagePatient.propTypes = {
   usCoreBirthSexes: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
 };
 
 export default ManagePatient;

@@ -15,7 +15,6 @@ import Divider from 'material-ui/Divider';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelecSavePatientError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -46,14 +45,13 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
     this.props.getLookUpFormData();
   }
 
-  handleSave(patientFormData) {
-    this.props.onSaveForm(patientFormData);
+  handleSave(patientFormData, actions) {
+    this.props.onSaveForm(patientFormData, () => actions.setSubmitting(false));
   }
 
   render() {
-    const { match, error, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
+    const { match, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
     const formProps = {
-      error,
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
@@ -93,14 +91,9 @@ ManagePatientPage.propTypes = {
   usCoreBirthSexes: PropTypes.array,
   languages: PropTypes.array,
   telecomSystems: PropTypes.array,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
 };
 
 const mapStateToProps = createStructuredSelector({
-  error: makeSelecSavePatientError(),
   uspsStates: makeSelectUspsStates(),
   patientIdentifierSystems: makeSelectPatientIdentifierSystems(),
   administrativeGenders: makeSelectAdministrativeGenders(),
@@ -113,7 +106,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSaveForm: (patientFormData) => { dispatch(savePatient(patientFormData)); },
+    onSaveForm: (patientFormData, handleSubmitting) => { dispatch(savePatient(patientFormData, handleSubmitting)); },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
       USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM])),
   };
