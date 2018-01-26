@@ -27,13 +27,6 @@ function ManagePatientForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
             />
           </div>
-          <div className={`${styles.gridItem} ${styles.middleName}`}>
-            <TextField
-              name="middleName"
-              hintText={<FormattedMessage {...messages.hintText.middleName} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.middleName} />}
-            />
-          </div>
           <div className={`${styles.gridItem} ${styles.lastName}`}>
             <TextField
               name="lastName"
