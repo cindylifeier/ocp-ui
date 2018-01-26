@@ -41,7 +41,7 @@ import messages from './messages';
 import styles from './styles.css';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
-import { loadPractitionerSearchResult } from './actions';
+import { initializePractitioners, loadPractitionerSearchResult } from './actions';
 import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -58,6 +58,10 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializePractitioners();
   }
 
   handleChangeSearchTerms(event, newValue) {
@@ -199,6 +203,7 @@ Practitioners.propTypes = {
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
   onSubmitForm: PropTypes.func,
+  initializePractitioners: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -220,6 +225,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
+    initializePractitioners: () => dispatch(initializePractitioners()),
   };
 }
 

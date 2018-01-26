@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  INITIALIZE_PRACTITIONERS,
   LOAD_PRACTITIONER_SEARCH_RESULT,
   SEARCH_PRACTITIONERS_ERROR,
   SEARCH_PRACTITIONERS_SUCCESS,
@@ -24,6 +25,8 @@ const initialState = fromJS({
 
 function practitionersReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_PRACTITIONERS:
+      return initialState;
     case LOAD_PRACTITIONER_SEARCH_RESULT:
       return state
         .set('loading', true)
