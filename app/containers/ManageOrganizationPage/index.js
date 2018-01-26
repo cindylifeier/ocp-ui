@@ -86,9 +86,14 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack }, organizations } = this.props;
+    const { match: { url, params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack, push }, organizations } = this.props;
     let initialValues = {};
     const editingOrganization = find(organizations, { logicalId: id });
+    // if id in the route exists but no initial data to edit
+    if (id && !editingOrganization) {
+      // navigate back to create mode
+      push(url.substring(0, url.lastIndexOf('/')));
+    }
     if (editingOrganization) {
       const {
         name,
