@@ -19,6 +19,7 @@ function OrganizationTable(props) {
         <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderTelephone} /></div>
         <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderId} /></div>
         <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderStatus} /></div>
+        <div></div>
       </div>
       {React.Children.map(props.children, (child, i) => {
         const striped = !(i % 2);

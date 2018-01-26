@@ -8,9 +8,29 @@ import React from 'react';
 import { TextField as MUITextField } from 'material-ui';
 import PropTypes from 'prop-types';
 import { Field } from 'formik';
+import { EMPTY_STRING } from '../../containers/App/constants';
 
 function TextFieldBridge(props) {
-  const { field: { name }, form: { handleChange, handleBlur, setFieldTouched, errors }, ...rest } = props;
+  const { field: { name, value }, form: { handleChange, handleBlur, setFieldTouched, errors, initialValues }, ...rest } = props;
+  const initialValue = initialValues[name];
+
+  // if initial value exists
+  if (initialValue && typeof initialValue === 'string' && initialValue !== EMPTY_STRING) {
+    // make it a controlled component
+    return (
+      <MUITextField
+        name={name}
+        value={value}
+        onChange={(event) => {
+          handleChange(event);
+          setFieldTouched(name);
+        }}
+        onBlur={handleBlur}
+        errorText={errors[name]}
+        {...rest}
+      />);
+  }
+  // else, make it an uncontrolled component
   return (
     <MUITextField
       name={name}
