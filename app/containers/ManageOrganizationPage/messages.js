@@ -10,6 +10,14 @@ export default defineMessages({
     id: 'ocpui.containers.ManageOrganizationPage.header',
     defaultMessage: 'Manage Organization',
   },
+  createMode: {
+    id: 'ocpui.containers.ManageOrganizationPage.createMode',
+    defaultMessage: 'Create',
+  },
+  updateMode: {
+    id: 'ocpui.containers.ManageOrganizationPage.updateMode',
+    defaultMessage: 'Update',
+  },
   form: {
     name: {
       id: 'ocpui.containers.ManageOrganizationPage.form.name',
@@ -27,24 +35,24 @@ export default defineMessages({
       id: 'ocpui.containers.ManageOrganizationPage.form.status',
       defaultMessage: 'Status',
     },
-    address1: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.address1',
+    line1: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.line1',
       defaultMessage: 'Address 1',
     },
-    address2: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.address2',
+    line2: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.line2',
       defaultMessage: 'Address 2',
     },
     city: {
       id: 'ocpui.containers.ManageOrganizationPage.form.city',
       defaultMessage: 'City',
     },
-    state: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.state',
+    stateCode: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.stateCode',
       defaultMessage: 'State',
     },
-    zip: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.zip',
+    postalCode: {
+      id: 'ocpui.containers.ManageOrganizationPage.form.postalCode',
       defaultMessage: 'Zip Code',
     },
     country: {

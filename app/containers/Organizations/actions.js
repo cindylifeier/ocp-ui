@@ -4,7 +4,18 @@
  *
  */
 
-import { LOAD_ORGANIZATIONS, LOAD_ORGANIZATIONS_ERROR, LOAD_ORGANIZATIONS_SUCCESS } from './constants';
+import {
+  INITIALIZE_ORGANIZATIONS,
+  LOAD_ORGANIZATIONS,
+  LOAD_ORGANIZATIONS_ERROR,
+  LOAD_ORGANIZATIONS_SUCCESS,
+} from './constants';
+
+export function initializeOrganizations() {
+  return {
+    type: INITIALIZE_ORGANIZATIONS,
+  };
+}
 
 export function loadOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {

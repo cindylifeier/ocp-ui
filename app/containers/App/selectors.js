@@ -7,9 +7,13 @@ import {
   LOCATIONSTATUS,
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
+  PRACTITIONERIDENTIFIERSYSTEM,
+  PRACTITIONERROLES,
   TELECOMSYSTEM,
   TELECOMUSE,
   USPSSTATES,
+  PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, LANGUAGE,
+  USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -51,6 +55,11 @@ const makeSelectLocationIdentifierSystems = () => createSelector(
   (globalState) => globalState.get(LOCATIONIDENTIFIERSYSTEM).toJS(),
 );
 
+const makeSelectPractitionerIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PRACTITIONERIDENTIFIERSYSTEM).toJS(),
+);
+
 const makeSelectOrganizationIdentifierSystems = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(ORGANIZATIONIDENTIFIERSYSTEM).toJS(),
@@ -71,10 +80,46 @@ const makeSelectTelecomUses = () => createSelector(
   (globalState) => globalState.get(TELECOMUSE).toJS(),
 );
 
+const makeSelectPractitionerRoles = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PRACTITIONERROLES).toJS(),
+);
+
 const makeSelectLookups = (name) => createSelector(
   selectGlobal,
   (globalState) => globalState.get(name).toJS(),
 );
+
+const makeSelectPatientIdentifierSystems = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PATIENTIDENTIFIERSYSTEM).toJS()
+);
+
+const makeSelectAdministrativeGenders = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ADMINISTRATIVEGENDER).toJS()
+);
+
+const makeSelectUsCoreRaces = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(USCORERACE).toJS()
+);
+
+const makeSelectUsCoreEthnicities = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(USCOREETHNICITY).toJS()
+);
+
+const makeSelectUsCoreBirthSexes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(USCOREBIRTHSEX).toJS()
+);
+
+const makeSelectLanguages = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(LANGUAGE).toJS()
+);
+
 
 export {
   makeSelectLocation,
@@ -86,7 +131,15 @@ export {
   makeSelectLocationIdentifierSystems,
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
+  makeSelectPractitionerIdentifierSystems,
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
+  makeSelectPractitionerRoles,
   makeSelectLookups,
+  makeSelectPatientIdentifierSystems,
+  makeSelectAdministrativeGenders,
+  makeSelectUsCoreRaces,
+  makeSelectUsCoreEthnicities,
+  makeSelectUsCoreBirthSexes,
+  makeSelectLanguages,
 };

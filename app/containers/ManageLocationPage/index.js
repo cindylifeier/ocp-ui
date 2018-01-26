@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectSaveLocationError } from './selectors';
+import { makeSelectLocation, makeSelectSaveLocationError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getLookupsAction } from '../App/actions';
@@ -26,7 +26,7 @@ import {
   makeSelectUspsStates, makeSelectAddressUses, makeSelectTelecomUses, makeSelectLocationIdentifierSystems,
 } from '../App/selectors';
 import ManageLocation from '../../components/ManageLocation/index';
-import { createLocation } from './actions';
+import { createLocation, getLocation, updateLocation } from './actions';
 
 
 export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -37,14 +37,25 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       organizarionName: '',
       locationId: 0,
     };
-    this.handleCreateLocation = this.handleCreateLocation.bind(this);
+    this.handleSaveLocation = this.handleSaveLocation.bind(this);
   }
   componentWillMount() {
+    const { match: { params } } = this.props;
+    if (params.id) {
+      const locationId = params.id;
+      this.setState({ locationId });
+      // get Location by id
+      this.props.getLocation(locationId);
+    }
     this.props.getLookups();
   }
-  handleCreateLocation(location) {
+  handleSaveLocation(location) {
     console.log(location);
-    this.props.createLocation(location, this.state.organizationId);
+    if (this.state.locationId && location) {
+      this.props.updateLocation(location, this.state.organizationId);
+    } else {
+      this.props.createLocation(location, this.state.organizationId);
+    }
   }
   render() {
     const organizationName = this.state.organizarionName;
@@ -57,7 +68,8 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       telecomSystems,
       telecomUses,
       addressUses,
-      identifierSystems } = this.props;
+      identifierSystems,
+      location } = this.props;
     const localProps = {
       error,
       uspsStates,
@@ -68,6 +80,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       telecomUses,
       addressUses,
       identifierSystems,
+      location,
       organizationName,
     };
 
@@ -79,7 +92,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
         </Helmet>
         <ManageLocation
           {...localProps}
-          onSave={this.handleCreateLocation}
+          onSave={this.handleSaveLocation}
         >
         </ManageLocation>
       </div>
@@ -88,14 +101,18 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
 }
 
 ManageLocationPage.propTypes = {
+  match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
+  getLocation: PropTypes.func.isRequired,
   createLocation: PropTypes.func.isRequired,
+  updateLocation: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
   locationPhysicalTypes: PropTypes.array,
   locationStatuses: PropTypes.array,
   addressTypes: PropTypes.array,
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
+  location: PropTypes.object,
   addressUses: PropTypes.array,
   identifierSystems: PropTypes.array,
   error: PropTypes.oneOfType([
@@ -114,12 +131,15 @@ const mapStateToProps = createStructuredSelector({
   addressUses: makeSelectAddressUses(),
   identifierSystems: makeSelectLocationIdentifierSystems(),
   error: makeSelectSaveLocationError(),
+  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSTYPE, ADDRESSUSE, TELECOMSYSTEM, TELECOMUSE, LOCATIONIDENTIFIERSYSTEM])),
     createLocation: (location, organizationId) => dispatch(createLocation(location, organizationId)),
+    updateLocation: (location, organizationId) => dispatch(updateLocation(location, organizationId)),
+    getLocation: (locationId) => dispatch(getLocation(locationId)),
   };
 }
 

@@ -14,12 +14,16 @@ export default function createLocation(location, organizationId) {
     },
   });
 }
+export function fetchLocation(locationId) {
+  const url = `${apiBaseUrl}/locations/${locationId}`;
+  return request(url);
+}
 
 function mapToBffLocation(rawlocation) {
   const location = {};
   location.name = rawlocation.name;
   location.managingLocationLogicalId = rawlocation.managingLocationLogicalId;
-  location.status = '';
+  location.status = rawlocation.id ? rawlocation.state : '';
   location.resourceURL = '';
   location.physicalType = rawlocation.physicalType;
   const { identifierSystem, identifierValue } = rawlocation;
