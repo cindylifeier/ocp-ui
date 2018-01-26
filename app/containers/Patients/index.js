@@ -25,13 +25,19 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectQueryIncludeInactive, makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType, makeSelectSearchError, makeSelectSearchLoading, makeSelectSearchResult,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadPatientSearchResult } from './actions';
+import { initializePatients, loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
 import styles from './styles.css';
 import messages from './messages';
@@ -52,6 +58,10 @@ export class Patients extends React.PureComponent {
     this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializePatients();
   }
 
   handleSearch() {
@@ -186,7 +196,7 @@ Patients.propTypes = {
     PropTypes.bool,
   ]),
   searchResult: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.array,
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
@@ -196,6 +206,7 @@ Patients.propTypes = {
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
+  initializePatients: PropTypes.func,
 };
 
 
@@ -218,6 +229,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
+    initializePatients: () => dispatch(initializePatients()),
   };
 }
 

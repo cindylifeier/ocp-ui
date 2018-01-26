@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  INITIALIZE_PATIENTS,
   LOAD_PATIENT_SEARCH_RESULT,
   SEARCH_PATIENTS_ERROR,
   SEARCH_PATIENTS_SUCCESS,
@@ -24,6 +25,8 @@ const initialState = fromJS({
 
 function patientsReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_PATIENTS:
+      return initialState;
     case LOAD_PATIENT_SEARCH_RESULT:
       return state
         .set('loading', true)
@@ -31,7 +34,7 @@ function patientsReducer(state = initialState, action) {
         .setIn(['searchPatients', 'result'], false);
     case SEARCH_PATIENTS_SUCCESS:
       return state
-        .setIn(['searchPatients', 'result'], action.searchResult)
+        .setIn(['searchPatients', 'result'], action.searchResult.elements)
         .setIn(['searchPatients', 'currentPage'], action.searchResult.currentPage)
         .setIn(['searchPatients', 'currentPageSize'], action.searchResult.currentPageSize)
         .setIn(['searchPatients', 'totalPages'], action.searchResult.totalNumberOfPages)
