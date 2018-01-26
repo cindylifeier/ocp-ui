@@ -5,6 +5,10 @@
  */
 
 import React from 'react';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import ActionList from 'material-ui/svg-icons/action/list';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -23,6 +27,19 @@ import messages from './messages';
 import styles from './styles.css';
 import { getFilteredLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
+
+const iconStyles = {
+  iconButton: {
+    position: 'relative',
+  },
+  icon: {
+    width: '100%',
+    height: 26,
+    position: 'absolute',
+    top: '0',
+    right: '0',
+  },
+};
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -73,6 +90,22 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
           <div className={styles.cellGridItem}>{location.status}</div>
           <div className={styles.cellGridItem}>{this.getTelecoms(location.telecoms)}</div>
           <div className={styles.cellGridItem}>{this.getAddress(location.address)} </div>
+          <IconMenu
+            iconButtonElement={
+              (<IconButton
+                className={styles.iconButton}
+                iconStyle={iconStyles.icon}
+                style={iconStyles.iconButton}
+              >
+                <ActionList />
+              </IconButton>)
+            }
+            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          >
+            <MenuItem className={styles.menuItem} primaryText="Edit" />
+            <MenuItem className={styles.menuItem} primaryText="Remove" />
+          </IconMenu>
         </div>
       ));
     }
@@ -102,11 +135,12 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             </StatusCheckbox>
           </div>
           <div className={styles.table}>
-            <div className={styles.rowGridContainer}>
+            <div className={styles.rowHeaderGridContainer}>
               <div className={styles.cellGridHeaderItem}>Name</div>
               <div className={styles.cellGridHeaderItem}>Status</div>
               <div className={styles.cellGridHeaderItem}>Telecoms</div>
               <div className={styles.cellGridHeaderItem}>Address</div>
+              <div></div>
             </div>
             {this.createRows()}
             <div className={styles.pagination}>

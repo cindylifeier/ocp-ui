@@ -8,7 +8,7 @@ import React from 'react';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import ImageFlashOn from 'material-ui/svg-icons/image/flash-on';
+import ActionList from 'material-ui/svg-icons/action/list';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -61,7 +61,7 @@ function OrganizationTableRow(props) {
               iconStyle={iconStyles.icon}
               style={iconStyles.iconButton}
             >
-              <ImageFlashOn />
+              <ActionList />
             </IconButton>)
           }
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
