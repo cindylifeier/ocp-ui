@@ -15,13 +15,12 @@ import styles from './styles.css';
 import ManageLocationForm from './ManageLocationForm';
 import { TEXT_MIN_LENGTH } from '../../containers/ManageLocationPage/constants';
 
-
-const initialValues = { };
-
 function ManageLocation(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave } = props;
+  const { onSave, location } = props;
+  const name = location.name;
+  const initialValues = { name };
   return (
     <div className={styles.root} >
       <Formik
@@ -82,6 +81,7 @@ function ManageLocation(props) {
 
 ManageLocation.propTypes = {
   onSave: PropTypes.func.isRequired,
+  location: PropTypes.object,
 };
 
 export default ManageLocation;

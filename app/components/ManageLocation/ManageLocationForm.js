@@ -22,6 +22,8 @@ export const SEARCH_BY_ID = 'logicalId';
 function ManageLocationForm(props) {
   const {
     error,
+    dirty,
+    isValid,
     uspsStates,
     locationPhysicalTypes,
     addressUses,
@@ -32,8 +34,7 @@ function ManageLocationForm(props) {
     telecomUses,
     isSubmitting,
     organizationName,
-    dirty,
-    isValid,
+    location,
   } = props;
   return (
     <Form>
@@ -55,14 +56,16 @@ function ManageLocationForm(props) {
           />
         </div>
         <div className={styles.gridItem}>
-          <SelectField
-            name="status"
-            floatingLabelText={<FormattedMessage {...messages.statusFloatingLabelText} />}
-          >
-            {locationStatuses && locationStatuses.map((locationStatuse) => (
-              <MenuItem key={uniqueId()} value={locationStatuse.code} primaryText={locationStatuse.display} />
-            ))}
-          </SelectField>
+          { (location && location.logicalId &&
+            <SelectField
+              name="status"
+              floatingLabelText={<FormattedMessage {...messages.statusFloatingLabelText} />}
+            >
+              {locationStatuses && locationStatuses.map((locationStatuse) => (
+                <MenuItem key={uniqueId()} value={locationStatuse.code} primaryText={locationStatuse.display} />
+              ))}
+            </SelectField>
+          )}
         </div>
       </div>
       <div className={styles.gridContainer}>
@@ -253,6 +256,7 @@ ManageLocationForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   organizationName: PropTypes.string.isRequired,
+  location: PropTypes.object,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
