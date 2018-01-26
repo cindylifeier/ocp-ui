@@ -4,7 +4,18 @@
  *
  */
 
-import { LOAD_PRACTITIONER_SEARCH_RESULT, SEARCH_PRACTITIONERS_ERROR, SEARCH_PRACTITIONERS_SUCCESS } from './constants';
+import {
+  INITIALIZE_PRACTITIONERS,
+  LOAD_PRACTITIONER_SEARCH_RESULT,
+  SEARCH_PRACTITIONERS_ERROR,
+  SEARCH_PRACTITIONERS_SUCCESS,
+} from './constants';
+
+export function initializePractitioners() {
+  return {
+    type: INITIALIZE_PRACTITIONERS,
+  };
+}
 
 export function loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage) {
   return {

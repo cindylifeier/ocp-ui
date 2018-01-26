@@ -21,7 +21,7 @@ const makeSelectSearchError = () => createSelector(
 
 const makeSelectSearchResult = () => createSelector(
   selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'result']),
+  (practitionersState) => practitionersState && practitionersState.getIn(['searchPractitioners', 'result']),
 );
 
 const makeSelectQuerySearchTerms = () => createSelector(

@@ -30,9 +30,15 @@ const makeSelectTotalNumberOfPages = () => createSelector(
   (substate) => substate.get('totalNumberOfPages'),
 );
 
+const makeSelectOrganizationsData = () => createSelector(
+  selectOrganizationsDomain,
+  (substate) => substate && substate.get('data').toJS(),
+);
+
 export {
   selectOrganizationsDomain,
   makeSelectOrganizations,
   makeSelectCurrentPage,
   makeSelectTotalNumberOfPages,
+  makeSelectOrganizationsData,
 };

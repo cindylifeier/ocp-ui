@@ -6,7 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
-  LOAD_PRACTITIONER_SEARCH_RESULT, SEARCH_PRACTITIONERS_ERROR,
+  INITIALIZE_PRACTITIONERS,
+  LOAD_PRACTITIONER_SEARCH_RESULT,
+  SEARCH_PRACTITIONERS_ERROR,
   SEARCH_PRACTITIONERS_SUCCESS,
 } from './constants';
 
@@ -23,6 +25,8 @@ const initialState = fromJS({
 
 function practitionersReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_PRACTITIONERS:
+      return initialState;
     case LOAD_PRACTITIONER_SEARCH_RESULT:
       return state
         .set('loading', true)
@@ -31,7 +35,7 @@ function practitionersReducer(state = initialState, action) {
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
         .set('loading', false)
-        .setIn(['searchPractitioners', 'result'], action.searchResult)
+        .setIn(['searchPractitioners', 'result'], action.searchResult.elements)
         .setIn(['searchPractitioners', 'queryParameters', 'searchTerms'], action.queryParameters.searchTerms)
         .setIn(['searchPractitioners', 'queryParameters', 'searchType'], action.queryParameters.searchType)
         .setIn(['searchPractitioners', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)
