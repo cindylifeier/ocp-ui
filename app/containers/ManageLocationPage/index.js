@@ -43,8 +43,8 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
   handleSaveLocation(location) {
     const logicalId = this.props.match.params.id;
     if (logicalId && location) {
-      merge(location, { logicalId });
-      this.props.updateLocation(location, this.props.organization.id);
+      const mergedLocation = merge(location, { logicalId });
+      this.props.updateLocation(mergedLocation, this.props.organization.id);
     } else {
       this.props.createLocation(location, this.props.organization.id);
     }
