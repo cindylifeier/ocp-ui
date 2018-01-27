@@ -144,6 +144,6 @@ function mapPractitionerToFirstTelecoms(practitioner) {
   return telecom;
 }
 
-function setEmptyStringWhenUndefined(value) {
+export function setEmptyStringWhenUndefined(value) {
   return isUndefined(value) ? EMPTY_STRING : value;
 }
