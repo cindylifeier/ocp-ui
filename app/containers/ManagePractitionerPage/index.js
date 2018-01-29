@@ -11,8 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
-import find from 'lodash/find';
 import merge from 'lodash/merge';
+import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
@@ -30,8 +30,8 @@ import {
 } from '../App/selectors';
 import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { savePractitioner } from './actions';
-import { makeSelectSearchResult } from '../Practitioners/selectors';
+import { getPractitioner, savePractitioner } from './actions';
+import { makeSelectPractitioner } from './selectors';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -42,6 +42,10 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
 
   componentWillMount() {
     this.props.getLookUpFormData();
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      this.props.getPractitioner(logicalId);
+    }
   }
 
   handleSave(practitionerFormData, actions) {
@@ -53,17 +57,18 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioners } = this.props;
-    const practitionerLogicalId = match.params.id;
+    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles, selectedPractitioner } = this.props;
+    const editMode = !isUndefined(match.params.id);
     let practitioner = null;
-    if (practitionerLogicalId) {
-      practitioner = getPractitionerById(practitioners, practitionerLogicalId);
+    if (editMode && selectedPractitioner) {
+      practitioner = selectedPractitioner;
     }
     const formProps = {
       uspsStates,
       identifierSystems,
       telecomSystems,
       practitionerRoles,
+      editMode,
       practitioner,
     };
     return (
@@ -74,7 +79,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
         </Helmet>
         <div className={styles.card}>
           <h4 className={styles.font}>
-            {practitionerLogicalId ? <FormattedMessage {...messages.editHeader} />
+            {editMode ? <FormattedMessage {...messages.editHeader} />
               : <FormattedMessage {...messages.createHeader} />}
           </h4>
           <Divider />
@@ -88,11 +93,12 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
 ManagePractitionerPage.propTypes = {
   match: PropTypes.object,
   getLookUpFormData: PropTypes.func.isRequired,
+  getPractitioner: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
   identifierSystems: PropTypes.array,
   telecomSystems: PropTypes.array,
   practitionerRoles: PropTypes.array,
-  practitioners: PropTypes.any,
+  selectedPractitioner: PropTypes.object,
   onSaveForm: PropTypes.func,
 };
 
@@ -101,13 +107,14 @@ const mapStateToProps = createStructuredSelector({
   identifierSystems: makeSelectPractitionerIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
   practitionerRoles: makeSelectPractitionerRoles(),
-  practitioners: makeSelectSearchResult(),
+  selectedPractitioner: makeSelectPractitioner(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
     onSaveForm: (practitionerFormData, handleSubmitting) => dispatch(savePractitioner(practitionerFormData, handleSubmitting)),
+    getPractitioner: (logicalId) => dispatch(getPractitioner(logicalId)),
   };
 }
 
@@ -121,7 +128,3 @@ export default compose(
   withSaga,
   withConnect,
 )(ManagePractitionerPage);
-
-function getPractitionerById(practitionerSearchResult, logicalId) {
-  return find(practitionerSearchResult, { logicalId });
-}

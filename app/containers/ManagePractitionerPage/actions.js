@@ -4,7 +4,13 @@
  *
  */
 
-import { SAVE_PRACTITIONER, SAVE_PRACTITIONER_ERROR } from './constants';
+import {
+  GET_PRACTITIONER,
+  GET_PRACTITIONER_ERROR,
+  GET_PRACTITIONER_SUCCESS,
+  SAVE_PRACTITIONER,
+  SAVE_PRACTITIONER_ERROR,
+} from './constants';
 
 export function savePractitioner(practitionerFormData, handleSubmitting) {
   return {
@@ -20,3 +26,25 @@ export function savePractitionerError(error) {
     error,
   };
 }
+
+export function getPractitioner(logicalId) {
+  return {
+    type: GET_PRACTITIONER,
+    logicalId,
+  };
+}
+
+export function getPractitionerSuccess(practitioner) {
+  return {
+    type: GET_PRACTITIONER_SUCCESS,
+    practitioner,
+  };
+}
+
+export function getPractitionerError(error) {
+  return {
+    type: GET_PRACTITIONER_ERROR,
+    error,
+  };
+}
+

@@ -14,7 +14,13 @@ const makeSelectSavePractitionerError = () => createSelector(
   (subState) => subState.get('error'),
 );
 
+const makeSelectPractitioner = () => createSelector(
+  selectManagePractitionerPageDomain,
+  (subState) => subState && subState.get('practitioner'),
+);
+
 export {
   selectManagePractitionerPageDomain,
   makeSelectSavePractitionerError,
+  makeSelectPractitioner,
 };
