@@ -47,7 +47,7 @@ export function getLocationsError(error) {
   };
 }
 
-export function getInitializeLocations() {
+export function initializeLocations() {
   return {
     type: INITIALIZE_LOCATIONS,
   };

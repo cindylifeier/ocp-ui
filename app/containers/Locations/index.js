@@ -26,7 +26,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import { getFilteredLocations, getInitializeLocations } from './actions';
+import { getFilteredLocations, initializeLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
 
 
@@ -216,7 +216,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(getFilteredLocations(currentPage, includeInactive, checked));
     },
     onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
-    initializeLocations: () => dispatch(getInitializeLocations()),
+    initializeLocations: () => dispatch(initializeLocations()),
   };
 }
 
