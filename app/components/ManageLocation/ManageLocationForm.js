@@ -203,7 +203,7 @@ function ManageLocationForm(props) {
             floatingLabelText={<FormattedMessage {...messages.addressUseFloatingLabelText} />}
           >
             {addressUses && addressUses.map((addressUse) => (
-              <MenuItem key={uniqueId()} value={addressUse.use} primaryText={addressUse.display} />
+              <MenuItem key={uniqueId()} value={addressUse.code} primaryText={addressUse.display} />
             ))}
           </SelectField>
         </div>
