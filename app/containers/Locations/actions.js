@@ -8,7 +8,7 @@ import {
   GET_FILTERED_LOCATIONS,
   GET_ACTIVE_LOCATIONS,
   GET_LOCATIONS_SUCCESS,
-  GET_LOCATIONS_ERROR,
+  GET_LOCATIONS_ERROR, INITIALIZE_LOCATIONS,
 } from './constants';
 
 
@@ -44,5 +44,11 @@ export function getLocationsError(error) {
   return {
     type: GET_LOCATIONS_ERROR,
     error,
+  };
+}
+
+export function initializeLocations() {
+  return {
+    type: INITIALIZE_LOCATIONS,
   };
 }
