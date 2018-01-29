@@ -26,7 +26,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import { getFilteredLocations } from './actions';
+import { getFilteredLocations, getInitializeLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
 
 
@@ -52,6 +52,10 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializeLocations();
   }
 
   getTelecoms(telecoms) {
@@ -183,6 +187,7 @@ Locations.propTypes = {
   onCheckIncludeInactive: PropTypes.func.isRequired,
   onCheckIncludeSuspended: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  initializeLocations: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
@@ -211,6 +216,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(getFilteredLocations(currentPage, includeInactive, checked));
     },
     onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
+    initializeLocations: () => dispatch(getInitializeLocations()),
   };
 }
 
