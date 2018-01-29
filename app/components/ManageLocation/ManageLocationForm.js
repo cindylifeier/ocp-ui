@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
@@ -12,6 +13,7 @@ import messages from './messages';
 
 import TextField from '../TextField';
 import SelectField from '../SelectField';
+import { HOME_URL } from '../../containers/App/constants';
 
 
 // Material UI Styles
@@ -221,6 +223,8 @@ function ManageLocationForm(props) {
               type="button"
               label="Cancel"
               default
+              disabled={isSubmitting}
+              containerElement={<Link to={HOME_URL} />}
             />
           </div>
         </div>
