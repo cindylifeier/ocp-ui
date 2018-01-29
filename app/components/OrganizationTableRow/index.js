@@ -31,7 +31,7 @@ const iconStyles = {
 };
 
 function OrganizationTableRow(props) {
-  const { name, address, telephone, id, status, onRowClick } = props;
+  const { name, address, telephone, id, status, menuItemClick } = props;
   return (
     <div
       className={styles.rowGridContainer}
@@ -64,7 +64,7 @@ function OrganizationTableRow(props) {
           />
           <MenuItem
             className={styles.menuItem}
-            onClick={() => onRowClick && onRowClick(props)}
+            onClick={() => menuItemClick && menuItemClick(props)}
             primaryText={<FormattedMessage {...messages.viewLocations} />}
           />
           <MenuItem
@@ -85,7 +85,7 @@ OrganizationTableRow.propTypes = {
   telephone: PropTypes.string,
   id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  onRowClick: PropTypes.func,
+  menuItemClick: PropTypes.func,
 };
 
 export default OrganizationTableRow;
