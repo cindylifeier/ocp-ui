@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import styles from './styles.css';
+import { ENTER_KEY } from '../../containers/App/constants';
 import messages from './messages';
 
 
@@ -31,10 +32,19 @@ const iconStyles = {
 };
 
 function OrganizationTableRow(props) {
-  const { name, address, telephone, id, status, menuItemClick } = props;
+  const { name, address, telephone, id, status, onRowClick } = props;
   return (
     <div
       className={styles.rowGridContainer}
+      onClick={() => onRowClick && onRowClick(props)}
+      onKeyPress={(e) => {
+        if (e.key === ENTER_KEY) {
+          if (onRowClick) {
+            onRowClick(props);
+          }
+        }
+        e.preventDefault();
+      }}
       role="button"
       tabIndex="0"
     >
@@ -64,11 +74,6 @@ function OrganizationTableRow(props) {
           />
           <MenuItem
             className={styles.menuItem}
-            onClick={() => menuItemClick && menuItemClick(props)}
-            primaryText={<FormattedMessage {...messages.viewLocations} />}
-          />
-          <MenuItem
-            className={styles.menuItem}
             primaryText={<FormattedMessage {...messages.addLocation} />}
             containerElement={<Link to={'/ocp-ui/manage-location'} />}
           />
@@ -85,7 +90,7 @@ OrganizationTableRow.propTypes = {
   telephone: PropTypes.string,
   id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  menuItemClick: PropTypes.func,
+  onRowClick: PropTypes.func,
 };
 
 export default OrganizationTableRow;

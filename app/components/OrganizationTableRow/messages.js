@@ -10,10 +10,6 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationsTableRow.edit',
     defaultMessage: 'Edit',
   },
-  viewLocations: {
-    id: 'ocpui.components.OrganizationsTableRow.view',
-    defaultMessage: 'View Locations',
-  },
   addLocation: {
     id: 'ocpui.components.OrganizationsTableRow.addLocation',
     defaultMessage: 'Add Location',
