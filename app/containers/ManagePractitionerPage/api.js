@@ -5,10 +5,9 @@ const apiBaseURL = getApiBaseUrl();
 
 export function savePractitioner(practitionerFormData) {
   if (practitionerFormData.logicalId) {
-    updatePractitioner(practitionerFormData.logicalId, practitionerFormData);
-  } else {
-    createPractitioner(practitionerFormData);
+    return updatePractitioner(practitionerFormData.logicalId, practitionerFormData);
   }
+  return createPractitioner(practitionerFormData);
 }
 
 export function getPractitioner(logicalId) {
