@@ -22,16 +22,16 @@ import { EMPTY_STRING } from '../../containers/App/constants';
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, practitioner } = props;
+  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, editMode, practitioner } = props;
   const formData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
     practitionerRoles,
-    practitioner,
   };
   return (
     <div>
+      {((editMode && practitioner) || !editMode) &&
       <Formik
         initialValues={setFormData(practitioner)}
         onSubmit={(values, actions) => {
@@ -57,6 +57,7 @@ function ManagePractitioner(props) {
         })}
         render={(formikProps) => <ManagePractitionerForm {...formikProps} {...formData} />}
       />
+      }
     </div>
   );
 }
@@ -67,6 +68,7 @@ ManagePractitioner.propTypes = {
   identifierSystems: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
   practitionerRoles: PropTypes.array.isRequired,
+  editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
 };
 
