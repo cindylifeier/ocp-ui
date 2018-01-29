@@ -9,6 +9,7 @@
 
 .rowGridContainer:hover {
   background-color: #dce4ef;
+  cursor: pointer;
 }
 
 .rowGridContainer {

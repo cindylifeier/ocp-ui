@@ -59,8 +59,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   }
 
   getTelecoms(telecoms) {
-    return telecoms.filter((telecom) => telecom.system !== null)
-      .map((entry) =>
+    return telecoms.map((entry) =>
       (
         <div key={entry.value}>
           {entry.system}: {entry.value},
