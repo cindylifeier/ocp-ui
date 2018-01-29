@@ -39,7 +39,7 @@ export class Organizations extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleRowClick = this.handleRowClick.bind(this);
+    this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.state = {
       currentPage: 1,
@@ -58,7 +58,7 @@ export class Organizations extends React.PureComponent {
     this.props.loadOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
   }
 
-  handleRowClick({ id, name }) {
+  handleMenuItemClick({ id, name }) {
     const currentPage = 1;
     this.props.getActiveLocations(id, name, currentPage);
   }
@@ -96,7 +96,7 @@ export class Organizations extends React.PureComponent {
                 <OrganizationTableRow
                   key={org.id}
                   {...org}
-                  onRowClick={this.handleRowClick}
+                  menuItemClick={this.handleMenuItemClick}
                 />
               ))}
             </OrganizationTable>
