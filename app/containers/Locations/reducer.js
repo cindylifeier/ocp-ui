@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 
 import {
   GET_LOCATIONS_SUCCESS,
-  GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS,
+  GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS, INITIALIZE_LOCATIONS,
 } from './constants';
 
 const initialState = fromJS({
@@ -27,6 +27,8 @@ function locationsReducer(state = initialState, action) {
         .setIn(['currentPage'], action.currentPage)
         .setIn(['includeInactive'], action.includeInactive)
         .setIn(['includeSuspended'], action.includeSuspended);
+    case INITIALIZE_LOCATIONS:
+      return initialState;
     case GET_LOCATIONS_SUCCESS:
       return state.set('data', fromJS((action.locations && action.locations.elements) || []))
         .setIn(['totalNumberOfPages'], action.locations.totalNumberOfPages)
