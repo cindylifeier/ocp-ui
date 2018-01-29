@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import styles from './styles.css';
-import { ENTER_KEY } from '../../containers/App/constants';
 import messages from './messages';
 
 
@@ -36,15 +35,6 @@ function OrganizationTableRow(props) {
   return (
     <div
       className={styles.rowGridContainer}
-      onClick={() => onRowClick && onRowClick(props)}
-      onKeyPress={(e) => {
-        if (e.key === ENTER_KEY) {
-          if (onRowClick) {
-            onRowClick(props);
-          }
-        }
-        e.preventDefault();
-      }}
       role="button"
       tabIndex="0"
     >
@@ -71,6 +61,11 @@ function OrganizationTableRow(props) {
             className={styles.menuItem}
             primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
+          />
+          <MenuItem
+            className={styles.menuItem}
+            onClick={() => onRowClick && onRowClick(props)}
+            primaryText={<FormattedMessage {...messages.viewLocations} />}
           />
           <MenuItem
             className={styles.menuItem}
