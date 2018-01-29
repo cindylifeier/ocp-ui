@@ -1,5 +1,5 @@
 import { goBack } from 'react-router-redux';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { GET_LOCATION, POST_CREATE_LOCATION, PUT_LOCATION } from './constants';
 import {
   createLocationError, createLocationSuccess, getLocationError, getLocationSuccess, putLocationError,
@@ -45,8 +45,22 @@ export function* handleGetLocation(action) {
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* watchCreateLocation() {
+export function* watchCreateLocation() {
   yield takeLatest(POST_CREATE_LOCATION, handleCreateLocation);
+}
+
+export function* watchUpdateLocation() {
   yield takeLatest(PUT_LOCATION, handleUpdateLocation);
+}
+export function* watchGetLocation() {
   yield takeLatest(GET_LOCATION, handleGetLocation);
+}
+
+
+export default function* rootSaga() {
+  yield all([
+    watchCreateLocation(),
+    watchUpdateLocation(),
+    watchGetLocation(),
+  ]);
 }
