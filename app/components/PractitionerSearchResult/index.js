@@ -36,7 +36,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
   }
 
   if (error !== false) {
-    return (<p>No match search result.</p>);
+    return (<p>No practitioners found.</p>);
   }
 
   if (searchResult !== false) {
