@@ -9,6 +9,7 @@
  *  @type {string}
  */
 export const DEFAULT_ACTION = 'ocpui/ManagePractitionerPage/DEFAULT_ACTION';
+export const INITIALIZE_MANAGE_PRACTITIONER = 'ocpui/ManagePractitionerPage/INITIALIZE_MANAGE_PRACTITIONER';
 export const SAVE_PRACTITIONER = 'ocpui/ManagePractitionerPage/SAVE_PRACTITIONER';
 export const SAVE_PRACTITIONER_ERROR = 'ocpui/ManagePractitionerPage/SAVE_PRACTITIONER_ERROR';
 export const GET_PRACTITIONER = 'ocpui/ManagePractitionerPage/GET_PRACTITIONER';
