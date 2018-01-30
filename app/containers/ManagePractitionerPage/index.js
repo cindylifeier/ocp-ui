@@ -30,7 +30,7 @@ import {
 } from '../App/selectors';
 import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { getPractitioner, savePractitioner } from './actions';
+import { getPractitioner, initializeManagePractitioner, savePractitioner } from './actions';
 import { makeSelectPractitioner } from './selectors';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -46,6 +46,10 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
     if (logicalId) {
       this.props.getPractitioner(logicalId);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.initializeManagePractitioner();
   }
 
   handleSave(practitionerFormData, actions) {
@@ -100,6 +104,7 @@ ManagePractitionerPage.propTypes = {
   practitionerRoles: PropTypes.array,
   selectedPractitioner: PropTypes.object,
   onSaveForm: PropTypes.func,
+  initializeManagePractitioner: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -112,6 +117,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializeManagePractitioner: () => dispatch(initializeManagePractitioner()),
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
     onSaveForm: (practitionerFormData, handleSubmitting) => dispatch(savePractitioner(practitionerFormData, handleSubmitting)),
     getPractitioner: (logicalId) => dispatch(getPractitioner(logicalId)),
