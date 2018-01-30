@@ -87,7 +87,7 @@ function PatientSearchResult({ loading, error, searchResult }) {
   }
 
   if (searchResult !== false && searchResult !== null && searchResult.length === 0) {
-    return (<p>No match search result.</p>);
+    return (<p>No patients found.</p>);
   }
 
   if (searchResult !== false && searchResult !== null && searchResult.length !== 0) {
