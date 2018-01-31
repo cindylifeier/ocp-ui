@@ -18,8 +18,8 @@ export class PatientsPage extends React.PureComponent { // eslint-disable-line r
     return (
       <div>
         <Helmet>
-          <title>PatientsPage</title>
-          <meta name="description" content="Description of PatientsPage" />
+          <title>Patients</title>
+          <meta name="description" content="Patients page of Omnibus Care Plan application" />
         </Helmet>
         <FormattedMessage {...messages.header} />
       </div>
