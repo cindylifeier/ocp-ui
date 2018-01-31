@@ -55,7 +55,12 @@ function displayPatientSearchResult(patients) {
         <MenuItem
           className={styles.menuItem}
           primaryText="Add Care Team"
-          containerElement={<Link to={MANAGE_CARE_TEAM_URL} />}
+          containerElement={<Link
+            to={{
+              pathname: MANAGE_CARE_TEAM_URL,
+              search: `?patientId=${patient.id}`,
+            }}
+          />}
         />
         <MenuItem
           className={styles.menuItem}

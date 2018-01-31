@@ -24,6 +24,16 @@ import messages from './messages';
 import styles from './styles.css';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  // TODO: will implement it
+  handleSearch() {
+  }
+
   render() {
     const { match } = this.props;
     const editMode = !isUndefined(match.params.id);
@@ -40,7 +50,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
                 : <FormattedMessage {...messages.createHeader} />}
             </h4>
             <Divider />
-            <ManageCareTeam />
+            <ManageCareTeam onSearch={this.handleSearch} />
           </div>
         </div>
       </div>
