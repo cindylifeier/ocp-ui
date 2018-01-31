@@ -18,7 +18,7 @@ import { Route, Switch } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
+import PatientsPage from 'containers/PatientsPage/Loadable';
 
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
@@ -47,7 +47,7 @@ export function App() {
           <Route path="/ocp-ui/login" component={LoginPage} />
           <Layout>
             <Route path="/ocp-ui/home" component={HomePage} />
-            <Route path="/ocp-ui/patients/:id" component={PatientDetailsPage} />
+            <Route path="/ocp-ui/patients" component={PatientsPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
             <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
             <Route path="/ocp-ui/manage-patient/:id?" component={ManagePatientPage} />

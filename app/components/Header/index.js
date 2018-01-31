@@ -11,7 +11,7 @@ import ActionPatients from 'material-ui/svg-icons/action/perm-contact-calendar';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import styles from './styles.css';
 import LogoutButton from '../LogoutButton/index';
-import { HOME_URL } from '../../containers/App/constants';
+import { HOME_URL, PATIENTS_URL } from '../../containers/App/constants';
 
 function Header() {
   return (
@@ -29,7 +29,7 @@ function Header() {
           <FlatButton
             label="Patients"
             icon={<ActionPatients />}
-            containerElement={<Link to={HOME_URL} />}
+            containerElement={<Link to={PATIENTS_URL} />}
             className={styles.font}
           />
         </span>
