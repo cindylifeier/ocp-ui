@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.SearchParticipant.header',
-    defaultMessage: 'This is the SearchParticipant component !',
+  addParticipantBtnLabel: {
+    id: 'ocpui.components.SearchParticipant.addParticipantBtnLabel',
+    defaultMessage: 'Add Participant',
   },
 });
