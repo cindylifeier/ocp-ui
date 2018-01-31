@@ -32,7 +32,7 @@ import {
   makeSelectQuerySearchType,
   makeSelectSearchError,
   makeSelectSearchLoading,
-  makeSelectSearchResult,
+  makeSelectPractitionerSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
@@ -213,7 +213,7 @@ const mapStateToProps = createStructuredSelector({
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
-  searchResult: makeSelectSearchResult(),
+  searchResult: makeSelectPractitionerSearchResult(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
 });
