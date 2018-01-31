@@ -52,7 +52,7 @@ export const LOGIN_URL = '/ocp-ui/login';
 export const HOME_URL = '/ocp-ui/home';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
-export const MANAGE_CARETEAM_URL = '/ocp-ui/manage-careteam';
+export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 
 /**
  *  Constants to hold the default pagination page size

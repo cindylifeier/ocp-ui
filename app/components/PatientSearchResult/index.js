@@ -15,7 +15,7 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
-import { MANAGE_CARETEAM_URL } from '../../containers/App/constants';
+import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
 
 const iconStyles = {
   iconButton: {
@@ -55,7 +55,7 @@ function displayPatientSearchResult(patients) {
         <MenuItem
           className={styles.menuItem}
           primaryText="Add Care Team"
-          containerElement={<Link to={MANAGE_CARETEAM_URL} />}
+          containerElement={<Link to={MANAGE_CARE_TEAM_URL} />}
         />
         <MenuItem
           className={styles.menuItem}
