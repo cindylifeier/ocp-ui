@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import SearchParticipant from '../SearchParticipant/index';
+import SearchParticipant from '../SearchParticipant';
 
 function ManageCareTeam(props) {
   const { onSearch } = props;
