@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.ManageCareTeamPage.header',
-    defaultMessage: 'This is ManageCareTeamPage container !',
+  createHeader: {
+    id: 'ocpui.containers.ManageCareTeamPage.createHeader',
+    defaultMessage: 'Create Care Team',
+  },
+  editHeader: {
+    id: 'ocpui.containers.ManageCareTeamPage.editHeader',
+    defaultMessage: 'Edit Care Team',
   },
 });
