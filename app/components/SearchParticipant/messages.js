@@ -18,4 +18,20 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.addParticipantDialogTitle',
     defaultMessage: 'Add Practitioner',
   },
+  PractitionerNameFloatingLabelText: {
+    id: 'ocpui.components.SearchParticipant.PractitionerNameFloatingLabelText',
+    defaultMessage: 'Name',
+  },
+  PractitionerNameHintText: {
+    id: 'ocpui.components.SearchParticipant.PractitionerNameHintText',
+    defaultMessage: 'Name',
+  },
+  PractitionerTypeFloatingLabel: {
+    id: 'ocpui.components.SearchParticipant.PractitionerTypeFloatingLabel',
+    defaultMessage: 'Type',
+  },
+  searchButtonTooltip: {
+    id: 'ocpui.components.SearchParticipant.searchButtonTooltip',
+    defaultMessage: 'Search',
+  },
 });
