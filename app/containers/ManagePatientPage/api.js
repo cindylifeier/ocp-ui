@@ -28,7 +28,18 @@ export function putPatient(patientFormData) {
 
 export function getPatient(patientId) {
   const requestURL = `${apiBaseURL}/patients/${patientId}`;
-  return request(requestURL).then(mapToFrontendPatientForm);
+  return request(requestURL);
+}
+
+export function mapToPatientName(patient) {
+  const names = patient.name;
+  return names && names
+    .map((name) => {
+      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
+      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
+      return `${firstName} ${lastName}`;
+    })
+    .join(', ');
 }
 
 function mapToBackendPatient(patientFormData) {
@@ -58,12 +69,26 @@ function mapToBackendPatient(patientFormData) {
     countryCode: country,
   }];
   const gender = genderCode;
-  return { id, identifier, name, telecom, address, birthDate, genderCode: gender, language, race, ethnicity, birthSex, active: true };
+  return {
+    id,
+    identifier,
+    name,
+    telecom,
+    address,
+    birthDate,
+    genderCode: gender,
+    language,
+    race,
+    ethnicity,
+    birthSex,
+    active: true,
+  };
 }
 
 export function mapToFrontendPatientForm(patientData) {
   const {
-    id, identifier, name, telecom, address, birthDate, genderCode, language, race, ethnicity, birthSex } = patientData;
+    id, identifier, name, telecom, address, birthDate, genderCode, language, race, ethnicity, birthSex,
+  } = patientData;
 
   const identifierType = identifier[0].system;
   const identifierValue = identifier[0].value;
@@ -81,6 +106,26 @@ export function mapToFrontendPatientForm(patientData) {
   const gender = (genderCode !== undefined && genderCode !== null) ? genderCode.toLowerCase() : null;
   const teleType = (telecomType !== undefined && telecomType !== null) ? telecomType.toLowerCase() : null;
 
-  return { id, firstName, lastName, birthDate: dob, genderCode: gender, identifierType, identifierValue, language, race, ethnicity, birthSex, address1, address2, city, state, postalCode, country, telecomType: teleType, telecomValue };
+  return {
+    id,
+    firstName,
+    lastName,
+    birthDate: dob,
+    genderCode: gender,
+    identifierType,
+    identifierValue,
+    language,
+    race,
+    ethnicity,
+    birthSex,
+    address1,
+    address2,
+    city,
+    state,
+    postalCode,
+    country,
+    telecomType: teleType,
+    telecomValue,
+  };
 }
 

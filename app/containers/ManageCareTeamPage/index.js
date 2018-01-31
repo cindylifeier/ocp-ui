@@ -13,10 +13,12 @@ import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
+import queryString from 'query-string';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectManageCareTeamPage from './selectors';
+import { getPatient, initializeManageCareTeam } from './actions';
+import { makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
@@ -30,13 +32,25 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  componentWillMount() {
+    const queryObj = queryString.parse(this.props.location.search);
+    this.props.getPatient(queryObj.patientId);
+  }
+
+  componentWillUnmount() {
+    this.props.initializeManageCareTeam();
+  }
+
   // TODO: will implement it
   handleSearch() {
   }
 
   render() {
-    const { match } = this.props;
+    const { match, selectedPatient } = this.props;
     const editMode = !isUndefined(match.params.id);
+    const manageCareTeamProps = {
+      selectedPatient,
+    };
     return (
       <div>
         <Helmet>
@@ -50,7 +64,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
                 : <FormattedMessage {...messages.createHeader} />}
             </h4>
             <Divider />
-            <ManageCareTeam onSearch={this.handleSearch} />
+            <ManageCareTeam {...manageCareTeamProps} onSearch={this.handleSearch} />
           </div>
         </div>
       </div>
@@ -60,15 +74,20 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
 ManageCareTeamPage.propTypes = {
   match: PropTypes.object,
+  location: PropTypes.object,
+  selectedPatient: PropTypes.object,
+  getPatient: PropTypes.func.isRequired,
+  initializeManageCareTeam: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  managecareteampage: makeSelectManageCareTeamPage(),
+  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
+    getPatient: (patientId) => dispatch(getPatient(patientId)),
   };
 }
 
