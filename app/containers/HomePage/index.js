@@ -126,7 +126,7 @@ const initialStateMetadata =
             reorderEnabled: true,
           },
           ],
-        }, {
+        }, /*TODO{
           type: 'stack',
           width: 50,
           height: 50,
@@ -135,14 +135,14 @@ const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Patients',
+            title: 'Healthcare Services',
             type: 'component',
-            componentName: 'patients',
+            componentName: 'healthcareServices',
             isClosable: true,
             reorderEnabled: true,
           },
           ],
-        },
+        },*/
         ],
       },
       ],

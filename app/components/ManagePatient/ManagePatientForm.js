@@ -192,7 +192,7 @@ function ManagePatientForm(props) {
               label="Cancel"
               default
               disabled={isSubmitting}
-              containerElement={<Link to="/ocp-ui/home" />}
+              containerElement={<Link to="/ocp-ui/patients" />}
             />
           </div>
         </div>
