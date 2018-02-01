@@ -12,10 +12,11 @@ import SearchParticipant from '../SearchParticipant';
 
 function ManageCareTeam(props) {
   const { onSearch } = props;
+  const searchParticipantProps = {};
   return (
     <div>
       <FormattedMessage {...messages.header} />
-      <SearchParticipant onSearch={onSearch}></SearchParticipant>
+      <SearchParticipant onSearch={onSearch} {...searchParticipantProps}></SearchParticipant>
     </div>
   );
 }
