@@ -87,8 +87,8 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
             </div>
             <div className={styles.gridItem}>
               <SelectField
-                name="type"
-                floatingLabelText={<FormattedMessage {...messages.PractitionerTypeFloatingLabel} />}
+                name="member"
+                floatingLabelText={<FormattedMessage {...messages.PractitionerMemberFloatingLabel} />}
               >
                 <MenuItem key="1" value="test" primaryText="Test" />
               </SelectField>

@@ -26,9 +26,9 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.PractitionerNameHintText',
     defaultMessage: 'Name',
   },
-  PractitionerTypeFloatingLabel: {
-    id: 'ocpui.components.SearchParticipant.PractitionerTypeFloatingLabel',
-    defaultMessage: 'Type',
+  PractitionerMemberFloatingLabel: {
+    id: 'ocpui.components.SearchParticipant.PractitionerMemberFloatingLabel',
+    defaultMessage: 'Member',
   },
   searchButtonTooltip: {
     id: 'ocpui.components.SearchParticipant.searchButtonTooltip',
