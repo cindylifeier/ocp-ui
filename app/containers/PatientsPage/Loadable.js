@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for PatientDetailsPage
+ * Asynchronously loads the component for PatientsPage
  *
  */
 

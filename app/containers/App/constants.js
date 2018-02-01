@@ -50,6 +50,7 @@ export const LANGUAGE = 'LANGUAGE';
  */
 export const LOGIN_URL = '/ocp-ui/login';
 export const HOME_URL = '/ocp-ui/home';
+export const PATIENTS_URL = '/ocp-ui/patients';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 
