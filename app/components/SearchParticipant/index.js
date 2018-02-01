@@ -1,8 +1,8 @@
 /**
-*
-* SeaachParticipant
-*
-*/
+ *
+ * SeaachParticipant
+ *
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -25,10 +25,14 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
     super(props);
     this.state = {
       open: false,
+      name: '',
+      member: '',
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleMemberChange = this.handleMemberChange.bind(this);
   }
 
   handleClose() {
@@ -38,7 +42,14 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
     this.setState({ open: true });
   }
   handleSearch() {
-    this.props.onSearch();
+    const { name, member } = this.state;
+    this.props.onSearch({ name, member });
+  }
+  handleNameChange(e) {
+    this.setState({ name: e.target.value });
+  }
+  handleMemberChange(event, index, value) {
+    this.setState({ member: value });
   }
   render() {
     const actionsButtons = [
@@ -47,6 +58,7 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
         onClick={this.handleClose}
       />,
     ];
+    const { participantTypes } = this.props;
     return (
       <div className={styles.root} >
         <div className={styles.gridContainer}>
@@ -80,6 +92,8 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
               <TextField
                 name="name"
                 style={fieldStyle}
+                value={this.state.name}
+                onChange={this.handleNameChange}
                 floatingLabelStyle={floatingLabelStyle}
                 hintText={<FormattedMessage {...messages.PractitionerNameHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.PractitionerNameFloatingLabelText} />}
@@ -88,9 +102,13 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
             <div className={styles.gridItem}>
               <SelectField
                 name="member"
+                value={this.state.member}
+                onChange={this.handleMemberChange}
                 floatingLabelText={<FormattedMessage {...messages.PractitionerMemberFloatingLabel} />}
               >
-                <MenuItem key="1" value="test" primaryText="Test" />
+                {participantTypes && participantTypes.map((member) =>
+                  <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
+                )}
               </SelectField>
             </div>
             <div className={styles.gridItem}>
@@ -99,7 +117,6 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
                 tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
                 type="button"
                 onClick={this.handleSearch}
-                // disabled={!dirty || isSubmitting || !isValid}
               >
                 <ActionSearch />
               </IconButton>
@@ -113,6 +130,12 @@ class SearchParticipant extends React.Component { // eslint-disable-line react/p
 
 SearchParticipant.propTypes = {
   onSearch: PropTypes.func.isRequired,
+  participantTypes: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+    definition: PropTypes.string,
+    system: PropTypes.string,
+  })),
 };
 
 export default SearchParticipant;
