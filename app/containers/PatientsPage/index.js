@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import renderPatientsComponent from '../Patients/render';
 import GoldenLayout from '../../components/GoldenLayout';
@@ -130,7 +129,6 @@ export class PatientsPage extends React.PureComponent { // eslint-disable-line r
 }
 
 PatientsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
 };
 
 export default PatientsPage;
