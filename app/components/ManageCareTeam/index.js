@@ -16,9 +16,23 @@ import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/App/constants';
 
 function ManageCareTeam(props) {
-  const { selectedPatient, onSearch, onSave } = props;
+  const {
+    selectedPatient,
+    careTeamCategories,
+    participantTypes,
+    participantRoles,
+    careTeamStatuses,
+    onSearch,
+    onSave,
+  } = props;
   const minimumLength = TEXT_MIN_LENGTH;
-  const propsFromContainer = { onSearch };
+  const propsFromContainer = {
+    careTeamCategories,
+    participantTypes,
+    participantRoles,
+    careTeamStatuses,
+    onSearch,
+  };
   return (
     <div>
       {selectedPatient &&
@@ -58,6 +72,10 @@ ManageCareTeam.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
+  careTeamCategories: PropTypes.array.isRequired,
+  participantTypes: PropTypes.array.isRequired,
+  participantRoles: PropTypes.array.isRequired,
+  careTeamStatuses: PropTypes.array.isRequired,
 };
 
 export default ManageCareTeam;

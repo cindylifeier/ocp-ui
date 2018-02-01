@@ -15,38 +15,15 @@ import { PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import SearchParticipant from '../SearchParticipant/index';
 
-const categories = [
-  {
-    code: 'condition',
-    system: 'http://hl7.org/fhir/categories',
-    definition: null,
-    display: 'Condition',
-  },
-  {
-    code: 'clinical search',
-    system: 'http://hl7.org/fhir/categories',
-    definition: null,
-    display: 'Clinical Search',
-  },
-];
-
-const statuses = [
-  {
-    code: 'active',
-    system: 'http://hl7.org/fhir/statuses',
-    definition: null,
-    display: 'Active',
-  },
-  {
-    code: 'inactive',
-    system: 'http://hl7.org/fhir/statuses',
-    definition: null,
-    display: 'Inactive',
-  },
-];
-
 function ManageCareTeamForm(props) {
-  const { isSubmitting, dirty, isValid, onSearch } = props;
+  const {
+    isSubmitting,
+    dirty,
+    isValid,
+    careTeamCategories,
+    careTeamStatuses,
+    onSearch,
+  } = props;
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -65,7 +42,7 @@ function ManageCareTeamForm(props) {
               hintText={<FormattedMessage {...messages.hintText.category} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
             >
-              {categories && categories.map((category) =>
+              {careTeamCategories && careTeamCategories.map((category) =>
                 <MenuItem key={category.code} value={category.code} primaryText={category.display} />,
               )}
             </SelectField>
@@ -76,7 +53,7 @@ function ManageCareTeamForm(props) {
               hintText={<FormattedMessage {...messages.hintText.status} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
             >
-              {statuses && statuses.map((status) =>
+              {careTeamStatuses && careTeamStatuses.map((status) =>
                 <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
               )}
             </SelectField>
@@ -86,6 +63,7 @@ function ManageCareTeamForm(props) {
               name="episodeOfCare"
               hintText={<FormattedMessage {...messages.hintText.episodeOfCare} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
+              disabled
             />
           </div>
           <div className={`${styles.gridItem} ${styles.startDate}`}>
@@ -132,6 +110,14 @@ ManageCareTeamForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  careTeamStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
 };
 
 export default ManageCareTeamForm;

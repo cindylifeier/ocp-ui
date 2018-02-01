@@ -1,18 +1,26 @@
 import { createSelector } from 'reselect';
 import {
   ADDRESSUSE,
+  ADMINISTRATIVEGENDER,
+  CARETEAMCATEGORY,
+  CARETEAMSTATUS,
+  LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
   LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
+  PARTICIPANTROLE,
+  PARTICIPANTTYPE,
+  PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   TELECOMSYSTEM,
   TELECOMUSE,
+  USCOREBIRTHSEX,
+  USCOREETHNICITY,
+  USCORERACE,
   USPSSTATES,
-  PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, LANGUAGE,
-  USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -64,6 +72,26 @@ const makeSelectOrganizationStatuses = () => createSelector(
   (globalState) => globalState.get(ORGANIZATIONSTATUS).toJS(),
 );
 
+const makeSelectCareTeamCategories = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(CARETEAMCATEGORY).toJS(),
+);
+
+const makeSelectParticipantTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PARTICIPANTTYPE).toJS(),
+);
+
+const makeSelectParticipantRoles = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PARTICIPANTROLE).toJS(),
+);
+
+const makeSelectCareTeamStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(CARETEAMSTATUS).toJS(),
+);
+
 const makeSelectTelecomSystems = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(TELECOMSYSTEM).toJS(),
@@ -86,32 +114,32 @@ const makeSelectLookups = (name) => createSelector(
 
 const makeSelectPatientIdentifierSystems = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(PATIENTIDENTIFIERSYSTEM).toJS()
+  (globalState) => globalState.get(PATIENTIDENTIFIERSYSTEM).toJS(),
 );
 
 const makeSelectAdministrativeGenders = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(ADMINISTRATIVEGENDER).toJS()
+  (globalState) => globalState.get(ADMINISTRATIVEGENDER).toJS(),
 );
 
 const makeSelectUsCoreRaces = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USCORERACE).toJS()
+  (globalState) => globalState.get(USCORERACE).toJS(),
 );
 
 const makeSelectUsCoreEthnicities = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USCOREETHNICITY).toJS()
+  (globalState) => globalState.get(USCOREETHNICITY).toJS(),
 );
 
 const makeSelectUsCoreBirthSexes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USCOREBIRTHSEX).toJS()
+  (globalState) => globalState.get(USCOREBIRTHSEX).toJS(),
 );
 
 const makeSelectLanguages = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(LANGUAGE).toJS()
+  (globalState) => globalState.get(LANGUAGE).toJS(),
 );
 
 
@@ -135,4 +163,8 @@ export {
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreBirthSexes,
   makeSelectLanguages,
+  makeSelectCareTeamCategories,
+  makeSelectParticipantTypes,
+  makeSelectParticipantRoles,
+  makeSelectCareTeamStatuses,
 };
