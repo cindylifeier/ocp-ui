@@ -17,23 +17,32 @@ import makeSelectCareTeams from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import styles from './styles.css';
+import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { careTeams: { loading, data } } = this.props;
     return (
-      <div>
-        <FormattedMessage {...messages.header} />
+      <div className={styles.card}>
+        <h3><FormattedMessage {...messages.header} /></h3>
+        {!data && <h4><FormattedMessage {...messages.patientNotSelected} /></h4>}
+        {loading && <RefreshIndicatorLoading />}
       </div>
     );
   }
 }
 
 CareTeams.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // TODO: remove eslint disable once dispatch functions are clarified
+  dispatch: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  careTeams: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  careteams: makeSelectCareTeams(),
+  careTeams: makeSelectCareTeams(),
 });
 
 function mapDispatchToProps(dispatch) {
