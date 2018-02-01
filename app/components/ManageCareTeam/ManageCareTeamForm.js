@@ -23,7 +23,10 @@ function ManageCareTeamForm(props) {
     careTeamCategories,
     careTeamStatuses,
     onSearch,
+    participantTypes,
+    participantRoles,
   } = props;
+  const propsForAddParticipant = { participantTypes, participantRoles };
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -82,7 +85,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div />
         </div>
-        <SearchParticipant onSearch={onSearch} />
+        <SearchParticipant onSearch={onSearch} {...propsForAddParticipant} />
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
@@ -115,6 +118,16 @@ ManageCareTeamForm.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   careTeamStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  participantTypes: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+    definition: PropTypes.string,
+    system: PropTypes.string,
+  })),
+  participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
