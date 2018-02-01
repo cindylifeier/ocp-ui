@@ -11,7 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
+import { PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import SearchParticipant from '../SearchParticipant/index';
 
@@ -118,7 +118,7 @@ function ManageCareTeamForm(props) {
               label="Cancel"
               default
               disabled={isSubmitting}
-              containerElement={<Link to={HOME_URL} />}
+              containerElement={<Link to={PATIENTS_URL} />}
             />
           </div>
         </div>
