@@ -4,41 +4,23 @@
 
 .header {
   padding-left: 1vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
   font-size: 1.5rem;
   font-weight: bold;
   color: #336666;
+  border-bottom: solid;
 }
 
 .title {
   padding-left: 0.5vw;
-  margin: 0 1vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
   font-size: 1.2rem;
   font-weight: bold;
   color: #444;
-  background-color: #dce4ef;
-}
-
-.gridContainer {
-  color: #444;
-  width: auto;
-  margin:0 1%;
-  display: grid;
-  grid-column-gap: 3px;
-  grid-row-gap: 3px;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "name"
-    "identifierSystem"
-    "identifierValue"
-    "status"
-    "line1"
-    "line2"
-    "city"
-    "state"
-    "zip"
-    "telecomSystem"
-    "telecomValue"
-    "buttonGroup";
+  background-color: #f2f2f2;
 }
 
 .gridItem {
@@ -50,12 +32,8 @@
   grid-area: name;
 }
 
-.identifierSystem {
-  grid-area: identifierSystem;
-}
-
-.identifierValue {
-  grid-area: identifierValue;
+.identifierGroup {
+  grid-area: identifierGroup;
 }
 
 .status {
@@ -82,36 +60,68 @@
   grid-area: zip;
 }
 
-.telecomSystem {
-  grid-area: telecomSystem;
-}
-
-.telecomValue {
-  grid-area: telecomValue;
+.contactGroup {
+  grid-area: contactGroup;
 }
 
 .buttonGroup {
   grid-area: buttonGroup;
+  margin: 1vh 0;
   display: grid;
-  grid-auto-flow: column;
   grid-column-gap: 1vw;
-  grid-auto-columns: minmax(100px,10vw);
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.gridContainer {
+  color: #444;
+  width: auto;
+  padding-left: 0.5vw;
+  margin: 0 1vw;
+  display: grid;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vh;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "name"
+    "identifierGroup"
+    "status"
+    "line1"
+    "line2"
+    "city"
+    "state"
+    "zip"
+    "contactGroup"
+    "buttonGroup";
 }
 
 /* Tablet landscape ----------- */
 @media only screen and (min-width: 768px) {
   .gridContainer {
-    padding: 0 2vw;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "name identifierSystem"
-      "identifierValue status"
+      "name status"
+      "identifierGroup identifierGroup"
       "line1 line1"
       "line2 line2"
-      "city city"
+      "city ."
       "state zip"
-      "telecomSystem telecomValue"
+      "contactGroup contactGroup"
       "buttonGroup .";
+  }
+
+  .identifierGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .contactGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .buttonGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
@@ -119,8 +129,6 @@
 @media only screen and (min-width: 1200px) {
   .gridContainer {
     grid-template-columns: repeat(12, 1fr);
-    grid-column-gap: 2vw;
-    grid-row-gap: 2vh;
   }
 
   .name {
@@ -131,8 +139,6 @@
   .identifierGroup {
     grid-column: 5 / span 3;
     grid-row: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
   }
 
   .status {
@@ -175,6 +181,6 @@
   .buttonGroup {
     grid-column: 1 / span 2;
     grid-row: 5;
+    grid-template-columns: 1fr 1fr;
   }
-
 }
