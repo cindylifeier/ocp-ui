@@ -142,7 +142,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.identifierSystem}`}>
+                    <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
                         name="identifierSystem"
@@ -155,8 +155,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={display}
                           />))}
                       </SelectField>
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.identifierValue}`}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
                         fullWidth
@@ -220,7 +218,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="postalCode"
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.telecomSystem}`}>
+                    <div className={`${styles.gridItem} ${styles.contactGroup}`}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
                         fullWidth
@@ -233,8 +231,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={telSystem.display}
                           />))}
                       </SelectField>
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.telecomValue}`}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.telecomValue} />}
                         fullWidth

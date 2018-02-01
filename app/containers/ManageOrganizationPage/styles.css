@@ -11,9 +11,9 @@
 
 .title {
   padding-left: 0.5vw;
+  margin: 0 1vw;
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 0 1vw;
   color: #444;
   background-color: #dce4ef;
 }
@@ -119,65 +119,61 @@
 @media only screen and (min-width: 1200px) {
   .gridContainer {
     grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 2vw;
+    grid-row-gap: 2vh;
   }
 
   .name {
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 4;
     grid-row: 1;
   }
 
-  .identifierSystem {
-    grid-column: 5 / span 1;
+  .identifierGroup {
+    grid-column: 5 / span 3;
     grid-row: 1;
-  }
-
-  .identifierValue {
-    grid-column: 6 / span 2;
-    grid-row: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .status {
-    grid-column: 9 / span 2;
+    grid-column: 8 / span 2;
     grid-row: 1;
   }
 
   .line1 {
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 4;
     grid-row: 2;
   }
 
   .line2 {
-    grid-column: 5 / span 3;
+    grid-column: 5 / span 4;
     grid-row: 2;
   }
 
   .city {
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 4;
     grid-row: 3;
   }
 
   .state {
-    grid-column: 5 / span 1;
+    grid-column: 5 / span 3;
     grid-row: 3;
   }
 
   .zip {
-    grid-column: 6 / span 2;
+    grid-column: 8 / span 2;
     grid-row: 3;
   }
 
-  .telecomSystem {
-    grid-column: 1 / span 1;
+  .contactGroup {
+    grid-column: 1 / span 5;
     grid-row: 4;
-  }
-
-  .telecomValue {
-    grid-column: 2 / span 2;
-    grid-row: 4;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
   }
 
   .buttonGroup {
-    grid-column: 1 / span 1;
+    grid-column: 1 / span 2;
     grid-row: 5;
   }
 
