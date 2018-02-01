@@ -11,11 +11,13 @@ import FlatButton from 'material-ui/FlatButton';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { PATIENTS_URL } from '../../containers/App/constants';
+import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import SearchParticipant from '../SearchParticipant/index';
+import DatePicker from '../DatePicker';
 
 function ManageCareTeamForm(props) {
+  const today = new Date();
   const {
     isSubmitting,
     dirty,
@@ -67,15 +69,19 @@ function ManageCareTeamForm(props) {
             />
           </div>
           <div className={`${styles.gridItem} ${styles.startDate}`}>
-            <TextField
+            <DatePicker
               name="startDate"
+              minDate={today}
+              mode={DATE_PICKER_MODE.LANDSCAPE}
               hintText={<FormattedMessage {...messages.hintText.startDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
             />
           </div>
           <div className={`${styles.gridItem} ${styles.endDate}`}>
-            <TextField
+            <DatePicker
               name="endDate"
+              minDate={today}
+              mode={DATE_PICKER_MODE.LANDSCAPE}
               hintText={<FormattedMessage {...messages.hintText.endDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
             />
