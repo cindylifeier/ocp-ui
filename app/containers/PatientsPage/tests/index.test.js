@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import SampleComponent from '../index';
+// import { PatientsPage } from '../index';
 
-describe('<SampleComponent />', () => {
+describe('<PatientsPage />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
