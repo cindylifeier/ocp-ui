@@ -6,7 +6,7 @@ import { getPractitionerError, getPractitionerSuccess, savePractitionerError } f
 import { GET_PRACTITIONER, SAVE_PRACTITIONER } from './constants';
 import { getPractitioner, savePractitioner } from './api';
 import { showNotification } from '../Notification/actions';
-import { makeSelectSearchResult } from '../Practitioners/selectors';
+import { makeSelectPractitionerSearchResult } from '../Practitioners/selectors';
 import { HOME_URL } from '../App/constants';
 
 export function* savePractitionerWorker(action) {
@@ -26,7 +26,7 @@ export function* getPractitionerWorker({ logicalId }) {
   try {
     let practitioner;
     // Load practitioners from store
-    const practitioners = yield select(makeSelectSearchResult());
+    const practitioners = yield select(makeSelectPractitionerSearchResult());
     practitioner = getPractitionerById(practitioners, logicalId);
     // fetch from backend if cannot find practitioner from store
     if (isEmpty(practitioner)) {

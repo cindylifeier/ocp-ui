@@ -14,12 +14,12 @@ const selectManageCareTeamPageDomain = (state) => state.get('manageCareTeamPage'
  * Default selector used by ManageCareTeamPage
  */
 
-const makeSelectManageCareTeamPage = () => createSelector(
+const makeSelectPatient = () => createSelector(
   selectManageCareTeamPageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate && substate.get('patient'),
 );
 
-export default makeSelectManageCareTeamPage;
 export {
   selectManageCareTeamPageDomain,
+  makeSelectPatient,
 };

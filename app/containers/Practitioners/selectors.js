@@ -19,7 +19,7 @@ const makeSelectSearchError = () => createSelector(
   (practitionersState) => practitionersState.get('error'),
 );
 
-const makeSelectSearchResult = () => createSelector(
+const makeSelectPractitionerSearchResult = () => createSelector(
   selectPractitionersDomain,
   (practitionersState) => practitionersState && practitionersState.getIn(['searchPractitioners', 'result']),
 );
@@ -61,7 +61,7 @@ export {
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
   makeSelectQueryIncludeInactive,
-  makeSelectSearchResult,
+  makeSelectPractitionerSearchResult,
   makeSelectCurrentPageSize,
   makeSelectCurrentPage,
   makeSelectTotalPages,

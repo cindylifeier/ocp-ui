@@ -1,0 +1,77 @@
+.gridContainer {
+  color: #444;
+  width: auto;
+  margin-right: 10vw;
+  margin-bottom: 1vh;
+  display: grid;
+  padding: 0 2vw;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
+  grid-template-columns: 1fr;
+  grid-template-areas: "careTeamName" "category" "status" "episodeOfCare" "startDate" "endDate" "buttonGroup";
+}
+
+.disabledLink {
+  width: 100%;
+}
+
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "careTeamName status" "category ." "episodeOfCare ." "startDate ." "endDate ." "buttonGroup .";
+  }
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "careTeamName category status" "episodeOfCare . ." "startDate endDate ." "buttonGroup . .";
+  }
+}
+
+.gridItem {
+  border-radius: 5px;
+  font-size: 100%;
+}
+
+.careTeamName {
+  grid-area: careTeamName;
+  display: grid;
+}
+
+.category {
+  grid-area: category;
+  display: grid;
+}
+
+.status {
+  grid-area: status;
+  display: grid;
+}
+
+.episodeOfCare {
+  grid-area: episodeOfCare;
+  display: grid;
+}
+
+.startDate {
+  grid-area: startDate;
+  display: grid;
+}
+
+.endDate {
+  grid-area: endDate;
+  display: grid;
+}
+
+.buttonGroup {
+  grid-area: buttonGroup;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1vw;
+  margin-bottom: 1vh;
+  grid-auto-columns: minmax(100px, 120px);
+}

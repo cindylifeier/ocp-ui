@@ -65,3 +65,4 @@ export const DEFAULT_PAGE_SIZE = 10;
  */
 export const ENTER_KEY = 'Enter';
 export const EMPTY_STRING = '';
+export const TEXT_MIN_LENGTH = 3;
