@@ -5,16 +5,14 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { GET_CARE_TEAMS_SUCCESS } from './constants';
 
 const initialState = fromJS({});
 
 function careTeamsReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case GET_CARE_TEAMS_SUCCESS:
+      return fromJS(action.careTeamsPage);
     default:
       return state;
   }

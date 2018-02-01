@@ -4,12 +4,25 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS } from './constants';
 
-export function defaultAction() {
+export function getCareTeams(query) {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_CARE_TEAMS,
+    query,
+  };
+}
+
+export function getCareTeamsSuccess(careTeamsPage) {
+  return {
+    type: GET_CARE_TEAMS_SUCCESS,
+    careTeamsPage,
+  };
+}
+
+export function getCareTeamsError(error) {
+  return {
+    type: GET_CARE_TEAMS_ERROR,
+    error,
   };
 }
