@@ -2,11 +2,11 @@
   background-color: white;
 }
 
-.card {
-  margin: 10px;
-  position: relative;
-}
-
-.font {
-  color: #336666 !important;
+.header {
+  padding-left: 1vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #336666;
 }
