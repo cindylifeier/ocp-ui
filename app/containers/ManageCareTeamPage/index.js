@@ -30,6 +30,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   componentWillMount() {
@@ -43,6 +44,11 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
   // TODO: will implement it
   handleSearch() {
+  }
+
+  // TODO: will implement it
+  handleSave(careTeamFormData) {
+    console.log(careTeamFormData);
   }
 
   render() {
@@ -64,7 +70,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
                 : <FormattedMessage {...messages.createHeader} />}
             </h4>
             <Divider />
-            <ManageCareTeam {...manageCareTeamProps} onSearch={this.handleSearch} />
+            <ManageCareTeam {...manageCareTeamProps} onSave={this.handleSave} onSearch={this.handleSearch} />
           </div>
         </div>
       </div>
