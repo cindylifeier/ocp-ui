@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS, STATUS_ACTIVE, STATUS_INACTIVE,
   STATUS_SUSPENDED } from './constants';
@@ -29,7 +29,18 @@ export function* fetchLocationsByOrganizationIdAndStatus(action) {
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* watchFetchLocations() {
+export function* watchFetchLocations() {
   yield takeLatest(GET_ACTIVE_LOCATIONS, fetchLocationsByOrganizationIdAndStatus);
+}
+
+export function* watchFilterLocations() {
   yield takeLatest(GET_FILTERED_LOCATIONS, fetchLocationsByOrganizationIdAndStatus);
+}
+
+
+export default function* rootSaga() {
+  yield all([
+    watchFetchLocations(),
+    watchFilterLocations(),
+  ]);
 }

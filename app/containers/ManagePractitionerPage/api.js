@@ -3,12 +3,16 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseURL = getApiBaseUrl();
 
-export default function savePractitioner(practitionerFormData) {
+export function savePractitioner(practitionerFormData) {
   if (practitionerFormData.logicalId) {
-    updatePractitioner(practitionerFormData.logicalId, practitionerFormData);
-  } else {
-    createPractitioner(practitionerFormData);
+    return updatePractitioner(practitionerFormData.logicalId, practitionerFormData);
   }
+  return createPractitioner(practitionerFormData);
+}
+
+export function getPractitioner(logicalId) {
+  const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
+  return request(requestURL);
 }
 
 function createPractitioner(practitionerFormData) {
