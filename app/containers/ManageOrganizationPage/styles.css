@@ -2,8 +2,20 @@
   background-color: white;
 }
 
+.header {
+  padding-left: 1vw;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #336666;
+}
+
 .title {
-  margin-left: 1vw;
+  padding-left: 0.5vw;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 1vw;
+  color: #444;
+  background-color: #dce4ef;
 }
 
 .gridContainer {

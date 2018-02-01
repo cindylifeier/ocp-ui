@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.ManageOrganizationPage.header',
-    defaultMessage: 'Manage Organization',
+    defaultMessage: 'Organization',
   },
   createMode: {
     id: 'ocpui.containers.ManageOrganizationPage.createMode',
@@ -17,6 +17,10 @@ export default defineMessages({
   updateMode: {
     id: 'ocpui.containers.ManageOrganizationPage.updateMode',
     defaultMessage: 'Update',
+  },
+  title: {
+    id: 'ocpui.containers.ManageOrganizationPage.title',
+    defaultMessage: 'General Information',
   },
   form: {
     name: {

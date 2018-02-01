@@ -119,12 +119,12 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           <title>Manage Organization</title>
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
-        <div className={styles.title}>
-          <h2><FormattedMessage {...messages.header} /> - {editingOrganization ?
-            <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />}
-          </h2>
+        <div className={styles.header}>
+          {editingOrganization ? <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
         </div>
-
+        <div className={styles.title}>
+          <FormattedMessage {...messages.title} />
+        </div>
         <div>
           <Formik
             validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
