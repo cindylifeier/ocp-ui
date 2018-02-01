@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import Divider from 'material-ui/Divider';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
@@ -122,6 +123,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
         <div className={styles.header}>
           {editingOrganization ? <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
         </div>
+        <Divider />
         <div className={styles.title}>
           <FormattedMessage {...messages.title} />
         </div>
