@@ -13,6 +13,7 @@ import TextField from '../TextField';
 import SelectField from '../SelectField';
 import { HOME_URL } from '../../containers/App/constants';
 import styles from './styles.css';
+import SearchParticipant from '../SearchParticipant/index';
 
 const categories = [
   {
@@ -45,7 +46,7 @@ const statuses = [
 ];
 
 function ManageCareTeamForm(props) {
-  const { isSubmitting, dirty, isValid } = props;
+  const { isSubmitting, dirty, isValid, onSearch } = props;
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -102,6 +103,9 @@ function ManageCareTeamForm(props) {
             />
           </div>
           <div />
+        </div>
+        <SearchParticipant onSearch={onSearch} />
+        <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
               type="submit"
@@ -124,6 +128,7 @@ function ManageCareTeamForm(props) {
 }
 
 ManageCareTeamForm.propTypes = {
+  onSearch: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

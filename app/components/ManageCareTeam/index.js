@@ -11,7 +11,6 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 
 import { mapToPatientName } from '../../containers/ManagePatientPage/api';
-import SearchParticipant from '../SearchParticipant';
 import ManageCareTeamForm from './ManageCareTeamForm';
 import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/App/constants';
@@ -19,7 +18,7 @@ import { TEXT_MIN_LENGTH } from '../../containers/App/constants';
 function ManageCareTeam(props) {
   const { selectedPatient, onSearch, onSave } = props;
   const minimumLength = TEXT_MIN_LENGTH;
-
+  const propsFromContainer = { onSearch };
   return (
     <div>
       {selectedPatient &&
@@ -41,11 +40,11 @@ function ManageCareTeam(props) {
             status: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
           })}
-          render={(formikProps) => <ManageCareTeamForm {...formikProps} />}
+          render={(formikProps) => <ManageCareTeamForm {...formikProps} {...propsFromContainer} />}
         />
         <br />
         <br />
-        <SearchParticipant onSearch={onSearch} />
+
       </div>
       }
     </div>
