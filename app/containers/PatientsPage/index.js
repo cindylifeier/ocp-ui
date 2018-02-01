@@ -1,26 +1,14 @@
-/*
- * HomePage
+/**
  *
- * This is the first thing users see of our App, at the '/' route
+ * PatientsPage
  *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
  */
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
-import GoldenLayout from '../../components/GoldenLayout/Loadable';
-import renderOrganizations from '../Organizations/render';
-import renderPractitioners from '../Practitioners/render';
-import renderLocationsComponent from '../../containers/Locations/render';
 import renderPatientsComponent from '../Patients/render';
-import SideBar from '../../components/SideBar';
+import GoldenLayout from '../../components/GoldenLayout';
 import styles from './styles.css';
-
-// import messages from './messages';
 
 const initialStateMetadata =
   {
@@ -63,7 +51,7 @@ const initialStateMetadata =
       reorderEnabled: true,
       title: '',
       content: [{
-        type: 'column',
+        type: 'row',
         isClosable: true,
         reorderEnabled: true,
         title: '',
@@ -77,66 +65,26 @@ const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Organizations',
+            title: 'Patients',
             type: 'component',
-            componentName: 'organizations',
-            isClosable: true,
-            reorderEnabled: true,
-          },
-          ],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          width: 50,
-          height: 50,
-          content: [{
-            title: 'Practitioners',
-            type: 'component',
-            componentName: 'practitioners',
-            isClosable: true,
-            reorderEnabled: true,
-          },
-          ],
-        },
-        ],
-      }, {
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 50,
-          content: [{
-            title: 'Location',
-            type: 'component',
-            componentName: 'locations',
+            componentName: 'patients',
             isClosable: true,
             reorderEnabled: true,
           },
           ],
         }, /*TODO{
           type: 'stack',
-          width: 50,
-          height: 50,
+          header: {},
           isClosable: true,
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
+          width: 50,
+          height: 50,
           content: [{
-            title: 'Healthcare Services',
+            title: 'Care Teams',
             type: 'component',
-            componentName: 'healthcareServices',
+            componentName: 'careTeams',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -155,27 +103,21 @@ const initialStateMetadata =
   };
 
 const componentMetadata = [
-  { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
-  { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
-  { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
   { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
 ];
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class PatientsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
         <Helmet>
-          <title>Home</title>
-          <meta name="description" content="home page of Omnibus Care Plan application" />
+          <title>Patients</title>
+          <meta name="description" content="Patients page of Omnibus Care Plan application" />
         </Helmet>
         <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.panel}`}>
-            <SideBar />
-          </div>
           <div className={`${styles.gridItem} ${styles.content}`}>
             <GoldenLayout
-              containerId="golden-home"
+              containerId="golden-patients"
               componentMetadata={componentMetadata}
               stateMetadata={initialStateMetadata}
             />
@@ -185,3 +127,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     );
   }
 }
+
+PatientsPage.propTypes = {
+};
+
+export default PatientsPage;

@@ -1,6 +1,6 @@
 {
   "name": "ocp-ui-server",
-  "version": "1.0.0-SNAPSHOT",
+  "version": "0.3.0-SNAPSHOT",
   "description": "OCP UI Server",
   "main": "index.js",
   "scripts": {
