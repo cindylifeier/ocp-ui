@@ -6,7 +6,14 @@ import { GET_PRACTITIONER, SAVE_PRACTITIONER } from './constants';
 import { getNotificationAction, getPractitioner, getPractitionerById, savePractitioner } from './api';
 import { showNotification } from '../Notification/actions';
 import { makeSelectPractitionerSearchResult } from '../Practitioners/selectors';
-import { HOME_URL } from '../App/constants';
+import {
+  HOME_URL,
+  PRACTITIONERIDENTIFIERSYSTEM,
+  PRACTITIONERROLES,
+  TELECOMSYSTEM,
+  USPSSTATES,
+} from '../App/constants';
+import { getLookupsAction } from '../App/actions';
 
 function* savePractitionerWorker(action) {
   try {
@@ -39,6 +46,10 @@ function* getPractitionerWorker({ logicalId }) {
   }
 }
 
+function* watchGetLookupData() {
+  yield put(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES]));
+}
+
 function* watchGetPractitioner() {
   yield takeLatest(GET_PRACTITIONER, getPractitionerWorker);
 }
@@ -52,6 +63,7 @@ function* watchSavePractitioner() {
  */
 export default function* rootSaga() {
   yield all([
+    watchGetLookupData(),
     watchGetPractitioner(),
     watchSavePractitioner(),
   ]);
