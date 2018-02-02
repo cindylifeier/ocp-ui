@@ -11,10 +11,9 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
-import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
-
+import { FormattedMessage } from 'react-intl';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getPatient, initializeManageCareTeam } from './actions';
@@ -32,15 +31,21 @@ import {
   makeSelectParticipantRoles,
   makeSelectParticipantTypes,
 } from '../App/selectors';
+import SearchParticipant from '../SearchParticipant';
+
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.state = {
+      open: false,
+      name: '',
+      member: '',
+    };
     this.handleSave = this.handleSave.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
-
   componentWillMount() {
     this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
@@ -50,13 +55,12 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   componentWillUnmount() {
     this.props.initializeManageCareTeam();
   }
-
-  // TODO: will implement it
-  handleSearch({ name, member }) {
-    console.log(name);
-    console.log(member);
+  handleClose() {
+    this.setState({ open: false });
   }
-
+  handleOpen() {
+    this.setState({ open: true });
+  }
   // TODO: will implement it
   handleSave(careTeamFormData) {
     console.log(careTeamFormData);
@@ -92,7 +96,17 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
                 : <FormattedMessage {...messages.createHeader} />}
             </h4>
             <Divider />
-            <ManageCareTeam {...manageCareTeamProps} onSave={this.handleSave} onSearch={this.handleSearch} />
+            <ManageCareTeam
+              {...manageCareTeamProps}
+              onSave={this.handleSave}
+              handleOpen={this.handleOpen}
+            />
+            <SearchParticipant
+              isOpen={this.state.open}
+              handleOpen={this.handleOpen}
+              handleClose={this.handleClose}
+            >
+            </SearchParticipant>
           </div>
         </div>
       </div>
