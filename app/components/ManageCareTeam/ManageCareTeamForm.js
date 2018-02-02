@@ -27,6 +27,7 @@ function ManageCareTeamForm(props) {
     onSearch,
     participantTypes,
     participantRoles,
+    hasParticipants,
   } = props;
   const propsForAddParticipant = { participantTypes, participantRoles };
   return (
@@ -99,7 +100,7 @@ function ManageCareTeamForm(props) {
               label="Save"
               backgroundColor={teal500}
               labelColor={white}
-              disabled={!dirty || isSubmitting || !isValid}
+              disabled={!dirty || isSubmitting || !isValid || !hasParticipants}
             />
             <FlatButton
               label="Cancel"
@@ -119,6 +120,7 @@ ManageCareTeamForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  hasParticipants: PropTypes.bool.isRequired,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,

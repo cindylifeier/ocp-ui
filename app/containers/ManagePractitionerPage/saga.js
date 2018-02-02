@@ -46,7 +46,7 @@ function* getPractitionerWorker({ logicalId }) {
   }
 }
 
-function* watchGetLookupData() {
+function* getLookupDataWorker() {
   yield put(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES]));
 }
 
@@ -63,7 +63,7 @@ function* watchSavePractitioner() {
  */
 export default function* rootSaga() {
   yield all([
-    watchGetLookupData(),
+    getLookupDataWorker(),
     watchGetPractitioner(),
     watchSavePractitioner(),
   ]);

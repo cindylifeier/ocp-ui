@@ -73,12 +73,15 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       careTeamStatuses,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
+    // Todo: implement to dispatch participants
+    const hasParticipants = true;
     const manageCareTeamProps = {
       selectedPatient,
       careTeamCategories,
       participantTypes,
       participantRoles,
       careTeamStatuses,
+      hasParticipants,
     };
     return (
       <div>

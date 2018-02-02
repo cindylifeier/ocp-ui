@@ -40,7 +40,7 @@ export function* saveCareTeamWorker(action) {
   }
 }
 
-function* watchGetLookupData() {
+function* getLookupDataWorker() {
   yield put(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE]));
 }
 
@@ -57,7 +57,7 @@ function* watchManageCareTeam() {
  */
 export default function* rootSaga() {
   yield all([
-    watchGetLookupData(),
+    getLookupDataWorker(),
     watchGetPatient(),
     watchManageCareTeam(),
   ]);

@@ -22,6 +22,7 @@ function ManageCareTeam(props) {
     participantTypes,
     participantRoles,
     careTeamStatuses,
+    hasParticipants,
     onSearch,
     onSave,
   } = props;
@@ -31,6 +32,7 @@ function ManageCareTeam(props) {
     participantTypes,
     participantRoles,
     careTeamStatuses,
+    hasParticipants,
     onSearch,
   };
   return (
@@ -77,6 +79,7 @@ function ManageCareTeam(props) {
 }
 
 ManageCareTeam.propTypes = {
+  hasParticipants: PropTypes.bool.isRequired,
   onSearch: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   selectedPatient: PropTypes.shape({
