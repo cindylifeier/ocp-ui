@@ -22,7 +22,7 @@ function ManageCareTeam(props) {
     participantTypes,
     participantRoles,
     careTeamStatuses,
-    onSearch,
+    handleOpen,
     onSave,
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
@@ -31,7 +31,7 @@ function ManageCareTeam(props) {
     participantTypes,
     participantRoles,
     careTeamStatuses,
-    onSearch,
+    handleOpen,
   };
   return (
     <div>
@@ -66,7 +66,7 @@ function ManageCareTeam(props) {
 }
 
 ManageCareTeam.propTypes = {
-  onSearch: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string.isRequired,
