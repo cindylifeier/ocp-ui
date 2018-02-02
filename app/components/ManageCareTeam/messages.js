@@ -23,6 +23,14 @@ export default defineMessages({
       id: 'ocpui.components.ManageCareTeam.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
+    minStartDate: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.validation.minStartDate',
+      defaultMessage: 'Start date field must be later than today',
+    },
+    minEndDate: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.validation.minEndDate',
+      defaultMessage: 'End date field must be later than Start date field',
+    },
   },
   hintText: {
     careTeamName: {

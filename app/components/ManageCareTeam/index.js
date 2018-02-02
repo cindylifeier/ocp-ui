@@ -44,16 +44,27 @@ function ManageCareTeam(props) {
           onSubmit={(values, actions) => {
             onSave(values, actions);
           }}
-          validationSchema={yup.object().shape({
-            careTeamName: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (
-                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-            category: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            status: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-          })}
+          validationSchema={() =>
+            yup.lazy((values) => {
+              let startDate = new Date();
+              if (values.startDate) {
+                startDate = values.startDate;
+              }
+              return yup.object().shape({
+                careTeamName: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(minimumLength, (
+                    <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+                category: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+                status: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+                startDate: yup.date()
+                  .min(new Date(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+                endDate: yup.date()
+                  .min(startDate, (<FormattedMessage {...messages.validation.minEndDate} />)),
+              });
+            })}
           render={(formikProps) => <ManageCareTeamForm {...formikProps} {...propsFromContainer} />}
         />
         <br />
