@@ -1,6 +1,6 @@
 # OCP UI Style Guide
 
-*This OCP UI style guide is adopted from [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/blob/master/react/README.md) with some modifications.
+*This OCP UI style guide is adopted from [Airbnb React/JSX Style Guide](https://github.com/airbnb/javascript/blob/master/react/README.md) with modifications as indicated.
 
 *A mostly reasonable approach to React and JSX*
 
@@ -80,8 +80,8 @@
 
 ## Naming
 
-  - **Extensions**: Use `.js` extension for React components.
-  - **Filename**: Use PascalCase for filenames. E.g., `ReservationCard.js`.
+  - **Extensions**: Use ~~.jsx~~ `.js` extension for React components.
+  - **Filename**: Use PascalCase for filenames. E.g., ~~ReservationCard.jsx~~ `ReservationCard.js`.
   - **Reference Naming**: Use PascalCase for React components and camelCase for their instances. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
 
     ```jsx
@@ -98,7 +98,7 @@
     const reservationItem = <ReservationCard />;
     ```
 
-  - **Component Naming**: Use the filename as the component name. For example, `ReservationCard.js` should have a reference name of `ReservationCard`. However, for root components of a directory, use `index.js` as the filename and use the directory name as the component name:
+  - **Component Naming**: Use the filename as the component name. For example, ~~ReservationCard.jsx~~ `ReservationCard.js` should have a reference name of `ReservationCard`. However, for root components of a directory, use ~~index.jsx~~ `index.js` as the filename and use the directory name as the component name:
 
     ```jsx
     // bad
