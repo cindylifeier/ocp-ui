@@ -52,7 +52,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   }
 
   // TODO: will implement it
-  handleSearch() {
+  handleSearch({ name, member }) {
+    console.log(name);
+    console.log(member);
   }
 
   // TODO: will implement it
