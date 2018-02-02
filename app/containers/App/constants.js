@@ -56,9 +56,10 @@ export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 
 /**
- *  Constants to hold the default pagination page size
+ *  Constants to hold the default pagination page size and start page number
  * @type {number}
  */
+export const DEFAULT_START_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 10;
 
 /**
