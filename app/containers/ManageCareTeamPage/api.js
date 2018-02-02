@@ -25,7 +25,7 @@ export function createCareTeam(careTeamFormData) {
 
 function mapToBffCareTeam(careTeamData) {
   const {
-    careTeamName, category, status, startDate, endDate,
+    careTeamName, category, patientId, status, startDate, endDate,
   } = careTeamData;
 
   // Todo: Replace with formData later
@@ -37,5 +37,13 @@ function mapToBffCareTeam(careTeamData) {
     memberType: 'practitioner',
   }];
 
-  return { name: careTeamName, categoryCode: category, statusCode: status, startDate, endDate, participants };
+  return {
+    name: careTeamName,
+    statusCode: status,
+    categoryCode: category,
+    subjectId: patientId,
+    startDate: startDate.toLocaleDateString(),
+    endDate: endDate.toLocaleDateString(),
+    participants,
+  };
 }
