@@ -1,0 +1,759 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CareTeamTable /> should match snapshot 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div>
+    <Table>
+        <TableHeader>
+            <TableHeaderColumn>
+                <FormattedMessage
+                    defaultMessage="ID"
+                    id="ocpui.components.CareTeamTable.columnHeaderId"
+                    values={Object {}}
+                />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+                <FormattedMessage
+                    defaultMessage="Name"
+                    id="ocpui.components.CareTeamTable.columnHeaderName"
+                    values={Object {}}
+                />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+                <FormattedMessage
+                    defaultMessage="Status"
+                    id="ocpui.components.CareTeamTable.columnHeaderStatus"
+                    values={Object {}}
+                />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+                <FormattedMessage
+                    defaultMessage="Categories"
+                    id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                    values={Object {}}
+                />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+                <FormattedMessage
+                    defaultMessage="Participant / Role"
+                    id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                    values={Object {}}
+                />
+            </TableHeaderColumn>
+        </TableHeader>
+        <TableRow>
+            <TableRowColumn>
+                111111
+            </TableRowColumn>
+            <TableRowColumn>
+                My Care Team One
+            </TableRowColumn>
+            <TableRowColumn>
+                Active
+            </TableRowColumn>
+            <TableRowColumn>
+                <ul>
+                    <li>
+                        Encounter
+                    </li>
+                    <li>
+                        Episode
+                    </li>
+                </ul>
+            </TableRowColumn>
+            <TableRowColumn>
+                <ul>
+                    <li>
+                        Tom2 provider / Medical doctor
+                    </li>
+                    <li>
+                        Great Cross Hospital / General practice (organisation)
+                    </li>
+                </ul>
+            </TableRowColumn>
+        </TableRow>
+        <TableRow>
+            <TableRowColumn>
+                222222
+            </TableRowColumn>
+            <TableRowColumn>
+                My Care Team Two
+            </TableRowColumn>
+            <TableRowColumn>
+                Active
+            </TableRowColumn>
+            <TableRowColumn>
+                <ul>
+                    <li>
+                        Condition
+                    </li>
+                </ul>
+            </TableRowColumn>
+            <TableRowColumn>
+                <ul>
+                    <li>
+                        Her Grandmother / Grand-mother
+                    </li>
+                </ul>
+            </TableRowColumn>
+        </TableRow>
+    </Table>
+</div>,
+  "nodes": Array [
+    <div>
+      <Table>
+            <TableHeader>
+                  <TableHeaderColumn>
+                        <FormattedMessage
+                              defaultMessage="ID"
+                              id="ocpui.components.CareTeamTable.columnHeaderId"
+                              values={Object {}}
+                        />
+                  </TableHeaderColumn>
+                  <TableHeaderColumn>
+                        <FormattedMessage
+                              defaultMessage="Name"
+                              id="ocpui.components.CareTeamTable.columnHeaderName"
+                              values={Object {}}
+                        />
+                  </TableHeaderColumn>
+                  <TableHeaderColumn>
+                        <FormattedMessage
+                              defaultMessage="Status"
+                              id="ocpui.components.CareTeamTable.columnHeaderStatus"
+                              values={Object {}}
+                        />
+                  </TableHeaderColumn>
+                  <TableHeaderColumn>
+                        <FormattedMessage
+                              defaultMessage="Categories"
+                              id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                              values={Object {}}
+                        />
+                  </TableHeaderColumn>
+                  <TableHeaderColumn>
+                        <FormattedMessage
+                              defaultMessage="Participant / Role"
+                              id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                              values={Object {}}
+                        />
+                  </TableHeaderColumn>
+            </TableHeader>
+            <TableRow>
+                  <TableRowColumn>
+                        111111
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        My Care Team One
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        Active
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        <ul>
+                              <li>
+                                    Encounter
+                              </li>
+                              <li>
+                                    Episode
+                              </li>
+                        </ul>
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        <ul>
+                              <li>
+                                    Tom2 provider / Medical doctor
+                              </li>
+                              <li>
+                                    Great Cross Hospital / General practice (organisation)
+                              </li>
+                        </ul>
+                  </TableRowColumn>
+            </TableRow>
+            <TableRow>
+                  <TableRowColumn>
+                        222222
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        My Care Team Two
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        Active
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        <ul>
+                              <li>
+                                    Condition
+                              </li>
+                        </ul>
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        <ul>
+                              <li>
+                                    Her Grandmother / Grand-mother
+                              </li>
+                        </ul>
+                  </TableRowColumn>
+            </TableRow>
+      </Table>
+</div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 2,
+      "_context": Object {},
+      "_currentElement": <CareTeamTable
+        elements={
+                Array [
+                        Object {
+                          "categories": Array [
+                            Object {
+                              "code": "encounter",
+                              "definition": "This type of team focuses on one specific encounter. The encounter is determined by the context of use. For example, during an inpatient encounter, the nutrition support care team",
+                              "display": "Encounter",
+                            },
+                            Object {
+                              "code": "episode",
+                              "definition": "This type of team focuses on one specific episode of care with a defined time period or self-limiting process (e.g. 10 visits). The episode of care is determined by the context of use. For example, a maternity care team over 9 months.",
+                              "display": "Episode",
+                            },
+                          ],
+                          "id": "111111",
+                          "name": "My Care Team One",
+                          "participants": Array [
+                            Object {
+                              "member": Object {
+                                "firstName": "Tom2",
+                                "id": "700551",
+                                "lastName": "provider",
+                                "type": "practitioner",
+                              },
+                              "onBehalfOf": Object {
+                                "id": "143191",
+                                "name": "Great Cross Hospital",
+                              },
+                              "role": Object {
+                                "code": "112247003",
+                                "definition": null,
+                                "display": "Medical doctor",
+                              },
+                            },
+                            Object {
+                              "member": Object {
+                                "id": "650858",
+                                "name": "Great Cross Hospital",
+                                "type": "organization",
+                              },
+                              "onBehalfOf": Object {
+                                "id": "143191",
+                                "name": "Great Cross Hospital",
+                              },
+                              "role": Object {
+                                "code": "394745000",
+                                "definition": null,
+                                "display": "General practice (organisation)",
+                              },
+                            },
+                          ],
+                          "status": Object {
+                            "code": "active",
+                            "definition": "The care team is currently participating in the coordination and delivery of care.",
+                            "display": "Active",
+                            "system": "http://hl7.org/fhir/care-team-status",
+                          },
+                          "subject": Object {
+                            "firstName": "Patient",
+                            "id": "11111",
+                            "lastName": "One",
+                          },
+                        },
+                        Object {
+                          "categories": Array [
+                            Object {
+                              "code": "condition",
+                              "definition": "This type of team focuses on one specific condition. The condition is determined by the context of use. For example, a disease management team focused on one condition (e.g. diabetes).",
+                              "display": "Condition",
+                            },
+                          ],
+                          "id": "222222",
+                          "name": "My Care Team Two",
+                          "participants": Array [
+                            Object {
+                              "member": Object {
+                                "firstName": "Her",
+                                "id": "121212",
+                                "lastName": "Grandmother",
+                                "type": "relatedPerson",
+                              },
+                              "role": Object {
+                                "code": "113157001",
+                                "definition": null,
+                                "display": "Grand-mother",
+                              },
+                            },
+                          ],
+                          "status": Object {
+                            "code": "active",
+                            "definition": "The care team is currently participating in the coordination and delivery of care.",
+                            "display": "Active",
+                            "system": "http://hl7.org/fhir/care-team-status",
+                          },
+                          "subject": Object {
+                            "firstName": "Patient",
+                            "id": "11111",
+                            "lastName": "One",
+                          },
+                        },
+                      ]
+        }
+/>,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": StatelessComponent {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "elements": Array [
+            Object {
+              "categories": Array [
+                Object {
+                  "code": "encounter",
+                  "definition": "This type of team focuses on one specific encounter. The encounter is determined by the context of use. For example, during an inpatient encounter, the nutrition support care team",
+                  "display": "Encounter",
+                },
+                Object {
+                  "code": "episode",
+                  "definition": "This type of team focuses on one specific episode of care with a defined time period or self-limiting process (e.g. 10 visits). The episode of care is determined by the context of use. For example, a maternity care team over 9 months.",
+                  "display": "Episode",
+                },
+              ],
+              "id": "111111",
+              "name": "My Care Team One",
+              "participants": Array [
+                Object {
+                  "member": Object {
+                    "firstName": "Tom2",
+                    "id": "700551",
+                    "lastName": "provider",
+                    "type": "practitioner",
+                  },
+                  "onBehalfOf": Object {
+                    "id": "143191",
+                    "name": "Great Cross Hospital",
+                  },
+                  "role": Object {
+                    "code": "112247003",
+                    "definition": null,
+                    "display": "Medical doctor",
+                  },
+                },
+                Object {
+                  "member": Object {
+                    "id": "650858",
+                    "name": "Great Cross Hospital",
+                    "type": "organization",
+                  },
+                  "onBehalfOf": Object {
+                    "id": "143191",
+                    "name": "Great Cross Hospital",
+                  },
+                  "role": Object {
+                    "code": "394745000",
+                    "definition": null,
+                    "display": "General practice (organisation)",
+                  },
+                },
+              ],
+              "status": Object {
+                "code": "active",
+                "definition": "The care team is currently participating in the coordination and delivery of care.",
+                "display": "Active",
+                "system": "http://hl7.org/fhir/care-team-status",
+              },
+              "subject": Object {
+                "firstName": "Patient",
+                "id": "11111",
+                "lastName": "One",
+              },
+            },
+            Object {
+              "categories": Array [
+                Object {
+                  "code": "condition",
+                  "definition": "This type of team focuses on one specific condition. The condition is determined by the context of use. For example, a disease management team focused on one condition (e.g. diabetes).",
+                  "display": "Condition",
+                },
+              ],
+              "id": "222222",
+              "name": "My Care Team Two",
+              "participants": Array [
+                Object {
+                  "member": Object {
+                    "firstName": "Her",
+                    "id": "121212",
+                    "lastName": "Grandmother",
+                    "type": "relatedPerson",
+                  },
+                  "role": Object {
+                    "code": "113157001",
+                    "definition": null,
+                    "display": "Grand-mother",
+                  },
+                },
+              ],
+              "status": Object {
+                "code": "active",
+                "definition": "The care team is currently participating in the coordination and delivery of care.",
+                "display": "Active",
+                "system": "http://hl7.org/fhir/care-team-status",
+              },
+              "subject": Object {
+                "firstName": "Patient",
+                "id": "11111",
+                "lastName": "One",
+              },
+            },
+          ],
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <div>
+          <Table>
+                    <TableHeader>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="ID"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderId"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Name"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderName"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Status"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderStatus"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Categories"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Participant / Role"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                    </TableHeader>
+                    <TableRow>
+                              <TableRowColumn>
+                                        111111
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        My Care Team One
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        Active
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Encounter
+                                                  </li>
+                                                  <li>
+                                                            Episode
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Tom2 provider / Medical doctor
+                                                  </li>
+                                                  <li>
+                                                            Great Cross Hospital / General practice (organisation)
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                              <TableRowColumn>
+                                        222222
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        My Care Team Two
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        Active
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Condition
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Her Grandmother / Grand-mother
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                    </TableRow>
+          </Table>
+</div>,
+        "_debugID": 2,
+        "_renderedOutput": <div>
+          <Table>
+                    <TableHeader>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="ID"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderId"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Name"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderName"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Status"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderStatus"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Categories"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                              <TableHeaderColumn>
+                                        <FormattedMessage
+                                                  defaultMessage="Participant / Role"
+                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                                                  values={Object {}}
+                                        />
+                              </TableHeaderColumn>
+                    </TableHeader>
+                    <TableRow>
+                              <TableRowColumn>
+                                        111111
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        My Care Team One
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        Active
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Encounter
+                                                  </li>
+                                                  <li>
+                                                            Episode
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Tom2 provider / Medical doctor
+                                                  </li>
+                                                  <li>
+                                                            Great Cross Hospital / General practice (organisation)
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                              <TableRowColumn>
+                                        222222
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        My Care Team Two
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        Active
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Condition
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        <ul>
+                                                  <li>
+                                                            Her Grandmother / Grand-mother
+                                                  </li>
+                                        </ul>
+                              </TableRowColumn>
+                    </TableRow>
+          </Table>
+</div>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <CareTeamTable
+    elements={
+        Array [
+            Object {
+              "categories": Array [
+                Object {
+                  "code": "encounter",
+                  "definition": "This type of team focuses on one specific encounter. The encounter is determined by the context of use. For example, during an inpatient encounter, the nutrition support care team",
+                  "display": "Encounter",
+                },
+                Object {
+                  "code": "episode",
+                  "definition": "This type of team focuses on one specific episode of care with a defined time period or self-limiting process (e.g. 10 visits). The episode of care is determined by the context of use. For example, a maternity care team over 9 months.",
+                  "display": "Episode",
+                },
+              ],
+              "id": "111111",
+              "name": "My Care Team One",
+              "participants": Array [
+                Object {
+                  "member": Object {
+                    "firstName": "Tom2",
+                    "id": "700551",
+                    "lastName": "provider",
+                    "type": "practitioner",
+                  },
+                  "onBehalfOf": Object {
+                    "id": "143191",
+                    "name": "Great Cross Hospital",
+                  },
+                  "role": Object {
+                    "code": "112247003",
+                    "definition": null,
+                    "display": "Medical doctor",
+                  },
+                },
+                Object {
+                  "member": Object {
+                    "id": "650858",
+                    "name": "Great Cross Hospital",
+                    "type": "organization",
+                  },
+                  "onBehalfOf": Object {
+                    "id": "143191",
+                    "name": "Great Cross Hospital",
+                  },
+                  "role": Object {
+                    "code": "394745000",
+                    "definition": null,
+                    "display": "General practice (organisation)",
+                  },
+                },
+              ],
+              "status": Object {
+                "code": "active",
+                "definition": "The care team is currently participating in the coordination and delivery of care.",
+                "display": "Active",
+                "system": "http://hl7.org/fhir/care-team-status",
+              },
+              "subject": Object {
+                "firstName": "Patient",
+                "id": "11111",
+                "lastName": "One",
+              },
+            },
+            Object {
+              "categories": Array [
+                Object {
+                  "code": "condition",
+                  "definition": "This type of team focuses on one specific condition. The condition is determined by the context of use. For example, a disease management team focused on one condition (e.g. diabetes).",
+                  "display": "Condition",
+                },
+              ],
+              "id": "222222",
+              "name": "My Care Team Two",
+              "participants": Array [
+                Object {
+                  "member": Object {
+                    "firstName": "Her",
+                    "id": "121212",
+                    "lastName": "Grandmother",
+                    "type": "relatedPerson",
+                  },
+                  "role": Object {
+                    "code": "113157001",
+                    "definition": null,
+                    "display": "Grand-mother",
+                  },
+                },
+              ],
+              "status": Object {
+                "code": "active",
+                "definition": "The care team is currently participating in the coordination and delivery of care.",
+                "display": "Active",
+                "system": "http://hl7.org/fhir/care-team-status",
+              },
+              "subject": Object {
+                "firstName": "Patient",
+                "id": "11111",
+                "lastName": "One",
+              },
+            },
+          ]
+    }
+/>,
+}
+`;
