@@ -13,7 +13,6 @@ export const INITIALIZE_MANAGE_CARE_TEAM = 'ocpui/ManageCareTeamPage/INITIALIZE_
 export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
 export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
 
-
 /**
  *  Other constants
  *
