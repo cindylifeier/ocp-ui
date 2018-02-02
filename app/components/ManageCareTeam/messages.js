@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageCareTeam.title',
     defaultMessage: 'General Information',
   },
+  addParticipantBtnLabel: {
+    id: 'ocpui.components.ManageCareTeam.manageForm.addParticipantBtnLabel',
+    defaultMessage: 'Add Participant',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageCareTeam.manageForm.validation.minLength',
