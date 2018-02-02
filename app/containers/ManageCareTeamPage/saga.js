@@ -1,14 +1,14 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from '../Notification/actions';
-import { HOME_URL } from '../App/constants';
-import { GET_PATIENT } from './constants';
+import { PATIENTS_URL } from '../App/constants';
+import { GET_PATIENT, SAVE_CARE_TEAM } from './constants';
 import { getPatientSuccess } from './actions';
 import { makeSelectPatientSearchResult } from '../Patients/selectors';
 import { getPatient } from '../ManagePatientPage/api';
-import { getPatientById } from './api';
+import { createCareTeam, getPatientById } from './api';
 
 function* getPatientWorker({ patientId }) {
   try {
@@ -23,12 +23,28 @@ function* getPatientWorker({ patientId }) {
     yield put(getPatientSuccess(patient));
   } catch (error) {
     yield put(showNotification('No match patient found.'));
-    yield put(push(HOME_URL));
+    yield put(push(PATIENTS_URL));
   }
 }
 
-function* watchManageCareTeam() {
+export function* saveCareTeamWorker(action) {
+  try {
+    yield call(createCareTeam, action.careTeamFormData);
+    yield put(showNotification('Successfully create the care team.'));
+    yield call(action.handleSubmitting);
+    yield put(goBack());
+  } catch (error) {
+    yield put(showNotification('Failed to create the care team.'));
+    yield call(action.handleSubmitting);
+  }
+}
+
+function* watchGetPatient() {
   yield takeLatest(GET_PATIENT, getPatientWorker);
+}
+
+function* watchManageCareTeam() {
+  yield takeLatest(SAVE_CARE_TEAM, saveCareTeamWorker);
 }
 
 /**
@@ -36,6 +52,7 @@ function* watchManageCareTeam() {
  */
 export default function* rootSaga() {
   yield all([
+    watchGetPatient(),
     watchManageCareTeam(),
   ]);
 }
