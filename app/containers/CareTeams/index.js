@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -19,15 +20,25 @@ import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
+import CareTeamTable from '../../components/CareTeamTable';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { careTeams: { loading, data } } = this.props;
+    const { careTeams: { loading, data, patientName } } = this.props;
     return (
       <div className={styles.card}>
         <h3><FormattedMessage {...messages.header} /></h3>
-        {!data && <h4><FormattedMessage {...messages.patientNotSelected} /></h4>}
-        {loading && <RefreshIndicatorLoading />}
+
+        {isEmpty(data) &&
+        <h4><FormattedMessage {...messages.patientNotSelected} /></h4>}
+
+        {!loading && data && <div><strong>Patient:</strong> {patientName}</div>}
+
+        {loading &&
+        <RefreshIndicatorLoading />}
+
+        {!isEmpty(data) && !isEmpty(data.elements) &&
+        <CareTeamTable elements={data.elements} />}
       </div>
     );
   }

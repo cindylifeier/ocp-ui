@@ -66,11 +66,11 @@ export class Patients extends React.PureComponent {
     this.props.initializePatients();
   }
 
-  handlePatientClick({ id: searchValue }) {
+  handlePatientClick({ id: searchValue, name: [{ firstName, lastName }] }) {
     const showInactive = false;
     const searchType = 'patientId';
     const query = { searchValue, searchType, showInactive };
-    this.props.getCareTeams(query);
+    this.props.getCareTeams(query, `${firstName} ${lastName}`);
   }
 
   handleSearch() {
@@ -240,7 +240,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePatients: () => dispatch(initializePatients()),
-    getCareTeams: (query) => dispatch(getCareTeams(query)),
+    getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
   };
 }
 
