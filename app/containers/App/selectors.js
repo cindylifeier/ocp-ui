@@ -1,18 +1,23 @@
 import { createSelector } from 'reselect';
 import {
   ADDRESSUSE,
+  ADMINISTRATIVEGENDER,
+  CARETEAMSTATUS,
+  LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
   LOCATIONPHYSICALTYPE,
   LOCATIONSTATUS,
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
+  PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   TELECOMSYSTEM,
   TELECOMUSE,
+  USCOREBIRTHSEX,
+  USCOREETHNICITY,
+  USCORERACE,
   USPSSTATES,
-  PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, LANGUAGE,
-  USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -86,34 +91,38 @@ const makeSelectLookups = (name) => createSelector(
 
 const makeSelectPatientIdentifierSystems = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(PATIENTIDENTIFIERSYSTEM).toJS()
+  (globalState) => globalState.get(PATIENTIDENTIFIERSYSTEM).toJS(),
 );
 
 const makeSelectAdministrativeGenders = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(ADMINISTRATIVEGENDER).toJS()
+  (globalState) => globalState.get(ADMINISTRATIVEGENDER).toJS(),
 );
 
 const makeSelectUsCoreRaces = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USCORERACE).toJS()
+  (globalState) => globalState.get(USCORERACE).toJS(),
 );
 
 const makeSelectUsCoreEthnicities = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USCOREETHNICITY).toJS()
+  (globalState) => globalState.get(USCOREETHNICITY).toJS(),
 );
 
 const makeSelectUsCoreBirthSexes = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(USCOREBIRTHSEX).toJS()
+  (globalState) => globalState.get(USCOREBIRTHSEX).toJS(),
 );
 
 const makeSelectLanguages = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get(LANGUAGE).toJS()
+  (globalState) => globalState.get(LANGUAGE).toJS(),
 );
 
+const makeSelectCareTeamStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(CARETEAMSTATUS).toJS(),
+);
 
 export {
   makeSelectLocation,
@@ -135,4 +144,5 @@ export {
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreBirthSexes,
   makeSelectLanguages,
+  makeSelectCareTeamStatuses,
 };

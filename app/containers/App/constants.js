@@ -43,6 +43,7 @@ export const USCORERACE = 'USCORERACE';
 export const USCOREETHNICITY = 'USCOREETHNICITY';
 export const USCOREBIRTHSEX = 'USCOREBIRTHSEX';
 export const LANGUAGE = 'LANGUAGE';
+export const CARETEAMSTATUS = 'CARETEAMSTATUS';
 
 /**
  *  Constants to hold the internal urls

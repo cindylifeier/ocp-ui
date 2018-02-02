@@ -28,7 +28,7 @@ import {
   TELECOMSYSTEM,
   TELECOMUSE,
   USPSSTATES,
-  PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE,
+  PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, CARETEAMSTATUS,
 } from './constants';
 
 // The initial state of the App
@@ -53,6 +53,7 @@ const initialState = fromJS({
   USCOREETHNICITY: [],
   USCOREBIRTHSEX: [],
   LANGUAGE: [],
+  CARETEAMSTATUS: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -81,6 +82,7 @@ function appReducer(state = initialState, action) {
         .set(USCOREETHNICITY, fromJS((action.lookups && action.lookups.usCoreEthnicities) || state.get(USCOREETHNICITY)))
         .set(USCOREBIRTHSEX, fromJS((action.lookups && action.lookups.usCoreBirthSex) || state.get(USCOREBIRTHSEX)))
         .set(LANGUAGE, fromJS((action.lookups && action.lookups.languages) || state.get(LANGUAGE)))
+        .set(CARETEAMSTATUS, fromJS((action.lookups && action.lookups.careTeamStatuses) || state.get(CARETEAMSTATUS)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
