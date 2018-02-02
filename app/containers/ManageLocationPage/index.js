@@ -12,6 +12,8 @@ import find from 'lodash/find';
 import merge from 'lodash/merge';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { FormattedMessage } from 'react-intl';
+import Divider from 'material-ui/Divider';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectSaveLocationError } from './selectors';
@@ -30,7 +32,8 @@ import {
 import ManageLocation from '../../components/ManageLocation/index';
 import { createLocation, updateLocation } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
-
+import messages from './messages';
+import styles from './styles.css';
 
 export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -76,11 +79,16 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     };
 
     return (
-      <div>
+      <div className={styles.wrapper}>
         <Helmet>
           <title>ManageLocationPage</title>
           <meta name="description" content="Manage Location Page" />
         </Helmet>
+        <div className={styles.header}>
+          {logicalId ? <FormattedMessage {...messages.editHeader} />
+            : <FormattedMessage {...messages.createHeader} />}
+        </div>
+        <Divider />
         <ManageLocation
           {...localProps}
           onSave={this.handleSaveLocation}
