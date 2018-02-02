@@ -23,8 +23,6 @@ import { makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
-import { CARETEAMCATEGORY, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
 import {
@@ -43,7 +41,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   }
 
   componentWillMount() {
-    this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
     this.props.getPatient(queryObj.patientId);
   }
@@ -110,7 +107,6 @@ ManageCareTeamPage.propTypes = {
   selectedPatient: PropTypes.object,
   getPatient: PropTypes.func.isRequired,
   initializeManageCareTeam: PropTypes.func.isRequired,
-  getLookUpFormData: PropTypes.func.isRequired,
   onSaveCareTeam: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.array,
   participantTypes: PropTypes.array,
@@ -129,7 +125,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
-    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
   };

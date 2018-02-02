@@ -3,12 +3,13 @@ import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from '../Notification/actions';
-import { PATIENTS_URL } from '../App/constants';
+import { CARETEAMCATEGORY, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE, PATIENTS_URL } from '../App/constants';
 import { GET_PATIENT, SAVE_CARE_TEAM } from './constants';
 import { getPatientSuccess } from './actions';
 import { makeSelectPatientSearchResult } from '../Patients/selectors';
 import { getPatient } from '../ManagePatientPage/api';
 import { createCareTeam, getPatientById } from './api';
+import { getLookupsAction } from '../App/actions';
 
 function* getPatientWorker({ patientId }) {
   try {
@@ -39,6 +40,10 @@ export function* saveCareTeamWorker(action) {
   }
 }
 
+function* watchGetLookupData() {
+  yield put(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE]));
+}
+
 function* watchGetPatient() {
   yield takeLatest(GET_PATIENT, getPatientWorker);
 }
@@ -52,6 +57,7 @@ function* watchManageCareTeam() {
  */
 export default function* rootSaga() {
   yield all([
+    watchGetLookupData(),
     watchGetPatient(),
     watchManageCareTeam(),
   ]);
