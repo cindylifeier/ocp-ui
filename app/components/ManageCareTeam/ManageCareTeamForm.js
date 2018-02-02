@@ -13,7 +13,6 @@ import TextField from '../TextField';
 import SelectField from '../SelectField';
 import { PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
-import SearchParticipant from '../SearchParticipant/index';
 
 function ManageCareTeamForm(props) {
   const {
@@ -22,11 +21,8 @@ function ManageCareTeamForm(props) {
     isValid,
     careTeamCategories,
     careTeamStatuses,
-    onSearch,
-    participantTypes,
-    participantRoles,
+    handleOpen,
   } = props;
-  const propsForAddParticipant = { participantTypes, participantRoles };
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -83,9 +79,18 @@ function ManageCareTeamForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
             />
           </div>
-          <div />
         </div>
-        <SearchParticipant onSearch={onSearch} {...propsForAddParticipant} />
+        <div className={styles.gridContainer}>
+          <div className={`${styles.gridItem} ${styles.addParticipant}`}>
+            <RaisedButton
+              backgroundColor={teal500}
+              labelColor={white}
+              onClick={handleOpen}
+              label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
+              primary
+            />
+          </div>
+        </div>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
@@ -109,25 +114,15 @@ function ManageCareTeamForm(props) {
 }
 
 ManageCareTeamForm.propTypes = {
-  onSearch: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  handleOpen: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
   careTeamStatuses: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
-  participantTypes: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-    definition: PropTypes.string,
-    system: PropTypes.string,
-  })),
-  participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
