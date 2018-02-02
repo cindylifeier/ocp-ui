@@ -1,0 +1,146 @@
+.gridContainer {
+  color: #444;
+  width: auto;
+  margin-right: 10vw;
+  margin-bottom: 1vh;
+  display: grid;
+  padding: 0 2vw;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "firstName"
+    "middleName"
+    "lastName"
+    "roleType"
+    "identifierType"
+    "identifierValue"
+    "address1"
+    "address2"
+    "city"
+    "state"
+    "postalCode"
+    "country"
+    "telecomType"
+    "telecomValue"
+    "buttonGroup";
+}
+
+.disabledLink {
+  width: 100%;
+}
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "firstName lastName"
+      "middleName ."
+      "roleType ."
+      "identifierType identifierValue"
+      "address1 ."
+      "address2 ."
+      "city state"
+      "postalCode country"
+      "telecomType telecomValue"
+      "buttonGroup .";
+  }
+
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(3,1fr);
+    grid-template-areas:
+    "firstName middleName lastName"
+    "roleType identifierType identifierValue"
+    "address1 address2 postalCode"
+    "city state country"
+    "telecomType telecomValue ."
+    "buttonGroup . .";
+  }
+}
+
+.gridItem {
+  border-radius: 5px;
+  font-size: 100%;
+}
+
+.firstName {
+  grid-area: firstName;
+  display: grid;
+}
+
+.middleName {
+  grid-area: middleName;
+  display: grid;
+}
+
+.lastName {
+  grid-area: lastName;
+  display: grid;
+}
+
+.roleType {
+  grid-area: roleType;
+  display: grid;
+}
+
+.identifierType {
+  grid-area: identifierType;
+  display: grid;
+}
+
+.identifierValue {
+  grid-area: identifierValue;
+  display: grid;
+}
+
+.address1 {
+  grid-area: address1;
+  display: grid;
+}
+
+.address2 {
+  grid-area: address2;
+  display: grid;
+}
+
+.city {
+  grid-area: city;
+  display: grid;
+}
+
+.state {
+  grid-area: state;
+  display: grid;
+}
+
+.postalCode {
+  grid-area: postalCode;
+  display: grid;
+}
+
+.country {
+  grid-area: country;
+  display: grid;
+}
+
+.telecomType {
+  grid-area: telecomType;
+  display: grid;
+}
+
+.telecomValue {
+  grid-area: telecomValue;
+  display: grid;
+}
+
+.buttonGroup {
+  grid-area: buttonGroup;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1vw;
+  margin-bottom: 1vh;
+  grid-auto-columns: minmax(100px,120px);
+}

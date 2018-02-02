@@ -1,6 +1,4 @@
 .root {
-  top: -20px;
-  position: relative;
 }
 
 .validationMessage {
@@ -19,4 +17,5 @@
 .gridItem {
   position: relative;
   height: auto;
+  margin: 10px;
 }

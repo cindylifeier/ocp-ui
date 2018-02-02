@@ -10,9 +10,14 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { FloatingActionButton } from 'material-ui';
+import { ContentAdd } from 'material-ui/svg-icons';
+import { teal500 } from 'material-ui/styles/colors';
+import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -20,16 +25,24 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectSearchError, makeSelectSearchLoading,
-  makeSelectSearchResult, makeSelectTotalPages,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectSearchResult,
+  makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadPatientSearchResult } from './actions';
+import { initializePatients, loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
 import styles from './styles.css';
 import messages from './messages';
-import { EMPTY_STRING, ENTER_KEY_CODE, SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
+import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 
 export class Patients extends React.PureComponent {
   constructor(props) {
@@ -45,6 +58,10 @@ export class Patients extends React.PureComponent {
     this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializePatients();
   }
 
   handleSearch() {
@@ -67,11 +84,11 @@ export class Patients extends React.PureComponent {
 
   handleChangePage(newPage) {
     this.setState({ currentPage: newPage });
-    this.props.onChangePage(this.state.searchTerms, this.state.searchType, this.state.includeInactive, newPage);
+    this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
   }
 
   preventEnterSubmission(event) {
-    if (event.which === ENTER_KEY_CODE) {
+    if (event.key === ENTER_KEY) {
       event.preventDefault();
     }
   }
@@ -85,8 +102,22 @@ export class Patients extends React.PureComponent {
     };
 
     return (
-      <div className={styles.wrapper}>
-        <h3><FormattedMessage {...messages.header} /></h3>
+      <div className={styles.card}>
+        <div className={styles.gridHeaderContainer}>
+          <div className={styles.gridItem}>
+            <h3><FormattedMessage {...messages.header} /></h3>
+          </div>
+          <div className={styles.gridItem}>
+            <FloatingActionButton
+              backgroundColor={teal500}
+              className={styles.addButton}
+              mini
+              containerElement={<Link to="/ocp-ui/manage-patient" />}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          </div>
+        </div>
         <form>
           <div className={styles.gridContainer}>
             <div className={styles.gridItem}>
@@ -128,10 +159,11 @@ export class Patients extends React.PureComponent {
             <div className={styles.gridItem}>
               <div className={styles.centerElement}>
                 <IconButton
-                  iconClassName="fa fa-search"
                   disabled={this.state.searchTerms.trim() === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
                   onClick={this.handleSearch}
-                />
+                >
+                  <ActionSearch />
+                </IconButton>
               </div>
             </div>
           </div>
@@ -164,13 +196,17 @@ Patients.propTypes = {
     PropTypes.bool,
   ]),
   searchResult: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.array,
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
+  searchTerms: PropTypes.string,
+  searchType: PropTypes.string,
+  includeInactive: PropTypes.bool,
+  initializePatients: PropTypes.func,
 };
 
 
@@ -181,6 +217,9 @@ const mapStateToProps = createStructuredSelector({
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
   totalPages: makeSelectTotalPages(),
+  searchTerms: makeSelectQuerySearchTerms(),
+  searchType: makeSelectQuerySearchType(),
+  includeInactive: makeSelectQueryIncludeInactive(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -190,6 +229,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
+    initializePatients: () => dispatch(initializePatients()),
   };
 }
 

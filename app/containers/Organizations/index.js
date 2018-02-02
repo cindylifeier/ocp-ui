@@ -10,7 +10,11 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import { FloatingActionButton } from 'material-ui';
+import { ContentAdd } from 'material-ui/svg-icons';
+import { teal500 } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -18,13 +22,15 @@ import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOf
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { loadOrganizations } from './actions';
+import { initializeOrganizations, loadOrganizations } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import styles from './styles.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
 import { getActiveLocations } from '../Locations/actions';
+import { fromBackendToFrontendOrganization } from './mappings';
+import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 
 export class Organizations extends React.PureComponent {
 
@@ -43,6 +49,10 @@ export class Organizations extends React.PureComponent {
     };
   }
 
+  componentWillMount() {
+    this.props.initializeOrganizations();
+  }
+
   handleSearch(searchValue, showInactive, searchType) {
     this.setState({ searchValue, showInactive, searchType });
     this.props.loadOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
@@ -57,10 +67,19 @@ export class Organizations extends React.PureComponent {
     this.setState({ currentPage });
     this.props.loadOrganizations(this.state.searchValue, this.state.showInactive, this.state.searchType, currentPage);
   }
+
   render() {
     const { organizations } = this.props;
     return (
-      <div className={styles.root}>
+      <div className={styles.card}>
+        <FloatingActionButton
+          backgroundColor={teal500}
+          className={styles.addButton}
+          mini
+          containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
         <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
 
         <SearchBar
@@ -73,7 +92,7 @@ export class Organizations extends React.PureComponent {
         {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
           <div>
             <OrganizationTable>
-              {organizations.data.map((org) => (
+              {organizations.data.map(fromBackendToFrontendOrganization).map((org) => (
                 <OrganizationTableRow
                   key={org.id}
                   {...org}
@@ -95,10 +114,10 @@ export class Organizations extends React.PureComponent {
             </div>
           </div>
         ) ||
-
-        (<div className={styles.textCenter}>
-          <span>No organizations found</span>
-        </div>)
+        ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
+          <div className={styles.textCenter}>
+            <span>No organizations found</span>
+          </div>))
         }
       </div>
     );
@@ -106,6 +125,7 @@ export class Organizations extends React.PureComponent {
 }
 
 Organizations.propTypes = {
+  initializeOrganizations: PropTypes.func.isRequired,
   loadOrganizations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
@@ -124,6 +144,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializeOrganizations: () => dispatch(initializeOrganizations()),
     loadOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(loadOrganizations(searchValue, showInactive, searchType, currentPage)),
     getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
   };

@@ -5,15 +5,15 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  INITIALIZE_PATIENTS,
   LOAD_PATIENT_SEARCH_RESULT,
   SEARCH_PATIENTS_ERROR,
   SEARCH_PATIENTS_SUCCESS,
 } from './constants';
 
-export function defaultAction() {
+export function initializePatients() {
   return {
-    type: DEFAULT_ACTION,
+    type: INITIALIZE_PATIENTS,
   };
 }
 
@@ -27,10 +27,13 @@ export function loadPatientSearchResult(searchTerms, searchType, includeInactive
   };
 }
 
-export function searchPatientsSuccess(searchResult) {
+export function searchPatientsSuccess(searchResult, searchTerms, searchType, includeInactive) {
   return {
     type: SEARCH_PATIENTS_SUCCESS,
     searchResult,
+    queryParameters: {
+      searchTerms, searchType, includeInactive,
+    },
   };
 }
 

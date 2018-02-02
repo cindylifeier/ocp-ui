@@ -10,16 +10,15 @@
  */
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
-import styles from './styles.css';
-import Header from '../../components/Header/index';
-import SideBar from '../../components/SideBar/index';
 import GoldenLayout from '../../components/GoldenLayout/Loadable';
-import renderSampleComponent from '../../components/SampleComponent/render';
 import renderOrganizations from '../Organizations/render';
 import renderPractitioners from '../Practitioners/render';
 import renderLocationsComponent from '../../containers/Locations/render';
 import renderPatientsComponent from '../Patients/render';
+import SideBar from '../../components/SideBar';
+import styles from './styles.css';
 
 // import messages from './messages';
 
@@ -126,7 +125,7 @@ const initialStateMetadata =
             reorderEnabled: true,
           },
           ],
-        }, {
+        }, /*TODO{
           type: 'stack',
           width: 50,
           height: 50,
@@ -135,14 +134,14 @@ const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Patients',
+            title: 'Healthcare Services',
             type: 'component',
-            componentName: 'patients',
+            componentName: 'healthcareServices',
             isClosable: true,
             reorderEnabled: true,
           },
           ],
-        },
+        },*/
         ],
       },
       ],
@@ -156,7 +155,6 @@ const initialStateMetadata =
   };
 
 const componentMetadata = [
-  { name: 'sample', text: 'Sample', factoryMethod: renderSampleComponent },
   { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
   { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
   { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
@@ -166,19 +164,22 @@ const componentMetadata = [
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={styles.gridContainer}>
-        <div className={`${styles.gridItem} ${styles.header}`}>
-          <Header />
-        </div>
-        <div className={styles.content}>
-          <GoldenLayout
-            containerId="golden-home"
-            componentMetadata={componentMetadata}
-            stateMetadata={initialStateMetadata}
-          />
-        </div>
-        <div className={`${styles.gridItem} ${styles.panel}`}>
-          <SideBar />
+      <div>
+        <Helmet>
+          <title>Home</title>
+          <meta name="description" content="home page of Omnibus Care Plan application" />
+        </Helmet>
+        <div className={styles.gridContainer}>
+          <div className={`${styles.gridItem} ${styles.panel}`}>
+            <SideBar />
+          </div>
+          <div className={`${styles.gridItem} ${styles.content}`}>
+            <GoldenLayout
+              containerId="golden-home"
+              componentMetadata={componentMetadata}
+              stateMetadata={initialStateMetadata}
+            />
+          </div>
         </div>
       </div>
     );

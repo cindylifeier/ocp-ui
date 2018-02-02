@@ -23,25 +23,9 @@ const makeSelectSearchError = () => createSelector(
   (patientsState) => patientsState.get('error'),
 );
 
-const makeSelectSearchTerms = () => createSelector(
-  selectPatients,
-  (patientsState) => patientsState.get('searchTerms'),
-);
-
-const makeSelectSearchType = () => createSelector(
-  selectPatients,
-  (patientsState) => patientsState.get('searchType'),
-);
-
-const makeSelectShowInactive = () => createSelector(
-  selectPatients,
-  (patientsState) => patientsState.get('showInactive'),
-);
-
-
 const makeSelectSearchResult = () => createSelector(
   selectPatients,
-  (patientsState) => patientsState.getIn(['searchPatients', 'result']),
+  (patientsState) => patientsState && patientsState.getIn(['searchPatients', 'result']),
 );
 
 const makeSelectCurrentPageSize = () => createSelector(
@@ -59,17 +43,32 @@ const makeSelectTotalPages = () => createSelector(
   (patientsState) => patientsState.getIn(['searchPatients', 'totalPages']),
 );
 
+const makeSelectQuerySearchTerms = () => createSelector(
+  selectPatients,
+   (patientsState) => patientsState.getIn(['searchPatients', 'queryParameters', 'searchTerms']),
+ );
+
+const makeSelectQuerySearchType = () => createSelector(
+  selectPatients,
+  (patientsState) => patientsState.getIn(['searchPatients', 'queryParameters', 'searchType']),
+);
+
+const makeSelectQueryIncludeInactive = () => createSelector(
+  selectPatients,
+  (patientsState) => patientsState.getIn(['searchPatients', 'queryParameters', 'includeInactive']),
+);
+
 
 export default makeSelectPatients;
 export {
   selectPatients,
-  makeSelectSearchTerms,
-  makeSelectSearchType,
   makeSelectSearchLoading,
   makeSelectSearchError,
   makeSelectSearchResult,
-  makeSelectShowInactive,
   makeSelectCurrentPageSize,
   makeSelectCurrentPage,
   makeSelectTotalPages,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectQueryIncludeInactive,
 };

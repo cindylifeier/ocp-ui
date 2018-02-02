@@ -8,15 +8,16 @@ import {
   GET_FILTERED_LOCATIONS,
   GET_ACTIVE_LOCATIONS,
   GET_LOCATIONS_SUCCESS,
-  GET_LOCATIONS_ERROR,
+  GET_LOCATIONS_ERROR, INITIALIZE_LOCATIONS,
 } from './constants';
 
 
-export function getFilteredLocations(status, currentPage) {
+export function getFilteredLocations(currentPage, includeInactive, includeSuspended) {
   return {
     type: GET_FILTERED_LOCATIONS,
-    status,
     currentPage,
+    includeInactive,
+    includeSuspended,
   };
 }
 
@@ -29,11 +30,13 @@ export function getActiveLocations(organizationId, organizationName, currentPage
   };
 }
 
-export function getLocationsSuccess(locations, organizationId) {
+export function getLocationsSuccess(locations, organizationId, includeInactive, includeSuspended) {
   return {
     type: GET_LOCATIONS_SUCCESS,
     locations,
     organizationId,
+    includeInactive,
+    includeSuspended,
   };
 }
 
@@ -41,5 +44,11 @@ export function getLocationsError(error) {
   return {
     type: GET_LOCATIONS_ERROR,
     error,
+  };
+}
+
+export function initializeLocations() {
+  return {
+    type: INITIALIZE_LOCATIONS,
   };
 }

@@ -5,6 +5,11 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,28 +18,44 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectLocations, makeSelectOrganization,
+  makeSelectCurrentPage, makeSelectIncludeInactive, makeSelectIncludeSuspended, makeSelectLocations,
+  makeSelectOrganization,
   makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import { getFilteredLocations } from './actions';
-import { STATUS_INACTIVE, STATUS_SUSPENDED } from './constants';
+import { getFilteredLocations, initializeLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
+
+
+const iconStyles = {
+  iconButton: {
+    position: 'relative',
+  },
+  icon: {
+    width: '100%',
+    height: 26,
+    position: 'absolute',
+    top: '0',
+    right: '0',
+  },
+};
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      inactiveStatus: false,
-      suspendedStatus: false,
       currentPage: 1,
     };
-    this.handleInactiveChecked = this.handleInactiveChecked.bind(this);
-    this.handleSuspendedChecked = this.handleSuspendedChecked.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
+    this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializeLocations();
   }
 
   getTelecoms(telecoms) {
@@ -48,37 +69,21 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   }
 
   getAddress(address) {
-    return address ? (<div>
-      {address.line1}
-      {address.line2},
-      {address.city}, {address.stateCode} {address.postalCode},
-      {address.countryCode}</div>) : '';
+    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
+    return addressStr ? (<div>{ addressStr }</div>) : '';
   }
 
-  handleInactiveChecked(event, newValue) {
-    this.setState({ inactiveStatus: newValue });
-    const suspendedStatus = this.state.suspendedStatus;
-    this.props.onCheckShowInactive(event, newValue, suspendedStatus);
+  handleIncludeInactive(event, checked) {
+    this.props.onCheckIncludeInactive(event, checked, this.props.includeSuspended);
   }
 
-  handleSuspendedChecked(event, newValue) {
-    this.setState({ suspendedStatus: newValue });
-    const inactiveStatus = this.state.inactiveStatus;
-    this.props.onCheckShowSuspended(event, newValue, inactiveStatus);
+  handleIncludeSuspended(event, checked) {
+    this.props.onCheckIncludeSuspended(event, checked, this.props.includeInactive);
   }
 
   handlePageClick(currentPage) {
-    const status = [];
-    this.setState({ currentPage });
-    if (this.state.inactiveStatus) {
-      status.push(STATUS_INACTIVE);
-    }
-
-    if (this.state.suspendedStatus) {
-      status.push(STATUS_SUSPENDED);
-    }
-
-    this.props.onChangePage(status, currentPage);
+    this.props.onChangePage(currentPage, this.props.includeInactive, this.props.includeSuspended);
   }
 
   createRows() {
@@ -89,6 +94,26 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
           <div className={styles.cellGridItem}>{location.status}</div>
           <div className={styles.cellGridItem}>{this.getTelecoms(location.telecoms)}</div>
           <div className={styles.cellGridItem}>{this.getAddress(location.address)} </div>
+          <IconMenu
+            iconButtonElement={
+              (<IconButton
+                className={styles.iconButton}
+                iconStyle={iconStyles.icon}
+                style={iconStyles.iconButton}
+              >
+                <NavigationMenu />
+              </IconButton>)
+            }
+            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          >
+            <MenuItem
+              className={styles.menuItem}
+              primaryText="Edit"
+              containerElement={<Link to={`/ocp-ui/manage-location/${location.logicalId}`} />}
+            />
+            <MenuItem className={styles.menuItem} primaryText="Remove" />
+          </IconMenu>
         </div>
       ));
     }
@@ -98,44 +123,47 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   createTable() {
     return (
       <div>
-        <div className={styles.wrapper}>
+        <div className={styles.card}>
           <div><strong>Organization Name: </strong>
             {this.props.organization ? this.props.organization.name : ''}</div>
           <div className={styles.actionGridContainer}>
             <StatusCheckbox
               messages={messages.inactive}
               elementId="inactiveCheckBox"
-              handleCheck={this.handleInactiveChecked}
+              checked={this.props.includeInactive}
+              handleCheck={this.handleIncludeInactive}
             >
             </StatusCheckbox>
             <StatusCheckbox
               messages={messages.suspended}
               elementId="suspendedCheckBox"
-              handleCheck={this.handleSuspendedChecked}
+              checked={this.props.includeSuspended}
+              handleCheck={this.handleIncludeSuspended}
             >
             </StatusCheckbox>
           </div>
           <div className={styles.table}>
-            <div className={styles.rowGridContainer}>
+            <div className={styles.rowHeaderGridContainer}>
               <div className={styles.cellGridHeaderItem}>Name</div>
               <div className={styles.cellGridHeaderItem}>Status</div>
               <div className={styles.cellGridHeaderItem}>Telecoms</div>
               <div className={styles.cellGridHeaderItem}>Address</div>
+              <div></div>
             </div>
             {this.createRows()}
+            <div className={styles.pagination}>
+              <UltimatePagination
+                currentPage={this.props.currentPage}
+                totalPages={this.props.totalNumberOfPages}
+                boundaryPagesRange={1}
+                siblingPagesRange={1}
+                hidePreviousAndNextPageLinks={false}
+                hideFirstAndLastPageLinks={false}
+                hideEllipsis={false}
+                onChange={this.handlePageClick}
+              />
+            </div>
           </div>
-        </div>
-        <div className={styles.pagination}>
-          <UltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalNumberOfPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
-            onChange={this.handlePageClick}
-          />
         </div>
       </div>
     );
@@ -156,13 +184,16 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 }
 
 Locations.propTypes = {
-  onCheckShowInactive: PropTypes.func.isRequired,
-  onCheckShowSuspended: PropTypes.func.isRequired,
+  onCheckIncludeInactive: PropTypes.func.isRequired,
+  onCheckIncludeSuspended: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  initializeLocations: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
   totalNumberOfPages: PropTypes.number,
+  includeInactive: PropTypes.bool,
+  includeSuspended: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -170,33 +201,22 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   currentPage: makeSelectCurrentPage(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  includeInactive: makeSelectIncludeInactive(),
+  includeSuspended: makeSelectIncludeSuspended(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onCheckShowInactive: (evt, checked, suspendedCheckboxStatus) => {
-      const status = [];
-      if (checked) {
-        status.push(STATUS_INACTIVE);
-      }
-      if (suspendedCheckboxStatus) {
-        status.push(STATUS_SUSPENDED);
-      }
+    onCheckIncludeInactive: (evt, checked, includeSuspended) => {
       const currentPage = 1;
-      dispatch(getFilteredLocations(status, currentPage));
+      dispatch(getFilteredLocations(currentPage, checked, includeSuspended));
     },
-    onCheckShowSuspended: (evt, checked, inactiveCheckboxStatus) => {
-      const status = [];
-      if (checked) {
-        status.push(STATUS_SUSPENDED);
-      }
-      if (inactiveCheckboxStatus) {
-        status.push(STATUS_INACTIVE);
-      }
+    onCheckIncludeSuspended: (evt, checked, includeInactive) => {
       const currentPage = 1;
-      dispatch(getFilteredLocations(status, currentPage));
+      dispatch(getFilteredLocations(currentPage, includeInactive, checked));
     },
-    onChangePage: (status, currentPage) => dispatch(getFilteredLocations(status, currentPage)),
+    onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
+    initializeLocations: () => dispatch(initializeLocations()),
   };
 }
 

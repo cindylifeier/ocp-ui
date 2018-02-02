@@ -1,3 +1,8 @@
+.wrapper {
+  background-color: white !important;
+  height: 100vh;
+}
+
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);

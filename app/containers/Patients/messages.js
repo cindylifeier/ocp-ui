@@ -7,15 +7,15 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.containers.Patients.header',
+    id: 'ocpui.containers.Patients.header',
     defaultMessage: 'Patients',
   },
   inactive: {
-    id: 'app.containers.Patients.checkbox.inactive',
+    id: 'ocpui.containers.Patients.checkbox.inactive',
     defaultMessage: 'Include inactive',
   },
   searchTermsInvalid: {
-    id: 'app.containers.Patients.header',
+    id: 'ocpui.containers.Patients.header',
     defaultMessage: 'Must be at least 3 characters long.',
   },
 });

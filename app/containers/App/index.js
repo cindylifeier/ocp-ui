@@ -12,26 +12,57 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { compose } from 'redux';
+import { Route, Switch } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import PatientDetailsPage from 'containers/PatientDetailsPage/Loadable';
+import PatientsPage from 'containers/PatientsPage/Loadable';
 
 import styles from './styles.css';
 import { LoginPage } from '../LoginPage/index';
+import Layout from '../../components/Layout';
+import ManageLocationPage from '../ManageLocationPage/index';
+import ManagePractitionerPage from '../ManagePractitionerPage';
+import ManageOrganizationPage from '../ManageOrganizationPage';
+import Notification from '../Notification';
+import saga from './saga';
+import injectSaga from '../../utils/injectSaga';
+import ManagePatientPage from '../ManagePatientPage/index';
 
 
-export default function App() {
+export function App() {
   return (
-    <div className={styles.App}>
-      <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/home" component={HomePage} />
-        <Route path="/patients/:id" component={PatientDetailsPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+    <div>
+      <Helmet
+        titleTemplate="%s - Omnibus Care Plan"
+        defaultTitle="Omnibus Care Plan"
+      >
+        <meta name="description" content="Omnibus Care Plan application" />
+      </Helmet>
+      <div className={styles.App}>
+        <Switch>
+          <Route exact path="/ocp-ui" component={LoginPage} />
+          <Route path="/ocp-ui/login" component={LoginPage} />
+          <Layout>
+            <Route path="/ocp-ui/home" component={HomePage} />
+            <Route path="/ocp-ui/patients" component={PatientsPage} />
+            <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
+            <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
+            <Route path="/ocp-ui/manage-patient/:id?" component={ManagePatientPage} />
+            <Route path="/ocp-ui/manage-location/:id?" component={ManageLocationPage} />
+          </Layout>
+          <Route component={NotFoundPage} />
+        </Switch>
+        <Notification />
+      </div>
     </div>
   );
 }
+
+const withSaga = injectSaga({ key: 'App', saga });
+
+export default compose(
+  withSaga,
+)(App);
