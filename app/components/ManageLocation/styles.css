@@ -79,6 +79,10 @@
 
 .buttonGroup {
   grid-area: buttonGroup;
+  margin: 1vh 0;
+  display: grid;
+  grid-column-gap: 1vw;
+  grid-template-columns: 1fr 1fr 2fr;
 }
 
 .errorMessage {
@@ -89,6 +93,7 @@
   color: #444;
   width: auto;
   padding-left: 1vw;
+  padding-right: 1vw;
   margin: 0 1vw;
   display: grid;
   grid-column-gap: 2vw;
@@ -109,4 +114,126 @@
     "addressUse"
     "buttonGroup"
     "errorMessage";
+}
+
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "name status"
+      "locationGroup locationGroup"
+      "identifierGroup identifierGroup"
+      "identifierGroup identifierGroup"
+      "contactGroup contactGroup"
+      "contactPurpose ."
+      "address1 address2"
+      "city state"
+      "postalCode addressUse"
+      "buttonGroup ."
+      "errorMessage errorMessage";
+  }
+  .locationGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .identifierGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .contactGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .buttonGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .name {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+
+  .status {
+    grid-column: 6 / span 3;
+    grid-row: 1;
+  }
+
+  .locationGroup {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+  }
+
+  .identifierGroup {
+    grid-column: 7 / span 6;
+    grid-row: 2;
+  }
+
+  .contactGroup {
+    grid-column: 1 / span 5;
+    grid-row: 3;
+  }
+
+  .contactPurpose {
+    grid-column: 6 / span 3;
+    grid-row: 3;
+  }
+
+  .address1 {
+    grid-column: 1 / span 4;
+    grid-row: 4;
+  }
+
+  .address2 {
+     grid-column: 5 / span 4;
+     grid-row: 4;
+  }
+
+  .city {
+      grid-column: 1 / span 4;
+      grid-row: 5;
+  }
+
+  .state {
+    grid-column: 5 / span 3;
+    grid-row: 5;
+  }
+
+  .postalCode {
+    grid-column: 8 / span 2;
+    grid-row: 5;
+  }
+
+  .country {
+    grid-column: 1 / span 4;
+    grid-row: 5;
+  }
+
+  .addressUse {
+    grid-column: 1 / span 4;
+    grid-row: 6;
+  }
+
+  .buttonGroup {
+    grid-column: 1 / span 2;
+    grid-row: 7;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .errorMessage {
+    grid-column: 3 / span 2;
+    grid-row: 7;
+  }
 }

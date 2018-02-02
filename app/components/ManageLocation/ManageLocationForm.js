@@ -191,6 +191,7 @@ function ManageLocationForm(props) {
             <SelectField
               fullWidth
               name="use"
+              floatingLabelStyle={floatingLabelStyle}
               floatingLabelText={<FormattedMessage {...messages.addressUseFloatingLabelText} />}
             >
               {addressUses && addressUses.map((addressUse) => (
@@ -204,7 +205,6 @@ function ManageLocationForm(props) {
               labelColor={white}
               label="Save"
               type="submit"
-              primary
               disabled={!dirty || isSubmitting || !isValid}
             />
             <FlatButton
