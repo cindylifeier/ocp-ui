@@ -1,7 +1,6 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import find from 'lodash/find';
 
 import { showNotification } from '../Notification/actions';
 import { HOME_URL } from '../App/constants';
@@ -9,8 +8,9 @@ import { GET_PATIENT } from './constants';
 import { getPatientSuccess } from './actions';
 import { makeSelectPatientSearchResult } from '../Patients/selectors';
 import { getPatient } from '../ManagePatientPage/api';
+import { getPatientById } from './api';
 
-export function* getPatientWorker({ patientId }) {
+function* getPatientWorker({ patientId }) {
   try {
     let patient;
     // Load patients from store
@@ -27,17 +27,16 @@ export function* getPatientWorker({ patientId }) {
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export default function* watchManageCareTeam() {
+function* watchManageCareTeam() {
   yield takeLatest(GET_PATIENT, getPatientWorker);
 }
 
-
-function getPatientById(patients, patientId) {
-  if (!isEmpty(patients)) {
-    return find(patients, { id: patientId });
-  }
-  return null;
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* rootSaga() {
+  yield all([
+    watchManageCareTeam(),
+  ]);
 }
+
