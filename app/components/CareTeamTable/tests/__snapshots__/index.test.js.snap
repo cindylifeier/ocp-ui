@@ -58,22 +58,15 @@ ShallowWrapper {
                 Active
             </TableRowColumn>
             <TableRowColumn>
-                <ul>
-                    <li>
-                        Encounter
-                    </li>
-                    <li>
-                        Episode
-                    </li>
-                </ul>
+                Encounter
             </TableRowColumn>
             <TableRowColumn>
                 <ul>
                     <li>
-                        Tom2 provider / Medical doctor
+                        Gregory House / Medical doctor
                     </li>
                     <li>
-                        Great Cross Hospital / General practice (organisation)
+                        Great Cross Hospital / Prison practice
                     </li>
                 </ul>
             </TableRowColumn>
@@ -86,19 +79,15 @@ ShallowWrapper {
                 My Care Team Two
             </TableRowColumn>
             <TableRowColumn>
-                Active
+                Suspended
+            </TableRowColumn>
+            <TableRowColumn>
+                Condition
             </TableRowColumn>
             <TableRowColumn>
                 <ul>
                     <li>
-                        Condition
-                    </li>
-                </ul>
-            </TableRowColumn>
-            <TableRowColumn>
-                <ul>
-                    <li>
-                        Her Grandmother / Grand-mother
+                        Granny Smith / Grand-mother
                     </li>
                 </ul>
             </TableRowColumn>
@@ -156,22 +145,15 @@ ShallowWrapper {
                         Active
                   </TableRowColumn>
                   <TableRowColumn>
-                        <ul>
-                              <li>
-                                    Encounter
-                              </li>
-                              <li>
-                                    Episode
-                              </li>
-                        </ul>
+                        Encounter
                   </TableRowColumn>
                   <TableRowColumn>
                         <ul>
                               <li>
-                                    Tom2 provider / Medical doctor
+                                    Gregory House / Medical doctor
                               </li>
                               <li>
-                                    Great Cross Hospital / General practice (organisation)
+                                    Great Cross Hospital / Prison practice
                               </li>
                         </ul>
                   </TableRowColumn>
@@ -184,19 +166,15 @@ ShallowWrapper {
                         My Care Team Two
                   </TableRowColumn>
                   <TableRowColumn>
-                        Active
+                        Suspended
+                  </TableRowColumn>
+                  <TableRowColumn>
+                        Condition
                   </TableRowColumn>
                   <TableRowColumn>
                         <ul>
                               <li>
-                                    Condition
-                              </li>
-                        </ul>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        <ul>
-                              <li>
-                                    Her Grandmother / Grand-mother
+                                    Granny Smith / Grand-mother
                               </li>
                         </ul>
                   </TableRowColumn>
@@ -214,103 +192,77 @@ ShallowWrapper {
         elements={
                 Array [
                         Object {
-                          "categories": Array [
-                            Object {
-                              "code": "encounter",
-                              "definition": "This type of team focuses on one specific encounter. The encounter is determined by the context of use. For example, during an inpatient encounter, the nutrition support care team",
-                              "display": "Encounter",
-                            },
-                            Object {
-                              "code": "episode",
-                              "definition": "This type of team focuses on one specific episode of care with a defined time period or self-limiting process (e.g. 10 visits). The episode of care is determined by the context of use. For example, a maternity care team over 9 months.",
-                              "display": "Episode",
-                            },
-                          ],
+                          "categoryCode": "encounter",
+                          "categoryDisplay": "Encounter",
+                          "endDate": "02/01/2017",
                           "id": "111111",
                           "name": "My Care Team One",
                           "participants": Array [
                             Object {
-                              "member": Object {
-                                "firstName": "Tom2",
-                                "id": "700551",
-                                "lastName": "provider",
-                                "type": "practitioner",
-                              },
-                              "onBehalfOf": Object {
-                                "id": "143191",
-                                "name": "Great Cross Hospital",
-                              },
-                              "role": Object {
-                                "code": "112247003",
-                                "definition": null,
-                                "display": "Medical doctor",
-                              },
+                              "memberFirstName": "Gregory",
+                              "memberId": "700551",
+                              "memberLastName": "House",
+                              "memberType": "practitioner",
+                              "onBehalfOfId": "143191",
+                              "onBehalfOfName": "Great Cross Hospital",
+                              "roleCode": "112247003",
+                              "roleDisplay": "Medical doctor",
                             },
                             Object {
-                              "member": Object {
-                                "id": "650858",
-                                "name": "Great Cross Hospital",
-                                "type": "organization",
-                              },
-                              "onBehalfOf": Object {
-                                "id": "143191",
-                                "name": "Great Cross Hospital",
-                              },
-                              "role": Object {
-                                "code": "394745000",
-                                "definition": null,
-                                "display": "General practice (organisation)",
-                              },
+                              "memberId": "650858",
+                              "memberName": "Great Cross Hospital",
+                              "memberType": "organization",
+                              "onBehalfOfId": "143191",
+                              "onBehalfOfName": "Great Cross Hospital",
+                              "roleCode": "394765007",
+                              "roleDisplay": "Prison practice",
                             },
                           ],
-                          "status": Object {
-                            "code": "active",
-                            "definition": "The care team is currently participating in the coordination and delivery of care.",
-                            "display": "Active",
-                            "system": "http://hl7.org/fhir/care-team-status",
-                          },
-                          "subject": Object {
-                            "firstName": "Patient",
-                            "id": "11111",
-                            "lastName": "One",
-                          },
+                          "reasonCodes": Array [
+                            Object {
+                              "code": "109006",
+                              "display": "Anxiety disorder of childhood OR adolescence",
+                            },
+                            Object {
+                              "code": "122003",
+                              "display": "Choroidal hemorrhage",
+                            },
+                          ],
+                          "startDate": "01/01/2017",
+                          "statusCode": "active",
+                          "statusDisplay": "Active",
+                          "subjectFirstName": "Adam",
+                          "subjectId": "11111",
+                          "subjectLastName": "Smith",
                         },
                         Object {
-                          "categories": Array [
-                            Object {
-                              "code": "condition",
-                              "definition": "This type of team focuses on one specific condition. The condition is determined by the context of use. For example, a disease management team focused on one condition (e.g. diabetes).",
-                              "display": "Condition",
-                            },
-                          ],
+                          "categoryCode": "condition",
+                          "categoryDisplay": "Condition",
+                          "endDate": "08/01/2017",
                           "id": "222222",
                           "name": "My Care Team Two",
                           "participants": Array [
                             Object {
-                              "member": Object {
-                                "firstName": "Her",
-                                "id": "121212",
-                                "lastName": "Grandmother",
-                                "type": "relatedPerson",
-                              },
-                              "role": Object {
-                                "code": "113157001",
-                                "definition": null,
-                                "display": "Grand-mother",
-                              },
+                              "memberFirstName": "Granny",
+                              "memberId": "121212",
+                              "memberLastName": "Smith",
+                              "memberType": "relatedPerson",
+                              "roleCode": "113157001",
+                              "roleDisplay": "Grand-mother",
                             },
                           ],
-                          "status": Object {
-                            "code": "active",
-                            "definition": "The care team is currently participating in the coordination and delivery of care.",
-                            "display": "Active",
-                            "system": "http://hl7.org/fhir/care-team-status",
-                          },
-                          "subject": Object {
-                            "firstName": "Patient",
-                            "id": "11111",
-                            "lastName": "One",
-                          },
+                          "reasonCodes": Array [
+                            Object {
+                              "code": "134006",
+                              "display": "Decreased hair growth",
+                            },
+                          ],
+                          "startDate": "04/01/2017",
+                          "statusCode": "suspended",
+                          "statusDisplay": "Suspended",
+                          "subjectFirstName": "Adam",
+                          "subjectId": "11111",
+                          "subjectLastName": "Smith",
                         },
                       ]
         }
@@ -324,103 +276,77 @@ ShallowWrapper {
         "props": Object {
           "elements": Array [
             Object {
-              "categories": Array [
-                Object {
-                  "code": "encounter",
-                  "definition": "This type of team focuses on one specific encounter. The encounter is determined by the context of use. For example, during an inpatient encounter, the nutrition support care team",
-                  "display": "Encounter",
-                },
-                Object {
-                  "code": "episode",
-                  "definition": "This type of team focuses on one specific episode of care with a defined time period or self-limiting process (e.g. 10 visits). The episode of care is determined by the context of use. For example, a maternity care team over 9 months.",
-                  "display": "Episode",
-                },
-              ],
+              "categoryCode": "encounter",
+              "categoryDisplay": "Encounter",
+              "endDate": "02/01/2017",
               "id": "111111",
               "name": "My Care Team One",
               "participants": Array [
                 Object {
-                  "member": Object {
-                    "firstName": "Tom2",
-                    "id": "700551",
-                    "lastName": "provider",
-                    "type": "practitioner",
-                  },
-                  "onBehalfOf": Object {
-                    "id": "143191",
-                    "name": "Great Cross Hospital",
-                  },
-                  "role": Object {
-                    "code": "112247003",
-                    "definition": null,
-                    "display": "Medical doctor",
-                  },
+                  "memberFirstName": "Gregory",
+                  "memberId": "700551",
+                  "memberLastName": "House",
+                  "memberType": "practitioner",
+                  "onBehalfOfId": "143191",
+                  "onBehalfOfName": "Great Cross Hospital",
+                  "roleCode": "112247003",
+                  "roleDisplay": "Medical doctor",
                 },
                 Object {
-                  "member": Object {
-                    "id": "650858",
-                    "name": "Great Cross Hospital",
-                    "type": "organization",
-                  },
-                  "onBehalfOf": Object {
-                    "id": "143191",
-                    "name": "Great Cross Hospital",
-                  },
-                  "role": Object {
-                    "code": "394745000",
-                    "definition": null,
-                    "display": "General practice (organisation)",
-                  },
+                  "memberId": "650858",
+                  "memberName": "Great Cross Hospital",
+                  "memberType": "organization",
+                  "onBehalfOfId": "143191",
+                  "onBehalfOfName": "Great Cross Hospital",
+                  "roleCode": "394765007",
+                  "roleDisplay": "Prison practice",
                 },
               ],
-              "status": Object {
-                "code": "active",
-                "definition": "The care team is currently participating in the coordination and delivery of care.",
-                "display": "Active",
-                "system": "http://hl7.org/fhir/care-team-status",
-              },
-              "subject": Object {
-                "firstName": "Patient",
-                "id": "11111",
-                "lastName": "One",
-              },
+              "reasonCodes": Array [
+                Object {
+                  "code": "109006",
+                  "display": "Anxiety disorder of childhood OR adolescence",
+                },
+                Object {
+                  "code": "122003",
+                  "display": "Choroidal hemorrhage",
+                },
+              ],
+              "startDate": "01/01/2017",
+              "statusCode": "active",
+              "statusDisplay": "Active",
+              "subjectFirstName": "Adam",
+              "subjectId": "11111",
+              "subjectLastName": "Smith",
             },
             Object {
-              "categories": Array [
-                Object {
-                  "code": "condition",
-                  "definition": "This type of team focuses on one specific condition. The condition is determined by the context of use. For example, a disease management team focused on one condition (e.g. diabetes).",
-                  "display": "Condition",
-                },
-              ],
+              "categoryCode": "condition",
+              "categoryDisplay": "Condition",
+              "endDate": "08/01/2017",
               "id": "222222",
               "name": "My Care Team Two",
               "participants": Array [
                 Object {
-                  "member": Object {
-                    "firstName": "Her",
-                    "id": "121212",
-                    "lastName": "Grandmother",
-                    "type": "relatedPerson",
-                  },
-                  "role": Object {
-                    "code": "113157001",
-                    "definition": null,
-                    "display": "Grand-mother",
-                  },
+                  "memberFirstName": "Granny",
+                  "memberId": "121212",
+                  "memberLastName": "Smith",
+                  "memberType": "relatedPerson",
+                  "roleCode": "113157001",
+                  "roleDisplay": "Grand-mother",
                 },
               ],
-              "status": Object {
-                "code": "active",
-                "definition": "The care team is currently participating in the coordination and delivery of care.",
-                "display": "Active",
-                "system": "http://hl7.org/fhir/care-team-status",
-              },
-              "subject": Object {
-                "firstName": "Patient",
-                "id": "11111",
-                "lastName": "One",
-              },
+              "reasonCodes": Array [
+                Object {
+                  "code": "134006",
+                  "display": "Decreased hair growth",
+                },
+              ],
+              "startDate": "04/01/2017",
+              "statusCode": "suspended",
+              "statusDisplay": "Suspended",
+              "subjectFirstName": "Adam",
+              "subjectId": "11111",
+              "subjectLastName": "Smith",
             },
           ],
         },
@@ -494,22 +420,15 @@ ShallowWrapper {
                                         Active
                               </TableRowColumn>
                               <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Encounter
-                                                  </li>
-                                                  <li>
-                                                            Episode
-                                                  </li>
-                                        </ul>
+                                        Encounter
                               </TableRowColumn>
                               <TableRowColumn>
                                         <ul>
                                                   <li>
-                                                            Tom2 provider / Medical doctor
+                                                            Gregory House / Medical doctor
                                                   </li>
                                                   <li>
-                                                            Great Cross Hospital / General practice (organisation)
+                                                            Great Cross Hospital / Prison practice
                                                   </li>
                                         </ul>
                               </TableRowColumn>
@@ -522,19 +441,15 @@ ShallowWrapper {
                                         My Care Team Two
                               </TableRowColumn>
                               <TableRowColumn>
-                                        Active
+                                        Suspended
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        Condition
                               </TableRowColumn>
                               <TableRowColumn>
                                         <ul>
                                                   <li>
-                                                            Condition
-                                                  </li>
-                                        </ul>
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Her Grandmother / Grand-mother
+                                                            Granny Smith / Grand-mother
                                                   </li>
                                         </ul>
                               </TableRowColumn>
@@ -592,22 +507,15 @@ ShallowWrapper {
                                         Active
                               </TableRowColumn>
                               <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Encounter
-                                                  </li>
-                                                  <li>
-                                                            Episode
-                                                  </li>
-                                        </ul>
+                                        Encounter
                               </TableRowColumn>
                               <TableRowColumn>
                                         <ul>
                                                   <li>
-                                                            Tom2 provider / Medical doctor
+                                                            Gregory House / Medical doctor
                                                   </li>
                                                   <li>
-                                                            Great Cross Hospital / General practice (organisation)
+                                                            Great Cross Hospital / Prison practice
                                                   </li>
                                         </ul>
                               </TableRowColumn>
@@ -620,19 +528,15 @@ ShallowWrapper {
                                         My Care Team Two
                               </TableRowColumn>
                               <TableRowColumn>
-                                        Active
+                                        Suspended
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                        Condition
                               </TableRowColumn>
                               <TableRowColumn>
                                         <ul>
                                                   <li>
-                                                            Condition
-                                                  </li>
-                                        </ul>
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Her Grandmother / Grand-mother
+                                                            Granny Smith / Grand-mother
                                                   </li>
                                         </ul>
                               </TableRowColumn>
@@ -654,103 +558,77 @@ ShallowWrapper {
     elements={
         Array [
             Object {
-              "categories": Array [
-                Object {
-                  "code": "encounter",
-                  "definition": "This type of team focuses on one specific encounter. The encounter is determined by the context of use. For example, during an inpatient encounter, the nutrition support care team",
-                  "display": "Encounter",
-                },
-                Object {
-                  "code": "episode",
-                  "definition": "This type of team focuses on one specific episode of care with a defined time period or self-limiting process (e.g. 10 visits). The episode of care is determined by the context of use. For example, a maternity care team over 9 months.",
-                  "display": "Episode",
-                },
-              ],
+              "categoryCode": "encounter",
+              "categoryDisplay": "Encounter",
+              "endDate": "02/01/2017",
               "id": "111111",
               "name": "My Care Team One",
               "participants": Array [
                 Object {
-                  "member": Object {
-                    "firstName": "Tom2",
-                    "id": "700551",
-                    "lastName": "provider",
-                    "type": "practitioner",
-                  },
-                  "onBehalfOf": Object {
-                    "id": "143191",
-                    "name": "Great Cross Hospital",
-                  },
-                  "role": Object {
-                    "code": "112247003",
-                    "definition": null,
-                    "display": "Medical doctor",
-                  },
+                  "memberFirstName": "Gregory",
+                  "memberId": "700551",
+                  "memberLastName": "House",
+                  "memberType": "practitioner",
+                  "onBehalfOfId": "143191",
+                  "onBehalfOfName": "Great Cross Hospital",
+                  "roleCode": "112247003",
+                  "roleDisplay": "Medical doctor",
                 },
                 Object {
-                  "member": Object {
-                    "id": "650858",
-                    "name": "Great Cross Hospital",
-                    "type": "organization",
-                  },
-                  "onBehalfOf": Object {
-                    "id": "143191",
-                    "name": "Great Cross Hospital",
-                  },
-                  "role": Object {
-                    "code": "394745000",
-                    "definition": null,
-                    "display": "General practice (organisation)",
-                  },
+                  "memberId": "650858",
+                  "memberName": "Great Cross Hospital",
+                  "memberType": "organization",
+                  "onBehalfOfId": "143191",
+                  "onBehalfOfName": "Great Cross Hospital",
+                  "roleCode": "394765007",
+                  "roleDisplay": "Prison practice",
                 },
               ],
-              "status": Object {
-                "code": "active",
-                "definition": "The care team is currently participating in the coordination and delivery of care.",
-                "display": "Active",
-                "system": "http://hl7.org/fhir/care-team-status",
-              },
-              "subject": Object {
-                "firstName": "Patient",
-                "id": "11111",
-                "lastName": "One",
-              },
+              "reasonCodes": Array [
+                Object {
+                  "code": "109006",
+                  "display": "Anxiety disorder of childhood OR adolescence",
+                },
+                Object {
+                  "code": "122003",
+                  "display": "Choroidal hemorrhage",
+                },
+              ],
+              "startDate": "01/01/2017",
+              "statusCode": "active",
+              "statusDisplay": "Active",
+              "subjectFirstName": "Adam",
+              "subjectId": "11111",
+              "subjectLastName": "Smith",
             },
             Object {
-              "categories": Array [
-                Object {
-                  "code": "condition",
-                  "definition": "This type of team focuses on one specific condition. The condition is determined by the context of use. For example, a disease management team focused on one condition (e.g. diabetes).",
-                  "display": "Condition",
-                },
-              ],
+              "categoryCode": "condition",
+              "categoryDisplay": "Condition",
+              "endDate": "08/01/2017",
               "id": "222222",
               "name": "My Care Team Two",
               "participants": Array [
                 Object {
-                  "member": Object {
-                    "firstName": "Her",
-                    "id": "121212",
-                    "lastName": "Grandmother",
-                    "type": "relatedPerson",
-                  },
-                  "role": Object {
-                    "code": "113157001",
-                    "definition": null,
-                    "display": "Grand-mother",
-                  },
+                  "memberFirstName": "Granny",
+                  "memberId": "121212",
+                  "memberLastName": "Smith",
+                  "memberType": "relatedPerson",
+                  "roleCode": "113157001",
+                  "roleDisplay": "Grand-mother",
                 },
               ],
-              "status": Object {
-                "code": "active",
-                "definition": "The care team is currently participating in the coordination and delivery of care.",
-                "display": "Active",
-                "system": "http://hl7.org/fhir/care-team-status",
-              },
-              "subject": Object {
-                "firstName": "Patient",
-                "id": "11111",
-                "lastName": "One",
-              },
+              "reasonCodes": Array [
+                Object {
+                  "code": "134006",
+                  "display": "Decreased hair growth",
+                },
+              ],
+              "startDate": "04/01/2017",
+              "statusCode": "suspended",
+              "statusDisplay": "Suspended",
+              "subjectFirstName": "Adam",
+              "subjectId": "11111",
+              "subjectLastName": "Smith",
             },
           ]
     }
