@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
+import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,8 +22,19 @@ import messages from './messages';
 import styles from './styles.css';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import CareTeamTable from '../../components/CareTeamTable';
+import { getCareTeams } from './actions';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handlePageClick = this.handlePageClick.bind(this);
+  }
+
+  handlePageClick(page) {
+    const { query, patientName } = this.props.careTeams;
+    this.props.getCareTeams({ ...query, pageNumber: page }, patientName);
+  }
+
   render() {
     const { careTeams: { loading, data, patientName } } = this.props;
     return (
@@ -38,17 +50,31 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
         <RefreshIndicatorLoading />}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
-        <CareTeamTable elements={data.elements} />}
+        <div className={styles.textCenter}>
+          <CareTeamTable elements={data.elements} />
+          <UltimatePagination
+            currentPage={data.currentPage}
+            totalPages={data.totalNumberOfPages}
+            boundaryPagesRange={1}
+            siblingPagesRange={1}
+            hidePreviousAndNextPageLinks={false}
+            hideFirstAndLastPageLinks={false}
+            hideEllipsis={false}
+            onChange={this.handlePageClick}
+          />
+        </div>
+        }
       </div>
     );
   }
 }
 
 CareTeams.propTypes = {
-  // TODO: remove eslint disable once dispatch functions are clarified
-  dispatch: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  getCareTeams: PropTypes.func.isRequired,
   careTeams: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    query: PropTypes.object,
+    patientName: PropTypes.string,
   }).isRequired,
 };
 
@@ -58,7 +84,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
   };
 }
 

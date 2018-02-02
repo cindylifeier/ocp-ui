@@ -1,11 +1,12 @@
 import queryString from '../../utils/queryString';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { DEFAULT_PAGE_SIZE, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 
 const baseApiUrl = getApiBaseUrl();
 
 const mockCareTeamsPage = {
   size: 2,
-  totalNumberOfPages: 2,
+  totalNumberOfPages: 4,
   currentPage: 1,
   currentPageSize: 2,
   hasNextPage: true,
@@ -84,8 +85,15 @@ const mockCareTeamsPage = {
   ],
 };
 
-export default function getCareTeams(query) {
-  const params = queryString(query);
+export default function getCareTeams(query, statusList) {
+  const { pageNumber = DEFAULT_START_PAGE_NUMBER, pageSize = DEFAULT_PAGE_SIZE } = query;
+  const q = {
+    ...query,
+    pageNumber,
+    pageSize,
+    statusList,
+  };
+  const params = queryString(q);
   const requestURL = `${baseApiUrl}/careTeams/search${params}`;
   // TODO: remove once the backend is implemented
   console.log(`stubbing call for ${requestURL}`);

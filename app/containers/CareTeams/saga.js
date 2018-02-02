@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { GET_CARE_TEAMS } from './constants';
+import { DEFAULT_CARE_TEAM_STATUS_CODE, GET_CARE_TEAMS } from './constants';
 import { getCareTeamsError, getCareTeamsSuccess } from './actions';
 import getCareTeamsApi from './api';
 import { showNotification } from '../Notification/actions';
@@ -8,7 +8,7 @@ import { getLookupsAction } from '../App/actions';
 
 export function* getCareTeams({ query }) {
   try {
-    const careTeamsPage = yield call(getCareTeamsApi, query);
+    const careTeamsPage = yield call(getCareTeamsApi, query, [DEFAULT_CARE_TEAM_STATUS_CODE]);
     yield put(getCareTeamsSuccess(careTeamsPage));
   } catch (err) {
     yield put(getCareTeamsError(err));

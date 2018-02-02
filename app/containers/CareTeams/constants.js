@@ -16,3 +16,4 @@ export const GET_CARE_TEAMS_ERROR = 'ocpui/CareTeams/GET_CARE_TEAMS_ERROR';
 *  Other constants
 *
 */
+export const DEFAULT_CARE_TEAM_STATUS_CODE = 'active';
