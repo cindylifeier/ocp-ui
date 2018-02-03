@@ -11,7 +11,7 @@ import { getPatient } from '../ManagePatientPage/api';
 import { createCareTeam, getPatientById } from './api';
 import { getLookupsAction } from '../App/actions';
 
- function* getPatientWorker({ patientId }) {
+function* getPatientWorker({ patientId }) {
   try {
     let patient;
     // Load patients from store
@@ -28,7 +28,7 @@ import { getLookupsAction } from '../App/actions';
   }
 }
 
-export function* saveCareTeamWorker(action) {
+function* saveCareTeamWorker(action) {
   try {
     yield call(createCareTeam, action.careTeamFormData);
     yield put(showNotification('Successfully create the care team.'));
@@ -59,14 +59,6 @@ export default function* rootSaga() {
   yield all([
     getLookupDataWorker(),
     watchGetPatient(),
-    watchManageCareTeam(),
-  ]);
-}
-
-
-
-export default function* rootSaga() {
-  yield all([
     watchManageCareTeam(),
   ]);
 }
