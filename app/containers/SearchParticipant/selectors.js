@@ -14,12 +14,12 @@ const selectSearchParticipantDomain = (state) => state.get('searchParticipant');
  * Default selector used by SearchParticipant
  */
 
-const makeSelectSearchParticipant = () => createSelector(
+const makeSelectSearchParticipantResults = () => createSelector(
   selectSearchParticipantDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('searchParticipantResult').toJS()
 );
 
-export default makeSelectSearchParticipant;
 export {
   selectSearchParticipantDomain,
+  makeSelectSearchParticipantResults,
 };
