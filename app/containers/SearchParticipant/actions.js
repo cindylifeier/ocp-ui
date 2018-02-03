@@ -22,10 +22,10 @@ export function getSearchParticipant(name, member) {
   };
 }
 
-export function getSearchParticipantSuccess(participants) {
+export function getSearchParticipantSuccess(searchParticipantResults) {
   return {
     type: SEARCH_PARTICIPANT_SUCCESS,
-    participants,
+    searchParticipantResults,
   };
 }
 
