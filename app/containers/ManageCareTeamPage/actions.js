@@ -4,9 +4,7 @@
  *
  */
 
-import {
-  GET_PATIENT, GET_PATIENT_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM,
-} from './constants';
+import { GET_PATIENT, GET_PATIENT_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM, SAVE_CARE_TEAM } from './constants';
 
 export function initializeManageCareTeam() {
   return {
@@ -25,5 +23,13 @@ export function getPatientSuccess(patient) {
   return {
     type: GET_PATIENT_SUCCESS,
     patient,
+  };
+}
+
+export function saveCareTeam(careTeamFormData, handleSubmitting) {
+  return {
+    type: SAVE_CARE_TEAM,
+    careTeamFormData,
+    handleSubmitting,
   };
 }

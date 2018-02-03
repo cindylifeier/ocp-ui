@@ -13,16 +13,16 @@ import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
+import merge from 'lodash/merge';
+
 import { FormattedMessage } from 'react-intl';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getPatient, initializeManageCareTeam } from './actions';
+import { getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
 import { makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
-import { CARETEAMCATEGORY, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
 import {
@@ -47,7 +47,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleOpen = this.handleOpen.bind(this);
   }
   componentWillMount() {
-    this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
     this.props.getPatient(queryObj.patientId);
   }
@@ -55,17 +54,20 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   componentWillUnmount() {
     this.props.initializeManageCareTeam();
   }
+
+  handleSave(careTeamFormData, actions) {
+    const patientId = this.props.selectedPatient.id;
+    if (patientId) {
+      merge(careTeamFormData, { patientId });
+    }
+    this.props.onSaveCareTeam(careTeamFormData, () => actions.setSubmitting(false));
+  }
   handleClose() {
     this.setState({ open: false });
   }
   handleOpen() {
     this.setState({ open: true });
   }
-  // TODO: will implement it
-  handleSave(careTeamFormData) {
-    console.log(careTeamFormData);
-  }
-
   render() {
     const {
       match,
@@ -76,12 +78,15 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       careTeamStatuses,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
+    // Todo: implement to dispatch participants
+    const hasParticipants = true;
     const manageCareTeamProps = {
       selectedPatient,
       careTeamCategories,
       participantTypes,
       participantRoles,
       careTeamStatuses,
+      hasParticipants,
     };
     return (
       <div>
@@ -120,7 +125,7 @@ ManageCareTeamPage.propTypes = {
   selectedPatient: PropTypes.object,
   getPatient: PropTypes.func.isRequired,
   initializeManageCareTeam: PropTypes.func.isRequired,
-  getLookUpFormData: PropTypes.func.isRequired,
+  onSaveCareTeam: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.array,
   participantTypes: PropTypes.array,
   participantRoles: PropTypes.array,
@@ -138,8 +143,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
-    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
+    onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
   };
 }
 
