@@ -71,9 +71,6 @@ function ManageCareTeam(props) {
             })}
           render={(formikProps) => <ManageCareTeamForm {...formikProps} {...propsFromContainer} />}
         />
-        <br />
-        <br />
-
       </div>
       }
     </div>
