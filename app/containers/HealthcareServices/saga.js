@@ -11,7 +11,7 @@ import queryHealthcareServices from './api';
 import { makeSelectIncludeInactive, makeSelectOrganization } from './selectors';
 import { getHealthcareServicesError, getHealthcareServicesSuccess } from './actions';
 
-export function* fetchHealthcareServicesByOrganizationIdAndStatus(action) {
+export function* getHealthcareServicesByOrganizationIdAndStatus(action) {
   try {
     const organization = yield select(makeSelectOrganization());
     const includeInactive = yield select(makeSelectIncludeInactive());
@@ -26,17 +26,17 @@ export function* fetchHealthcareServicesByOrganizationIdAndStatus(action) {
   }
 }
 
-export function* watchActiveHealthCareServicesByOrganization() {
-  yield takeLatest(GET_ACTIVE_HEALTHCARE_SERVICES, fetchHealthcareServicesByOrganizationIdAndStatus);
+export function* watchGetActiveHealthCareServicesByOrganization() {
+  yield takeLatest(GET_ACTIVE_HEALTHCARE_SERVICES, getHealthcareServicesByOrganizationIdAndStatus);
 }
 
-export function* watchFetchHealthCareServices() {
-  yield takeLatest(GET_FILTERED_HEALTHCARE_SERVICES, fetchHealthcareServicesByOrganizationIdAndStatus);
+export function* watchGetHealthCareServices() {
+  yield takeLatest(GET_FILTERED_HEALTHCARE_SERVICES, getHealthcareServicesByOrganizationIdAndStatus);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchFetchHealthCareServices(),
-    watchActiveHealthCareServicesByOrganization(),
+    watchGetHealthCareServices(),
+    watchGetActiveHealthCareServicesByOrganization(),
   ]);
 }
