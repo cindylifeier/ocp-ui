@@ -36,7 +36,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeLookups();
   }
 
