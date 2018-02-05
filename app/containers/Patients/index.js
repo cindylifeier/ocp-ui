@@ -67,9 +67,8 @@ export class Patients extends React.PureComponent {
   }
 
   handlePatientClick({ id: searchValue, name: [{ firstName, lastName }] }) {
-    const showInactive = false;
     const searchType = 'patientId';
-    const query = { searchValue, searchType, showInactive };
+    const query = { searchValue, searchType };
     this.props.getCareTeams(query, `${firstName} ${lastName}`);
   }
 

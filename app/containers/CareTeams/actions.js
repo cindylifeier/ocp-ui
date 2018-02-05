@@ -6,11 +6,12 @@
 
 import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS } from './constants';
 
-export function getCareTeams(query, patientName) {
+export function getCareTeams(query, patientName, statusList = []) {
   return {
     type: GET_CARE_TEAMS,
     query,
     patientName,
+    statusList,
   };
 }
 

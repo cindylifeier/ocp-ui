@@ -12,6 +12,7 @@ const initialState = fromJS({
   patientName: null,
   data: null,
   query: null,
+  statusList: [],
 });
 
 function careTeamsReducer(state = initialState, action) {
@@ -21,7 +22,8 @@ function careTeamsReducer(state = initialState, action) {
         .set('loading', true)
         .set('data', null)
         .set('patientName', action.patientName)
-        .set('query', fromJS(action.query));
+        .set('query', fromJS(action.query))
+        .set('statusList', fromJS(action.statusList));
     case GET_CARE_TEAMS_SUCCESS:
       return state
         .set('loading', false)

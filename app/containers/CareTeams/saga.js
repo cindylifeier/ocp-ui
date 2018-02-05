@@ -6,9 +6,9 @@ import { showNotification } from '../Notification/actions';
 import { CARETEAMSTATUS } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 
-export function* getCareTeams({ query }) {
+export function* getCareTeams({ query, statusList }) {
   try {
-    const careTeamsPage = yield call(getCareTeamsApi, query, [DEFAULT_CARE_TEAM_STATUS_CODE]);
+    const careTeamsPage = yield call(getCareTeamsApi, query, [DEFAULT_CARE_TEAM_STATUS_CODE, ...statusList]);
     yield put(getCareTeamsSuccess(careTeamsPage));
   } catch (err) {
     yield put(getCareTeamsError(err));
