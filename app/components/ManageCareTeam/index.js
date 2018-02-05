@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
-
+import styles from './styles.css';
 import { mapToPatientName } from '../../containers/ManagePatientPage/api';
 import ManageCareTeamForm from './ManageCareTeamForm';
 import messages from './messages';
@@ -39,9 +39,15 @@ function ManageCareTeam(props) {
     <div>
       {selectedPatient &&
       <div>
-        <h4><FormattedMessage {...messages.title} /></h4>
-        <p> Patient:</p>
-        <p><strong>{mapToPatientName(selectedPatient)}</strong></p>
+        <div className={styles.title}>
+          <FormattedMessage {...messages.title} />
+        </div>
+        <div className={styles.patientName}>
+          <div>Patient:</div>
+          <div>
+            <strong>{mapToPatientName(selectedPatient)}</strong>
+          </div>
+        </div>
         <Formik
           onSubmit={(values, actions) => {
             onSave(values, actions);
