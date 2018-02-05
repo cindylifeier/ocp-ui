@@ -126,28 +126,26 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
           <meta name="description" content="Manage CareTeam page of Omnibus Care Plan application" />
         </Helmet>
         <div className={styles.wrapper}>
-          <div className={styles.card}>
-            <h4 className={styles.font}>
-              {editMode ? <FormattedMessage {...messages.editHeader} />
-                : <FormattedMessage {...messages.createHeader} />}
-            </h4>
-            <Divider />
-            <Toggle
-              label="Set hasParticipants to true"
-              onToggle={this.handleToggle}
-            />
-            <ManageCareTeam
-              {...manageCareTeamProps}
-              onSave={this.handleSave}
-              handleOpen={this.handleOpen}
-            />
-            <SearchParticipant
-              isOpen={this.state.open}
-              handleOpen={this.handleOpen}
-              handleClose={this.handleClose}
-            >
-            </SearchParticipant>
+          <div className={styles.header}>
+            {editMode ? <FormattedMessage {...messages.editHeader} />
+              : <FormattedMessage {...messages.createHeader} />}
           </div>
+          <Divider />
+          <Toggle
+            label="Set hasParticipants to true"
+            onToggle={this.handleToggle}
+          />
+          <ManageCareTeam
+            {...manageCareTeamProps}
+            onSave={this.handleSave}
+            handleOpen={this.handleOpen}
+          />
+          <SearchParticipant
+            isOpen={this.state.open}
+            handleOpen={this.handleOpen}
+            handleClose={this.handleClose}
+          >
+          </SearchParticipant>
         </div>
       </div>
     );
