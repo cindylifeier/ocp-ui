@@ -27,6 +27,18 @@ export function determineNotificationForSavingCareTeam(careTeamFormData) {
   return action;
 }
 
+export function getCareTeamById(careTeams, careTeamId) {
+  if (!isEmpty(careTeams)) {
+    return find(careTeams, { careTeamId });
+  }
+  return null;
+}
+
+export function getCareTeam(careTeamId) {
+  const requestURL = `${apiBaseURL}/careteams/${careTeamId}`;
+  return request(requestURL);
+}
+
 function createCareTeam(careTeamFormData) {
   const requestURL = `${apiBaseURL}/careteams`;
   return request(requestURL, {

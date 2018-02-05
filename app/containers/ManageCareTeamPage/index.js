@@ -19,8 +19,8 @@ import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
-import { makeSelectPatient } from './selectors';
+import { getCareTeam, getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
+import { makeSelectCareTeam, makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
@@ -56,6 +56,11 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
     this.props.getPatient(queryObj.patientId);
+
+    const careTeamId = this.props.match.params.id;
+    if (careTeamId) {
+      this.props.getCareTeam(careTeamId);
+    }
   }
 
   componentWillUnmount() {
@@ -91,6 +96,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const {
       match,
       selectedPatient,
+      selectedCareTeam,
       careTeamCategories,
       participantTypes,
       participantRoles,
@@ -99,8 +105,14 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const editMode = !isUndefined(match.params.id);
     // Todo: implement to dispatch participants
     const hasParticipants = this.state.hasParticipants;
+
+    let careTeam = null;
+    if (editMode && selectedCareTeam) {
+      careTeam = selectedCareTeam;
+    }
     const manageCareTeamProps = {
       selectedPatient,
+      careTeam,
       careTeamCategories,
       participantTypes,
       participantRoles,
@@ -146,7 +158,9 @@ ManageCareTeamPage.propTypes = {
   match: PropTypes.object,
   location: PropTypes.object,
   selectedPatient: PropTypes.object,
+  selectedCareTeam: PropTypes.object,
   getPatient: PropTypes.func.isRequired,
+  getCareTeam: PropTypes.func.isRequired,
   initializeManageCareTeam: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   onSaveCareTeam: PropTypes.func.isRequired,
@@ -158,6 +172,7 @@ ManageCareTeamPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   selectedPatient: makeSelectPatient(),
+  selectedCareTeam: makeSelectCareTeam(),
   careTeamCategories: makeSelectCareTeamCategories(),
   participantTypes: makeSelectParticipantTypes(),
   participantRoles: makeSelectParticipantRoles(),
@@ -169,6 +184,7 @@ function mapDispatchToProps(dispatch) {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
     getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
+    getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
   };
 }
