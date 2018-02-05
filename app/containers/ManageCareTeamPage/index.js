@@ -11,17 +11,17 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
+import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
 import merge from 'lodash/merge';
 
-import { FormattedMessage } from 'react-intl';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
 import { makeSelectPatient } from './selectors';
-import reducer from './reducer';
 import saga from './saga';
+import reducer from './reducer';
 import ManageCareTeam from '../../components/ManageCareTeam';
 import messages from './messages';
 import styles from './styles.css';
@@ -46,6 +46,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
   }
+
   componentWillMount() {
     const queryObj = queryString.parse(this.props.location.search);
     this.props.getPatient(queryObj.patientId);
@@ -62,12 +63,15 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     }
     this.props.onSaveCareTeam(careTeamFormData, () => actions.setSubmitting(false));
   }
+
   handleClose() {
     this.setState({ open: false });
   }
+
   handleOpen() {
     this.setState({ open: true });
   }
+
   render() {
     const {
       match,

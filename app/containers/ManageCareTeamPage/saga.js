@@ -28,7 +28,7 @@ function* getPatientWorker({ patientId }) {
   }
 }
 
-export function* saveCareTeamWorker(action) {
+function* saveCareTeamWorker(action) {
   try {
     yield call(createCareTeam, action.careTeamFormData);
     yield put(showNotification('Successfully create the care team.'));
