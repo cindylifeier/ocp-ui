@@ -42,9 +42,9 @@ function ManageCareTeam(props) {
         <div className={styles.title}>
           <FormattedMessage {...messages.title} />
         </div>
-        <div className={styles.patientName}>
+        <div className={styles.patientNameSection}>
           <div>Patient:</div>
-          <div>
+          <div className={styles.patientName}>
             <strong>{mapToPatientName(selectedPatient)}</strong>
           </div>
         </div>
