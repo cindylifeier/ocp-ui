@@ -8,18 +8,49 @@ const selectHealthcareServicesDomain = (state) => state.get('healthcareServices'
 /**
  * Other specific selectors
  */
-
-
-/**
- * Default selector used by HealthcareServices
- */
-
 const makeSelectHealthcareServices = () => createSelector(
   selectHealthcareServicesDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS(),
 );
+
+const makeSelectQueryLoading = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('loading'),
+);
+
+const makeSelectQueryError = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('error'),
+);
+
+const makeSelectCurrentPage = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('currentPage'),
+);
+
+const makeSelectTotalNumberOfPages = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('totalNumberOfPages'),
+);
+
+const makeSelectIncludeInactive = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('includeInactive'),
+);
+
+const makeSelectOrganization = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('organization'),
+);
+
 
 export default makeSelectHealthcareServices;
 export {
-  selectHealthcareServicesDomain,
+  makeSelectHealthcareServices,
+  makeSelectQueryLoading,
+  makeSelectQueryError,
+  makeSelectCurrentPage,
+  makeSelectTotalNumberOfPages,
+  makeSelectIncludeInactive,
+  makeSelectOrganization,
 };
