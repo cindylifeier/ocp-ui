@@ -76,13 +76,11 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
           <title>Manage Patient</title>
           <meta name="description" content="Manage patient page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.card}>
-          <h4 className={styles.font}>
-            {match.params.id ? <FormattedMessage {...messages.editHeader} /> : <FormattedMessage {...messages.createHeader} />}
-          </h4>
-          <Divider />
-          <ManagePatient {...formProps} onSave={this.handleSave} />
+        <div className={styles.header}>
+          {match.params.id ? <FormattedMessage {...messages.editHeader} /> : <FormattedMessage {...messages.createHeader} />}
         </div>
+        <Divider />
+        <ManagePatient {...formProps} onSave={this.handleSave} />
       </div>
     );
   }

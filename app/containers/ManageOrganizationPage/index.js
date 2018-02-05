@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import Divider from 'material-ui/Divider';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
@@ -119,12 +120,13 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           <title>Manage Organization</title>
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
-        <div className={styles.title}>
-          <h2><FormattedMessage {...messages.header} /> - {editingOrganization ?
-            <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />}
-          </h2>
+        <div className={styles.header}>
+          {editingOrganization ? <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
         </div>
-
+        <Divider />
+        <div className={styles.title}>
+          <FormattedMessage {...messages.title} />
+        </div>
         <div>
           <Formik
             validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
@@ -142,7 +144,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         fullWidth
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.identifierSystem}`}>
+                    <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
                         name="identifierSystem"
@@ -155,8 +157,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={display}
                           />))}
                       </SelectField>
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.identifierValue}`}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
                         fullWidth
@@ -220,7 +220,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                         name="postalCode"
                       />
                     </div>
-                    <div className={`${styles.gridItem} ${styles.telecomSystem}`}>
+                    <div className={`${styles.gridItem} ${styles.contactGroup}`}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
                         fullWidth
@@ -233,8 +233,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={telSystem.display}
                           />))}
                       </SelectField>
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.telecomValue}`}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.telecomValue} />}
                         fullWidth
