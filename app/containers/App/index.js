@@ -21,12 +21,12 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
 
 import styles from './styles.css';
-import { LoginPage } from '../LoginPage/index';
+import { LoginPage } from '../LoginPage';
 import Layout from '../../components/Layout';
-import ManageLocationPage from '../ManageLocationPage/index';
+import ManageLocationPage from '../ManageLocationPage';
 import ManagePractitionerPage from '../ManagePractitionerPage';
 import ManageOrganizationPage from '../ManageOrganizationPage';
-import ManagePatientPage from '../ManagePatientPage/index';
+import ManagePatientPage from '../ManagePatientPage';
 import ManageCareTeamPage from '../ManageCareTeamPage';
 import Notification from '../Notification';
 import saga from './saga';
