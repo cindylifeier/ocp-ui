@@ -71,7 +71,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length === 0 &&
+        {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
         <h4><FormattedMessage {...messages.noHealthcareServicesFound} /></h4>
         }
 

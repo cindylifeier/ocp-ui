@@ -15,6 +15,9 @@ export const GET_HEALTHCARE_SERVICES_SUCCESS = 'ocpui/HealthCareServices/GET_HEA
 export const GET_HEALTHCARE_SERVICES_ERROR = 'ocpui/HealthCareServices/GET_HEALTHCARE_SERVICES_ERROR';
 
 /**
-*  Other constants
-*
-*/
+ *  Status constants
+ *
+ * @type {string}
+ */
+export const STATUS_ACTIVE = 'active';
+export const STATUS_INACTIVE = 'inactive';
