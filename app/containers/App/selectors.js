@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import {
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
+  CARETEAMCATEGORY,
   CARETEAMSTATUS,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -9,6 +10,8 @@ import {
   LOCATIONSTATUS,
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
+  PARTICIPANTROLE,
+  PARTICIPANTTYPE,
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
@@ -69,6 +72,26 @@ const makeSelectOrganizationStatuses = () => createSelector(
   (globalState) => globalState.get(ORGANIZATIONSTATUS).toJS(),
 );
 
+const makeSelectCareTeamCategories = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(CARETEAMCATEGORY).toJS(),
+);
+
+const makeSelectParticipantTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PARTICIPANTTYPE).toJS(),
+);
+
+const makeSelectParticipantRoles = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PARTICIPANTROLE).toJS(),
+);
+
+const makeSelectCareTeamStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(CARETEAMSTATUS).toJS(),
+);
+
 const makeSelectTelecomSystems = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(TELECOMSYSTEM).toJS(),
@@ -119,10 +142,6 @@ const makeSelectLanguages = () => createSelector(
   (globalState) => globalState.get(LANGUAGE).toJS(),
 );
 
-const makeSelectCareTeamStatuses = () => createSelector(
-  selectGlobal,
-  (globalState) => globalState.get(CARETEAMSTATUS).toJS(),
-);
 
 export {
   makeSelectLocation,
@@ -144,5 +163,8 @@ export {
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreBirthSexes,
   makeSelectLanguages,
+  makeSelectCareTeamCategories,
+  makeSelectParticipantTypes,
+  makeSelectParticipantRoles,
   makeSelectCareTeamStatuses,
 };

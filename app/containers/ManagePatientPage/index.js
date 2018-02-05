@@ -34,7 +34,7 @@ import {
   USPSSTATES,
 } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { makeSelectSearchResult } from '../Patients/selectors';
+import { makeSelectPatientSearchResult } from '../Patients/selectors';
 import { mapToFrontendPatientForm } from './api';
 
 export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -114,7 +114,7 @@ const mapStateToProps = createStructuredSelector({
   usCoreBirthSexes: makeSelectUsCoreBirthSexes(),
   languages: makeSelectLanguages(),
   telecomSystems: makeSelectTelecomSystems(),
-  patients: makeSelectSearchResult(),
+  patients: makeSelectPatientSearchResult(),
 });
 
 function mapDispatchToProps(dispatch) {
