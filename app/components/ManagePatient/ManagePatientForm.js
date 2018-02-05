@@ -17,11 +17,14 @@ function ManagePatientForm(props) {
   const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
   return (
     <div>
-      <h4><FormattedMessage {...messages.title} /></h4>
+      <div className={styles.title}>
+        <FormattedMessage {...messages.title} />
+      </div>
       <Form>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.firstName}`}>
             <TextField
+              fullWidth
               name="firstName"
               hintText={<FormattedMessage {...messages.hintText.firstName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
@@ -29,6 +32,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.lastName}`}>
             <TextField
+              fullWidth
               name="lastName"
               hintText={<FormattedMessage {...messages.hintText.lastName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
@@ -36,6 +40,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.birthDate}`}>
             <DatePicker
+              fullWidth
               name="birthDate"
               maxDate={new Date()}
               hintText={<FormattedMessage {...messages.hintText.dob} />}
@@ -44,6 +49,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.genderCode}`}>
             <SelectField
+              fullWidth
               name="genderCode"
               hintText={<FormattedMessage {...messages.hintText.gender} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.gender} />}
@@ -53,8 +59,9 @@ function ManagePatientForm(props) {
               )}
             </SelectField>
           </div>
-          <div className={`${styles.gridItem} ${styles.identifierType}`}>
+          <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
             <SelectField
+              fullWidth
               name="identifierType"
               hintText={<FormattedMessage {...messages.hintText.identifierType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
@@ -63,9 +70,8 @@ function ManagePatientForm(props) {
                 <MenuItem key={identifierType.oid} value={identifierType.oid} primaryText={identifierType.display} />,
               )}
             </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.identifierValue}`}>
             <TextField
+              fullWidth
               name="identifierValue"
               hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
@@ -73,6 +79,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.language}`}>
             <SelectField
+              fullWidth
               name="language"
               hintText={<FormattedMessage {...messages.hintText.language} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.language} />}
@@ -84,6 +91,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.race}`}>
             <SelectField
+              fullWidth
               name="race"
               hintText={<FormattedMessage {...messages.hintText.race} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.race} />}
@@ -95,6 +103,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.ethnicity}`}>
             <SelectField
+              fullWidth
               name="ethnicity"
               hintText={<FormattedMessage {...messages.hintText.ethnicity} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.ethnicity} />}
@@ -106,6 +115,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.birthSex}`}>
             <SelectField
+              fullWidth
               name="birthSex"
               hintText={<FormattedMessage {...messages.hintText.birthSex} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.birthSex} />}
@@ -117,6 +127,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.address1}`}>
             <TextField
+              fullWidth
               name="address1"
               hintText={<FormattedMessage {...messages.hintText.address1} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
@@ -124,6 +135,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.address2}`}>
             <TextField
+              fullWidth
               name="address2"
               hintText={<FormattedMessage {...messages.hintText.address2} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
@@ -131,6 +143,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.city}`}>
             <TextField
+              fullWidth
               name="city"
               hintText={<FormattedMessage {...messages.hintText.city} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
@@ -138,6 +151,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.state}`}>
             <SelectField
+              fullWidth
               name="state"
               hintText={<FormattedMessage {...messages.hintText.state} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
@@ -149,6 +163,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.postalCode}`}>
             <TextField
+              fullWidth
               name="postalCode"
               hintText={<FormattedMessage {...messages.hintText.postalCode} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
@@ -156,14 +171,16 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.country}`}>
             <TextField
+              fullWidth
               name="country"
               hintText={<FormattedMessage {...messages.hintText.country} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
             >
             </TextField>
           </div>
-          <div className={`${styles.gridItem} ${styles.telecomType}`}>
+          <div className={`${styles.gridItem} ${styles.contactGroup}`}>
             <SelectField
+              fullWidth
               name="telecomType"
               hintText={<FormattedMessage {...messages.hintText.telecomType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
@@ -172,9 +189,8 @@ function ManagePatientForm(props) {
                 <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
               )}
             </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.telecomValue}`}>
             <TextField
+              fullWidth
               name="telecomValue"
               hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
@@ -182,6 +198,7 @@ function ManagePatientForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
+              fullWidth
               type="submit"
               label="Save"
               backgroundColor={teal500}
@@ -189,6 +206,7 @@ function ManagePatientForm(props) {
               disabled={!dirty || isSubmitting || !isValid}
             />
             <FlatButton
+              fullWidth
               label="Cancel"
               default
               disabled={isSubmitting}

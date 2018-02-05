@@ -1,69 +1,12 @@
-.gridContainer {
+.title {
+  padding-left: 0.5vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #444;
-  width: auto;
-  margin-right: 10vw;
-  margin-bottom: 1vh;
-  display: grid;
-  padding: 0 2vw;
-  grid-column-gap: 3px;
-  grid-row-gap: 3px;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "firstName"
-    "lastName"
-    "birthDate"
-    "genderCode"
-    "identifierType"
-    "identifierValue"
-    "language"
-    "race"
-    "ethnicity"
-    "birthSex"
-    "address1"
-    "address2"
-    "city"
-    "state"
-    "postalCode"
-    "country"
-    "telecomType"
-    "telecomValue"
-    "buttonGroup";
-}
-
-/* Tablet landscape ----------- */
-@media only screen and (min-width: 768px) {
-  .gridContainer {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "firstName lastName"
-      "birthDate ."
-      "genderCode ."
-      "identifierType identifierValue"
-      "language race"
-      "ethnicity birthSex"
-      "address1 ."
-      "address2 ."
-      "city state"
-      "postalCode country"
-      "telecomType telecomValue"
-      "buttonGroup .";
-  }
-
-}
-/* Desktops and laptops ----------- */
-@media only screen and (min-width: 1200px) {
-  .gridContainer {
-    grid-template-columns: repeat(3,1fr);
-    grid-template-areas:
-      "firstName lastName ."
-      "birthDate genderCode language"
-      "identifierType identifierValue ."
-      "birthSex race ethnicity"
-      "address1 address2 postalCode"
-      "city state country"
-      "telecomType telecomValue ."
-      "buttonGroup . .";
-  }
+  background-color: #f2f2f2;
 }
 
 .gridItem {
@@ -73,99 +16,230 @@
 
 .firstName {
   grid-area: firstName;
-  display: grid;
 }
 
 .lastName {
   grid-area: lastName;
-  display: grid;
 }
 
 .birthDate {
   grid-area: birthDate;
-  display: grid;
 }
 
 .genderCode {
   grid-area: genderCode;
-  display: grid;
 }
 
-.identifierType {
-  grid-area: identifierType;
-  display: grid;
-}
-
-.identifierValue {
-  grid-area: identifierValue;
-  display: grid;
+.identifierGroup {
+  grid-area: identifierGroup;
 }
 
 .language {
   grid-area: language;
-  display: grid;
 }
 
 .race {
   grid-area: race;
-  display: grid;
 }
 
 .ethnicity {
   grid-area: ethnicity;
-  display: grid;
 }
 
 .birthSex {
   grid-area: birthSex;
-  display: grid;
 }
 
 .address1 {
   grid-area: address1;
-  display: grid;
 }
 
 .address2 {
   grid-area: address2;
-  display: grid;
 }
 
 .city {
   grid-area: city;
-  display: grid;
 }
 
 .state {
   grid-area: state;
-  display: grid;
 }
 
 .postalCode {
   grid-area: postalCode;
-  display: grid;
 }
 
 .country {
   grid-area: country;
-  display: grid;
 }
 
-.telecomType {
-  grid-area: telecomType;
-  display: grid;
-}
-
-.telecomValue {
-  grid-area: telecomValue;
-  display: grid;
+.contactGroup {
+  grid-area: contactGroup;
 }
 
 .buttonGroup {
   grid-area: buttonGroup;
+  margin: 1vh 0;
   display: grid;
-  grid-auto-flow: column;
   grid-column-gap: 1vw;
-  margin-bottom: 1vh;
-  grid-auto-columns: minmax(100px,120px);
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.gridContainer {
+  color: #444;
+  width: auto;
+  padding-left: 0.5vw;
+  margin: 0 1vw;
+  display: grid;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vh;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "firstName"
+    "lastName"
+    "birthDate"
+    "genderCode"
+    "birthSex"
+    "race"
+    "ethnicity"
+    "language"
+    "identifierGroup"
+    "contactGroup"
+    "address1"
+    "address2"
+    "city"
+    "state"
+    "postalCode"
+    "country"
+    "buttonGroup";
+}
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "firstName lastName"
+      "birthDate genderCode"
+      "birthSex race"
+      "ethnicity language"
+      "identifierGroup identifierGroup"
+      "contactGroup contactGroup"
+      "address1 ."
+      "address2 ."
+      "city state"
+      "postalCode country"
+      "buttonGroup .";
+  }
+
+  .identifierGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .contactGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .buttonGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .firstName {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+
+  .lastName {
+    grid-column: 5 / span 4;
+    grid-row: 1;
+  }
+
+  .birthDate {
+    grid-column: 1 / span 4;
+    grid-row: 2;
+  }
+
+  .genderCode {
+    grid-column: 5 / span 2;
+    grid-row: 2;
+  }
+
+  .birthSex {
+    grid-column: 7 / span 2;
+    grid-row: 2;
+  }
+
+  .race {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+
+  .ethnicity {
+    grid-column: 3 / span 3;
+    grid-row: 3;
+  }
+
+  .language {
+    grid-column: 6 / span 2;
+    grid-row: 3;
+  }
+
+  .identifierGroup {
+    grid-column: 1 / span 5;
+    grid-row: 4;
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .contactGroup {
+    grid-column: 1 / span 5;
+    grid-row: 5;
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .address1 {
+    grid-column: 1 / span 4;
+    grid-row: 6;
+  }
+
+  .address2 {
+    grid-column: 5 / span 4;
+    grid-row: 6;
+  }
+
+  .city {
+    grid-column: 1 / span 4;
+    grid-row: 7;
+  }
+
+  .state {
+    grid-column: 5 / span 3;
+    grid-row: 7;
+  }
+
+  .postalCode {
+    grid-column: 8 / span 2;
+    grid-row: 7;
+  }
+
+  .country {
+    grid-column: 1 / span 4;
+    grid-row: 8;
+  }
+
+  .buttonGroup {
+    grid-column: 1 / span 2;
+    grid-row: 9;
+    grid-template-columns: 1fr 1fr;
+  }
 }
