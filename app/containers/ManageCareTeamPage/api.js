@@ -5,6 +5,13 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseURL = getApiBaseUrl();
 
+export function saveCareTeam(careTeamFormData) {
+  if (careTeamFormData.careTeamId) {
+    return updateCareTeam(careTeamFormData);
+  }
+  return createCareTeam(careTeamFormData);
+}
+
 export function getPatientById(patients, patientId) {
   if (!isEmpty(patients)) {
     return find(patients, { id: patientId });
@@ -12,10 +19,30 @@ export function getPatientById(patients, patientId) {
   return null;
 }
 
-export function createCareTeam(careTeamFormData) {
+export function determineNotificationForSavingCareTeam(careTeamFormData) {
+  let action = 'create';
+  if (careTeamFormData.careTeamId) {
+    action = 'edit';
+  }
+  return action;
+}
+
+function createCareTeam(careTeamFormData) {
   const requestURL = `${apiBaseURL}/careteams`;
   return request(requestURL, {
     method: 'POST',
+    body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+function updateCareTeam(careTeamFormData) {
+  const careTeamId = careTeamFormData.careTeamId;
+  const requestURL = `${apiBaseURL}/careteams/${careTeamId}`;
+  return request(requestURL, {
+    method: 'PUT',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
     headers: {
       'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ import { GET_PATIENT, SAVE_CARE_TEAM } from './constants';
 import { getPatientSuccess } from './actions';
 import { makeSelectPatientSearchResult } from '../Patients/selectors';
 import { getPatient } from '../ManagePatientPage/api';
-import { createCareTeam, getPatientById } from './api';
+import { determineNotificationForSavingCareTeam, getPatientById, saveCareTeam } from './api';
 
 function* getPatientWorker({ patientId }) {
   try {
@@ -29,12 +29,12 @@ function* getPatientWorker({ patientId }) {
 
 function* saveCareTeamWorker(action) {
   try {
-    yield call(createCareTeam, action.careTeamFormData);
-    yield put(showNotification('Successfully create the care team.'));
+    yield call(saveCareTeam, action.careTeamFormData);
+    yield put(showNotification(`Successfully ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.`));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification('Failed to create the care team.'));
+    yield put(showNotification(`Failed to ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.`));
     yield call(action.handleSubmitting);
   }
 }
