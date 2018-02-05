@@ -52,7 +52,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
     this.props.getPatient(queryObj.patientId);
@@ -66,6 +66,11 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const patientId = this.props.selectedPatient.id;
     if (patientId) {
       merge(careTeamFormData, { patientId });
+    }
+
+    const careTeamId = this.props.match.params.id;
+    if (careTeamId) {
+      merge(careTeamFormData, { careTeamId });
     }
     this.props.onSaveCareTeam(careTeamFormData, () => actions.setSubmitting(false));
   }
