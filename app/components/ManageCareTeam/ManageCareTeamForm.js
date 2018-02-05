@@ -13,7 +13,6 @@ import TextField from '../TextField';
 import SelectField from '../SelectField';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
-import SearchParticipant from '../SearchParticipant/index';
 import DatePicker from '../DatePicker';
 
 function ManageCareTeamForm(props) {
