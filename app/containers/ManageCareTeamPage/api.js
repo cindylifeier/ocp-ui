@@ -29,7 +29,7 @@ export function determineNotificationForSavingCareTeam(careTeamFormData) {
 
 export function getCareTeamById(careTeams, careTeamId) {
   if (!isEmpty(careTeams)) {
-    return find(careTeams, { careTeamId });
+    return find(careTeams, { id: careTeamId });
   }
   return null;
 }

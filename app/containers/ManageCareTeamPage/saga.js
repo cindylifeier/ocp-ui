@@ -38,7 +38,8 @@ function* getCareTeamWorker({ careTeamId }) {
   try {
     let careTeam;
     // Load careTeams from store
-    const careTeams = yield select(makeSelectCareTeams());
+    const careTeamsSelector = yield select(makeSelectCareTeams());
+    const careTeams = careTeamsSelector.data.elements;
     careTeam = getCareTeamById(careTeams, careTeamId);
     // fetch from backend if cannot find care team from store
     if (isEmpty(careTeam)) {
