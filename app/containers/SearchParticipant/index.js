@@ -12,12 +12,13 @@ import { compose } from 'redux';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { IconButton } from 'material-ui';
+import { IconButton, RaisedButton, teal500, white } from 'material-ui';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import reducer from './reducer';
 import saga from './saga';
@@ -29,7 +30,7 @@ import { makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import { getSearchParticipant } from './actions';
-
+import { makeSelectSearchParticipantResults } from './selectors';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -39,14 +40,37 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
-
+  onRequestClose() {
+    console.log('Closing');
+    // this.props.
+  }
   handleSearch(values) {
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
-
+  createSearchResultTable() {
+    return this.props.searchParticipantResult.map((result) => (
+      <div key={uniqueId()} className={styles.gridContainer}>
+        <div className={styles.gridItem} style={fieldStyle}>
+          {result.member.firstName} {result.member.lastName}
+        </div>
+        <div className={styles.gridItem} style={fieldStyle}>
+          test
+        </div>
+        <div className={styles.gridItem} style={fieldStyle}>
+          <RaisedButton
+            backgroundColor={teal500}
+            labelColor={white}
+            label="Add"
+            type="submit"
+            primary
+          />
+        </div>
+      </div>
+    ));
+  }
   render() {
-    const { participantTypes, handleClose, isOpen } = this.props;
+    const { participantTypes, handleClose, isOpen, searchParticipantResult } = this.props;
     this.state.open = isOpen;
     const actionsButtons = [
       <FlatButton
@@ -60,7 +84,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         actions={actionsButtons}
         modal={false}
         open={this.state.open}
-        onRequestClose={handleClose}
+        onRequestClose={this.onRequestClose}
         autoScrollBodyContent
       >
         <Formik
@@ -106,6 +130,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       </IconButton>
                     </div>
                   </div>
+                  { searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultTable() }
                 </div>
               </Form>
             );
@@ -120,6 +145,7 @@ SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   searchParticipant: PropTypes.func.isRequired,
+  searchParticipantResult: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -130,6 +156,7 @@ SearchParticipant.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
+  searchParticipantResult: makeSelectSearchParticipantResults(),
 });
 
 function mapDispatchToProps(dispatch) {
