@@ -15,6 +15,7 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
+import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
 
 const iconStyles = {
   iconButton: {
@@ -53,6 +54,16 @@ function displayPatientSearchResult(patients) {
       >
         <MenuItem
           className={styles.menuItem}
+          primaryText="Add Care Team"
+          containerElement={<Link
+            to={{
+              pathname: MANAGE_CARE_TEAM_URL,
+              search: `?patientId=${patient.id}`,
+            }}
+          />}
+        />
+        <MenuItem
+          className={styles.menuItem}
           primaryText="Edit"
           containerElement={<Link to={`/ocp-ui/manage-patient/${patient.id}`} />}
         />
@@ -69,7 +80,7 @@ function getIdentifiers(identifier) {
         {entry.system}: {entry.value}
         <br />
       </div>
-    )
+    ),
   );
 }
 
