@@ -217,6 +217,7 @@
     "cross-env": "5.0.0",
     "css-module": "1.1.4",
     "express": "4.15.3",
+    "express-http-proxy": "1.1.0",
     "fhir.js": "0.0.20",
     "font-awesome": "4.7.0",
     "fontfaceobserver": "2.0.9",
