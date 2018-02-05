@@ -14,7 +14,6 @@ import SelectField from '../SelectField';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import DatePicker from '../DatePicker';
-import { buttonWidth } from './constants';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -94,7 +93,7 @@ function ManageCareTeamForm(props) {
               backgroundColor={teal500}
               labelColor={white}
               onClick={handleOpen}
-              style={buttonWidth}
+              style={styles.buttonWidth}
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
               primary
             />
