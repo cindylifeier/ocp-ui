@@ -10,7 +10,7 @@
  */
 export const DEFAULT_ACTION = 'ocpui/SearchParticipant/DEFAULT_ACTION';
 
-export const fieldStyle = { width: '15vw' };
+export const fieldStyle = { width: '15vw', padding: '2px' };
 export const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
 export const iconButtonStyle = { top: '26px', height: '30px' };
 
