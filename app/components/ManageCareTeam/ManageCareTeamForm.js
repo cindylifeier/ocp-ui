@@ -32,11 +32,11 @@ function ManageCareTeamForm(props) {
   } = props;
   return (
     <div>
-      <h4><FormattedMessage {...messages.title} /></h4>
       <Form>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.careTeamName}`}>
             <TextField
+              fullWidth
               name="careTeamName"
               hintText={<FormattedMessage {...messages.hintText.careTeamName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.careTeamName} />}
@@ -44,6 +44,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.category}`}>
             <SelectField
+              fullWidth
               name="category"
               hintText={<FormattedMessage {...messages.hintText.category} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
@@ -55,6 +56,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.status}`}>
             <SelectField
+              fullWidth
               name="status"
               hintText={<FormattedMessage {...messages.hintText.status} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
@@ -66,6 +68,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.episodeOfCare}`}>
             <TextField
+              fullWidth
               name="episodeOfCare"
               hintText={<FormattedMessage {...messages.hintText.episodeOfCare} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
@@ -74,6 +77,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.startDate}`}>
             <DatePicker
+              fullWidth
               name="startDate"
               minDate={today}
               mode={DATE_PICKER_MODE.LANDSCAPE}
@@ -83,6 +87,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.endDate}`}>
             <DatePicker
+              fullWidth
               name="endDate"
               minDate={today}
               mode={DATE_PICKER_MODE.LANDSCAPE}
@@ -91,21 +96,26 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
+
+        <div className={styles.title}>
+          <FormattedMessage {...messages.participantTitle} />
+        </div>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.addParticipant}`}>
             <RaisedButton
+              fullWidth
               backgroundColor={teal500}
               labelColor={white}
               onClick={handleOpen}
               style={buttonStyle}
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-              primary
             />
           </div>
         </div>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
+              fullWidth
               type="submit"
               label="Save"
               backgroundColor={teal500}
@@ -113,6 +123,7 @@ function ManageCareTeamForm(props) {
               disabled={!dirty || isSubmitting || !isValid || !hasParticipants}
             />
             <FlatButton
+              fullWidth
               label="Cancel"
               default
               disabled={isSubmitting}
