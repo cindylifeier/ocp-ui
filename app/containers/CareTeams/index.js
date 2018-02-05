@@ -26,12 +26,18 @@ import CareTeamTable from '../../components/CareTeamTable';
 import { getCareTeams } from './actions';
 import { makeSelectCareTeamStatuses } from '../App/selectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
+import { getLookupsAction } from '../App/actions';
+import { CARETEAMSTATUS } from '../App/constants';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initializeLookups();
   }
 
   handlePageClick(page) {
@@ -99,6 +105,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
 
 CareTeams.propTypes = {
   getCareTeams: PropTypes.func.isRequired,
+  initializeLookups: PropTypes.func.isRequired,
   careTeams: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     query: PropTypes.object,
@@ -121,6 +128,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getCareTeams: (query, patientName, statusList) => dispatch(getCareTeams(query, patientName, statusList)),
+    initializeLookups: () => dispatch(getLookupsAction([CARETEAMSTATUS])),
   };
 }
 
