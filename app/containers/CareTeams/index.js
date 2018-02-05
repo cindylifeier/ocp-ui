@@ -27,7 +27,7 @@ import { getCareTeams } from './actions';
 import { makeSelectCareTeamStatuses } from '../App/selectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 import { getLookupsAction } from '../App/actions';
-import { CARETEAMSTATUS } from '../App/constants';
+import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -49,7 +49,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     const { query, patientName, statusList } = this.props.careTeams;
     const filteredStatusList = statusList.filter((c) => c !== code);
     const newStatusList = checked ? [...filteredStatusList, code] : filteredStatusList;
-    this.props.getCareTeams(query, patientName, newStatusList);
+    this.props.getCareTeams({ ...query, pageNumber: DEFAULT_START_PAGE_NUMBER }, patientName, newStatusList);
   }
 
   render() {
