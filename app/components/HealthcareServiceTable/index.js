@@ -30,7 +30,7 @@ function HealthcareServiceTable({ elements }) {
     return types.map((entry) =>
       (
         <div key={`healthCareService-type-${uniqueId()}`}>
-          {entry.system}: {entry.code}
+          {entry.display}
           <br />
         </div>
       )
@@ -60,9 +60,9 @@ function HealthcareServiceTable({ elements }) {
           <TableHeaderColumn>Active</TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
-          <TableRow key={element.id}>
+          <TableRow key={element.logicalId}>
             <TableRowColumn>{element.name}</TableRowColumn>
-            <TableRowColumn>{element.categorySystem}:{element.categoryValue}</TableRowColumn>
+            <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
             <TableRowColumn>{getTypes(element.type)}</TableRowColumn>
             <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
             <TableRowColumn>{getIdentifiers(element.identifiers)}</TableRowColumn>
