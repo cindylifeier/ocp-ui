@@ -5,13 +5,13 @@ import {
   createLocationError, createLocationSuccess, getLocationError, getLocationSuccess, putLocationError,
   putLocationSuccess,
 } from './actions';
-import createLocaiton, { fetchLocation, updateLocation } from './api';
+import createLocation, { fetchLocation, updateLocation } from './api';
 import { showNotification } from '../Notification/actions';
 
 
 export function* handleCreateLocation(action) {
   try {
-    const createLocationResponse = yield call(createLocaiton, action.location, action.organizationId);
+    const createLocationResponse = yield call(createLocation, action.location, action.organizationId);
     yield put(createLocationSuccess(createLocationResponse));
     yield put(showNotification('Successfully created the location.'));
     yield put(goBack());

@@ -32,7 +32,7 @@ import {
   makeSelectQuerySearchType,
   makeSelectSearchError,
   makeSelectSearchLoading,
-  makeSelectSearchResult,
+  makeSelectPatientSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
@@ -43,6 +43,7 @@ import styles from './styles.css';
 import messages from './messages';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
+import { getCareTeams } from '../CareTeams/actions';
 
 export class Patients extends React.PureComponent {
   constructor(props) {
@@ -58,10 +59,17 @@ export class Patients extends React.PureComponent {
     this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
     this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
+    this.handlePatientClick = this.handlePatientClick.bind(this);
   }
 
   componentWillMount() {
     this.props.initializePatients();
+  }
+
+  handlePatientClick({ id: searchValue, name: [{ firstName, lastName }] }) {
+    const searchType = 'patientId';
+    const query = { searchValue, searchType };
+    this.props.getCareTeams(query, `${firstName} ${lastName}`);
   }
 
   handleSearch() {
@@ -169,7 +177,7 @@ export class Patients extends React.PureComponent {
           </div>
         </form>
         <br />
-        <PatientSearchResult {...searchResultProps} />
+        <PatientSearchResult {...searchResultProps} onPatientClick={this.handlePatientClick} />
         <div className={styles.pagination}>
           {this.props.searchResult &&
           <UltimatePagination
@@ -199,19 +207,20 @@ Patients.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
-  onSubmitForm: PropTypes.func,
+  onSubmitForm: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  onChangePage: PropTypes.func,
+  onChangePage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
-  initializePatients: PropTypes.func,
+  initializePatients: PropTypes.func.isRequired,
+  getCareTeams: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = createStructuredSelector({
-  searchResult: makeSelectSearchResult(),
+  searchResult: makeSelectPatientSearchResult(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
   currentPage: makeSelectCurrentPage(),
@@ -230,6 +239,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePatients: () => dispatch(initializePatients()),
+    getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
   };
 }
 
