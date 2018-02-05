@@ -30,7 +30,7 @@ function HealthcareServiceTable({ elements }) {
     return types.map((entry) =>
       (
         <div key={`healthCareService-type-${uniqueId()}`}>
-          {entry.system}: {entry.value}
+          {entry.system}: {entry.code}
           <br />
         </div>
       )
