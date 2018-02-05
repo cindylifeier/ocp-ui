@@ -62,8 +62,10 @@ function ManageCareTeam(props) {
                 status: yup.string()
                   .required((<FormattedMessage {...messages.validation.required} />)),
                 startDate: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
                   .min(new Date(), (<FormattedMessage {...messages.validation.minStartDate} />)),
                 endDate: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
                   .min(startDate, (<FormattedMessage {...messages.validation.minEndDate} />)),
               });
             })}

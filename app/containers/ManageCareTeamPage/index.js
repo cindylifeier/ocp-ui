@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
+import Toggle from 'material-ui/Toggle';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
@@ -41,10 +42,12 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       open: false,
       name: '',
       member: '',
+      hasParticipants: false,
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   componentWillMount() {
@@ -72,6 +75,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.setState({ open: true });
   }
 
+  handleToggle(event, isInputChecked) {
+    this.setState({ hasParticipants: isInputChecked });
+  }
+
   render() {
     const {
       match,
@@ -83,7 +90,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     // Todo: implement to dispatch participants
-    const hasParticipants = true;
+    const hasParticipants = this.state.hasParticipants;
     const manageCareTeamProps = {
       selectedPatient,
       careTeamCategories,
@@ -105,6 +112,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
                 : <FormattedMessage {...messages.createHeader} />}
             </h4>
             <Divider />
+            <Toggle
+              label="Set hasParticipants to true"
+              onToggle={this.handleToggle}
+            />
             <ManageCareTeam
               {...manageCareTeamProps}
               onSave={this.handleSave}

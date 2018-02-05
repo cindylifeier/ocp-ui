@@ -31,7 +31,7 @@ function mapToBffCareTeam(careTeamData) {
   // Todo: Replace with formData later
   const participants = [{
     roleCode: '112247003',
-    memberId: '700551',
+    memberId: '1528',
     memberFirstName: 'Participant',
     memberLastName: 'Test',
     memberType: 'practitioner',
