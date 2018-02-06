@@ -6,7 +6,8 @@
 
 import {
   ADD_PARTICIPANT,
-  DEFAULT_ACTION, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR, SEARCH_PARTICIPANT_SUCCESS,
+  DEFAULT_ACTION, INITIALIZE_SEARCH_PARTICIPANT, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR,
+  SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -42,5 +43,11 @@ export function getSearchParticipantError(error) {
   return {
     type: SEARCH_PARTICIPANT_ERROR,
     error,
+  };
+}
+
+export function initializeSearchParticipant() {
+  return {
+    type: INITIALIZE_SEARCH_PARTICIPANT,
   };
 }
