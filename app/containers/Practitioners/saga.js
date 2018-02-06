@@ -4,7 +4,7 @@ import { searchPractitionersError, searchPractitionersSuccess } from './actions'
 import { LOAD_PRACTITIONER_SEARCH_RESULT } from './constants';
 import searchPractitioners from './api';
 
-export function* fetchSearchResult({ searchTerms, searchType, includeInactive, currentPage }) {
+export function* getPractitionerSearchResultSaga({ searchTerms, searchType, includeInactive, currentPage }) {
   try {
     const searchPractitionerResult = yield call(searchPractitioners, searchTerms, searchType, includeInactive, currentPage);
     yield put(searchPractitionersSuccess(searchPractitionerResult, searchTerms, searchType, includeInactive));
@@ -16,6 +16,6 @@ export function* fetchSearchResult({ searchTerms, searchType, includeInactive, c
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* watchFetchPractitioners() {
-  yield takeLatest(LOAD_PRACTITIONER_SEARCH_RESULT, fetchSearchResult);
+export default function* watchGetPractitionersSaga() {
+  yield takeLatest(LOAD_PRACTITIONER_SEARCH_RESULT, getPractitionerSearchResultSaga);
 }

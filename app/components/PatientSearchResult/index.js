@@ -117,7 +117,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick }) {
           <div className={styles.cellGridHeaderItem}>Gender</div>
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
-          <div></div>
+          <div />
         </div>
         {displayPatientSearchResult(searchResult, onPatientClick)}
       </div>
