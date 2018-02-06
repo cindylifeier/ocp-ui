@@ -25,6 +25,7 @@ function ManageCareTeam(props) {
     hasParticipants,
     handleOpen,
     onSave,
+    participantsToBeAdded,
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
@@ -34,6 +35,7 @@ function ManageCareTeam(props) {
     careTeamStatuses,
     hasParticipants,
     handleOpen,
+    participantsToBeAdded,
   };
   return (
     <div>
@@ -90,6 +92,7 @@ ManageCareTeam.propTypes = {
   participantTypes: PropTypes.array.isRequired,
   participantRoles: PropTypes.array.isRequired,
   careTeamStatuses: PropTypes.array.isRequired,
+  participantsToBeAdded: PropTypes.array.isRequired,
 };
 
 export default ManageCareTeam;

@@ -8,7 +8,7 @@
   grid-column-gap: 3px;
   grid-row-gap: 3px;
   grid-template-columns: 1fr;
-  grid-template-areas: "careTeamName" "category" "status" "episodeOfCare" "startDate" "endDate" "addParticipant" "buttonGroup";
+  grid-template-areas: "careTeamName" "category" "status" "episodeOfCare" "startDate" "endDate" "addParticipant" "selectedParticipant" "buttonGroup";
 }
 
 .disabledLink {
@@ -19,7 +19,7 @@
 @media only screen and (min-width: 768px) {
   .gridContainer {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "careTeamName status" "category ." "episodeOfCare ." "startDate ." "endDate ." "addParticipant" "buttonGroup .";
+    grid-template-areas: "careTeamName status" "category ." "episodeOfCare ." "startDate ." "endDate ." "addParticipant" "selectedParticipant" "buttonGroup .";
   }
 
 }
@@ -28,7 +28,7 @@
 @media only screen and (min-width: 1200px) {
   .gridContainer {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: "careTeamName category status" "episodeOfCare . ." "startDate endDate ." "addParticipant . ." "buttonGroup . .";
+    grid-template-areas: "careTeamName category status" "episodeOfCare . ." "startDate endDate ." "addParticipant . ." "selectedParticipant . " "buttonGroup . .";
   }
 }
 
@@ -68,6 +68,11 @@
 }
 
 .addParticipant {
+  grid-area: addParticipant;
+  display: grid;
+}
+
+.selectedParticipant{
   grid-area: addParticipant;
   display: grid;
 }
