@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.header',
-    defaultMessage: 'Assign Healthcare Services to this Location',
+    defaultMessage: 'Assign Healthcare Services to the Location',
   },
   title: {
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.title',
