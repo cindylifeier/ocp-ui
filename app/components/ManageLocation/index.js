@@ -1,8 +1,8 @@
 /**
-*
-* ManageLocation
-*
-*/
+ *
+ * ManageLocation
+ *
+ */
 
 import React from 'react';
 
@@ -19,7 +19,7 @@ import messages from './messages';
 import styles from './styles.css';
 import ManageLocationForm from './ManageLocationForm';
 import { TEXT_MIN_LENGTH } from '../../containers/ManageLocationPage/constants';
-import { setEmptyStringWhenUndefined } from '../ManagePractitioner/index';
+import Util from '../../utils/Util';
 
 
 function ManageLocation(props) {
@@ -27,7 +27,7 @@ function ManageLocation(props) {
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const { onSave } = props;
   return (
-    <div className={styles.root} >
+    <div className={styles.root}>
       <Formik
         initialValues={setFormData(props.location)}
         onSubmit={(values, actions) => {
@@ -92,7 +92,7 @@ function setFormData(location) {
 function mapLocationToFiledObject(location, fieldName) {
   const fieldObject = {};
   if (!isUndefined(location[fieldName])) {
-    fieldObject[fieldName] = setEmptyStringWhenUndefined(location[fieldName]);
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(location[fieldName]);
   }
   return fieldObject;
 }
@@ -101,13 +101,13 @@ function mapLocationToAddressFields(location) {
   let fieldObject = {};
   if (!isUndefined(location.address)) {
     fieldObject = {
-      line1: setEmptyStringWhenUndefined(location.address.line1),
-      line2: setEmptyStringWhenUndefined(location.address.line2),
-      city: setEmptyStringWhenUndefined(location.address.city),
-      stateCode: setEmptyStringWhenUndefined(location.address.stateCode),
-      postalCode: setEmptyStringWhenUndefined(location.address.postalCode),
-      countryCode: setEmptyStringWhenUndefined(location.address.countryCode),
-      use: setEmptyStringWhenUndefined(location.address.use),
+      line1: Util.setEmptyStringWhenUndefined(location.address.line1),
+      line2: Util.setEmptyStringWhenUndefined(location.address.line2),
+      city: Util.setEmptyStringWhenUndefined(location.address.city),
+      stateCode: Util.setEmptyStringWhenUndefined(location.address.stateCode),
+      postalCode: Util.setEmptyStringWhenUndefined(location.address.postalCode),
+      countryCode: Util.setEmptyStringWhenUndefined(location.address.countryCode),
+      use: Util.setEmptyStringWhenUndefined(location.address.use),
     };
   }
   return fieldObject;
@@ -118,8 +118,8 @@ function mapLocationToIdentifierFields(location) {
   let fieldObject = {};
   if (location.identifiers && location.identifiers.length > 0) {
     fieldObject = {
-      identifierSystem: setEmptyStringWhenUndefined(location.identifiers[0].system),
-      identifierValue: setEmptyStringWhenUndefined(location.identifiers[0].value),
+      identifierSystem: Util.setEmptyStringWhenUndefined(location.identifiers[0].system),
+      identifierValue: Util.setEmptyStringWhenUndefined(location.identifiers[0].value),
     };
   }
   return fieldObject;
@@ -129,9 +129,9 @@ function mapLocationToTelecomFields(location) {
   let fieldObject = {};
   if (location.telecoms && location.telecoms.length > 0) {
     fieldObject = {
-      telecomSystem: setEmptyStringWhenUndefined(location.telecoms[0].system),
-      telecomSystemValue: setEmptyStringWhenUndefined(location.telecoms[0].value),
-      telecomUse: setEmptyStringWhenUndefined(location.telecoms[0].use),
+      telecomSystem: Util.setEmptyStringWhenUndefined(location.telecoms[0].system),
+      telecomSystemValue: Util.setEmptyStringWhenUndefined(location.telecoms[0].value),
+      telecomUse: Util.setEmptyStringWhenUndefined(location.telecoms[0].use),
     };
   }
   return fieldObject;
