@@ -76,10 +76,10 @@ function ManageCareTeam(props) {
                   .required((<FormattedMessage {...messages.validation.required} />)),
                 startDate: yup.date()
                   .required((<FormattedMessage {...messages.validation.required} />))
-                  .min(new Date(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+                  .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
                 endDate: yup.date()
                   .required((<FormattedMessage {...messages.validation.required} />))
-                  .min(startDate, (<FormattedMessage {...messages.validation.minEndDate} />)),
+                  .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
               });
             })}
           render={(formikProps) => <ManageCareTeamForm {...formikProps} {...propsFromContainer} />}
