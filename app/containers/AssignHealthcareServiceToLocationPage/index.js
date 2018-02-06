@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import Divider from 'material-ui/Divider';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
@@ -25,7 +26,8 @@ import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import { getFilteredHealthcareServices, initializeHealthcareServices } from './actions';
-import { makeSelectOrganization } from '../Locations/selectors';
+import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
+
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -46,6 +48,8 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
 
   render() {
+    const logicalId = this.props.match.params.id;
+    const selectedLocation = find(this.props.location, { logicalId });
     const { loading, healthcareServices, organization } = this.props;
     return (
       <div className={styles.root}>
@@ -62,8 +66,9 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-          {!loading && organization && <div>
+          {!loading && organization && selectedLocation && <div>
             <div><strong>Organization:</strong> {organization.name}</div>
+            <div><strong>Location:</strong> {selectedLocation.name}</div>
             <div className={styles.actionGridContainer}>
             </div>
           </div>
@@ -98,6 +103,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 }
 
 AssignHealthCareServiceToLocationPage.propTypes = {
+  match: PropTypes.object,
   initializeHealthcareServices: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
@@ -105,11 +111,13 @@ AssignHealthCareServiceToLocationPage.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onChangePage: PropTypes.func,
+  location: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   assignhealthcareservicetolocationpage: makeSelectAssignHealthCareServiceToLocationPage(),
   organization: makeSelectOrganization(),
+  location: makeSelectLocations(),
 });
 
 function mapDispatchToProps(dispatch) {
