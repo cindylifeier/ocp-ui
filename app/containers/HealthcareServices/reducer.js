@@ -20,7 +20,6 @@ const initialState = fromJS({
   currentPage: 0,
   totalNumberOfPages: 0,
   includeInactive: false,
-  includeSuspended: false,
 });
 
 function healthcareServicesReducer(state = initialState, action) {
@@ -29,24 +28,24 @@ function healthcareServicesReducer(state = initialState, action) {
       return initialState;
     case GET_FILTERED_HEALTHCARE_SERVICES:
       return state
-        .setIn(['currentPage'], action.currentPage)
-        .setIn(['includeInactive'], action.includeInactive);
+        .set('currentPage', action.currentPage)
+        .set('includeInactive', action.includeInactive);
     case GET_ACTIVE_HEALTHCARE_SERVICES: {
       const organization = { id: action.organizationId, name: action.organizationName };
       return state.setIn(['organization'], organization)
-        .set(['loading'], true)
-        .set(['error'], false)
-        .set(['includeInactive'], false);
+        .set('loading', true)
+        .set('error', false)
+        .set('includeInactive', false);
     }
     case GET_HEALTHCARE_SERVICES_SUCCESS:
       return state.set('data', fromJS((action.healthcareServices && action.healthcareServices.elements) || []))
-        .setIn(['loading'], false)
-        .setIn(['totalNumberOfPages'], action.healthcareServices.totalNumberOfPages)
-        .setIn(['currentPage'], action.healthcareServices.currentPage);
+        .set('loading', false)
+        .set('totalNumberOfPages', action.healthcareServices.totalNumberOfPages)
+        .set('currentPage', action.healthcareServices.currentPage);
     case GET_HEALTHCARE_SERVICES_ERROR:
       return state
-        .set(['error'], action.error)
-        .set(['loading'], false);
+        .set('error', action.error)
+        .set('loading', false);
     default:
       return state;
   }
