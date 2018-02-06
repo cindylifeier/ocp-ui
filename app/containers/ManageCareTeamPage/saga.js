@@ -17,7 +17,7 @@ import {
   saveCareTeam,
 } from './api';
 
-function* getPatientWorker({ patientId }) {
+function* getPatientSaga({ patientId }) {
   try {
     let patient;
     // Load patients from store
@@ -35,7 +35,7 @@ function* getPatientWorker({ patientId }) {
   }
 }
 
-function* getCareTeamWorker({ careTeamId }) {
+function* getCareTeamSaga({ careTeamId }) {
   try {
     let careTeam;
     // Load careTeams from store
@@ -54,7 +54,7 @@ function* getCareTeamWorker({ careTeamId }) {
   }
 }
 
-function* saveCareTeamWorker(action) {
+function* saveCareTeamSaga(action) {
   try {
     yield call(saveCareTeam, action.careTeamFormData);
     yield put(showNotification(`Successfully ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.`));
@@ -66,16 +66,16 @@ function* saveCareTeamWorker(action) {
   }
 }
 
-function* watchGetPatient() {
-  yield takeLatest(GET_PATIENT, getPatientWorker);
+function* watchGetPatientSaga() {
+  yield takeLatest(GET_PATIENT, getPatientSaga);
 }
 
-function* watchGetCareTeam() {
-  yield takeLatest(GET_CARE_TEAM, getCareTeamWorker);
+function* watchGetCareTeamSaga() {
+  yield takeLatest(GET_CARE_TEAM, getCareTeamSaga);
 }
 
-function* watchManageCareTeam() {
-  yield takeLatest(SAVE_CARE_TEAM, saveCareTeamWorker);
+function* watchManageCareTeamSaga() {
+  yield takeLatest(SAVE_CARE_TEAM, saveCareTeamSaga);
 }
 
 /**
@@ -83,8 +83,8 @@ function* watchManageCareTeam() {
  */
 export default function* rootSaga() {
   yield all([
-    watchGetPatient(),
-    watchGetCareTeam(),
-    watchManageCareTeam(),
+    watchGetPatientSaga(),
+    watchGetCareTeamSaga(),
+    watchManageCareTeamSaga(),
   ]);
 }
