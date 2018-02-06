@@ -2,16 +2,13 @@
 
 // Individual exports for testing
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import {
-  GET_ACTIVE_HEALTHCARE_SERVICES,
-  GET_FILTERED_HEALTHCARE_SERVICES, STATUS_ACTIVE, STATUS_INACTIVE,
-} from './constants';
+import { GET_HEALTHCARE_SERVICES_BY_ORGANIZATION, STATUS_ACTIVE, STATUS_INACTIVE } from './constants';
 import { showNotification } from '../Notification/actions';
 import { queryHealthcareServicesByOrganization } from './api';
 import { makeSelectIncludeInactive, makeSelectOrganization } from './selectors';
 import { getHealthcareServicesError, getHealthcareServicesSuccess } from './actions';
 
-export function* getHealthcareServicesByOrganizationIdAndStatus(action) {
+export function* getHealthcareServicesByOrganizationIdAndStatusSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
     const includeInactive = yield select(makeSelectIncludeInactive());
@@ -26,17 +23,12 @@ export function* getHealthcareServicesByOrganizationIdAndStatus(action) {
   }
 }
 
-export function* watchGetActiveHealthCareServicesByOrganization() {
-  yield takeLatest(GET_ACTIVE_HEALTHCARE_SERVICES, getHealthcareServicesByOrganizationIdAndStatus);
-}
-
-export function* watchGetHealthCareServices() {
-  yield takeLatest(GET_FILTERED_HEALTHCARE_SERVICES, getHealthcareServicesByOrganizationIdAndStatus);
+export function* watchGetHealthcareServicesByOrganizationSaga() {
+  yield takeLatest(GET_HEALTHCARE_SERVICES_BY_ORGANIZATION, getHealthcareServicesByOrganizationIdAndStatusSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetHealthCareServices(),
-    watchGetActiveHealthCareServicesByOrganization(),
+    watchGetHealthcareServicesByOrganizationSaga(),
   ]);
 }

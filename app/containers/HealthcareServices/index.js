@@ -15,19 +15,24 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectHealthcareServices,
-  makeSelectCurrentPage, makeSelectIncludeInactive,
-  makeSelectOrganization, makeSelectQueryError,
-  makeSelectQueryLoading, makeSelectTotalNumberOfPages,
+import {
+  makeSelectCurrentPage,
+  makeSelectHealthcareServices,
+  makeSelectIncludeInactive,
+  makeSelectOrganization,
+  makeSelectQueryError,
+  makeSelectQueryLoading,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable/index';
-import { getFilteredHealthcareServices, initializeHealthcareServices } from './actions';
+import { getHealthcareServicesByOrganization, initializeHealthcareServices } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
 import StatusCheckbox from '../../components/StatusCheckbox/index';
+import { DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 
 export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -36,6 +41,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
       currentPage: 1,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
   }
 
   componentWillMount() {
@@ -43,9 +49,14 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
   }
 
   handlePageClick(currentPage) {
-    this.props.onChangePage(currentPage, this.props.includeInactive);
+    const { organization: { id, name } } = this.props;
+    this.props.getHealthcareServicesByOrganization(id, name, currentPage, this.props.includeInactive);
   }
 
+  handleCheck(event, checked) {
+    const { organization: { id, name } } = this.props;
+    this.props.getHealthcareServicesByOrganization(id, name, DEFAULT_START_PAGE_NUMBER, checked);
+  }
 
   render() {
     const { loading, healthcareServices, organization } = this.props;
@@ -54,14 +65,17 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-        {!loading && organization && <div>
-          <div><strong>Organization:</strong> {organization.name}</div>
+        {!isEmpty(organization) &&
+        <div><strong>Organization:</strong> {organization.name}</div>}
+
+        {!loading && !isEmpty(organization) &&
+        <div>
           <div className={styles.actionGridContainer}>
             <StatusCheckbox
               messages={messages.inactive}
               elementId="inactiveCheckBox"
               checked={this.props.includeInactive}
-              handleCheck={this.props.onCheckIncludeInactive}
+              handleCheck={this.handleCheck}
             >
             </StatusCheckbox>
           </div>
@@ -102,8 +116,7 @@ HealthcareServices.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   initializeHealthcareServices: PropTypes.func,
-  onChangePage: PropTypes.func,
-  onCheckIncludeInactive: PropTypes.func,
+  getHealthcareServicesByOrganization: PropTypes.func,
   organization: PropTypes.object,
 };
 
@@ -120,11 +133,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
-    onChangePage: (currentPage, includeInactive) => dispatch(getFilteredHealthcareServices(currentPage, includeInactive)),
-    onCheckIncludeInactive: (evt, checked) => {
-      const currentPage = 1;
-      dispatch(getFilteredHealthcareServices(currentPage, checked));
-    },
+    getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage, includeInactive) =>
+      dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
   };
 }
 

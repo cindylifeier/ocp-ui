@@ -5,7 +5,9 @@
  */
 
 import {
-  GET_ACTIVE_HEALTHCARE_SERVICES, GET_FILTERED_HEALTHCARE_SERVICES, GET_HEALTHCARE_SERVICES_ERROR,
+  GET_HEALTHCARE_SERVICES_BY_LOCATION,
+  GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
+  GET_HEALTHCARE_SERVICES_ERROR,
   GET_HEALTHCARE_SERVICES_SUCCESS,
   INITIALIZE_HEALTHCARE_SERVICES,
 } from './constants';
@@ -16,18 +18,23 @@ export function initializeHealthcareServices() {
   };
 }
 
-export function getActiveHealthcareServices(organizationId, organizationName, currentPage) {
+export function getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive = false) {
   return {
-    type: GET_ACTIVE_HEALTHCARE_SERVICES,
+    type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
     organizationId,
     organizationName,
     currentPage,
+    includeInactive,
   };
 }
 
-export function getFilteredHealthcareServices(currentPage, includeInactive) {
+export function getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage, includeInactive) {
   return {
-    type: GET_FILTERED_HEALTHCARE_SERVICES,
+    type: GET_HEALTHCARE_SERVICES_BY_LOCATION,
+    organizationId,
+    organizationName,
+    locationId,
+    locationName,
     currentPage,
     includeInactive,
   };
