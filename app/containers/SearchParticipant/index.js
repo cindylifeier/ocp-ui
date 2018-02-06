@@ -29,7 +29,7 @@ import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
 import { makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
-import { addParticipants, getSearchParticipant } from './actions';
+import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
 import { makeSelectSearchParticipantResults } from './selectors';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -41,6 +41,9 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     this.handleSearch = this.handleSearch.bind(this);
     this.addParticipant = this.addParticipant.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+  }
+  componentWillMount() {
+    this.props.initializeSearchParticipant();
   }
   handleDialogClose() {
     this.setState({ open: false });
@@ -155,6 +158,7 @@ SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   searchParticipant: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
+  initializeSearchParticipant: PropTypes.func.isRequired,
   addParticipants: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
@@ -174,6 +178,7 @@ function mapDispatchToProps(dispatch) {
   return {
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
+    initializeSearchParticipant: () => dispatch(initializeSearchParticipant()),
   };
 }
 

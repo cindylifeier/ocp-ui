@@ -18,6 +18,7 @@ export const SEARCH_PARTICIPANT = 'ocpui/SearchParticipant/SEARCH_PARTICIPANT';
 export const SEARCH_PARTICIPANT_SUCCESS = 'ocpui/SearchParticipant/SEARCH_PARTICIPANT_SUCCESS';
 export const SEARCH_PARTICIPANT_ERROR = 'ocpui/SearchParticipant/SEARCH_PARTICIPANT_ERROR';
 export const ADD_PARTICIPANT = 'ocpui/SearchParticipant/ADD_PARTICIPANT';
+export const INITIALIZE_SEARCH_PARTICIPANT = 'ocpui/SearchParticipant/INITIALIZE_SEARCH_PARTICIPANT';
 
 /**
 *  Other constants
