@@ -5,6 +5,7 @@
  */
 
 import {
+  ADD_PARTICIPANT,
   DEFAULT_ACTION, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR, SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
@@ -21,6 +22,14 @@ export function getSearchParticipant(name, member) {
     member,
   };
 }
+
+export function addParticipants(participants) {
+  return {
+    type: ADD_PARTICIPANT,
+    participants,
+  };
+}
+
 
 export function getSearchParticipantSuccess(searchParticipantResults) {
   return {
