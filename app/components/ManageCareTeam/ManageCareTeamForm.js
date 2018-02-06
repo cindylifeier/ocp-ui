@@ -16,7 +16,7 @@ import styles from './styles.css';
 import DatePicker from '../DatePicker';
 
 const buttonStyle = {
-  buttonWidth: '150px',
+  width: '150px',
 };
 
 function ManageCareTeamForm(props) {
