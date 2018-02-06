@@ -12,8 +12,6 @@ import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
-import identity from 'lodash/identity';
-import pickBy from 'lodash/pickBy';
 import yup from 'yup';
 import messages from './messages';
 import styles from './styles.css';
@@ -86,7 +84,7 @@ function setFormData(location) {
       mapLocationToIdentifierFields(location),
       mapLocationToTelecomFields(location));
   }
-  return pickBy(formData, identity);
+  return Util.pickByIdentity(formData);
 }
 
 function mapLocationToFiledObject(location, fieldName) {

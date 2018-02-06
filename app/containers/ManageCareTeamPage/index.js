@@ -52,8 +52,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getLookUpFormData();
+  componentWillMount() {
     const queryObj = queryString.parse(this.props.location.search);
     const patientId = queryObj.patientId;
     if (patientId) {
@@ -63,6 +62,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     if (careTeamId) {
       this.props.getCareTeam(careTeamId);
     }
+  }
+
+  componentDidMount() {
+    this.props.getLookUpFormData();
   }
 
   componentWillUnmount() {
@@ -115,6 +118,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const manageCareTeamProps = {
       selectedPatient,
       careTeam,
+      editMode,
       careTeamCategories,
       participantTypes,
       participantRoles,

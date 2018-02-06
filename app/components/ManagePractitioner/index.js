@@ -8,8 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
-import identity from 'lodash/identity';
-import pickBy from 'lodash/pickBy';
 import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
 import yup from 'yup';
@@ -79,7 +77,7 @@ function setFormData(practitioner) {
     formData = merge(mapPractitionerToFirstIdentifier(practitioner), mapPractitionerToFirstName(practitioner),
       mapPractitionerToFirstRole(practitioner), mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner));
   }
-  return pickBy(formData, identity);
+  return Util.pickByIdentity(formData);
 }
 
 function mapPractitionerToFirstIdentifier(practitioner) {
