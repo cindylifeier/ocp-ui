@@ -8,7 +8,7 @@ import TableRow from '../../TableRow';
 import TableRowColumn from '../../TableRowColumn';
 
 describe('<Table />', () => {
-  it('shoud match snapshot', () => {
+  it('should match snapshot', () => {
     // Act
     const renderedComponent = shallow(
       (<Table>
