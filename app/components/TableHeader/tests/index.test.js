@@ -5,7 +5,7 @@ import TableHeader from '../index';
 import TableHeaderColumn from '../../TableHeaderColumn';
 
 describe('<TableHeader />', () => {
-  it('shoud match snapshot', () => {
+  it('should match snapshot', () => {
     // Act
     const renderedComponent = shallow(
       (<TableHeader>
