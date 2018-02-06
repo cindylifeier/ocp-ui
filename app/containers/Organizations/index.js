@@ -31,6 +31,7 @@ import SearchBar from '../../components/SearchBar';
 import { getActiveLocations } from '../Locations/actions';
 import { fromBackendToFrontendOrganization } from './mappings';
 import { MANAGE_ORGANIZATION_URL } from '../App/constants';
+import { getActiveHealthcareServices } from '../HealthcareServices/actions';
 
 export class Organizations extends React.PureComponent {
 
@@ -61,6 +62,7 @@ export class Organizations extends React.PureComponent {
   handleRowClick({ id, name }) {
     const currentPage = 1;
     this.props.getActiveLocations(id, name, currentPage);
+    this.props.getActiveHealthcareServices(id, name, currentPage);
   }
 
   handlePageClick(currentPage) {
@@ -128,6 +130,7 @@ Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
   loadOrganizations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
+  getActiveHealthcareServices: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
@@ -147,6 +150,7 @@ function mapDispatchToProps(dispatch) {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
     loadOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(loadOrganizations(searchValue, showInactive, searchType, currentPage)),
     getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
+    getActiveHealthcareServices: (organizationId, organizationName, currentPage) => dispatch(getActiveHealthcareServices(organizationId, organizationName, currentPage)),
   };
 }
 
