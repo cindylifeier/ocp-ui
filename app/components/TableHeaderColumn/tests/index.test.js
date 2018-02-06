@@ -1,10 +1,15 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 
-// import TableHeaderColumn from '../index';
+import TableHeaderColumn from '../index';
 
 describe('<TableHeaderColumn />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('should match snapshot', () => {
+    // Act
+    const renderedComponent = shallow(
+      (<TableHeaderColumn>Col</TableHeaderColumn>));
+
+    // Assert
+    expect(renderedComponent).toMatchSnapshot();
   });
 });
