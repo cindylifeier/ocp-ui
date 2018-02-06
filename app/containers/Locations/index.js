@@ -31,6 +31,7 @@ import messages from './messages';
 import styles from './styles.css';
 import { getFilteredLocations, initializeLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
+import { getHealthcareServicesByLocation } from '../HealthcareServices/actions';
 
 
 const iconStyles = {
@@ -80,8 +81,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   handleRowClick(locationLogicalId, locationName) {
     const { organization: { id, name } } = this.props;
-    // TODO: dispatch action to refresh Healthcare Services panel with location specific services
-    console.log('locationLogicalId', id, name, locationLogicalId, locationName);
+    this.props.getHealthcareServicesByLocation(id, name, locationLogicalId, locationName);
   }
 
   handleIncludeInactive(event, checked) {
@@ -204,6 +204,7 @@ Locations.propTypes = {
   onCheckIncludeSuspended: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
   initializeLocations: PropTypes.func.isRequired,
+  getHealthcareServicesByLocation: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
@@ -233,6 +234,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
     initializeLocations: () => dispatch(initializeLocations()),
+    getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName) => dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName)),
   };
 }
 

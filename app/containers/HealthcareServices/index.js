@@ -19,6 +19,7 @@ import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
   makeSelectIncludeInactive,
+  makeSelectLocation,
   makeSelectOrganization,
   makeSelectQueryError,
   makeSelectQueryLoading,
@@ -29,7 +30,11 @@ import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable/index';
-import { getHealthcareServicesByOrganization, initializeHealthcareServices } from './actions';
+import {
+  getHealthcareServicesByLocation,
+  getHealthcareServicesByOrganization,
+  initializeHealthcareServices,
+} from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
 import StatusCheckbox from '../../components/StatusCheckbox/index';
 import { DEFAULT_START_PAGE_NUMBER } from '../App/constants';
@@ -49,17 +54,27 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
   }
 
   handlePageClick(currentPage) {
-    const { organization: { id, name } } = this.props;
-    this.props.getHealthcareServicesByOrganization(id, name, currentPage, this.props.includeInactive);
+    const { organization: { id: orgId, name: orgName }, location } = this.props;
+    if (!isEmpty(location)) {
+      const { id: locId, name: locName } = location;
+      this.props.getHealthcareServicesByLocation(orgId, orgName, locId, locName, currentPage, this.props.includeInactive);
+    } else {
+      this.props.getHealthcareServicesByOrganization(orgId, orgName, currentPage, this.props.includeInactive);
+    }
   }
 
   handleCheck(event, checked) {
-    const { organization: { id, name } } = this.props;
-    this.props.getHealthcareServicesByOrganization(id, name, DEFAULT_START_PAGE_NUMBER, checked);
+    const { organization: { id: orgId, name: orgName }, location } = this.props;
+    if (!isEmpty(location)) {
+      const { id: locId, name: locName } = location;
+      this.props.getHealthcareServicesByLocation(orgId, orgName, locId, locName, DEFAULT_START_PAGE_NUMBER, checked);
+    } else {
+      this.props.getHealthcareServicesByOrganization(orgId, orgName, DEFAULT_START_PAGE_NUMBER, checked);
+    }
   }
 
   render() {
-    const { loading, healthcareServices, organization } = this.props;
+    const { loading, healthcareServices, organization, location } = this.props;
     return (
       <div className={styles.card}>
         {isEmpty(organization) &&
@@ -67,6 +82,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
 
         {!isEmpty(organization) &&
         <div><strong>Organization:</strong> {organization.name}</div>}
+        {!isEmpty(location) &&
+        <div><strong>Location:</strong> {location.name}</div>}
 
         {!loading && !isEmpty(organization) &&
         <div>
@@ -116,12 +133,15 @@ HealthcareServices.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   initializeHealthcareServices: PropTypes.func,
-  getHealthcareServicesByOrganization: PropTypes.func,
+  getHealthcareServicesByOrganization: PropTypes.func.isRequired,
+  getHealthcareServicesByLocation: PropTypes.func.isRequired,
   organization: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
+  location: makeSelectLocation(),
   loading: makeSelectQueryLoading(),
   error: makeSelectQueryError(),
   currentPage: makeSelectCurrentPage(),
@@ -135,6 +155,8 @@ function mapDispatchToProps(dispatch) {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
     getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage, includeInactive) =>
       dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
+    getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName, currentPage, includeInactive) =>
+      dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage, includeInactive)),
   };
 }
 

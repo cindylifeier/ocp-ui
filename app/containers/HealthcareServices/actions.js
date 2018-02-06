@@ -18,7 +18,7 @@ export function initializeHealthcareServices() {
   };
 }
 
-export function getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive = false) {
+export function getHealthcareServicesByOrganization(organizationId, organizationName, currentPage = 1, includeInactive = false) {
   return {
     type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
     organizationId,
@@ -28,7 +28,7 @@ export function getHealthcareServicesByOrganization(organizationId, organization
   };
 }
 
-export function getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage, includeInactive) {
+export function getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage = 1, includeInactive = false) {
   return {
     type: GET_HEALTHCARE_SERVICES_BY_LOCATION,
     organizationId,
