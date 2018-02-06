@@ -39,6 +39,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageCareTeam.manageForm.validation.minEndDate',
       defaultMessage: 'End date field must be later than Start date field',
     },
+    checkParticipants: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.validation.checkParticipants',
+      defaultMessage: 'At least one participant must be selected',
+    },
   },
   hintText: {
     careTeamName: {

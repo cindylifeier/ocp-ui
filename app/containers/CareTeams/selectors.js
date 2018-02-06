@@ -16,7 +16,7 @@ const selectCareTeamsDomain = (state) => state.get('careTeams');
 
 const makeSelectCareTeams = () => createSelector(
   selectCareTeamsDomain,
-  (substate) => substate.toJS()
+  (substate) => substate && substate.toJS(),
 );
 
 export default makeSelectCareTeams;

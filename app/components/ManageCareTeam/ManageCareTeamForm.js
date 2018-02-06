@@ -112,6 +112,11 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
+        {dirty &&
+        <div className={styles.participantError}>{hasParticipants ?
+          '' : <FormattedMessage {...messages.validation.checkParticipants} />}
+        </div>
+        }
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
