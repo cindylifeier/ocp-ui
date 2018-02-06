@@ -14,6 +14,6 @@ export default function getCareTeams(query, statusList) {
     statusList,
   };
   const params = queryString(q);
-  const requestURL = `${baseApiUrl}/careTeams/search${params}`;
+  const requestURL = `${baseApiUrl}/care-teams/search${params}`;
   return request(requestURL);
 }
