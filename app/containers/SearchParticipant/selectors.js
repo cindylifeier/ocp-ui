@@ -19,7 +19,13 @@ const makeSelectSearchParticipantResults = () => createSelector(
   (substate) => substate.get('searchParticipantResult').toJS()
 );
 
+const makeSelectSelectedParticipants = () => createSelector(
+  selectSearchParticipantDomain,
+  (substate) => substate && substate.get('selectedParticipants').toJS()
+);
+
 export {
   selectSearchParticipantDomain,
   makeSelectSearchParticipantResults,
+  makeSelectSelectedParticipants,
 };
