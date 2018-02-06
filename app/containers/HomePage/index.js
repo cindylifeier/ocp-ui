@@ -16,7 +16,7 @@ import GoldenLayout from '../../components/GoldenLayout/Loadable';
 import renderOrganizations from '../Organizations/render';
 import renderPractitioners from '../Practitioners/render';
 import renderLocationsComponent from '../../containers/Locations/render';
-import renderPatientsComponent from '../Patients/render';
+import renderHealthcareServicesComponent from '../HealthcareServices/render';
 import SideBar from '../../components/SideBar';
 import styles from './styles.css';
 
@@ -125,7 +125,7 @@ const initialStateMetadata =
             reorderEnabled: true,
           },
           ],
-        }, /*TODO{
+        }, {
           type: 'stack',
           width: 50,
           height: 50,
@@ -141,7 +141,7 @@ const initialStateMetadata =
             reorderEnabled: true,
           },
           ],
-        },*/
+        },
         ],
       },
       ],
@@ -158,7 +158,7 @@ const componentMetadata = [
   { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
   { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
   { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
-  { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
+  { name: 'healthcareServices', text: 'Healthcare Services', factoryMethod: renderHealthcareServicesComponent },
 ];
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
