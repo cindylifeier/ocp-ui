@@ -26,7 +26,6 @@ import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage';
 import ManagePractitionerPage from '../ManagePractitionerPage';
 import ManageOrganizationPage from '../ManageOrganizationPage';
-import ManagePatientPage from '../ManagePatientPage';
 import ManageCareTeamPage from '../ManageCareTeamPage';
 import Notification from '../Notification';
 import saga from './saga';
