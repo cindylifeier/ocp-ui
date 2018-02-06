@@ -16,7 +16,7 @@ import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
 import merge from 'lodash/merge';
-
+import { isEqual, uniqWith } from 'lodash';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
@@ -35,7 +35,7 @@ import {
   makeSelectParticipantTypes,
 } from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
-
+import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -90,7 +90,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       participantTypes,
       participantRoles,
       careTeamStatuses,
+      selectedParticipants,
     } = this.props;
+    const participantsToBeAdded = uniqWith(selectedParticipants, isEqual);
     const editMode = !isUndefined(match.params.id);
     // Todo: implement to dispatch participants
     const hasParticipants = this.state.hasParticipants;
@@ -101,6 +103,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       participantRoles,
       careTeamStatuses,
       hasParticipants,
+      participantsToBeAdded,
     };
     return (
       <div>
@@ -149,6 +152,7 @@ ManageCareTeamPage.propTypes = {
   participantTypes: PropTypes.array,
   participantRoles: PropTypes.array,
   careTeamStatuses: PropTypes.array,
+  selectedParticipants: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -157,6 +161,7 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   participantRoles: makeSelectParticipantRoles(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
+  selectedParticipants: makeSelectSelectedParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -17,6 +17,7 @@ export const iconButtonStyle = { top: '26px', height: '30px' };
 export const SEARCH_PARTICIPANT = 'ocpui/SearchParticipant/SEARCH_PARTICIPANT';
 export const SEARCH_PARTICIPANT_SUCCESS = 'ocpui/SearchParticipant/SEARCH_PARTICIPANT_SUCCESS';
 export const SEARCH_PARTICIPANT_ERROR = 'ocpui/SearchParticipant/SEARCH_PARTICIPANT_ERROR';
+export const ADD_PARTICIPANT = 'ocpui/SearchParticipant/ADD_PARTICIPANT';
 
 /**
 *  Other constants

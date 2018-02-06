@@ -30,4 +30,12 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.searchButtonTooltip',
     defaultMessage: 'Search',
   },
+  addParticipantBtnLabel: {
+    id: 'ocpui.components.SearchParticipant.addParticipantBtnLabel',
+    defaultMessage: 'Add',
+  },
+  removeParticipantBtnLabel: {
+    id: 'ocpui.components.SearchParticipant.removeParticipantBtnLabel',
+    defaultMessage: 'Remove',
+  },
 });

@@ -29,7 +29,7 @@ import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
 import { makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
-import { getSearchParticipant } from './actions';
+import { addParticipants, getSearchParticipant } from './actions';
 import { makeSelectSearchParticipantResults } from './selectors';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -39,30 +39,41 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
       open: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.addParticipant = this.addParticipant.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
-  onRequestClose() {
-    console.log('Closing');
-    // this.props.
+  handleDialogClose() {
+    this.setState({ open: false });
+    this.props.handleClose();
   }
   handleSearch(values) {
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
+  addParticipant(participant) {
+    this.handleDialogClose();
+    const selected = [];
+    selected.push(participant);
+    this.props.addParticipants(selected);
+  }
   createSearchResultTable() {
-    return this.props.searchParticipantResult.map((result) => (
+    return this.props.searchParticipantResult.map((participant) => (
       <div key={uniqueId()} className={styles.gridContainer}>
         <div className={styles.gridItem} style={fieldStyle}>
-          {result.member.firstName} {result.member.lastName}
+          {participant.member.firstName} {participant.member.lastName}
         </div>
-        <div className={styles.gridItem} style={fieldStyle}>
-          test
+        <div key={uniqueId()} className={styles.gridItem} style={fieldStyle}>
+
         </div>
-        <div className={styles.gridItem} style={fieldStyle}>
+        <div key={uniqueId()} className={styles.gridItem} style={fieldStyle}>
           <RaisedButton
+            key={uniqueId()}
             backgroundColor={teal500}
             labelColor={white}
-            label="Add"
-            type="submit"
+            label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
+            type="button"
+            value={participant}
+            onClick={() => this.addParticipant(participant)}
             primary
           />
         </div>
@@ -70,12 +81,11 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     ));
   }
   render() {
-    const { participantTypes, handleClose, isOpen, searchParticipantResult } = this.props;
-    this.state.open = isOpen;
+    const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
       <FlatButton
         label={<FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />}
-        onClick={handleClose}
+        onClick={this.handleDialogClose}
       />,
     ];
     return (
@@ -83,8 +93,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         title={<FormattedMessage {...messages.addParticipantDialogTitle} />}
         actions={actionsButtons}
         modal={false}
-        open={this.state.open}
-        onRequestClose={this.onRequestClose}
+        open={isOpen}
         autoScrollBodyContent
       >
         <Formik
@@ -116,7 +125,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       >
                         {participantTypes && participantTypes.map((member) =>
                           <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                        )}
+                          )
+                        }
                       </SelectField>
                     </div>
                     <div className={styles.gridItem}>
@@ -143,8 +153,9 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
 SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
   searchParticipant: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  addParticipants: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -162,6 +173,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
+    addParticipants: (participant) => dispatch(addParticipants(participant)),
   };
 }
 

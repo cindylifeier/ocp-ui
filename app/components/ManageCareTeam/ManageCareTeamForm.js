@@ -29,6 +29,7 @@ function ManageCareTeamForm(props) {
     careTeamStatuses,
     handleOpen,
     hasParticipants,
+    participantsToBeAdded,
   } = props;
   return (
     <div>
@@ -104,6 +105,11 @@ function ManageCareTeamForm(props) {
           </div>
         </div>
         <div className={styles.gridContainer}>
+          <div className={`${styles.gridItem} ${styles.selectedParticipant}`}>
+            Size: {participantsToBeAdded.length}
+          </div>
+        </div>
+        <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
               type="submit"
@@ -131,6 +137,7 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   hasParticipants: PropTypes.bool.isRequired,
+  participantsToBeAdded: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
