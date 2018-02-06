@@ -35,12 +35,12 @@ export function getCareTeamById(careTeams, careTeamId) {
 }
 
 export function getCareTeam(careTeamId) {
-  const requestURL = `${apiBaseURL}/careteams/${careTeamId}`;
+  const requestURL = `${apiBaseURL}/care-teams/${careTeamId}`;
   return request(requestURL);
 }
 
 function createCareTeam(careTeamFormData) {
-  const requestURL = `${apiBaseURL}/careteams`;
+  const requestURL = `${apiBaseURL}/care-teams`;
   return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
@@ -52,7 +52,7 @@ function createCareTeam(careTeamFormData) {
 
 function updateCareTeam(careTeamFormData) {
   const careTeamId = careTeamFormData.careTeamId;
-  const requestURL = `${apiBaseURL}/careteams/${careTeamId}`;
+  const requestURL = `${apiBaseURL}/care-teams/${careTeamId}`;
   return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),

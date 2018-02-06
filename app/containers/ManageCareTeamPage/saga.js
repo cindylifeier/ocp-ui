@@ -49,6 +49,7 @@ function* getCareTeamWorker({ careTeamId }) {
   } catch (error) {
     yield put(showNotification('No match care team found.'));
     yield put(push(PATIENTS_URL));
+    throw error;
   }
 }
 

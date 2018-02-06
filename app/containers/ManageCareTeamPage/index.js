@@ -55,8 +55,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   componentDidMount() {
     this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
-    this.props.getPatient(queryObj.patientId);
-
+    const patientId = queryObj.patientId;
+    if (patientId) {
+      this.props.getPatient(patientId);
+    }
     const careTeamId = this.props.match.params.id;
     if (careTeamId) {
       this.props.getCareTeam(careTeamId);
