@@ -7,7 +7,7 @@ import {
   GET_FILTERED_HEALTHCARE_SERVICES, STATUS_ACTIVE, STATUS_INACTIVE,
 } from './constants';
 import { showNotification } from '../Notification/actions';
-import queryHealthcareServices from './api';
+import { queryHealthcareServicesByOrganization } from './api';
 import { makeSelectIncludeInactive, makeSelectOrganization } from './selectors';
 import { getHealthcareServicesError, getHealthcareServicesSuccess } from './actions';
 
@@ -18,7 +18,7 @@ export function* getHealthcareServicesByOrganizationIdAndStatus(action) {
     const status = [];
     status.push(STATUS_ACTIVE);
     if (includeInactive) status.push(STATUS_INACTIVE);
-    const healthCareServices = yield call(queryHealthcareServices, organization.id, status, action.currentPage);
+    const healthCareServices = yield call(queryHealthcareServicesByOrganization, organization.id, status, action.currentPage);
     yield put(getHealthcareServicesSuccess(healthCareServices));
   } catch (err) {
     yield put(getHealthcareServicesError(err));
