@@ -10,177 +10,177 @@ ShallowWrapper {
   "length": 1,
   "node": <div>
     <Table>
-        <TableHeader>
-            <TableHeaderColumn>
-                <FormattedMessage
-                    defaultMessage="ID"
-                    id="ocpui.components.CareTeamTable.columnHeaderId"
-                    values={Object {}}
-                />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-                <FormattedMessage
-                    defaultMessage="Name"
-                    id="ocpui.components.CareTeamTable.columnHeaderName"
-                    values={Object {}}
-                />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-                <FormattedMessage
-                    defaultMessage="Status"
-                    id="ocpui.components.CareTeamTable.columnHeaderStatus"
-                    values={Object {}}
-                />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-                <FormattedMessage
-                    defaultMessage="Categories"
-                    id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                    values={Object {}}
-                />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-                <FormattedMessage
-                    defaultMessage="Participant / Role"
-                    id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                    values={Object {}}
-                />
-            </TableHeaderColumn>
-        </TableHeader>
-        <TableRow>
-            <TableRowColumn>
-                111111
-            </TableRowColumn>
-            <TableRowColumn>
-                My Care Team One
-            </TableRowColumn>
-            <TableRowColumn>
-                Active
-            </TableRowColumn>
-            <TableRowColumn>
-                Encounter
-            </TableRowColumn>
-            <TableRowColumn>
-                <ul>
-                    <li>
-                        Gregory House / Medical doctor
-                    </li>
-                    <li>
-                        Great Cross Hospital / Prison practice
-                    </li>
-                </ul>
-            </TableRowColumn>
-        </TableRow>
-        <TableRow>
-            <TableRowColumn>
-                222222
-            </TableRowColumn>
-            <TableRowColumn>
-                My Care Team Two
-            </TableRowColumn>
-            <TableRowColumn>
-                Suspended
-            </TableRowColumn>
-            <TableRowColumn>
-                Condition
-            </TableRowColumn>
-            <TableRowColumn>
-                <ul>
-                    <li>
-                        Granny Smith / Grand-mother
-                    </li>
-                </ul>
-            </TableRowColumn>
-        </TableRow>
+      <TableHeader>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="ID"
+            id="ocpui.components.CareTeamTable.columnHeaderId"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="Name"
+            id="ocpui.components.CareTeamTable.columnHeaderName"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="Status"
+            id="ocpui.components.CareTeamTable.columnHeaderStatus"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="Categories"
+            id="ocpui.components.CareTeamTable.columnHeaderCategories"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="Participant / Role"
+            id="ocpui.components.CareTeamTable.columnHeaderCategories"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
+      </TableHeader>
+      <TableRow>
+        <TableRowColumn>
+          111111
+        </TableRowColumn>
+        <TableRowColumn>
+          My Care Team One
+        </TableRowColumn>
+        <TableRowColumn>
+          Active
+        </TableRowColumn>
+        <TableRowColumn>
+          Encounter
+        </TableRowColumn>
+        <TableRowColumn>
+          <ul>
+            <li>
+              Gregory House / Medical doctor
+            </li>
+            <li>
+              Great Cross Hospital / Prison practice
+            </li>
+          </ul>
+        </TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>
+          222222
+        </TableRowColumn>
+        <TableRowColumn>
+          My Care Team Two
+        </TableRowColumn>
+        <TableRowColumn>
+          Suspended
+        </TableRowColumn>
+        <TableRowColumn>
+          Condition
+        </TableRowColumn>
+        <TableRowColumn>
+          <ul>
+            <li>
+              Granny Smith / Grand-mother
+            </li>
+          </ul>
+        </TableRowColumn>
+      </TableRow>
     </Table>
-</div>,
+  </div>,
   "nodes": Array [
     <div>
       <Table>
-            <TableHeader>
-                  <TableHeaderColumn>
-                        <FormattedMessage
-                              defaultMessage="ID"
-                              id="ocpui.components.CareTeamTable.columnHeaderId"
-                              values={Object {}}
-                        />
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
-                        <FormattedMessage
-                              defaultMessage="Name"
-                              id="ocpui.components.CareTeamTable.columnHeaderName"
-                              values={Object {}}
-                        />
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
-                        <FormattedMessage
-                              defaultMessage="Status"
-                              id="ocpui.components.CareTeamTable.columnHeaderStatus"
-                              values={Object {}}
-                        />
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
-                        <FormattedMessage
-                              defaultMessage="Categories"
-                              id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                              values={Object {}}
-                        />
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
-                        <FormattedMessage
-                              defaultMessage="Participant / Role"
-                              id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                              values={Object {}}
-                        />
-                  </TableHeaderColumn>
-            </TableHeader>
-            <TableRow>
-                  <TableRowColumn>
-                        111111
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        My Care Team One
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        Active
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        Encounter
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        <ul>
-                              <li>
-                                    Gregory House / Medical doctor
-                              </li>
-                              <li>
-                                    Great Cross Hospital / Prison practice
-                              </li>
-                        </ul>
-                  </TableRowColumn>
-            </TableRow>
-            <TableRow>
-                  <TableRowColumn>
-                        222222
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        My Care Team Two
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        Suspended
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        Condition
-                  </TableRowColumn>
-                  <TableRowColumn>
-                        <ul>
-                              <li>
-                                    Granny Smith / Grand-mother
-                              </li>
-                        </ul>
-                  </TableRowColumn>
-            </TableRow>
+        <TableHeader>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="ID"
+              id="ocpui.components.CareTeamTable.columnHeaderId"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Name"
+              id="ocpui.components.CareTeamTable.columnHeaderName"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Status"
+              id="ocpui.components.CareTeamTable.columnHeaderStatus"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Categories"
+              id="ocpui.components.CareTeamTable.columnHeaderCategories"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Participant / Role"
+              id="ocpui.components.CareTeamTable.columnHeaderCategories"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+        </TableHeader>
+        <TableRow>
+          <TableRowColumn>
+            111111
+          </TableRowColumn>
+          <TableRowColumn>
+            My Care Team One
+          </TableRowColumn>
+          <TableRowColumn>
+            Active
+          </TableRowColumn>
+          <TableRowColumn>
+            Encounter
+          </TableRowColumn>
+          <TableRowColumn>
+            <ul>
+              <li>
+                Gregory House / Medical doctor
+              </li>
+              <li>
+                Great Cross Hospital / Prison practice
+              </li>
+            </ul>
+          </TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>
+            222222
+          </TableRowColumn>
+          <TableRowColumn>
+            My Care Team Two
+          </TableRowColumn>
+          <TableRowColumn>
+            Suspended
+          </TableRowColumn>
+          <TableRowColumn>
+            Condition
+          </TableRowColumn>
+          <TableRowColumn>
+            <ul>
+              <li>
+                Granny Smith / Grand-mother
+              </li>
+            </ul>
+          </TableRowColumn>
+        </TableRow>
       </Table>
-</div>,
+    </div>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -190,83 +190,83 @@ ShallowWrapper {
       "_context": Object {},
       "_currentElement": <CareTeamTable
         elements={
-                Array [
-                        Object {
-                          "categoryCode": "encounter",
-                          "categoryDisplay": "Encounter",
-                          "endDate": "02/01/2017",
-                          "id": "111111",
-                          "name": "My Care Team One",
-                          "participants": Array [
-                            Object {
-                              "memberFirstName": "Gregory",
-                              "memberId": "700551",
-                              "memberLastName": "House",
-                              "memberType": "practitioner",
-                              "onBehalfOfId": "143191",
-                              "onBehalfOfName": "Great Cross Hospital",
-                              "roleCode": "112247003",
-                              "roleDisplay": "Medical doctor",
-                            },
-                            Object {
-                              "memberId": "650858",
-                              "memberName": "Great Cross Hospital",
-                              "memberType": "organization",
-                              "onBehalfOfId": "143191",
-                              "onBehalfOfName": "Great Cross Hospital",
-                              "roleCode": "394765007",
-                              "roleDisplay": "Prison practice",
-                            },
-                          ],
-                          "reasonCodes": Array [
-                            Object {
-                              "code": "109006",
-                              "display": "Anxiety disorder of childhood OR adolescence",
-                            },
-                            Object {
-                              "code": "122003",
-                              "display": "Choroidal hemorrhage",
-                            },
-                          ],
-                          "startDate": "01/01/2017",
-                          "statusCode": "active",
-                          "statusDisplay": "Active",
-                          "subjectFirstName": "Adam",
-                          "subjectId": "11111",
-                          "subjectLastName": "Smith",
-                        },
-                        Object {
-                          "categoryCode": "condition",
-                          "categoryDisplay": "Condition",
-                          "endDate": "08/01/2017",
-                          "id": "222222",
-                          "name": "My Care Team Two",
-                          "participants": Array [
-                            Object {
-                              "memberFirstName": "Granny",
-                              "memberId": "121212",
-                              "memberLastName": "Smith",
-                              "memberType": "relatedPerson",
-                              "roleCode": "113157001",
-                              "roleDisplay": "Grand-mother",
-                            },
-                          ],
-                          "reasonCodes": Array [
-                            Object {
-                              "code": "134006",
-                              "display": "Decreased hair growth",
-                            },
-                          ],
-                          "startDate": "04/01/2017",
-                          "statusCode": "suspended",
-                          "statusDisplay": "Suspended",
-                          "subjectFirstName": "Adam",
-                          "subjectId": "11111",
-                          "subjectLastName": "Smith",
-                        },
-                      ]
+          Array [
+            Object {
+              "categoryCode": "encounter",
+              "categoryDisplay": "Encounter",
+              "endDate": "02/01/2017",
+              "id": "111111",
+              "name": "My Care Team One",
+              "participants": Array [
+                Object {
+                  "memberFirstName": "Gregory",
+                  "memberId": "700551",
+                  "memberLastName": "House",
+                  "memberType": "practitioner",
+                  "onBehalfOfId": "143191",
+                  "onBehalfOfName": "Great Cross Hospital",
+                  "roleCode": "112247003",
+                  "roleDisplay": "Medical doctor",
+                },
+                Object {
+                  "memberId": "650858",
+                  "memberName": "Great Cross Hospital",
+                  "memberType": "organization",
+                  "onBehalfOfId": "143191",
+                  "onBehalfOfName": "Great Cross Hospital",
+                  "roleCode": "394765007",
+                  "roleDisplay": "Prison practice",
+                },
+              ],
+              "reasonCodes": Array [
+                Object {
+                  "code": "109006",
+                  "display": "Anxiety disorder of childhood OR adolescence",
+                },
+                Object {
+                  "code": "122003",
+                  "display": "Choroidal hemorrhage",
+                },
+              ],
+              "startDate": "01/01/2017",
+              "statusCode": "active",
+              "statusDisplay": "Active",
+              "subjectFirstName": "Adam",
+              "subjectId": "11111",
+              "subjectLastName": "Smith",
+            },
+            Object {
+              "categoryCode": "condition",
+              "categoryDisplay": "Condition",
+              "endDate": "08/01/2017",
+              "id": "222222",
+              "name": "My Care Team Two",
+              "participants": Array [
+                Object {
+                  "memberFirstName": "Granny",
+                  "memberId": "121212",
+                  "memberLastName": "Smith",
+                  "memberType": "relatedPerson",
+                  "roleCode": "113157001",
+                  "roleDisplay": "Grand-mother",
+                },
+              ],
+              "reasonCodes": Array [
+                Object {
+                  "code": "134006",
+                  "display": "Decreased hair growth",
+                },
+              ],
+              "startDate": "04/01/2017",
+              "statusCode": "suspended",
+              "statusDisplay": "Suspended",
+              "subjectFirstName": "Adam",
+              "subjectId": "11111",
+              "subjectLastName": "Smith",
+            },
+          ]
         }
-/>,
+      />,
       "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
@@ -372,177 +372,177 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <div>
           <Table>
-                    <TableHeader>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="ID"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderId"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Name"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderName"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Status"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderStatus"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Categories"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Participant / Role"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                    </TableHeader>
-                    <TableRow>
-                              <TableRowColumn>
-                                        111111
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        My Care Team One
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Active
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Encounter
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Gregory House / Medical doctor
-                                                  </li>
-                                                  <li>
-                                                            Great Cross Hospital / Prison practice
-                                                  </li>
-                                        </ul>
-                              </TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                              <TableRowColumn>
-                                        222222
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        My Care Team Two
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Suspended
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Condition
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Granny Smith / Grand-mother
-                                                  </li>
-                                        </ul>
-                              </TableRowColumn>
-                    </TableRow>
+            <TableHeader>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="ID"
+                  id="ocpui.components.CareTeamTable.columnHeaderId"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Name"
+                  id="ocpui.components.CareTeamTable.columnHeaderName"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Status"
+                  id="ocpui.components.CareTeamTable.columnHeaderStatus"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Categories"
+                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Participant / Role"
+                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+            </TableHeader>
+            <TableRow>
+              <TableRowColumn>
+                111111
+              </TableRowColumn>
+              <TableRowColumn>
+                My Care Team One
+              </TableRowColumn>
+              <TableRowColumn>
+                Active
+              </TableRowColumn>
+              <TableRowColumn>
+                Encounter
+              </TableRowColumn>
+              <TableRowColumn>
+                <ul>
+                  <li>
+                    Gregory House / Medical doctor
+                  </li>
+                  <li>
+                    Great Cross Hospital / Prison practice
+                  </li>
+                </ul>
+              </TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn>
+                222222
+              </TableRowColumn>
+              <TableRowColumn>
+                My Care Team Two
+              </TableRowColumn>
+              <TableRowColumn>
+                Suspended
+              </TableRowColumn>
+              <TableRowColumn>
+                Condition
+              </TableRowColumn>
+              <TableRowColumn>
+                <ul>
+                  <li>
+                    Granny Smith / Grand-mother
+                  </li>
+                </ul>
+              </TableRowColumn>
+            </TableRow>
           </Table>
-</div>,
+        </div>,
         "_debugID": 2,
         "_renderedOutput": <div>
           <Table>
-                    <TableHeader>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="ID"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderId"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Name"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderName"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Status"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderStatus"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Categories"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                              <TableHeaderColumn>
-                                        <FormattedMessage
-                                                  defaultMessage="Participant / Role"
-                                                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
-                                                  values={Object {}}
-                                        />
-                              </TableHeaderColumn>
-                    </TableHeader>
-                    <TableRow>
-                              <TableRowColumn>
-                                        111111
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        My Care Team One
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Active
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Encounter
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Gregory House / Medical doctor
-                                                  </li>
-                                                  <li>
-                                                            Great Cross Hospital / Prison practice
-                                                  </li>
-                                        </ul>
-                              </TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                              <TableRowColumn>
-                                        222222
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        My Care Team Two
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Suspended
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        Condition
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                        <ul>
-                                                  <li>
-                                                            Granny Smith / Grand-mother
-                                                  </li>
-                                        </ul>
-                              </TableRowColumn>
-                    </TableRow>
+            <TableHeader>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="ID"
+                  id="ocpui.components.CareTeamTable.columnHeaderId"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Name"
+                  id="ocpui.components.CareTeamTable.columnHeaderName"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Status"
+                  id="ocpui.components.CareTeamTable.columnHeaderStatus"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Categories"
+                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Participant / Role"
+                  id="ocpui.components.CareTeamTable.columnHeaderCategories"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+            </TableHeader>
+            <TableRow>
+              <TableRowColumn>
+                111111
+              </TableRowColumn>
+              <TableRowColumn>
+                My Care Team One
+              </TableRowColumn>
+              <TableRowColumn>
+                Active
+              </TableRowColumn>
+              <TableRowColumn>
+                Encounter
+              </TableRowColumn>
+              <TableRowColumn>
+                <ul>
+                  <li>
+                    Gregory House / Medical doctor
+                  </li>
+                  <li>
+                    Great Cross Hospital / Prison practice
+                  </li>
+                </ul>
+              </TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn>
+                222222
+              </TableRowColumn>
+              <TableRowColumn>
+                My Care Team Two
+              </TableRowColumn>
+              <TableRowColumn>
+                Suspended
+              </TableRowColumn>
+              <TableRowColumn>
+                Condition
+              </TableRowColumn>
+              <TableRowColumn>
+                <ul>
+                  <li>
+                    Granny Smith / Grand-mother
+                  </li>
+                </ul>
+              </TableRowColumn>
+            </TableRow>
           </Table>
-</div>,
+        </div>,
       },
       "_renderedNodeType": 0,
       "_rootNodeID": 0,
@@ -556,82 +556,82 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <CareTeamTable
     elements={
-        Array [
+      Array [
+        Object {
+          "categoryCode": "encounter",
+          "categoryDisplay": "Encounter",
+          "endDate": "02/01/2017",
+          "id": "111111",
+          "name": "My Care Team One",
+          "participants": Array [
             Object {
-              "categoryCode": "encounter",
-              "categoryDisplay": "Encounter",
-              "endDate": "02/01/2017",
-              "id": "111111",
-              "name": "My Care Team One",
-              "participants": Array [
-                Object {
-                  "memberFirstName": "Gregory",
-                  "memberId": "700551",
-                  "memberLastName": "House",
-                  "memberType": "practitioner",
-                  "onBehalfOfId": "143191",
-                  "onBehalfOfName": "Great Cross Hospital",
-                  "roleCode": "112247003",
-                  "roleDisplay": "Medical doctor",
-                },
-                Object {
-                  "memberId": "650858",
-                  "memberName": "Great Cross Hospital",
-                  "memberType": "organization",
-                  "onBehalfOfId": "143191",
-                  "onBehalfOfName": "Great Cross Hospital",
-                  "roleCode": "394765007",
-                  "roleDisplay": "Prison practice",
-                },
-              ],
-              "reasonCodes": Array [
-                Object {
-                  "code": "109006",
-                  "display": "Anxiety disorder of childhood OR adolescence",
-                },
-                Object {
-                  "code": "122003",
-                  "display": "Choroidal hemorrhage",
-                },
-              ],
-              "startDate": "01/01/2017",
-              "statusCode": "active",
-              "statusDisplay": "Active",
-              "subjectFirstName": "Adam",
-              "subjectId": "11111",
-              "subjectLastName": "Smith",
+              "memberFirstName": "Gregory",
+              "memberId": "700551",
+              "memberLastName": "House",
+              "memberType": "practitioner",
+              "onBehalfOfId": "143191",
+              "onBehalfOfName": "Great Cross Hospital",
+              "roleCode": "112247003",
+              "roleDisplay": "Medical doctor",
             },
             Object {
-              "categoryCode": "condition",
-              "categoryDisplay": "Condition",
-              "endDate": "08/01/2017",
-              "id": "222222",
-              "name": "My Care Team Two",
-              "participants": Array [
-                Object {
-                  "memberFirstName": "Granny",
-                  "memberId": "121212",
-                  "memberLastName": "Smith",
-                  "memberType": "relatedPerson",
-                  "roleCode": "113157001",
-                  "roleDisplay": "Grand-mother",
-                },
-              ],
-              "reasonCodes": Array [
-                Object {
-                  "code": "134006",
-                  "display": "Decreased hair growth",
-                },
-              ],
-              "startDate": "04/01/2017",
-              "statusCode": "suspended",
-              "statusDisplay": "Suspended",
-              "subjectFirstName": "Adam",
-              "subjectId": "11111",
-              "subjectLastName": "Smith",
+              "memberId": "650858",
+              "memberName": "Great Cross Hospital",
+              "memberType": "organization",
+              "onBehalfOfId": "143191",
+              "onBehalfOfName": "Great Cross Hospital",
+              "roleCode": "394765007",
+              "roleDisplay": "Prison practice",
             },
-          ]
+          ],
+          "reasonCodes": Array [
+            Object {
+              "code": "109006",
+              "display": "Anxiety disorder of childhood OR adolescence",
+            },
+            Object {
+              "code": "122003",
+              "display": "Choroidal hemorrhage",
+            },
+          ],
+          "startDate": "01/01/2017",
+          "statusCode": "active",
+          "statusDisplay": "Active",
+          "subjectFirstName": "Adam",
+          "subjectId": "11111",
+          "subjectLastName": "Smith",
+        },
+        Object {
+          "categoryCode": "condition",
+          "categoryDisplay": "Condition",
+          "endDate": "08/01/2017",
+          "id": "222222",
+          "name": "My Care Team Two",
+          "participants": Array [
+            Object {
+              "memberFirstName": "Granny",
+              "memberId": "121212",
+              "memberLastName": "Smith",
+              "memberType": "relatedPerson",
+              "roleCode": "113157001",
+              "roleDisplay": "Grand-mother",
+            },
+          ],
+          "reasonCodes": Array [
+            Object {
+              "code": "134006",
+              "display": "Decreased hair growth",
+            },
+          ],
+          "startDate": "04/01/2017",
+          "statusCode": "suspended",
+          "statusDisplay": "Suspended",
+          "subjectFirstName": "Adam",
+          "subjectId": "11111",
+          "subjectLastName": "Smith",
+        },
+      ]
     }
-/>,
+  />,
 }
 `;

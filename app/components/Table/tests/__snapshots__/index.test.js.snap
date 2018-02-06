@@ -1,164 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Table /> shoud match snapshot 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <div>
-    <div
-        className={undefined}
-    >
-        <TableHeader>
-            <TableHeaderColumn>
-                Col
-            </TableHeaderColumn>
-        </TableHeader>
-        <TableRow>
-            <TableRowColumn>
-                Row
-            </TableRowColumn>
-        </TableRow>
-    </div>
-</div>,
-  "nodes": Array [
-    <div>
-      <div
-            className={undefined}
-      >
-            <TableHeader>
-                  <TableHeaderColumn>
-                        Col
-                  </TableHeaderColumn>
-            </TableHeader>
-            <TableRow>
-                  <TableRowColumn>
-                        Row
-                  </TableRowColumn>
-            </TableRow>
-      </div>
-</div>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 2,
-      "_context": Object {},
-      "_currentElement": <Table>
-        <TableHeader>
-                <TableHeaderColumn>
-                        Col
-                </TableHeaderColumn>
-        </TableHeader>
-        <TableRow>
-                <TableRowColumn>
-                        Row
-                </TableRowColumn>
-        </TableRow>
-</Table>,
-      "_debugID": 1,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": StatelessComponent {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "children": Array [
-            <TableHeader>
-              <TableHeaderColumn>
-                            Col
-              </TableHeaderColumn>
-</TableHeader>,
-            <TableRow>
-              <TableRowColumn>
-                            Row
-              </TableRowColumn>
-</TableRow>,
-          ],
-        },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 1,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <div>
-          <div
-                    className={undefined}
-          >
-                    <TableHeader>
-                              <TableHeaderColumn>
-                                        Col
-                              </TableHeaderColumn>
-                    </TableHeader>
-                    <TableRow>
-                              <TableRowColumn>
-                                        Row
-                              </TableRowColumn>
-                    </TableRow>
-          </div>
-</div>,
-        "_debugID": 2,
-        "_renderedOutput": <div>
-          <div
-                    className={undefined}
-          >
-                    <TableHeader>
-                              <TableHeaderColumn>
-                                        Col
-                              </TableHeaderColumn>
-                    </TableHeader>
-                    <TableRow>
-                              <TableRowColumn>
-                                        Row
-                              </TableRowColumn>
-                    </TableRow>
-          </div>
-</div>,
-      },
-      "_renderedNodeType": 0,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <Table>
-    <TableHeader>
-        <TableHeaderColumn>
-            Col
-        </TableHeaderColumn>
-    </TableHeader>
-    <TableRow>
-        <TableRowColumn>
-            Row
-        </TableRowColumn>
-    </TableRow>
-</Table>,
-}
-`;
-
 exports[`<Table /> should match snapshot 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
@@ -169,37 +10,37 @@ ShallowWrapper {
   "length": 1,
   "node": <div>
     <div
-        className={undefined}
+      className={undefined}
     >
-        <TableHeader>
-            <TableHeaderColumn>
-                Col
-            </TableHeaderColumn>
-        </TableHeader>
-        <TableRow>
-            <TableRowColumn>
-                Row
-            </TableRowColumn>
-        </TableRow>
+      <TableHeader>
+        <TableHeaderColumn>
+          Col
+        </TableHeaderColumn>
+      </TableHeader>
+      <TableRow>
+        <TableRowColumn>
+          Row
+        </TableRowColumn>
+      </TableRow>
     </div>
-</div>,
+  </div>,
   "nodes": Array [
     <div>
       <div
-            className={undefined}
+        className={undefined}
       >
-            <TableHeader>
-                  <TableHeaderColumn>
-                        Col
-                  </TableHeaderColumn>
-            </TableHeader>
-            <TableRow>
-                  <TableRowColumn>
-                        Row
-                  </TableRowColumn>
-            </TableRow>
+        <TableHeader>
+          <TableHeaderColumn>
+            Col
+          </TableHeaderColumn>
+        </TableHeader>
+        <TableRow>
+          <TableRowColumn>
+            Row
+          </TableRowColumn>
+        </TableRow>
       </div>
-</div>,
+    </div>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -209,16 +50,16 @@ ShallowWrapper {
       "_context": Object {},
       "_currentElement": <Table>
         <TableHeader>
-                <TableHeaderColumn>
-                        Col
-                </TableHeaderColumn>
+          <TableHeaderColumn>
+            Col
+          </TableHeaderColumn>
         </TableHeader>
         <TableRow>
-                <TableRowColumn>
-                        Row
-                </TableRowColumn>
+          <TableRowColumn>
+            Row
+          </TableRowColumn>
         </TableRow>
-</Table>,
+      </Table>,
       "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
@@ -229,14 +70,14 @@ ShallowWrapper {
           "children": Array [
             <TableHeader>
               <TableHeaderColumn>
-                            Col
+                Col
               </TableHeaderColumn>
-</TableHeader>,
+            </TableHeader>,
             <TableRow>
               <TableRowColumn>
-                            Row
+                Row
               </TableRowColumn>
-</TableRow>,
+            </TableRow>,
           ],
         },
         "refs": Object {},
@@ -261,37 +102,37 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <div>
           <div
-                    className={undefined}
+            className={undefined}
           >
-                    <TableHeader>
-                              <TableHeaderColumn>
-                                        Col
-                              </TableHeaderColumn>
-                    </TableHeader>
-                    <TableRow>
-                              <TableRowColumn>
-                                        Row
-                              </TableRowColumn>
-                    </TableRow>
+            <TableHeader>
+              <TableHeaderColumn>
+                Col
+              </TableHeaderColumn>
+            </TableHeader>
+            <TableRow>
+              <TableRowColumn>
+                Row
+              </TableRowColumn>
+            </TableRow>
           </div>
-</div>,
+        </div>,
         "_debugID": 2,
         "_renderedOutput": <div>
           <div
-                    className={undefined}
+            className={undefined}
           >
-                    <TableHeader>
-                              <TableHeaderColumn>
-                                        Col
-                              </TableHeaderColumn>
-                    </TableHeader>
-                    <TableRow>
-                              <TableRowColumn>
-                                        Row
-                              </TableRowColumn>
-                    </TableRow>
+            <TableHeader>
+              <TableHeaderColumn>
+                Col
+              </TableHeaderColumn>
+            </TableHeader>
+            <TableRow>
+              <TableRowColumn>
+                Row
+              </TableRowColumn>
+            </TableRow>
           </div>
-</div>,
+        </div>,
       },
       "_renderedNodeType": 0,
       "_rootNodeID": 0,
@@ -305,15 +146,15 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <Table>
     <TableHeader>
-        <TableHeaderColumn>
-            Col
-        </TableHeaderColumn>
+      <TableHeaderColumn>
+        Col
+      </TableHeaderColumn>
     </TableHeader>
     <TableRow>
-        <TableRowColumn>
-            Row
-        </TableRowColumn>
+      <TableRowColumn>
+        Row
+      </TableRowColumn>
     </TableRow>
-</Table>,
+  </Table>,
 }
 `;
