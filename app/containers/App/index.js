@@ -31,7 +31,7 @@ import Notification from '../Notification';
 import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
 import ManagePatientPage from '../ManagePatientPage/index';
-import { AssignHealthCareServiceToLocationPage } from '../AssignHealthCareServiceToLocationPage';
+import AssignHealthCareServiceToLocationPage from '../AssignHealthCareServiceToLocationPage';
 
 
 export function App() {
