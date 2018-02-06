@@ -8,6 +8,18 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.header',
-    defaultMessage: 'This is AssignHealthCareServiceToLocationPage container !',
+    defaultMessage: 'Assign Healthcare Services to this Location',
+  },
+  title: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.title',
+    defaultMessage: 'TITLE',
+  },
+  organizationNotSelected: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.organizationNotSelected',
+    defaultMessage: 'No healthcare services loaded. Please select an organization to view its healthcare services.',
+  },
+  noHealthcareServicesFound: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.noHealthcareServicesFound',
+    defaultMessage: 'No healthcare services found.',
   },
 });
