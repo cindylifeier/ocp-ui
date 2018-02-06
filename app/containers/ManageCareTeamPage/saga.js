@@ -31,6 +31,7 @@ function* getPatientWorker({ patientId }) {
   } catch (error) {
     yield put(showNotification('No match patient found.'));
     yield put(push(PATIENTS_URL));
+    throw error;
   }
 }
 
@@ -39,7 +40,7 @@ function* getCareTeamWorker({ careTeamId }) {
     let careTeam;
     // Load careTeams from store
     const careTeamsSelector = yield select(makeSelectCareTeams());
-    const careTeams = careTeamsSelector.data.elements;
+    const careTeams = careTeamsSelector && careTeamsSelector.data && careTeamsSelector.data.elements;
     careTeam = getCareTeamById(careTeams, careTeamId);
     // fetch from backend if cannot find care team from store
     if (isEmpty(careTeam)) {
