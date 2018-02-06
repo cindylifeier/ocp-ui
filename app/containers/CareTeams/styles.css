@@ -19,7 +19,37 @@
   text-align: center;
 }
 
+.header {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #336666;
+}
+
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
+
+.patientName {
+  margin:0 10px;
+}
+
+.noCareTeam {
+  margin:0 10px;
+}
+
+.filterSection {
+  margin: 10px;
+}
+
+.filterGridContainer {
+  display: grid;
+  padding: 10px 0;
+  width: 100%;
+  grid-template-columns: 60px repeat(3,120px) 180px 1fr;
+  background-color: #F9F9F9 ;
+}
+
+.filterGridItem{
+  text-align: center;
 }
