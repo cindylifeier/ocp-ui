@@ -8,13 +8,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import Checkbox from 'material-ui/Checkbox';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
 import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 
-function HealthcareServiceTable({ elements }) {
+const checkboxStyle = { marginTop: '40px', height: '30px' };
+
+function HealthcareServiceTable({ elements, showAssigned = false }) {
   function getIdentifiers(identifier) {
     return identifier.map((entry) =>
       (
@@ -50,6 +53,7 @@ function HealthcareServiceTable({ elements }) {
 
   return (
     <div>
+      {!showAssigned &&
       <Table>
         <TableHeader>
           <TableHeaderColumn>Name</TableHeaderColumn>
@@ -69,7 +73,30 @@ function HealthcareServiceTable({ elements }) {
             <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
           </TableRow>
         ))}
-      </Table>
+      </Table>}
+      {showAssigned &&
+      <Table>
+        <TableHeader>
+          <TableHeaderColumn>Assigned</TableHeaderColumn>
+          <TableHeaderColumn>Name</TableHeaderColumn>
+          <TableHeaderColumn>Category</TableHeaderColumn>
+          <TableHeaderColumn>Type</TableHeaderColumn>
+          <TableHeaderColumn>Program Name</TableHeaderColumn>
+          <TableHeaderColumn>Identifier</TableHeaderColumn>
+          <TableHeaderColumn>Active</TableHeaderColumn>
+        </TableHeader>
+        {!isEmpty(elements) && elements.map((element) => (
+          <TableRow key={element.logicalId}>
+            <Checkbox style={checkboxStyle} />
+            <TableRowColumn>{element.name}</TableRowColumn>
+            <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
+            <TableRowColumn>{getTypes(element.type)}</TableRowColumn>
+            <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
+            <TableRowColumn>{getIdentifiers(element.identifiers)}</TableRowColumn>
+            <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
+          </TableRow>
+        ))}
+      </Table>}
     </div>
   );
 }
@@ -77,6 +104,7 @@ function HealthcareServiceTable({ elements }) {
 
 HealthcareServiceTable.propTypes = {
   elements: PropTypes.array,
+  showAssigned: PropTypes.bool,
 };
 
 export default HealthcareServiceTable;

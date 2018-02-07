@@ -87,7 +87,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
           <div className={styles.textCenter}>
-            <HealthcareServiceTable elements={healthcareServices} />
+            <HealthcareServiceTable elements={healthcareServices} showAssigned />
             <UltimatePagination
               currentPage={this.props.currentPage}
               totalPages={this.props.totalPages}
