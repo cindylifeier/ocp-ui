@@ -7,14 +7,16 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import messages from './messages';
+import isEmpty from 'lodash/isEmpty';
+
+import SelectedParticipants from './SelectedParticipants';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
-import styles from './styles.css';
 import DatePicker from '../DatePicker';
+import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import { addButtonStyle } from './constants';
-import SelectedParticipants from './SelectedParticipants';
+import messages from './messages';
+import styles from './styles.css';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -25,10 +27,12 @@ function ManageCareTeamForm(props) {
     careTeamCategories,
     careTeamStatuses,
     handleOpen,
-    hasParticipants,
     selectedParticipants,
     removeParticipant,
   } = props;
+
+  // To check whether has participant
+  const hasParticipants = !isEmpty(selectedParticipants);
 
   const handleRemoveParticipant = (participant) => {
     removeParticipant(participant);
@@ -157,7 +161,6 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
-  hasParticipants: PropTypes.bool.isRequired,
   selectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,

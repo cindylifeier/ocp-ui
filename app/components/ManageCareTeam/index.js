@@ -27,7 +27,6 @@ function ManageCareTeam(props) {
     participantTypes,
     participantRoles,
     careTeamStatuses,
-    hasParticipants,
     handleOpen,
     onSave,
     selectedParticipants,
@@ -39,7 +38,6 @@ function ManageCareTeam(props) {
     participantTypes,
     participantRoles,
     careTeamStatuses,
-    hasParticipants,
     handleOpen,
     selectedParticipants,
     removeParticipant,
@@ -96,7 +94,6 @@ function ManageCareTeam(props) {
 }
 
 ManageCareTeam.propTypes = {
-  hasParticipants: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
