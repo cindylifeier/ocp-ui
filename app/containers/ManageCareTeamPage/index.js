@@ -35,6 +35,7 @@ import {
 } from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
+import { removeParticipant } from '../SearchParticipant/actions';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -49,15 +50,13 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
   }
 
   componentWillMount() {
     this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
     this.props.getPatient(queryObj.patientId);
-  }
-
-  componentWillUnmount() {
     this.props.initializeManageCareTeam();
   }
 
@@ -75,6 +74,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
   handleOpen() {
     this.setState({ open: true });
+  }
+
+  handleRemoveParticipant(participant) {
+    this.props.removeParticipant(participant);
   }
 
   handleToggle(event, isInputChecked) {
@@ -123,6 +126,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
             <ManageCareTeam
               {...manageCareTeamProps}
               onSave={this.handleSave}
+              removeParticipant={this.handleRemoveParticipant}
               handleOpen={this.handleOpen}
             />
             <SearchParticipant
@@ -146,6 +150,7 @@ ManageCareTeamPage.propTypes = {
   initializeManageCareTeam: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   onSaveCareTeam: PropTypes.func.isRequired,
+  removeParticipant: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.array,
   participantTypes: PropTypes.array,
   participantRoles: PropTypes.array,
@@ -168,6 +173,7 @@ function mapDispatchToProps(dispatch) {
     getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
+    removeParticipant: (participant) => dispatch(removeParticipant(participant)),
   };
 }
 
