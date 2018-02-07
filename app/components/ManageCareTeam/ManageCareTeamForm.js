@@ -7,20 +7,14 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import uniqueId from 'lodash/uniqueId';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import DatePicker from '../DatePicker';
-import Table from '../Table/index';
-import TableHeader from '../TableHeader/index';
-import TableHeaderColumn from '../TableHeaderColumn/index';
-import TableRow from '../TableRow/index';
-import TableRowColumn from '../TableRowColumn/index';
-import { addButtonStyle, removeButtonStyle } from './constants';
-import { getParticipantName } from '../../utils/CareTeamUtils';
+import { addButtonStyle } from './constants';
+import SelectedParticipants from './SelectedParticipants';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -35,9 +29,11 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     removeParticipant,
   } = props;
+
   const handleRemoveParticipant = (participant) => {
     removeParticipant(participant);
   };
+
   return (
     <div>
       <Form>
@@ -120,48 +116,17 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
+
+        <SelectedParticipants
+          selectedParticipants={selectedParticipants}
+          removeParticipant={handleRemoveParticipant}
+        />
+
         {dirty &&
         <div className={styles.participantError}>{hasParticipants ?
           '' : <FormattedMessage {...messages.validation.checkParticipants} />}
         </div>
         }
-        <Table>
-          <TableHeader>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderReason} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-          </TableHeader>
-          {selectedParticipants && selectedParticipants.length > 0 &&
-          selectedParticipants.map((participant) => (
-            <TableRow key={uniqueId()}>
-              <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
-              <TableRowColumn>{participant.role.display}</TableRowColumn>
-              <TableRowColumn />
-              <TableRowColumn />
-              <TableRowColumn>
-                <RaisedButton
-                  backgroundColor={teal500}
-                  labelColor={white}
-                  onClick={() => handleRemoveParticipant(participant)}
-                  style={removeButtonStyle}
-                  label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
-                  primary
-                />
-              </TableRowColumn>
-            </TableRow>
-          ))
-          }
-          {
-            selectedParticipants && selectedParticipants.length === 0 &&
-            <TableRow>
-              <TableRowColumn>
-                <span><FormattedMessage {...messages.noParticipantAdded} /></span>
-              </TableRowColumn>
-            </TableRow>
-          }
-        </Table>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
