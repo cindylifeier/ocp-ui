@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
-import Toggle from 'material-ui/Toggle';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
@@ -45,12 +44,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       open: false,
       name: '',
       member: '',
-      hasParticipants: false,
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
   }
 
@@ -81,6 +78,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     if (careTeamId) {
       merge(careTeamFormData, { careTeamId });
     }
+    // Add selected participants to form data
+    const selectedParticipants = this.props.selectedParticipants;
+    merge(careTeamFormData, { participants: selectedParticipants });
     this.props.onSaveCareTeam(careTeamFormData, () => actions.setSubmitting(false));
   }
 
@@ -96,10 +96,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.props.removeParticipant(participant);
   }
 
-  handleToggle(event, isInputChecked) {
-    this.setState({ hasParticipants: isInputChecked });
-  }
-
   render() {
     const {
       match,
@@ -112,8 +108,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       selectedParticipants,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
-    // Todo: implement to dispatch participants
-    const hasParticipants = this.state.hasParticipants;
 
     let careTeam = null;
     if (editMode && selectedCareTeam) {
@@ -127,9 +121,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       participantTypes,
       participantRoles,
       careTeamStatuses,
-      hasParticipants,
       selectedParticipants,
     };
+
     return (
       <div>
         <Helmet>
@@ -142,10 +136,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
               : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
-          <Toggle
-            label="Set hasParticipants to true"
-            onToggle={this.handleToggle}
-          />
           <ManageCareTeam
             {...manageCareTeamProps}
             onSave={this.handleSave}
