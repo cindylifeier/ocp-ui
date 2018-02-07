@@ -38,6 +38,10 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  HEALTHCARESERVICECATEGORY,
+  HEALTHCARESERVICEREFERRALMETHOD,
+  HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICETYPE,
 } from './constants';
 
 // The initial state of the App
@@ -66,6 +70,10 @@ const initialState = fromJS({
   PARTICIPANTTYPE: [],
   CARETEAMSTATUS: [],
   PARTICIPANTROLE: [],
+  HEALTHCARESERVICECATEGORY: [],
+  HEALTHCARESERVICETYPE: [],
+  HEALTHCARESERVICEREFERRALMETHOD: [],
+  HEALTHCARESERVICESPECIALITY: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -98,6 +106,10 @@ function appReducer(state = initialState, action) {
         .set(PARTICIPANTTYPE, fromJS((action.lookups && action.lookups.participantTypes) || state.get(PARTICIPANTTYPE)))
         .set(CARETEAMSTATUS, fromJS((action.lookups && action.lookups.careTeamStatuses) || state.get(CARETEAMSTATUS)))
         .set(PARTICIPANTROLE, fromJS((action.lookups && action.lookups.participantRoles) || state.get(PARTICIPANTROLE)))
+        .set(HEALTHCARESERVICECATEGORY, fromJS((action.lookups && action.lookups.healthcareServiceCategories) || state.get(HEALTHCARESERVICECATEGORY)))
+        .set(HEALTHCARESERVICETYPE, fromJS((action.lookups && action.lookups.healthcareServiceTypes) || state.get(HEALTHCARESERVICETYPE)))
+        .set(HEALTHCARESERVICEREFERRALMETHOD, fromJS((action.lookups && action.lookups.healthcareServiceReferralMethods) || state.get(HEALTHCARESERVICEREFERRALMETHOD)))
+        .set(HEALTHCARESERVICESPECIALITY, fromJS((action.lookups && action.lookups.healthcareServiceSpecialities) || state.get(HEALTHCARESERVICESPECIALITY)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
