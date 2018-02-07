@@ -20,3 +20,4 @@ export const GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR = 'ocpui/HealthCa
 *  Other constants
 *
 */
+export const STATUS_ACTIVE = 'active';
