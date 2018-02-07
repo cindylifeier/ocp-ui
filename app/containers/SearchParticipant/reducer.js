@@ -5,21 +5,46 @@
  */
 
 import { fromJS } from 'immutable';
+import { uniqBy, filter } from 'lodash';
 import {
+  ADD_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT, REMOVE_PARTICIPANT,
   SEARCH_PARTICIPANT_ERROR,
   SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
+
 const initialState = fromJS({
   searchParticipantResult: [],
+  selectedParticipants: [],
 });
 
 function searchParticipantReducer(state = initialState, action) {
   switch (action.type) {
     case SEARCH_PARTICIPANT_SUCCESS:
       return state.set('searchParticipantResult', fromJS((action.searchParticipantResults && action.searchParticipantResults.elements) || []));
+    case INITIALIZE_SEARCH_PARTICIPANT:
+      return initialState;
     case SEARCH_PARTICIPANT_ERROR:
       return state;
+    case ADD_PARTICIPANT: {
+      const participants = state.get('selectedParticipants');
+      const participantsAsArray = participants.toJS();
+      // Get the participants to be added
+      const participantToBeAdded = action.participants[0];
+      participantsAsArray.push(participantToBeAdded);
+      // Remove duplicate from the list
+      const selectedParticipants = uniqBy(participantsAsArray, (e) => (e.member.id));
+      return state.set('selectedParticipants', fromJS((selectedParticipants) || []))
+                  .set('searchParticipantResult', fromJS([]));
+    }
+    case REMOVE_PARTICIPANT: {
+      const participants = state.get('selectedParticipants');
+      const participantsAsArray = participants.toJS();
+      const filteredParticipants = filter(participantsAsArray, (e) => (e.member.id !== action.participant.member.id));
+      return state.set('selectedParticipants', fromJS((filteredParticipants) || []))
+                  .set('searchParticipantResult', fromJS([]));
+    }
+
     default:
       return state;
   }

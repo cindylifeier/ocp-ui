@@ -30,6 +30,8 @@ function ManageCareTeam(props) {
     hasParticipants,
     handleOpen,
     onSave,
+    selectedParticipants,
+    removeParticipant,
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
@@ -39,6 +41,8 @@ function ManageCareTeam(props) {
     careTeamStatuses,
     hasParticipants,
     handleOpen,
+    selectedParticipants,
+    removeParticipant,
   };
   return (
     <div>
@@ -94,6 +98,7 @@ function ManageCareTeam(props) {
 ManageCareTeam.propTypes = {
   hasParticipants: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
+  removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
   selectedPatient: PropTypes.shape({
@@ -108,6 +113,7 @@ ManageCareTeam.propTypes = {
   participantTypes: PropTypes.array.isRequired,
   participantRoles: PropTypes.array.isRequired,
   careTeamStatuses: PropTypes.array.isRequired,
+  selectedParticipants: PropTypes.array,
 };
 
 function setFormData(careTeam) {
