@@ -1,8 +1,8 @@
 /**
-*
-* HealthcareServiceTable
-*
-*/
+ *
+ * HealthcareServiceTable
+ *
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -48,6 +48,17 @@ function HealthcareServiceTable({ elements }) {
     );
   }
 
+  function getAssignedToLocationInfo(value) {
+    if (value == null) {
+      return '';
+    } else if (value === false) {
+      return 'Enable button';
+    } else if (value === true) {
+      return 'Disable button';
+    }
+    return null;
+  }
+
   return (
     <div>
       <Table>
@@ -58,6 +69,7 @@ function HealthcareServiceTable({ elements }) {
           <TableHeaderColumn>Program Name</TableHeaderColumn>
           <TableHeaderColumn>Identifier</TableHeaderColumn>
           <TableHeaderColumn>Active</TableHeaderColumn>
+          <TableHeaderColumn />
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
@@ -67,13 +79,13 @@ function HealthcareServiceTable({ elements }) {
             <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
             <TableRowColumn>{getIdentifiers(element.identifiers)}</TableRowColumn>
             <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
+            <TableRowColumn>{getAssignedToLocationInfo(element.assignedToCurrentLocation)}</TableRowColumn>
           </TableRow>
         ))}
       </Table>
     </div>
   );
 }
-
 
 HealthcareServiceTable.propTypes = {
   elements: PropTypes.array,
