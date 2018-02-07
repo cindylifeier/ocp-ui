@@ -25,8 +25,11 @@ import styles from './styles.css';
 import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
-import { getFilteredHealthcareServices, initializeHealthcareServices } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
+import {
+  getPagedHealthcareServicesLocationAssignment,
+  initializeHealthcareServicesLocationAssignment,
+} from './actions';
 
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -39,7 +42,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.props.initializeHealthcareServices();
+    this.props.initializeHealthcareServicesLocationAssignment();
   }
 
   handlePageClick(currentPage) {
@@ -104,7 +107,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
 AssignHealthCareServiceToLocationPage.propTypes = {
   match: PropTypes.object,
-  initializeHealthcareServices: PropTypes.func,
+  initializeHealthcareServicesLocationAssignment: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
   loading: PropTypes.bool,
@@ -122,8 +125,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
-    onChangePage: (currentPage) => dispatch(getFilteredHealthcareServices(currentPage)),
+    initializeHealthcareServicesLocationAssignment: () => dispatch(initializeHealthcareServicesLocationAssignment()),
+    onChangePage: (currentPage) => dispatch(getPagedHealthcareServicesLocationAssignment(currentPage)),
   };
 }
 
