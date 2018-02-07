@@ -46,6 +46,7 @@ ShallowWrapper {
             values={Object {}}
           />
         </TableHeaderColumn>
+        <TableHeaderColumn />
       </TableHeader>
       <TableRow>
         <TableRowColumn>
@@ -70,6 +71,112 @@ ShallowWrapper {
             </li>
           </ul>
         </TableRowColumn>
+        <IconMenu
+          anchorOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "top",
+            }
+          }
+          animated={true}
+          iconButtonElement={
+            <IconButton
+              className={undefined}
+              disableTouchRipple={false}
+              disabled={false}
+              iconStyle={
+                Object {
+                  "height": 26,
+                  "position": "absolute",
+                  "right": "0",
+                  "top": "0",
+                  "width": "100%",
+                }
+              }
+              style={
+                Object {
+                  "position": "relative",
+                }
+              }
+              tooltipPosition="bottom-center"
+              touch={false}
+            >
+              <NavigationMenu />
+            </IconButton>
+          }
+          multiple={false}
+          onClick={[Function]}
+          onItemTouchTap={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onRequestChange={[Function]}
+          open={null}
+          targetOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "top",
+            }
+          }
+          touchTapCloseDelay={200}
+          useLayerForClickAway={false}
+        >
+          <MenuItem
+            anchorOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            checked={false}
+            className={undefined}
+            containerElement={
+              <Link
+                replace={false}
+                to={
+                  Object {
+                    "pathname": "/ocp-ui/manage-care-team/111111",
+                    "search": "?patientId=11111",
+                  }
+                }
+              />
+            }
+            desktop={false}
+            disabled={false}
+            focusState="none"
+            insetChildren={false}
+            primaryText="Edit"
+            targetOrigin={
+              Object {
+                "horizontal": "left",
+                "vertical": "top",
+              }
+            }
+          />
+          <MenuItem
+            anchorOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            checked={false}
+            className={undefined}
+            desktop={false}
+            disabled={true}
+            focusState="none"
+            insetChildren={false}
+            primaryText="Remove"
+            targetOrigin={
+              Object {
+                "horizontal": "left",
+                "vertical": "top",
+              }
+            }
+          />
+        </IconMenu>
       </TableRow>
       <TableRow>
         <TableRowColumn>
@@ -91,6 +198,112 @@ ShallowWrapper {
             </li>
           </ul>
         </TableRowColumn>
+        <IconMenu
+          anchorOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "top",
+            }
+          }
+          animated={true}
+          iconButtonElement={
+            <IconButton
+              className={undefined}
+              disableTouchRipple={false}
+              disabled={false}
+              iconStyle={
+                Object {
+                  "height": 26,
+                  "position": "absolute",
+                  "right": "0",
+                  "top": "0",
+                  "width": "100%",
+                }
+              }
+              style={
+                Object {
+                  "position": "relative",
+                }
+              }
+              tooltipPosition="bottom-center"
+              touch={false}
+            >
+              <NavigationMenu />
+            </IconButton>
+          }
+          multiple={false}
+          onClick={[Function]}
+          onItemTouchTap={[Function]}
+          onKeyboardFocus={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onRequestChange={[Function]}
+          open={null}
+          targetOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "top",
+            }
+          }
+          touchTapCloseDelay={200}
+          useLayerForClickAway={false}
+        >
+          <MenuItem
+            anchorOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            checked={false}
+            className={undefined}
+            containerElement={
+              <Link
+                replace={false}
+                to={
+                  Object {
+                    "pathname": "/ocp-ui/manage-care-team/222222",
+                    "search": "?patientId=11111",
+                  }
+                }
+              />
+            }
+            desktop={false}
+            disabled={false}
+            focusState="none"
+            insetChildren={false}
+            primaryText="Edit"
+            targetOrigin={
+              Object {
+                "horizontal": "left",
+                "vertical": "top",
+              }
+            }
+          />
+          <MenuItem
+            anchorOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            checked={false}
+            className={undefined}
+            desktop={false}
+            disabled={true}
+            focusState="none"
+            insetChildren={false}
+            primaryText="Remove"
+            targetOrigin={
+              Object {
+                "horizontal": "left",
+                "vertical": "top",
+              }
+            }
+          />
+        </IconMenu>
       </TableRow>
     </Table>
   </div>,
@@ -133,6 +346,7 @@ ShallowWrapper {
               values={Object {}}
             />
           </TableHeaderColumn>
+          <TableHeaderColumn />
         </TableHeader>
         <TableRow>
           <TableRowColumn>
@@ -157,6 +371,112 @@ ShallowWrapper {
               </li>
             </ul>
           </TableRowColumn>
+          <IconMenu
+            anchorOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            animated={true}
+            iconButtonElement={
+              <IconButton
+                className={undefined}
+                disableTouchRipple={false}
+                disabled={false}
+                iconStyle={
+                  Object {
+                    "height": 26,
+                    "position": "absolute",
+                    "right": "0",
+                    "top": "0",
+                    "width": "100%",
+                  }
+                }
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+                tooltipPosition="bottom-center"
+                touch={false}
+              >
+                <NavigationMenu />
+              </IconButton>
+            }
+            multiple={false}
+            onClick={[Function]}
+            onItemTouchTap={[Function]}
+            onKeyboardFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onRequestChange={[Function]}
+            open={null}
+            targetOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            touchTapCloseDelay={200}
+            useLayerForClickAway={false}
+          >
+            <MenuItem
+              anchorOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              checked={false}
+              className={undefined}
+              containerElement={
+                <Link
+                  replace={false}
+                  to={
+                    Object {
+                      "pathname": "/ocp-ui/manage-care-team/111111",
+                      "search": "?patientId=11111",
+                    }
+                  }
+                />
+              }
+              desktop={false}
+              disabled={false}
+              focusState="none"
+              insetChildren={false}
+              primaryText="Edit"
+              targetOrigin={
+                Object {
+                  "horizontal": "left",
+                  "vertical": "top",
+                }
+              }
+            />
+            <MenuItem
+              anchorOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              checked={false}
+              className={undefined}
+              desktop={false}
+              disabled={true}
+              focusState="none"
+              insetChildren={false}
+              primaryText="Remove"
+              targetOrigin={
+                Object {
+                  "horizontal": "left",
+                  "vertical": "top",
+                }
+              }
+            />
+          </IconMenu>
         </TableRow>
         <TableRow>
           <TableRowColumn>
@@ -178,6 +498,112 @@ ShallowWrapper {
               </li>
             </ul>
           </TableRowColumn>
+          <IconMenu
+            anchorOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            animated={true}
+            iconButtonElement={
+              <IconButton
+                className={undefined}
+                disableTouchRipple={false}
+                disabled={false}
+                iconStyle={
+                  Object {
+                    "height": 26,
+                    "position": "absolute",
+                    "right": "0",
+                    "top": "0",
+                    "width": "100%",
+                  }
+                }
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+                tooltipPosition="bottom-center"
+                touch={false}
+              >
+                <NavigationMenu />
+              </IconButton>
+            }
+            multiple={false}
+            onClick={[Function]}
+            onItemTouchTap={[Function]}
+            onKeyboardFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onRequestChange={[Function]}
+            open={null}
+            targetOrigin={
+              Object {
+                "horizontal": "right",
+                "vertical": "top",
+              }
+            }
+            touchTapCloseDelay={200}
+            useLayerForClickAway={false}
+          >
+            <MenuItem
+              anchorOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              checked={false}
+              className={undefined}
+              containerElement={
+                <Link
+                  replace={false}
+                  to={
+                    Object {
+                      "pathname": "/ocp-ui/manage-care-team/222222",
+                      "search": "?patientId=11111",
+                    }
+                  }
+                />
+              }
+              desktop={false}
+              disabled={false}
+              focusState="none"
+              insetChildren={false}
+              primaryText="Edit"
+              targetOrigin={
+                Object {
+                  "horizontal": "left",
+                  "vertical": "top",
+                }
+              }
+            />
+            <MenuItem
+              anchorOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              checked={false}
+              className={undefined}
+              desktop={false}
+              disabled={true}
+              focusState="none"
+              insetChildren={false}
+              primaryText="Remove"
+              targetOrigin={
+                Object {
+                  "horizontal": "left",
+                  "vertical": "top",
+                }
+              }
+            />
+          </IconMenu>
         </TableRow>
       </Table>
     </div>,
@@ -408,6 +834,7 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn>
+              <TableHeaderColumn />
             </TableHeader>
             <TableRow>
               <TableRowColumn>
@@ -432,6 +859,112 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
+              <IconMenu
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                animated={true}
+                iconButtonElement={
+                  <IconButton
+                    className={undefined}
+                    disableTouchRipple={false}
+                    disabled={false}
+                    iconStyle={
+                      Object {
+                        "height": 26,
+                        "position": "absolute",
+                        "right": "0",
+                        "top": "0",
+                        "width": "100%",
+                      }
+                    }
+                    style={
+                      Object {
+                        "position": "relative",
+                      }
+                    }
+                    tooltipPosition="bottom-center"
+                    touch={false}
+                  >
+                    <NavigationMenu />
+                  </IconButton>
+                }
+                multiple={false}
+                onClick={[Function]}
+                onItemTouchTap={[Function]}
+                onKeyboardFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onRequestChange={[Function]}
+                open={null}
+                targetOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                touchTapCloseDelay={200}
+                useLayerForClickAway={false}
+              >
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  containerElement={
+                    <Link
+                      replace={false}
+                      to={
+                        Object {
+                          "pathname": "/ocp-ui/manage-care-team/111111",
+                          "search": "?patientId=11111",
+                        }
+                      }
+                    />
+                  }
+                  desktop={false}
+                  disabled={false}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Edit"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  desktop={false}
+                  disabled={true}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Remove"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+              </IconMenu>
             </TableRow>
             <TableRow>
               <TableRowColumn>
@@ -453,6 +986,112 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
+              <IconMenu
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                animated={true}
+                iconButtonElement={
+                  <IconButton
+                    className={undefined}
+                    disableTouchRipple={false}
+                    disabled={false}
+                    iconStyle={
+                      Object {
+                        "height": 26,
+                        "position": "absolute",
+                        "right": "0",
+                        "top": "0",
+                        "width": "100%",
+                      }
+                    }
+                    style={
+                      Object {
+                        "position": "relative",
+                      }
+                    }
+                    tooltipPosition="bottom-center"
+                    touch={false}
+                  >
+                    <NavigationMenu />
+                  </IconButton>
+                }
+                multiple={false}
+                onClick={[Function]}
+                onItemTouchTap={[Function]}
+                onKeyboardFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onRequestChange={[Function]}
+                open={null}
+                targetOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                touchTapCloseDelay={200}
+                useLayerForClickAway={false}
+              >
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  containerElement={
+                    <Link
+                      replace={false}
+                      to={
+                        Object {
+                          "pathname": "/ocp-ui/manage-care-team/222222",
+                          "search": "?patientId=11111",
+                        }
+                      }
+                    />
+                  }
+                  desktop={false}
+                  disabled={false}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Edit"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  desktop={false}
+                  disabled={true}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Remove"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+              </IconMenu>
             </TableRow>
           </Table>
         </div>,
@@ -495,6 +1134,7 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn>
+              <TableHeaderColumn />
             </TableHeader>
             <TableRow>
               <TableRowColumn>
@@ -519,6 +1159,112 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
+              <IconMenu
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                animated={true}
+                iconButtonElement={
+                  <IconButton
+                    className={undefined}
+                    disableTouchRipple={false}
+                    disabled={false}
+                    iconStyle={
+                      Object {
+                        "height": 26,
+                        "position": "absolute",
+                        "right": "0",
+                        "top": "0",
+                        "width": "100%",
+                      }
+                    }
+                    style={
+                      Object {
+                        "position": "relative",
+                      }
+                    }
+                    tooltipPosition="bottom-center"
+                    touch={false}
+                  >
+                    <NavigationMenu />
+                  </IconButton>
+                }
+                multiple={false}
+                onClick={[Function]}
+                onItemTouchTap={[Function]}
+                onKeyboardFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onRequestChange={[Function]}
+                open={null}
+                targetOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                touchTapCloseDelay={200}
+                useLayerForClickAway={false}
+              >
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  containerElement={
+                    <Link
+                      replace={false}
+                      to={
+                        Object {
+                          "pathname": "/ocp-ui/manage-care-team/111111",
+                          "search": "?patientId=11111",
+                        }
+                      }
+                    />
+                  }
+                  desktop={false}
+                  disabled={false}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Edit"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  desktop={false}
+                  disabled={true}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Remove"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+              </IconMenu>
             </TableRow>
             <TableRow>
               <TableRowColumn>
@@ -540,6 +1286,112 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
+              <IconMenu
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                animated={true}
+                iconButtonElement={
+                  <IconButton
+                    className={undefined}
+                    disableTouchRipple={false}
+                    disabled={false}
+                    iconStyle={
+                      Object {
+                        "height": 26,
+                        "position": "absolute",
+                        "right": "0",
+                        "top": "0",
+                        "width": "100%",
+                      }
+                    }
+                    style={
+                      Object {
+                        "position": "relative",
+                      }
+                    }
+                    tooltipPosition="bottom-center"
+                    touch={false}
+                  >
+                    <NavigationMenu />
+                  </IconButton>
+                }
+                multiple={false}
+                onClick={[Function]}
+                onItemTouchTap={[Function]}
+                onKeyboardFocus={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onRequestChange={[Function]}
+                open={null}
+                targetOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                touchTapCloseDelay={200}
+                useLayerForClickAway={false}
+              >
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  containerElement={
+                    <Link
+                      replace={false}
+                      to={
+                        Object {
+                          "pathname": "/ocp-ui/manage-care-team/222222",
+                          "search": "?patientId=11111",
+                        }
+                      }
+                    />
+                  }
+                  desktop={false}
+                  disabled={false}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Edit"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+                <MenuItem
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "right",
+                      "vertical": "top",
+                    }
+                  }
+                  checked={false}
+                  className={undefined}
+                  desktop={false}
+                  disabled={true}
+                  focusState="none"
+                  insetChildren={false}
+                  primaryText="Remove"
+                  targetOrigin={
+                    Object {
+                      "horizontal": "left",
+                      "vertical": "top",
+                    }
+                  }
+                />
+              </IconMenu>
             </TableRow>
           </Table>
         </div>,
