@@ -85,7 +85,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         {!isEmpty(location) &&
         <div><strong>Location:</strong> {location.name}</div>}
 
-        {!loading && !isEmpty(organization) &&
+        {!isEmpty(organization) &&
         <div>
           <div className={styles.actionGridContainer}>
             <StatusCheckbox
