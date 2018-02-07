@@ -1,15 +1,14 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import find from 'lodash/find';
 import { getPractitionerError, getPractitionerSuccess, savePractitionerError } from './actions';
 import { GET_PRACTITIONER, SAVE_PRACTITIONER } from './constants';
-import { getPractitioner, savePractitioner } from './api';
+import { getNotificationAction, getPractitioner, getPractitionerById, savePractitioner } from './api';
 import { showNotification } from '../Notification/actions';
-import { makeSelectSearchResult } from '../Practitioners/selectors';
+import { makeSelectPractitionerSearchResult } from '../Practitioners/selectors';
 import { HOME_URL } from '../App/constants';
 
-export function* savePractitionerWorker(action) {
+function* savePractitionerSaga(action) {
   try {
     yield call(savePractitioner, action.practitionerFormData);
     yield put(showNotification(`Successfully ${getNotificationAction(action.practitionerFormData)} the practitioner.`));
@@ -22,11 +21,11 @@ export function* savePractitionerWorker(action) {
   }
 }
 
-export function* getPractitionerWorker({ logicalId }) {
+function* getPractitionerSaga({ logicalId }) {
   try {
     let practitioner;
     // Load practitioners from store
-    const practitioners = yield select(makeSelectSearchResult());
+    const practitioners = yield select(makeSelectPractitionerSearchResult());
     practitioner = getPractitionerById(practitioners, logicalId);
     // fetch from backend if cannot find practitioner from store
     if (isEmpty(practitioner)) {
@@ -40,25 +39,20 @@ export function* getPractitionerWorker({ logicalId }) {
   }
 }
 
+function* watchGetPractitionerSaga() {
+  yield takeLatest(GET_PRACTITIONER, getPractitionerSaga);
+}
+
+function* watchSavePractitionerSaga() {
+  yield takeLatest(SAVE_PRACTITIONER, savePractitionerSaga);
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* watchSavePractitioner() {
-  yield takeLatest(SAVE_PRACTITIONER, savePractitionerWorker);
-  yield takeLatest(GET_PRACTITIONER, getPractitionerWorker);
-}
-
-function getNotificationAction(practitionerFormData) {
-  let action = 'create';
-  if (practitionerFormData.logicalId) {
-    action = 'edit';
-  }
-  return action;
-}
-
-function getPractitionerById(practitioners, logicalId) {
-  if (!isEmpty(practitioners)) {
-    return find(practitioners, { logicalId });
-  }
-  return null;
+export default function* rootSaga() {
+  yield all([
+    watchGetPractitionerSaga(),
+    watchSavePractitionerSaga(),
+  ]);
 }

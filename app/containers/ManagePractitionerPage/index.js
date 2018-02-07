@@ -81,14 +81,12 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.card}>
-          <h4 className={styles.font}>
-            {editMode ? <FormattedMessage {...messages.editHeader} />
-              : <FormattedMessage {...messages.createHeader} />}
-          </h4>
-          <Divider />
-          <ManagePractitioner {...formProps} onSave={this.handleSave} />
+        <div className={styles.header}>
+          {editMode ? <FormattedMessage {...messages.editHeader} />
+            : <FormattedMessage {...messages.createHeader} />}
         </div>
+        <Divider />
+        <ManagePractitioner {...formProps} onSave={this.handleSave} />
       </div>
     );
   }

@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.ManageLocationPage.header',
-    defaultMessage: 'General Information',
+  createHeader: {
+    id: 'ocpui.containers.ManageLocationPage.createHeader',
+    defaultMessage: 'Create Location',
+  },
+  editHeader: {
+    id: 'ocpui.containers.ManageLocationPage.editHeader',
+    defaultMessage: 'Edit Location',
   },
 });

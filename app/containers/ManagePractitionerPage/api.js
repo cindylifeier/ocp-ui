@@ -1,3 +1,6 @@
+import isEmpty from 'lodash/isEmpty';
+import find from 'lodash/find';
+
 import request from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 
@@ -13,6 +16,21 @@ export function savePractitioner(practitionerFormData) {
 export function getPractitioner(logicalId) {
   const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
   return request(requestURL);
+}
+
+export function getNotificationAction(practitionerFormData) {
+  let action = 'create';
+  if (practitionerFormData.logicalId) {
+    action = 'edit';
+  }
+  return action;
+}
+
+export function getPractitionerById(practitioners, logicalId) {
+  if (!isEmpty(practitioners)) {
+    return find(practitioners, { logicalId });
+  }
+  return null;
 }
 
 function createPractitioner(practitionerFormData) {
