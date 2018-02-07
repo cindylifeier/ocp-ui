@@ -42,6 +42,14 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.participantTableHeaderName',
     defaultMessage: 'Name',
   },
+  participantTableHeaderRole: {
+    id: 'ocpui.components.SearchParticipant.participantTableHeaderRole',
+    defaultMessage: 'Role',
+  },
+  participantTableHeaderPeriod: {
+    id: 'ocpui.components.SearchParticipant.participantTableHeaderPeriod',
+    defaultMessage: 'Period',
+  },
   participantTableHeaderAction: {
     id: 'ocpui.components.SearchParticipant.participantTableHeaderAction',
     defaultMessage: 'Action',

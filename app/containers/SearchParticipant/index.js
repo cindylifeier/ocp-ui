@@ -69,6 +69,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     return this.props.searchParticipantResult.map((participant) => (
       <TableRow key={uniqueId()}>
         <TableRowColumn> { getParticipantName(participant) } </TableRowColumn>
+        <TableRowColumn></TableRowColumn>
+        <TableRowColumn></TableRowColumn>
         <TableRowColumn>
           <RaisedButton
             backgroundColor={teal500}
@@ -147,6 +149,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                     <Table>
                       <TableHeader>
                         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
                         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
                       </TableHeader>
                       { this.createSearchResultRows() }
