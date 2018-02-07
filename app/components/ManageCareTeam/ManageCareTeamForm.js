@@ -130,7 +130,6 @@ function ManageCareTeamForm(props) {
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderReason} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
           </TableHeader>
           {selectedParticipants && selectedParticipants.length > 0 &&
@@ -138,7 +137,6 @@ function ManageCareTeamForm(props) {
             <TableRow key={uniqueId()}>
               <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
               <TableRowColumn>{participant.role.display}</TableRowColumn>
-              <TableRowColumn />
               <TableRowColumn />
               <TableRowColumn>
                 <RaisedButton
