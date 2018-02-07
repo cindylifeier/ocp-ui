@@ -31,6 +31,12 @@ import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
 import { makeSelectSearchParticipantResults } from './selectors';
+import Table from '../../components/Table';
+import TableHeaderColumn from '../../components/TableHeaderColumn';
+import TableRow from '../../components/TableRow';
+import TableRowColumn from '../../components/TableRowColumn';
+import TableHeader from '../../components/TableHeader';
+import { getParticipantName } from '../../utils/CareTeamUtils';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -45,6 +51,12 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
   componentWillMount() {
     this.props.initializeSearchParticipant();
   }
+  addParticipant(participant) {
+    this.handleDialogClose();
+    const selected = [];
+    selected.push(participant);
+    this.props.addParticipants(selected);
+  }
   handleDialogClose() {
     this.setState({ open: false });
     this.props.handleClose();
@@ -53,24 +65,12 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
-  addParticipant(participant) {
-    this.handleDialogClose();
-    const selected = [];
-    selected.push(participant);
-    this.props.addParticipants(selected);
-  }
-  createSearchResultTable() {
+  createSearchResultRows() {
     return this.props.searchParticipantResult.map((participant) => (
-      <div key={uniqueId()} className={styles.gridContainer}>
-        <div className={styles.gridItem} style={fieldStyle}>
-          {participant.member.firstName} {participant.member.lastName}
-        </div>
-        <div key={uniqueId()} className={styles.gridItem} style={fieldStyle}>
-
-        </div>
-        <div key={uniqueId()} className={styles.gridItem} style={fieldStyle}>
+      <TableRow key={uniqueId()}>
+        <TableRowColumn> { getParticipantName(participant) } </TableRowColumn>
+        <TableRowColumn>
           <RaisedButton
-            key={uniqueId()}
             backgroundColor={teal500}
             labelColor={white}
             label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
@@ -79,8 +79,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             onClick={() => this.addParticipant(participant)}
             primary
           />
-        </div>
-      </div>
+        </TableRowColumn>
+      </TableRow>
     ));
   }
   render() {
@@ -143,7 +143,15 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       </IconButton>
                     </div>
                   </div>
-                  { searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultTable() }
+                  { searchParticipantResult && searchParticipantResult.length > 0 &&
+                    <Table>
+                      <TableHeader>
+                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+                      </TableHeader>
+                      { this.createSearchResultRows() }
+                    </Table>
+                  }
                 </div>
               </Form>
             );
