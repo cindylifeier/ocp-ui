@@ -20,6 +20,7 @@ import TableHeaderColumn from '../TableHeaderColumn/index';
 import TableRow from '../TableRow/index';
 import TableRowColumn from '../TableRowColumn/index';
 import { addButtonStyle, removeButtonStyle } from './constants';
+import { getParticipantName } from '../../utils/CareTeamUtils';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -32,9 +33,11 @@ function ManageCareTeamForm(props) {
     handleOpen,
     hasParticipants,
     selectedParticipants,
-    handleRemoveParticipant,
+    removeParticipant,
   } = props;
-
+  const handleRemoveParticipant = (participant) => {
+    removeParticipant(participant);
+  };
   return (
     <div>
       <h4><FormattedMessage {...messages.title} /></h4>
@@ -108,13 +111,6 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
-
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.selectedParticipants}`}>
-
-
-          </div>
-        </div>
         <Table>
           <TableHeader>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
@@ -126,7 +122,7 @@ function ManageCareTeamForm(props) {
           { selectedParticipants && selectedParticipants.length > 0 &&
             selectedParticipants.map((participant) => (
               <TableRow key={uniqueId()}>
-                <TableRowColumn>{participant.member.firstName} {participant.member.lastName}</TableRowColumn>
+                <TableRowColumn> { getParticipantName(participant) } </TableRowColumn>
                 <TableRowColumn>{participant.role.display}</TableRowColumn>
                 <TableRowColumn></TableRowColumn>
                 <TableRowColumn></TableRowColumn>
@@ -134,7 +130,7 @@ function ManageCareTeamForm(props) {
                   <RaisedButton
                     backgroundColor={teal500}
                     labelColor={white}
-                    onClick={() => handleRemoveParticipant()}
+                    onClick={() => handleRemoveParticipant(participant)}
                     style={removeButtonStyle}
                     label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
                     primary
@@ -152,8 +148,6 @@ function ManageCareTeamForm(props) {
             </TableRow>
           }
         </Table>
-
-
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
@@ -181,7 +175,7 @@ ManageCareTeamForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
-  handleRemoveParticipant: PropTypes.func.isRequired,
+  removeParticipant: PropTypes.func.isRequired,
   hasParticipants: PropTypes.bool.isRequired,
   selectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({

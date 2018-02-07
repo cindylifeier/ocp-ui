@@ -16,7 +16,6 @@ import messages from './messages';
 import { TEXT_MIN_LENGTH } from '../../containers/App/constants';
 
 function ManageCareTeam(props) {
-  const handleRemoveParticipant = () => {};
   const {
     selectedPatient,
     careTeamCategories,
@@ -27,6 +26,7 @@ function ManageCareTeam(props) {
     handleOpen,
     onSave,
     selectedParticipants,
+    removeParticipant,
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
@@ -37,7 +37,7 @@ function ManageCareTeam(props) {
     hasParticipants,
     handleOpen,
     selectedParticipants,
-    handleRemoveParticipant,
+    removeParticipant,
   };
   return (
     <div>
@@ -87,6 +87,7 @@ function ManageCareTeam(props) {
 ManageCareTeam.propTypes = {
   hasParticipants: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
+  removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -96,7 +97,7 @@ ManageCareTeam.propTypes = {
   participantTypes: PropTypes.array.isRequired,
   participantRoles: PropTypes.array.isRequired,
   careTeamStatuses: PropTypes.array.isRequired,
-  selectedParticipants: PropTypes.array.isRequired,
+  selectedParticipants: PropTypes.array,
 };
 
 export default ManageCareTeam;
