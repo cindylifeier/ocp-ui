@@ -9,7 +9,7 @@ This coding practices documentation is a companion documentation of [style guide
   1. [Redux Saga Generator Function Convention](#redux-saga-generator-function-convention)
   1. [File Naming Convention](#file-naming-convention)
   1. [Routing Convention](#routing-convention)
-  1. [In `componentDidMount()` to Get Data from Remote](#in-componentDidMount()-to-get-data-from-remote)
+  1. [In `componentDidMount()` to Get Data from Remote](#in-componentdidmount-to-get-data-from-remote)
 
 ## Select Right Component Type to Generate
 
@@ -64,5 +64,5 @@ This coding practices documentation is a companion documentation of [style guide
 
 ## In `componentDidMount()` to Get Data from Remote
   References:
-  - https://reactjs.org/docs/react-component.html#componentdidmount
-  - https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/
+  - [`componentDidMount`](https://reactjs.org/docs/react-component.html#componentdidmount)
+  - [Where to Fetch Data: `componentWillMount` vs `componentDidMount`](https://daveceddia.com/where-fetch-data-componentwillmount-vs-componentdidmount/)
