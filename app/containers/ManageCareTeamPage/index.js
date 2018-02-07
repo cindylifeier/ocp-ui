@@ -16,10 +16,11 @@ import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
 import merge from 'lodash/merge';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
-import { makeSelectPatient } from './selectors';
+import { getCareTeam, getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
+import { makeSelectCareTeam, makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
@@ -53,10 +54,20 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookUpFormData();
     const queryObj = queryString.parse(this.props.location.search);
-    this.props.getPatient(queryObj.patientId);
+    const patientId = queryObj.patientId;
+    if (patientId) {
+      this.props.getPatient(patientId);
+    }
+    const careTeamId = this.props.match.params.id;
+    if (careTeamId) {
+      this.props.getCareTeam(careTeamId);
+    }
+  }
+
+  componentWillUnmount() {
     this.props.initializeManageCareTeam();
   }
 
@@ -64,6 +75,11 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const patientId = this.props.selectedPatient.id;
     if (patientId) {
       merge(careTeamFormData, { patientId });
+    }
+
+    const careTeamId = this.props.match.params.id;
+    if (careTeamId) {
+      merge(careTeamFormData, { careTeamId });
     }
     this.props.onSaveCareTeam(careTeamFormData, () => actions.setSubmitting(false));
   }
@@ -88,6 +104,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const {
       match,
       selectedPatient,
+      selectedCareTeam,
       careTeamCategories,
       participantTypes,
       participantRoles,
@@ -97,8 +114,15 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const editMode = !isUndefined(match.params.id);
     // Todo: implement to dispatch participants
     const hasParticipants = this.state.hasParticipants;
+
+    let careTeam = null;
+    if (editMode && selectedCareTeam) {
+      careTeam = selectedCareTeam;
+    }
     const manageCareTeamProps = {
       selectedPatient,
+      careTeam,
+      editMode,
       careTeamCategories,
       participantTypes,
       participantRoles,
@@ -113,29 +137,27 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
           <meta name="description" content="Manage CareTeam page of Omnibus Care Plan application" />
         </Helmet>
         <div className={styles.wrapper}>
-          <div className={styles.card}>
-            <h4 className={styles.font}>
-              {editMode ? <FormattedMessage {...messages.editHeader} />
-                : <FormattedMessage {...messages.createHeader} />}
-            </h4>
-            <Divider />
-            <Toggle
-              label="Set hasParticipants to true"
-              onToggle={this.handleToggle}
-            />
-            <ManageCareTeam
-              {...manageCareTeamProps}
-              onSave={this.handleSave}
-              removeParticipant={this.handleRemoveParticipant}
-              handleOpen={this.handleOpen}
-            />
-            <SearchParticipant
-              isOpen={this.state.open}
-              handleOpen={this.handleOpen}
-              handleClose={this.handleClose}
-            >
-            </SearchParticipant>
+          <div className={styles.header}>
+            {editMode ? <FormattedMessage {...messages.editHeader} />
+              : <FormattedMessage {...messages.createHeader} />}
           </div>
+          <Divider />
+          <Toggle
+            label="Set hasParticipants to true"
+            onToggle={this.handleToggle}
+          />
+          <ManageCareTeam
+            {...manageCareTeamProps}
+            onSave={this.handleSave}
+            removeParticipant={this.handleRemoveParticipant}
+            handleOpen={this.handleOpen}
+          />
+          <SearchParticipant
+            isOpen={this.state.open}
+            handleOpen={this.handleOpen}
+            handleClose={this.handleClose}
+          >
+          </SearchParticipant>
         </div>
       </div>
     );
@@ -146,7 +168,9 @@ ManageCareTeamPage.propTypes = {
   match: PropTypes.object,
   location: PropTypes.object,
   selectedPatient: PropTypes.object,
+  selectedCareTeam: PropTypes.object,
   getPatient: PropTypes.func.isRequired,
+  getCareTeam: PropTypes.func.isRequired,
   initializeManageCareTeam: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   onSaveCareTeam: PropTypes.func.isRequired,
@@ -160,6 +184,7 @@ ManageCareTeamPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   selectedPatient: makeSelectPatient(),
+  selectedCareTeam: makeSelectCareTeam(),
   careTeamCategories: makeSelectCareTeamCategories(),
   participantTypes: makeSelectParticipantTypes(),
   participantRoles: makeSelectParticipantRoles(),
@@ -172,6 +197,7 @@ function mapDispatchToProps(dispatch) {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
     getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
+    getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeParticipant(participant)),
   };

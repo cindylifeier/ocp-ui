@@ -30,9 +30,15 @@ const iconStyles = {
   },
 };
 
-function displayPatientSearchResult(patients) {
+function displayPatientSearchResult(patients, onPatientClick) {
   return patients && patients.map((patient) => (
-    <div key={`patient-${uniqueId()}`} className={styles.rowGridContainer}>
+    <div
+      key={`patient-${uniqueId()}`}
+      className={styles.rowGridContainer}
+      onClick={() => onPatientClick && onPatientClick(patient)}
+      role="button"
+      tabIndex="0"
+    >
       <div className={styles.cellGridItem}>{patient.name[0] != null ? patient.name[0].firstName : null}</div>
       <div className={styles.cellGridItem}>{patient.name[0] != null ? patient.name[0].lastName : null}</div>
       <div className={styles.cellGridItem}>{patient.birthDate}</div>
@@ -84,7 +90,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -111,9 +117,9 @@ function PatientSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Gender</div>
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
-          <div></div>
+          <div />
         </div>
-        {displayPatientSearchResult(searchResult)}
+        {displayPatientSearchResult(searchResult, onPatientClick)}
       </div>
     );
   }
@@ -124,6 +130,7 @@ PatientSearchResult.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
   searchResult: PropTypes.any,
+  onPatientClick: PropTypes.func,
 };
 
 export default PatientSearchResult;

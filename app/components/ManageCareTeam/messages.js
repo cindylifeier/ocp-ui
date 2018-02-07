@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageCareTeam.title',
     defaultMessage: 'General Information',
   },
+  participantTitle: {
+    id: 'ocpui.components.ManageCareTeam.participantTitle',
+    defaultMessage: 'Participant',
+  },
   addParticipantBtnLabel: {
     id: 'ocpui.components.ManageCareTeam.manageForm.addParticipantBtnLabel',
     defaultMessage: 'Add Participant',
@@ -62,6 +66,10 @@ export default defineMessages({
     minEndDate: {
       id: 'ocpui.components.ManageCareTeam.manageForm.validation.minEndDate',
       defaultMessage: 'End date field must be later than Start date field',
+    },
+    checkParticipants: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.validation.checkParticipants',
+      defaultMessage: 'At least one participant must be selected',
     },
   },
   hintText: {
