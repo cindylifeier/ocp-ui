@@ -29,6 +29,8 @@ import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
+  getPagedHealthcareServicesLocationAssignment,
+  initializeHealthcareServicesLocationAssignment,
   getHealthcareServicesByOrganization, initializeAssignHealthCareServiceToLocationPage,
 } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
@@ -47,6 +49,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   componentDidMount() {
     this.props.initializeAssignHealthCareServiceToLocationPage();
     this.props.getHealthcareServices(this.props.organization.id, this.props.organization.name, 1, false);
+    this.props.initializeHealthcareServicesLocationAssignment();
   }
 
   handlePageClick(currentPage) {
@@ -108,6 +111,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
 AssignHealthCareServiceToLocationPage.propTypes = {
   match: PropTypes.object,
+  initializeHealthcareServicesLocationAssignment: PropTypes.func,
   getHealthcareServices: PropTypes.func,
   initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
   healthcareServices: PropTypes.array,
@@ -132,6 +136,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeAssignHealthCareServiceToLocationPage: () => dispatch(initializeAssignHealthCareServiceToLocationPage()),
     getHealthcareServices: (organizationId, organizationName, currentPage, includeInactive) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
+    initializeHealthcareServicesLocationAssignment: () => dispatch(initializeHealthcareServicesLocationAssignment()),
   };
 }
 

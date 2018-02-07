@@ -9,12 +9,13 @@ import {
 } from './constants';
 import { showNotification } from '../Notification/actions';
 import { queryHealthcareServicesByOrganization } from './api';
-import { makeSelectIncludeInactive, makeSelectOrganization } from './selectors';
+import { makeSelectLocations, makeSelectIncludeInactive, makeSelectOrganization } from './selectors';
 import { getHealthcareServicesError, getHealthcareServicesSuccess } from './actions';
 
 export function* getHealthcareServicesByOrganizationSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
+    const selectedLocation = yield select(makeSelectLocations());
     const includeInactive = yield select(makeSelectIncludeInactive());
     const status = [];
     status.push(STATUS_ACTIVE);
