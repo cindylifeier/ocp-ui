@@ -25,6 +25,7 @@ function ManageCareTeamForm(props) {
     dirty,
     isValid,
     careTeamCategories,
+    careTeamReasons,
     careTeamStatuses,
     handleOpen,
     selectedParticipants,
@@ -82,6 +83,18 @@ function ManageCareTeamForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
               disabled
             />
+          </div>
+          <div className={`${styles.gridItem}`}>
+            <SelectField
+              fullWidth
+              name="reason"
+              hintText={<FormattedMessage {...messages.hintText.reason} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.reason} />}
+            >
+              {careTeamReasons && careTeamReasons.map((reason) =>
+                <MenuItem key={reason.code} value={reason.code} primaryText={reason.display} />,
+              )}
+            </SelectField>
           </div>
           <div className={`${styles.gridItem} ${styles.startDate}`}>
             <DatePicker
@@ -163,6 +176,10 @@ ManageCareTeamForm.propTypes = {
   removeParticipant: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  careTeamReasons: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),

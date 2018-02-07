@@ -3,6 +3,7 @@ import {
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
   CARETEAMCATEGORY,
+  CARETEAMREASON,
   CARETEAMSTATUS,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -75,6 +76,11 @@ const makeSelectOrganizationStatuses = () => createSelector(
 const makeSelectCareTeamCategories = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(CARETEAMCATEGORY).toJS(),
+);
+
+const makeSelectCareTeamReasons = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(CARETEAMREASON).toJS(),
 );
 
 const makeSelectParticipantTypes = () => createSelector(
@@ -167,4 +173,5 @@ export {
   makeSelectParticipantTypes,
   makeSelectParticipantRoles,
   makeSelectCareTeamStatuses,
+  makeSelectCareTeamReasons,
 };
