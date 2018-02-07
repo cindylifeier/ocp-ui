@@ -6,7 +6,7 @@
 
 import {
   ADD_PARTICIPANT,
-  DEFAULT_ACTION, INITIALIZE_SEARCH_PARTICIPANT, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR,
+  DEFAULT_ACTION, INITIALIZE_SEARCH_PARTICIPANT, REMOVE_PARTICIPANT, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR,
   SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
@@ -51,3 +51,11 @@ export function initializeSearchParticipant() {
     type: INITIALIZE_SEARCH_PARTICIPANT,
   };
 }
+
+export function removeParticipant(participant) {
+  return {
+    type: REMOVE_PARTICIPANT,
+    participant,
+  };
+}
+
