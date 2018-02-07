@@ -15,17 +15,22 @@ import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import Divider from 'material-ui/Divider';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAssignHealthCareServiceToLocationPage from './selectors';
+import {
+  makeSelectCurrentPage,
+  makeSelectHealthcareServices, makeSelectQueryError,
+  makeSelectQueryLoading, makeSelectTotalNumberOfPages,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
-import { getFilteredHealthcareServices, initializeHealthcareServices } from './actions';
+import {
+  getHealthcareServicesByOrganization, initializeAssignHealthCareServiceToLocationPage,
+} from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
 
 
@@ -33,19 +38,20 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      locationId: this.props.match.params.id,
       currentPage: 1,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
   }
 
-  componentWillMount() {
-    this.props.initializeHealthcareServices();
+  componentDidMount() {
+    this.props.initializeAssignHealthCareServiceToLocationPage();
+    this.props.getHealthcareServices(this.props.organization.id, this.props.organization.name, 1, false);
   }
 
   handlePageClick(currentPage) {
-    this.props.onChangePage(currentPage);
+    this.props.getHealthcareServices(this.props.organization.id, this.props.organization.name, currentPage, false);
   }
-
 
   render() {
     const logicalId = this.props.match.params.id;
@@ -66,11 +72,9 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-          {!loading && organization && selectedLocation && <div>
+          {organization && selectedLocation && <div>
             <div><strong>Organization:</strong> {organization.name}</div>
             <div><strong>Location:</strong> {selectedLocation.name}</div>
-            <div className={styles.actionGridContainer}>
-            </div>
           </div>
           }
 
@@ -81,7 +85,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <h4><FormattedMessage {...messages.noHealthcareServicesFound} /></h4>
           }
 
-          {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
+          {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
           <div className={styles.textCenter}>
             <HealthcareServiceTable elements={healthcareServices} />
             <UltimatePagination
@@ -104,26 +108,30 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
 AssignHealthCareServiceToLocationPage.propTypes = {
   match: PropTypes.object,
-  initializeHealthcareServices: PropTypes.func,
+  getHealthcareServices: PropTypes.func,
+  initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
   loading: PropTypes.bool,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  onChangePage: PropTypes.func,
   location: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  assignhealthcareservicetolocationpage: makeSelectAssignHealthCareServiceToLocationPage(),
   organization: makeSelectOrganization(),
   location: makeSelectLocations(),
+  loading: makeSelectQueryLoading(),
+  error: makeSelectQueryError(),
+  currentPage: makeSelectCurrentPage(),
+  totalPages: makeSelectTotalNumberOfPages(),
+  healthcareServices: makeSelectHealthcareServices(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
-    onChangePage: (currentPage) => dispatch(getFilteredHealthcareServices(currentPage)),
+    initializeAssignHealthCareServiceToLocationPage: () => dispatch(initializeAssignHealthCareServiceToLocationPage()),
+    getHealthcareServices: (organizationId, organizationName, currentPage, includeInactive) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
   };
 }
 

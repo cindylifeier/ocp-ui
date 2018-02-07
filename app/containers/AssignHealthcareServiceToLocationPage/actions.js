@@ -4,26 +4,40 @@
  *
  */
 
+
 import {
-  DEFAULT_ACTION, GET_FILTERED_HEALTHCARE_SERVICES, INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
+  GET_HEALTHCARE_SERVICES_ERROR,
+  GET_HEALTHCARE_SERVICES_SUCCESS,
+  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
 } from './constants';
 
-
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
-
-export function initializeHealthcareServices() {
+export function initializeAssignHealthCareServiceToLocationPage() {
   return {
     type: INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   };
 }
 
-export function getFilteredHealthcareServices(currentPage) {
+export function getHealthcareServicesByOrganization(organizationId, organizationName, currentPage = 1, includeInactive = false) {
   return {
-    type: GET_FILTERED_HEALTHCARE_SERVICES,
+    type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
+    organizationId,
+    organizationName,
     currentPage,
+    includeInactive,
+  };
+}
+
+export function getHealthcareServicesSuccess(healthcareServices) {
+  return {
+    type: GET_HEALTHCARE_SERVICES_SUCCESS,
+    healthcareServices,
+  };
+}
+
+export function getHealthcareServicesError(error) {
+  return {
+    type: GET_HEALTHCARE_SERVICES_ERROR,
+    error,
   };
 }

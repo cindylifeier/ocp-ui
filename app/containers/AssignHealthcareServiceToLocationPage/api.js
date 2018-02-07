@@ -5,9 +5,9 @@ import queryString from '../../utils/queryString';
 
 const apiBaseUrl = getApiBaseUrl();
 
-export default function queryHealthCareServicesWithLocationAssignmentData(organizationId, locationId, currentPage) {
+export function queryHealthcareServicesByOrganization(organizationId, status, currentPage) {
   const params = queryString({
-    assignedToLocationId: locationId,
+    statusList: status,
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
