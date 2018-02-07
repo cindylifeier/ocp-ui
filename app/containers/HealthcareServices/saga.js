@@ -1,6 +1,3 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
-// Individual exports for testing
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   GET_HEALTHCARE_SERVICES_BY_LOCATION,
@@ -48,13 +45,13 @@ export function* watchGetHealthcareServicesByOrganizationSaga() {
   yield takeLatest(GET_HEALTHCARE_SERVICES_BY_ORGANIZATION, getHealthcareServicesByOrganizationSaga);
 }
 
-export function* watchGetHealthcareServicesByLocation() {
+export function* watchGetHealthcareServicesByLocationSaga() {
   yield takeLatest(GET_HEALTHCARE_SERVICES_BY_LOCATION, getHealthcareServicesByLocationSaga);
 }
 
 export default function* rootSaga() {
   yield all([
     watchGetHealthcareServicesByOrganizationSaga(),
-    watchGetHealthcareServicesByLocation(),
+    watchGetHealthcareServicesByLocationSaga(),
   ]);
 }
