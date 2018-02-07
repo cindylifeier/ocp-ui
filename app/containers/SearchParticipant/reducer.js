@@ -5,9 +5,9 @@
  */
 
 import { fromJS } from 'immutable';
-import { uniqBy } from 'lodash';
+import { uniqBy, filter } from 'lodash';
 import {
-  ADD_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT,
+  ADD_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT, REMOVE_PARTICIPANT,
   SEARCH_PARTICIPANT_ERROR,
   SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
@@ -35,8 +35,16 @@ function searchParticipantReducer(state = initialState, action) {
       // Remove duplicate from the list
       const selectedParticipants = uniqBy(participantsAsArray, (e) => (e.member.id));
       return state.set('selectedParticipants', fromJS((selectedParticipants) || []))
-        .set('searchParticipantResult', fromJS([]));
+                  .set('searchParticipantResult', fromJS([]));
     }
+    case REMOVE_PARTICIPANT: {
+      const participants = state.get('selectedParticipants');
+      const participantsAsArray = participants.toJS();
+      const filteredParticipants = filter(participantsAsArray, (e) => (e.member.id !== action.participant.member.id));
+      return state.set('selectedParticipants', fromJS((filteredParticipants) || []))
+                  .set('searchParticipantResult', fromJS([]));
+    }
+
     default:
       return state;
   }
