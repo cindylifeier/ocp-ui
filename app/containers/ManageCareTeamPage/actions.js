@@ -4,7 +4,10 @@
  *
  */
 
-import { GET_PATIENT, GET_PATIENT_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM, SAVE_CARE_TEAM } from './constants';
+import {
+  GET_PATIENT, GET_PATIENT_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM,
+  SAVE_CARE_TEAM,
+} from './constants';
 
 export function initializeManageCareTeam() {
   return {
