@@ -6,14 +6,9 @@
 
 
 import {
-  GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
-  GET_HEALTHCARE_SERVICES_ERROR,
-  GET_HEALTHCARE_SERVICES_SUCCESS,
   INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
-  GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS,
-  GET_PAGED_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
-  GET_ACTIVE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS, GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
 } from './constants';
 
 export function initializeAssignHealthCareServiceToLocationPage() {
@@ -22,43 +17,12 @@ export function initializeAssignHealthCareServiceToLocationPage() {
   };
 }
 
-export function getHealthcareServicesByOrganization(organizationId, organizationName, currentPage = 1, includeInactive = false) {
+export function getActiveHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage = 1) {
   return {
-    type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
-    organizationId,
-    organizationName,
-    currentPage,
-    includeInactive,
-  };
-}
-
-export function getActiveHealthcareServicesLocationAssignment(organizationId, locationId, organizationName, currentPage) {
-  return {
-    type: GET_ACTIVE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+    type: GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
     organizationId,
     locationId,
     organizationName,
-    currentPage,
-  };
-}
-
-export function getHealthcareServicesSuccess(healthcareServices) {
-  return {
-    type: GET_HEALTHCARE_SERVICES_SUCCESS,
-    healthcareServices,
-  };
-}
-
-export function getHealthcareServicesError(error) {
-  return {
-    type: GET_HEALTHCARE_SERVICES_ERROR,
-    error,
-  };
-}
-
-export function getPagedHealthcareServicesLocationAssignment(currentPage) {
-  return {
-    type: GET_PAGED_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
     currentPage,
   };
 }
@@ -70,7 +34,7 @@ export function getHealthcareServicesLocationAssignmentSuccess(healthcareService
   };
 }
 
-export function getHealthcareLocationAssignmentServicesError(error) {
+export function getHealthcareServicesLocationAssignmentServicesError(error) {
   return {
     type: GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
     error,

@@ -87,7 +87,10 @@ function HealthcareServiceTable({ elements, showAssigned = false }) {
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
-            <Checkbox style={checkboxStyle} />
+            <Checkbox
+              style={checkboxStyle}
+              oncheck={element.assignedToCurrentLocation}
+            />
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
             <TableRowColumn>{getTypes(element.type)}</TableRowColumn>

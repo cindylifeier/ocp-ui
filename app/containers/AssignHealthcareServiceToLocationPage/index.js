@@ -29,9 +29,8 @@ import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
-  getPagedHealthcareServicesLocationAssignment,
-  initializeHealthcareServicesLocationAssignment,
-  getHealthcareServicesByOrganization, initializeAssignHealthCareServiceToLocationPage,
+  getActiveHealthcareServicesLocationAssignment,
+  initializeAssignHealthCareServiceToLocationPage,
 } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
 
@@ -40,7 +39,6 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      locationId: this.props.match.params.id,
       currentPage: 1,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
@@ -48,12 +46,11 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
   componentDidMount() {
     this.props.initializeAssignHealthCareServiceToLocationPage();
-    this.props.getHealthcareServices(this.props.organization.id, this.props.organization.name, 1, false);
-    this.props.initializeHealthcareServicesLocationAssignment();
+    this.props.getHealthcareServicesLocationAssignement(this.props.organization.id, this.props.organization.name, this.props.match.params.id, 1);
   }
 
   handlePageClick(currentPage) {
-    this.props.getHealthcareServices(this.props.organization.id, this.props.organization.name, currentPage, false);
+    this.props.getHealthcareServicesLocationAssignement(this.props.organization.id, this.props.organization.name, this.props.match.params.id, currentPage);
   }
 
   render() {
@@ -111,8 +108,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
 AssignHealthCareServiceToLocationPage.propTypes = {
   match: PropTypes.object,
-  initializeHealthcareServicesLocationAssignment: PropTypes.func,
-  getHealthcareServices: PropTypes.func,
+  getHealthcareServicesLocationAssignement: PropTypes.func,
   initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
@@ -135,8 +131,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeAssignHealthCareServiceToLocationPage: () => dispatch(initializeAssignHealthCareServiceToLocationPage()),
-    getHealthcareServices: (organizationId, organizationName, currentPage, includeInactive) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
-    initializeHealthcareServicesLocationAssignment: () => dispatch(initializeHealthcareServicesLocationAssignment()),
+    getHealthcareServicesLocationAssignement: (organizationId, organizationName, locationId, currentPage) => dispatch(getActiveHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage)),
   };
 }
 
