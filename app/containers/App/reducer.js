@@ -17,6 +17,7 @@ import {
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
   CARETEAMCATEGORY,
+  CARETEAMREASON,
   CARETEAMSTATUS,
   GET_LOOKUPS,
   GET_LOOKUPS_ERROR,
@@ -66,6 +67,7 @@ const initialState = fromJS({
   PARTICIPANTTYPE: [],
   CARETEAMSTATUS: [],
   PARTICIPANTROLE: [],
+  CARETEAMREASON: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -98,6 +100,7 @@ function appReducer(state = initialState, action) {
         .set(PARTICIPANTTYPE, fromJS((action.lookups && action.lookups.participantTypes) || state.get(PARTICIPANTTYPE)))
         .set(CARETEAMSTATUS, fromJS((action.lookups && action.lookups.careTeamStatuses) || state.get(CARETEAMSTATUS)))
         .set(PARTICIPANTROLE, fromJS((action.lookups && action.lookups.participantRoles) || state.get(PARTICIPANTROLE)))
+        .set(CARETEAMREASON, fromJS((action.lookups && action.lookups.careTeamReasons) || state.get(CARETEAMREASON)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
