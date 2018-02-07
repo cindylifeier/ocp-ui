@@ -8,7 +8,7 @@ import { showNotification } from '../Notification/actions';
 import { makeSelectPractitionerSearchResult } from '../Practitioners/selectors';
 import { HOME_URL } from '../App/constants';
 
-function* savePractitionerWorker(action) {
+function* savePractitionerSaga(action) {
   try {
     yield call(savePractitioner, action.practitionerFormData);
     yield put(showNotification(`Successfully ${getNotificationAction(action.practitionerFormData)} the practitioner.`));
@@ -21,7 +21,7 @@ function* savePractitionerWorker(action) {
   }
 }
 
-function* getPractitionerWorker({ logicalId }) {
+function* getPractitionerSaga({ logicalId }) {
   try {
     let practitioner;
     // Load practitioners from store
@@ -39,12 +39,12 @@ function* getPractitionerWorker({ logicalId }) {
   }
 }
 
-function* watchGetPractitioner() {
-  yield takeLatest(GET_PRACTITIONER, getPractitionerWorker);
+function* watchGetPractitionerSaga() {
+  yield takeLatest(GET_PRACTITIONER, getPractitionerSaga);
 }
 
-function* watchSavePractitioner() {
-  yield takeLatest(SAVE_PRACTITIONER, savePractitionerWorker);
+function* watchSavePractitionerSaga() {
+  yield takeLatest(SAVE_PRACTITIONER, savePractitionerSaga);
 }
 
 /**
@@ -52,7 +52,7 @@ function* watchSavePractitioner() {
  */
 export default function* rootSaga() {
   yield all([
-    watchGetPractitioner(),
-    watchSavePractitioner(),
+    watchGetPractitionerSaga(),
+    watchSavePractitionerSaga(),
   ]);
 }

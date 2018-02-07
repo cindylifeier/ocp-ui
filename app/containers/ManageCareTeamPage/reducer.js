@@ -5,10 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import { GET_PATIENT_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM } from './constants';
+import { GET_CARE_TEAM_SUCCESS, GET_PATIENT_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM } from './constants';
 
 const initialState = fromJS({
   patient: null,
+  careTeam: null,
 });
 
 function manageCareTeamPageReducer(state = initialState, action) {
@@ -18,6 +19,9 @@ function manageCareTeamPageReducer(state = initialState, action) {
     case GET_PATIENT_SUCCESS:
       return state
         .set('patient', action.patient);
+    case GET_CARE_TEAM_SUCCESS:
+      return state
+        .set('careTeam', action.careTeam);
     default:
       return state;
   }

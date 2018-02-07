@@ -48,7 +48,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Status</div>
           <div className={styles.cellGridHeaderItem}>Role</div>
           <div className={styles.cellGridHeaderItem}>Identifier</div>
-          <div></div>
+          <div />
         </div>
         {displayPractitionerSearchResult(searchResult)}
       </div>
