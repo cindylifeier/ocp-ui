@@ -9,7 +9,7 @@ import {
   STATUS_INACTIVE,
 } from './constants';
 import { showNotification } from '../Notification/actions';
-import { queryHealthcareServicesByLocation, queryHealthcareServicesByOrganization } from './api';
+import { getHealthcareServicesByLocation, getHealthcareServicesByOrganization } from './api';
 import { makeSelectIncludeInactive, makeSelectLocation, makeSelectOrganization } from './selectors';
 import { getHealthcareServicesError, getHealthcareServicesSuccess } from './actions';
 
@@ -20,7 +20,7 @@ export function* getHealthcareServicesByOrganizationSaga(action) {
     const status = [];
     status.push(STATUS_ACTIVE);
     if (includeInactive) status.push(STATUS_INACTIVE);
-    const healthCareServices = yield call(queryHealthcareServicesByOrganization, organization.id, status, action.currentPage);
+    const healthCareServices = yield call(getHealthcareServicesByOrganization, organization.id, status, action.currentPage);
     yield put(getHealthcareServicesSuccess(healthCareServices));
   } catch (err) {
     yield put(getHealthcareServicesError(err));
@@ -36,7 +36,7 @@ export function* getHealthcareServicesByLocationSaga(action) {
     const status = [];
     status.push(STATUS_ACTIVE);
     if (includeInactive) status.push(STATUS_INACTIVE);
-    const healthCareServices = yield call(queryHealthcareServicesByLocation, organization.id, location.id, status, action.currentPage);
+    const healthCareServices = yield call(getHealthcareServicesByLocation, organization.id, location.id, status, action.currentPage);
     yield put(getHealthcareServicesSuccess(healthCareServices));
   } catch (err) {
     yield put(getHealthcareServicesError(err));

@@ -5,7 +5,7 @@ import queryString from '../../utils/queryString';
 
 const apiBaseUrl = getApiBaseUrl();
 
-export function queryHealthcareServicesByOrganization(organizationId, status, currentPage) {
+export function getHealthcareServicesByOrganization(organizationId, status, currentPage) {
   const params = queryString({
     statusList: status,
     pageNumber: currentPage,
@@ -15,7 +15,7 @@ export function queryHealthcareServicesByOrganization(organizationId, status, cu
   return request(url);
 }
 
-export function queryHealthcareServicesByLocation(organizationId, locationId, status, currentPage) {
+export function getHealthcareServicesByLocation(organizationId, locationId, status, currentPage) {
   const params = queryString({
     statusList: status,
     pageNumber: currentPage,
