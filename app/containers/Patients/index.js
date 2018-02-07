@@ -9,17 +9,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import MenuItem from 'material-ui/MenuItem';
-import { FlatButton, SelectField } from 'material-ui';
+import { FlatButton, RaisedButton, SelectField } from 'material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { teal500, white } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -164,14 +164,15 @@ export class Patients extends React.PureComponent {
                 onCheck={this.handleChangeShowInactive}
               />
             </div>
-            <div>
-              <IconButton
+            <div className={styles.buttonGridContainer}>
+              <RaisedButton
                 fullWidth
+                label="Search"
+                backgroundColor={teal500}
+                labelColor={white}
                 disabled={this.state.searchTerms.trim() === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
                 onClick={this.handleSearch}
-              >
-                <ActionSearch />
-              </IconButton>
+              />
             </div>
           </div>
         </form>
