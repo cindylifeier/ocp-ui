@@ -54,4 +54,32 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.participantTableHeaderAction',
     defaultMessage: 'Action',
   },
+  noSearchParticipantResult: {
+    id: 'ocpui.components.SearchParticipant.noSearchParticipantResult',
+    defaultMessage: 'No Participant found.',
+  },
+  hintText: {
+    startDate: {
+      id: 'ocpui.components.SearchParticipant.hintText.startDate',
+      defaultMessage: 'Start Date',
+    },
+    endDate: {
+      id: 'ocpui.components.SearchParticipant.hintText.endDate',
+      defaultMessage: 'End Date',
+    },
+  },
+  floatingLabelText: {
+    startDate: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.startDate',
+      defaultMessage: 'Start Date',
+    },
+    endDate: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.endDate',
+      defaultMessage: 'End Date',
+    },
+    participantRole: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.participantRole',
+      defaultMessage: 'Role',
+    },
+  },
 });
