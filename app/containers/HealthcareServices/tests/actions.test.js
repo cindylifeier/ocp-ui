@@ -16,7 +16,6 @@ import {
 describe('HealthcareServices actions', () => {
   describe('Initialize healthcare services Action', () => {
     it('has a type of INITIALIZE_HEALTHCARE_SERVICES', () => {
-      // Arrange
       const expected = {
         type: INITIALIZE_HEALTHCARE_SERVICES,
       };

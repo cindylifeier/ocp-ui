@@ -7,17 +7,16 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import isEmpty from 'lodash/isEmpty';
 
-import messages from './messages';
+import SelectedParticipants from './SelectedParticipants';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
-import styles from './styles.css';
 import DatePicker from '../DatePicker';
-
-const buttonStyle = {
-  buttonWidth: '150px',
-};
+import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+import { addButtonStyle } from './constants';
+import messages from './messages';
+import styles from './styles.css';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -28,8 +27,17 @@ function ManageCareTeamForm(props) {
     careTeamCategories,
     careTeamStatuses,
     handleOpen,
-    hasParticipants,
+    selectedParticipants,
+    removeParticipant,
   } = props;
+
+  // To check whether has participant
+  const hasParticipants = !isEmpty(selectedParticipants);
+
+  const handleRemoveParticipant = (participant) => {
+    removeParticipant(participant);
+  };
+
   return (
     <div>
       <Form>
@@ -107,11 +115,17 @@ function ManageCareTeamForm(props) {
               backgroundColor={teal500}
               labelColor={white}
               onClick={handleOpen}
-              style={buttonStyle}
+              style={addButtonStyle}
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
             />
           </div>
         </div>
+
+        <SelectedParticipants
+          selectedParticipants={selectedParticipants}
+          removeParticipant={handleRemoveParticipant}
+        />
+
         {dirty &&
         <div className={styles.participantError}>{hasParticipants ?
           '' : <FormattedMessage {...messages.validation.checkParticipants} />}
@@ -146,7 +160,8 @@ ManageCareTeamForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
-  hasParticipants: PropTypes.bool.isRequired,
+  removeParticipant: PropTypes.func.isRequired,
+  selectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,

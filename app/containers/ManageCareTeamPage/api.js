@@ -64,17 +64,8 @@ function updateCareTeam(careTeamFormData) {
 
 function mapToBffCareTeam(careTeamData) {
   const {
-    careTeamName, category, patientId, status, startDate, endDate,
+    careTeamName, category, patientId, status, startDate, endDate, participants,
   } = careTeamData;
-
-  // Todo: Replace with formData later
-  const participants = [{
-    roleCode: '112247003',
-    memberId: '1528',
-    memberFirstName: 'Participant',
-    memberLastName: 'Test',
-    memberType: 'practitioner',
-  }];
 
   return {
     name: careTeamName,
@@ -83,6 +74,21 @@ function mapToBffCareTeam(careTeamData) {
     subjectId: patientId,
     startDate: startDate.toLocaleDateString(),
     endDate: endDate.toLocaleDateString(),
-    participants,
+    participants: mapToBffParticipants(participants),
   };
+}
+
+function mapToBffParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        roleCode: participant.role.code,
+        memberId: participant.member.id,
+        memberType: participant.member.type,
+        memberFirstName: participant.member.firstName,
+        memberLastName: participant.member.lastName,
+        memberName: participant.member.name,
+      }));
+  }
+  return [];
 }
