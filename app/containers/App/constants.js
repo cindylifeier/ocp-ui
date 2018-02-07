@@ -70,10 +70,7 @@ export const DEFAULT_PAGE_SIZE = 10;
  *  Constants to hold the configuration for date picker
  * @type {object}
  */
-export const DATE_PICKER_MODE = {
-  PORTRAIT: 'portrait',
-  LANDSCAPE: 'landscape',
-};
+
 
 /**
  *  Other constants
