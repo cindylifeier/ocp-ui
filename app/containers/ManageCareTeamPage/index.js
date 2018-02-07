@@ -23,12 +23,13 @@ import { makeSelectCareTeam, makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
-import { CARETEAMCATEGORY, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
+import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
 import {
   makeSelectCareTeamCategories,
+  makeSelectCareTeamReasons,
   makeSelectCareTeamStatuses,
   makeSelectParticipantRoles,
   makeSelectParticipantTypes,
@@ -105,6 +106,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       participantTypes,
       participantRoles,
       careTeamStatuses,
+      careTeamReasons,
       selectedParticipants,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
@@ -118,6 +120,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       careTeam,
       editMode,
       careTeamCategories,
+      careTeamReasons,
       participantTypes,
       participantRoles,
       careTeamStatuses,
@@ -169,6 +172,7 @@ ManageCareTeamPage.propTypes = {
   participantTypes: PropTypes.array,
   participantRoles: PropTypes.array,
   careTeamStatuses: PropTypes.array,
+  careTeamReasons: PropTypes.array,
   selectedParticipants: PropTypes.array,
 };
 
@@ -179,13 +183,14 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   participantRoles: makeSelectParticipantRoles(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
+  careTeamReasons: makeSelectCareTeamReasons(),
   selectedParticipants: makeSelectSelectedParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
-    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
+    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, CARETEAMREASON, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
