@@ -44,7 +44,7 @@
 
 .filterGridContainer {
   display: grid;
-  padding: 10px 0;
+  padding: 10px 20px;
   width: 100%;
   grid-template-columns: 60px repeat(3,120px) 180px 1fr;
   background-color: #F9F9F9 ;
