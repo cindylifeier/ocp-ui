@@ -46,9 +46,11 @@ function CareTeamTable({ elements }) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId }) => (
+        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate }) => (
           <TableRow key={id}>
             <TableRowColumn>{id}</TableRowColumn>
             <TableRowColumn>{name}</TableRowColumn>
@@ -62,31 +64,35 @@ function CareTeamTable({ elements }) {
                   </li>))
               }</ul>
             </TableRowColumn>
-            <IconMenu
-              iconButtonElement={
-                (<IconButton
-                  className={styles.iconButton}
-                  iconStyle={iconStyles.icon}
-                  style={iconStyles.iconButton}
-                >
-                  <NavigationMenu />
-                </IconButton>)
-              }
-              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            >
-              <MenuItem
-                className={styles.menuItem}
-                primaryText="Edit"
-                containerElement={<Link
-                  to={{
-                    pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
-                    search: `?patientId=${subjectId}`,
-                  }}
-                />}
-              />
-              <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
-            </IconMenu>
+            <TableRowColumn>{startDate}</TableRowColumn>
+            <TableRowColumn>{endDate}</TableRowColumn>
+            <TableRowColumn>
+              <IconMenu
+                iconButtonElement={
+                  (<IconButton
+                    className={styles.iconButton}
+                    iconStyle={iconStyles.icon}
+                    style={iconStyles.iconButton}
+                  >
+                    <NavigationMenu />
+                  </IconButton>)
+                }
+                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+              >
+                <MenuItem
+                  className={styles.menuItem}
+                  primaryText="Edit"
+                  containerElement={<Link
+                    to={{
+                      pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
+                      search: `?patientId=${subjectId}`,
+                    }}
+                  />}
+                />
+                <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
+              </IconMenu>
+            </TableRowColumn>
           </TableRow>
         ))}
       </Table>

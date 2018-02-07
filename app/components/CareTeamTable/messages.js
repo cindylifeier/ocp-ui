@@ -26,4 +26,12 @@ export default defineMessages({
     id: 'ocpui.components.CareTeamTable.columnHeaderCategories',
     defaultMessage: 'Participant / Role',
   },
+  columnHeaderStartDate: {
+    id: 'ocpui.components.CareTeamTable.columnHeaderStartDate',
+    defaultMessage: 'Start Date',
+  },
+  columnHeaderEndDate: {
+    id: 'ocpui.components.CareTeamTable.columnHeaderEndDate',
+    defaultMessage: 'End Date',
+  },
 });
