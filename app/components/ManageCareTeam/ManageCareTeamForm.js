@@ -11,7 +11,7 @@ import uniqueId from 'lodash/uniqueId';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+import { PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import DatePicker from '../DatePicker';
 import Table from '../Table/index';
@@ -20,7 +20,7 @@ import TableHeaderColumn from '../TableHeaderColumn/index';
 import TableRow from '../TableRow/index';
 import TableRowColumn from '../TableRowColumn/index';
 import { addButtonStyle, removeButtonStyle } from './constants';
-import { getParticipantName } from '../../utils/CareTeamUtils';
+import { DATE_PICKER_MODE, getParticipantName } from '../../utils/CareTeamUtils';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
