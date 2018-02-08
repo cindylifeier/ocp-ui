@@ -62,9 +62,9 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <div className={styles.gridContainer}>
-            <div className={styles.patientName}>
-              <div className={styles.boldFont}>
-                Patient:
+            <div className={styles.patientInfoSection}>
+              <div className={styles.patientLabel}>
+                Patient&nbsp;:&nbsp;
               </div>
               {patientName}
             </div>

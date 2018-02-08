@@ -1,7 +1,3 @@
-.boldFont {
-  font-weight: bold;
-}
-
 .card {
   padding: 10px;
   background-color: white;
@@ -34,8 +30,13 @@
   width: 100%;
 }
 
-.patientName {
+.patientInfoSection {
   margin:10px 10px;
+}
+
+.patientLabel {
+  font-weight: bold;
+  display: inline-block;
 }
 
 .noCareTeam {
