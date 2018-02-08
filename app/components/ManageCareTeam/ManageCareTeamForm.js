@@ -137,7 +137,7 @@ function ManageCareTeamForm(props) {
 
         <SelectedParticipants {...selectedParticipantsProps} />
 
-        {dirty &&
+        {!hasParticipants &&
         <div className={styles.participantError}>{hasParticipants ?
           '' : <FormattedMessage {...messages.validation.checkParticipants} />}
         </div>
