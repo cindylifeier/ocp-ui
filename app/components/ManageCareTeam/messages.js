@@ -30,9 +30,13 @@ export default defineMessages({
     id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderRole',
     defaultMessage: 'Role',
   },
-  participantTableHeaderPeriod: {
-    id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderPeriod',
-    defaultMessage: 'Period',
+  participantTableHeaderStartDate: {
+    id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderStartDate',
+    defaultMessage: 'Start Date',
+  },
+  participantTableHeaderEndDate: {
+    id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderEndDate',
+    defaultMessage: 'End Date',
   },
   participantTableHeaderAction: {
     id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderAction',
