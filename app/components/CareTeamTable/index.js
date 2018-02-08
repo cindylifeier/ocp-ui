@@ -55,38 +55,42 @@ function CareTeamTable({ elements }) {
             <TableRowColumn>{statusDisplay}</TableRowColumn>
             <TableRowColumn>{categoryDisplay}</TableRowColumn>
             <TableRowColumn>
-              <ul>{!isEmpty(participants) && participants
+              {!isEmpty(participants) && participants
                 .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
-                  <li key={memberId}>
+                  <div key={memberId}>
                     {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')} / ${roleDisplay}`}
-                  </li>))
-              }</ul>
-            </TableRowColumn>
-            <IconMenu
-              iconButtonElement={
-                (<IconButton
-                  className={styles.iconButton}
-                  iconStyle={iconStyles.icon}
-                  style={iconStyles.iconButton}
-                >
-                  <NavigationMenu />
-                </IconButton>)
+                  </div>))
               }
-              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            >
-              <MenuItem
-                className={styles.menuItem}
-                primaryText="Edit"
-                containerElement={<Link
-                  to={{
-                    pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
-                    search: `?patientId=${subjectId}`,
-                  }}
-                />}
-              />
-              <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
-            </IconMenu>
+            </TableRowColumn>
+            <div className={styles.iconButtonGridContainer}>
+              <div className={styles.iconButtonGridItem}>
+                <IconMenu
+                  iconButtonElement={
+                    (<IconButton
+                      className={styles.iconButton}
+                      iconStyle={iconStyles.icon}
+                      style={iconStyles.iconButton}
+                    >
+                      <NavigationMenu />
+                    </IconButton>)
+                  }
+                  anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
+                  <MenuItem
+                    className={styles.menuItem}
+                    primaryText="Edit"
+                    containerElement={<Link
+                      to={{
+                        pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
+                        search: `?patientId=${subjectId}`,
+                      }}
+                    />}
+                  />
+                  <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
+                </IconMenu>
+              </div>
+            </div>
           </TableRow>
         ))}
       </Table>
