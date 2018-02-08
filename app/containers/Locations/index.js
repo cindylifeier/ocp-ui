@@ -132,7 +132,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             <MenuItem
               className={styles.menuItem}
               primaryText="Assign HealthCareService"
-              containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${location.logicalId}`} />}
+              containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
             />
           </IconMenu>
         </div>
