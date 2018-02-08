@@ -39,7 +39,8 @@ import TableHeaderColumn from '../../components/TableHeaderColumn';
 import TableRow from '../../components/TableRow';
 import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
-import { DATE_PICKER_MODE, getParticipantName } from '../../utils/CareTeamUtils';
+import { getParticipantName } from '../../utils/CareTeamUtils';
+import { DATE_PICKER_MODE } from '../App/constants';
 
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

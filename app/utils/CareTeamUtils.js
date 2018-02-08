@@ -4,11 +4,6 @@ import Util from './Util';
 
 const ORGANIZATION_TYPE = 'organization';
 
-export const DATE_PICKER_MODE = {
-  PORTRAIT: 'portrait',
-  LANDSCAPE: 'landscape',
-};
-
 export const getParticipantName = (participant) => {
   if (participant && participant.member && Util.equalsIgnoreCase(participant.member.type, ORGANIZATION_TYPE)) {
     return participant.member.name;
