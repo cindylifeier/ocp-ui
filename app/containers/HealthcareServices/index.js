@@ -96,14 +96,19 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         </div>}
         {!isEmpty(organization) &&
         <div>
-          <div className={styles.actionGridContainer}>
-            <StatusCheckbox
-              messages={messages.inactive}
-              elementId="inactiveCheckBox"
-              checked={this.props.includeInactive}
-              handleCheck={this.handleCheck}
-            >
-            </StatusCheckbox>
+          <div className={styles.actionSection}>
+            <div className={styles.filterGridContainer}>
+              <div>
+                <FormattedMessage {...messages.filterLabel} />
+              </div>
+              <StatusCheckbox
+                messages={messages.inactive}
+                elementId="inactiveCheckBox"
+                checked={this.props.includeInactive}
+                handleCheck={this.handleCheck}
+              >
+              </StatusCheckbox>
+            </div>
           </div>
         </div>
         }
