@@ -1,7 +1,7 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 
 // Individual exports for testing
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   STATUS_ACTIVE,
@@ -46,7 +46,7 @@ export function* watchGetHealthcareServicesLocationAssignment() {
 }
 
 export function* watchUpdateHealthcareServicesLocationAssignment() {
-  yield takeLatest(UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, updateHealthcareServicesLocationAssignmentSaga);
+  yield takeEvery(UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, updateHealthcareServicesLocationAssignmentSaga);
 }
 
 export default function* rootSaga() {
