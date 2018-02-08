@@ -66,7 +66,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
       <div className={styles.root}>
         <Helmet>
           <title>Assign Healthcare Service To the Location</title>
-          <meta name="description" content="Description of AssignHealthCareServiceToLocationPage" />
+          <meta name="description" content="Assign the selected Healthcare Service to the Location" />
         </Helmet>
         <div className={styles.header}>
           <FormattedMessage {...messages.header} />
