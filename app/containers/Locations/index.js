@@ -18,7 +18,10 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage, makeSelectIncludeInactive, makeSelectIncludeSuspended, makeSelectLocations,
+  makeSelectCurrentPage,
+  makeSelectIncludeInactive,
+  makeSelectIncludeSuspended,
+  makeSelectLocations,
   makeSelectOrganization,
   makeSelectTotalNumberOfPages,
 } from './selectors';
@@ -28,6 +31,7 @@ import messages from './messages';
 import styles from './styles.css';
 import { getFilteredLocations, initializeLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
+import { getHealthcareServicesByLocation } from '../HealthcareServices/actions';
 
 
 const iconStyles = {
@@ -52,6 +56,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   componentWillMount() {
@@ -71,7 +76,12 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   getAddress(address) {
     const { line1, line2, city, stateCode, postalCode, countryCode } = address;
     const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
-    return addressStr ? (<div>{ addressStr }</div>) : '';
+    return addressStr ? (<div>{addressStr}</div>) : '';
+  }
+
+  handleRowClick(locationLogicalId, locationName) {
+    const { organization: { id, name } } = this.props;
+    this.props.getHealthcareServicesByLocation(id, name, locationLogicalId, locationName);
   }
 
   handleIncludeInactive(event, checked) {
@@ -88,12 +98,18 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   createRows() {
     if (this.props.data) {
-      return this.props.data.map((location) => (
-        <div key={location.logicalId} className={styles.rowGridContainer}>
-          <div className={styles.cellGridItem}>{location.name}</div>
-          <div className={styles.cellGridItem}>{location.status}</div>
-          <div className={styles.cellGridItem}>{this.getTelecoms(location.telecoms)}</div>
-          <div className={styles.cellGridItem}>{this.getAddress(location.address)} </div>
+      return this.props.data.map(({ logicalId, name, status, telecoms, address }) => (
+        <div
+          role="button"
+          tabIndex="0"
+          key={logicalId}
+          className={styles.rowGridContainer}
+          onClick={() => this.handleRowClick(logicalId, name)}
+        >
+          <div className={styles.cellGridItem}>{name}</div>
+          <div className={styles.cellGridItem}>{status}</div>
+          <div className={styles.cellGridItem}>{this.getTelecoms(telecoms)}</div>
+          <div className={styles.cellGridItem}>{this.getAddress(address)} </div>
           <IconMenu
             iconButtonElement={
               (<IconButton
@@ -110,9 +126,14 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             <MenuItem
               className={styles.menuItem}
               primaryText="Edit"
-              containerElement={<Link to={`/ocp-ui/manage-location/${location.logicalId}`} />}
+              containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
             />
             <MenuItem className={styles.menuItem} primaryText="Remove" />
+            <MenuItem
+              className={styles.menuItem}
+              primaryText="Assign HealthCareService"
+              containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
+            />
           </IconMenu>
         </div>
       ));
@@ -188,6 +209,7 @@ Locations.propTypes = {
   onCheckIncludeSuspended: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
   initializeLocations: PropTypes.func.isRequired,
+  getHealthcareServicesByLocation: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
@@ -217,6 +239,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
     initializeLocations: () => dispatch(initializeLocations()),
+    getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName) => dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName)),
   };
 }
 

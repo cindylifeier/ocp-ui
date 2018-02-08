@@ -12,17 +12,20 @@ import { compose } from 'redux';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { DatePicker, IconButton, RaisedButton, teal500, white } from 'material-ui';
+import { DatePicker } from 'material-ui';
+import { teal500, white } from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
-
 import styles from './styles.css';
 import messages from './messages';
 import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
@@ -51,7 +54,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
   }
 
   componentWillMount() {
-    this.props.initializeSearchParticipant();
+    this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
 
   addParticipant(participant) {
@@ -70,6 +73,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
+
 
   createSearchResultHeader() {
     return (<Table>
@@ -247,6 +251,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
 SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   initializeSearchParticipant: PropTypes.func.isRequired,
@@ -271,7 +276,7 @@ function mapDispatchToProps(dispatch) {
   return {
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
-    initializeSearchParticipant: () => dispatch(initializeSearchParticipant()),
+    initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
   };
 }
 

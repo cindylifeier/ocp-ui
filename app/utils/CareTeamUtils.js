@@ -1,4 +1,6 @@
-
+import isEmpty from 'lodash/isEmpty';
+import { EMPTY_STRING } from '../containers/App/constants';
+import Util from './Util';
 
 const ORGANIZATION_TYPE = 'organization';
 
@@ -8,8 +10,10 @@ export const DATE_PICKER_MODE = {
 };
 
 export const getParticipantName = (participant) => {
-  if (participant && participant.member && participant.member.type === ORGANIZATION_TYPE) {
+  if (participant && participant.member && Util.equalsIgnoreCase(participant.member.type, ORGANIZATION_TYPE)) {
     return participant.member.name;
   }
-  return participant.member.firstName.concat(' ').concat(participant.member.lastName);
+  const firstName = isEmpty(participant.member.firstName) ? EMPTY_STRING : participant.member.firstName;
+  const lastName = isEmpty(participant.member.lastName) ? EMPTY_STRING : participant.member.lastName;
+  return `${firstName} ${lastName}`;
 };

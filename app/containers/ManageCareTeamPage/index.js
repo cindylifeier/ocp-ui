@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Divider from 'material-ui/Divider';
-import Toggle from 'material-ui/Toggle';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
@@ -24,12 +23,13 @@ import { makeSelectCareTeam, makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
-import { CARETEAMCATEGORY, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
+import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
 import {
   makeSelectCareTeamCategories,
+  makeSelectCareTeamReasons,
   makeSelectCareTeamStatuses,
   makeSelectParticipantRoles,
   makeSelectParticipantTypes,
@@ -37,6 +37,7 @@ import {
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 import { removeParticipant } from '../SearchParticipant/actions';
+import { mapToEditParticipants } from './api';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -45,12 +46,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       open: false,
       name: '',
       member: '',
-      hasParticipants: false,
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
   }
 
@@ -81,6 +80,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     if (careTeamId) {
       merge(careTeamFormData, { careTeamId });
     }
+    // Add selected participants to form data
+    const selectedParticipants = this.props.selectedParticipants;
+    merge(careTeamFormData, { participants: selectedParticipants });
     this.props.onSaveCareTeam(careTeamFormData, () => actions.setSubmitting(false));
   }
 
@@ -96,10 +98,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     this.props.removeParticipant(participant);
   }
 
-  handleToggle(event, isInputChecked) {
-    this.setState({ hasParticipants: isInputChecked });
-  }
-
   render() {
     const {
       match,
@@ -109,27 +107,29 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       participantTypes,
       participantRoles,
       careTeamStatuses,
+      careTeamReasons,
       selectedParticipants,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
-    // Todo: implement to dispatch participants
-    const hasParticipants = this.state.hasParticipants;
 
     let careTeam = null;
+    let initialSelectedParticipants = [];
     if (editMode && selectedCareTeam) {
       careTeam = selectedCareTeam;
+      initialSelectedParticipants = mapToEditParticipants(careTeam.participants);
     }
     const manageCareTeamProps = {
       selectedPatient,
       careTeam,
       editMode,
       careTeamCategories,
+      careTeamReasons,
       participantTypes,
       participantRoles,
       careTeamStatuses,
-      hasParticipants,
       selectedParticipants,
     };
+
     return (
       <div>
         <Helmet>
@@ -142,22 +142,21 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
               : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
-          <Toggle
-            label="Set hasParticipants to true"
-            onToggle={this.handleToggle}
-          />
           <ManageCareTeam
             {...manageCareTeamProps}
             onSave={this.handleSave}
             removeParticipant={this.handleRemoveParticipant}
             handleOpen={this.handleOpen}
           />
+          {((editMode && careTeam) || !editMode) &&
           <SearchParticipant
+            initialSelectedParticipants={initialSelectedParticipants}
             isOpen={this.state.open}
             handleOpen={this.handleOpen}
             handleClose={this.handleClose}
           >
           </SearchParticipant>
+          }
         </div>
       </div>
     );
@@ -179,6 +178,7 @@ ManageCareTeamPage.propTypes = {
   participantTypes: PropTypes.array,
   participantRoles: PropTypes.array,
   careTeamStatuses: PropTypes.array,
+  careTeamReasons: PropTypes.array,
   selectedParticipants: PropTypes.array,
 };
 
@@ -189,13 +189,14 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   participantRoles: makeSelectParticipantRoles(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
+  careTeamReasons: makeSelectCareTeamReasons(),
   selectedParticipants: makeSelectSelectedParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
-    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, PARTICIPANTROLE])),
+    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, CARETEAMREASON, PARTICIPANTROLE])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),

@@ -47,6 +47,7 @@ export const CARETEAMCATEGORY = 'CARETEAMCATEGORY';
 export const PARTICIPANTTYPE = 'PARTICIPANTTYPE';
 export const CARETEAMSTATUS = 'CARETEAMSTATUS';
 export const PARTICIPANTROLE = 'PARTICIPANTROLE';
+export const CARETEAMREASON = 'CARETEAMREASON';
 
 /**
  *  Constants to hold the internal urls

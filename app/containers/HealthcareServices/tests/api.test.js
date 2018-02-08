@@ -1,5 +1,5 @@
 import request from '../../../utils/request';
-import queryHealthcareServices from '../api';
+import { getHealthcareServicesByOrganization } from '../api';
 
 const mockRequest = jest.fn();
 
@@ -13,7 +13,7 @@ describe('Healthcare Services api.js', () => {
     // Arrange
     const expected = '/base-url/organizations/902/health-care-services?statusList=active%2Cinactive&pageNumber=1&pageSize=10';
     // Act
-    queryHealthcareServices(902, ['active', 'inactive'], 1);
+    getHealthcareServicesByOrganization(902, ['active', 'inactive'], 1);
 
     // Assert
     expect(mockRequest).toBeCalledWith(expected);
