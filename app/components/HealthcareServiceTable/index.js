@@ -9,11 +9,14 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
+import { FormattedMessage } from 'react-intl';
+
 import Table from '../Table';
 import TableHeader from '../TableHeader';
 import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
+import messages from './messages';
 
 const checkboxStyle = { marginTop: '40px', height: '30px' };
 
@@ -25,7 +28,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           {entry.system}: {entry.value}
           <br />
         </div>
-      )
+      ),
     );
   }
 
@@ -36,7 +39,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           {entry.display}
           <br />
         </div>
-      )
+      ),
     );
   }
 
@@ -47,7 +50,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           {entry}
           <br />
         </div>
-      )
+      ),
     );
   }
 
@@ -56,12 +59,12 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
       {!showAssigned &&
       <Table>
         <TableHeader>
-          <TableHeaderColumn>Name</TableHeaderColumn>
-          <TableHeaderColumn>Category</TableHeaderColumn>
-          <TableHeaderColumn>Type</TableHeaderColumn>
-          <TableHeaderColumn>Program Name</TableHeaderColumn>
-          <TableHeaderColumn>Identifier</TableHeaderColumn>
-          <TableHeaderColumn>Active</TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderIdentifier} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
@@ -77,13 +80,13 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
       {showAssigned &&
       <Table>
         <TableHeader>
-          <TableHeaderColumn>Assigned</TableHeaderColumn>
-          <TableHeaderColumn>Name</TableHeaderColumn>
-          <TableHeaderColumn>Category</TableHeaderColumn>
-          <TableHeaderColumn>Type</TableHeaderColumn>
-          <TableHeaderColumn>Program Name</TableHeaderColumn>
-          <TableHeaderColumn>Identifier</TableHeaderColumn>
-          <TableHeaderColumn>Active</TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAssignedToLocation} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderIdentifier} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
@@ -105,6 +108,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
     </div>
   );
 }
+
 
 HealthcareServiceTable.propTypes = {
   elements: PropTypes.array,

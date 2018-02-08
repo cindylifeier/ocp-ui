@@ -10,9 +10,17 @@ export default defineMessages({
     id: 'ocpui.containers.Patients.header',
     defaultMessage: 'Patients',
   },
+  searchHeader: {
+    id: 'ocpui.containers.Patients.searchHeader',
+    defaultMessage: 'Search',
+  },
+  filterLabel: {
+    id: 'ocpui.containers.Patients.filterLabel',
+    defaultMessage: 'Include',
+  },
   inactive: {
     id: 'ocpui.containers.Patients.checkbox.inactive',
-    defaultMessage: 'Include inactive',
+    defaultMessage: 'Inactive',
   },
   searchTermsInvalid: {
     id: 'ocpui.containers.Patients.header',

@@ -1,49 +1,19 @@
 import { fromJS } from 'immutable';
 import healthcareServicesReducer from '../reducer';
-import {
-  GET_FILTERED_HEALTHCARE_SERVICES, GET_HEALTHCARE_SERVICES_ERROR, GET_HEALTHCARE_SERVICES_SUCCESS,
-  INITIALIZE_HEALTHCARE_SERVICES,
-} from '../constants';
+import { GET_HEALTHCARE_SERVICES_ERROR, GET_HEALTHCARE_SERVICES_SUCCESS } from '../constants';
 
 describe('healthcareServicesReducer', () => {
   it('returns the initial state', () => {
-    const expectInitialState = {
+    expect(healthcareServicesReducer(undefined, {})).toEqual(fromJS({
       loading: false,
       error: false,
       data: [],
       organization: null,
+      location: null,
       currentPage: 0,
       totalNumberOfPages: 0,
       includeInactive: false,
-    };
-    expect(healthcareServicesReducer([], { type: INITIALIZE_HEALTHCARE_SERVICES })).toEqual(fromJS(expectInitialState));
-  });
-
-  it('returns the get filtered healthcare services state', () => {
-    const initialState = fromJS({
-      loading: false,
-      error: false,
-      data: [],
-      organization: null,
-      currentPage: 0,
-      totalNumberOfPages: 0,
-      includeInactive: false,
-    });
-    const action = {
-      type: GET_FILTERED_HEALTHCARE_SERVICES,
-      currentPage: 1,
-      includeInactive: true,
-    };
-    const expectState = {
-      loading: false,
-      error: false,
-      data: [],
-      organization: null,
-      currentPage: 1,
-      totalNumberOfPages: 0,
-      includeInactive: true,
-    };
-    expect(healthcareServicesReducer(initialState, action)).toEqual(fromJS(expectState));
+    }));
   });
 
   it('returns the get heatlthcare services success status', () => {
