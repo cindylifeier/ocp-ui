@@ -12,7 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
-import { FloatingActionButton } from 'material-ui';
+import { FlatButton, FloatingActionButton } from 'material-ui';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import { ContentAdd } from 'material-ui/svg-icons';
 import { teal500 } from 'material-ui/styles/colors';
 
@@ -83,7 +84,24 @@ export class Organizations extends React.PureComponent {
           <ContentAdd />
         </FloatingActionButton>
         <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
-
+        <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
+        <div className={styles.gridHeaderContainer}>
+          <div className={styles.gridItem}>
+            <div className={styles.header}>
+              <FormattedMessage {...messages.header} />
+            </div>
+          </div>
+          <div className={styles.gridItem}>
+            <span className={styles.iconButton}>
+              <FlatButton
+                label="Create New"
+                icon={<ContentAddCircle />}
+                className={styles.font}
+                containerElement={<Link to="/ocp-ui/manage-patient" />}
+              />
+            </span>
+          </div>
+        </div>
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
           onSearch={this.handleSearch}
