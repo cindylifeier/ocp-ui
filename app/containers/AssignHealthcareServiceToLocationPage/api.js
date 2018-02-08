@@ -5,9 +5,10 @@ import queryString from '../../utils/queryString';
 
 const apiBaseUrl = getApiBaseUrl();
 
-export function getHealthcareServicesByOrganization(organizationId, status, currentPage) {
+export function queryHealthCareServicesWithLocationAssignmentData(organizationId, locationId, currentPage, status) {
   const params = queryString({
     statusList: status,
+    assignedToLocationId: locationId,
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
@@ -15,12 +16,16 @@ export function getHealthcareServicesByOrganization(organizationId, status, curr
   return request(url);
 }
 
-export function getHealthcareServicesByLocation(organizationId, locationId, status, currentPage) {
+export function assignHealthCareServicesToLocation(orgId, locationIds, healthCareServiceId) {
   const params = queryString({
-    statusList: status,
-    pageNumber: currentPage,
-    pageSize: DEFAULT_PAGE_SIZE,
+    organizationId: orgId,
+    locationIdList: locationIds,
   });
-  const url = `${apiBaseUrl}/organizations/${organizationId}/locations/${locationId}/healthcare-services${params}`;
-  return request(url);
+  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/assign${params}`;
+  return request(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }

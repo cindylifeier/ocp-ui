@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  tableColumnHeaderAssignedToLocation: {
+    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderAssignedToLocation',
+    defaultMessage: 'Assigned',
+  },
   tableColumnHeaderName: {
     id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderName',
     defaultMessage: 'Name',
