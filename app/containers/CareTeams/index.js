@@ -93,7 +93,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
 
         {!loading && !isEmpty(patientName) && isEmpty(data) &&
         <div className={styles.noCareTeam}>
-          <strong>No care teams found.</strong>
+          No care teams found.
         </div>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
