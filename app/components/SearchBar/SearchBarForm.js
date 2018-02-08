@@ -53,7 +53,6 @@ function SearchBarForm(props) {
             label="Search"
             backgroundColor={teal500}
             labelColor={white}
-            tooltip={<FormattedMessage {...messages.buttonTooltip} />}
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           />
