@@ -24,6 +24,6 @@ export default defineMessages({
   },
   inactive: {
     id: 'ocpui.containers.Locations.checkbox.inactive',
-    defaultMessage: 'Include inactive',
+    defaultMessage: 'Inactive',
   },
 });
