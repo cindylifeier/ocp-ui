@@ -60,7 +60,7 @@ function CareTeamTable({ elements }) {
               <ul>{!isEmpty(participants) && participants
                 .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
                   <li key={memberId}>
-                    {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')} / ${roleDisplay}`}
+                    {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
                   </li>))
               }</ul>
             </TableRowColumn>
