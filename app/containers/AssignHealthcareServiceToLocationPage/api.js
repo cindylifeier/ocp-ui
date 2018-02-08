@@ -12,7 +12,7 @@ export function queryHealthCareServicesWithLocationAssignmentData(organizationId
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
-  const url = `${apiBaseUrl}/organizations/${organizationId}/health-care-services${params}`;
+  const url = `${apiBaseUrl}/organizations/${organizationId}/healthcare-services${params}`;
   return request(url);
 }
 
@@ -21,7 +21,7 @@ export function assignHealthCareServicesToLocation(orgId, locationIds, healthCar
     organizationId: orgId,
     locationIdList: locationIds,
   });
-  const url = `${apiBaseUrl}/health-care-services/${healthCareServiceId}/assign${params}`;
+  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/assign${params}`;
   return request(url, {
     method: 'PUT',
     headers: {
