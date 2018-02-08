@@ -37,6 +37,7 @@ import {
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 import { removeParticipant } from '../SearchParticipant/actions';
+import { mapToEditParticipants } from './api';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -112,8 +113,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const editMode = !isUndefined(match.params.id);
 
     let careTeam = null;
+    let initialSelectedParticipants = [];
     if (editMode && selectedCareTeam) {
       careTeam = selectedCareTeam;
+      initialSelectedParticipants = mapToEditParticipants(careTeam.participants);
     }
     const manageCareTeamProps = {
       selectedPatient,
@@ -145,12 +148,15 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
             removeParticipant={this.handleRemoveParticipant}
             handleOpen={this.handleOpen}
           />
+          {((editMode && careTeam) || !editMode) &&
           <SearchParticipant
+            initialSelectedParticipants={initialSelectedParticipants}
             isOpen={this.state.open}
             handleOpen={this.handleOpen}
             handleClose={this.handleClose}
           >
           </SearchParticipant>
+          }
         </div>
       </div>
     );

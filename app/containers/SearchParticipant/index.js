@@ -12,17 +12,19 @@ import { compose } from 'redux';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { IconButton, RaisedButton, teal500, white } from 'material-ui';
+import { teal500, white } from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
-
 import styles from './styles.css';
 import messages from './messages';
 import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
@@ -48,27 +50,32 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     this.addParticipant = this.addParticipant.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
   }
+
   componentWillMount() {
-    this.props.initializeSearchParticipant();
+    this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
+
   addParticipant(participant) {
     this.handleDialogClose();
     const selected = [];
     selected.push(participant);
     this.props.addParticipants(selected);
   }
+
   handleDialogClose() {
     this.setState({ open: false });
     this.props.handleClose();
   }
+
   handleSearch(values) {
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
+
   createSearchResultRows() {
     return this.props.searchParticipantResult.map((participant) => (
       <TableRow key={uniqueId()}>
-        <TableRowColumn> { getParticipantName(participant) } </TableRowColumn>
+        <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
         <TableRowColumn>
           <RaisedButton
             backgroundColor={teal500}
@@ -83,6 +90,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
       </TableRow>
     ));
   }
+
   render() {
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
@@ -128,7 +136,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       >
                         {participantTypes && participantTypes.map((member) =>
                           <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                          )
+                        )
                         }
                       </SelectField>
                     </div>
@@ -143,14 +151,16 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       </IconButton>
                     </div>
                   </div>
-                  { searchParticipantResult && searchParticipantResult.length > 0 &&
-                    <Table>
-                      <TableHeader>
-                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-                      </TableHeader>
-                      { this.createSearchResultRows() }
-                    </Table>
+                  {searchParticipantResult && searchParticipantResult.length > 0 &&
+                  <Table>
+                    <TableHeader>
+                      <TableHeaderColumn>{
+                        <FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+                      <TableHeaderColumn>{
+                        <FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+                    </TableHeader>
+                    {this.createSearchResultRows()}
+                  </Table>
                   }
                 </div>
               </Form>
@@ -164,6 +174,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
 SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   initializeSearchParticipant: PropTypes.func.isRequired,
@@ -186,7 +197,7 @@ function mapDispatchToProps(dispatch) {
   return {
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
-    initializeSearchParticipant: () => dispatch(initializeSearchParticipant()),
+    initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
   };
 }
 
