@@ -11,9 +11,8 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { FloatingActionButton } from 'material-ui';
-import { ContentAdd } from 'material-ui/svg-icons';
-import { teal500 } from 'material-ui/styles/colors';
+import { FlatButton } from 'material-ui';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -105,17 +104,19 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
       <div className={styles.card}>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
-            <h3><FormattedMessage {...messages.header} /></h3>
+            <div className={styles.header}>
+              <FormattedMessage {...messages.header} />
+            </div>
           </div>
           <div className={styles.gridItem}>
-            <FloatingActionButton
-              backgroundColor={teal500}
-              className={styles.addButton}
-              mini
-              containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-            >
-              <ContentAdd />
-            </FloatingActionButton>
+            <span className={styles.iconButton}>
+              <FlatButton
+                label="Create New"
+                icon={<ContentAddCircle />}
+                className={styles.font}
+                containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
+              />
+            </span>
           </div>
         </div>
         <form>
