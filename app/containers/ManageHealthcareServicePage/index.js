@@ -34,8 +34,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 
   render() {
     const {
-      healthCareServiceCategories,
-      healthCareServiceTypes,
+      healthcareServiceCategories,
+      healthcareServiceTypes,
       healthcareServiceReferralMethods,
       healthcareServiceSpecialities,
       telecomSystems,
@@ -43,8 +43,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       organization,
     } = this.props;
     const hcsProps = {
-      healthCareServiceCategories,
-      healthCareServiceTypes,
+      healthcareServiceCategories,
+      healthcareServiceTypes,
       healthcareServiceReferralMethods,
       healthcareServiceSpecialities,
       telecomSystems,
@@ -65,8 +65,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 
 ManageHealthcareServicePage.propTypes = {
   getLookups: PropTypes.func.isRequired,
-  healthCareServiceCategories: PropTypes.array,
-  healthCareServiceTypes: PropTypes.array,
+  healthcareServiceCategories: PropTypes.array,
+  healthcareServiceTypes: PropTypes.array,
   healthcareServiceReferralMethods: PropTypes.array,
   healthcareServiceSpecialities: PropTypes.array,
   telecomSystems: PropTypes.array,
@@ -75,8 +75,8 @@ ManageHealthcareServicePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  healthCareServiceCategories: makeSelectHealthcareServiceCategories(),
-  healthCareServiceTypes: makeSelectHealthcareServiceTypes(),
+  healthcareServiceCategories: makeSelectHealthcareServiceCategories(),
+  healthcareServiceTypes: makeSelectHealthcareServiceTypes(),
   healthcareServiceReferralMethods: makeSelectHealthcareServiceReferralMethods(),
   healthcareServiceSpecialities: makeSelectHealthcareServiceSpecialities(),
   telecomSystems: makeSelectTelecomSystems(),
