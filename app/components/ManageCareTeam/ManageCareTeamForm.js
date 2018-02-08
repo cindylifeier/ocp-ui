@@ -20,7 +20,7 @@ import TableHeaderColumn from '../TableHeaderColumn/index';
 import TableRow from '../TableRow/index';
 import TableRowColumn from '../TableRowColumn/index';
 import { addButtonStyle, removeButtonStyle } from './constants';
-import { DATE_PICKER_MODE, getParticipantName } from '../../utils/CareTeamUtils';
+import { DATE_PICKER_MODE } from '../../utils/CareTeamUtils';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -129,15 +129,21 @@ function ManageCareTeamForm(props) {
           <TableHeader>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
           </TableHeader>
           {selectedParticipants && selectedParticipants.length > 0 &&
           selectedParticipants.map((participant) => (
             <TableRow key={uniqueId()}>
-              <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
-              <TableRowColumn>{participant.role.display}</TableRowColumn>
-              <TableRowColumn />
+              <TableRowColumn> {participant.name} </TableRowColumn>
+              <TableRowColumn>{participant.roleDisplay}</TableRowColumn>
+              <TableRowColumn>
+                {participant.startDate}
+              </TableRowColumn>
+              <TableRowColumn>
+                {participant.endDate}
+              </TableRowColumn>
               <TableRowColumn>
                 <RaisedButton
                   backgroundColor={teal500}
