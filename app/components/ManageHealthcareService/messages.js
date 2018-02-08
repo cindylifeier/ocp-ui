@@ -6,8 +6,14 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.ManageHealthcareService.header',
-    defaultMessage: 'This is the ManageHealthcareService component !',
+  title: {
+    id: 'ocpui.components.ManageHealthcareService.title',
+    defaultMessage: 'General Information',
+  },
+  hintText: {
+    organizationNameLabel: {
+      id: 'app.containers.ManageHealthCareService.manageForm.organizationNameLabel',
+      defaultMessage: 'Organization Name:  ',
+    },
   },
 });

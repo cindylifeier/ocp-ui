@@ -19,6 +19,7 @@ import { makeSelectHealthcareServiceCategories,
         makeSelectHealthcareServiceSpecialities,
         makeSelectTelecomSystems,
         makeSelectTelecomUses } from '../App/selectors';
+import { makeSelectOrganization } from '../Locations/selectors';
 import { getLookupsAction } from '../App/actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -39,7 +40,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       healthcareServiceSpecialities,
       telecomSystems,
       telecomUses,
-      } = this.props;
+      organization,
+    } = this.props;
     const hcsProps = {
       healthCareServiceCategories,
       healthCareServiceTypes,
@@ -47,6 +49,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       healthcareServiceSpecialities,
       telecomSystems,
       telecomUses,
+      organization,
     };
     return (
       <div>
@@ -68,6 +71,7 @@ ManageHealthcareServicePage.propTypes = {
   healthcareServiceSpecialities: PropTypes.array,
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -77,6 +81,7 @@ const mapStateToProps = createStructuredSelector({
   healthcareServiceSpecialities: makeSelectHealthcareServiceSpecialities(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {

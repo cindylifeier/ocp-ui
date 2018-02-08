@@ -5,21 +5,26 @@
 */
 
 import React from 'react';
-// import styled from 'styled-components';
+import { Formik } from 'formik';
+import PropTypes from 'prop-types';
+import ManageHealthcareServiceForm from './ManageHealthcareServiceForm';
 
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
-function ManageHealthcareService() {
+function ManageHealthcareService(props) {
+  const { onSave } = props;
   return (
     <div>
-      <FormattedMessage {...messages.header} />
+      <Formik
+        onSubmit={(values, actions) => {
+          onSave(values, actions);
+        }}
+        render={(formikProps) => <ManageHealthcareServiceForm {...formikProps} {...props} />}
+      />
     </div>
   );
 }
 
 ManageHealthcareService.propTypes = {
-
+  onSave: PropTypes.func.isRequired,
 };
 
 export default ManageHealthcareService;
