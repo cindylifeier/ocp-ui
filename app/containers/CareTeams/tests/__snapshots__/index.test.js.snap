@@ -1,0 +1,848 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CareTeams /> Snapshots testing should match snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CareTeams
+    careTeamStatuses={
+      Array [
+        Object {
+          "code": "active",
+          "display": "Active",
+        },
+        Object {
+          "code": "inactive",
+          "display": "Inactive",
+        },
+        Object {
+          "code": "suspended",
+          "display": "suspended",
+        },
+      ]
+    }
+    careTeams={
+      Object {
+        "data": Object {
+          "currentPage": 10,
+          "elements": Array [
+            Object {
+              "id": "1",
+              "name": "a",
+              "subjectFirstName": "subjectFirstName1",
+              "subjectId": "subjectId1",
+              "subjectLastName": "subjectLastName1",
+            },
+            Object {
+              "id": "2",
+              "name": "b",
+              "subjectFirstName": "subjectFirstName2",
+              "subjectId": "subjectId2",
+              "subjectLastName": "subjectLastName2",
+            },
+          ],
+          "totalNumberOfPages": 100,
+        },
+        "loading": false,
+        "patientName": "patientName",
+        "query": Object {
+          "a1": "a1",
+          "a2": "a2",
+        },
+        "statusList": Array [
+          "active",
+          "inactive",
+        ],
+      }
+    }
+    getCareTeams={[MockFunction]}
+    initializeLookups={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h3>
+          <FormattedMessage
+            defaultMessage="Care Teams"
+            id="ocpui.containers.CareTeams.header"
+            values={Object {}}
+          />
+        </h3>,
+        <div>
+          <div>
+            <strong>
+              Patient:
+            </strong>
+             
+            patientName
+          </div>
+          <div
+            className={undefined}
+          >
+            <div>
+              <Checkbox
+                checked={true}
+                disabled={false}
+                label="Include Inactive"
+                labelPosition="right"
+                name="inactive"
+                onCheck={[Function]}
+              />
+            </div>
+            <div>
+              <Checkbox
+                checked={false}
+                disabled={false}
+                label="Include suspended"
+                labelPosition="right"
+                name="suspended"
+                onCheck={[Function]}
+              />
+            </div>
+          </div>
+        </div>,
+        false,
+        false,
+        <div
+          className={undefined}
+        >
+          <CareTeamTable
+            elements={
+              Array [
+                Object {
+                  "id": "1",
+                  "name": "a",
+                  "subjectFirstName": "subjectFirstName1",
+                  "subjectId": "subjectId1",
+                  "subjectLastName": "subjectLastName1",
+                },
+                Object {
+                  "id": "2",
+                  "name": "b",
+                  "subjectFirstName": "subjectFirstName2",
+                  "subjectId": "subjectId2",
+                  "subjectLastName": "subjectLastName2",
+                },
+              ]
+            }
+          />
+          <UltimatePaginationComponent
+            boundaryPagesRange={1}
+            currentPage={10}
+            hideEllipsis={false}
+            hideFirstAndLastPageLinks={false}
+            hidePreviousAndNextPageLinks={false}
+            onChange={[Function]}
+            siblingPagesRange={1}
+            totalPages={100}
+          />
+        </div>,
+      ],
+      "className": undefined,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <FormattedMessage
+            defaultMessage="Care Teams"
+            id="ocpui.containers.CareTeams.header"
+            values={Object {}}
+          />,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "defaultMessage": "Care Teams",
+            "id": "ocpui.containers.CareTeams.header",
+            "values": Object {},
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "h3",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div>
+              <strong>
+                Patient:
+              </strong>
+               
+              patientName
+            </div>,
+            <div
+              className={undefined}
+            >
+              <div>
+                <Checkbox
+                  checked={true}
+                  disabled={false}
+                  label="Include Inactive"
+                  labelPosition="right"
+                  name="inactive"
+                  onCheck={[Function]}
+                />
+              </div>
+              <div>
+                <Checkbox
+                  checked={false}
+                  disabled={false}
+                  label="Include suspended"
+                  labelPosition="right"
+                  name="suspended"
+                  onCheck={[Function]}
+                />
+              </div>
+            </div>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <strong>
+                  Patient:
+                </strong>,
+                " ",
+                "patientName",
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Patient:",
+                },
+                "ref": null,
+                "rendered": "Patient:",
+                "type": "strong",
+              },
+              " ",
+              "patientName",
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div>
+                  <Checkbox
+                    checked={true}
+                    disabled={false}
+                    label="Include Inactive"
+                    labelPosition="right"
+                    name="inactive"
+                    onCheck={[Function]}
+                  />
+                </div>,
+                <div>
+                  <Checkbox
+                    checked={false}
+                    disabled={false}
+                    label="Include suspended"
+                    labelPosition="right"
+                    name="suspended"
+                    onCheck={[Function]}
+                  />
+                </div>,
+              ],
+              "className": undefined,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "inactive",
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Checkbox
+                    checked={true}
+                    disabled={false}
+                    label="Include Inactive"
+                    labelPosition="right"
+                    name="inactive"
+                    onCheck={[Function]}
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "checked": true,
+                    "disabled": false,
+                    "label": "Include Inactive",
+                    "labelPosition": "right",
+                    "name": "inactive",
+                    "onCheck": [Function],
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": "suspended",
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Checkbox
+                    checked={false}
+                    disabled={false}
+                    label="Include suspended"
+                    labelPosition="right"
+                    name="suspended"
+                    onCheck={[Function]}
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "checked": false,
+                    "disabled": false,
+                    "label": "Include suspended",
+                    "labelPosition": "right",
+                    "name": "suspended",
+                    "onCheck": [Function],
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      false,
+      false,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <CareTeamTable
+              elements={
+                Array [
+                  Object {
+                    "id": "1",
+                    "name": "a",
+                    "subjectFirstName": "subjectFirstName1",
+                    "subjectId": "subjectId1",
+                    "subjectLastName": "subjectLastName1",
+                  },
+                  Object {
+                    "id": "2",
+                    "name": "b",
+                    "subjectFirstName": "subjectFirstName2",
+                    "subjectId": "subjectId2",
+                    "subjectLastName": "subjectLastName2",
+                  },
+                ]
+              }
+            />,
+            <UltimatePaginationComponent
+              boundaryPagesRange={1}
+              currentPage={10}
+              hideEllipsis={false}
+              hideFirstAndLastPageLinks={false}
+              hidePreviousAndNextPageLinks={false}
+              onChange={[Function]}
+              siblingPagesRange={1}
+              totalPages={100}
+            />,
+          ],
+          "className": undefined,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "elements": Array [
+                Object {
+                  "id": "1",
+                  "name": "a",
+                  "subjectFirstName": "subjectFirstName1",
+                  "subjectId": "subjectId1",
+                  "subjectLastName": "subjectLastName1",
+                },
+                Object {
+                  "id": "2",
+                  "name": "b",
+                  "subjectFirstName": "subjectFirstName2",
+                  "subjectId": "subjectId2",
+                  "subjectLastName": "subjectLastName2",
+                },
+              ],
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "boundaryPagesRange": 1,
+              "currentPage": 10,
+              "hideEllipsis": false,
+              "hideFirstAndLastPageLinks": false,
+              "hidePreviousAndNextPageLinks": false,
+              "onChange": [Function],
+              "siblingPagesRange": 1,
+              "totalPages": 100,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h3>
+            <FormattedMessage
+              defaultMessage="Care Teams"
+              id="ocpui.containers.CareTeams.header"
+              values={Object {}}
+            />
+          </h3>,
+          <div>
+            <div>
+              <strong>
+                Patient:
+              </strong>
+               
+              patientName
+            </div>
+            <div
+              className={undefined}
+            >
+              <div>
+                <Checkbox
+                  checked={true}
+                  disabled={false}
+                  label="Include Inactive"
+                  labelPosition="right"
+                  name="inactive"
+                  onCheck={[Function]}
+                />
+              </div>
+              <div>
+                <Checkbox
+                  checked={false}
+                  disabled={false}
+                  label="Include suspended"
+                  labelPosition="right"
+                  name="suspended"
+                  onCheck={[Function]}
+                />
+              </div>
+            </div>
+          </div>,
+          false,
+          false,
+          <div
+            className={undefined}
+          >
+            <CareTeamTable
+              elements={
+                Array [
+                  Object {
+                    "id": "1",
+                    "name": "a",
+                    "subjectFirstName": "subjectFirstName1",
+                    "subjectId": "subjectId1",
+                    "subjectLastName": "subjectLastName1",
+                  },
+                  Object {
+                    "id": "2",
+                    "name": "b",
+                    "subjectFirstName": "subjectFirstName2",
+                    "subjectId": "subjectId2",
+                    "subjectLastName": "subjectLastName2",
+                  },
+                ]
+              }
+            />
+            <UltimatePaginationComponent
+              boundaryPagesRange={1}
+              currentPage={10}
+              hideEllipsis={false}
+              hideFirstAndLastPageLinks={false}
+              hidePreviousAndNextPageLinks={false}
+              onChange={[Function]}
+              siblingPagesRange={1}
+              totalPages={100}
+            />
+          </div>,
+        ],
+        "className": undefined,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <FormattedMessage
+              defaultMessage="Care Teams"
+              id="ocpui.containers.CareTeams.header"
+              values={Object {}}
+            />,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "defaultMessage": "Care Teams",
+              "id": "ocpui.containers.CareTeams.header",
+              "values": Object {},
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "h3",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div>
+                <strong>
+                  Patient:
+                </strong>
+                 
+                patientName
+              </div>,
+              <div
+                className={undefined}
+              >
+                <div>
+                  <Checkbox
+                    checked={true}
+                    disabled={false}
+                    label="Include Inactive"
+                    labelPosition="right"
+                    name="inactive"
+                    onCheck={[Function]}
+                  />
+                </div>
+                <div>
+                  <Checkbox
+                    checked={false}
+                    disabled={false}
+                    label="Include suspended"
+                    labelPosition="right"
+                    name="suspended"
+                    onCheck={[Function]}
+                  />
+                </div>
+              </div>,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <strong>
+                    Patient:
+                  </strong>,
+                  " ",
+                  "patientName",
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Patient:",
+                  },
+                  "ref": null,
+                  "rendered": "Patient:",
+                  "type": "strong",
+                },
+                " ",
+                "patientName",
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    <Checkbox
+                      checked={true}
+                      disabled={false}
+                      label="Include Inactive"
+                      labelPosition="right"
+                      name="inactive"
+                      onCheck={[Function]}
+                    />
+                  </div>,
+                  <div>
+                    <Checkbox
+                      checked={false}
+                      disabled={false}
+                      label="Include suspended"
+                      labelPosition="right"
+                      name="suspended"
+                      onCheck={[Function]}
+                    />
+                  </div>,
+                ],
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "inactive",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <Checkbox
+                      checked={true}
+                      disabled={false}
+                      label="Include Inactive"
+                      labelPosition="right"
+                      name="inactive"
+                      onCheck={[Function]}
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "checked": true,
+                      "disabled": false,
+                      "label": "Include Inactive",
+                      "labelPosition": "right",
+                      "name": "inactive",
+                      "onCheck": [Function],
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "suspended",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <Checkbox
+                      checked={false}
+                      disabled={false}
+                      label="Include suspended"
+                      labelPosition="right"
+                      name="suspended"
+                      onCheck={[Function]}
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "checked": false,
+                      "disabled": false,
+                      "label": "Include suspended",
+                      "labelPosition": "right",
+                      "name": "suspended",
+                      "onCheck": [Function],
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        false,
+        false,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <CareTeamTable
+                elements={
+                  Array [
+                    Object {
+                      "id": "1",
+                      "name": "a",
+                      "subjectFirstName": "subjectFirstName1",
+                      "subjectId": "subjectId1",
+                      "subjectLastName": "subjectLastName1",
+                    },
+                    Object {
+                      "id": "2",
+                      "name": "b",
+                      "subjectFirstName": "subjectFirstName2",
+                      "subjectId": "subjectId2",
+                      "subjectLastName": "subjectLastName2",
+                    },
+                  ]
+                }
+              />,
+              <UltimatePaginationComponent
+                boundaryPagesRange={1}
+                currentPage={10}
+                hideEllipsis={false}
+                hideFirstAndLastPageLinks={false}
+                hidePreviousAndNextPageLinks={false}
+                onChange={[Function]}
+                siblingPagesRange={1}
+                totalPages={100}
+              />,
+            ],
+            "className": undefined,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "elements": Array [
+                  Object {
+                    "id": "1",
+                    "name": "a",
+                    "subjectFirstName": "subjectFirstName1",
+                    "subjectId": "subjectId1",
+                    "subjectLastName": "subjectLastName1",
+                  },
+                  Object {
+                    "id": "2",
+                    "name": "b",
+                    "subjectFirstName": "subjectFirstName2",
+                    "subjectId": "subjectId2",
+                    "subjectLastName": "subjectLastName2",
+                  },
+                ],
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "boundaryPagesRange": 1,
+                "currentPage": 10,
+                "hideEllipsis": false,
+                "hideFirstAndLastPageLinks": false,
+                "hidePreviousAndNextPageLinks": false,
+                "onChange": [Function],
+                "siblingPagesRange": 1,
+                "totalPages": 100,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactFifteenAdapter {
+      "options": Object {
+        "supportPrevContextArgumentOfComponentDidUpdate": true,
+      },
+    },
+  },
+}
+`;
