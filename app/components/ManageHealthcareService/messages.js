@@ -7,92 +7,92 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   title: {
-    id: 'ocpui.components.ManageHealthCareService.title',
+    id: 'ocpui.components.ManageHealthcareService.title',
     defaultMessage: 'General Information',
   },
   validation: {
     minLength: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.validation.minLength',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.validation.minLength',
       defaultMessage: 'Minimum {minimumLength} characters',
     },
     required: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.validation.required',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.validation.required',
       defaultMessage: 'Required',
     },
     invalid: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.validation.invalid',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
   },
   hintText: {
     organizationNameLabel: {
-      id: 'app.containers.ManageHealthCareService.manageForm.organizationNameLabel',
+      id: 'app.containers.ManageHealthcareService.manageForm.organizationNameLabel',
       defaultMessage: 'Organization Name:  ',
     },
     name: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.name',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.name',
       defaultMessage: 'Name',
     },
     programName: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.programName',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.programName',
       defaultMessage: 'Program Name',
     },
     category: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.category',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.category',
       defaultMessage: 'Category',
     },
     type: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.type',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.type',
       defaultMessage: 'Type',
     },
     specialty: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.specialty',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.specialty',
       defaultMessage: 'Speciality',
     },
     referralMethod: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.referralMethod',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.referralMethod',
       defaultMessage: 'Referral Method',
     },
     telecomType: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.telecomType',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.telecomType',
       defaultMessage: 'Telecom Type',
     },
     telecomValue: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.hintText.telecomValue',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.telecomValue',
       defaultMessage: 'Telecom Value',
     },
   },
   floatingLabelText: {
     name: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.name',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.name',
       defaultMessage: 'Name',
     },
     programName: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.programName',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.programName',
       defaultMessage: 'Program Name',
     },
     category: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.category',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.category',
       defaultMessage: 'Category',
     },
     type: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.type',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.type',
       defaultMessage: 'Type',
     },
     specialty: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.specialty',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.specialty',
       defaultMessage: 'Speciality',
     },
     referralMethod: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.referralMethod',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.referralMethod',
       defaultMessage: 'Referral Method',
     },
     telecomType: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.telecomType',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.telecomType',
       defaultMessage: 'Telecom Type',
     },
     telecomValue: {
-      id: 'ocpui.components.ManageHealthCareService.manageForm.floatingLabelText.telecomValue',
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.telecomValue',
       defaultMessage: 'Telecom Value',
     },
   },
