@@ -51,17 +51,6 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
     );
   }
 
-  function getAssignedToLocationInfo(value) {
-    if (value == null) {
-      return '';
-    } else if (value === false) {
-      return 'Enable button';
-    } else if (value === true) {
-      return 'Disable button';
-    }
-    return null;
-  }
-
   return (
     <div>
       {!showAssigned &&
@@ -95,13 +84,13 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           <TableHeaderColumn>Program Name</TableHeaderColumn>
           <TableHeaderColumn>Identifier</TableHeaderColumn>
           <TableHeaderColumn>Active</TableHeaderColumn>
-          <TableHeaderColumn />
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
             <Checkbox
               style={checkboxStyle}
               defaultChecked={element.assignedToCurrentLocation}
+              disabled={element.assignedToCurrentLocation}
               onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
             />
             <TableRowColumn>{element.name}</TableRowColumn>
@@ -110,7 +99,6 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
             <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
             <TableRowColumn>{getIdentifiers(element.identifiers)}</TableRowColumn>
             <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
-            <TableRowColumn>{getAssignedToLocationInfo(element.assignedToCurrentLocation)}</TableRowColumn>
           </TableRow>
         ))}
       </Table>}
