@@ -63,7 +63,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
           <div>
             <div><strong>Patient:</strong> {patientName}</div>
             <div className={styles.gridContainer}>
-              {!isEmpty(data) && !isEmpty(data.elements) && !isEmpty(careTeamStatuses) && careTeamStatuses
+              {!isEmpty(careTeamStatuses) && careTeamStatuses
                 .filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code)
                 .map(({ code, display }) => (
                   <div key={code}>
