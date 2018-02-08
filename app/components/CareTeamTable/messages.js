@@ -6,10 +6,6 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  columnHeaderId: {
-    id: 'ocpui.components.CareTeamTable.columnHeaderId',
-    defaultMessage: 'ID',
-  },
   columnHeaderName: {
     id: 'ocpui.components.CareTeamTable.columnHeaderName',
     defaultMessage: 'Name',
@@ -33,5 +29,9 @@ export default defineMessages({
   columnHeaderEndDate: {
     id: 'ocpui.components.CareTeamTable.columnHeaderEndDate',
     defaultMessage: 'End Date',
+  },
+  columnHeaderReason: {
+    id: 'ocpui.components.CareTeamTable.columnHeaderReason',
+    defaultMessage: 'Reason',
   },
 });

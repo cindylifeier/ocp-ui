@@ -41,18 +41,17 @@ function CareTeamTable({ elements }) {
     <div>
       <Table>
         <TableHeader>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderId} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate }) => (
+        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => (
           <TableRow key={id}>
-            <TableRowColumn>{id}</TableRowColumn>
             <TableRowColumn>{name}</TableRowColumn>
             <TableRowColumn>{statusDisplay}</TableRowColumn>
             <TableRowColumn>{categoryDisplay}</TableRowColumn>
@@ -66,6 +65,7 @@ function CareTeamTable({ elements }) {
             </TableRowColumn>
             <TableRowColumn>{startDate}</TableRowColumn>
             <TableRowColumn>{endDate}</TableRowColumn>
+            <TableRowColumn>{reasonDisplay}</TableRowColumn>
             <TableRowColumn>
               <IconMenu
                 iconButtonElement={
@@ -104,10 +104,8 @@ CareTeamTable.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    reasonCode: PropTypes.arrayOf(PropTypes.shape({
-      code: PropTypes.string,
-      display: PropTypes.string,
-    })),
+    reasonCode: PropTypes.string,
+    reasonDisplay: PropTypes.string,
     statusCode: PropTypes.string,
     statusDisplay: PropTypes.string,
     categoryCode: PropTypes.string,
@@ -115,6 +113,8 @@ CareTeamTable.propTypes = {
     subjectId: PropTypes.string.isRequired,
     subjectFirstName: PropTypes.string.isRequired,
     subjectLastName: PropTypes.string.isRequired,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
     participants: PropTypes.arrayOf(PropTypes.shape({
       roleCode: PropTypes.string,
       roleDisplay: PropTypes.string,
