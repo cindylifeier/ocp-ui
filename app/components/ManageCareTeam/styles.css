@@ -65,6 +65,11 @@
   grid-template-columns: minmax(160px, 1fr) 2fr;
 }
 
+.selectedParticipants {
+  grid-area: selectedParticipants;
+  display: grid;
+}
+
 .buttonGroup {
   grid-area: buttonGroup;
   margin: 1vh 0;

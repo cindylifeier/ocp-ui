@@ -6,8 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
-  GET_ACTIVE_HEALTHCARE_SERVICES,
-  GET_FILTERED_HEALTHCARE_SERVICES, GET_HEALTHCARE_SERVICES_ERROR,
+  GET_HEALTHCARE_SERVICES_BY_LOCATION,
+  GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
+  GET_HEALTHCARE_SERVICES_ERROR,
   GET_HEALTHCARE_SERVICES_SUCCESS,
   INITIALIZE_HEALTHCARE_SERVICES,
 } from './constants';
@@ -17,6 +18,7 @@ const initialState = fromJS({
   error: false,
   data: [],
   organization: null,
+  location: null,
   currentPage: 0,
   totalNumberOfPages: 0,
   includeInactive: false,
@@ -26,16 +28,26 @@ function healthcareServicesReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_HEALTHCARE_SERVICES:
       return initialState;
-    case GET_FILTERED_HEALTHCARE_SERVICES:
+    case GET_HEALTHCARE_SERVICES_BY_ORGANIZATION: {
+      const organization = { id: action.organizationId, name: action.organizationName };
       return state
         .set('currentPage', action.currentPage)
-        .set('includeInactive', action.includeInactive);
-    case GET_ACTIVE_HEALTHCARE_SERVICES: {
-      const organization = { id: action.organizationId, name: action.organizationName };
-      return state.setIn(['organization'], organization)
+        .set('includeInactive', action.includeInactive)
+        .set('organization', organization)
+        .set('location', null)
         .set('loading', true)
-        .set('error', false)
-        .set('includeInactive', false);
+        .set('error', false);
+    }
+    case GET_HEALTHCARE_SERVICES_BY_LOCATION: {
+      const organization = { id: action.organizationId, name: action.organizationName };
+      const location = { id: action.locationId, name: action.locationName };
+      return state
+        .set('currentPage', action.currentPage)
+        .set('includeInactive', action.includeInactive)
+        .set('organization', organization)
+        .set('location', location)
+        .set('loading', true)
+        .set('error', false);
     }
     case GET_HEALTHCARE_SERVICES_SUCCESS:
       return state.set('data', fromJS((action.healthcareServices && action.healthcareServices.elements) || []))
