@@ -1,13 +1,13 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-
 import React from 'react';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
+import Adapter from 'enzyme-adapter-react-15/build/index';
 
 import CareTeamTable from '../index';
 import messages from '../messages';
 import TableHeaderColumn from '../../TableHeaderColumn';
+
+configure({ adapter: new Adapter() });
 
 const mockElements = [{
   id: '111111',
