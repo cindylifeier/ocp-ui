@@ -62,32 +62,34 @@ function CareTeamTable({ elements }) {
                   </div>))
               }
             </TableRowColumn>
-            <div>
-              <IconMenu
-                iconButtonElement={
-                  (<IconButton
-                    className={styles.iconButton}
-                    iconStyle={iconStyles.icon}
-                    style={iconStyles.iconButton}
-                  >
-                    <NavigationMenu />
-                  </IconButton>)
-                }
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-              >
-                <MenuItem
-                  className={styles.menuItem}
-                  primaryText="Edit"
-                  containerElement={<Link
-                    to={{
-                      pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
-                      search: `?patientId=${subjectId}`,
-                    }}
-                  />}
-                />
-                <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
-              </IconMenu>
+            <div className={styles.iconButtonGridContainer}>
+              <div className={styles.iconButtonGridItem}>
+                <IconMenu
+                  iconButtonElement={
+                    (<IconButton
+                      className={styles.iconButton}
+                      iconStyle={iconStyles.icon}
+                      style={iconStyles.iconButton}
+                    >
+                      <NavigationMenu />
+                    </IconButton>)
+                  }
+                  anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
+                  <MenuItem
+                    className={styles.menuItem}
+                    primaryText="Edit"
+                    containerElement={<Link
+                      to={{
+                        pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
+                        search: `?patientId=${subjectId}`,
+                      }}
+                    />}
+                  />
+                  <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
+                </IconMenu>
+              </div>
             </div>
           </TableRow>
         ))}
