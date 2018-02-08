@@ -130,7 +130,7 @@ export class Patients extends React.PureComponent {
         <form>
           <div className={styles.searchSection}>
             <div className={styles.searchHeader}>
-              <ActionSearch color={'#336666'} large />
+              <ActionSearch color={'#336666'} />
               <FormattedMessage {...messages.searchHeader} />
             </div>
             <div className={styles.searchGridContainer}>
@@ -158,7 +158,6 @@ export class Patients extends React.PureComponent {
                 <FormattedMessage {...messages.filterLabel} />
               </div>
               <Checkbox
-                fullWidth
                 label={<FormattedMessage {...messages.inactive} />}
                 value={this.state.includeInactive}
                 onCheck={this.handleChangeShowInactive}
