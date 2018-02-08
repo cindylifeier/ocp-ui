@@ -1,4 +1,5 @@
-
+import isEmpty from 'lodash/isEmpty';
+import { EMPTY_STRING } from '../containers/App/constants';
 
 const ORGANIZATION_TYPE = 'organization';
 
@@ -6,5 +7,7 @@ export const getParticipantName = (participant) => {
   if (participant && participant.member && participant.member.type === ORGANIZATION_TYPE) {
     return participant.member.name;
   }
-  return participant.member.firstName.concat(' ').concat(participant.member.lastName);
+  const firstName = isEmpty(participant.member.firstName) ? EMPTY_STRING : participant.member.firstName;
+  const lastName = isEmpty(participant.member.lastName) ? EMPTY_STRING : participant.member.lastName;
+  return `${firstName} ${lastName}`;
 };

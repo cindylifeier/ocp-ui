@@ -32,12 +32,13 @@ function ManageCareTeamForm(props) {
     removeParticipant,
   } = props;
 
+  const selectedParticipantsProps = {
+    selectedParticipants,
+    removeParticipant,
+  };
+
   // To check whether has participant
   const hasParticipants = !isEmpty(selectedParticipants);
-
-  const handleRemoveParticipant = (participant) => {
-    removeParticipant(participant);
-  };
 
   return (
     <div>
@@ -134,10 +135,7 @@ function ManageCareTeamForm(props) {
           </div>
         </div>
 
-        <SelectedParticipants
-          selectedParticipants={selectedParticipants}
-          removeParticipant={handleRemoveParticipant}
-        />
+        <SelectedParticipants {...selectedParticipantsProps} />
 
         {dirty &&
         <div className={styles.participantError}>{hasParticipants ?
