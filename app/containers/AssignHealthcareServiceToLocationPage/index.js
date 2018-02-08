@@ -29,8 +29,8 @@ import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
-  getActiveHealthcareServicesLocationAssignment,
-  initializeAssignHealthCareServiceToLocationPage,
+  getHealthcareServicesLocationAssignment,
+  initializeAssignHealthCareServiceToLocationPage, updateHealthcareServicesLocationAssignment,
 } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
 
@@ -42,11 +42,16 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
       currentPage: 1,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.onCheckAssignedCheckbox = this.onCheckAssignedCheckbox.bind(this);
   }
 
   componentDidMount() {
     this.props.initializeAssignHealthCareServiceToLocationPage();
     this.props.getHealthcareServicesLocationAssignement(this.props.organization.id, this.props.organization.name, this.props.match.params.id, 1);
+  }
+
+  onCheckAssignedCheckbox(evt, checked, logicalId) {
+    this.props.updateHealthcareServicesLocationAssignement(this.props.organization.id, this.props.match.params.id, logicalId);
   }
 
   handlePageClick(currentPage) {
@@ -87,7 +92,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
           <div className={styles.textCenter}>
-            <HealthcareServiceTable elements={healthcareServices} showAssigned />
+            <HealthcareServiceTable elements={healthcareServices} showAssigned onCheck={this.onCheckAssignedCheckbox} />
             <UltimatePagination
               currentPage={this.props.currentPage}
               totalPages={this.props.totalPages}
@@ -110,6 +115,7 @@ AssignHealthCareServiceToLocationPage.propTypes = {
   match: PropTypes.object,
   getHealthcareServicesLocationAssignement: PropTypes.func,
   initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
+  updateHealthcareServicesLocationAssignement: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
   loading: PropTypes.bool,
@@ -131,7 +137,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeAssignHealthCareServiceToLocationPage: () => dispatch(initializeAssignHealthCareServiceToLocationPage()),
-    getHealthcareServicesLocationAssignement: (organizationId, organizationName, locationId, currentPage) => dispatch(getActiveHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage)),
+    getHealthcareServicesLocationAssignement: (organizationId, organizationName, locationId, currentPage) => dispatch(getHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage)),
+    updateHealthcareServicesLocationAssignement: (organizationId, locationId, healthcareServiceId) => dispatch(updateHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
   };
 }
 

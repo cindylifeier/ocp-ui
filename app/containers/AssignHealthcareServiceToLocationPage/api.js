@@ -5,7 +5,7 @@ import queryString from '../../utils/queryString';
 
 const apiBaseUrl = getApiBaseUrl();
 
-export default function queryHealthCareServicesWithLocationAssignmentData(organizationId, locationId, currentPage, status) {
+export function queryHealthCareServicesWithLocationAssignmentData(organizationId, locationId, currentPage, status) {
   const params = queryString({
     statusList: status,
     assignedToLocationId: locationId,
@@ -22,5 +22,10 @@ export function assignHealthCareServicesToLocation(orgId, locationIds, healthCar
     locationIdList: locationIds,
   });
   const url = `${apiBaseUrl}/health-care-services/${healthCareServiceId}/assign${params}`;
-  return request(url);
+  return request(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }

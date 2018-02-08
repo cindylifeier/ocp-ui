@@ -10,6 +10,7 @@ import {
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR, UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
 } from './constants';
 
 const initialState = fromJS({
@@ -44,6 +45,12 @@ function assignHealthCareServiceToLocationPageReducer(state = initialState, acti
         .set('totalNumberOfPages', action.healthcareServices.totalNumberOfPages)
         .set('currentPage', action.healthcareServices.currentPage);
     case GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
+    case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
+      return state.set('healthcareServiceId', action.heathcareServiceId);
+    case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);

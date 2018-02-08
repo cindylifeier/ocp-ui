@@ -17,7 +17,7 @@ import TableRowColumn from '../TableRowColumn';
 
 const checkboxStyle = { marginTop: '40px', height: '30px' };
 
-function HealthcareServiceTable({ elements, showAssigned = false }) {
+function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
   function getIdentifiers(identifier) {
     return identifier.map((entry) =>
       (
@@ -89,7 +89,8 @@ function HealthcareServiceTable({ elements, showAssigned = false }) {
           <TableRow key={element.logicalId}>
             <Checkbox
               style={checkboxStyle}
-              oncheck={element.assignedToCurrentLocation}
+              defaultChecked={element.assignedToCurrentLocation}
+              onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
             />
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
@@ -108,6 +109,7 @@ function HealthcareServiceTable({ elements, showAssigned = false }) {
 HealthcareServiceTable.propTypes = {
   elements: PropTypes.array,
   showAssigned: PropTypes.bool,
+  onCheck: PropTypes.func,
 };
 
 export default HealthcareServiceTable;
