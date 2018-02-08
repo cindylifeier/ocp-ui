@@ -12,7 +12,7 @@ export default defineMessages({
   },
   addParticipantDialogTitle: {
     id: 'ocpui.components.SearchParticipant.addParticipantDialogTitle',
-    defaultMessage: 'Add Practitioner',
+    defaultMessage: 'Add Participant',
   },
   PractitionerNameFloatingLabelText: {
     id: 'ocpui.components.SearchParticipant.PractitionerNameFloatingLabelText',
@@ -24,7 +24,7 @@ export default defineMessages({
   },
   PractitionerMemberFloatingLabel: {
     id: 'ocpui.components.SearchParticipant.PractitionerMemberFloatingLabel',
-    defaultMessage: 'Member',
+    defaultMessage: 'Member Type',
   },
   searchButtonTooltip: {
     id: 'ocpui.components.SearchParticipant.searchButtonTooltip',
