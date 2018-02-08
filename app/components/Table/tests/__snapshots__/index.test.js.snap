@@ -2,31 +2,33 @@
 
 exports[`<Table /> should match snapshot 1`] = `
 ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
   "length": 1,
-  "node": <div>
-    <div
-      className={undefined}
-    >
-      <TableHeader>
-        <TableHeaderColumn>
-          Col
-        </TableHeaderColumn>
-      </TableHeader>
-      <TableRow>
-        <TableRowColumn>
-          Row
-        </TableRowColumn>
-      </TableRow>
-    </div>
-  </div>,
-  "nodes": Array [
-    <div>
-      <div
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Table>
+    <TableHeader>
+      <TableHeaderColumn>
+        Col
+      </TableHeaderColumn>
+    </TableHeader>
+    <TableRow>
+      <TableRowColumn>
+        Row
+      </TableRowColumn>
+    </TableRow>
+  </Table>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
         className={undefined}
       >
         <TableHeader>
@@ -39,33 +41,107 @@ ShallowWrapper {
             Row
           </TableRowColumn>
         </TableRow>
-      </div>
-    </div>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 2,
-      "_context": Object {},
-      "_currentElement": <Table>
-        <TableHeader>
-          <TableHeaderColumn>
-            Col
-          </TableHeaderColumn>
-        </TableHeader>
-        <TableRow>
-          <TableRowColumn>
-            Row
-          </TableRowColumn>
-        </TableRow>
-      </Table>,
-      "_debugID": 1,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": StatelessComponent {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <TableHeader>
+            <TableHeaderColumn>
+              Col
+            </TableHeaderColumn>
+          </TableHeader>,
+          <TableRow>
+            <TableRowColumn>
+              Row
+            </TableRowColumn>
+          </TableRow>,
+        ],
+        "className": undefined,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <TableHeaderColumn>
+              Col
+            </TableHeaderColumn>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": "Col",
+            },
+            "ref": null,
+            "rendered": "Col",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <TableRowColumn>
+              Row
+            </TableRowColumn>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": "Row",
+            },
+            "ref": null,
+            "rendered": "Row",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className={undefined}
+        >
+          <TableHeader>
+            <TableHeaderColumn>
+              Col
+            </TableHeaderColumn>
+          </TableHeader>
+          <TableRow>
+            <TableRowColumn>
+              Row
+            </TableRowColumn>
+          </TableRow>
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
         "props": Object {
           "children": Array [
             <TableHeader>
@@ -79,82 +155,68 @@ ShallowWrapper {
               </TableRowColumn>
             </TableRow>,
           ],
+          "className": undefined,
         },
-        "refs": Object {},
-        "state": null,
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 1,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <div>
-          <div
-            className={undefined}
-          >
-            <TableHeader>
-              <TableHeaderColumn>
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <TableHeaderColumn>
                 Col
-              </TableHeaderColumn>
-            </TableHeader>
-            <TableRow>
-              <TableRowColumn>
+              </TableHeaderColumn>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": "Col",
+              },
+              "ref": null,
+              "rendered": "Col",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <TableRowColumn>
                 Row
-              </TableRowColumn>
-            </TableRow>
-          </div>
-        </div>,
-        "_debugID": 2,
-        "_renderedOutput": <div>
-          <div
-            className={undefined}
-          >
-            <TableHeader>
-              <TableHeaderColumn>
-                Col
-              </TableHeaderColumn>
-            </TableHeader>
-            <TableRow>
-              <TableRowColumn>
-                Row
-              </TableRowColumn>
-            </TableRow>
-          </div>
-        </div>,
+              </TableRowColumn>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": "Row",
+              },
+              "ref": null,
+              "rendered": "Row",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+        ],
+        "type": "div",
       },
-      "_renderedNodeType": 0,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
+      "type": "div",
     },
-    "getRenderOutput": [Function],
-    "render": [Function],
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactFifteenAdapter {
+      "options": Object {
+        "supportPrevContextArgumentOfComponentDidUpdate": true,
+      },
+    },
   },
-  "root": [Circular],
-  "unrendered": <Table>
-    <TableHeader>
-      <TableHeaderColumn>
-        Col
-      </TableHeaderColumn>
-    </TableHeader>
-    <TableRow>
-      <TableRowColumn>
-        Row
-      </TableRowColumn>
-    </TableRow>
-  </Table>,
 }
 `;
