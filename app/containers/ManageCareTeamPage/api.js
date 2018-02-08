@@ -39,6 +39,25 @@ export function getCareTeam(careTeamId) {
   return request(requestURL);
 }
 
+export function mapToEditParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        member: {
+          id: participant.memberId,
+          type: participant.memberType,
+          firstName: participant.memberFirstName,
+          lastName: participant.memberLastName,
+          name: participant.memberName,
+        },
+        role: {
+          roleCode: participant.code,
+        },
+      }));
+  }
+  return [];
+}
+
 function createCareTeam(careTeamFormData) {
   const requestURL = `${apiBaseURL}/care-teams`;
   return request(requestURL, {

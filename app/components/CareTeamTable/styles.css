@@ -10,3 +10,15 @@
 .iconButton:hover svg {
   fill: #26A69A !important;
 }
+
+.iconButtonGridContainer {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+}
+
+.iconButtonGridItem {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
