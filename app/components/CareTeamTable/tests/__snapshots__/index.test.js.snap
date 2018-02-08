@@ -46,6 +46,20 @@ ShallowWrapper {
             values={Object {}}
           />
         </TableHeaderColumn>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="Start Date"
+            id="ocpui.components.CareTeamTable.columnHeaderStartDate"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
+        <TableHeaderColumn>
+          <FormattedMessage
+            defaultMessage="End Date"
+            id="ocpui.components.CareTeamTable.columnHeaderEndDate"
+            values={Object {}}
+          />
+        </TableHeaderColumn>
         <TableHeaderColumn />
       </TableHeader>
       <TableRow>
@@ -71,306 +85,13 @@ ShallowWrapper {
             </li>
           </ul>
         </TableRowColumn>
-        <IconMenu
-          anchorOrigin={
-            Object {
-              "horizontal": "right",
-              "vertical": "top",
-            }
-          }
-          animated={true}
-          iconButtonElement={
-            <IconButton
-              className={undefined}
-              disableTouchRipple={false}
-              disabled={false}
-              iconStyle={
-                Object {
-                  "height": 26,
-                  "position": "absolute",
-                  "right": "0",
-                  "top": "0",
-                  "width": "100%",
-                }
-              }
-              style={
-                Object {
-                  "position": "relative",
-                }
-              }
-              tooltipPosition="bottom-center"
-              touch={false}
-            >
-              <NavigationMenu />
-            </IconButton>
-          }
-          multiple={false}
-          onClick={[Function]}
-          onItemTouchTap={[Function]}
-          onKeyboardFocus={[Function]}
-          onMouseDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onRequestChange={[Function]}
-          open={null}
-          targetOrigin={
-            Object {
-              "horizontal": "right",
-              "vertical": "top",
-            }
-          }
-          touchTapCloseDelay={200}
-          useLayerForClickAway={false}
-        >
-          <MenuItem
-            anchorOrigin={
-              Object {
-                "horizontal": "right",
-                "vertical": "top",
-              }
-            }
-            checked={false}
-            className={undefined}
-            containerElement={
-              <Link
-                replace={false}
-                to={
-                  Object {
-                    "pathname": "/ocp-ui/manage-care-team/111111",
-                    "search": "?patientId=11111",
-                  }
-                }
-              />
-            }
-            desktop={false}
-            disabled={false}
-            focusState="none"
-            insetChildren={false}
-            primaryText="Edit"
-            targetOrigin={
-              Object {
-                "horizontal": "left",
-                "vertical": "top",
-              }
-            }
-          />
-          <MenuItem
-            anchorOrigin={
-              Object {
-                "horizontal": "right",
-                "vertical": "top",
-              }
-            }
-            checked={false}
-            className={undefined}
-            desktop={false}
-            disabled={true}
-            focusState="none"
-            insetChildren={false}
-            primaryText="Remove"
-            targetOrigin={
-              Object {
-                "horizontal": "left",
-                "vertical": "top",
-              }
-            }
-          />
-        </IconMenu>
-      </TableRow>
-      <TableRow>
         <TableRowColumn>
-          222222
+          01/01/2017
         </TableRowColumn>
         <TableRowColumn>
-          My Care Team Two
+          02/01/2017
         </TableRowColumn>
         <TableRowColumn>
-          Suspended
-        </TableRowColumn>
-        <TableRowColumn>
-          Condition
-        </TableRowColumn>
-        <TableRowColumn>
-          <ul>
-            <li>
-              Granny Smith / Grand-mother
-            </li>
-          </ul>
-        </TableRowColumn>
-        <IconMenu
-          anchorOrigin={
-            Object {
-              "horizontal": "right",
-              "vertical": "top",
-            }
-          }
-          animated={true}
-          iconButtonElement={
-            <IconButton
-              className={undefined}
-              disableTouchRipple={false}
-              disabled={false}
-              iconStyle={
-                Object {
-                  "height": 26,
-                  "position": "absolute",
-                  "right": "0",
-                  "top": "0",
-                  "width": "100%",
-                }
-              }
-              style={
-                Object {
-                  "position": "relative",
-                }
-              }
-              tooltipPosition="bottom-center"
-              touch={false}
-            >
-              <NavigationMenu />
-            </IconButton>
-          }
-          multiple={false}
-          onClick={[Function]}
-          onItemTouchTap={[Function]}
-          onKeyboardFocus={[Function]}
-          onMouseDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onRequestChange={[Function]}
-          open={null}
-          targetOrigin={
-            Object {
-              "horizontal": "right",
-              "vertical": "top",
-            }
-          }
-          touchTapCloseDelay={200}
-          useLayerForClickAway={false}
-        >
-          <MenuItem
-            anchorOrigin={
-              Object {
-                "horizontal": "right",
-                "vertical": "top",
-              }
-            }
-            checked={false}
-            className={undefined}
-            containerElement={
-              <Link
-                replace={false}
-                to={
-                  Object {
-                    "pathname": "/ocp-ui/manage-care-team/222222",
-                    "search": "?patientId=11111",
-                  }
-                }
-              />
-            }
-            desktop={false}
-            disabled={false}
-            focusState="none"
-            insetChildren={false}
-            primaryText="Edit"
-            targetOrigin={
-              Object {
-                "horizontal": "left",
-                "vertical": "top",
-              }
-            }
-          />
-          <MenuItem
-            anchorOrigin={
-              Object {
-                "horizontal": "right",
-                "vertical": "top",
-              }
-            }
-            checked={false}
-            className={undefined}
-            desktop={false}
-            disabled={true}
-            focusState="none"
-            insetChildren={false}
-            primaryText="Remove"
-            targetOrigin={
-              Object {
-                "horizontal": "left",
-                "vertical": "top",
-              }
-            }
-          />
-        </IconMenu>
-      </TableRow>
-    </Table>
-  </div>,
-  "nodes": Array [
-    <div>
-      <Table>
-        <TableHeader>
-          <TableHeaderColumn>
-            <FormattedMessage
-              defaultMessage="ID"
-              id="ocpui.components.CareTeamTable.columnHeaderId"
-              values={Object {}}
-            />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage
-              defaultMessage="Name"
-              id="ocpui.components.CareTeamTable.columnHeaderName"
-              values={Object {}}
-            />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage
-              defaultMessage="Status"
-              id="ocpui.components.CareTeamTable.columnHeaderStatus"
-              values={Object {}}
-            />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage
-              defaultMessage="Categories"
-              id="ocpui.components.CareTeamTable.columnHeaderCategories"
-              values={Object {}}
-            />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage
-              defaultMessage="Participant / Role"
-              id="ocpui.components.CareTeamTable.columnHeaderCategories"
-              values={Object {}}
-            />
-          </TableHeaderColumn>
-          <TableHeaderColumn />
-        </TableHeader>
-        <TableRow>
-          <TableRowColumn>
-            111111
-          </TableRowColumn>
-          <TableRowColumn>
-            My Care Team One
-          </TableRowColumn>
-          <TableRowColumn>
-            Active
-          </TableRowColumn>
-          <TableRowColumn>
-            Encounter
-          </TableRowColumn>
-          <TableRowColumn>
-            <ul>
-              <li>
-                Gregory House / Medical doctor
-              </li>
-              <li>
-                Great Cross Hospital / Prison practice
-              </li>
-            </ul>
-          </TableRowColumn>
           <IconMenu
             anchorOrigin={
               Object {
@@ -477,27 +198,35 @@ ShallowWrapper {
               }
             />
           </IconMenu>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>
-            222222
-          </TableRowColumn>
-          <TableRowColumn>
-            My Care Team Two
-          </TableRowColumn>
-          <TableRowColumn>
-            Suspended
-          </TableRowColumn>
-          <TableRowColumn>
-            Condition
-          </TableRowColumn>
-          <TableRowColumn>
-            <ul>
-              <li>
-                Granny Smith / Grand-mother
-              </li>
-            </ul>
-          </TableRowColumn>
+        </TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>
+          222222
+        </TableRowColumn>
+        <TableRowColumn>
+          My Care Team Two
+        </TableRowColumn>
+        <TableRowColumn>
+          Suspended
+        </TableRowColumn>
+        <TableRowColumn>
+          Condition
+        </TableRowColumn>
+        <TableRowColumn>
+          <ul>
+            <li>
+              Granny Smith / Grand-mother
+            </li>
+          </ul>
+        </TableRowColumn>
+        <TableRowColumn>
+          04/01/2017
+        </TableRowColumn>
+        <TableRowColumn>
+          08/01/2017
+        </TableRowColumn>
+        <TableRowColumn>
           <IconMenu
             anchorOrigin={
               Object {
@@ -604,6 +333,337 @@ ShallowWrapper {
               }
             />
           </IconMenu>
+        </TableRowColumn>
+      </TableRow>
+    </Table>
+  </div>,
+  "nodes": Array [
+    <div>
+      <Table>
+        <TableHeader>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="ID"
+              id="ocpui.components.CareTeamTable.columnHeaderId"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Name"
+              id="ocpui.components.CareTeamTable.columnHeaderName"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Status"
+              id="ocpui.components.CareTeamTable.columnHeaderStatus"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Categories"
+              id="ocpui.components.CareTeamTable.columnHeaderCategories"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Participant / Role"
+              id="ocpui.components.CareTeamTable.columnHeaderCategories"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Start Date"
+              id="ocpui.components.CareTeamTable.columnHeaderStartDate"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="End Date"
+              id="ocpui.components.CareTeamTable.columnHeaderEndDate"
+              values={Object {}}
+            />
+          </TableHeaderColumn>
+          <TableHeaderColumn />
+        </TableHeader>
+        <TableRow>
+          <TableRowColumn>
+            111111
+          </TableRowColumn>
+          <TableRowColumn>
+            My Care Team One
+          </TableRowColumn>
+          <TableRowColumn>
+            Active
+          </TableRowColumn>
+          <TableRowColumn>
+            Encounter
+          </TableRowColumn>
+          <TableRowColumn>
+            <ul>
+              <li>
+                Gregory House / Medical doctor
+              </li>
+              <li>
+                Great Cross Hospital / Prison practice
+              </li>
+            </ul>
+          </TableRowColumn>
+          <TableRowColumn>
+            01/01/2017
+          </TableRowColumn>
+          <TableRowColumn>
+            02/01/2017
+          </TableRowColumn>
+          <TableRowColumn>
+            <IconMenu
+              anchorOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              animated={true}
+              iconButtonElement={
+                <IconButton
+                  className={undefined}
+                  disableTouchRipple={false}
+                  disabled={false}
+                  iconStyle={
+                    Object {
+                      "height": 26,
+                      "position": "absolute",
+                      "right": "0",
+                      "top": "0",
+                      "width": "100%",
+                    }
+                  }
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                  tooltipPosition="bottom-center"
+                  touch={false}
+                >
+                  <NavigationMenu />
+                </IconButton>
+              }
+              multiple={false}
+              onClick={[Function]}
+              onItemTouchTap={[Function]}
+              onKeyboardFocus={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onRequestChange={[Function]}
+              open={null}
+              targetOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              touchTapCloseDelay={200}
+              useLayerForClickAway={false}
+            >
+              <MenuItem
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                checked={false}
+                className={undefined}
+                containerElement={
+                  <Link
+                    replace={false}
+                    to={
+                      Object {
+                        "pathname": "/ocp-ui/manage-care-team/111111",
+                        "search": "?patientId=11111",
+                      }
+                    }
+                  />
+                }
+                desktop={false}
+                disabled={false}
+                focusState="none"
+                insetChildren={false}
+                primaryText="Edit"
+                targetOrigin={
+                  Object {
+                    "horizontal": "left",
+                    "vertical": "top",
+                  }
+                }
+              />
+              <MenuItem
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                checked={false}
+                className={undefined}
+                desktop={false}
+                disabled={true}
+                focusState="none"
+                insetChildren={false}
+                primaryText="Remove"
+                targetOrigin={
+                  Object {
+                    "horizontal": "left",
+                    "vertical": "top",
+                  }
+                }
+              />
+            </IconMenu>
+          </TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>
+            222222
+          </TableRowColumn>
+          <TableRowColumn>
+            My Care Team Two
+          </TableRowColumn>
+          <TableRowColumn>
+            Suspended
+          </TableRowColumn>
+          <TableRowColumn>
+            Condition
+          </TableRowColumn>
+          <TableRowColumn>
+            <ul>
+              <li>
+                Granny Smith / Grand-mother
+              </li>
+            </ul>
+          </TableRowColumn>
+          <TableRowColumn>
+            04/01/2017
+          </TableRowColumn>
+          <TableRowColumn>
+            08/01/2017
+          </TableRowColumn>
+          <TableRowColumn>
+            <IconMenu
+              anchorOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              animated={true}
+              iconButtonElement={
+                <IconButton
+                  className={undefined}
+                  disableTouchRipple={false}
+                  disabled={false}
+                  iconStyle={
+                    Object {
+                      "height": 26,
+                      "position": "absolute",
+                      "right": "0",
+                      "top": "0",
+                      "width": "100%",
+                    }
+                  }
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                  tooltipPosition="bottom-center"
+                  touch={false}
+                >
+                  <NavigationMenu />
+                </IconButton>
+              }
+              multiple={false}
+              onClick={[Function]}
+              onItemTouchTap={[Function]}
+              onKeyboardFocus={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onRequestChange={[Function]}
+              open={null}
+              targetOrigin={
+                Object {
+                  "horizontal": "right",
+                  "vertical": "top",
+                }
+              }
+              touchTapCloseDelay={200}
+              useLayerForClickAway={false}
+            >
+              <MenuItem
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                checked={false}
+                className={undefined}
+                containerElement={
+                  <Link
+                    replace={false}
+                    to={
+                      Object {
+                        "pathname": "/ocp-ui/manage-care-team/222222",
+                        "search": "?patientId=11111",
+                      }
+                    }
+                  />
+                }
+                desktop={false}
+                disabled={false}
+                focusState="none"
+                insetChildren={false}
+                primaryText="Edit"
+                targetOrigin={
+                  Object {
+                    "horizontal": "left",
+                    "vertical": "top",
+                  }
+                }
+              />
+              <MenuItem
+                anchorOrigin={
+                  Object {
+                    "horizontal": "right",
+                    "vertical": "top",
+                  }
+                }
+                checked={false}
+                className={undefined}
+                desktop={false}
+                disabled={true}
+                focusState="none"
+                insetChildren={false}
+                primaryText="Remove"
+                targetOrigin={
+                  Object {
+                    "horizontal": "left",
+                    "vertical": "top",
+                  }
+                }
+              />
+            </IconMenu>
+          </TableRowColumn>
         </TableRow>
       </Table>
     </div>,
@@ -834,6 +894,20 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Start Date"
+                  id="ocpui.components.CareTeamTable.columnHeaderStartDate"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="End Date"
+                  id="ocpui.components.CareTeamTable.columnHeaderEndDate"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
               <TableHeaderColumn />
             </TableHeader>
             <TableRow>
@@ -859,112 +933,120 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
-              <IconMenu
-                anchorOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                animated={true}
-                iconButtonElement={
-                  <IconButton
-                    className={undefined}
-                    disableTouchRipple={false}
-                    disabled={false}
-                    iconStyle={
-                      Object {
-                        "height": 26,
-                        "position": "absolute",
-                        "right": "0",
-                        "top": "0",
-                        "width": "100%",
-                      }
-                    }
-                    style={
-                      Object {
-                        "position": "relative",
-                      }
-                    }
-                    tooltipPosition="bottom-center"
-                    touch={false}
-                  >
-                    <NavigationMenu />
-                  </IconButton>
-                }
-                multiple={false}
-                onClick={[Function]}
-                onItemTouchTap={[Function]}
-                onKeyboardFocus={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onRequestChange={[Function]}
-                open={null}
-                targetOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                touchTapCloseDelay={200}
-                useLayerForClickAway={false}
-              >
-                <MenuItem
+              <TableRowColumn>
+                01/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                02/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                <IconMenu
                   anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to={
+                  animated={true}
+                  iconButtonElement={
+                    <IconButton
+                      className={undefined}
+                      disableTouchRipple={false}
+                      disabled={false}
+                      iconStyle={
                         Object {
-                          "pathname": "/ocp-ui/manage-care-team/111111",
-                          "search": "?patientId=11111",
+                          "height": 26,
+                          "position": "absolute",
+                          "right": "0",
+                          "top": "0",
+                          "width": "100%",
                         }
                       }
-                    />
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
+                      tooltipPosition="bottom-center"
+                      touch={false}
+                    >
+                      <NavigationMenu />
+                    </IconButton>
                   }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Edit"
+                  multiple={false}
+                  onClick={[Function]}
+                  onItemTouchTap={[Function]}
+                  onKeyboardFocus={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onRequestChange={[Function]}
+                  open={null}
                   targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-                <MenuItem
-                  anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  desktop={false}
-                  disabled={true}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Remove"
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
+                  touchTapCloseDelay={200}
+                  useLayerForClickAway={false}
+                >
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
                     }
-                  }
-                />
-              </IconMenu>
+                    checked={false}
+                    className={undefined}
+                    containerElement={
+                      <Link
+                        replace={false}
+                        to={
+                          Object {
+                            "pathname": "/ocp-ui/manage-care-team/111111",
+                            "search": "?patientId=11111",
+                          }
+                        }
+                      />
+                    }
+                    desktop={false}
+                    disabled={false}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Edit"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
+                    }
+                    checked={false}
+                    className={undefined}
+                    desktop={false}
+                    disabled={true}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Remove"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                </IconMenu>
+              </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>
@@ -986,112 +1068,120 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
-              <IconMenu
-                anchorOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                animated={true}
-                iconButtonElement={
-                  <IconButton
-                    className={undefined}
-                    disableTouchRipple={false}
-                    disabled={false}
-                    iconStyle={
-                      Object {
-                        "height": 26,
-                        "position": "absolute",
-                        "right": "0",
-                        "top": "0",
-                        "width": "100%",
-                      }
-                    }
-                    style={
-                      Object {
-                        "position": "relative",
-                      }
-                    }
-                    tooltipPosition="bottom-center"
-                    touch={false}
-                  >
-                    <NavigationMenu />
-                  </IconButton>
-                }
-                multiple={false}
-                onClick={[Function]}
-                onItemTouchTap={[Function]}
-                onKeyboardFocus={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onRequestChange={[Function]}
-                open={null}
-                targetOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                touchTapCloseDelay={200}
-                useLayerForClickAway={false}
-              >
-                <MenuItem
+              <TableRowColumn>
+                04/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                08/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                <IconMenu
                   anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to={
+                  animated={true}
+                  iconButtonElement={
+                    <IconButton
+                      className={undefined}
+                      disableTouchRipple={false}
+                      disabled={false}
+                      iconStyle={
                         Object {
-                          "pathname": "/ocp-ui/manage-care-team/222222",
-                          "search": "?patientId=11111",
+                          "height": 26,
+                          "position": "absolute",
+                          "right": "0",
+                          "top": "0",
+                          "width": "100%",
                         }
                       }
-                    />
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
+                      tooltipPosition="bottom-center"
+                      touch={false}
+                    >
+                      <NavigationMenu />
+                    </IconButton>
                   }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Edit"
+                  multiple={false}
+                  onClick={[Function]}
+                  onItemTouchTap={[Function]}
+                  onKeyboardFocus={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onRequestChange={[Function]}
+                  open={null}
                   targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-                <MenuItem
-                  anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  desktop={false}
-                  disabled={true}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Remove"
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
+                  touchTapCloseDelay={200}
+                  useLayerForClickAway={false}
+                >
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
                     }
-                  }
-                />
-              </IconMenu>
+                    checked={false}
+                    className={undefined}
+                    containerElement={
+                      <Link
+                        replace={false}
+                        to={
+                          Object {
+                            "pathname": "/ocp-ui/manage-care-team/222222",
+                            "search": "?patientId=11111",
+                          }
+                        }
+                      />
+                    }
+                    desktop={false}
+                    disabled={false}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Edit"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
+                    }
+                    checked={false}
+                    className={undefined}
+                    desktop={false}
+                    disabled={true}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Remove"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                </IconMenu>
+              </TableRowColumn>
             </TableRow>
           </Table>
         </div>,
@@ -1134,6 +1224,20 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Start Date"
+                  id="ocpui.components.CareTeamTable.columnHeaderStartDate"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="End Date"
+                  id="ocpui.components.CareTeamTable.columnHeaderEndDate"
+                  values={Object {}}
+                />
+              </TableHeaderColumn>
               <TableHeaderColumn />
             </TableHeader>
             <TableRow>
@@ -1159,112 +1263,120 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
-              <IconMenu
-                anchorOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                animated={true}
-                iconButtonElement={
-                  <IconButton
-                    className={undefined}
-                    disableTouchRipple={false}
-                    disabled={false}
-                    iconStyle={
-                      Object {
-                        "height": 26,
-                        "position": "absolute",
-                        "right": "0",
-                        "top": "0",
-                        "width": "100%",
-                      }
-                    }
-                    style={
-                      Object {
-                        "position": "relative",
-                      }
-                    }
-                    tooltipPosition="bottom-center"
-                    touch={false}
-                  >
-                    <NavigationMenu />
-                  </IconButton>
-                }
-                multiple={false}
-                onClick={[Function]}
-                onItemTouchTap={[Function]}
-                onKeyboardFocus={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onRequestChange={[Function]}
-                open={null}
-                targetOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                touchTapCloseDelay={200}
-                useLayerForClickAway={false}
-              >
-                <MenuItem
+              <TableRowColumn>
+                01/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                02/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                <IconMenu
                   anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to={
+                  animated={true}
+                  iconButtonElement={
+                    <IconButton
+                      className={undefined}
+                      disableTouchRipple={false}
+                      disabled={false}
+                      iconStyle={
                         Object {
-                          "pathname": "/ocp-ui/manage-care-team/111111",
-                          "search": "?patientId=11111",
+                          "height": 26,
+                          "position": "absolute",
+                          "right": "0",
+                          "top": "0",
+                          "width": "100%",
                         }
                       }
-                    />
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
+                      tooltipPosition="bottom-center"
+                      touch={false}
+                    >
+                      <NavigationMenu />
+                    </IconButton>
                   }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Edit"
+                  multiple={false}
+                  onClick={[Function]}
+                  onItemTouchTap={[Function]}
+                  onKeyboardFocus={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onRequestChange={[Function]}
+                  open={null}
                   targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-                <MenuItem
-                  anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  desktop={false}
-                  disabled={true}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Remove"
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
+                  touchTapCloseDelay={200}
+                  useLayerForClickAway={false}
+                >
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
                     }
-                  }
-                />
-              </IconMenu>
+                    checked={false}
+                    className={undefined}
+                    containerElement={
+                      <Link
+                        replace={false}
+                        to={
+                          Object {
+                            "pathname": "/ocp-ui/manage-care-team/111111",
+                            "search": "?patientId=11111",
+                          }
+                        }
+                      />
+                    }
+                    desktop={false}
+                    disabled={false}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Edit"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
+                    }
+                    checked={false}
+                    className={undefined}
+                    desktop={false}
+                    disabled={true}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Remove"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                </IconMenu>
+              </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>
@@ -1286,112 +1398,120 @@ ShallowWrapper {
                   </li>
                 </ul>
               </TableRowColumn>
-              <IconMenu
-                anchorOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                animated={true}
-                iconButtonElement={
-                  <IconButton
-                    className={undefined}
-                    disableTouchRipple={false}
-                    disabled={false}
-                    iconStyle={
-                      Object {
-                        "height": 26,
-                        "position": "absolute",
-                        "right": "0",
-                        "top": "0",
-                        "width": "100%",
-                      }
-                    }
-                    style={
-                      Object {
-                        "position": "relative",
-                      }
-                    }
-                    tooltipPosition="bottom-center"
-                    touch={false}
-                  >
-                    <NavigationMenu />
-                  </IconButton>
-                }
-                multiple={false}
-                onClick={[Function]}
-                onItemTouchTap={[Function]}
-                onKeyboardFocus={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onRequestChange={[Function]}
-                open={null}
-                targetOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                touchTapCloseDelay={200}
-                useLayerForClickAway={false}
-              >
-                <MenuItem
+              <TableRowColumn>
+                04/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                08/01/2017
+              </TableRowColumn>
+              <TableRowColumn>
+                <IconMenu
                   anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to={
+                  animated={true}
+                  iconButtonElement={
+                    <IconButton
+                      className={undefined}
+                      disableTouchRipple={false}
+                      disabled={false}
+                      iconStyle={
                         Object {
-                          "pathname": "/ocp-ui/manage-care-team/222222",
-                          "search": "?patientId=11111",
+                          "height": 26,
+                          "position": "absolute",
+                          "right": "0",
+                          "top": "0",
+                          "width": "100%",
                         }
                       }
-                    />
+                      style={
+                        Object {
+                          "position": "relative",
+                        }
+                      }
+                      tooltipPosition="bottom-center"
+                      touch={false}
+                    >
+                      <NavigationMenu />
+                    </IconButton>
                   }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Edit"
+                  multiple={false}
+                  onClick={[Function]}
+                  onItemTouchTap={[Function]}
+                  onKeyboardFocus={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onRequestChange={[Function]}
+                  open={null}
                   targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-                <MenuItem
-                  anchorOrigin={
                     Object {
                       "horizontal": "right",
                       "vertical": "top",
                     }
                   }
-                  checked={false}
-                  className={undefined}
-                  desktop={false}
-                  disabled={true}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText="Remove"
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
+                  touchTapCloseDelay={200}
+                  useLayerForClickAway={false}
+                >
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
                     }
-                  }
-                />
-              </IconMenu>
+                    checked={false}
+                    className={undefined}
+                    containerElement={
+                      <Link
+                        replace={false}
+                        to={
+                          Object {
+                            "pathname": "/ocp-ui/manage-care-team/222222",
+                            "search": "?patientId=11111",
+                          }
+                        }
+                      />
+                    }
+                    desktop={false}
+                    disabled={false}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Edit"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                  <MenuItem
+                    anchorOrigin={
+                      Object {
+                        "horizontal": "right",
+                        "vertical": "top",
+                      }
+                    }
+                    checked={false}
+                    className={undefined}
+                    desktop={false}
+                    disabled={true}
+                    focusState="none"
+                    insetChildren={false}
+                    primaryText="Remove"
+                    targetOrigin={
+                      Object {
+                        "horizontal": "left",
+                        "vertical": "top",
+                      }
+                    }
+                  />
+                </IconMenu>
+              </TableRowColumn>
             </TableRow>
           </Table>
         </div>,
