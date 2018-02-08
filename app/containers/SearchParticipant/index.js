@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Formik } from 'formik';
+import find from 'lodash/find';
 import yup from 'yup';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
@@ -18,8 +19,9 @@ import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DatePicker, IconButton, RaisedButton, teal500, white } from 'material-ui';
+import { IconButton, RaisedButton } from 'material-ui';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import { teal500, white } from 'material-ui/styles/colors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -37,7 +39,8 @@ import TableRow from '../../components/TableRow';
 import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
 import { DATE_PICKER_MODE, getParticipantName } from '../../utils/CareTeamUtils';
-
+import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
+import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -81,7 +84,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
       </TableHeader>
     </Table>);
   }
-
   createSearchResultRows() {
     const today = new Date();
     const participantRoles = this.props.participantRoles;
@@ -90,7 +92,18 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         key={uniqueId()}
         initialValues={{}}
         onSubmit={(values, actions) => {
-          this.handleSearch(values);
+          const { roleCode, startDate, endDate } = values;
+          const role = find(this.props.participantRoles, { code: roleCode });
+          const smallParticipant = {
+            roleCode,
+            startDate: startDate.toLocaleDateString(),
+            endDate: endDate.toLocaleDateString(),
+            roleDisplay: role.display,
+            memberId: participant.member.id,
+            memberType: participant.member.type,
+            name: getParticipantName(participant),
+          };
+          this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
         }}
         validationSchema={yup.object().shape({})}
@@ -102,18 +115,18 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                 <TableRow key={uniqueId()}>
                   <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
                   <TableRowColumn>
-                    <SelectField
-                      name="role"
-                      fullWidth
+                    <SelectFieldWithoutOnClick
+                      name="roleCode"
                       floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
                     >
-                      {participantRoles && participantRoles.map((participantRole) => (
-                        <MenuItem value={participantRole.code} primaryText={participantRole.display} key={uniqueId()} />
-                      ))}
-                    </SelectField>
+                      {participantRoles && participantRoles.map((participantRole) =>
+                        <MenuItem key={participantRole.code} value={participantRole.code} primaryText={participantRole.display} />,
+                      )
+                      }
+                    </SelectFieldWithoutOnClick>
                   </TableRowColumn>
                   <TableRowColumn>
-                    <DatePicker
+                    <DatePickerWithoutBlur
                       fullWidth
                       name="startDate"
                       minDate={today}
@@ -123,7 +136,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                     />
                   </TableRowColumn>
                   <TableRowColumn>
-                    <DatePicker
+                    <DatePickerWithoutBlur
                       fullWidth
                       name="endDate"
                       minDate={today}
@@ -137,9 +150,9 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       backgroundColor={teal500}
                       labelColor={white}
                       label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-                      type="button"
+                      type="submit"
                       value={participant}
-                      onClick={() => this.addParticipant(participant)}
+                      // onClick={() => this.addParticipant(participant)}
                       primary
                       disabled={!dirty || isSubmitting || !isValid}
                     />
