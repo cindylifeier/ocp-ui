@@ -47,15 +47,15 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
   componentDidMount() {
     this.props.initializeAssignHealthCareServiceToLocationPage();
-    this.props.getHealthcareServicesLocationAssignement(this.props.organization.id, this.props.organization.name, this.props.match.params.id, 1);
+    this.props.getHealthcareServicesLocationAssignment(this.props.organization.id, this.props.organization.name, this.props.match.params.id, 1);
   }
 
   onCheckAssignedCheckbox(evt, checked, logicalId) {
-    this.props.updateHealthcareServicesLocationAssignement(this.props.organization.id, this.props.match.params.id, logicalId);
+    this.props.updateHealthcareServicesLocationAssignment(this.props.organization.id, this.props.match.params.id, logicalId);
   }
 
   handlePageClick(currentPage) {
-    this.props.getHealthcareServicesLocationAssignement(this.props.organization.id, this.props.organization.name, this.props.match.params.id, currentPage);
+    this.props.getHealthcareServicesLocationAssignment(this.props.organization.id, this.props.organization.name, this.props.match.params.id, currentPage);
   }
 
   render() {
@@ -113,9 +113,9 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
 AssignHealthCareServiceToLocationPage.propTypes = {
   match: PropTypes.object,
-  getHealthcareServicesLocationAssignement: PropTypes.func,
+  getHealthcareServicesLocationAssignment: PropTypes.func,
   initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
-  updateHealthcareServicesLocationAssignement: PropTypes.func,
+  updateHealthcareServicesLocationAssignment: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
   loading: PropTypes.bool,
