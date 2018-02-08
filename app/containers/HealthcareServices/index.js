@@ -81,10 +81,19 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
         {!isEmpty(organization) &&
-        <div><strong>Organization:</strong> {organization.name}</div>}
+        <div className={styles.organizationInfoSection}>
+          <div className={styles.organizationInfoLabel}>
+            Organization&nbsp;:&nbsp;
+          </div>
+          {organization.name}
+        </div>}
         {!isEmpty(location) &&
-        <div><strong>Location:</strong> {location.name}</div>}
-
+        <div className={styles.locationInfoSection}>
+          <div className={styles.locationInfoLabel}>
+            Location&nbsp;:&nbsp;
+          </div>
+          {location.name}
+        </div>}
         {!isEmpty(organization) &&
         <div>
           <div className={styles.actionGridContainer}>
