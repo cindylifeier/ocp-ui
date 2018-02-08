@@ -12,10 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
-import { FlatButton, FloatingActionButton } from 'material-ui';
+import { FlatButton } from 'material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import { ContentAdd } from 'material-ui/svg-icons';
-import { teal500 } from 'material-ui/styles/colors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -75,16 +73,6 @@ export class Organizations extends React.PureComponent {
     const { organizations } = this.props;
     return (
       <div className={styles.card}>
-        <FloatingActionButton
-          backgroundColor={teal500}
-          className={styles.addButton}
-          mini
-          containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-        <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
-        <h3 className={styles.header}><FormattedMessage {...messages.header} /></h3>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
             <div className={styles.header}>
@@ -97,7 +85,7 @@ export class Organizations extends React.PureComponent {
                 label="Create New"
                 icon={<ContentAddCircle />}
                 className={styles.font}
-                containerElement={<Link to="/ocp-ui/manage-patient" />}
+                containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
               />
             </span>
           </div>
