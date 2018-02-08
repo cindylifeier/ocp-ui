@@ -10,12 +10,16 @@ export default defineMessages({
     id: 'ocpui.containers.Locations.header',
     defaultMessage: 'This is Locations container !',
   },
+  filterLabel: {
+    id: 'ocpui.containers.Patients.filterLabel',
+    defaultMessage: 'Include',
+  },
   inactive: {
     id: 'ocpui.containers.Locations.checkbox.inactive',
-    defaultMessage: 'Include Inactive',
+    defaultMessage: 'Inactive',
   },
   suspended: {
     id: 'ocpui.containers.Locations.checkbox.suspended',
-    defaultMessage: 'Include Suspended',
+    defaultMessage: 'Suspended',
   },
 });
