@@ -5,7 +5,9 @@
  */
 
 import {
-  DEFAULT_ACTION, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR, SEARCH_PARTICIPANT_SUCCESS,
+  ADD_PARTICIPANT,
+  DEFAULT_ACTION, INITIALIZE_SEARCH_PARTICIPANT, REMOVE_PARTICIPANT, SEARCH_PARTICIPANT, SEARCH_PARTICIPANT_ERROR,
+  SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -22,6 +24,14 @@ export function getSearchParticipant(name, member) {
   };
 }
 
+export function addParticipants(participants) {
+  return {
+    type: ADD_PARTICIPANT,
+    participants,
+  };
+}
+
+
 export function getSearchParticipantSuccess(searchParticipantResults) {
   return {
     type: SEARCH_PARTICIPANT_SUCCESS,
@@ -35,3 +45,17 @@ export function getSearchParticipantError(error) {
     error,
   };
 }
+
+export function initializeSearchParticipant() {
+  return {
+    type: INITIALIZE_SEARCH_PARTICIPANT,
+  };
+}
+
+export function removeParticipant(participant) {
+  return {
+    type: REMOVE_PARTICIPANT,
+    participant,
+  };
+}
+

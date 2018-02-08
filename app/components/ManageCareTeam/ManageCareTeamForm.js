@@ -7,17 +7,16 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import isEmpty from 'lodash/isEmpty';
 
-import messages from './messages';
+import SelectedParticipants from './SelectedParticipants';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
-import styles from './styles.css';
 import DatePicker from '../DatePicker';
-
-const buttonStyle = {
-  buttonWidth: '150px',
-};
+import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+import { addButtonStyle } from './constants';
+import messages from './messages';
+import styles from './styles.css';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -26,17 +25,27 @@ function ManageCareTeamForm(props) {
     dirty,
     isValid,
     careTeamCategories,
+    careTeamReasons,
     careTeamStatuses,
     handleOpen,
-    hasParticipants,
+    selectedParticipants,
+    removeParticipant,
   } = props;
+
+  // To check whether has participant
+  const hasParticipants = !isEmpty(selectedParticipants);
+
+  const handleRemoveParticipant = (participant) => {
+    removeParticipant(participant);
+  };
+
   return (
     <div>
-      <h4><FormattedMessage {...messages.title} /></h4>
       <Form>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.careTeamName}`}>
             <TextField
+              fullWidth
               name="careTeamName"
               hintText={<FormattedMessage {...messages.hintText.careTeamName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.careTeamName} />}
@@ -44,6 +53,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.category}`}>
             <SelectField
+              fullWidth
               name="category"
               hintText={<FormattedMessage {...messages.hintText.category} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
@@ -55,6 +65,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.status}`}>
             <SelectField
+              fullWidth
               name="status"
               hintText={<FormattedMessage {...messages.hintText.status} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
@@ -66,14 +77,28 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.episodeOfCare}`}>
             <TextField
+              fullWidth
               name="episodeOfCare"
               hintText={<FormattedMessage {...messages.hintText.episodeOfCare} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
               disabled
             />
           </div>
+          <div className={`${styles.gridItem}`}>
+            <SelectField
+              fullWidth
+              name="reason"
+              hintText={<FormattedMessage {...messages.hintText.reason} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.reason} />}
+            >
+              {careTeamReasons && careTeamReasons.map((reason) =>
+                <MenuItem key={reason.code} value={reason.code} primaryText={reason.display} />,
+              )}
+            </SelectField>
+          </div>
           <div className={`${styles.gridItem} ${styles.startDate}`}>
             <DatePicker
+              fullWidth
               name="startDate"
               minDate={today}
               mode={DATE_PICKER_MODE.LANDSCAPE}
@@ -83,6 +108,7 @@ function ManageCareTeamForm(props) {
           </div>
           <div className={`${styles.gridItem} ${styles.endDate}`}>
             <DatePicker
+              fullWidth
               name="endDate"
               minDate={today}
               mode={DATE_PICKER_MODE.LANDSCAPE}
@@ -91,21 +117,37 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
+
+        <div className={styles.title}>
+          <FormattedMessage {...messages.participantTitle} />
+        </div>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.addParticipant}`}>
             <RaisedButton
+              fullWidth
               backgroundColor={teal500}
               labelColor={white}
               onClick={handleOpen}
-              style={buttonStyle}
+              style={addButtonStyle}
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-              primary
             />
           </div>
         </div>
+
+        <SelectedParticipants
+          selectedParticipants={selectedParticipants}
+          removeParticipant={handleRemoveParticipant}
+        />
+
+        {dirty &&
+        <div className={styles.participantError}>{hasParticipants ?
+          '' : <FormattedMessage {...messages.validation.checkParticipants} />}
+        </div>
+        }
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
+              fullWidth
               type="submit"
               label="Save"
               backgroundColor={teal500}
@@ -113,6 +155,7 @@ function ManageCareTeamForm(props) {
               disabled={!dirty || isSubmitting || !isValid || !hasParticipants}
             />
             <FlatButton
+              fullWidth
               label="Cancel"
               default
               disabled={isSubmitting}
@@ -130,8 +173,13 @@ ManageCareTeamForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
-  hasParticipants: PropTypes.bool.isRequired,
+  removeParticipant: PropTypes.func.isRequired,
+  selectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  careTeamReasons: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),

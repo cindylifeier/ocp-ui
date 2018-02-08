@@ -47,6 +47,7 @@ export const CARETEAMCATEGORY = 'CARETEAMCATEGORY';
 export const PARTICIPANTTYPE = 'PARTICIPANTTYPE';
 export const CARETEAMSTATUS = 'CARETEAMSTATUS';
 export const PARTICIPANTROLE = 'PARTICIPANTROLE';
+export const CARETEAMREASON = 'CARETEAMREASON';
 
 /**
  *  Constants to hold the internal urls
@@ -60,9 +61,10 @@ export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 
 /**
- *  Constants to hold the default pagination page size
+ *  Constants to hold the default pagination page size and start page number
  * @type {number}
  */
+export const DEFAULT_START_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 10;
 
 /**
