@@ -209,14 +209,14 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                         name="name"
                         style={fieldStyle}
                         floatingLabelStyle={floatingLabelStyle}
-                        hintText={<FormattedMessage {...messages.PractitionerNameHintText} />}
-                        floatingLabelText={<FormattedMessage {...messages.PractitionerNameFloatingLabelText} />}
+                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
                       />
                     </div>
                     <div className={styles.gridItem}>
                       <SelectField
                         name="member"
-                        floatingLabelText={<FormattedMessage {...messages.PractitionerMemberFloatingLabel} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
                       >
                         {participantTypes && participantTypes.map((member) =>
                           <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
