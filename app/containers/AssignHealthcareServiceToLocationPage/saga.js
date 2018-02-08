@@ -41,17 +41,17 @@ export function* updateHealthcareServicesLocationAssignmentSaga(action) {
   }
 }
 
-export function* watchGetHealthcareServicesLocationAssignment() {
+export function* watchGetHealthcareServicesLocationAssignmentSaga() {
   yield takeLatest(GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, getHealthcareServicesLocationAssignmentSaga);
 }
 
-export function* watchUpdateHealthcareServicesLocationAssignment() {
+export function* watchUpdateHealthcareServicesLocationAssignmentSaga() {
   yield takeEvery(UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, updateHealthcareServicesLocationAssignmentSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetHealthcareServicesLocationAssignment(),
-    watchUpdateHealthcareServicesLocationAssignment(),
+    watchGetHealthcareServicesLocationAssignmentSaga(),
+    watchUpdateHealthcareServicesLocationAssignmentSaga(),
   ]);
 }
