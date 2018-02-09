@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -32,7 +33,6 @@ import styles from './styles.css';
 import { getFilteredLocations, initializeLocations } from './actions';
 import StatusCheckbox from '../../components/StatusCheckbox';
 import { getHealthcareServicesByLocation } from '../HealthcareServices/actions';
-
 
 const iconStyles = {
   iconButton: {
@@ -145,23 +145,32 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     return (
       <div>
         <div className={styles.card}>
-          <div><strong>Organization Name: </strong>
-            {this.props.organization ? this.props.organization.name : ''}</div>
-          <div className={styles.actionGridContainer}>
-            <StatusCheckbox
-              messages={messages.inactive}
-              elementId="inactiveCheckBox"
-              checked={this.props.includeInactive}
-              handleCheck={this.handleIncludeInactive}
-            >
-            </StatusCheckbox>
-            <StatusCheckbox
-              messages={messages.suspended}
-              elementId="suspendedCheckBox"
-              checked={this.props.includeSuspended}
-              handleCheck={this.handleIncludeSuspended}
-            >
-            </StatusCheckbox>
+          <div className={styles.organizationInfoSection}>
+            <div className={styles.organizationInfoLabel}>
+              Organization&nbsp;:&nbsp;
+            </div>
+            {this.props.organization ? this.props.organization.name : ''}
+          </div>
+          <div className={styles.actionSection}>
+            <div className={styles.filterGridContainer}>
+              <div>
+                <FormattedMessage {...messages.filterLabel} />
+              </div>
+              <StatusCheckbox
+                messages={messages.inactive}
+                elementId="inactiveCheckBox"
+                checked={this.props.includeInactive}
+                handleCheck={this.handleIncludeInactive}
+              >
+              </StatusCheckbox>
+              <StatusCheckbox
+                messages={messages.suspended}
+                elementId="suspendedCheckBox"
+                checked={this.props.includeSuspended}
+                handleCheck={this.handleIncludeSuspended}
+              >
+              </StatusCheckbox>
+            </div>
           </div>
           <div className={styles.table}>
             <div className={styles.rowHeaderGridContainer}>

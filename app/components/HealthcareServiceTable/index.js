@@ -11,14 +11,13 @@ import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
 import { FormattedMessage } from 'react-intl';
 
+import styles from './styles.css';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
 import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import messages from './messages';
-
-const checkboxStyle = { marginTop: '40px', height: '30px' };
 
 function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
   function getDisplayNameFromValueSetList(valueSets) {
@@ -82,12 +81,17 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
-            <Checkbox
-              style={checkboxStyle}
-              defaultChecked={element.assignedToCurrentLocation}
-              disabled={element.assignedToCurrentLocation}
-              onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
-            />
+            <TableRowColumn>
+              <div className={styles.checkboxGridContainer}>
+                <div className={styles.checkboxGridItem}>
+                  <Checkbox
+                    defaultChecked={element.assignedToCurrentLocation}
+                    disabled={element.assignedToCurrentLocation}
+                    onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
+                  />
+                </div>
+              </div>
+            </TableRowColumn>
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
             <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>

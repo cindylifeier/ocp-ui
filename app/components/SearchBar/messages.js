@@ -34,7 +34,7 @@ export default defineMessages({
   },
   includeInactive: {
     id: 'ocpui.components.SearchBar.includeInactive',
-    defaultMessage: 'Include inactive',
+    defaultMessage: 'Inactive',
   },
   searchByName: {
     id: 'ocpui.components.SearchBar.searchByName',
@@ -43,5 +43,13 @@ export default defineMessages({
   searchById: {
     id: 'ocpui.components.SearchBar.searchById',
     defaultMessage: 'By ID',
+  },
+  searchHeader: {
+    id: 'ocpui.containers.Patients.searchHeader',
+    defaultMessage: 'Search',
+  },
+  filterLabel: {
+    id: 'ocpui.containers.Patients.filterLabel',
+    defaultMessage: 'Include',
   },
 });

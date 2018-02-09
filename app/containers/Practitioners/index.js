@@ -11,14 +11,12 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { FloatingActionButton } from 'material-ui';
-import { ContentAdd } from 'material-ui/svg-icons';
-import { teal500 } from 'material-ui/styles/colors';
+import { FlatButton, RaisedButton, SelectField } from 'material-ui';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import { teal500, white } from 'material-ui/styles/colors';
 import MenuItem from 'material-ui/MenuItem';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
@@ -43,6 +41,7 @@ import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { initializePractitioners, loadPractitionerSearchResult } from './actions';
 import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from '../App/constants';
+
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -105,63 +104,66 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
       <div className={styles.card}>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
-            <h3><FormattedMessage {...messages.header} /></h3>
+            <div className={styles.header}>
+              <FormattedMessage {...messages.header} />
+            </div>
           </div>
           <div className={styles.gridItem}>
-            <FloatingActionButton
-              backgroundColor={teal500}
-              className={styles.addButton}
-              mini
-              containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-            >
-              <ContentAdd />
-            </FloatingActionButton>
+            <span className={styles.iconButton}>
+              <FlatButton
+                label="Create New"
+                icon={<ContentAddCircle />}
+                className={styles.font}
+                containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
+              />
+            </span>
           </div>
         </div>
         <form>
-          <div className={styles.gridContainer}>
-            <div className={styles.gridItem}>
-              <div className={styles.centerElement}>
-                <TextField
-                  hintText="Name or ID"
-                  underlineShow={false}
-                  errorText={this.state.searchTerms.trim().length > 0 && this.state.searchTerms.length < 3 ?
-                    <FormattedMessage {...messages.searchTermsInvalid} values={{ SEARCH_TERM_MIN_LENGTH }} /> : ''}
-                  value={this.state.searchTerms}
-                  onChange={this.handleChangeSearchTerms}
-                  onKeyPress={this.preventEnterSubmission}
-                />
-              </div>
+          <div className={styles.searchSection}>
+            <div className={styles.searchHeader}>
+              <ActionSearch color={'#336666'} />
+              <FormattedMessage {...messages.searchHeader} />
             </div>
-            <div className={styles.gridItem}>
-              <div className={styles.centerElement}>
-                <DropDownMenu
-                  value={this.state.searchType}
-                  onChange={this.handleChangeSearchType}
-                >
-                  <MenuItem value={SEARCH_TYPE.NAME} primaryText="By Name" />
-                  <MenuItem value={SEARCH_TYPE.IDENTIFIER} primaryText="By ID" />
-                </DropDownMenu>
-              </div>
+            <div className={styles.searchGridContainer}>
+              <SelectField
+                fullWidth
+                value={this.state.searchType}
+                onChange={this.handleChangeSearchType}
+              >
+                <MenuItem value={SEARCH_TYPE.NAME} primaryText="By Name" />
+                <MenuItem value={SEARCH_TYPE.IDENTIFIER} primaryText="By ID" />
+              </SelectField>
+              <TextField
+                fullWidth
+                hintText="Name or ID"
+                underlineShow={false}
+                errorText={this.state.searchTerms.trim().length > 0 && this.state.searchTerms.length < 3 ?
+                  <FormattedMessage {...messages.searchTermsInvalid} values={{ SEARCH_TERM_MIN_LENGTH }} /> : ''}
+                value={this.state.searchTerms}
+                onChange={this.handleChangeSearchTerms}
+                onKeyPress={this.preventEnterSubmission}
+              />
             </div>
-            <div className={styles.gridItem}>
-              <div className={styles.centerElement}>
-                <Checkbox
-                  label={<FormattedMessage {...messages.inactive} />}
-                  value={this.state.includeInactive}
-                  onCheck={this.handleChangeShowInactive}
-                />
+            <div className={styles.filterGridContainer}>
+              <div>
+                <FormattedMessage {...messages.filterLabel} />
               </div>
+              <Checkbox
+                label={<FormattedMessage {...messages.inactive} />}
+                value={this.state.includeInactive}
+                onCheck={this.handleChangeShowInactive}
+              />
             </div>
-            <div className={styles.gridItem}>
-              <div className={styles.centerElement}>
-                <IconButton
-                  onClick={this.handleSearch}
-                  disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
-                >
-                  <ActionSearch />
-                </IconButton>
-              </div>
+            <div className={styles.buttonGridContainer}>
+              <RaisedButton
+                fullWidth
+                label="Search"
+                backgroundColor={teal500}
+                labelColor={white}
+                onClick={this.handleSearch}
+                disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
+              />
             </div>
           </div>
         </form>
