@@ -139,8 +139,8 @@ export class Patients extends React.PureComponent {
                 value={this.state.searchType}
                 onChange={this.handleChangeSearchType}
               >
-                <MenuItem value={SEARCH_TYPE.NAME} primaryText="Name" />
-                <MenuItem value={SEARCH_TYPE.IDENTIFIER} primaryText="ID" />
+                <MenuItem value={SEARCH_TYPE.NAME} primaryText="By Name" />
+                <MenuItem value={SEARCH_TYPE.IDENTIFIER} primaryText="By ID" />
               </SelectField>
               <TextField
                 fullWidth

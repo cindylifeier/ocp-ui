@@ -11,6 +11,7 @@ import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
 import { FormattedMessage } from 'react-intl';
 
+import styles from './styles.css';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
 import TableHeaderColumn from '../TableHeaderColumn';
@@ -18,24 +19,11 @@ import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import messages from './messages';
 
-const checkboxStyle = { marginTop: '40px', height: '30px' };
-
 function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
-  function getIdentifiers(identifier) {
-    return identifier.map((entry) =>
+  function getDisplayNameFromValueSetList(valueSets) {
+    return valueSets.map((entry) =>
       (
-        <div key={`healthCareService-id-${uniqueId()}`}>
-          {entry.system}: {entry.value}
-          <br />
-        </div>
-      ),
-    );
-  }
-
-  function getTypes(types) {
-    return types.map((entry) =>
-      (
-        <div key={`healthCareService-type-${uniqueId()}`}>
+        <div key={`healthCareService-valueSet-${uniqueId()}`}>
           {entry.display}
           <br />
         </div>
@@ -63,16 +51,18 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderIdentifier} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
-            <TableRowColumn>{getTypes(element.type)}</TableRowColumn>
+            <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
             <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-            <TableRowColumn>{getIdentifiers(element.identifiers)}</TableRowColumn>
+            <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
+            <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
             <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
           </TableRow>
         ))}
@@ -85,22 +75,29 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderIdentifier} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
-            <Checkbox
-              style={checkboxStyle}
-              defaultChecked={element.assignedToCurrentLocation}
-              disabled={element.assignedToCurrentLocation}
-              onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
-            />
+            <TableRowColumn>
+              <div className={styles.checkboxGridContainer}>
+                <div className={styles.checkboxGridItem}>
+                  <Checkbox
+                    defaultChecked={element.assignedToCurrentLocation}
+                    disabled={element.assignedToCurrentLocation}
+                    onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
+                  />
+                </div>
+              </div>
+            </TableRowColumn>
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
-            <TableRowColumn>{getTypes(element.type)}</TableRowColumn>
+            <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
             <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-            <TableRowColumn>{getIdentifiers(element.identifiers)}</TableRowColumn>
+            <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
+            <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
             <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
           </TableRow>
         ))}
