@@ -1,5 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
@@ -16,6 +18,8 @@ const messages = defineMessages({
     en: 'This is some en message',
   },
 });
+
+configure({ adapter: new Adapter() });
 
 describe('<LanguageProvider />', () => {
   it('should render its children', () => {
