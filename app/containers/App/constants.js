@@ -47,6 +47,7 @@ export const CARETEAMCATEGORY = 'CARETEAMCATEGORY';
 export const PARTICIPANTTYPE = 'PARTICIPANTTYPE';
 export const CARETEAMSTATUS = 'CARETEAMSTATUS';
 export const PARTICIPANTROLE = 'PARTICIPANTROLE';
+export const CARETEAMREASON = 'CARETEAMREASON';
 
 /**
  *  Constants to hold the internal urls
@@ -70,7 +71,10 @@ export const DEFAULT_PAGE_SIZE = 10;
  *  Constants to hold the configuration for date picker
  * @type {object}
  */
-
+export const DATE_PICKER_MODE = {
+  PORTRAIT: 'portrait',
+  LANDSCAPE: 'landscape',
+};
 
 /**
  *  Other constants

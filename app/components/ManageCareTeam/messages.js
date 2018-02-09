@@ -26,6 +26,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderName',
     defaultMessage: 'Name',
   },
+  participantTableHeaderType: {
+    id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderType',
+    defaultMessage: 'Type',
+  },
   participantTableHeaderRole: {
     id: 'ocpui.components.ManageCareTeam.manageForm.participantTableHeaderRole',
     defaultMessage: 'Role',
@@ -89,6 +93,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageCareTeam.manageForm.hintText.episodeOfCare',
       defaultMessage: 'Episode Of Care',
     },
+    reason: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.hintText.reason',
+      defaultMessage: 'Reason',
+    },
     startDate: {
       id: 'ocpui.components.ManageCareTeam.manageForm.hintText.startDate',
       defaultMessage: 'Start Date',
@@ -114,6 +122,10 @@ export default defineMessages({
     episodeOfCare: {
       id: 'ocpui.components.ManageCareTeam.manageForm.floatingLabelText.episodeOfCare',
       defaultMessage: 'Episode Of Care',
+    },
+    reason: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.floatingLabelText.reason',
+      defaultMessage: 'Reason',
     },
     startDate: {
       id: 'ocpui.components.ManageCareTeam.manageForm.floatingLabelText.startDate',

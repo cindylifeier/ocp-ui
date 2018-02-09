@@ -1,56 +1,55 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the healthcareServices state domain
+ * Direct selector to the assignHealthCareServiceToLocationPage state domain
  */
-const selectHealthcareServicesDomain = (state) => state.get('healthcareServices');
+const selectAssignHealthCareServiceToLocationPageDomain = (state) => state.get('assignHealthCareServiceToLocationPage');
 
 /**
  * Other specific selectors
  */
 const makeSelectHealthcareServices = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('data').toJS(),
 );
 
 const makeSelectQueryLoading = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('loading'),
 );
 
 const makeSelectQueryError = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('error'),
 );
 
 const makeSelectCurrentPage = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('currentPage'),
 );
 
 const makeSelectTotalNumberOfPages = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('totalNumberOfPages'),
 );
 
 const makeSelectIncludeInactive = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('includeInactive'),
 );
 
 const makeSelectOrganization = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('organization'),
 );
 
 const makeSelectLocation = () => createSelector(
-  selectHealthcareServicesDomain,
+  selectAssignHealthCareServiceToLocationPageDomain,
   (substate) => substate.get('location'),
 );
 
-
-export default makeSelectHealthcareServices;
 export {
+  selectAssignHealthCareServiceToLocationPageDomain,
   makeSelectHealthcareServices,
   makeSelectQueryLoading,
   makeSelectQueryError,

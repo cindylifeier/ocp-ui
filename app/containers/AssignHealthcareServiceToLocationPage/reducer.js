@@ -1,16 +1,16 @@
 /*
  *
- * HealthcareServices reducer
+ * AssignHealthCareServiceToLocationPage reducer
  *
  */
 
 import { fromJS } from 'immutable';
 import {
-  GET_HEALTHCARE_SERVICES_BY_LOCATION,
-  GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
-  GET_HEALTHCARE_SERVICES_ERROR,
-  GET_HEALTHCARE_SERVICES_SUCCESS,
-  INITIALIZE_HEALTHCARE_SERVICES,
+  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
+  GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS,
+  GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR, UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
 } from './constants';
 
 const initialState = fromJS({
@@ -24,23 +24,13 @@ const initialState = fromJS({
   includeInactive: false,
 });
 
-function healthcareServicesReducer(state = initialState, action) {
+function assignHealthCareServiceToLocationPageReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_HEALTHCARE_SERVICES:
+    case INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
       return initialState;
-    case GET_HEALTHCARE_SERVICES_BY_ORGANIZATION: {
+    case GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT: {
       const organization = { id: action.organizationId, name: action.organizationName };
-      return state
-        .set('currentPage', action.currentPage)
-        .set('includeInactive', action.includeInactive)
-        .set('organization', organization)
-        .set('location', null)
-        .set('loading', true)
-        .set('error', false);
-    }
-    case GET_HEALTHCARE_SERVICES_BY_LOCATION: {
-      const organization = { id: action.organizationId, name: action.organizationName };
-      const location = { id: action.locationId, name: action.locationName };
+      const location = { id: action.locationId };
       return state
         .set('currentPage', action.currentPage)
         .set('includeInactive', action.includeInactive)
@@ -49,12 +39,18 @@ function healthcareServicesReducer(state = initialState, action) {
         .set('loading', true)
         .set('error', false);
     }
-    case GET_HEALTHCARE_SERVICES_SUCCESS:
+    case GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS:
       return state.set('data', fromJS((action.healthcareServices && action.healthcareServices.elements) || []))
         .set('loading', false)
         .set('totalNumberOfPages', action.healthcareServices.totalNumberOfPages)
         .set('currentPage', action.healthcareServices.currentPage);
-    case GET_HEALTHCARE_SERVICES_ERROR:
+    case GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
+    case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
+      return state.set('healthcareServiceId', action.heathcareServiceId);
+    case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);
@@ -63,4 +59,4 @@ function healthcareServicesReducer(state = initialState, action) {
   }
 }
 
-export default healthcareServicesReducer;
+export default assignHealthCareServiceToLocationPageReducer;

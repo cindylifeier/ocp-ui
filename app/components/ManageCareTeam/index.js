@@ -24,10 +24,10 @@ function ManageCareTeam(props) {
     careTeam,
     editMode,
     careTeamCategories,
+    careTeamReasons,
     participantTypes,
     participantRoles,
     careTeamStatuses,
-    hasParticipants,
     handleOpen,
     onSave,
     selectedParticipants,
@@ -36,10 +36,10 @@ function ManageCareTeam(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
     careTeamCategories,
+    careTeamReasons,
     participantTypes,
     participantRoles,
     careTeamStatuses,
-    hasParticipants,
     handleOpen,
     selectedParticipants,
     removeParticipant,
@@ -96,7 +96,6 @@ function ManageCareTeam(props) {
 }
 
 ManageCareTeam.propTypes = {
-  hasParticipants: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
@@ -110,6 +109,7 @@ ManageCareTeam.propTypes = {
     name: PropTypes.string.isRequired,
   }),
   careTeamCategories: PropTypes.array.isRequired,
+  careTeamReasons: PropTypes.array.isRequired,
   participantTypes: PropTypes.array.isRequired,
   participantRoles: PropTypes.array.isRequired,
   careTeamStatuses: PropTypes.array.isRequired,
@@ -125,6 +125,7 @@ function setFormData(careTeam) {
       status: careTeam.statusCode,
       startDate: careTeam.startDate && new Date(careTeam.startDate),
       endDate: careTeam.endDate && new Date(careTeam.endDate),
+      reason: careTeam.reason,
     };
   }
   return Util.pickByIdentity(formData);

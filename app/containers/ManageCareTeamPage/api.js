@@ -39,6 +39,25 @@ export function getCareTeam(careTeamId) {
   return request(requestURL);
 }
 
+export function mapToEditParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        member: {
+          id: participant.memberId,
+          type: participant.memberType,
+          firstName: participant.memberFirstName,
+          lastName: participant.memberLastName,
+          name: participant.memberName,
+        },
+        role: {
+          roleCode: participant.code,
+        },
+      }));
+  }
+  return [];
+}
+
 function createCareTeam(careTeamFormData) {
   const requestURL = `${apiBaseURL}/care-teams`;
   return request(requestURL, {
@@ -64,17 +83,8 @@ function updateCareTeam(careTeamFormData) {
 
 function mapToBffCareTeam(careTeamData) {
   const {
-    careTeamName, category, patientId, status, startDate, endDate,
+    careTeamName, category, patientId, status, startDate, endDate, reason, participants,
   } = careTeamData;
-
-  // Todo: Replace with formData later
-  const participants = [{
-    roleCode: '112247003',
-    memberId: '1528',
-    memberFirstName: 'Participant',
-    memberLastName: 'Test',
-    memberType: 'practitioner',
-  }];
 
   return {
     name: careTeamName,
@@ -83,6 +93,22 @@ function mapToBffCareTeam(careTeamData) {
     subjectId: patientId,
     startDate: startDate.toLocaleDateString(),
     endDate: endDate.toLocaleDateString(),
-    participants,
+    reasonCode: reason,
+    participants: mapToBffParticipants(participants),
   };
+}
+
+function mapToBffParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        roleCode: participant.role.code,
+        memberId: participant.member.id,
+        memberType: participant.member.type,
+        memberFirstName: participant.member.firstName,
+        memberLastName: participant.member.lastName,
+        memberName: participant.member.name,
+      }));
+  }
+  return [];
 }

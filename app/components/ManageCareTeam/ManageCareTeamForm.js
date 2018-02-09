@@ -7,20 +7,22 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import uniqueId from 'lodash/uniqueId';
-import messages from './messages';
+import isEmpty from 'lodash/isEmpty';
+import { uniqueId } from 'lodash';
+// import SelectedParticipants from './SelectedParticipants';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { PATIENTS_URL } from '../../containers/App/constants';
-import styles from './styles.css';
 import DatePicker from '../DatePicker';
+import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+import messages from './messages';
+import styles from './styles.css';
 import Table from '../Table/index';
 import TableHeader from '../TableHeader/index';
 import TableHeaderColumn from '../TableHeaderColumn/index';
 import TableRow from '../TableRow/index';
 import TableRowColumn from '../TableRowColumn/index';
 import { addButtonStyle, removeButtonStyle } from './constants';
-import { DATE_PICKER_MODE } from '../../utils/CareTeamUtils';
+
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -29,15 +31,16 @@ function ManageCareTeamForm(props) {
     dirty,
     isValid,
     careTeamCategories,
+    careTeamReasons,
     careTeamStatuses,
     handleOpen,
-    hasParticipants,
     selectedParticipants,
     removeParticipant,
   } = props;
-  const handleRemoveParticipant = (participant) => {
-    removeParticipant(participant);
-  };
+  const handleRemoveParticipant = (participant) => removeParticipant(participant);
+  const capitalizeFirstletter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
+  // To check whether has participant
+  const hasParticipants = !isEmpty(selectedParticipants);
   return (
     <div>
       <Form>
@@ -83,6 +86,18 @@ function ManageCareTeamForm(props) {
               disabled
             />
           </div>
+          <div className={`${styles.gridItem}`}>
+            <SelectField
+              fullWidth
+              name="reason"
+              hintText={<FormattedMessage {...messages.hintText.reason} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.reason} />}
+            >
+              {careTeamReasons && careTeamReasons.map((reason) =>
+                <MenuItem key={reason.code} value={reason.code} primaryText={reason.display} />,
+              )}
+            </SelectField>
+          </div>
           <div className={`${styles.gridItem} ${styles.startDate}`}>
             <DatePicker
               fullWidth
@@ -120,7 +135,8 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
-        {dirty &&
+        {/* <SelectedParticipants {...selectedParticipantsProps} />*/}
+        {!hasParticipants &&
         <div className={styles.participantError}>{hasParticipants ?
           '' : <FormattedMessage {...messages.validation.checkParticipants} />}
         </div>
@@ -128,6 +144,7 @@ function ManageCareTeamForm(props) {
         <Table>
           <TableHeader>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
@@ -137,6 +154,7 @@ function ManageCareTeamForm(props) {
           selectedParticipants.map((participant) => (
             <TableRow key={uniqueId()}>
               <TableRowColumn> {participant.name} </TableRowColumn>
+              <TableRowColumn> {capitalizeFirstletter(participant.memberType)} </TableRowColumn>
               <TableRowColumn>{participant.roleDisplay}</TableRowColumn>
               <TableRowColumn>
                 {participant.startDate}
@@ -196,9 +214,12 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
-  hasParticipants: PropTypes.bool.isRequired,
   selectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  careTeamReasons: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),

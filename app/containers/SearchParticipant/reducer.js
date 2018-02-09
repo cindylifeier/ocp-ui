@@ -5,9 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import { uniqBy, filter } from 'lodash';
+import { filter, uniqBy } from 'lodash';
 import {
-  ADD_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT, REMOVE_PARTICIPANT,
+  ADD_PARTICIPANT,
+  INITIALIZE_SEARCH_PARTICIPANT,
+  REMOVE_PARTICIPANT,
   SEARCH_PARTICIPANT_ERROR,
   SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
@@ -21,9 +23,12 @@ const initialState = fromJS({
 function searchParticipantReducer(state = initialState, action) {
   switch (action.type) {
     case SEARCH_PARTICIPANT_SUCCESS:
-      return state.set('searchParticipantResult', fromJS((action.searchParticipantResults && action.searchParticipantResults.elements) || []));
+      return state
+        .set('searchParticipantResult', fromJS((action.searchParticipantResults && action.searchParticipantResults.elements) || []));
     case INITIALIZE_SEARCH_PARTICIPANT:
-      return initialState;
+      return state
+        .set('selectedParticipants', fromJS((action.initialSelectedParticipants) || []))
+        .set('searchParticipantResult', fromJS([]));
     case SEARCH_PARTICIPANT_ERROR:
       return state;
     case ADD_PARTICIPANT: {
@@ -34,17 +39,18 @@ function searchParticipantReducer(state = initialState, action) {
       participantsAsArray.push(participantToBeAdded);
       // Remove duplicate from the list
       const selectedParticipants = uniqBy(participantsAsArray, (e) => (e.memberId));
-      return state.set('selectedParticipants', fromJS((selectedParticipants) || []))
-                  .set('searchParticipantResult', fromJS([]));
+      return state
+        .set('selectedParticipants', fromJS((selectedParticipants) || []))
+        .set('searchParticipantResult', fromJS([]));
     }
     case REMOVE_PARTICIPANT: {
       const participants = state.get('selectedParticipants');
       const participantsAsArray = participants.toJS();
       const filteredParticipants = filter(participantsAsArray, (e) => (e.memberId !== action.participant.memberId));
-      return state.set('selectedParticipants', fromJS((filteredParticipants) || []))
-                  .set('searchParticipantResult', fromJS([]));
+      return state
+        .set('selectedParticipants', fromJS((filteredParticipants) || []))
+        .set('searchParticipantResult', fromJS([]));
     }
-
     default:
       return state;
   }

@@ -13,7 +13,7 @@ import { Form, Formik } from 'formik';
 import find from 'lodash/find';
 import yup from 'yup';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
@@ -24,7 +24,6 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
 import reducer from './reducer';
 import saga from './saga';
-
 import styles from './styles.css';
 import messages from './messages';
 import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
@@ -38,9 +37,11 @@ import TableHeaderColumn from '../../components/TableHeaderColumn';
 import TableRow from '../../components/TableRow';
 import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
-import { DATE_PICKER_MODE, getParticipantName } from '../../utils/CareTeamUtils';
 import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
 import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
+import { getParticipantName } from '../../utils/CareTeamUtils';
+import { DATE_PICKER_MODE } from '../App/constants';
+
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -54,7 +55,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
   }
 
   componentWillMount() {
-    this.props.initializeSearchParticipant();
+    this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
 
   addParticipant(participant) {
@@ -73,6 +74,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
+
 
   createSearchResultHeader() {
     return (<Table>
@@ -106,7 +108,23 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
           this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
         }}
-        validationSchema={yup.object().shape({})}
+        validationSchema={() =>
+          yup.lazy((values) => {
+            let startDate = new Date();
+            if (values.startDate) {
+              startDate = values.startDate;
+            }
+            return yup.object().shape({
+              roleCode: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              startDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+              endDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+            });
+          })}
         render={(formikProps) => {
           const { isSubmitting, dirty, isValid } = formikProps;
           return (
@@ -152,7 +170,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                       type="submit"
                       value={participant}
-                      // onClick={() => this.addParticipant(participant)}
                       primary
                       disabled={!dirty || isSubmitting || !isValid}
                     />
@@ -217,14 +234,14 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                         name="name"
                         style={fieldStyle}
                         floatingLabelStyle={floatingLabelStyle}
-                        hintText={<FormattedMessage {...messages.PractitionerNameHintText} />}
-                        floatingLabelText={<FormattedMessage {...messages.PractitionerNameFloatingLabelText} />}
+                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
                       />
                     </div>
                     <div className={styles.gridItem}>
                       <SelectField
                         name="member"
-                        floatingLabelText={<FormattedMessage {...messages.PractitionerMemberFloatingLabel} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
                       >
                         {participantTypes && participantTypes.map((member) =>
                           <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
@@ -260,6 +277,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
 SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   initializeSearchParticipant: PropTypes.func.isRequired,
@@ -284,7 +302,7 @@ function mapDispatchToProps(dispatch) {
   return {
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
-    initializeSearchParticipant: () => dispatch(initializeSearchParticipant()),
+    initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
   };
 }
 
