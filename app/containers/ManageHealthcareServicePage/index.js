@@ -62,8 +62,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
     return (
       <div>
         <Helmet>
-          <title>ManageHealthcareServicePage</title>
-          <meta name="description" content="Description of ManageHealthcareServicePage" />
+          <title>Manage Healthcare Service</title>
+          <meta name="description" content="Manage Healthcare Service page of Omnibus Care Plan application" />
         </Helmet>
         <ManageHealthcareService {...hcsProps} onSave={this.handleSave} />
       </div>
