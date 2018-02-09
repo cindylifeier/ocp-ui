@@ -22,6 +22,10 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  HEALTHCARESERVICECATEGORY,
+  HEALTHCARESERVICETYPE,
+  HEALTHCARESERVICEREFERRALMETHOD,
+  HEALTHCARESERVICESPECIALITY,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -148,6 +152,25 @@ const makeSelectLanguages = () => createSelector(
   (globalState) => globalState.get(LANGUAGE).toJS(),
 );
 
+const makeSelectHealthcareServiceCategories = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(HEALTHCARESERVICECATEGORY).toJS(),
+);
+
+const makeSelectHealthcareServiceTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(HEALTHCARESERVICETYPE).toJS(),
+);
+
+const makeSelectHealthcareServiceReferralMethods = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(HEALTHCARESERVICEREFERRALMETHOD).toJS(),
+);
+
+const makeSelectHealthcareServiceSpecialities = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(HEALTHCARESERVICESPECIALITY).toJS(),
+);
 
 export {
   makeSelectLocation,
@@ -174,4 +197,8 @@ export {
   makeSelectParticipantRoles,
   makeSelectCareTeamStatuses,
   makeSelectCareTeamReasons,
+  makeSelectHealthcareServiceCategories,
+  makeSelectHealthcareServiceTypes,
+  makeSelectHealthcareServiceReferralMethods,
+  makeSelectHealthcareServiceSpecialities,
 };
