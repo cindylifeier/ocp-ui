@@ -5,10 +5,10 @@ import Util from './Util';
 const ORGANIZATION_TYPE = 'organization';
 
 export const getParticipantName = (participant) => {
-  if (participant && participant.member && Util.equalsIgnoreCase(participant.member.type, ORGANIZATION_TYPE)) {
-    return participant.member.name;
+  if (participant && participant.member && Util.equalsIgnoreCase(participant.memberType, ORGANIZATION_TYPE)) {
+    return participant.memberName;
   }
-  const firstName = isEmpty(participant.member.firstName) ? EMPTY_STRING : participant.member.firstName;
-  const lastName = isEmpty(participant.member.lastName) ? EMPTY_STRING : participant.member.lastName;
+  const firstName = isEmpty(participant.memberFirstName) ? EMPTY_STRING : participant.memberFirstName;
+  const lastName = isEmpty(participant.memberLastName) ? EMPTY_STRING : participant.memberLastName;
   return `${firstName} ${lastName}`;
 };

@@ -2,6 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import request from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { getParticipantName } from '../../utils/CareTeamUtils';
 
 const apiBaseURL = getApiBaseUrl();
 
@@ -49,7 +50,7 @@ export function mapToEditParticipants(participants) {
         memberType: participant.memberType,
         startDate: participant.startDate,
         endDate: participant.endDate,
-        name: participant.memberFirstName.concat(' ').concat(participant.memberLastName),
+        name: getParticipantName(participant),
       }));
   }
   return [];

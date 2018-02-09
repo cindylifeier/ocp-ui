@@ -119,7 +119,7 @@ function setFormData(careTeam) {
       status: careTeam.statusCode,
       startDate: careTeam.startDate && new Date(careTeam.startDate),
       endDate: careTeam.endDate && new Date(careTeam.endDate),
-      reason: careTeam.reason,
+      reason: careTeam.reasonCode,
     };
   }
   return Util.pickByIdentity(formData);
