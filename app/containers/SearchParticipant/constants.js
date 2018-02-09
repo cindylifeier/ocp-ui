@@ -25,3 +25,4 @@ export const REMOVE_PARTICIPANT = 'ocpui/SearchParticipant/REMOVE_PARTICIPANT';
 *
 */
 
+export const TEXT_MIN_LENGTH = 3;
