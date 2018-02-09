@@ -25,8 +25,6 @@ function ManageCareTeam(props) {
     editMode,
     careTeamCategories,
     careTeamReasons,
-    participantTypes,
-    participantRoles,
     careTeamStatuses,
     handleOpen,
     onSave,
@@ -37,8 +35,6 @@ function ManageCareTeam(props) {
   const propsFromContainer = {
     careTeamCategories,
     careTeamReasons,
-    participantTypes,
-    participantRoles,
     careTeamStatuses,
     handleOpen,
     selectedParticipants,
@@ -110,8 +106,6 @@ ManageCareTeam.propTypes = {
   }),
   careTeamCategories: PropTypes.array.isRequired,
   careTeamReasons: PropTypes.array.isRequired,
-  participantTypes: PropTypes.array.isRequired,
-  participantRoles: PropTypes.array.isRequired,
   careTeamStatuses: PropTypes.array.isRequired,
   selectedParticipants: PropTypes.array,
 };

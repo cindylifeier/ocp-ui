@@ -38,7 +38,7 @@ function searchParticipantReducer(state = initialState, action) {
       const participantToBeAdded = action.participants[0];
       participantsAsArray.push(participantToBeAdded);
       // Remove duplicate from the list
-      const selectedParticipants = uniqBy(participantsAsArray, (e) => (e.member.id));
+      const selectedParticipants = uniqBy(participantsAsArray, (e) => (e.memberId));
       return state
         .set('selectedParticipants', fromJS((selectedParticipants) || []))
         .set('searchParticipantResult', fromJS([]));
@@ -46,7 +46,7 @@ function searchParticipantReducer(state = initialState, action) {
     case REMOVE_PARTICIPANT: {
       const participants = state.get('selectedParticipants');
       const participantsAsArray = participants.toJS();
-      const filteredParticipants = filter(participantsAsArray, (e) => (e.member.id !== action.participant.member.id));
+      const filteredParticipants = filter(participantsAsArray, (e) => (e.memberId !== action.participant.memberId));
       return state
         .set('selectedParticipants', fromJS((filteredParticipants) || []))
         .set('searchParticipantResult', fromJS([]));

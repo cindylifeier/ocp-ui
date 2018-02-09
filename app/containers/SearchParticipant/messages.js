@@ -14,18 +14,6 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.addParticipantDialogTitle',
     defaultMessage: 'Add Participant',
   },
-  PractitionerNameFloatingLabelText: {
-    id: 'ocpui.components.SearchParticipant.PractitionerNameFloatingLabelText',
-    defaultMessage: 'Name',
-  },
-  PractitionerNameHintText: {
-    id: 'ocpui.components.SearchParticipant.PractitionerNameHintText',
-    defaultMessage: 'Name',
-  },
-  PractitionerMemberFloatingLabel: {
-    id: 'ocpui.components.SearchParticipant.PractitionerMemberFloatingLabel',
-    defaultMessage: 'Member Type',
-  },
   searchButtonTooltip: {
     id: 'ocpui.components.SearchParticipant.searchButtonTooltip',
     defaultMessage: 'Search',
@@ -42,8 +30,74 @@ export default defineMessages({
     id: 'ocpui.components.SearchParticipant.participantTableHeaderName',
     defaultMessage: 'Name',
   },
+  participantTableHeaderRole: {
+    id: 'ocpui.components.SearchParticipant.participantTableHeaderRole',
+    defaultMessage: 'Role',
+  },
+  participantTableHeaderPeriod: {
+    id: 'ocpui.components.SearchParticipant.participantTableHeaderPeriod',
+    defaultMessage: 'Period',
+  },
   participantTableHeaderAction: {
     id: 'ocpui.components.SearchParticipant.participantTableHeaderAction',
     defaultMessage: 'Action',
+  },
+  noSearchParticipantResult: {
+    id: 'ocpui.components.SearchParticipant.noSearchParticipantResult',
+    defaultMessage: 'No Participant found.',
+  },
+  hintText: {
+    practitionerName: {
+      id: 'ocpui.components.SearchParticipant.hintText.practitionerName',
+      defaultMessage: 'Name',
+    },
+    startDate: {
+      id: 'ocpui.components.SearchParticipant.hintText.startDate',
+      defaultMessage: 'Start Date',
+    },
+    endDate: {
+      id: 'ocpui.components.SearchParticipant.hintText.endDate',
+      defaultMessage: 'End Date',
+    },
+  },
+  floatingLabelText: {
+    practitionerName: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.practitionerName',
+      defaultMessage: 'Name',
+    },
+    practitionerMember: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.practitionerMember',
+      defaultMessage: 'Member Type',
+    },
+    startDate: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.startDate',
+      defaultMessage: 'Start Date',
+    },
+    endDate: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.endDate',
+      defaultMessage: 'End Date',
+    },
+    participantRole: {
+      id: 'ocpui.components.SearchParticipant.floatingLabelText.participantRole',
+      defaultMessage: 'Role',
+    },
+  },
+  validation: {
+    required: {
+      id: 'ocpui.components.SearchParticipant.validation.required',
+      defaultMessage: 'Required',
+    },
+    invalid: {
+      id: 'ocpui.components.ManageCareTeam.validation.invalid',
+      defaultMessage: 'Invalid value',
+    },
+    minStartDate: {
+      id: 'ocpui.components.ManageCareTeam.validation.minStartDate',
+      defaultMessage: 'Start date field must be later than today',
+    },
+    minEndDate: {
+      id: 'ocpui.components.ManageCareTeam.validation.minEndDate',
+      defaultMessage: 'End date field must be later than Start date field',
+    },
   },
 });
