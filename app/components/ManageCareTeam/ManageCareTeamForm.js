@@ -8,21 +8,15 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import isEmpty from 'lodash/isEmpty';
-import { uniqueId } from 'lodash';
-// import SelectedParticipants from './SelectedParticipants';
+
+import SelectedParticipants from './SelectedParticipants';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
 import DatePicker from '../DatePicker';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+import { addButtonStyle } from './constants';
 import messages from './messages';
 import styles from './styles.css';
-import Table from '../Table/index';
-import TableHeader from '../TableHeader/index';
-import TableHeaderColumn from '../TableHeaderColumn/index';
-import TableRow from '../TableRow/index';
-import TableRowColumn from '../TableRowColumn/index';
-import { addButtonStyle, removeButtonStyle } from './constants';
-
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -38,14 +32,14 @@ function ManageCareTeamForm(props) {
     removeParticipant,
   } = props;
 
-  // const selectedParticipantsProps = {
-  //   selectedParticipants,
-  //   removeParticipant,
-  // };
-  const handleRemoveParticipant = (participant) => removeParticipant(participant);
-  const capitalizeFirstletter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
+  const selectedParticipantsProps = {
+    selectedParticipants,
+    removeParticipant,
+  };
+
   // To check whether has participant
   const hasParticipants = !isEmpty(selectedParticipants);
+
   return (
     <div>
       <Form>
@@ -141,56 +135,13 @@ function ManageCareTeamForm(props) {
           </div>
         </div>
 
-        {/* <SelectedParticipants {...selectedParticipantsProps} />*/}
+        <SelectedParticipants {...selectedParticipantsProps} />
 
         {!hasParticipants &&
         <div className={styles.participantError}>{hasParticipants ?
           '' : <FormattedMessage {...messages.validation.checkParticipants} />}
         </div>
         }
-        <Table>
-          <TableHeader>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
-            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-          </TableHeader>
-          {selectedParticipants && selectedParticipants.length > 0 &&
-          selectedParticipants.map((participant) => (
-            <TableRow key={uniqueId()}>
-              <TableRowColumn> {participant.name} </TableRowColumn>
-              <TableRowColumn> {capitalizeFirstletter(participant.memberType)} </TableRowColumn>
-              <TableRowColumn>{participant.roleDisplay}</TableRowColumn>
-              <TableRowColumn>
-                {participant.startDate}
-              </TableRowColumn>
-              <TableRowColumn>
-                {participant.endDate}
-              </TableRowColumn>
-              <TableRowColumn>
-                <RaisedButton
-                  backgroundColor={teal500}
-                  labelColor={white}
-                  onClick={() => handleRemoveParticipant(participant)}
-                  style={removeButtonStyle}
-                  label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
-                  primary
-                />
-              </TableRowColumn>
-            </TableRow>
-          ))
-          }
-          {
-            selectedParticipants && selectedParticipants.length === 0 &&
-            <TableRow>
-              <TableRowColumn>
-                <span><FormattedMessage {...messages.noParticipantAdded} /></span>
-              </TableRowColumn>
-            </TableRow>
-          }
-        </Table>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
