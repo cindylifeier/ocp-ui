@@ -40,7 +40,8 @@ import TableRow from '../../components/TableRow';
 import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
 import { getParticipantName } from '../../utils/CareTeamUtils';
-import { DATE_PICKER_MODE } from '../App/constants';
+import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
+import { getLookupsAction } from '../App/actions';
 
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -55,6 +56,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
   }
 
   componentWillMount() {
+    this.props.getLookUpFormData();
     this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
 
@@ -74,7 +76,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
-
 
   createSearchResultHeader() {
     return (<Table>
@@ -192,7 +193,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         autoScrollBodyContent
       >
         <Formik
-          initialValues={{}}
           onSubmit={(values, actions) => {
             this.handleSearch(values);
             actions.setSubmitting(false);
@@ -257,6 +257,7 @@ SearchParticipant.propTypes = {
   handleClose: PropTypes.func.isRequired,
   initializeSearchParticipant: PropTypes.func.isRequired,
   addParticipants: PropTypes.func.isRequired,
+  getLookUpFormData: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantRoles: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
@@ -275,6 +276,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
     initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
