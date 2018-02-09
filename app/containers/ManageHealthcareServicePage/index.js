@@ -8,24 +8,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import Divider from 'material-ui/Divider';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import { FormattedMessage } from 'react-intl';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectHealthcareServiceCategories,
-        makeSelectHealthcareServiceTypes,
-        makeSelectHealthcareServiceReferralMethods,
-        makeSelectHealthcareServiceSpecialities,
-        makeSelectTelecomSystems,
-        makeSelectTelecomUses } from '../App/selectors';
+import { makeSelectHealthcareServiceCategories, makeSelectHealthcareServiceReferralMethods, makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceTypes, makeSelectTelecomSystems, makeSelectTelecomUses } from '../App/selectors';
 import { makeSelectOrganization } from '../Locations/selectors';
 import { getLookupsAction } from '../App/actions';
 import { createHealthcareService } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ManageHealthcareService from '../../components/ManageHealthcareService';
-import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, TELECOMSYSTEM, TELECOMUSE } from '../App/constants';
+import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICETYPE, TELECOMSYSTEM, TELECOMUSE } from '../App/constants';
+import messages from '../ManageCareTeamPage/messages';
+import styles from './styles.css';
 
 
 export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -34,12 +32,15 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
     super(props);
     this.handleSave = this.handleSave.bind(this);
   }
+
   componentWillMount() {
     this.props.getLookups();
   }
+
   handleSave(healthcareServiceFormData, actions) {
     this.props.onSaveForm(healthcareServiceFormData, () => actions.setSubmitting(false));
   }
+
   render() {
     const {
       healthcareServiceCategories,
@@ -65,7 +66,13 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
           <title>Manage Healthcare Service</title>
           <meta name="description" content="Manage Healthcare Service page of Omnibus Care Plan application" />
         </Helmet>
-        <ManageHealthcareService {...hcsProps} onSave={this.handleSave} />
+        <div className={styles.wrapper}>
+          <div className={styles.header}>
+            <FormattedMessage {...messages.createHeader} />
+          </div>
+          <Divider />
+          <ManageHealthcareService {...hcsProps} onSave={this.handleSave} />
+        </div>
       </div>
     );
   }

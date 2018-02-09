@@ -5,7 +5,7 @@
  */
 
 import {
-  POST_HEALTHCARE_SERVICE, CREATE_HEALTHCARE_SERVICE_ERROR, CREATE_HEALTHCARE_SERVICE_SUCCESS,
+  POST_HEALTHCARE_SERVICE, POST_HEALTHCARE_SERVICE_ERROR, POST_HEALTHCARE_SERVICE_SUCCESS,
 } from './constants';
 
 
@@ -19,7 +19,7 @@ export function createHealthcareService(healthcareServiceFormData, handleSubmitt
 
 export function createHealthcareServiceError(error) {
   return {
-    type: CREATE_HEALTHCARE_SERVICE_ERROR,
+    type: POST_HEALTHCARE_SERVICE_ERROR,
     error,
   };
 }
@@ -27,7 +27,7 @@ export function createHealthcareServiceError(error) {
 
 export function createHealthcareServiceSuccess(respone) {
   return {
-    type: CREATE_HEALTHCARE_SERVICE_SUCCESS,
+    type: POST_HEALTHCARE_SERVICE_SUCCESS,
     respone,
   };
 }
