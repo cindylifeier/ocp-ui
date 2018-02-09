@@ -43,16 +43,13 @@ export function mapToEditParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        member: {
-          id: participant.memberId,
-          type: participant.memberType,
-          firstName: participant.memberFirstName,
-          lastName: participant.memberLastName,
-          name: participant.memberName,
-        },
-        role: {
-          roleCode: participant.code,
-        },
+        roleCode: participant.roleCode,
+        memberId: participant.memberId,
+        roleDisplay: participant.roleDisplay,
+        memberType: participant.memberType,
+        startDate: participant.startDate,
+        endDate: participant.endDate,
+        name: participant.memberFirstName.concat(' ').concat(participant.memberLastName),
       }));
   }
   return [];
@@ -102,12 +99,11 @@ function mapToBffParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        roleCode: participant.role.code,
-        memberId: participant.member.id,
-        memberType: participant.member.type,
-        memberFirstName: participant.member.firstName,
-        memberLastName: participant.member.lastName,
-        memberName: participant.member.name,
+        roleCode: participant.roleCode,
+        memberId: participant.memberId,
+        memberType: participant.memberType,
+        startDate: participant.startDate,
+        endDate: participant.endDate,
       }));
   }
   return [];
