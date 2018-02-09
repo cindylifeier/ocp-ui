@@ -15,7 +15,7 @@ function TableHeader({ children }) {
   return (
     <div
       className={styles.rowGridContainer}
-      style={{ gridTemplateColumns: `repeat(${React.Children.count(children)}, 1fr) 0.5fr` }}
+      style={{ gridTemplateColumns: `repeat(${React.Children.count(children)}, 1fr)` }}
     >
       {children}
     </div>

@@ -1,9 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import { FormattedMessage } from 'react-intl';
 
 import HealthcareServiceTable from '../index';
 import messages from '../messages';
+
+configure({ adapter: new Adapter() });
 
 describe('<HealthcareServiceTable />', () => {
   it('should match snapshot with active status', () => {
