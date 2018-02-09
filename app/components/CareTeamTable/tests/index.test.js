@@ -1,27 +1,21 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-
 import React from 'react';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
+import Adapter from 'enzyme-adapter-react-15/build/index';
 
 import CareTeamTable from '../index';
 import messages from '../messages';
 import TableHeaderColumn from '../../TableHeaderColumn';
+
+configure({ adapter: new Adapter() });
 
 const mockElements = [{
   id: '111111',
   name: 'My Care Team One',
   statusCode: 'active',
   statusDisplay: 'Active',
-  reasonCodes: [{
-    code: '109006',
-    display: 'Anxiety disorder of childhood OR adolescence',
-  }, {
-    code: '122003',
-    display: 'Choroidal hemorrhage',
-  },
-  ],
+  reasonCode: '109006',
+  reasonDisplay: 'Anxiety disorder of childhood OR adolescence',
   categoryCode: 'encounter',
   categoryDisplay: 'Encounter',
   subjectId: '11111',
@@ -54,11 +48,8 @@ const mockElements = [{
   name: 'My Care Team Two',
   statusCode: 'suspended',
   statusDisplay: 'Suspended',
-  reasonCodes: [{
-    code: '134006',
-    display: 'Decreased hair growth',
-  },
-  ],
+  reasonCode: '134006',
+  reasonDisplay: 'Decreased hair growth',
   categoryCode: 'condition',
   categoryDisplay: 'Condition',
   subjectId: '11111',
@@ -93,7 +84,7 @@ describe('<CareTeamTable />', () => {
 
     // Assert
     expect(renderedComponent.contains(
-      <TableHeaderColumn><FormattedMessage {...messages.columnHeaderId} /></TableHeaderColumn>)).toBe(true);
+      <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>)).toBe(true);
     expect(renderedComponent.contains(
       <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>)).toBe(true);
     expect(renderedComponent.contains(
@@ -141,12 +132,12 @@ describe('<CareTeamTable />', () => {
     expect(renderedComponent.contains('Suspended')).toBe(true);
   });
 
-  it('should contain ids', () => {
+  it('should contain reasons', () => {
     // Act
     const renderedComponent = shallow(<CareTeamTable elements={mockElements} />);
 
     // Assert
-    expect(renderedComponent.contains('111111')).toBe(true);
-    expect(renderedComponent.contains('222222')).toBe(true);
+    expect(renderedComponent.contains('Anxiety disorder of childhood OR adolescence')).toBe(true);
+    expect(renderedComponent.contains('Decreased hair growth')).toBe(true);
   });
 });

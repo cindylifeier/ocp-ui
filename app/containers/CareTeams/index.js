@@ -69,11 +69,11 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
               {patientName}
             </div>
             <div className={styles.filterSection}>
-              {!isEmpty(data) && !isEmpty(data.elements) && !isEmpty(careTeamStatuses) && careTeamStatuses &&
               <div>
                 <div className={styles.filterGridContainer}>
                   <div className={styles.filterGridItem}>Include</div>
-                  {careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code)
+                  {!isEmpty(careTeamStatuses) && careTeamStatuses
+                    .filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code)
                     .map(({ code, display }) => (
                       <div key={code}>
                         <Checkbox
@@ -88,7 +88,6 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
                   }
                 </div>
               </div>
-              }
             </div>
           </div>
         }
