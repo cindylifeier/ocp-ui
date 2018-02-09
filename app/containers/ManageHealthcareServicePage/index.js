@@ -21,6 +21,7 @@ import { makeSelectHealthcareServiceCategories,
         makeSelectTelecomUses } from '../App/selectors';
 import { makeSelectOrganization } from '../Locations/selectors';
 import { getLookupsAction } from '../App/actions';
+import { createHealthcareService } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ManageHealthcareService from '../../components/ManageHealthcareService';
@@ -28,10 +29,17 @@ import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFE
 
 
 export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
   componentWillMount() {
     this.props.getLookups();
   }
-
+  handleSave(healthcareServiceFormData, actions) {
+    this.props.onSaveForm(healthcareServiceFormData, () => actions.setSubmitting(false));
+  }
   render() {
     const {
       healthcareServiceCategories,
@@ -57,7 +65,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
           <title>ManageHealthcareServicePage</title>
           <meta name="description" content="Description of ManageHealthcareServicePage" />
         </Helmet>
-        <ManageHealthcareService {...hcsProps} />
+        <ManageHealthcareService {...hcsProps} onSave={this.handleSave} />
       </div>
     );
   }
@@ -72,6 +80,7 @@ ManageHealthcareServicePage.propTypes = {
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
   organization: PropTypes.object,
+  onSaveForm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -87,7 +96,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, TELECOMSYSTEM, TELECOMUSE])),
-
+    onSaveForm: (healthcareServiceFormData, handleSubmitting) => dispatch(createHealthcareService(healthcareServiceFormData, handleSubmitting)),
   };
 }
 

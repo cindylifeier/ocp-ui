@@ -21,9 +21,7 @@ function ManageHealthcareServiceForm(props) {
           healthcareServiceSpecialities,
           healthcareServiceReferralMethods,
           telecomSystems,
-          isSubmitting,
-          dirty,
-          isValid } = props;
+          isSubmitting, dirty, isValid } = props;
   return (
     <div>
       <div className={styles.title}>
@@ -48,7 +46,7 @@ function ManageHealthcareServiceForm(props) {
           <div className={`${styles.gridItem} ${styles.programName}`}>
             <TextField
               fullWidth
-              name="programName"
+              name="hcsProgramName"
               hintText={<FormattedMessage {...messages.hintText.programName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.programName} />}
             />
@@ -61,37 +59,37 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
             >
               {healthcareServiceCategories && healthcareServiceCategories.map((category) =>
-                <MenuItem key={category.code} value={category.code} primaryText={category.display} />,
+                <MenuItem key={category.code} value={category} primaryText={category.display} />,
               )}
             </SelectField>
             <SelectField
               fullWidth
-              name="type"
+              name="hcsType"
               hintText={<FormattedMessage {...messages.hintText.type} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.type} />}
             >
               {healthcareServiceTypes && healthcareServiceTypes.map((type) =>
-                <MenuItem key={type.code} value={type.code} primaryText={type.display} />,
+                <MenuItem key={type.code} value={type} primaryText={type.display} />,
               )}
             </SelectField>
             <SelectField
               fullWidth
-              name="specialty"
+              name="hcsSpecialty"
               hintText={<FormattedMessage {...messages.hintText.specialty} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.specialty} />}
             >
               {healthcareServiceSpecialities && healthcareServiceSpecialities.map((type) =>
-                <MenuItem key={type.code} value={type.code} primaryText={type.display} />,
+                <MenuItem key={type.code} value={type} primaryText={type.display} />,
               )}
             </SelectField>
             <SelectField
               fullWidth
-              name="referralMethod"
+              name="hcsReferralMethod"
               hintText={<FormattedMessage {...messages.hintText.referralMethod} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.referralMethod} />}
             >
               {healthcareServiceReferralMethods && healthcareServiceReferralMethods.map((type) =>
-                <MenuItem key={type.code} value={type.code} primaryText={type.display} />,
+                <MenuItem key={type.code} value={type} primaryText={type.display} />,
               )}
             </SelectField>
 

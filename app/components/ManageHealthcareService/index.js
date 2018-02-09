@@ -7,17 +7,19 @@
 import React from 'react';
 import { Formik } from 'formik';
 import yup from 'yup';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import styles from './styles.css';
 import ManageHealthcareServiceForm from './ManageHealthcareServiceForm';
 import messages from '../ManagePractitioner/messages';
 import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constants';
 
 function ManageHealthcareService(props) {
-  const { onSave } = props;
   const minimumLength = TEXT_MIN_LENGTH;
+  const { onSave, healthcareServiceCategories, healthcareServiceTypes, healthcareServiceSpecialities, healthcareServiceReferralMethods, telecomSystems, organization } = props;
+  const formData = { organization, healthcareServiceCategories, healthcareServiceTypes, healthcareServiceSpecialities, healthcareServiceReferralMethods, telecomSystems };
   return (
-    <div>
+    <div className={styles.root}>
       <Formik
         onSubmit={(values, actions) => {
           onSave(values, actions);
@@ -27,16 +29,16 @@ function ManageHealthcareService(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          programName: yup.string()
+          hcsProgramName: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          type: yup.string()
+          hcsType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          category: yup.string()
+          category: yup.object()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
-        render={(formikProps) => <ManageHealthcareServiceForm {...formikProps} {...props} />}
+        render={(formikProps) => <ManageHealthcareServiceForm {...formikProps} {...formData} />}
       />
     </div>
   );
@@ -44,6 +46,12 @@ function ManageHealthcareService(props) {
 
 ManageHealthcareService.propTypes = {
   onSave: PropTypes.func.isRequired,
+  organization: PropTypes.object.isRequired,
+  healthcareServiceCategories: PropTypes.array.isRequired,
+  healthcareServiceTypes: PropTypes.array.isRequired,
+  healthcareServiceSpecialities: PropTypes.array.isRequired,
+  healthcareServiceReferralMethods: PropTypes.array.isRequired,
+  telecomSystems: PropTypes.array.isRequired,
 };
 
 export default ManageHealthcareService;
