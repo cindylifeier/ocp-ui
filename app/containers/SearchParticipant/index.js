@@ -172,7 +172,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                       label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                       type="submit"
                       value={participant}
-                      primary
                       disabled={!dirty || isSubmitting || !isValid}
                     />
                   </TableRowColumn>
