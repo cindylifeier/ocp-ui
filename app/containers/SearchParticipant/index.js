@@ -27,7 +27,7 @@ import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
-import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
+import { fieldStyle, floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
@@ -203,6 +203,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
+    const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
       <FlatButton
@@ -223,7 +224,14 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             this.handleSearch(values);
             actions.setSubmitting(false);
           }}
-          validationSchema={yup.object().shape({})}
+          validationSchema={yup.object().shape({
+            name: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(minimumLength, (
+                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            member: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+          })}
           render={(formikProps) => {
             const { isSubmitting, dirty, isValid } = formikProps;
             return (

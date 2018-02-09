@@ -88,16 +88,20 @@ export default defineMessages({
       defaultMessage: 'Required',
     },
     invalid: {
-      id: 'ocpui.components.ManageCareTeam.validation.invalid',
+      id: 'ocpui.components.SearchParticipant.validation.invalid',
       defaultMessage: 'Invalid value',
     },
     minStartDate: {
-      id: 'ocpui.components.ManageCareTeam.validation.minStartDate',
+      id: 'ocpui.components.SearchParticipant.validation.minStartDate',
       defaultMessage: 'Start date field must be later than today',
     },
     minEndDate: {
-      id: 'ocpui.components.ManageCareTeam.validation.minEndDate',
+      id: 'ocpui.components.SearchParticipant.validation.minEndDate',
       defaultMessage: 'End date field must be later than Start date field',
+    },
+    minLength: {
+      id: 'ocpui.components.SearchParticipant.validation.minLength',
+      defaultMessage: 'Minimum {minimumLength} characters',
     },
   },
 });
