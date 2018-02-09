@@ -26,9 +26,13 @@ export default defineMessages({
     id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName',
     defaultMessage: 'Program Name',
   },
-  tableColumnHeaderIdentifier: {
-    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderIdentifier',
-    defaultMessage: 'Identifier',
+  tableColumnHeaderSpecialty: {
+    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty',
+    defaultMessage: 'Specialty',
+  },
+  tableColumnHeaderReferralMethod: {
+    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod',
+    defaultMessage: 'Referral Method',
   },
   tableColumnHeaderActive: {
     id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderActive',
