@@ -1,0 +1,79 @@
+.root {
+  position: relative;
+  background-color: white;
+}
+.validationMessage {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.title {
+  padding-left: 0.5vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  background-color: #f2f2f2;
+}
+
+.organizationName {
+  padding-left: 1vw;
+  margin-top: 1vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  font-size: 1rem;
+  color: #444;
+}
+
+.gridItem {
+  border-radius: 5px;
+  font-size: 100%;
+}
+
+.serviceGroup {
+  grid-area: serviceGroup;
+}
+
+.organizationName {
+  grid-area: organizationName;
+}
+
+.name {
+  grid-area: name;
+}
+
+.programName {
+  grid-area: programName;
+}
+
+.contactGroup {
+  grid-area: contactGroup;
+}
+
+.buttonGroup {
+  grid-area: buttonGroup;
+  margin: 1vh 0;
+  display: grid;
+  grid-column-gap: 1vw;
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.gridContainer {
+  color: #444;
+  width: auto;
+  padding-left: 0.5vw;
+  margin: 0 1vw;
+  display: grid;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vh;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "name"
+    "programName"
+    "serviceGroup"
+    "contactGroup"
+    "buttonGroup";
+}

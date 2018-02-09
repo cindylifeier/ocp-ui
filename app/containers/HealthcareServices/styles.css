@@ -1,3 +1,30 @@
+.organizationInfoSection, .locationInfoSection {
+  margin:10px 10px;
+}
+
+.organizationInfoLabel, .locationInfoLabel {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.actionSection {
+  font-size: 1rem;
+  background-color: #F9F9F9;
+}
+
+.filterGridContainer {
+  padding: 5px 20px;
+  margin: 2px 0;
+  display: grid;
+  grid-column-gap: 5px;
+  grid-template-columns: 70px 300px;
+}
+
+.noHealthcareServicesFound {
+  padding: 5px 20px;
+  margin: 2px 0;
+}
+
 .card {
   padding: 10px;
   background-color: white;
@@ -18,3 +45,5 @@
 .textCenter {
   text-align: center;
 }
+
+

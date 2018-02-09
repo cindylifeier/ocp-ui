@@ -1,10 +1,14 @@
-
+import isEmpty from 'lodash/isEmpty';
+import { EMPTY_STRING } from '../containers/App/constants';
+import Util from './Util';
 
 const ORGANIZATION_TYPE = 'organization';
 
 export const getParticipantName = (participant) => {
-  if (participant && participant.member && participant.member.type === ORGANIZATION_TYPE) {
-    return participant.member.name;
+  if (participant && participant.member && Util.equalsIgnoreCase(participant.memberType, ORGANIZATION_TYPE)) {
+    return participant.memberName;
   }
-  return participant.member.firstName.concat(' ').concat(participant.member.lastName);
+  const firstName = isEmpty(participant.memberFirstName) ? EMPTY_STRING : participant.memberFirstName;
+  const lastName = isEmpty(participant.memberLastName) ? EMPTY_STRING : participant.memberLastName;
+  return `${firstName} ${lastName}`;
 };

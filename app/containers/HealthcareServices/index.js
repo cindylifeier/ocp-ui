@@ -81,20 +81,34 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
         {!isEmpty(organization) &&
-        <div><strong>Organization:</strong> {organization.name}</div>}
+        <div className={styles.organizationInfoSection}>
+          <div className={styles.organizationInfoLabel}>
+            Organization&nbsp;:&nbsp;
+          </div>
+          {organization.name}
+        </div>}
         {!isEmpty(location) &&
-        <div><strong>Location:</strong> {location.name}</div>}
-
+        <div className={styles.locationInfoSection}>
+          <div className={styles.locationInfoLabel}>
+            Location&nbsp;:&nbsp;
+          </div>
+          {location.name}
+        </div>}
         {!isEmpty(organization) &&
         <div>
-          <div className={styles.actionGridContainer}>
-            <StatusCheckbox
-              messages={messages.inactive}
-              elementId="inactiveCheckBox"
-              checked={this.props.includeInactive}
-              handleCheck={this.handleCheck}
-            >
-            </StatusCheckbox>
+          <div className={styles.actionSection}>
+            <div className={styles.filterGridContainer}>
+              <div>
+                <FormattedMessage {...messages.filterLabel} />
+              </div>
+              <StatusCheckbox
+                messages={messages.inactive}
+                elementId="inactiveCheckBox"
+                checked={this.props.includeInactive}
+                handleCheck={this.handleCheck}
+              >
+              </StatusCheckbox>
+            </div>
           </div>
         </div>
         }
@@ -103,7 +117,9 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-        <h4><FormattedMessage {...messages.noHealthcareServicesFound} /></h4>
+        <div className={styles.noHealthcareServicesFound}>
+          <FormattedMessage {...messages.noHealthcareServicesFound} />
+        </div>
         }
 
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&

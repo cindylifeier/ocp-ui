@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { GET_LOOKUPS } from '../App/constants';
 import { getLookupTypesNotInStore } from '../../utils/LookupService';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from '../App/actions';
@@ -20,5 +20,5 @@ export function* getLookups(action) {
 }
 
 export default function* watchGetLookupsSaga() {
-  yield takeLatest(GET_LOOKUPS, getLookups);
+  yield takeEvery(GET_LOOKUPS, getLookups);
 }

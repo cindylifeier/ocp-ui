@@ -1,0 +1,28 @@
+.textCenter {
+  text-align: center;
+}
+
+.root {
+  background-color: white;
+}
+
+.header, .noHealthcareServices {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #336666;
+  margin: 10px;
+}
+
+.noHealthcareServices {
+  font-size: 1rem;
+  color: black;
+}
+
+.organizationInfoSection, .locationInfoSection {
+  margin:10px 10px;
+}
+
+.organizationInfoLabel, .locationInfoLabel {
+  font-weight: bold;
+  display: inline-block;
+}

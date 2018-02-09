@@ -10,23 +10,25 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Formik } from 'formik';
+import find from 'lodash/find';
 import yup from 'yup';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { IconButton, RaisedButton, teal500, white } from 'material-ui';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import { teal500, white } from 'material-ui/styles/colors';
 import reducer from './reducer';
 import saga from './saga';
-
 import styles from './styles.css';
 import messages from './messages';
-import { fieldStyle, floatingLabelStyle, iconButtonStyle } from './constants';
-import { makeSelectParticipantTypes } from '../App/selectors';
+import { fieldStyle, floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
+import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
@@ -36,7 +38,11 @@ import TableHeaderColumn from '../../components/TableHeaderColumn';
 import TableRow from '../../components/TableRow';
 import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
+import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
+import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
 import { getParticipantName } from '../../utils/CareTeamUtils';
+import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
+import { getLookupsAction } from '../App/actions';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -48,42 +54,156 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     this.addParticipant = this.addParticipant.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
   }
+
   componentWillMount() {
-    this.props.initializeSearchParticipant();
+    this.props.getLookUpFormData();
+    this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
+
   addParticipant(participant) {
     this.handleDialogClose();
     const selected = [];
     selected.push(participant);
     this.props.addParticipants(selected);
   }
+
   handleDialogClose() {
     this.setState({ open: false });
     this.props.handleClose();
   }
+
   handleSearch(values) {
     const { name, member } = values;
     this.props.searchParticipant(name, member);
   }
+
+
+  createSearchResultHeader() {
+    return (<Table>
+      <TableHeader>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+      </TableHeader>
+    </Table>);
+  }
   createSearchResultRows() {
+    const today = new Date();
+    const participantRoles = this.props.participantRoles;
     return this.props.searchParticipantResult.map((participant) => (
-      <TableRow key={uniqueId()}>
-        <TableRowColumn> { getParticipantName(participant) } </TableRowColumn>
-        <TableRowColumn>
-          <RaisedButton
-            backgroundColor={teal500}
-            labelColor={white}
-            label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-            type="button"
-            value={participant}
-            onClick={() => this.addParticipant(participant)}
-            primary
-          />
-        </TableRowColumn>
-      </TableRow>
+      <Formik
+        key={uniqueId()}
+        initialValues={{}}
+        onSubmit={(values, actions) => {
+          const { roleCode, startDate, endDate } = values;
+          const role = find(this.props.participantRoles, { code: roleCode });
+          const smallParticipant = {
+            roleCode,
+            startDate: startDate.toLocaleDateString(),
+            endDate: endDate.toLocaleDateString(),
+            roleDisplay: role.display,
+            memberId: participant.member.id,
+            memberType: participant.member.type,
+            name: getParticipantName(participant),
+          };
+          this.addParticipant(smallParticipant);
+          actions.setSubmitting(false);
+        }}
+        validationSchema={() =>
+          yup.lazy((values) => {
+            let startDate = new Date();
+            if (values.startDate) {
+              startDate = values.startDate;
+            }
+            return yup.object().shape({
+              roleCode: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              startDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+              endDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+            });
+          })}
+        render={(formikProps) => {
+          const { isSubmitting, dirty, isValid } = formikProps;
+          return (
+            <Form>
+              <Table>
+                <TableRow key={uniqueId()}>
+                  <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
+                  <TableRowColumn>
+                    <SelectFieldWithoutOnClick
+                      name="roleCode"
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
+                    >
+                      {participantRoles && participantRoles.map((participantRole) =>
+                        <MenuItem key={participantRole.code} value={participantRole.code} primaryText={participantRole.display} />,
+                      )
+                      }
+                    </SelectFieldWithoutOnClick>
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <DatePickerWithoutBlur
+                      fullWidth
+                      name="startDate"
+                      minDate={today}
+                      mode={DATE_PICKER_MODE.LANDSCAPE}
+                      hintText={<FormattedMessage {...messages.hintText.startDate} />}
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
+                    />
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <DatePickerWithoutBlur
+                      fullWidth
+                      name="endDate"
+                      minDate={today}
+                      mode={DATE_PICKER_MODE.LANDSCAPE}
+                      hintText={<FormattedMessage {...messages.hintText.endDate} />}
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
+                    />
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <RaisedButton
+                      backgroundColor={teal500}
+                      labelColor={white}
+                      label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
+                      type="submit"
+                      value={participant}
+                      primary
+                      disabled={!dirty || isSubmitting || !isValid}
+                    />
+                  </TableRowColumn>
+                </TableRow>
+              </Table>
+            </Form>
+          );
+        }}
+      />
     ));
   }
+
+  createNoSearchResultTable() {
+    return (<Table>
+      <TableHeader>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+      </TableHeader>
+      <TableRow key={uniqueId()}>
+        <TableRowColumn> {<FormattedMessage {...messages.noSearchParticipantResult} />}</TableRowColumn>
+        <TableRowColumn> </TableRowColumn>
+        <TableRowColumn> </TableRowColumn>
+        <TableRowColumn> </TableRowColumn>
+      </TableRow>
+    </Table>);
+  }
+
   render() {
+    const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
       <FlatButton
@@ -100,12 +220,18 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         autoScrollBodyContent
       >
         <Formik
-          initialValues={{}}
           onSubmit={(values, actions) => {
             this.handleSearch(values);
             actions.setSubmitting(false);
           }}
-          validationSchema={yup.object().shape({})}
+          validationSchema={yup.object().shape({
+            name: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(minimumLength, (
+                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            member: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+          })}
           render={(formikProps) => {
             const { isSubmitting, dirty, isValid } = formikProps;
             return (
@@ -117,18 +243,18 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                         name="name"
                         style={fieldStyle}
                         floatingLabelStyle={floatingLabelStyle}
-                        hintText={<FormattedMessage {...messages.PractitionerNameHintText} />}
-                        floatingLabelText={<FormattedMessage {...messages.PractitionerNameFloatingLabelText} />}
+                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
                       />
                     </div>
                     <div className={styles.gridItem}>
                       <SelectField
                         name="member"
-                        floatingLabelText={<FormattedMessage {...messages.PractitionerMemberFloatingLabel} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
                       >
                         {participantTypes && participantTypes.map((member) =>
                           <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                          )
+                        )
                         }
                       </SelectField>
                     </div>
@@ -142,21 +268,17 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                         <ActionSearch />
                       </IconButton>
                     </div>
+                    <div className={styles.gridItem}>
+                    </div>
                   </div>
-                  { searchParticipantResult && searchParticipantResult.length > 0 &&
-                    <Table>
-                      <TableHeader>
-                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-                        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-                      </TableHeader>
-                      { this.createSearchResultRows() }
-                    </Table>
-                  }
                 </div>
               </Form>
             );
           }}
         />
+        {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultHeader()}
+        {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultRows()}
+        {searchParticipantResult && searchParticipantResult.length === 0 && this.createNoSearchResultTable()}
       </Dialog>
     );
   }
@@ -164,11 +286,14 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
 SearchParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   initializeSearchParticipant: PropTypes.func.isRequired,
   addParticipants: PropTypes.func.isRequired,
+  getLookUpFormData: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
+  participantRoles: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -180,13 +305,15 @@ SearchParticipant.propTypes = {
 const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   searchParticipantResult: makeSelectSearchParticipantResults(),
+  participantRoles: makeSelectParticipantRoles(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
-    initializeSearchParticipant: () => dispatch(initializeSearchParticipant()),
+    initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
   };
 }
 

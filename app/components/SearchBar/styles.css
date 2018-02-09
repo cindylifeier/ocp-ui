@@ -19,3 +19,48 @@
   height: auto;
   margin: 10px;
 }
+
+.searchSection {
+  font-size: 1rem;
+  background-color: #F9F9F9;
+}
+
+.searchHeader {
+  font-weight: bold;
+  color: #336666;
+  padding: 5px 20px;
+  font-size: 1.1rem;
+  background-color: #EEEEEE;
+}
+
+.searchGridContainer, .filterGridContainer {
+  padding: 5px 20px;
+  margin: 2px 0;
+  display: grid;
+  grid-column-gap: 5px;
+  grid-template-columns: 250px 300px;
+}
+
+.filterGridContainer {
+  grid-template-columns: 70px 300px;
+}
+
+.buttonGridContainer {
+  display: grid;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  grid-column-gap: 5px;
+  grid-template-columns: 120px 1fr;
+}
+
+.gridHeaderContainer {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  margin-top: 5px;
+}
+
+.gridItem {
+  position: relative;
+  height: auto;
+}

@@ -10,103 +10,103 @@ ShallowWrapper {
   "length": 1,
   "node": <Provider
     store={
-        Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "injectedReducers": Object {},
-            "injectedSagas": Object {},
-            "replaceReducer": [Function],
-            "runSaga": [Function],
-            "subscribe": [Function],
-            Symbol(Symbol.observable): [Function],
-          }
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "injectedReducers": Object {},
+        "injectedSagas": Object {},
+        "replaceReducer": [Function],
+        "runSaga": [Function],
+        "subscribe": [Function],
+        Symbol(Symbol.observable): [Function],
+      }
     }
->
+  >
     <Connect(LanguageProvider)
-        messages={
-            Object {
-                "en": Object {},
-              }
+      messages={
+        Object {
+          "en": Object {},
         }
+      }
     >
-        <ConnectedRouter
-            history={
-                Object {
-                    "action": "POP",
-                    "block": [Function],
-                    "createHref": [Function],
-                    "go": [Function],
-                    "goBack": [Function],
-                    "goForward": [Function],
-                    "length": 1,
-                    "listen": [Function],
-                    "location": Object {
-                      "hash": "",
-                      "pathname": "blank",
-                      "search": "",
-                      "state": undefined,
-                    },
-                    "push": [Function],
-                    "replace": [Function],
-                  }
-            }
-        >
-            <MuiThemeProvider>
-                <SampleClassComponent />
-            </MuiThemeProvider>
-        </ConnectedRouter>
+      <ConnectedRouter
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "createHref": [Function],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "pathname": "blank",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+      >
+        <MuiThemeProvider>
+          <SampleClassComponent />
+        </MuiThemeProvider>
+      </ConnectedRouter>
     </Connect(LanguageProvider)>
-</Provider>,
+  </Provider>,
   "nodes": Array [
     <Provider
       store={
-            Object {
-                  "dispatch": [Function],
-                  "getState": [Function],
-                  "injectedReducers": Object {},
-                  "injectedSagas": Object {},
-                  "replaceReducer": [Function],
-                  "runSaga": [Function],
-                  "subscribe": [Function],
-                  Symbol(Symbol.observable): [Function],
-                }
+        Object {
+          "dispatch": [Function],
+          "getState": [Function],
+          "injectedReducers": Object {},
+          "injectedSagas": Object {},
+          "replaceReducer": [Function],
+          "runSaga": [Function],
+          "subscribe": [Function],
+          Symbol(Symbol.observable): [Function],
+        }
       }
->
+    >
       <Connect(LanguageProvider)
-            messages={
-                  Object {
-                        "en": Object {},
-                      }
-            }
+        messages={
+          Object {
+            "en": Object {},
+          }
+        }
       >
-            <ConnectedRouter
-                  history={
-                        Object {
-                              "action": "POP",
-                              "block": [Function],
-                              "createHref": [Function],
-                              "go": [Function],
-                              "goBack": [Function],
-                              "goForward": [Function],
-                              "length": 1,
-                              "listen": [Function],
-                              "location": Object {
-                                "hash": "",
-                                "pathname": "blank",
-                                "search": "",
-                                "state": undefined,
-                              },
-                              "push": [Function],
-                              "replace": [Function],
-                            }
-                  }
-            >
-                  <MuiThemeProvider>
-                        <SampleClassComponent />
-                  </MuiThemeProvider>
-            </ConnectedRouter>
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "blank",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <MuiThemeProvider>
+            <SampleClassComponent />
+          </MuiThemeProvider>
+        </ConnectedRouter>
       </Connect(LanguageProvider)>
-</Provider>,
+    </Provider>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -144,103 +144,103 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <Provider
           store={
-                    Object {
-                              "dispatch": [Function],
-                              "getState": [Function],
-                              "injectedReducers": Object {},
-                              "injectedSagas": Object {},
-                              "replaceReducer": [Function],
-                              "runSaga": [Function],
-                              "subscribe": [Function],
-                              Symbol(Symbol.observable): [Function],
-                            }
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "injectedReducers": Object {},
+              "injectedSagas": Object {},
+              "replaceReducer": [Function],
+              "runSaga": [Function],
+              "subscribe": [Function],
+              Symbol(Symbol.observable): [Function],
+            }
           }
->
+        >
           <Connect(LanguageProvider)
-                    messages={
-                              Object {
-                                        "en": Object {},
-                                      }
-                    }
+            messages={
+              Object {
+                "en": Object {},
+              }
+            }
           >
-                    <ConnectedRouter
-                              history={
-                                        Object {
-                                                  "action": "POP",
-                                                  "block": [Function],
-                                                  "createHref": [Function],
-                                                  "go": [Function],
-                                                  "goBack": [Function],
-                                                  "goForward": [Function],
-                                                  "length": 1,
-                                                  "listen": [Function],
-                                                  "location": Object {
-                                                    "hash": "",
-                                                    "pathname": "blank",
-                                                    "search": "",
-                                                    "state": undefined,
-                                                  },
-                                                  "push": [Function],
-                                                  "replace": [Function],
-                                                }
-                              }
-                    >
-                              <MuiThemeProvider>
-                                        <SampleClassComponent />
-                              </MuiThemeProvider>
-                    </ConnectedRouter>
+            <ConnectedRouter
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "length": 1,
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "blank",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+            >
+              <MuiThemeProvider>
+                <SampleClassComponent />
+              </MuiThemeProvider>
+            </ConnectedRouter>
           </Connect(LanguageProvider)>
-</Provider>,
+        </Provider>,
         "_debugID": 6,
         "_renderedOutput": <Provider
           store={
-                    Object {
-                              "dispatch": [Function],
-                              "getState": [Function],
-                              "injectedReducers": Object {},
-                              "injectedSagas": Object {},
-                              "replaceReducer": [Function],
-                              "runSaga": [Function],
-                              "subscribe": [Function],
-                              Symbol(Symbol.observable): [Function],
-                            }
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "injectedReducers": Object {},
+              "injectedSagas": Object {},
+              "replaceReducer": [Function],
+              "runSaga": [Function],
+              "subscribe": [Function],
+              Symbol(Symbol.observable): [Function],
+            }
           }
->
+        >
           <Connect(LanguageProvider)
-                    messages={
-                              Object {
-                                        "en": Object {},
-                                      }
-                    }
+            messages={
+              Object {
+                "en": Object {},
+              }
+            }
           >
-                    <ConnectedRouter
-                              history={
-                                        Object {
-                                                  "action": "POP",
-                                                  "block": [Function],
-                                                  "createHref": [Function],
-                                                  "go": [Function],
-                                                  "goBack": [Function],
-                                                  "goForward": [Function],
-                                                  "length": 1,
-                                                  "listen": [Function],
-                                                  "location": Object {
-                                                    "hash": "",
-                                                    "pathname": "blank",
-                                                    "search": "",
-                                                    "state": undefined,
-                                                  },
-                                                  "push": [Function],
-                                                  "replace": [Function],
-                                                }
-                              }
-                    >
-                              <MuiThemeProvider>
-                                        <SampleClassComponent />
-                              </MuiThemeProvider>
-                    </ConnectedRouter>
+            <ConnectedRouter
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "length": 1,
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "blank",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+            >
+              <MuiThemeProvider>
+                <SampleClassComponent />
+              </MuiThemeProvider>
+            </ConnectedRouter>
           </Connect(LanguageProvider)>
-</Provider>,
+        </Provider>,
       },
       "_renderedNodeType": 1,
       "_rootNodeID": 0,
@@ -266,103 +266,103 @@ ShallowWrapper {
   "length": 1,
   "node": <Provider
     store={
-        Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "injectedReducers": Object {},
-            "injectedSagas": Object {},
-            "replaceReducer": [Function],
-            "runSaga": [Function],
-            "subscribe": [Function],
-            Symbol(Symbol.observable): [Function],
-          }
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "injectedReducers": Object {},
+        "injectedSagas": Object {},
+        "replaceReducer": [Function],
+        "runSaga": [Function],
+        "subscribe": [Function],
+        Symbol(Symbol.observable): [Function],
+      }
     }
->
+  >
     <Connect(LanguageProvider)
-        messages={
-            Object {
-                "en": Object {},
-              }
+      messages={
+        Object {
+          "en": Object {},
         }
+      }
     >
-        <ConnectedRouter
-            history={
-                Object {
-                    "action": "POP",
-                    "block": [Function],
-                    "createHref": [Function],
-                    "go": [Function],
-                    "goBack": [Function],
-                    "goForward": [Function],
-                    "length": 1,
-                    "listen": [Function],
-                    "location": Object {
-                      "hash": "",
-                      "pathname": "blank",
-                      "search": "",
-                      "state": undefined,
-                    },
-                    "push": [Function],
-                    "replace": [Function],
-                  }
-            }
-        >
-            <MuiThemeProvider>
-                <SampleFunctionalComponentWithDisplayName />
-            </MuiThemeProvider>
-        </ConnectedRouter>
+      <ConnectedRouter
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "createHref": [Function],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "pathname": "blank",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+      >
+        <MuiThemeProvider>
+          <SampleFunctionalComponentWithDisplayName />
+        </MuiThemeProvider>
+      </ConnectedRouter>
     </Connect(LanguageProvider)>
-</Provider>,
+  </Provider>,
   "nodes": Array [
     <Provider
       store={
-            Object {
-                  "dispatch": [Function],
-                  "getState": [Function],
-                  "injectedReducers": Object {},
-                  "injectedSagas": Object {},
-                  "replaceReducer": [Function],
-                  "runSaga": [Function],
-                  "subscribe": [Function],
-                  Symbol(Symbol.observable): [Function],
-                }
+        Object {
+          "dispatch": [Function],
+          "getState": [Function],
+          "injectedReducers": Object {},
+          "injectedSagas": Object {},
+          "replaceReducer": [Function],
+          "runSaga": [Function],
+          "subscribe": [Function],
+          Symbol(Symbol.observable): [Function],
+        }
       }
->
+    >
       <Connect(LanguageProvider)
-            messages={
-                  Object {
-                        "en": Object {},
-                      }
-            }
+        messages={
+          Object {
+            "en": Object {},
+          }
+        }
       >
-            <ConnectedRouter
-                  history={
-                        Object {
-                              "action": "POP",
-                              "block": [Function],
-                              "createHref": [Function],
-                              "go": [Function],
-                              "goBack": [Function],
-                              "goForward": [Function],
-                              "length": 1,
-                              "listen": [Function],
-                              "location": Object {
-                                "hash": "",
-                                "pathname": "blank",
-                                "search": "",
-                                "state": undefined,
-                              },
-                              "push": [Function],
-                              "replace": [Function],
-                            }
-                  }
-            >
-                  <MuiThemeProvider>
-                        <SampleFunctionalComponentWithDisplayName />
-                  </MuiThemeProvider>
-            </ConnectedRouter>
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "blank",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <MuiThemeProvider>
+            <SampleFunctionalComponentWithDisplayName />
+          </MuiThemeProvider>
+        </ConnectedRouter>
       </Connect(LanguageProvider)>
-</Provider>,
+    </Provider>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -400,103 +400,103 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <Provider
           store={
-                    Object {
-                              "dispatch": [Function],
-                              "getState": [Function],
-                              "injectedReducers": Object {},
-                              "injectedSagas": Object {},
-                              "replaceReducer": [Function],
-                              "runSaga": [Function],
-                              "subscribe": [Function],
-                              Symbol(Symbol.observable): [Function],
-                            }
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "injectedReducers": Object {},
+              "injectedSagas": Object {},
+              "replaceReducer": [Function],
+              "runSaga": [Function],
+              "subscribe": [Function],
+              Symbol(Symbol.observable): [Function],
+            }
           }
->
+        >
           <Connect(LanguageProvider)
-                    messages={
-                              Object {
-                                        "en": Object {},
-                                      }
-                    }
+            messages={
+              Object {
+                "en": Object {},
+              }
+            }
           >
-                    <ConnectedRouter
-                              history={
-                                        Object {
-                                                  "action": "POP",
-                                                  "block": [Function],
-                                                  "createHref": [Function],
-                                                  "go": [Function],
-                                                  "goBack": [Function],
-                                                  "goForward": [Function],
-                                                  "length": 1,
-                                                  "listen": [Function],
-                                                  "location": Object {
-                                                    "hash": "",
-                                                    "pathname": "blank",
-                                                    "search": "",
-                                                    "state": undefined,
-                                                  },
-                                                  "push": [Function],
-                                                  "replace": [Function],
-                                                }
-                              }
-                    >
-                              <MuiThemeProvider>
-                                        <SampleFunctionalComponentWithDisplayName />
-                              </MuiThemeProvider>
-                    </ConnectedRouter>
+            <ConnectedRouter
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "length": 1,
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "blank",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+            >
+              <MuiThemeProvider>
+                <SampleFunctionalComponentWithDisplayName />
+              </MuiThemeProvider>
+            </ConnectedRouter>
           </Connect(LanguageProvider)>
-</Provider>,
+        </Provider>,
         "_debugID": 4,
         "_renderedOutput": <Provider
           store={
-                    Object {
-                              "dispatch": [Function],
-                              "getState": [Function],
-                              "injectedReducers": Object {},
-                              "injectedSagas": Object {},
-                              "replaceReducer": [Function],
-                              "runSaga": [Function],
-                              "subscribe": [Function],
-                              Symbol(Symbol.observable): [Function],
-                            }
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "injectedReducers": Object {},
+              "injectedSagas": Object {},
+              "replaceReducer": [Function],
+              "runSaga": [Function],
+              "subscribe": [Function],
+              Symbol(Symbol.observable): [Function],
+            }
           }
->
+        >
           <Connect(LanguageProvider)
-                    messages={
-                              Object {
-                                        "en": Object {},
-                                      }
-                    }
+            messages={
+              Object {
+                "en": Object {},
+              }
+            }
           >
-                    <ConnectedRouter
-                              history={
-                                        Object {
-                                                  "action": "POP",
-                                                  "block": [Function],
-                                                  "createHref": [Function],
-                                                  "go": [Function],
-                                                  "goBack": [Function],
-                                                  "goForward": [Function],
-                                                  "length": 1,
-                                                  "listen": [Function],
-                                                  "location": Object {
-                                                    "hash": "",
-                                                    "pathname": "blank",
-                                                    "search": "",
-                                                    "state": undefined,
-                                                  },
-                                                  "push": [Function],
-                                                  "replace": [Function],
-                                                }
-                              }
-                    >
-                              <MuiThemeProvider>
-                                        <SampleFunctionalComponentWithDisplayName />
-                              </MuiThemeProvider>
-                    </ConnectedRouter>
+            <ConnectedRouter
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "length": 1,
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "blank",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+            >
+              <MuiThemeProvider>
+                <SampleFunctionalComponentWithDisplayName />
+              </MuiThemeProvider>
+            </ConnectedRouter>
           </Connect(LanguageProvider)>
-</Provider>,
+        </Provider>,
       },
       "_renderedNodeType": 1,
       "_rootNodeID": 0,
@@ -522,103 +522,103 @@ ShallowWrapper {
   "length": 1,
   "node": <Provider
     store={
-        Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "injectedReducers": Object {},
-            "injectedSagas": Object {},
-            "replaceReducer": [Function],
-            "runSaga": [Function],
-            "subscribe": [Function],
-            Symbol(Symbol.observable): [Function],
-          }
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "injectedReducers": Object {},
+        "injectedSagas": Object {},
+        "replaceReducer": [Function],
+        "runSaga": [Function],
+        "subscribe": [Function],
+        Symbol(Symbol.observable): [Function],
+      }
     }
->
+  >
     <Connect(LanguageProvider)
-        messages={
-            Object {
-                "en": Object {},
-              }
+      messages={
+        Object {
+          "en": Object {},
         }
+      }
     >
-        <ConnectedRouter
-            history={
-                Object {
-                    "action": "POP",
-                    "block": [Function],
-                    "createHref": [Function],
-                    "go": [Function],
-                    "goBack": [Function],
-                    "goForward": [Function],
-                    "length": 1,
-                    "listen": [Function],
-                    "location": Object {
-                      "hash": "",
-                      "pathname": "blank",
-                      "search": "",
-                      "state": undefined,
-                    },
-                    "push": [Function],
-                    "replace": [Function],
-                  }
-            }
-        >
-            <MuiThemeProvider>
-                <SampleFunctionalComponentWithoutAnyName />
-            </MuiThemeProvider>
-        </ConnectedRouter>
+      <ConnectedRouter
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "createHref": [Function],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "length": 1,
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "pathname": "blank",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+      >
+        <MuiThemeProvider>
+          <SampleFunctionalComponentWithoutAnyName />
+        </MuiThemeProvider>
+      </ConnectedRouter>
     </Connect(LanguageProvider)>
-</Provider>,
+  </Provider>,
   "nodes": Array [
     <Provider
       store={
-            Object {
-                  "dispatch": [Function],
-                  "getState": [Function],
-                  "injectedReducers": Object {},
-                  "injectedSagas": Object {},
-                  "replaceReducer": [Function],
-                  "runSaga": [Function],
-                  "subscribe": [Function],
-                  Symbol(Symbol.observable): [Function],
-                }
+        Object {
+          "dispatch": [Function],
+          "getState": [Function],
+          "injectedReducers": Object {},
+          "injectedSagas": Object {},
+          "replaceReducer": [Function],
+          "runSaga": [Function],
+          "subscribe": [Function],
+          Symbol(Symbol.observable): [Function],
+        }
       }
->
+    >
       <Connect(LanguageProvider)
-            messages={
-                  Object {
-                        "en": Object {},
-                      }
-            }
+        messages={
+          Object {
+            "en": Object {},
+          }
+        }
       >
-            <ConnectedRouter
-                  history={
-                        Object {
-                              "action": "POP",
-                              "block": [Function],
-                              "createHref": [Function],
-                              "go": [Function],
-                              "goBack": [Function],
-                              "goForward": [Function],
-                              "length": 1,
-                              "listen": [Function],
-                              "location": Object {
-                                "hash": "",
-                                "pathname": "blank",
-                                "search": "",
-                                "state": undefined,
-                              },
-                              "push": [Function],
-                              "replace": [Function],
-                            }
-                  }
-            >
-                  <MuiThemeProvider>
-                        <SampleFunctionalComponentWithoutAnyName />
-                  </MuiThemeProvider>
-            </ConnectedRouter>
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "blank",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <MuiThemeProvider>
+            <SampleFunctionalComponentWithoutAnyName />
+          </MuiThemeProvider>
+        </ConnectedRouter>
       </Connect(LanguageProvider)>
-</Provider>,
+    </Provider>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -656,103 +656,103 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <Provider
           store={
-                    Object {
-                              "dispatch": [Function],
-                              "getState": [Function],
-                              "injectedReducers": Object {},
-                              "injectedSagas": Object {},
-                              "replaceReducer": [Function],
-                              "runSaga": [Function],
-                              "subscribe": [Function],
-                              Symbol(Symbol.observable): [Function],
-                            }
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "injectedReducers": Object {},
+              "injectedSagas": Object {},
+              "replaceReducer": [Function],
+              "runSaga": [Function],
+              "subscribe": [Function],
+              Symbol(Symbol.observable): [Function],
+            }
           }
->
+        >
           <Connect(LanguageProvider)
-                    messages={
-                              Object {
-                                        "en": Object {},
-                                      }
-                    }
+            messages={
+              Object {
+                "en": Object {},
+              }
+            }
           >
-                    <ConnectedRouter
-                              history={
-                                        Object {
-                                                  "action": "POP",
-                                                  "block": [Function],
-                                                  "createHref": [Function],
-                                                  "go": [Function],
-                                                  "goBack": [Function],
-                                                  "goForward": [Function],
-                                                  "length": 1,
-                                                  "listen": [Function],
-                                                  "location": Object {
-                                                    "hash": "",
-                                                    "pathname": "blank",
-                                                    "search": "",
-                                                    "state": undefined,
-                                                  },
-                                                  "push": [Function],
-                                                  "replace": [Function],
-                                                }
-                              }
-                    >
-                              <MuiThemeProvider>
-                                        <SampleFunctionalComponentWithoutAnyName />
-                              </MuiThemeProvider>
-                    </ConnectedRouter>
+            <ConnectedRouter
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "length": 1,
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "blank",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+            >
+              <MuiThemeProvider>
+                <SampleFunctionalComponentWithoutAnyName />
+              </MuiThemeProvider>
+            </ConnectedRouter>
           </Connect(LanguageProvider)>
-</Provider>,
+        </Provider>,
         "_debugID": 2,
         "_renderedOutput": <Provider
           store={
-                    Object {
-                              "dispatch": [Function],
-                              "getState": [Function],
-                              "injectedReducers": Object {},
-                              "injectedSagas": Object {},
-                              "replaceReducer": [Function],
-                              "runSaga": [Function],
-                              "subscribe": [Function],
-                              Symbol(Symbol.observable): [Function],
-                            }
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "injectedReducers": Object {},
+              "injectedSagas": Object {},
+              "replaceReducer": [Function],
+              "runSaga": [Function],
+              "subscribe": [Function],
+              Symbol(Symbol.observable): [Function],
+            }
           }
->
+        >
           <Connect(LanguageProvider)
-                    messages={
-                              Object {
-                                        "en": Object {},
-                                      }
-                    }
+            messages={
+              Object {
+                "en": Object {},
+              }
+            }
           >
-                    <ConnectedRouter
-                              history={
-                                        Object {
-                                                  "action": "POP",
-                                                  "block": [Function],
-                                                  "createHref": [Function],
-                                                  "go": [Function],
-                                                  "goBack": [Function],
-                                                  "goForward": [Function],
-                                                  "length": 1,
-                                                  "listen": [Function],
-                                                  "location": Object {
-                                                    "hash": "",
-                                                    "pathname": "blank",
-                                                    "search": "",
-                                                    "state": undefined,
-                                                  },
-                                                  "push": [Function],
-                                                  "replace": [Function],
-                                                }
-                              }
-                    >
-                              <MuiThemeProvider>
-                                        <SampleFunctionalComponentWithoutAnyName />
-                              </MuiThemeProvider>
-                    </ConnectedRouter>
+            <ConnectedRouter
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "length": 1,
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "blank",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+            >
+              <MuiThemeProvider>
+                <SampleFunctionalComponentWithoutAnyName />
+              </MuiThemeProvider>
+            </ConnectedRouter>
           </Connect(LanguageProvider)>
-</Provider>,
+        </Provider>,
       },
       "_renderedNodeType": 1,
       "_rootNodeID": 0,

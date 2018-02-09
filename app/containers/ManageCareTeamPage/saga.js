@@ -63,6 +63,7 @@ function* saveCareTeamSaga(action) {
   } catch (error) {
     yield put(showNotification(`Failed to ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.`));
     yield call(action.handleSubmitting);
+    throw error;
   }
 }
 

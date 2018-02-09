@@ -12,7 +12,6 @@ import TableHeaderColumn from '../TableHeaderColumn/index';
 import TableRow from '../TableRow/index';
 import TableRowColumn from '../TableRowColumn/index';
 import { removeButtonStyle } from './constants';
-import { getParticipantName } from '../../utils/CareTeamUtils';
 
 function SelectedParticipants(props) {
   const {
@@ -24,23 +23,27 @@ function SelectedParticipants(props) {
     removeParticipant(participant);
   };
 
+  const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
+
   return (
     <div>
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderReason} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
         </TableHeader>
         {selectedParticipants && selectedParticipants.length > 0 ?
           selectedParticipants.map((participant) => (
             <TableRow key={uniqueId()}>
-              <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
-              <TableRowColumn>{participant.role.display}</TableRowColumn>
-              <TableRowColumn />
-              <TableRowColumn />
+              <TableRowColumn>{participant.name}</TableRowColumn>
+              <TableRowColumn>{capitalizeFirstLetter(participant.memberType)}</TableRowColumn>
+              <TableRowColumn>{participant.roleDisplay}</TableRowColumn>
+              <TableRowColumn>{participant.startDate}</TableRowColumn>
+              <TableRowColumn>{participant.endDate}</TableRowColumn>
               <TableRowColumn>
                 <RaisedButton
                   backgroundColor={teal500}

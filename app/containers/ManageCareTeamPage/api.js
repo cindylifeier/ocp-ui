@@ -2,6 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import request from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { getParticipantName } from '../../utils/CareTeamUtils';
 
 const apiBaseURL = getApiBaseUrl();
 
@@ -37,6 +38,22 @@ export function getCareTeamById(careTeams, careTeamId) {
 export function getCareTeam(careTeamId) {
   const requestURL = `${apiBaseURL}/care-teams/${careTeamId}`;
   return request(requestURL);
+}
+
+export function mapToEditParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        roleCode: participant.roleCode,
+        memberId: participant.memberId,
+        roleDisplay: participant.roleDisplay,
+        memberType: participant.memberType,
+        startDate: participant.startDate,
+        endDate: participant.endDate,
+        name: getParticipantName(participant),
+      }));
+  }
+  return [];
 }
 
 function createCareTeam(careTeamFormData) {
@@ -83,12 +100,11 @@ function mapToBffParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        roleCode: participant.role.code,
-        memberId: participant.member.id,
-        memberType: participant.member.type,
-        memberFirstName: participant.member.firstName,
-        memberLastName: participant.member.lastName,
-        memberName: participant.member.name,
+        roleCode: participant.roleCode,
+        memberId: participant.memberId,
+        memberType: participant.memberType,
+        startDate: participant.startDate,
+        endDate: participant.endDate,
       }));
   }
   return [];

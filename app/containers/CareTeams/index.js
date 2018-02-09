@@ -56,26 +56,38 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     const { careTeams: { loading, data, patientName, statusList }, careTeamStatuses } = this.props;
     return (
       <div className={styles.card}>
-        <h3><FormattedMessage {...messages.header} /></h3>
-
+        <div className={styles.header}>
+          <FormattedMessage {...messages.header} />
+        </div>
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <div>
-            <div><strong>Patient:</strong> {patientName}</div>
-            <div className={styles.gridContainer}>
-              {!isEmpty(data) && !isEmpty(data.elements) && !isEmpty(careTeamStatuses) && careTeamStatuses
-                .filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code)
-                .map(({ code, display }) => (
-                  <div key={code}>
-                    <Checkbox
-                      name={code}
-                      checked={statusList.includes(code)}
-                      label={`Include ${display}`}
-                      onCheck={(event, checked) => this.handleStatusListChange(code, checked)}
-                    />
-                  </div>
-                ))
-              }
+          <div className={styles.gridContainer}>
+            <div className={styles.patientInfoSection}>
+              <div className={styles.patientLabel}>
+                Patient&nbsp;:&nbsp;
+              </div>
+              {patientName}
+            </div>
+            <div className={styles.filterSection}>
+              <div>
+                <div className={styles.filterGridContainer}>
+                  <div className={styles.filterGridItem}>Include</div>
+                  {!isEmpty(careTeamStatuses) && careTeamStatuses
+                    .filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code)
+                    .map(({ code, display }) => (
+                      <div key={code}>
+                        <Checkbox
+                          className={styles.filterGridItem}
+                          name={code}
+                          checked={statusList.includes(code)}
+                          label={display}
+                          onCheck={(event, checked) => this.handleStatusListChange(code, checked)}
+                        />
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
             </div>
           </div>
         }
@@ -84,7 +96,9 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(patientName) && isEmpty(data) &&
-        <h4>No care teams found.</h4>}
+        <div className={styles.noCareTeam}>
+          No care teams found.
+        </div>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div className={styles.textCenter}>

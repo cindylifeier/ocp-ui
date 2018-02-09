@@ -23,20 +23,15 @@ import { makeSelectCareTeam, makeSelectPatient } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
-import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
+import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
-import {
-  makeSelectCareTeamCategories,
-  makeSelectCareTeamReasons,
-  makeSelectCareTeamStatuses,
-  makeSelectParticipantRoles,
-  makeSelectParticipantTypes,
-} from '../App/selectors';
+import { makeSelectCareTeamCategories, makeSelectCareTeamReasons, makeSelectCareTeamStatuses } from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 import { removeParticipant } from '../SearchParticipant/actions';
+import { mapToEditParticipants } from './api';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -103,8 +98,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       selectedPatient,
       selectedCareTeam,
       careTeamCategories,
-      participantTypes,
-      participantRoles,
       careTeamStatuses,
       careTeamReasons,
       selectedParticipants,
@@ -112,8 +105,10 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     const editMode = !isUndefined(match.params.id);
 
     let careTeam = null;
+    let initialSelectedParticipants = [];
     if (editMode && selectedCareTeam) {
       careTeam = selectedCareTeam;
+      initialSelectedParticipants = mapToEditParticipants(careTeam.participants);
     }
     const manageCareTeamProps = {
       selectedPatient,
@@ -121,8 +116,6 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       editMode,
       careTeamCategories,
       careTeamReasons,
-      participantTypes,
-      participantRoles,
       careTeamStatuses,
       selectedParticipants,
     };
@@ -145,12 +138,15 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
             removeParticipant={this.handleRemoveParticipant}
             handleOpen={this.handleOpen}
           />
+          {((editMode && careTeam) || !editMode) &&
           <SearchParticipant
+            initialSelectedParticipants={initialSelectedParticipants}
             isOpen={this.state.open}
             handleOpen={this.handleOpen}
             handleClose={this.handleClose}
           >
           </SearchParticipant>
+          }
         </div>
       </div>
     );
@@ -169,8 +165,6 @@ ManageCareTeamPage.propTypes = {
   onSaveCareTeam: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.array,
-  participantTypes: PropTypes.array,
-  participantRoles: PropTypes.array,
   careTeamStatuses: PropTypes.array,
   careTeamReasons: PropTypes.array,
   selectedParticipants: PropTypes.array,
@@ -180,8 +174,6 @@ const mapStateToProps = createStructuredSelector({
   selectedPatient: makeSelectPatient(),
   selectedCareTeam: makeSelectCareTeam(),
   careTeamCategories: makeSelectCareTeamCategories(),
-  participantTypes: makeSelectParticipantTypes(),
-  participantRoles: makeSelectParticipantRoles(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
   careTeamReasons: makeSelectCareTeamReasons(),
   selectedParticipants: makeSelectSelectedParticipants(),
@@ -190,7 +182,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
-    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, PARTICIPANTTYPE, CARETEAMSTATUS, CARETEAMREASON, PARTICIPANTROLE])),
+    getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, CARETEAMSTATUS, CARETEAMREASON])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
