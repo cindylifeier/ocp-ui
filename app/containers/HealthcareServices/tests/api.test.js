@@ -11,7 +11,7 @@ request.mockImplementation(mockRequest);
 describe('Healthcare Services api.js', () => {
   it('returns the initial state', () => {
     // Arrange
-    const expected = '/base-url/organizations/902/health-care-services?statusList=active%2Cinactive&pageNumber=1&pageSize=10';
+    const expected = '/base-url/organizations/902/healthcare-services?statusList=active%2Cinactive&pageNumber=1&pageSize=10';
     // Act
     getHealthcareServicesByOrganization(902, ['active', 'inactive'], 1);
 

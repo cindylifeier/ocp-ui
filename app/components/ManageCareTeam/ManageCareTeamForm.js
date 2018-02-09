@@ -8,6 +8,9 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import isEmpty from 'lodash/isEmpty';
+
+import SelectedParticipants from './SelectedParticipants';
+import isEmpty from 'lodash/isEmpty';
 import { uniqueId } from 'lodash';
 // import SelectedParticipants from './SelectedParticipants';
 import TextField from '../TextField';
@@ -37,6 +40,11 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     removeParticipant,
   } = props;
+
+  // const selectedParticipantsProps = {
+  //   selectedParticipants,
+  //   removeParticipant,
+  // };
   const handleRemoveParticipant = (participant) => removeParticipant(participant);
   const capitalizeFirstletter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
   // To check whether has participant
@@ -135,7 +143,9 @@ function ManageCareTeamForm(props) {
             />
           </div>
         </div>
-        {/* <SelectedParticipants {...selectedParticipantsProps} />*/}
+
+        {/*<SelectedParticipants {...selectedParticipantsProps} />*/}
+
         {!hasParticipants &&
         <div className={styles.participantError}>{hasParticipants ?
           '' : <FormattedMessage {...messages.validation.checkParticipants} />}

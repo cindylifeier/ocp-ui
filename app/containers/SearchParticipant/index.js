@@ -19,7 +19,8 @@ import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { IconButton, RaisedButton } from 'material-ui';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
 import reducer from './reducer';
@@ -40,8 +41,8 @@ import TableHeader from '../../components/TableHeader';
 import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
 import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
 import { getParticipantName } from '../../utils/CareTeamUtils';
-import { DATE_PICKER_MODE } from '../App/constants';
-
+import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
+import { getLookupsAction } from '../App/actions';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -55,6 +56,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
   }
 
   componentWillMount() {
+    this.props.getLookUpFormData();
     this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
 
@@ -217,7 +219,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         autoScrollBodyContent
       >
         <Formik
-          initialValues={{}}
           onSubmit={(values, actions) => {
             this.handleSearch(values);
             actions.setSubmitting(false);
@@ -282,6 +283,7 @@ SearchParticipant.propTypes = {
   handleClose: PropTypes.func.isRequired,
   initializeSearchParticipant: PropTypes.func.isRequired,
   addParticipants: PropTypes.func.isRequired,
+  getLookUpFormData: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantRoles: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
@@ -300,6 +302,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
     searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
     initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),

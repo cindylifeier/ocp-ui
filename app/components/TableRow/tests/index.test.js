@@ -1,10 +1,22 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 
-// import TableRow from '../index';
+import TableRow from '../index';
+import TableRowColumn from '../../TableRowColumn';
+
+configure({ adapter: new Adapter() });
 
 describe('<TableRow />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('should match snapshot', () => {
+    // Act
+    const renderedComponent = shallow(
+      (<TableRow>
+        <TableRowColumn>Row</TableRowColumn>
+      </TableRow>)
+    );
+
+    // Assert
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

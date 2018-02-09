@@ -31,6 +31,7 @@ function healthcareServicesReducer(state = initialState, action) {
     case GET_HEALTHCARE_SERVICES_BY_ORGANIZATION: {
       const organization = { id: action.organizationId, name: action.organizationName };
       return state
+        .set('data', fromJS([]))
         .set('currentPage', action.currentPage)
         .set('includeInactive', action.includeInactive)
         .set('organization', organization)
@@ -42,6 +43,7 @@ function healthcareServicesReducer(state = initialState, action) {
       const organization = { id: action.organizationId, name: action.organizationName };
       const location = { id: action.locationId, name: action.locationName };
       return state
+        .set('data', fromJS([]))
         .set('currentPage', action.currentPage)
         .set('includeInactive', action.includeInactive)
         .set('organization', organization)
@@ -50,7 +52,8 @@ function healthcareServicesReducer(state = initialState, action) {
         .set('error', false);
     }
     case GET_HEALTHCARE_SERVICES_SUCCESS:
-      return state.set('data', fromJS((action.healthcareServices && action.healthcareServices.elements) || []))
+      return state
+        .set('data', fromJS((action.healthcareServices && action.healthcareServices.elements) || []))
         .set('loading', false)
         .set('totalNumberOfPages', action.healthcareServices.totalNumberOfPages)
         .set('currentPage', action.healthcareServices.currentPage);
