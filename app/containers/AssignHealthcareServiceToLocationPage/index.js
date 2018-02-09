@@ -73,13 +73,22 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
         </div>
         <Divider />
 
-        <div className={styles.card}>
+        <div>
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
-
           {organization && selectedLocation && <div>
-            <div><strong>Organization:</strong> {organization.name}</div>
-            <div><strong>Location:</strong> {selectedLocation.name}</div>
+            <div className={styles.organizationInfoSection}>
+              <div className={styles.organizationInfoLabel}>
+                Organization&nbsp;:&nbsp;
+              </div>
+              {organization.name}
+            </div>
+            <div className={styles.locationInfoSection}>
+              <div className={styles.locationInfoLabel}>
+                Location&nbsp;:&nbsp;
+              </div>
+              {selectedLocation.name}
+            </div>
           </div>
           }
 
@@ -87,7 +96,9 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-          <h4><FormattedMessage {...messages.noHealthcareServicesFound} /></h4>
+          <div className={styles.noHealthcareServices}>
+            <FormattedMessage {...messages.noHealthcareServicesFound} />
+          </div>
           }
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
