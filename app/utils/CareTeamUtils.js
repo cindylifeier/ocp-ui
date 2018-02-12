@@ -15,7 +15,7 @@ export const mapParticipantName = (participant) => {
 
 export const mapSearchParticipantName = (participant) => {
   if (participant && participant.member && Util.equalsIgnoreCase(participant.member.type, ORGANIZATION_TYPE)) {
-    return participant.memberName;
+    return participant.member.name;
   }
   const firstName = isEmpty(participant.member.firstName) ? EMPTY_STRING : participant.member.firstName;
   const lastName = isEmpty(participant.member.lastName) ? EMPTY_STRING : participant.member.lastName;
