@@ -41,7 +41,7 @@ import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
 import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
 import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
-import { mapParticipantName, mapSearchParticipantName } from '../../utils/CareTeamUtils';
+import { mapSearchParticipantName } from '../../utils/CareTeamUtils';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 
@@ -110,7 +110,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             roleDisplay: role.display,
             memberId: participant.member.id,
             memberType: participant.member.type,
-            name: mapParticipantName(participant),
+            name: mapSearchParticipantName(participant),
           };
           this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
@@ -136,7 +136,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
           const { isSubmitting, dirty, isValid } = formikProps;
           return (
             <Form>
-              <Table>
+              <Table >
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
                     {mapSearchParticipantName(participant)}
@@ -148,7 +148,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                     >
                       {participantRoles && participantRoles.map((participantRole) =>
                         (<MenuItem
-                          key={participantRole.code}
+                          key={uniqueId()}
                           value={participantRole.code}
                           primaryText={participantRole.display}
                         />),
