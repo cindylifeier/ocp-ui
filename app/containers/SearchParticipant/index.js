@@ -136,7 +136,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
           const { isSubmitting, dirty, isValid } = formikProps;
           return (
             <Form>
-              <Table>
+              <Table >
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
                     {mapSearchParticipantName(participant)}
@@ -148,7 +148,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                     >
                       {participantRoles && participantRoles.map((participantRole) =>
                         (<MenuItem
-                          key={participantRole.code}
+                          key={uniqueId()}
                           value={participantRole.code}
                           primaryText={participantRole.display}
                         />),
