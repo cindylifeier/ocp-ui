@@ -10,19 +10,20 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Formik } from 'formik';
-import find from 'lodash/find';
 import yup from 'yup';
 import PropTypes from 'prop-types';
+import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
@@ -40,7 +41,7 @@ import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
 import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
 import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
-import { getParticipantName } from '../../utils/CareTeamUtils';
+import { mapParticipantName, mapSearchParticipantName } from '../../utils/CareTeamUtils';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 
@@ -79,15 +80,19 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
 
   createSearchResultHeader() {
-    return (<Table>
-      <TableHeader>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-      </TableHeader>
-    </Table>);
+    return (
+      <Table>
+        <TableHeader>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+        </TableHeader>
+      </Table>
+    );
   }
+
   createSearchResultRows() {
     const today = new Date();
     const participantRoles = this.props.participantRoles;
@@ -105,7 +110,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             roleDisplay: role.display,
             memberId: participant.member.id,
             memberType: participant.member.type,
-            name: getParticipantName(participant),
+            name: mapParticipantName(participant),
           };
           this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
@@ -133,16 +138,21 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             <Form>
               <Table>
                 <TableRow key={uniqueId()}>
-                  <TableRowColumn> {getParticipantName(participant)} </TableRowColumn>
+                  <TableRowColumn>
+                    {mapSearchParticipantName(participant)}
+                  </TableRowColumn>
                   <TableRowColumn>
                     <SelectFieldWithoutOnClick
                       name="roleCode"
                       floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
                     >
                       {participantRoles && participantRoles.map((participantRole) =>
-                        <MenuItem key={participantRole.code} value={participantRole.code} primaryText={participantRole.display} />,
-                      )
-                      }
+                        (<MenuItem
+                          key={participantRole.code}
+                          value={participantRole.code}
+                          primaryText={participantRole.display}
+                        />),
+                      )}
                     </SelectFieldWithoutOnClick>
                   </TableRowColumn>
                   <TableRowColumn>
@@ -190,7 +200,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderPeriod} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
       </TableHeader>
       <TableRow key={uniqueId()}>
