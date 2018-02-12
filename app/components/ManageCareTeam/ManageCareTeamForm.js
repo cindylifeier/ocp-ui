@@ -87,7 +87,7 @@ function ManageCareTeamForm(props) {
               disabled
             />
           </div>
-          <div className={`${styles.gridItem}`}>
+          <div className={`${styles.gridItem} ${styles.reason}`}>
             <SelectField
               fullWidth
               name="reason"
