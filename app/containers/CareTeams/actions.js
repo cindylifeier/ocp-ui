@@ -4,7 +4,13 @@
  *
  */
 
-import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS } from './constants';
+import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS, INITIALIZE_CARE_TEAMS } from './constants';
+
+export function initializeCareTeams() {
+  return {
+    type: INITIALIZE_CARE_TEAMS,
+  };
+}
 
 export function getCareTeams(query, patientName, statusList = []) {
   return {

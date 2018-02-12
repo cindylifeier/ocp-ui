@@ -28,7 +28,7 @@ import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
-import { fieldStyle, floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
+import { floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
@@ -41,9 +41,14 @@ import TableRowColumn from '../../components/TableRowColumn';
 import TableHeader from '../../components/TableHeader';
 import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
 import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
-import { mapParticipantName, mapSearchParticipantName } from '../../utils/CareTeamUtils';
+import { mapSearchParticipantName } from '../../utils/CareTeamUtils';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
+
+const customContentStyle = {
+  width: '70%',
+  maxWidth: 'none',
+};
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -110,7 +115,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             roleDisplay: role.display,
             memberId: participant.member.id,
             memberType: participant.member.type,
-            name: mapParticipantName(participant),
+            name: mapSearchParticipantName(participant),
           };
           this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
@@ -139,52 +144,57 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
               <Table>
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
-                    {mapSearchParticipantName(participant)}
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <SelectFieldWithoutOnClick
-                      name="roleCode"
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
-                    >
-                      {participantRoles && participantRoles.map((participantRole) =>
-                        (<MenuItem
-                          key={participantRole.code}
-                          value={participantRole.code}
-                          primaryText={participantRole.display}
-                        />),
-                      )}
-                    </SelectFieldWithoutOnClick>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <DatePickerWithoutBlur
-                      fullWidth
-                      name="startDate"
-                      minDate={today}
-                      mode={DATE_PICKER_MODE.LANDSCAPE}
-                      hintText={<FormattedMessage {...messages.hintText.startDate} />}
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
-                    />
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <DatePickerWithoutBlur
-                      fullWidth
-                      name="endDate"
-                      minDate={today}
-                      mode={DATE_PICKER_MODE.LANDSCAPE}
-                      hintText={<FormattedMessage {...messages.hintText.endDate} />}
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
-                    />
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <RaisedButton
-                      backgroundColor={teal500}
-                      labelColor={white}
-                      label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-                      type="submit"
-                      value={participant}
-                      primary
-                      disabled={!dirty || isSubmitting || !isValid}
-                    />
+                    <div className={styles.participantResultGridContainer}>
+                      <div className={styles.participantResultGridItem}>
+                        <div className={styles.participantNameGridItem}>
+                          {mapSearchParticipantName(participant)}
+                        </div>
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <SelectFieldWithoutOnClick
+                          name="roleCode"
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
+                        >
+                          {participantRoles && participantRoles.map((participantRole) =>
+                            (<MenuItem
+                              key={uniqueId()}
+                              value={participantRole.code}
+                              primaryText={participantRole.display}
+                            />),
+                          )}
+                        </SelectFieldWithoutOnClick>
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <DatePickerWithoutBlur
+                          fullWidth
+                          name="startDate"
+                          minDate={today}
+                          mode={DATE_PICKER_MODE.LANDSCAPE}
+                          hintText={<FormattedMessage {...messages.hintText.startDate} />}
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
+                        />
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <DatePickerWithoutBlur
+                          fullWidth
+                          name="endDate"
+                          minDate={today}
+                          mode={DATE_PICKER_MODE.LANDSCAPE}
+                          hintText={<FormattedMessage {...messages.hintText.endDate} />}
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
+                        />
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <RaisedButton
+                          backgroundColor={teal500}
+                          labelColor={white}
+                          label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
+                          type="submit"
+                          value={participant}
+                          disabled={!dirty || isSubmitting || !isValid}
+                        />
+                      </div>
+                    </div>
                   </TableRowColumn>
                 </TableRow>
               </Table>
@@ -224,12 +234,15 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     ];
     return (
       <Dialog
-        title={<FormattedMessage {...messages.addParticipantDialogTitle} />}
         actions={actionsButtons}
         modal={false}
         open={isOpen}
+        contentStyle={customContentStyle}
         autoScrollBodyContent
       >
+        <div className={styles.title}>
+          <FormattedMessage {...messages.addParticipantDialogTitle} />
+        </div>
         <Formik
           onSubmit={(values, actions) => {
             this.handleSearch(values);
@@ -248,39 +261,32 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             return (
               <Form>
                 <div className={styles.root}>
-                  <div className={styles.gridContainer}>
-                    <div className={styles.gridItem}>
-                      <TextField
-                        name="name"
-                        style={fieldStyle}
-                        floatingLabelStyle={floatingLabelStyle}
-                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
-                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
-                      />
-                    </div>
-                    <div className={styles.gridItem}>
-                      <SelectField
-                        name="member"
-                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
-                      >
-                        {participantTypes && participantTypes.map((member) =>
-                          <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                        )
-                        }
-                      </SelectField>
-                    </div>
-                    <div className={styles.gridItem}>
-                      <IconButton
-                        style={iconButtonStyle}
-                        tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
-                        type="submit"
-                        disabled={!dirty || isSubmitting || !isValid}
-                      >
-                        <ActionSearch />
-                      </IconButton>
-                    </div>
-                    <div className={styles.gridItem}>
-                    </div>
+                  <div className={styles.searchGridContainer}>
+                    <TextField
+                      name="name"
+                      fullWidth
+                      floatingLabelStyle={floatingLabelStyle}
+                      hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
+                    />
+                    <SelectField
+                      name="member"
+                      fullWidth
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
+                    >
+                      {participantTypes && participantTypes.map((member) =>
+                        <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
+                      )
+                      }
+                    </SelectField>
+                    <IconButton
+                      style={iconButtonStyle}
+                      tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
+                      type="submit"
+                      disabled={!dirty || isSubmitting || !isValid}
+                    >
+                      <ActionSearch />
+                    </IconButton>
                   </div>
                 </div>
               </Form>

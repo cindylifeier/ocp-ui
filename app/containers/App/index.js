@@ -14,7 +14,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -46,6 +46,7 @@ export function App() {
       </Helmet>
       <div className={styles.App}>
         <Switch>
+          <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
           <Layout>

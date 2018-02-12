@@ -52,7 +52,7 @@ function ManageCareTeam(props) {
         <div className={styles.patientInfoSection}>
           <div>Patient:</div>
           <div className={styles.patientName}>
-            <strong>{mapToPatientName(selectedPatient)}</strong>
+            {mapToPatientName(selectedPatient)}
           </div>
         </div>
         {((editMode && careTeam) || !editMode) &&
