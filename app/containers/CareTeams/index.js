@@ -23,7 +23,7 @@ import messages from './messages';
 import styles from './styles.css';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import CareTeamTable from '../../components/CareTeamTable';
-import { getCareTeams } from './actions';
+import { getCareTeams, initializeCareTeams } from './actions';
 import { makeSelectCareTeamStatuses } from '../App/selectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 import { getLookupsAction } from '../App/actions';
@@ -38,6 +38,10 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
 
   componentDidMount() {
     this.props.initializeLookups();
+  }
+
+  componentWillUnmount() {
+    this.props.initializeCareTeams();
   }
 
   handlePageClick(page) {
@@ -122,6 +126,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
 
 CareTeams.propTypes = {
   getCareTeams: PropTypes.func.isRequired,
+  initializeCareTeams: PropTypes.func.isRequired,
   initializeLookups: PropTypes.func.isRequired,
   careTeams: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
@@ -146,6 +151,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getCareTeams: (query, patientName, statusList) => dispatch(getCareTeams(query, patientName, statusList)),
     initializeLookups: () => dispatch(getLookupsAction([CARETEAMSTATUS])),
+    initializeCareTeams: () => dispatch(initializeCareTeams()),
   };
 }
 

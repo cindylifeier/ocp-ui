@@ -15,23 +15,27 @@ import { HOME_URL } from '../../containers/App/constants';
 
 
 function ManageHealthcareServiceForm(props) {
-  const { organization,
-          healthcareServiceCategories,
-          healthcareServiceTypes,
-          healthcareServiceSpecialities,
-          healthcareServiceReferralMethods,
-          telecomSystems,
-          isSubmitting, dirty, isValid } = props;
+  const {
+    organization,
+    healthcareServiceCategories,
+    healthcareServiceTypes,
+    healthcareServiceSpecialities,
+    healthcareServiceReferralMethods,
+    telecomSystems,
+    isSubmitting, dirty, isValid,
+  } = props;
   return (
     <div>
       <div className={styles.title}>
         <FormattedMessage {...messages.title} />
       </div>
       <Form>
-        <div className={styles.organizationName}>
-          <div>
+        <div className={styles.organizationInfoSection}>
+          <div className={styles.organizationInfoLabel}>
             {<FormattedMessage {...messages.hintText.organizationNameLabel} />}
-            <strong>{organization.name}</strong>
+          </div>
+          <div className={styles.organizationName}>
+            {organization.name}
           </div>
         </div>
         <div className={styles.gridContainer}>
@@ -92,7 +96,6 @@ function ManageHealthcareServiceForm(props) {
                 <MenuItem key={type.code} value={type} primaryText={type.display} />,
               )}
             </SelectField>
-
           </div>
           <div className={`${styles.gridItem} ${styles.contactGroup}`}>
             <SelectField

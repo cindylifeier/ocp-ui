@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { teal500, white } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import uniqueId from 'lodash/uniqueId';
+import styles from './styles.css';
 
 import messages from './messages';
 import Table from '../Table/index';
@@ -26,7 +27,7 @@ function SelectedParticipants(props) {
   const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
 
   return (
-    <div>
+    <div className={styles.selectedTable}>
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
@@ -51,7 +52,6 @@ function SelectedParticipants(props) {
                   onClick={() => handleRemoveParticipant(participant)}
                   style={removeButtonStyle}
                   label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
-                  primary
                 />
               </TableRowColumn>
             </TableRow>

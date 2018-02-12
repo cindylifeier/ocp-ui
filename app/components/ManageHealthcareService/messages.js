@@ -27,7 +27,7 @@ export default defineMessages({
   hintText: {
     organizationNameLabel: {
       id: 'app.containers.ManageHealthcareService.manageForm.organizationNameLabel',
-      defaultMessage: 'Organization Name:  ',
+      defaultMessage: 'Organization:  ',
     },
     name: {
       id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.name',
