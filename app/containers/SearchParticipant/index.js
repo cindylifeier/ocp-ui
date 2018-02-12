@@ -27,7 +27,7 @@ import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
-import { fieldStyle, floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
+import { floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/selectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
@@ -212,12 +212,14 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     ];
     return (
       <Dialog
-        title={<FormattedMessage {...messages.addParticipantDialogTitle} />}
         actions={actionsButtons}
         modal={false}
         open={isOpen}
         autoScrollBodyContent
       >
+        <div className={styles.title}>
+          <FormattedMessage {...messages.addParticipantDialogTitle} />
+        </div>
         <Formik
           onSubmit={(values, actions) => {
             this.handleSearch(values);
@@ -237,38 +239,31 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
               <Form>
                 <div className={styles.root}>
                   <div className={styles.gridContainer}>
-                    <div className={styles.gridItem}>
-                      <TextField
-                        name="name"
-                        style={fieldStyle}
-                        floatingLabelStyle={floatingLabelStyle}
-                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
-                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
-                      />
-                    </div>
-                    <div className={styles.gridItem}>
-                      <SelectField
-                        name="member"
-                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
-                      >
-                        {participantTypes && participantTypes.map((member) =>
-                          <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                        )
-                        }
-                      </SelectField>
-                    </div>
-                    <div className={styles.gridItem}>
-                      <IconButton
-                        style={iconButtonStyle}
-                        tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
-                        type="submit"
-                        disabled={!dirty || isSubmitting || !isValid}
-                      >
-                        <ActionSearch />
-                      </IconButton>
-                    </div>
-                    <div className={styles.gridItem}>
-                    </div>
+                    <TextField
+                      name="name"
+                      fullWidth
+                      floatingLabelStyle={floatingLabelStyle}
+                      hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
+                    />
+                    <SelectField
+                      name="member"
+                      fullWidth
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
+                    >
+                      {participantTypes && participantTypes.map((member) =>
+                        <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
+                      )
+                      }
+                    </SelectField>
+                    <IconButton
+                      style={iconButtonStyle}
+                      tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
+                      type="submit"
+                      disabled={!dirty || isSubmitting || !isValid}
+                    >
+                      <ActionSearch />
+                    </IconButton>
                   </div>
                 </div>
               </Form>
