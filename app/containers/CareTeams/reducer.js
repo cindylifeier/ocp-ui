@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS } from './constants';
+import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS, INITIALIZE_CARE_TEAMS } from './constants';
 
 const initialState = fromJS({
   loading: false,
@@ -17,6 +17,8 @@ const initialState = fromJS({
 
 function careTeamsReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_CARE_TEAMS:
+      return initialState;
     case GET_CARE_TEAMS:
       return state
         .set('loading', true)
