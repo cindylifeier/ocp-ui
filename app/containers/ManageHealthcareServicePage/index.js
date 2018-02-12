@@ -22,7 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 import ManageHealthcareService from '../../components/ManageHealthcareService';
 import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICETYPE, TELECOMSYSTEM, TELECOMUSE } from '../App/constants';
-import messages from '../ManageCareTeamPage/messages';
+import messages from '../ManageHealthcareServicePage/messages';
 import styles from './styles.css';
 
 
