@@ -204,8 +204,8 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     if (data && data.length > 0) {
       return this.createTable();
     }
-    return (<div className={styles.wrapper}><h3> No locations loaded. Please select an organization to view its
-      locations.</h3></div>);
+    return (<div className={styles.card}><h4> No locations loaded. Please select an organization to view its
+      locations.</h4></div>);
   }
 
   render() {
