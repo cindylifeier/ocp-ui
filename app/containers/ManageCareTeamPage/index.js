@@ -118,6 +118,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       careTeamReasons,
       careTeamStatuses,
       selectedParticipants,
+      initialSelectedParticipants,
     };
 
     return (
