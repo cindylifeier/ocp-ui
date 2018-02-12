@@ -7,7 +7,7 @@
 import {
   ADD_PARTICIPANT,
   DEFAULT_ACTION,
-  INITIALIZE_SEARCH_PARTICIPANT,
+  INITIALIZE_SEARCH_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT_RESULT,
   REMOVE_PARTICIPANT,
   SEARCH_PARTICIPANT,
   SEARCH_PARTICIPANT_ERROR,
@@ -64,3 +64,9 @@ export function removeParticipant(participant) {
   };
 }
 
+
+export function initializeSearchParticipantResult() {
+  return {
+    type: INITIALIZE_SEARCH_PARTICIPANT_RESULT,
+  };
+}
