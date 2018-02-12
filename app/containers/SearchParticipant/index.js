@@ -146,7 +146,9 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                   <TableRowColumn>
                     <div className={styles.participantResultGridContainer}>
                       <div className={styles.participantResultGridItem}>
-                        {mapSearchParticipantName(participant)}
+                        <div className={styles.participantNameGridItem}>
+                          {mapSearchParticipantName(participant)}
+                        </div>
                       </div>
                       <div className={styles.participantResultGridItem}>
                         <SelectFieldWithoutOnClick
