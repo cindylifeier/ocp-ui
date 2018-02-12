@@ -9,10 +9,12 @@
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
      <script>
-          (function() {
-            let baseHref = '/' + (window.location.pathname.split('/')[1] ? window.location.pathname.split('/')[1] + '/' : '');
-           document.write('<base href="' + baseHref + '" />');
-           })();
+       (function () {
+         var devPort = '3000';
+         var port = location && location.port;
+         var baseHref = port === devPort ? '/' : '/' + (window.location.pathname.split('/')[1] ? window.location.pathname.split('/')[1] + '/' : '');
+         document.write('<base href="' + baseHref + '" />');
+       })();
     </script>
     <title>OCP</title>
   </head>

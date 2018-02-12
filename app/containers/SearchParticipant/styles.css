@@ -1,6 +1,8 @@
 .root {
   position: relative;
   background-color: white;
+  padding: 0 10px;
+  margin-bottom: 5px;
 }
 
 .validationMessage {
@@ -9,21 +11,36 @@
   font-style: italic;
 }
 
-.gridContainer {
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
-  padding-left: 2vw;*
-  max-width: 100vw;
+.title {
+  padding-left: 0.5vw;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  background-color: #f2f2f2;
 }
 
-.gridItem {
-  position: relative;
-  height: auto;
+.searchGridContainer {
+  display: grid;
+  margin-left: 3px;
+  margin-right: 3px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
 }
 
-.buttonGroup {
+.participantResultGridContainer {
   display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: 1vw;
-  grid-auto-columns: minmax(100px,10vw);
+  background-color: #f2f2f2;
+  grid-column-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.participantResultGridItem{
+  align-self: center;
+  justify-self: start;
+}
+
+.participantNameGridItem{
+  padding-top: 25px;
+  font-weight: bold;
+  font-size: medium;
 }
