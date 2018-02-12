@@ -37,11 +37,8 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   }
 
   componentDidMount() {
-    this.props.initializeLookups();
-  }
-
-  componentWillUnmount() {
     this.props.initializeCareTeams();
+    this.props.initializeLookups();
   }
 
   handlePageClick(page) {
