@@ -24,9 +24,13 @@ function mapToBffHealthcareService(healthcareServiceFormData) {
   const type = [];
   type.push(hcsType);
   const specialty = [];
-  specialty.push(hcsSpecialty);
+  if (hcsSpecialty) {
+    specialty.push(hcsSpecialty);
+  }
   const referralMethod = [];
-  referralMethod.push(hcsReferralMethod);
+  if (hcsReferralMethod) {
+    referralMethod.push(hcsReferralMethod);
+  }
   const telecom = [{
     system: telecomType,
     value: telecomValue,
