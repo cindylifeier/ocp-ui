@@ -19,10 +19,32 @@
   background-color: #f2f2f2;
 }
 
-.gridContainer {
+.searchGridContainer {
   display: grid;
   margin-left: 3px;
   margin-right: 3px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 10px;
+}
+
+.participantResultGridContainer {
+  display: grid;
+  background-color: #f2f2f2;
+  grid-column-gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.participantResultGridItem{
+  align-self: center;
+  justify-self: start;
+  max-width: 140px;
+}
+
+.participantNameGridContainer, addBtnGridContainer {
+  display: grid;
+}
+
+.participantNameGridItem{
+  align-self: center;
+  justify-self: start;
 }

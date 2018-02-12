@@ -45,6 +45,11 @@ import { mapParticipantName, mapSearchParticipantName } from '../../utils/CareTe
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 
+const customContentStyle = {
+  width: '70%',
+  maxWidth: 'none',
+};
+
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -139,51 +144,55 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
               <Table>
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
-                    {mapSearchParticipantName(participant)}
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <SelectFieldWithoutOnClick
-                      name="roleCode"
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
-                    >
-                      {participantRoles && participantRoles.map((participantRole) =>
-                        (<MenuItem
-                          key={participantRole.code}
-                          value={participantRole.code}
-                          primaryText={participantRole.display}
-                        />),
-                      )}
-                    </SelectFieldWithoutOnClick>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <DatePickerWithoutBlur
-                      fullWidth
-                      name="startDate"
-                      minDate={today}
-                      mode={DATE_PICKER_MODE.LANDSCAPE}
-                      hintText={<FormattedMessage {...messages.hintText.startDate} />}
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
-                    />
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <DatePickerWithoutBlur
-                      fullWidth
-                      name="endDate"
-                      minDate={today}
-                      mode={DATE_PICKER_MODE.LANDSCAPE}
-                      hintText={<FormattedMessage {...messages.hintText.endDate} />}
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
-                    />
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <RaisedButton
-                      backgroundColor={teal500}
-                      labelColor={white}
-                      label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-                      type="submit"
-                      value={participant}
-                      disabled={!dirty || isSubmitting || !isValid}
-                    />
+                    <div className={styles.participantResultGridContainer}>
+                      <div className={styles.participantResultGridItem}>
+                        {mapSearchParticipantName(participant)}
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <SelectFieldWithoutOnClick
+                          name="roleCode"
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
+                        >
+                          {participantRoles && participantRoles.map((participantRole) =>
+                            (<MenuItem
+                              key={participantRole.code}
+                              value={participantRole.code}
+                              primaryText={participantRole.display}
+                            />),
+                          )}
+                        </SelectFieldWithoutOnClick>
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <DatePickerWithoutBlur
+                          fullWidth
+                          name="startDate"
+                          minDate={today}
+                          mode={DATE_PICKER_MODE.LANDSCAPE}
+                          hintText={<FormattedMessage {...messages.hintText.startDate} />}
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
+                        />
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <DatePickerWithoutBlur
+                          fullWidth
+                          name="endDate"
+                          minDate={today}
+                          mode={DATE_PICKER_MODE.LANDSCAPE}
+                          hintText={<FormattedMessage {...messages.hintText.endDate} />}
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
+                        />
+                      </div>
+                      <div className={styles.participantResultGridItem}>
+                        <RaisedButton
+                          backgroundColor={teal500}
+                          labelColor={white}
+                          label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
+                          type="submit"
+                          value={participant}
+                          disabled={!dirty || isSubmitting || !isValid}
+                        />
+                      </div>
+                    </div>
                   </TableRowColumn>
                 </TableRow>
               </Table>
@@ -226,6 +235,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         actions={actionsButtons}
         modal={false}
         open={isOpen}
+        contentStyle={customContentStyle}
         autoScrollBodyContent
       >
         <div className={styles.title}>
@@ -249,7 +259,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             return (
               <Form>
                 <div className={styles.root}>
-                  <div className={styles.gridContainer}>
+                  <div className={styles.searchGridContainer}>
                     <TextField
                       name="name"
                       fullWidth
