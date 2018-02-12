@@ -30,7 +30,10 @@ import styles from './styles.css';
 import { makeSelectCareTeamCategories, makeSelectCareTeamReasons, makeSelectCareTeamStatuses } from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
-import { removeParticipant } from '../SearchParticipant/actions';
+import {
+  initializeSearchParticipantResult,
+  removeParticipant,
+} from '../SearchParticipant/actions';
 import { mapToEditParticipants } from './api';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -86,6 +89,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
   handleOpen() {
     this.setState({ open: true });
+    this.props.initializeSearchParticipantResult();
   }
 
   handleRemoveParticipant(participant) {
@@ -164,6 +168,7 @@ ManageCareTeamPage.propTypes = {
   initializeManageCareTeam: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   onSaveCareTeam: PropTypes.func.isRequired,
+  initializeSearchParticipantResult: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.array,
   careTeamStatuses: PropTypes.array,
@@ -188,6 +193,7 @@ function mapDispatchToProps(dispatch) {
     getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeParticipant(participant)),
+    initializeSearchParticipantResult: () => dispatch(initializeSearchParticipantResult()),
   };
 }
 
