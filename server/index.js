@@ -1,7 +1,6 @@
 /* eslint consistent-return:0 */
 
 const express = require('express');
-const proxy = require('express-http-proxy');
 const logger = require('./logger');
 
 const argv = require('./argv');
@@ -14,13 +13,6 @@ const app = express();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
-if (isDev) {
-  const pxhost = process.env.npm_config_pxhost || 'localhost';
-  const pxport = process.env.npm_config_pxport || '8446';
-  const proxyLink = `${pxhost}:${pxport}`;
-  console.log(`proxy setup: ${proxyLink}`);
-  app.use('/ocp-ui-api', proxy(proxyLink));
-}
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
