@@ -29,6 +29,7 @@ function ManageCareTeam(props) {
     handleOpen,
     onSave,
     selectedParticipants,
+    initialSelectedParticipants,
     removeParticipant,
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
@@ -38,6 +39,7 @@ function ManageCareTeam(props) {
     careTeamStatuses,
     handleOpen,
     selectedParticipants,
+    initialSelectedParticipants,
     removeParticipant,
   };
   return (
@@ -55,6 +57,7 @@ function ManageCareTeam(props) {
         </div>
         {((editMode && careTeam) || !editMode) &&
         <Formik
+          isInitialValid={editMode}
           initialValues={setFormData(careTeam)}
           onSubmit={(values, actions) => {
             onSave(values, actions);
@@ -108,6 +111,7 @@ ManageCareTeam.propTypes = {
   careTeamReasons: PropTypes.array.isRequired,
   careTeamStatuses: PropTypes.array.isRequired,
   selectedParticipants: PropTypes.array,
+  initialSelectedParticipants: PropTypes.array,
 };
 
 function setFormData(careTeam) {

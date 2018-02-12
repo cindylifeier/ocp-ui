@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { filter, uniqBy } from 'lodash';
 import {
   ADD_PARTICIPANT,
-  INITIALIZE_SEARCH_PARTICIPANT,
+  INITIALIZE_SEARCH_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT_RESULT,
   REMOVE_PARTICIPANT,
   SEARCH_PARTICIPANT_ERROR,
   SEARCH_PARTICIPANT_SUCCESS,
@@ -25,6 +25,9 @@ function searchParticipantReducer(state = initialState, action) {
     case SEARCH_PARTICIPANT_SUCCESS:
       return state
         .set('searchParticipantResult', fromJS((action.searchParticipantResults && action.searchParticipantResults.elements) || []));
+    case INITIALIZE_SEARCH_PARTICIPANT_RESULT:
+      return state
+        .set('searchParticipantResult', fromJS([]));
     case INITIALIZE_SEARCH_PARTICIPANT:
       return state
         .set('selectedParticipants', fromJS((action.initialSelectedParticipants) || []))

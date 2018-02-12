@@ -17,6 +17,7 @@ import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import { addButtonStyle } from './constants';
 import messages from './messages';
 import styles from './styles.css';
+import Util from '../../utils/Util';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -29,6 +30,7 @@ function ManageCareTeamForm(props) {
     careTeamStatuses,
     handleOpen,
     selectedParticipants,
+    initialSelectedParticipants,
     removeParticipant,
   } = props;
 
@@ -150,7 +152,7 @@ function ManageCareTeamForm(props) {
               label="Save"
               backgroundColor={teal500}
               labelColor={white}
-              disabled={!dirty || isSubmitting || !isValid || !hasParticipants}
+              disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || !hasParticipants}
             />
             <FlatButton
               fullWidth
@@ -173,6 +175,7 @@ ManageCareTeamForm.propTypes = {
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
+  initialSelectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -188,3 +191,13 @@ ManageCareTeamForm.propTypes = {
 };
 
 export default ManageCareTeamForm;
+
+function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
+  let isDirty = dirty;
+  const identityOfArray = 'memberId';
+  if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
+    isDirty = true;
+  }
+
+  return isDirty;
+}
