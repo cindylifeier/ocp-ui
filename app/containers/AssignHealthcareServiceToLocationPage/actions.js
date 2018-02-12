@@ -10,6 +10,7 @@ import {
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS, GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
+  DISABLE_CHECKED_ASSIGNED_HEALTHCARE_SERVICE,
 } from './constants';
 
 export function initializeAssignHealthCareServiceToLocationPage() {
@@ -42,12 +43,12 @@ export function getHealthcareServicesLocationAssignmentServicesError(error) {
   };
 }
 
-export function updateHealthcareServicesLocationAssignment(organizationId, locationId, heathcareServiceId) {
+export function updateHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId) {
   return {
     type: UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
     organizationId,
     locationId,
-    heathcareServiceId,
+    healthcareServiceId,
   };
 }
 
@@ -55,5 +56,12 @@ export function updateHealthcareServicesLocationAssignmentServicesError(error) {
   return {
     type: UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
     error,
+  };
+}
+
+export function disableAssignedHealthService(healthcareServiceId) {
+  return {
+    type: DISABLE_CHECKED_ASSIGNED_HEALTHCARE_SERVICE,
+    healthcareServiceId,
   };
 }
