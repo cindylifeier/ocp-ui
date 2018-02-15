@@ -6,11 +6,11 @@
 
 import { fromJS } from 'immutable';
 import {
-  DISABLE_CHECKED_ASSIGNED_HEALTHCARE_SERVICE,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS,
-  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
@@ -55,20 +55,6 @@ function assignHealthCareServiceToLocationPageReducer(state = initialState, acti
       return state.set('healthcareServiceId', action.healthcareServiceId);
     case UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
       return state.set('healthcareServiceId', action.healthcareServiceId);
-    case DISABLE_CHECKED_ASSIGNED_HEALTHCARE_SERVICE: {
-      const healthcareServices = state.get('data');
-      const healthcareServiceArray = healthcareServices.toJS();
-      let i = 0;
-      while (i < healthcareServiceArray.length) {
-        const healthcareService = healthcareServiceArray[i];
-        if (healthcareService.logicalId === action.healthcareServiceId) {
-          healthcareService.assignedToCurrentLocation = true;
-          break;
-        }
-        i += 1;
-      }
-      return state.set('data', fromJS((healthcareServiceArray || [])));
-    }
     case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
       return state
         .set('error', action.error)
