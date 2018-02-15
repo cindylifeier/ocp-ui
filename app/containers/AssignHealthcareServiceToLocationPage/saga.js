@@ -11,7 +11,6 @@ import { showNotification } from '../Notification/actions';
 import { queryHealthCareServicesWithLocationAssignmentData, assignHealthCareServicesToLocation } from './api';
 import { makeSelectLocation, makeSelectOrganization } from './selectors';
 import {
-  disableAssignedHealthService,
   getHealthcareServicesLocationAssignmentServicesError,
   getHealthcareServicesLocationAssignmentSuccess, updateHealthcareServicesLocationAssignmentServicesError,
 } from './actions';
@@ -35,8 +34,7 @@ export function* updateHealthcareServicesLocationAssignmentSaga(action) {
     const locationIds = [];
     locationIds.push(action.locationId);
     yield call(assignHealthCareServicesToLocation, action.organizationId, locationIds, action.healthcareServiceId);
-    yield put(disableAssignedHealthService(action.healthcareServiceId));
-    yield put(showNotification('The healthcare service is assigned to current location.'));
+    yield put(showNotification('The healthcare service is successfully assigned to current location.'));
   } catch (err) {
     yield put(updateHealthcareServicesLocationAssignmentServicesError(err));
     yield put(showNotification('Failed to assign healthcare services to current location, please try again.'));
