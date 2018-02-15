@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import rootSaga, { getOrganizationsSaga } from '../saga';
 import { LOAD_ORGANIZATIONS } from '../constants';
 import getOrganizations from '../api';
-import { loadOrganizationsSuccess } from '../actions';
+import { loadOrganizationsError, loadOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
   describe('rootSaga Saga', () => {
@@ -62,6 +62,26 @@ describe('Organizations.saga', () => {
       const { value: finalValue, done: finalDone } = generator.next();
 
       // Assert
+      expect(finalValue).toEqual(undefined);
+      expect(finalDone).toEqual(true);
+    });
+
+    it('should handle api call error and put error action', () => {
+      // Arrange
+      const mockActionJS = mockAction.toJS();
+      const error = new Error('api call failed');
+      const generator = getOrganizationsSaga(mockActionJS);
+
+      // Act
+      const { value: apiCallEffect, done: apiCallIsLast } = generator.next();
+      const { value: putErrorEffect, done: putErrorEffectIsLast } = generator.throw(error);
+      const { value: finalValue, done: finalDone } = generator.next();
+
+      // Assert
+      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallIsLast).toEqual(false);
+      expect(putErrorEffect).toEqual(put(loadOrganizationsError(error)));
+      expect(putErrorEffectIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);
     });
