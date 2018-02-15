@@ -4,15 +4,19 @@
 import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
-  STATUS_ACTIVE,
+  STATUS_ACTIVE, UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
 } from './constants';
 import { showNotification } from '../Notification/actions';
-import { queryHealthCareServicesWithLocationAssignmentData, assignHealthCareServicesToLocation } from './api';
+import {
+  queryHealthCareServicesWithLocationAssignmentData, assignHealthCareServicesToLocation,
+  unassignHealthCareServicesToLocation,
+} from './api';
 import { makeSelectLocation, makeSelectOrganization } from './selectors';
 import {
   getHealthcareServicesLocationAssignmentServicesError,
-  getHealthcareServicesLocationAssignmentSuccess, updateHealthcareServicesLocationAssignmentServicesError,
+  getHealthcareServicesLocationAssignmentSuccess, unassignHealthcareServicesLocationAssignmentServicesError,
+  updateHealthcareServicesLocationAssignmentServicesError,
 } from './actions';
 
 export function* getHealthcareServicesLocationAssignmentSaga(action) {
@@ -37,7 +41,7 @@ export function* updateHealthcareServicesLocationAssignmentSaga(action) {
     yield put(showNotification('The healthcare service is successfully assigned to current location.'));
   } catch (err) {
     yield put(updateHealthcareServicesLocationAssignmentServicesError(err));
-    yield put(showNotification('Failed to assign healthcare services to current location, please try again.'));
+    yield put(showNotification('Failed to assign he healthcare services to the current location. Please try again.'));
   }
 }
 
@@ -49,9 +53,26 @@ export function* watchUpdateHealthcareServicesLocationAssignmentSaga() {
   yield takeEvery(UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, updateHealthcareServicesLocationAssignmentSaga);
 }
 
+export function* unassignHealthcareServicesLocationAssignmentSaga(action) {
+  try {
+    const locationIds = [];
+    locationIds.push(action.locationId);
+    yield call(unassignHealthCareServicesToLocation, action.organizationId, locationIds, action.healthcareServiceId);
+    yield put(showNotification('The healthcare service is successfully unassigned from the current location.'));
+  } catch (err) {
+    yield put(unassignHealthcareServicesLocationAssignmentServicesError(err));
+    yield put(showNotification('Failed to unassign the healthcare services from the current location. Please try again.'));
+  }
+}
+
+export function* watchUnassignHealthcareServicesLocationAssignmentSaga() {
+  yield takeEvery(UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, unassignHealthcareServicesLocationAssignmentSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetHealthcareServicesLocationAssignmentSaga(),
     watchUpdateHealthcareServicesLocationAssignmentSaga(),
+    watchUnassignHealthcareServicesLocationAssignmentSaga(),
   ]);
 }

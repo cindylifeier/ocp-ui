@@ -10,7 +10,8 @@ import {
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS,
-  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
 } from './constants';
@@ -52,6 +53,8 @@ function assignHealthCareServiceToLocationPageReducer(state = initialState, acti
         .set('loading', false);
     case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
       return state.set('healthcareServiceId', action.healthcareServiceId);
+    case UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
+      return state.set('healthcareServiceId', action.healthcareServiceId);
     case DISABLE_CHECKED_ASSIGNED_HEALTHCARE_SERVICE: {
       const healthcareServices = state.get('data');
       const healthcareServiceArray = healthcareServices.toJS();
@@ -67,6 +70,10 @@ function assignHealthCareServiceToLocationPageReducer(state = initialState, acti
       return state.set('data', fromJS((healthcareServiceArray || [])));
     }
     case UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
+    case UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);
