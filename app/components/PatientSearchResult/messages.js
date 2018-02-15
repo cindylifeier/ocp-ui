@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.header',
     defaultMessage: 'This is the PatientSearchResult component !',
   },
+  addTask: {
+    id: 'ocpui.components.OrganizationsTableRow.addTask',
+    defaultMessage: 'Add Task',
+  },
 });
