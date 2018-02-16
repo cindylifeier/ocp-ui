@@ -15,7 +15,6 @@ const StyledRaisedButton = styled(RaisedButton).attrs({
     color: 'white',
     width: '50px',
   },
-})`
-`;
+})();
 
 export default StyledRaisedButton;
