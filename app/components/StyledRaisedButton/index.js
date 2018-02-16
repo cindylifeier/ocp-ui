@@ -13,7 +13,6 @@ const StyledRaisedButton = styled(RaisedButton).attrs({
     fontSize: '12px',
     fontWeight: 'bold',
     color: 'white',
-    backgroundColor: 'green',
     width: '50px',
   },
 })`
