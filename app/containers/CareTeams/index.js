@@ -28,6 +28,7 @@ import { makeSelectCareTeamStatuses } from '../App/selectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 import { getLookupsAction } from '../App/actions';
 import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
+import Card from '../../components/Card';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -56,7 +57,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   render() {
     const { careTeams: { loading, data, patientName, statusList }, careTeamStatuses } = this.props;
     return (
-      <div className={styles.card}>
+      <Card>
         <div className={styles.header}>
           <FormattedMessage {...messages.header} />
         </div>
@@ -116,7 +117,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
           />
         </div>
         }
-      </div>
+      </Card>
     );
   }
 }
