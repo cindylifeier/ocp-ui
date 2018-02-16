@@ -29,6 +29,7 @@ import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 import { getLookupsAction } from '../App/actions';
 import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -58,9 +59,9 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     const { careTeams: { loading, data, patientName, statusList }, careTeamStatuses } = this.props;
     return (
       <Card>
-        <div className={styles.header}>
+        <CardHeader>
           <FormattedMessage {...messages.header} />
-        </div>
+        </CardHeader>
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <div className={styles.gridContainer}>

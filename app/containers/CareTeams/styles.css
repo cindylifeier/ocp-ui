@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-.header {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #336666;
-}
-
 .gridContainer {
   display: grid;
   width: 100%;
