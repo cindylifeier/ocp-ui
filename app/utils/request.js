@@ -1,4 +1,7 @@
 import 'whatwg-fetch';
+import merge from 'lodash/merge';
+import isUndefined from 'lodash/isUndefined';
+import { retrieveToken } from './tokenService';
 
 /**
  * Parses the JSON returned by a network request
@@ -50,6 +53,23 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
   return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON);
+}
+
+export function requestWithJWT(url, options) {
+  let fetchOptions = options;
+  if (isUndefined(options)) {
+    fetchOptions = {};
+  }
+  const authData = retrieveToken();
+  const token = authData && authData.access_token;
+  if (token) {
+    merge(fetchOptions, { headers: { Authorization: `Bearer ${token}` } });
+  } else {
+    console.log('No token found');
+  }
+  return fetch(url, fetchOptions)
     .then(checkStatus)
     .then(parseJSON);
 }

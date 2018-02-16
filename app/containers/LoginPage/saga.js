@@ -6,10 +6,12 @@ import { showNotification } from '../Notification/actions';
 import { loginSuccess } from './actions';
 import { LOGIN_REQUEST } from './constants';
 import { HOME_URL } from '../App/constants';
+import { storeToken } from '../../utils/tokenService';
 
 function* requestLoginSaga({ loginCredentials }) {
   try {
     const authData = yield call(login, loginCredentials);
+    storeToken(authData);
     yield put(loginSuccess(authData));
     yield put(push(HOME_URL));
     yield put(showNotification('Login successfully.'));

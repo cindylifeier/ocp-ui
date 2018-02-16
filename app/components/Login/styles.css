@@ -7,7 +7,7 @@
 
 .loginCard {
   width: 25%;
-  height: 349px;
+  height: 380px;
   text-align: center;
   padding: 10px;
   margin: 4vh auto;
@@ -33,6 +33,7 @@
 
 .gridItem {
   border-radius: 5px;
+  max-height: 110px;
   font-size: 100%;
 }
 
