@@ -35,6 +35,7 @@ import ManagePatientPage from '../ManagePatientPage/index';
 import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
 import ManageTaskPage from '../ManageTaskPage';
 import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
+import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
 
 
 export function App() {
@@ -63,6 +64,7 @@ export function App() {
             <Route path="/ocp-ui/assign-healthcareservice-location/:id?" component={AssignHealthCareServiceToLocationPage} />
             <Route path="/ocp-ui/manage-task/:id?" component={ManageTaskPage} />
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
+            <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>
