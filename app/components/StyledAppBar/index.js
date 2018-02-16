@@ -15,6 +15,6 @@ const StyledAppBar = styled(AppBar).attrs({
     backgroundColor: '#006666',
     width: '50px',
   },
-})();
+})('');
 
 export default StyledAppBar;
