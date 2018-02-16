@@ -38,7 +38,8 @@
     "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
-    "pretest": "npm run test:clean && npm run lint",
+    "lint:css": "stylelint \"app/**/*.js\"",
+    "pretest": "npm run test:clean && npm run lint && npm run lint:css",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
@@ -49,7 +50,14 @@
   },
   "pre-commit": "lint:staged",
   "babel": {
-    "plugins": [["babel-plugin-styled-components", {"displayName": true}]],
+    "plugins": [
+      [
+        "babel-plugin-styled-components",
+        {
+          "displayName": true
+        }
+      ]
+    ],
     "presets": [
       [
         "env",
@@ -231,6 +239,7 @@
     "lodash": "4.17.4",
     "material-ui": "0.19.4",
     "minimist": "1.2.0",
+    "polished": "1.9.2",
     "prop-types": "15.5.10",
     "query-string": "5.0.0",
     "react": "15.6.1",
@@ -249,6 +258,7 @@
     "reselect": "3.0.1",
     "sanitize.css": "4.1.0",
     "styled-components": "2.0.0",
+    "styled-css-grid": "0.8.2",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3",
     "yup": "0.24.0"
@@ -292,6 +302,7 @@
     "image-webpack-loader": "2.0.0",
     "imports-loader": "0.7.1",
     "jest-cli": "22.1.4",
+    "jest-styled-components": "4.10.0",
     "lint-staged": "3.5.1",
     "net": "1.0.2",
     "ngrok": "2.2.9",
@@ -304,6 +315,10 @@
     "rimraf": "2.6.1",
     "shelljs": "^0.7.8",
     "style-loader": "0.18.1",
+    "stylelint": "8.4.0",
+    "stylelint-config-standard": "18.0.0",
+    "stylelint-config-styled-components": "0.1.1",
+    "stylelint-processor-styled-components": "1.2.2",
     "tls": "0.0.1",
     "url-loader": "0.5.8",
     "webpack": "3.5.5",
