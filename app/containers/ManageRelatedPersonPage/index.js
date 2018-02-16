@@ -24,7 +24,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
     return (
       <div>
         <Helmet>
-          <title>ManageRelatedPersonPage</title>
+          <title>Manage Related Person</title>
           <meta name="description" content="Description of ManageRelatedPersonPage" />
         </Helmet>
         <FormattedMessage {...messages.header} />
