@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { AppBar, TextField } from 'material-ui';
+import { TextField } from 'material-ui';
 import { Cell, Grid } from 'styled-css-grid';
 import { HOME_URL } from '../App/constants';
 import StyledRaisedButton from '../../components/StyledRaisedButton/index';
@@ -17,6 +17,7 @@ import Card from '../../components/Card/index';
 
 import H2 from '../../components/H2/index';
 import H3 from '../../components/H3/index';
+import StyledAppBar from '../../components/StyledAppBar/index';
 
 const LoginTitle = H2.extend`
   color: #0B4361;
@@ -39,6 +40,19 @@ const LoginStyledRaisedButton = StyledRaisedButton.extend.attrs({
 })`
 `;
 
+const LoginHeaderStyledAppBar = StyledAppBar.extend.attrs({
+  title: 'Welcome To Omnibus Care Plan',
+  showMenuIconButton: false,
+  style: {
+    fontSize: '12px',
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: '#006666',
+    width: '100%',
+  },
+})`
+`;
+
 const LoginStyledCard = Card.extend`
   background-color: #F2F2F2;
   min-width: 280px;
@@ -57,10 +71,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           ]}
         >
           <Cell area="header">
-            <AppBar
-              title="Welcome To Omnibus Care Plan"
-              showMenuIconButton={false}
-            />
+            <LoginHeaderStyledAppBar></LoginHeaderStyledAppBar>
           </Cell>
           <Cell area="loginCard">
             <LoginStyledCard>
