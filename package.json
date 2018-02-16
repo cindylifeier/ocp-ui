@@ -257,6 +257,7 @@
     "reselect": "3.0.1",
     "sanitize.css": "4.1.0",
     "styled-components": "2.0.0",
+    "styled-css-grid": "0.8.2",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3",
     "yup": "0.24.0"
