@@ -4,24 +4,24 @@
  *
  */
 
-import { LOGIN, LOGIN_SUCCESS, LOGOUT } from './constants';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST } from './constants';
 
-export function login(loginCredentials) {
+export function requestLogin(loginCredentials) {
   return {
-    type: LOGIN,
+    type: LOGIN_REQUEST,
     loginCredentials,
   };
 }
 
-export function loginSuccess(loggedData) {
+export function loginSuccess(data) {
   return {
     type: LOGIN_SUCCESS,
-    loggedData,
+    data,
   };
 }
 
-export function logout() {
+export function requestLogout() {
   return {
-    type: LOGOUT,
+    type: LOGOUT_REQUEST,
   };
 }

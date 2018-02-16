@@ -5,15 +5,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Form, Formik } from 'formik';
+import yup from 'yup';
+import { FormattedMessage } from 'react-intl';
 import { Card } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Form, Formik } from 'formik';
-import PropTypes from 'prop-types';
 import { teal500, white } from 'material-ui/styles/colors';
 
-import { FormattedMessage } from 'react-intl';
+import TextField from '../TextField';
 import messages from './messages';
 import ocpLogo from '../../images/omnibus-care-plan-logo.png';
 import styles from './styles.css';
@@ -46,6 +47,12 @@ function Login(props) {
           onSubmit={(values) => {
             onLogin(values);
           }}
+          validationSchema={yup.object().shape({
+            username: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            password: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+          })}
           render={(loginFormProps) => {
             const { isSubmitting, dirty, isValid } = loginFormProps;
             return (
@@ -67,7 +74,7 @@ function Login(props) {
                       fullWidth
                     />
                   </div>
-                  <div className={`${styles.gridItem}`}>
+                  <div className={`${styles.gridItem} ${styles.forgotLink}`}>
                     <FormattedMessage {...messages.forgotLink} />
                   </div>
                   <div className={`${styles.gridItem} ${styles.button}`}>

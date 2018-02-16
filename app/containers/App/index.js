@@ -21,7 +21,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
 
 import styles from './styles.css';
-import { LoginPage } from '../LoginPage';
+import LoginPage from '../LoginPage';
 import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage';
 import ManagePractitionerPage from '../ManagePractitionerPage';
@@ -58,7 +58,10 @@ export function App() {
             <Route path="/ocp-ui/manage-location/:id?" component={ManageLocationPage} />
             <Route path="/ocp-ui/manage-care-team/:id?" component={ManageCareTeamPage} />
             <Route path="/ocp-ui/manage-health-care-service/:id?" component={ManageHealthcareServicePage} />
-            <Route path="/ocp-ui/assign-healthcareservice-location/:id?" component={AssignHealthCareServiceToLocationPage} />
+            <Route
+              path="/ocp-ui/assign-healthcareservice-location/:id?"
+              component={AssignHealthCareServiceToLocationPage}
+            />
           </Layout>
           <Route component={NotFoundPage} />
         </Switch>

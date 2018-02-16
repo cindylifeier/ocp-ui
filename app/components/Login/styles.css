@@ -44,8 +44,12 @@
   grid-area: password;
 }
 
+.forgotLink {
+  grid-area: forgotLink;
+}
+
 .button {
   grid-area: button;
-  margin: 6vh 0;
+  margin: 4vh 0;
   display: grid;
 }

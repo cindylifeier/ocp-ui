@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the loginPage state domain
  */
-const selectLoginPageDomain = (state) => state.get('loginPage');
+const selectAuthDomain = (state) => state.get('auth');
 
 /**
  * Other specific selectors
@@ -15,11 +15,11 @@ const selectLoginPageDomain = (state) => state.get('loginPage');
  */
 
 const makeSelectLoginPage = () => createSelector(
-  selectLoginPageDomain,
-  (substate) => substate.toJS()
+  selectAuthDomain,
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectLoginPage;
 export {
-  selectLoginPageDomain,
+  selectAuthDomain,
 };

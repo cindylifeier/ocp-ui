@@ -19,10 +19,6 @@ export default defineMessages({
       id: 'ocpui.components.Login.loginForm.validation.required',
       defaultMessage: 'Required',
     },
-    invalid: {
-      id: 'ocpui.components.Login.loginForm.validation.invalid',
-      defaultMessage: 'Invalid value',
-    },
   },
   loginButton: {
     id: 'ocpui.components.Login.loginButton',
