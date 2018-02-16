@@ -20,14 +20,14 @@ import H3 from '../../components/H3/index';
 import StyledAppBar from '../../components/StyledAppBar/index';
 
 const LoginTitle = H2.extend`
-  color: #0B4361;
-  font-family: 'Lato Regular', 'Lato';
+  color: #0b4361;
+  font-family: 'Lato Regular', 'Lato', sans-serif;
   text-align: center;
 `;
 
 const Hint = H3.extend`
   font-size: 12px;
-  font-family: 'Arial Regular', 'Arial';
+  font-family: 'Arial Regular', 'Arial', sans-serif;
 `;
 
 const LoginStyledRaisedButton = StyledRaisedButton.extend.attrs({
@@ -54,7 +54,7 @@ const LoginHeaderStyledAppBar = StyledAppBar.extend.attrs({
 `;
 
 const LoginStyledCard = Card.extend`
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   min-width: 280px;
   width: 100%;
 `;
