@@ -2,9 +2,8 @@ import Align from './index';
 
 const variant = 'center';
 
-const CenterAlign = Align.extend.attrs({
-  variant,
-})`
+const CenterAlign = Align.extend`
+  text-align: ${variant};
 `;
 
 CenterAlign.propTypes = {};

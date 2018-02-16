@@ -2,9 +2,8 @@ import Align from './index';
 
 const variant = 'left';
 
-const LeftAlign = Align.extend.attrs({
-  variant,
-})`
+const LeftAlign = Align.extend`
+  text-align: ${variant};
 `;
 
 LeftAlign.propTypes = {};
