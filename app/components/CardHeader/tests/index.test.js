@@ -19,7 +19,7 @@ describe('<CardHeader />', () => {
     expect(renderedComponent.contains(children)).toEqual(true);
   });
 
-  it('should have have styles', () => {
+  it('should have styles', () => {
     // Arrange
     const children = (<span>test</span>);
 
