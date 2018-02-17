@@ -16,33 +16,28 @@ import { removeToken, retrieveToken } from '../../utils/tokenService';
 import { isTokenExpired } from '../../utils/auth';
 
 export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
-  class Authentication extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-    constructor(props) {
-      super(props);
-      this.handleRender = this.handleRender.bind(this);
+  function Authentication(props) {
+    let isAuthenticated = props.auth.isAuthenticated;
+    if (isTokenExpired(retrieveToken())) {
+      isAuthenticated = false;
+      removeToken();
     }
 
-    handleRender(props) {
-      let isAuthenticated = this.props.auth.isAuthenticated;
-      if (isTokenExpired(retrieveToken())) {
-        isAuthenticated = false;
-        removeToken();
-      }
-      return isAuthenticated ?
-        <Component {...props} /> :
-        <Redirect
-          to={{
-            pathname: LOGIN_URL,
-            state: { from: props.location },
-          }}
-        />;
-    }
-
-    render() {
-      return (
-        <Route {...rest} render={this.handleRender} />
-      );
-    }
+    return (
+      <Route
+        {...rest}
+        render={(routeProps) =>
+          isAuthenticated ?
+            <Component {...routeProps} /> :
+            <Redirect
+              to={{
+                pathname: LOGIN_URL,
+                state: { from: routeProps.location },
+              }}
+            />
+        }
+      />
+    );
   }
 
   Authentication.propTypes = {
