@@ -24,6 +24,10 @@ export default defineMessages({
     id: 'ocpui.components.Login.loginButton',
     defaultMessage: 'Login',
   },
+  authenticatingButton: {
+    id: 'ocpui.components.Login.authenticatingButton',
+    defaultMessage: 'Login...',
+  },
   hintText: {
     username: {
       id: 'ocpui.components.Login.loginForm.hintText.username',

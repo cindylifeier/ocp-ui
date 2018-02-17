@@ -13,10 +13,9 @@ export function requestLogin(loginCredentials) {
   };
 }
 
-export function loginSuccess(data) {
+export function loginSuccess() {
   return {
     type: LOGIN_SUCCESS,
-    data,
   };
 }
 

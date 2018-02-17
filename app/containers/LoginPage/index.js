@@ -35,7 +35,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           <meta name="description" content="Login page of Omnibus Care Plan application" />
         </Helmet>
         <div>
-          <Login onLogin={this.handleLogin} />
+          <Login auth={this.props.auth} onLogin={this.handleLogin} />
         </div>
       </div>
     );
@@ -44,10 +44,11 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 
 LoginPage.propTypes = {
   onRequestLogin: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginpage: makeSelectLoginPage(),
+  auth: makeSelectLoginPage(),
 });
 
 function mapDispatchToProps(dispatch) {

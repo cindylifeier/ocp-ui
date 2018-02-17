@@ -31,7 +31,7 @@ const inlineStyles = {
 };
 
 function Login(props) {
-  const { onLogin } = props;
+  const { onLogin, auth: { isAuthenticating } } = props;
 
   return (
     <div>
@@ -83,7 +83,11 @@ function Login(props) {
                       backgroundColor={teal500}
                       labelColor={white}
                       fullWidth
-                      label={<FormattedMessage {...messages.loginButton} />}
+                      label={
+                        isAuthenticating ?
+                          <FormattedMessage {...messages.authenticatingButton} /> :
+                          <FormattedMessage {...messages.loginButton} />
+                      }
                       disabled={!dirty || isSubmitting || !isValid}
                     />
                   </div>
@@ -100,6 +104,7 @@ function Login(props) {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 export default Login;

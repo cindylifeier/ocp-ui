@@ -3,21 +3,21 @@
  */
 
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
-import withRouter from 'react-router-dom/es/withRouter';
 import ActionLogout from 'material-ui/svg-icons/action/exit-to-app';
-import { LOGIN_URL } from '../../containers/App/constants';
-import { removeToken } from '../../utils/tokenService';
+
+import injectSaga from 'utils/injectSaga';
+import { requestLogout } from '../../containers/LoginPage/actions';
+import saga from '../../containers/LoginPage/saga';
 
 function LogoutButton(props) {
   return (
     <IconButton
       tooltip="Sign out"
-      onClick={() => {
-        props.history.push(LOGIN_URL);
-        removeToken();
-      }}
+      onClick={props.onRequestLogout}
     >
       <ActionLogout />
     </IconButton>
@@ -25,7 +25,19 @@ function LogoutButton(props) {
 }
 
 LogoutButton.propTypes = {
-  history: PropTypes.object,
+  onRequestLogout: PropTypes.func.isRequired,
 };
 
-export default withRouter(LogoutButton);
+function mapDispatchToProps(dispatch) {
+  return {
+    onRequestLogout: () => dispatch(requestLogout()),
+  };
+}
+
+const withConnect = connect(null, mapDispatchToProps);
+const withSaga = injectSaga({ key: 'loginPage', saga });
+
+export default compose(
+  withSaga,
+  withConnect,
+)(LogoutButton);
