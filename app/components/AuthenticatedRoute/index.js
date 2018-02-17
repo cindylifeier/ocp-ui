@@ -12,6 +12,8 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { LOGIN_URL } from '../../containers/App/constants';
 import makeSelectLoginPage from '../../containers/LoginPage/selectors';
+import { retrieveToken } from '../../utils/tokenService';
+import { isTokenExpired } from '../../utils/auth';
 
 export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   class Authentication extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -21,7 +23,11 @@ export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
     }
 
     handleRender(props) {
-      return this.props.auth.isAuthenticated ?
+      let isAuthenticated = this.props.auth.isAuthenticated;
+      if (isTokenExpired(retrieveToken())) {
+        isAuthenticated = false;
+      }
+      return isAuthenticated ?
         <Component {...props} /> :
         <Redirect
           to={{

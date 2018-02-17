@@ -19,7 +19,7 @@ function loginPageReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return state
         .set('isAuthenticating', false)
-        .set('isAuthenticated', true);
+        .set('isAuthenticated', action.isAuthenticated);
     case LOGOUT_REQUEST:
       return initialState;
     default:

@@ -6,14 +6,21 @@ import { showNotification } from '../Notification/actions';
 import { loginSuccess } from './actions';
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from './constants';
 import { HOME_URL, LOGIN_URL } from '../App/constants';
-import { removeToken, storeToken } from '../../utils/tokenService';
+import { removeToken, retrieveToken, storeToken } from '../../utils/tokenService';
 import { makeSelectLocation } from '../App/selectors';
+import { hasAccessScopeInToken } from '../../utils/auth';
 
 function* requestLoginSaga({ loginCredentials }) {
   try {
     const authData = yield call(login, loginCredentials);
     storeToken(authData);
-    yield put(loginSuccess());
+    let isAuthenticated = false;
+    if (hasAccessScopeInToken(retrieveToken())) {
+      isAuthenticated = true;
+    } else {
+      removeToken();
+    }
+    yield put(loginSuccess(isAuthenticated));
     // Redirect to referrer address
     const location = yield select(makeSelectLocation());
     const { from } = location.state || { from: { pathname: HOME_URL } };

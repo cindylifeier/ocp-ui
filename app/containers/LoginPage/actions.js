@@ -13,9 +13,10 @@ export function requestLogin(loginCredentials) {
   };
 }
 
-export function loginSuccess() {
+export function loginSuccess(isAuthenticated) {
   return {
     type: LOGIN_SUCCESS,
+    isAuthenticated,
   };
 }
 
