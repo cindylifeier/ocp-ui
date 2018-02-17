@@ -18,6 +18,7 @@ function* requestLoginSaga({ loginCredentials }) {
     if (hasAccessScopeInToken(retrieveToken())) {
       isAuthenticated = true;
     } else {
+      yield put(showNotification('Access is denied.'));
       removeToken();
     }
     yield put(loginSuccess(isAuthenticated));
