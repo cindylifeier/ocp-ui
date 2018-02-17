@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
 import { login } from './api';
@@ -7,14 +7,17 @@ import { loginSuccess } from './actions';
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from './constants';
 import { HOME_URL, LOGIN_URL } from '../App/constants';
 import { removeToken, storeToken } from '../../utils/tokenService';
+import { makeSelectLocation } from '../App/selectors';
 
 function* requestLoginSaga({ loginCredentials }) {
   try {
     const authData = yield call(login, loginCredentials);
     storeToken(authData);
-    yield put(loginSuccess(authData));
-    yield put(push(HOME_URL));
-    yield put(showNotification('Login successfully.'));
+    yield put(loginSuccess());
+    // Redirect to referrer address
+    const location = yield select(makeSelectLocation());
+    const { from } = location.state || { from: { pathname: HOME_URL } };
+    yield put(push(from));
   } catch (error) {
     yield put(showNotification('Failed to login.'));
     throw error;
