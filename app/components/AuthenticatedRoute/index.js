@@ -12,7 +12,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { LOGIN_URL } from '../../containers/App/constants';
 import makeSelectLoginPage from '../../containers/LoginPage/selectors';
-import { retrieveToken } from '../../utils/tokenService';
+import { removeToken, retrieveToken } from '../../utils/tokenService';
 import { isTokenExpired } from '../../utils/auth';
 
 export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
@@ -26,6 +26,7 @@ export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
       let isAuthenticated = this.props.auth.isAuthenticated;
       if (isTokenExpired(retrieveToken())) {
         isAuthenticated = false;
+        removeToken();
       }
       return isAuthenticated ?
         <Component {...props} /> :
