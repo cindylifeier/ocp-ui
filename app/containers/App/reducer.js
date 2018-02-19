@@ -42,13 +42,14 @@ import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
-  HEALTHCARESERVICETYPE, RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  HEALTHCARESERVICETYPE, RELATEDPERSONPATIENTRELATIONSHIPTYPES, GET_PATIENT_SUCCESS,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
   loading: false,
   error: false,
+  patient: null,
   USPSSTATES: [],
   LOCATIONPHYSICALTYPE: [],
   LOCATIONSTATUS: [],
@@ -120,6 +121,9 @@ function appReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
+    case GET_PATIENT_SUCCESS:
+      return state
+        .set('patient', action.patient);
     default:
       return state;
   }

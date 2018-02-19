@@ -177,6 +177,11 @@ const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
   (globalState) => globalState.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
 );
 
+const makeSelectPatient = () => createSelector(
+  selectGlobal,
+  (substate) => substate && substate.get('patient'),
+);
+
 export {
   makeSelectLocation,
   makeSelectUspsStates,
@@ -207,4 +212,5 @@ export {
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
   makeSelectRelatedPersonPatientRelationshipTypes,
+  makeSelectPatient,
 };

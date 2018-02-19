@@ -18,16 +18,19 @@ import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getCareTeam, getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
-import { makeSelectCareTeam, makeSelectPatient } from './selectors';
+import { getCareTeam, initializeManageCareTeam, saveCareTeam } from './actions';
+import { makeSelectCareTeam } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
 import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
+import { getLookupsAction, getPatient } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
-import { makeSelectCareTeamCategories, makeSelectCareTeamReasons, makeSelectCareTeamStatuses } from '../App/selectors';
+import {
+  makeSelectCareTeamCategories, makeSelectCareTeamReasons, makeSelectCareTeamStatuses,
+  makeSelectPatient,
+} from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 import {

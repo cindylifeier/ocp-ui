@@ -9,11 +9,6 @@ const selectManageCareTeamPageDomain = (state) => state.get('manageCareTeamPage'
  * Other specific selectors
  */
 
-const makeSelectPatient = () => createSelector(
-  selectManageCareTeamPageDomain,
-  (substate) => substate && substate.get('patient'),
-);
-
 const makeSelectCareTeam = () => createSelector(
   selectManageCareTeamPageDomain,
   (substate) => substate && substate.get('careTeam'),
@@ -21,6 +16,5 @@ const makeSelectCareTeam = () => createSelector(
 
 export {
   selectManageCareTeamPageDomain,
-  makeSelectPatient,
   makeSelectCareTeam,
 };
