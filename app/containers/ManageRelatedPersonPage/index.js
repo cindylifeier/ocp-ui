@@ -32,10 +32,6 @@ import ManageRelatedPerson from '../../components/ManageRelatedPerson';
 import { getPatient } from '../ManageCareTeamPage/actions';
 
 export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.handleSave = this.handleSave.bind(this);
-  }
   componentWillMount() {
     this.props.getLookups();
     const queryObj = queryString.parse(this.props.location.search);

@@ -26,11 +26,6 @@ export function putPatient(patientFormData) {
   });
 }
 
-export function getPatient(patientId) {
-  const requestURL = `${apiBaseURL}/patients/${patientId}`;
-  return request(requestURL);
-}
-
 export function mapToPatientName(patient) {
   const names = patient.name;
   return names && names
