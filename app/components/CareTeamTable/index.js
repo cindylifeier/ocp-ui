@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
@@ -22,6 +21,7 @@ import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
 import styles from './styles.css';
+import StyledMenuItem from '../StyledMenuItem';
 
 const iconStyles = {
   iconButton: {
@@ -82,9 +82,8 @@ function CareTeamTable({ elements }) {
                     anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                   >
-                    <MenuItem
-                      className={styles.menuItem}
-                      primaryText="Edit"
+                    <StyledMenuItem
+                      primaryText={<FormattedMessage {...messages.menuItemEdit} />}
                       containerElement={<Link
                         to={{
                           pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
@@ -92,7 +91,7 @@ function CareTeamTable({ elements }) {
                         }}
                       />}
                     />
-                    <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
+                    <StyledMenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
                   </IconMenu>
                 </div>
               </div>
