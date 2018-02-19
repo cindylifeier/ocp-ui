@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationsTableRow.addHealthCareService',
     defaultMessage: 'Add Health Care Service',
   },
+  addActivityDefinition: {
+    id: 'ocpui.components.OrganizationsTableRow.addActivityDefinition',
+    defaultMessage: 'Add Activity Definition',
+  },
   remove: {
     id: 'ocpui.components.OrganizationsTableRow.remove',
     defaultMessage: 'Remove',
