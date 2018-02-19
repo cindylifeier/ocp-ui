@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 import messages from './messages';
@@ -22,19 +21,7 @@ import TableRowColumn from '../TableRowColumn';
 import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import StyledMenuItem from '../StyledMenuItem';
-
-const iconStyles = {
-  iconButton: {
-    position: 'relative',
-  },
-  icon: {
-    width: '100%',
-    height: 26,
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  },
-};
+import StyledIconButton from '../StyledIconButton';
 
 function CareTeamTable({ elements }) {
   return (
@@ -71,13 +58,9 @@ function CareTeamTable({ elements }) {
                 <div className={styles.iconButtonGridItem}>
                   <IconMenu
                     iconButtonElement={
-                      (<IconButton
-                        className={styles.iconButton}
-                        iconStyle={iconStyles.icon}
-                        style={iconStyles.iconButton}
-                      >
+                      (<StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>)
+                      </StyledIconButton>)
                     }
                     anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
