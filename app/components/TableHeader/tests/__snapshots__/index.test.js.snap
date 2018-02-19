@@ -19,15 +19,13 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "class",
     "props": Object {
       "children": <TableHeaderColumn>
         Col
       </TableHeaderColumn>,
-      "className": undefined,
-      "style": Object {
-        "gridTemplateColumns": "repeat(1, 1fr)",
-      },
+      "columns": "repeat(1, 1fr)",
+      "gap": "5px",
     },
     "ref": null,
     "rendered": Object {
@@ -41,21 +39,19 @@ ShallowWrapper {
       "rendered": "Col",
       "type": [Function],
     },
-    "type": "div",
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
         "children": <TableHeaderColumn>
           Col
         </TableHeaderColumn>,
-        "className": undefined,
-        "style": Object {
-          "gridTemplateColumns": "repeat(1, 1fr)",
-        },
+        "columns": "repeat(1, 1fr)",
+        "gap": "5px",
       },
       "ref": null,
       "rendered": Object {
@@ -69,7 +65,7 @@ ShallowWrapper {
         "rendered": "Col",
         "type": [Function],
       },
-      "type": "div",
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {
