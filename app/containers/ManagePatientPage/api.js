@@ -1,12 +1,12 @@
 import getApiBaseUrl from '../../apiBaseUrlConfig';
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 import { EMPTY_STRING } from '../App/constants';
 
 const apiBaseURL = getApiBaseUrl();
 
 export function postPatient(patientFormData) {
   const requestURL = `${apiBaseURL}/patients/`;
-  return request(requestURL, {
+  return requestWithJWT(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBackendPatient(patientFormData)),
     headers: {
@@ -17,7 +17,7 @@ export function postPatient(patientFormData) {
 
 export function putPatient(patientFormData) {
   const requestURL = `${apiBaseURL}/patients/`;
-  return request(requestURL, {
+  return requestWithJWT(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBackendPatient(patientFormData)),
     headers: {
@@ -28,7 +28,7 @@ export function putPatient(patientFormData) {
 
 export function getPatient(patientId) {
   const requestURL = `${apiBaseURL}/patients/${patientId}`;
-  return request(requestURL);
+  return requestWithJWT(requestURL);
 }
 
 export function mapToPatientName(patient) {

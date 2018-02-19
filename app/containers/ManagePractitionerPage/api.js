@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseURL = getApiBaseUrl();
@@ -15,7 +15,7 @@ export function savePractitioner(practitionerFormData) {
 
 export function getPractitioner(logicalId) {
   const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
-  return request(requestURL);
+  return requestWithJWT(requestURL);
 }
 
 export function getNotificationAction(practitionerFormData) {
@@ -35,7 +35,7 @@ export function getPractitionerById(practitioners, logicalId) {
 
 function createPractitioner(practitionerFormData) {
   const requestURL = `${apiBaseURL}/practitioners`;
-  return request(requestURL, {
+  return requestWithJWT(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {
@@ -46,7 +46,7 @@ function createPractitioner(practitionerFormData) {
 
 function updatePractitioner(logicalId, practitionerFormData) {
   const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
-  return request(requestURL, {
+  return requestWithJWT(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {

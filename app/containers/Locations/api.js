@@ -6,13 +6,13 @@
 
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 
 const apiBaseUrl = getApiBaseUrl();
 
 export default function searchLocationsByIdAndStatus(organizationId, status, currentPage) {
   const url = createUrl(organizationId, status, currentPage);
-  return request(url);
+  return requestWithJWT(url);
 }
 
 function createUrl(organizationId, status, currentPage) {

@@ -1,11 +1,11 @@
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseUrl = getApiBaseUrl();
 
 export default function createLocation(location, organizationId) {
   const url = `${apiBaseUrl}/organization/${organizationId}/location`;
-  return request(url, {
+  return requestWithJWT(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffLocation(location)),
     headers: {
@@ -16,7 +16,7 @@ export default function createLocation(location, organizationId) {
 
 export function updateLocation(location, organizationId) {
   const url = `${apiBaseUrl}/organization/${organizationId}/location/${location.logicalId}`;
-  return request(url, {
+  return requestWithJWT(url, {
     method: 'PUT',
     body: JSON.stringify(mapToBffLocation(location)),
     headers: {
@@ -27,7 +27,7 @@ export function updateLocation(location, organizationId) {
 
 export function fetchLocation(locationId) {
   const url = `${apiBaseUrl}/locations/${locationId}`;
-  return request(url);
+  return requestWithJWT(url);
 }
 
 function mapToBffLocation(rawlocation) {

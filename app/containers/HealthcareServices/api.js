@@ -1,6 +1,6 @@
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 import queryString from '../../utils/queryString';
 
 const apiBaseUrl = getApiBaseUrl();
@@ -12,7 +12,7 @@ export function getHealthcareServicesByOrganization(organizationId, status, curr
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const url = `${apiBaseUrl}/organizations/${organizationId}/healthcare-services${params}`;
-  return request(url);
+  return requestWithJWT(url);
 }
 
 export function getHealthcareServicesByLocation(organizationId, locationId, status, currentPage) {
@@ -22,5 +22,5 @@ export function getHealthcareServicesByLocation(organizationId, locationId, stat
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const url = `${apiBaseUrl}/organizations/${organizationId}/locations/${locationId}/healthcare-services${params}`;
-  return request(url);
+  return requestWithJWT(url);
 }

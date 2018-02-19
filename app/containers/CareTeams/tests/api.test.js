@@ -1,11 +1,11 @@
-import request from '../../../utils/request';
+import { requestWithJWT } from '../../../utils/request';
 import getCareTeams from '../api';
 
 const mockRequest = jest.fn();
 
 jest.mock('../../../apiBaseUrlConfig', () => (() => '/base-url'));
 jest.mock('../../../utils/request');
-request.mockImplementation(mockRequest);
+requestWithJWT.mockImplementation(mockRequest);
 
 describe('CareTeams api.js', () => {
   it('should call request with correct request url', () => {

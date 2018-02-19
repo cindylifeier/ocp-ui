@@ -1,5 +1,5 @@
 import getApiBaseUrl from '../../apiBaseUrlConfig';
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 
 const apiBaseUrl = getApiBaseUrl();
 const headers = {
@@ -9,7 +9,7 @@ const headers = {
 export function createOrganizationApiCall(organizationFormData) {
   const requestUrl = `${apiBaseUrl}/organizations`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
-  return request(requestUrl, {
+  return requestWithJWT(requestUrl, {
     method: 'POST',
     headers,
     body,
@@ -19,7 +19,7 @@ export function createOrganizationApiCall(organizationFormData) {
 export function updateOrganizationApiCall(id, organizationFormData) {
   const requestUrl = `${apiBaseUrl}/organizations/${id}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
-  return request(requestUrl, {
+  return requestWithJWT(requestUrl, {
     method: 'PUT',
     headers,
     body,

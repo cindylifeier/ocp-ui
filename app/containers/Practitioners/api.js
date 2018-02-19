@@ -1,6 +1,6 @@
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 import queryString from '../../utils/queryString';
 
 const apiBaseURL = getApiBaseUrl();
@@ -15,5 +15,5 @@ export default function searchPractitioners(searchTerms, searchType, includeInac
   });
 
   const requestURL = `${apiBaseURL}/practitioners/search${params}`;
-  return request(requestURL);
+  return requestWithJWT(requestURL);
 }

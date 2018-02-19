@@ -1,11 +1,11 @@
-import request from '../../utils/request';
+import { requestWithJWT } from '../../utils/request';
 import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseUrl = getApiBaseUrl();
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
   const url = `${apiBaseUrl}/organization/${organizationId}/healthcare-service`;
-  return request(url, {
+  return requestWithJWT(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffHealthcareService(healthcareServiceFormData)),
     headers: {
