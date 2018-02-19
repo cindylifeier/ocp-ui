@@ -43,6 +43,11 @@ import {
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
   HEALTHCARESERVICETYPE,
+  PUBLICATION_STATUS,
+  DEFINITION_TOPIC,
+  RESOURCE_TYPE,
+  ACTION_PARTICIPANT_TYPE,
+  ACTION_PARTICIPANT_ROLE,
 } from './constants';
 
 // The initial state of the App
@@ -76,6 +81,11 @@ const initialState = fromJS({
   HEALTHCARESERVICETYPE: [],
   HEALTHCARESERVICEREFERRALMETHOD: [],
   HEALTHCARESERVICESPECIALITY: [],
+  PUBLICATION_STATUS: [],
+  DEFINITION_TOPIC: [],
+  RESOURCE_TYPE: [],
+  ACTION_PARTICIPANT_TYPE: [],
+  ACTION_PARTICIPANT_ROLE: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -113,6 +123,11 @@ function appReducer(state = initialState, action) {
         .set(HEALTHCARESERVICETYPE, fromJS((action.lookups && action.lookups.healthcareServiceTypes) || state.get(HEALTHCARESERVICETYPE)))
         .set(HEALTHCARESERVICEREFERRALMETHOD, fromJS((action.lookups && action.lookups.healthcareServiceReferralMethods) || state.get(HEALTHCARESERVICEREFERRALMETHOD)))
         .set(HEALTHCARESERVICESPECIALITY, fromJS((action.lookups && action.lookups.healthcareServiceSpecialities) || state.get(HEALTHCARESERVICESPECIALITY)))
+        .set(PUBLICATION_STATUS, fromJS((action.lookups && action.lookups.publicationStatus) || state.get(PUBLICATION_STATUS)))
+        .set(DEFINITION_TOPIC, fromJS((action.lookups && action.lookups.definitionTopic) || state.get(DEFINITION_TOPIC)))
+        .set(RESOURCE_TYPE, fromJS((action.lookups && action.lookups.resourceType) || state.get(RESOURCE_TYPE)))
+        .set(ACTION_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.actionParticipantType) || state.get(ACTION_PARTICIPANT_TYPE)))
+        .set(ACTION_PARTICIPANT_ROLE, fromJS((action.lookups && action.lookups.actionParticipantRole) || state.get(ACTION_PARTICIPANT_ROLE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
