@@ -16,16 +16,9 @@ const StyledMenuItem = styled(MenuItem)`
 StyledMenuItem.propTypes = {
   /**
    * Inherited propTypes for the styled Material UI MenuItem.
+   * NOTE: removed 'anchorOrigin' and 'targetOrigin' due to prop-type validation errors.
    * See https://raw.githubusercontent.com/mui-org/material-ui/v0.19.4/src/MenuItem/MenuItem.js
    */
-  /**
-   * Location of the anchor for the popover of nested `MenuItem`
-   * elements.
-   * Options:
-   * horizontal: [left, middle, right]
-   * vertical: [top, center, bottom].
-   */
-  anchorOrigin: PropTypes.origin,
   /**
    * Override the default animation component used.
    */
@@ -96,14 +89,6 @@ StyledMenuItem.propTypes = {
    * Override the inline-styles of the root element.
    */
   style: PropTypes.object,
-  /**
-   * Location on the popover of nested `MenuItem` elements that will attach
-   * to the anchor's origin.
-   * Options:
-   * horizontal: [left, middle, right]
-   * vertical: [top, center, bottom].
-   */
-  targetOrigin: PropTypes.origin,
   /**
    * The value of the menu item.
    */
