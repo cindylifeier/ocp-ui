@@ -12,8 +12,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { LOGIN_URL } from '../../containers/App/constants';
 import makeSelectLoginPage from '../../containers/LoginPage/selectors';
-import { removeToken, retrieveToken } from '../../utils/tokenService';
-import { isTokenExpired } from '../../utils/auth';
+import { isTokenExpired, removeToken, retrieveToken } from '../../utils/tokenService';
 
 export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   function Authentication(props) {

@@ -1,3 +1,6 @@
+import jwt from 'jsonwebtoken';
+import isEmpty from 'lodash/isEmpty';
+
 const AUTH_TOKEN = 'auth_token';
 
 export function storeToken(tokenObj) {
@@ -10,4 +13,13 @@ export function retrieveToken() {
 
 export function removeToken() {
   return sessionStorage.removeItem(AUTH_TOKEN);
+}
+
+export function isTokenExpired(token) {
+  if (!isEmpty(token)) {
+    const currentTime = new Date().getTime() / 1000;
+    const decodedAccessToken = jwt.decode(token.access_token);
+    return currentTime > decodedAccessToken.exp;
+  }
+  return true;
 }
