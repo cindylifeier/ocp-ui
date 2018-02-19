@@ -20,7 +20,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
 
-import styles from './styles.css';
+import './styles.css';
 import { LoginPage } from '../LoginPage';
 import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage';
@@ -36,7 +36,6 @@ import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToL
 import ManageTaskPage from '../ManageTaskPage';
 import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
 
-
 export function App() {
   return (
     <div>
@@ -46,7 +45,7 @@ export function App() {
       >
         <meta name="description" content="Omnibus Care Plan application" />
       </Helmet>
-      <div className={styles.App}>
+      <div>
         <Switch>
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
