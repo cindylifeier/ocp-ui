@@ -10,16 +10,17 @@ import { removeToken, retrieveToken, storeToken } from '../../utils/tokenService
 import { makeSelectLocation } from '../App/selectors';
 import { hasAccessScopeInToken } from '../../utils/auth';
 
-function* requestLoginSaga(loginAction) {
+function* loginSaga(loginAction) {
   try {
     const authData = yield call(login, loginAction.loginCredentials);
-    storeToken(authData);
+    yield call(storeToken, authData);
     let isAuthenticated = false;
-    if (hasAccessScopeInToken(retrieveToken())) {
+    const token = yield call(retrieveToken);
+    if (hasAccessScopeInToken(token)) {
       isAuthenticated = true;
     } else {
       yield put(showNotification('Access is denied.'));
-      removeToken();
+      yield call(removeToken);
     }
     yield put(loginSuccess(isAuthenticated));
     yield call(loginAction.handleSubmitting);
@@ -35,8 +36,8 @@ function* requestLoginSaga(loginAction) {
   }
 }
 
-function* watchRequestLoginSaga() {
-  yield takeLatest(LOGIN, requestLoginSaga);
+function* watchLoginSaga() {
+  yield takeLatest(LOGIN, loginSaga);
 }
 
 /**
@@ -44,6 +45,6 @@ function* watchRequestLoginSaga() {
  */
 export default function* rootSaga() {
   yield all([
-    watchRequestLoginSaga(),
+    watchLoginSaga(),
   ]);
 }
