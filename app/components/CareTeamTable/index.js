@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import IconMenu from 'material-ui/IconMenu';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import { Cell, Grid } from 'styled-css-grid';
 
 import messages from './messages';
 import Table from '../Table';
@@ -19,7 +20,6 @@ import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
-import styles from './styles.css';
 import StyledMenuItem from '../StyledMenuItem';
 import StyledIconButton from '../StyledIconButton';
 
@@ -54,8 +54,8 @@ function CareTeamTable({ elements }) {
             <TableRowColumn>{endDate}</TableRowColumn>
             <TableRowColumn>{reasonDisplay}</TableRowColumn>
             <TableRowColumn>
-              <div className={styles.iconButtonGridContainer}>
-                <div className={styles.iconButtonGridItem}>
+              <Grid columns="1fr 50px" gap="0px">
+                <Cell left="2">
                   <IconMenu
                     iconButtonElement={
                       (<StyledIconButton>
@@ -76,8 +76,8 @@ function CareTeamTable({ elements }) {
                     />
                     <StyledMenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
                   </IconMenu>
-                </div>
-              </div>
+                </Cell>
+              </Grid>
             </TableRowColumn>
           </TableRow>
         ))}
