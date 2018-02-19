@@ -6,19 +6,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import styles from './styles.css';
-
-// import styled from 'styled-components';
+import TableRowStyledGrid from './TableRowStyledGrid';
 
 function TableRow({ children }) {
   return (
-    <div
-      className={styles.rowGridContainer}
-      style={{ gridTemplateColumns: `repeat(${React.Children.count(children)}, 1fr)` }}
-    >
+    <TableRowStyledGrid gap="5px" columns={`repeat(${React.Children.count(children)}, 1fr)`}>
       {children}
-    </div>
+    </TableRowStyledGrid>
   );
 }
 
