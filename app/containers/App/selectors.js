@@ -25,7 +25,7 @@ import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICETYPE,
   HEALTHCARESERVICEREFERRALMETHOD,
-  HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESPECIALITY, RELATEDPERSONPATIENTRELATIONSHIPTYPES,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -172,6 +172,11 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   (globalState) => globalState.get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
 
+const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
+);
+
 export {
   makeSelectLocation,
   makeSelectUspsStates,
@@ -201,4 +206,5 @@ export {
   makeSelectHealthcareServiceTypes,
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
+  makeSelectRelatedPersonPatientRelationshipTypes,
 };
