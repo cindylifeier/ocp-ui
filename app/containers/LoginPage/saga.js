@@ -3,8 +3,8 @@ import { push } from 'react-router-redux';
 
 import { login } from './api';
 import { showNotification } from '../Notification/actions';
-import { loginFailure, loginSuccess } from './actions';
-import { LOGIN_REQUEST, LOGOUT_REQUEST } from './constants';
+import { loginError, loginSuccess } from './actions';
+import { LOGIN, LOGOUT_REQUEST } from './constants';
 import { HOME_URL, LOGIN_URL } from '../App/constants';
 import { removeToken, retrieveToken, storeToken } from '../../utils/tokenService';
 import { makeSelectLocation } from '../App/selectors';
@@ -28,7 +28,7 @@ function* requestLoginSaga(loginAction) {
     const { from } = location.state || { from: { pathname: HOME_URL } };
     yield put(push(from));
   } catch (error) {
-    yield put(loginFailure());
+    yield put(loginError());
     yield put(showNotification('Failed to login.'));
     yield call(loginAction.handleSubmitting);
     throw error;
@@ -36,7 +36,7 @@ function* requestLoginSaga(loginAction) {
 }
 
 function* watchRequestLoginSaga() {
-  yield takeLatest(LOGIN_REQUEST, requestLoginSaga);
+  yield takeLatest(LOGIN, requestLoginSaga);
 }
 
 function* requestLogoutSaga() {

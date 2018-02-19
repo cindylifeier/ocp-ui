@@ -4,11 +4,11 @@
  *
  */
 
-import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST } from './constants';
+import { LOGIN, LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT_REQUEST } from './constants';
 
-export function requestLogin(loginCredentials, handleSubmitting) {
+export function login(loginCredentials, handleSubmitting) {
   return {
-    type: LOGIN_REQUEST,
+    type: LOGIN,
     loginCredentials,
     handleSubmitting,
   };
@@ -21,7 +21,7 @@ export function loginSuccess(isAuthenticated) {
   };
 }
 
-export function loginFailure() {
+export function loginError() {
   return {
     type: LOGIN_ERROR,
   };

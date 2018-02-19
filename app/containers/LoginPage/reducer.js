@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST } from './constants';
+import { LOGIN, LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT_REQUEST } from './constants';
 
 const initialState = fromJS({
   isAuthenticating: false,
@@ -14,7 +14,7 @@ const initialState = fromJS({
 
 function loginPageReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case LOGIN:
       return state.set('isAuthenticating', true);
     case LOGIN_SUCCESS:
       return state

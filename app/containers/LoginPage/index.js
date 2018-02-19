@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import makeSelectLoginPage from './selectors';
 import saga from './saga';
 import Login from '../../components/Login';
-import { requestLogin } from './actions';
+import { login } from './actions';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -53,7 +53,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onRequestLogin: (loginFormData, handleSubmitting) => dispatch(requestLogin(loginFormData, handleSubmitting)),
+    onRequestLogin: (loginFormData, handleSubmitting) => dispatch(login(loginFormData, handleSubmitting)),
   };
 }
 
