@@ -179,7 +179,7 @@ const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
 
 const makeSelectPatient = () => createSelector(
   selectGlobal,
-  (substate) => substate && substate.get('patient'),
+  (substate) => substate && substate.get('selectedPatient'),
 );
 
 export {

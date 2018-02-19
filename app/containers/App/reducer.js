@@ -49,7 +49,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
-  patient: null,
+  selectedPatient: {},
   USPSSTATES: [],
   LOCATIONPHYSICALTYPE: [],
   LOCATIONSTATUS: [],
@@ -122,8 +122,7 @@ function appReducer(state = initialState, action) {
         .set('error', action.error)
         .set('loading', false);
     case GET_PATIENT_SUCCESS:
-      return state
-        .set('patient', action.patient);
+      return state.setIn(['selectedPatient'], action.patient);
     default:
       return state;
   }
