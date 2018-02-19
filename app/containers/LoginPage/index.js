@@ -23,8 +23,8 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(loginFormData) {
-    this.props.onRequestLogin(loginFormData);
+  handleLogin(loginFormData, actions) {
+    this.props.onRequestLogin(loginFormData, () => actions.setSubmitting(false));
   }
 
   render() {
@@ -53,7 +53,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onRequestLogin: (loginFormData) => dispatch(requestLogin(loginFormData)),
+    onRequestLogin: (loginFormData, handleSubmitting) => dispatch(requestLogin(loginFormData, handleSubmitting)),
   };
 }
 

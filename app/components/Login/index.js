@@ -44,8 +44,8 @@ function Login(props) {
           <FormattedMessage {...messages.title} />
         </div>
         <Formik
-          onSubmit={(values) => {
-            onLogin(values);
+          onSubmit={(values, actions) => {
+            onLogin(values, actions);
           }}
           validationSchema={yup.object().shape({
             username: yup.string()

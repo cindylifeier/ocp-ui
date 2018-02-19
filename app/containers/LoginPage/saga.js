@@ -10,9 +10,9 @@ import { removeToken, retrieveToken, storeToken } from '../../utils/tokenService
 import { makeSelectLocation } from '../App/selectors';
 import { hasAccessScopeInToken } from '../../utils/auth';
 
-function* requestLoginSaga({ loginCredentials }) {
+function* requestLoginSaga(loginAction) {
   try {
-    const authData = yield call(login, loginCredentials);
+    const authData = yield call(login, loginAction.loginCredentials);
     storeToken(authData);
     let isAuthenticated = false;
     if (hasAccessScopeInToken(retrieveToken())) {
@@ -22,6 +22,7 @@ function* requestLoginSaga({ loginCredentials }) {
       removeToken();
     }
     yield put(loginSuccess(isAuthenticated));
+    yield call(loginAction.handleSubmitting);
     // Redirect to referrer address
     const location = yield select(makeSelectLocation());
     const { from } = location.state || { from: { pathname: HOME_URL } };
@@ -29,6 +30,7 @@ function* requestLoginSaga({ loginCredentials }) {
   } catch (error) {
     yield put(loginFailure());
     yield put(showNotification('Failed to login.'));
+    yield call(loginAction.handleSubmitting);
     throw error;
   }
 }
