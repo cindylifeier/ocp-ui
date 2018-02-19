@@ -4,8 +4,8 @@ import { push } from 'react-router-redux';
 import { login } from './api';
 import { showNotification } from '../Notification/actions';
 import { loginError, loginSuccess } from './actions';
-import { LOGIN, LOGOUT_REQUEST } from './constants';
-import { HOME_URL, LOGIN_URL } from '../App/constants';
+import { LOGIN } from './constants';
+import { HOME_URL } from '../App/constants';
 import { removeToken, retrieveToken, storeToken } from '../../utils/tokenService';
 import { makeSelectLocation } from '../App/selectors';
 import { hasAccessScopeInToken } from '../../utils/auth';
@@ -39,26 +39,11 @@ function* watchRequestLoginSaga() {
   yield takeLatest(LOGIN, requestLoginSaga);
 }
 
-function* requestLogoutSaga() {
-  try {
-    removeToken();
-    yield put(push(LOGIN_URL));
-  } catch (error) {
-    yield put(showNotification('Failed to logout.'));
-    throw error;
-  }
-}
-
-function* watchRequestLogoutSaga() {
-  yield takeLatest(LOGOUT_REQUEST, requestLogoutSaga);
-}
-
 /**
  * Root saga manages watcher lifecycle
  */
 export default function* rootSaga() {
   yield all([
     watchRequestLoginSaga(),
-    watchRequestLogoutSaga(),
   ]);
 }
