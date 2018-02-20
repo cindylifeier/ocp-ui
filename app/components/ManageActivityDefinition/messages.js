@@ -23,6 +23,14 @@ export default defineMessages({
       id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
+    minStartDate: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.minStartDate',
+      defaultMessage: 'Effective Start date field must be later than today',
+    },
+    minEndDate: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.minEndDate',
+      defaultMessage: 'Effective End date field must be later than Effective Start date field',
+    },
   },
   hintText: {
     organizationNameLabel: {

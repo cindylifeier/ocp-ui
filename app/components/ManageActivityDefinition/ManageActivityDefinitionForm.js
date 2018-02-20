@@ -11,7 +11,7 @@ import styles from './styles.css';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
+import { DATE_PICKER_MODE, HOME_URL } from '../../containers/App/constants';
 import DatePicker from '../DatePicker';
 
 
@@ -26,6 +26,7 @@ function ManageActivityDefinitionForm(props) {
     isSubmitting, dirty, isValid,
   } = props;
 
+  const today = new Date();
   return (
     <div>
       <div className={styles.title}>
@@ -83,14 +84,16 @@ function ManageActivityDefinitionForm(props) {
             <DatePicker
               fullWidth
               name="effectiveStart"
-              maxDate={new Date()}
+              mode={DATE_PICKER_MODE.LANDSCAPE}
+              minDate={today}
               hintText={<FormattedMessage {...messages.hintText.effectiveStart} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveStart} />}
             />
             <DatePicker
               fullWidth
               name="effectiveEnd"
-              maxDate={new Date()}
+              minDate={today}
+              mode={DATE_PICKER_MODE.LANDSCAPE}
               hintText={<FormattedMessage {...messages.hintText.effectiveEnd} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveEnd} />}
             />
