@@ -13,14 +13,40 @@ import TextField from '../TextField';
 import SelectField from '../SelectField';
 import DatePicker from '../DatePicker';
 import { DATE_PICKER_MODE } from '../../containers/App/constants';
+// import StatusCheckbox from '../StatusCheckbox/index';
+import Checkbox from '../Checkbox/index';
+import { mapToPatientName } from '../../containers/ManagePatientPage/api';
 
 function ManageRelatedPersonForm(props) {
   const today = new Date();
-  const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, telecomSystems, relationshipTypes } = props;
+  const {
+    isSubmitting,
+    dirty,
+    isValid,
+    uspsStates,
+    patientIdentifierSystems,
+    administrativeGenders,
+    telecomUses,
+    telecomSystems,
+    relationshipTypes,
+    selectedPatient } = props;
   return (
     <div>
+      <div className={styles.title}>
+        <FormattedMessage {...messages.title} />
+      </div>
       <Form>
         <div className={styles.gridContainer}>
+          <div className={`${styles.gridItem} ${styles.patientName}`} >
+            <strong>Patient: </strong>{mapToPatientName(selectedPatient)}
+          </div>
+          <div className={`${styles.gridItem} ${styles.active}`}>
+            <Checkbox
+              name="active"
+              label={<FormattedMessage {...messages.active} />}
+            >
+            </Checkbox>
+          </div>
           <div className={`${styles.gridItem} ${styles.firstName}`}>
             <TextField
               fullWidth
@@ -148,9 +174,9 @@ function ManageRelatedPersonForm(props) {
           <div className={`${styles.gridItem} ${styles.postalCode}`}>
             <TextField
               fullWidth
-              name="postalCode"
-              hintText={<FormattedMessage {...messages.hintText.postalCode} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
+              name="zip"
+              hintText={<FormattedMessage {...messages.hintText.zip} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.zip} />}
             />
           </div>
           <div className={`${styles.gridItem} ${styles.country}`}>
@@ -179,6 +205,16 @@ function ManageRelatedPersonForm(props) {
               hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
             />
+            <SelectField
+              fullWidth
+              name="telecomUse"
+              hintText={<FormattedMessage {...messages.hintText.telecomUse} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomUse} />}
+            >
+              {telecomUses && telecomUses.map((telecomUse) =>
+                <MenuItem key={telecomUse.code} value={telecomUse.code} primaryText={telecomUse.display} />,
+              )}
+            </SelectField>
           </div>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
@@ -224,11 +260,17 @@ ManageRelatedPersonForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  relationshipTypes: PropTypes.arrayOf(PropTypes.shape({
-    // code: PropTypes.string.isRequired,
-    // system: PropTypes.string.isRequired,
-    // display: PropTypes.string.isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
   })),
+  relationshipTypes: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  selectedPatient: PropTypes.object,
 };
 
 export default ManageRelatedPersonForm;
