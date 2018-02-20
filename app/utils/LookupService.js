@@ -1,5 +1,5 @@
 import { select } from 'redux-saga/effects';
-import { makeSelectLookups } from '../containers/App/selectors';
+import { makeSelectLookups } from '../containers/App/lookupSelectors';
 
 
 function* isLookupTypeInStore(lookupType) {

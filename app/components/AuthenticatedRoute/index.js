@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 
 import { LOGIN_URL } from '../../containers/App/constants';
-import makeSelectLoginPage from '../../containers/LoginPage/selectors';
+import makeSelectAuth from '../../containers/App/authSelectors';
 import { isTokenExpired, removeToken, retrieveToken } from '../../utils/tokenService';
 
 export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
@@ -48,7 +48,7 @@ export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   };
 
   const mapStateToProps = createStructuredSelector({
-    auth: makeSelectLoginPage(),
+    auth: makeSelectAuth(),
   });
 
   const AuthenticationContainer = connect(mapStateToProps)(Authentication);

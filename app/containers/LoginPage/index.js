@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
-import makeSelectLoginPage from './selectors';
+import makeSelectAuth from '../App/authSelectors';
 import saga from './saga';
 import Login from '../../components/Login';
 import { login } from './actions';
@@ -48,7 +48,7 @@ LoginPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  auth: makeSelectLoginPage(),
+  auth: makeSelectAuth(),
 });
 
 function mapDispatchToProps(dispatch) {
