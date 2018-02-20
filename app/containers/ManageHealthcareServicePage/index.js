@@ -12,19 +12,19 @@ import Divider from 'material-ui/Divider';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
+import isUndefined from 'lodash/isUndefined';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectHealthcareServiceCategories, makeSelectHealthcareServiceReferralMethods, makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceTypes, makeSelectTelecomSystems, makeSelectTelecomUses } from '../App/selectors';
 import { makeSelectOrganization } from '../Locations/selectors';
 import { getLookupsAction } from '../App/actions';
-import { createHealthcareService } from './actions';
+import { createHealthcareService, editHealthcareService, getHealthcareServiceById } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ManageHealthcareService from '../../components/ManageHealthcareService';
 import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICETYPE, TELECOMSYSTEM, TELECOMUSE } from '../App/constants';
 import messages from '../ManageHealthcareServicePage/messages';
 import styles from './styles.css';
-
 
 export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -35,15 +35,24 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 
   componentWillMount() {
     this.props.getLookups();
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      this.props.getSelectedHealthcareService(logicalId);
+    }
   }
 
   handleSave(healthcareServiceFormData, actions) {
-    this.props.onSaveForm(healthcareServiceFormData, () => actions.setSubmitting(false));
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      this.props.editHealthcareService(healthcareServiceFormData, () => actions.setSubmitting(false));
+    } else {
+      this.props.createHealthcareService(healthcareServiceFormData, () => actions.setSubmitting(false));
+    }
   }
 
   render() {
-    const logicalId = this.props.match.params.id;
     const {
+      match,
       healthcareServiceCategories,
       healthcareServiceTypes,
       healthcareServiceReferralMethods,
@@ -51,8 +60,15 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       telecomSystems,
       telecomUses,
       organization,
+      selectedHealthcareService,
     } = this.props;
-    const hcsProps = {
+    const logicalId = this.props.match.params.id;
+    const editMode = !isUndefined(match.params.id);
+    let currentHealthcareService = null;
+    if (editMode && selectedHealthcareService) {
+      currentHealthcareService = selectedHealthcareService;
+    }
+    const formProps = {
       healthcareServiceCategories,
       healthcareServiceTypes,
       healthcareServiceReferralMethods,
@@ -60,6 +76,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       telecomSystems,
       telecomUses,
       organization,
+      editMode,
+      currentHealthcareService,
     };
     return (
       <div>
@@ -73,7 +91,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
               : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
-          <ManageHealthcareService {...hcsProps} onSave={this.handleSave} />
+          <ManageHealthcareService {...formProps} onSave={this.handleSave} />
         </div>
       </div>
     );
@@ -83,6 +101,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 ManageHealthcareServicePage.propTypes = {
   match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
+  getSelectedHealthcareService: PropTypes.func.isRequired,
   healthcareServiceCategories: PropTypes.array,
   healthcareServiceTypes: PropTypes.array,
   healthcareServiceReferralMethods: PropTypes.array,
@@ -90,7 +109,9 @@ ManageHealthcareServicePage.propTypes = {
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
   organization: PropTypes.object,
-  onSaveForm: PropTypes.func,
+  selectedHealthcareService: PropTypes.object,
+  createHealthcareService: PropTypes.func,
+  editHealthcareService: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -106,7 +127,9 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, TELECOMSYSTEM, TELECOMUSE])),
-    onSaveForm: (healthcareServiceFormData, handleSubmitting) => dispatch(createHealthcareService(healthcareServiceFormData, handleSubmitting)),
+    createHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(createHealthcareService(healthcareServiceFormData, handleSubmitting)),
+    editHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(editHealthcareService(healthcareServiceFormData, handleSubmitting)),
+    getSelectedHealthcareService: (logicalId) => dispatch(getHealthcareServiceById(logicalId)),
   };
 }
 

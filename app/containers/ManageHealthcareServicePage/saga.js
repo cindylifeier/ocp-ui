@@ -1,18 +1,26 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { goBack } from 'react-router-redux';
+import { goBack, push } from 'react-router-redux';
+import isEmpty from 'lodash/isEmpty';
 import { showNotification } from '../Notification/actions';
-import { createHealthcareService } from './api';
-import { createHealthcareServiceSuccess, createHealthcareServiceError } from './actions';
-import { POST_HEALTHCARE_SERVICE } from '../ManageHealthcareServicePage/constants';
+import {
+  createHealthcareService, editHealthcareService, getHealthcareServiceById, getHealthcareServiceByIdFromStore,
+} from './api';
+import {
+  createHealthcareServiceSuccess, createHealthcareServiceError, editHealthcareServiceError,
+  editHealthcareServiceSuccess, getHealthcareServiceByIdSuccess,
+  getHealthcareServiceByIdError,
+} from './actions';
 import { makeSelectOrganization } from '../Locations/selectors';
-
+import { GET_HEALTHCARE_SERVICE, POST_HEALTHCARE_SERVICE, PUT_HEALTHCARE_SERVICE } from './constants';
+import { HOME_URL } from '../App/constants';
+import { makeSelectHealthcareServices } from '../HealthcareServices/selectors';
 
 function* createHealthcareServiceSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
     const createHealthcareServiceResponse = yield call(createHealthcareService, action.healthcareServiceFormData, organization.id);
     yield put(createHealthcareServiceSuccess(createHealthcareServiceResponse));
-    yield put(showNotification('Successfully create the healthcare service.'));
+    yield put(showNotification('Successfully created the healthcare service.'));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
@@ -24,6 +32,47 @@ function* createHealthcareServiceSaga(action) {
 
 function* watchCreateHealthcareServiceSaga() {
   yield takeLatest(POST_HEALTHCARE_SERVICE, createHealthcareServiceSaga);
+}
+
+function* editHealthcareServiceSaga(action) {
+  try {
+    const organization = yield select(makeSelectOrganization());
+    const editHealthcareServiceResponse = yield call(editHealthcareService, action.healthcareServiceFormData, organization.id);
+    yield put(editHealthcareServiceSuccess(editHealthcareServiceResponse));
+    yield put(showNotification('Successfully edited the healthcare service.'));
+    yield call(action.handleSubmitting);
+    yield put(goBack());
+  } catch (error) {
+    yield put(showNotification(`Failed to edit the Healthcare Service.${getErrorDetail(error)}`));
+    yield call(action.handleSubmitting);
+    yield put(editHealthcareServiceError(error));
+  }
+}
+
+function* watchEditHealthcareServiceSaga() {
+  yield takeLatest(PUT_HEALTHCARE_SERVICE, editHealthcareServiceSaga);
+}
+
+function* getHealthcareServiceByIdSaga({ logicalId }) {
+  try {
+    let selectedHealthcareService;
+    // Load HealthcareServices from store
+    const healthcareServices = yield select(makeSelectHealthcareServices());
+    selectedHealthcareService = getHealthcareServiceByIdFromStore(healthcareServices, logicalId);
+    // fetch from backend if cannot find HealthcareService from store
+    if (isEmpty(selectedHealthcareService)) {
+      selectedHealthcareService = yield call(getHealthcareServiceById, logicalId);
+    }
+    yield put(getHealthcareServiceByIdSuccess(selectedHealthcareService));
+  } catch (error) {
+    yield put(showNotification('No matching healthcare service found.'));
+    yield put(push(HOME_URL));
+    yield put(getHealthcareServiceByIdError(error));
+  }
+}
+
+function* watchGetHealthcareServiceSaga() {
+  yield takeLatest(GET_HEALTHCARE_SERVICE, getHealthcareServiceByIdSaga);
 }
 
 function getErrorDetail(err) {
@@ -41,5 +90,7 @@ function getErrorDetail(err) {
 export default function* rootSaga() {
   yield all([
     watchCreateHealthcareServiceSaga(),
+    watchEditHealthcareServiceSaga(),
+    watchGetHealthcareServiceSaga(),
   ]);
 }
