@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ManageCareTeamPage.createHeader',
     defaultMessage: 'Create Healthcare Service',
   },
+  editHeader: {
+    id: 'ocpui.containers.ManageCareTeamPage.editHeader',
+    defaultMessage: 'Edit Healthcare Service',
+  },
 });

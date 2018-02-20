@@ -42,6 +42,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
   }
 
   render() {
+    const logicalId = this.props.match.params.id;
     const {
       healthcareServiceCategories,
       healthcareServiceTypes,
@@ -68,7 +69,8 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
         </Helmet>
         <div className={styles.wrapper}>
           <div className={styles.header}>
-            <FormattedMessage {...messages.createHeader} />
+            {logicalId ? <FormattedMessage {...messages.editHeader} />
+              : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
           <ManageHealthcareService {...hcsProps} onSave={this.handleSave} />
@@ -79,6 +81,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 }
 
 ManageHealthcareServicePage.propTypes = {
+  match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
   healthcareServiceCategories: PropTypes.array,
   healthcareServiceTypes: PropTypes.array,
