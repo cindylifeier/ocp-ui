@@ -34,6 +34,7 @@ import { getHealthcareServicesByOrganization } from '../HealthcareServices/actio
 import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
 import CardHeaderContainerStyledGrid from './CardHeaderContainerStyledGrid';
+import CardHeaderContainerStyledCell from './CardHeaderContainerStyledCell';
 
 export class Organizations extends React.PureComponent {
 
@@ -78,12 +79,12 @@ export class Organizations extends React.PureComponent {
     return (
       <Card>
         <CardHeaderContainerStyledGrid columns={Organizations.CARD_HEADER_COLUMNS}>
-          <div className={styles.gridItem}>
+          <CardHeaderContainerStyledCell>
             <CardHeader>
               <FormattedMessage {...messages.header} />
             </CardHeader>
-          </div>
-          <div className={styles.gridItem}>
+          </CardHeaderContainerStyledCell>
+          <CardHeaderContainerStyledCell>
             <span className={styles.iconButton}>
               <FlatButton
                 label="Create New"
@@ -92,7 +93,7 @@ export class Organizations extends React.PureComponent {
                 containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
               />
             </span>
-          </div>
+          </CardHeaderContainerStyledCell>
         </CardHeaderContainerStyledGrid>
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
