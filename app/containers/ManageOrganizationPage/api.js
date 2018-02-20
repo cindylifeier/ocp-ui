@@ -1,15 +1,15 @@
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-import { requestWithJWT } from '../../utils/request';
+import request from '../../utils/request';
+import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseUrl = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 const headers = {
   'Content-Type': 'application/json',
 };
 
 export function createOrganizationApiCall(organizationFormData) {
-  const requestUrl = `${apiBaseUrl}/organizations`;
+  const requestUrl = `${baseEndpoint.url}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
-  return requestWithJWT(requestUrl, {
+  return request(requestUrl, baseEndpoint.isSecured, {
     method: 'POST',
     headers,
     body,
@@ -17,9 +17,9 @@ export function createOrganizationApiCall(organizationFormData) {
 }
 
 export function updateOrganizationApiCall(id, organizationFormData) {
-  const requestUrl = `${apiBaseUrl}/organizations/${id}`;
+  const requestUrl = `${baseEndpoint.url}/${id}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
-  return requestWithJWT(requestUrl, {
+  return request(requestUrl, baseEndpoint.isSecured, {
     method: 'PUT',
     headers,
     body,
