@@ -12,7 +12,7 @@ export default function getCareTeams(query, statusList) {
     statusList,
   };
   const params = queryString(q);
-  const requestEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
-  const requestURL = `${requestEndpoint.url}/search${params}`;
-  return request(requestURL, requestEndpoint.isSecured);
+  const baseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
+  const requestURL = `${baseEndpoint.url}/search${params}`;
+  return request(requestURL, baseEndpoint.isSecured);
 }
