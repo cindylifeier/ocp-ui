@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
@@ -22,7 +23,6 @@ import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import messages from './messages';
-
 
 const iconStyles = {
   iconButton: {
@@ -101,6 +101,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
                   <MenuItem
                     className={styles.menuItem}
                     primaryText={<FormattedMessage {...messages.edit} />}
+                    containerElement={<Link to={`/ocp-ui/manage-health-care-service/${element.logicalId}`} />}
                   />
                   <MenuItem className={styles.menuItem} primaryText={<FormattedMessage {...messages.remove} />} />
                 </IconMenu>
