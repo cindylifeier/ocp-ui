@@ -1,4 +1,4 @@
-import { requestWithJWT } from '../../../utils/request';
+import request from '../../../utils/request';
 import { getHealthcareServicesByOrganization } from '../api';
 
 const mockRequest = jest.fn();
@@ -6,7 +6,7 @@ const mockRequest = jest.fn();
 jest.mock('../../../apiBaseUrlConfig', () => (() => '/base-url'));
 jest.mock('../../../utils/request');
 jest.mock('../../../utils/queryString', () => (() => '?statusList=active%2Cinactive&pageNumber=1&pageSize=10'));
-requestWithJWT.mockImplementation(mockRequest);
+request.mockImplementation(mockRequest);
 
 describe('Healthcare Services api.js', () => {
   it('returns the initial state', () => {

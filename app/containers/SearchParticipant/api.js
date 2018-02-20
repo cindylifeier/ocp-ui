@@ -1,12 +1,11 @@
 import * as queryString from 'query-string';
-import { requestWithJWT } from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-
-const apiBaseUrl = getApiBaseUrl();
+import request from '../../utils/request';
+import { BASE_PARTICIPANTS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function searchParticipant(value, member) {
+  const baseEndpoint = getEndpoint(BASE_PARTICIPANTS_API_URL);
   const queryParams = { value, member };
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${apiBaseUrl}/participants/search?${stringifiedParams}&showInActive=true`;
-  return requestWithJWT(url);
+  const url = `${baseEndpoint.url}/search?${stringifiedParams}&showInActive=true`;
+  return request(url, baseEndpoint.isSecured);
 }
