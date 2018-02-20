@@ -1,11 +1,10 @@
-import { requestWithJWT } from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-
-const apiBaseUrl = getApiBaseUrl();
+import request from '../../utils/request';
+import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export default function createLocation(location, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/location`;
-  return requestWithJWT(url, {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint.url}/${organizationId}/location`;
+  return request(url, baseEndpoint.isSecured, {
     method: 'POST',
     body: JSON.stringify(mapToBffLocation(location)),
     headers: {
@@ -15,8 +14,9 @@ export default function createLocation(location, organizationId) {
 }
 
 export function updateLocation(location, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/location/${location.logicalId}`;
-  return requestWithJWT(url, {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint.url}/${organizationId}/location/${location.logicalId}`;
+  return request(url, baseEndpoint.isSecured, {
     method: 'PUT',
     body: JSON.stringify(mapToBffLocation(location)),
     headers: {
@@ -26,8 +26,9 @@ export function updateLocation(location, organizationId) {
 }
 
 export function fetchLocation(locationId) {
-  const url = `${apiBaseUrl}/locations/${locationId}`;
-  return requestWithJWT(url);
+  const baseEndpoint = getEndpoint(BASE_LOCATIONS_API_URL);
+  const url = `${baseEndpoint.url}/${locationId}`;
+  return request(url, baseEndpoint.isSecured);
 }
 
 function mapToBffLocation(rawlocation) {
