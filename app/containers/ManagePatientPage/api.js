@@ -1,12 +1,12 @@
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-import { requestWithJWT } from '../../utils/request';
+import request from '../../utils/request';
 import { EMPTY_STRING } from '../App/constants';
+import { BASE_PATIENTS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseURL = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
 export function postPatient(patientFormData) {
-  const requestURL = `${apiBaseURL}/patients/`;
-  return requestWithJWT(requestURL, {
+  const requestURL = `${baseEndpoint.url}`;
+  return request(requestURL, baseEndpoint.isSecured, {
     method: 'POST',
     body: JSON.stringify(mapToBackendPatient(patientFormData)),
     headers: {
@@ -16,8 +16,8 @@ export function postPatient(patientFormData) {
 }
 
 export function putPatient(patientFormData) {
-  const requestURL = `${apiBaseURL}/patients/`;
-  return requestWithJWT(requestURL, {
+  const requestURL = `${baseEndpoint.url}`;
+  return request(requestURL, baseEndpoint.isSecured, {
     method: 'PUT',
     body: JSON.stringify(mapToBackendPatient(patientFormData)),
     headers: {
@@ -27,8 +27,8 @@ export function putPatient(patientFormData) {
 }
 
 export function getPatient(patientId) {
-  const requestURL = `${apiBaseURL}/patients/${patientId}`;
-  return requestWithJWT(requestURL);
+  const requestURL = `${baseEndpoint.url}/${patientId}`;
+  return request(requestURL, baseEndpoint.isSecured);
 }
 
 export function mapToPatientName(patient) {
