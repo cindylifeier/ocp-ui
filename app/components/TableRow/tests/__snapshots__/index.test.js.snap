@@ -5,9 +5,9 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TableRow>
-    <TableRowColumn>
+    <TableRowColumn__TableRowColumn>
       Row
-    </TableRowColumn>
+    </TableRowColumn__TableRowColumn>
   </TableRow>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -21,9 +21,9 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
-      "children": <TableRowColumn>
+      "children": <TableRowColumn__TableRowColumn>
         Row
-      </TableRowColumn>,
+      </TableRowColumn__TableRowColumn>,
       "columns": "repeat(1, 1fr)",
       "gap": "5px",
     },
@@ -31,7 +31,7 @@ ShallowWrapper {
     "rendered": Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "function",
+      "nodeType": "class",
       "props": Object {
         "children": "Row",
       },
@@ -47,9 +47,9 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
-        "children": <TableRowColumn>
+        "children": <TableRowColumn__TableRowColumn>
           Row
-        </TableRowColumn>,
+        </TableRowColumn__TableRowColumn>,
         "columns": "repeat(1, 1fr)",
         "gap": "5px",
       },
@@ -57,7 +57,7 @@ ShallowWrapper {
       "rendered": Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "function",
+        "nodeType": "class",
         "props": Object {
           "children": "Row",
         },
