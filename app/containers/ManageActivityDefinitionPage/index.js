@@ -23,11 +23,21 @@ import messages from './messages';
 import styles from './styles.css';
 import ManageActivityDefinition from '../../components/ManageActivityDefinition';
 import { PUBLICATION_STATUS, DEFINITION_TOPIC, RESOURCE_TYPE, ACTION_PARTICIPANT_TYPE, ACTION_PARTICIPANT_ROLE } from '../App/constants';
+import { makeSelectOrganization } from '../Locations/selectors';
+import { createActivityDefinition } from '../ManageActivityDefinitionPage/actions';
 
 export class ManageActivityDefinitionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
   componentWillMount() {
     this.props.getLookups();
+  }
+
+  handleSave(activityDefinitionFormData, actions) {
+    this.props.onSaveForm(activityDefinitionFormData, () => actions.setSubmitting(false));
   }
 
   render() {
@@ -37,6 +47,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
       resourceTypes,
       actionParticipantTypes,
       actionParticipantRoles,
+      organization,
     } = this.props;
     const activityDefinitionProps = {
       publicationStatuses,
@@ -44,6 +55,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
       resourceTypes,
       actionParticipantTypes,
       actionParticipantRoles,
+      organization,
     };
     return (
       <div>
@@ -56,7 +68,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
             <FormattedMessage {...messages.createHeader} />
           </div>
           <Divider />
-          <ManageActivityDefinition {...activityDefinitionProps} />
+          <ManageActivityDefinition {...activityDefinitionProps} onSave={this.handleSave} />
         </div>
       </div>
     );
@@ -70,6 +82,8 @@ ManageActivityDefinitionPage.propTypes = {
   resourceTypes: PropTypes.array,
   actionParticipantTypes: PropTypes.array,
   actionParticipantRoles: PropTypes.array,
+  organization: PropTypes.object,
+  onSaveForm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -78,11 +92,13 @@ const mapStateToProps = createStructuredSelector({
   resourceTypes: makeSelectResourceTypes(),
   actionParticipantTypes: makeSelectActionParticipantTypes(),
   actionParticipantRoles: makeSelectActionParticipantRoles(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([PUBLICATION_STATUS, DEFINITION_TOPIC, RESOURCE_TYPE, ACTION_PARTICIPANT_TYPE, ACTION_PARTICIPANT_ROLE])),
+    onSaveForm: (activityDefinitionFormData, handleSubmitting) => dispatch(createActivityDefinition(activityDefinitionFormData, handleSubmitting)),
   };
 }
 
