@@ -1,10 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
-import { requestWithJWT } from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
+import request from '../../utils/request';
 import { mapParticipantName } from '../../utils/CareTeamUtils';
+import { BASE_CARE_TEAMS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseURL = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
 
 export function saveCareTeam(careTeamFormData) {
   if (careTeamFormData.careTeamId) {
@@ -36,8 +36,8 @@ export function getCareTeamById(careTeams, careTeamId) {
 }
 
 export function getCareTeam(careTeamId) {
-  const requestURL = `${apiBaseURL}/care-teams/${careTeamId}`;
-  return requestWithJWT(requestURL);
+  const requestURL = `${baseEndpoint.url}/${careTeamId}`;
+  return request(requestURL, baseEndpoint.isSecured);
 }
 
 export function mapToEditParticipants(participants) {
@@ -57,8 +57,8 @@ export function mapToEditParticipants(participants) {
 }
 
 function createCareTeam(careTeamFormData) {
-  const requestURL = `${apiBaseURL}/care-teams`;
-  return requestWithJWT(requestURL, {
+  const requestURL = `${baseEndpoint.url}`;
+  return request(requestURL, baseEndpoint.isSecured, {
     method: 'POST',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
     headers: {
@@ -69,8 +69,8 @@ function createCareTeam(careTeamFormData) {
 
 function updateCareTeam(careTeamFormData) {
   const careTeamId = careTeamFormData.careTeamId;
-  const requestURL = `${apiBaseURL}/care-teams/${careTeamId}`;
-  return requestWithJWT(requestURL, {
+  const requestURL = `${baseEndpoint.url}/${careTeamId}`;
+  return request(requestURL, baseEndpoint.isSecured, {
     method: 'PUT',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
     headers: {
