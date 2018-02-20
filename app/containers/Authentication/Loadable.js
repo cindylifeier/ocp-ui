@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Authorization
+ * Asynchronously loads the component for Authentication
  *
  */
 

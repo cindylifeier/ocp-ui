@@ -22,7 +22,6 @@ import PatientsPage from 'containers/PatientsPage/Loadable';
 
 import styles from './styles.css';
 import LoginPage from '../LoginPage';
-import Layout from '../../components/Layout';
 import ManageLocationPage from '../ManageLocationPage';
 import ManagePractitionerPage from '../ManagePractitionerPage';
 import ManageOrganizationPage from '../ManageOrganizationPage';
@@ -33,7 +32,7 @@ import saga from './saga';
 import injectSaga from '../../utils/injectSaga';
 import ManagePatientPage from '../ManagePatientPage/index';
 import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
-import Authorization from '../Authorization';
+import Authentication from '../Authentication';
 
 
 export function App() {
@@ -50,27 +49,24 @@ export function App() {
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
-
           {/* Import all security page MUST put inside Authorization component */}
-          <Authorization>
-            <Layout>
-              <Route path="/ocp-ui/home" component={HomePage} />
-              <Route path="/ocp-ui/patients" component={PatientsPage} />
-              <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
-              <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
-              <Route path="/ocp-ui/manage-patient/:id?" component={ManagePatientPage} />
-              <Route path="/ocp-ui/manage-location/:id?" component={ManageLocationPage} />
-              <Route path="/ocp-ui/manage-care-team/:id?" component={ManageCareTeamPage} />
-              <Route
-                path="/ocp-ui/manage-health-care-service/:id?"
-                component={ManageHealthcareServicePage}
-              />
-              <Route
-                path="/ocp-ui/assign-healthcareservice-location/:id?"
-                component={AssignHealthCareServiceToLocationPage}
-              />
-            </Layout>
-          </Authorization>
+          <Authentication>
+            <Route path="/ocp-ui/home" component={HomePage} />
+            <Route path="/ocp-ui/patients" component={PatientsPage} />
+            <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
+            <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
+            <Route path="/ocp-ui/manage-patient/:id?" component={ManagePatientPage} />
+            <Route path="/ocp-ui/manage-location/:id?" component={ManageLocationPage} />
+            <Route path="/ocp-ui/manage-care-team/:id?" component={ManageCareTeamPage} />
+            <Route
+              path="/ocp-ui/manage-health-care-service/:id?"
+              component={ManageHealthcareServicePage}
+            />
+            <Route
+              path="/ocp-ui/assign-healthcareservice-location/:id?"
+              component={AssignHealthCareServiceToLocationPage}
+            />
+          </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
         <Notification />
