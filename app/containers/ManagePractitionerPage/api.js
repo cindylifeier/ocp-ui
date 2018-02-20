@@ -1,10 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 
-import { requestWithJWT } from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
+import request from '../../utils/request';
+import { BASE_PRACTITIONERS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseURL = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
 
 export function savePractitioner(practitionerFormData) {
   if (practitionerFormData.logicalId) {
@@ -14,8 +14,8 @@ export function savePractitioner(practitionerFormData) {
 }
 
 export function getPractitioner(logicalId) {
-  const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
-  return requestWithJWT(requestURL);
+  const requestURL = `${baseEndpoint.url}/${logicalId}`;
+  return request(requestURL, baseEndpoint.isSecured);
 }
 
 export function getNotificationAction(practitionerFormData) {
@@ -34,8 +34,8 @@ export function getPractitionerById(practitioners, logicalId) {
 }
 
 function createPractitioner(practitionerFormData) {
-  const requestURL = `${apiBaseURL}/practitioners`;
-  return requestWithJWT(requestURL, {
+  const requestURL = `${baseEndpoint.url}`;
+  return request(requestURL, baseEndpoint.isSecured, {
     method: 'POST',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {
@@ -45,8 +45,8 @@ function createPractitioner(practitionerFormData) {
 }
 
 function updatePractitioner(logicalId, practitionerFormData) {
-  const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
-  return requestWithJWT(requestURL, {
+  const requestURL = `${baseEndpoint.url}/${logicalId}`;
+  return request(requestURL, baseEndpoint.isSecured, {
     method: 'PUT',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {
