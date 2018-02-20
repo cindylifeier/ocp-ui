@@ -32,6 +32,7 @@ import { fromBackendToFrontendOrganization } from './mappings';
 import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 import { getHealthcareServicesByOrganization } from '../HealthcareServices/actions';
 import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
 
 export class Organizations extends React.PureComponent {
 
@@ -76,9 +77,9 @@ export class Organizations extends React.PureComponent {
       <Card>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
-            <div className={styles.header}>
+            <CardHeader>
               <FormattedMessage {...messages.header} />
-            </div>
+            </CardHeader>
           </div>
           <div className={styles.gridItem}>
             <span className={styles.iconButton}>
