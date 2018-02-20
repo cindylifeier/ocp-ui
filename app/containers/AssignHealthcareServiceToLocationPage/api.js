@@ -1,9 +1,7 @@
-import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
 import queryString from '../../utils/queryString';
-import { requestWithJWT } from '../../utils/request';
-
-const apiBaseUrl = getApiBaseUrl();
+import request from '../../utils/request';
+import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function queryHealthCareServicesWithLocationAssignmentData(organizationId, locationId, currentPage, status) {
   const params = queryString({
@@ -12,8 +10,9 @@ export function queryHealthCareServicesWithLocationAssignmentData(organizationId
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
-  const url = `${apiBaseUrl}/organizations/${organizationId}/healthcare-services${params}`;
-  return requestWithJWT(url);
+  const requestEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
+  const url = `${requestEndpoint.url}/${organizationId}/healthcare-services${params}`;
+  return request(url, requestEndpoint.isSecured);
 }
 
 export function assignHealthCareServicesToLocation(orgId, locationIds, healthCareServiceId) {
@@ -21,8 +20,9 @@ export function assignHealthCareServicesToLocation(orgId, locationIds, healthCar
     organizationId: orgId,
     locationIdList: locationIds,
   });
-  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/assign${params}`;
-  return requestWithJWT(url, {
+  const requestEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
+  const url = `${requestEndpoint.url}/${healthCareServiceId}/assign${params}`;
+  return request(url, requestEndpoint.isSecured, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

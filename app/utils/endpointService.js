@@ -11,7 +11,7 @@ export const LOOKUPS_API_URL = 'ocp-fis/lookups';
 export const BASE_CARE_TEAMS_API_URL = 'ocp-fis/care-teams';
 export const BASE_ORGANIZATION_API_URL = 'ocp-fis/organization';
 export const BASE_ORGANIZATIONS_API_URL = 'ocp-fis/organizations';
-export const BASE_HEALTHCARE_SERVICE_API_URL = 'ocp-fis/healthcare-services';
+export const BASE_HEALTHCARE_SERVICES_API_URL = 'ocp-fis/healthcare-services';
 export const BASE_LOCATION_API_URL = 'ocp-fis/location';
 export const BASE_LOCATIONS_API_URL = 'ocp-fis/locations';
 export const BASE_PARTICIPANTS_API_URL = 'ocp-fis/participants';
@@ -47,8 +47,8 @@ function configureEndpoints() {
     url: combineBaseApiUrl(BASE_RELATED_PERSONS_API_URL),
     isSecured: true,
   });
-  endpoints.set(BASE_HEALTHCARE_SERVICE_API_URL, {
-    url: combineBaseApiUrl(BASE_HEALTHCARE_SERVICE_API_URL),
+  endpoints.set(BASE_HEALTHCARE_SERVICES_API_URL, {
+    url: combineBaseApiUrl(BASE_HEALTHCARE_SERVICES_API_URL),
     isSecured: true,
   });
   return endpoints;
