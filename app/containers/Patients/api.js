@@ -1,9 +1,7 @@
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-import { requestWithJWT } from '../../utils/request';
+import request from '../../utils/request';
 import queryString from '../../utils/queryString';
-
-const apiBaseURL = getApiBaseUrl();
+import { BASE_PATIENTS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export default function searchPatients(searchTerms, searchType, includeInactive, currentPage) {
   const params = queryString({
@@ -14,6 +12,7 @@ export default function searchPatients(searchTerms, searchType, includeInactive,
     size: DEFAULT_PAGE_SIZE,
   });
 
-  const requestURL = `${apiBaseURL}/patients/search${params}`;
-  return requestWithJWT(requestURL);
+  const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
+  const requestURL = `${baseEndpoint.url}/search${params}`;
+  return request(requestURL, baseEndpoint.isSecured);
 }
