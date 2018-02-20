@@ -17,14 +17,6 @@
   margin: 10px;
 }
 
-.searchHeader {
-  font-weight: bold;
-  color: #336666;
-  padding: 5px 20px;
-  font-size: 1.1rem;
-  background-color: #EEEEEE;
-}
-
 .searchGridContainer, .filterGridContainer {
   padding: 5px 20px;
   margin: 2px 0;
