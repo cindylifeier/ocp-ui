@@ -5,7 +5,6 @@ import { MenuItem, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
-import styles from './styles.css';
 import messages from './messages';
 
 import TextField from '../TextField';
@@ -14,6 +13,7 @@ import SelectField from '../SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
 import SearchContainerStyledGrid from './SearchContainerStyledGrid';
+import SearchButtonContainerStyledGrid from './SearchButtonContainerStyledGrid';
 
 export const SEARCH_BY_NAME = 'name';
 export const SEARCH_BY_ID = 'logicalId';
@@ -50,7 +50,7 @@ function SearchBarForm(props) {
             label={<FormattedMessage {...messages.includeInactive} />}
           />
         </SearchContainerStyledGrid>
-        <div className={styles.buttonGridContainer}>
+        <SearchButtonContainerStyledGrid gap="5px" columns="120px 1fr">
           <RaisedButton
             fullWidth
             label="Search"
@@ -59,7 +59,7 @@ function SearchBarForm(props) {
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           />
-        </div>
+        </SearchButtonContainerStyledGrid>
       </SearchSection>
     </Form>
   );
