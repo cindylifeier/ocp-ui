@@ -1,11 +1,10 @@
-import { requestWithJWT } from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-
-const apiBaseUrl = getApiBaseUrl();
+import request from '../../utils/request';
+import { BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/healthcare-service`;
-  return requestWithJWT(url, {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint.url}/${organizationId}/healthcare-service`;
+  return request(url, baseEndpoint.isSecured, {
     method: 'POST',
     body: JSON.stringify(mapToBffHealthcareService(healthcareServiceFormData)),
     headers: {
