@@ -41,7 +41,7 @@ function SearchBarForm(props) {
             hintText={<FormattedMessage {...messages.hintText} />}
           />
         </SearchContainerStyledGrid>
-        <div className={styles.filterGridContainer}>
+        <SearchContainerStyledGrid gap="5px" columns="70px 300px">
           <div>
             <FormattedMessage {...messages.filterLabel} />
           </div>
@@ -49,7 +49,7 @@ function SearchBarForm(props) {
             name="showInactive"
             label={<FormattedMessage {...messages.includeInactive} />}
           />
-        </div>
+        </SearchContainerStyledGrid>
         <div className={styles.buttonGridContainer}>
           <RaisedButton
             fullWidth
