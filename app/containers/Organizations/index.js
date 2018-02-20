@@ -33,10 +33,12 @@ import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 import { getHealthcareServicesByOrganization } from '../HealthcareServices/actions';
 import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
+import CardHeaderContainerStyledGrid from './CardHeaderContainerStyledGrid';
 
 export class Organizations extends React.PureComponent {
 
   static SEARCH_BAR_TEXT_LENGTH = 3;
+  static CARD_HEADER_COLUMNS = '1fr 150px';
 
   constructor(props) {
     super(props);
@@ -75,7 +77,7 @@ export class Organizations extends React.PureComponent {
     const { organizations } = this.props;
     return (
       <Card>
-        <div className={styles.gridHeaderContainer}>
+        <CardHeaderContainerStyledGrid columns={Organizations.CARD_HEADER_COLUMNS}>
           <div className={styles.gridItem}>
             <CardHeader>
               <FormattedMessage {...messages.header} />
@@ -91,7 +93,7 @@ export class Organizations extends React.PureComponent {
               />
             </span>
           </div>
-        </div>
+        </CardHeaderContainerStyledGrid>
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
           onSearch={this.handleSearch}

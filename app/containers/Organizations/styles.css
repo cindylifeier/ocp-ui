@@ -25,12 +25,6 @@
   margin-right: 15px;
 }
 
-.gridHeaderContainer {
-  display: grid;
-  grid-template-columns: 1fr 150px;
-  margin-top: 5px;
-}
-
 .gridItem {
   position: relative;
   height: auto;
