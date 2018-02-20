@@ -8,6 +8,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import renderPatientsComponent from '../Patients/render';
 import renderCareTeamsComponent from '../CareTeams/render';
+import renderRelatedPersonsComponent from '../RelatedPersons/render';
 import GoldenLayout from '../../components/GoldenLayout';
 import styles from './styles.css';
 
@@ -52,7 +53,7 @@ const initialStateMetadata =
       reorderEnabled: true,
       title: '',
       content: [{
-        type: 'row',
+        type: 'column',
         isClosable: true,
         reorderEnabled: true,
         title: '',
@@ -73,6 +74,31 @@ const initialStateMetadata =
             reorderEnabled: true,
           },
           ],
+        },
+        ],
+      },
+      {
+        type: 'column',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        width: 50,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 50,
+          content: [{
+            title: 'Care Teams',
+            type: 'component',
+            componentName: 'careTeams',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
         }, {
           type: 'stack',
           header: {},
@@ -83,9 +109,9 @@ const initialStateMetadata =
           width: 50,
           height: 50,
           content: [{
-            title: 'Care Teams',
+            title: 'Related Persons',
             type: 'component',
-            componentName: 'careTeams',
+            componentName: 'relatedPersons',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -95,6 +121,7 @@ const initialStateMetadata =
       },
       ],
     },
+
     ],
     isClosable: true,
     reorderEnabled: true,
@@ -106,6 +133,7 @@ const initialStateMetadata =
 const componentMetadata = [
   { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
   { name: 'careTeams', text: 'Care Teams', factoryMethod: renderCareTeamsComponent },
+  { name: 'relatedPersons', text: 'Related Persons', factoryMethod: renderRelatedPersonsComponent },
 ];
 
 export class PatientsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
