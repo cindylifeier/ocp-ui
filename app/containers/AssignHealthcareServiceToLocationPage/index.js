@@ -30,7 +30,8 @@ import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
   getHealthcareServicesLocationAssignment,
-  initializeAssignHealthCareServiceToLocationPage, updateHealthcareServicesLocationAssignment,
+  initializeAssignHealthCareServiceToLocationPage, unassignHealthcareServicesLocationAssignment,
+  updateHealthcareServicesLocationAssignment,
 } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
 
@@ -51,7 +52,11 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   }
 
   onCheckAssignedCheckbox(evt, checked, logicalId) {
-    this.props.updateHealthcareServicesLocationAssignment(this.props.organization.id, this.props.match.params.id, logicalId);
+    if (checked) {
+      this.props.updateHealthcareServicesLocationAssignment(this.props.organization.id, this.props.match.params.id, logicalId);
+    } else {
+      this.props.unassignHealthcareServicesLocationAssignment(this.props.organization.id, this.props.match.params.id, logicalId);
+    }
   }
 
   handlePageClick(currentPage) {
@@ -127,6 +132,7 @@ AssignHealthCareServiceToLocationPage.propTypes = {
   getHealthcareServicesLocationAssignment: PropTypes.func,
   initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
   updateHealthcareServicesLocationAssignment: PropTypes.func,
+  unassignHealthcareServicesLocationAssignment: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
   loading: PropTypes.bool,
@@ -150,6 +156,7 @@ function mapDispatchToProps(dispatch) {
     initializeAssignHealthCareServiceToLocationPage: () => dispatch(initializeAssignHealthCareServiceToLocationPage()),
     getHealthcareServicesLocationAssignment: (organizationId, organizationName, locationId, currentPage) => dispatch(getHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage)),
     updateHealthcareServicesLocationAssignment: (organizationId, locationId, healthcareServiceId) => dispatch(updateHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
+    unassignHealthcareServicesLocationAssignment: (organizationId, locationId, healthcareServiceId) => dispatch(unassignHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
   };
 }
 
