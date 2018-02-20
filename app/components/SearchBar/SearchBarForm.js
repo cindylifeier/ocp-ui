@@ -13,6 +13,7 @@ import Checkbox from '../Checkbox';
 import SelectField from '../SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
+import SearchContainerStyledGrid from './SearchContainerStyledGrid';
 
 export const SEARCH_BY_NAME = 'name';
 export const SEARCH_BY_ID = 'logicalId';
@@ -26,7 +27,7 @@ function SearchBarForm(props) {
           <ActionSearch color={'#336666'} />
           <FormattedMessage {...messages.searchHeader} />
         </SearchHeader>
-        <div className={styles.searchGridContainer}>
+        <SearchContainerStyledGrid gap="5px" columns="250px 300px">
           <SelectField
             fullWidth
             name="searchType"
@@ -39,7 +40,7 @@ function SearchBarForm(props) {
             name="searchValue"
             hintText={<FormattedMessage {...messages.hintText} />}
           />
-        </div>
+        </SearchContainerStyledGrid>
         <div className={styles.filterGridContainer}>
           <div>
             <FormattedMessage {...messages.filterLabel} />
