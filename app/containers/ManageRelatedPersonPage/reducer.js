@@ -6,17 +6,22 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  SAVE_RELATED_PERSON_ERROR,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  error: false,
+  selectedPatient: null,
+});
 
 function manageRelatedPersonPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case SAVE_RELATED_PERSON_ERROR:
+      return state
+        .set('error', action.error);
     default:
       return state;
+
   }
 }
 
