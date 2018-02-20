@@ -17,7 +17,7 @@ export function createActivityDefinition(activityDefinitionFormData, organizatio
 
 function mapToBffActivityDefinition(activityDefinitionFormData) {
   const {
-    version, name, title, effectiveStart, effectiveEnd, duration, frequency, status, topic, kind, participantType, participantRole,
+    version, name, title, description, effectiveStart, effectiveEnd, duration, frequency, status, topic, kind, participantType, participantRole,
   } = activityDefinitionFormData;
   const effectivePeriod = {
     start: effectiveStart,
@@ -27,5 +27,5 @@ function mapToBffActivityDefinition(activityDefinitionFormData) {
     durationMax: duration,
     frequency,
   };
-  return { version, name, title, effectivePeriod, timing, status, topic, kind, actionParticipantType: participantType, actionParticipantRole: participantRole };
+  return { version, name, title, description, effectivePeriod, timing, status, topic, kind, actionParticipantType: participantType, actionParticipantRole: participantRole };
 }

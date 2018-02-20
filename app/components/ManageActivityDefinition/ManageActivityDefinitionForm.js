@@ -65,6 +65,14 @@ function ManageActivityDefinitionForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.displayName} />}
             />
           </div>
+          <div className={`${styles.gridItem} ${styles.description}`}>
+            <TextField
+              fullWidth
+              name="description"
+              hintText={<FormattedMessage {...messages.hintText.description} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
+            />
+          </div>
           <div className={styles.lastPublishDateLabel}>
             {<FormattedMessage {...messages.hintText.lastPublishDateLabel} />}
           </div>

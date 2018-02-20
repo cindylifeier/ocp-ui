@@ -41,6 +41,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.displayName',
       defaultMessage: 'Display Name',
     },
+    description: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.description',
+      defaultMessage: 'Description',
+    },
     lastPublishDateLabel: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.lastPublishDateLabel',
       defaultMessage: 'Last Publish Date',
@@ -94,6 +98,14 @@ export default defineMessages({
     displayName: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.displayName',
       defaultMessage: 'Display Name',
+    },
+    description: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.description',
+      defaultMessage: 'Description',
+    },
+    lastPublishDateLabel: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.lastPublishDateLabel',
+      defaultMessage: 'Last Publish Date',
     },
     duration: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.duration',
