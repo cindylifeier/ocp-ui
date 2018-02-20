@@ -31,6 +31,7 @@ import { getActiveLocations } from '../Locations/actions';
 import { fromBackendToFrontendOrganization } from './mappings';
 import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 import { getHealthcareServicesByOrganization } from '../HealthcareServices/actions';
+import Card from '../../components/Card';
 
 export class Organizations extends React.PureComponent {
 
@@ -72,7 +73,7 @@ export class Organizations extends React.PureComponent {
   render() {
     const { organizations } = this.props;
     return (
-      <div className={styles.card}>
+      <Card>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
             <div className={styles.header}>
@@ -127,7 +128,7 @@ export class Organizations extends React.PureComponent {
             <span>No organizations found</span>
           </div>))
         }
-      </div>
+      </Card>
     );
   }
 }
