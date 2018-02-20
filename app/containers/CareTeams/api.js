@@ -1,9 +1,7 @@
 import queryString from '../../utils/queryString';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
-import { requestWithJWT } from '../../utils/request';
-
-const baseApiUrl = getApiBaseUrl();
+import request from '../../utils/request';
+import { BASE_CARE_TEAMS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export default function getCareTeams(query, statusList) {
   const { pageNumber = DEFAULT_START_PAGE_NUMBER, pageSize = DEFAULT_PAGE_SIZE } = query;
@@ -14,6 +12,7 @@ export default function getCareTeams(query, statusList) {
     statusList,
   };
   const params = queryString(q);
-  const requestURL = `${baseApiUrl}/care-teams/search${params}`;
-  return requestWithJWT(requestURL);
+  const requestEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
+  const requestURL = `${requestEndpoint.url}/search${params}`;
+  return request(requestURL, requestEndpoint.isSecured);
 }
