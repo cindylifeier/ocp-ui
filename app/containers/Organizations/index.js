@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
-import { FlatButton } from 'material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import injectSaga from 'utils/injectSaga';
@@ -35,6 +34,7 @@ import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
 import CardHeaderContainerStyledGrid from './CardHeaderContainerStyledGrid';
 import CardHeaderContainerStyledCell from './CardHeaderContainerStyledCell';
+import StyledFlatButton from '../../components/StyledFlatButton';
 
 export class Organizations extends React.PureComponent {
 
@@ -85,14 +85,11 @@ export class Organizations extends React.PureComponent {
             </CardHeader>
           </CardHeaderContainerStyledCell>
           <CardHeaderContainerStyledCell>
-            <span className={styles.iconButton}>
-              <FlatButton
-                label="Create New"
-                icon={<ContentAddCircle />}
-                className={styles.font}
-                containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
-              />
-            </span>
+            <StyledFlatButton
+              label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+              icon={<ContentAddCircle />}
+              containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
+            />
           </CardHeaderContainerStyledCell>
         </CardHeaderContainerStyledGrid>
         <SearchBar
