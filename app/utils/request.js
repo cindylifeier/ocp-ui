@@ -43,6 +43,25 @@ function checkStatus(response) {
   throw error;
 }
 
+export default function request(endpoint, options) {
+  // Check endpoint whether secured
+  let isUrlSecured = endpoint.isSecured;
+  if (isUndefined(endpoint.isSecured)) {
+    isUrlSecured = false;
+  }
+
+  // Get configured url
+  let requestURL = endpoint.url;
+  if (isUndefined(endpoint.url)) {
+    requestURL = endpoint;
+  }
+
+  if (isUrlSecured) {
+    return requestWithJWT(requestURL, options);
+  }
+  return requestWithoutJWT(requestURL, options);
+}
+
 /**
  * Requests a URL, returning a promise
  *
@@ -51,13 +70,13 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
+function requestWithoutJWT(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
 }
 
-export function requestWithJWT(url, options) {
+function requestWithJWT(url, options) {
   let fetchOptions = options;
   if (isUndefined(options)) {
     fetchOptions = {};

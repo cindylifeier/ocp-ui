@@ -1,7 +1,8 @@
 import request from '../../utils/request';
+import { getEndpoint, LOGIN_API_URL } from '../../utils/endpointService';
 
 export function login(loginCredentials) {
-  const requestURL = '/ocp-ui-api/login';
+  const requestURL = getEndpoint(LOGIN_API_URL);
   return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBffCredential(loginCredentials)),
