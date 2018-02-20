@@ -11,6 +11,7 @@ import messages from './messages';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 import SelectField from '../SelectField';
+import SearchSection from './SearchSection';
 
 export const SEARCH_BY_NAME = 'name';
 export const SEARCH_BY_ID = 'logicalId';
@@ -19,7 +20,7 @@ function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid } = props;
   return (
     <Form>
-      <div className={styles.searchSection}>
+      <SearchSection>
         <div className={styles.searchHeader}>
           <ActionSearch color={'#336666'} />
           <FormattedMessage {...messages.searchHeader} />
@@ -57,7 +58,7 @@ function SearchBarForm(props) {
             disabled={!dirty || isSubmitting || !isValid}
           />
         </div>
-      </div>
+      </SearchSection>
     </Form>
   );
 }
