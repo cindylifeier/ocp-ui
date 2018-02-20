@@ -22,7 +22,6 @@ import saga from './saga';
 import messages from './messages';
 import { initializeOrganizations, loadOrganizations } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import styles from './styles.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
 import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
@@ -35,6 +34,7 @@ import CardHeader from '../../components/CardHeader';
 import CardHeaderContainerStyledGrid from './CardHeaderContainerStyledGrid';
 import CardHeaderContainerStyledCell from './CardHeaderContainerStyledCell';
 import StyledFlatButton from '../../components/StyledFlatButton';
+import CenterAlign from '../../components/Align/CenterAlign';
 
 export class Organizations extends React.PureComponent {
 
@@ -110,7 +110,7 @@ export class Organizations extends React.PureComponent {
                 />
               ))}
             </OrganizationTable>
-            <div className={styles.textCenter}>
+            <CenterAlign>
               <UltimatePagination
                 currentPage={this.props.currentPage}
                 totalPages={this.props.totalNumberOfPages}
@@ -121,13 +121,13 @@ export class Organizations extends React.PureComponent {
                 hideEllipsis={false}
                 onChange={this.handlePageClick}
               />
-            </div>
+            </CenterAlign>
           </div>
         ) ||
         ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
-          <div className={styles.textCenter}>
+          <CenterAlign>
             <span>No organizations found</span>
-          </div>))
+          </CenterAlign>))
         }
       </Card>
     );
