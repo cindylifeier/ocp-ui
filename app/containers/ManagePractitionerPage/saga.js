@@ -33,7 +33,7 @@ function* getPractitionerSaga({ logicalId }) {
     }
     yield put(getPractitionerSuccess(practitioner));
   } catch (error) {
-    yield put(showNotification('No match practitioner found.'));
+    yield put(showNotification('No matching practitioner found.'));
     yield put(push(HOME_URL));
     yield put(getPractitionerError(error));
   }
