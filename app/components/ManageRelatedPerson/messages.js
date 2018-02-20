@@ -6,9 +6,13 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.ManageRelatedPerson.header',
-    defaultMessage: 'This is the ManageRelatedPerson component !',
+  title: {
+    id: 'ocpui.components.ManageRelatedPerson.manageForm.title',
+    defaultMessage: 'General Information',
+  },
+  active: {
+    id: 'ocpui.components.ManageRelatedPerson.manageForm.active',
+    defaultMessage: 'Active',
   },
   validation: {
     minLength: {
@@ -19,8 +23,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.required',
       defaultMessage: 'Required',
     },
-    postalsCode: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.postalCode',
+    zip: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.zip',
       defaultMessage: 'Must be with formats: 12345 or 12345-6789',
     },
     invalid: {
@@ -73,6 +77,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomType',
       defaultMessage: 'Telecom Type',
     },
+    telecomUse: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomUse',
+      defaultMessage: 'Telecom Use',
+    },
     telecomValue: {
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomValue',
       defaultMessage: 'Telecom Value',
@@ -93,8 +101,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.state',
       defaultMessage: 'State',
     },
-    postalCode: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.postalCode',
+    zip: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.zip',
       defaultMessage: 'Zip Code',
     },
     country: {
@@ -147,6 +155,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomType',
       defaultMessage: 'Telecom Type',
     },
+    telecomUse: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomUse',
+      defaultMessage: 'Telecom Use',
+    },
     telecomValue: {
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomValue',
       defaultMessage: 'Telecom Value',
@@ -167,8 +179,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.state',
       defaultMessage: 'State',
     },
-    postalCode: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.postalCode',
+    zip: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.zip',
       defaultMessage: 'Zip Code',
     },
     country: {
