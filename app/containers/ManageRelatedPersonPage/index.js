@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import queryString from 'query-string';
@@ -17,21 +17,26 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+// import messages from './messages';
 import {
-  makeSelectAdministrativeGenders, makeSelectPatientIdentifierSystems, makeSelectRelatedPersonPatientRelationshipTypes,
-  makeSelectTelecomSystems,
+  makeSelectAdministrativeGenders, makeSelectPatient, makeSelectPatientIdentifierSystems,
+  makeSelectRelatedPersonPatientRelationshipTypes,
+  makeSelectTelecomSystems, makeSelectTelecomUses,
   makeSelectUspsStates,
 } from '../App/selectors';
 import {
-  ADMINISTRATIVEGENDER, PATIENTIDENTIFIERSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES, TELECOMSYSTEM,
+  ADMINISTRATIVEGENDER, PATIENTIDENTIFIERSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES, TELECOMSYSTEM, TELECOMUSE,
   USPSSTATES,
 } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
+import { getLookupsAction, getPatient } from '../App/actions';
 import ManageRelatedPerson from '../../components/ManageRelatedPerson';
-import { getPatient } from '../ManageCareTeamPage/actions';
+import { createRelatedPerson, updateRelatedPerson } from './actions';
 
 export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
   componentWillMount() {
     this.props.getLookups();
     const queryObj = queryString.parse(this.props.location.search);
@@ -40,21 +45,32 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       this.props.getPatient(patientId);
     }
   }
-  // handleSave(patientFormData, actions) {
-  // }
+  handleSave(relatedPerson) {
+    const queryObj = queryString.parse(this.props.location.search);
+    const relatedPersonId = queryObj.id;
+    if (relatedPersonId) {
+      this.props.updateRelatedPerson(relatedPerson);
+    } else {
+      this.props.createRelatedPerson(relatedPerson);
+    }
+  }
   render() {
     const {
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
       telecomSystems,
-      relationshipTypes } = this.props;
+      telecomUses,
+      relationshipTypes,
+      selectedPatient } = this.props;
     const manageRelatedPersonProps = {
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
       telecomSystems,
+      telecomUses,
       relationshipTypes,
+      selectedPatient,
     };
     return (
       <div>
@@ -62,7 +78,6 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
           <title>Manage Related Person</title>
           <meta name="description" content="Description of ManageRelatedPersonPage" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
         <ManageRelatedPerson {...manageRelatedPersonProps} onSave={this.handleSave} />
       </div>
     );
@@ -72,12 +87,16 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
 ManageRelatedPersonPage.propTypes = {
   uspsStates: PropTypes.array,
   getPatient: PropTypes.func.isRequired,
+  createRelatedPerson: PropTypes.func.isRequired,
+  updateRelatedPerson: PropTypes.func.isRequired,
   location: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
   patientIdentifierSystems: PropTypes.array,
   administrativeGenders: PropTypes.array,
   telecomSystems: PropTypes.array,
   relationshipTypes: PropTypes.array,
+  selectedPatient: PropTypes.object,
+  telecomUses: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -86,12 +105,16 @@ const mapStateToProps = createStructuredSelector({
   administrativeGenders: makeSelectAdministrativeGenders(),
   telecomSystems: makeSelectTelecomSystems(),
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
+  selectedPatient: makeSelectPatient(),
+  telecomUses: makeSelectTelecomUses(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, TELECOMSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, TELECOMUSE, TELECOMSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
+    createRelatedPerson: (relatedPerson) => dispatch(createRelatedPerson(relatedPerson)),
+    updateRelatedPerson: (relatedPerson) => dispatch(updateRelatedPerson(relatedPerson)),
   };
 }
 
