@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import merge from 'lodash/merge';
 import isUndefined from 'lodash/isUndefined';
+import isBoolean from 'lodash/isBoolean';
 import { retrieveToken } from './tokenService';
 
 /**
@@ -43,20 +44,15 @@ function checkStatus(response) {
   throw error;
 }
 
-export default function request(endpoint, options) {
+export default function request(requestURL, isSecured, options) {
   // Check endpoint whether secured
-  let isUrlSecured = endpoint.isSecured;
-  if (isUndefined(endpoint.isSecured)) {
-    isUrlSecured = false;
+  let isEndpointSecured = false;
+  if (isBoolean(isSecured)) {
+    isEndpointSecured = isSecured;
   }
 
-  // Get configured url
-  let requestURL = endpoint.url;
-  if (isUndefined(endpoint.url)) {
-    requestURL = endpoint;
-  }
-
-  if (isUrlSecured) {
+  // Select request function based on whether secured endpoint
+  if (isEndpointSecured) {
     return requestWithJWT(requestURL, options);
   }
   return requestWithoutJWT(requestURL, options);
