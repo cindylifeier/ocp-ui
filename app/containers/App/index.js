@@ -33,7 +33,7 @@ import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToL
 import Authentication from '../Authentication';
 import ManageTaskPage from '../ManageTaskPage';
 import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
-
+import './styles.css';
 
 export function App() {
   return (
