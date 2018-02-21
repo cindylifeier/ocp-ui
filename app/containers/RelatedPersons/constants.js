@@ -8,7 +8,8 @@
  *  RelatedPersons action types
  *  @type {string}
  */
-export const DEFAULT_ACTION = 'ocpui/RelatedPersons/DEFAULT_ACTION';
+export const INITIALIZE_RELATED_PERSONS = 'ocpui/RelatedPersons/INITIALIZE_RELATED_PERSONS';
+export const GET_RELATED_PERSONS = 'ocpui/RelatedPersons/GET_RELATED_PERSONS';
 
 
 /**
