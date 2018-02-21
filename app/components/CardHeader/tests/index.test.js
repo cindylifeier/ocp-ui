@@ -4,31 +4,49 @@ import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
 import CardHeader from '../index';
+import CardTitle from '../CardTitle';
 
 configure({ adapter: new Adapter() });
 
 describe('<CardHeader />', () => {
-  it('should have children', () => {
-    // Arrange
-    const children = (<span>test</span>);
+  describe('snapshot tests', () => {
+    it('should match snapshot', () => {
+      // Arrange
+      const children = (<span>test</span>);
+      const title = <span>title</span>;
 
-    // Act
-    const renderedComponent = shallow(<CardHeader>{children}</CardHeader>);
+      // Act
+      const renderedComponent = shallow(<CardHeader title={title}>{children}</CardHeader>);
 
-    // Assert
-    expect(renderedComponent.contains(children)).toEqual(true);
+      // Assert
+      expect(renderedComponent).toMatchSnapshot();
+    });
   });
 
-  it('should have styles', () => {
-    // Arrange
-    const children = (<span>test</span>);
+  describe('structural tests', () => {
+    it('should have children', () => {
+      // Arrange
+      const children = (<span>test</span>);
+      const title = <span>title</span>;
 
-    // Act
-    const renderedComponent = shallow(<CardHeader>{children}</CardHeader>);
+      // Act
+      const renderedComponent = shallow(<CardHeader title={title}>{children}</CardHeader>);
 
-    // Assert
-    expect(renderedComponent).toHaveStyleRule('font-size', '1.3rem');
-    expect(renderedComponent).toHaveStyleRule('font-weight', 'bold');
-    expect(renderedComponent).toHaveStyleRule('color', '#336666');
+      // Assert
+      expect(renderedComponent.contains(children)).toEqual(true);
+    });
+
+    it('should contain CardTitle', () => {
+      // Arrange
+      const children = (<span>test</span>);
+      const title = <span>title</span>;
+      const cardTitle = (<CardTitle>{title}</CardTitle>);
+
+      // Act
+      const renderedComponent = shallow(<CardHeader title={title}>{children}</CardHeader>);
+
+      // Assert
+      expect(renderedComponent.contains(cardTitle)).toEqual(true);
+    });
   });
 });

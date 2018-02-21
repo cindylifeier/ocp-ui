@@ -30,15 +30,12 @@ import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 import { getHealthcareServicesByOrganization } from '../HealthcareServices/actions';
 import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
-import CardHeaderContainerStyledGrid from './CardHeaderContainerStyledGrid';
-import CardHeaderContainerStyledCell from './CardHeaderContainerStyledCell';
 import StyledFlatButton from '../../components/StyledFlatButton';
 import CenterAlign from '../../components/Align/CenterAlign';
 
 export class Organizations extends React.PureComponent {
 
   static SEARCH_BAR_TEXT_LENGTH = 3;
-  static CARD_HEADER_COLUMNS = '1fr 150px';
 
   constructor(props) {
     super(props);
@@ -77,20 +74,13 @@ export class Organizations extends React.PureComponent {
     const { organizations } = this.props;
     return (
       <Card>
-        <CardHeaderContainerStyledGrid columns={Organizations.CARD_HEADER_COLUMNS}>
-          <CardHeaderContainerStyledCell>
-            <CardHeader>
-              <FormattedMessage {...messages.header} />
-            </CardHeader>
-          </CardHeaderContainerStyledCell>
-          <CardHeaderContainerStyledCell>
-            <StyledFlatButton
-              label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-              icon={<ContentAddCircle />}
-              containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
-            />
-          </CardHeaderContainerStyledCell>
-        </CardHeaderContainerStyledGrid>
+        <CardHeader title={<FormattedMessage {...messages.header} />}>
+          <StyledFlatButton
+            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+            icon={<ContentAddCircle />}
+            containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
+          />
+        </CardHeader>
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
           onSearch={this.handleSearch}
