@@ -43,6 +43,7 @@ import messages from './messages';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 import { getCareTeams } from '../CareTeams/actions';
+import { getRelatedPersons } from '../RelatedPersons/actions';
 
 export class Patients extends React.PureComponent {
   constructor(props) {
@@ -69,6 +70,7 @@ export class Patients extends React.PureComponent {
     const searchType = 'patientId';
     const query = { searchValue, searchType };
     this.props.getCareTeams(query, `${firstName} ${lastName}`);
+    this.props.getRelatedPersons(searchValue, false);
   }
 
   handleSearch() {
@@ -215,6 +217,7 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   getCareTeams: PropTypes.func.isRequired,
+  getRelatedPersons: PropTypes.func.isRequired,
 };
 
 
@@ -239,6 +242,7 @@ function mapDispatchToProps(dispatch) {
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePatients: () => dispatch(initializePatients()),
     getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
+    getRelatedPersons: (patientId, showInActive) => dispatch(getRelatedPersons(patientId, showInActive)),
   };
 }
 
