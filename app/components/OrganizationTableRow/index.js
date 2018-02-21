@@ -80,7 +80,7 @@ function OrganizationTableRow(props) {
           <MenuItem
             className={styles.menuItem}
             primaryText={<FormattedMessage {...messages.addHealthCareService} />}
-            containerElement={<Link to={'/ocp-ui/manage-health-care-service'} />}
+            containerElement={<Link to={'/ocp-ui/manage-healthcare-service'} />}
           />
           <MenuItem
             className={styles.menuItem}
