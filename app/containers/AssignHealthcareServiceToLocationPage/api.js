@@ -35,8 +35,9 @@ export function unassignHealthCareServicesToLocation(orgId, locationIds, healthC
     organizationId: orgId,
     locationIdList: locationIds,
   });
-  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/unassign${params}`;
-  return request(url, {
+  const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
+  const url = `${baseEndpoint.url}/${healthCareServiceId}/unassign${params}`;
+  return request(url, baseEndpoint.isSecured, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
