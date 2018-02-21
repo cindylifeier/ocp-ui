@@ -2,8 +2,6 @@ import isUndefined from 'lodash/isUndefined';
 import some from 'lodash/some';
 import includes from 'lodash/includes';
 
-import getApiBaseUrl from '../apiBaseUrlConfig';
-
 /**
  *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
@@ -26,30 +24,28 @@ export const BASE_RELATED_PERSONS_API_URL = 'ocpui/utils/BASE_RELATED_PERSONS_AP
  * @type {*[]}
  */
 const apiEndpoints = [
-  { key: LOGIN_API_URL, url: combineBaseApiUrl('login'), isSecured: false },
-  { key: LOOKUPS_API_URL, url: combineBaseApiUrl('ocp-fis/lookups'), isSecured: false },
+  { key: LOGIN_API_URL, url: '/ocp-ui-api/login', isSecured: false },
+  { key: LOOKUPS_API_URL, url: '/ocp-ui-api/ocp-fis/lookups', isSecured: false },
 
-  { key: BASE_CARE_TEAMS_API_URL, url: combineBaseApiUrl('ocp-fis/care-teams'), isSecured: true },
-  { key: BASE_ORGANIZATION_API_URL, url: combineBaseApiUrl('ocp-fis/organization'), isSecured: true },
-  { key: BASE_ORGANIZATIONS_API_URL, url: combineBaseApiUrl('ocp-fis/organizations'), isSecured: true },
-  { key: BASE_HEALTHCARE_SERVICES_API_URL, url: combineBaseApiUrl('ocp-fis/healthcare-services'), isSecured: true },
-  { key: BASE_LOCATION_API_URL, url: combineBaseApiUrl('ocp-fis/location'), isSecured: true },
-  { key: BASE_LOCATIONS_API_URL, url: combineBaseApiUrl('ocp-fis/locations'), isSecured: true },
-  { key: BASE_PARTICIPANTS_API_URL, url: combineBaseApiUrl('ocp-fis/participants'), isSecured: true },
-  { key: BASE_PATIENTS_API_URL, url: combineBaseApiUrl('ocp-fis/patients'), isSecured: true },
-  { key: BASE_PRACTITIONERS_API_URL, url: combineBaseApiUrl('ocp-fis/practitioners'), isSecured: true },
-  { key: BASE_RELATED_PERSONS_API_URL, url: combineBaseApiUrl('ocp-fis/related-persons'), isSecured: true },
+  { key: BASE_CARE_TEAMS_API_URL, url: '/ocp-ui-api/ocp-fis/care-teams', isSecured: true },
+  { key: BASE_ORGANIZATION_API_URL, url: '/ocp-ui-api/ocp-fis/organization', isSecured: true },
+  { key: BASE_ORGANIZATIONS_API_URL, url: '/ocp-ui-api/ocp-fis/organizations', isSecured: true },
+  { key: BASE_HEALTHCARE_SERVICES_API_URL, url: '/ocp-ui-api/ocp-fis/healthcare-services', isSecured: true },
+  { key: BASE_LOCATION_API_URL, url: '/ocp-ui-api/ocp-fis/location', isSecured: true },
+  { key: BASE_LOCATIONS_API_URL, url: '/ocp-ui-api/ocp-fis/locations', isSecured: true },
+  { key: BASE_PARTICIPANTS_API_URL, url: '/ocp-ui-api/ocp-fis/participants', isSecured: true },
+  { key: BASE_PATIENTS_API_URL, url: '/ocp-ui-api/ocp-fis/patients', isSecured: true },
+  { key: BASE_PRACTITIONERS_API_URL, url: '/ocp-ui-api/ocp-fis/practitioners', isSecured: true },
+  { key: BASE_RELATED_PERSONS_API_URL, url: '/ocp-ui-api/ocp-fis/related-persons', isSecured: true },
 ];
 
 export function getEndpoint(key) {
-  const securedEndpoints = configureSecuredEndpoints();
-  const unSecuredEndpoints = configureUnSecuredEndpoints();
-  const endpoints = new Map([...securedEndpoints, ...unSecuredEndpoints]);
+  const endpoints = collectEndpoints();
   const requestEndpoint = endpoints.get(key);
   if (isUndefined(requestEndpoint)) {
     throw Error(`No ${key} endpoint configured.`);
   }
-  return requestEndpoint;
+  return requestEndpoint.url;
 }
 
 /**
@@ -59,8 +55,12 @@ export function getEndpoint(key) {
  */
 export function isSecuredEndpoint(endpoint) {
   let isEndpointSecured = false;
+  const endpoints = Array.from(collectEndpoints().values());
 
-  const securedEndpoints = Array.from(configureSecuredEndpoints().values());
+  // Collect all secured endpoints
+  const securedEndpoints = endpoints
+    .filter((ep) => ep.isSecured === true)
+    .map((ep) => ep.url);
   if (some(securedEndpoints, (securedEndpoint) => includes(endpoint, securedEndpoint))) {
     isEndpointSecured = true;
   }
@@ -69,30 +69,13 @@ export function isSecuredEndpoint(endpoint) {
 }
 
 /**
- * Collect all unsecured endpoints
+ * Collect all endpoints
  * @returns {*}
  */
-export function configureUnSecuredEndpoints() {
-  const unSecuredEndpoints = new Map();
+function collectEndpoints() {
+  const endpoints = new Map();
   apiEndpoints
-    .filter((endpoint) => endpoint.isSecured === false)
-    .map((endpoint) => unSecuredEndpoints.set(endpoint.key, endpoint.url));
-  return unSecuredEndpoints;
+    .map((endpoint) => endpoints.set(endpoint.key, endpoint));
+  return endpoints;
 }
 
-/**
- * Collect all secured endpoints
- * @returns {Map<any, any>}
- */
-export function configureSecuredEndpoints() {
-  const securedEndpoints = new Map();
-  apiEndpoints
-    .filter((endpoint) => endpoint.isSecured === true)
-    .map((endpoint) => securedEndpoints.set(endpoint.key, endpoint.url));
-  return securedEndpoints;
-}
-
-function combineBaseApiUrl(endpoint) {
-  const baseApiUrl = getApiBaseUrl();
-  return `${baseApiUrl}/${endpoint}`;
-}
