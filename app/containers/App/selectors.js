@@ -22,15 +22,25 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  // Healthcare Service Lookups - Start
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICETYPE,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
+  // Healthcare Service Lookups - End
+  // Activity Definition Lookups - Start
   PUBLICATION_STATUS,
   DEFINITION_TOPIC,
   RESOURCE_TYPE,
   ACTION_PARTICIPANT_TYPE,
   ACTION_PARTICIPANT_ROLE,
+  // Activity Definition Lookups - End
+  // Task Resource Lookups - Start
+  TASK_STATUS,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  // Task Resource Lookups - End
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -157,6 +167,7 @@ const makeSelectLanguages = () => createSelector(
   (globalState) => globalState.get(LANGUAGE).toJS(),
 );
 
+// Healthcare Service Lookups - Start
 const makeSelectHealthcareServiceCategories = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(HEALTHCARESERVICECATEGORY).toJS(),
@@ -176,7 +187,8 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
-
+// Healthcare Service Lookups - End
+// Activity Definition Lookups - Start
 const makeSelectPublicationStatuses = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(PUBLICATION_STATUS).toJS(),
@@ -201,6 +213,28 @@ const makeSelectActionParticipantRoles = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get(ACTION_PARTICIPANT_ROLE).toJS(),
 );
+// Activity Definition Lookups - End
+// Task Resource Lookups - Start
+const makeSelectTaskStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(TASK_STATUS).toJS(),
+);
+
+const makeSelectRequestIntents = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(REQUEST_INTENT).toJS(),
+);
+
+const makeSelectRequestPriorities = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(REQUEST_PRIORITY).toJS(),
+);
+
+const makeSelectTaskPerformerTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(TASK_PERFORMER_TYPE).toJS(),
+);
+// Task Resource Lookups - End
 
 export {
   makeSelectLocation,
@@ -236,4 +270,8 @@ export {
   makeSelectResourceTypes,
   makeSelectActionParticipantTypes,
   makeSelectActionParticipantRoles,
+  makeSelectTaskStatuses,
+  makeSelectRequestIntents,
+  makeSelectRequestPriorities,
+  makeSelectTaskPerformerTypes,
 };

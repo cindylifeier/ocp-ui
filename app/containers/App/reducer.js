@@ -39,15 +39,25 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  // Healthcare Service Lookups - Start
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
   HEALTHCARESERVICETYPE,
+  // Healthcare Service Lookups - End
+  // Activity Definition Lookups - Start
   PUBLICATION_STATUS,
   DEFINITION_TOPIC,
   RESOURCE_TYPE,
   ACTION_PARTICIPANT_TYPE,
   ACTION_PARTICIPANT_ROLE,
+  // Activity Definition Lookups - End
+  // Task Resource Lookups - Start
+  TASK_STATUS,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  // Task Resource Lookups - End
 } from './constants';
 
 // The initial state of the App
@@ -77,15 +87,25 @@ const initialState = fromJS({
   CARETEAMSTATUS: [],
   PARTICIPANTROLE: [],
   CARETEAMREASON: [],
+  // Healthcare Service Lookups - Start
   HEALTHCARESERVICECATEGORY: [],
   HEALTHCARESERVICETYPE: [],
   HEALTHCARESERVICEREFERRALMETHOD: [],
   HEALTHCARESERVICESPECIALITY: [],
+  // Healthcare Service Lookups - End
+  // Activity Definition Lookups - Start
   PUBLICATION_STATUS: [],
   DEFINITION_TOPIC: [],
   RESOURCE_TYPE: [],
   ACTION_PARTICIPANT_TYPE: [],
   ACTION_PARTICIPANT_ROLE: [],
+  // Activity Definition Lookups - End
+  // Task Resource Lookups - Start
+  TASK_STATUS: [],
+  REQUEST_INTENT: [],
+  REQUEST_PRIORITY: [],
+  TASK_PERFORMER_TYPE: [],
+  // Task Resource Lookups - End
 });
 
 function appReducer(state = initialState, action) {
@@ -119,15 +139,25 @@ function appReducer(state = initialState, action) {
         .set(CARETEAMSTATUS, fromJS((action.lookups && action.lookups.careTeamStatuses) || state.get(CARETEAMSTATUS)))
         .set(PARTICIPANTROLE, fromJS((action.lookups && action.lookups.participantRoles) || state.get(PARTICIPANTROLE)))
         .set(CARETEAMREASON, fromJS((action.lookups && action.lookups.careTeamReasons) || state.get(CARETEAMREASON)))
+        // Healthcare Service Lookups - Start
         .set(HEALTHCARESERVICECATEGORY, fromJS((action.lookups && action.lookups.healthcareServiceCategories) || state.get(HEALTHCARESERVICECATEGORY)))
         .set(HEALTHCARESERVICETYPE, fromJS((action.lookups && action.lookups.healthcareServiceTypes) || state.get(HEALTHCARESERVICETYPE)))
         .set(HEALTHCARESERVICEREFERRALMETHOD, fromJS((action.lookups && action.lookups.healthcareServiceReferralMethods) || state.get(HEALTHCARESERVICEREFERRALMETHOD)))
         .set(HEALTHCARESERVICESPECIALITY, fromJS((action.lookups && action.lookups.healthcareServiceSpecialities) || state.get(HEALTHCARESERVICESPECIALITY)))
+        // Healthcare Service Lookups - End
+        // Activity Definition Lookups - Start
         .set(PUBLICATION_STATUS, fromJS((action.lookups && action.lookups.publicationStatus) || state.get(PUBLICATION_STATUS)))
         .set(DEFINITION_TOPIC, fromJS((action.lookups && action.lookups.definitionTopic) || state.get(DEFINITION_TOPIC)))
         .set(RESOURCE_TYPE, fromJS((action.lookups && action.lookups.resourceType) || state.get(RESOURCE_TYPE)))
         .set(ACTION_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.actionParticipantType) || state.get(ACTION_PARTICIPANT_TYPE)))
         .set(ACTION_PARTICIPANT_ROLE, fromJS((action.lookups && action.lookups.actionParticipantRole) || state.get(ACTION_PARTICIPANT_ROLE)))
+        // Activity Definition Lookups - End
+        // Task Resource Lookups - Start
+        .set(TASK_STATUS, fromJS((action.lookups && action.lookups.taskStatus) || state.get(TASK_STATUS)))
+        .set(REQUEST_INTENT, fromJS((action.lookups && action.lookups.requestIntent) || state.get(REQUEST_INTENT)))
+        .set(REQUEST_PRIORITY, fromJS((action.lookups && action.lookups.requestPriority) || state.get(REQUEST_PRIORITY)))
+        .set(TASK_PERFORMER_TYPE, fromJS((action.lookups && action.lookups.taskPerformerType) || state.get(TASK_PERFORMER_TYPE)))
+        // Task Resource Lookups - End
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

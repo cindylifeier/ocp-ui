@@ -48,16 +48,25 @@ export const PARTICIPANTTYPE = 'PARTICIPANTTYPE';
 export const CARETEAMSTATUS = 'CARETEAMSTATUS';
 export const PARTICIPANTROLE = 'PARTICIPANTROLE';
 export const CARETEAMREASON = 'CARETEAMREASON';
+// Healthcare Service Lookups - Start
 export const HEALTHCARESERVICECATEGORY = 'HEALTHCARESERVICECATEGORY';
 export const HEALTHCARESERVICETYPE = 'HEALTHCARESERVICETYPE';
 export const HEALTHCARESERVICEREFERRALMETHOD = 'HEALTHCARESERVICEREFERRALMETHOD';
 export const HEALTHCARESERVICESPECIALITY = 'HEALTHCARESERVICESPECIALITY';
+// Healthcare Service Lookups - End
+// Activity Definition Lookups - Start
 export const PUBLICATION_STATUS = 'PUBLICATION_STATUS';
 export const DEFINITION_TOPIC = 'DEFINITION_TOPIC';
 export const RESOURCE_TYPE = 'RESOURCE_TYPE';
 export const ACTION_PARTICIPANT_TYPE = 'ACTION_PARTICIPANT_TYPE';
 export const ACTION_PARTICIPANT_ROLE = 'ACTION_PARTICIPANT_ROLE';
-
+// Activity Definition Lookups - End
+// Task Resource Lookups - Start
+export const TASK_STATUS = 'TASK_STATUS';
+export const REQUEST_INTENT = 'REQUEST_INTENT';
+export const REQUEST_PRIORITY = 'REQUEST_PRIORITY';
+export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
+// Task Resource Lookups - End
 /**
  *  Constants to hold the internal urls
  * @type {string}
