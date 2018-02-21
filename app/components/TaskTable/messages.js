@@ -6,8 +6,32 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.TaskTable.header',
-    defaultMessage: 'This is the TaskTable component !',
+  columnHeaderActivityType: {
+    id: 'ocpui.components.TaskTable.columnHeaderActivityType',
+    defaultMessage: 'Activity Type',
+  },
+  columnHeaderStatus: {
+    id: 'ocpui.components.TaskTable.columnHeaderStatus',
+    defaultMessage: 'Status',
+  },
+  columnHeaderPriority: {
+    id: 'ocpui.components.TaskTable.columnHeaderPriority',
+    defaultMessage: 'Priority',
+  },
+  columnHeaderCreatedBy: {
+    id: 'ocpui.components.TaskTable.columnHeaderCreatedBy',
+    defaultMessage: 'Created By',
+  },
+  columnHeaderTaskOwner: {
+    id: 'ocpui.components.TaskTable.columnHeaderTaskOwner',
+    defaultMessage: 'Task owner',
+  },
+  columnHeaderTaskPeriod: {
+    id: 'ocpui.components.TaskTable.columnHeaderTaskPeriod',
+    defaultMessage: 'Task Period ',
+  },
+  columnHeaderCreatedOn: {
+    id: 'ocpui.components.TaskTable.columnHeaderCreatedOn',
+    defaultMessage: 'Created On',
   },
 });
