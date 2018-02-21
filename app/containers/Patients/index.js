@@ -43,6 +43,7 @@ import messages from './messages';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 import { getCareTeams } from '../CareTeams/actions';
+import Card from '../../components/Card';
 
 export class Patients extends React.PureComponent {
   constructor(props) {
@@ -109,7 +110,7 @@ export class Patients extends React.PureComponent {
     };
 
     return (
-      <div className={styles.card}>
+      <Card>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
             <div className={styles.header}>
@@ -191,7 +192,7 @@ export class Patients extends React.PureComponent {
           />
           }
         </div>
-      </div>
+      </Card>
     );
   }
 }
