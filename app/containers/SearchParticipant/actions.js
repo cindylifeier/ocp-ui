@@ -20,11 +20,12 @@ export function defaultAction() {
   };
 }
 
-export function getSearchParticipant(name, member) {
+export function getSearchParticipant(name, member, patientId) {
   return {
     type: SEARCH_PARTICIPANT,
     name,
     member,
+    patientId,
   };
 }
 
