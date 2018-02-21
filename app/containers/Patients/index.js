@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import { Link } from 'react-router-dom';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -40,7 +39,7 @@ import CardHeader from '../../components/CardHeader';
 import StyledFlatButton from '../../components/StyledFlatButton';
 import SearchBar from '../../components/SearchBar';
 import { SEARCH_BAR_TEXT_LENGTH } from './constants';
-import CenterAlign from '../../components/Align/CenterAlign';
+import StyledUltimatePagination from '../../components/StyledUltimatePagination';
 
 export class Patients extends React.PureComponent {
 
@@ -96,20 +95,13 @@ export class Patients extends React.PureComponent {
         />
         <br />
         <PatientSearchResult {...searchResultProps} onPatientClick={this.handlePatientClick} />
-        <CenterAlign>
-          {this.props.searchResult &&
-          <UltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
-            onChange={this.handleChangePage}
-          />
-          }
-        </CenterAlign>
+        {this.props.searchResult &&
+        <StyledUltimatePagination
+          currentPage={this.props.currentPage}
+          totalPages={this.props.totalPages}
+          onChange={this.handleChangePage}
+        />
+        }
       </Card>
     );
   }
