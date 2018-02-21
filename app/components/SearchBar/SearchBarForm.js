@@ -16,7 +16,7 @@ import SearchContainerStyledGrid from './SearchContainerStyledGrid';
 import SearchButtonContainerStyledGrid from './SearchButtonContainerStyledGrid';
 
 export const SEARCH_BY_NAME = 'name';
-export const SEARCH_BY_ID = 'logicalId';
+export const SEARCH_BY_ID = 'identifier';
 
 function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid } = props;
