@@ -152,7 +152,7 @@ ManageHealthcareServiceForm.propTypes = {
   })),
   healthcareServiceSpecialities: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
+    system: PropTypes.string,
     display: PropTypes.string.isRequired,
   })),
   healthcareServiceReferralMethods: PropTypes.arrayOf(PropTypes.shape({
