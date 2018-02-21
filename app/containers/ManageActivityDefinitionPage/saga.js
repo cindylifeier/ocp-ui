@@ -3,7 +3,7 @@ import { goBack } from 'react-router-redux';
 import { showNotification } from '../Notification/actions';
 import { createActivityDefinition } from './api';
 import { createActivityDefinitionSuccess, createActivityDefinitionError } from './actions';
-import { POST_ACTIVITY_DEFINITION } from '../ManageActivityDefinitionPage/constants';
+import { CREATE_ACTIVITY_DEFINITION } from '../ManageActivityDefinitionPage/constants';
 import { makeSelectOrganization } from '../Locations/selectors';
 
 
@@ -23,7 +23,7 @@ function* createActivityDefinitionSaga(action) {
 }
 
 function* watchCreateActivityDefinitionSaga() {
-  yield takeLatest(POST_ACTIVITY_DEFINITION, createActivityDefinitionSaga);
+  yield takeLatest(CREATE_ACTIVITY_DEFINITION, createActivityDefinitionSaga);
 }
 
 function getErrorDetail(err) {

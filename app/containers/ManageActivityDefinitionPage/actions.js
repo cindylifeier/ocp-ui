@@ -5,13 +5,13 @@
  */
 
 import {
-  POST_ACTIVITY_DEFINITION, POST_ACTIVITY_DEFINITION_ERROR, POST_ACTIVITY_DEFINITION_SUCCESS,
+  CREATE_ACTIVITY_DEFINITION, CREATE_ACTIVITY_DEFINITION_ERROR, CREATE_ACTIVITY_DEFINITION_SUCCESS,
 } from './constants';
 
 
 export function createActivityDefinition(activityDefinitionFormData, handleSubmitting) {
   return {
-    type: POST_ACTIVITY_DEFINITION,
+    type: CREATE_ACTIVITY_DEFINITION,
     activityDefinitionFormData,
     handleSubmitting,
   };
@@ -19,7 +19,7 @@ export function createActivityDefinition(activityDefinitionFormData, handleSubmi
 
 export function createActivityDefinitionError(error) {
   return {
-    type: POST_ACTIVITY_DEFINITION_ERROR,
+    type: CREATE_ACTIVITY_DEFINITION_ERROR,
     error,
   };
 }
@@ -27,7 +27,7 @@ export function createActivityDefinitionError(error) {
 
 export function createActivityDefinitionSuccess(respone) {
   return {
-    type: POST_ACTIVITY_DEFINITION_SUCCESS,
+    type: CREATE_ACTIVITY_DEFINITION_SUCCESS,
     respone,
   };
 }
