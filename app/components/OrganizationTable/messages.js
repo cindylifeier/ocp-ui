@@ -20,7 +20,7 @@ export default defineMessages({
   },
   tableColumnHeaderId: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Id',
-    defaultMessage: 'ID',
+    defaultMessage: 'Identifier',
   },
   tableColumnHeaderStatus: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Status',

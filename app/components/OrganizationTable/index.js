@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 
 import messages from './messages';
 import Table from '../Table';
@@ -22,6 +23,10 @@ import NavigationStyledIconMenu from '../StyledIconMenu/NavigationStyledIconMenu
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 
+function renderIdentifiers(identifiers) {
+  return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));
+}
+
 function OrganizationTable({ organizations, onRowClick }) {
   return (
     <Table>
@@ -33,7 +38,7 @@ function OrganizationTable({ organizations, onRowClick }) {
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
       </TableHeader>
       {!isEmpty(organizations) && organizations.map((org) => {
-        const { name, address, telephone, id, status } = org;
+        const { name, address, telephone, id, identifiers, status } = org;
         return (
           <TableRow
             columns={tableColumns}
@@ -53,7 +58,7 @@ function OrganizationTable({ organizations, onRowClick }) {
             <TableRowColumn>{name}</TableRowColumn>
             <TableRowColumn>{address}</TableRowColumn>
             <TableRowColumn>{telephone}</TableRowColumn>
-            <TableRowColumn>{id}</TableRowColumn>
+            <TableRowColumn>{renderIdentifiers(identifiers)}</TableRowColumn>
             <TableRowColumn>{status}</TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
