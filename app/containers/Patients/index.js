@@ -32,7 +32,6 @@ import reducer from './reducer';
 import saga from './saga';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import PatientSearchResult from '../../components/PatientSearchResult';
-import styles from './styles.css';
 import messages from './messages';
 import { MANAGE_PATIENT_URL } from '../App/constants';
 import { getCareTeams } from '../CareTeams/actions';
@@ -41,6 +40,7 @@ import CardHeader from '../../components/CardHeader';
 import StyledFlatButton from '../../components/StyledFlatButton';
 import SearchBar from '../../components/SearchBar';
 import { SEARCH_BAR_TEXT_LENGTH } from './constants';
+import CenterAlign from '../../components/Align/CenterAlign';
 
 export class Patients extends React.PureComponent {
 
@@ -96,7 +96,7 @@ export class Patients extends React.PureComponent {
         />
         <br />
         <PatientSearchResult {...searchResultProps} onPatientClick={this.handlePatientClick} />
-        <div className={styles.pagination}>
+        <CenterAlign>
           {this.props.searchResult &&
           <UltimatePagination
             currentPage={this.props.currentPage}
@@ -109,7 +109,7 @@ export class Patients extends React.PureComponent {
             onChange={this.handleChangePage}
           />
           }
-        </div>
+        </CenterAlign>
       </Card>
     );
   }
