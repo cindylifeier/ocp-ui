@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Checkbox from 'material-ui/Checkbox';
 import MenuItem from 'material-ui/MenuItem';
-import { FlatButton, RaisedButton, SelectField } from 'material-ui';
+import { RaisedButton, SelectField } from 'material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import { Link } from 'react-router-dom';
@@ -26,12 +26,12 @@ import injectReducer from 'utils/injectReducer';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
+  makeSelectPatientSearchResult,
   makeSelectQueryIncludeInactive,
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
   makeSelectSearchError,
   makeSelectSearchLoading,
-  makeSelectPatientSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
@@ -41,9 +41,11 @@ import PatientSearchResult from '../../components/PatientSearchResult';
 import styles from './styles.css';
 import messages from './messages';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
-import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
+import { EMPTY_STRING, ENTER_KEY, MANAGE_PATIENT_URL } from '../App/constants';
 import { getCareTeams } from '../CareTeams/actions';
 import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
+import StyledFlatButton from '../../components/StyledFlatButton';
 
 export class Patients extends React.PureComponent {
   constructor(props) {
@@ -111,23 +113,13 @@ export class Patients extends React.PureComponent {
 
     return (
       <Card>
-        <div className={styles.gridHeaderContainer}>
-          <div className={styles.gridItem}>
-            <div className={styles.header}>
-              <FormattedMessage {...messages.header} />
-            </div>
-          </div>
-          <div className={styles.gridItem}>
-            <span className={styles.iconButton}>
-              <FlatButton
-                label="Create New"
-                icon={<ContentAddCircle />}
-                className={styles.font}
-                containerElement={<Link to="/ocp-ui/manage-patient" />}
-              />
-            </span>
-          </div>
-        </div>
+        <CardHeader title={<FormattedMessage {...messages.header} />}>
+          <StyledFlatButton
+            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+            icon={<ContentAddCircle />}
+            containerElement={<Link to={MANAGE_PATIENT_URL} />}
+          />
+        </CardHeader>
         <form>
           <div className={styles.searchSection}>
             <div className={styles.searchHeader}>

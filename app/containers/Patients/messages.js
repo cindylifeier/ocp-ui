@@ -19,11 +19,15 @@ export default defineMessages({
     defaultMessage: 'Include',
   },
   inactive: {
-    id: 'ocpui.containers.Patients.checkbox.inactive',
+    id: 'ocpui.containers.Patients.inactive',
     defaultMessage: 'Inactive',
   },
   searchTermsInvalid: {
-    id: 'ocpui.containers.Patients.header',
+    id: 'ocpui.containers.Patients.searchTermsInvalid',
     defaultMessage: 'Must be at least 3 characters long.',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Patients.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
   },
 });
