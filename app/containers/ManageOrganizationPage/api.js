@@ -1,13 +1,13 @@
-import getApiBaseUrl from '../../apiBaseUrlConfig';
 import request from '../../utils/request';
+import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseUrl = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 const headers = {
   'Content-Type': 'application/json',
 };
 
 export function createOrganizationApiCall(organizationFormData) {
-  const requestUrl = `${apiBaseUrl}/organizations`;
+  const requestUrl = `${baseEndpoint}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
   return request(requestUrl, {
     method: 'POST',
@@ -17,7 +17,7 @@ export function createOrganizationApiCall(organizationFormData) {
 }
 
 export function updateOrganizationApiCall(id, organizationFormData) {
-  const requestUrl = `${apiBaseUrl}/organizations/${id}`;
+  const requestUrl = `${baseEndpoint}/${id}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
   return request(requestUrl, {
     method: 'PUT',

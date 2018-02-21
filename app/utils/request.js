@@ -1,4 +1,8 @@
 import 'whatwg-fetch';
+import merge from 'lodash/merge';
+import isUndefined from 'lodash/isUndefined';
+import { retrieveToken } from './tokenService';
+import { isSecuredEndpoint } from './endpointService';
 
 /**
  * Parses the JSON returned by a network request
@@ -40,6 +44,17 @@ function checkStatus(response) {
   throw error;
 }
 
+export default function request(requestURL, options) {
+  // Check endpoint whether secured
+  const isEndpointSecured = isSecuredEndpoint(requestURL);
+
+  // Select request function based on whether secured endpoint
+  if (isEndpointSecured) {
+    return requestWithJWT(requestURL, options);
+  }
+  return requestWithoutJWT(requestURL, options);
+}
+
 /**
  * Requests a URL, returning a promise
  *
@@ -48,8 +63,25 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
+function requestWithoutJWT(url, options) {
   return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON);
+}
+
+function requestWithJWT(url, options) {
+  let fetchOptions = options;
+  if (isUndefined(options)) {
+    fetchOptions = {};
+  }
+  const authData = retrieveToken();
+  const token = authData && authData.access_token;
+  if (token) {
+    merge(fetchOptions, { headers: { Authorization: `Bearer ${token}` } });
+  } else {
+    console.log('No token found');
+  }
+  return fetch(url, fetchOptions)
     .then(checkStatus)
     .then(parseJSON);
 }
