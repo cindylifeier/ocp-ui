@@ -12,13 +12,13 @@ const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 
 export default function searchLocationsByIdAndStatus(organizationId, status, currentPage) {
   const url = createUrl(organizationId, status, currentPage);
-  return request(url, baseEndpoint.isSecured);
+  return request(url);
 }
 
 function createUrl(organizationId, status, currentPage) {
   const initialParams = `pageNumber=${currentPage}&pageSize=${DEFAULT_PAGE_SIZE}&statusList=active,`;
   let queryParams = '';
-  const baseUrl = `${baseEndpoint.url}/${organizationId}`.concat('/locations?');
+  const baseUrl = `${baseEndpoint}/${organizationId}`.concat('/locations?');
   if (status && status.length === 0) {
     queryParams = initialParams;
   } else if (status && status.length === 1) {

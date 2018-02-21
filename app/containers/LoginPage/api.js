@@ -3,7 +3,7 @@ import { getEndpoint, LOGIN_API_URL } from '../../utils/endpointService';
 
 export function login(loginCredentials) {
   const requestEndpoint = getEndpoint(LOGIN_API_URL);
-  return request(requestEndpoint.url, requestEndpoint.isSecured, {
+  return request(requestEndpoint, {
     method: 'POST',
     body: JSON.stringify(mapToBffCredential(loginCredentials)),
     headers: {

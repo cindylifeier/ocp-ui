@@ -6,6 +6,6 @@ export function searchParticipant(value, member) {
   const baseEndpoint = getEndpoint(BASE_PARTICIPANTS_API_URL);
   const queryParams = { value, member };
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint.url}/search?${stringifiedParams}&showInActive=true`;
-  return request(url, baseEndpoint.isSecured);
+  const url = `${baseEndpoint}/search?${stringifiedParams}&showInActive=true`;
+  return request(url);
 }

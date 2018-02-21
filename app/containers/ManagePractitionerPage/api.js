@@ -14,8 +14,8 @@ export function savePractitioner(practitionerFormData) {
 }
 
 export function getPractitioner(logicalId) {
-  const requestURL = `${baseEndpoint.url}/${logicalId}`;
-  return request(requestURL, baseEndpoint.isSecured);
+  const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL);
 }
 
 export function getNotificationAction(practitionerFormData) {
@@ -34,8 +34,8 @@ export function getPractitionerById(practitioners, logicalId) {
 }
 
 function createPractitioner(practitionerFormData) {
-  const requestURL = `${baseEndpoint.url}`;
-  return request(requestURL, baseEndpoint.isSecured, {
+  const requestURL = `${baseEndpoint}`;
+  return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {
@@ -45,8 +45,8 @@ function createPractitioner(practitionerFormData) {
 }
 
 function updatePractitioner(logicalId, practitionerFormData) {
-  const requestURL = `${baseEndpoint.url}/${logicalId}`;
-  return request(requestURL, baseEndpoint.isSecured, {
+  const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
     headers: {

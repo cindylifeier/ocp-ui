@@ -37,7 +37,10 @@ function Authentication(props) {
 }
 
 Authentication.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }),

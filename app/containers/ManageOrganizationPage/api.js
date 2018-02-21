@@ -7,9 +7,9 @@ const headers = {
 };
 
 export function createOrganizationApiCall(organizationFormData) {
-  const requestUrl = `${baseEndpoint.url}`;
+  const requestUrl = `${baseEndpoint}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
-  return request(requestUrl, baseEndpoint.isSecured, {
+  return request(requestUrl, {
     method: 'POST',
     headers,
     body,
@@ -17,9 +17,9 @@ export function createOrganizationApiCall(organizationFormData) {
 }
 
 export function updateOrganizationApiCall(id, organizationFormData) {
-  const requestUrl = `${baseEndpoint.url}/${id}`;
+  const requestUrl = `${baseEndpoint}/${id}`;
   const body = JSON.stringify(mapToBackendOrganization(organizationFormData));
-  return request(requestUrl, baseEndpoint.isSecured, {
+  return request(requestUrl, {
     method: 'PUT',
     headers,
     body,

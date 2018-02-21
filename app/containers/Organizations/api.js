@@ -7,6 +7,6 @@ import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointSer
 export default function searchOrganizations(searchValue, showInactive, searchType, page) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const params = queryString({ searchValue, showInactive, searchType, size: DEFAULT_PAGE_SIZE, page });
-  const requestURL = `${baseEndpoint.url}/search${params}`;
-  return request(requestURL, baseEndpoint.isSecured);
+  const requestURL = `${baseEndpoint}/search${params}`;
+  return request(requestURL);
 }

@@ -3,8 +3,8 @@ import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '
 
 export default function createLocation(location, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint.url}/${organizationId}/location`;
-  return request(url, baseEndpoint.isSecured, {
+  const url = `${baseEndpoint}/${organizationId}/location`;
+  return request(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffLocation(location)),
     headers: {
@@ -15,8 +15,8 @@ export default function createLocation(location, organizationId) {
 
 export function updateLocation(location, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint.url}/${organizationId}/location/${location.logicalId}`;
-  return request(url, baseEndpoint.isSecured, {
+  const url = `${baseEndpoint}/${organizationId}/location/${location.logicalId}`;
+  return request(url, {
     method: 'PUT',
     body: JSON.stringify(mapToBffLocation(location)),
     headers: {
@@ -27,8 +27,8 @@ export function updateLocation(location, organizationId) {
 
 export function fetchLocation(locationId) {
   const baseEndpoint = getEndpoint(BASE_LOCATIONS_API_URL);
-  const url = `${baseEndpoint.url}/${locationId}`;
-  return request(url, baseEndpoint.isSecured);
+  const url = `${baseEndpoint}/${locationId}`;
+  return request(url);
 }
 
 function mapToBffLocation(rawlocation) {

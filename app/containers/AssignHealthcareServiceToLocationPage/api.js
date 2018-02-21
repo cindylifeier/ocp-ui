@@ -11,8 +11,8 @@ export function queryHealthCareServicesWithLocationAssignmentData(organizationId
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-  const url = `${baseEndpoint.url}/${organizationId}/healthcare-services${params}`;
-  return request(url, baseEndpoint.isSecured);
+  const url = `${baseEndpoint}/${organizationId}/healthcare-services${params}`;
+  return request(url);
 }
 
 export function assignHealthCareServicesToLocation(orgId, locationIds, healthCareServiceId) {
@@ -21,8 +21,8 @@ export function assignHealthCareServicesToLocation(orgId, locationIds, healthCar
     locationIdList: locationIds,
   });
   const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
-  const url = `${baseEndpoint.url}/${healthCareServiceId}/assign${params}`;
-  return request(url, baseEndpoint.isSecured, {
+  const url = `${baseEndpoint}/${healthCareServiceId}/assign${params}`;
+  return request(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -36,8 +36,8 @@ export function unassignHealthCareServicesToLocation(orgId, locationIds, healthC
     locationIdList: locationIds,
   });
   const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
-  const url = `${baseEndpoint.url}/${healthCareServiceId}/unassign${params}`;
-  return request(url, baseEndpoint.isSecured, {
+  const url = `${baseEndpoint}/${healthCareServiceId}/unassign${params}`;
+  return request(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

@@ -36,8 +36,8 @@ export function getCareTeamById(careTeams, careTeamId) {
 }
 
 export function getCareTeam(careTeamId) {
-  const requestURL = `${baseEndpoint.url}/${careTeamId}`;
-  return request(requestURL, baseEndpoint.isSecured);
+  const requestURL = `${baseEndpoint}/${careTeamId}`;
+  return request(requestURL);
 }
 
 export function mapToEditParticipants(participants) {
@@ -57,8 +57,8 @@ export function mapToEditParticipants(participants) {
 }
 
 function createCareTeam(careTeamFormData) {
-  const requestURL = `${baseEndpoint.url}`;
-  return request(requestURL, baseEndpoint.isSecured, {
+  const requestURL = `${baseEndpoint}`;
+  return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
     headers: {
@@ -69,8 +69,8 @@ function createCareTeam(careTeamFormData) {
 
 function updateCareTeam(careTeamFormData) {
   const careTeamId = careTeamFormData.careTeamId;
-  const requestURL = `${baseEndpoint.url}/${careTeamId}`;
-  return request(requestURL, baseEndpoint.isSecured, {
+  const requestURL = `${baseEndpoint}/${careTeamId}`;
+  return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBffCareTeam(careTeamFormData)),
     headers: {

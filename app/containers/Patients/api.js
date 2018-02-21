@@ -13,6 +13,6 @@ export default function searchPatients(searchTerms, searchType, includeInactive,
   });
 
   const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
-  const requestURL = `${baseEndpoint.url}/search${params}`;
-  return request(requestURL, baseEndpoint.isSecured);
+  const requestURL = `${baseEndpoint}/search${params}`;
+  return request(requestURL);
 }

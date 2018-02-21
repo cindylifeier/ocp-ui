@@ -11,8 +11,8 @@ export function getHealthcareServicesByOrganization(organizationId, status, curr
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
-  const url = `${baseEndpoint.url}/${organizationId}/healthcare-services${params}`;
-  return request(url, baseEndpoint.isSecured);
+  const url = `${baseEndpoint}/${organizationId}/healthcare-services${params}`;
+  return request(url);
 }
 
 export function getHealthcareServicesByLocation(organizationId, locationId, status, currentPage) {
@@ -21,6 +21,6 @@ export function getHealthcareServicesByLocation(organizationId, locationId, stat
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
-  const url = `${baseEndpoint.url}/${organizationId}/locations/${locationId}/healthcare-services${params}`;
-  return request(url, baseEndpoint.isSecured);
+  const url = `${baseEndpoint}/${organizationId}/locations/${locationId}/healthcare-services${params}`;
+  return request(url);
 }

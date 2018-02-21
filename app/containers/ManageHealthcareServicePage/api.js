@@ -3,8 +3,8 @@ import { BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointServ
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint.url}/${organizationId}/healthcare-service`;
-  return request(url, baseEndpoint.isSecured, {
+  const url = `${baseEndpoint}/${organizationId}/healthcare-service`;
+  return request(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffHealthcareService(healthcareServiceFormData)),
     headers: {

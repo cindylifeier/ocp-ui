@@ -13,6 +13,6 @@ export default function searchPractitioners(searchTerms, searchType, includeInac
   });
 
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const requestURL = `${baseEndpoint.url}/search${params}`;
-  return request(requestURL, baseEndpoint.isSecured);
+  const requestURL = `${baseEndpoint}/search${params}`;
+  return request(requestURL);
 }

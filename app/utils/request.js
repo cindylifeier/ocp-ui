@@ -1,8 +1,8 @@
 import 'whatwg-fetch';
 import merge from 'lodash/merge';
 import isUndefined from 'lodash/isUndefined';
-import isBoolean from 'lodash/isBoolean';
 import { retrieveToken } from './tokenService';
+import { isSecuredEndpoint } from './endpointService';
 
 /**
  * Parses the JSON returned by a network request
@@ -44,12 +44,9 @@ function checkStatus(response) {
   throw error;
 }
 
-export default function request(requestURL, isSecured, options) {
+export default function request(requestURL, options) {
   // Check endpoint whether secured
-  let isEndpointSecured = false;
-  if (isBoolean(isSecured)) {
-    isEndpointSecured = isSecured;
-  }
+  const isEndpointSecured = isSecuredEndpoint(requestURL);
 
   // Select request function based on whether secured endpoint
   if (isEndpointSecured) {
