@@ -92,9 +92,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     const { careTeams: { loading, data, patientName, statusList }, careTeamStatuses } = this.props;
     return (
       <Card>
-        <CardHeader>
-          <FormattedMessage {...messages.header} />
-        </CardHeader>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <Grid columns={1} gap="">
