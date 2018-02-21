@@ -1,6 +1,28 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+
+import { showNotification } from '../Notification/actions';
+import { getRelatedPersonsError, getRelatedPersonsSuccess } from './actions';
+import { getRelatedPersons } from './api';
+import { GET_RELATED_PERSONS } from './constants';
+
+export function* getRelatedPersonWorker(action) {
+  try {
+    const relatedPersons = yield call(getRelatedPersons, action.patientId, action.showInActive);
+    yield put(getRelatedPersonsSuccess(relatedPersons));
+  } catch (error) {
+    yield put(showNotification('Error in getting related persons.'));
+    yield put(getRelatedPersonsError(error));
+  }
+}
+
+
+export function* watchGetRealtedPersons() {
+  yield takeLatest(GET_RELATED_PERSONS, getRelatedPersonWorker);
+}
+
+export default function* rootSaga() {
+  yield all([
+    watchGetRealtedPersons(),
+  ]);
 }
