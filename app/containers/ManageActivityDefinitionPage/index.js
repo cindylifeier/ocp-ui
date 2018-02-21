@@ -15,16 +15,28 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectPublicationStatuses, makeSelectDefinitionTopics, makeSelectResourceTypes, makeSelectActionParticipantTypes, makeSelectActionParticipantRoles } from '../App/selectors';
 import { getLookupsAction } from '../App/actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import ManageActivityDefinition from '../../components/ManageActivityDefinition';
-import { PUBLICATION_STATUS, DEFINITION_TOPIC, RESOURCE_TYPE, ACTION_PARTICIPANT_TYPE, ACTION_PARTICIPANT_ROLE } from '../App/constants';
+import {
+  ACTION_PARTICIPANT_ROLE,
+  ACTION_PARTICIPANT_TYPE,
+  DEFINITION_TOPIC,
+  PUBLICATION_STATUS,
+  RESOURCE_TYPE,
+} from '../App/constants';
 import { makeSelectOrganization } from '../Locations/selectors';
 import { createActivityDefinition } from '../ManageActivityDefinitionPage/actions';
+import {
+  makeSelectActionParticipantRoles,
+  makeSelectActionParticipantTypes,
+  makeSelectDefinitionTopics,
+  makeSelectPublicationStatuses,
+  makeSelectResourceTypes,
+} from '../App/lookupSelectors';
 
 export class ManageActivityDefinitionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -32,6 +44,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
     super(props);
     this.handleSave = this.handleSave.bind(this);
   }
+
   componentWillMount() {
     this.props.getLookups();
   }
