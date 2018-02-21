@@ -6,15 +6,20 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  GET_RELATED_PERSONS_SUCCESS, INITIALIZE_RELATED_PERSONS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  data: [],
+});
 
 function relatedPersonsReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case INITIALIZE_RELATED_PERSONS:
+      return initialState;
+    case GET_RELATED_PERSONS_SUCCESS:
+      return state
+        .set('data', fromJS((action.relatedPersons && action.relatedPersons.elements) || []));
     default:
       return state;
   }

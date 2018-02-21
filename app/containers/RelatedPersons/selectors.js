@@ -16,7 +16,7 @@ const selectRelatedPersonsDomain = (state) => state.get('relatedPersons');
 
 const makeSelectRelatedPersons = () => createSelector(
   selectRelatedPersonsDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS()
 );
 
 export default makeSelectRelatedPersons;
