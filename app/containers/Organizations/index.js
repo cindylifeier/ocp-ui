@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import injectSaga from 'utils/injectSaga';
@@ -32,6 +31,7 @@ import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
 import StyledFlatButton from '../../components/StyledFlatButton';
 import CenterAlign from '../../components/Align/CenterAlign';
+import StyledUltimatePagination from '../../components/StyledUltimatePagination';
 
 export class Organizations extends React.PureComponent {
 
@@ -94,18 +94,11 @@ export class Organizations extends React.PureComponent {
               organizations={organizations.data.map(fromBackendToFrontendOrganization)}
               onRowClick={this.handleRowClick}
             />
-            <CenterAlign>
-              <UltimatePagination
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalNumberOfPages}
-                boundaryPagesRange={1}
-                siblingPagesRange={1}
-                hidePreviousAndNextPageLinks={false}
-                hideFirstAndLastPageLinks={false}
-                hideEllipsis={false}
-                onChange={this.handlePageClick}
-              />
-            </CenterAlign>
+            <StyledUltimatePagination
+              currentPage={this.props.currentPage}
+              totalPages={this.props.totalNumberOfPages}
+              onChange={this.handlePageClick}
+            />
           </div>
         ) ||
         ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
