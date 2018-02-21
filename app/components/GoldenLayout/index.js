@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import 'golden-layout/src/css/goldenlayout-base.css';
 import 'golden-layout/src/css/goldenlayout-light-theme.css';
 import initGoldenLayout from './initGoldenLayout';
-import './styles.css';
+import GoldenLayoutContainer from './GoldenLayoutContainer';
 
 function generateRandomId() {
   let text = '';
@@ -92,8 +92,7 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     return (
-      <div id={this.state.containerId}>
-      </div>
+      <GoldenLayoutContainer id={this.state.containerId} />
     );
   }
 }
