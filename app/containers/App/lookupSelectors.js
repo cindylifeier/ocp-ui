@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect';
 import {
+  ACTION_PARTICIPANT_ROLE,
+  ACTION_PARTICIPANT_TYPE,
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
   CARETEAMCATEGORY,
   CARETEAMREASON,
   CARETEAMSTATUS,
+  DEFINITION_TOPIC,
   GLOBAL_LOOKUP_STATE_KEY,
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
@@ -21,6 +24,8 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
+  PUBLICATION_STATUS,
+  RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
   USCOREBIRTHSEX,
@@ -165,6 +170,31 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
 
+const makeSelectPublicationStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PUBLICATION_STATUS).toJS(),
+);
+
+const makeSelectDefinitionTopics = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(DEFINITION_TOPIC).toJS(),
+);
+
+const makeSelectResourceTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RESOURCE_TYPE).toJS(),
+);
+
+const makeSelectActionParticipantTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(ACTION_PARTICIPANT_TYPE).toJS(),
+);
+
+const makeSelectActionParticipantRoles = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(ACTION_PARTICIPANT_ROLE).toJS(),
+);
+
 export {
   makeSelectUspsStates,
   makeSelectLocationPhysicalTypes,
@@ -193,4 +223,9 @@ export {
   makeSelectHealthcareServiceTypes,
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
+  makeSelectPublicationStatuses,
+  makeSelectDefinitionTopics,
+  makeSelectResourceTypes,
+  makeSelectActionParticipantTypes,
+  makeSelectActionParticipantRoles,
 };
