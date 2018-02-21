@@ -5,9 +5,9 @@ import getApiBaseUrl from '../../apiBaseUrlConfig';
 
 const apiBaseUrl = getApiBaseUrl();
 
-export function searchParticipant(value, member) {
-  const queryParams = { value, member };
+export function searchParticipant(value, member, patientId) {
+  const queryParams = { value, member, patientId };
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${apiBaseUrl}/participants/search?${stringifiedParams}&showInActive=true`;
+  const url = `${apiBaseUrl}/participants/search?${stringifiedParams}`;
   return request(url);
 }
