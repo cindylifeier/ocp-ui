@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
+import find from 'lodash/find';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectHealthcareServiceCategories, makeSelectHealthcareServiceReferralMethods, makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceTypes, makeSelectTelecomSystems, makeSelectTelecomUses } from '../App/selectors';
@@ -25,6 +26,7 @@ import ManageHealthcareService from '../../components/ManageHealthcareService';
 import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICETYPE, TELECOMSYSTEM, TELECOMUSE } from '../App/constants';
 import messages from '../ManageHealthcareServicePage/messages';
 import styles from './styles.css';
+import { makeSelectHealthcareServices } from '../HealthcareServices/selectors';
 
 export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -60,13 +62,12 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       telecomSystems,
       telecomUses,
       organization,
-      selectedHealthcareService,
     } = this.props;
     const logicalId = this.props.match.params.id;
     const editMode = !isUndefined(match.params.id);
     let currentHealthcareService = null;
-    if (editMode && selectedHealthcareService) {
-      currentHealthcareService = selectedHealthcareService;
+    if (editMode) {
+      currentHealthcareService = find(this.props.healthcareServices, { logicalId });
     }
     const formProps = {
       healthcareServiceCategories,
@@ -109,7 +110,7 @@ ManageHealthcareServicePage.propTypes = {
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
   organization: PropTypes.object,
-  selectedHealthcareService: PropTypes.object,
+  healthcareServices: PropTypes.any,
   createHealthcareService: PropTypes.func,
   editHealthcareService: PropTypes.func,
 };
@@ -122,6 +123,7 @@ const mapStateToProps = createStructuredSelector({
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
   organization: makeSelectOrganization(),
+  healthcareServices: makeSelectHealthcareServices(),
 });
 
 function mapDispatchToProps(dispatch) {
