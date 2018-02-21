@@ -26,6 +26,11 @@ import {
   HEALTHCARESERVICETYPE,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
+  PUBLICATION_STATUS,
+  DEFINITION_TOPIC,
+  RESOURCE_TYPE,
+  ACTION_PARTICIPANT_TYPE,
+  ACTION_PARTICIPANT_ROLE,
 } from './constants';
 
 const selectGlobal = (state) => state.get('global');
@@ -172,6 +177,31 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   (globalState) => globalState.get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
 
+const makeSelectPublicationStatuses = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(PUBLICATION_STATUS).toJS(),
+);
+
+const makeSelectDefinitionTopics = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(DEFINITION_TOPIC).toJS(),
+);
+
+const makeSelectResourceTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(RESOURCE_TYPE).toJS(),
+);
+
+const makeSelectActionParticipantTypes = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ACTION_PARTICIPANT_TYPE).toJS(),
+);
+
+const makeSelectActionParticipantRoles = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get(ACTION_PARTICIPANT_ROLE).toJS(),
+);
+
 export {
   makeSelectLocation,
   makeSelectUspsStates,
@@ -201,4 +231,9 @@ export {
   makeSelectHealthcareServiceTypes,
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
+  makeSelectPublicationStatuses,
+  makeSelectDefinitionTopics,
+  makeSelectResourceTypes,
+  makeSelectActionParticipantTypes,
+  makeSelectActionParticipantRoles,
 };
