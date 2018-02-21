@@ -27,10 +27,10 @@ export function createHealthcareServiceError(error) {
 }
 
 
-export function createHealthcareServiceSuccess(respone) {
+export function createHealthcareServiceSuccess(response) {
   return {
     type: POST_HEALTHCARE_SERVICE_SUCCESS,
-    respone,
+    response,
   };
 }
 
@@ -50,10 +50,10 @@ export function editHealthcareServiceError(error) {
 }
 
 
-export function editHealthcareServiceSuccess(respone) {
+export function editHealthcareServiceSuccess(response) {
   return {
     type: PUT_HEALTHCARE_SERVICE_SUCCESS,
-    respone,
+    response,
   };
 }
 
@@ -72,9 +72,9 @@ export function getHealthcareServiceByIdError(error) {
 }
 
 
-export function getHealthcareServiceByIdSuccess(respone) {
+export function getHealthcareServiceByIdSuccess(response) {
   return {
     type: GET_HEALTHCARE_SERVICE_SUCCESS,
-    respone,
+    response,
   };
 }
