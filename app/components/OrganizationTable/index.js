@@ -72,7 +72,7 @@ function OrganizationTable({ organizations, onRowClick }) {
                 />
                 <StyledMenuItem
                   primaryText={<FormattedMessage {...messages.addHealthCareService} />}
-                  containerElement={<Link to={'/ocp-ui/manage-health-care-service'} />}
+                  containerElement={<Link to={'/ocp-ui/manage-healthcare-service'} />}
                 />
                 <StyledMenuItem
                   primaryText={<FormattedMessage {...messages.addActivityDefinition} />}
