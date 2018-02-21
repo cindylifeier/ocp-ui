@@ -19,6 +19,7 @@ import saga from './saga';
 import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
 import RelatedPersonTable from '../../components/RelatedPersonTable';
+import { makeSelectPatient } from '../App/selectors';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -29,12 +30,14 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
     this.props.initializeRelatedPersons();
   }
 
-  handlePageClick() {
-    // const { query, patientName, statusList } = this.props.relatedPersons;
-    // this.props.getCareTeams({ ...query, pageNumber: page }, patientName, statusList);
+  handlePageClick(showInActive) {
+    this.props.getRelatedPersons(this.props.selectedPatient.id, showInActive);
   }
 
   render() {
+    const { data } = this.props;
+    console.log(data);
+
     return (
       <div>
         <FormattedMessage {...messages.header} />
@@ -45,17 +48,20 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
 }
 
 RelatedPersons.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  getRelatedPersons: PropTypes.func.isRequired,
   initializeRelatedPersons: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+  selectedPatient: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  relatedpersons: makeSelectRelatedPersons(),
+  data: makeSelectRelatedPersons(),
+  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRelatedPersons: (query, patientName, statusList) => dispatch(getRelatedPersons(query, patientName, statusList)),
+    getRelatedPersons: (patientId, showInActive) => dispatch(getRelatedPersons(patientId, showInActive)),
     initializeRelatedPersons: () => dispatch(initializeRelatedPersons()),
   };
 }
