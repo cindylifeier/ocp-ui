@@ -172,7 +172,7 @@ ShallowWrapper {
               ]
             }
           />
-          <UltimatePaginationComponent
+          <StyledUltimatePagination
             boundaryPagesRange={1}
             currentPage={10}
             hideEllipsis={false}
@@ -633,7 +633,7 @@ ShallowWrapper {
                 ]
               }
             />,
-            <UltimatePaginationComponent
+            <StyledUltimatePagination
               boundaryPagesRange={1}
               currentPage={10}
               hideEllipsis={false}
@@ -792,7 +792,7 @@ ShallowWrapper {
                 ]
               }
             />
-            <UltimatePaginationComponent
+            <StyledUltimatePagination
               boundaryPagesRange={1}
               currentPage={10}
               hideEllipsis={false}
@@ -1253,7 +1253,7 @@ ShallowWrapper {
                   ]
                 }
               />,
-              <UltimatePaginationComponent
+              <StyledUltimatePagination
                 boundaryPagesRange={1}
                 currentPage={10}
                 hideEllipsis={false}

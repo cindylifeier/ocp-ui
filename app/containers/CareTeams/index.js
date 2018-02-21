@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { Checkbox } from 'material-ui';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -36,6 +35,7 @@ import CheckboxGrid from './CheckboxGrid';
 import NoCareTeamSection from './NoCareTeamSection';
 import PatientInfoSection from './PatientInfoSection';
 import PatientLabel from './PatientLabel';
+import StyledUltimatePagination from '../../components/StyledUltimatePagination';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -121,14 +121,9 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <CenterAlign>
           <CareTeamTable elements={data.elements} />
-          <UltimatePagination
+          <StyledUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
             onChange={this.handlePageClick}
           />
         </CenterAlign>
