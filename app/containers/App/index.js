@@ -33,6 +33,8 @@ import injectSaga from '../../utils/injectSaga';
 import ManagePatientPage from '../ManagePatientPage/index';
 import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
 import Authentication from '../Authentication';
+import ManageTaskPage from '../ManageTaskPage';
+import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
 
 
 export function App() {
@@ -66,6 +68,8 @@ export function App() {
               path="/ocp-ui/assign-healthcareservice-location/:id?"
               component={AssignHealthCareServiceToLocationPage}
             />
+            <Route path="/ocp-ui/manage-task/:id?" component={ManageTaskPage} />
+            <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>

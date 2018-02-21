@@ -35,7 +35,7 @@ function mapToBffLocation(rawlocation) {
   const location = {};
   location.name = rawlocation.name;
   location.managingLocationLogicalId = rawlocation.managingLocationLogicalId;
-  location.status = rawlocation.id ? rawlocation.state : '';
+  location.status = rawlocation.status;
   location.resourceURL = '';
   location.physicalType = rawlocation.physicalType;
   const { identifierSystem, identifierValue } = rawlocation;

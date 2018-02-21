@@ -29,3 +29,17 @@ export function assignHealthCareServicesToLocation(orgId, locationIds, healthCar
     },
   });
 }
+
+export function unassignHealthCareServicesToLocation(orgId, locationIds, healthCareServiceId) {
+  const params = queryString({
+    organizationId: orgId,
+    locationIdList: locationIds,
+  });
+  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/unassign${params}`;
+  return request(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}

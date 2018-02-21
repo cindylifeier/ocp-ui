@@ -7,6 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
+import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
@@ -16,6 +17,7 @@ import PropTypes from 'prop-types';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
 import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
+import messages from './messages';
 
 const iconStyles = {
   iconButton: {
@@ -67,6 +69,11 @@ function displayPatientSearchResult(patients, onPatientClick) {
               search: `?patientId=${patient.id}`,
             }}
           />}
+        />
+        <MenuItem
+          className={styles.menuItem}
+          primaryText={<FormattedMessage {...messages.addTask} />}
+          containerElement={<Link to={'/ocp-ui/manage-task'} />}
         />
         <MenuItem
           className={styles.menuItem}
