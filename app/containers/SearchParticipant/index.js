@@ -44,6 +44,7 @@ import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClic
 import { mapSearchParticipantName } from '../../utils/CareTeamUtils';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
+import { makeSelectPatient } from '../ManageCareTeamPage/selectors';
 
 const customContentStyle = {
   width: '70%',
@@ -80,7 +81,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
   handleSearch(values) {
     const { name, member } = values;
-    this.props.searchParticipant(name, member);
+    this.props.searchParticipant(name, member, this.props.selectedPatient.id);
   }
 
 
@@ -311,6 +312,7 @@ SearchParticipant.propTypes = {
   getLookUpFormData: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantRoles: PropTypes.array,
+  selectedPatient: PropTypes.object,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -323,12 +325,13 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   searchParticipantResult: makeSelectSearchParticipantResults(),
   participantRoles: makeSelectParticipantRoles(),
+  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
-    searchParticipant: (name, member) => dispatch(getSearchParticipant(name, member)),
+    searchParticipant: (name, member, patientId) => dispatch(getSearchParticipant(name, member, patientId)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
     initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
   };
