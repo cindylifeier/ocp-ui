@@ -8,20 +8,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import Divider from 'material-ui/Divider';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectManageTaskPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
+import { makeSelectTaskStatuses, makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes } from '../App/selectors';
+import ManageTask from '../../components/ManageTask';
+import { TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE } from '../App/constants';
+import { makeSelectPatient } from '../ManageCareTeamPage/selectors';
+import { getLookupsAction } from '../App/actions';
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    this.props.getLookups();
+  }
+
   render() {
+    const {
+      taskStatus,
+      requestIntent,
+      requestPriority,
+      taskPerformerType,
+      selectedPatient,
+    } = this.props;
+    const taskProps = {
+      taskStatus,
+      requestIntent,
+      requestPriority,
+      taskPerformerType,
+      selectedPatient,
+    };
+
     return (
       <div>
         <Helmet>
@@ -32,6 +56,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
           <div className={styles.header}>
             <FormattedMessage {...messages.createHeader} />
           </div>
+          <Divider />
+          <ManageTask {...taskProps} />
         </div>
       </div>
     );
@@ -39,16 +65,25 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
 }
 
 ManageTaskPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getLookups: PropTypes.func.isRequired,
+  taskStatus: PropTypes.array,
+  requestIntent: PropTypes.array,
+  requestPriority: PropTypes.array,
+  taskPerformerType: PropTypes.array,
+  selectedPatient: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  managetaskpage: makeSelectManageTaskPage(),
+  taskStatus: makeSelectTaskStatuses(),
+  requestIntent: makeSelectRequestIntents(),
+  requestPriority: makeSelectRequestPriorities(),
+  taskPerformerType: makeSelectTaskPerformerTypes(),
+  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getLookups: () => dispatch(getLookupsAction([TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE])),
   };
 }
 
