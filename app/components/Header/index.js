@@ -9,8 +9,9 @@ import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionPatients from 'material-ui/svg-icons/action/perm-contact-calendar';
 import ActionHelp from 'material-ui/svg-icons/action/help';
+
+import Logout from '../../containers/Logout';
 import styles from './styles.css';
-import LogoutButton from '../LogoutButton/index';
 import { HOME_URL, PATIENTS_URL } from '../../containers/App/constants';
 
 function Header() {
@@ -42,7 +43,7 @@ function Header() {
           </IconButton>
         </span>
         <span className={styles.iconButton}>
-          <LogoutButton />
+          <Logout />
         </span>
       </ToolbarGroup>
     </Toolbar>

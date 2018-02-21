@@ -1,11 +1,9 @@
-
-
 import request from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { getEndpoint, LOOKUPS_API_URL } from '../../utils/endpointService';
 
 export function fetchLookups(lookupTypes) {
-  const apiBaseURL = getApiBaseUrl();
+  const baseEndpoint = getEndpoint(LOOKUPS_API_URL);
   const lookupKeyList = lookupTypes.join();
-  const requestURL = `${apiBaseURL}/lookups?lookUpTypeList=${lookupKeyList}`;
+  const requestURL = `${baseEndpoint}?lookUpTypeList=${lookupKeyList}`;
   return request(requestURL);
 }

@@ -1,9 +1,7 @@
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
 import request from '../../utils/request';
 import queryString from '../../utils/queryString';
-
-const apiBaseURL = getApiBaseUrl();
+import { BASE_PRACTITIONERS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export default function searchPractitioners(searchTerms, searchType, includeInactive, currentPage) {
   const params = queryString({
@@ -14,6 +12,7 @@ export default function searchPractitioners(searchTerms, searchType, includeInac
     size: DEFAULT_PAGE_SIZE,
   });
 
-  const requestURL = `${apiBaseURL}/practitioners/search${params}`;
+  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }

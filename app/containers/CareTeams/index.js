@@ -23,7 +23,7 @@ import messages from './messages';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import CareTeamTable from '../../components/CareTeamTable';
 import { getCareTeams, initializeCareTeams } from './actions';
-import { makeSelectCareTeamStatuses } from '../App/selectors';
+import { makeSelectCareTeamStatuses } from '../App/lookupSelectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 import { getLookupsAction } from '../App/actions';
 import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from '../App/constants';

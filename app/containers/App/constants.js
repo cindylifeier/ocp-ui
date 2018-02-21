@@ -19,7 +19,8 @@ export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
 export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
-
+export const GLOBAL_LOOKUP_STATE_KEY = 'lookup';
+export const GLOBAL_AUTH_STATE_KEY = 'auth';
 
 /**
  * Look up types constants
