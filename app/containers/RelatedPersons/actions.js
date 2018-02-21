@@ -5,11 +5,22 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  GET_RELATED_PERSONS,
+  INITIALIZE_RELATED_PERSONS,
 } from './constants';
 
-export function defaultAction() {
+
+export function initializeRelatedPersons() {
   return {
-    type: DEFAULT_ACTION,
+    type: INITIALIZE_RELATED_PERSONS,
+  };
+}
+
+export function getRelatedPersons(query, patientName, statusList) {
+  return {
+    type: GET_RELATED_PERSONS,
+    query,
+    patientName,
+    statusList,
   };
 }
