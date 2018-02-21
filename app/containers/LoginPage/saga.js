@@ -6,19 +6,17 @@ import { showNotification } from '../Notification/actions';
 import { loginError, loginSuccess } from './actions';
 import { LOGIN } from './constants';
 import { HOME_URL } from '../App/constants';
-import { removeToken, retrieveToken, storeToken } from '../../utils/tokenService';
+import { removeToken, storeAuthStatus, storeToken } from '../../utils/tokenService';
 import { makeSelectLocation } from '../App/selectors';
-import { hasAccessScopeInToken } from '../../utils/auth';
+import { checkAuthenticated } from '../../utils/auth';
 
 function* loginSaga(loginAction) {
   try {
     const authData = yield call(login, loginAction.loginCredentials);
     yield call(storeToken, authData);
-    let isAuthenticated = false;
-    const token = yield call(retrieveToken);
-    if (hasAccessScopeInToken(token)) {
-      isAuthenticated = true;
-    } else {
+    yield call(storeAuthStatus, true);
+    const isAuthenticated = yield call(checkAuthenticated);
+    if (!isAuthenticated) {
       yield put(showNotification('Access is denied.'));
       yield call(removeToken);
     }

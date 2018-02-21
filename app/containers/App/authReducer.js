@@ -7,10 +7,11 @@
 import { fromJS } from 'immutable';
 import { LOGIN, LOGIN_ERROR, LOGIN_SUCCESS } from '../LoginPage/constants';
 import { LOGOUT } from '../Logout/constants';
+import { checkAuthenticated } from '../../utils/auth';
 
 const initialState = fromJS({
   isAuthenticating: false,
-  isAuthenticated: false,
+  isAuthenticated: checkAuthenticated(),
 });
 
 function authReducer(state = initialState, action) {
