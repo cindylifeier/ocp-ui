@@ -103,7 +103,6 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
                     primaryText={<FormattedMessage {...messages.edit} />}
                     containerElement={<Link to={`/ocp-ui/manage-healthcare-service/${element.logicalId}`} />}
                   />
-                  <MenuItem className={styles.menuItem} primaryText={<FormattedMessage {...messages.remove} />} />
                 </IconMenu>
               </div>
             </TableRowColumn>
