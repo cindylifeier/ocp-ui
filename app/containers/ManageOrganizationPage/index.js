@@ -32,7 +32,7 @@ import {
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
-} from '../App/selectors';
+} from '../App/lookupSelectors';
 import { createOrganization, updateOrganization } from './actions';
 import { makeSelectOrganizationsData } from '../Organizations/selectors';
 
@@ -121,7 +121,9 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
         <div className={styles.header}>
-          {editingOrganization ? <FormattedMessage {...messages.updateMode} /> : <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
+          {editingOrganization ?
+            <FormattedMessage {...messages.updateMode} /> :
+            <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
         </div>
         <Divider />
         <div className={styles.title}>

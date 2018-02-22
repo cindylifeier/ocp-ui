@@ -1,10 +1,9 @@
 import request from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-
-const apiBaseUrl = getApiBaseUrl();
+import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export default function createLocation(location, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/location`;
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/location`;
   return request(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffLocation(location)),
@@ -15,7 +14,8 @@ export default function createLocation(location, organizationId) {
 }
 
 export function updateLocation(location, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/location/${location.logicalId}`;
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/location/${location.logicalId}`;
   return request(url, {
     method: 'PUT',
     body: JSON.stringify(mapToBffLocation(location)),
@@ -26,7 +26,8 @@ export function updateLocation(location, organizationId) {
 }
 
 export function fetchLocation(locationId) {
-  const url = `${apiBaseUrl}/locations/${locationId}`;
+  const baseEndpoint = getEndpoint(BASE_LOCATIONS_API_URL);
+  const url = `${baseEndpoint}/${locationId}`;
   return request(url);
 }
 

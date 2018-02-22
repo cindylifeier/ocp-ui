@@ -27,7 +27,7 @@ import {
   makeSelectPractitionerRoles,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
-} from '../App/selectors';
+} from '../App/lookupSelectors';
 import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import { getPractitioner, initializeManagePractitioner, savePractitioner } from './actions';

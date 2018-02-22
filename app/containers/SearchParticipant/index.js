@@ -29,7 +29,7 @@ import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
 import { floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
-import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/selectors';
+import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/lookupSelectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
