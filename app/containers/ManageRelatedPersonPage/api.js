@@ -15,7 +15,8 @@ export function postRelatedPerson(relatedPerson) {
 }
 
 export function putRelatedPerson(relatedPerson) {
-  const requestURL = `${apiBaseURL}/related-persons/`;
+  const relatedPersonId = relatedPerson.relatedPersonId;
+  const requestURL = `${apiBaseURL}/related-persons/${relatedPersonId}`;
   return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(relatedPerson),
