@@ -64,6 +64,7 @@ export const PATIENTS_URL = '/ocp-ui/patients';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
+export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
 export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
 export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
 
