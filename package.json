@@ -47,7 +47,10 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "lint-staged": {
-    "*.js": ["lint:stylelint", "lint:eslint"]
+    "*.js": [
+      "lint:stylelint",
+      "lint:eslint"
+    ]
   },
   "pre-commit": "lint:staged",
   "babel": {
@@ -87,6 +90,16 @@
         ]
       }
     }
+  },
+  "stylelint": {
+    "processors": [
+      "stylelint-processor-styled-components"
+    ],
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-styled-components"
+    ],
+    "syntax": "scss"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
