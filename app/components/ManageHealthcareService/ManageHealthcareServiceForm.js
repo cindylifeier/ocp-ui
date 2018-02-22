@@ -62,8 +62,8 @@ function ManageHealthcareServiceForm(props) {
               hintText={<FormattedMessage {...messages.hintText.category} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
             >
-              {healthcareServiceCategories && healthcareServiceCategories.map((category) =>
-                <MenuItem key={category.code} value={category} primaryText={category.display} />,
+              {healthcareServiceCategories && healthcareServiceCategories.map((hcsCategory) =>
+                (<MenuItem key={hcsCategory.code} value={hcsCategory.code} primaryText={hcsCategory.display} />)
               )}
             </SelectField>
             <SelectField
@@ -73,7 +73,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.type} />}
             >
               {healthcareServiceTypes && healthcareServiceTypes.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
               )}
             </SelectField>
             <SelectField
@@ -83,7 +83,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.specialty} />}
             >
               {healthcareServiceSpecialities && healthcareServiceSpecialities.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
               )}
             </SelectField>
             <SelectField
@@ -93,7 +93,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.referralMethod} />}
             >
               {healthcareServiceReferralMethods && healthcareServiceReferralMethods.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
               )}
             </SelectField>
           </div>
@@ -105,7 +105,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
             >
               {telecomSystems && telecomSystems.map((telecomType) =>
-                <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
+                (<MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />)
               )}
             </SelectField>
             <TextField

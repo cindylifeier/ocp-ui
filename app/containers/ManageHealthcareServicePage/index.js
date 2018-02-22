@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import find from 'lodash/find';
+import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectHealthcareServiceCategories, makeSelectHealthcareServiceReferralMethods, makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceTypes, makeSelectTelecomSystems, makeSelectTelecomUses } from '../App/selectors';
@@ -44,11 +45,50 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
   }
 
   handleSave(healthcareServiceFormData, actions) {
+    const hcsDataToSubmit = {};
+    const {
+      name, hcsProgramName, category, hcsType, hcsSpecialty, hcsReferralMethod, telecomType, telecomValue,
+    } = healthcareServiceFormData;
+
+    hcsDataToSubmit.name = name;
+
+    const programName = [];
+    programName.push(hcsProgramName);
+    hcsDataToSubmit.programName = programName;
+
+    let code;
+    code = category;
+    hcsDataToSubmit.category = find(this.props.healthcareServiceCategories, { code });
+
+    code = hcsType;
+    const selectedType = find(this.props.healthcareServiceTypes, { code });
+    const type = [];
+    type.push(selectedType);
+    hcsDataToSubmit.type = type;
+
+    code = hcsSpecialty;
+    const selectedSpeciality = find(this.props.healthcareServiceSpecialities, { code });
+    const specialty = [];
+    specialty.push(selectedSpeciality);
+    hcsDataToSubmit.specialty = specialty;
+
+    code = hcsReferralMethod;
+    const selectedReferralMethod = find(this.props.healthcareServiceReferralMethods, { code });
+    const referralMethod = [];
+    referralMethod.push(selectedReferralMethod);
+    hcsDataToSubmit.referralMethod = referralMethod;
+
+    hcsDataToSubmit.telecom = [{
+      system: telecomType,
+      value: telecomValue,
+    }];
+
     const logicalId = this.props.match.params.id;
     if (logicalId) {
-      this.props.editHealthcareService(healthcareServiceFormData, () => actions.setSubmitting(false));
+      merge(hcsDataToSubmit, { logicalId });
+      this.props.editHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
     } else {
-      this.props.createHealthcareService(healthcareServiceFormData, () => actions.setSubmitting(false));
+      this.props.createHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
     }
   }
 
@@ -77,7 +117,6 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       telecomSystems,
       telecomUses,
       organization,
-      editMode,
       currentHealthcareService,
     };
     return (
