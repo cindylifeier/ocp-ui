@@ -8,7 +8,7 @@ import { GET_RELATED_PERSONS } from './constants';
 
 export function* getRelatedPersonWorker(action) {
   try {
-    const relatedPersons = yield call(getRelatedPersons, action.patientId, action.showInActive);
+    const relatedPersons = yield call(getRelatedPersons, action.patientId, action.showInActive, action.pageNumber);
     yield put(getRelatedPersonsSuccess(relatedPersons));
   } catch (error) {
     yield put(showNotification('Error in getting related persons.'));
@@ -17,12 +17,12 @@ export function* getRelatedPersonWorker(action) {
 }
 
 
-export function* watchGetRealtedPersons() {
+export function* watchGetRelatedPersons() {
   yield takeLatest(GET_RELATED_PERSONS, getRelatedPersonWorker);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetRealtedPersons(),
+    watchGetRelatedPersons(),
   ]);
 }

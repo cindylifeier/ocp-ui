@@ -10,7 +10,7 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  data: [],
+  data: {},
 });
 
 function relatedPersonsReducer(state = initialState, action) {
@@ -19,7 +19,7 @@ function relatedPersonsReducer(state = initialState, action) {
       return initialState;
     case GET_RELATED_PERSONS_SUCCESS:
       return state
-        .set('data', fromJS((action.relatedPersons && action.relatedPersons.elements) || []));
+        .set('data', fromJS((action.relatedPersons) || {}));
     default:
       return state;
   }
