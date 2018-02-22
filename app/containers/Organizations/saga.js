@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { LOAD_ORGANIZATIONS } from './constants';
+import { GET_ORGANIZATIONS } from './constants';
 import getOrganizations from './api';
 import { loadOrganizationsError, loadOrganizationsSuccess } from './actions';
 
@@ -18,5 +18,5 @@ export function* getOrganizationsSaga({ searchValue, showInactive, searchType, c
  * Root saga manages watcher lifecycle
  */
 export default function* rootSaga() {
-  yield takeLatest(LOAD_ORGANIZATIONS, getOrganizationsSaga);
+  yield takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga);
 }

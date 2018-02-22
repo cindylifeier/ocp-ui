@@ -6,13 +6,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fromJS } from 'immutable';
 import rootSaga, { getOrganizationsSaga } from '../saga';
-import { LOAD_ORGANIZATIONS } from '../constants';
+import { GET_ORGANIZATIONS } from '../constants';
 import getOrganizations from '../api';
 import { loadOrganizationsError, loadOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
   describe('rootSaga Saga', () => {
-    it('it should takeLatest of LOAD_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
+    it('it should takeLatest of GET_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
       // Arrange
       const generator = rootSaga();
 
@@ -20,7 +20,7 @@ describe('Organizations.saga', () => {
       const effect = generator.next().value;
 
       // Assert
-      expect(effect).toEqual(takeLatest(LOAD_ORGANIZATIONS, getOrganizationsSaga));
+      expect(effect).toEqual(takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga));
     });
   });
 
