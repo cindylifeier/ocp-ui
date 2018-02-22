@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import {
   INITIALIZE_ORGANIZATIONS,
   GET_ORGANIZATIONS,
-  LOAD_ORGANIZATIONS_ERROR,
+  GET_ORGANIZATIONS_ERROR,
   GET_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
@@ -32,7 +32,7 @@ function organizationsReducer(state = initialState, action) {
         .set('data', fromJS(action.organizations.elements))
         .setIn(['totalNumberOfPages'], action.organizations.totalNumberOfPages)
         .setIn(['currentPage'], action.organizations.currentPage);
-    case LOAD_ORGANIZATIONS_ERROR:
+    case GET_ORGANIZATIONS_ERROR:
       return state
         .set('loading', false)
         .set('data', fromJS([]));

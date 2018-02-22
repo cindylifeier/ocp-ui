@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { GET_ORGANIZATIONS } from './constants';
 import getOrganizations from './api';
-import { loadOrganizationsError, getOrganizationsSuccess } from './actions';
+import { getOrganizationsError, getOrganizationsSuccess } from './actions';
 
 export function* getOrganizationsSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
@@ -10,7 +10,7 @@ export function* getOrganizationsSaga({ searchValue, showInactive, searchType, c
       yield put(getOrganizationsSuccess(organizations));
     }
   } catch (err) {
-    yield put(loadOrganizationsError(err));
+    yield put(getOrganizationsError(err));
   }
 }
 

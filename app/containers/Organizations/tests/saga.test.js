@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import rootSaga, { getOrganizationsSaga } from '../saga';
 import { GET_ORGANIZATIONS } from '../constants';
 import getOrganizations from '../api';
-import { loadOrganizationsError, getOrganizationsSuccess } from '../actions';
+import { getOrganizationsError, getOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
   describe('rootSaga Saga', () => {
@@ -80,7 +80,7 @@ describe('Organizations.saga', () => {
       // Assert
       expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putErrorEffect).toEqual(put(loadOrganizationsError(error)));
+      expect(putErrorEffect).toEqual(put(getOrganizationsError(error)));
       expect(putErrorEffectIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);

@@ -7,7 +7,7 @@
 import {
   INITIALIZE_ORGANIZATIONS,
   GET_ORGANIZATIONS,
-  LOAD_ORGANIZATIONS_ERROR,
+  GET_ORGANIZATIONS_ERROR,
   GET_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
@@ -34,9 +34,9 @@ export function getOrganizationsSuccess(organizations) {
   };
 }
 
-export function loadOrganizationsError(err) {
+export function getOrganizationsError(err) {
   return {
-    type: LOAD_ORGANIZATIONS_ERROR,
+    type: GET_ORGANIZATIONS_ERROR,
     err,
   };
 }
