@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import rootSaga, { getOrganizationsSaga } from '../saga';
 import { GET_ORGANIZATIONS } from '../constants';
 import getOrganizations from '../api';
-import { loadOrganizationsError, loadOrganizationsSuccess } from '../actions';
+import { loadOrganizationsError, getOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
   describe('rootSaga Saga', () => {
@@ -45,7 +45,7 @@ describe('Organizations.saga', () => {
       // Assert
       expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putOrganizationsEffect).toEqual(put(loadOrganizationsSuccess(mockOrganizations)));
+      expect(putOrganizationsEffect).toEqual(put(getOrganizationsSuccess(mockOrganizations)));
       expect(putOrganizationsIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);

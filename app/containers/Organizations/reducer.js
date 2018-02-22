@@ -9,7 +9,7 @@ import {
   INITIALIZE_ORGANIZATIONS,
   GET_ORGANIZATIONS,
   LOAD_ORGANIZATIONS_ERROR,
-  LOAD_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -26,7 +26,7 @@ function organizationsReducer(state = initialState, action) {
     case GET_ORGANIZATIONS:
       return state
         .set('loading', true);
-    case LOAD_ORGANIZATIONS_SUCCESS:
+    case GET_ORGANIZATIONS_SUCCESS:
       return state
         .set('loading', false)
         .set('data', fromJS(action.organizations.elements))

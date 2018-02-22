@@ -8,7 +8,7 @@ import {
   INITIALIZE_ORGANIZATIONS,
   GET_ORGANIZATIONS,
   LOAD_ORGANIZATIONS_ERROR,
-  LOAD_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
 export function initializeOrganizations() {
@@ -27,9 +27,9 @@ export function getOrganizations(searchValue, showInactive, searchType, currentP
   };
 }
 
-export function loadOrganizationsSuccess(organizations) {
+export function getOrganizationsSuccess(organizations) {
   return {
-    type: LOAD_ORGANIZATIONS_SUCCESS,
+    type: GET_ORGANIZATIONS_SUCCESS,
     organizations,
   };
 }
