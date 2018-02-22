@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import request from '../../utils/request';
-import { BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
+import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
@@ -16,7 +16,8 @@ export function createHealthcareService(healthcareServiceFormData, organizationI
 }
 
 export function editHealthcareService(healthcareServiceFormData, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/healthcare-service/${healthcareServiceFormData.logicalId}`;
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/healthcare-service/${healthcareServiceFormData.logicalId}`;
   return request(url, {
     method: 'PUT',
     body: JSON.stringify(healthcareServiceFormData),
@@ -34,6 +35,7 @@ export function getHealthcareServiceByIdFromStore(healthcareServices, logicalId)
 }
 
 export function getHealthcareServiceById(logicalId) {
-  const requestURL = `${apiBaseUrl}/healthcare-service/${logicalId}`;
+  const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
+  const requestURL = `${baseEndpoint}/${logicalId}`;
   return request(requestURL);
 }
