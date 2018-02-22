@@ -17,14 +17,28 @@ import find from 'lodash/find';
 import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectHealthcareServiceCategories, makeSelectHealthcareServiceReferralMethods, makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceTypes, makeSelectTelecomSystems, makeSelectTelecomUses } from '../App/selectors';
+import {
+  makeSelectHealthcareServiceCategories,
+  makeSelectHealthcareServiceReferralMethods,
+  makeSelectHealthcareServiceSpecialities,
+  makeSelectHealthcareServiceTypes,
+  makeSelectTelecomSystems,
+  makeSelectTelecomUses,
+} from '../App/lookupSelectors';
 import { makeSelectOrganization } from '../Locations/selectors';
 import { getLookupsAction } from '../App/actions';
 import { createHealthcareService, editHealthcareService, getHealthcareServiceById } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ManageHealthcareService from '../../components/ManageHealthcareService';
-import { HEALTHCARESERVICECATEGORY, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICETYPE, TELECOMSYSTEM, TELECOMUSE } from '../App/constants';
+import {
+  HEALTHCARESERVICECATEGORY,
+  HEALTHCARESERVICEREFERRALMETHOD,
+  HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICETYPE,
+  TELECOMSYSTEM,
+  TELECOMUSE,
+} from '../App/constants';
 import messages from '../ManageHealthcareServicePage/messages';
 import styles from './styles.css';
 import { makeSelectHealthcareServices } from '../HealthcareServices/selectors';

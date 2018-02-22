@@ -1,9 +1,7 @@
-import getApiBaseUrl from '../../apiBaseUrlConfig';
 import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import request from '../../utils/request';
 import queryString from '../../utils/queryString';
-
-const apiBaseUrl = getApiBaseUrl();
+import request from '../../utils/request';
+import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function queryHealthCareServicesWithLocationAssignmentData(organizationId, locationId, currentPage, status) {
   const params = queryString({
@@ -12,7 +10,8 @@ export function queryHealthCareServicesWithLocationAssignmentData(organizationId
     pageNumber: currentPage,
     pageSize: DEFAULT_PAGE_SIZE,
   });
-  const url = `${apiBaseUrl}/organizations/${organizationId}/healthcare-services${params}`;
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/healthcare-services${params}`;
   return request(url);
 }
 
@@ -21,7 +20,8 @@ export function assignHealthCareServicesToLocation(orgId, locationIds, healthCar
     organizationId: orgId,
     locationIdList: locationIds,
   });
-  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/assign${params}`;
+  const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
+  const url = `${baseEndpoint}/${healthCareServiceId}/assign${params}`;
   return request(url, {
     method: 'PUT',
     headers: {
@@ -35,7 +35,8 @@ export function unassignHealthCareServicesToLocation(orgId, locationIds, healthC
     organizationId: orgId,
     locationIdList: locationIds,
   });
-  const url = `${apiBaseUrl}/healthcare-services/${healthCareServiceId}/unassign${params}`;
+  const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
+  const url = `${baseEndpoint}/${healthCareServiceId}/unassign${params}`;
   return request(url, {
     method: 'PUT',
     headers: {
