@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import queryString from 'query-string';
-
+import find from 'lodash/find';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
@@ -31,6 +31,7 @@ import {
 import { getLookupsAction, getPatient } from '../App/actions';
 import ManageRelatedPerson from '../../components/ManageRelatedPerson';
 import { createRelatedPerson, updateRelatedPerson } from './actions';
+import makeSelectRelatedPersons from '../RelatedPersons/selectors';
 
 export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -46,10 +47,10 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
     }
   }
   handleSave(relatedPerson) {
-    const queryObj = queryString.parse(this.props.location.search);
-    const relatedPersonId = queryObj.id;
+    const relatedPersonId = this.props.match.params.id;
     if (relatedPersonId) {
-      this.props.updateRelatedPerson(relatedPerson);
+      const relatedPersonWithId = { ...relatedPerson, relatedPersonId };
+      this.props.updateRelatedPerson(relatedPersonWithId);
     } else {
       this.props.createRelatedPerson(relatedPerson);
     }
@@ -63,6 +64,9 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       telecomUses,
       relationshipTypes,
       selectedPatient } = this.props;
+    const relatedPersonId = this.props.match.params.id;
+    const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
+    console.log(selectedRelatedPerson);
     const manageRelatedPersonProps = {
       uspsStates,
       patientIdentifierSystems,
@@ -71,6 +75,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       telecomUses,
       relationshipTypes,
       selectedPatient,
+      selectedRelatedPerson,
     };
     return (
       <div>
@@ -86,6 +91,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
 
 ManageRelatedPersonPage.propTypes = {
   uspsStates: PropTypes.array,
+  match: PropTypes.object,
   getPatient: PropTypes.func.isRequired,
   createRelatedPerson: PropTypes.func.isRequired,
   updateRelatedPerson: PropTypes.func.isRequired,
@@ -97,6 +103,7 @@ ManageRelatedPersonPage.propTypes = {
   relationshipTypes: PropTypes.array,
   selectedPatient: PropTypes.object,
   telecomUses: PropTypes.array,
+  relatedPeronsData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
   selectedPatient: makeSelectPatient(),
   telecomUses: makeSelectTelecomUses(),
+  relatedPeronsData: makeSelectRelatedPersons(),
 });
 
 function mapDispatchToProps(dispatch) {
