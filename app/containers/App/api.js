@@ -3,9 +3,8 @@ import isEmpty from 'lodash/isEmpty';
 import request from '../../utils/request';
 import { getEndpoint, LOOKUPS_API_URL } from '../../utils/endpointService';
 
-const apiBaseURL = getApiBaseUrl();
-
 export function fetchLookups(lookupTypes) {
+  const baseEndpoint = getEndpoint(LOOKUPS_API_URL);
   const lookupKeyList = lookupTypes.join();
   const requestURL = `${baseEndpoint}?lookUpTypeList=${lookupKeyList}`;
   return request(requestURL);
@@ -19,6 +18,7 @@ export function getPatientById(patients, patientId) {
 }
 
 export function getPatient(patientId) {
-  const requestURL = `${apiBaseURL}/patients/${patientId}`;
+  const baseEndpoint = getEndpoint(LOOKUPS_API_URL);
+  const requestURL = `${baseEndpoint}/patients/${patientId}`;
   return request(requestURL);
 }

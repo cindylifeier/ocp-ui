@@ -11,16 +11,13 @@ const makeSelectLocation = () => createSelector(
 
 export default selectGlobalDomain;
 
-const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
-  selectGlobal,
-  (globalState) => globalState.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
-);
 
 const makeSelectPatient = () => createSelector(
-  selectGlobal,
+  selectGlobalDomain,
   (substate) => substate && substate.get('selectedPatient'),
 );
 
 export {
   makeSelectLocation,
+  makeSelectPatient,
 };

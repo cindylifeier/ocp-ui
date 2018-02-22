@@ -8,7 +8,6 @@ import { postRelatedPerson, putRelatedPerson } from './api';
 
 export function* postRelatedPersonWorker(action) {
   try {
-    console.log(action);
     if (action.relatedPerson) {
       yield call(postRelatedPerson, action.relatedPerson);
       yield put(goBack());

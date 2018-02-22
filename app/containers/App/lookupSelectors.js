@@ -24,7 +24,7 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
-  PUBLICATION_STATUS,
+  PUBLICATION_STATUS, RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -195,6 +195,10 @@ const makeSelectActionParticipantRoles = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(ACTION_PARTICIPANT_ROLE).toJS(),
 );
 
+const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
+);
 export {
   makeSelectUspsStates,
   makeSelectLocationPhysicalTypes,
@@ -228,4 +232,5 @@ export {
   makeSelectResourceTypes,
   makeSelectActionParticipantTypes,
   makeSelectActionParticipantRoles,
+  makeSelectRelatedPersonPatientRelationshipTypes,
 };
