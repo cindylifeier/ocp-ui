@@ -21,8 +21,9 @@ function ManageHealthcareServiceForm(props) {
     healthcareServiceTypes,
     healthcareServiceSpecialities,
     healthcareServiceReferralMethods,
+    healthcareServiceStatuses,
     telecomSystems,
-    isSubmitting, dirty, isValid,
+    isSubmitting, dirty, isValid, editMode,
   } = props;
   return (
     <div>
@@ -55,6 +56,18 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.programName} />}
             />
           </div>
+          { editMode &&
+            <SelectField
+              fullWidth
+              name="hcsStatus"
+              hintText={<FormattedMessage {...messages.hintText.category} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
+            >
+              {healthcareServiceStatuses && healthcareServiceStatuses.map((hcsStatus) =>
+                (<MenuItem key={hcsStatus.code} value={hcsStatus.code} primaryText={hcsStatus.display} />)
+              )}
+            </SelectField>
+          }
           <div className={`${styles.gridItem} ${styles.serviceGroup}`}>
             <SelectField
               fullWidth
@@ -155,6 +168,10 @@ ManageHealthcareServiceForm.propTypes = {
     system: PropTypes.string,
     display: PropTypes.string.isRequired,
   })),
+  healthcareServiceStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   healthcareServiceReferralMethods: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
@@ -168,6 +185,7 @@ ManageHealthcareServiceForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
 };
 
 export default ManageHealthcareServiceForm;

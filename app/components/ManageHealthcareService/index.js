@@ -19,13 +19,14 @@ import Util from '../../utils/Util';
 
 function ManageHealthcareService(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const { onSave, healthcareServiceCategories, healthcareServiceTypes, healthcareServiceSpecialities, healthcareServiceReferralMethods, telecomSystems, organization, editMode, currentHealthcareService } = props;
+  const { onSave, healthcareServiceCategories, healthcareServiceTypes, healthcareServiceSpecialities, healthcareServiceReferralMethods, healthcareServiceStatuses, telecomSystems, organization, editMode, currentHealthcareService } = props;
   const formData = {
     organization,
     healthcareServiceCategories,
     healthcareServiceTypes,
     healthcareServiceSpecialities,
     healthcareServiceReferralMethods,
+    healthcareServiceStatuses,
     telecomSystems,
     editMode,
   };
@@ -65,6 +66,7 @@ ManageHealthcareService.propTypes = {
   healthcareServiceTypes: PropTypes.array.isRequired,
   healthcareServiceSpecialities: PropTypes.array.isRequired,
   healthcareServiceReferralMethods: PropTypes.array.isRequired,
+  healthcareServiceStatuses: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
   editMode: PropTypes.bool.isRequired,
   currentHealthcareService: PropTypes.any,

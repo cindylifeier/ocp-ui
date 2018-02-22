@@ -20,7 +20,7 @@ import injectReducer from 'utils/injectReducer';
 import {
   makeSelectHealthcareServiceCategories,
   makeSelectHealthcareServiceReferralMethods,
-  makeSelectHealthcareServiceSpecialities,
+  makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceStatuses,
   makeSelectHealthcareServiceTypes,
   makeSelectTelecomSystems,
   makeSelectTelecomUses,
@@ -35,6 +35,7 @@ import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -113,6 +114,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       healthcareServiceTypes,
       healthcareServiceReferralMethods,
       healthcareServiceSpecialities,
+      healthcareServiceStatuses,
       telecomSystems,
       telecomUses,
       organization,
@@ -128,6 +130,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       healthcareServiceTypes,
       healthcareServiceReferralMethods,
       healthcareServiceSpecialities,
+      healthcareServiceStatuses,
       telecomSystems,
       telecomUses,
       organization,
@@ -160,6 +163,7 @@ ManageHealthcareServicePage.propTypes = {
   healthcareServiceTypes: PropTypes.array,
   healthcareServiceReferralMethods: PropTypes.array,
   healthcareServiceSpecialities: PropTypes.array,
+  healthcareServiceStatuses: PropTypes.array,
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
   organization: PropTypes.object,
@@ -173,6 +177,7 @@ const mapStateToProps = createStructuredSelector({
   healthcareServiceTypes: makeSelectHealthcareServiceTypes(),
   healthcareServiceReferralMethods: makeSelectHealthcareServiceReferralMethods(),
   healthcareServiceSpecialities: makeSelectHealthcareServiceSpecialities(),
+  healthcareServiceStatuses: makeSelectHealthcareServiceStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
   organization: makeSelectOrganization(),
@@ -181,7 +186,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, TELECOMSYSTEM, TELECOMUSE])),
+    getLookups: () => dispatch(getLookupsAction([HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICESTATUS, TELECOMSYSTEM, TELECOMUSE])),
     createHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(createHealthcareService(healthcareServiceFormData, handleSubmitting)),
     editHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(editHealthcareService(healthcareServiceFormData, handleSubmitting)),
     getSelectedHealthcareService: (logicalId) => dispatch(getHealthcareServiceById(logicalId)),
