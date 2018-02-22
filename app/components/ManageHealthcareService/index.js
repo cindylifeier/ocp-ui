@@ -79,6 +79,7 @@ function setFormData(currentHealthcareService) {
   if (!isEmpty(currentHealthcareService)) {
     formData = merge(mapHealthcareServiceToName(currentHealthcareService),
       mapHealthcareServiceToProgramName(currentHealthcareService),
+      mapHealthcareServiceToStatus(currentHealthcareService),
       mapHealthcareServiceToCategory(currentHealthcareService),
       mapHealthcareServiceToType(currentHealthcareService),
       mapHealthcareServiceToSpeciality(currentHealthcareService),
@@ -105,6 +106,12 @@ function mapHealthcareServiceToProgramName(healthcareService) {
   return programName;
 }
 
+function mapHealthcareServiceToStatus(healthcareService) {
+  const status = {
+    hcsStatus: Util.setEmptyStringWhenUndefined(healthcareService.active),
+  };
+  return status;
+}
 function mapHealthcareServiceToCategory(healthcareService) {
   let category = {};
   if (healthcareService.category && healthcareService.category.code) {
