@@ -11,7 +11,7 @@ import {
   getHealthcareServiceByIdError,
 } from './actions';
 import { makeSelectOrganization } from '../Locations/selectors';
-import { GET_HEALTHCARE_SERVICE, POST_HEALTHCARE_SERVICE, PUT_HEALTHCARE_SERVICE } from './constants';
+import { GET_HEALTHCARE_SERVICE, CREATE_HEALTHCARE_SERVICE, UPDATE_HEALTHCARE_SERVICE } from './constants';
 import { HOME_URL } from '../App/constants';
 import { makeSelectHealthcareServices } from '../HealthcareServices/selectors';
 
@@ -31,7 +31,7 @@ function* createHealthcareServiceSaga(action) {
 }
 
 function* watchCreateHealthcareServiceSaga() {
-  yield takeLatest(POST_HEALTHCARE_SERVICE, createHealthcareServiceSaga);
+  yield takeLatest(CREATE_HEALTHCARE_SERVICE, createHealthcareServiceSaga);
 }
 
 function* editHealthcareServiceSaga(action) {
@@ -50,7 +50,7 @@ function* editHealthcareServiceSaga(action) {
 }
 
 function* watchEditHealthcareServiceSaga() {
-  yield takeLatest(PUT_HEALTHCARE_SERVICE, editHealthcareServiceSaga);
+  yield takeLatest(UPDATE_HEALTHCARE_SERVICE, editHealthcareServiceSaga);
 }
 
 function* getHealthcareServiceByIdSaga({ logicalId }) {
