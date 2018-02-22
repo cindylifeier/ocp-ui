@@ -6,9 +6,9 @@
 
 import {
   INITIALIZE_ORGANIZATIONS,
-  LOAD_ORGANIZATIONS,
-  LOAD_ORGANIZATIONS_ERROR,
-  LOAD_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS,
+  GET_ORGANIZATIONS_ERROR,
+  GET_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
 export function initializeOrganizations() {
@@ -17,9 +17,9 @@ export function initializeOrganizations() {
   };
 }
 
-export function loadOrganizations(searchValue, showInactive, searchType, currentPage) {
+export function getOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: LOAD_ORGANIZATIONS,
+    type: GET_ORGANIZATIONS,
     searchValue,
     showInactive,
     searchType,
@@ -27,16 +27,16 @@ export function loadOrganizations(searchValue, showInactive, searchType, current
   };
 }
 
-export function loadOrganizationsSuccess(organizations) {
+export function getOrganizationsSuccess(organizations) {
   return {
-    type: LOAD_ORGANIZATIONS_SUCCESS,
+    type: GET_ORGANIZATIONS_SUCCESS,
     organizations,
   };
 }
 
-export function loadOrganizationsError(err) {
+export function getOrganizationsError(err) {
   return {
-    type: LOAD_ORGANIZATIONS_ERROR,
+    type: GET_ORGANIZATIONS_ERROR,
     err,
   };
 }

@@ -3,13 +3,100 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-// import { take, call, put, select } from 'redux-saga/effects';
-// import { defaultSaga } from '../saga';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { fromJS } from 'immutable';
+import rootSaga, { getOrganizationsSaga, watchGetOrganizationsSaga } from '../saga';
+import { GET_ORGANIZATIONS } from '../constants';
+import getOrganizations from '../api';
+import { getOrganizationsError, getOrganizationsSuccess } from '../actions';
 
-// const generator = defaultSaga();
+describe('Organizations.saga', () => {
+  describe('rootSaga', () => {
+    it('it should run all watcher sagas', () => {
+      // Arrange
+      const generator = rootSaga();
 
-describe('defaultSaga Saga', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+      // Act
+      const effect = generator.next().value;
+
+      // Assert
+      expect(effect).toEqual(all([watchGetOrganizationsSaga()]));
+    });
+  });
+
+  describe('watchGetOrganizationsSaga', () => {
+    it('it should takeLatest of GET_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
+      // Arrange
+      const generator = watchGetOrganizationsSaga();
+
+      // Act
+      const effect = generator.next().value;
+
+      // Assert
+      expect(effect).toEqual(takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga));
+    });
+  });
+
+  describe('getOrganizationsSaga', () => {
+    const searchValue = 'searchValue';
+    const showInactive = true;
+    const searchType = 'searchType';
+    const currentPage = 10;
+    const mockAction = fromJS({ searchValue, showInactive, searchType, currentPage });
+    const mockOrganizations = fromJS(['a', 'b']);
+
+    it('should handle successful api call when searchValue exists', () => {
+      // Arrange
+      const mockActionJS = mockAction.toJS();
+      const generator = getOrganizationsSaga(mockActionJS);
+
+      // Act
+      const { value: apiCallEffect, done: apiCallIsLast } = generator.next();
+      const { value: putOrganizationsEffect, done: putOrganizationsIsLast } = generator.next(mockOrganizations);
+      const { value: finalValue, done: finalDone } = generator.next();
+
+      // Assert
+      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallIsLast).toEqual(false);
+      expect(putOrganizationsEffect).toEqual(put(getOrganizationsSuccess(mockOrganizations)));
+      expect(putOrganizationsIsLast).toEqual(false);
+      expect(finalValue).toEqual(undefined);
+      expect(finalDone).toEqual(true);
+    });
+
+    it('should do nothing when searchValue does not exist', () => {
+      // Arrange
+      const mockActionJS = mockAction
+        .set('searchValue', '')
+        .toJS();
+      const generator = getOrganizationsSaga(mockActionJS);
+
+      // Act
+      const { value: finalValue, done: finalDone } = generator.next();
+
+      // Assert
+      expect(finalValue).toEqual(undefined);
+      expect(finalDone).toEqual(true);
+    });
+
+    it('should handle api call error and put error action', () => {
+      // Arrange
+      const mockActionJS = mockAction.toJS();
+      const error = new Error('api call failed');
+      const generator = getOrganizationsSaga(mockActionJS);
+
+      // Act
+      const { value: apiCallEffect, done: apiCallIsLast } = generator.next();
+      const { value: putErrorEffect, done: putErrorEffectIsLast } = generator.throw(error);
+      const { value: finalValue, done: finalDone } = generator.next();
+
+      // Assert
+      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallIsLast).toEqual(false);
+      expect(putErrorEffect).toEqual(put(getOrganizationsError(error)));
+      expect(putErrorEffectIsLast).toEqual(false);
+      expect(finalValue).toEqual(undefined);
+      expect(finalDone).toEqual(true);
+    });
   });
 });
