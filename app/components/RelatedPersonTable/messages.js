@@ -6,8 +6,17 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.RelatedPersonTable.header',
-    defaultMessage: 'This is the RelatedPersonTable component !',
+  columnHeaderName: {
+    id: 'ocpui.components.RelatedPersonTable.columnHeaderName',
+    defaultMessage: 'Name',
   },
+  columnHeaderStatus: {
+    id: 'ocpui.components.RelatedPersonTable.columnHeaderStatus',
+    defaultMessage: 'Status',
+  },
+  columnHeaderRelationship: {
+    id: 'ocpui.components.RelatedPersonTable.columnHeaderRelationship',
+    defaultMessage: 'Relationship',
+  },
+
 });
