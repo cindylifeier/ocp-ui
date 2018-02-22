@@ -2,7 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 
 import { showNotification } from '../Notification/actions';
-import { getRelatedPersonsError, getRelatedPersonsSuccess } from './actions';
+import { saveRelatedPersonsError, getRelatedPersonsSuccess } from './actions';
 import { getRelatedPersons } from './api';
 import { GET_RELATED_PERSONS } from './constants';
 
@@ -12,7 +12,7 @@ export function* getRelatedPersonWorker(action) {
     yield put(getRelatedPersonsSuccess(relatedPersons));
   } catch (error) {
     yield put(showNotification('Error in getting related persons.'));
-    yield put(getRelatedPersonsError(error));
+    yield put(saveRelatedPersonsError(error));
   }
 }
 

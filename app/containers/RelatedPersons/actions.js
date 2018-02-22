@@ -32,7 +32,7 @@ export function getRelatedPersonsSuccess(relatedPersons) {
   };
 }
 
-export function getRelatedPersonsError(error) {
+export function saveRelatedPersonsError(error) {
   return {
     type: GET_RELATED_PERSONS_ERROR,
     error,

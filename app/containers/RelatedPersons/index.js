@@ -15,7 +15,7 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectRelatedPersons from './selectors';
+import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -23,6 +23,7 @@ import { getRelatedPersons, initializeRelatedPersons } from './actions';
 import RelatedPersonTable from '../../components/RelatedPersonTable';
 import { makeSelectPatient } from '../App/selectors';
 import styles from './styles.css';
+import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -41,7 +42,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
     this.props.getRelatedPersons(this.props.selectedPatient.id, true, pageNumber);
   }
   render() {
-    const { data, selectedPatient } = this.props;
+    const { data, selectedPatient, loading } = this.props;
     return (
       <div className={styles.card}>
         <div className={styles.header}>
@@ -56,6 +57,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
               </div>
               {this.getPatientName(selectedPatient)}
             </div>
+            {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable relatedPersons={data.elements} selectedPatientId={selectedPatient.id}></RelatedPersonTable>
             <div className={styles.textCenter}>
               <UltimatePagination
@@ -81,11 +83,13 @@ RelatedPersons.propTypes = {
   initializeRelatedPersons: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectRelatedPersons(),
   selectedPatient: makeSelectPatient(),
+  loading: makeSelectRelatedPersonsSearchLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
