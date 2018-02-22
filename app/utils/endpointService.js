@@ -20,6 +20,7 @@ export const BASE_PARTICIPANTS_API_URL = combineBaseApiUrl('ocp-fis/participants
 export const BASE_PATIENTS_API_URL = combineBaseApiUrl('ocp-fis/patients');
 export const BASE_PRACTITIONERS_API_URL = combineBaseApiUrl('ocp-fis/practitioners');
 export const BASE_RELATED_PERSONS_API_URL = combineBaseApiUrl('ocp-fis/related-persons');
+export const BASE_TASKS_API_URL = combineBaseApiUrl('ocp-fis/tasks');
 
 export function getEndpoint(key) {
   const securedEndpoints = configureSecuredEndpoints();
@@ -75,6 +76,7 @@ function configureSecuredEndpoints() {
   securedEndpoints.set(BASE_PRACTITIONERS_API_URL, BASE_PRACTITIONERS_API_URL);
   securedEndpoints.set(BASE_RELATED_PERSONS_API_URL, BASE_RELATED_PERSONS_API_URL);
   securedEndpoints.set(BASE_HEALTHCARE_SERVICES_API_URL, BASE_HEALTHCARE_SERVICES_API_URL);
+  securedEndpoints.set(BASE_TASKS_API_URL, BASE_TASKS_API_URL);
   return securedEndpoints;
 }
 
