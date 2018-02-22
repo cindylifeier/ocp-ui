@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
@@ -36,6 +35,7 @@ import {
 import { createOrganization, updateOrganization } from './actions';
 import { makeSelectOrganizationsData } from '../Organizations/selectors';
 import Page from '../../components/Page';
+import PageHeader from '../../components/PageHeader';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -121,12 +121,11 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           <title>Manage Organization</title>
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
-        <div className={styles.header}>
+        <PageHeader>
           {editingOrganization ?
             <FormattedMessage {...messages.updateMode} /> :
             <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
-        </div>
-        <Divider />
+        </PageHeader>
         <div className={styles.title}>
           <FormattedMessage {...messages.title} />
         </div>
