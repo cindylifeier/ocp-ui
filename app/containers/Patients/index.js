@@ -34,6 +34,7 @@ import PatientSearchResult from '../../components/PatientSearchResult';
 import messages from './messages';
 import { MANAGE_PATIENT_URL } from '../App/constants';
 import { getCareTeams } from '../CareTeams/actions';
+import { getTasks } from '../Tasks/actions';
 import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
 import StyledFlatButton from '../../components/StyledFlatButton';
@@ -61,6 +62,7 @@ export class Patients extends React.PureComponent {
     const searchType = 'patientId';
     const query = { searchValue, searchType };
     this.props.getCareTeams(query, `${firstName} ${lastName}`);
+    this.props.getTasks(query, `${firstName} ${lastName}`);
   }
 
   handleSearch(searchTerms, includeInactive, searchType) {
@@ -126,6 +128,7 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   getCareTeams: PropTypes.func.isRequired,
+  getTasks: PropTypes.func.isRequired,
 };
 
 
@@ -150,6 +153,7 @@ function mapDispatchToProps(dispatch) {
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePatients: () => dispatch(initializePatients()),
     getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
+    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
   };
 }
 
