@@ -134,6 +134,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       telecomSystems,
       telecomUses,
       organization,
+      editMode,
       currentHealthcareService,
     };
     return (
