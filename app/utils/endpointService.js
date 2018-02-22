@@ -20,7 +20,7 @@ export const BASE_PARTICIPANTS_API_URL = 'ocpui/utils/BASE_PARTICIPANTS_API_URL'
 export const BASE_PATIENTS_API_URL = 'ocpui/utils/BASE_PATIENTS_API_URL';
 export const BASE_PRACTITIONERS_API_URL = 'ocpui/utils/BASE_PRACTITIONERS_API_URL';
 export const BASE_RELATED_PERSONS_API_URL = 'ocpui/utils/BASE_RELATED_PERSONS_API_URL';
-
+export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
 /**
  * Configure all secured and unsecured endpoints
  * isSecured property is used to specify secured or unsecured endpoint. By default isSecured property will set true if it is missing to set
@@ -40,6 +40,7 @@ const apiEndpoints = [
   { key: BASE_PATIENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/patients` },
   { key: BASE_PRACTITIONERS_API_URL, url: `${BASE_API_URL}/ocp-fis/practitioners` },
   { key: BASE_RELATED_PERSONS_API_URL, url: `${BASE_API_URL}/ocp-fis/related-persons` },
+  { key: BASE_TASKS_API_URL, url: `${BASE_API_URL}/ocp-fis/tasks` },
 ];
 
 export function getEndpoint(key) {
