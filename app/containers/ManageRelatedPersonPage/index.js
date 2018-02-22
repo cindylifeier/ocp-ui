@@ -46,13 +46,13 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       this.props.getPatient(patientId);
     }
   }
-  handleSave(relatedPerson) {
+  handleSave(relatedPerson, actions) {
     const relatedPersonId = this.props.match.params.id;
     if (relatedPersonId) {
       const relatedPersonWithId = { ...relatedPerson, relatedPersonId };
-      this.props.updateRelatedPerson(relatedPersonWithId);
+      this.props.updateRelatedPerson(relatedPersonWithId, () => actions.setSubmitting(false));
     } else {
-      this.props.createRelatedPerson(relatedPerson);
+      this.props.createRelatedPerson(relatedPerson, () => actions.setSubmitting(false));
     }
   }
   render() {
@@ -66,7 +66,6 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       selectedPatient } = this.props;
     const relatedPersonId = this.props.match.params.id;
     const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
-    console.log(selectedRelatedPerson);
     const manageRelatedPersonProps = {
       uspsStates,
       patientIdentifierSystems,
@@ -121,8 +120,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, TELECOMUSE, TELECOMSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES])),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
-    createRelatedPerson: (relatedPerson) => dispatch(createRelatedPerson(relatedPerson)),
-    updateRelatedPerson: (relatedPerson) => dispatch(updateRelatedPerson(relatedPerson)),
+    createRelatedPerson: (relatedPerson, handleSubmitting) => dispatch(createRelatedPerson(relatedPerson, handleSubmitting)),
+    updateRelatedPerson: (relatedPerson, handleSubmitting) => dispatch(updateRelatedPerson(relatedPerson, handleSubmitting)),
   };
 }
 

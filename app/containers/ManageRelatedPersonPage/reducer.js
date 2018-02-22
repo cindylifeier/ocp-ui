@@ -18,6 +18,7 @@ function manageRelatedPersonPageReducer(state = initialState, action) {
   switch (action.type) {
     case SAVE_RELATED_PERSON_ERROR:
       return state
+        .set('selectedPatient', action.selectedPatient)
         .set('error', action.error);
     default:
       return state;

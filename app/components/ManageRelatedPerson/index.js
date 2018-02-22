@@ -47,8 +47,7 @@ function ManageRelatedPerson(props) {
         initialValues={setInitialValues(selectedRelatedPerson)}
         onSubmit={(values, actions) => {
           const relatedPerson = mapToRelatedPerson(values, selectedPatient, administrativeGenders, relationshipTypes);
-          onSave(relatedPerson);
-          actions.setSubmitting(false);
+          onSave(relatedPerson, actions);
         }}
         validationSchema={() =>
           yup.lazy((values) => {

@@ -5,45 +5,29 @@
  */
 
 import {
-  POST_RELATED_PERSON, POST_RELATED_PERSON_ERROR, PUT_RELATED_PERSON,
-  PUT_RELATED_PERSON_ERROR,
-  PUT_RELATED_PERSON_SUCCESS,
+  POST_RELATED_PERSON, SAVE_RELATED_PERSON_ERROR, PUT_RELATED_PERSON,
 } from './constants';
 
-export function createRelatedPerson(relatedPerson) {
+export function createRelatedPerson(relatedPerson, handleSubmitting) {
   return {
     type: POST_RELATED_PERSON,
     relatedPerson,
+    handleSubmitting,
   };
 }
 
-export function createRelatedPersonError(error) {
+export function saveRelatedPersonError(error) {
   return {
-    type: POST_RELATED_PERSON_ERROR,
+    type: SAVE_RELATED_PERSON_ERROR,
     error,
   };
 }
 
-export function updateRelatedPerson(relatedPerson) {
+export function updateRelatedPerson(relatedPerson, handleSubmitting) {
   return {
     type: PUT_RELATED_PERSON,
     relatedPerson,
-  };
-}
-
-
-export function updateRelatedPersonSuccess(response) {
-  return {
-    type: PUT_RELATED_PERSON_SUCCESS,
-    response,
-  };
-}
-
-
-export function updateRelatedPersonError(error) {
-  return {
-    type: PUT_RELATED_PERSON_ERROR,
-    error,
+    handleSubmitting,
   };
 }
 
