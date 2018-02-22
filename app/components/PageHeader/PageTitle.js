@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PageHeaderWrapper = styled.div`
+const PageTitle = styled.div`
   padding-left: 1vw;
   padding-top: 1vh;
   padding-bottom: 1vh;
@@ -9,6 +9,6 @@ const PageHeaderWrapper = styled.div`
   color: #366;
 `;
 
-PageHeaderWrapper.propTypes = {};
+PageTitle.propTypes = {};
 
-export default PageHeaderWrapper;
+export default PageTitle;

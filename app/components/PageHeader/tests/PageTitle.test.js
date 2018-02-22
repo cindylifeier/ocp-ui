@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import PageHeaderWrapper from '../PageHeaderWrapper';
+import PageTitle from '../PageTitle';
 
 configure({ adapter: new Adapter() });
 
-describe('<PageHeaderWrapper />', () => {
+describe('<PageTitle />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<PageHeaderWrapper>{children}</PageHeaderWrapper>);
+      const renderedComponent = shallow(<PageTitle>{children}</PageTitle>);
 
       // Arrange
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<PageHeaderWrapper />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<PageHeaderWrapper>{children}</PageHeaderWrapper>);
+      const renderedComponent = shallow(<PageTitle>{children}</PageTitle>);
 
       // Arrange
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<PageHeaderWrapper />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<PageHeaderWrapper>{children}</PageHeaderWrapper>);
+      const renderedComponent = shallow(<PageTitle>{children}</PageTitle>);
 
       // Arrange
       expect(renderedComponent).toHaveStyleRule('padding-left', '1vw');

@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PageHeaderWrapper /> snapshot tests should match snapshot 1`] = `
+exports[`<PageSubtitle /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <PageHeaderWrapper__PageHeaderWrapper>
+  Symbol(enzyme.__unrendered__): <PageSubtitle__PageSubtitle>
     <div>
       test
     </div>
-  </PageHeaderWrapper__PageHeaderWrapper>,
+  </PageSubtitle__PageSubtitle>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -24,7 +24,7 @@ ShallowWrapper {
       "children": <div>
         test
       </div>,
-      "className": "PageHeaderWrapper__PageHeaderWrapper-cFJSEg hXjbzX",
+      "className": "PageSubtitle__PageSubtitle-bjOVNy dFgQid",
     },
     "ref": null,
     "rendered": Object {
@@ -49,7 +49,7 @@ ShallowWrapper {
         "children": <div>
           test
         </div>,
-        "className": "PageHeaderWrapper__PageHeaderWrapper-cFJSEg hXjbzX",
+        "className": "PageSubtitle__PageSubtitle-bjOVNy dFgQid",
       },
       "ref": null,
       "rendered": Object {

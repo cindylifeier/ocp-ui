@@ -8,19 +8,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Divider } from 'material-ui';
 
-import PageHeaderWrapper from './PageHeaderWrapper';
+import PageTitle from './PageTitle';
+import PageSubtitle from './PageSubtitle';
 
-function PageHeader({ children }) {
+function PageHeader({ title, subtitle }) {
   return (
     <div>
-      <PageHeaderWrapper>{children}</PageHeaderWrapper>
+      <PageTitle>{title}</PageTitle>
       <Divider />
+      {subtitle && <PageSubtitle>{subtitle}</PageSubtitle>}
     </div>
   );
 }
 
 PageHeader.propTypes = {
-  children: PropTypes.node,
+  title: PropTypes.node.isRequired,
+  subtitle: PropTypes.node,
 };
 
 export default PageHeader;
