@@ -3,18 +3,31 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { fromJS } from 'immutable';
-import rootSaga, { getOrganizationsSaga } from '../saga';
+import rootSaga, { getOrganizationsSaga, watchGetOrganizationsSaga } from '../saga';
 import { GET_ORGANIZATIONS } from '../constants';
 import getOrganizations from '../api';
 import { getOrganizationsError, getOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
-  describe('rootSaga Saga', () => {
-    it('it should takeLatest of GET_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
+  describe('rootSaga', () => {
+    it('it should run all watcher sagas', () => {
       // Arrange
       const generator = rootSaga();
+
+      // Act
+      const effect = generator.next().value;
+
+      // Assert
+      expect(effect).toEqual(all([watchGetOrganizationsSaga()]));
+    });
+  });
+
+  describe('watchGetOrganizationsSaga', () => {
+    it('it should takeLatest of GET_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
+      // Arrange
+      const generator = watchGetOrganizationsSaga();
 
       // Act
       const effect = generator.next().value;
