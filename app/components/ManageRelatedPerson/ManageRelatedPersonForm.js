@@ -191,7 +191,7 @@ function ManageRelatedPersonForm(props) {
           <div className={`${styles.gridItem} ${styles.contactGroup}`}>
             <SelectField
               fullWidth
-              name="telecomType"
+              name="telecomCode"
               hintText={<FormattedMessage {...messages.hintText.telecomType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
             >

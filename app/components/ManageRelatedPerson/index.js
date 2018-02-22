@@ -8,17 +8,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import { Formik } from 'formik';
+import { isUndefined } from 'lodash';
 import * as yup from 'yup';
 import find from 'lodash/find';
 import { FormattedMessage } from 'react-intl';
+import isEmpty from 'lodash/isEmpty';
+import merge from 'lodash/merge';
 import messages from './messages';
 import ManageRelatedPersonForm from './ManageRelatedPersonForm';
 import { TEXT_MIN_LENGTH } from '../../containers/ManageRelatedPersonPage/constants';
+import Util from '../../utils/Util';
+
 
 function ManageRelatedPerson(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, patientIdentifierSystems, administrativeGenders, telecomUses, telecomSystems, relationshipTypes, selectedPatient } = props;
+  const { onSave,
+    uspsStates,
+    patientIdentifierSystems,
+    administrativeGenders,
+    telecomUses,
+    telecomSystems,
+    relationshipTypes,
+    selectedPatient,
+    selectedRelatedPerson } = props;
   const lookUpFormData = {
     onSave,
     uspsStates,
@@ -27,12 +40,11 @@ function ManageRelatedPerson(props) {
     telecomSystems,
     telecomUses,
     relationshipTypes,
-    selectedPatient,
-  };
+    selectedPatient };
   return (
     <div>
       <Formik
-        initialValues={{}}
+        initialValues={setInitialValues(selectedRelatedPerson)}
         onSubmit={(values, actions) => {
           const relatedPerson = mapToRelatedPerson(values, selectedPatient, administrativeGenders, relationshipTypes);
           onSave(relatedPerson);
@@ -90,6 +102,7 @@ ManageRelatedPerson.propTypes = {
   telecomSystems: PropTypes.array.isRequired,
   relationshipTypes: PropTypes.array.isRequired,
   selectedPatient: PropTypes.object,
+  selectedRelatedPerson: PropTypes.object,
 };
 
 function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGenders, relationshipTypes) {
@@ -110,6 +123,7 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
     city,
     zip,
     state,
+    country,
     identifierType,
     identifierValue } = capturedFormData;
   const selectedAdministrativeGenders = find(administrativeGenders, { code: genderCode });
@@ -131,6 +145,7 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
     city,
     state,
     zip,
+    country,
     identifierType,
     identifierValue,
     active,
@@ -142,6 +157,49 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
   return relatedPerson;
 }
 
-
 export default ManageRelatedPerson;
 
+
+function setInitialValues(selectedRelatedPerson) {
+  let initialValues = null;
+  if (!isEmpty(selectedRelatedPerson)) {
+    initialValues = merge(
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'active'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'firstName'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'lastName'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'relationshipCode'),
+      mapRelatedPersonToDate(selectedRelatedPerson, 'birthDate'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'genderCode'),
+      mapRelatedPersonToDate(selectedRelatedPerson, 'startDate'),
+      mapRelatedPersonToDate(selectedRelatedPerson, 'endDate'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'identifierType'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'identifierValue'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'address1'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'address2'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'city'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'state'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'zip'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'country'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecomCode'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecomValue'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecomUse'),
+    );
+  }
+  return Util.pickByIdentity(initialValues);
+}
+
+function mapRelatedPersonToFormFields(selectedRelatedPerson, fieldName) {
+  const fieldObject = {};
+  if (!isUndefined(selectedRelatedPerson[fieldName])) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(selectedRelatedPerson[fieldName]);
+  }
+  return fieldObject;
+}
+
+function mapRelatedPersonToDate(selectedRelatedPerson, fieldName) {
+  const fieldObject = {};
+  if (!isUndefined(selectedRelatedPerson[fieldName])) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(selectedRelatedPerson[fieldName]) && new Date(selectedRelatedPerson[fieldName]);
+  }
+  return fieldObject;
+}
