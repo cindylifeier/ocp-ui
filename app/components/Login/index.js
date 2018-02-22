@@ -69,6 +69,7 @@ function Login(props) {
                   <div className={`${styles.gridItem} ${styles.password}`}>
                     <TextField
                       name="password"
+                      type="password"
                       hintText={<FormattedMessage {...messages.hintText.password} />}
                       floatingLabelText={<FormattedMessage {...messages.floatingLabelText.password} />}
                       fullWidth
