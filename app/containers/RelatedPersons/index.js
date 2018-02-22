@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEmpty from 'lodash/isEmpty';
+import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,6 +22,7 @@ import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
 import RelatedPersonTable from '../../components/RelatedPersonTable';
 import { makeSelectPatient } from '../App/selectors';
+import styles from './styles.css';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -29,19 +32,45 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
   componentDidMount() {
     this.props.initializeRelatedPersons();
   }
-
-  handlePageClick(showInActive) {
-    this.props.getRelatedPersons(this.props.selectedPatient.id, showInActive);
+  getPatientName(patient) {
+    const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
+    const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
+    return fullName;
   }
-
+  handlePageClick(pageNumber) {
+    this.props.getRelatedPersons(this.props.selectedPatient.id, true, pageNumber);
+  }
   render() {
-    const { data } = this.props;
-    console.log(data);
-
+    const { data, selectedPatient } = this.props;
     return (
-      <div>
-        <FormattedMessage {...messages.header} />
-        <RelatedPersonTable></RelatedPersonTable>
+      <div className={styles.card}>
+        <div className={styles.header}>
+          <FormattedMessage {...messages.header} />
+        </div>
+        {isEmpty(data.elements) ?
+          <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4> :
+          <div className={styles.gridContainer}>
+            <div className={styles.patientInfoSection}>
+              <div className={styles.patientLabel}>
+                Patient&nbsp;:&nbsp;
+              </div>
+              {this.getPatientName(selectedPatient)}
+            </div>
+            <RelatedPersonTable relatedPersons={data.elements} selectedPatientId={selectedPatient.id}></RelatedPersonTable>
+            <div className={styles.textCenter}>
+              <UltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                boundaryPagesRange={1}
+                siblingPagesRange={1}
+                hidePreviousAndNextPageLinks={false}
+                hideFirstAndLastPageLinks={false}
+                hideEllipsis={false}
+                onChange={this.handlePageClick}
+              />
+            </div>
+          </div>
+        }
       </div>
     );
   }
@@ -50,7 +79,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
 RelatedPersons.propTypes = {
   getRelatedPersons: PropTypes.func.isRequired,
   initializeRelatedPersons: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object,
 };
 
@@ -61,7 +90,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRelatedPersons: (patientId, showInActive) => dispatch(getRelatedPersons(patientId, showInActive)),
+    getRelatedPersons: (patientId, showInActive, pageNumber) => dispatch(getRelatedPersons(patientId, showInActive, pageNumber)),
     initializeRelatedPersons: () => dispatch(initializeRelatedPersons()),
   };
 }
