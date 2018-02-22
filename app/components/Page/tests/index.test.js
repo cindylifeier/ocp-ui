@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import PageWrapper from '../index';
+import Page from '../index';
 
 configure({ adapter: new Adapter() });
 
-describe('<PageWrapper />', () => {
+describe('<Page />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<PageWrapper>{children}</PageWrapper>);
+      const renderedComponent = shallow(<Page>{children}</Page>);
 
       // Arrange
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<PageWrapper />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<PageWrapper>{children}</PageWrapper>);
+      const renderedComponent = shallow(<Page>{children}</Page>);
 
       // Arrange
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<PageWrapper />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<PageWrapper>{children}</PageWrapper>);
+      const renderedComponent = shallow(<Page>{children}</Page>);
 
       // Arrange
       expect(renderedComponent).toHaveStyleRule('background-color', 'white');

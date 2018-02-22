@@ -35,7 +35,7 @@ import {
 } from '../App/lookupSelectors';
 import { createOrganization, updateOrganization } from './actions';
 import { makeSelectOrganizationsData } from '../Organizations/selectors';
-import PageWrapper from '../../components/PageWrapper';
+import Page from '../../components/Page';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -116,7 +116,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
     }
 
     return (
-      <PageWrapper>
+      <Page>
         <Helmet>
           <title>Manage Organization</title>
           <meta name="description" content="Description of ManageOrganizationPage" />
@@ -266,7 +266,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           >
           </Formik>
         </div>
-      </PageWrapper>
+      </Page>
     );
   }
 }

@@ -7,10 +7,10 @@
 import styled from 'styled-components';
 
 
-const PageWrapper = styled.div`
+const Page = styled.div`
   background-color: white;
 `;
 
-PageWrapper.propTypes = {};
+Page.propTypes = {};
 
-export default PageWrapper;
+export default Page;
