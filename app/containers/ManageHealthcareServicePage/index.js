@@ -62,7 +62,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
   handleSave(healthcareServiceFormData, actions) {
     const hcsDataToSubmit = {};
     const {
-      name, hcsProgramName, category, hcsType, hcsSpecialty, hcsReferralMethod, telecomType, telecomValue,
+      name, hcsProgramName, category, hcsType, hcsSpecialty, hcsStatus, hcsReferralMethod, telecomType, telecomValue,
     } = healthcareServiceFormData;
 
     hcsDataToSubmit.name = name;
@@ -100,9 +100,11 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 
     const logicalId = this.props.match.params.id;
     if (logicalId) {
+      hcsDataToSubmit.active = hcsStatus;
       merge(hcsDataToSubmit, { logicalId });
       this.props.editHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
     } else {
+      hcsDataToSubmit.active = true;
       this.props.createHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
     }
   }
