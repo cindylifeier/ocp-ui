@@ -8,6 +8,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import renderPatientsComponent from '../Patients/render';
 import renderCareTeamsComponent from '../CareTeams/render';
+import renderTasksComponent from '../Tasks/render';
 import renderRelatedPersonsComponent from '../RelatedPersons/render';
 import GoldenLayout from '../../components/GoldenLayout';
 import styles from './styles.css';
@@ -90,6 +91,31 @@ const initialStateMetadata =
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
+          width: 50,
+          height: 50,
+          content: [{
+            title: 'Tasks',
+            type: 'component',
+            componentName: 'tasks',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        },
+        ],
+      }, {
+        type: 'column',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        width: 50,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
           height: 50,
           content: [{
             title: 'Care Teams',
@@ -133,6 +159,7 @@ const initialStateMetadata =
 const componentMetadata = [
   { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
   { name: 'careTeams', text: 'Care Teams', factoryMethod: renderCareTeamsComponent },
+  { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   { name: 'relatedPersons', text: 'Related Persons', factoryMethod: renderRelatedPersonsComponent },
 ];
 

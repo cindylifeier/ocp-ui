@@ -43,6 +43,7 @@ import messages from './messages';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
 import { EMPTY_STRING, ENTER_KEY } from '../App/constants';
 import { getCareTeams } from '../CareTeams/actions';
+import { getTasks } from '../Tasks/actions';
 import { getRelatedPersons } from '../RelatedPersons/actions';
 import { getPatient } from '../App/actions';
 
@@ -73,6 +74,7 @@ export class Patients extends React.PureComponent {
     const currentPage = 1;
     const showInactive = false;
     this.props.getCareTeams(query, `${firstName} ${lastName}`);
+    this.props.getTasks(query, `${firstName} ${lastName}`);
     this.props.getPatient(searchValue);
     this.props.getRelatedPersons(searchValue, showInactive, currentPage);
   }
@@ -221,6 +223,7 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   getCareTeams: PropTypes.func.isRequired,
+  getTasks: PropTypes.func.isRequired,
   getRelatedPersons: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
 };
@@ -248,6 +251,7 @@ function mapDispatchToProps(dispatch) {
     initializePatients: () => dispatch(initializePatients()),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
+    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
     getRelatedPersons: (patientId, showInActive, currentPage) => dispatch(getRelatedPersons(patientId, showInActive, currentPage)),
   };
 }

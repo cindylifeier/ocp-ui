@@ -28,15 +28,14 @@ import { getLookupsAction, getPatient } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
 import {
-  makeSelectCareTeamCategories, makeSelectCareTeamReasons, makeSelectCareTeamStatuses,
+  makeSelectCareTeamCategories,
+  makeSelectCareTeamReasons,
+  makeSelectCareTeamStatuses,
   makeSelectPatient,
 } from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
-import {
-  initializeSearchParticipantResult,
-  removeParticipant,
-} from '../SearchParticipant/actions';
+import { initializeSearchParticipantResult, removeParticipant } from '../SearchParticipant/actions';
 import { mapToEditParticipants } from './api';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

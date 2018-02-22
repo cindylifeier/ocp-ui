@@ -1,11 +1,11 @@
-import getApiBaseUrl from '../../apiBaseUrlConfig';
 import request from '../../utils/request';
 import { EMPTY_STRING } from '../App/constants';
+import { BASE_PATIENTS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseURL = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
 export function postPatient(patientFormData) {
-  const requestURL = `${apiBaseURL}/patients/`;
+  const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBackendPatient(patientFormData)),
@@ -16,7 +16,7 @@ export function postPatient(patientFormData) {
 }
 
 export function putPatient(patientFormData) {
-  const requestURL = `${apiBaseURL}/patients/`;
+  const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBackendPatient(patientFormData)),
@@ -24,6 +24,11 @@ export function putPatient(patientFormData) {
       'Content-Type': 'application/json',
     },
   });
+}
+
+export function getPatient(patientId) {
+  const requestURL = `${baseEndpoint}/${patientId}`;
+  return request(requestURL);
 }
 
 export function mapToPatientName(patient) {

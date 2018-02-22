@@ -10,74 +10,13 @@
  *   return state.set('yourStateVariable', true);
  */
 
-import { fromJS } from 'immutable';
+import { combineReducers } from 'redux-immutable';
+import lookupReducer from './lookupReducer';
+import authReducer from './authReducer';
 
-import {
-  ADDRESSTYPE,
-  ADDRESSUSE,
-  ADMINISTRATIVEGENDER,
-  CARETEAMCATEGORY,
-  CARETEAMREASON,
-  CARETEAMSTATUS,
-  GET_LOOKUPS,
-  GET_LOOKUPS_ERROR,
-  GET_LOOKUPS_SUCCESS,
-  LANGUAGE,
-  LOCATIONIDENTIFIERSYSTEM,
-  LOCATIONPHYSICALTYPE,
-  LOCATIONSTATUS,
-  ORGANIZATIONIDENTIFIERSYSTEM,
-  ORGANIZATIONSTATUS,
-  PARTICIPANTROLE,
-  PARTICIPANTTYPE,
-  PATIENTIDENTIFIERSYSTEM,
-  PRACTITIONERIDENTIFIERSYSTEM,
-  PRACTITIONERROLES,
-  TELECOMSYSTEM,
-  TELECOMUSE,
-  USCOREBIRTHSEX,
-  USCOREETHNICITY,
-  USCORERACE,
-  USPSSTATES,
-  HEALTHCARESERVICECATEGORY,
-  HEALTHCARESERVICEREFERRALMETHOD,
-  HEALTHCARESERVICESPECIALITY,
-  HEALTHCARESERVICETYPE, RELATEDPERSONPATIENTRELATIONSHIPTYPES, GET_PATIENT_SUCCESS,
-} from './constants';
-
-// The initial state of the App
-const initialState = fromJS({
-  loading: false,
-  error: false,
-  selectedPatient: {},
-  USPSSTATES: [],
-  LOCATIONPHYSICALTYPE: [],
-  LOCATIONSTATUS: [],
-  ADDRESSTYPE: [],
-  ADDRESSUSE: [],
-  LOCATIONIDENTIFIERSYSTEM: [],
-  PRACTITIONERIDENTIFIERSYSTEM: [],
-  PRACTITIONERROLES: [],
-  TELECOMSYSTEM: [],
-  TELECOMUSE: [],
-  ORGANIZATIONIDENTIFIERSYSTEM: [],
-  ORGANIZATIONSTATUS: [],
-  PATIENTIDENTIFIERSYSTEM: [],
-  ADMINISTRATIVEGENDER: [],
-  USCORERACE: [],
-  USCOREETHNICITY: [],
-  USCOREBIRTHSEX: [],
-  LANGUAGE: [],
-  CARETEAMCATEGORY: [],
-  PARTICIPANTTYPE: [],
-  CARETEAMSTATUS: [],
-  PARTICIPANTROLE: [],
-  CARETEAMREASON: [],
-  HEALTHCARESERVICECATEGORY: [],
-  HEALTHCARESERVICETYPE: [],
-  HEALTHCARESERVICEREFERRALMETHOD: [],
-  HEALTHCARESERVICESPECIALITY: [],
-  RELATEDPERSONPATIENTRELATIONSHIPTYPES: [],
+export default combineReducers({
+  auth: authReducer,
+  lookup: lookupReducer,
 });
 
 function appReducer(state = initialState, action) {
@@ -115,14 +54,11 @@ function appReducer(state = initialState, action) {
         .set(HEALTHCARESERVICETYPE, fromJS((action.lookups && action.lookups.healthcareServiceTypes) || state.get(HEALTHCARESERVICETYPE)))
         .set(HEALTHCARESERVICEREFERRALMETHOD, fromJS((action.lookups && action.lookups.healthcareServiceReferralMethods) || state.get(HEALTHCARESERVICEREFERRALMETHOD)))
         .set(HEALTHCARESERVICESPECIALITY, fromJS((action.lookups && action.lookups.healthcareServiceSpecialities) || state.get(HEALTHCARESERVICESPECIALITY)))
-        .set(RELATEDPERSONPATIENTRELATIONSHIPTYPES, fromJS((action.lookups && action.lookups.relatedPersonPatientRelationshipTypes) || state.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);
-    case GET_PATIENT_SUCCESS:
-      return state.setIn(['selectedPatient'], action.patient);
     default:
       return state;
   }
