@@ -18,3 +18,5 @@ export const GET_RELATED_PERSONS_SUCCESS = 'ocpui/RelatedPersons/GET_RELATED_PER
 *  Other constants
 *
 */
+
+export const PAGE_SIZE = 10;
