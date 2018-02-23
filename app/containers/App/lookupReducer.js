@@ -36,6 +36,7 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  RELATED_ARTIFACT_TYPE,
 } from './constants';
 
 // The initial state of the lookup
@@ -74,6 +75,7 @@ const initialState = fromJS({
   RESOURCE_TYPE: [],
   ACTION_PARTICIPANT_TYPE: [],
   ACTION_PARTICIPANT_ROLE: [],
+  RELATED_ARTIFACT_TYPE: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -116,6 +118,7 @@ function lookupReducer(state = initialState, action) {
         .set(RESOURCE_TYPE, fromJS((action.lookups && action.lookups.resourceType) || state.get(RESOURCE_TYPE)))
         .set(ACTION_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.actionParticipantType) || state.get(ACTION_PARTICIPANT_TYPE)))
         .set(ACTION_PARTICIPANT_ROLE, fromJS((action.lookups && action.lookups.actionParticipantRole) || state.get(ACTION_PARTICIPANT_ROLE)))
+        .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
