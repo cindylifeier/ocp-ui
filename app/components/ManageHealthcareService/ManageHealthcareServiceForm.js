@@ -21,8 +21,9 @@ function ManageHealthcareServiceForm(props) {
     healthcareServiceTypes,
     healthcareServiceSpecialities,
     healthcareServiceReferralMethods,
+    healthcareServiceStatuses,
     telecomSystems,
-    isSubmitting, dirty, isValid,
+    isSubmitting, dirty, isValid, editMode,
   } = props;
   return (
     <div>
@@ -55,6 +56,18 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.programName} />}
             />
           </div>
+          {editMode &&
+          <SelectField
+            fullWidth
+            name="hcsStatus"
+            hintText={<FormattedMessage {...messages.hintText.status} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
+          >
+            {healthcareServiceStatuses && healthcareServiceStatuses.map((hcsStatus) =>
+              (<MenuItem key={hcsStatus.code} value={hcsStatus.code} primaryText={hcsStatus.display} />)
+            )}
+          </SelectField>
+          }
           <div className={`${styles.gridItem} ${styles.serviceGroup}`}>
             <SelectField
               fullWidth
@@ -62,8 +75,8 @@ function ManageHealthcareServiceForm(props) {
               hintText={<FormattedMessage {...messages.hintText.category} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
             >
-              {healthcareServiceCategories && healthcareServiceCategories.map((category) =>
-                <MenuItem key={category.code} value={category} primaryText={category.display} />,
+              {healthcareServiceCategories && healthcareServiceCategories.map((hcsCategory) =>
+                (<MenuItem key={hcsCategory.code} value={hcsCategory.code} primaryText={hcsCategory.display} />)
               )}
             </SelectField>
             <SelectField
@@ -73,7 +86,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.type} />}
             >
               {healthcareServiceTypes && healthcareServiceTypes.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
               )}
             </SelectField>
             <SelectField
@@ -83,7 +96,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.specialty} />}
             >
               {healthcareServiceSpecialities && healthcareServiceSpecialities.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
               )}
             </SelectField>
             <SelectField
@@ -93,7 +106,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.referralMethod} />}
             >
               {healthcareServiceReferralMethods && healthcareServiceReferralMethods.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
               )}
             </SelectField>
           </div>
@@ -105,7 +118,7 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
             >
               {telecomSystems && telecomSystems.map((telecomType) =>
-                <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
+                (<MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />)
               )}
             </SelectField>
             <TextField
@@ -152,7 +165,11 @@ ManageHealthcareServiceForm.propTypes = {
   })),
   healthcareServiceSpecialities: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string.isRequired,
+  })),
+  healthcareServiceStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.bool.isRequired,
     display: PropTypes.string.isRequired,
   })),
   healthcareServiceReferralMethods: PropTypes.arrayOf(PropTypes.shape({
@@ -168,6 +185,7 @@ ManageHealthcareServiceForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
 };
 
 export default ManageHealthcareServiceForm;

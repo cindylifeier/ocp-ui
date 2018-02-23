@@ -11,7 +11,7 @@ import {
   GLOBAL_LOOKUP_STATE_KEY,
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
-  HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -170,6 +170,11 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
 
+const makeSelectHealthcareServiceStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESTATUS).toJS(),
+);
+
 const makeSelectPublicationStatuses = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PUBLICATION_STATUS).toJS(),
@@ -227,6 +232,7 @@ export {
   makeSelectHealthcareServiceTypes,
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
+  makeSelectHealthcareServiceStatuses,
   makeSelectPublicationStatuses,
   makeSelectDefinitionTopics,
   makeSelectResourceTypes,

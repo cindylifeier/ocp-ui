@@ -16,6 +16,7 @@ import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -71,6 +72,7 @@ const initialState = fromJS({
   HEALTHCARESERVICEREFERRALMETHOD: [],
   RELATEDPERSONPATIENTRELATIONSHIPTYPES: [],
   HEALTHCARESERVICESPECIALITY: [],
+  HEALTHCARESERVICESTATUS: [],
   PUBLICATION_STATUS: [],
   DEFINITION_TOPIC: [],
   RESOURCE_TYPE: [],
@@ -113,6 +115,7 @@ function lookupReducer(state = initialState, action) {
         .set(HEALTHCARESERVICETYPE, fromJS((action.lookups && action.lookups.healthcareServiceTypes) || state.get(HEALTHCARESERVICETYPE)))
         .set(HEALTHCARESERVICEREFERRALMETHOD, fromJS((action.lookups && action.lookups.healthcareServiceReferralMethods) || state.get(HEALTHCARESERVICEREFERRALMETHOD)))
         .set(HEALTHCARESERVICESPECIALITY, fromJS((action.lookups && action.lookups.healthcareServiceSpecialities) || state.get(HEALTHCARESERVICESPECIALITY)))
+        .set(HEALTHCARESERVICESTATUS, fromJS((action.lookups && action.lookups.healthcareServiceStatuses) || state.get(HEALTHCARESERVICESTATUS)))
         .set(PUBLICATION_STATUS, fromJS((action.lookups && action.lookups.publicationStatus) || state.get(PUBLICATION_STATUS)))
         .set(DEFINITION_TOPIC, fromJS((action.lookups && action.lookups.definitionTopic) || state.get(DEFINITION_TOPIC)))
         .set(RESOURCE_TYPE, fromJS((action.lookups && action.lookups.resourceType) || state.get(RESOURCE_TYPE)))

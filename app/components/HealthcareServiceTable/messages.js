@@ -46,4 +46,12 @@ export default defineMessages({
     id: 'ocpui.components.HealthcareServiceTable.labelInactive',
     defaultMessage: 'Inactive',
   },
+  edit: {
+    id: 'ocpui.components.HealthcareServiceTable.edit',
+    defaultMessage: 'Edit',
+  },
+  remove: {
+    id: 'ocpui.components.HealthcareServiceTable.remove',
+    defaultMessage: 'Remove',
+  },
 });
