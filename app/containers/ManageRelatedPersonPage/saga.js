@@ -1,12 +1,12 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import { POST_RELATED_PERSON, PUT_RELATED_PERSON } from './constants';
+import { CREATE_RELATED_PERSON, UPDATE_RELATED_PERSON } from './constants';
 import { showNotification } from '../Notification/actions';
 import { saveRelatedPersonError } from './actions';
 import { postRelatedPerson, putRelatedPerson } from './api';
 
 
-export function* postRelatedPersonWorker(action) {
+export function* createRelatedPersonSaga(action) {
   try {
     if (action.relatedPerson) {
       yield call(postRelatedPerson, action.relatedPerson);
@@ -18,7 +18,7 @@ export function* postRelatedPersonWorker(action) {
   }
 }
 
-export function* putRelatedPersonWorker(action) {
+export function* updateRelatedPersonSaga(action) {
   try {
     if (action.relatedPerson) {
       yield call(putRelatedPerson, action.relatedPerson);
@@ -33,19 +33,19 @@ export function* putRelatedPersonWorker(action) {
 }
 
 
-export function* watchPostRelatedPerson() {
-  yield takeLatest(POST_RELATED_PERSON, postRelatedPersonWorker);
+export function* watchCreateRelatedPersonSaga() {
+  yield takeLatest(CREATE_RELATED_PERSON, createRelatedPersonSaga);
 }
 
 
-export function* watchPutRelatedPerson() {
-  yield takeLatest(PUT_RELATED_PERSON, putRelatedPersonWorker);
+export function* watchUpdateRelatedPersonSaga() {
+  yield takeLatest(UPDATE_RELATED_PERSON, updateRelatedPersonSaga);
 }
 
 
 export default function* rootSaga() {
   yield all([
-    watchPostRelatedPerson(),
-    watchPutRelatedPerson(),
+    watchCreateRelatedPersonSaga(),
+    watchUpdateRelatedPersonSaga(),
   ]);
 }
