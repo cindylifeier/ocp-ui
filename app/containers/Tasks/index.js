@@ -21,7 +21,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import { getTasks, initializeTasks } from './actions';
+import { cancelTask, getTasks, initializeTasks } from './actions';
 import TaskTable from '../../components/TaskTable';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -29,6 +29,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.cancelTask = this.cancelTask.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +39,10 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   handlePageClick(page) {
     const { query, patientName } = this.props.tasks;
     this.props.getTasks({ ...query, pageNumber: page }, patientName);
+  }
+
+  cancelTask(logicalId) {
+    this.props.cancelTask(logicalId);
   }
 
   render() {
@@ -69,7 +74,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div className={styles.textCenter}>
-          <TaskTable elements={data.elements} />
+          <TaskTable elements={data.elements} cancelTask={this.cancelTask} />
           <UltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
@@ -89,6 +94,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
 
 Tasks.propTypes = {
   initializeTasks: PropTypes.func.isRequired,
+  cancelTask: PropTypes.func.isRequired,
   getTasks: PropTypes.func.isRequired,
   tasks: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
@@ -105,6 +111,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
     initializeTasks: () => dispatch(initializeTasks()),
+    cancelTask: (id) => dispatch(cancelTask(id)),
   };
 }
 

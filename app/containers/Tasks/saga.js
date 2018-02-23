@@ -1,10 +1,10 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import getTasksApi from './api';
+import getTasksApi, { cancelTask } from './api';
 import { showNotification } from '../Notification/actions';
-import { getTasksError, getTasksSuccess } from './actions';
-import { GET_TASKS } from './constants';
+import { cancelTaskError, cancelTaskSuccess, getTasksError, getTasksSuccess } from './actions';
+import { CANCEL_TASK, GET_TASKS } from './constants';
 
 function getErrorMessage(err) {
   let errorMessage = '';
@@ -20,7 +20,7 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getTasks({ query }) {
+export function* getTasksSaga({ query }) {
   try {
     const tasksPage = yield call(getTasksApi, query);
     yield put(getTasksSuccess(tasksPage));
@@ -31,12 +31,28 @@ export function* getTasks({ query }) {
   }
 }
 
-export function* watchGetTasks() {
-  yield takeLatest(GET_TASKS, getTasks);
+export function* cancelTaskSaga({ id }) {
+  try {
+    yield call(cancelTask, id);
+    yield put(cancelTaskSuccess(id));
+    yield put(showNotification('Task is cancelled.'));
+  } catch (err) {
+    yield put(cancelTaskError(err));
+    yield put(showNotification('Failed to cancel task.'));
+  }
+}
+
+export function* watchGetTasksSaga() {
+  yield takeLatest(GET_TASKS, getTasksSaga);
+}
+
+export function* watchCancelTaskSaga() {
+  yield takeLatest(CANCEL_TASK, cancelTaskSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetTasks(),
+    watchGetTasksSaga(),
+    watchCancelTaskSaga(),
   ]);
 }

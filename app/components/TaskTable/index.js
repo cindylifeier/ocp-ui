@@ -8,6 +8,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 import messages from './messages';
 import Table from '../Table';
@@ -15,8 +19,22 @@ import TableHeader from '../TableHeader';
 import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
+import styles from './styles.css';
 
-function TaskTable({ elements }) {
+const iconStyles = {
+  iconButton: {
+    position: 'relative',
+  },
+  icon: {
+    width: '100%',
+    height: 26,
+    position: 'absolute',
+    top: '0',
+    right: '0',
+  },
+};
+
+function TaskTable({ elements, cancelTask }) {
   return (
     <div>
       <Table>
@@ -28,6 +46,7 @@ function TaskTable({ elements }) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
+          <TableHeaderColumn />
         </TableHeader>
         {!isEmpty(elements) && elements.map(({ logicalId, definition, status, priority, authoredOn, executionPeriod, agent, owner }) => (
           <TableRow key={logicalId}>
@@ -38,6 +57,32 @@ function TaskTable({ elements }) {
             <TableRowColumn>{executionPeriod && executionPeriod.start } - {executionPeriod && executionPeriod.end } </TableRowColumn>
             <TableRowColumn>{agent && agent.display } </TableRowColumn>
             <TableRowColumn>{owner && owner.display } </TableRowColumn>
+            <TableRowColumn>
+              <div className={styles.iconButtonGridContainer}>
+                <div className={styles.iconButtonGridItem}>
+                  <IconMenu
+                    iconButtonElement={
+                      (<IconButton
+                        className={styles.iconButton}
+                        iconStyle={iconStyles.icon}
+                        style={iconStyles.iconButton}
+                      >
+                        <NavigationMenu />
+                      </IconButton>)
+                    }
+                    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  >
+                    <MenuItem
+                      className={styles.menuItem}
+                      primaryText="Cancel"
+                      disabled={status.code === 'cancelled'}
+                      onClick={() => cancelTask(logicalId)}
+                    />
+                  </IconMenu>
+                </div>
+              </div>
+            </TableRowColumn>
           </TableRow>
         ))}
       </Table>
@@ -46,6 +91,7 @@ function TaskTable({ elements }) {
 }
 
 TaskTable.propTypes = {
+  cancelTask: PropTypes.func.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({
