@@ -11,13 +11,6 @@ const makeSelectLocation = () => createSelector(
 
 export default selectGlobalDomain;
 
-
-const makeSelectPatient = () => createSelector(
-  selectGlobalDomain,
-  (substate) => substate && substate.get('selectedPatient'),
-);
-
 export {
   makeSelectLocation,
-  makeSelectPatient,
 };

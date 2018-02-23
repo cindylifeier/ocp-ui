@@ -29,6 +29,7 @@ import {
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PUBLICATION_STATUS,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -68,6 +69,7 @@ const initialState = fromJS({
   HEALTHCARESERVICECATEGORY: [],
   HEALTHCARESERVICETYPE: [],
   HEALTHCARESERVICEREFERRALMETHOD: [],
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES: [],
   HEALTHCARESERVICESPECIALITY: [],
   PUBLICATION_STATUS: [],
   DEFINITION_TOPIC: [],
@@ -116,6 +118,7 @@ function lookupReducer(state = initialState, action) {
         .set(RESOURCE_TYPE, fromJS((action.lookups && action.lookups.resourceType) || state.get(RESOURCE_TYPE)))
         .set(ACTION_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.actionParticipantType) || state.get(ACTION_PARTICIPANT_TYPE)))
         .set(ACTION_PARTICIPANT_ROLE, fromJS((action.lookups && action.lookups.actionParticipantRole) || state.get(ACTION_PARTICIPANT_ROLE)))
+        .set(RELATEDPERSONPATIENTRELATIONSHIPTYPES, fromJS((action.lookups && action.lookups.relatedPersonPatientRelationshipTypes) || state.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

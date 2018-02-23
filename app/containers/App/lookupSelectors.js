@@ -197,7 +197,7 @@ const makeSelectActionParticipantRoles = () => createSelector(
 
 const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
   selectGlobalDomain,
-  (globalState) => globalState.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
 );
 export {
   makeSelectUspsStates,
