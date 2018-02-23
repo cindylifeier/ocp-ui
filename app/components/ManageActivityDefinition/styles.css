@@ -19,6 +19,18 @@
   background-color: #f2f2f2;
 }
 
+.error {
+  font-size: 12px;
+  color: red;
+}
+
+.addArtifactsButton {
+  padding-left: 0.5vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
 .organizationInfoSection {
   margin:20px 10px;
   padding-left: 20px;

@@ -19,6 +19,14 @@ export default defineMessages({
       id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.required',
       defaultMessage: 'Required',
     },
+    requiredRelatedArtifacts: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.requiredRelatedArtifacts',
+      defaultMessage: 'Must have related artifacts',
+    },
+    minLengthdRelatedArtifacts: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.minLengthdRelatedArtifacts',
+      defaultMessage: 'Minimum of 1 related artifacts',
+    },
     invalid: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
@@ -150,6 +158,24 @@ export default defineMessages({
     participantRole: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.participantRole',
       defaultMessage: 'Participant Role',
+    },
+  },
+  relatedArtifacts: {
+    subtitle: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.subtitle',
+      defaultMessage: 'Related Artifacts',
+    },
+    addButtonLabel: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.addButtonLabel',
+      defaultMessage: 'Add Artifacts',
+    },
+    tableColumnName: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.tableColumnName',
+      defaultMessage: 'Name',
+    },
+    tableColumnType: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.tableColumnType',
+      defaultMessage: 'Artifact Type',
     },
   },
 });
