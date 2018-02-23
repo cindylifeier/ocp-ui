@@ -1,10 +1,10 @@
 import request from '../../utils/request';
-import { getEndpoint, LOOKUPS_API_URL } from '../../utils/endpointService';
+import { BASE_RELATED_PERSONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const baseEndpoint = getEndpoint(LOOKUPS_API_URL);
+const baseEndpoint = getEndpoint(BASE_RELATED_PERSONS_API_URL);
 
 export function postRelatedPerson(relatedPerson) {
-  const requestURL = `${baseEndpoint}/related-persons/`;
+  const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(relatedPerson),
@@ -16,7 +16,7 @@ export function postRelatedPerson(relatedPerson) {
 
 export function putRelatedPerson(relatedPerson) {
   const relatedPersonId = relatedPerson.relatedPersonId;
-  const requestURL = `${baseEndpoint}/related-persons/${relatedPersonId}`;
+  const requestURL = `${baseEndpoint}/${relatedPersonId}`;
   return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(relatedPerson),
