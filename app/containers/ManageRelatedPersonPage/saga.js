@@ -3,13 +3,13 @@ import { goBack } from 'react-router-redux';
 import { CREATE_RELATED_PERSON, UPDATE_RELATED_PERSON } from './constants';
 import { showNotification } from '../Notification/actions';
 import { saveRelatedPersonError } from './actions';
-import { postRelatedPerson, putRelatedPerson } from './api';
+import { createRelatedPerson, updateRelatedPerson } from './api';
 
 
 export function* createRelatedPersonSaga(action) {
   try {
     if (action.relatedPerson) {
-      yield call(postRelatedPerson, action.relatedPerson);
+      yield call(createRelatedPerson, action.relatedPerson);
       yield put(goBack());
     }
   } catch (error) {
@@ -21,7 +21,7 @@ export function* createRelatedPersonSaga(action) {
 export function* updateRelatedPersonSaga(action) {
   try {
     if (action.relatedPerson) {
-      yield call(putRelatedPerson, action.relatedPerson);
+      yield call(updateRelatedPerson, action.relatedPerson);
       yield call(action.handleSubmitting);
       yield put(goBack());
     }

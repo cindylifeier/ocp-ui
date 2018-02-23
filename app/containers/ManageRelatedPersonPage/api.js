@@ -3,7 +3,7 @@ import { BASE_RELATED_PERSONS_API_URL, getEndpoint } from '../../utils/endpointS
 
 const baseEndpoint = getEndpoint(BASE_RELATED_PERSONS_API_URL);
 
-export function postRelatedPerson(relatedPerson) {
+export function createRelatedPerson(relatedPerson) {
   const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'POST',
@@ -14,7 +14,7 @@ export function postRelatedPerson(relatedPerson) {
   });
 }
 
-export function putRelatedPerson(relatedPerson) {
+export function updateRelatedPerson(relatedPerson) {
   const relatedPersonId = relatedPerson.relatedPersonId;
   const requestURL = `${baseEndpoint}/${relatedPersonId}`;
   return request(requestURL, {
