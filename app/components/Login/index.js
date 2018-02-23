@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
-import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { teal500, white } from 'material-ui/styles/colors';
 
@@ -18,13 +17,9 @@ import messages from './messages';
 import ocpLogo from '../../images/omnibus-care-plan-logo.png';
 import styles from './styles.css';
 import StyledDivider from '../StyledDivider';
-
-const inlineStyles = {
-  card: {
-    borderWidth: '1px',
-    backgroundColor: 'rgba(242, 242, 242, 1)',
-  },
-};
+import LoginStyledCard from './LoginStyledCard';
+import CardHeader from '../CardHeader';
+import CenterAlign from '../Align/CenterAlign';
 
 function Login(props) {
   const { onLogin, auth: { isAuthenticating } } = props;
@@ -35,10 +30,10 @@ function Login(props) {
         <img className={styles.logo} src={ocpLogo} alt="ocp logo" />
       </div>
       <StyledDivider />
-      <Card style={inlineStyles.card} className={styles.loginCard}>
-        <div className={styles.title}>
-          <FormattedMessage {...messages.title} />
-        </div>
+      <LoginStyledCard>
+        <CenterAlign>
+          <CardHeader title={<FormattedMessage {...messages.title} />} />
+        </CenterAlign>
         <Formik
           onSubmit={(values, actions) => {
             onLogin(values, actions);
@@ -94,7 +89,7 @@ function Login(props) {
           }}
         >
         </Formik>
-      </Card>
+      </LoginStyledCard>
     </div>
   );
 }
