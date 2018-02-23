@@ -19,12 +19,6 @@ import reducer from './reducer';
 import saga from './saga';
 // import messages from './messages';
 import {
-  makeSelectAdministrativeGenders, makeSelectPatient, makeSelectPatientIdentifierSystems,
-  makeSelectRelatedPersonPatientRelationshipTypes,
-  makeSelectTelecomSystems, makeSelectTelecomUses,
-  makeSelectUspsStates,
-} from '../App/selectors';
-import {
   ADMINISTRATIVEGENDER, PATIENTIDENTIFIERSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES, TELECOMSYSTEM, TELECOMUSE,
   USPSSTATES,
 } from '../App/constants';
@@ -32,6 +26,11 @@ import { getLookupsAction, getPatient } from '../App/actions';
 import ManageRelatedPerson from '../../components/ManageRelatedPerson';
 import { createRelatedPerson, updateRelatedPerson } from './actions';
 import makeSelectRelatedPersons from '../RelatedPersons/selectors';
+import {
+  makeSelectAdministrativeGenders, makeSelectPatientIdentifierSystems, makeSelectRelatedPersonPatientRelationshipTypes,
+  makeSelectTelecomSystems, makeSelectTelecomUses, makeSelectUspsStates,
+} from '../App/lookupSelectors';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -111,7 +110,7 @@ const mapStateToProps = createStructuredSelector({
   administrativeGenders: makeSelectAdministrativeGenders(),
   telecomSystems: makeSelectTelecomSystems(),
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
   telecomUses: makeSelectTelecomUses(),
   relatedPeronsData: makeSelectRelatedPersons(),
 });

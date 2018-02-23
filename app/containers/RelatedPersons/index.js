@@ -21,9 +21,9 @@ import saga from './saga';
 import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
 import RelatedPersonTable from '../../components/RelatedPersonTable';
-import { makeSelectPatient } from '../App/selectors';
 import styles from './styles.css';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -88,7 +88,7 @@ RelatedPersons.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectRelatedPersons(),
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
   loading: makeSelectRelatedPersonsSearchLoading(),
 });
 

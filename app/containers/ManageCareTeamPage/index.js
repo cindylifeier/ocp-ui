@@ -27,16 +27,15 @@ import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from '../App/constan
 import { getLookupsAction, getPatient } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
-import {
-  makeSelectCareTeamCategories,
-  makeSelectCareTeamReasons,
-  makeSelectCareTeamStatuses,
-  makeSelectPatient,
-} from '../App/selectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 import { initializeSearchParticipantResult, removeParticipant } from '../SearchParticipant/actions';
 import { mapToEditParticipants } from './api';
+import {
+  makeSelectCareTeamCategories, makeSelectCareTeamReasons,
+  makeSelectCareTeamStatuses,
+} from '../App/lookupSelectors';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -179,7 +178,7 @@ ManageCareTeamPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
   selectedCareTeam: makeSelectCareTeam(),
   careTeamCategories: makeSelectCareTeamCategories(),
   careTeamStatuses: makeSelectCareTeamStatuses(),

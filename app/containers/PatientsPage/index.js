@@ -75,16 +75,7 @@ const initialStateMetadata =
             reorderEnabled: true,
           },
           ],
-        },
-        ],
-      },
-      {
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
+        }, {
           type: 'stack',
           header: {},
           isClosable: true,
@@ -103,7 +94,8 @@ const initialStateMetadata =
           ],
         },
         ],
-      }, {
+      },
+      {
         type: 'column',
         isClosable: true,
         reorderEnabled: true,
