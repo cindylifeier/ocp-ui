@@ -10,8 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ManagePatientPage.createHeader',
     defaultMessage: 'Create Patient',
   },
-  editHeader: {
-    id: 'ocpui.containers.ManagePatientPage.editHeader',
+  updateHeader: {
+    id: 'ocpui.containers.ManagePatientPage.updateHeader',
     defaultMessage: 'Edit Patient',
   },
 });

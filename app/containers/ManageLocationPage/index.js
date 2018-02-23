@@ -98,7 +98,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
           <meta name="description" content="Manage Location Page" />
         </Helmet>
         <div className={styles.header}>
-          {logicalId ? <FormattedMessage {...messages.editHeader} />
+          {logicalId ? <FormattedMessage {...messages.updateHeader} />
             : <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />

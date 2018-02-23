@@ -6,9 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import { FormattedMessage } from 'react-intl';
 
 import styles from './styles.css';
@@ -18,6 +23,19 @@ import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import messages from './messages';
+
+const iconStyles = {
+  iconButton: {
+    position: 'relative',
+  },
+  icon: {
+    width: '100%',
+    height: 26,
+    position: 'absolute',
+    top: '0',
+    right: '0',
+  },
+};
 
 function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
   function getDisplayNameFromValueSetList(valueSets) {
@@ -54,6 +72,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
+          <TableHeaderColumn></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
@@ -64,6 +83,29 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
             <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
             <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
             <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
+            <TableRowColumn>
+              <div>
+                <IconMenu
+                  iconButtonElement={
+                    (<IconButton
+                      className={styles.iconButton}
+                      iconStyle={iconStyles.icon}
+                      style={iconStyles.iconButton}
+                    >
+                      <NavigationMenu />
+                    </IconButton>)
+                  }
+                  anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
+                  <MenuItem
+                    className={styles.menuItem}
+                    primaryText={<FormattedMessage {...messages.edit} />}
+                    containerElement={<Link to={`/ocp-ui/manage-healthcare-service/${element.logicalId}`} />}
+                  />
+                </IconMenu>
+              </div>
+            </TableRowColumn>
           </TableRow>
         ))}
       </Table>}
