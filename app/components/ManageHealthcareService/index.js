@@ -79,14 +79,13 @@ function setFormData(currentHealthcareService) {
   if (!isEmpty(currentHealthcareService)) {
     formData = merge(mapHealthcareServiceToName(currentHealthcareService),
       mapHealthcareServiceToProgramName(currentHealthcareService),
-      mapHealthcareServiceToStatus(currentHealthcareService),
       mapHealthcareServiceToCategory(currentHealthcareService),
       mapHealthcareServiceToType(currentHealthcareService),
       mapHealthcareServiceToSpeciality(currentHealthcareService),
       mapHealthcareServiceToReferralMethod(currentHealthcareService),
       mapHealthcareServiceToFirstTelecoms(currentHealthcareService));
   }
-  return Util.pickByIdentity(formData);
+  return merge(Util.pickByIdentity(formData), mapHealthcareServiceToStatus(currentHealthcareService));
 }
 
 function mapHealthcareServiceToName(healthcareService) {
