@@ -62,7 +62,7 @@ dockerfile text
 *.hbt text
 *.jade text
 *.haml text
-*.hbs text
+*.hbs text eol=lf
 *.dot text
 *.tmpl text
 *.phtml text
