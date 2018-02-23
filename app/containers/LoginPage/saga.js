@@ -1,7 +1,7 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
-import { login } from './api';
+import { getLoginErrorDetail, login } from './api';
 import { showNotification } from '../Notification/actions';
 import { loginError, loginSuccess } from './actions';
 import { LOGIN } from './constants';
@@ -27,10 +27,9 @@ function* loginSaga(loginAction) {
     const { from } = location.state || { from: { pathname: HOME_URL } };
     yield put(push(from));
   } catch (error) {
-    yield put(loginError());
+    yield put(loginError(getLoginErrorDetail(error)));
     yield put(showNotification('Failed to login.'));
     yield call(loginAction.handleSubmitting);
-    throw error;
   }
 }
 
