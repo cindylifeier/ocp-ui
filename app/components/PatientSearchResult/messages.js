@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationsTableRow.addTask',
     defaultMessage: 'Add Task',
   },
+  addRelatedPerson: {
+    id: 'ocpui.components.OrganizationsTableRow.addRelatedPerson',
+    defaultMessage: 'Add Related Person',
+  },
 });

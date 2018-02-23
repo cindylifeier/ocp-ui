@@ -13,13 +13,6 @@ export function saveCareTeam(careTeamFormData) {
   return createCareTeam(careTeamFormData);
 }
 
-export function getPatientById(patients, patientId) {
-  if (!isEmpty(patients)) {
-    return find(patients, { id: patientId });
-  }
-  return null;
-}
-
 export function determineNotificationForSavingCareTeam(careTeamFormData) {
   let action = 'create';
   if (careTeamFormData.careTeamId) {

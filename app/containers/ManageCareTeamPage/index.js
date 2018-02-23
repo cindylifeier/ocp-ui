@@ -18,24 +18,24 @@ import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getCareTeam, getPatient, initializeManageCareTeam, saveCareTeam } from './actions';
-import { makeSelectCareTeam, makeSelectPatient } from './selectors';
+import { getCareTeam, initializeManageCareTeam, saveCareTeam } from './actions';
+import { makeSelectCareTeam } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ManageCareTeam from '../../components/ManageCareTeam';
 import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
+import { getLookupsAction, getPatient } from '../App/actions';
 import messages from './messages';
 import styles from './styles.css';
-import {
-  makeSelectCareTeamCategories,
-  makeSelectCareTeamReasons,
-  makeSelectCareTeamStatuses,
-} from '../App/lookupSelectors';
 import SearchParticipant from '../SearchParticipant';
 import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
 import { initializeSearchParticipantResult, removeParticipant } from '../SearchParticipant/actions';
 import { mapToEditParticipants } from './api';
+import {
+  makeSelectCareTeamCategories, makeSelectCareTeamReasons,
+  makeSelectCareTeamStatuses,
+} from '../App/lookupSelectors';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -178,7 +178,7 @@ ManageCareTeamPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
   selectedCareTeam: makeSelectCareTeam(),
   careTeamCategories: makeSelectCareTeamCategories(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
