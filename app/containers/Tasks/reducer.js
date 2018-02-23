@@ -5,7 +5,9 @@
  */
 
 import { fromJS } from 'immutable';
+import find from 'lodash/find';
 import {
+  CANCEL_TASK_SUCCESS,
   GET_TASKS, GET_TASKS_ERROR, GET_TASKS_SUCCESS,
   INITIALIZE_TASKS,
 } from './constants';
@@ -33,6 +35,11 @@ function tasksReducer(state = initialState, action) {
         .set('data', fromJS(action.tasksPage || {}));
     case GET_TASKS_ERROR:
       return state.set('loading', false);
+    case CANCEL_TASK_SUCCESS: {
+      const data = state.get('data').toJS();
+      find(data.elements, { logicalId: action.id }).status = { code: 'cancelled', display: 'Cancelled' };
+      return state.set('data', fromJS(data));
+    }
     default:
       return state;
   }
