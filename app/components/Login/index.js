@@ -14,12 +14,13 @@ import { teal500, white } from 'material-ui/styles/colors';
 
 import TextField from '../TextField';
 import messages from './messages';
-import ocpLogo from '../../images/omnibus-care-plan-logo.png';
+import brandImg from '../../images/omnibus-care-plan-logo.png';
 import styles from './styles.css';
 import StyledDivider from '../StyledDivider';
 import LoginStyledCard from './LoginStyledCard';
 import CardHeader from '../CardHeader';
 import CenterAlign from '../Align/CenterAlign';
+import StyledBrandImage from '../StyledBrandImage';
 
 function Login(props) {
   const { onLogin, auth: { isAuthenticating } } = props;
@@ -27,7 +28,7 @@ function Login(props) {
   return (
     <div>
       <div>
-        <img className={styles.logo} src={ocpLogo} alt="ocp logo" />
+        <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
       </div>
       <StyledDivider />
       <LoginStyledCard>
