@@ -8,6 +8,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import renderPatientsComponent from '../Patients/render';
 import renderCareTeamsComponent from '../CareTeams/render';
+import renderTasksComponent from '../Tasks/render';
 import GoldenLayout from '../../components/GoldenLayout';
 import styles from './styles.css';
 
@@ -52,7 +53,7 @@ const initialStateMetadata =
       reorderEnabled: true,
       title: '',
       content: [{
-        type: 'row',
+        type: 'column',
         isClosable: true,
         reorderEnabled: true,
         title: '',
@@ -74,6 +75,31 @@ const initialStateMetadata =
           },
           ],
         }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          height: 50,
+          content: [{
+            title: 'Tasks',
+            type: 'component',
+            componentName: 'tasks',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        },
+        ],
+      }, {
+        type: 'column',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        width: 50,
+        content: [{
           type: 'stack',
           header: {},
           isClosable: true,
@@ -106,6 +132,7 @@ const initialStateMetadata =
 const componentMetadata = [
   { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
   { name: 'careTeams', text: 'Care Teams', factoryMethod: renderCareTeamsComponent },
+  { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
 ];
 
 export class PatientsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

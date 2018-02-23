@@ -2,34 +2,54 @@ import isUndefined from 'lodash/isUndefined';
 import some from 'lodash/some';
 import includes from 'lodash/includes';
 
-import getApiBaseUrl from '../apiBaseUrlConfig';
-
+// Todo: Make server side configurable
+const BASE_API_URL = '/ocp-ui-api';
 /**
- *  Constants to hold the external UI Api endpoints
+ *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
  */
-export const LOGIN_API_URL = combineBaseApiUrl('login');
-export const LOOKUPS_API_URL = combineBaseApiUrl('ocp-fis/lookups');
-export const BASE_CARE_TEAMS_API_URL = combineBaseApiUrl('ocp-fis/care-teams');
-export const BASE_ORGANIZATION_API_URL = combineBaseApiUrl('ocp-fis/organization');
-export const BASE_ORGANIZATIONS_API_URL = combineBaseApiUrl('ocp-fis/organizations');
-export const BASE_HEALTHCARE_SERVICES_API_URL = combineBaseApiUrl('ocp-fis/healthcare-services');
-export const BASE_LOCATION_API_URL = combineBaseApiUrl('ocp-fis/location');
-export const BASE_LOCATIONS_API_URL = combineBaseApiUrl('ocp-fis/locations');
-export const BASE_PARTICIPANTS_API_URL = combineBaseApiUrl('ocp-fis/participants');
-export const BASE_PATIENTS_API_URL = combineBaseApiUrl('ocp-fis/patients');
-export const BASE_PRACTITIONERS_API_URL = combineBaseApiUrl('ocp-fis/practitioners');
-export const BASE_RELATED_PERSONS_API_URL = combineBaseApiUrl('ocp-fis/related-persons');
+export const LOGIN_API_URL = 'ocpui/utils/LOGIN_API_URL';
+export const LOOKUPS_API_URL = 'ocpui/utils/LOOKUPS_API_URL';
+export const BASE_CARE_TEAMS_API_URL = 'ocpui/utils/BASE_CARE_TEAMS_API_URL';
+export const BASE_ORGANIZATION_API_URL = 'ocpui/utils/BASE_ORGANIZATION_API_URL';
+export const BASE_ORGANIZATIONS_API_URL = 'ocpui/utils/BASE_ORGANIZATIONS_API_URL';
+export const BASE_HEALTHCARE_SERVICES_API_URL = 'ocpui/utils/BASE_HEALTHCARE_SERVICES_API_URL';
+export const BASE_LOCATION_API_URL = 'ocpui/utils/BASE_LOCATION_API_URL';
+export const BASE_LOCATIONS_API_URL = 'ocpui/utils/BASE_LOCATIONS_API_URL';
+export const BASE_PARTICIPANTS_API_URL = 'ocpui/utils/BASE_PARTICIPANTS_API_URL';
+export const BASE_PATIENTS_API_URL = 'ocpui/utils/BASE_PATIENTS_API_URL';
+export const BASE_PRACTITIONERS_API_URL = 'ocpui/utils/BASE_PRACTITIONERS_API_URL';
+export const BASE_RELATED_PERSONS_API_URL = 'ocpui/utils/BASE_RELATED_PERSONS_API_URL';
+export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
+/**
+ * Configure all secured and unsecured endpoints
+ * isSecured property is used to specify secured or unsecured endpoint. By default isSecured property will set true if it is missing to set
+ * @type {*[]}
+ */
+const apiEndpoints = [
+  { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
+  { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/ocp-fis/lookups`, isSecured: false },
+
+  { key: BASE_CARE_TEAMS_API_URL, url: `${BASE_API_URL}/ocp-fis/care-teams` },
+  { key: BASE_ORGANIZATION_API_URL, url: `${BASE_API_URL}/ocp-fis/organization` },
+  { key: BASE_ORGANIZATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/organizations` },
+  { key: BASE_HEALTHCARE_SERVICES_API_URL, url: `${BASE_API_URL}/ocp-fis/healthcare-services` },
+  { key: BASE_LOCATION_API_URL, url: `${BASE_API_URL}/ocp-fis/location` },
+  { key: BASE_LOCATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/locations` },
+  { key: BASE_PARTICIPANTS_API_URL, url: `${BASE_API_URL}/ocp-fis/participants` },
+  { key: BASE_PATIENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/patients` },
+  { key: BASE_PRACTITIONERS_API_URL, url: `${BASE_API_URL}/ocp-fis/practitioners` },
+  { key: BASE_RELATED_PERSONS_API_URL, url: `${BASE_API_URL}/ocp-fis/related-persons` },
+  { key: BASE_TASKS_API_URL, url: `${BASE_API_URL}/ocp-fis/tasks` },
+];
 
 export function getEndpoint(key) {
-  const securedEndpoints = configureSecuredEndpoints();
-  const unSecuredEndpoints = configureUnSecuredEndpoints();
-  const endpoints = new Map([...securedEndpoints, ...unSecuredEndpoints]);
+  const endpoints = collectEndpoints();
   const requestEndpoint = endpoints.get(key);
   if (isUndefined(requestEndpoint)) {
     throw Error(`No ${key} endpoint configured.`);
   }
-  return requestEndpoint;
+  return requestEndpoint.url;
 }
 
 /**
@@ -38,47 +58,28 @@ export function getEndpoint(key) {
  * @returns {boolean}
  */
 export function isSecuredEndpoint(endpoint) {
-  let isEndpointSecured = false;
+  let isEndpointSecured = true;
+  const endpoints = Array.from(collectEndpoints().values());
 
-  const securedEndpoints = Array.from(configureSecuredEndpoints().values());
-  if (some(securedEndpoints, (securedEndpoint) => includes(endpoint, securedEndpoint))) {
-    isEndpointSecured = true;
+  // Collect all unsecured endpoints
+  const unsecuredEndpoints = endpoints
+    .filter((ep) => ep.isSecured === false)
+    .map((ep) => ep.url);
+  if (some(unsecuredEndpoints, (unsecuredEndpoint) => includes(endpoint, unsecuredEndpoint))) {
+    isEndpointSecured = false;
   }
 
   return isEndpointSecured;
 }
 
 /**
- * Configure all unsecured endpoints
+ * Collect all endpoints
  * @returns {*}
  */
-function configureUnSecuredEndpoints() {
-  const unSecuredEndpoints = new Map();
-  unSecuredEndpoints.set(LOGIN_API_URL, LOGIN_API_URL);
-  unSecuredEndpoints.set(LOOKUPS_API_URL, LOOKUPS_API_URL);
-  return unSecuredEndpoints;
+function collectEndpoints() {
+  const endpoints = new Map();
+  apiEndpoints
+    .map((endpoint) => endpoints.set(endpoint.key, endpoint));
+  return endpoints;
 }
 
-/**
- * Configure all secured endpoints
- * @returns {Map<any, any>}
- */
-function configureSecuredEndpoints() {
-  const securedEndpoints = new Map();
-  securedEndpoints.set(BASE_CARE_TEAMS_API_URL, BASE_CARE_TEAMS_API_URL);
-  securedEndpoints.set(BASE_LOCATION_API_URL, BASE_LOCATION_API_URL);
-  securedEndpoints.set(BASE_LOCATIONS_API_URL, BASE_LOCATIONS_API_URL);
-  securedEndpoints.set(BASE_PATIENTS_API_URL, BASE_PATIENTS_API_URL);
-  securedEndpoints.set(BASE_ORGANIZATION_API_URL, BASE_ORGANIZATION_API_URL);
-  securedEndpoints.set(BASE_ORGANIZATIONS_API_URL, BASE_ORGANIZATIONS_API_URL);
-  securedEndpoints.set(BASE_PARTICIPANTS_API_URL, BASE_PARTICIPANTS_API_URL);
-  securedEndpoints.set(BASE_PRACTITIONERS_API_URL, BASE_PRACTITIONERS_API_URL);
-  securedEndpoints.set(BASE_RELATED_PERSONS_API_URL, BASE_RELATED_PERSONS_API_URL);
-  securedEndpoints.set(BASE_HEALTHCARE_SERVICES_API_URL, BASE_HEALTHCARE_SERVICES_API_URL);
-  return securedEndpoints;
-}
-
-function combineBaseApiUrl(endpoint) {
-  const baseApiUrl = getApiBaseUrl();
-  return `${baseApiUrl}/${endpoint}`;
-}
