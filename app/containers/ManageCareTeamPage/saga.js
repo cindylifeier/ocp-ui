@@ -29,7 +29,6 @@ function* getCareTeamSaga({ careTeamId }) {
   } catch (error) {
     yield put(showNotification('No match care team found.'));
     yield put(push(PATIENTS_URL));
-    throw error;
   }
 }
 
@@ -42,7 +41,6 @@ function* saveCareTeamSaga(action) {
   } catch (error) {
     yield put(showNotification(`Failed to ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.`));
     yield call(action.handleSubmitting);
-    throw error;
   }
 }
 
