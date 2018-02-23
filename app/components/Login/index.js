@@ -10,7 +10,6 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import { Card } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { teal500, white } from 'material-ui/styles/colors';
 
@@ -18,12 +17,9 @@ import TextField from '../TextField';
 import messages from './messages';
 import ocpLogo from '../../images/omnibus-care-plan-logo.png';
 import styles from './styles.css';
+import StyledDivider from '../StyledDivider';
 
 const inlineStyles = {
-  divider: {
-    backgroundColor: teal500,
-    height: '3px',
-  },
   card: {
     borderWidth: '1px',
     backgroundColor: 'rgba(242, 242, 242, 1)',
@@ -38,7 +34,7 @@ function Login(props) {
       <div>
         <img className={styles.logo} src={ocpLogo} alt="ocp logo" />
       </div>
-      <Divider style={inlineStyles.divider} />
+      <StyledDivider />
       <Card style={inlineStyles.card} className={styles.loginCard}>
         <div className={styles.title}>
           <FormattedMessage {...messages.title} />
