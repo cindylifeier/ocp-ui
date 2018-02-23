@@ -27,7 +27,7 @@ import {
 } from '../App/lookupSelectors';
 import { makeSelectOrganization } from '../Locations/selectors';
 import { getLookupsAction } from '../App/actions';
-import { createHealthcareService, editHealthcareService, getHealthcareServiceById } from './actions';
+import { createHealthcareService, updateHealthcareService, getHealthcareServiceById } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ManageHealthcareService from '../../components/ManageHealthcareService';
@@ -102,7 +102,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
     if (logicalId) {
       hcsDataToSubmit.active = hcsStatus;
       merge(hcsDataToSubmit, { logicalId });
-      this.props.editHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
+      this.props.updateHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
     } else {
       hcsDataToSubmit.active = true;
       this.props.createHealthcareService(hcsDataToSubmit, () => actions.setSubmitting(false));
@@ -147,7 +147,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
         </Helmet>
         <div className={styles.wrapper}>
           <div className={styles.header}>
-            {logicalId ? <FormattedMessage {...messages.editHeader} />
+            {logicalId ? <FormattedMessage {...messages.updateHeader} />
               : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
@@ -172,7 +172,7 @@ ManageHealthcareServicePage.propTypes = {
   organization: PropTypes.object,
   healthcareServices: PropTypes.any,
   createHealthcareService: PropTypes.func,
-  editHealthcareService: PropTypes.func,
+  updateHealthcareService: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -191,7 +191,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([HEALTHCARESERVICECATEGORY, HEALTHCARESERVICETYPE, HEALTHCARESERVICEREFERRALMETHOD, HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICESTATUS, TELECOMSYSTEM, TELECOMUSE])),
     createHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(createHealthcareService(healthcareServiceFormData, handleSubmitting)),
-    editHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(editHealthcareService(healthcareServiceFormData, handleSubmitting)),
+    updateHealthcareService: (healthcareServiceFormData, handleSubmitting) => dispatch(updateHealthcareService(healthcareServiceFormData, handleSubmitting)),
     getSelectedHealthcareService: (logicalId) => dispatch(getHealthcareServiceById(logicalId)),
   };
 }

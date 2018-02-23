@@ -34,7 +34,7 @@ export function createHealthcareServiceSuccess(response) {
   };
 }
 
-export function editHealthcareService(healthcareServiceFormData, handleSubmitting) {
+export function updateHealthcareService(healthcareServiceFormData, handleSubmitting) {
   return {
     type: UPDATE_HEALTHCARE_SERVICE,
     healthcareServiceFormData,
@@ -42,7 +42,7 @@ export function editHealthcareService(healthcareServiceFormData, handleSubmittin
   };
 }
 
-export function editHealthcareServiceError(error) {
+export function updateHealthcareServiceError(error) {
   return {
     type: UPDATE_HEALTHCARE_SERVICE_ERROR,
     error,
@@ -50,7 +50,7 @@ export function editHealthcareServiceError(error) {
 }
 
 
-export function editHealthcareServiceSuccess(response) {
+export function updateHealthcareServiceSuccess(response) {
   return {
     type: UPDATE_HEALTHCARE_SERVICE_SUCCESS,
     response,

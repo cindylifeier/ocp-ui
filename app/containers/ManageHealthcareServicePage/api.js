@@ -15,7 +15,7 @@ export function createHealthcareService(healthcareServiceFormData, organizationI
   });
 }
 
-export function editHealthcareService(healthcareServiceFormData, organizationId) {
+export function updateHealthcareService(healthcareServiceFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
   const url = `${baseEndpoint}/${organizationId}/healthcare-service/${healthcareServiceFormData.logicalId}`;
   return request(url, {

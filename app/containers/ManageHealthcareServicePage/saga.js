@@ -3,11 +3,11 @@ import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 import { showNotification } from '../Notification/actions';
 import {
-  createHealthcareService, editHealthcareService, getHealthcareServiceById, getHealthcareServiceByIdFromStore,
+  createHealthcareService, updateHealthcareService, getHealthcareServiceById, getHealthcareServiceByIdFromStore,
 } from './api';
 import {
-  createHealthcareServiceSuccess, createHealthcareServiceError, editHealthcareServiceError,
-  editHealthcareServiceSuccess, getHealthcareServiceByIdSuccess,
+  createHealthcareServiceSuccess, createHealthcareServiceError, updateHealthcareServiceError,
+  updateHealthcareServiceSuccess, getHealthcareServiceByIdSuccess,
   getHealthcareServiceByIdError,
 } from './actions';
 import { makeSelectOrganization } from '../Locations/selectors';
@@ -34,23 +34,23 @@ function* watchCreateHealthcareServiceSaga() {
   yield takeLatest(CREATE_HEALTHCARE_SERVICE, createHealthcareServiceSaga);
 }
 
-function* editHealthcareServiceSaga(action) {
+function* updateHealthcareServiceSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const editHealthcareServiceResponse = yield call(editHealthcareService, action.healthcareServiceFormData, organization.id);
-    yield put(editHealthcareServiceSuccess(editHealthcareServiceResponse));
-    yield put(showNotification('Successfully edited the healthcare service.'));
+    const updateHealthcareServiceResponse = yield call(updateHealthcareService, action.healthcareServiceFormData, organization.id);
+    yield put(updateHealthcareServiceSuccess(updateHealthcareServiceResponse));
+    yield put(showNotification('Successfully updated the healthcare service.'));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification(`Failed to edit the Healthcare Service.${getErrorDetail(error)}`));
+    yield put(showNotification(`Failed to update the Healthcare Service.${getErrorDetail(error)}`));
     yield call(action.handleSubmitting);
-    yield put(editHealthcareServiceError(error));
+    yield put(updateHealthcareServiceError(error));
   }
 }
 
-function* watchEditHealthcareServiceSaga() {
-  yield takeLatest(UPDATE_HEALTHCARE_SERVICE, editHealthcareServiceSaga);
+function* watchUpdateHealthcareServiceSaga() {
+  yield takeLatest(UPDATE_HEALTHCARE_SERVICE, updateHealthcareServiceSaga);
 }
 
 function* getHealthcareServiceByIdSaga({ logicalId }) {
@@ -90,7 +90,7 @@ function getErrorDetail(err) {
 export default function* rootSaga() {
   yield all([
     watchCreateHealthcareServiceSaga(),
-    watchEditHealthcareServiceSaga(),
+    watchUpdateHealthcareServiceSaga(),
     watchGetHealthcareServiceSaga(),
   ]);
 }

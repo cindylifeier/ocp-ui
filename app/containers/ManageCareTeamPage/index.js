@@ -134,7 +134,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
         </Helmet>
         <div className={styles.wrapper}>
           <div className={styles.header}>
-            {editMode ? <FormattedMessage {...messages.editHeader} />
+            {editMode ? <FormattedMessage {...messages.updateHeader} />
               : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
