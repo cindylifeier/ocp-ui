@@ -15,3 +15,14 @@ export default function getTasks(query) {
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }
+
+export function cancelTask(id) {
+  const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
+  const requestURL = `${baseEndpoint}/${id}/deactivate`;
+  return request(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
