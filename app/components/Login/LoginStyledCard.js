@@ -12,8 +12,6 @@ const LoginStyledCard = Card.extend.attrs({
   },
 })`
   width: 25%;
-  padding: 10px;
-  margin: 4vh auto;
 `;
 
 LoginStyledCard.propTypes = {};
