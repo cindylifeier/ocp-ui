@@ -21,6 +21,7 @@ import LoginStyledCard from './LoginStyledCard';
 import CardHeader from '../CardHeader';
 import StyledBrandImage from '../StyledBrandImage';
 import LoginFieldGrid from './LoginFieldGrid';
+import LoginButtonCell from './LoginButtonCell';
 
 function Login(props) {
   const { onLogin, auth: { isAuthenticating } } = props;
@@ -28,7 +29,7 @@ function Login(props) {
   return (
     <div>
       <Grid
-        columns={'400px 1fr 400px'}
+        columns={3}
         rows={'120px 1fr 120px'}
         areas={[
           'header header header',
@@ -89,7 +90,7 @@ function Login(props) {
                       <Cell>
                         <FormattedMessage {...messages.forgotLink} />
                       </Cell>
-                      <Cell>
+                      <LoginButtonCell>
                         <RaisedButton
                           type="submit"
                           backgroundColor={teal500}
@@ -102,7 +103,7 @@ function Login(props) {
                           }
                           disabled={!dirty || isSubmitting || !isValid}
                         />
-                      </Cell>
+                      </LoginButtonCell>
                     </LoginFieldGrid>
                   </Form>
                 );

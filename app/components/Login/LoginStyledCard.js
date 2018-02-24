@@ -3,16 +3,15 @@
  * LoginStyledCard
  *
  */
-import Card from '../Card/index';
+import styled from 'styled-components';
+import { Card } from 'material-ui/Card';
 
-const LoginStyledCard = Card.extend.attrs({
+const LoginStyledCard = styled(Card).attrs({
   style: {
     backgroundColor: 'rgba(242, 242, 242, 1)',
     borderWidth: '1px',
   },
-})`
-  width: 25%;
-`;
+})('');
 
 LoginStyledCard.propTypes = {};
 
