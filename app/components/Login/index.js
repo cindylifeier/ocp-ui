@@ -16,12 +16,11 @@ import { Cell, Grid } from 'styled-css-grid';
 import TextField from '../TextField';
 import messages from './messages';
 import brandImg from '../../images/omnibus-care-plan-logo.png';
-import styles from './styles.css';
 import StyledDivider from '../StyledDivider';
 import LoginStyledCard from './LoginStyledCard';
 import CardHeader from '../CardHeader';
-import CenterAlign from '../Align/CenterAlign';
 import StyledBrandImage from '../StyledBrandImage';
+import LoginFieldGrid from './LoginFieldGrid';
 
 function Login(props) {
   const { onLogin, auth: { isAuthenticating } } = props;
@@ -30,18 +29,22 @@ function Login(props) {
     <div>
       <Grid
         columns={'400px 1fr 400px'}
-        rows={'minmax(120px,auto) 1fr minmax(120px,auto)'}
+        rows={'120px 1fr 120px'}
+        areas={[
+          'header header header',
+          'leftSide content rightSide',
+          'footer footer footer',
+        ]}
       >
-        <Cell width={3}>
+        <Cell area="header">
           <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
           <StyledDivider />
         </Cell>
-        <Cell />
-        <Cell>
+        <Cell area="leftSide" />
+        <Cell area="rightSide" />
+        <Cell area="content" center>
           <LoginStyledCard>
-            <CenterAlign>
-              <CardHeader title={<FormattedMessage {...messages.title} />} />
-            </CenterAlign>
+            <CardHeader title={<FormattedMessage {...messages.title} />} />
             <Formik
               onSubmit={(values, actions) => {
                 onLogin(values, actions);
@@ -56,16 +59,25 @@ function Login(props) {
                 const { isSubmitting, dirty, isValid } = loginFormProps;
                 return (
                   <Form>
-                    <div className={styles.gridContainer}>
-                      <div className={`${styles.gridItem} ${styles.username}`}>
+                    <LoginFieldGrid
+                      columns={1}
+                      rows="120px 120px 45px 100px"
+                      areas={[
+                        'username',
+                        'password',
+                        'forgotLink',
+                        'loginButton',
+                      ]}
+                    >
+                      <Cell>
                         <TextField
                           name="username"
                           hintText={<FormattedMessage {...messages.hintText.username} />}
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.username} />}
                           fullWidth
                         />
-                      </div>
-                      <div className={`${styles.gridItem} ${styles.password}`}>
+                      </Cell>
+                      <Cell>
                         <TextField
                           name="password"
                           type="password"
@@ -73,11 +85,11 @@ function Login(props) {
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.password} />}
                           fullWidth
                         />
-                      </div>
-                      <div className={`${styles.gridItem} ${styles.forgotLink}`}>
+                      </Cell>
+                      <Cell>
                         <FormattedMessage {...messages.forgotLink} />
-                      </div>
-                      <div className={`${styles.gridItem} ${styles.button}`}>
+                      </Cell>
+                      <Cell>
                         <RaisedButton
                           type="submit"
                           backgroundColor={teal500}
@@ -90,8 +102,8 @@ function Login(props) {
                           }
                           disabled={!dirty || isSubmitting || !isValid}
                         />
-                      </div>
-                    </div>
+                      </Cell>
+                    </LoginFieldGrid>
                   </Form>
                 );
               }}
@@ -99,7 +111,7 @@ function Login(props) {
             </Formik>
           </LoginStyledCard>
         </Cell>
-        <Cell />
+        <Cell area="footer" />
       </Grid>
     </div>
   );
