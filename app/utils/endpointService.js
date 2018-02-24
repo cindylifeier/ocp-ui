@@ -4,6 +4,7 @@ import includes from 'lodash/includes';
 
 // Todo: Make server side configurable
 const BASE_API_URL = '/ocp-ui-api';
+
 /**
  *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
@@ -21,6 +22,7 @@ export const BASE_PATIENTS_API_URL = 'ocpui/utils/BASE_PATIENTS_API_URL';
 export const BASE_PRACTITIONERS_API_URL = 'ocpui/utils/BASE_PRACTITIONERS_API_URL';
 export const BASE_RELATED_PERSONS_API_URL = 'ocpui/utils/BASE_RELATED_PERSONS_API_URL';
 export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
+
 /**
  * Configure all secured and unsecured endpoints
  * isSecured property is used to specify secured or unsecured endpoint. By default isSecured property will set true if it is missing to set
