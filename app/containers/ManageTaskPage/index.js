@@ -19,11 +19,11 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import { makeSelectTaskStatuses, makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes } from '../App/selectors';
 import ManageTask from '../../components/ManageTask';
 import { TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE } from '../App/constants';
 import { makeSelectPatient } from '../ManageCareTeamPage/selectors';
 import { getLookupsAction } from '../App/actions';
+import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from '../App/lookupSelectors';
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
