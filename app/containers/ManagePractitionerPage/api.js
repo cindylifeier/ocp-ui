@@ -2,9 +2,9 @@ import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 
 import request from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
+import { BASE_PRACTITIONERS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const apiBaseURL = getApiBaseUrl();
+const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
 
 export function savePractitioner(practitionerFormData) {
   if (practitionerFormData.logicalId) {
@@ -14,7 +14,7 @@ export function savePractitioner(practitionerFormData) {
 }
 
 export function getPractitioner(logicalId) {
-  const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
+  const requestURL = `${baseEndpoint}/${logicalId}`;
   return request(requestURL);
 }
 
@@ -34,7 +34,7 @@ export function getPractitionerById(practitioners, logicalId) {
 }
 
 function createPractitioner(practitionerFormData) {
-  const requestURL = `${apiBaseURL}/practitioners`;
+  const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'POST',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
@@ -45,7 +45,7 @@ function createPractitioner(practitionerFormData) {
 }
 
 function updatePractitioner(logicalId, practitionerFormData) {
-  const requestURL = `${apiBaseURL}/practitioners/${logicalId}`;
+  const requestURL = `${baseEndpoint}/${logicalId}`;
   return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),

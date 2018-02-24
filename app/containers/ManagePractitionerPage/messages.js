@@ -10,8 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ManagePractitionerPage.createHeader',
     defaultMessage: 'Create Practitioner',
   },
-  editHeader: {
-    id: 'ocpui.containers.ManagePractitionerPage.editHeader',
+  updateHeader: {
+    id: 'ocpui.containers.ManagePractitionerPage.updateHeader',
     defaultMessage: 'Edit Practitioner',
   },
 });

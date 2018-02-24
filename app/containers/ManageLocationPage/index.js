@@ -21,14 +21,23 @@ import reducer from './reducer';
 import saga from './saga';
 import { getLookupsAction } from '../App/actions';
 import {
-  LOCATIONIDENTIFIERSYSTEM, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, TELECOMSYSTEM,
-  USPSSTATES, ADDRESSUSE, TELECOMUSE,
+  ADDRESSUSE,
+  LOCATIONIDENTIFIERSYSTEM,
+  LOCATIONPHYSICALTYPE,
+  LOCATIONSTATUS,
+  TELECOMSYSTEM,
+  TELECOMUSE,
+  USPSSTATES,
 } from '../App/constants';
 import {
-  makeSelectLocationStatuses, makeSelectLocationPhysicalTypes,
+  makeSelectAddressUses,
+  makeSelectLocationIdentifierSystems,
+  makeSelectLocationPhysicalTypes,
+  makeSelectLocationStatuses,
   makeSelectTelecomSystems,
-  makeSelectUspsStates, makeSelectAddressUses, makeSelectTelecomUses, makeSelectLocationIdentifierSystems,
-} from '../App/selectors';
+  makeSelectTelecomUses,
+  makeSelectUspsStates,
+} from '../App/lookupSelectors';
 import ManageLocation from '../../components/ManageLocation/index';
 import { createLocation, updateLocation } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
@@ -40,9 +49,11 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     super(props);
     this.handleSaveLocation = this.handleSaveLocation.bind(this);
   }
+
   componentWillMount() {
     this.props.getLookups();
   }
+
   handleSaveLocation(location) {
     const logicalId = this.props.match.params.id;
     if (logicalId && location) {
@@ -52,6 +63,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       this.props.createLocation(location, this.props.organization.id);
     }
   }
+
   render() {
     const logicalId = this.props.match.params.id;
     const location = find(this.props.locations, { logicalId });
@@ -64,7 +76,8 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       telecomUses,
       addressUses,
       identifierSystems,
-      organization } = this.props;
+      organization,
+    } = this.props;
     const localProps = {
       error,
       uspsStates,
@@ -85,7 +98,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
           <meta name="description" content="Manage Location Page" />
         </Helmet>
         <div className={styles.header}>
-          {logicalId ? <FormattedMessage {...messages.editHeader} />
+          {logicalId ? <FormattedMessage {...messages.updateHeader} />
             : <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />

@@ -29,7 +29,7 @@ import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
 import { floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
-import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/selectors';
+import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/lookupSelectors';
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
@@ -44,7 +44,7 @@ import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClic
 import { mapSearchParticipantName } from '../../utils/CareTeamUtils';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { makeSelectPatient } from '../ManageCareTeamPage/selectors';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 const customContentStyle = {
   width: '70%',
@@ -325,7 +325,7 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   searchParticipantResult: makeSelectSearchParticipantResults(),
   participantRoles: makeSelectParticipantRoles(),
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {

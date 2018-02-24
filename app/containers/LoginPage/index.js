@@ -7,52 +7,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
-import { AppBar, Card, RaisedButton, TextField } from 'material-ui';
 
-import styles from './styles.css';
-import { HOME_URL } from '../App/constants';
+import injectSaga from 'utils/injectSaga';
+import saga from './saga';
+import Login from '../../components/Login';
+import { login } from './actions';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin(loginFormData, actions) {
+    this.props.onRequestLogin(loginFormData, () => actions.setSubmitting(false));
+  }
 
   render() {
     return (
-      <div className={styles.margin20}>
-        <AppBar title="Welcome To Omnibus Care Plan" showMenuIconButton={false} />
-        <br />
-        <Card className={styles.loginCard}>
-          <form >
-            <TextField
-              hintText="Enter Access code"
-              floatingLabelText="Access code"
-            /><br />
-            <TextField
-              hintText="Enter Verify code"
-              floatingLabelText="Verify code"
-              type="password"
-            /><br />
-            <RaisedButton label="Sign in" primary onClick={() => { this.props.history.push(HOME_URL); }} />
-          </form>
-        </Card>
+      <div>
+        <Helmet>
+          <title>Login</title>
+          <meta name="description" content="Login page of Omnibus Care Plan application" />
+        </Helmet>
+        <div>
+          <Login onLogin={this.handleLogin} />
+        </div>
       </div>
     );
   }
 }
 
 LoginPage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
-  history: PropTypes.object,
+  onRequestLogin: PropTypes.func.isRequired,
 };
-
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onRequestLogin: (loginFormData, handleSubmitting) => dispatch(login(loginFormData, handleSubmitting)),
   };
 }
 
 const withConnect = connect(null, mapDispatchToProps);
 
+const withSaga = injectSaga({ key: 'loginPage', saga });
+
 export default compose(
+  withSaga,
   withConnect,
 )(LoginPage);

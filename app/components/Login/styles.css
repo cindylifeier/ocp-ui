@@ -1,0 +1,56 @@
+.logo {
+  border-width: 0;
+  width: 85px;
+  height: 56px;
+  margin: 10px;
+}
+
+.loginCard {
+  width: 25%;
+  height: 380px;
+  text-align: center;
+  padding: 10px;
+  margin: 4vh auto;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 400;
+  color: #0B4361;
+}
+
+.gridContainer {
+  color: #444;
+  width: auto;
+  padding-left: 0.5vw;
+  margin: 0 1vw;
+  display: grid;
+  grid-column-gap: 2vw;
+  grid-row-gap: 0.5vh;
+  grid-template-columns: 1fr;
+  grid-template-areas: "username" "password" "forgotLink" "button";
+}
+
+.gridItem {
+  border-radius: 5px;
+  max-height: 110px;
+  font-size: 100%;
+}
+
+.username {
+  grid-area: username;
+}
+
+.password {
+  grid-area: password;
+}
+
+.forgotLink {
+  grid-area: forgotLink;
+}
+
+.button {
+  grid-area: button;
+  margin: 4vh 0;
+  display: grid;
+}

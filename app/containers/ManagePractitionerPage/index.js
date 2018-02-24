@@ -27,7 +27,7 @@ import {
   makeSelectPractitionerRoles,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
-} from '../App/selectors';
+} from '../App/lookupSelectors';
 import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import { getPractitioner, initializeManagePractitioner, savePractitioner } from './actions';
@@ -82,7 +82,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
         <div className={styles.header}>
-          {editMode ? <FormattedMessage {...messages.editHeader} />
+          {editMode ? <FormattedMessage {...messages.updateHeader} />
             : <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />

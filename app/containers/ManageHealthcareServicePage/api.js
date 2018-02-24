@@ -1,39 +1,41 @@
+import isEmpty from 'lodash/isEmpty';
+import find from 'lodash/find';
 import request from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-
-const apiBaseUrl = getApiBaseUrl();
+import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/healthcare-service`;
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/healthcare-service`;
   return request(url, {
     method: 'POST',
-    body: JSON.stringify(mapToBffHealthcareService(healthcareServiceFormData)),
+    body: JSON.stringify(healthcareServiceFormData),
     headers: {
       'Content-Type': 'application/json',
     },
-
   });
 }
 
-function mapToBffHealthcareService(healthcareServiceFormData) {
-  const {
-    name, hcsProgramName, category, hcsType, hcsSpecialty, telecomType, hcsReferralMethod, telecomValue,
-  } = healthcareServiceFormData;
-  const programName = [];
-  programName.push(hcsProgramName);
-  const type = [];
-  type.push(hcsType);
-  const specialty = [];
-  if (hcsSpecialty) {
-    specialty.push(hcsSpecialty);
+export function updateHealthcareService(healthcareServiceFormData, organizationId) {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/healthcare-service/${healthcareServiceFormData.logicalId}`;
+  return request(url, {
+    method: 'PUT',
+    body: JSON.stringify(healthcareServiceFormData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+export function getHealthcareServiceByIdFromStore(healthcareServices, logicalId) {
+  if (!isEmpty(healthcareServices)) {
+    return find(healthcareServices, { logicalId });
   }
-  const referralMethod = [];
-  if (hcsReferralMethod) {
-    referralMethod.push(hcsReferralMethod);
-  }
-  const telecom = [{
-    system: telecomType,
-    value: telecomValue,
-  }];
-  return { name, programName, category, type, specialty, telecom, referralMethod, active: true };
+  return null;
+}
+
+export function getHealthcareServiceById(logicalId) {
+  const baseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
+  const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL);
 }

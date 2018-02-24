@@ -23,14 +23,23 @@ import styles from './styles.css';
 import ManagePatient from '../../components/ManagePatient';
 import { savePatient } from './actions';
 import {
-  makeSelectAdministrativeGenders, makeSelectLanguages, makeSelectPatientIdentifierSystems, makeSelectTelecomSystems,
+  makeSelectAdministrativeGenders,
+  makeSelectLanguages,
+  makeSelectPatientIdentifierSystems,
+  makeSelectTelecomSystems,
   makeSelectUsCoreBirthSexes,
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreRaces,
   makeSelectUspsStates,
-} from '../App/selectors';
+} from '../App/lookupSelectors';
 import {
-  ADMINISTRATIVEGENDER, LANGUAGE, PATIENTIDENTIFIERSYSTEM, TELECOMSYSTEM, USCOREBIRTHSEX, USCOREETHNICITY, USCORERACE,
+  ADMINISTRATIVEGENDER,
+  LANGUAGE,
+  PATIENTIDENTIFIERSYSTEM,
+  TELECOMSYSTEM,
+  USCOREBIRTHSEX,
+  USCOREETHNICITY,
+  USCORERACE,
   USPSSTATES,
 } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
@@ -77,7 +86,9 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
           <meta name="description" content="Manage patient page of Omnibus Care Plan application" />
         </Helmet>
         <div className={styles.header}>
-          {match.params.id ? <FormattedMessage {...messages.editHeader} /> : <FormattedMessage {...messages.createHeader} />}
+          {match.params.id ?
+            <FormattedMessage {...messages.updateHeader} /> :
+            <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />
         <ManagePatient {...formProps} onSave={this.handleSave} />
@@ -119,7 +130,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSaveForm: (patientFormData, handleSubmitting) => { dispatch(savePatient(patientFormData, handleSubmitting)); },
+    onSaveForm: (patientFormData, handleSubmitting) => {
+      dispatch(savePatient(patientFormData, handleSubmitting));
+    },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
       USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM])),
   };

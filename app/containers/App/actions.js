@@ -8,7 +8,7 @@ import {
   GET_LOOKUPS,
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_FROM_STORE,
-  GET_LOOKUPS_SUCCESS,
+  GET_LOOKUPS_SUCCESS, GET_PATIENT, GET_PATIENT_SUCCESS,
 } from './constants';
 
 export function getLookupsAction(lookupTypes) {
@@ -37,3 +37,17 @@ export function getLookupsError(error) {
   };
 }
 
+
+export function getPatient(patientId) {
+  return {
+    type: GET_PATIENT,
+    patientId,
+  };
+}
+
+export function getPatientSuccess(patient) {
+  return {
+    type: GET_PATIENT_SUCCESS,
+    patient,
+  };
+}

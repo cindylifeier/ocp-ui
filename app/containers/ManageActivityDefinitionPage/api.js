@@ -1,10 +1,9 @@
 import request from '../../utils/request';
-import getApiBaseUrl from '../../apiBaseUrlConfig';
-
-const apiBaseUrl = getApiBaseUrl();
+import { BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function createActivityDefinition(activityDefinitionFormData, organizationId) {
-  const url = `${apiBaseUrl}/organization/${organizationId}/activity-definitions`;
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const url = `${baseEndpoint}/${organizationId}/activity-definitions`;
   return request(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffActivityDefinition(activityDefinitionFormData)),
@@ -27,5 +26,17 @@ function mapToBffActivityDefinition(activityDefinitionFormData) {
     durationMax: duration,
     frequency,
   };
-  return { version, name, title, description, effectivePeriod, timing, status, topic, kind, actionParticipantType: participantType, actionParticipantRole: participantRole };
+  return {
+    version,
+    name,
+    title,
+    description,
+    effectivePeriod,
+    timing,
+    status,
+    topic,
+    kind,
+    actionParticipantType: participantType,
+    actionParticipantRole: participantRole,
+  };
 }
