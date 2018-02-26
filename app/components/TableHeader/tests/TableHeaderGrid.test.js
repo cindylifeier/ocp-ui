@@ -3,11 +3,11 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import TableHeaderStyledGrid from '../TableHeaderStyledGrid';
+import TableHeaderStyledGrid from '../TableHeaderGrid';
 
 configure({ adapter: new Adapter() });
 
-describe('<TableHeaderStyledGrid />', () => {
+describe('<TableHeaderGrid />', () => {
   describe('structural tests', () => {
     it('should have children', () => {
       // Arrange

@@ -6,13 +6,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableHeaderStyledGrid from './TableHeaderStyledGrid';
+import TableHeaderGrid from './TableHeaderGrid';
 
 function TableHeader({ children, columns }) {
   return (
-    <TableHeaderStyledGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
+    <TableHeaderGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
       {children}
-    </TableHeaderStyledGrid>
+    </TableHeaderGrid>
   );
 }
 
