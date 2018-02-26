@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import isEmpty from 'lodash/isEmpty';
 import includes from 'lodash/includes';
 
-import { retrieveAuthStatus, retrieveToken } from './tokenService';
+import { isTokenExpired, retrieveAuthStatus, retrieveToken } from './tokenService';
 
 const ACCESS_SCOPE = 'ocpUi.access';
 
@@ -18,7 +18,7 @@ export function checkAuthenticated() {
   let isAuthenticated = false;
   const authStatus = retrieveAuthStatus();
   const token = retrieveToken();
-  if (authStatus && hasAccessScopeInToken(token)) {
+  if (authStatus && hasAccessScopeInToken(token) && !isTokenExpired(token)) {
     isAuthenticated = authStatus;
   }
   return isAuthenticated;

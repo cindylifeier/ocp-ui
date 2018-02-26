@@ -31,19 +31,35 @@ describe('auth.js', () => {
     expect(hasAccessScopeInTestToken).toBeFalsy();
   });
 
-  it('should return authStatus with correct status', () => {
+  it('should return true when is authenticated and token with required access scope and is not expired', () => {
     // Arrange
-    const testToken = {
-      access_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJzY29wZSI6WyJvY3BVaS5hY2Nlc3MiLCJ0ZXN0LnNjb3BlIl19.x5SNNuL5E5DPiQT1ZzKSIlBF2AS8p6SE1F60_fSqxf0',
+    const testValidToken = {
+      access_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJzY29wZSI6WyJvY3BVaS5hY2Nlc3MiXSwiZXhwIjozNTE5Njc3NTM1fQ.zA7elbcNV3ZMMS8WoZMzjxWOaiNWQkdDaNl5qtW7clY',
     };
     const testAuthStatus = true;
 
     // Act
-    storeToken(testToken);
+    storeToken(testValidToken);
     storeAuthStatus(testAuthStatus);
     const isAuthenticated = checkAuthenticated();
 
     // Assert
     expect(isAuthenticated).toBeTruthy();
+  });
+
+  it('should return false when is authenticated and token with required access scope but token is expired', () => {
+    // Arrange
+    const testExpiredToken = {
+      access_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJzY29wZSI6WyJvY3BVaS5hY2Nlc3MiXSwiZXhwIjoxNTE5Njc3NTM1fQ.Alq5JZtlTg29PzhwN7-B7lQg_bBlH3SkeMnHyzF9uAI',
+    };
+    const testAuthStatus = true;
+
+    // Act
+    storeToken(testExpiredToken);
+    storeAuthStatus(testAuthStatus);
+    const isAuthenticated = checkAuthenticated();
+
+    // Assert
+    expect(isAuthenticated).toBeFalsy();
   });
 });
