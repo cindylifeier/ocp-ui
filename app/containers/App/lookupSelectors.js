@@ -11,7 +11,8 @@ import {
   GLOBAL_LOOKUP_STATE_KEY,
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
-  HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICESTATUS,
+  HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -24,7 +25,9 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
-  PUBLICATION_STATUS, RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  PUBLICATION_STATUS,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  RELATED_ARTIFACT_TYPE,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -230,6 +233,12 @@ const makeSelectTaskPerformerTypes = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(TASK_PERFORMER_TYPE).toJS(),
 );
+
+const makeSelectRelatedArtifactTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATED_ARTIFACT_TYPE).toJS(),
+);
+
 // Task Resource Lookups - End
 export {
   makeSelectUspsStates,
@@ -270,4 +279,5 @@ export {
   makeSelectRequestIntents,
   makeSelectRequestPriorities,
   makeSelectTaskPerformerTypes,
+  makeSelectRelatedArtifactTypes,
 };
