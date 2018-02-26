@@ -10,9 +10,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import { Cell, Grid } from 'styled-css-grid';
 
 import messages from './messages';
 import Table from '../Table';
@@ -21,20 +20,8 @@ import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
-import styles from './styles.css';
-
-const iconStyles = {
-  iconButton: {
-    position: 'relative',
-  },
-  icon: {
-    width: '100%',
-    height: 26,
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  },
-};
+import StyledMenuItem from '../StyledMenuItem';
+import StyledIconButton from '../StyledIconButton';
 
 function CareTeamTable({ elements }) {
   return (
@@ -67,24 +54,19 @@ function CareTeamTable({ elements }) {
             <TableRowColumn>{endDate}</TableRowColumn>
             <TableRowColumn>{reasonDisplay}</TableRowColumn>
             <TableRowColumn>
-              <div className={styles.iconButtonGridContainer}>
-                <div className={styles.iconButtonGridItem}>
+              <Grid columns="1fr 50px" gap="0px">
+                <Cell left="2">
                   <IconMenu
                     iconButtonElement={
-                      (<IconButton
-                        className={styles.iconButton}
-                        iconStyle={iconStyles.icon}
-                        style={iconStyles.iconButton}
-                      >
+                      (<StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>)
+                      </StyledIconButton>)
                     }
                     anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                   >
-                    <MenuItem
-                      className={styles.menuItem}
-                      primaryText="Edit"
+                    <StyledMenuItem
+                      primaryText={<FormattedMessage {...messages.menuItemEdit} />}
                       containerElement={<Link
                         to={{
                           pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
@@ -92,10 +74,10 @@ function CareTeamTable({ elements }) {
                         }}
                       />}
                     />
-                    <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
+                    <StyledMenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
                   </IconMenu>
-                </div>
-              </div>
+                </Cell>
+              </Grid>
             </TableRowColumn>
           </TableRow>
         ))}

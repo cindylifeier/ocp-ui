@@ -44,6 +44,7 @@ import {
   REQUEST_PRIORITY,
   TASK_PERFORMER_TYPE,
   // Task Resource Lookups - End
+  RELATED_ARTIFACT_TYPE,
 } from './constants';
 
 // The initial state of the lookup
@@ -90,6 +91,7 @@ const initialState = fromJS({
   REQUEST_PRIORITY: [],
   TASK_PERFORMER_TYPE: [],
   // Task Resource Lookups - End
+  RELATED_ARTIFACT_TYPE: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -140,6 +142,7 @@ function lookupReducer(state = initialState, action) {
         .set(REQUEST_PRIORITY, fromJS((action.lookups && action.lookups.requestPriority) || state.get(REQUEST_PRIORITY)))
         .set(TASK_PERFORMER_TYPE, fromJS((action.lookups && action.lookups.taskPerformerType) || state.get(TASK_PERFORMER_TYPE)))
         // Task Resource Lookups - End
+        .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

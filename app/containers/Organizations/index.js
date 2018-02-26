@@ -11,8 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
-import { FlatButton } from 'material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import injectSaga from 'utils/injectSaga';
@@ -23,14 +21,17 @@ import saga from './saga';
 import messages from './messages';
 import { initializeOrganizations, getOrganizations } from './actions';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import styles from './styles.css';
 import OrganizationTable from '../../components/OrganizationTable/Loadable';
-import OrganizationTableRow from '../../components/OrganizationTableRow/Loadable';
 import SearchBar from '../../components/SearchBar';
 import { getActiveLocations } from '../Locations/actions';
 import { fromBackendToFrontendOrganization } from './mappings';
 import { MANAGE_ORGANIZATION_URL } from '../App/constants';
 import { getHealthcareServicesByOrganization } from '../HealthcareServices/actions';
+import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
+import StyledFlatButton from '../../components/StyledFlatButton';
+import CenterAlign from '../../components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class Organizations extends React.PureComponent {
 
@@ -72,24 +73,14 @@ export class Organizations extends React.PureComponent {
   render() {
     const { organizations } = this.props;
     return (
-      <div className={styles.card}>
-        <div className={styles.gridHeaderContainer}>
-          <div className={styles.gridItem}>
-            <div className={styles.header}>
-              <FormattedMessage {...messages.header} />
-            </div>
-          </div>
-          <div className={styles.gridItem}>
-            <span className={styles.iconButton}>
-              <FlatButton
-                label="Create New"
-                icon={<ContentAddCircle />}
-                className={styles.font}
-                containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
-              />
-            </span>
-          </div>
-        </div>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />}>
+          <StyledFlatButton
+            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+            icon={<ContentAddCircle />}
+            containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
+          />
+        </CardHeader>
         <SearchBar
           minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
           onSearch={this.handleSearch}
@@ -99,35 +90,23 @@ export class Organizations extends React.PureComponent {
 
         {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
           <div>
-            <OrganizationTable>
-              {organizations.data.map(fromBackendToFrontendOrganization).map((org) => (
-                <OrganizationTableRow
-                  key={org.id}
-                  {...org}
-                  onRowClick={this.handleRowClick}
-                />
-              ))}
-            </OrganizationTable>
-            <div className={styles.textCenter}>
-              <UltimatePagination
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalNumberOfPages}
-                boundaryPagesRange={1}
-                siblingPagesRange={1}
-                hidePreviousAndNextPageLinks={false}
-                hideFirstAndLastPageLinks={false}
-                hideEllipsis={false}
-                onChange={this.handlePageClick}
-              />
-            </div>
+            <OrganizationTable
+              organizations={organizations.data.map(fromBackendToFrontendOrganization)}
+              onRowClick={this.handleRowClick}
+            />
+            <CenterAlignedUltimatePagination
+              currentPage={this.props.currentPage}
+              totalPages={this.props.totalNumberOfPages}
+              onChange={this.handlePageClick}
+            />
           </div>
         ) ||
         ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
-          <div className={styles.textCenter}>
+          <CenterAlign>
             <span>No organizations found</span>
-          </div>))
+          </CenterAlign>))
         }
-      </div>
+      </Card>
     );
   }
 }

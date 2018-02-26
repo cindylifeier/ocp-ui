@@ -5,42 +5,100 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styles from './styles.css';
-import Organization from '../../components/OrganizationTableRow/Loadable';
-import messages from './messages';
+import { Link } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 
-function OrganizationTable(props) {
+import messages from './messages';
+import Table from '../Table';
+import TableHeader from '../TableHeader';
+import TableHeaderColumn from '../TableHeaderColumn';
+import TableRow from '../TableRow';
+import TableRowColumn from '../TableRowColumn';
+import { ENTER_KEY } from '../../containers/App/constants';
+import StyledMenuItem from '../StyledMenuItem';
+import NavigationStyledIconMenu from '../StyledIconMenu/NavigationStyledIconMenu';
+
+const tableColumns = 'repeat(5, 1fr) 50px';
+
+function renderIdentifiers(identifiers) {
+  return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));
+}
+
+function OrganizationTable({ organizations, onRowClick }) {
   return (
-    <div className={styles.table}>
-      <div className={styles.rowGridContainer}>
-        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderOrganization} /></div>
-        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderAddress} /></div>
-        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderTelephone} /></div>
-        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderId} /></div>
-        <div className={styles.cellGridHeaderItem}><FormattedMessage {...messages.tableColumnHeaderStatus} /></div>
-        <div></div>
-      </div>
-      {React.Children.map(props.children, (child, i) => {
-        const striped = !(i % 2);
-        return React.cloneElement(child, { striped });
+    <Table>
+      <TableHeader columns={tableColumns}>
+        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelephone} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
+      </TableHeader>
+      {!isEmpty(organizations) && organizations.map((org) => {
+        const { name, address, telephone, id, identifiers, status } = org;
+        return (
+          <TableRow
+            columns={tableColumns}
+            key={org.id}
+            onClick={() => onRowClick && onRowClick(org)}
+            onKeyPress={(e) => {
+              if (e.key === ENTER_KEY) {
+                if (onRowClick) {
+                  onRowClick(org);
+                }
+              }
+              e.preventDefault();
+            }}
+            role="button"
+            tabIndex="0"
+          >
+            <TableRowColumn>{name}</TableRowColumn>
+            <TableRowColumn>{address}</TableRowColumn>
+            <TableRowColumn>{telephone}</TableRowColumn>
+            <TableRowColumn>{renderIdentifiers(identifiers)}</TableRowColumn>
+            <TableRowColumn>{status}</TableRowColumn>
+            <TableRowColumn>
+              <NavigationStyledIconMenu>
+                <StyledMenuItem
+                  primaryText={<FormattedMessage {...messages.edit} />}
+                  containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
+                />
+                <StyledMenuItem
+                  primaryText={<FormattedMessage {...messages.addLocation} />}
+                  containerElement={<Link to={'/ocp-ui/manage-location'} />}
+                />
+                <StyledMenuItem
+                  primaryText={<FormattedMessage {...messages.addHealthCareService} />}
+                  containerElement={<Link to={'/ocp-ui/manage-healthcare-service'} />}
+                />
+                <StyledMenuItem
+                  primaryText={<FormattedMessage {...messages.addActivityDefinition} />}
+                  containerElement={<Link to={'/ocp-ui/manage-activity-definition'} />}
+                />
+                <StyledMenuItem
+                  primaryText={<FormattedMessage {...messages.remove} />}
+                />
+              </NavigationStyledIconMenu>
+            </TableRowColumn>
+          </TableRow>
+        );
       })}
-    </div>
+    </Table>
   );
 }
 
 OrganizationTable.propTypes = {
-  children: (props, propName, componentName) => {
-    const prop = props[propName];
-
-    let error = null;
-    React.Children.forEach(prop, (child) => {
-      if (child.type !== Organization) {
-        error = new Error(`\`${componentName}\` children should be of type \`Organization\`.`);
-      }
-    });
-    return error;
-  },
+  organizations: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string,
+    telephone: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+  })).isRequired,
+  onRowClick: PropTypes.func,
 };
 
 export default OrganizationTable;

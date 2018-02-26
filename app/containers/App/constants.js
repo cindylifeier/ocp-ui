@@ -79,6 +79,8 @@ export const REQUEST_PRIORITY = 'REQUEST_PRIORITY';
 export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
 export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
+export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
+
 /**
  *  Constants to hold the internal urls
  * @type {string}
@@ -89,6 +91,7 @@ export const PATIENTS_URL = '/ocp-ui/patients';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
+export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
 
 /**

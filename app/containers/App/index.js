@@ -19,8 +19,6 @@ import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
-
-import styles from './styles.css';
 import LoginPage from '../LoginPage';
 import ManageLocationPage from '../ManageLocationPage';
 import ManagePractitionerPage from '../ManagePractitionerPage';
@@ -36,6 +34,7 @@ import Authentication from '../Authentication';
 import ManageTaskPage from '../ManageTaskPage';
 import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
 import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
+import './styles.css';
 
 
 export function App() {
@@ -47,7 +46,7 @@ export function App() {
       >
         <meta name="description" content="Omnibus Care Plan application" />
       </Helmet>
-      <div className={styles.App}>
+      <div>
         <Switch>
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
