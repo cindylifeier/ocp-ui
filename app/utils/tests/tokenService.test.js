@@ -1,4 +1,5 @@
 import 'mock-local-storage';
+import jwt from 'jsonwebtoken';
 
 import {
   isTokenExpired,
@@ -68,8 +69,13 @@ describe('tokenService.js', () => {
 
   it('should return with correct token expired status', () => {
     // Arrange
+    const expiredTime = (Date.now() / 1000) - (60 * 60);
+    const testAccessToken = jwt.sign({
+      exp: expiredTime,
+    }, 'secret');
+
     const testExpiredToken = {
-      access_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE1MTk2NzU0NjF9.K5nG1g0yxDIDsVUkoqlgbAe1YJZZ5psFV1YeAOZw_-A',
+      access_token: testAccessToken,
     };
 
     storeToken(testExpiredToken);
