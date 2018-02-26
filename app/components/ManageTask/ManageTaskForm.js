@@ -11,7 +11,7 @@ import styles from './styles.css';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { getResourceName, getOrgDisplayName } from './index';
+import { getResourceName, getResourceDisplayNameAndId } from './index';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import DatePicker from '../DatePicker';
 
@@ -45,7 +45,7 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
             >
               {activityDefinitions && activityDefinitions.map((activityDefinition) =>
-                <MenuItem key={activityDefinition.logicalId} value={activityDefinition.logicalId} primaryText={activityDefinition.name} />,
+                <MenuItem key={activityDefinition.logicalId} value={activityDefinition.logicalId} primaryText={getResourceDisplayNameAndId(activityDefinition)} />,
               )}
             </SelectField>
           </div>
@@ -58,7 +58,7 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
             >
               {organization && organization.map((org) =>
-                <MenuItem key={org.logicalId} value={org.logicalId} primaryText={getOrgDisplayName(org)} />,
+                <MenuItem key={org.logicalId} value={org.logicalId} primaryText={getResourceDisplayNameAndId(org)} />,
               )}
             </SelectField>
             <SelectField
@@ -68,7 +68,7 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitioners} />}
             >
               {practitioners && practitioners.map((practitioner) =>
-                <MenuItem key={practitioner.logicalId} value={practitioner.logicalId} primaryText={practitioner.logicalId} />,
+                <MenuItem key={practitioner.logicalId} value={practitioner.logicalId} primaryText={getResourceName(practitioner)} />,
               )}
             </SelectField>
             <TextField
@@ -142,7 +142,7 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
             >
               {practitioners && practitioners.map((practitioner) =>
-                <MenuItem key={practitioner.logicalId} value={practitioner.logicalId} primaryText={practitioner.logicalId} />,
+                <MenuItem key={practitioner.logicalId} value={practitioner.logicalId} primaryText={getResourceName(practitioner)} />,
               )}
             </SelectField>
             <SelectField
