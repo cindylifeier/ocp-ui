@@ -57,6 +57,15 @@ function displayPatientSearchResult(patients, onPatientClick) {
             containerElement={<Link to={'/ocp-ui/manage-task'} />}
           />
           <StyledMenuItem
+            primaryText={<FormattedMessage {...messages.addRelatedPerson} />}
+            containerElement={<Link
+              to={{
+                pathname: '/ocp-ui/manage-related-person',
+                search: `?patientId=${patient.id}`,
+              }}
+            />}
+          />
+          <StyledMenuItem
             primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`/ocp-ui/manage-patient/${patient.id}`} />}
           />

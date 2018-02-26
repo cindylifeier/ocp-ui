@@ -59,7 +59,7 @@ export default defineMessages({
     defaultMessage: 'Status',
   },
   addRelatedPerson: {
-    id: 'ocpui.components.OrganizationsTableRow.addRelatedPerson',
+    id: 'ocpui.components.PatientSearchResult.addRelatedPerson',
     defaultMessage: 'Add Related Person',
   },
 });
