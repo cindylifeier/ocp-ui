@@ -44,7 +44,7 @@ import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClic
 import { mapSearchParticipantName } from '../../utils/CareTeamUtils';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { makeSelectPatient } from '../ManageCareTeamPage/selectors';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 const customContentStyle = {
   width: '70%',
@@ -325,7 +325,7 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   searchParticipantResult: makeSelectSearchParticipantResults(),
   participantRoles: makeSelectParticipantRoles(),
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {

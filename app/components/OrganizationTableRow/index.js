@@ -87,7 +87,6 @@ function OrganizationTableRow(props) {
             primaryText={<FormattedMessage {...messages.addActivityDefinition} />}
             containerElement={<Link to={'/ocp-ui/manage-activity-definition'} />}
           />
-          <MenuItem className={styles.menuItem} primaryText={<FormattedMessage {...messages.remove} />} />
         </IconMenu>
       </div>
     </div>

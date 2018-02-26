@@ -12,6 +12,6 @@ export default defineMessages({
   },
   patientNotSelected: {
     id: 'ocpui.containers.CareTeams.patientNotSelected',
-    defaultMessage: 'No care teams loaded. Please select a patient to view his/her care teams.',
+    defaultMessage: 'No Care Teams loaded. Please select a patient to view his/her Care Teams.',
   },
 });

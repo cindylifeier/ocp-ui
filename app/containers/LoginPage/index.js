@@ -8,11 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
-import makeSelectAuth from '../App/authSelectors';
 import saga from './saga';
 import Login from '../../components/Login';
 import { login } from './actions';
@@ -35,7 +33,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           <meta name="description" content="Login page of Omnibus Care Plan application" />
         </Helmet>
         <div>
-          <Login auth={this.props.auth} onLogin={this.handleLogin} />
+          <Login onLogin={this.handleLogin} />
         </div>
       </div>
     );
@@ -44,12 +42,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 
 LoginPage.propTypes = {
   onRequestLogin: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = createStructuredSelector({
-  auth: makeSelectAuth(),
-});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -57,7 +50,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withSaga = injectSaga({ key: 'loginPage', saga });
 

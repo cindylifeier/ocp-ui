@@ -12,6 +12,7 @@ import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -24,7 +25,9 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
-  PUBLICATION_STATUS, RELATED_ARTIFACT_TYPE,
+  PUBLICATION_STATUS,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  RELATED_ARTIFACT_TYPE,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -170,6 +173,11 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
 
+const makeSelectHealthcareServiceStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESTATUS).toJS(),
+);
+
 const makeSelectPublicationStatuses = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PUBLICATION_STATUS).toJS(),
@@ -193,6 +201,11 @@ const makeSelectActionParticipantTypes = () => createSelector(
 const makeSelectActionParticipantRoles = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(ACTION_PARTICIPANT_ROLE).toJS(),
+);
+
+const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
 );
 
 const makeSelectRelatedArtifactTypes = () => createSelector(
@@ -228,10 +241,12 @@ export {
   makeSelectHealthcareServiceTypes,
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
+  makeSelectHealthcareServiceStatuses,
   makeSelectPublicationStatuses,
   makeSelectDefinitionTopics,
   makeSelectResourceTypes,
   makeSelectActionParticipantTypes,
   makeSelectActionParticipantRoles,
+  makeSelectRelatedPersonPatientRelationshipTypes,
   makeSelectRelatedArtifactTypes,
 };

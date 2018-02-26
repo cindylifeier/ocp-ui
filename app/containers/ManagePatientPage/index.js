@@ -87,7 +87,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
         </Helmet>
         <div className={styles.header}>
           {match.params.id ?
-            <FormattedMessage {...messages.editHeader} /> :
+            <FormattedMessage {...messages.updateHeader} /> :
             <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />
