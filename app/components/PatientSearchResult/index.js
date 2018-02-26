@@ -16,7 +16,7 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
-import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
+import { MANAGE_CARE_TEAM_URL, MANAGE_TASK_URL } from '../../containers/App/constants';
 import messages from './messages';
 
 const iconStyles = {
@@ -73,7 +73,12 @@ function displayPatientSearchResult(patients, onPatientClick) {
         <MenuItem
           className={styles.menuItem}
           primaryText={<FormattedMessage {...messages.addTask} />}
-          containerElement={<Link to={'/ocp-ui/manage-task'} />}
+          containerElement={<Link
+            to={{
+              pathname: MANAGE_TASK_URL,
+              search: `?patientId=${patient.id}`,
+            }}
+          />}
         />
         <MenuItem
           className={styles.menuItem}
