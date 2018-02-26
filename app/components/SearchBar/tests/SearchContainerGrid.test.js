@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import SearchButtonContainerStyledGrid from '../SearchButtonContainerStyledGrid';
+import SearchContainerGrid from '../SearchContainerGrid';
 
 configure({ adapter: new Adapter() });
 
-describe('<SearchButtonContainerStyledGrid />', () => {
+describe('<SearchContainerGrid />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<SearchButtonContainerStyledGrid>{children}</SearchButtonContainerStyledGrid>);
+      const renderedComponent = shallow(<SearchContainerGrid>{children}</SearchContainerGrid>);
 
       // Arrange
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<SearchButtonContainerStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<SearchButtonContainerStyledGrid>{children}</SearchButtonContainerStyledGrid>);
+      const renderedComponent = shallow(<SearchContainerGrid>{children}</SearchContainerGrid>);
 
       // Arrange
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<SearchButtonContainerStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<SearchButtonContainerStyledGrid>{children}</SearchButtonContainerStyledGrid>);
+      const renderedComponent = shallow(<SearchContainerGrid>{children}</SearchContainerGrid>);
 
       // Arrange
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -51,12 +51,11 @@ describe('<SearchButtonContainerStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<SearchButtonContainerStyledGrid>{children}</SearchButtonContainerStyledGrid>);
+      const renderedComponent = shallow(<SearchContainerGrid>{children}</SearchContainerGrid>);
 
       // Arrange
-      expect(renderedComponent).toHaveStyleRule('padding-left', '20px');
-      expect(renderedComponent).toHaveStyleRule('padding-top', '5px');
-      expect(renderedComponent).toHaveStyleRule('padding-bottom', '15px');
+      expect(renderedComponent).toHaveStyleRule('padding', '5px 20px');
+      expect(renderedComponent).toHaveStyleRule('margin', '2px 0');
     });
   });
 });

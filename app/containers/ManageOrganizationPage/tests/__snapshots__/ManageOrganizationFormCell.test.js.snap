@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ManageOrganizationFormStyledGrid /> snapshot tests should match snapshot 1`] = `
+exports[`<ManageOrganizationFormCell /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <styled.div>
+  Symbol(enzyme.__unrendered__): <styled.section>
     <div>
       test
     </div>
-  </styled.div>,
+  </styled.section>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -24,7 +24,7 @@ ShallowWrapper {
       "children": <div>
         test
       </div>,
-      "className": "sc-bdVaJa bEGzJX",
+      "className": "sc-bdVaJa hHkbca",
     },
     "ref": null,
     "rendered": Object {
@@ -38,7 +38,7 @@ ShallowWrapper {
       "rendered": "test",
       "type": "div",
     },
-    "type": "div",
+    "type": "section",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
@@ -49,7 +49,7 @@ ShallowWrapper {
         "children": <div>
           test
         </div>,
-        "className": "sc-bdVaJa bEGzJX",
+        "className": "sc-bdVaJa hHkbca",
       },
       "ref": null,
       "rendered": Object {
@@ -63,7 +63,7 @@ ShallowWrapper {
         "rendered": "test",
         "type": "div",
       },
-      "type": "div",
+      "type": "section",
     },
   ],
   Symbol(enzyme.__options__): Object {

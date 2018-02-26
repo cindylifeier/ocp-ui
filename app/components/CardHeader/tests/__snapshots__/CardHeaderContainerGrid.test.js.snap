@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CardHeaderContainerStyledCell /> snapshot tests should match snapshot 1`] = `
+exports[`<CardHeaderContainerGrid /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <styled.section>
+  Symbol(enzyme.__unrendered__): <styled.div>
     <div>
       test
     </div>
-  </styled.section>,
+  </styled.div>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -24,7 +24,7 @@ ShallowWrapper {
       "children": <div>
         test
       </div>,
-      "className": "sc-bdVaJa bLekYZ",
+      "className": "sc-bdVaJa jFJrjC",
     },
     "ref": null,
     "rendered": Object {
@@ -38,7 +38,7 @@ ShallowWrapper {
       "rendered": "test",
       "type": "div",
     },
-    "type": "section",
+    "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
@@ -49,7 +49,7 @@ ShallowWrapper {
         "children": <div>
           test
         </div>,
-        "className": "sc-bdVaJa bLekYZ",
+        "className": "sc-bdVaJa jFJrjC",
       },
       "ref": null,
       "rendered": Object {
@@ -63,7 +63,7 @@ ShallowWrapper {
         "rendered": "test",
         "type": "div",
       },
-      "type": "section",
+      "type": "div",
     },
   ],
   Symbol(enzyme.__options__): Object {

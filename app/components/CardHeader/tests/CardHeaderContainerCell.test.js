@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import ManageOrganizationFormStyledCell from '../ManageOrganizationFormStyledCell';
+import CardHeaderContainerCell from '../CardHeaderContainerCell';
 
 configure({ adapter: new Adapter() });
 
-describe('<ManageOrganizationFormStyledCell />', () => {
+describe('<CardHeaderContainerCell />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledCell>{children}</ManageOrganizationFormStyledCell>);
+      const renderedComponent = shallow(<CardHeaderContainerCell>{children}</CardHeaderContainerCell>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<ManageOrganizationFormStyledCell />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledCell>{children}</ManageOrganizationFormStyledCell>);
+      const renderedComponent = shallow(<CardHeaderContainerCell>{children}</CardHeaderContainerCell>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -35,16 +35,16 @@ describe('<ManageOrganizationFormStyledCell />', () => {
   });
 
   describe('style tests', () => {
-    it('should have border-radius and font-size', () => {
+    it('should have position and height', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledCell>{children}</ManageOrganizationFormStyledCell>);
+      const renderedComponent = shallow(<CardHeaderContainerCell>{children}</CardHeaderContainerCell>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('border-radius', '5px');
-      expect(renderedComponent).toHaveStyleRule('font-size', '100%');
+      expect(renderedComponent).toHaveStyleRule('position', 'relative');
+      expect(renderedComponent).toHaveStyleRule('height', 'auto');
     });
   });
 });

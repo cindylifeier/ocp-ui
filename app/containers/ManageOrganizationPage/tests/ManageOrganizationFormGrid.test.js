@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import ManageOrganizationFormStyledGrid from '../ManageOrganizationFormStyledGrid';
+import ManageOrganizationFormGrid from '../ManageOrganizationFormGrid';
 
 configure({ adapter: new Adapter() });
 
-describe('<ManageOrganizationFormStyledGrid />', () => {
+describe('<ManageOrganizationFormGrid />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledGrid>{children}</ManageOrganizationFormStyledGrid>);
+      const renderedComponent = shallow(<ManageOrganizationFormGrid>{children}</ManageOrganizationFormGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<ManageOrganizationFormStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledGrid>{children}</ManageOrganizationFormStyledGrid>);
+      const renderedComponent = shallow(<ManageOrganizationFormGrid>{children}</ManageOrganizationFormGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<ManageOrganizationFormStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledGrid>{children}</ManageOrganizationFormStyledGrid>);
+      const renderedComponent = shallow(<ManageOrganizationFormGrid>{children}</ManageOrganizationFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -51,7 +51,7 @@ describe('<ManageOrganizationFormStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledGrid>{children}</ManageOrganizationFormStyledGrid>);
+      const renderedComponent = shallow(<ManageOrganizationFormGrid>{children}</ManageOrganizationFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-column-gap', '2vw');
@@ -63,7 +63,7 @@ describe('<ManageOrganizationFormStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageOrganizationFormStyledGrid>{children}</ManageOrganizationFormStyledGrid>);
+      const renderedComponent = shallow(<ManageOrganizationFormGrid>{children}</ManageOrganizationFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('color', '#444');

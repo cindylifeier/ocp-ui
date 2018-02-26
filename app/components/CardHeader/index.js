@@ -6,23 +6,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import CardHeaderContainerStyledGrid from './CardHeaderContainerStyledGrid';
-import CardHeaderContainerStyledCell from './CardHeaderContainerStyledCell';
+import CardHeaderContainerGrid from './CardHeaderContainerGrid';
+import CardHeaderContainerCell from './CardHeaderContainerCell';
 import CardTitle from './CardTitle';
 
 function CardHeader({ title, children }) {
   const childrenCount = React.Children.count(children);
   return (
-    <CardHeaderContainerStyledGrid columns={`1fr repeat(${childrenCount}, 150px)`}>
-      <CardHeaderContainerStyledCell>
+    <CardHeaderContainerGrid columns={`1fr repeat(${childrenCount}, 150px)`}>
+      <CardHeaderContainerCell>
         <CardTitle>{title}</CardTitle>
-      </CardHeaderContainerStyledCell>
+      </CardHeaderContainerCell>
       {React.Children.map(children, (child) => (
-        <CardHeaderContainerStyledCell key={uniqueId()}>
+        <CardHeaderContainerCell key={uniqueId()}>
           {child}
-        </CardHeaderContainerStyledCell>
+        </CardHeaderContainerCell>
       ))}
-    </CardHeaderContainerStyledGrid>);
+    </CardHeaderContainerGrid>);
 }
 
 CardHeader.propTypes = {

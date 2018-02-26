@@ -12,8 +12,8 @@ import Checkbox from '../Checkbox';
 import SelectField from '../SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
-import SearchContainerStyledGrid from './SearchContainerStyledGrid';
-import SearchButtonContainerStyledGrid from './SearchButtonContainerStyledGrid';
+import SearchContainerGrid from './SearchContainerGrid';
+import SearchButtonContainerGrid from './SearchButtonContainerGrid';
 
 export const SEARCH_BY_NAME = 'name';
 export const SEARCH_BY_ID = 'identifier';
@@ -27,7 +27,7 @@ function SearchBarForm(props) {
           <ActionSearch color={'#336666'} />
           <FormattedMessage {...messages.searchHeader} />
         </SearchHeader>
-        <SearchContainerStyledGrid gap="5px" columns="250px 300px">
+        <SearchContainerGrid gap="5px" columns="250px 300px">
           <SelectField
             fullWidth
             name="searchType"
@@ -40,8 +40,8 @@ function SearchBarForm(props) {
             name="searchValue"
             hintText={<FormattedMessage {...messages.hintText} />}
           />
-        </SearchContainerStyledGrid>
-        <SearchContainerStyledGrid gap="5px" columns="70px 300px">
+        </SearchContainerGrid>
+        <SearchContainerGrid gap="5px" columns="70px 300px">
           <div>
             <FormattedMessage {...messages.filterLabel} />
           </div>
@@ -49,8 +49,8 @@ function SearchBarForm(props) {
             name="showInactive"
             label={<FormattedMessage {...messages.includeInactive} />}
           />
-        </SearchContainerStyledGrid>
-        <SearchButtonContainerStyledGrid gap="5px" columns="120px 1fr">
+        </SearchContainerGrid>
+        <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
           <RaisedButton
             fullWidth
             label="Search"
@@ -59,7 +59,7 @@ function SearchBarForm(props) {
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           />
-        </SearchButtonContainerStyledGrid>
+        </SearchButtonContainerGrid>
       </SearchSection>
     </Form>
   );

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ManageOrganizationFormStyledCell /> snapshot tests should match snapshot 1`] = `
+exports[`<PatientsPageCell /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <styled.section>
-    <div>
+    <span>
       test
-    </div>
+    </span>
   </styled.section>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -21,10 +21,10 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <div>
+      "children": <span>
         test
-      </div>,
-      "className": "sc-bdVaJa hHkbca",
+      </span>,
+      "className": "sc-bdVaJa ciCvCZ",
     },
     "ref": null,
     "rendered": Object {
@@ -36,7 +36,7 @@ ShallowWrapper {
       },
       "ref": null,
       "rendered": "test",
-      "type": "div",
+      "type": "span",
     },
     "type": "section",
   },
@@ -46,10 +46,10 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <div>
+        "children": <span>
           test
-        </div>,
-        "className": "sc-bdVaJa hHkbca",
+        </span>,
+        "className": "sc-bdVaJa ciCvCZ",
       },
       "ref": null,
       "rendered": Object {
@@ -61,7 +61,7 @@ ShallowWrapper {
         },
         "ref": null,
         "rendered": "test",
-        "type": "div",
+        "type": "span",
       },
       "type": "section",
     },

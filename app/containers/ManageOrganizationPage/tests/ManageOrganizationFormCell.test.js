@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import CardHeaderContainerStyledCell from '../CardHeaderContainerStyledCell';
+import ManageOrganizationFormCell from '../ManageOrganizationFormCell';
 
 configure({ adapter: new Adapter() });
 
-describe('<CardHeaderContainerStyledCell />', () => {
+describe('<ManageOrganizationFormCell />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledCell>{children}</CardHeaderContainerStyledCell>);
+      const renderedComponent = shallow(<ManageOrganizationFormCell>{children}</ManageOrganizationFormCell>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<CardHeaderContainerStyledCell />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledCell>{children}</CardHeaderContainerStyledCell>);
+      const renderedComponent = shallow(<ManageOrganizationFormCell>{children}</ManageOrganizationFormCell>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -35,16 +35,16 @@ describe('<CardHeaderContainerStyledCell />', () => {
   });
 
   describe('style tests', () => {
-    it('should have position and height', () => {
+    it('should have border-radius and font-size', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledCell>{children}</CardHeaderContainerStyledCell>);
+      const renderedComponent = shallow(<ManageOrganizationFormCell>{children}</ManageOrganizationFormCell>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('position', 'relative');
-      expect(renderedComponent).toHaveStyleRule('height', 'auto');
+      expect(renderedComponent).toHaveStyleRule('border-radius', '5px');
+      expect(renderedComponent).toHaveStyleRule('font-size', '100%');
     });
   });
 });

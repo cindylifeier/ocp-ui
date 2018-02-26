@@ -1,6 +1,6 @@
 import { Grid } from 'styled-css-grid';
 
-const TableHeaderStyledGrid = Grid.extend`
+const TableHeaderGrid = Grid.extend`
   border-bottom: 1px outset rgb(51, 51, 51);
 
   &:first-child {
@@ -13,6 +13,6 @@ const TableHeaderStyledGrid = Grid.extend`
   }
 `;
 
-TableHeaderStyledGrid.propTypes = {};
+TableHeaderGrid.propTypes = {};
 
-export default TableHeaderStyledGrid;
+export default TableHeaderGrid;

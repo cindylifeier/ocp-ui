@@ -1,6 +1,6 @@
 import { Cell } from 'styled-css-grid';
 
-const PatientsPageStyledCell = Cell.extend`
+const PatientsPageCell = Cell.extend`
   background-color: #fff;
   color: rgb(51, 51, 51);
   border-radius: 5px;
@@ -8,6 +8,6 @@ const PatientsPageStyledCell = Cell.extend`
   font-size: 100%;
 `;
 
-PatientsPageStyledCell.propTypes = {};
+PatientsPageCell.propTypes = {};
 
-export default PatientsPageStyledCell;
+export default PatientsPageCell;

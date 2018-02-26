@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import TableRowStyledGrid from '../TableRowStyledGrid';
+import TableHeaderStyledGrid from '../TableHeaderGrid';
 
 configure({ adapter: new Adapter() });
 
-describe('<TableRowStyledGrid />', () => {
+describe('<TableHeaderGrid />', () => {
   describe('structural tests', () => {
     it('should have children', () => {
       // Arrange
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableRowStyledGrid>{children}</TableRowStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -27,7 +27,7 @@ describe('<TableRowStyledGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableRowStyledGrid>{children}</TableRowStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -38,7 +38,7 @@ describe('<TableRowStyledGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableRowStyledGrid>{children}</TableRowStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('border-bottom', '1px outset rgb(51, 51, 51)');
@@ -49,7 +49,7 @@ describe('<TableRowStyledGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableRowStyledGrid>{children}</TableRowStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('background-color', '#f2f2f2', {
@@ -65,27 +65,11 @@ describe('<TableRowStyledGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableRowStyledGrid>{children}</TableRowStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('background-color', '#f2f2f2', {
         modifier: ':nth-child(odd)',
-      });
-    });
-
-    it('should have hover styles', () => {
-      // Arrange
-      const children = (<span>test</span>);
-
-      // Act
-      const renderedComponent = shallow(<TableRowStyledGrid>{children}</TableRowStyledGrid>);
-
-      // Assert
-      expect(renderedComponent).toHaveStyleRule('background-color', '#dce4ef', {
-        modifier: ':hover',
-      });
-      expect(renderedComponent).toHaveStyleRule('cursor', 'pointer', {
-        modifier: ':hover',
       });
     });
   });

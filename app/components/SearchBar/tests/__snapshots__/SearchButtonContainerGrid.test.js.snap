@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SearchContainerStyledGrid /> snapshot tests should match snapshot 1`] = `
+exports[`<SearchButtonContainerGrid /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
@@ -24,7 +24,7 @@ ShallowWrapper {
       "children": <div>
         test
       </div>,
-      "className": "sc-bdVaJa fOhBjb",
+      "className": "sc-bdVaJa dPKyUO",
     },
     "ref": null,
     "rendered": Object {
@@ -49,7 +49,7 @@ ShallowWrapper {
         "children": <div>
           test
         </div>,
-        "className": "sc-bdVaJa fOhBjb",
+        "className": "sc-bdVaJa dPKyUO",
       },
       "ref": null,
       "rendered": Object {
