@@ -1,7 +1,10 @@
-import { hasAccessScopeInToken } from '../auth';
+import 'mock-local-storage';
+
+import { checkAuthenticated, hasAccessScopeInToken } from '../auth';
+import { storeAuthStatus, storeToken } from '../tokenService';
 
 describe('auth.js', () => {
-  it('should has access scope in token', () => {
+  it('should return true if there is required access scope in token', () => {
     // Arrange
     const testToken = {
       scope: ['ocpUi.access', 'test'],
@@ -12,5 +15,29 @@ describe('auth.js', () => {
 
     // Assert
     expect(hasAccessScopeInTestToken).toBeTruthy();
+  });
+
+  it('should return false if there is no required access scope in token', () => {
+    // Act
+    const hasAccessScopeInTestToken = hasAccessScopeInToken(null);
+
+    // Assert
+    expect(hasAccessScopeInTestToken).toBeFalsy();
+  });
+
+  it('should return authStatus with correct status', () => {
+    // Arrange
+    const testToken = {
+      scope: ['ocpUi.access', 'test'],
+    };
+    const testAuthStatus = true;
+
+    // Act
+    storeToken(testToken);
+    storeAuthStatus(testAuthStatus);
+    const isAuthenticated = checkAuthenticated();
+
+    // Assert
+    expect(isAuthenticated).toBeTruthy();
   });
 });
