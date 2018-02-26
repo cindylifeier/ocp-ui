@@ -3,7 +3,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import TableHeaderStyledGrid from '../TableHeaderGrid';
+import TableHeaderGrid from '../TableHeaderGrid';
 
 configure({ adapter: new Adapter() });
 
@@ -14,7 +14,7 @@ describe('<TableHeaderGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderGrid>{children}</TableHeaderGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -27,7 +27,7 @@ describe('<TableHeaderGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderGrid>{children}</TableHeaderGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -38,7 +38,7 @@ describe('<TableHeaderGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderGrid>{children}</TableHeaderGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('border-bottom', '1px outset rgb(51, 51, 51)');
@@ -49,7 +49,7 @@ describe('<TableHeaderGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderGrid>{children}</TableHeaderGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('background-color', '#f2f2f2', {
@@ -65,7 +65,7 @@ describe('<TableHeaderGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<TableHeaderStyledGrid>{children}</TableHeaderStyledGrid>);
+      const renderedComponent = shallow(<TableHeaderGrid>{children}</TableHeaderGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('background-color', '#f2f2f2', {
