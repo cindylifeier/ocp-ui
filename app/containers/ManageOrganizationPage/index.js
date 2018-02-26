@@ -36,8 +36,8 @@ import { createOrganization, updateOrganization } from './actions';
 import { makeSelectOrganizationsData } from '../Organizations/selectors';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
-import ManageOrganizationFormStyledGrid from './ManageOrganizationFormStyledGrid';
-import ManageOrganizationFormStyledCell from './ManageOrganizationFormStyledCell';
+import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
+import ManageOrganizationFormCell from './ManageOrganizationFormCell';
 import StyledRaisedButton from '../../components/StyledRaisedButton';
 import PageContent from '../../components/PageContent';
 
@@ -140,15 +140,15 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
               const { isSubmitting, dirty, isValid } = props;
               return (
                 <Form>
-                  <ManageOrganizationFormStyledGrid columns={12}>
-                    <ManageOrganizationFormStyledCell top={1} left={1} width={4}>
+                  <ManageOrganizationFormGrid columns={12}>
+                    <ManageOrganizationFormCell top={1} left={1} width={4}>
                       <TextField
                         name="name"
                         floatingLabelText={<FormattedMessage {...messages.form.name} />}
                         fullWidth
                       />
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={1} left={5} width={3}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={1} left={5} width={3}>
                       <Grid columns="1fr 2fr" gap="">
                         <Cell>
                           <SelectField
@@ -172,9 +172,9 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           />
                         </Cell>
                       </Grid>
-                    </ManageOrganizationFormStyledCell>
+                    </ManageOrganizationFormCell>
                     {id &&
-                    <ManageOrganizationFormStyledCell top={1} left={8} width={2}>
+                    <ManageOrganizationFormCell top={1} left={8} width={2}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.status} />}
                         fullWidth
@@ -187,29 +187,29 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={display}
                           />))}
                       </SelectField>
-                    </ManageOrganizationFormStyledCell>}
-                    <ManageOrganizationFormStyledCell top={2} left={1} width={4}>
+                    </ManageOrganizationFormCell>}
+                    <ManageOrganizationFormCell top={2} left={1} width={4}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.line1} />}
                         fullWidth
                         name="line1"
                       />
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={2} left={5} width={4}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={2} left={5} width={4}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.line2} />}
                         fullWidth
                         name="line2"
                       />
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={3} left={1} width={4}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={3} left={1} width={4}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.city} />}
                         fullWidth
                         name="city"
                       />
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={3} left={5} width={3}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={3} left={5} width={3}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.stateCode} />}
                         fullWidth
@@ -222,15 +222,15 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={state.display}
                           />))}
                       </SelectField>
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={3} left={8} width={2}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={3} left={8} width={2}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.postalCode} />}
                         fullWidth
                         name="postalCode"
                       />
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={4} left={1} width={5}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={4} left={1} width={5}>
                       <Grid columns="2fr 3fr" gap="">
                         <Cell>
                           <SelectField
@@ -254,8 +254,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           />
                         </Cell>
                       </Grid>
-                    </ManageOrganizationFormStyledCell>
-                    <ManageOrganizationFormStyledCell top={5} left={1} width={2}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={5} left={1} width={2}>
                       <Grid columns="1fr 1fr" gap="1vw">
                         <Cell>
                           <StyledRaisedButton
@@ -279,8 +279,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           />
                         </Cell>
                       </Grid>
-                    </ManageOrganizationFormStyledCell>
-                  </ManageOrganizationFormStyledGrid>
+                    </ManageOrganizationFormCell>
+                  </ManageOrganizationFormGrid>
                 </Form>
               );
             }}

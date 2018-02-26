@@ -1,6 +1,6 @@
 import { Grid } from 'styled-css-grid';
 
-const ManageOrganizationFormStyledGrid = Grid.extend`
+const ManageOrganizationFormGrid = Grid.extend`
   color: #444;
   width: auto;
   padding-left: 0.5vw;
@@ -11,6 +11,6 @@ const ManageOrganizationFormStyledGrid = Grid.extend`
   grid-row-gap: 2vh;
 `;
 
-ManageOrganizationFormStyledGrid.propTypes = {};
+ManageOrganizationFormGrid.propTypes = {};
 
-export default ManageOrganizationFormStyledGrid;
+export default ManageOrganizationFormGrid;
