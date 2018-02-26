@@ -115,6 +115,7 @@ function ManageLocationForm(props) {
             <SelectField
               name="telecomSystem"
               fullWidth
+              hintText={<FormattedMessage {...messages.telecomSystemTypeHintText} />}
               floatingLabelText={<FormattedMessage {...messages.telecomSystemTypeFloatingLabelText} />}
             >
               {telecomSystems && telecomSystems.map((telecomSystem) => (
