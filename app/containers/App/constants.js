@@ -12,13 +12,20 @@
 export const DEFAULT_LOCALE = 'en';
 
 /**
- *  US state related constants
+ *  Action type related constants
  * @type {string}
  */
 export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
 export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
+export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
+export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
+
+/**
+ *  Global object keys
+ * @type {string}
+ */
 export const GLOBAL_LOOKUP_STATE_KEY = 'lookup';
 export const GLOBAL_AUTH_STATE_KEY = 'auth';
 export const GLOBAL_SHARED_DATA_KEY = 'sharedData';
@@ -73,8 +80,6 @@ export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
-export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
-export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
 
 /**
  *  Constants to hold the default pagination page size and start page number
@@ -83,6 +88,11 @@ export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS
 export const DEFAULT_START_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 10;
 
+/**
+ *  Min input field length.
+ * @type {number}
+ */
+export const TEXT_MIN_LENGTH = 3;
 /**
  *  Constants to hold the configuration for date picker
  * @type {object}
@@ -97,4 +107,4 @@ export const DATE_PICKER_MODE = {
  */
 export const ENTER_KEY = 'Enter';
 export const EMPTY_STRING = '';
-export const TEXT_MIN_LENGTH = 3;
+
