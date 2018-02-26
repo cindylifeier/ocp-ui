@@ -13,7 +13,7 @@ export function getPatientById(patients, patientId) {
 }
 
 export function getOrganization() {
-  const query = { searchValue: 'ulss', searchType: 'name', pageNumber: 1, showInactive: false };
+  const query = { searchValue: 'great', searchType: 'name', pageNumber: 1, showInactive: false };
   const params = queryString({ searchValue: query.searchValue, showInactive: query.showInactive, searchType: query.searchType, size: DEFAULT_PAGE_SIZE, page: query.pageNumber });
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const requestURL = `${baseEndpoint}/search${params}`;
@@ -27,7 +27,7 @@ export function getActivityDefinitions(organizationId) {
 
 
 export function getPractitioners() {
-  const query = { searchValue: 'gooddoc', searchType: 'name', pageNumber: 1, showInactive: false };
+  const query = { searchValue: 'johnson', searchType: 'name', pageNumber: 1, showInactive: false };
   const params = queryString({ searchValue: query.searchValue, showInactive: query.showInactive, searchType: query.searchType, size: DEFAULT_PAGE_SIZE, page: query.pageNumber });
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const requestURL = `${baseEndpoint}/search${params}`;

@@ -48,7 +48,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     // get specific organization
     this.props.getOrganization();
     // get Activityt Definitions-for a specific organization
-    this.props.getActivityDefinitions('275284');
+    this.props.getActivityDefinitions('902');
     // get practitioners for htat patient careteam pracitioner role
     // get specific organization
     this.props.getPractitioners();
