@@ -64,13 +64,13 @@ export const RESOURCE_TYPE = 'RESOURCE_TYPE';
 export const ACTION_PARTICIPANT_TYPE = 'ACTION_PARTICIPANT_TYPE';
 export const ACTION_PARTICIPANT_ROLE = 'ACTION_PARTICIPANT_ROLE';
 export const RELATEDPERSONPATIENTRELATIONSHIPTYPES = 'RELATEDPERSONPATIENTRELATIONSHIPTYPES';
-
 // Activity Definition Lookups - End
 // Task Resource Lookups - Start
 export const TASK_STATUS = 'TASK_STATUS';
 export const REQUEST_INTENT = 'REQUEST_INTENT';
 export const REQUEST_PRIORITY = 'REQUEST_PRIORITY';
 export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
+export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
 /**
  *  Constants to hold the internal urls
@@ -85,7 +85,6 @@ export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
 export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
 export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
-export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 
 /**
  *  Constants to hold the default pagination page size and start page number
