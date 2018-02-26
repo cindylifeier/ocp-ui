@@ -24,7 +24,7 @@ import LoginFieldGrid from './LoginFieldGrid';
 import LoginButtonCell from './LoginButtonCell';
 
 function Login(props) {
-  const { onLogin, auth: { isAuthenticating } } = props;
+  const { onLogin } = props;
 
   return (
     <div>
@@ -97,7 +97,7 @@ function Login(props) {
                           labelColor={white}
                           fullWidth
                           label={
-                            isAuthenticating ?
+                            isSubmitting ?
                               <FormattedMessage {...messages.authenticatingButton} /> :
                               <FormattedMessage {...messages.loginButton} />
                           }
@@ -120,7 +120,6 @@ function Login(props) {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
 };
 
 export default Login;

@@ -128,7 +128,6 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
               primaryText="Edit"
               containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
             />
-            <MenuItem className={styles.menuItem} primaryText="Remove" />
             <MenuItem
               className={styles.menuItem}
               primaryText="Assign HealthCareService"
