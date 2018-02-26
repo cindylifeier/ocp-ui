@@ -2,11 +2,11 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
-import StyledUltimatePagination from '../index';
+import CenterAlignedUltimatePagination from '../index';
 
 configure({ adapter: new Adapter() });
 
-describe('<StyledUltimatePagination />', () => {
+describe('<CenterAlignedUltimatePagination />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
@@ -16,7 +16,7 @@ describe('<StyledUltimatePagination />', () => {
       const props = { currentPage, totalPages, onChange };
 
       // Act
-      const renderedComponent = shallow(<StyledUltimatePagination {...props} />);
+      const renderedComponent = shallow(<CenterAlignedUltimatePagination {...props} />);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -32,7 +32,7 @@ describe('<StyledUltimatePagination />', () => {
       const props = { currentPage, totalPages, onChange };
 
       // Act
-      const renderedComponent = shallow(<StyledUltimatePagination {...props} />);
+      const renderedComponent = shallow(<CenterAlignedUltimatePagination {...props} />);
 
       // Assert
       expect(renderedComponent.props().children.props.currentPage).toEqual(currentPage);
@@ -55,7 +55,7 @@ describe('<StyledUltimatePagination />', () => {
       };
 
       // Act
-      const renderedComponent = shallow(<StyledUltimatePagination {...props} />);
+      const renderedComponent = shallow(<CenterAlignedUltimatePagination {...props} />);
 
       // Assert
       expect(renderedComponent.props().children.props.boundaryPagesRange).toEqual(defaultProps.boundaryPagesRange);
@@ -75,7 +75,7 @@ describe('<StyledUltimatePagination />', () => {
       const props = { currentPage, totalPages, onChange };
 
       // Act
-      const renderedComponent = shallow(<StyledUltimatePagination {...props} />);
+      const renderedComponent = shallow(<CenterAlignedUltimatePagination {...props} />);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('text-align', 'center');

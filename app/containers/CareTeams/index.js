@@ -35,7 +35,7 @@ import CheckboxGrid from './CheckboxGrid';
 import NoCareTeamSection from './NoCareTeamSection';
 import PatientInfoSection from './PatientInfoSection';
 import PatientLabel from './PatientLabel';
-import StyledUltimatePagination from '../../components/StyledUltimatePagination';
+import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -121,7 +121,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <CenterAlign>
           <CareTeamTable elements={data.elements} />
-          <StyledUltimatePagination
+          <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
             onChange={this.handlePageClick}

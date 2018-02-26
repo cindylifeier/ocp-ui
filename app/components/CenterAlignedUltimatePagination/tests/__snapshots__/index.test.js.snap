@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<StyledUltimatePagination /> snapshot tests should match snapshot 1`] = `
+exports[`<CenterAlignedUltimatePagination /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <StyledUltimatePagination
+  Symbol(enzyme.__unrendered__): <CenterAlignedUltimatePagination
     boundaryPagesRange={1}
     currentPage={5}
     hideEllipsis={false}

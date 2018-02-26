@@ -31,7 +31,7 @@ import Card from '../../components/Card';
 import CardHeader from '../../components/CardHeader';
 import StyledFlatButton from '../../components/StyledFlatButton';
 import CenterAlign from '../../components/Align/CenterAlign';
-import StyledUltimatePagination from '../../components/StyledUltimatePagination';
+import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class Organizations extends React.PureComponent {
 
@@ -94,7 +94,7 @@ export class Organizations extends React.PureComponent {
               organizations={organizations.data.map(fromBackendToFrontendOrganization)}
               onRowClick={this.handleRowClick}
             />
-            <StyledUltimatePagination
+            <CenterAlignedUltimatePagination
               currentPage={this.props.currentPage}
               totalPages={this.props.totalNumberOfPages}
               onChange={this.handlePageClick}

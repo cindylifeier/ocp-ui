@@ -40,7 +40,7 @@ import CardHeader from '../../components/CardHeader';
 import StyledFlatButton from '../../components/StyledFlatButton';
 import SearchBar from '../../components/SearchBar';
 import { SEARCH_BAR_TEXT_LENGTH } from './constants';
-import StyledUltimatePagination from '../../components/StyledUltimatePagination';
+import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class Patients extends React.PureComponent {
 
@@ -98,7 +98,7 @@ export class Patients extends React.PureComponent {
         <br />
         <PatientSearchResult {...searchResultProps} onPatientClick={this.handlePatientClick} />
         {this.props.searchResult &&
-        <StyledUltimatePagination
+        <CenterAlignedUltimatePagination
           currentPage={this.props.currentPage}
           totalPages={this.props.totalPages}
           onChange={this.handleChangePage}

@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import CenterAlign from '../Align/CenterAlign';
 
-function StyledUltimatePagination(props) {
+function CenterAlignedUltimatePagination(props) {
   return (<CenterAlign><UltimatePagination {...props} /></CenterAlign>);
 }
 
-StyledUltimatePagination.propTypes = {
+CenterAlignedUltimatePagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -23,7 +23,7 @@ StyledUltimatePagination.propTypes = {
   hideEllipsis: PropTypes.bool,
 };
 
-StyledUltimatePagination.defaultProps = {
+CenterAlignedUltimatePagination.defaultProps = {
   boundaryPagesRange: 1,
   siblingPagesRange: 1,
   hidePreviousAndNextPageLinks: false,
@@ -31,4 +31,4 @@ StyledUltimatePagination.defaultProps = {
   hideEllipsis: false,
 };
 
-export default StyledUltimatePagination;
+export default CenterAlignedUltimatePagination;
