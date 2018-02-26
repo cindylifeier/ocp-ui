@@ -25,17 +25,21 @@ const FormTitle = styled.div`
   background-color: #f2f2f2;
 `;
 
-function AddArtifactForm({ onAddArtifact, relatedArtifactTypes, callback }) {
+function AddArtifactForm({ onAddArtifact, onRemoveArtifact, relatedArtifactTypes, callback, initialValues }) {
   return (
     <div>
       <FormTitle><FormattedMessage {...messages.header} /></FormTitle>
       <Formik
         onSubmit={(values) => {
+          if (initialValues) {
+            onRemoveArtifact(initialValues.index);
+          }
           onAddArtifact(values);
           if (callback) {
             callback();
           }
         }}
+        initialValues={{ ...(initialValues || {}).artifact }}
         validationSchema={Yup.object().shape({
           display: Yup.string().required('Required'),
           type: Yup.string().required('Required'),
@@ -67,6 +71,11 @@ function AddArtifactForm({ onAddArtifact, relatedArtifactTypes, callback }) {
 
 AddArtifactForm.propTypes = {
   onAddArtifact: PropTypes.func.isRequired,
+  onRemoveArtifact: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({
+    index: PropTypes.number.isRequired,
+    artifact: PropTypes.object.isRequired,
+  }),
   relatedArtifactTypes: PropTypes.array,
   callback: PropTypes.func,
 };
