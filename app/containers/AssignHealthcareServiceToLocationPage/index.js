@@ -21,8 +21,10 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {
   makeSelectCurrentPage,
-  makeSelectHealthcareServices, makeSelectQueryError,
-  makeSelectQueryLoading, makeSelectTotalNumberOfPages,
+  makeSelectHealthcareServices,
+  makeSelectQueryError,
+  makeSelectQueryLoading,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -32,7 +34,8 @@ import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
   getHealthcareServicesLocationAssignment,
-  initializeAssignHealthCareServiceToLocationPage, markHealthcareServiceAsAssigned,
+  initializeAssignHealthCareServiceToLocationPage,
+  markHealthcareServiceAsAssigned,
   unassignHealthcareServicesLocationAssignment,
   updateHealthcareServicesLocationAssignment,
 } from './actions';
@@ -168,8 +171,13 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           open={this.state.open}
           onRequestClose={this.handleCloseDialog}
         >
-          Are you sure you want to unassign <strong>{this.state.selectedHealthCareServiceName} </strong>
-          from <strong>{this.state.selectedLocationName}</strong>?
+          <FormattedMessage
+            {...messages.confirmLocationUnassignment}
+            values={{
+              selectedHealthCareServiceName: <strong>{this.state.selectedHealthCareServiceName} </strong>,
+              selectedLocationName: <strong>{this.state.selectedLocationName} </strong>,
+            }}
+          />
         </Dialog>
       </div>
     );
