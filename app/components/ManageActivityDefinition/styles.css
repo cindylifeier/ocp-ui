@@ -38,8 +38,14 @@
 }
 
 .addArtifactsButton {
-  padding-left: 0.5vw;
-  margin-top: 2vh;
+   padding-left: 0.5vw;
+   margin-top: 2vh;
+   margin-left: 1vw;
+   margin-right: 1vw;
+ }
+
+.relatedArtifactsSection {
+  margin-top: 1vh;
   margin-left: 1vw;
   margin-right: 1vw;
 }
