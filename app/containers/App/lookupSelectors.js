@@ -32,6 +32,12 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  // Task Resource Lookups - Start
+  TASK_STATUS,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  // Task Resource Lookups - End
 } from './constants';
 import selectGlobalDomain from './selectors';
 
@@ -204,6 +210,27 @@ const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
 );
+// Task Resource Lookups - Start
+const makeSelectTaskStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(TASK_STATUS).toJS(),
+);
+
+const makeSelectRequestIntents = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(REQUEST_INTENT).toJS(),
+);
+
+const makeSelectRequestPriorities = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(REQUEST_PRIORITY).toJS(),
+);
+
+const makeSelectTaskPerformerTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(TASK_PERFORMER_TYPE).toJS(),
+);
+// Task Resource Lookups - End
 export {
   makeSelectUspsStates,
   makeSelectLocationPhysicalTypes,
@@ -239,4 +266,8 @@ export {
   makeSelectActionParticipantTypes,
   makeSelectActionParticipantRoles,
   makeSelectRelatedPersonPatientRelationshipTypes,
+  makeSelectTaskStatuses,
+  makeSelectRequestIntents,
+  makeSelectRequestPriorities,
+  makeSelectTaskPerformerTypes,
 };
