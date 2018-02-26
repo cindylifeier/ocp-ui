@@ -22,4 +22,9 @@ export default defineMessages({
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.noHealthcareServicesFound',
     defaultMessage: 'No healthcare services found.',
   },
+  confirmLocationUnassignment: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.confirmUnassignment',
+    defaultMessage: 'Are you sure you want to unassign {selectedHealthCareServiceName} \n' +
+    '          from the location: {selectedLocationName}?',
+  },
 });

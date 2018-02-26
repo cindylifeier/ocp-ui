@@ -15,7 +15,9 @@ import {
 import { makeSelectLocation, makeSelectOrganization } from './selectors';
 import {
   getHealthcareServicesLocationAssignmentServicesError,
-  getHealthcareServicesLocationAssignmentSuccess, unassignHealthcareServicesLocationAssignmentServicesError,
+  getHealthcareServicesLocationAssignmentSuccess, markHealthcareServiceAsAssigned,
+  unassignHealthcareServicesLocationAssignmentServicesError,
+  unmarkHealthcareServiceAsAssigned,
   updateHealthcareServicesLocationAssignmentServicesError,
 } from './actions';
 
@@ -38,6 +40,7 @@ export function* updateHealthcareServicesLocationAssignmentSaga(action) {
     const locationIds = [];
     locationIds.push(action.locationId);
     yield call(assignHealthCareServicesToLocation, action.organizationId, locationIds, action.healthcareServiceId);
+    yield put(markHealthcareServiceAsAssigned(action.healthcareServiceId));
     yield put(showNotification('The healthcare service is successfully assigned to current location.'));
   } catch (err) {
     yield put(updateHealthcareServicesLocationAssignmentServicesError(err));
@@ -58,6 +61,7 @@ export function* unassignHealthcareServicesLocationAssignmentSaga(action) {
     const locationIds = [];
     locationIds.push(action.locationId);
     yield call(unassignHealthCareServicesToLocation, action.organizationId, locationIds, action.healthcareServiceId);
+    yield put(unmarkHealthcareServiceAsAssigned(action.healthcareServiceId));
     yield put(showNotification('The healthcare service is successfully unassigned from the current location.'));
   } catch (err) {
     yield put(unassignHealthcareServicesLocationAssignmentServicesError(err));
