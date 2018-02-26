@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
-import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
+import { MANAGE_CARE_TEAM_URL, MANAGE_TASK_URL } from '../../containers/App/constants';
 import messages from './messages';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
@@ -54,7 +54,12 @@ function displayPatientSearchResult(patients, onPatientClick) {
           />
           <StyledMenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
-            containerElement={<Link to={'/ocp-ui/manage-task'} />}
+            containerElement={<Link
+              to={{
+                pathname: MANAGE_TASK_URL,
+                search: `?patientId=${patient.id}`,
+              }}
+            />}
           />
           <StyledMenuItem
             primaryText={<FormattedMessage {...messages.addRelatedPerson} />}

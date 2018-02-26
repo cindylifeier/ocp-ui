@@ -44,3 +44,15 @@ export function unassignHealthCareServicesToLocation(orgId, locationIds, healthC
     },
   });
 }
+
+export function setHealthcareServiceAssignedToCurrentLocation(healtcareServices, healthcareServiceId, value) {
+  let i = 0;
+  while (i < healtcareServices.length) {
+    const healthcareService = healtcareServices[i];
+    if (healthcareService.logicalId === healthcareServiceId) {
+      healthcareService.assignedToCurrentLocation = value;
+      break;
+    }
+    i += 1;
+  }
+}
