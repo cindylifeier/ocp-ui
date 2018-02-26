@@ -17,6 +17,8 @@ import Divider from 'material-ui/Divider';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices, makeSelectQueryError,
@@ -30,7 +32,8 @@ import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
   getHealthcareServicesLocationAssignment,
-  initializeAssignHealthCareServiceToLocationPage, unassignHealthcareServicesLocationAssignment,
+  initializeAssignHealthCareServiceToLocationPage, markHealthcareServiceAsAssigned,
+  unassignHealthcareServicesLocationAssignment,
   updateHealthcareServicesLocationAssignment,
 } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
@@ -41,9 +44,15 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
     super(props);
     this.state = {
       currentPage: 1,
+      open: false,
+      selectedHealthCareServiceName: '',
+      selectedLocationName: '',
+      healthcareServiceLogicalId: '',
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.onCheckAssignedCheckbox = this.onCheckAssignedCheckbox.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleUnassignHealthcareService = this.handleUnassignHealthcareService.bind(this);
   }
 
   componentDidMount() {
@@ -51,22 +60,52 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
     this.props.getHealthcareServicesLocationAssignment(this.props.organization.id, this.props.organization.name, this.props.match.params.id, 1);
   }
 
-  onCheckAssignedCheckbox(evt, checked, logicalId) {
+  onCheckAssignedCheckbox(evt, checked, healthcareServiceLogicalId) {
+    const locationLogicalId = this.props.match.params.id;
     if (checked) {
-      this.props.updateHealthcareServicesLocationAssignment(this.props.organization.id, this.props.match.params.id, logicalId);
+      this.props.updateHealthcareServicesLocationAssignment(this.props.organization.id, locationLogicalId, healthcareServiceLogicalId);
     } else {
-      this.props.unassignHealthcareServicesLocationAssignment(this.props.organization.id, this.props.match.params.id, logicalId);
+      const selectedLocation = find(this.props.location, { logicalId: locationLogicalId });
+      const selectedHealthcareService = find(this.props.healthcareServices, { logicalId: healthcareServiceLogicalId });
+      this.setState({ selectedHealthCareServiceName: selectedHealthcareService.name });
+      this.setState({ healthcareServiceLogicalId });
+      this.setState({ selectedLocationName: selectedLocation.name });
+      this.setState({ open: true });
     }
+  }
+
+  handleCloseDialog() {
+    this.props.markHealthcareServiceAsAssigned(this.state.healthcareServiceLogicalId);
+    this.setState({ open: false });
   }
 
   handlePageClick(currentPage) {
     this.props.getHealthcareServicesLocationAssignment(this.props.organization.id, this.props.organization.name, this.props.match.params.id, currentPage);
   }
 
+  handleUnassignHealthcareService() {
+    const locationLogicalId = this.props.match.params.id;
+    this.props.unassignHealthcareServicesLocationAssignment(this.props.organization.id, locationLogicalId, this.state.healthcareServiceLogicalId);
+    this.setState({ open: false });
+  }
+
   render() {
     const logicalId = this.props.match.params.id;
     const selectedLocation = find(this.props.location, { logicalId });
     const { loading, healthcareServices, organization } = this.props;
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary
+        onClick={this.handleCloseDialog}
+      />,
+      <FlatButton
+        label="Submit"
+        primary
+        keyboardFocused
+        onClick={this.handleUnassignHealthcareService}
+      />,
+    ];
     return (
       <div className={styles.root}>
         <Helmet>
@@ -122,6 +161,16 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           </div>
           }
         </div>
+        <Dialog
+          title="Unassign Healthcare Service"
+          actions={actions}
+          modal
+          open={this.state.open}
+          onRequestClose={this.handleCloseDialog}
+        >
+          Are you sure you want to unassign <strong>{this.state.selectedHealthCareServiceName} </strong>
+          from <strong>{this.state.selectedLocationName}</strong>?
+        </Dialog>
       </div>
     );
   }
@@ -132,6 +181,7 @@ AssignHealthCareServiceToLocationPage.propTypes = {
   getHealthcareServicesLocationAssignment: PropTypes.func,
   initializeAssignHealthCareServiceToLocationPage: PropTypes.func,
   updateHealthcareServicesLocationAssignment: PropTypes.func,
+  markHealthcareServiceAsAssigned: PropTypes.func,
   unassignHealthcareServicesLocationAssignment: PropTypes.func,
   healthcareServices: PropTypes.array,
   organization: PropTypes.object,
@@ -157,6 +207,7 @@ function mapDispatchToProps(dispatch) {
     getHealthcareServicesLocationAssignment: (organizationId, organizationName, locationId, currentPage) => dispatch(getHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage)),
     updateHealthcareServicesLocationAssignment: (organizationId, locationId, healthcareServiceId) => dispatch(updateHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
     unassignHealthcareServicesLocationAssignment: (organizationId, locationId, healthcareServiceId) => dispatch(unassignHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
+    markHealthcareServiceAsAssigned: (healthcareServiceId) => dispatch(markHealthcareServiceAsAssigned(healthcareServiceId)),
   };
 }
 
