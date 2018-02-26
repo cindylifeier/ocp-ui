@@ -11,6 +11,7 @@ describe('<CareTeams />', () => {
     it('should match snapshot', () => {
       // Arrange
       const initializeLookups = jest.fn();
+      const initializeCareTeams = jest.fn();
       const getCareTeams = jest.fn();
       const query = { a1: 'a1', a2: 'a2' };
       const patientName = 'patientName';
@@ -56,6 +57,7 @@ describe('<CareTeams />', () => {
       const props = {
         getCareTeams,
         initializeLookups,
+        initializeCareTeams,
         careTeams,
         careTeamStatuses,
       };
@@ -71,6 +73,7 @@ describe('<CareTeams />', () => {
   it('should contain patient name', () => {
     // Arrange
     const initializeLookups = jest.fn();
+    const initializeCareTeams = jest.fn();
     const getCareTeams = jest.fn();
     const query = { a1: 'a1', a2: 'a2' };
     const patientName = 'patientName';
@@ -116,6 +119,7 @@ describe('<CareTeams />', () => {
     const props = {
       getCareTeams,
       initializeLookups,
+      initializeCareTeams,
       careTeams,
       careTeamStatuses,
     };
@@ -127,9 +131,10 @@ describe('<CareTeams />', () => {
     expect(renderedComponent.contains(patientName)).toBe(true);
   });
 
-  it('should call initializeLookups', () => {
+  it('should call initialization functions', () => {
     // Arrange
     const initializeLookups = jest.fn();
+    const initializeCareTeams = jest.fn();
     const getCareTeams = jest.fn();
     const query = { a1: 'a1', a2: 'a2' };
     const patientName = 'patientName';
@@ -175,6 +180,7 @@ describe('<CareTeams />', () => {
     const props = {
       getCareTeams,
       initializeLookups,
+      initializeCareTeams,
       careTeams,
       careTeamStatuses,
     };
@@ -184,5 +190,6 @@ describe('<CareTeams />', () => {
 
     // Assert
     expect(initializeLookups).toHaveBeenCalledTimes(1);
+    expect(initializeCareTeams).toHaveBeenCalledTimes(1);
   });
 });

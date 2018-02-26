@@ -11,7 +11,8 @@ import renderCareTeamsComponent from '../CareTeams/render';
 import renderTasksComponent from '../Tasks/render';
 import renderRelatedPersonsComponent from '../RelatedPersons/render';
 import GoldenLayout from '../../components/GoldenLayout';
-import styles from './styles.css';
+import PatientsPageGrid from './PatientsPageGrid';
+import PatientsPageCell from './PatientsPageCell';
 
 const initialStateMetadata =
   {
@@ -163,21 +164,20 @@ export class PatientsPage extends React.PureComponent { // eslint-disable-line r
           <title>Patients</title>
           <meta name="description" content="Patients page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.content}`}>
+        <PatientsPageGrid gap="5px" columns="1">
+          <PatientsPageCell>
             <GoldenLayout
               containerId="golden-patients"
               componentMetadata={componentMetadata}
               stateMetadata={initialStateMetadata}
             />
-          </div>
-        </div>
+          </PatientsPageCell>
+        </PatientsPageGrid>
       </div>
     );
   }
 }
 
-PatientsPage.propTypes = {
-};
+PatientsPage.propTypes = {};
 
 export default PatientsPage;

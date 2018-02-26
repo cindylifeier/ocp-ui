@@ -10,7 +10,6 @@ import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 
-import styles from './styles.css';
 import messages from './messages';
 import SearchBarForm, { SEARCH_BY_ID, SEARCH_BY_NAME } from './SearchBarForm';
 
@@ -20,7 +19,7 @@ const regexMatchesSearchTypes = new RegExp(`(${SEARCH_BY_NAME}|${SEARCH_BY_ID})`
 function SearchBar(props) {
   const { minimumLength, onSearch } = props;
   return (
-    <div className={styles.root}>
+    <div>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {

@@ -5,26 +5,29 @@ import { MenuItem, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
-import styles from './styles.css';
 import messages from './messages';
 
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 import SelectField from '../SelectField';
+import SearchSection from './SearchSection';
+import SearchHeader from './SearchHeader';
+import SearchContainerGrid from './SearchContainerGrid';
+import SearchButtonContainerGrid from './SearchButtonContainerGrid';
 
 export const SEARCH_BY_NAME = 'name';
-export const SEARCH_BY_ID = 'logicalId';
+export const SEARCH_BY_ID = 'identifier';
 
 function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid } = props;
   return (
     <Form>
-      <div className={styles.searchSection}>
-        <div className={styles.searchHeader}>
+      <SearchSection>
+        <SearchHeader>
           <ActionSearch color={'#336666'} />
           <FormattedMessage {...messages.searchHeader} />
-        </div>
-        <div className={styles.searchGridContainer}>
+        </SearchHeader>
+        <SearchContainerGrid gap="5px" columns="250px 300px">
           <SelectField
             fullWidth
             name="searchType"
@@ -37,8 +40,8 @@ function SearchBarForm(props) {
             name="searchValue"
             hintText={<FormattedMessage {...messages.hintText} />}
           />
-        </div>
-        <div className={styles.filterGridContainer}>
+        </SearchContainerGrid>
+        <SearchContainerGrid gap="5px" columns="70px 300px">
           <div>
             <FormattedMessage {...messages.filterLabel} />
           </div>
@@ -46,8 +49,8 @@ function SearchBarForm(props) {
             name="showInactive"
             label={<FormattedMessage {...messages.includeInactive} />}
           />
-        </div>
-        <div className={styles.buttonGridContainer}>
+        </SearchContainerGrid>
+        <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
           <RaisedButton
             fullWidth
             label="Search"
@@ -56,8 +59,8 @@ function SearchBarForm(props) {
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           />
-        </div>
-      </div>
+        </SearchButtonContainerGrid>
+      </SearchSection>
     </Form>
   );
 }

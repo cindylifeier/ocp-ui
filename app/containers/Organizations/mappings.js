@@ -1,5 +1,8 @@
+import { EMPTY_STRING } from '../App/constants';
+
 export function fromBackendToFrontendOrganization(org) {
-  const { name, addresses: addressArr, telecoms, logicalId: id, active: statusBool } = org;
+  const { name, addresses: addressArr, telecoms, logicalId: id, active: statusBool, identifiers: identifiersRaw } = org;
+  const identifiers = identifiersRaw && identifiersRaw.map(({ oid, value }) => (`${oid || EMPTY_STRING}${oid ? ':' : EMPTY_STRING} ${value || EMPTY_STRING}`));
   // format address
   let address = '';
   if (addressArr.length > 0) {
@@ -14,6 +17,6 @@ export function fromBackendToFrontendOrganization(org) {
   const { value: telephone } = firstTelecom || { value: '' };
   // format status
   const status = statusBool ? 'Active' : 'Inactive';
-  const rs = { name, address, telephone, id, status };
+  const rs = { name, address, telephone, id, status, identifiers };
   return rs;
 }

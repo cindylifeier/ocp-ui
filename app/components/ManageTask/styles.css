@@ -1,3 +1,13 @@
+.root {
+  position: relative;
+  background-color: white;
+}
+.validationMessage {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
+
 .title {
   padding-left: 0.5vw;
   margin-top: 2vh;
@@ -7,4 +17,164 @@
   font-weight: bold;
   color: #444;
   background-color: #f2f2f2;
+}
+
+.gridItem {
+  border-radius: 5px;
+  font-size: 100%;
+  grid-column-gap: 2vw;
+}
+
+.activityDefinitions {
+  grid-area: activityDefinitions;
+}
+
+.contextInfoGroup {
+  grid-area: contextInfoGroup;
+}
+
+.timeGroup {
+  grid-area: timeGroup;
+}
+
+.contextGroup {
+  grid-area: contextGroup;
+}
+
+.serviceGroup {
+  grid-area: serviceGroup;
+}
+
+.effectiveGroup {
+  grid-area: effectiveGroup;
+}
+.taskPeriod {
+  padding-left: 10px;
+}
+
+.description {
+  grid-area: description;
+}
+
+
+.comments {
+  grid-area: comments;
+}
+
+.buttonGroup {
+  grid-area: buttonGroup;
+  margin: 1vh 0;
+  display: grid;
+  grid-column-gap: 1vw;
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.gridContainer {
+  color: #444;
+  width: auto;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin: 0 1vw;
+  display: grid;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vh;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "activityDefinitions"
+    "contextInfoGroup"
+    "timeGroup"
+    "contextGroup"
+    "serviceGroup"
+    "effectiveGroup"
+    "description"
+    "comments"
+    "buttonGroup";
+}
+
+/* Tablet landscape ----------- */
+@media only screen and (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "activityDefinitions activityDefinitions"
+      "contextInfoGroup contextInfoGroup"
+      "timeGroup timeGroup"
+      "contextGroup contextGroup"
+      "effectiveGroup effectiveGroup"
+      "serviceGroup serviceGroup"
+      "description description"
+      "comments comments"
+      "buttonGroup  .";
+  }
+
+  .buttonGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 2vw;
+  }
+
+  .activityDefinitions {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-column-gap: 2vw;
+  }
+  .contextInfoGroup {
+    grid-column: 1 / span 5;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-column-gap: 2vw;
+  }
+  .timeGroup {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-column-gap: 2vw;
+  }
+  .serviceGroup {
+    grid-column: 1 / span 4;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-column-gap: 2vw;
+  }
+
+  .contextGroup {
+    grid-column: 1 / span 4;
+    grid-row: 5;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-column-gap: 2vw;
+  }
+  .effectiveGroup {
+    grid-column: 1 / span 3;
+    grid-row: 6;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-column-gap: 2vw;
+  }
+  .description {
+    grid-column: 1 / span 3;
+    grid-row: 7;
+  }
+  .comments {
+    grid-column: 1 / span 3;
+    grid-row: 8;
+  }
+  .buttonGroup {
+    grid-column: 1 / span 2;
+    grid-row: 9;
+    grid-template-columns: 1fr 1fr;
+  }
+
 }

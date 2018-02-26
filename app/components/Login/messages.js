@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.Login.title',
     defaultMessage: 'Login to your account',
   },
+  brandImg: {
+    id: 'ocpui.components.Login.brandImg',
+    defaultMessage: 'OCP brand image',
+  },
   forgotLink: {
     id: 'ocpui.components.Login.forgotLink',
     defaultMessage: 'Forgot your username or password?',

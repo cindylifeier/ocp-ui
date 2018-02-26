@@ -25,7 +25,7 @@ import {
   ACTION_PARTICIPANT_ROLE,
   ACTION_PARTICIPANT_TYPE,
   DEFINITION_TOPIC,
-  PUBLICATION_STATUS,
+  PUBLICATION_STATUS, RELATED_ARTIFACT_TYPE,
   RESOURCE_TYPE,
 } from '../App/constants';
 import { makeSelectOrganization } from '../Locations/selectors';
@@ -34,7 +34,7 @@ import {
   makeSelectActionParticipantRoles,
   makeSelectActionParticipantTypes,
   makeSelectDefinitionTopics,
-  makeSelectPublicationStatuses,
+  makeSelectPublicationStatuses, makeSelectRelatedArtifactTypes,
   makeSelectResourceTypes,
 } from '../App/lookupSelectors';
 
@@ -60,6 +60,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
       resourceTypes,
       actionParticipantTypes,
       actionParticipantRoles,
+      relatedArtifactTypes,
       organization,
     } = this.props;
     const activityDefinitionProps = {
@@ -68,6 +69,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
       resourceTypes,
       actionParticipantTypes,
       actionParticipantRoles,
+      relatedArtifactTypes,
       organization,
     };
     return (
@@ -95,6 +97,7 @@ ManageActivityDefinitionPage.propTypes = {
   resourceTypes: PropTypes.array,
   actionParticipantTypes: PropTypes.array,
   actionParticipantRoles: PropTypes.array,
+  relatedArtifactTypes: PropTypes.array,
   organization: PropTypes.object,
   onSaveForm: PropTypes.func,
 };
@@ -105,12 +108,13 @@ const mapStateToProps = createStructuredSelector({
   resourceTypes: makeSelectResourceTypes(),
   actionParticipantTypes: makeSelectActionParticipantTypes(),
   actionParticipantRoles: makeSelectActionParticipantRoles(),
+  relatedArtifactTypes: makeSelectRelatedArtifactTypes(),
   organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([PUBLICATION_STATUS, DEFINITION_TOPIC, RESOURCE_TYPE, ACTION_PARTICIPANT_TYPE, ACTION_PARTICIPANT_ROLE])),
+    getLookups: () => dispatch(getLookupsAction([PUBLICATION_STATUS, DEFINITION_TOPIC, RESOURCE_TYPE, ACTION_PARTICIPANT_TYPE, ACTION_PARTICIPANT_ROLE, RELATED_ARTIFACT_TYPE])),
     onSaveForm: (activityDefinitionFormData, handleSubmitting) => dispatch(createActivityDefinition(activityDefinitionFormData, handleSubmitting)),
   };
 }

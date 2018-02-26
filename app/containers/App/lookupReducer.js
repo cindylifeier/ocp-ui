@@ -38,6 +38,13 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  // Task Resource Lookups - Start
+  TASK_STATUS,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  // Task Resource Lookups - End
+  RELATED_ARTIFACT_TYPE,
 } from './constants';
 
 // The initial state of the lookup
@@ -78,6 +85,13 @@ const initialState = fromJS({
   RESOURCE_TYPE: [],
   ACTION_PARTICIPANT_TYPE: [],
   ACTION_PARTICIPANT_ROLE: [],
+  // Task Resource Lookups - Start
+  TASK_STATUS: [],
+  REQUEST_INTENT: [],
+  REQUEST_PRIORITY: [],
+  TASK_PERFORMER_TYPE: [],
+  // Task Resource Lookups - End
+  RELATED_ARTIFACT_TYPE: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -122,6 +136,13 @@ function lookupReducer(state = initialState, action) {
         .set(ACTION_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.actionParticipantType) || state.get(ACTION_PARTICIPANT_TYPE)))
         .set(ACTION_PARTICIPANT_ROLE, fromJS((action.lookups && action.lookups.actionParticipantRole) || state.get(ACTION_PARTICIPANT_ROLE)))
         .set(RELATEDPERSONPATIENTRELATIONSHIPTYPES, fromJS((action.lookups && action.lookups.relatedPersonPatientRelationshipTypes) || state.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES)))
+        // Task Resource Lookups - Start
+        .set(TASK_STATUS, fromJS((action.lookups && action.lookups.taskStatus) || state.get(TASK_STATUS)))
+        .set(REQUEST_INTENT, fromJS((action.lookups && action.lookups.requestIntent) || state.get(REQUEST_INTENT)))
+        .set(REQUEST_PRIORITY, fromJS((action.lookups && action.lookups.requestPriority) || state.get(REQUEST_PRIORITY)))
+        .set(TASK_PERFORMER_TYPE, fromJS((action.lookups && action.lookups.taskPerformerType) || state.get(TASK_PERFORMER_TYPE)))
+        // Task Resource Lookups - End
+        .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
