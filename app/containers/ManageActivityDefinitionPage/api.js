@@ -1,4 +1,5 @@
 import request from '../../utils/request';
+import Util from '../../utils/Util';
 import { BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
 
 export function createActivityDefinition(activityDefinitionFormData, organizationId) {
@@ -16,11 +17,11 @@ export function createActivityDefinition(activityDefinitionFormData, organizatio
 
 function mapToBffActivityDefinition(activityDefinitionFormData) {
   const {
-    version, name, title, description, effectiveStart, effectiveEnd, duration, frequency, status, topic, kind, participantType, participantRole,
+    version, name, title, description, effectiveStart, effectiveEnd, duration, frequency, status, topic, kind, participantType, participantRole, relatedArtifact,
   } = activityDefinitionFormData;
   const effectivePeriod = {
-    start: effectiveStart,
-    end: effectiveEnd,
+    start: Util.formatDate(effectiveStart),
+    end: Util.formatDate(effectiveEnd),
   };
   const timing = {
     durationMax: duration,
@@ -38,5 +39,6 @@ function mapToBffActivityDefinition(activityDefinitionFormData) {
     kind,
     actionParticipantType: participantType,
     actionParticipantRole: participantRole,
+    relatedArtifact,
   };
 }
