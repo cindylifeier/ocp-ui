@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import CardHeaderContainerStyledCell from '../CardHeaderContainerStyledCell';
+import CardHeaderContainerCell from '../CardHeaderContainerCell';
 
 configure({ adapter: new Adapter() });
 
-describe('<CardHeaderContainerStyledCell />', () => {
+describe('<CardHeaderContainerCell />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledCell>{children}</CardHeaderContainerStyledCell>);
+      const renderedComponent = shallow(<CardHeaderContainerCell>{children}</CardHeaderContainerCell>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<CardHeaderContainerStyledCell />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledCell>{children}</CardHeaderContainerStyledCell>);
+      const renderedComponent = shallow(<CardHeaderContainerCell>{children}</CardHeaderContainerCell>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<CardHeaderContainerStyledCell />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledCell>{children}</CardHeaderContainerStyledCell>);
+      const renderedComponent = shallow(<CardHeaderContainerCell>{children}</CardHeaderContainerCell>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('position', 'relative');

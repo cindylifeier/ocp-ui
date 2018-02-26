@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import CardHeaderContainerStyledGrid from '../CardHeaderContainerStyledGrid';
+import CardHeaderContainerGrid from '../CardHeaderContainerGrid';
 
 configure({ adapter: new Adapter() });
 
-describe('<CardHeaderContainerStyledGrid />', () => {
+describe('<CardHeaderContainerGrid />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledGrid>{children}</CardHeaderContainerStyledGrid>);
+      const renderedComponent = shallow(<CardHeaderContainerGrid>{children}</CardHeaderContainerGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<CardHeaderContainerStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledGrid>{children}</CardHeaderContainerStyledGrid>);
+      const renderedComponent = shallow(<CardHeaderContainerGrid>{children}</CardHeaderContainerGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<CardHeaderContainerStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledGrid>{children}</CardHeaderContainerStyledGrid>);
+      const renderedComponent = shallow(<CardHeaderContainerGrid>{children}</CardHeaderContainerGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -51,7 +51,7 @@ describe('<CardHeaderContainerStyledGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<CardHeaderContainerStyledGrid>{children}</CardHeaderContainerStyledGrid>);
+      const renderedComponent = shallow(<CardHeaderContainerGrid>{children}</CardHeaderContainerGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('margin-top', '5px');
