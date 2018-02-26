@@ -1,8 +1,0 @@
-:global .lm_root {
-  height: calc(100vh - 75px);
-}
-
-/*Enable scroll content*/
-:global .lm_content {
-  overflow: auto;
-}

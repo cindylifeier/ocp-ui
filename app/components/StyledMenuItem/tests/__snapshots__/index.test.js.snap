@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StyledMenuItem /> snapshot tests should match snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <StyledMenuItem__StyledMenuItem
+    primaryText="primaryText"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "anchorOrigin": Object {
+        "horizontal": "right",
+        "vertical": "top",
+      },
+      "checked": false,
+      "className": "StyledMenuItem__StyledMenuItem-kCHNxU eynbfp",
+      "desktop": false,
+      "disabled": false,
+      "focusState": "none",
+      "insetChildren": false,
+      "primaryText": "primaryText",
+      "targetOrigin": Object {
+        "horizontal": "left",
+        "vertical": "top",
+      },
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "anchorOrigin": Object {
+          "horizontal": "right",
+          "vertical": "top",
+        },
+        "checked": false,
+        "className": "StyledMenuItem__StyledMenuItem-kCHNxU eynbfp",
+        "desktop": false,
+        "disabled": false,
+        "focusState": "none",
+        "insetChildren": false,
+        "primaryText": "primaryText",
+        "targetOrigin": Object {
+          "horizontal": "left",
+          "vertical": "top",
+        },
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactFifteenAdapter {
+      "options": Object {
+        "supportPrevContextArgumentOfComponentDidUpdate": true,
+      },
+    },
+  },
+}
+`;

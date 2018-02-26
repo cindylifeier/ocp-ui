@@ -6,24 +6,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import TableHeaderGrid from './TableHeaderGrid';
 
-import styles from './styles.css';
-
-// import styled from 'styled-components';
-
-function TableHeader({ children }) {
+function TableHeader({ children, columns }) {
   return (
-    <div
-      className={styles.rowGridContainer}
-      style={{ gridTemplateColumns: `repeat(${React.Children.count(children)}, 1fr)` }}
-    >
+    <TableHeaderGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
       {children}
-    </div>
+    </TableHeaderGrid>
   );
 }
 
 TableHeader.propTypes = {
   children: PropTypes.node,
+  columns: PropTypes.string,
 };
 
 export default TableHeader;

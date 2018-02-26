@@ -225,75 +225,79 @@ class ManageActivityDefinitionForm extends React.PureComponent {
           <div className={styles.title}>
             <FormattedMessage {...messages.relatedArtifacts.subtitle} />
           </div>
-          <div className={styles.addArtifactsButton}>
-            <RaisedButton
-              backgroundColor={teal500}
-              labelColor={white}
-              onClick={this.handleAddArtifact}
-              style={ManageActivityDefinitionForm.addButtonStyle}
-              label={<FormattedMessage {...messages.relatedArtifacts.addButtonLabel} />}
-            />
-            <FieldArray
-              name="relatedArtifact"
-              render={(arrayHelpers) => (
-                <div>
-                  <Dialog
-                    open={this.state.artifactsDialogOpen}
-                  >
-                    <AddArtifactForm
-                      initialValues={this.state.editingArtifact}
-                      arrayHelpers={arrayHelpers}
-                      onAddArtifact={arrayHelpers.push}
-                      onRemoveArtifact={arrayHelpers.remove}
-                      relatedArtifactTypes={relatedArtifactTypes}
-                      callback={this.handleDialogCallback}
-                    />
-                  </Dialog>
-                  <Table>
-                    <TableHeader>
-                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnName} /></TableHeaderColumn>
-                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnType} /></TableHeaderColumn>
-                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnAction} /></TableHeaderColumn>
-                    </TableHeader>
-                    {errors && errors.relatedArtifact && <span className={styles.error}>{errors.relatedArtifact}</span>}
-                    {values.relatedArtifact.map((artifact, index) => {
-                      const { display, type } = artifact;
-                      return (
-                        <TableRow key={`${display}-${type}`}>
-                          <TableRowColumn>{display}</TableRowColumn>
-                          <TableRowColumn>{find(relatedArtifactTypes, { code: type }).display}</TableRowColumn>
-                          <TableRowColumn>
-                            <IconMenu
-                              iconButtonElement={
-                                (<IconButton
-                                  className={styles.iconButton}
-                                  iconStyle={ManageActivityDefinitionForm.iconStyles.icon}
-                                  style={ManageActivityDefinitionForm.iconStyles.iconButton}
-                                >
-                                  <NavigationMenu />
-                                </IconButton>)
-                              }
-                              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                            >
-                              <MenuItem
-                                className={styles.menuItem}
-                                primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />}
-                                onClick={() => this.handleEditArtifact(index, artifact)}
-                              />
-                              <MenuItem
-                                className={styles.menuItem}
-                                primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelRemove} />}
-                                onClick={() => arrayHelpers.remove(index)}
-                              />
-                            </IconMenu>
-                          </TableRowColumn>
-                        </TableRow>
-                      );
-                    })}
-                  </Table>
-                </div>)}
-            />
+          <div>
+            <div className={styles.addArtifactsButton}>
+              <RaisedButton
+                backgroundColor={teal500}
+                labelColor={white}
+                onClick={this.handleAddArtifact}
+                style={ManageActivityDefinitionForm.addButtonStyle}
+                label={<FormattedMessage {...messages.relatedArtifacts.addButtonLabel} />}
+              />
+            </div>
+            <div className={styles.relatedArtifactsSection}>
+              <FieldArray
+                name="relatedArtifact"
+                render={(arrayHelpers) => (
+                  <div>
+                    <Dialog
+                      open={this.state.artifactsDialogOpen}
+                    >
+                      <AddArtifactForm
+                        initialValues={this.state.editingArtifact}
+                        arrayHelpers={arrayHelpers}
+                        onAddArtifact={arrayHelpers.push}
+                        onRemoveArtifact={arrayHelpers.remove}
+                        relatedArtifactTypes={relatedArtifactTypes}
+                        callback={this.handleDialogCallback}
+                      />
+                    </Dialog>
+                    <Table>
+                      <TableHeader>
+                        <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnName} /></TableHeaderColumn>
+                        <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnType} /></TableHeaderColumn>
+                        <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnAction} /></TableHeaderColumn>
+                      </TableHeader>
+                      {errors && errors.relatedArtifact && <span className={styles.error}>{errors.relatedArtifact}</span>}
+                      {values.relatedArtifact.map((artifact, index) => {
+                        const { display, type } = artifact;
+                        return (
+                          <TableRow key={`${display}-${type}`}>
+                            <TableRowColumn>{display}</TableRowColumn>
+                            <TableRowColumn>{find(relatedArtifactTypes, { code: type }).display}</TableRowColumn>
+                            <TableRowColumn>
+                              <IconMenu
+                                iconButtonElement={
+                                  (<IconButton
+                                    className={styles.iconButton}
+                                    iconStyle={ManageActivityDefinitionForm.iconStyles.icon}
+                                    style={ManageActivityDefinitionForm.iconStyles.iconButton}
+                                  >
+                                    <NavigationMenu />
+                                  </IconButton>)
+                                }
+                                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                              >
+                                <MenuItem
+                                  className={styles.menuItem}
+                                  primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />}
+                                  onClick={() => this.handleEditArtifact(index, artifact)}
+                                />
+                                <MenuItem
+                                  className={styles.menuItem}
+                                  primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelRemove} />}
+                                  onClick={() => arrayHelpers.remove(index)}
+                                />
+                              </IconMenu>
+                            </TableRowColumn>
+                          </TableRow>
+                        );
+                      })}
+                    </Table>
+                  </div>)}
+              />
+            </div>
           </div>
           <div className={styles.gridContainer}>
             <div className={`${styles.gridItem} ${styles.buttonGroup}`}>

@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StyledFlatButton /> snapshot tests should match snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <StyledFlatButton__StyledFlatButton
+    icon={<ContentAddCircle />}
+    label="label"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "className": "StyledFlatButton__StyledFlatButton-jENDUq hlOZwo",
+      "disabled": false,
+      "fullWidth": false,
+      "icon": <ContentAddCircle />,
+      "label": "label",
+      "labelPosition": "after",
+      "labelStyle": Object {},
+      "onKeyboardFocus": [Function],
+      "onMouseEnter": [Function],
+      "onMouseLeave": [Function],
+      "onTouchStart": [Function],
+      "primary": false,
+      "secondary": false,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "className": "StyledFlatButton__StyledFlatButton-jENDUq hlOZwo",
+        "disabled": false,
+        "fullWidth": false,
+        "icon": <ContentAddCircle />,
+        "label": "label",
+        "labelPosition": "after",
+        "labelStyle": Object {},
+        "onKeyboardFocus": [Function],
+        "onMouseEnter": [Function],
+        "onMouseLeave": [Function],
+        "onTouchStart": [Function],
+        "primary": false,
+        "secondary": false,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactFifteenAdapter {
+      "options": Object {
+        "supportPrevContextArgumentOfComponentDidUpdate": true,
+      },
+    },
+  },
+}
+`;

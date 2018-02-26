@@ -34,4 +34,12 @@ export default defineMessages({
     id: 'ocpui.components.CareTeamTable.columnHeaderReason',
     defaultMessage: 'Reason',
   },
+  menuItemEdit: {
+    id: 'ocpui.components.CareTeamTable.menuItemEdit',
+    defaultMessage: 'Edit',
+  },
+  menuItemRemove: {
+    id: 'ocpui.components.CareTeamTable.menuItemRemove',
+    defaultMessage: 'Remove',
+  },
 });

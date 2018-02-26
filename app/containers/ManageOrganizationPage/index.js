@@ -11,12 +11,12 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
-import { FlatButton, MenuItem, RaisedButton } from 'material-ui';
+import { FlatButton, MenuItem } from 'material-ui';
 import find from 'lodash/find';
 import { teal500, white } from 'material-ui/styles/colors';
+import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
@@ -24,7 +24,6 @@ import messages from './messages';
 
 import TextField from '../../components/TextField';
 import SelectField from '../../components/SelectField';
-import styles from './styles.css';
 import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
 import {
@@ -35,6 +34,12 @@ import {
 } from '../App/lookupSelectors';
 import { createOrganization, updateOrganization } from './actions';
 import { makeSelectOrganizationsData } from '../Organizations/selectors';
+import Page from '../../components/Page';
+import PageHeader from '../../components/PageHeader';
+import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
+import ManageOrganizationFormCell from './ManageOrganizationFormCell';
+import StyledRaisedButton from '../../components/StyledRaisedButton';
+import PageContent from '../../components/PageContent';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -115,21 +120,18 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
     }
 
     return (
-      <div className={styles.root}>
+      <Page>
         <Helmet>
           <title>Manage Organization</title>
           <meta name="description" content="Description of ManageOrganizationPage" />
         </Helmet>
-        <div className={styles.header}>
-          {editingOrganization ?
-            <FormattedMessage {...messages.updateMode} /> :
-            <FormattedMessage {...messages.createMode} />} <FormattedMessage {...messages.header} />
-        </div>
-        <Divider />
-        <div className={styles.title}>
-          <FormattedMessage {...messages.title} />
-        </div>
-        <div>
+        <PageHeader
+          title={editingOrganization ?
+            <FormattedMessage {...messages.updateModeTitle} /> :
+            <FormattedMessage {...messages.createModeTitle} />}
+          subtitle={<FormattedMessage {...messages.subtitle} />}
+        />
+        <PageContent>
           <Formik
             validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
             initialValues={initialValues}
@@ -138,35 +140,41 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
               const { isSubmitting, dirty, isValid } = props;
               return (
                 <Form>
-                  <div className={styles.gridContainer}>
-                    <div className={`${styles.gridItem} ${styles.name}`}>
+                  <ManageOrganizationFormGrid columns={12}>
+                    <ManageOrganizationFormCell top={1} left={1} width={4}>
                       <TextField
                         name="name"
                         floatingLabelText={<FormattedMessage {...messages.form.name} />}
                         fullWidth
                       />
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
-                      <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
-                        name="identifierSystem"
-                        fullWidth
-                      >
-                        {organizationIdentifierSystems && organizationIdentifierSystems.map(({ uri, display }) => (
-                          <MenuItem
-                            key={uri}
-                            value={uri}
-                            primaryText={display}
-                          />))}
-                      </SelectField>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
-                        fullWidth
-                        name="identifierValue"
-                      />
-                    </div>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={1} left={5} width={3}>
+                      <Grid columns="1fr 2fr" gap="">
+                        <Cell>
+                          <SelectField
+                            floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
+                            name="identifierSystem"
+                            fullWidth
+                          >
+                            {organizationIdentifierSystems && organizationIdentifierSystems.map(({ uri, display }) => (
+                              <MenuItem
+                                key={uri}
+                                value={uri}
+                                primaryText={display}
+                              />))}
+                          </SelectField>
+                        </Cell>
+                        <Cell>
+                          <TextField
+                            floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
+                            fullWidth
+                            name="identifierValue"
+                          />
+                        </Cell>
+                      </Grid>
+                    </ManageOrganizationFormCell>
                     {id &&
-                    <div className={`${styles.gridItem} ${styles.status}`}>
+                    <ManageOrganizationFormCell top={1} left={8} width={2}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.status} />}
                         fullWidth
@@ -179,29 +187,29 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={display}
                           />))}
                       </SelectField>
-                    </div>}
-                    <div className={`${styles.gridItem} ${styles.line1}`}>
+                    </ManageOrganizationFormCell>}
+                    <ManageOrganizationFormCell top={2} left={1} width={4}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.line1} />}
                         fullWidth
                         name="line1"
                       />
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.line2}`}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={2} left={5} width={4}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.line2} />}
                         fullWidth
                         name="line2"
                       />
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.city}`}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={3} left={1} width={4}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.city} />}
                         fullWidth
                         name="city"
                       />
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.state}`}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={3} left={5} width={3}>
                       <SelectField
                         floatingLabelText={<FormattedMessage {...messages.form.stateCode} />}
                         fullWidth
@@ -214,58 +222,72 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             primaryText={state.display}
                           />))}
                       </SelectField>
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.zip}`}>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={3} left={8} width={2}>
                       <TextField
                         floatingLabelText={<FormattedMessage {...messages.form.postalCode} />}
                         fullWidth
                         name="postalCode"
                       />
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.contactGroup}`}>
-                      <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
-                        fullWidth
-                        name="telecomSystem"
-                      >
-                        {telecomSystems && telecomSystems.map((telSystem) => (
-                          <MenuItem
-                            key={telSystem.code}
-                            value={telSystem.code}
-                            primaryText={telSystem.display}
-                          />))}
-                      </SelectField>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.telecomValue} />}
-                        fullWidth
-                        name="telecomValue"
-                      />
-                    </div>
-                    <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-                      <RaisedButton
-                        type="submit"
-                        backgroundColor={teal500}
-                        labelColor={white}
-                        label={isSubmitting ?
-                          <FormattedMessage {...messages.form.savingButton} /> :
-                          <FormattedMessage {...messages.form.saveButton} />}
-                        disabled={!dirty || isSubmitting || !isValid}
-                      />
-                      <FlatButton
-                        type="button"
-                        default
-                        label={<FormattedMessage {...messages.form.cancelButton} />}
-                        onClick={goBack}
-                      />
-                    </div>
-                  </div>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={4} left={1} width={5}>
+                      <Grid columns="2fr 3fr" gap="">
+                        <Cell>
+                          <SelectField
+                            floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
+                            fullWidth
+                            name="telecomSystem"
+                          >
+                            {telecomSystems && telecomSystems.map((telSystem) => (
+                              <MenuItem
+                                key={telSystem.code}
+                                value={telSystem.code}
+                                primaryText={telSystem.display}
+                              />))}
+                          </SelectField>
+                        </Cell>
+                        <Cell>
+                          <TextField
+                            floatingLabelText={<FormattedMessage {...messages.form.telecomValue} />}
+                            fullWidth
+                            name="telecomValue"
+                          />
+                        </Cell>
+                      </Grid>
+                    </ManageOrganizationFormCell>
+                    <ManageOrganizationFormCell top={5} left={1} width={2}>
+                      <Grid columns="1fr 1fr" gap="1vw">
+                        <Cell>
+                          <StyledRaisedButton
+                            fullWidth
+                            type="submit"
+                            backgroundColor={teal500}
+                            labelColor={white}
+                            label={isSubmitting ?
+                              <FormattedMessage {...messages.form.savingButton} /> :
+                              <FormattedMessage {...messages.form.saveButton} />}
+                            disabled={!dirty || isSubmitting || !isValid}
+                          />
+                        </Cell>
+                        <Cell>
+                          <FlatButton
+                            fullWidth
+                            type="button"
+                            default
+                            label={<FormattedMessage {...messages.form.cancelButton} />}
+                            onClick={goBack}
+                          />
+                        </Cell>
+                      </Grid>
+                    </ManageOrganizationFormCell>
+                  </ManageOrganizationFormGrid>
                 </Form>
               );
             }}
           >
           </Formik>
-        </div>
-      </div>
+        </PageContent>
+      </Page>
     );
   }
 }

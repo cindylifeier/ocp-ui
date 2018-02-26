@@ -164,11 +164,12 @@ ShallowWrapper {
             Anxiety disorder of childhood OR adolescence
           </TableRowColumn>
           <TableRowColumn>
-            <div
-              className={undefined}
+            <Grid__Grid
+              columns="1fr 50px"
+              gap="0px"
             >
-              <div
-                className={undefined}
+              <Cell__Cell
+                left="2"
               >
                 <IconMenu
                   anchorOrigin={
@@ -179,29 +180,9 @@ ShallowWrapper {
                   }
                   animated={true}
                   iconButtonElement={
-                    <IconButton
-                      className={undefined}
-                      disableTouchRipple={false}
-                      disabled={false}
-                      iconStyle={
-                        Object {
-                          "height": 26,
-                          "position": "absolute",
-                          "right": "0",
-                          "top": "0",
-                          "width": "100%",
-                        }
-                      }
-                      style={
-                        Object {
-                          "position": "relative",
-                        }
-                      }
-                      tooltipPosition="bottom-center"
-                      touch={false}
-                    >
+                    <StyledIconButton__StyledIconButton>
                       <NavigationMenu />
-                    </IconButton>
+                    </StyledIconButton__StyledIconButton>
                   }
                   multiple={false}
                   onClick={[Function]}
@@ -222,15 +203,7 @@ ShallowWrapper {
                   touchTapCloseDelay={200}
                   useLayerForClickAway={false}
                 >
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    className={undefined}
+                  <StyledMenuItem__StyledMenuItem
                     containerElement={
                       <Link
                         replace={false}
@@ -242,42 +215,27 @@ ShallowWrapper {
                         }
                       />
                     }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText="Edit"
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
+                    primaryText={
+                      <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.CareTeamTable.menuItemEdit"
+                        values={Object {}}
+                      />
                     }
                   />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    className={undefined}
-                    desktop={false}
+                  <StyledMenuItem__StyledMenuItem
                     disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText="Remove"
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
+                    primaryText={
+                      <FormattedMessage
+                        defaultMessage="Remove"
+                        id="ocpui.components.CareTeamTable.menuItemRemove"
+                        values={Object {}}
+                      />
                     }
                   />
                 </IconMenu>
-              </div>
-            </div>
+              </Cell__Cell>
+            </Grid__Grid>
           </TableRowColumn>
         </TableRow>
         <TableRow>
@@ -305,11 +263,12 @@ ShallowWrapper {
             Decreased hair growth
           </TableRowColumn>
           <TableRowColumn>
-            <div
-              className={undefined}
+            <Grid__Grid
+              columns="1fr 50px"
+              gap="0px"
             >
-              <div
-                className={undefined}
+              <Cell__Cell
+                left="2"
               >
                 <IconMenu
                   anchorOrigin={
@@ -320,29 +279,9 @@ ShallowWrapper {
                   }
                   animated={true}
                   iconButtonElement={
-                    <IconButton
-                      className={undefined}
-                      disableTouchRipple={false}
-                      disabled={false}
-                      iconStyle={
-                        Object {
-                          "height": 26,
-                          "position": "absolute",
-                          "right": "0",
-                          "top": "0",
-                          "width": "100%",
-                        }
-                      }
-                      style={
-                        Object {
-                          "position": "relative",
-                        }
-                      }
-                      tooltipPosition="bottom-center"
-                      touch={false}
-                    >
+                    <StyledIconButton__StyledIconButton>
                       <NavigationMenu />
-                    </IconButton>
+                    </StyledIconButton__StyledIconButton>
                   }
                   multiple={false}
                   onClick={[Function]}
@@ -363,15 +302,7 @@ ShallowWrapper {
                   touchTapCloseDelay={200}
                   useLayerForClickAway={false}
                 >
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    className={undefined}
+                  <StyledMenuItem__StyledMenuItem
                     containerElement={
                       <Link
                         replace={false}
@@ -383,42 +314,27 @@ ShallowWrapper {
                         }
                       />
                     }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText="Edit"
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
+                    primaryText={
+                      <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.CareTeamTable.menuItemEdit"
+                        values={Object {}}
+                      />
                     }
                   />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    className={undefined}
-                    desktop={false}
+                  <StyledMenuItem__StyledMenuItem
                     disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText="Remove"
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
+                    primaryText={
+                      <FormattedMessage
+                        defaultMessage="Remove"
+                        id="ocpui.components.CareTeamTable.menuItemRemove"
+                        values={Object {}}
+                      />
                     }
                   />
                 </IconMenu>
-              </div>
-            </div>
+              </Cell__Cell>
+            </Grid__Grid>
           </TableRowColumn>
         </TableRow>
       </Table>,
@@ -511,11 +427,12 @@ ShallowWrapper {
                 Anxiety disorder of childhood OR adolescence
               </TableRowColumn>
               <TableRowColumn>
-                <div
-                  className={undefined}
+                <Grid__Grid
+                  columns="1fr 50px"
+                  gap="0px"
                 >
-                  <div
-                    className={undefined}
+                  <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -526,29 +443,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -569,15 +466,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -589,42 +478,27 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>
-                </div>
+                  </Cell__Cell>
+                </Grid__Grid>
               </TableRowColumn>
             </TableRow>,
             <TableRow>
@@ -652,11 +526,12 @@ ShallowWrapper {
                 Decreased hair growth
               </TableRowColumn>
               <TableRowColumn>
-                <div
-                  className={undefined}
+                <Grid__Grid
+                  columns="1fr 50px"
+                  gap="0px"
                 >
-                  <div
-                    className={undefined}
+                  <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -667,29 +542,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -710,15 +565,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -730,42 +577,27 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>
-                </div>
+                  </Cell__Cell>
+                </Grid__Grid>
               </TableRowColumn>
             </TableRow>,
           ],
@@ -1067,11 +899,12 @@ ShallowWrapper {
                 Anxiety disorder of childhood OR adolescence
               </TableRowColumn>,
               <TableRowColumn>
-                <div
-                  className={undefined}
+                <Grid__Grid
+                  columns="1fr 50px"
+                  gap="0px"
                 >
-                  <div
-                    className={undefined}
+                  <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -1082,29 +915,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -1125,15 +938,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -1145,42 +950,27 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>
-                </div>
+                  </Cell__Cell>
+                </Grid__Grid>
               </TableRowColumn>,
             ],
           },
@@ -1298,11 +1088,12 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "children": <div
-                  className={undefined}
+                "children": <Grid__Grid
+                  columns="1fr 50px"
+                  gap="0px"
                 >
-                  <div
-                    className={undefined}
+                  <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -1313,29 +1104,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -1356,15 +1127,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -1376,51 +1139,36 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>
-                </div>,
+                  </Cell__Cell>
+                </Grid__Grid>,
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "host",
+                "nodeType": "class",
                 "props": Object {
-                  "children": <div
-                    className={undefined}
+                  "children": <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -1431,29 +1179,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -1474,15 +1202,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -1494,48 +1214,34 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>,
-                  "className": undefined,
+                  </Cell__Cell>,
+                  "columns": "1fr 50px",
+                  "gap": "0px",
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "host",
+                  "nodeType": "class",
                   "props": Object {
                     "children": <IconMenu
                       anchorOrigin={
@@ -1546,29 +1252,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -1589,15 +1275,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -1609,41 +1287,26 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>,
-                    "className": undefined,
+                    "left": "2",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -1657,15 +1320,7 @@ ShallowWrapper {
                       },
                       "animated": true,
                       "children": Array [
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -1677,63 +1332,28 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />,
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />,
                       ],
-                      "iconButtonElement": <IconButton
-                        className={undefined}
-                        disableTouchRipple={false}
-                        disabled={false}
-                        iconStyle={
-                          Object {
-                            "height": 26,
-                            "position": "absolute",
-                            "right": "0",
-                            "top": "0",
-                            "width": "100%",
-                          }
-                        }
-                        style={
-                          Object {
-                            "position": "relative",
-                          }
-                        }
-                        tooltipPosition="bottom-center"
-                        touch={false}
-                      >
+                      "iconButtonElement": <StyledIconButton__StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>,
+                      </StyledIconButton__StyledIconButton>,
                       "multiple": false,
                       "onClick": [Function],
                       "onItemTouchTap": [Function],
@@ -1758,12 +1378,6 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "class",
                         "props": Object {
-                          "anchorOrigin": Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          },
-                          "checked": false,
-                          "className": undefined,
                           "containerElement": <Link
                             replace={false}
                             to={
@@ -1773,15 +1387,11 @@ ShallowWrapper {
                               }
                             }
                           />,
-                          "desktop": false,
-                          "disabled": false,
-                          "focusState": "none",
-                          "insetChildren": false,
-                          "primaryText": "Edit",
-                          "targetOrigin": Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
                         },
                         "ref": null,
                         "rendered": null,
@@ -1792,21 +1402,12 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "class",
                         "props": Object {
-                          "anchorOrigin": Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          },
-                          "checked": false,
-                          "className": undefined,
-                          "desktop": false,
                           "disabled": true,
-                          "focusState": "none",
-                          "insetChildren": false,
-                          "primaryText": "Remove",
-                          "targetOrigin": Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
                         },
                         "ref": null,
                         "rendered": null,
@@ -1815,9 +1416,9 @@ ShallowWrapper {
                     ],
                     "type": [Function],
                   },
-                  "type": "div",
+                  "type": [Function],
                 },
-                "type": "div",
+                "type": [Function],
               },
               "type": [Function],
             },
@@ -1854,11 +1455,12 @@ ShallowWrapper {
                 Decreased hair growth
               </TableRowColumn>,
               <TableRowColumn>
-                <div
-                  className={undefined}
+                <Grid__Grid
+                  columns="1fr 50px"
+                  gap="0px"
                 >
-                  <div
-                    className={undefined}
+                  <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -1869,29 +1471,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -1912,15 +1494,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -1932,42 +1506,27 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>
-                </div>
+                  </Cell__Cell>
+                </Grid__Grid>
               </TableRowColumn>,
             ],
           },
@@ -2071,11 +1630,12 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "children": <div
-                  className={undefined}
+                "children": <Grid__Grid
+                  columns="1fr 50px"
+                  gap="0px"
                 >
-                  <div
-                    className={undefined}
+                  <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -2086,29 +1646,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -2129,15 +1669,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -2149,51 +1681,36 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>
-                </div>,
+                  </Cell__Cell>
+                </Grid__Grid>,
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "host",
+                "nodeType": "class",
                 "props": Object {
-                  "children": <div
-                    className={undefined}
+                  "children": <Cell__Cell
+                    left="2"
                   >
                     <IconMenu
                       anchorOrigin={
@@ -2204,29 +1721,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -2247,15 +1744,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -2267,48 +1756,34 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>
-                  </div>,
-                  "className": undefined,
+                  </Cell__Cell>,
+                  "columns": "1fr 50px",
+                  "gap": "0px",
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "host",
+                  "nodeType": "class",
                   "props": Object {
                     "children": <IconMenu
                       anchorOrigin={
@@ -2319,29 +1794,9 @@ ShallowWrapper {
                       }
                       animated={true}
                       iconButtonElement={
-                        <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>
+                        </StyledIconButton__StyledIconButton>
                       }
                       multiple={false}
                       onClick={[Function]}
@@ -2362,15 +1817,7 @@ ShallowWrapper {
                       touchTapCloseDelay={200}
                       useLayerForClickAway={false}
                     >
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
+                      <StyledMenuItem__StyledMenuItem
                         containerElement={
                           <Link
                             replace={false}
@@ -2382,41 +1829,26 @@ ShallowWrapper {
                             }
                           />
                         }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Edit"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />
                         }
                       />
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        className={undefined}
-                        desktop={false}
+                      <StyledMenuItem__StyledMenuItem
                         disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText="Remove"
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
+                        primaryText={
+                          <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />
                         }
                       />
                     </IconMenu>,
-                    "className": undefined,
+                    "left": "2",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -2430,15 +1862,7 @@ ShallowWrapper {
                       },
                       "animated": true,
                       "children": Array [
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -2450,63 +1874,28 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />,
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />,
                       ],
-                      "iconButtonElement": <IconButton
-                        className={undefined}
-                        disableTouchRipple={false}
-                        disabled={false}
-                        iconStyle={
-                          Object {
-                            "height": 26,
-                            "position": "absolute",
-                            "right": "0",
-                            "top": "0",
-                            "width": "100%",
-                          }
-                        }
-                        style={
-                          Object {
-                            "position": "relative",
-                          }
-                        }
-                        tooltipPosition="bottom-center"
-                        touch={false}
-                      >
+                      "iconButtonElement": <StyledIconButton__StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>,
+                      </StyledIconButton__StyledIconButton>,
                       "multiple": false,
                       "onClick": [Function],
                       "onItemTouchTap": [Function],
@@ -2531,12 +1920,6 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "class",
                         "props": Object {
-                          "anchorOrigin": Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          },
-                          "checked": false,
-                          "className": undefined,
                           "containerElement": <Link
                             replace={false}
                             to={
@@ -2546,15 +1929,11 @@ ShallowWrapper {
                               }
                             }
                           />,
-                          "desktop": false,
-                          "disabled": false,
-                          "focusState": "none",
-                          "insetChildren": false,
-                          "primaryText": "Edit",
-                          "targetOrigin": Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
                         },
                         "ref": null,
                         "rendered": null,
@@ -2565,21 +1944,12 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "class",
                         "props": Object {
-                          "anchorOrigin": Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          },
-                          "checked": false,
-                          "className": undefined,
-                          "desktop": false,
                           "disabled": true,
-                          "focusState": "none",
-                          "insetChildren": false,
-                          "primaryText": "Remove",
-                          "targetOrigin": Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
                         },
                         "ref": null,
                         "rendered": null,
@@ -2588,9 +1958,9 @@ ShallowWrapper {
                     ],
                     "type": [Function],
                   },
-                  "type": "div",
+                  "type": [Function],
                 },
-                "type": "div",
+                "type": [Function],
               },
               "type": [Function],
             },
@@ -2689,11 +2059,12 @@ ShallowWrapper {
               Anxiety disorder of childhood OR adolescence
             </TableRowColumn>
             <TableRowColumn>
-              <div
-                className={undefined}
+              <Grid__Grid
+                columns="1fr 50px"
+                gap="0px"
               >
-                <div
-                  className={undefined}
+                <Cell__Cell
+                  left="2"
                 >
                   <IconMenu
                     anchorOrigin={
@@ -2704,29 +2075,9 @@ ShallowWrapper {
                     }
                     animated={true}
                     iconButtonElement={
-                      <IconButton
-                        className={undefined}
-                        disableTouchRipple={false}
-                        disabled={false}
-                        iconStyle={
-                          Object {
-                            "height": 26,
-                            "position": "absolute",
-                            "right": "0",
-                            "top": "0",
-                            "width": "100%",
-                          }
-                        }
-                        style={
-                          Object {
-                            "position": "relative",
-                          }
-                        }
-                        tooltipPosition="bottom-center"
-                        touch={false}
-                      >
+                      <StyledIconButton__StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>
+                      </StyledIconButton__StyledIconButton>
                     }
                     multiple={false}
                     onClick={[Function]}
@@ -2747,15 +2098,7 @@ ShallowWrapper {
                     touchTapCloseDelay={200}
                     useLayerForClickAway={false}
                   >
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      className={undefined}
+                    <StyledMenuItem__StyledMenuItem
                       containerElement={
                         <Link
                           replace={false}
@@ -2767,42 +2110,27 @@ ShallowWrapper {
                           }
                         />
                       }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText="Edit"
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
+                      primaryText={
+                        <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />
                       }
                     />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      className={undefined}
-                      desktop={false}
+                    <StyledMenuItem__StyledMenuItem
                       disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText="Remove"
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
+                      primaryText={
+                        <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />
                       }
                     />
                   </IconMenu>
-                </div>
-              </div>
+                </Cell__Cell>
+              </Grid__Grid>
             </TableRowColumn>
           </TableRow>
           <TableRow>
@@ -2830,11 +2158,12 @@ ShallowWrapper {
               Decreased hair growth
             </TableRowColumn>
             <TableRowColumn>
-              <div
-                className={undefined}
+              <Grid__Grid
+                columns="1fr 50px"
+                gap="0px"
               >
-                <div
-                  className={undefined}
+                <Cell__Cell
+                  left="2"
                 >
                   <IconMenu
                     anchorOrigin={
@@ -2845,29 +2174,9 @@ ShallowWrapper {
                     }
                     animated={true}
                     iconButtonElement={
-                      <IconButton
-                        className={undefined}
-                        disableTouchRipple={false}
-                        disabled={false}
-                        iconStyle={
-                          Object {
-                            "height": 26,
-                            "position": "absolute",
-                            "right": "0",
-                            "top": "0",
-                            "width": "100%",
-                          }
-                        }
-                        style={
-                          Object {
-                            "position": "relative",
-                          }
-                        }
-                        tooltipPosition="bottom-center"
-                        touch={false}
-                      >
+                      <StyledIconButton__StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>
+                      </StyledIconButton__StyledIconButton>
                     }
                     multiple={false}
                     onClick={[Function]}
@@ -2888,15 +2197,7 @@ ShallowWrapper {
                     touchTapCloseDelay={200}
                     useLayerForClickAway={false}
                   >
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      className={undefined}
+                    <StyledMenuItem__StyledMenuItem
                       containerElement={
                         <Link
                           replace={false}
@@ -2908,42 +2209,27 @@ ShallowWrapper {
                           }
                         />
                       }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText="Edit"
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
+                      primaryText={
+                        <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />
                       }
                     />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      className={undefined}
-                      desktop={false}
+                    <StyledMenuItem__StyledMenuItem
                       disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText="Remove"
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
+                      primaryText={
+                        <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />
                       }
                     />
                   </IconMenu>
-                </div>
-              </div>
+                </Cell__Cell>
+              </Grid__Grid>
             </TableRowColumn>
           </TableRow>
         </Table>,
@@ -3036,11 +2322,12 @@ ShallowWrapper {
                   Anxiety disorder of childhood OR adolescence
                 </TableRowColumn>
                 <TableRowColumn>
-                  <div
-                    className={undefined}
+                  <Grid__Grid
+                    columns="1fr 50px"
+                    gap="0px"
                   >
-                    <div
-                      className={undefined}
+                    <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -3051,29 +2338,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -3094,15 +2361,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -3114,42 +2373,27 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>
-                  </div>
+                    </Cell__Cell>
+                  </Grid__Grid>
                 </TableRowColumn>
               </TableRow>,
               <TableRow>
@@ -3177,11 +2421,12 @@ ShallowWrapper {
                   Decreased hair growth
                 </TableRowColumn>
                 <TableRowColumn>
-                  <div
-                    className={undefined}
+                  <Grid__Grid
+                    columns="1fr 50px"
+                    gap="0px"
                   >
-                    <div
-                      className={undefined}
+                    <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -3192,29 +2437,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -3235,15 +2460,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -3255,42 +2472,27 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>
-                  </div>
+                    </Cell__Cell>
+                  </Grid__Grid>
                 </TableRowColumn>
               </TableRow>,
             ],
@@ -3592,11 +2794,12 @@ ShallowWrapper {
                   Anxiety disorder of childhood OR adolescence
                 </TableRowColumn>,
                 <TableRowColumn>
-                  <div
-                    className={undefined}
+                  <Grid__Grid
+                    columns="1fr 50px"
+                    gap="0px"
                   >
-                    <div
-                      className={undefined}
+                    <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -3607,29 +2810,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -3650,15 +2833,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -3670,42 +2845,27 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>
-                  </div>
+                    </Cell__Cell>
+                  </Grid__Grid>
                 </TableRowColumn>,
               ],
             },
@@ -3823,11 +2983,12 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "children": <div
-                    className={undefined}
+                  "children": <Grid__Grid
+                    columns="1fr 50px"
+                    gap="0px"
                   >
-                    <div
-                      className={undefined}
+                    <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -3838,29 +2999,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -3881,15 +3022,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -3901,51 +3034,36 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>
-                  </div>,
+                    </Cell__Cell>
+                  </Grid__Grid>,
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "host",
+                  "nodeType": "class",
                   "props": Object {
-                    "children": <div
-                      className={undefined}
+                    "children": <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -3956,29 +3074,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -3999,15 +3097,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -4019,48 +3109,34 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>,
-                    "className": undefined,
+                    </Cell__Cell>,
+                    "columns": "1fr 50px",
+                    "gap": "0px",
                   },
                   "ref": null,
                   "rendered": Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "host",
+                    "nodeType": "class",
                     "props": Object {
                       "children": <IconMenu
                         anchorOrigin={
@@ -4071,29 +3147,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -4114,15 +3170,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -4134,41 +3182,26 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>,
-                      "className": undefined,
+                      "left": "2",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -4182,15 +3215,7 @@ ShallowWrapper {
                         },
                         "animated": true,
                         "children": Array [
-                          <MenuItem
-                            anchorOrigin={
-                              Object {
-                                "horizontal": "right",
-                                "vertical": "top",
-                              }
-                            }
-                            checked={false}
-                            className={undefined}
+                          <StyledMenuItem__StyledMenuItem
                             containerElement={
                               <Link
                                 replace={false}
@@ -4202,63 +3227,28 @@ ShallowWrapper {
                                 }
                               />
                             }
-                            desktop={false}
-                            disabled={false}
-                            focusState="none"
-                            insetChildren={false}
-                            primaryText="Edit"
-                            targetOrigin={
-                              Object {
-                                "horizontal": "left",
-                                "vertical": "top",
-                              }
+                            primaryText={
+                              <FormattedMessage
+                                defaultMessage="Edit"
+                                id="ocpui.components.CareTeamTable.menuItemEdit"
+                                values={Object {}}
+                              />
                             }
                           />,
-                          <MenuItem
-                            anchorOrigin={
-                              Object {
-                                "horizontal": "right",
-                                "vertical": "top",
-                              }
-                            }
-                            checked={false}
-                            className={undefined}
-                            desktop={false}
+                          <StyledMenuItem__StyledMenuItem
                             disabled={true}
-                            focusState="none"
-                            insetChildren={false}
-                            primaryText="Remove"
-                            targetOrigin={
-                              Object {
-                                "horizontal": "left",
-                                "vertical": "top",
-                              }
+                            primaryText={
+                              <FormattedMessage
+                                defaultMessage="Remove"
+                                id="ocpui.components.CareTeamTable.menuItemRemove"
+                                values={Object {}}
+                              />
                             }
                           />,
                         ],
-                        "iconButtonElement": <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        "iconButtonElement": <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>,
+                        </StyledIconButton__StyledIconButton>,
                         "multiple": false,
                         "onClick": [Function],
                         "onItemTouchTap": [Function],
@@ -4283,12 +3273,6 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "class",
                           "props": Object {
-                            "anchorOrigin": Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            },
-                            "checked": false,
-                            "className": undefined,
                             "containerElement": <Link
                               replace={false}
                               to={
@@ -4298,15 +3282,11 @@ ShallowWrapper {
                                 }
                               }
                             />,
-                            "desktop": false,
-                            "disabled": false,
-                            "focusState": "none",
-                            "insetChildren": false,
-                            "primaryText": "Edit",
-                            "targetOrigin": Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            },
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />,
                           },
                           "ref": null,
                           "rendered": null,
@@ -4317,21 +3297,12 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "class",
                           "props": Object {
-                            "anchorOrigin": Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            },
-                            "checked": false,
-                            "className": undefined,
-                            "desktop": false,
                             "disabled": true,
-                            "focusState": "none",
-                            "insetChildren": false,
-                            "primaryText": "Remove",
-                            "targetOrigin": Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            },
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />,
                           },
                           "ref": null,
                           "rendered": null,
@@ -4340,9 +3311,9 @@ ShallowWrapper {
                       ],
                       "type": [Function],
                     },
-                    "type": "div",
+                    "type": [Function],
                   },
-                  "type": "div",
+                  "type": [Function],
                 },
                 "type": [Function],
               },
@@ -4379,11 +3350,12 @@ ShallowWrapper {
                   Decreased hair growth
                 </TableRowColumn>,
                 <TableRowColumn>
-                  <div
-                    className={undefined}
+                  <Grid__Grid
+                    columns="1fr 50px"
+                    gap="0px"
                   >
-                    <div
-                      className={undefined}
+                    <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -4394,29 +3366,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -4437,15 +3389,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -4457,42 +3401,27 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>
-                  </div>
+                    </Cell__Cell>
+                  </Grid__Grid>
                 </TableRowColumn>,
               ],
             },
@@ -4596,11 +3525,12 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "children": <div
-                    className={undefined}
+                  "children": <Grid__Grid
+                    columns="1fr 50px"
+                    gap="0px"
                   >
-                    <div
-                      className={undefined}
+                    <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -4611,29 +3541,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -4654,15 +3564,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -4674,51 +3576,36 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>
-                  </div>,
+                    </Cell__Cell>
+                  </Grid__Grid>,
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "host",
+                  "nodeType": "class",
                   "props": Object {
-                    "children": <div
-                      className={undefined}
+                    "children": <Cell__Cell
+                      left="2"
                     >
                       <IconMenu
                         anchorOrigin={
@@ -4729,29 +3616,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -4772,15 +3639,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -4792,48 +3651,34 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>
-                    </div>,
-                    "className": undefined,
+                    </Cell__Cell>,
+                    "columns": "1fr 50px",
+                    "gap": "0px",
                   },
                   "ref": null,
                   "rendered": Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "host",
+                    "nodeType": "class",
                     "props": Object {
                       "children": <IconMenu
                         anchorOrigin={
@@ -4844,29 +3689,9 @@ ShallowWrapper {
                         }
                         animated={true}
                         iconButtonElement={
-                          <IconButton
-                            className={undefined}
-                            disableTouchRipple={false}
-                            disabled={false}
-                            iconStyle={
-                              Object {
-                                "height": 26,
-                                "position": "absolute",
-                                "right": "0",
-                                "top": "0",
-                                "width": "100%",
-                              }
-                            }
-                            style={
-                              Object {
-                                "position": "relative",
-                              }
-                            }
-                            tooltipPosition="bottom-center"
-                            touch={false}
-                          >
+                          <StyledIconButton__StyledIconButton>
                             <NavigationMenu />
-                          </IconButton>
+                          </StyledIconButton__StyledIconButton>
                         }
                         multiple={false}
                         onClick={[Function]}
@@ -4887,15 +3712,7 @@ ShallowWrapper {
                         touchTapCloseDelay={200}
                         useLayerForClickAway={false}
                       >
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
+                        <StyledMenuItem__StyledMenuItem
                           containerElement={
                             <Link
                               replace={false}
@@ -4907,41 +3724,26 @@ ShallowWrapper {
                               }
                             />
                           }
-                          desktop={false}
-                          disabled={false}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Edit"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />
                           }
                         />
-                        <MenuItem
-                          anchorOrigin={
-                            Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            }
-                          }
-                          checked={false}
-                          className={undefined}
-                          desktop={false}
+                        <StyledMenuItem__StyledMenuItem
                           disabled={true}
-                          focusState="none"
-                          insetChildren={false}
-                          primaryText="Remove"
-                          targetOrigin={
-                            Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            }
+                          primaryText={
+                            <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />
                           }
                         />
                       </IconMenu>,
-                      "className": undefined,
+                      "left": "2",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -4955,15 +3757,7 @@ ShallowWrapper {
                         },
                         "animated": true,
                         "children": Array [
-                          <MenuItem
-                            anchorOrigin={
-                              Object {
-                                "horizontal": "right",
-                                "vertical": "top",
-                              }
-                            }
-                            checked={false}
-                            className={undefined}
+                          <StyledMenuItem__StyledMenuItem
                             containerElement={
                               <Link
                                 replace={false}
@@ -4975,63 +3769,28 @@ ShallowWrapper {
                                 }
                               />
                             }
-                            desktop={false}
-                            disabled={false}
-                            focusState="none"
-                            insetChildren={false}
-                            primaryText="Edit"
-                            targetOrigin={
-                              Object {
-                                "horizontal": "left",
-                                "vertical": "top",
-                              }
+                            primaryText={
+                              <FormattedMessage
+                                defaultMessage="Edit"
+                                id="ocpui.components.CareTeamTable.menuItemEdit"
+                                values={Object {}}
+                              />
                             }
                           />,
-                          <MenuItem
-                            anchorOrigin={
-                              Object {
-                                "horizontal": "right",
-                                "vertical": "top",
-                              }
-                            }
-                            checked={false}
-                            className={undefined}
-                            desktop={false}
+                          <StyledMenuItem__StyledMenuItem
                             disabled={true}
-                            focusState="none"
-                            insetChildren={false}
-                            primaryText="Remove"
-                            targetOrigin={
-                              Object {
-                                "horizontal": "left",
-                                "vertical": "top",
-                              }
+                            primaryText={
+                              <FormattedMessage
+                                defaultMessage="Remove"
+                                id="ocpui.components.CareTeamTable.menuItemRemove"
+                                values={Object {}}
+                              />
                             }
                           />,
                         ],
-                        "iconButtonElement": <IconButton
-                          className={undefined}
-                          disableTouchRipple={false}
-                          disabled={false}
-                          iconStyle={
-                            Object {
-                              "height": 26,
-                              "position": "absolute",
-                              "right": "0",
-                              "top": "0",
-                              "width": "100%",
-                            }
-                          }
-                          style={
-                            Object {
-                              "position": "relative",
-                            }
-                          }
-                          tooltipPosition="bottom-center"
-                          touch={false}
-                        >
+                        "iconButtonElement": <StyledIconButton__StyledIconButton>
                           <NavigationMenu />
-                        </IconButton>,
+                        </StyledIconButton__StyledIconButton>,
                         "multiple": false,
                         "onClick": [Function],
                         "onItemTouchTap": [Function],
@@ -5056,12 +3815,6 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "class",
                           "props": Object {
-                            "anchorOrigin": Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            },
-                            "checked": false,
-                            "className": undefined,
                             "containerElement": <Link
                               replace={false}
                               to={
@@ -5071,15 +3824,11 @@ ShallowWrapper {
                                 }
                               }
                             />,
-                            "desktop": false,
-                            "disabled": false,
-                            "focusState": "none",
-                            "insetChildren": false,
-                            "primaryText": "Edit",
-                            "targetOrigin": Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            },
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.CareTeamTable.menuItemEdit"
+                              values={Object {}}
+                            />,
                           },
                           "ref": null,
                           "rendered": null,
@@ -5090,21 +3839,12 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "class",
                           "props": Object {
-                            "anchorOrigin": Object {
-                              "horizontal": "right",
-                              "vertical": "top",
-                            },
-                            "checked": false,
-                            "className": undefined,
-                            "desktop": false,
                             "disabled": true,
-                            "focusState": "none",
-                            "insetChildren": false,
-                            "primaryText": "Remove",
-                            "targetOrigin": Object {
-                              "horizontal": "left",
-                              "vertical": "top",
-                            },
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Remove"
+                              id="ocpui.components.CareTeamTable.menuItemRemove"
+                              values={Object {}}
+                            />,
                           },
                           "ref": null,
                           "rendered": null,
@@ -5113,9 +3853,9 @@ ShallowWrapper {
                       ],
                       "type": [Function],
                     },
-                    "type": "div",
+                    "type": [Function],
                   },
-                  "type": "div",
+                  "type": [Function],
                 },
                 "type": [Function],
               },

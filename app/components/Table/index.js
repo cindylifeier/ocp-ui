@@ -4,22 +4,14 @@
  *
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import styles from './styles.css';
+const Table = styled.div`
+  padding: 10px;
+  background-color: white;
+`;
 
-// import styled from 'styled-components';
-
-function Table({ children }) {
-  return (
-    <div>
-      <div className={styles.table}>
-        {children}
-      </div>
-    </div>
-  );
-}
 
 Table.propTypes = {
   children: PropTypes.node,

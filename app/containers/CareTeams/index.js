@@ -11,8 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { Checkbox } from 'material-ui';
+import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,7 +20,6 @@ import makeSelectCareTeams from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
 import CareTeamTable from '../../components/CareTeamTable';
 import { getCareTeams, initializeCareTeams } from './actions';
@@ -28,6 +27,15 @@ import { makeSelectCareTeamStatuses } from '../App/lookupSelectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 import { getLookupsAction } from '../App/actions';
 import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
+import Card from '../../components/Card';
+import CardHeader from '../../components/CardHeader';
+import CenterAlign from '../../components/Align/CenterAlign';
+import FilterSection from './FilterSection';
+import CheckboxGrid from './CheckboxGrid';
+import NoCareTeamSection from './NoCareTeamSection';
+import PatientInfoSection from './PatientInfoSection';
+import PatientLabel from './PatientLabel';
+import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -39,6 +47,10 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   componentDidMount() {
     this.props.initializeCareTeams();
     this.props.initializeLookups();
+  }
+
+  calculateCheckboxColumns({ length }) {
+    return `60px repeat(${length < 1 ? 0 : length - 1},120px) 180px 1fr`;
   }
 
   handlePageClick(page) {
@@ -53,70 +65,70 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     this.props.getCareTeams({ ...query, pageNumber: DEFAULT_START_PAGE_NUMBER }, patientName, newStatusList);
   }
 
+  renderFilter(careTeamStatuses, statusList) {
+    const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
+    return (
+      <FilterSection>
+        <CheckboxGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)} gap="">
+          <Cell><CenterAlign>Include</CenterAlign></Cell>
+          {filteredCareTeamStatuses.map(({ code, display }) => (
+            <Cell key={code}>
+              <CenterAlign>
+                <Checkbox
+                  name={code}
+                  checked={statusList.includes(code)}
+                  label={display}
+                  onCheck={(event, checked) => this.handleStatusListChange(code, checked)}
+                />
+              </CenterAlign>
+            </Cell>
+          ))
+          }
+        </CheckboxGrid>
+      </FilterSection>);
+  }
+
   render() {
     const { careTeams: { loading, data, patientName, statusList }, careTeamStatuses } = this.props;
     return (
-      <div className={styles.card}>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <div className={styles.gridContainer}>
-            <div className={styles.patientInfoSection}>
-              <div className={styles.patientLabel}>
-                Patient&nbsp;:&nbsp;
-              </div>
-              {patientName}
-            </div>
-            <div className={styles.filterSection}>
-              <div>
-                <div className={styles.filterGridContainer}>
-                  <div className={styles.filterGridItem}>Include</div>
-                  {!isEmpty(careTeamStatuses) && careTeamStatuses
-                    .filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code)
-                    .map(({ code, display }) => (
-                      <div key={code}>
-                        <Checkbox
-                          className={styles.filterGridItem}
-                          name={code}
-                          checked={statusList.includes(code)}
-                          label={display}
-                          onCheck={(event, checked) => this.handleStatusListChange(code, checked)}
-                        />
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
+          <Grid columns={1} gap="">
+            <Cell>
+              <PatientInfoSection>
+                <PatientLabel>
+                  <FormattedMessage {...messages.patientLabel} />&nbsp;:&nbsp;
+                </PatientLabel>
+                {patientName}
+              </PatientInfoSection>
+            </Cell>
+            <Cell>
+              {!isEmpty(careTeamStatuses) &&
+              this.renderFilter(careTeamStatuses, statusList)
+              }
+            </Cell>
+          </Grid>
         }
 
         {loading &&
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(patientName) && isEmpty(data) &&
-        <div className={styles.noCareTeam}>
-          No care teams found.
-        </div>}
+        <NoCareTeamSection>No care teams found.</NoCareTeamSection>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
-        <div className={styles.textCenter}>
+        <CenterAlign>
           <CareTeamTable elements={data.elements} />
-          <UltimatePagination
+          <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
             onChange={this.handlePageClick}
           />
-        </div>
+        </CenterAlign>
         }
-      </div>
+      </Card>
     );
   }
 }
