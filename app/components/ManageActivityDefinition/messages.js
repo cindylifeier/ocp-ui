@@ -177,5 +177,17 @@ export default defineMessages({
       id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.tableColumnType',
       defaultMessage: 'Artifact Type',
     },
+    tableColumnAction: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.tableColumnAction',
+      defaultMessage: 'Action',
+    },
+    actionLabelEdit: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.actionLabelEdit',
+      defaultMessage: 'Edit',
+    },
+    actionLabelRemove: {
+      id: 'ocpui.components.ManageActivityDefinition.manageForm.relatedArtifacts.actionLabelRemove',
+      defaultMessage: 'Remove',
+    },
   },
 });
