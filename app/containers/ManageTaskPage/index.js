@@ -113,11 +113,9 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     if (description) { taskDataToSubmit.description = description; }
     if (comments) { taskDataToSubmit.note = comments; }
     if (taskStart || taskEnd) {
-      const startDate = Util.setEmptyStringWhenUndefined(taskStart);
-      const endDate = Util.setEmptyStringWhenUndefined(taskEnd);
       taskDataToSubmit.executionPeriod = {
-        start: startDate,
-        end: endDate,
+        start: formatDate(taskStart),
+        end: formatDate(taskEnd),
       };
     }
 
@@ -216,6 +214,18 @@ function getResourceDisplayName(resource) {
     name = `${firstName}-${lastName}`;
   }
   return name;
+}
+
+function formatDate(date) {
+  const year = date.getFullYear();
+
+  let month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : `0${month}`;
+
+  let day = date.getDate().toString();
+  day = day.length > 1 ? day : `0${day}`;
+
+  return `${month}/${day}/${year}`;
 }
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
