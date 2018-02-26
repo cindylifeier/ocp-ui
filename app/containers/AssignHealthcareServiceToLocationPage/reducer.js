@@ -9,12 +9,13 @@ import {
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
   GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_SUCCESS,
-  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
+  INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT, MARK_HEALTHCARE_SERVICE_AS_ASSIGNED,
   UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
-  UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
+  UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR, UNMARK_HEALTHCARE_SERVICE_AS_ASSIGNED,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
   UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT_ERROR,
 } from './constants';
+import { setHealthcareServiceAssignedToCurrentLocation } from './api';
 
 const initialState = fromJS({
   loading: false,
@@ -63,6 +64,18 @@ function assignHealthCareServiceToLocationPageReducer(state = initialState, acti
       return state
         .set('error', action.error)
         .set('loading', false);
+    case MARK_HEALTHCARE_SERVICE_AS_ASSIGNED: {
+      const healthcareServices = state.get('data');
+      const healthcareServiceArray = healthcareServices.toJS();
+      setHealthcareServiceAssignedToCurrentLocation(healthcareServiceArray, action.healthcareServiceId, true);
+      return state.set('data', fromJS((healthcareServiceArray || [])));
+    }
+    case UNMARK_HEALTHCARE_SERVICE_AS_ASSIGNED: {
+      const healthcareServices = state.get('data');
+      const healthcareServiceArray = healthcareServices.toJS();
+      setHealthcareServiceAssignedToCurrentLocation(healthcareServiceArray, action.healthcareServiceId, false);
+      return state.set('data', fromJS((healthcareServiceArray || [])));
+    }
     default:
       return state;
   }
