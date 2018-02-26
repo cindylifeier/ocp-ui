@@ -16,3 +16,13 @@ function mapToBffCredential(loginCredentials) {
   const { username, password } = loginCredentials;
   return { username, password };
 }
+
+export function getLoginErrorDetail(error) {
+  let errorDetail = '';
+  if (error && error.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (error && error.response && error.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
+}

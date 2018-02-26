@@ -7,8 +7,6 @@
 import {
   GET_CARE_TEAM,
   GET_CARE_TEAM_SUCCESS,
-  GET_PATIENT,
-  GET_PATIENT_SUCCESS,
   INITIALIZE_MANAGE_CARE_TEAM,
   SAVE_CARE_TEAM,
 } from './constants';
@@ -30,20 +28,6 @@ export function getCareTeamSuccess(careTeam) {
   return {
     type: GET_CARE_TEAM_SUCCESS,
     careTeam,
-  };
-}
-
-export function getPatient(patientId) {
-  return {
-    type: GET_PATIENT,
-    patientId,
-  };
-}
-
-export function getPatientSuccess(patient) {
-  return {
-    type: GET_PATIENT_SUCCESS,
-    patient,
   };
 }
 

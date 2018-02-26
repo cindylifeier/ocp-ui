@@ -16,6 +16,7 @@ import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
   HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -29,6 +30,7 @@ import {
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PUBLICATION_STATUS,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -68,7 +70,9 @@ const initialState = fromJS({
   HEALTHCARESERVICECATEGORY: [],
   HEALTHCARESERVICETYPE: [],
   HEALTHCARESERVICEREFERRALMETHOD: [],
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES: [],
   HEALTHCARESERVICESPECIALITY: [],
+  HEALTHCARESERVICESTATUS: [],
   PUBLICATION_STATUS: [],
   DEFINITION_TOPIC: [],
   RESOURCE_TYPE: [],
@@ -111,11 +115,13 @@ function lookupReducer(state = initialState, action) {
         .set(HEALTHCARESERVICETYPE, fromJS((action.lookups && action.lookups.healthcareServiceTypes) || state.get(HEALTHCARESERVICETYPE)))
         .set(HEALTHCARESERVICEREFERRALMETHOD, fromJS((action.lookups && action.lookups.healthcareServiceReferralMethods) || state.get(HEALTHCARESERVICEREFERRALMETHOD)))
         .set(HEALTHCARESERVICESPECIALITY, fromJS((action.lookups && action.lookups.healthcareServiceSpecialities) || state.get(HEALTHCARESERVICESPECIALITY)))
+        .set(HEALTHCARESERVICESTATUS, fromJS((action.lookups && action.lookups.healthcareServiceStatuses) || state.get(HEALTHCARESERVICESTATUS)))
         .set(PUBLICATION_STATUS, fromJS((action.lookups && action.lookups.publicationStatus) || state.get(PUBLICATION_STATUS)))
         .set(DEFINITION_TOPIC, fromJS((action.lookups && action.lookups.definitionTopic) || state.get(DEFINITION_TOPIC)))
         .set(RESOURCE_TYPE, fromJS((action.lookups && action.lookups.resourceType) || state.get(RESOURCE_TYPE)))
         .set(ACTION_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.actionParticipantType) || state.get(ACTION_PARTICIPANT_TYPE)))
         .set(ACTION_PARTICIPANT_ROLE, fromJS((action.lookups && action.lookups.actionParticipantRole) || state.get(ACTION_PARTICIPANT_ROLE)))
+        .set(RELATEDPERSONPATIENTRELATIONSHIPTYPES, fromJS((action.lookups && action.lookups.relatedPersonPatientRelationshipTypes) || state.get(RELATEDPERSONPATIENTRELATIONSHIPTYPES)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

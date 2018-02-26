@@ -21,8 +21,9 @@ export function loginSuccess(isAuthenticated) {
   };
 }
 
-export function loginError() {
+export function loginError(error) {
   return {
     type: LOGIN_ERROR,
+    error,
   };
 }

@@ -19,8 +19,11 @@ export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
 export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
+export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
+export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
 export const GLOBAL_LOOKUP_STATE_KEY = 'lookup';
 export const GLOBAL_AUTH_STATE_KEY = 'auth';
+export const GLOBAL_SHARED_DATA_KEY = 'sharedData';
 
 /**
  * Look up types constants
@@ -53,11 +56,13 @@ export const HEALTHCARESERVICECATEGORY = 'HEALTHCARESERVICECATEGORY';
 export const HEALTHCARESERVICETYPE = 'HEALTHCARESERVICETYPE';
 export const HEALTHCARESERVICEREFERRALMETHOD = 'HEALTHCARESERVICEREFERRALMETHOD';
 export const HEALTHCARESERVICESPECIALITY = 'HEALTHCARESERVICESPECIALITY';
+export const HEALTHCARESERVICESTATUS = 'HEALTHCARESERVICESTATUS';
 export const PUBLICATION_STATUS = 'PUBLICATION_STATUS';
 export const DEFINITION_TOPIC = 'DEFINITION_TOPIC';
 export const RESOURCE_TYPE = 'RESOURCE_TYPE';
 export const ACTION_PARTICIPANT_TYPE = 'ACTION_PARTICIPANT_TYPE';
 export const ACTION_PARTICIPANT_ROLE = 'ACTION_PARTICIPANT_ROLE';
+export const RELATEDPERSONPATIENTRELATIONSHIPTYPES = 'RELATEDPERSONPATIENTRELATIONSHIPTYPES';
 
 /**
  *  Constants to hold the internal urls
@@ -70,6 +75,7 @@ export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
+export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
 
 /**
  *  Constants to hold the default pagination page size and start page number

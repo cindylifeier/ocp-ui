@@ -11,7 +11,7 @@ import {
   GLOBAL_LOOKUP_STATE_KEY,
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
-  HEALTHCARESERVICESPECIALITY,
+  HEALTHCARESERVICESPECIALITY, HEALTHCARESERVICESTATUS,
   HEALTHCARESERVICETYPE,
   LANGUAGE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -24,7 +24,7 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
-  PUBLICATION_STATUS,
+  PUBLICATION_STATUS, RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -170,6 +170,11 @@ const makeSelectHealthcareServiceSpecialities = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESPECIALITY).toJS(),
 );
 
+const makeSelectHealthcareServiceStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(HEALTHCARESERVICESTATUS).toJS(),
+);
+
 const makeSelectPublicationStatuses = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PUBLICATION_STATUS).toJS(),
@@ -195,6 +200,10 @@ const makeSelectActionParticipantRoles = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(ACTION_PARTICIPANT_ROLE).toJS(),
 );
 
+const makeSelectRelatedPersonPatientRelationshipTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATEDPERSONPATIENTRELATIONSHIPTYPES).toJS(),
+);
 export {
   makeSelectUspsStates,
   makeSelectLocationPhysicalTypes,
@@ -223,9 +232,11 @@ export {
   makeSelectHealthcareServiceTypes,
   makeSelectHealthcareServiceReferralMethods,
   makeSelectHealthcareServiceSpecialities,
+  makeSelectHealthcareServiceStatuses,
   makeSelectPublicationStatuses,
   makeSelectDefinitionTopics,
   makeSelectResourceTypes,
   makeSelectActionParticipantTypes,
   makeSelectActionParticipantRoles,
+  makeSelectRelatedPersonPatientRelationshipTypes,
 };

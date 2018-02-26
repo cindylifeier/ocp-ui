@@ -37,6 +37,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.programName',
       defaultMessage: 'Program Name',
     },
+    status: {
+      id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.status',
+      defaultMessage: 'Status',
+    },
     category: {
       id: 'ocpui.components.ManageHealthcareService.manageForm.hintText.category',
       defaultMessage: 'Category',
@@ -70,6 +74,10 @@ export default defineMessages({
     programName: {
       id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.programName',
       defaultMessage: 'Program Name',
+    },
+    status: {
+      id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.status',
+      defaultMessage: 'Status',
     },
     category: {
       id: 'ocpui.components.ManageHealthcareService.manageForm.floatingLabelText.category',

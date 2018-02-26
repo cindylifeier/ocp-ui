@@ -10,8 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ManageLocationPage.createHeader',
     defaultMessage: 'Create Location',
   },
-  editHeader: {
-    id: 'ocpui.containers.ManageLocationPage.editHeader',
+  updateHeader: {
+    id: 'ocpui.containers.ManageLocationPage.updateHeader',
     defaultMessage: 'Edit Location',
   },
 });

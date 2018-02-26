@@ -25,7 +25,8 @@ function authReducer(state = initialState, action) {
     case LOGIN_ERROR:
       return state
         .set('isAuthenticating', false)
-        .set('isAuthenticated', false);
+        .set('isAuthenticated', false)
+        .set('error', action.error);
     case LOGOUT:
       return initialState;
     default:

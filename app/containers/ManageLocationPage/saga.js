@@ -25,7 +25,7 @@ export function* handleUpdateLocation(action) {
   try {
     const response = yield call(updateLocation, action.location, action.organizationId);
     yield put(putLocationSuccess(response));
-    yield put(showNotification('Successfully updating the location.'));
+    yield put(showNotification('Successfully updated the location.'));
     yield put(goBack());
   } catch (err) {
     yield put(showNotification('Failed to update the location.'));
