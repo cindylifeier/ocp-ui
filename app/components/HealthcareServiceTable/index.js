@@ -127,7 +127,6 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
               <div className={styles.checkboxGridContainer}>
                 <div className={styles.checkboxGridItem}>
                   <Checkbox
-                    defaultChecked={element.assignedToCurrentLocation}
                     checked={element.assignedToCurrentLocation}
                     onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
                   />
