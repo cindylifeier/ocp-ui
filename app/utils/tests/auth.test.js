@@ -4,10 +4,16 @@ import { checkAuthenticated, hasAccessScopeInToken } from '../auth';
 import { storeAuthStatus, storeToken } from '../tokenService';
 
 describe('auth.js', () => {
+  afterEach(() => {
+    sessionStorage.clear();
+    // remove callback
+    sessionStorage.itemInsertionCallback = null;
+  });
+
   it('should return true if there is required access scope in token', () => {
     // Arrange
     const testToken = {
-      scope: ['ocpUi.access', 'test'],
+      access_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJzY29wZSI6WyJvY3BVaS5hY2Nlc3MiLCJ0ZXN0LnNjb3BlIl19.x5SNNuL5E5DPiQT1ZzKSIlBF2AS8p6SE1F60_fSqxf0',
     };
 
     // Act
@@ -28,7 +34,7 @@ describe('auth.js', () => {
   it('should return authStatus with correct status', () => {
     // Arrange
     const testToken = {
-      scope: ['ocpUi.access', 'test'],
+      access_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJzY29wZSI6WyJvY3BVaS5hY2Nlc3MiLCJ0ZXN0LnNjb3BlIl19.x5SNNuL5E5DPiQT1ZzKSIlBF2AS8p6SE1F60_fSqxf0',
     };
     const testAuthStatus = true;
 
