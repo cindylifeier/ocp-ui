@@ -99,10 +99,10 @@ export function getSelected(resource) {
     .join(', ');
 }
 
-export function getOrgDisplayName(organization) {
-  let displayName = organization.name;
-  if (organization && organization.name && organization.logicalId) {
-    displayName = `${organization.name}-${organization.logicalId}`;
+export function getResourceDisplayNameAndId(resource) {
+  let displayName = resource.name;
+  if (resource && resource.name && resource.logicalId) {
+    displayName = `${resource.name}-${resource.logicalId}`;
   }
   return displayName;
 }
