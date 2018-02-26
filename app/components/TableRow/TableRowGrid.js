@@ -1,6 +1,6 @@
 import { Grid } from 'styled-css-grid';
 
-const TableRowStyledGrid = Grid.extend`
+const TableRowGrid = Grid.extend`
   border-bottom: 1px outset rgb(51, 51, 51);
 
   &:nth-child(odd) {
@@ -18,6 +18,6 @@ const TableRowStyledGrid = Grid.extend`
   }
 `;
 
-TableRowStyledGrid.propTypes = {};
+TableRowGrid.propTypes = {};
 
-export default TableRowStyledGrid;
+export default TableRowGrid;
