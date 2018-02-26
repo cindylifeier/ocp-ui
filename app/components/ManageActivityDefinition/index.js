@@ -16,12 +16,21 @@ import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constan
 
 function ManageActivityDefinition(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const { onSave, publicationStatuses, definitionTopics, resourceTypes, actionParticipantTypes, actionParticipantRoles, organization } = props;
-  const formData = { organization, publicationStatuses, definitionTopics, resourceTypes, actionParticipantTypes, actionParticipantRoles };
+  const { onSave, publicationStatuses, definitionTopics, resourceTypes, actionParticipantTypes, actionParticipantRoles, organization, relatedArtifactTypes } = props;
+  const formData = {
+    organization,
+    publicationStatuses,
+    definitionTopics,
+    resourceTypes,
+    actionParticipantTypes,
+    actionParticipantRoles,
+    relatedArtifactTypes,
+  };
 
   return (
     <div className={styles.root}>
       <Formik
+        initialValues={{ relatedArtifact: [] }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -55,15 +64,18 @@ function ManageActivityDefinition(props) {
               frequency: yup.number()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               status: yup.object()
-              .required((<FormattedMessage {...messages.validation.required} />)),
+                .required((<FormattedMessage {...messages.validation.required} />)),
               topic: yup.object()
-              .required((<FormattedMessage {...messages.validation.required} />)),
+                .required((<FormattedMessage {...messages.validation.required} />)),
               kind: yup.object()
-              .required((<FormattedMessage {...messages.validation.required} />)),
+                .required((<FormattedMessage {...messages.validation.required} />)),
               participantType: yup.object()
-              .required((<FormattedMessage {...messages.validation.required} />)),
+                .required((<FormattedMessage {...messages.validation.required} />)),
               participantRole: yup.object()
-              .required((<FormattedMessage {...messages.validation.required} />)),
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              relatedArtifact: yup.array()
+                .required((<FormattedMessage {...messages.validation.requiredRelatedArtifacts} />))
+                .min(1, (<FormattedMessage {...messages.validation.minLengthdRelatedArtifacts} />)),
             });
           })}
         render={(formikProps) => <ManageActivityDefinitionForm {...formikProps} {...formData} />}
@@ -80,6 +92,7 @@ ManageActivityDefinition.propTypes = {
   resourceTypes: PropTypes.array.isRequired,
   actionParticipantTypes: PropTypes.array.isRequired,
   actionParticipantRoles: PropTypes.array.isRequired,
+  relatedArtifactTypes: PropTypes.array.isRequired,
 };
 
 export default ManageActivityDefinition;

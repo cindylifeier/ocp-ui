@@ -79,6 +79,8 @@ export const REQUEST_PRIORITY = 'REQUEST_PRIORITY';
 export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
 export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
+export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
+
 /**
  *  Constants to hold the internal urls
  * @type {string}
