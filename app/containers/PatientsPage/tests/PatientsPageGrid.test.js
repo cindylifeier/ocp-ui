@@ -3,7 +3,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import PatientsPageStyledGrid from '../PatientsPageGrid';
+import PatientsPageGrid from '../PatientsPageGrid';
 
 configure({ adapter: new Adapter() });
 
@@ -14,7 +14,7 @@ describe('<PatientsPageGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<PatientsPageStyledGrid>{children}</PatientsPageStyledGrid>);
+      const renderedComponent = shallow(<PatientsPageGrid>{children}</PatientsPageGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('<PatientsPageGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<PatientsPageStyledGrid>{children}</PatientsPageStyledGrid>);
+      const renderedComponent = shallow(<PatientsPageGrid>{children}</PatientsPageGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +40,7 @@ describe('<PatientsPageGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<PatientsPageStyledGrid>{children}</PatientsPageStyledGrid>);
+      const renderedComponent = shallow(<PatientsPageGrid>{children}</PatientsPageGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -51,7 +51,7 @@ describe('<PatientsPageGrid />', () => {
       const children = (<span>test</span>);
 
       // Act
-      const renderedComponent = shallow(<PatientsPageStyledGrid>{children}</PatientsPageStyledGrid>);
+      const renderedComponent = shallow(<PatientsPageGrid>{children}</PatientsPageGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('color', '#444');
