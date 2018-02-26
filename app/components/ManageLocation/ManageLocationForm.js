@@ -19,9 +19,6 @@ import { HOME_URL } from '../../containers/App/constants';
 // Material UI Styles
 const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
 
-export const SEARCH_BY_NAME = 'name';
-export const SEARCH_BY_ID = 'logicalId';
-
 function ManageLocationForm(props) {
   const {
     error,
@@ -115,6 +112,7 @@ function ManageLocationForm(props) {
             <SelectField
               name="telecomSystem"
               fullWidth
+              hintText={<FormattedMessage {...messages.telecomSystemTypeHintText} />}
               floatingLabelText={<FormattedMessage {...messages.telecomSystemTypeFloatingLabelText} />}
             >
               {telecomSystems && telecomSystems.map((telecomSystem) => (

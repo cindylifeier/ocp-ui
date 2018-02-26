@@ -21,12 +21,22 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import ManageTask from '../../components/ManageTask';
-import { TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE } from '../App/constants';
-import { makeSelectOrganization, makeSelectPatient, makeSelectActivityDefinitions, makeSelectPractitioners } from './selectors';
+import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from '../App/constants';
+import {
+  makeSelectActivityDefinitions,
+  makeSelectOrganization,
+  makeSelectPatient,
+  makeSelectPractitioners,
+} from './selectors';
 import { getLookupsAction } from '../App/actions';
-import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from '../App/lookupSelectors';
+import {
+  makeSelectRequestIntents,
+  makeSelectRequestPriorities,
+  makeSelectTaskPerformerTypes,
+  makeSelectTaskStatuses,
+} from '../App/lookupSelectors';
 import styles from './styles.css';
-import { getOrganization, getPatient, getActivityDefinitions, getPractitioners, createTask } from './actions';
+import { createTask, getActivityDefinitions, getOrganization, getPatient, getPractitioners } from './actions';
 import Util from '../../utils/Util';
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -55,7 +65,6 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
   }
 
   handleSave(taskFormData, actions) {
-    console.log(taskFormData);
     const taskDataToSubmit = {};
     const {
       activityDefinition, practitioners, status, priority, intent, taskOwner, performerType, description, comments, taskStart, taskEnd,
@@ -110,17 +119,18 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     };
 
     // Optional Fields
-    if (description) { taskDataToSubmit.description = description; }
-    if (comments) { taskDataToSubmit.note = comments; }
+    if (description) {
+      taskDataToSubmit.description = description;
+    }
+    if (comments) {
+      taskDataToSubmit.note = comments;
+    }
     if (taskStart || taskEnd) {
       taskDataToSubmit.executionPeriod = {
         start: formatDate(taskStart),
         end: formatDate(taskEnd),
       };
     }
-
-
-    console.log(taskDataToSubmit);
     this.props.createTask(taskDataToSubmit, () => actions.setSubmitting(false));
   }
 
@@ -227,6 +237,7 @@ function formatDate(date) {
 
   return `${month}/${day}/${year}`;
 }
+
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'manageTaskPage', reducer });
