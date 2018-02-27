@@ -5,6 +5,7 @@
 import { memoryHistory } from 'react-router-dom';
 import { fromJS } from 'immutable';
 import identity from 'lodash/identity';
+import 'mock-local-storage';
 
 import configureStore from '../../configureStore';
 
