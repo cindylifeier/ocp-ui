@@ -1,17 +1,22 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import 'mock-local-storage';
 
 import HomePage from '../index';
-import messages from '../messages';
+
+configure({ adapter: new Adapter() });
 
 describe('<HomePage />', () => {
-  it('should render the page message', () => {
-    const renderedComponent = shallow(
-      <HomePage />
-    );
-    expect(renderedComponent.contains(
-      <FormattedMessage {...messages.header} />
-    )).toEqual(true);
+  describe('snapshot tests', () => {
+    it('should render the page message', () => {
+      // Act
+      const renderedComponent = shallow(
+        <HomePage />,
+      );
+
+      // Assert
+      expect(renderedComponent).toMatchSnapshot();
+    });
   });
 });
