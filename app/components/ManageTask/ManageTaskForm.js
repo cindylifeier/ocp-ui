@@ -11,10 +11,8 @@ import styles from './styles.css';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { getResourceName, getResourceDisplayNameAndId } from './index';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+import { DATE_PICKER_MODE, EMPTY_STRING, PATIENTS_URL } from '../../containers/App/constants';
 import DatePicker from '../DatePicker';
-
 
 function ManageTaskForm(props) {
   const {
@@ -247,5 +245,24 @@ ManageTaskForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
 };
+function getResourceName(resource) {
+  const names = resource.name;
+  return names && names
+    .map((name) => {
+      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
+      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
+      let fullName = EMPTY_STRING;
+      fullName = ` ${firstName} ${lastName}`;
+      return fullName;
+    })
+    .join(', ');
+}
+function getResourceDisplayNameAndId(resource) {
+  let displayName = resource.name;
+  if (resource && resource.name && resource.logicalId) {
+    displayName = `${resource.name}-${resource.logicalId}`;
+  }
+  return displayName;
+}
 
 export default ManageTaskForm;
