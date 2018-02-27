@@ -1,6 +1,11 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { configure, mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import 'mock-local-storage';
+
 import withContext from '../withContext';
+
+configure({ adapter: new Adapter() });
 
 const children = (<h1>Test</h1>);
 
@@ -23,99 +28,103 @@ class SampleClassComponent extends React.PureComponent {
 }
 
 describe('withContext', () => {
-  it('should export a default withContext function', () => {
-    // Assert
-    expect(withContext).not.toBeNull();
-    expect(typeof withContext).toBe(FUNCTION_TYPE);
+  describe('snapshot tests', () => {
+    it('should wrap functional component without any name and render', () => {
+      // Arrange
+      const toBeWrappedComponent = SampleFunctionalComponentWithoutAnyName;
+      const WrappedComponent = withContext(toBeWrappedComponent);
+
+      // Act
+      const renderedComponent = shallow(
+        WrappedComponent,
+      );
+
+      // Assert
+      expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
+      expect(renderedComponent).toMatchSnapshot();
+    });
+
+    it('should wrap functional component with display name and render', () => {
+      // Arrange
+      const toBeWrappedComponent = SampleFunctionalComponentWithDisplayName;
+      const WrappedComponent = withContext(toBeWrappedComponent);
+
+      // Act
+      const renderedComponent = shallow(
+        WrappedComponent,
+      );
+
+      // Assert
+      expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
+      expect(renderedComponent).toMatchSnapshot();
+    });
+
+    it('should to wrap class component and render', () => {
+      // Arrange
+      const toBeWrappedComponent = SampleClassComponent;
+      const WrappedComponent = withContext(toBeWrappedComponent);
+
+      // Act
+      const renderedComponent = shallow(
+        WrappedComponent,
+      );
+
+      // Assert
+      expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
+      expect(renderedComponent).toMatchSnapshot();
+    });
   });
 
-  it('should wrap functional component without any name and render', () => {
-    // Arrange
-    const toBeWrappedComponent = SampleFunctionalComponentWithoutAnyName;
-    const WrappedComponent = withContext(toBeWrappedComponent);
+  describe('structural tests', () => {
+    it('should export a default withContext function', () => {
+      // Assert
+      expect(withContext).not.toBeNull();
+      expect(typeof withContext).toBe(FUNCTION_TYPE);
+    });
 
-    // Act
-    const renderedComponent = shallow(
-      WrappedComponent
-    );
+    it('should render children of functional component without any name', () => {
+      // Arrange
+      const toBeWrappedComponent = SampleFunctionalComponentWithoutAnyName;
+      const WrappedComponent = withContext(toBeWrappedComponent);
 
-    // Assert
-    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
-    expect(renderedComponent).toMatchSnapshot();
-  });
+      // Act
+      const renderedComponent = mount(
+        WrappedComponent,
+      );
 
-  it('should wrap functional component with display name and render', () => {
-    // Arrange
-    const toBeWrappedComponent = SampleFunctionalComponentWithDisplayName;
-    const WrappedComponent = withContext(toBeWrappedComponent);
+      // Assert
+      expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
+      expect(renderedComponent.contains(children)).toBe(true);
+    });
 
-    // Act
-    const renderedComponent = shallow(
-      WrappedComponent
-    );
+    it('should render children of functional component with display name', () => {
+      // Arrange
+      const toBeWrappedComponent = SampleFunctionalComponentWithoutAnyName;
+      const WrappedComponent = withContext(toBeWrappedComponent);
 
-    // Assert
-    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
-    expect(renderedComponent).toMatchSnapshot();
-  });
+      // Act
+      const renderedComponent = mount(
+        WrappedComponent,
+      );
 
-  it('should to wrap class component and render', () => {
-    // Arrange
-    const toBeWrappedComponent = SampleClassComponent;
-    const WrappedComponent = withContext(toBeWrappedComponent);
+      // Assert
+      expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
+      expect(renderedComponent.contains(children)).toBe(true);
+    });
 
-    // Act
-    const renderedComponent = shallow(
-      WrappedComponent
-    );
+    it('should render children of class component', () => {
+      // Arrange
+      const toBeWrappedComponent = SampleClassComponent;
+      const WrappedComponent = withContext(toBeWrappedComponent);
 
-    // Assert
-    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
-    expect(renderedComponent).toMatchSnapshot();
-  });
+      // Act
+      const renderedComponent = mount(
+        WrappedComponent,
+      );
 
-  it('should render children of functional component without any name', () => {
-    // Arrange
-    const toBeWrappedComponent = SampleFunctionalComponentWithoutAnyName;
-    const WrappedComponent = withContext(toBeWrappedComponent);
-
-    // Act
-    const renderedComponent = mount(
-      WrappedComponent
-    );
-
-    // Assert
-    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
-    expect(renderedComponent.contains(children)).toBe(true);
-  });
-
-  it('should render children of functional component with display name', () => {
-    // Arrange
-    const toBeWrappedComponent = SampleFunctionalComponentWithoutAnyName;
-    const WrappedComponent = withContext(toBeWrappedComponent);
-
-    // Act
-    const renderedComponent = mount(
-      WrappedComponent
-    );
-
-    // Assert
-    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
-    expect(renderedComponent.contains(children)).toBe(true);
-  });
-
-  it('should render children of class component', () => {
-    // Arrange
-    const toBeWrappedComponent = SampleClassComponent;
-    const WrappedComponent = withContext(toBeWrappedComponent);
-
-    // Act
-    const renderedComponent = mount(
-      WrappedComponent
-    );
-
-    // Assert
-    expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
-    expect(renderedComponent.contains(children)).toBe(true);
+      // Assert
+      expect(typeof WrappedComponent.type).toBe(FUNCTION_TYPE);
+      expect(renderedComponent.contains(children)).toBe(true);
+    });
   });
 });
