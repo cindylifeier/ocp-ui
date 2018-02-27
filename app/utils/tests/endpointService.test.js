@@ -10,6 +10,7 @@ import {
   BASE_PRACTITIONERS_API_URL,
   BASE_RELATED_PERSONS_API_URL,
   BASE_TASKS_API_URL,
+  collectEndpoints,
   getEndpoint,
   isSecuredEndpoint,
   LOGIN_API_URL,
@@ -17,6 +18,21 @@ import {
 } from '../endpointService';
 
 describe('endpointService.js', () => {
+  it('should contain correct number of configured urls', () => {
+    // Arrange
+    const numberOfEndpoints = 13;
+    const numberOfUnsecuredEndpoints = 2;
+
+    // Act
+    const configuredEndpoints = collectEndpoints();
+    const endpoints = Array.from(configuredEndpoints.values());
+    const unsecuredEndpoints = endpoints.filter((ep) => ep.isSecured === false);
+
+    // Assert
+    expect(configuredEndpoints.size).toEqual(numberOfEndpoints);
+    expect(unsecuredEndpoints.length).toEqual(numberOfUnsecuredEndpoints);
+  });
+
   it('should return with correct request url', () => {
     // Arrange
     const TEST_LOGIN_URL = '/ocp-ui-api/login';
