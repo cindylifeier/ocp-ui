@@ -27,4 +27,12 @@ export default defineMessages({
     defaultMessage: 'Are you sure you want to unassign {selectedHealthCareServiceName} \n' +
     '          from the location: {selectedLocationName}?',
   },
+  dialogButtonLabelSubmit: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.dialogButtonLabelSubmit',
+    defaultMessage: 'Submit',
+  },
+  dialogButtonLabelCancel: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.dialogButtonLabelCancel',
+    defaultMessage: 'Cancel',
+  },
 });

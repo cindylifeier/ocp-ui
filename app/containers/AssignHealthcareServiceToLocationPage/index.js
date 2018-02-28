@@ -18,7 +18,6 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -40,6 +39,7 @@ import {
   updateHealthcareServicesLocationAssignment,
 } from './actions';
 import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
+import StyledFlatButton from '../../components/StyledFlatButton';
 
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -97,13 +97,13 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
     const selectedLocation = find(this.props.location, { logicalId });
     const { loading, healthcareServices, organization } = this.props;
     const actions = [
-      <FlatButton
-        label="Cancel"
+      <StyledFlatButton
+        label={<FormattedMessage {...messages.dialogButtonLabelCancel} />}
         primary
         onClick={this.handleCloseDialog}
       />,
-      <FlatButton
-        label="Submit"
+      <StyledFlatButton
+        label={<FormattedMessage {...messages.dialogButtonLabelSubmit} />}
         primary
         keyboardFocused
         onClick={this.handleUnassignHealthcareService}
