@@ -18,6 +18,7 @@ import renderTasksComponent from '../Tasks/render';
 import GoldenLayout from '../../components/GoldenLayout';
 import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
+import PatientDetails from '../../components/PatientDetails';
 
 const initialStateMetadata =
   {
@@ -141,6 +142,8 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
+    const { selectedPatient } = this.props;
+    const patientDetailsProps = { selectedPatient };
     return (
       <div>
         <Helmet>
@@ -150,7 +153,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 
         <PatientPageGrid columns={1}>
           <PatientPageCell>
-            <h3>Patient Details Placeholder</h3>
+            <PatientDetails {...patientDetailsProps} />
           </PatientPageCell>
           <PatientPageCell>
             <GoldenLayout
@@ -171,6 +174,10 @@ PatientPage.propTypes = {
     params: PropTypes.object,
     path: PropTypes.string,
     url: PropTypes.string,
+  }),
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
   }),
   getPatient: PropTypes.func.isRequired,
 };
