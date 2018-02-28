@@ -11,7 +11,7 @@ import styles from './styles.css';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { getResourceName, getResourceDisplayNameAndId } from './index';
+import { getResourceDisplayNameAndId, getResourceName } from '../../containers/ManageTaskPage/api';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import DatePicker from '../DatePicker';
 
