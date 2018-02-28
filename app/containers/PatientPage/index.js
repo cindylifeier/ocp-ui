@@ -19,6 +19,8 @@ import saga from './saga';
 import renderNotFoundComponent from '../NotFoundPage/render';
 import renderTasksComponent from '../Tasks/render';
 import GoldenLayout from '../../components/GoldenLayout';
+import PatientPageGrid from './PatientPageGrid';
+import PatientPageCell from './PatientPageCell';
 
 const initialStateMetadata =
   {
@@ -151,11 +153,18 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
           <title>Patient</title>
           <meta name="description" content="Patient page of Omnibus Care Plan application" />
         </Helmet>
-        <GoldenLayout
-          containerId="golden-patient"
-          componentMetadata={componentMetadata}
-          stateMetadata={initialStateMetadata}
-        />
+        <PatientPageGrid columns={1}>
+          <PatientPageCell>
+            <h3>Patient Details Placeholder</h3>
+          </PatientPageCell>
+          <PatientPageCell>
+            <GoldenLayout
+              containerId="golden-patient"
+              componentMetadata={componentMetadata}
+              stateMetadata={initialStateMetadata}
+            />
+          </PatientPageCell>
+        </PatientPageGrid>
       </div>
     );
   }
