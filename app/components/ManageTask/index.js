@@ -11,21 +11,23 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import ManageTaskForm from './ManageTaskForm';
 import messages from './messages';
-import { EMPTY_STRING } from '../../containers/App/constants';
-import Util from '../../utils/Util';
 
 function ManageTask(props) {
-  const { onSave, taskStatus, requestIntent,
-          requestPriority, taskPerformerType, selectedPatient,
-        organization, activityDefinitions, practitioners } = props;
-  const formData = { taskStatus,
+  const {
+    onSave, taskStatus, requestIntent,
+    requestPriority, taskPerformerType, selectedPatient,
+    organization, activityDefinitions, practitioners,
+  } = props;
+  const formData = {
+    taskStatus,
     requestIntent,
     requestPriority,
     taskPerformerType,
     selectedPatient,
     organization,
     activityDefinitions,
-    practitioners };
+    practitioners,
+  };
 
   return (
     <div>
@@ -73,50 +75,5 @@ ManageTask.propTypes = {
   activityDefinitions: PropTypes.array,
   practitioners: PropTypes.array,
 };
-
-export function getResourceName(resource) {
-  const names = resource.name;
-  return names && names
-    .map((name) => {
-      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
-      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      let fullName = EMPTY_STRING;
-      fullName = ` ${firstName} ${lastName}`;
-      return fullName;
-    })
-    .join(', ');
-}
-export function getSelected(resource) {
-  const names = resource.name;
-  return names && names
-    .map((name) => {
-      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
-      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      let fullName = EMPTY_STRING;
-      fullName = ` ${firstName} ${lastName}`;
-      return fullName;
-    })
-    .join(', ');
-}
-
-export function getResourceDisplayNameAndId(resource) {
-  let displayName = resource.name;
-  if (resource && resource.name && resource.logicalId) {
-    displayName = `${resource.name}-${resource.logicalId}`;
-  }
-  return displayName;
-}
-
-
-export function getPractitionerDisplayName(practitioner) {
-  let name = {};
-  if (practitioner.name.length > 0) {
-    const fName = practitioner.name[0];
-    const firstName = Util.setEmptyStringWhenUndefined(fName.firstName);
-    const lastName = Util.setEmptyStringWhenUndefined(fName.lastName);
-    name = `${firstName}-${lastName}`;
-  }
-  return name;
-}
 
 export default ManageTask;

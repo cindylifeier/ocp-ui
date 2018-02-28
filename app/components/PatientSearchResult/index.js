@@ -44,19 +44,27 @@ function displayPatientSearchResult(patients, onPatientClick) {
       <TableRowColumn>
         <NavigationStyledIconMenu>
           <StyledMenuItem
-            primaryText={<FormattedMessage {...messages.addCareTeam} />}
-            containerElement={<Link
-              to={{
-                pathname: MANAGE_CARE_TEAM_URL,
-                search: `?patientId=${patient.id}`,
-              }}
-            />}
+            primaryText={<FormattedMessage {...messages.edit} />}
+            containerElement={<Link to={`/ocp-ui/manage-patient/${patient.id}`} />}
+          />
+          <StyledMenuItem
+            primaryText={<FormattedMessage {...messages.viewDetails} />}
+            containerElement={<Link to={`/ocp-ui/patients/${patient.id}`} />}
           />
           <StyledMenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
               to={{
                 pathname: MANAGE_TASK_URL,
+                search: `?patientId=${patient.id}`,
+              }}
+            />}
+          />
+          <StyledMenuItem
+            primaryText={<FormattedMessage {...messages.addCareTeam} />}
+            containerElement={<Link
+              to={{
+                pathname: MANAGE_CARE_TEAM_URL,
                 search: `?patientId=${patient.id}`,
               }}
             />}
@@ -70,10 +78,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
               }}
             />}
           />
-          <StyledMenuItem
-            primaryText={<FormattedMessage {...messages.edit} />}
-            containerElement={<Link to={`/ocp-ui/manage-patient/${patient.id}`} />}
-          />
+
           <StyledMenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
         </NavigationStyledIconMenu>
       </TableRowColumn>

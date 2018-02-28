@@ -34,6 +34,7 @@ import Authentication from '../Authentication';
 import ManageTaskPage from '../ManageTaskPage';
 import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
 import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
+import PatientPage from '../PatientPage';
 import './styles.css';
 import { ManageCommunicationPage } from '../ManageCommunicationPage';
 
@@ -55,7 +56,8 @@ export function App() {
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/home" component={HomePage} />
-            <Route path="/ocp-ui/patients" component={PatientsPage} />
+            <Route exact path="/ocp-ui/patients" component={PatientsPage} />
+            <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
             <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
             <Route path="/ocp-ui/manage-patient/:id?" component={ManagePatientPage} />
