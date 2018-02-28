@@ -25,7 +25,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       <div>
         <Helmet>
           <title>ManageCommunicationPage</title>
-          <meta name="description" content="Description of ManageCommunicationPage" />
+          <meta name="description" content="Manage Communication page of Omnibus Care Plan application" />
         </Helmet>
         <FormattedMessage {...messages.header} />
       </div>
