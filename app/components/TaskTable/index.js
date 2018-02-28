@@ -12,7 +12,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-
+import { Link } from 'react-router-dom';
+import { MANAGE_TASK_URL } from '../../containers/App/constants';
 import messages from './messages';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
@@ -75,7 +76,17 @@ function TaskTable({ elements, cancelTask }) {
                   >
                     <MenuItem
                       className={styles.menuItem}
-                      primaryText="Cancel"
+                      primaryText={<FormattedMessage {...messages.editTask} />}
+                      containerElement={<Link
+                        to={{
+                          pathname: `${MANAGE_TASK_URL}/${logicalId}`,
+                          search: `?patientId=${logicalId}`,
+                        }}
+                      />}
+                    />
+                    <MenuItem
+                      className={styles.menuItem}
+                      primaryText={<FormattedMessage {...messages.cancelTask} />}
                       disabled={status.code === 'cancelled'}
                       onClick={() => cancelTask(logicalId)}
                     />
