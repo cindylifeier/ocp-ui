@@ -11,11 +11,8 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectPatientPage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
+import { getPatient } from '../App/actions';
 import renderNotFoundComponent from '../NotFoundPage/render';
 import renderTasksComponent from '../Tasks/render';
 import GoldenLayout from '../../components/GoldenLayout';
@@ -146,6 +143,14 @@ const componentMetadata = [
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  componentDidMount() {
+    const patientId = this.props.match.params.id;
+    if (patientId) {
+      this.props.getPatient(patientId);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -153,6 +158,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
           <title>Patient</title>
           <meta name="description" content="Patient page of Omnibus Care Plan application" />
         </Helmet>
+
         <PatientPageGrid columns={1}>
           <PatientPageCell>
             <h3>Patient Details Placeholder</h3>
@@ -171,26 +177,26 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 }
 
 PatientPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }),
+  getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  patientpage: makeSelectPatientPage(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getPatient: (patientId) => dispatch(getPatient(patientId)),
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'patientPage', reducer });
-const withSaga = injectSaga({ key: 'patientPage', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
   withConnect,
 )(PatientPage);
