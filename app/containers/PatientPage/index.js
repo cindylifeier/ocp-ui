@@ -64,7 +64,7 @@ const initialStateMetadata =
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        width: 50,
+        width: 100,
         content: [{
           type: 'stack',
           header: {},
@@ -88,7 +88,6 @@ const initialStateMetadata =
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
-          width: 50,
           height: 50,
           content: [{
             title: 'Communication',
@@ -96,32 +95,22 @@ const initialStateMetadata =
             componentName: 'communication',
             isClosable: true,
             reorderEnabled: true,
-          },
-          ],
-        },
-        ],
-      }, {
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
+          }],
+        }, {
           type: 'stack',
-          width: 50,
-          height: 50,
+          header: {},
           isClosable: true,
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
+          height: 50,
           content: [{
             title: 'My Appointments',
             type: 'component',
             componentName: 'appointments',
             isClosable: true,
             reorderEnabled: true,
-          },
-          ],
+          }],
         },
         ],
       },
@@ -166,6 +155,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
           <PatientPageCell>
             <GoldenLayout
               containerId="golden-patient"
+              containerHeight="200vh"
               componentMetadata={componentMetadata}
               stateMetadata={initialStateMetadata}
             />
