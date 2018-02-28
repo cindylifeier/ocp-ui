@@ -15,6 +15,7 @@ import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import { getPatient } from '../App/actions';
 import renderNotFoundComponent from '../NotFoundPage/render';
 import renderTasksComponent from '../Tasks/render';
+import renderCommunicationComponent from '../Communication/render';
 import GoldenLayout from '../../components/GoldenLayout';
 import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
@@ -126,8 +127,8 @@ const initialStateMetadata =
 
 const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
+  { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationComponent },
   // TODO: will replace with Communication and Appointments render component
-  { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
 ];
 
