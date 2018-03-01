@@ -17,8 +17,3 @@
 .organizationInfoSection, .locationInfoSection {
   margin:10px 10px;
 }
-
-.organizationInfoLabel, .locationInfoLabel {
-  font-weight: bold;
-  display: inline-block;
-}

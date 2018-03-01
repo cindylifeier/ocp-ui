@@ -23,6 +23,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
+import InlineLabel from 'components/InlineLabel';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -122,15 +123,15 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
           {organization && selectedLocation && <div>
             <div className={styles.organizationInfoSection}>
-              <div className={styles.organizationInfoLabel}>
+              <InlineLabel>
                 Organization&nbsp;:&nbsp;
-              </div>
+              </InlineLabel>
               {organization.name}
             </div>
             <div className={styles.locationInfoSection}>
-              <div className={styles.locationInfoLabel}>
+              <InlineLabel>
                 Location&nbsp;:&nbsp;
-              </div>
+              </InlineLabel>
               {selectedLocation.name}
             </div>
           </div>
