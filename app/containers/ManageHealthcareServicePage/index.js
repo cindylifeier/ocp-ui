@@ -4,33 +4,24 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import Divider from 'material-ui/Divider';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { FormattedMessage } from 'react-intl';
-import isUndefined from 'lodash/isUndefined';
+import ManageHealthcareService from 'components/ManageHealthcareService';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
+import { makeSelectOrganization } from 'containers/Locations/selectors';
 import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
-import injectSaga from 'utils/injectSaga';
+import Divider from 'material-ui/Divider';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import {
-  makeSelectHealthcareServiceCategories,
-  makeSelectHealthcareServiceReferralMethods,
-  makeSelectHealthcareServiceSpecialities, makeSelectHealthcareServiceStatuses,
-  makeSelectHealthcareServiceTypes,
-  makeSelectTelecomSystems,
-  makeSelectTelecomUses,
-} from '../App/lookupSelectors';
-import { makeSelectOrganization } from '../Locations/selectors';
-import { getLookupsAction } from '../App/actions';
-import { createHealthcareService, updateHealthcareService, getHealthcareServiceById } from './actions';
-import reducer from './reducer';
-import saga from './saga';
-import ManageHealthcareService from '../../components/ManageHealthcareService';
+import injectSaga from 'utils/injectSaga';
+import Util from 'utils/Util';
 import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
@@ -40,9 +31,20 @@ import {
   TELECOMSYSTEM,
   TELECOMUSE,
 } from '../App/constants';
+import {
+  makeSelectHealthcareServiceCategories,
+  makeSelectHealthcareServiceReferralMethods,
+  makeSelectHealthcareServiceSpecialities,
+  makeSelectHealthcareServiceStatuses,
+  makeSelectHealthcareServiceTypes,
+  makeSelectTelecomSystems,
+  makeSelectTelecomUses,
+} from '../App/lookupSelectors';
 import messages from '../ManageHealthcareServicePage/messages';
+import { createHealthcareService, getHealthcareServiceById, updateHealthcareService } from './actions';
+import reducer from './reducer';
+import saga from './saga';
 import styles from './styles.css';
-import { makeSelectHealthcareServices } from '../HealthcareServices/selectors';
 
 export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -65,39 +67,52 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       name, hcsProgramName, category, hcsType, hcsSpecialty, hcsStatus, hcsReferralMethod, telecomType, telecomValue,
     } = healthcareServiceFormData;
 
-    hcsDataToSubmit.name = name;
+    if (!isUndefined(name)) {
+      hcsDataToSubmit.name = name;
+    }
 
-    const programName = [];
-    programName.push(hcsProgramName);
-    hcsDataToSubmit.programName = programName;
-
+    if (!isUndefined(hcsProgramName)) {
+      const programName = [];
+      programName.push(hcsProgramName);
+      hcsDataToSubmit.programName = programName;
+    }
     let code;
-    code = category;
-    hcsDataToSubmit.category = find(this.props.healthcareServiceCategories, { code });
-
-    code = hcsType;
-    const selectedType = find(this.props.healthcareServiceTypes, { code });
-    const type = [];
-    type.push(selectedType);
-    hcsDataToSubmit.type = type;
-
-    code = hcsSpecialty;
-    const selectedSpeciality = find(this.props.healthcareServiceSpecialities, { code });
-    const specialty = [];
-    specialty.push(selectedSpeciality);
-    hcsDataToSubmit.specialty = specialty;
-
-    code = hcsReferralMethod;
-    const selectedReferralMethod = find(this.props.healthcareServiceReferralMethods, { code });
-    const referralMethod = [];
-    referralMethod.push(selectedReferralMethod);
-    hcsDataToSubmit.referralMethod = referralMethod;
-
-    hcsDataToSubmit.telecom = [{
-      system: telecomType,
-      value: telecomValue,
-    }];
-
+    if (!isUndefined(category)) {
+      code = category;
+      hcsDataToSubmit.category = find(this.props.healthcareServiceCategories, { code });
+    }
+    if (!isUndefined(hcsType)) {
+      code = hcsType;
+      const selectedType = find(this.props.healthcareServiceTypes, { code });
+      const type = [];
+      type.push(selectedType);
+      hcsDataToSubmit.type = type;
+    }
+    if (!isUndefined(hcsSpecialty)) {
+      code = hcsSpecialty;
+      const selectedSpeciality = find(this.props.healthcareServiceSpecialities, { code });
+      const specialty = [];
+      specialty.push(selectedSpeciality);
+      hcsDataToSubmit.specialty = specialty;
+    }
+    if (!isUndefined(hcsReferralMethod)) {
+      code = hcsReferralMethod;
+      const selectedReferralMethod = find(this.props.healthcareServiceReferralMethods, { code });
+      const referralMethod = [];
+      referralMethod.push(selectedReferralMethod);
+      hcsDataToSubmit.referralMethod = referralMethod;
+    }
+    if (!isUndefined(telecomType)) {
+      hcsDataToSubmit.telecom = [{
+        system: telecomType,
+      }];
+    }
+    if (!isUndefined(telecomValue)) {
+      hcsDataToSubmit.telecom = [{
+        value: telecomValue,
+      }];
+    }
+    Util.pickByIdentity(hcsDataToSubmit);
     const logicalId = this.props.match.params.id;
     if (logicalId) {
       hcsDataToSubmit.active = hcsStatus;
