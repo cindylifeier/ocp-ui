@@ -7,11 +7,12 @@ import { isTokenExpired, retrieveAuthStatus, retrieveToken } from './tokenServic
 const ACCESS_SCOPE = 'ocpUi.access';
 
 export function hasAccessScopeInToken(token) {
+  let hasAccessScope = false;
   if (!isEmpty(token)) {
     const decodedAccessToken = jwt.decode(token.access_token);
-    return includes(decodedAccessToken.scope, ACCESS_SCOPE);
+    hasAccessScope = includes(decodedAccessToken.scope, ACCESS_SCOPE);
   }
-  return false;
+  return hasAccessScope;
 }
 
 export function checkAuthenticated() {
