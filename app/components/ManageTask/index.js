@@ -14,17 +14,21 @@ import messages from './messages';
 
 
 function ManageTask(props) {
-  const { onSave, taskStatus, requestIntent,
-          requestPriority, taskPerformerType, selectedPatient,
-        organization, activityDefinitions, practitioners } = props;
-  const formData = { taskStatus,
+  const {
+    onSave, taskStatus, requestIntent,
+    requestPriority, taskPerformerType, selectedPatient,
+    organization, activityDefinitions, practitioners,
+  } = props;
+  const formData = {
+    taskStatus,
     requestIntent,
     requestPriority,
     taskPerformerType,
     selectedPatient,
     organization,
     activityDefinitions,
-    practitioners };
+    practitioners,
+  };
 
   return (
     <div>
