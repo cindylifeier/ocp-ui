@@ -1,7 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15/build/index';
+import 'jest-styled-components';
 
 import H3 from '../index';
+
+configure({ adapter: new Adapter() });
 
 describe('<H3 />', () => {
   it('should render a prop', () => {

@@ -1,3 +1,4 @@
+import 'mock-local-storage';
 import { DEFAULT_LOCALE } from '../containers/App/constants';
 import { formatTranslationMessages } from '../i18n';
 

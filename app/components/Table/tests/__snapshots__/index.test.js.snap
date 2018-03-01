@@ -4,18 +4,18 @@ exports[`<Table /> should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Table>
+  Symbol(enzyme.__unrendered__): <Table__Table>
     <TableHeader>
-      <TableHeaderColumn>
+      <TableHeaderColumn__TableHeaderColumn>
         Col
-      </TableHeaderColumn>
+      </TableHeaderColumn__TableHeaderColumn>
     </TableHeader>
     <TableRow>
-      <TableRowColumn>
+      <TableRowColumn__TableRowColumn>
         Row
-      </TableRowColumn>
+      </TableRowColumn__TableRowColumn>
     </TableRow>
-  </Table>,
+  </Table__Table>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -28,40 +28,90 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <div
-        className={undefined}
-      >
+      "children": Array [
         <TableHeader>
-          <TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             Col
-          </TableHeaderColumn>
-        </TableHeader>
+          </TableHeaderColumn__TableHeaderColumn>
+        </TableHeader>,
         <TableRow>
-          <TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Row
-          </TableRowColumn>
-        </TableRow>
-      </div>,
+          </TableRowColumn__TableRowColumn>
+        </TableRow>,
+      ],
+      "className": "Table__Table-fLBySN bvFOIN",
     },
     "ref": null,
-    "rendered": Object {
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <TableHeaderColumn__TableHeaderColumn>
+            Col
+          </TableHeaderColumn__TableHeaderColumn>,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Col",
+          },
+          "ref": null,
+          "rendered": "Col",
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <TableRowColumn__TableRowColumn>
+            Row
+          </TableRowColumn__TableRowColumn>,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Row",
+          },
+          "ref": null,
+          "rendered": "Row",
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
       "instance": null,
       "key": undefined,
       "nodeType": "host",
       "props": Object {
         "children": Array [
           <TableHeader>
-            <TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               Col
-            </TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>,
           <TableRow>
-            <TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Row
-            </TableRowColumn>
+            </TableRowColumn__TableRowColumn>
           </TableRow>,
         ],
-        "className": undefined,
+        "className": "Table__Table-fLBySN bvFOIN",
       },
       "ref": null,
       "rendered": Array [
@@ -70,15 +120,15 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": <TableHeaderColumn>
+            "children": <TableHeaderColumn__TableHeaderColumn>
               Col
-            </TableHeaderColumn>,
+            </TableHeaderColumn__TableHeaderColumn>,
           },
           "ref": null,
           "rendered": Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": "Col",
             },
@@ -93,15 +143,15 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": <TableRowColumn>
+            "children": <TableRowColumn__TableRowColumn>
               Row
-            </TableRowColumn>,
+            </TableRowColumn__TableRowColumn>,
           },
           "ref": null,
           "rendered": Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": "Row",
             },
@@ -112,102 +162,6 @@ ShallowWrapper {
           "type": [Function],
         },
       ],
-      "type": "div",
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <div
-          className={undefined}
-        >
-          <TableHeader>
-            <TableHeaderColumn>
-              Col
-            </TableHeaderColumn>
-          </TableHeader>
-          <TableRow>
-            <TableRowColumn>
-              Row
-            </TableRowColumn>
-          </TableRow>
-        </div>,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <TableHeader>
-              <TableHeaderColumn>
-                Col
-              </TableHeaderColumn>
-            </TableHeader>,
-            <TableRow>
-              <TableRowColumn>
-                Row
-              </TableRowColumn>
-            </TableRow>,
-          ],
-          "className": undefined,
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "children": <TableHeaderColumn>
-                Col
-              </TableHeaderColumn>,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": "Col",
-              },
-              "ref": null,
-              "rendered": "Col",
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "children": <TableRowColumn>
-                Row
-              </TableRowColumn>,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": "Row",
-              },
-              "ref": null,
-              "rendered": "Row",
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-        ],
-        "type": "div",
-      },
       "type": "div",
     },
   ],

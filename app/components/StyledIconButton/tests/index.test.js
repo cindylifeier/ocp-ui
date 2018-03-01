@@ -62,7 +62,7 @@ describe('<StyledIconButton />', () => {
         <MuiThemeProvider><StyledIconButton><NavigationMenu /></StyledIconButton></MuiThemeProvider>);
 
       // Assert
-      expect(renderedComponent.find(StyledIconButton)).toHaveStyleRule('fill', '#26A69A !important', {
+      expect(renderedComponent.find(StyledIconButton)).toHaveStyleRule('fill', '#26a69a !important', {
         modifier: ':hover svg',
       });
     });
