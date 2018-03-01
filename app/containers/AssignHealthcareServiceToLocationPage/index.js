@@ -25,6 +25,7 @@ import PageContent from 'components/PageContent';
 import InlineLabel from 'components/InlineLabel';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -35,7 +36,6 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import styles from './styles.css';
 import messages from './messages';
 import {
   getHealthcareServicesLocationAssignment,
@@ -143,9 +143,9 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-          <div className={styles.noHealthcareServices}>
+          <NoResultsFoundText>
             <FormattedMessage {...messages.noHealthcareServicesFound} />
-          </div>
+          </NoResultsFoundText>
           }
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
