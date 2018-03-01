@@ -11,14 +11,14 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import { getPatient } from '../App/actions';
-import renderNotFoundComponent from '../NotFoundPage/render';
-import renderTasksComponent from '../Tasks/render';
-import GoldenLayout from '../../components/GoldenLayout';
-import PatientPageGrid from './PatientPageGrid';
-import PatientPageCell from './PatientPageCell';
-import PatientDetails from '../../components/PatientDetails';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { getPatient } from 'containers/App/actions';
+import renderNotFoundComponent from 'containers/NotFoundPage/render';
+import renderTasksComponent from 'containers/Tasks/render';
+import GoldenLayout from 'components/GoldenLayout';
+import PatientPageGrid from 'containers/PatientPage/PatientPageGrid';
+import PatientPageCell from 'containers/PatientPage/PatientPageCell';
+import PatientDetails from 'components/PatientDetails';
 
 const initialStateMetadata =
   {
