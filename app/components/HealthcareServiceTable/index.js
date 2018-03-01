@@ -10,16 +10,15 @@ import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
+import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import StyledMenuItem from 'components/StyledMenuItem';
-
-import styles from './styles.css';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
 function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
@@ -97,14 +96,14 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
         {!isEmpty(elements) && elements.map((element) => (
           <TableRow key={element.logicalId}>
             <TableRowColumn>
-              <div className={styles.checkboxGridContainer}>
-                <div className={styles.checkboxGridItem}>
+              <Grid columns={12}>
+                <Cell left={2} width={1}>
                   <Checkbox
                     checked={element.assignedToCurrentLocation}
                     onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
                   />
-                </div>
-              </div>
+                </Cell>
+              </Grid>
             </TableRowColumn>
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
