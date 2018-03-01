@@ -18,6 +18,10 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Dialog from 'material-ui/Dialog';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import HealthcareServiceTable from 'components/HealthcareServiceTable';
+import StyledFlatButton from 'components/StyledFlatButton';
+import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -29,8 +33,6 @@ import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
   getHealthcareServicesLocationAssignment,
   initializeAssignHealthCareServiceToLocationPage,
@@ -38,9 +40,6 @@ import {
   unassignHealthcareServicesLocationAssignment,
   updateHealthcareServicesLocationAssignment,
 } from './actions';
-import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
-import StyledFlatButton from '../../components/StyledFlatButton';
-
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
