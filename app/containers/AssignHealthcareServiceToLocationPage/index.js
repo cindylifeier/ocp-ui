@@ -21,6 +21,7 @@ import Dialog from 'material-ui/Dialog';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import StyledFlatButton from 'components/StyledFlatButton';
+import Page from 'components/Page';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -109,7 +110,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
       />,
     ];
     return (
-      <div className={styles.root}>
+      <Page>
         <Helmet>
           <title>Assign Healthcare Service To the Location</title>
           <meta name="description" content="Assign the selected Healthcare Service to the Location" />
@@ -178,7 +179,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
             }}
           />
         </Dialog>
-      </div>
+      </Page>
     );
   }
 }

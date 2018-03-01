@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.root {
-  background-color: white;
-}
-
 .header, .noHealthcareServices {
   font-size: 1.3rem;
   font-weight: bold;
