@@ -23,6 +23,7 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import InlineLabel from 'components/InlineLabel';
+import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
@@ -149,7 +150,13 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
           <div>
-            <HealthcareServiceTable elements={healthcareServices} showAssigned onCheck={this.onCheckAssignedCheckbox} />
+            <CenterAlign>
+              <HealthcareServiceTable
+                elements={healthcareServices}
+                showAssigned
+                onCheck={this.onCheckAssignedCheckbox}
+              />
+            </CenterAlign>
             <CenterAlignedUltimatePagination
               currentPage={this.props.currentPage}
               totalPages={this.props.totalPages}
