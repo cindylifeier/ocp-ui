@@ -111,7 +111,10 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
             <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
             <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
             <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
-            <TableRowColumn>{element.active ? 'Active' : 'Inactive'}</TableRowColumn>
+            <TableRowColumn>{element.active ?
+              <FormattedMessage {...messages.labelActive} /> :
+              <FormattedMessage {...messages.labelInactive} />}
+            </TableRowColumn>
           </TableRow>
         ))}
       </Table>}
