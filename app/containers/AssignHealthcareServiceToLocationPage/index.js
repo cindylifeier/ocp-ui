@@ -13,7 +13,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import Divider from 'material-ui/Divider';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,6 +21,7 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import StyledFlatButton from 'components/StyledFlatButton';
 import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -115,11 +115,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <title>Assign Healthcare Service To the Location</title>
           <meta name="description" content="Assign the selected Healthcare Service to the Location" />
         </Helmet>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
-        <Divider />
-
+        <PageHeader title={<FormattedMessage {...messages.header} />} />
         <div>
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
