@@ -8,6 +8,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import { LOGOUT } from './containers/Logout/constants';
 
 /*
  * routeReducer
@@ -39,12 +40,14 @@ function routeReducer(state = routeInitialState, action) {
 
 /**
  * Creates the main reducer with the dynamically injected ones
+ * Will reset entirely the redux state when receives logout action
  */
+// TODO: Might keep some unsecured cache data like lookup based on required
 export default function createReducer(injectedReducers) {
-  return combineReducers({
+  return (state, action) => combineReducers({
     global: globalReducer,
     route: routeReducer,
     language: languageProviderReducer,
     ...injectedReducers,
-  });
+  })(action.type === LOGOUT ? undefined : state, action);
 }
