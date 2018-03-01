@@ -15,7 +15,7 @@ import { LOGIN_URL } from '../App/constants';
 import { isTokenExpired, removeToken, retrieveToken } from '../../utils/tokenService';
 import Layout from '../../components/Layout';
 
-function Authentication(props) {
+export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
   if (isTokenExpired(retrieveToken())) {
     isAuthenticated = false;
