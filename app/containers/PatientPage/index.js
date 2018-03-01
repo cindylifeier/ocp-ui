@@ -16,11 +16,11 @@ import { getPatient } from 'containers/App/actions';
 import renderNotFoundComponent from 'containers/NotFoundPage/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import GoldenLayout from 'components/GoldenLayout';
-import PatientPageGrid from 'containers/PatientPage/PatientPageGrid';
-import PatientPageCell from 'containers/PatientPage/PatientPageCell';
 import PatientDetails from 'components/PatientDetails';
+import PatientPageGrid from './PatientPageGrid';
+import PatientPageCell from './PatientPageCell';
 
-const initialStateMetadata =
+export const initialStateMetadata =
   {
     settings: {
       hasHeaders: true,
@@ -125,7 +125,7 @@ const initialStateMetadata =
     maximisedItemId: null,
   };
 
-const componentMetadata = [
+export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   // TODO: will replace with Communication and Appointments render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
@@ -171,15 +171,17 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 
 PatientPage.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.object,
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
     path: PropTypes.string,
     url: PropTypes.string,
-  }),
+  }).isRequired,
+  getPatient: PropTypes.func.isRequired,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

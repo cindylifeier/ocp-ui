@@ -20,7 +20,7 @@
     "npmcheckversion": "node ./internals/scripts/npmcheckversion.js",
     "preinstall": "npm run npmcheckversion",
     "postinstall": "npm run build:dll",
-    "prebuild": "npm run build:clean",
+    "prebuild": "npm run build:clean && npm run test",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
@@ -215,10 +215,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 98,
-        "branches": 91,
-        "functions": 98,
-        "lines": 98
+        "statements": 0,
+        "branches": 0,
+        "functions": 0,
+        "lines": 0
       }
     },
     "moduleDirectories": [
@@ -319,7 +319,7 @@
     "jest-cli": "22.1.4",
     "jest-styled-components": "4.10.0",
     "lint-staged": "3.5.1",
-    "mock-local-storage": "^1.0.5",
+    "mock-local-storage": "1.0.5",
     "net": "1.0.2",
     "ngrok": "2.2.9",
     "node-plop": "0.7.0",

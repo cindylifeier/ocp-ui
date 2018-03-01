@@ -2,6 +2,7 @@
  * Test context.js
  */
 
+import 'mock-local-storage';
 import { history, store } from '../context';
 
 describe('context', () => {

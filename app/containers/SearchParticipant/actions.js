@@ -6,19 +6,13 @@
 
 import {
   ADD_PARTICIPANT,
-  DEFAULT_ACTION,
-  INITIALIZE_SEARCH_PARTICIPANT, INITIALIZE_SEARCH_PARTICIPANT_RESULT,
+  INITIALIZE_SEARCH_PARTICIPANT,
+  INITIALIZE_SEARCH_PARTICIPANT_RESULT,
   REMOVE_PARTICIPANT,
   SEARCH_PARTICIPANT,
   SEARCH_PARTICIPANT_ERROR,
   SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
-
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 
 export function getSearchParticipant(name, member, patientId) {
   return {
