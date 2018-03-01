@@ -43,6 +43,7 @@ import {
   unassignHealthcareServicesLocationAssignment,
   updateHealthcareServicesLocationAssignment,
 } from './actions';
+import InfoSection from './InfoSection';
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -122,18 +123,18 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
           {organization && selectedLocation && <div>
-            <div className={styles.organizationInfoSection}>
+            <InfoSection>
               <InlineLabel>
                 Organization&nbsp;:&nbsp;
               </InlineLabel>
               {organization.name}
-            </div>
-            <div className={styles.locationInfoSection}>
+            </InfoSection>
+            <InfoSection>
               <InlineLabel>
                 Location&nbsp;:&nbsp;
               </InlineLabel>
               {selectedLocation.name}
-            </div>
+            </InfoSection>
           </div>
           }
 
