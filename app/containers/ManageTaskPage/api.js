@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import queryString from '../../utils/queryString';
 import request from '../../utils/request';
-import { DEFAULT_PAGE_SIZE, EMPTY_STRING } from '../App/constants';
+import { DEFAULT_PAGE_SIZE } from '../App/constants';
 import {
   BASE_ORGANIZATIONS_API_URL,
   BASE_PRACTITIONERS_API_URL,
@@ -62,25 +62,4 @@ export function createTask(taskFormData) {
       'Content-Type': 'application/json',
     },
   });
-}
-
-export function getResourceName(resource) {
-  const names = resource.name;
-  return names && names
-    .map((name) => {
-      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
-      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      let fullName = EMPTY_STRING;
-      fullName = ` ${firstName} ${lastName}`;
-      return fullName;
-    })
-    .join(', ');
-}
-
-export function getResourceDisplayNameAndId(resource) {
-  let displayName = resource.name;
-  if (resource && resource.name && resource.logicalId) {
-    displayName = `${resource.name}-${resource.logicalId}`;
-  }
-  return displayName;
 }
