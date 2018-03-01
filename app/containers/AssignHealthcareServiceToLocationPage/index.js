@@ -26,6 +26,7 @@ import InlineLabel from 'components/InlineLabel';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import H3 from 'components/H3';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -166,7 +167,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           }
         </PageContent>
         <Dialog
-          title="Unassign Healthcare Service"
+          title={<H3><FormattedMessage {...messages.dialogTitleUnassignHealthcareService} /></H3>}
           actions={actions}
           modal
           open={this.state.open}

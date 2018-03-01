@@ -35,4 +35,8 @@ export default defineMessages({
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.dialogButtonLabelCancel',
     defaultMessage: 'Cancel',
   },
+  dialogTitleUnassignHealthcareService: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.dialogTitleUnassignHealthcareService',
+    defaultMessage: 'Unassign Healthcare Service',
+  },
 });
