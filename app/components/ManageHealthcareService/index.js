@@ -84,8 +84,9 @@ function setFormData(currentHealthcareService) {
       mapHealthcareServiceToSpeciality(currentHealthcareService),
       mapHealthcareServiceToReferralMethod(currentHealthcareService),
       mapHealthcareServiceToFirstTelecoms(currentHealthcareService));
+    return merge(Util.pickByIdentity(formData), mapHealthcareServiceToStatus(currentHealthcareService));
   }
-  return merge(Util.pickByIdentity(formData), mapHealthcareServiceToStatus(currentHealthcareService));
+  return Util.pickByIdentity(formData);
 }
 
 function mapHealthcareServiceToName(healthcareService) {
@@ -106,11 +107,11 @@ function mapHealthcareServiceToProgramName(healthcareService) {
 }
 
 function mapHealthcareServiceToStatus(healthcareService) {
-  const status = {
+  return {
     hcsStatus: Util.setEmptyStringWhenUndefined(healthcareService.active),
   };
-  return status;
 }
+
 function mapHealthcareServiceToCategory(healthcareService) {
   let category = {};
   if (healthcareService.category && healthcareService.category.code) {

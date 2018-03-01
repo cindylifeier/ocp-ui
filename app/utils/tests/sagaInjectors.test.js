@@ -4,6 +4,7 @@
 
 import { memoryHistory } from 'react-router-dom';
 import { put } from 'redux-saga/effects';
+import 'mock-local-storage';
 
 import configureStore from '../../configureStore';
 import getInjectors, {

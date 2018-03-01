@@ -3,13 +3,17 @@
  */
 
 import { memoryHistory } from 'react-router-dom';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import React from 'react';
 import identity from 'lodash/identity';
+import 'mock-local-storage';
 
 import configureStore from '../../configureStore';
 import injectReducer from '../injectReducer';
 import * as reducerInjectors from '../reducerInjectors';
+
+configure({ adapter: new Adapter() });
 
 // Fixtures
 const Component = () => null;

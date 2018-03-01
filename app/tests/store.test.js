@@ -2,6 +2,7 @@
  * Test store addons
  */
 
+import 'mock-local-storage';
 import { browserHistory } from 'react-router-dom';
 import configureStore from '../configureStore';
 

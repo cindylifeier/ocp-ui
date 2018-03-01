@@ -83,87 +83,87 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <Table>
+      "children": <Table__Table>
         <TableHeader>
-          <TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Name"
               id="ocpui.components.CareTeamTable.columnHeaderName"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Status"
               id="ocpui.components.CareTeamTable.columnHeaderStatus"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Categories"
               id="ocpui.components.CareTeamTable.columnHeaderCategories"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Participant / Role"
               id="ocpui.components.CareTeamTable.columnHeaderCategories"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Start Date"
               id="ocpui.components.CareTeamTable.columnHeaderStartDate"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="End Date"
               id="ocpui.components.CareTeamTable.columnHeaderEndDate"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Reason"
               id="ocpui.components.CareTeamTable.columnHeaderReason"
               values={Object {}}
             />
-          </TableHeaderColumn>
-          <TableHeaderColumn />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn />
         </TableHeader>
         <TableRow>
-          <TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             My Care Team One
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Active
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Encounter
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             <div>
               Gregory House / Medical doctor
             </div>
             <div>
               Great Cross Hospital / Prison practice
             </div>
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             01/01/2017
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             02/01/2017
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Anxiety disorder of childhood OR adolescence
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             <Grid__Grid
               columns="1fr 50px"
               gap="0px"
@@ -236,33 +236,33 @@ ShallowWrapper {
                 </IconMenu>
               </Cell__Cell>
             </Grid__Grid>
-          </TableRowColumn>
+          </TableRowColumn__TableRowColumn>
         </TableRow>
         <TableRow>
-          <TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             My Care Team Two
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Suspended
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Condition
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             <div>
               Granny Smith / Grand-mother
             </div>
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             04/01/2017
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             08/01/2017
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             Decreased hair growth
-          </TableRowColumn>
-          <TableRowColumn>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
             <Grid__Grid
               columns="1fr 50px"
               gap="0px"
@@ -335,98 +335,98 @@ ShallowWrapper {
                 </IconMenu>
               </Cell__Cell>
             </Grid__Grid>
-          </TableRowColumn>
+          </TableRowColumn__TableRowColumn>
         </TableRow>
-      </Table>,
+      </Table__Table>,
     },
     "ref": null,
     "rendered": Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "function",
+      "nodeType": "class",
       "props": Object {
         "children": Array [
           <TableHeader>
-            <TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
                 id="ocpui.components.CareTeamTable.columnHeaderName"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Status"
                 id="ocpui.components.CareTeamTable.columnHeaderStatus"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Categories"
                 id="ocpui.components.CareTeamTable.columnHeaderCategories"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Participant / Role"
                 id="ocpui.components.CareTeamTable.columnHeaderCategories"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Start Date"
                 id="ocpui.components.CareTeamTable.columnHeaderStartDate"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="End Date"
                 id="ocpui.components.CareTeamTable.columnHeaderEndDate"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Reason"
                 id="ocpui.components.CareTeamTable.columnHeaderReason"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn />
           </TableHeader>,
           Array [
             <TableRow>
-              <TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 My Care Team One
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 Active
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 Encounter
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 <div>
                   Gregory House / Medical doctor
                 </div>
                 <div>
                   Great Cross Hospital / Prison practice
                 </div>
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 01/01/2017
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 02/01/2017
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 Anxiety disorder of childhood OR adolescence
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 <Grid__Grid
                   columns="1fr 50px"
                   gap="0px"
@@ -499,33 +499,33 @@ ShallowWrapper {
                     </IconMenu>
                   </Cell__Cell>
                 </Grid__Grid>
-              </TableRowColumn>
+              </TableRowColumn__TableRowColumn>
             </TableRow>,
             <TableRow>
-              <TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 My Care Team Two
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 Suspended
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 Condition
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 <div>
                   Granny Smith / Grand-mother
                 </div>
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 04/01/2017
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 08/01/2017
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 Decreased hair growth
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 <Grid__Grid
                   columns="1fr 50px"
                   gap="0px"
@@ -598,7 +598,7 @@ ShallowWrapper {
                     </IconMenu>
                   </Cell__Cell>
                 </Grid__Grid>
-              </TableRowColumn>
+              </TableRowColumn__TableRowColumn>
             </TableRow>,
           ],
         ],
@@ -611,56 +611,56 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": Array [
-              <TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Name"
                   id="ocpui.components.CareTeamTable.columnHeaderName"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Status"
                   id="ocpui.components.CareTeamTable.columnHeaderStatus"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Categories"
                   id="ocpui.components.CareTeamTable.columnHeaderCategories"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Participant / Role"
                   id="ocpui.components.CareTeamTable.columnHeaderCategories"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Start Date"
                   id="ocpui.components.CareTeamTable.columnHeaderStartDate"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="End Date"
                   id="ocpui.components.CareTeamTable.columnHeaderEndDate"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Reason"
                   id="ocpui.components.CareTeamTable.columnHeaderReason"
                   values={Object {}}
                 />
-              </TableHeaderColumn>,
-              <TableHeaderColumn />,
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn />,
             ],
           },
           "ref": null,
@@ -668,7 +668,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="Name"
@@ -695,7 +695,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="Status"
@@ -722,7 +722,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="Categories"
@@ -749,7 +749,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="Participant / Role"
@@ -776,7 +776,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="Start Date"
@@ -803,7 +803,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="End Date"
@@ -830,7 +830,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
                   defaultMessage="Reason"
@@ -857,7 +857,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {},
               "ref": null,
               "rendered": null,
@@ -872,33 +872,33 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": Array [
-              <TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 My Care Team One
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 Active
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 Encounter
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 <div>
                   Gregory House / Medical doctor
                 </div>
                 <div>
                   Great Cross Hospital / Prison practice
                 </div>
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 01/01/2017
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 02/01/2017
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 Anxiety disorder of childhood OR adolescence
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 <Grid__Grid
                   columns="1fr 50px"
                   gap="0px"
@@ -971,7 +971,7 @@ ShallowWrapper {
                     </IconMenu>
                   </Cell__Cell>
                 </Grid__Grid>
-              </TableRowColumn>,
+              </TableRowColumn__TableRowColumn>,
             ],
           },
           "ref": null,
@@ -979,7 +979,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "My Care Team One",
               },
@@ -990,7 +990,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "Active",
               },
@@ -1001,7 +1001,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "Encounter",
               },
@@ -1012,7 +1012,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": Array [
                   <div>
@@ -1053,7 +1053,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "01/01/2017",
               },
@@ -1064,7 +1064,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "02/01/2017",
               },
@@ -1075,7 +1075,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "Anxiety disorder of childhood OR adolescence",
               },
@@ -1086,7 +1086,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <Grid__Grid
                   columns="1fr 50px"
@@ -1431,30 +1431,30 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": Array [
-              <TableRowColumn>
+              <TableRowColumn__TableRowColumn>
                 My Care Team Two
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 Suspended
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 Condition
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 <div>
                   Granny Smith / Grand-mother
                 </div>
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 04/01/2017
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 08/01/2017
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 Decreased hair growth
-              </TableRowColumn>,
-              <TableRowColumn>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
                 <Grid__Grid
                   columns="1fr 50px"
                   gap="0px"
@@ -1527,7 +1527,7 @@ ShallowWrapper {
                     </IconMenu>
                   </Cell__Cell>
                 </Grid__Grid>
-              </TableRowColumn>,
+              </TableRowColumn__TableRowColumn>,
             ],
           },
           "ref": null,
@@ -1535,7 +1535,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "My Care Team Two",
               },
@@ -1546,7 +1546,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "Suspended",
               },
@@ -1557,7 +1557,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "Condition",
               },
@@ -1568,7 +1568,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": Array [
                   <div>
@@ -1595,7 +1595,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "04/01/2017",
               },
@@ -1606,7 +1606,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "08/01/2017",
               },
@@ -1617,7 +1617,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": "Decreased hair growth",
               },
@@ -1628,7 +1628,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": <Grid__Grid
                   columns="1fr 50px"
@@ -1978,87 +1978,87 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <Table>
+        "children": <Table__Table>
           <TableHeader>
-            <TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
                 id="ocpui.components.CareTeamTable.columnHeaderName"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Status"
                 id="ocpui.components.CareTeamTable.columnHeaderStatus"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Categories"
                 id="ocpui.components.CareTeamTable.columnHeaderCategories"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Participant / Role"
                 id="ocpui.components.CareTeamTable.columnHeaderCategories"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Start Date"
                 id="ocpui.components.CareTeamTable.columnHeaderStartDate"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="End Date"
                 id="ocpui.components.CareTeamTable.columnHeaderEndDate"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Reason"
                 id="ocpui.components.CareTeamTable.columnHeaderReason"
                 values={Object {}}
               />
-            </TableHeaderColumn>
-            <TableHeaderColumn />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn />
           </TableHeader>
           <TableRow>
-            <TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               My Care Team One
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Active
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Encounter
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               <div>
                 Gregory House / Medical doctor
               </div>
               <div>
                 Great Cross Hospital / Prison practice
               </div>
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               01/01/2017
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               02/01/2017
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Anxiety disorder of childhood OR adolescence
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               <Grid__Grid
                 columns="1fr 50px"
                 gap="0px"
@@ -2131,33 +2131,33 @@ ShallowWrapper {
                   </IconMenu>
                 </Cell__Cell>
               </Grid__Grid>
-            </TableRowColumn>
+            </TableRowColumn__TableRowColumn>
           </TableRow>
           <TableRow>
-            <TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               My Care Team Two
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Suspended
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Condition
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               <div>
                 Granny Smith / Grand-mother
               </div>
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               04/01/2017
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               08/01/2017
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               Decreased hair growth
-            </TableRowColumn>
-            <TableRowColumn>
+            </TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn>
               <Grid__Grid
                 columns="1fr 50px"
                 gap="0px"
@@ -2230,98 +2230,98 @@ ShallowWrapper {
                   </IconMenu>
                 </Cell__Cell>
               </Grid__Grid>
-            </TableRowColumn>
+            </TableRowColumn__TableRowColumn>
           </TableRow>
-        </Table>,
+        </Table__Table>,
       },
       "ref": null,
       "rendered": Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "function",
+        "nodeType": "class",
         "props": Object {
           "children": Array [
             <TableHeader>
-              <TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Name"
                   id="ocpui.components.CareTeamTable.columnHeaderName"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Status"
                   id="ocpui.components.CareTeamTable.columnHeaderStatus"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Categories"
                   id="ocpui.components.CareTeamTable.columnHeaderCategories"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Participant / Role"
                   id="ocpui.components.CareTeamTable.columnHeaderCategories"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Start Date"
                   id="ocpui.components.CareTeamTable.columnHeaderStartDate"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="End Date"
                   id="ocpui.components.CareTeamTable.columnHeaderEndDate"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn>
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Reason"
                   id="ocpui.components.CareTeamTable.columnHeaderReason"
                   values={Object {}}
                 />
-              </TableHeaderColumn>
-              <TableHeaderColumn />
+              </TableHeaderColumn__TableHeaderColumn>
+              <TableHeaderColumn__TableHeaderColumn />
             </TableHeader>,
             Array [
               <TableRow>
-                <TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   My Care Team One
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   Active
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   Encounter
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   <div>
                     Gregory House / Medical doctor
                   </div>
                   <div>
                     Great Cross Hospital / Prison practice
                   </div>
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   01/01/2017
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   02/01/2017
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   Anxiety disorder of childhood OR adolescence
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   <Grid__Grid
                     columns="1fr 50px"
                     gap="0px"
@@ -2394,33 +2394,33 @@ ShallowWrapper {
                       </IconMenu>
                     </Cell__Cell>
                   </Grid__Grid>
-                </TableRowColumn>
+                </TableRowColumn__TableRowColumn>
               </TableRow>,
               <TableRow>
-                <TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   My Care Team Two
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   Suspended
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   Condition
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   <div>
                     Granny Smith / Grand-mother
                   </div>
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   04/01/2017
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   08/01/2017
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   Decreased hair growth
-                </TableRowColumn>
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   <Grid__Grid
                     columns="1fr 50px"
                     gap="0px"
@@ -2493,7 +2493,7 @@ ShallowWrapper {
                       </IconMenu>
                     </Cell__Cell>
                   </Grid__Grid>
-                </TableRowColumn>
+                </TableRowColumn__TableRowColumn>
               </TableRow>,
             ],
           ],
@@ -2506,56 +2506,56 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
-                <TableHeaderColumn>
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Name"
                     id="ocpui.components.CareTeamTable.columnHeaderName"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn>
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Status"
                     id="ocpui.components.CareTeamTable.columnHeaderStatus"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn>
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Categories"
                     id="ocpui.components.CareTeamTable.columnHeaderCategories"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn>
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Participant / Role"
                     id="ocpui.components.CareTeamTable.columnHeaderCategories"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn>
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Start Date"
                     id="ocpui.components.CareTeamTable.columnHeaderStartDate"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn>
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="End Date"
                     id="ocpui.components.CareTeamTable.columnHeaderEndDate"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn>
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Reason"
                     id="ocpui.components.CareTeamTable.columnHeaderReason"
                     values={Object {}}
                   />
-                </TableHeaderColumn>,
-                <TableHeaderColumn />,
+                </TableHeaderColumn__TableHeaderColumn>,
+                <TableHeaderColumn__TableHeaderColumn />,
               ],
             },
             "ref": null,
@@ -2563,7 +2563,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="Name"
@@ -2590,7 +2590,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="Status"
@@ -2617,7 +2617,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="Categories"
@@ -2644,7 +2644,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="Participant / Role"
@@ -2671,7 +2671,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="Start Date"
@@ -2698,7 +2698,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="End Date"
@@ -2725,7 +2725,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
                     defaultMessage="Reason"
@@ -2752,7 +2752,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {},
                 "ref": null,
                 "rendered": null,
@@ -2767,33 +2767,33 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
-                <TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   My Care Team One
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   Active
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   Encounter
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   <div>
                     Gregory House / Medical doctor
                   </div>
                   <div>
                     Great Cross Hospital / Prison practice
                   </div>
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   01/01/2017
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   02/01/2017
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   Anxiety disorder of childhood OR adolescence
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   <Grid__Grid
                     columns="1fr 50px"
                     gap="0px"
@@ -2866,7 +2866,7 @@ ShallowWrapper {
                       </IconMenu>
                     </Cell__Cell>
                   </Grid__Grid>
-                </TableRowColumn>,
+                </TableRowColumn__TableRowColumn>,
               ],
             },
             "ref": null,
@@ -2874,7 +2874,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "My Care Team One",
                 },
@@ -2885,7 +2885,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Active",
                 },
@@ -2896,7 +2896,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Encounter",
                 },
@@ -2907,7 +2907,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": Array [
                     <div>
@@ -2948,7 +2948,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "01/01/2017",
                 },
@@ -2959,7 +2959,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "02/01/2017",
                 },
@@ -2970,7 +2970,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Anxiety disorder of childhood OR adolescence",
                 },
@@ -2981,7 +2981,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <Grid__Grid
                     columns="1fr 50px"
@@ -3326,30 +3326,30 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
-                <TableRowColumn>
+                <TableRowColumn__TableRowColumn>
                   My Care Team Two
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   Suspended
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   Condition
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   <div>
                     Granny Smith / Grand-mother
                   </div>
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   04/01/2017
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   08/01/2017
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   Decreased hair growth
-                </TableRowColumn>,
-                <TableRowColumn>
+                </TableRowColumn__TableRowColumn>,
+                <TableRowColumn__TableRowColumn>
                   <Grid__Grid
                     columns="1fr 50px"
                     gap="0px"
@@ -3422,7 +3422,7 @@ ShallowWrapper {
                       </IconMenu>
                     </Cell__Cell>
                   </Grid__Grid>
-                </TableRowColumn>,
+                </TableRowColumn__TableRowColumn>,
               ],
             },
             "ref": null,
@@ -3430,7 +3430,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "My Care Team Two",
                 },
@@ -3441,7 +3441,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Suspended",
                 },
@@ -3452,7 +3452,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Condition",
                 },
@@ -3463,7 +3463,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": Array [
                     <div>
@@ -3490,7 +3490,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "04/01/2017",
                 },
@@ -3501,7 +3501,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "08/01/2017",
                 },
@@ -3512,7 +3512,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Decreased hair growth",
                 },
@@ -3523,7 +3523,7 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {
                   "children": <Grid__Grid
                     columns="1fr 50px"

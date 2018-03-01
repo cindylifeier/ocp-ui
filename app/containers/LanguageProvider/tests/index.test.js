@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-15';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
+import 'mock-local-storage';
 
 import ConnectedLanguageProvider, { LanguageProvider } from '../index';
 import configureStore from '../../../configureStore';

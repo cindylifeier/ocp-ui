@@ -92,13 +92,14 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     return (
-      <GoldenLayoutContainer id={this.state.containerId} />
+      <GoldenLayoutContainer id={this.state.containerId} containerHeight={this.props.containerHeight} />
     );
   }
 }
 
 GoldenLayout.propTypes = {
   containerId: PropTypes.string,
+  containerHeight: PropTypes.string,
   stateMetadata: PropTypes.shape({
     content: PropTypes.arrayOf(PropTypes.shape({
       type: PropTypes.string.isRequired,
