@@ -22,6 +22,7 @@ import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import StyledFlatButton from 'components/StyledFlatButton';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -116,7 +117,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <meta name="description" content="Assign the selected Healthcare Service to the Location" />
         </Helmet>
         <PageHeader title={<FormattedMessage {...messages.header} />} />
-        <div>
+        <PageContent>
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
           {organization && selectedLocation && <div>
@@ -159,7 +160,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
             />
           </div>
           }
-        </div>
+        </PageContent>
         <Dialog
           title="Unassign Healthcare Service"
           actions={actions}
