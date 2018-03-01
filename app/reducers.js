@@ -40,8 +40,9 @@ function routeReducer(state = routeInitialState, action) {
 
 /**
  * Creates the main reducer with the dynamically injected ones
- * Will reset the redux state when receives logout action
+ * Will reset entirely the redux state when receives logout action
  */
+// TODO: Might keep some unsecured cache data like lookup based on required
 export default function createReducer(injectedReducers) {
   return (state, action) => combineReducers({
     global: globalReducer,
