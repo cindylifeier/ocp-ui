@@ -13,7 +13,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Dialog from 'material-ui/Dialog';
@@ -24,6 +23,7 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import InlineLabel from 'components/InlineLabel';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -148,16 +148,11 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           }
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
-          <div className={styles.textCenter}>
+          <div>
             <HealthcareServiceTable elements={healthcareServices} showAssigned onCheck={this.onCheckAssignedCheckbox} />
-            <UltimatePagination
+            <CenterAlignedUltimatePagination
               currentPage={this.props.currentPage}
               totalPages={this.props.totalPages}
-              boundaryPagesRange={1}
-              siblingPagesRange={1}
-              hidePreviousAndNextPageLinks={false}
-              hideFirstAndLastPageLinks={false}
-              hideEllipsis={false}
               onChange={this.handlePageClick}
             />
           </div>
