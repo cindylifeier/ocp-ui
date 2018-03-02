@@ -27,6 +27,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import H3 from 'components/H3';
+import InfoSection from 'components/InfoSection';
 import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
@@ -45,7 +46,6 @@ import {
   unassignHealthcareServicesLocationAssignment,
   updateHealthcareServicesLocationAssignment,
 } from './actions';
-import InfoSection from './InfoSection';
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
