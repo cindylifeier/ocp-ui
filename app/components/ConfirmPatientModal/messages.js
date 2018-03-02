@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.ConfirmPatientModal.header',
-    defaultMessage: 'This is the ConfirmPatientModal component !',
+  continueButton: {
+    id: 'ocpui.components.ConfirmPatientModal.continueButton',
+    defaultMessage: 'Continue',
   },
 });
