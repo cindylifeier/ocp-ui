@@ -15,6 +15,16 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Card from 'components/Card';
+import HealthcareServiceTable from 'components/HealthcareServiceTable/index';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
+import StatusCheckbox from 'components/StatusCheckbox/index';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import {
+  getHealthcareServicesByLocation,
+  getHealthcareServicesByOrganization,
+  initializeHealthcareServices,
+} from './actions';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -29,15 +39,6 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
-import HealthcareServiceTable from '../../components/HealthcareServiceTable/index';
-import {
-  getHealthcareServicesByLocation,
-  getHealthcareServicesByOrganization,
-  initializeHealthcareServices,
-} from './actions';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
-import StatusCheckbox from '../../components/StatusCheckbox/index';
-import { DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 
 export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -76,7 +77,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
   render() {
     const { loading, healthcareServices, organization, location } = this.props;
     return (
-      <div className={styles.card}>
+      <Card>
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
@@ -137,7 +138,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
           />
         </div>
         }
-      </div>
+      </Card>
     );
   }
 }
