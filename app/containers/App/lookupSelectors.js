@@ -41,6 +41,12 @@ import {
   REQUEST_PRIORITY,
   TASK_PERFORMER_TYPE,
   // Task Resource Lookups - End
+// Communication Resource lookups start
+  COMMUNICATION_STATUS,
+  COMMUNICATION_CATEGORY,
+  COMMUNICATION_NOT_DONE_REASON,
+  COMMUNICATION_MEDIUM,
+  // Communication Resource lookups end
 } from './constants';
 import selectGlobalDomain from './selectors';
 
@@ -239,6 +245,26 @@ const makeSelectRelatedArtifactTypes = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATED_ARTIFACT_TYPE).toJS(),
 );
 
+const makeSelectCommunicationStatus = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_STATUS).toJS(),
+);
+
+const makeSelectCommunicationCategories = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_CATEGORY).toJS(),
+);
+
+const makeSelectCommunicationNotDoneReasons = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_NOT_DONE_REASON).toJS(),
+);
+
+const makeSelectCommunicationMedia = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_MEDIUM).toJS(),
+);
+
 // Task Resource Lookups - End
 export {
   makeSelectUspsStates,
@@ -280,4 +306,8 @@ export {
   makeSelectRequestPriorities,
   makeSelectTaskPerformerTypes,
   makeSelectRelatedArtifactTypes,
+  makeSelectCommunicationStatus,
+  makeSelectCommunicationCategories,
+  makeSelectCommunicationNotDoneReasons,
+  makeSelectCommunicationMedia,
 };

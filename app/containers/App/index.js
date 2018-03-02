@@ -36,7 +36,7 @@ import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
 import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
 import PatientPage from '../PatientPage';
 import './styles.css';
-import { ManageCommunicationPage } from '../ManageCommunicationPage';
+import ManageCommunicationPage from '../ManageCommunicationPage';
 
 
 export function App() {

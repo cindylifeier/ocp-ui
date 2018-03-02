@@ -45,6 +45,12 @@ import {
   TASK_PERFORMER_TYPE,
   // Task Resource Lookups - End
   RELATED_ARTIFACT_TYPE,
+  // Communication Resource lookups start
+  COMMUNICATION_STATUS,
+  COMMUNICATION_CATEGORY,
+  COMMUNICATION_NOT_DONE_REASON,
+  COMMUNICATION_MEDIUM,
+  // Communication Resource lookups end
 } from './constants';
 
 // The initial state of the lookup
@@ -92,6 +98,12 @@ const initialState = fromJS({
   TASK_PERFORMER_TYPE: [],
   // Task Resource Lookups - End
   RELATED_ARTIFACT_TYPE: [],
+  // Communication Resource lookups start
+  COMMUNICATION_STATUS: [],
+  COMMUNICATION_CATEGORY: [],
+  COMMUNICATION_NOT_DONE_REASON: [],
+  COMMUNICATION_MEDIUM: [],
+  // Communication Resource lookups end
 });
 
 function lookupReducer(state = initialState, action) {
@@ -143,6 +155,12 @@ function lookupReducer(state = initialState, action) {
         .set(TASK_PERFORMER_TYPE, fromJS((action.lookups && action.lookups.taskPerformerType) || state.get(TASK_PERFORMER_TYPE)))
         // Task Resource Lookups - End
         .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
+        // Communication Resource lookups start
+        .set(COMMUNICATION_STATUS, fromJS((action.lookups && action.lookups.communicationStatus) || state.get(COMMUNICATION_STATUS)))
+        .set(COMMUNICATION_CATEGORY, fromJS((action.lookups && action.lookups.communicationCategory) || state.get(COMMUNICATION_CATEGORY)))
+        .set(COMMUNICATION_NOT_DONE_REASON, fromJS((action.lookups && action.lookups.communicationNotDoneReason) || state.get(COMMUNICATION_NOT_DONE_REASON)))
+        .set(COMMUNICATION_MEDIUM, fromJS((action.lookups && action.lookups.communicationMedium) || state.get(COMMUNICATION_MEDIUM)))
+        // Communication Resource lookups end
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
