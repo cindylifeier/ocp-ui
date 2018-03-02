@@ -6,8 +6,20 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.ManageCommunicationPage.header',
-    defaultMessage: 'This is ManageCommunicationPage container !',
+  pageTitle: {
+    id: 'ocpui.containers.ManageCommunicationPage.pageTitle',
+    defaultMessage: 'Manage Communication',
+  },
+  createModeTitle: {
+    id: 'ocpui.containers.ManageCommunicationPage.createModeTitle',
+    defaultMessage: 'Create Communication',
+  },
+  updateModeTitle: {
+    id: 'ocpui.containers.ManageCommunicationPage.updateModeTitle',
+    defaultMessage: 'Update Communication',
+  },
+  subtitle: {
+    id: 'ocpui.containers.ManageCommunicationPage.subtitle',
+    defaultMessage: 'General Information',
   },
 });
