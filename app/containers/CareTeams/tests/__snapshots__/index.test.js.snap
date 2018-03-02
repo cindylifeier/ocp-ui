@@ -98,20 +98,20 @@ ShallowWrapper {
           gap=""
         >
           <Cell__Cell>
-            <PatientInfoSection__PatientInfoSection>
-              <PatientLabel__PatientLabel>
+            <InfoSection__InfoSection>
+              <InlineLabel__InlineLabel>
                 <FormattedMessage
                   defaultMessage="Patient"
                   id="ocpui.containers.CareTeams.patientLabel"
                   values={Object {}}
                 />
                  : 
-              </PatientLabel__PatientLabel>
+              </InlineLabel__InlineLabel>
               patientName
-            </PatientInfoSection__PatientInfoSection>
+            </InfoSection__InfoSection>
           </Cell__Cell>
           <Cell__Cell>
-            <FilterSection__FilterSection>
+            <InfoSection__InfoSection>
               <styled.div
                 columns="60px repeat(1,120px) 180px 1fr"
                 gap=""
@@ -146,7 +146,7 @@ ShallowWrapper {
                   </styled.div>
                 </Cell__Cell>
               </styled.div>
-            </FilterSection__FilterSection>
+            </InfoSection__InfoSection>
           </Cell__Cell>
         </Grid__Grid>,
         false,
@@ -209,20 +209,20 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <Cell__Cell>
-              <PatientInfoSection__PatientInfoSection>
-                <PatientLabel__PatientLabel>
+              <InfoSection__InfoSection>
+                <InlineLabel__InlineLabel>
                   <FormattedMessage
                     defaultMessage="Patient"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
                    : 
-                </PatientLabel__PatientLabel>
+                </InlineLabel__InlineLabel>
                 patientName
-              </PatientInfoSection__PatientInfoSection>
+              </InfoSection__InfoSection>
             </Cell__Cell>,
             <Cell__Cell>
-              <FilterSection__FilterSection>
+              <InfoSection__InfoSection>
                 <styled.div
                   columns="60px repeat(1,120px) 180px 1fr"
                   gap=""
@@ -257,7 +257,7 @@ ShallowWrapper {
                     </styled.div>
                   </Cell__Cell>
                 </styled.div>
-              </FilterSection__FilterSection>
+              </InfoSection__InfoSection>
             </Cell__Cell>,
           ],
           "columns": 1,
@@ -270,17 +270,17 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": <PatientInfoSection__PatientInfoSection>
-                <PatientLabel__PatientLabel>
+              "children": <InfoSection__InfoSection>
+                <InlineLabel__InlineLabel>
                   <FormattedMessage
                     defaultMessage="Patient"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
                    : 
-                </PatientLabel__PatientLabel>
+                </InlineLabel__InlineLabel>
                 patientName
-              </PatientInfoSection__PatientInfoSection>,
+              </InfoSection__InfoSection>,
             },
             "ref": null,
             "rendered": Object {
@@ -289,14 +289,14 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <PatientLabel__PatientLabel>
+                  <InlineLabel__InlineLabel>
                     <FormattedMessage
                       defaultMessage="Patient"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
                      : 
-                  </PatientLabel__PatientLabel>,
+                  </InlineLabel__InlineLabel>,
                   "patientName",
                 ],
               },
@@ -346,7 +346,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": <FilterSection__FilterSection>
+              "children": <InfoSection__InfoSection>
                 <styled.div
                   columns="60px repeat(1,120px) 180px 1fr"
                   gap=""
@@ -381,7 +381,7 @@ ShallowWrapper {
                     </styled.div>
                   </Cell__Cell>
                 </styled.div>
-              </FilterSection__FilterSection>,
+              </InfoSection__InfoSection>,
             },
             "ref": null,
             "rendered": Object {
@@ -718,20 +718,20 @@ ShallowWrapper {
             gap=""
           >
             <Cell__Cell>
-              <PatientInfoSection__PatientInfoSection>
-                <PatientLabel__PatientLabel>
+              <InfoSection__InfoSection>
+                <InlineLabel__InlineLabel>
                   <FormattedMessage
                     defaultMessage="Patient"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
                    : 
-                </PatientLabel__PatientLabel>
+                </InlineLabel__InlineLabel>
                 patientName
-              </PatientInfoSection__PatientInfoSection>
+              </InfoSection__InfoSection>
             </Cell__Cell>
             <Cell__Cell>
-              <FilterSection__FilterSection>
+              <InfoSection__InfoSection>
                 <styled.div
                   columns="60px repeat(1,120px) 180px 1fr"
                   gap=""
@@ -766,7 +766,7 @@ ShallowWrapper {
                     </styled.div>
                   </Cell__Cell>
                 </styled.div>
-              </FilterSection__FilterSection>
+              </InfoSection__InfoSection>
             </Cell__Cell>
           </Grid__Grid>,
           false,
@@ -829,20 +829,20 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <Cell__Cell>
-                <PatientInfoSection__PatientInfoSection>
-                  <PatientLabel__PatientLabel>
+                <InfoSection__InfoSection>
+                  <InlineLabel__InlineLabel>
                     <FormattedMessage
                       defaultMessage="Patient"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
                      : 
-                  </PatientLabel__PatientLabel>
+                  </InlineLabel__InlineLabel>
                   patientName
-                </PatientInfoSection__PatientInfoSection>
+                </InfoSection__InfoSection>
               </Cell__Cell>,
               <Cell__Cell>
-                <FilterSection__FilterSection>
+                <InfoSection__InfoSection>
                   <styled.div
                     columns="60px repeat(1,120px) 180px 1fr"
                     gap=""
@@ -877,7 +877,7 @@ ShallowWrapper {
                       </styled.div>
                     </Cell__Cell>
                   </styled.div>
-                </FilterSection__FilterSection>
+                </InfoSection__InfoSection>
               </Cell__Cell>,
             ],
             "columns": 1,
@@ -890,17 +890,17 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <PatientInfoSection__PatientInfoSection>
-                  <PatientLabel__PatientLabel>
+                "children": <InfoSection__InfoSection>
+                  <InlineLabel__InlineLabel>
                     <FormattedMessage
                       defaultMessage="Patient"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
                      : 
-                  </PatientLabel__PatientLabel>
+                  </InlineLabel__InlineLabel>
                   patientName
-                </PatientInfoSection__PatientInfoSection>,
+                </InfoSection__InfoSection>,
               },
               "ref": null,
               "rendered": Object {
@@ -909,14 +909,14 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <PatientLabel__PatientLabel>
+                    <InlineLabel__InlineLabel>
                       <FormattedMessage
                         defaultMessage="Patient"
                         id="ocpui.containers.CareTeams.patientLabel"
                         values={Object {}}
                       />
                        : 
-                    </PatientLabel__PatientLabel>,
+                    </InlineLabel__InlineLabel>,
                     "patientName",
                   ],
                 },
@@ -966,7 +966,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <FilterSection__FilterSection>
+                "children": <InfoSection__InfoSection>
                   <styled.div
                     columns="60px repeat(1,120px) 180px 1fr"
                     gap=""
@@ -1001,7 +1001,7 @@ ShallowWrapper {
                       </styled.div>
                     </Cell__Cell>
                   </styled.div>
-                </FilterSection__FilterSection>,
+                </InfoSection__InfoSection>,
               },
               "ref": null,
               "rendered": Object {
