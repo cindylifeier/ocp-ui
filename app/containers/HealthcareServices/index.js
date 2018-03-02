@@ -21,6 +21,7 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
+import FilterSection from 'components/FilterSection';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import {
   getHealthcareServicesByLocation,
@@ -99,7 +100,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         </InfoSection>}
         {!isEmpty(organization) &&
         <div>
-          <div className={styles.actionSection}>
+          <FilterSection>
             <div className={styles.filterGridContainer}>
               <div>
                 <FormattedMessage {...messages.filterLabel} />
@@ -112,7 +113,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
               >
               </StatusCheckbox>
             </div>
-          </div>
+          </FilterSection>
         </div>
         }
 
