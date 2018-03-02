@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { FlatButton, RaisedButton, SelectField } from 'material-ui';
+import { RaisedButton, SelectField } from 'material-ui';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import TextField from 'material-ui/TextField';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -24,16 +24,18 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PractitionerSearchResult from 'components/PractitionerSearchResult';
 import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import StyledFlatButton from 'components/StyledFlatButton';
 import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
+  makeSelectPractitionerSearchResult,
   makeSelectQueryIncludeInactive,
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
   makeSelectSearchError,
   makeSelectSearchLoading,
-  makeSelectPractitionerSearchResult,
   makeSelectTotalPages,
 } from './selectors';
 import reducer from './reducer';
@@ -102,23 +104,13 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <Card>
-        <div className={styles.gridHeaderContainer}>
-          <div className={styles.gridItem}>
-            <div className={styles.header}>
-              <FormattedMessage {...messages.header} />
-            </div>
-          </div>
-          <div className={styles.gridItem}>
-            <span className={styles.iconButton}>
-              <FlatButton
-                label="Create New"
-                icon={<ContentAddCircle />}
-                className={styles.font}
-                containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-              />
-            </span>
-          </div>
-        </div>
+        <CardHeader title={<FormattedMessage {...messages.header} />}>
+          <StyledFlatButton
+            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+            icon={<ContentAddCircle />}
+            containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
+          />
+        </CardHeader>
         <form>
           <div className={styles.searchSection}>
             <div className={styles.searchHeader}>
