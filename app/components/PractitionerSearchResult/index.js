@@ -6,30 +6,21 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import StyledMenuItem from 'components/StyledMenuItem';
 import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
-import styles from './styles.css';
-
-const iconStyles = {
-  iconButton: {
-    position: 'relative',
-  },
-  icon: {
-    width: '100%',
-    height: 26,
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  },
-};
+import messages from './messages';
 
 function PractitionerSearchResult({ loading, error, searchResult }) {
   if (loading) {
@@ -37,64 +28,55 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
   }
 
   if (error !== false) {
-    return (<NoResultsFoundText>No practitioners found.</NoResultsFoundText>);
+    return (<NoResultsFoundText><FormattedMessage {...messages.noPractitionersFound} /></NoResultsFoundText>);
   }
 
   if (searchResult !== false) {
+    const columns = '15% 15% 10% 10% 1fr 10%';
     return (
-      <div className={styles.table}>
-        <div className={styles.rowGridHeaderContainer}>
-          <div className={styles.cellGridHeaderItem}>First Name</div>
-          <div className={styles.cellGridHeaderItem}>Last Name</div>
-          <div className={styles.cellGridHeaderItem}>Status</div>
-          <div className={styles.cellGridHeaderItem}>Role</div>
-          <div className={styles.cellGridHeaderItem}>Identifier</div>
-          <div />
-        </div>
-        {displayPractitionerSearchResult(searchResult)}
-      </div>
+      <Table>
+        <TableHeader columns={columns}>
+          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnRole} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+          <TableHeaderColumn />
+        </TableHeader>
+        {displayPractitionerSearchResult(searchResult, columns)}
+      </Table>
     );
   }
-
   return (<div />);
 }
 
-function displayPractitionerSearchResult(practitioners) {
+function displayPractitionerSearchResult(practitioners, columns) {
   return (
     practitioners && practitioners.map((practitioner) => (
-      <div key={uniqueId()} className={styles.rowGridContainer}>
-        <div className={styles['cell-grid-item']}>
+      <TableRow key={uniqueId()} columns={columns}>
+        <TableRowColumn>
           {practitioner.name[0].firstName ? practitioner.name[0].firstName : ''}
-        </div>
-        <div className={styles['cell-grid-item']}>
+        </TableRowColumn>
+        <TableRowColumn>
           {practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}
-        </div>
-        <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
-        <div className={styles['cell-grid-item']}>
+        </TableRowColumn>
+        <TableRowColumn>{practitioner.active ?
+          <FormattedMessage {...messages.active} /> :
+          <FormattedMessage {...messages.inactive} />}
+        </TableRowColumn>
+        <TableRowColumn>
           {mapToPractitionerRole(practitioner)}
-        </div>
-        <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
-        <IconMenu
-          iconButtonElement={
-            (<IconButton
-              className={styles.iconButton}
-              iconStyle={iconStyles.icon}
-              style={iconStyles.iconButton}
-            >
-              <NavigationMenu />
-            </IconButton>)
-          }
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-        >
-          <MenuItem
-            className={styles.menuItem}
-            primaryText="Edit"
-            containerElement={<Link to={`${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`} />}
-          />
-          <MenuItem className={styles.menuItem} primaryText="Remove" disabled />
-        </IconMenu>
-      </div>
+        </TableRowColumn>
+        <TableRowColumn>{mapToIdentifier(practitioner)}</TableRowColumn>
+        <TableRowColumn>
+          <NavigationStyledIconMenu>
+            <StyledMenuItem
+              primaryText={<FormattedMessage {...messages.edit} />}
+              containerElement={<Link to={`${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`} />}
+            />
+          </NavigationStyledIconMenu>
+        </TableRowColumn>
+      </TableRow>
     )));
 }
 
