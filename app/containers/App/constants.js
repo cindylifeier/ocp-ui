@@ -80,6 +80,12 @@ export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
 export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
 export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
+// Communication resource lookups start
+export const COMMUNICATION_STATUS = 'COMMUNICATION_STATUS';
+export const COMMUNICATION_CATEGORY = 'COMMUNICATION_CATEGORY';
+export const COMMUNICATION_NOT_DONE_REASON = 'COMMUNICATION_NOT_DONE_REASON';
+export const COMMUNICATION_MEDIUM = 'COMMUNICATION_MEDIUM';
+// Communication resource lookups end
 
 /**
  *  Constants to hold the internal urls
@@ -106,6 +112,18 @@ export const DEFAULT_PAGE_SIZE = 10;
  * @type {number}
  */
 export const TEXT_MIN_LENGTH = 3;
+
+/**
+ *  Max TextArea field length.
+ * @type {number}
+ */
+export const TEXT_AREA_MAX_LENGTH = 200;
+
+/**
+ *  Min TextArea field length.
+ * @type {number}
+ */
+export const TEXT_AREA_MIN_LENGTH = 50;
 /**
  *  Constants to hold the configuration for date picker
  * @type {object}
