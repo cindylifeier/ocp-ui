@@ -6,15 +6,20 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  SAVE_COMMUNICATION_ERROR,
 } from './constants';
 
-const initialState = fromJS({});
+
+const initialState = fromJS({
+  error: false,
+  communication: {},
+});
+
 
 function manageCommunicationPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case SAVE_COMMUNICATION_ERROR:
+      return state.set('error', action.error);
     default:
       return state;
   }
