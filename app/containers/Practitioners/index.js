@@ -22,6 +22,9 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import PractitionerSearchResult from 'components/PractitionerSearchResult';
+import Card from 'components/Card';
+import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -38,10 +41,7 @@ import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
-import PractitionerSearchResult from '../../components/PractitionerSearchResult';
 import { initializePractitioners, loadPractitionerSearchResult } from './actions';
-import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from '../App/constants';
-
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -101,7 +101,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     };
 
     return (
-      <div className={styles.card}>
+      <Card>
         <div className={styles.gridHeaderContainer}>
           <div className={styles.gridItem}>
             <div className={styles.header}>
@@ -183,7 +183,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
           />
           }
         </div>
-      </div>
+      </Card>
     );
   }
 }
