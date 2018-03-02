@@ -24,6 +24,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import {
   getHealthcareServicesByLocation,
@@ -124,9 +125,9 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-        <div className={styles.noHealthcareServicesFound}>
+        <NoResultsFoundText>
           <FormattedMessage {...messages.noHealthcareServicesFound} />
-        </div>
+        </NoResultsFoundText>
         }
 
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
