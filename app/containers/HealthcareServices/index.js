@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import { Cell } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,6 +23,7 @@ import StatusCheckbox from 'components/StatusCheckbox';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import {
   getHealthcareServicesByLocation,
@@ -101,18 +103,19 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         {!isEmpty(organization) &&
         <div>
           <FilterSection>
-            <div className={styles.filterGridContainer}>
-              <div>
+            <CheckboxFilterGrid>
+              <Cell>
                 <FormattedMessage {...messages.filterLabel} />
-              </div>
-              <StatusCheckbox
-                messages={messages.inactive}
-                elementId="inactiveCheckBox"
-                checked={this.props.includeInactive}
-                handleCheck={this.handleCheck}
-              >
-              </StatusCheckbox>
-            </div>
+              </Cell>
+              <Cell>
+                <StatusCheckbox
+                  messages={messages.inactive}
+                  elementId="inactiveCheckBox"
+                  checked={this.props.includeInactive}
+                  handleCheck={this.handleCheck}
+                />
+              </Cell>
+            </CheckboxFilterGrid>
           </FilterSection>
         </div>
         }
