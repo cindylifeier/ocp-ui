@@ -11,39 +11,105 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectManageCommunicationPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import Page from '../../components/Page';
+import PageHeader from '../../components/PageHeader';
+import PageContent from '../../components/PageContent';
+import ManageCommunication from '../../components/ManageCommunication';
+import { getLookupsAction } from '../App/actions';
+import { createCommunication, updateCommunication } from './actions';
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
+import {
+  makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
+  makeSelectCommunicationNotDoneReasons,
+} from '../App/lookupSelectors';
+import {
+  COMMUNICATION_CATEGORY, COMMUNICATION_STATUS, COMMUNICATION_MEDIUM,
+  COMMUNICATION_NOT_DONE_REASON,
+} from '../App/constants';
 
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
+  componentWillMount() {
+    this.props.getLookups();
+  }
+  handleSave(communication, actions) {
+    const logicalId = this.props.match.params.id;
+    if (logicalId && communication) {
+      const mergedCommunication = merge(communication, { logicalId });
+      this.props.updateCommunication(mergedCommunication, this.props.selectedPatient.id, () => actions.setSubmitting(false));
+    } else {
+      this.props.createCommunication(communication, this.props.selectedPatient.id, () => actions.setSubmitting(false));
+    }
+  }
+
   render() {
+    const editingCommunication = false;
+    const {
+      communicationStatus,
+      communicationCategories,
+      communicationNotDoneReasons,
+      communicationMedia,
+    } = this.props;
+    const manageCommunicationProps = {
+      communicationStatus,
+      communicationCategories,
+      communicationNotDoneReasons,
+      communicationMedia,
+    };
     return (
-      <div>
+      <Page>
         <Helmet>
-          <title>ManageCommunicationPage</title>
+          <title>Manage Communication</title>
           <meta name="description" content="Manage Communication page of Omnibus Care Plan application" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
-      </div>
+        <PageHeader
+          title={editingCommunication ?
+            <FormattedMessage {...messages.updateModeTitle} /> :
+            <FormattedMessage {...messages.createModeTitle} />}
+          subtitle={<FormattedMessage {...messages.subtitle} />}
+        />
+        <PageContent>
+          <ManageCommunication onSave={this.handleSave} {...manageCommunicationProps} />
+        </PageContent>
+      </Page>
     );
   }
 }
 
 ManageCommunicationPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  selectedPatient: PropTypes.object.isRequired,
+  getLookups: PropTypes.func.isRequired,
+  createCommunication: PropTypes.func.isRequired,
+  updateCommunication: PropTypes.func.isRequired,
+  communicationStatus: PropTypes.array.isRequired,
+  communicationCategories: PropTypes.array.isRequired,
+  communicationNotDoneReasons: PropTypes.array.isRequired,
+  communicationMedia: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  managecommunicationpage: makeSelectManageCommunicationPage(),
+  selectedPatient: makeSelectSelectedPatient(),
+  communicationStatus: makeSelectCommunicationStatus(),
+  communicationCategories: makeSelectCommunicationCategories(),
+  communicationNotDoneReasons: makeSelectCommunicationNotDoneReasons(),
+  communicationMedia: makeSelectCommunicationMedia(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getLookups: () => dispatch(getLookupsAction([COMMUNICATION_STATUS, COMMUNICATION_CATEGORY, COMMUNICATION_NOT_DONE_REASON, COMMUNICATION_MEDIUM])),
+    createCommunication: (communication, patientId, handleSubmitting) => dispatch(createCommunication(communication, patientId, handleSubmitting)),
+    updateCommunication: (communication, patientId, handleSubmitting) => dispatch(updateCommunication(communication, patientId, handleSubmitting)),
   };
 }
 
