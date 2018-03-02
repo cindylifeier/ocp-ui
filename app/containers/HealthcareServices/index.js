@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { Cell } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
@@ -25,6 +24,8 @@ import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import CenterAlign from 'components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import {
   getHealthcareServicesByLocation,
@@ -44,7 +45,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 
 export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -131,16 +131,13 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         }
 
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
-        <div className={styles.textCenter}>
-          <HealthcareServiceTable elements={healthcareServices} />
-          <UltimatePagination
+        <div>
+          <CenterAlign>
+            <HealthcareServiceTable elements={healthcareServices} />
+          </CenterAlign>
+          <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
             onChange={this.handlePageClick}
           />
         </div>
