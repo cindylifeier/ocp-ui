@@ -13,10 +13,12 @@ import { compose } from 'redux';
 
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { getPatient } from 'containers/App/actions';
+import { getTasks } from 'containers/Tasks/actions';
 import renderNotFoundComponent from 'containers/NotFoundPage/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
+import { mapToPatientName } from 'utils/PatientUtils';
 import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
 
@@ -138,6 +140,12 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
     const patientId = this.props.match.params.id;
     if (patientId) {
       this.props.getPatient(patientId);
+      const searchType = 'patientId';
+      const query = { searchValue: patientId, searchType };
+      const selectedPatientName = mapToPatientName(this.props.selectedPatient);
+      // TODO: Resolve delay issue
+      // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
+      setTimeout(() => this.props.getTasks(query, selectedPatientName), 500);
     }
   }
 
@@ -178,6 +186,7 @@ PatientPage.propTypes = {
     url: PropTypes.string,
   }).isRequired,
   getPatient: PropTypes.func.isRequired,
+  getTasks: PropTypes.func.isRequired,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
@@ -191,6 +200,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getPatient: (patientId) => dispatch(getPatient(patientId)),
+    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
   };
 }
 
