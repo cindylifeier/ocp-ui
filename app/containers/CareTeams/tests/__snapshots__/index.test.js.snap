@@ -111,10 +111,9 @@ ShallowWrapper {
             </InfoSection__InfoSection>
           </Cell__Cell>
           <Cell__Cell>
-            <InfoSection__InfoSection>
-              <styled.div
+            <FilterSection__FilterSection>
+              <CheckboxFilterGrid
                 columns="60px repeat(1,120px) 180px 1fr"
-                gap=""
               >
                 <Cell__Cell>
                   <styled.div>
@@ -145,8 +144,8 @@ ShallowWrapper {
                     />
                   </styled.div>
                 </Cell__Cell>
-              </styled.div>
-            </InfoSection__InfoSection>
+              </CheckboxFilterGrid>
+            </FilterSection__FilterSection>
           </Cell__Cell>
         </Grid__Grid>,
         false,
@@ -222,10 +221,9 @@ ShallowWrapper {
               </InfoSection__InfoSection>
             </Cell__Cell>,
             <Cell__Cell>
-              <InfoSection__InfoSection>
-                <styled.div
+              <FilterSection__FilterSection>
+                <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -256,8 +254,8 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>
-              </InfoSection__InfoSection>
+                </CheckboxFilterGrid>
+              </FilterSection__FilterSection>
             </Cell__Cell>,
           ],
           "columns": 1,
@@ -346,10 +344,9 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": <InfoSection__InfoSection>
-                <styled.div
+              "children": <FilterSection__FilterSection>
+                <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -380,8 +377,8 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>
-              </InfoSection__InfoSection>,
+                </CheckboxFilterGrid>
+              </FilterSection__FilterSection>,
             },
             "ref": null,
             "rendered": Object {
@@ -389,9 +386,8 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <styled.div
+                "children": <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -422,13 +418,13 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>,
+                </CheckboxFilterGrid>,
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "class",
+                "nodeType": "function",
                 "props": Object {
                   "children": Array [
                     <Cell__Cell>
@@ -464,7 +460,6 @@ ShallowWrapper {
                     ],
                   ],
                   "columns": "60px repeat(1,120px) 180px 1fr",
-                  "gap": "",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -731,10 +726,9 @@ ShallowWrapper {
               </InfoSection__InfoSection>
             </Cell__Cell>
             <Cell__Cell>
-              <InfoSection__InfoSection>
-                <styled.div
+              <FilterSection__FilterSection>
+                <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -765,8 +759,8 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>
-              </InfoSection__InfoSection>
+                </CheckboxFilterGrid>
+              </FilterSection__FilterSection>
             </Cell__Cell>
           </Grid__Grid>,
           false,
@@ -842,10 +836,9 @@ ShallowWrapper {
                 </InfoSection__InfoSection>
               </Cell__Cell>,
               <Cell__Cell>
-                <InfoSection__InfoSection>
-                  <styled.div
+                <FilterSection__FilterSection>
+                  <CheckboxFilterGrid
                     columns="60px repeat(1,120px) 180px 1fr"
-                    gap=""
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -876,8 +869,8 @@ ShallowWrapper {
                         />
                       </styled.div>
                     </Cell__Cell>
-                  </styled.div>
-                </InfoSection__InfoSection>
+                  </CheckboxFilterGrid>
+                </FilterSection__FilterSection>
               </Cell__Cell>,
             ],
             "columns": 1,
@@ -966,10 +959,9 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <InfoSection__InfoSection>
-                  <styled.div
+                "children": <FilterSection__FilterSection>
+                  <CheckboxFilterGrid
                     columns="60px repeat(1,120px) 180px 1fr"
-                    gap=""
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1000,8 +992,8 @@ ShallowWrapper {
                         />
                       </styled.div>
                     </Cell__Cell>
-                  </styled.div>
-                </InfoSection__InfoSection>,
+                  </CheckboxFilterGrid>
+                </FilterSection__FilterSection>,
               },
               "ref": null,
               "rendered": Object {
@@ -1009,9 +1001,8 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <styled.div
+                  "children": <CheckboxFilterGrid
                     columns="60px repeat(1,120px) 180px 1fr"
-                    gap=""
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1042,13 +1033,13 @@ ShallowWrapper {
                         />
                       </styled.div>
                     </Cell__Cell>
-                  </styled.div>,
+                  </CheckboxFilterGrid>,
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "function",
                   "props": Object {
                     "children": Array [
                       <Cell__Cell>
@@ -1084,7 +1075,6 @@ ShallowWrapper {
                       ],
                     ],
                     "columns": "60px repeat(1,120px) 180px 1fr",
-                    "gap": "",
                   },
                   "ref": null,
                   "rendered": Array [

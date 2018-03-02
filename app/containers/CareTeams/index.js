@@ -25,6 +25,8 @@ import CardHeader from 'components/CardHeader';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import FilterSection from 'components/FilterSection';
 import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
@@ -34,7 +36,6 @@ import saga from './saga';
 import messages from './messages';
 import { getCareTeams, initializeCareTeams } from './actions';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
-import CheckboxGrid from './CheckboxGrid';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -67,8 +68,8 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   renderFilter(careTeamStatuses, statusList) {
     const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
     return (
-      <InfoSection>
-        <CheckboxGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)} gap="">
+      <FilterSection>
+        <CheckboxFilterGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)}>
           <Cell><CenterAlign>Include</CenterAlign></Cell>
           {filteredCareTeamStatuses.map(({ code, display }) => (
             <Cell key={code}>
@@ -83,8 +84,8 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
             </Cell>
           ))
           }
-        </CheckboxGrid>
-      </InfoSection>);
+        </CheckboxFilterGrid>
+      </FilterSection>);
   }
 
   render() {
