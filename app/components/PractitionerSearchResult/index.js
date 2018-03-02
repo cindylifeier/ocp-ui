@@ -12,9 +12,11 @@ import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
+
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import styles from './styles.css';
-import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from '../../containers/App/constants';
 
 const iconStyles = {
   iconButton: {
@@ -29,14 +31,13 @@ const iconStyles = {
   },
 };
 
-// import styled from 'styled-components';
 function PractitionerSearchResult({ loading, error, searchResult }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
 
   if (error !== false) {
-    return (<p>No practitioners found.</p>);
+    return (<NoResultsFoundText>No practitioners found.</NoResultsFoundText>);
   }
 
   if (searchResult !== false) {
