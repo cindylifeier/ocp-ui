@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEmpty from 'lodash/isEmpty';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import injectSaga from 'utils/injectSaga';
@@ -82,11 +83,12 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         <CenterAlign>
           <PractitionerSearchResult {...searchResultProps} />
         </CenterAlign>
+        {!isEmpty(searchResult) &&
         <CenterAlignedUltimatePagination
           currentPage={this.props.currentPage}
           totalPages={this.props.totalPages}
           onChange={this.handleChangePage}
-        />
+        />}
       </Card>
     );
   }
