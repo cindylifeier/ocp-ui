@@ -120,4 +120,5 @@ export const DATE_PICKER_MODE = {
  */
 export const ENTER_KEY = 'Enter';
 export const EMPTY_STRING = '';
+export const WHITE_SPACE = ' ';
 
