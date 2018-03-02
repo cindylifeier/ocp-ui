@@ -16,9 +16,11 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
-import HealthcareServiceTable from 'components/HealthcareServiceTable/index';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
-import StatusCheckbox from 'components/StatusCheckbox/index';
+import HealthcareServiceTable from 'components/HealthcareServiceTable';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import StatusCheckbox from 'components/StatusCheckbox';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import {
   getHealthcareServicesByLocation,
@@ -82,19 +84,19 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
         {!isEmpty(organization) &&
-        <div className={styles.organizationInfoSection}>
-          <div className={styles.organizationInfoLabel}>
+        <InfoSection>
+          <InlineLabel>
             Organization&nbsp;:&nbsp;
-          </div>
+          </InlineLabel>
           {organization.name}
-        </div>}
+        </InfoSection>}
         {!isEmpty(location) &&
-        <div className={styles.locationInfoSection}>
-          <div className={styles.locationInfoLabel}>
+        <InfoSection>
+          <InlineLabel>
             Location&nbsp;:&nbsp;
-          </div>
+          </InlineLabel>
           {location.name}
-        </div>}
+        </InfoSection>}
         {!isEmpty(organization) &&
         <div>
           <div className={styles.actionSection}>
