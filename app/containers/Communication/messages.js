@@ -7,7 +7,11 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.Communication.header',
-    defaultMessage: 'This is Communication container !',
+    id: 'ocpui.containers.communication.header',
+    defaultMessage: 'Communication',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.communication.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
   },
 });
