@@ -1,6 +1,6 @@
 /**
  *
- * ContinueButton
+ * CloseButton
  *
  */
 import StyledIconButton from 'components/StyledIconButton';
