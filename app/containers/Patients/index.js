@@ -20,6 +20,7 @@ import { getCareTeams } from 'containers/CareTeams/actions';
 import { getTasks } from 'containers/Tasks/actions';
 import { getRelatedPersons } from 'containers/RelatedPersons/actions';
 import { getPatient } from 'containers/App/actions';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import PatientSearchResult from 'components/PatientSearchResult';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
@@ -51,7 +52,6 @@ export class Patients extends React.PureComponent {
     this.state = {
       currentPage: 1,
       isPatientModalOpen: false,
-      patientId: null,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
@@ -77,7 +77,6 @@ export class Patients extends React.PureComponent {
     this.props.getRelatedPersons(searchValue, showInactive, currentPage);
 
     // TODO: Will move to upcoming tasks component
-    this.setState({ patientId: searchValue });
     this.handlePatientModalOpen();
   }
 
@@ -129,9 +128,9 @@ export class Patients extends React.PureComponent {
           onChange={this.handleChangePage}
         />
         }
-        {this.state.patientId &&
+        {this.props.selectedPatient &&
         <ConfirmPatientModal
-          patientId={this.state.patientId}
+          selectedPatient={this.props.selectedPatient}
           isPatientModalOpen={this.state.isPatientModalOpen}
           handlePatientModalClose={this.handlePatientModalClose}
         />
@@ -163,6 +162,10 @@ Patients.propTypes = {
   getTasks: PropTypes.func.isRequired,
   getRelatedPersons: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
 
 
@@ -176,6 +179,7 @@ const mapStateToProps = createStructuredSelector({
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
