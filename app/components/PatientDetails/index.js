@@ -11,12 +11,13 @@ import Avatar from 'material-ui/Avatar';
 import upperFirst from 'lodash/upperFirst';
 
 import patientAvatar from 'images/patient-avatar.png';
+import { WHITE_SPACE } from 'containers/App/constants';
 import PatientDetailsGrid from 'components/PatientDetails/PatientDetailsGrid';
 import PatientDetailsCell from 'components/PatientDetails/PatientDetailsCell';
 import DetailsPanelGrid from 'components/PatientDetails/DetailsPanelGrid';
+import PatientBasicInfoCell from 'components/PatientDetails/PatientBasicInfoCell';
 import H3 from 'components/H3';
 import { mapToPatientAddress, mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
-import { WHITE_SPACE } from 'containers/App/constants';
 
 function PatientDetails(props) {
   const { selectedPatient } = props;
@@ -25,21 +26,24 @@ function PatientDetails(props) {
       <PatientDetailsGrid columns={1}>
         <PatientDetailsCell>
           <Grid
-            columns={'40px 1fr'}
-            areas={['avatar patientDetails']}
+            columns={'55px repeat(4, 1fr)'}
+            flow="column"
           >
-            <Cell area="avatar"><Avatar src={patientAvatar} /></Cell>
-            <Cell area="patientDetails">
-              <Grid columns={4}>
-                <Cell width={4}>
-                  <H3>{mapToPatientName(selectedPatient)}</H3>
-                </Cell>
-                <Cell>ID{WHITE_SPACE}<strong>{selectedPatient.id}</strong></Cell>
-                <Cell>Gender{WHITE_SPACE}<strong>{upperFirst(selectedPatient.genderCode)}</strong></Cell>
-                <Cell>DOB{WHITE_SPACE}<strong>{selectedPatient.birthDate}</strong></Cell>
-                <Cell>Care Coordinator{WHITE_SPACE}<strong>Lee Coordinator(hard-coded)</strong></Cell>
-              </Grid>
-            </Cell>
+            <PatientBasicInfoCell height={2}><Avatar size={55} src={patientAvatar} /></PatientBasicInfoCell>
+            <PatientBasicInfoCell width={4} height={1}>
+              <H3>{mapToPatientName(selectedPatient)}</H3>
+            </PatientBasicInfoCell>
+            <PatientBasicInfoCell height={1}>
+              ID{WHITE_SPACE}<strong>{selectedPatient.id}</strong>
+            </PatientBasicInfoCell>
+            <PatientBasicInfoCell height={1}>
+              Gender{WHITE_SPACE}<strong>{upperFirst(selectedPatient.genderCode)}</strong>
+            </PatientBasicInfoCell>
+            <PatientBasicInfoCell height={1}>
+              DOB{WHITE_SPACE}<strong>{selectedPatient.birthDate}</strong></PatientBasicInfoCell>
+            <PatientBasicInfoCell height={1}>
+              Care Coordinator{WHITE_SPACE}<strong>Lee Coordinator(hard-coded)</strong>
+            </PatientBasicInfoCell>
           </Grid>
         </PatientDetailsCell>
         <PatientDetailsCell>
