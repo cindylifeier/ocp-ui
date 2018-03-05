@@ -39,12 +39,11 @@ import { getCareTeams, initializeCareTeams } from './actions';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
-
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
+    this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
@@ -101,10 +100,10 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
           <Grid columns={1} gap="">
             <Cell>
               <InfoSection>
-                <InlineLabel htmlFor={CareTeams.PATIENT_NAME_HTML_ID}>
+                <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
                   <FormattedMessage {...messages.patientLabel} />&nbsp;
                 </InlineLabel>
-                <span id={CareTeams.PATIENT_NAME_HTML_ID}>{patientName}</span>
+                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
               </InfoSection>
             </Cell>
             <Cell>
