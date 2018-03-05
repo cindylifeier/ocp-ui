@@ -19,6 +19,7 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StatusCheckbox from 'components/StatusCheckbox';
+import Card from 'components/Card';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
@@ -142,7 +143,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   renderTable() {
     return (
-      <div className={styles.card}>
+      <Card>
         <div className={styles.organizationInfoSection}>
           <div className={styles.organizationInfoLabel}>
             Organization&nbsp;:&nbsp;
@@ -192,7 +193,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             />
           </div>
         </div>
-      </div>
+      </Card>
     );
   }
 
@@ -201,8 +202,10 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     if (data && data.length > 0) {
       return this.renderTable();
     }
-    return (<div className={styles.card}><h4> No locations loaded. Please select an organization to view its
-      locations.</h4></div>);
+    return (
+      <Card>
+        <h4>No locations loaded. Please select an organization to view its locations.</h4>
+      </Card>);
   }
 
   render() {
