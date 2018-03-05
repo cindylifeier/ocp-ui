@@ -133,7 +133,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
       <div>
         <InfoSection>
           <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-            Organization&nbsp;:&nbsp;
+            <FormattedMessage {...messages.labelOrganization} />&nbsp;
           </InlineLabel>
           <span
             id={this.ORGANIZATION_NAME_HTML_ID}
