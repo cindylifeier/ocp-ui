@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import { Checkbox } from 'material-ui';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -38,6 +39,8 @@ import { getCareTeams, initializeCareTeams } from './actions';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
@@ -98,10 +101,10 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
           <Grid columns={1} gap="">
             <Cell>
               <InfoSection>
-                <InlineLabel>
-                  <FormattedMessage {...messages.patientLabel} />&nbsp;:&nbsp;
+                <InlineLabel htmlFor={CareTeams.PATIENT_NAME_HTML_ID}>
+                  <FormattedMessage {...messages.patientLabel} />&nbsp;
                 </InlineLabel>
-                {patientName}
+                <span id={CareTeams.PATIENT_NAME_HTML_ID}>{patientName}</span>
               </InfoSection>
             </Cell>
             <Cell>

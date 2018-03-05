@@ -99,15 +99,21 @@ ShallowWrapper {
         >
           <Cell__Cell>
             <InfoSection__InfoSection>
-              <InlineLabel__InlineLabel>
+              <InlineLabel__InlineLabel
+                htmlFor="patient_name_1"
+              >
                 <FormattedMessage
-                  defaultMessage="Patient"
+                  defaultMessage="Patient:"
                   id="ocpui.containers.CareTeams.patientLabel"
                   values={Object {}}
                 />
-                 : 
+                 
               </InlineLabel__InlineLabel>
-              patientName
+              <span
+                id="patient_name_1"
+              >
+                patientName
+              </span>
             </InfoSection__InfoSection>
           </Cell__Cell>
           <Cell__Cell>
@@ -209,15 +215,21 @@ ShallowWrapper {
           "children": Array [
             <Cell__Cell>
               <InfoSection__InfoSection>
-                <InlineLabel__InlineLabel>
+                <InlineLabel__InlineLabel
+                  htmlFor="patient_name_1"
+                >
                   <FormattedMessage
-                    defaultMessage="Patient"
+                    defaultMessage="Patient:"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
-                   : 
+                   
                 </InlineLabel__InlineLabel>
-                patientName
+                <span
+                  id="patient_name_1"
+                >
+                  patientName
+                </span>
               </InfoSection__InfoSection>
             </Cell__Cell>,
             <Cell__Cell>
@@ -269,15 +281,21 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <InfoSection__InfoSection>
-                <InlineLabel__InlineLabel>
+                <InlineLabel__InlineLabel
+                  htmlFor="patient_name_1"
+                >
                   <FormattedMessage
-                    defaultMessage="Patient"
+                    defaultMessage="Patient:"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
-                   : 
+                   
                 </InlineLabel__InlineLabel>
-                patientName
+                <span
+                  id="patient_name_1"
+                >
+                  patientName
+                </span>
               </InfoSection__InfoSection>,
             },
             "ref": null,
@@ -287,15 +305,21 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <InlineLabel__InlineLabel>
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
                     <FormattedMessage
-                      defaultMessage="Patient"
+                      defaultMessage="Patient:"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
-                     : 
+                     
                   </InlineLabel__InlineLabel>,
-                  "patientName",
+                  <span
+                    id="patient_name_1"
+                  >
+                    patientName
+                  </span>,
                 ],
               },
               "ref": null,
@@ -307,12 +331,13 @@ ShallowWrapper {
                   "props": Object {
                     "children": Array [
                       <FormattedMessage
-                        defaultMessage="Patient"
+                        defaultMessage="Patient:"
                         id="ocpui.containers.CareTeams.patientLabel"
                         values={Object {}}
                       />,
-                      " : ",
+                      " ",
                     ],
+                    "htmlFor": "patient_name_1",
                   },
                   "ref": null,
                   "rendered": Array [
@@ -321,7 +346,7 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "class",
                       "props": Object {
-                        "defaultMessage": "Patient",
+                        "defaultMessage": "Patient:",
                         "id": "ocpui.containers.CareTeams.patientLabel",
                         "values": Object {},
                       },
@@ -329,11 +354,22 @@ ShallowWrapper {
                       "rendered": null,
                       "type": [Function],
                     },
-                    " : ",
+                    " ",
                   ],
                   "type": [Function],
                 },
-                "patientName",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "patientName",
+                    "id": "patient_name_1",
+                  },
+                  "ref": null,
+                  "rendered": "patientName",
+                  "type": "span",
+                },
               ],
               "type": [Function],
             },
@@ -714,15 +750,21 @@ ShallowWrapper {
           >
             <Cell__Cell>
               <InfoSection__InfoSection>
-                <InlineLabel__InlineLabel>
+                <InlineLabel__InlineLabel
+                  htmlFor="patient_name_1"
+                >
                   <FormattedMessage
-                    defaultMessage="Patient"
+                    defaultMessage="Patient:"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
-                   : 
+                   
                 </InlineLabel__InlineLabel>
-                patientName
+                <span
+                  id="patient_name_1"
+                >
+                  patientName
+                </span>
               </InfoSection__InfoSection>
             </Cell__Cell>
             <Cell__Cell>
@@ -824,15 +866,21 @@ ShallowWrapper {
             "children": Array [
               <Cell__Cell>
                 <InfoSection__InfoSection>
-                  <InlineLabel__InlineLabel>
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
                     <FormattedMessage
-                      defaultMessage="Patient"
+                      defaultMessage="Patient:"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
-                     : 
+                     
                   </InlineLabel__InlineLabel>
-                  patientName
+                  <span
+                    id="patient_name_1"
+                  >
+                    patientName
+                  </span>
                 </InfoSection__InfoSection>
               </Cell__Cell>,
               <Cell__Cell>
@@ -884,15 +932,21 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <InfoSection__InfoSection>
-                  <InlineLabel__InlineLabel>
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
                     <FormattedMessage
-                      defaultMessage="Patient"
+                      defaultMessage="Patient:"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
-                     : 
+                     
                   </InlineLabel__InlineLabel>
-                  patientName
+                  <span
+                    id="patient_name_1"
+                  >
+                    patientName
+                  </span>
                 </InfoSection__InfoSection>,
               },
               "ref": null,
@@ -902,15 +956,21 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <InlineLabel__InlineLabel>
+                    <InlineLabel__InlineLabel
+                      htmlFor="patient_name_1"
+                    >
                       <FormattedMessage
-                        defaultMessage="Patient"
+                        defaultMessage="Patient:"
                         id="ocpui.containers.CareTeams.patientLabel"
                         values={Object {}}
                       />
-                       : 
+                       
                     </InlineLabel__InlineLabel>,
-                    "patientName",
+                    <span
+                      id="patient_name_1"
+                    >
+                      patientName
+                    </span>,
                   ],
                 },
                 "ref": null,
@@ -922,12 +982,13 @@ ShallowWrapper {
                     "props": Object {
                       "children": Array [
                         <FormattedMessage
-                          defaultMessage="Patient"
+                          defaultMessage="Patient:"
                           id="ocpui.containers.CareTeams.patientLabel"
                           values={Object {}}
                         />,
-                        " : ",
+                        " ",
                       ],
+                      "htmlFor": "patient_name_1",
                     },
                     "ref": null,
                     "rendered": Array [
@@ -936,7 +997,7 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "class",
                         "props": Object {
-                          "defaultMessage": "Patient",
+                          "defaultMessage": "Patient:",
                           "id": "ocpui.containers.CareTeams.patientLabel",
                           "values": Object {},
                         },
@@ -944,11 +1005,22 @@ ShallowWrapper {
                         "rendered": null,
                         "type": [Function],
                       },
-                      " : ",
+                      " ",
                     ],
                     "type": [Function],
                   },
-                  "patientName",
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "patientName",
+                      "id": "patient_name_1",
+                    },
+                    "ref": null,
+                    "rendered": "patientName",
+                    "type": "span",
+                  },
                 ],
                 "type": [Function],
               },
