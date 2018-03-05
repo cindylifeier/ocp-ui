@@ -73,15 +73,6 @@
   display: inline-block;
 }
 
-.organizationInfoSection {
-  margin:10px 10px;
-}
-
-.organizationInfoLabel {
-  font-weight: bold;
-  display: inline-block;
-}
-
 .actionSection {
   font-size: 1rem;
   background-color: #F9F9F9;

@@ -16,10 +16,13 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import uniqueId from 'lodash/uniqueId';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StatusCheckbox from 'components/StatusCheckbox';
 import Card from 'components/Card';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
@@ -49,6 +52,8 @@ const iconStyles = {
 };
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static ORGANIZATION_NAME_HTML_ID = `organization-name-${uniqueId()}`;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -144,12 +149,12 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   renderTable() {
     return (
       <Card>
-        <div className={styles.organizationInfoSection}>
-          <div className={styles.organizationInfoLabel}>
+        <InfoSection>
+          <InlineLabel htmlFor={Locations.ORGANIZATION_NAME_HTML_ID}>
             Organization&nbsp;:&nbsp;
-          </div>
-          {this.props.organization ? this.props.organization.name : ''}
-        </div>
+          </InlineLabel>
+          <span id={Locations.ORGANIZATION_NAME_HTML_ID}>{this.props.organization ? this.props.organization.name : ''}</span>
+        </InfoSection>
         <div className={styles.actionSection}>
           <div className={styles.filterGridContainer}>
             <div>
