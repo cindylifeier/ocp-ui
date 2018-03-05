@@ -22,6 +22,7 @@ import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -70,9 +71,9 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(patientName) && isEmpty(data) &&
-        <div className={styles.noTask}>
+        <NoResultsFoundText>
           <FormattedMessage {...messages.noTasksFound} />
-        </div>}
+        </NoResultsFoundText>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div className={styles.textCenter}>
