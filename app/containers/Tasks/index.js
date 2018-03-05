@@ -17,6 +17,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -48,10 +50,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     const { tasks: { loading, data, patientName } } = this.props;
     return (
-      <div className={styles.card}>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <div className={styles.gridContainer}>
@@ -87,7 +87,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
           />
         </div>
         }
-      </div>
+      </Card>
     );
   }
 }
