@@ -18,5 +18,12 @@ export default defineMessages({
     id: 'ocpui.components.RelatedPersonTable.columnHeaderRelationship',
     defaultMessage: 'Relationship',
   },
-
+  active: {
+    id: 'ocpui.components.RelatedPersonTable.active',
+    defaultMessage: 'Active',
+  },
+  inactive: {
+    id: 'ocpui.components.RelatedPersonTable.inactive',
+    defaultMessage: 'Inactive',
+  },
 });
