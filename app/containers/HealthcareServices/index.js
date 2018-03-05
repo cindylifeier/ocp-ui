@@ -17,6 +17,7 @@ import { Cell } from 'styled-css-grid';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -88,8 +89,9 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     const { loading, healthcareServices, organization, location } = this.props;
     return (
       <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(organization) &&
-        <NoResultsFoundText><FormattedMessage {...messages.organizationNotSelected} /></NoResultsFoundText>}
+        <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
         {!isEmpty(organization) &&
         <InfoSection>
