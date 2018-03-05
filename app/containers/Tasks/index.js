@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
@@ -19,6 +20,8 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -27,6 +30,7 @@ import styles from './styles.css';
 import { cancelTask, getTasks, initializeTasks } from './actions';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
   constructor(props) {
     super(props);
@@ -54,14 +58,12 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <div className={styles.gridContainer}>
-            <div className={styles.patientInfoSection}>
-              <div className={styles.patientLabel}>
-                Patient&nbsp;:&nbsp;
-              </div>
-              {patientName}
-            </div>
-          </div>
+          <InfoSection>
+            <InlineLabel htmlFor={Tasks.PATIENT_NAME_HTML_ID}>
+              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+            </InlineLabel>
+            <span id={Tasks.PATIENT_NAME_HTML_ID}>{patientName}</span>
+          </InfoSection>
         }
 
         {loading &&

@@ -2,20 +2,6 @@
   text-align: center;
 }
 
-.gridContainer {
-  display: grid;
-  width: 100%;
-}
-
-.patientInfoSection {
-  margin:10px 10px;
-}
-
-.patientLabel {
-  font-weight: bold;
-  display: inline-block;
-}
-
 .noTask {
   margin:0 10px;
   font-weight: bold;
