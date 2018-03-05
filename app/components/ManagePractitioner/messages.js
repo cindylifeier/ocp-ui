@@ -144,4 +144,34 @@ export default defineMessages({
       defaultMessage: 'Country',
     },
   },
+  associateOrganizations: {
+    subtitle: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.subtitle',
+      defaultMessage: 'Associate Organizations',
+    },
+    addButtonLabel: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.addButtonLabel',
+      defaultMessage: 'Add Organizations',
+    },
+    tableColumnName: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnName',
+      defaultMessage: 'Name',
+    },
+    tableColumnType: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnType',
+      defaultMessage: 'Artifact Type',
+    },
+    tableColumnAction: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnAction',
+      defaultMessage: 'Action',
+    },
+    actionLabelEdit: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.actionLabelEdit',
+      defaultMessage: 'Edit',
+    },
+    actionLabelRemove: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.actionLabelRemove',
+      defaultMessage: 'Remove',
+    },
+  },
 });

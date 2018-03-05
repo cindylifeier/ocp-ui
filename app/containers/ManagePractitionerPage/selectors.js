@@ -19,8 +19,33 @@ const makeSelectPractitioner = () => createSelector(
   (subState) => subState && subState.get('practitioner'),
 );
 
+const makeSelectOrganizations = () => createSelector(
+  selectManagePractitionerPageDomain,
+  (substate) => substate.toJS()
+);
+
+
+const makeSelectCurrentPage = () => createSelector(
+  selectManagePractitionerPageDomain,
+  (substate) => substate.get('currentPage'),
+);
+
+const makeSelectTotalNumberOfPages = () => createSelector(
+  selectManagePractitionerPageDomain,
+  (substate) => substate.get('totalNumberOfPages'),
+);
+
+const makeSelectOrganizationsData = () => createSelector(
+  selectManagePractitionerPageDomain,
+  (substate) => substate && substate.get('data').toJS(),
+);
+
 export {
   selectManagePractitionerPageDomain,
   makeSelectSavePractitionerError,
   makeSelectPractitioner,
+  makeSelectOrganizations,
+  makeSelectCurrentPage,
+  makeSelectTotalNumberOfPages,
+  makeSelectOrganizationsData,
 };

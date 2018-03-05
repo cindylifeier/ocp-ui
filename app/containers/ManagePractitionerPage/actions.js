@@ -11,6 +11,7 @@ import {
   INITIALIZE_MANAGE_PRACTITIONER,
   SAVE_PRACTITIONER,
   SAVE_PRACTITIONER_ERROR,
+  GET_ORGANIZATIONS, GET_ORGANIZATIONS_SUCCESS, GET_ORGANIZATIONS_ERROR,
 } from './constants';
 
 export function initializeManagePractitioner() {
@@ -55,3 +56,26 @@ export function getPractitionerError(error) {
   };
 }
 
+export function getOrganizations(searchValue, showInactive, searchType, currentPage) {
+  return {
+    type: GET_ORGANIZATIONS,
+    searchValue,
+    showInactive,
+    searchType,
+    currentPage,
+  };
+}
+
+export function getOrganizationsSuccess(organizations) {
+  return {
+    type: GET_ORGANIZATIONS_SUCCESS,
+    organizations,
+  };
+}
+
+export function getOrganizationsError(err) {
+  return {
+    type: GET_ORGANIZATIONS_ERROR,
+    err,
+  };
+}

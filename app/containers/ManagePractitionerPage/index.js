@@ -30,14 +30,25 @@ import {
 } from '../App/lookupSelectors';
 import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { getPractitioner, initializeManagePractitioner, savePractitioner } from './actions';
-import { makeSelectPractitioner } from './selectors';
+import { getPractitioner, initializeManagePractitioner, savePractitioner, getOrganizations } from './actions';
+import { makeSelectPractitioner, makeSelectCurrentPage, makeSelectOrganizations,
+  makeSelectTotalNumberOfPages } from './selectors';
+
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static SEARCH_BAR_TEXT_LENGTH = 3;
 
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
+    this.state = {
+      currentPage: 1,
+      searchValue: '',
+      showInactive: false,
+      searchType: 'name',
+    };
   }
 
   componentWillMount() {
@@ -52,6 +63,16 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
     this.props.initializeManagePractitioner();
   }
 
+  handleSearch(searchValue, showInactive, searchType) {
+    this.setState({ searchValue, showInactive, searchType });
+    this.props.getOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
+  }
+
+  handlePageClick(currentPage) {
+    this.setState({ currentPage });
+    this.props.getOrganizations(this.state.searchValue, this.state.showInactive, this.state.searchType, currentPage);
+  }
+
   handleSave(practitionerFormData, actions) {
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -61,7 +82,10 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles, selectedPractitioner } = this.props;
+    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles, selectedPractitioner,
+      organizations,
+      currentPage,
+      totalNumberOfPages } = this.props;
     const editMode = !isUndefined(match.params.id);
     let practitioner = null;
     if (editMode && selectedPractitioner) {
@@ -74,6 +98,9 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       practitionerRoles,
       editMode,
       practitioner,
+      organizations,
+      currentPage,
+      totalNumberOfPages,
     };
     return (
       <div className={styles.wrapper}>
@@ -86,7 +113,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
             : <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />
-        <ManagePractitioner {...formProps} onSave={this.handleSave} />
+        <ManagePractitioner {...formProps} onSave={this.handleSave} onPageClick={this.handlePageClick} onSearch={this.handleSearch} />
       </div>
     );
   }
@@ -103,6 +130,13 @@ ManagePractitionerPage.propTypes = {
   selectedPractitioner: PropTypes.object,
   onSaveForm: PropTypes.func,
   initializeManagePractitioner: PropTypes.func,
+  getOrganizations: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalNumberOfPages: PropTypes.number.isRequired,
+  organizations: PropTypes.shape({
+    data: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -111,6 +145,9 @@ const mapStateToProps = createStructuredSelector({
   telecomSystems: makeSelectTelecomSystems(),
   practitionerRoles: makeSelectPractitionerRoles(),
   selectedPractitioner: makeSelectPractitioner(),
+  organizations: makeSelectOrganizations(),
+  currentPage: makeSelectCurrentPage(),
+  totalNumberOfPages: makeSelectTotalNumberOfPages(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -119,6 +156,7 @@ function mapDispatchToProps(dispatch) {
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
     onSaveForm: (practitionerFormData, handleSubmitting) => dispatch(savePractitioner(practitionerFormData, handleSubmitting)),
     getPractitioner: (logicalId) => dispatch(getPractitioner(logicalId)),
+    getOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(getOrganizations(searchValue, showInactive, searchType, currentPage)),
   };
 }
 
