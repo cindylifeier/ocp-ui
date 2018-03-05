@@ -26,4 +26,8 @@ export default defineMessages({
     id: 'ocpui.components.RelatedPersonTable.inactive',
     defaultMessage: 'Inactive',
   },
+  edit: {
+    id: 'ocpui.components.RelatedPersonTable.edit',
+    defaultMessage: 'Edit',
+  },
 });
