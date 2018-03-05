@@ -7,15 +7,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import injectSaga from 'utils/injectSaga';
@@ -26,6 +21,14 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import StyledMenuItem from 'components/StyledMenuItem';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
@@ -38,24 +41,11 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import { getFilteredLocations, initializeLocations } from './actions';
-
-const iconStyles = {
-  iconButton: {
-    position: 'relative',
-  },
-  icon: {
-    width: '100%',
-    height: 26,
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  },
-};
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static ORGANIZATION_NAME_HTML_ID = `organization-name-${uniqueId()}`;
+  static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
 
   constructor(props) {
     super(props);
@@ -108,42 +98,30 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   renderRows() {
     if (this.props.data) {
       return this.props.data.map(({ logicalId, name, status, telecoms, address }) => (
-        <div
+        <TableRow
           role="button"
           tabIndex="0"
           key={logicalId}
-          className={styles.rowGridContainer}
           onClick={() => this.handleRowClick(logicalId, name)}
+          columns={Locations.TABLE_COLUMNS}
         >
-          <div className={styles.cellGridItem}>{name}</div>
-          <div className={styles.cellGridItem}>{status}</div>
-          <div className={styles.cellGridItem}>{this.renderTelecoms(telecoms)}</div>
-          <div className={styles.cellGridItem}>{this.renderAddress(address)} </div>
-          <IconMenu
-            iconButtonElement={
-              (<IconButton
-                className={styles.iconButton}
-                iconStyle={iconStyles.icon}
-                style={iconStyles.iconButton}
-              >
-                <NavigationMenu />
-              </IconButton>)
-            }
-            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-          >
-            <MenuItem
-              className={styles.menuItem}
-              primaryText="Edit"
-              containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
-            />
-            <MenuItem
-              className={styles.menuItem}
-              primaryText="Assign HealthCareService"
-              containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
-            />
-          </IconMenu>
-        </div>
+          <TableRowColumn>{name}</TableRowColumn>
+          <TableRowColumn>{status}</TableRowColumn>
+          <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
+          <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
+          <TableRowColumn>
+            <NavigationStyledIconMenu>
+              <StyledMenuItem
+                primaryText={<FormattedMessage {...messages.actionLabelEdit} />}
+                containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
+              />
+              <StyledMenuItem
+                primaryText={<FormattedMessage {...messages.actionLabelAssignHealthCareService} />}
+                containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
+              />
+            </NavigationStyledIconMenu>
+          </TableRowColumn>
+        </TableRow>
       ));
     }
     return '<div></div>';
@@ -185,30 +163,24 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             </Cell>
           </CheckboxFilterGrid>
         </FilterSection>
-        <div className={styles.table}>
-          <div className={styles.rowHeaderGridContainer}>
-            <div className={styles.cellGridHeaderItem}>Name</div>
-            <div className={styles.cellGridHeaderItem}>Status</div>
-            <div className={styles.cellGridHeaderItem}>Telecoms</div>
-            <div className={styles.cellGridHeaderItem}>Address</div>
-            <div></div>
-          </div>
+        <Table>
+          <TableHeader columns={Locations.TABLE_COLUMNS}>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
+            <TableHeaderColumn />
+          </TableHeader>
           {this.renderRows()}
-          <div className={styles.pagination}>
-            <UltimatePagination
-              currentPage={this.props.currentPage}
-              totalPages={this.props.totalNumberOfPages}
-              boundaryPagesRange={1}
-              siblingPagesRange={1}
-              hidePreviousAndNextPageLinks={false}
-              hideFirstAndLastPageLinks={false}
-              hideEllipsis={false}
-              onChange={this.handlePageClick}
-            />
-          </div>
-        </div>
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalNumberOfPages}
+            onChange={this.handlePageClick}
+          />
+        </Table>
       </Card>
-    );
+    )
+      ;
   }
 
   renderLocationTable() {
