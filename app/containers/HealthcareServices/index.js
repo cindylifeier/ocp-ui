@@ -89,7 +89,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     return (
       <Card>
         {isEmpty(organization) &&
-        <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
+        <NoResultsFoundText><FormattedMessage {...messages.organizationNotSelected} /></NoResultsFoundText>}
 
         {!isEmpty(organization) &&
         <InfoSection>
