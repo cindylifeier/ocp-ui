@@ -17,6 +17,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
@@ -48,10 +50,8 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
   render() {
     const { data, selectedPatient, loading } = this.props;
     return (
-      <div className={styles.card}>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(data.elements) ?
           <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4> :
           <div className={styles.gridContainer}>
@@ -80,7 +80,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
             </div>
           </div>
         }
-      </div>
+      </Card>
     );
   }
 }
