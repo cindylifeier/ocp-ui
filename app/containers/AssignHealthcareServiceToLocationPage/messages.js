@@ -41,10 +41,10 @@ export default defineMessages({
   },
   labelOrganization: {
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.labelOrganization',
-    defaultMessage: 'Organization: ',
+    defaultMessage: 'Organization:',
   },
   labelLocation: {
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.labelLocation',
-    defaultMessage: 'Location: ',
+    defaultMessage: 'Location:',
   },
 });

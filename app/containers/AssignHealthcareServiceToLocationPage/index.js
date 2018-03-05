@@ -131,15 +131,15 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           {organization && selectedLocation && <div>
             <InfoSection>
               <InlineLabel htmlFor={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>
-                <FormattedMessage {...messages.labelOrganization} />
+                <FormattedMessage {...messages.labelOrganization} />&nbsp;
               </InlineLabel>
-              <span id={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>&nbsp;{organization.name}</span>
+              <span id={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
             </InfoSection>
             <InfoSection>
               <InlineLabel htmlFor={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>
-                <FormattedMessage {...messages.labelLocation} />
+                <FormattedMessage {...messages.labelLocation} />&nbsp;
               </InlineLabel>
-              <span id={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>&nbsp;{selectedLocation.name}</span>
+              <span id={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>{selectedLocation.name}</span>
             </InfoSection>
           </div>
           }
