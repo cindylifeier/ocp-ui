@@ -49,9 +49,6 @@ import {
 } from './actions';
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
-  static LOCATION_NAME_HTML_ID = uniqueId('location_name_');
-
   constructor(props) {
     super(props);
     this.state = {
@@ -65,6 +62,8 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
     this.onCheckAssignedCheckbox = this.onCheckAssignedCheckbox.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleUnassignHealthcareService = this.handleUnassignHealthcareService.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentDidMount() {
@@ -130,16 +129,16 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
           {organization && selectedLocation && <div>
             <InfoSection>
-              <InlineLabel htmlFor={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>
+              <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
                 <FormattedMessage {...messages.labelOrganization} />&nbsp;
               </InlineLabel>
-              <span id={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
             </InfoSection>
             <InfoSection>
-              <InlineLabel htmlFor={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>
+              <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
                 <FormattedMessage {...messages.labelLocation} />&nbsp;
               </InlineLabel>
-              <span id={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>{selectedLocation.name}</span>
+              <span id={this.LOCATION_NAME_HTML_ID}>{selectedLocation.name}</span>
             </InfoSection>
           </div>
           }
