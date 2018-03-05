@@ -29,6 +29,7 @@ function ManageCommunicationForm(props) {
     communicationCategories,
     communicationNotDoneReasons,
     communicationMedia,
+    episodeOfCares,
   } = props;
 // Context =
   return (
@@ -80,11 +81,15 @@ function ManageCommunicationForm(props) {
               />
             </Cell>
             <Cell>
-              <TextField
+              <SelectField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.context} />}
-                fullWidth
                 name="context"
-              />
+                fullWidth
+              >
+                {episodeOfCares && episodeOfCares.map((episodeOfCare) => (
+                  <MenuItem key={uniqueId()} value={episodeOfCare.code} primaryText={episodeOfCare.display} />
+                ))}
+              </SelectField>
             </Cell>
           </Grid>
         </FormCell>
@@ -211,6 +216,7 @@ ManageCommunicationForm.propTypes = {
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
+  episodeOfCares: PropTypes.array.isRequired,
 };
 
 export default ManageCommunicationForm;

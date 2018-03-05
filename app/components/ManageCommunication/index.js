@@ -21,12 +21,14 @@ function ManageCommunication(props) {
     communicationCategories,
     communicationNotDoneReasons,
     communicationMedia,
+    episodeOfCares,
   } = props;
   const propsFromContainer = {
     communicationStatus,
     communicationCategories,
     communicationNotDoneReasons,
     communicationMedia,
+    episodeOfCares,
   };
   const initialValues = {};
   const minimumLength = TEXT_MIN_LENGTH;
@@ -79,6 +81,7 @@ ManageCommunication.propTypes = {
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
+  episodeOfCares: PropTypes.array.isRequired,
 };
 
 export default ManageCommunication;
