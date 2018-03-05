@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { makeSelectEpisodeOfCares } from 'containers/ManageCommunicationPage/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,7 +23,7 @@ import PageHeader from '../../components/PageHeader';
 import PageContent from '../../components/PageContent';
 import ManageCommunication from '../../components/ManageCommunication';
 import { getLookupsAction } from '../App/actions';
-import { createCommunication, updateCommunication } from './actions';
+import { createCommunication, updateCommunication, getEpisodeOfCares } from './actions';
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import {
   makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
@@ -33,13 +34,15 @@ import {
   COMMUNICATION_NOT_DONE_REASON,
 } from '../App/constants';
 
+
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
+    this.props.getEpisodeOfCares(this.props.selectedPatient.id);
   }
   handleSave(communication, actions) {
     const logicalId = this.props.match.params.id;
@@ -58,12 +61,14 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       communicationCategories,
       communicationNotDoneReasons,
       communicationMedia,
+      episodeOfCares,
     } = this.props;
     const manageCommunicationProps = {
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
       communicationMedia,
+      episodeOfCares,
     };
     return (
       <Page>
@@ -92,9 +97,11 @@ ManageCommunicationPage.propTypes = {
   createCommunication: PropTypes.func.isRequired,
   updateCommunication: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
+  episodeOfCares: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
+  getEpisodeOfCares: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -103,6 +110,7 @@ const mapStateToProps = createStructuredSelector({
   communicationCategories: makeSelectCommunicationCategories(),
   communicationNotDoneReasons: makeSelectCommunicationNotDoneReasons(),
   communicationMedia: makeSelectCommunicationMedia(),
+  episodeOfCares: makeSelectEpisodeOfCares(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -110,6 +118,7 @@ function mapDispatchToProps(dispatch) {
     getLookups: () => dispatch(getLookupsAction([COMMUNICATION_STATUS, COMMUNICATION_CATEGORY, COMMUNICATION_NOT_DONE_REASON, COMMUNICATION_MEDIUM])),
     createCommunication: (communication, patientId, handleSubmitting) => dispatch(createCommunication(communication, patientId, handleSubmitting)),
     updateCommunication: (communication, patientId, handleSubmitting) => dispatch(updateCommunication(communication, patientId, handleSubmitting)),
+    getEpisodeOfCares: (patientId) => dispatch(getEpisodeOfCares(patientId)),
   };
 }
 

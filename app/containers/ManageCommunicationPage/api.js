@@ -1,5 +1,8 @@
+import { BASE_EPISODE_OF_CARES_API_URL,
+  BASE_RELATED_PERSONS_API_URL,
+  getEndpoint } from 'utils/endpointService';
+import * as queryString from 'query-string';
 import request from '../../utils/request';
-import { BASE_RELATED_PERSONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_RELATED_PERSONS_API_URL);
 
@@ -24,4 +27,12 @@ export function updateCommunication(communication) {
       'Content-Type': 'application/json',
     },
   });
+}
+
+export function getEpisodeOfCares(patientId) {
+  const baseEndpointEpisodeOfCare = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
+  const queryParams = { patient: patientId };
+  const stringifiedParams = queryString.stringify(queryParams);
+  const requestURL = `${baseEndpointEpisodeOfCare}?${stringifiedParams}`;
+  return request(requestURL);
 }

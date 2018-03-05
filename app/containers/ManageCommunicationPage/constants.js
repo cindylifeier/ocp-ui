@@ -14,7 +14,9 @@ export const CREATE_COMMUNICATION_SUCCESS = 'ocpui/ManageCommunicationPage/CREAT
 export const SAVE_COMMUNICATION_ERROR = 'ocpui/ManageCommunicationPage/SAVE_COMMUNICATION_ERROR';
 
 export const UPDATE_COMMUNICATION = 'ocpui/ManageCommunicationPage/UPDATE_COMMUNICATION';
-export const UPDATE_COMMUNICATION_SUCCESS = 'ocpui/ManageCommunicationPage/UPDATE_COMMUNICATION_SUCCESS';
+
+export const GET_EPISODE_OF_CARES = 'ocpui/ManageCommunicationPage/GET_EPISODE_OF_CARES';
+export const GET_EPISODE_OF_CARES_SUCCESS = 'ocpui/ManageCommunicationPage/GET_EPISODE_OF_CARES_SUCCESS';
 /**
 *  Other constants
 *

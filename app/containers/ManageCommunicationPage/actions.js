@@ -6,7 +6,8 @@
 
 import {
   CREATE_COMMUNICATION, CREATE_COMMUNICATION_SUCCESS, SAVE_COMMUNICATION_ERROR,
-  UPDATE_COMMUNICATION, UPDATE_COMMUNICATION_SUCCESS,
+  UPDATE_COMMUNICATION,
+  GET_EPISODE_OF_CARES, GET_EPISODE_OF_CARES_SUCCESS,
 } from './constants';
 
 export function createCommunication(communication, patientId, handleSubmitting) {
@@ -41,9 +42,17 @@ export function updateCommunication(communication, patientId, handleSubmitting) 
   };
 }
 
-export function updateCommunicationSuccess(response) {
+export function getEpisodeOfCares(patientId) {
   return {
-    type: UPDATE_COMMUNICATION_SUCCESS,
-    response,
+    type: GET_EPISODE_OF_CARES,
+    patientId,
+  };
+}
+
+
+export function getEpisodeOfCaresSuccess(episodeOfCares) {
+  return {
+    type: GET_EPISODE_OF_CARES_SUCCESS,
+    episodeOfCares,
   };
 }
