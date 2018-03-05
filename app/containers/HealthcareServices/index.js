@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
@@ -47,6 +48,9 @@ import saga from './saga';
 import messages from './messages';
 
 export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+  static LOCATION_NAME_HTML_ID = uniqueId('location_name_');
+
   constructor(props) {
     super(props);
     this.state = {
@@ -89,17 +93,17 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
 
         {!isEmpty(organization) &&
         <InfoSection>
-          <InlineLabel>
-            Organization&nbsp;:&nbsp;
+          <InlineLabel htmlFor={HealthcareServices.ORGANIZATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.labelOrganization} />&nbsp;
           </InlineLabel>
-          {organization.name}
+          <span id={HealthcareServices.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
         </InfoSection>}
         {!isEmpty(location) &&
         <InfoSection>
-          <InlineLabel>
-            Location&nbsp;:&nbsp;
+          <InlineLabel htmlFor={HealthcareServices.LOCATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.labelLocation} />&nbsp;
           </InlineLabel>
-          {location.name}
+          <span id={HealthcareServices.LOCATION_NAME_HTML_ID}>{location.name}</span>
         </InfoSection>}
         {!isEmpty(organization) &&
         <div>
