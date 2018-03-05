@@ -18,6 +18,8 @@ import { compose } from 'redux';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import StatusCheckbox from 'components/StatusCheckbox';
+import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
   makeSelectIncludeInactive,
@@ -31,8 +33,6 @@ import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import { getFilteredLocations, initializeLocations } from './actions';
-import StatusCheckbox from '../../components/StatusCheckbox';
-import { getHealthcareServicesByLocation } from '../HealthcareServices/actions';
 
 const iconStyles = {
   iconButton: {
@@ -59,24 +59,8 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeLocations();
-  }
-
-  getTelecoms(telecoms) {
-    return telecoms.map((entry) =>
-      (
-        <div key={entry.value}>
-          {entry.system}: {entry.value},
-        </div>
-      ),
-    );
-  }
-
-  getAddress(address) {
-    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
-    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
-    return addressStr ? (<div>{addressStr}</div>) : '';
   }
 
   handleRowClick(locationLogicalId, locationName) {
@@ -96,7 +80,23 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.props.onChangePage(currentPage, this.props.includeInactive, this.props.includeSuspended);
   }
 
-  createRows() {
+  renderTelecoms(telecoms) {
+    return telecoms.map((entry) =>
+      (
+        <div key={entry.value}>
+          {entry.system}: {entry.value},
+        </div>
+      ),
+    );
+  }
+
+  renderAddress(address) {
+    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
+    return addressStr ? (<div>{addressStr}</div>) : '';
+  }
+
+  renderRows() {
     if (this.props.data) {
       return this.props.data.map(({ logicalId, name, status, telecoms, address }) => (
         <div
@@ -108,8 +108,8 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
         >
           <div className={styles.cellGridItem}>{name}</div>
           <div className={styles.cellGridItem}>{status}</div>
-          <div className={styles.cellGridItem}>{this.getTelecoms(telecoms)}</div>
-          <div className={styles.cellGridItem}>{this.getAddress(address)} </div>
+          <div className={styles.cellGridItem}>{this.renderTelecoms(telecoms)}</div>
+          <div className={styles.cellGridItem}>{this.renderAddress(address)} </div>
           <IconMenu
             iconButtonElement={
               (<IconButton
@@ -140,75 +140,73 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     return '<div></div>';
   }
 
-  createTable() {
+  renderTable() {
     return (
-      <div>
-        <div className={styles.card}>
-          <div className={styles.organizationInfoSection}>
-            <div className={styles.organizationInfoLabel}>
-              Organization&nbsp;:&nbsp;
-            </div>
-            {this.props.organization ? this.props.organization.name : ''}
+      <div className={styles.card}>
+        <div className={styles.organizationInfoSection}>
+          <div className={styles.organizationInfoLabel}>
+            Organization&nbsp;:&nbsp;
           </div>
-          <div className={styles.actionSection}>
-            <div className={styles.filterGridContainer}>
-              <div>
-                <FormattedMessage {...messages.filterLabel} />
-              </div>
-              <StatusCheckbox
-                messages={messages.inactive}
-                elementId="inactiveCheckBox"
-                checked={this.props.includeInactive}
-                handleCheck={this.handleIncludeInactive}
-              >
-              </StatusCheckbox>
-              <StatusCheckbox
-                messages={messages.suspended}
-                elementId="suspendedCheckBox"
-                checked={this.props.includeSuspended}
-                handleCheck={this.handleIncludeSuspended}
-              >
-              </StatusCheckbox>
+          {this.props.organization ? this.props.organization.name : ''}
+        </div>
+        <div className={styles.actionSection}>
+          <div className={styles.filterGridContainer}>
+            <div>
+              <FormattedMessage {...messages.filterLabel} />
             </div>
+            <StatusCheckbox
+              messages={messages.inactive}
+              elementId="inactiveCheckBox"
+              checked={this.props.includeInactive}
+              handleCheck={this.handleIncludeInactive}
+            >
+            </StatusCheckbox>
+            <StatusCheckbox
+              messages={messages.suspended}
+              elementId="suspendedCheckBox"
+              checked={this.props.includeSuspended}
+              handleCheck={this.handleIncludeSuspended}
+            >
+            </StatusCheckbox>
           </div>
-          <div className={styles.table}>
-            <div className={styles.rowHeaderGridContainer}>
-              <div className={styles.cellGridHeaderItem}>Name</div>
-              <div className={styles.cellGridHeaderItem}>Status</div>
-              <div className={styles.cellGridHeaderItem}>Telecoms</div>
-              <div className={styles.cellGridHeaderItem}>Address</div>
-              <div></div>
-            </div>
-            {this.createRows()}
-            <div className={styles.pagination}>
-              <UltimatePagination
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalNumberOfPages}
-                boundaryPagesRange={1}
-                siblingPagesRange={1}
-                hidePreviousAndNextPageLinks={false}
-                hideFirstAndLastPageLinks={false}
-                hideEllipsis={false}
-                onChange={this.handlePageClick}
-              />
-            </div>
+        </div>
+        <div className={styles.table}>
+          <div className={styles.rowHeaderGridContainer}>
+            <div className={styles.cellGridHeaderItem}>Name</div>
+            <div className={styles.cellGridHeaderItem}>Status</div>
+            <div className={styles.cellGridHeaderItem}>Telecoms</div>
+            <div className={styles.cellGridHeaderItem}>Address</div>
+            <div></div>
+          </div>
+          {this.renderRows()}
+          <div className={styles.pagination}>
+            <UltimatePagination
+              currentPage={this.props.currentPage}
+              totalPages={this.props.totalNumberOfPages}
+              boundaryPagesRange={1}
+              siblingPagesRange={1}
+              hidePreviousAndNextPageLinks={false}
+              hideFirstAndLastPageLinks={false}
+              hideEllipsis={false}
+              onChange={this.handlePageClick}
+            />
           </div>
         </div>
       </div>
     );
   }
 
-  createLocationTable() {
+  renderLocationTable() {
     const { data } = this.props;
     if (data && data.length > 0) {
-      return this.createTable();
+      return this.renderTable();
     }
     return (<div className={styles.card}><h4> No locations loaded. Please select an organization to view its
       locations.</h4></div>);
   }
 
   render() {
-    return this.createLocationTable();
+    return this.renderLocationTable();
   }
 }
 
