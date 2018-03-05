@@ -30,11 +30,10 @@ import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
-
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
@@ -60,10 +59,10 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
           <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4> :
           <div>
             <InfoSection>
-              <InlineLabel htmlFor={RelatedPersons.PATIENT_NAME_HTML_ID}>
+              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
                 <FormattedMessage {...messages.labelPatientName} />&nbsp;
               </InlineLabel>
-              <span id={RelatedPersons.PATIENT_NAME_HTML_ID}>{this.getPatientName(selectedPatient)}</span>
+              <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(selectedPatient)}</span>
             </InfoSection>
             {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable
