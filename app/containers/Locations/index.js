@@ -125,7 +125,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
         </TableRow>
       ));
     }
-    return '<div></div>';
+    return '<TableRow />';
   }
 
   renderTable() {
