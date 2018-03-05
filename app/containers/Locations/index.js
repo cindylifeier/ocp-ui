@@ -17,6 +17,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StatusCheckbox from 'components/StatusCheckbox';
 import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
@@ -29,7 +30,6 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import StyledMenuItem from 'components/StyledMenuItem';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import NoResultsFoundText from 'components/NoResultsFoundText';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
@@ -130,7 +130,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   renderTable() {
     return (
-      <Card>
+      <div>
         <InfoSection>
           <InlineLabel htmlFor={Locations.ORGANIZATION_NAME_HTML_ID}>
             Organization&nbsp;:&nbsp;
@@ -179,7 +179,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             onChange={this.handlePageClick}
           />
         </Table>
-      </Card>
+      </div>
     )
       ;
   }
@@ -189,14 +189,15 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     if (data && data.length > 0) {
       return this.renderTable();
     }
-    return (
-      <Card>
-        <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
-      </Card>);
+    return (<h4><FormattedMessage {...messages.noLocationsFound} /></h4>);
   }
 
   render() {
-    return this.renderLocationTable();
+    return (
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        {this.renderLocationTable()}
+      </Card>);
   }
 }
 
