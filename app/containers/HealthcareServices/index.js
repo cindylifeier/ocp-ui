@@ -49,9 +49,6 @@ import saga from './saga';
 import messages from './messages';
 
 export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
-  static LOCATION_NAME_HTML_ID = uniqueId('location_name_');
-
   constructor(props) {
     super(props);
     this.state = {
@@ -59,6 +56,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentWillMount() {
@@ -95,17 +94,17 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
 
         {!isEmpty(organization) &&
         <InfoSection>
-          <InlineLabel htmlFor={HealthcareServices.ORGANIZATION_NAME_HTML_ID}>
+          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
             <FormattedMessage {...messages.labelOrganization} />&nbsp;
           </InlineLabel>
-          <span id={HealthcareServices.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+          <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
         </InfoSection>}
         {!isEmpty(location) &&
         <InfoSection>
-          <InlineLabel htmlFor={HealthcareServices.LOCATION_NAME_HTML_ID}>
+          <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
             <FormattedMessage {...messages.labelLocation} />&nbsp;
           </InlineLabel>
-          <span id={HealthcareServices.LOCATION_NAME_HTML_ID}>{location.name}</span>
+          <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>
         </InfoSection>}
         {!isEmpty(organization) &&
         <div>
