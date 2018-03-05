@@ -45,7 +45,6 @@ import messages from './messages';
 import { getFilteredLocations, initializeLocations } from './actions';
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static ORGANIZATION_NAME_HTML_ID = `organization-name-${uniqueId()}`;
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
 
   constructor(props) {
@@ -57,6 +56,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   }
 
   componentDidMount() {
@@ -132,11 +132,11 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     return (
       <div>
         <InfoSection>
-          <InlineLabel htmlFor={Locations.ORGANIZATION_NAME_HTML_ID}>
+          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
             Organization&nbsp;:&nbsp;
           </InlineLabel>
           <span
-            id={Locations.ORGANIZATION_NAME_HTML_ID}
+            id={this.ORGANIZATION_NAME_HTML_ID}
           >
             {this.props.organization ? this.props.organization.name : ''}
           </span>
