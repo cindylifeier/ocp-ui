@@ -31,12 +31,11 @@ import messages from './messages';
 import { cancelTask, getTasks, initializeTasks } from './actions';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
-
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.cancelTask = this.cancelTask.bind(this);
+    this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
@@ -60,10 +59,10 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <InfoSection>
-            <InlineLabel htmlFor={Tasks.PATIENT_NAME_HTML_ID}>
+            <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
               <FormattedMessage {...messages.labelPatientName} />&nbsp;
             </InlineLabel>
-            <span id={Tasks.PATIENT_NAME_HTML_ID}>{patientName}</span>
+            <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
           </InfoSection>
         }
 
