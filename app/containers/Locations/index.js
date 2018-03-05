@@ -29,6 +29,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import StyledMenuItem from 'components/StyledMenuItem';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
@@ -190,7 +191,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     }
     return (
       <Card>
-        <h4>No locations loaded. Please select an organization to view its locations.</h4>
+        <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
       </Card>);
   }
 
