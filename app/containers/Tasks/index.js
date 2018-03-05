@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -23,11 +22,12 @@ import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import CenterAlign from 'components/Align/CenterAlign';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import { cancelTask, getTasks, initializeTasks } from './actions';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -76,16 +76,11 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         </NoResultsFoundText>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
-        <div className={styles.textCenter}>
-          <TaskTable elements={data.elements} cancelTask={this.cancelTask} />
-          <UltimatePagination
+        <div>
+          <CenterAlign><TaskTable elements={data.elements} cancelTask={this.cancelTask} /></CenterAlign>
+          <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
             onChange={this.handlePageClick}
           />
         </div>
