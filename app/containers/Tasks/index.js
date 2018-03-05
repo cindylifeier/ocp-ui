@@ -15,14 +15,14 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import TaskTable from 'components/TaskTable';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import { cancelTask, getTasks, initializeTasks } from './actions';
-import TaskTable from '../../components/TaskTable';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
