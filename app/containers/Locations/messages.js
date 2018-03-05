@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.Locations.header',
-    defaultMessage: 'This is Locations container !',
+    defaultMessage: 'Locations',
   },
   filterLabel: {
     id: 'ocpui.containers.Patients.filterLabel',

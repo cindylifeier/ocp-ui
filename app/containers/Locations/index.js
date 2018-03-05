@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -23,6 +24,8 @@ import StatusCheckbox from 'components/StatusCheckbox';
 import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
+import FilterSection from 'components/FilterSection';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
@@ -153,29 +156,35 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
           <InlineLabel htmlFor={Locations.ORGANIZATION_NAME_HTML_ID}>
             Organization&nbsp;:&nbsp;
           </InlineLabel>
-          <span id={Locations.ORGANIZATION_NAME_HTML_ID}>{this.props.organization ? this.props.organization.name : ''}</span>
+          <span
+            id={Locations.ORGANIZATION_NAME_HTML_ID}
+          >
+            {this.props.organization ? this.props.organization.name : ''}
+          </span>
         </InfoSection>
-        <div className={styles.actionSection}>
-          <div className={styles.filterGridContainer}>
-            <div>
+        <FilterSection>
+          <CheckboxFilterGrid>
+            <Cell>
               <FormattedMessage {...messages.filterLabel} />
-            </div>
-            <StatusCheckbox
-              messages={messages.inactive}
-              elementId="inactiveCheckBox"
-              checked={this.props.includeInactive}
-              handleCheck={this.handleIncludeInactive}
-            >
-            </StatusCheckbox>
-            <StatusCheckbox
-              messages={messages.suspended}
-              elementId="suspendedCheckBox"
-              checked={this.props.includeSuspended}
-              handleCheck={this.handleIncludeSuspended}
-            >
-            </StatusCheckbox>
-          </div>
-        </div>
+            </Cell>
+            <Cell>
+              <StatusCheckbox
+                messages={messages.inactive}
+                elementId="inactiveCheckBox"
+                checked={this.props.includeInactive}
+                handleCheck={this.handleIncludeInactive}
+              />
+            </Cell>
+            <Cell>
+              <StatusCheckbox
+                messages={messages.suspended}
+                elementId="suspendedCheckBox"
+                checked={this.props.includeSuspended}
+                handleCheck={this.handleIncludeSuspended}
+              />
+            </Cell>
+          </CheckboxFilterGrid>
+        </FilterSection>
         <div className={styles.table}>
           <div className={styles.rowHeaderGridContainer}>
             <div className={styles.cellGridHeaderItem}>Name</div>
