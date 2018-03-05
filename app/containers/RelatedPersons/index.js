@@ -15,32 +15,36 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import RelatedPersonTable from 'components/RelatedPersonTable';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
-import RelatedPersonTable from '../../components/RelatedPersonTable';
 import styles from './styles.css';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
   }
+
   componentDidMount() {
     this.props.initializeRelatedPersons();
   }
+
   getPatientName(patient) {
     const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
     const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
     return fullName;
   }
+
   handlePageClick(pageNumber) {
     this.props.getRelatedPersons(this.props.selectedPatient.id, true, pageNumber);
   }
+
   render() {
     const { data, selectedPatient, loading } = this.props;
     return (
@@ -58,7 +62,10 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
               {this.getPatientName(selectedPatient)}
             </div>
             {loading && <RefreshIndicatorLoading />}
-            <RelatedPersonTable relatedPersons={data.elements} selectedPatientId={selectedPatient.id}></RelatedPersonTable>
+            <RelatedPersonTable
+              relatedPersons={data.elements}
+              selectedPatientId={selectedPatient.id}
+            />
             <div className={styles.textCenter}>
               <UltimatePagination
                 currentPage={data.currentPage}
