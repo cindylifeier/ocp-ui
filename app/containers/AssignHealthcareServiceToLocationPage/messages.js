@@ -39,4 +39,12 @@ export default defineMessages({
     id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.dialogTitleUnassignHealthcareService',
     defaultMessage: 'Unassign Healthcare Service',
   },
+  labelOrganization: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.labelOrganization',
+    defaultMessage: 'Organization: ',
+  },
+  labelLocation: {
+    id: 'ocpui.containers.AssignHealthCareServiceToLocationPage.labelLocation',
+    defaultMessage: 'Location: ',
+  },
 });

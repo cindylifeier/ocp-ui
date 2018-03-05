@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Dialog from 'material-ui/Dialog';
@@ -48,6 +49,9 @@ import {
 } from './actions';
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+  static LOCATION_NAME_HTML_ID = uniqueId('location_name_');
+
   constructor(props) {
     super(props);
     this.state = {
@@ -126,16 +130,16 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
           {organization && selectedLocation && <div>
             <InfoSection>
-              <InlineLabel>
-                Organization&nbsp;:&nbsp;
+              <InlineLabel htmlFor={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>
+                <FormattedMessage {...messages.labelOrganization} />
               </InlineLabel>
-              {organization.name}
+              <span id={AssignHealthCareServiceToLocationPage.ORGANIZATION_NAME_HTML_ID}>&nbsp;{organization.name}</span>
             </InfoSection>
             <InfoSection>
-              <InlineLabel>
-                Location&nbsp;:&nbsp;
+              <InlineLabel htmlFor={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>
+                <FormattedMessage {...messages.labelLocation} />
               </InlineLabel>
-              {selectedLocation.name}
+              <span id={AssignHealthCareServiceToLocationPage.LOCATION_NAME_HTML_ID}>&nbsp;{selectedLocation.name}</span>
             </InfoSection>
           </div>
           }
