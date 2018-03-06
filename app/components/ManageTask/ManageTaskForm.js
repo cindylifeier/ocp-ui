@@ -24,7 +24,8 @@ function ManageTaskForm(props) {
     organization,
     activityDefinitions,
     practitioners,
-    isSubmitting, dirty, isValid,
+    eventTypes,
+    isSubmitting, dirty, isValid, editMode,
   } = props;
 
   const today = new Date();
@@ -100,17 +101,18 @@ function ManageTaskForm(props) {
             />
           </div>
           <div className={`${styles.gridItem} ${styles.serviceGroup}`}>
-            <SelectField
-              fullWidth
-              name="status"
-              hintText={<FormattedMessage {...messages.hintText.status} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
-            >
-              {taskStatus && taskStatus.map((status) =>
-                <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
-              )}
-            </SelectField>
-
+            {editMode &&
+              <SelectField
+                fullWidth
+                name="status"
+                hintText={<FormattedMessage {...messages.hintText.status} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
+              >
+                {taskStatus && taskStatus.map((status) =>
+                  <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
+                )}
+              </SelectField>
+            }
             <SelectField
               fullWidth
               name="priority"
@@ -129,6 +131,16 @@ function ManageTaskForm(props) {
             >
               {requestIntent && requestIntent.map((intent) =>
                 <MenuItem key={intent.code} value={intent.code} primaryText={intent.display} />,
+              )}
+            </SelectField>
+            <SelectField
+              fullWidth
+              name="eventType"
+              hintText={<FormattedMessage {...messages.hintText.eventType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
+            >
+              {eventTypes && eventTypes.map((eventType) =>
+                <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
               )}
             </SelectField>
           </div>
@@ -241,9 +253,14 @@ ManageTaskForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  eventTypes: PropTypes.array(PropTypes.shape({
+    reference: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
 };
 function getResourceName(resource) {
   const names = resource.name;

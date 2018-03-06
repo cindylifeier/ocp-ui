@@ -6,11 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import merge from 'lodash/merge';
+import isEmpty from 'lodash/isEmpty';
+import Util from 'utils/Util';
 import yup from 'yup';
+import { Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
-import ManageTaskForm from './ManageTaskForm';
 import messages from './messages';
+import ManageTaskForm from './ManageTaskForm';
 
 
 function ManageTask(props) {
@@ -18,6 +21,7 @@ function ManageTask(props) {
     onSave, taskStatus, requestIntent,
     requestPriority, taskPerformerType, selectedPatient,
     organization, activityDefinitions, practitioners,
+    currentTask, editMode,
   } = props;
   const formData = {
     taskStatus,
@@ -28,12 +32,14 @@ function ManageTask(props) {
     organization,
     activityDefinitions,
     practitioners,
+    editMode,
   };
 
   return (
     <div>
-      {selectedPatient && organization &&
+      {((editMode && currentTask) || !editMode) &&
       <Formik
+        initialValues={setFormData(currentTask)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -75,6 +81,51 @@ ManageTask.propTypes = {
   organization: PropTypes.array,
   activityDefinitions: PropTypes.array,
   practitioners: PropTypes.array,
+  editMode: PropTypes.bool.isRequired,
+  currentTask: PropTypes.any,
 };
+function setFormData(currentTask) {
+  let formData = null;
+  if (!isEmpty(currentTask)) {
+    formData = merge(Util.pickByIdentity(mapTaskToEditForm(currentTask)));
+  }
+  return Util.pickByIdentity(formData);
+}
+
+
+function mapTaskToEditForm(task) {
+  // Drop down values
+  let priority = {};
+  if (task.priority && task.priority.code) {
+    priority = {
+      priority: Util.setEmptyStringWhenUndefined(task.priority.code),
+    };
+  }
+
+  let intent = {};
+  if (task.intent && task.intent.code) {
+    intent = {
+      intent: Util.setEmptyStringWhenUndefined(task.intent.code),
+    };
+  }
+
+  let performerType = {};
+  if (task.performerType && task.performerType.code) {
+    performerType = {
+      performerType: Util.setEmptyStringWhenUndefined(task.performerType.code),
+    };
+  }
+
+  let activityDefinition = {};
+  if (task.definition && task.definition.reference) {
+    const reference = task.definition.reference.split('/');
+    activityDefinition = {
+      activityDefinition: Util.setEmptyStringWhenUndefined(reference[1]),
+    };
+  }
+
+  return merge(Util.pickByIdentity(priority), Util.pickByIdentity(intent), Util.pickByIdentity(performerType), Util.pickByIdentity(activityDefinition));
+}
+
 
 export default ManageTask;
