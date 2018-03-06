@@ -14,13 +14,13 @@ import Avatar from 'material-ui/Avatar';
 import { Cell } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
+import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
 import StyledDialog from 'components/StyledDialog';
-import ContinueButton from 'components/ConfirmPatientModal/ContinueButton';
-import CloseButton from 'components/ConfirmPatientModal/CloseButton';
-import PatientModalGrid from 'components/ConfirmPatientModal/PatientModalGrid';
-import PatientModalCell from 'components/ConfirmPatientModal/PatientModalCell';
-import patientAvatar from 'images/patient-avatar.png';
+import ContinueButton from './ContinueButton';
+import CloseButton from './CloseButton';
+import PatientModalGrid from './PatientModalGrid';
+import PatientModalCell from './PatientModalCell';
 import messages from './messages';
 
 function ConfirmPatientModal(props) {
@@ -34,7 +34,7 @@ function ConfirmPatientModal(props) {
           columns={1}
           alignContent="space-between"
         >
-          <Cell center><Avatar size={80} src={patientAvatar} /></Cell>
+          <Cell center><Avatar size={80} src={defaultPatientAvatarImage} /></Cell>
           <PatientModalCell center>
             Name{WHITE_SPACE}<strong>{mapToPatientName(props.selectedPatient)}</strong>
           </PatientModalCell>
