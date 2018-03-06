@@ -7,15 +7,15 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import DatePicker from 'components/DatePicker';
+import Checkbox from 'components/Checkbox/index';
+import { DATE_PICKER_MODE } from 'containers/App/constants';
+import { mapToPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import styles from './styles.css';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import DatePicker from '../DatePicker';
-import { DATE_PICKER_MODE } from '../../containers/App/constants';
-// import StatusCheckbox from '../StatusCheckbox/index';
-import Checkbox from '../Checkbox/index';
-import { mapToPatientName } from '../../containers/ManagePatientPage/api';
 
 function ManageRelatedPersonForm(props) {
   const today = new Date();
@@ -29,7 +29,8 @@ function ManageRelatedPersonForm(props) {
     telecomUses,
     telecomSystems,
     relationshipTypes,
-    selectedPatient } = props;
+    selectedPatient,
+  } = props;
   return (
     <div>
       <div className={styles.title}>
@@ -37,7 +38,7 @@ function ManageRelatedPersonForm(props) {
       </div>
       <Form>
         <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.patientName}`} >
+          <div className={`${styles.gridItem} ${styles.patientName}`}>
             <strong>Patient: </strong>{mapToPatientName(selectedPatient)}
           </div>
           <div className={`${styles.gridItem} ${styles.active}`}>

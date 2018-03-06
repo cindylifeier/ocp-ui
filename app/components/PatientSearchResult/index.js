@@ -7,23 +7,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
-import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
-import { MANAGE_CARE_TEAM_URL, MANAGE_TASK_URL } from '../../containers/App/constants';
+
+import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
+import ConfirmPatientModal from 'components/ConfirmPatientModal';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import StyledMenuItem from 'components/StyledMenuItem';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
-import NavigationStyledIconMenu from '../StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from '../StyledMenuItem';
 
 const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
 function displayPatientSearchResult(patients, onPatientClick) {
+  // TODO: Will move ConfirmPatientModal to upcoming tasks component
   return patients && patients.map((patient) => (
     <TableRow
       columns={columns}
@@ -45,12 +47,9 @@ function displayPatientSearchResult(patients, onPatientClick) {
         <NavigationStyledIconMenu>
           <StyledMenuItem
             primaryText={<FormattedMessage {...messages.edit} />}
-            containerElement={<Link to={`/ocp-ui/manage-patient/${patient.id}`} />}
+            containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
           />
-          <StyledMenuItem
-            primaryText={<FormattedMessage {...messages.viewDetails} />}
-            containerElement={<Link to={`/ocp-ui/patients/${patient.id}`} />}
-          />
+          <ConfirmPatientModal selectedPatient={patient} />
           <StyledMenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
