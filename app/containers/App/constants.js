@@ -102,10 +102,11 @@ export const DEFAULT_START_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 10;
 
 /**
- *  Min input field length.
- * @type {number}
+ *  Constants to hold the form validation
  */
 export const TEXT_MIN_LENGTH = 3;
+export const POSTAL_CODE_PATTERN = '^\\d{5}(?:[-\\s]\\d{4})?$';
+
 /**
  *  Constants to hold the configuration for date picker
  * @type {object}
