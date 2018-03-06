@@ -13,7 +13,6 @@ import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
 import Util from 'utils/Util';
-import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import { mapToPatientName } from 'containers/ManagePatientPage/api';
@@ -50,14 +49,11 @@ function ManageCareTeam(props) {
     <div>
       {selectedPatient &&
       <div>
-        <InfoSection margin="5vh 1vw 5vh 1vw">
+        <InfoSection margin="1vh 1vw 1vh 1vw">
           <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.labelPatientName} />&nbsp;
           </InlineLabel>
           <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
         </InfoSection>
-        <FormSubtitle>
-          <FormattedMessage {...messages.title} />
-        </FormSubtitle>
         {((editMode && careTeam) || !editMode) &&
         <Formik
           isInitialValid={editMode}

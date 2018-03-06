@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { teal500, white } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import uniqueId from 'lodash/uniqueId';
-import styles from './styles.css';
 
 import messages from './messages';
 import Table from '../Table/index';
@@ -27,43 +26,41 @@ function SelectedParticipants(props) {
   const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
 
   return (
-    <div className={styles.selectedTable}>
-      <Table>
-        <TableHeader>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-        </TableHeader>
-        {selectedParticipants && selectedParticipants.length > 0 ?
-          selectedParticipants.map((participant) => (
-            <TableRow key={uniqueId()}>
-              <TableRowColumn>{participant.name}</TableRowColumn>
-              <TableRowColumn>{capitalizeFirstLetter(participant.memberType)}</TableRowColumn>
-              <TableRowColumn>{participant.roleDisplay}</TableRowColumn>
-              <TableRowColumn>{participant.startDate}</TableRowColumn>
-              <TableRowColumn>{participant.endDate}</TableRowColumn>
-              <TableRowColumn>
-                <RaisedButton
-                  backgroundColor={teal500}
-                  labelColor={white}
-                  onClick={() => handleRemoveParticipant(participant)}
-                  style={removeButtonStyle}
-                  label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
-                />
-              </TableRowColumn>
-            </TableRow>
-          )) :
-          <TableRow>
+    <Table>
+      <TableHeader>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+      </TableHeader>
+      {selectedParticipants && selectedParticipants.length > 0 ?
+        selectedParticipants.map((participant) => (
+          <TableRow key={uniqueId()}>
+            <TableRowColumn>{participant.name}</TableRowColumn>
+            <TableRowColumn>{capitalizeFirstLetter(participant.memberType)}</TableRowColumn>
+            <TableRowColumn>{participant.roleDisplay}</TableRowColumn>
+            <TableRowColumn>{participant.startDate}</TableRowColumn>
+            <TableRowColumn>{participant.endDate}</TableRowColumn>
             <TableRowColumn>
-              <span><FormattedMessage {...messages.noParticipantAdded} /></span>
+              <RaisedButton
+                backgroundColor={teal500}
+                labelColor={white}
+                onClick={() => handleRemoveParticipant(participant)}
+                style={removeButtonStyle}
+                label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
+              />
             </TableRowColumn>
           </TableRow>
-        }
-      </Table>
-    </div>
+        )) :
+        <TableRow>
+          <TableRowColumn>
+            <span><FormattedMessage {...messages.noParticipantAdded} /></span>
+          </TableRowColumn>
+        </TableRow>
+      }
+    </Table>
   );
 }
 
