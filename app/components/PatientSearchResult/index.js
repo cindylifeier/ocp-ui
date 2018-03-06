@@ -10,7 +10,8 @@ import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 
-import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL, PATIENTS_URL } from 'containers/App/constants';
+import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
+import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -24,6 +25,7 @@ import messages from './messages';
 const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
 function displayPatientSearchResult(patients, onPatientClick) {
+  // TODO: Will move ConfirmPatientModal to upcoming tasks component
   return patients && patients.map((patient) => (
     <TableRow
       columns={columns}
@@ -47,10 +49,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
             primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
           />
-          <StyledMenuItem
-            primaryText={<FormattedMessage {...messages.viewDetails} />}
-            containerElement={<Link to={`${PATIENTS_URL}/${patient.id}`} />}
-          />
+          <ConfirmPatientModal selectedPatient={patient} />
           <StyledMenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
