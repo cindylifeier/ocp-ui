@@ -46,7 +46,6 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>First Name</div>
           <div className={styles.cellGridHeaderItem}>Last Name</div>
           <div className={styles.cellGridHeaderItem}>Status</div>
-          <div className={styles.cellGridHeaderItem}>Role</div>
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div />
         </div>
@@ -69,9 +68,6 @@ function displayPractitionerSearchResult(practitioners) {
           {practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}
         </div>
         <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
-        <div className={styles['cell-grid-item']}>
-          {mapToPractitionerRole(practitioner)}
-        </div>
         <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
         <IconMenu
           iconButtonElement={
@@ -106,13 +102,6 @@ function mapToIdentifier(practitioner) {
       const value = identifier.value !== EMPTY_STRING ? identifier.value : 'No value found';
       return `${system}: ${value}`;
     })
-    .join(', ');
-}
-
-function mapToPractitionerRole(practitioner) {
-  const practitionerRoles = practitioner.practitionerRoles;
-  return practitionerRoles && practitionerRoles
-    .map((practitionerRole) => practitionerRole.display !== EMPTY_STRING ? practitionerRole.display : '')
     .join(', ');
 }
 
