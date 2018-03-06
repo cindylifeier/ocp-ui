@@ -16,9 +16,13 @@ describe('<PatientPage />', () => {
     const params = { id };
     const match = { params };
     const getPatient = jest.fn();
-
+    const selectedPatient = {
+      id: '1',
+      name: ['test'],
+    };
+    const props = { match, selectedPatient };
     // Act
-    const renderedComponent = shallow(<PatientPage match={match} getPatient={getPatient} />);
+    const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
 
     // Assert
     expect(renderedComponent).toMatchSnapshot();
@@ -31,9 +35,14 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
+      const selectedPatient = {
+        id: '1',
+        name: ['test'],
+      };
+      const props = { match, selectedPatient };
 
       // Act
-      shallow(<PatientPage match={match} getPatient={getPatient} />);
+      shallow(<PatientPage {...props} getPatient={getPatient} />);
 
       // Assert
       expect(getPatient).toBeCalledWith(id);
@@ -45,9 +54,14 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
+      const selectedPatient = {
+        id: '1',
+        name: ['test'],
+      };
+      const props = { match, selectedPatient };
 
       // Act
-      shallow(<PatientPage match={match} getPatient={getPatient} />);
+      shallow(<PatientPage {...props} getPatient={getPatient} />);
 
       // Assert
       expect(getPatient).toHaveBeenCalledTimes(1);
@@ -61,9 +75,14 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
+      const selectedPatient = {
+        id: '1',
+        name: ['test'],
+      };
+      const props = { match, selectedPatient };
 
       // Act
-      const renderedComponent = shallow(<PatientPage match={match} getPatient={getPatient} />);
+      const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
 
       // Assert
       expect(renderedComponent.find(GoldenLayout).exists()).toBeTruthy();
