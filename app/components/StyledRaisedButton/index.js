@@ -6,14 +6,15 @@
 
 import { RaisedButton } from 'material-ui';
 import styled from 'styled-components';
+import { teal500, white } from 'material-ui/styles/colors';
 
 const StyledRaisedButton = styled(RaisedButton).attrs({
-  backgroundColor: '#006666',
+  backgroundColor: teal500,
+  labelColor: white,
   style: {
     fontSize: '12px',
     fontWeight: 'bold',
-    color: 'white',
-    width: '50px',
+    width: '150px',
   },
 })('');
 
