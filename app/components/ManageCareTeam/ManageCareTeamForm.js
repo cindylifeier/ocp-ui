@@ -13,6 +13,7 @@ import Util from 'utils/Util';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
+import FormSubtitle from 'components/FormSubtitle';
 import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import SelectedParticipants from './SelectedParticipants';
 import { addButtonStyle } from './constants';
@@ -121,9 +122,9 @@ function ManageCareTeamForm(props) {
           </div>
         </div>
 
-        <div className={styles.title}>
+        <FormSubtitle>
           <FormattedMessage {...messages.participantTitle} />
-        </div>
+        </FormSubtitle>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.addParticipant}`}>
             <RaisedButton

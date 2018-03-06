@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 
 import Util from 'utils/Util';
+import FormSubtitle from 'components/FormSubtitle';
 import { mapToPatientName } from 'containers/ManagePatientPage/api';
 import { TEXT_MIN_LENGTH } from 'containers/App/constants';
 import styles from './styles.css';
@@ -46,9 +47,9 @@ function ManageCareTeam(props) {
     <div>
       {selectedPatient &&
       <div>
-        <div className={styles.title}>
+        <FormSubtitle>
           <FormattedMessage {...messages.title} />
-        </div>
+        </FormSubtitle>
         <div className={styles.patientInfoSection}>
           <div>Patient:</div>
           <div className={styles.patientName}>
