@@ -19,27 +19,27 @@ import { teal500, white } from 'material-ui/styles/colors';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
-import saga from './saga';
-import messages from './messages';
-
-import TextField from '../../components/TextField';
-import SelectField from '../../components/SelectField';
-import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import PageContent from 'components/PageContent';
+import FormSubtitle from 'components/FormSubtitle';
+import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
-} from '../App/lookupSelectors';
+} from 'containers/App/lookupSelectors';
+import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
+import saga from './saga';
+import messages from './messages';
 import { createOrganization, updateOrganization } from './actions';
-import { makeSelectOrganizationsData } from '../Organizations/selectors';
-import Page from '../../components/Page';
-import PageHeader from '../../components/PageHeader';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
 import ManageOrganizationFormCell from './ManageOrganizationFormCell';
-import StyledRaisedButton from '../../components/StyledRaisedButton';
-import PageContent from '../../components/PageContent';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -129,8 +129,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           title={editingOrganization ?
             <FormattedMessage {...messages.updateModeTitle} /> :
             <FormattedMessage {...messages.createModeTitle} />}
-          subtitle={<FormattedMessage {...messages.subtitle} />}
         />
+        <FormSubtitle>
+          <FormattedMessage {...messages.subtitle} />
+        </FormSubtitle>
         <PageContent>
           <Formik
             validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
