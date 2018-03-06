@@ -26,12 +26,20 @@ export default defineMessages({
     id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderEnd',
     defaultMessage: 'End',
   },
-  columnHeaderActor: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderActor',
-    defaultMessage: 'Actor',
+  columnHeaderParticipant: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.participant',
+    defaultMessage: 'Participant',
   },
   columnHeaderAction: {
     id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderAction',
     defaultMessage: 'Action',
+  },
+  menuItemEdit: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemEdit',
+    defaultMessage: 'Edit',
+  },
+  menuItemRemove: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemRemove',
+    defaultMessage: 'Remove',
   },
 });
