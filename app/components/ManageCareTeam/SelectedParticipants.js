@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { teal500, white } from 'material-ui/styles/colors';
-import RaisedButton from 'material-ui/RaisedButton';
 import uniqueId from 'lodash/uniqueId';
 
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
-import Table from '../Table/index';
-import TableHeader from '../TableHeader/index';
-import TableHeaderColumn from '../TableHeaderColumn/index';
-import TableRow from '../TableRow/index';
-import TableRowColumn from '../TableRowColumn/index';
-import { removeButtonStyle } from './constants';
 
 function SelectedParticipants(props) {
   const {
@@ -44,11 +42,8 @@ function SelectedParticipants(props) {
             <TableRowColumn>{participant.startDate}</TableRowColumn>
             <TableRowColumn>{participant.endDate}</TableRowColumn>
             <TableRowColumn>
-              <RaisedButton
-                backgroundColor={teal500}
-                labelColor={white}
+              <StyledRaisedButton
                 onClick={() => handleRemoveParticipant(participant)}
-                style={removeButtonStyle}
                 label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
               />
             </TableRowColumn>
