@@ -11,13 +11,14 @@ const selectCareCoordinatorUpcomingAppointmentDomain = (state) => state.get('car
 
 
 /**
- * Default selector used by CareCoordinatorUpcomingAppointment
+ * Default selector used by CareCoordinatorUpcomingAppointments
  */
 
 const makeSelectCareCoordinatorUpcomingAppointment = () => createSelector(
   selectCareCoordinatorUpcomingAppointmentDomain,
   (substate) => substate.toJS()
 );
+
 
 export default makeSelectCareCoordinatorUpcomingAppointment;
 export {
