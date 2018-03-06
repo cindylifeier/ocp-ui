@@ -25,12 +25,12 @@ function CareCoordinatorUpcomingAppointmentTable({ upcomingAppointments }) { // 
     <div>
       <Table>
         <TableHeader>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStart} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEnd} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipant} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTime} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {upcomingAppointments && upcomingAppointments.map((appointment) => (

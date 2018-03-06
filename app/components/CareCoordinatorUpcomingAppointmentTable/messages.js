@@ -18,17 +18,17 @@ export default defineMessages({
     id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
-  columnHeaderStart: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderStart',
-    defaultMessage: 'Start',
+  columnHeaderDate: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderDate',
+    defaultMessage: 'Date',
   },
-  columnHeaderEnd: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderEnd',
-    defaultMessage: 'End',
+  columnHeaderTime: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderTime',
+    defaultMessage: 'Time',
   },
-  columnHeaderParticipant: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.participant',
-    defaultMessage: 'Participant',
+  columnHeaderPatientName: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.PatientName',
+    defaultMessage: 'Patient',
   },
   columnHeaderAction: {
     id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderAction',
