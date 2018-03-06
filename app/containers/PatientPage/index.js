@@ -4,20 +4,21 @@
  *
  */
 
-import React from 'react';
+import renderAppointmentsComponent from 'containers/Appointments/render';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import GoldenLayout from '../../components/GoldenLayout';
+import { getPatient } from '../App/actions';
 
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import { getPatient } from '../App/actions';
 import renderNotFoundComponent from '../NotFoundPage/render';
 import renderTasksComponent from '../Tasks/render';
-import GoldenLayout from '../../components/GoldenLayout';
-import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
+import PatientPageGrid from './PatientPageGrid';
 
 export const initialStateMetadata =
   {
@@ -128,7 +129,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   // TODO: will replace with Communication and Appointments render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

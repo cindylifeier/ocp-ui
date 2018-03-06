@@ -8,6 +8,10 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.Appointments.header',
-    defaultMessage: 'This is Appointments container !',
+    defaultMessage: 'Appointments',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Appointments.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
   },
 });
