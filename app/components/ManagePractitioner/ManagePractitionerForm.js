@@ -9,6 +9,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import AddAssociateOrganizationForm from 'components/AddAssociateOrganizationForm';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import messages from './messages';
 import styles from './styles.css';
 import TextField from '../TextField';
@@ -51,12 +57,15 @@ class ManagePractitionerForm extends React.PureComponent {
   }
 
   render() {
-    const { isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoles,
+    const {
+      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoles,
       organizations,
       currentPage,
       totalNumberOfPages,
       onSearch,
-      onPageClick } = this.props;
+      onPageClick,
+      values, errors,
+    } = this.props;
     return (
       <div>
         <div className={styles.title}>
@@ -204,7 +213,7 @@ class ManagePractitionerForm extends React.PureComponent {
               </div>
               <div>
                 <FieldArray
-                  name="associateOrganization"
+                  name="practitionerRole"
                   render={(arrayHelpers) => (
                     <div>
                       <Dialog
@@ -222,6 +231,80 @@ class ManagePractitionerForm extends React.PureComponent {
                           totalNumberOfPages={totalNumberOfPages}
                         />
                       </Dialog>
+                      <Table>
+                        <TableHeader>
+                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
+                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
+                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
+                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
+                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnRemove} /></TableHeaderColumn>
+                        </TableHeader>
+                        {errors && errors.practitionerRole &&
+                        <span className={styles.error}>{errors.practitionerRole}</span>}
+                        {values.practitionerRole.map((pr, index) => {
+                          const { organization } = pr;
+                          return (
+                            <TableRow key={organization && organization.reference}>
+                              <TableRowColumn>{organization.display}</TableRowColumn>
+                              <TableRowColumn>
+                                <SelectField
+                                  fullWidth
+                                  name={`practitionerRole.${index}.code`}
+                                  hintText={<FormattedMessage {...messages.hintText.roleType} />}
+                                >
+                                  {practitionerRoles && practitionerRoles.map((roleType) =>
+                                    (<MenuItem
+                                      key={roleType.code}
+                                      value={roleType.code}
+                                      primaryText={roleType.display}
+                                    />),
+                                  )}
+                                </SelectField>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                <SelectField
+                                  fullWidth
+                                  name={`practitionerRole.${index}.specialty`}
+                                  hintText={<FormattedMessage {...messages.hintText.specialty} />}
+                                >
+                                  {practitionerRoles && practitionerRoles.map((roleType) =>
+                                    (<MenuItem
+                                      key={roleType.code}
+                                      value={roleType.code}
+                                      primaryText={roleType.display}
+                                    />),
+                                  )}
+                                </SelectField>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                <SelectField
+                                  fullWidth
+                                  name={`practitionerRole.${index}.active`}
+                                  hintText={<FormattedMessage {...messages.hintText.active} />}
+                                >
+                                  <MenuItem
+                                    value
+                                    primaryText="Active"
+                                  />
+                                  <MenuItem
+                                    value={false}
+                                    primaryText="Inactive"
+                                  />
+                                </SelectField>
+                              </TableRowColumn>
+                              <TableRowColumn>
+                                <StyledRaisedButton
+                                  label="Remove"
+                                  backgroundColor={teal500}
+                                  labelColor={white}
+                                  onClick={() => arrayHelpers.remove(index)}
+                                >
+                                </StyledRaisedButton>
+                              </TableRowColumn>
+                            </TableRow>
+                          );
+                        })}
+                      </Table>
                     </div>)}
                 />
               </div>
@@ -281,6 +364,8 @@ ManagePractitionerForm.propTypes = {
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
   }),
+  values: PropTypes.object,
+  errors: PropTypes.object,
 };
 
 export default ManagePractitionerForm;

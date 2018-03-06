@@ -26,7 +26,7 @@ function renderIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));
 }
 
-function AssociateOrganizationTable({ organizations, onAddAssociateOrganization }) {
+function AssociateOrganizationTable({ organizations, onAddAssociateOrganization, callback }) {
   return (
     <Table>
       <TableHeader columns={tableColumns}>
@@ -54,7 +54,7 @@ function AssociateOrganizationTable({ organizations, onAddAssociateOrganization 
                 label={'Add'}
                 backgroundColor={teal500}
                 labelColor={white}
-                onClick={() => onAddAssociateOrganization(org)}
+                onClick={() => { onAddAssociateOrganization({ organization: { reference: `Organization/${id}`, display: name } }); callback(); }}
               />
             </TableRowColumn>
           </TableRow>
@@ -72,6 +72,7 @@ AssociateOrganizationTable.propTypes = {
     status: PropTypes.string.isRequired,
   })).isRequired,
   onAddAssociateOrganization: PropTypes.func,
+  callback: PropTypes.func,
 };
 
 export default AssociateOrganizationTable;

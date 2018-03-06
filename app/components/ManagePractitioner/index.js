@@ -37,7 +37,7 @@ function ManagePractitioner(props) {
     <div>
       {((editMode && practitioner) || !editMode) &&
       <Formik
-        initialValues={setFormData(practitioner)}
+        initialValues={(editMode && setFormData(practitioner)) || { practitionerRole: [] }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -55,6 +55,8 @@ function ManagePractitioner(props) {
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          practitionerRole: yup.array()
             .required((<FormattedMessage {...messages.validation.required} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
@@ -157,4 +159,3 @@ function mapPractitionerToFirstTelecoms(practitioner) {
   }
   return telecom;
 }
-
