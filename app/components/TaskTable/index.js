@@ -44,7 +44,7 @@ function TaskTable({ elements, cancelTask }) {
           <TableRowColumn>
             <NavigationStyledIconMenu>
               <StyledMenuItem
-                primaryText="Cancel"
+                primaryText={<FormattedMessage {...messages.actionLabelCancel} />}
                 disabled={status.code === 'cancelled'}
                 onClick={() => cancelTask(logicalId)}
               />
