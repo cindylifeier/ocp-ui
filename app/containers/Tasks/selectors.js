@@ -21,5 +21,5 @@ const makeSelectTasks = () => createSelector(
 
 export default makeSelectTasks;
 export {
-  selectTasksDomain,
+  makeSelectTasks,
 };

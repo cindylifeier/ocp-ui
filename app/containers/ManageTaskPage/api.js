@@ -1,21 +1,16 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
-import queryString from '../../utils/queryString';
-import request from '../../utils/request';
-import { DEFAULT_PAGE_SIZE } from '../App/constants';
 import {
   BASE_ORGANIZATIONS_API_URL,
   BASE_PRACTITIONERS_API_URL,
   BASE_TASKS_API_URL,
+  BASE_EPISODE_OF_CARES_API_URL,
   getEndpoint,
-} from '../../utils/endpointService';
+} from 'utils/endpointService';
+import queryString from 'utils/queryString';
+import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
+import request from 'utils/request';
 
-export function getPatientById(patients, patientId) {
-  if (!isEmpty(patients)) {
-    return find(patients, { id: patientId });
-  }
-  return null;
-}
 
 export function getOrganization() {
   const query = { searchValue: 'great', searchType: 'name', pageNumber: 1, showInactive: false };
@@ -34,6 +29,12 @@ export function getOrganization() {
 export function getActivityDefinitions(organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const requestURL = `${baseEndpoint}/${organizationId.organizationId}/activity-definitions`;
+  return request(requestURL);
+}
+
+export function getEventTypes(patientId) {
+  const baseEndpoint = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
+  const requestURL = `${baseEndpoint}?patient=${patientId}`;
   return request(requestURL);
 }
 
@@ -62,4 +63,29 @@ export function createTask(taskFormData) {
       'Content-Type': 'application/json',
     },
   });
+}
+
+export function updateTask(taskFormData) {
+  const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
+  const requestURL = `${baseEndpoint}`;
+  return request(requestURL, {
+    method: 'PUT',
+    body: JSON.stringify(taskFormData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+export function getTaskByIdFromStore(tasks, logicalId) {
+  if (!isEmpty(tasks)) {
+    return find(tasks, { logicalId });
+  }
+  return null;
+}
+
+export function getTaskById(logicalId) {
+  const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
+  const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL);
 }

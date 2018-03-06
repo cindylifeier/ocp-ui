@@ -5,39 +5,34 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import queryString from 'query-string';
-import { FormattedMessage } from 'react-intl';
+
 import Divider from 'material-ui/Divider';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import { FormattedMessage } from 'react-intl';
+import Util from 'utils/Util';
+import merge from 'lodash/merge';
 import find from 'lodash/find';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import ManageTask from 'components/ManageTask';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { createTask, getActivityDefinitions, getOrganization, getPractitioners, getEventTypes, getTaskById, updateTask } from 'containers/ManageTaskPage/actions';
+import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
+import isUndefined from 'lodash/isUndefined';
+import { getLookupsAction, getPatient } from 'containers/App/actions';
+import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
+import makeSelectTasks from 'containers/Tasks/selectors';
+import { makeSelectActivityDefinitions, makeSelectOrganization, makeSelectPractitioners } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import ManageTask from '../../components/ManageTask';
-import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from '../App/constants';
-import {
-  makeSelectActivityDefinitions,
-  makeSelectOrganization,
-  makeSelectPatient,
-  makeSelectPractitioners,
-} from './selectors';
-import { getLookupsAction } from '../App/actions';
-import {
-  makeSelectRequestIntents,
-  makeSelectRequestPriorities,
-  makeSelectTaskPerformerTypes,
-  makeSelectTaskStatuses,
-} from '../App/lookupSelectors';
 import styles from './styles.css';
-import { createTask, getActivityDefinitions, getOrganization, getPatient, getPractitioners } from './actions';
-import Util from '../../utils/Util';
+import messages from './messages';
+
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -47,9 +42,10 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
 
   componentWillMount() {
     this.props.getLookups();
-  }
-
-  componentDidMount() {
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      this.props.getTask(logicalId);
+    }
     const queryObj = queryString.parse(this.props.location.search);
     const patientId = queryObj.patientId;
     if (patientId) {
@@ -62,6 +58,9 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     // get practitioners for htat patient careteam pracitioner role
     // get specific organization
     this.props.getPractitioners();
+
+    // get episode of cares for a patient
+    this.props.getEventTypes();
   }
 
   handleSave(taskFormData, actions) {
@@ -131,11 +130,19 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
         end: formatDate(taskEnd),
       };
     }
-    this.props.createTask(taskDataToSubmit, () => actions.setSubmitting(false));
+
+    logicalId = this.props.match.params.id;
+    if (logicalId) {
+      merge(taskDataToSubmit, { logicalId });
+      this.props.updateTask(taskDataToSubmit, () => actions.setSubmitting(false));
+    } else {
+      this.props.createTask(taskDataToSubmit, () => actions.setSubmitting(false));
+    }
   }
 
   render() {
     const {
+      match,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -145,6 +152,12 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       activityDefinitions,
       practitioners,
     } = this.props;
+    const logicalId = this.props.match.params.id;
+    const editMode = !isUndefined(match.params.id);
+    let currentTask = null;
+    if (editMode) {
+      currentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
     const taskProps = {
       taskStatus,
       requestIntent,
@@ -154,6 +167,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       organization,
       activityDefinitions,
       practitioners,
+      editMode,
+      currentTask,
     };
 
     return (
@@ -164,7 +179,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
         </Helmet>
         <div className={styles.wrapper}>
           <div className={styles.header}>
-            <FormattedMessage {...messages.createHeader} />
+            {logicalId ? <FormattedMessage {...messages.updateHeader} />
+              : <FormattedMessage {...messages.createHeader} />}
           </div>
           <Divider />
           <ManageTask {...taskProps} onSave={this.handleSave} />
@@ -175,12 +191,21 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
 }
 
 ManageTaskPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,
   getPractitioners: PropTypes.func.isRequired,
+  getEventTypes: PropTypes.func.isRequired,
   getActivityDefinitions: PropTypes.func.isRequired,
   organization: PropTypes.any,
+  tasks: PropTypes.any,
   practitioners: PropTypes.any,
   activityDefinitions: PropTypes.any,
   taskStatus: PropTypes.array,
@@ -190,6 +215,8 @@ ManageTaskPage.propTypes = {
   location: PropTypes.object,
   selectedPatient: PropTypes.object,
   createTask: PropTypes.func,
+  getTask: PropTypes.func,
+  updateTask: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -197,10 +224,11 @@ const mapStateToProps = createStructuredSelector({
   requestIntent: makeSelectRequestIntents(),
   requestPriority: makeSelectRequestPriorities(),
   taskPerformerType: makeSelectTaskPerformerTypes(),
-  selectedPatient: makeSelectPatient(),
+  selectedPatient: makeSelectSelectedPatient(),
   organization: makeSelectOrganization(),
   activityDefinitions: makeSelectActivityDefinitions(),
   practitioners: makeSelectPractitioners(),
+  tasks: makeSelectTasks(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -209,9 +237,11 @@ function mapDispatchToProps(dispatch) {
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getOrganization: () => dispatch(getOrganization()),
     getActivityDefinitions: (organizationId) => dispatch(getActivityDefinitions(organizationId)),
+    getEventTypes: (patientId) => dispatch(getEventTypes(patientId)),
     getPractitioners: () => dispatch(getPractitioners()),
     createTask: (taskFormData, handleSubmitting) => dispatch(createTask(taskFormData, handleSubmitting)),
-
+    getTask: (logicalId) => dispatch(getTaskById(logicalId)),
+    updateTask: (taskFormData, handleSubmitting) => dispatch(updateTask(taskFormData, handleSubmitting)),
   };
 }
 

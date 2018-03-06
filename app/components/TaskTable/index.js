@@ -35,7 +35,7 @@ const iconStyles = {
   },
 };
 
-function TaskTable({ elements, cancelTask }) {
+function TaskTable({ elements, cancelTask, selectedPatientId }) {
   return (
     <div>
       <Table>
@@ -80,7 +80,7 @@ function TaskTable({ elements, cancelTask }) {
                       containerElement={<Link
                         to={{
                           pathname: `${MANAGE_TASK_URL}/${logicalId}`,
-                          search: `?patientId=${logicalId}`,
+                          search: `?patientId=${selectedPatientId}`,
                         }}
                       />}
                     />
@@ -103,6 +103,7 @@ function TaskTable({ elements, cancelTask }) {
 
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
+  selectedPatientId: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({

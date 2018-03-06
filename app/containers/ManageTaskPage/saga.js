@@ -1,36 +1,12 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-
-import { showNotification } from '../Notification/actions';
-import { PATIENTS_URL } from '../App/constants';
-import { GET_ORGANIZATION, GET_PATIENT, GET_ACTIVITY_DEFINITIONS, GET_PRACTITIONERS, CREATE_TASK } from './constants';
-import { getOrganizationError, getOrganizationSuccess, getPatientSuccess, getActivityDefinitionsError, getActivityDefinitionsSuccess, getPractitionersSuccess, getPractitionersError, createTaskSuccess, createTaskError } from './actions';
-import { makeSelectPatientSearchResult } from '../Patients/selectors';
-import { getPatient } from '../ManagePatientPage/api';
-import { getPatientById, getOrganization, getActivityDefinitions, getPractitioners, createTask } from './api';
-
-function* getPatientSaga({ patientId }) {
-  try {
-    let patient;
-    // Load patients from store
-    const patients = yield select(makeSelectPatientSearchResult());
-    patient = getPatientById(patients, patientId);
-    // fetch from backend if cannot find patient from store
-    if (isEmpty(patient)) {
-      patient = yield call(getPatient, patientId);
-    }
-    yield put(getPatientSuccess(patient));
-  } catch (error) {
-    yield put(showNotification('No match patient found.'));
-    yield put(push(PATIENTS_URL));
-    throw error;
-  }
-}
-
-function* watchGetPatientSaga() {
-  yield takeLatest(GET_PATIENT, getPatientSaga);
-}
+import { createTask, getActivityDefinitions, getOrganization, getPractitioners, getEventTypes, getTaskById, getTaskByIdFromStore, updateTask } from 'containers/ManageTaskPage/api';
+import { PATIENTS_URL } from 'containers/App/constants';
+import { CREATE_TASK, GET_ACTIVITY_DEFINITIONS, GET_ORGANIZATION, GET_PRACTITIONERS, GET_TASK, PUT_TASK, GET_EVENT_TYPES } from 'containers/ManageTaskPage/constants';
+import makeSelectTasks from 'containers/Tasks/selectors';
+import { showNotification } from 'containers/Notification/actions';
+import { createTaskError, createTaskSuccess, getActivityDefinitionsError, getActivityDefinitionsSuccess, getOrganizationError, getOrganizationSuccess, getPractitionersError, getEventTypesSuccess, getEventTypesError, getPractitionersSuccess, getTaskByIdError, getTaskByIdSuccess, updateTaskError, updateTaskSuccess } from './actions';
 
 export function* getOrganizationSaga() {
   try {
@@ -62,6 +38,22 @@ export function* getActivityDefinitionsSaga(organizationId) {
  */
 export function* watchGetActivityDefinitionsSaga() {
   yield takeLatest(GET_ACTIVITY_DEFINITIONS, getActivityDefinitionsSaga);
+}
+
+export function* getEventTypesSaga(patientId) {
+  try {
+    const eventTypes = yield call(getEventTypes, patientId);
+    yield put(getEventTypesSuccess(eventTypes));
+  } catch (err) {
+    yield put(getEventTypesError(err));
+  }
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export function* watchGetEventTypesSaga() {
+  yield takeLatest(GET_EVENT_TYPES, getEventTypesSaga);
 }
 
 export function* getPractitionersSaga() {
@@ -98,6 +90,47 @@ function* watchCreateTaskSaga() {
   yield takeLatest(CREATE_TASK, createTaskSaga);
 }
 
+function* updateTaskSaga(action) {
+  try {
+    const updateTaskResponse = yield call(updateTask, action.taskFormData);
+    yield put(updateTaskSuccess(updateTaskResponse));
+    yield put(showNotification('Successfully update the Task Resource.'));
+    yield call(action.handleSubmitting);
+    yield put(goBack());
+  } catch (error) {
+    yield put(showNotification(`Failed to update the Task Resource.${getErrorDetail(error)}`));
+    yield call(action.handleSubmitting);
+    yield put(updateTaskError(error));
+  }
+}
+
+function* watchupdateTaskSaga() {
+  yield takeLatest(PUT_TASK, updateTaskSaga);
+}
+
+
+function* getTaskByIdSaga({ logicalId }) {
+  try {
+    let selectedTask;
+    // Load Tasks from store
+    const tasks = yield select(makeSelectTasks());
+    selectedTask = getTaskByIdFromStore(tasks.data.elements, logicalId);
+    // fetch from backend if cannot find Task from store
+    if (isEmpty(selectedTask)) {
+      selectedTask = yield call(getTaskById, logicalId);
+    }
+    yield put(getTaskByIdSuccess(selectedTask));
+  } catch (error) {
+    yield put(showNotification('No matching Task found.'));
+    yield put(push(PATIENTS_URL));
+    yield put(getTaskByIdError(error));
+  }
+}
+
+function* watchGetTaskByIdSaga() {
+  yield takeLatest(GET_TASK, getTaskByIdSaga);
+}
+
 function getErrorDetail(err) {
   let errorDetail = '';
   if (err && err.message === 'Failed to fetch') {
@@ -115,10 +148,11 @@ function getErrorDetail(err) {
  */
 export default function* rootSaga() {
   yield all([
-    watchGetPatientSaga(),
     watchGetOrganizationSaga(),
     watchGetActivityDefinitionsSaga(),
     watchGetPractitionersSaga(),
     watchCreateTaskSaga(),
+    watchupdateTaskSaga(),
+    watchGetTaskByIdSaga(),
   ]);
 }
