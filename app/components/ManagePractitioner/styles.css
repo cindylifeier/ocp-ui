@@ -31,10 +31,6 @@
   grid-area: lastName;
 }
 
-.roleType {
-  grid-area: roleType;
-}
-
 .identifierGroup {
   grid-area: identifierGroup;
 }
@@ -96,7 +92,6 @@
     "firstName"
     "middleName"
     "lastName"
-    "roleType"
     "identifierGroup"
     "address1"
     "address2"
@@ -123,7 +118,6 @@
     grid-template-areas:
       "firstName lastName"
       "middleName ."
-      "roleType ."
       "identifierGroup identifierGroup"
       "address1 ."
       "address2 ."
@@ -172,13 +166,8 @@
     grid-row: 1;
   }
 
-  .roleType {
-    grid-column: 1 / span 3;
-    grid-row: 2;
-  }
-
   .identifierGroup {
-    grid-column: 4 / span 4;
+    grid-column: 1 / span 4;
     grid-row: 2;
     grid-template-columns: 1fr 1fr;
   }

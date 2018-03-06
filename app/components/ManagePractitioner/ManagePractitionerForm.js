@@ -97,18 +97,6 @@ class ManagePractitionerForm extends React.PureComponent {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
               />
             </div>
-            <div className={`${styles.gridItem} ${styles.roleType}`}>
-              <SelectField
-                fullWidth
-                name="roleType"
-                hintText={<FormattedMessage {...messages.hintText.roleType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.roleType} />}
-              >
-                {practitionerRoles && practitionerRoles.map((roleType) =>
-                  <MenuItem key={roleType.code} value={roleType.code} primaryText={roleType.display} />,
-                )}
-              </SelectField>
-            </div>
             <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
               <SelectField
                 fullWidth
@@ -241,7 +229,7 @@ class ManagePractitionerForm extends React.PureComponent {
                         </TableHeader>
                         {errors && errors.practitionerRole &&
                         <span className={styles.error}>{errors.practitionerRole}</span>}
-                        {values.practitionerRole.map((pr, index) => {
+                        {values.practitionerRole && values.practitionerRole.map((pr, index) => {
                           const { organization } = pr;
                           return (
                             <TableRow key={organization && organization.reference}>
