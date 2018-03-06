@@ -35,30 +35,6 @@ export default defineMessages({
       id: 'ocpui.containers.ManageOrganizationPage.form.status',
       defaultMessage: 'Status',
     },
-    line1: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.line1',
-      defaultMessage: 'Address 1',
-    },
-    line2: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.line2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.city',
-      defaultMessage: 'City',
-    },
-    stateCode: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.stateCode',
-      defaultMessage: 'State',
-    },
-    postalCode: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.postalCode',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.country',
-      defaultMessage: 'Country',
-    },
     telecomSystem: {
       id: 'ocpui.containers.ManageOrganizationPage.form.telecomSystem',
       defaultMessage: 'Telecom Type',
@@ -84,10 +60,6 @@ export default defineMessages({
     required: {
       id: 'ocpui.containers.ManageOrganizationPage.validation.required',
       defaultMessage: 'Required',
-    },
-    zipPattern: {
-      id: 'ocpui.containers.ManageOrganizationPage.validation.zipPattern',
-      defaultMessage: 'Must be with formats: 12345 or 12345-6789',
     },
   },
 });

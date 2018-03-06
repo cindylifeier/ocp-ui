@@ -30,10 +30,10 @@ function AddMultipleAddressForm(props) {
     <div>
       <Formik
         onSubmit={(values) => {
-          onAddAddress(values);
           if (initialValues) {
             onRemoveAddress(initialValues.index);
           }
+          onAddAddress(values);
           handleCloseDialog();
         }}
         initialValues={{ ...(initialValues || {}).address }}

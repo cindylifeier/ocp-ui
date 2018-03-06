@@ -19,30 +19,30 @@ import { teal500, white } from 'material-ui/styles/colors';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
-import saga from './saga';
-import messages from './messages';
 
-import TextField from '../../components/TextField';
-import SelectField from '../../components/SelectField';
-import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
+import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
-} from '../App/lookupSelectors';
-import { createOrganization, updateOrganization } from './actions';
-import { makeSelectOrganizationsData } from '../Organizations/selectors';
-import Page from '../../components/Page';
-import PageHeader from '../../components/PageHeader';
+} from 'containers/App/lookupSelectors';
+import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import PageContent from 'components/PageContent';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
 import ManageOrganizationFormCell from './ManageOrganizationFormCell';
-import StyledRaisedButton from '../../components/StyledRaisedButton';
-import PageContent from '../../components/PageContent';
+import { createOrganization, updateOrganization } from './actions';
+import saga from './saga';
+import messages from './messages';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   static validationSchemaShape = {
     name: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
@@ -50,15 +50,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierValue: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
-    line1: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    city: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    stateCode: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    postalCode: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />))
-      .matches(ManageOrganizationPage.zipPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
     telecomSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     telecomValue: yup.string()
@@ -123,7 +114,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       <Page>
         <Helmet>
           <title>Manage Organization</title>
-          <meta name="description" content="Description of ManageOrganizationPage" />
+          <meta name="description" content="Manage Organization page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
           title={editingOrganization ?
@@ -137,7 +128,12 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
             initialValues={initialValues}
             onSubmit={editingOrganization ? this.handleSubmitUpdate : this.handleSubmitCreate}
             render={(props) => {
-              const { isSubmitting, dirty, isValid } = props;
+              const { isSubmitting, dirty, isValid, errors, values } = props;
+              const addAddressesProps = {
+                uspsStates,
+                errors,
+                values,
+              };
               return (
                 <Form>
                   <ManageOrganizationFormGrid columns={12}>
@@ -188,46 +184,9 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           />))}
                       </SelectField>
                     </ManageOrganizationFormCell>}
-                    <ManageOrganizationFormCell top={2} left={1} width={4}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.line1} />}
-                        fullWidth
-                        name="line1"
-                      />
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={2} left={5} width={4}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.line2} />}
-                        fullWidth
-                        name="line2"
-                      />
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={3} left={1} width={4}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.city} />}
-                        fullWidth
-                        name="city"
-                      />
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={3} left={5} width={3}>
-                      <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.stateCode} />}
-                        fullWidth
-                        name="stateCode"
-                      >
-                        {uspsStates && uspsStates.map((state) => (
-                          <MenuItem
-                            key={state.code}
-                            value={state.code}
-                            primaryText={state.display}
-                          />))}
-                      </SelectField>
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={3} left={8} width={2}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.postalCode} />}
-                        fullWidth
-                        name="postalCode"
+                    <ManageOrganizationFormCell width={12}>
+                      <AddMultipleAddresses
+                        {...addAddressesProps}
                       />
                     </ManageOrganizationFormCell>
                     <ManageOrganizationFormCell top={4} left={1} width={5}>
@@ -284,8 +243,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                 </Form>
               );
             }}
-          >
-          </Formik>
+          />
         </PageContent>
       </Page>
     );
