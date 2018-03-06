@@ -113,5 +113,13 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAction',
       defaultMessage: 'Action',
     },
+    tableActionEdit: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableActionEdit',
+      defaultMessage: 'Edit',
+    },
+    tableActionRemove: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableActionRemove',
+      defaultMessage: 'Remove',
+    },
   },
 });

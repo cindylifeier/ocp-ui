@@ -80,7 +80,11 @@ class AddMultipleAddresses extends React.PureComponent {
                   handleCloseDialog={this.handleCloseDialog}
                 />
               </Dialog>
-              <AddedAddressTable {...addedAddressTableProps} />
+              <AddedAddressTable
+                handleEditAddress={this.handleEditAddress}
+                arrayHelpers={arrayHelpers}
+                {...addedAddressTableProps}
+              />
             </div>
           )}
         />
