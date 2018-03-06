@@ -93,6 +93,7 @@ export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
+export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
 
 /**
  *  Constants to hold the default pagination page size and start page number
