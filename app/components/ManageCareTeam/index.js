@@ -10,12 +10,14 @@ import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 
 import Util from 'utils/Util';
 import FormSubtitle from 'components/FormSubtitle';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import { mapToPatientName } from 'containers/ManagePatientPage/api';
 import { TEXT_MIN_LENGTH } from 'containers/App/constants';
-import styles from './styles.css';
 import ManageCareTeamForm from './ManageCareTeamForm';
 import messages from './messages';
 
@@ -43,19 +45,19 @@ function ManageCareTeam(props) {
     initialSelectedParticipants,
     removeParticipant,
   };
+  const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   return (
     <div>
       {selectedPatient &&
       <div>
+        <InfoSection margin="5vh 1vw 5vh 1vw">
+          <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.labelPatientName} />&nbsp;
+          </InlineLabel>
+          <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+        </InfoSection>
         <FormSubtitle>
           <FormattedMessage {...messages.title} />
         </FormSubtitle>
-        <div className={styles.patientInfoSection}>
-          <div>Patient:</div>
-          <div className={styles.patientName}>
-            {mapToPatientName(selectedPatient)}
-          </div>
-        </div>
         {((editMode && careTeam) || !editMode) &&
         <Formik
           isInitialValid={editMode}

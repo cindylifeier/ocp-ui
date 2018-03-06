@@ -50,6 +50,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageCareTeam.manageForm.noParticipantAdded',
     defaultMessage: 'No participant added',
   },
+  labelPatientName: {
+    id: 'ocpui.components.ManageCareTeam.manageForm.labelPatientName',
+    defaultMessage: 'Patient:',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageCareTeam.manageForm.validation.minLength',

@@ -8,20 +8,6 @@
   margin-left: 1vw;
 }
 
-.patientInfoSection {
-  padding-left: 0.5vw;
-  margin-top: 1vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font-size: 1rem;
-  color: #444;
-}
-
-.patientName {
-  padding-left: 0.5vw;
-  font-weight: bold;
-}
-
 .gridItem {
   border-radius: 5px;
   font-size: 100%;
