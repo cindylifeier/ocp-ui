@@ -14,12 +14,17 @@ const selectSearchRecipientDomain = (state) => state.get('searchRecipient');
  * Default selector used by SearchRecipient
  */
 
-const makeSelectSearchRecipient = () => createSelector(
+const makeSelectRecipients = () => createSelector(
   selectSearchRecipientDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('recipients').toJS()
 );
 
-export default makeSelectSearchRecipient;
-export {
+const makeSelectSelectedRecipients = () => createSelector(
   selectSearchRecipientDomain,
+  (substate) => substate && substate.get('selectedRecipients').toJS()
+);
+
+export {
+  makeSelectRecipients,
+  makeSelectSelectedRecipients,
 };
