@@ -4,24 +4,18 @@
  *
  */
 
+import GoldenLayout from 'components/GoldenLayout';
+import PatientDetails from 'components/PatientDetails';
+import { getPatient } from 'containers/App/actions';
 import renderAppointmentsComponent from 'containers/Appointments/render';
+import { getTasks } from 'containers/Tasks/actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
-import { getPatient } from 'containers/App/actions';
-import { getTasks } from 'containers/Tasks/actions';
-import renderNotFoundComponent from 'containers/NotFoundPage/render';
-import renderTasksComponent from 'containers/Tasks/render';
-import GoldenLayout from 'components/GoldenLayout';
-import PatientDetails from 'components/PatientDetails';
-import { mapToPatientName } from 'utils/PatientUtils';
 import { createStructuredSelector } from 'reselect';
-import GoldenLayout from '../../components/GoldenLayout';
-import { getPatient } from '../App/actions';
+import { mapToPatientName } from 'utils/PatientUtils';
 
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import renderNotFoundComponent from '../NotFoundPage/render';
