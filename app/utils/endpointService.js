@@ -4,6 +4,7 @@ import includes from 'lodash/includes';
 
 // Todo: Make server side configurable
 const BASE_API_URL = '/ocp-ui-api';
+
 /**
  *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
@@ -45,9 +46,10 @@ const apiEndpoints = [
   { key: BASE_EPISODE_OF_CARES_API_URL, url: `${BASE_API_URL}/ocp-fis/episode-of-cares` },
 ];
 
+const configuredEndpoints = collectEndpoints();
+
 export function getEndpoint(key) {
-  const endpoints = collectEndpoints();
-  const requestEndpoint = endpoints.get(key);
+  const requestEndpoint = configuredEndpoints.get(key);
   if (isUndefined(requestEndpoint)) {
     throw Error(`No ${key} endpoint configured.`);
   }
@@ -61,7 +63,7 @@ export function getEndpoint(key) {
  */
 export function isSecuredEndpoint(endpoint) {
   let isEndpointSecured = true;
-  const endpoints = Array.from(collectEndpoints().values());
+  const endpoints = Array.from(configuredEndpoints.values());
 
   // Collect all unsecured endpoints
   const unsecuredEndpoints = endpoints
@@ -78,7 +80,7 @@ export function isSecuredEndpoint(endpoint) {
  * Collect all endpoints
  * @returns {*}
  */
-function collectEndpoints() {
+export function collectEndpoints() {
   const endpoints = new Map();
   apiEndpoints
     .map((endpoint) => endpoints.set(endpoint.key, endpoint));

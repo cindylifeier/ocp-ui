@@ -3,9 +3,8 @@ import request from '../../utils/request';
 import queryString from '../../utils/queryString';
 import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-
 export function getHealthcareServicesByOrganization(organizationId, status, currentPage) {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const params = queryString({
     statusList: status,
     pageNumber: currentPage,
@@ -16,6 +15,7 @@ export function getHealthcareServicesByOrganization(organizationId, status, curr
 }
 
 export function getHealthcareServicesByLocation(organizationId, locationId, status, currentPage) {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const params = queryString({
     statusList: status,
     pageNumber: currentPage,
