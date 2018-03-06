@@ -4,6 +4,9 @@
  *
  */
 
+import Page from 'components/Page';
+import PageContent from 'components/PageContent';
+import PageHeader from 'components/PageHeader';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,13 +25,18 @@ import messages from './messages';
 export class ManageAppointmentPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <Page>
         <Helmet>
-          <title>ManageAppointmentPage</title>
-          <meta name="description" content="Description of ManageAppointmentPage" />
+          <title>Manage Appointment</title>
+          <meta name="description" content="Manage Appointment" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
-      </div>
+        <PageHeader
+          title={<FormattedMessage {...messages.createModeTitle} />}
+          subtitle={<FormattedMessage {...messages.subtitle} />}
+        />
+        <PageContent>
+        </PageContent>
+      </Page>
     );
   }
 }
