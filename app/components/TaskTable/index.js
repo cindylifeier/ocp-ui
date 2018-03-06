@@ -1,8 +1,8 @@
 /**
-*
-* TaskTable
-*
-*/
+ *
+ * TaskTable
+ *
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,12 +13,12 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
 import styles from './styles.css';
 
 const iconStyles = {
@@ -54,9 +54,9 @@ function TaskTable({ elements, cancelTask }) {
             <TableRowColumn>{status && status.display}</TableRowColumn>
             <TableRowColumn>{priority && priority.display}</TableRowColumn>
             <TableRowColumn>{authoredOn}</TableRowColumn>
-            <TableRowColumn>{executionPeriod && executionPeriod.start } - {executionPeriod && executionPeriod.end } </TableRowColumn>
-            <TableRowColumn>{agent && agent.display } </TableRowColumn>
-            <TableRowColumn>{owner && owner.display } </TableRowColumn>
+            <TableRowColumn>{executionPeriod && executionPeriod.start} - {executionPeriod && executionPeriod.end} </TableRowColumn>
+            <TableRowColumn>{agent && agent.display} </TableRowColumn>
+            <TableRowColumn>{owner && owner.display} </TableRowColumn>
             <TableRowColumn>
               <div className={styles.iconButtonGridContainer}>
                 <div className={styles.iconButtonGridItem}>
