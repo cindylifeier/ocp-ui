@@ -21,6 +21,12 @@ import TextField from '../TextField';
 import SelectField from '../SelectField';
 import { HOME_URL } from '../../containers/App/constants';
 
+
+const customContentStyle = {
+  width: '70%',
+  maxWidth: 'none',
+};
+
 class ManagePractitionerForm extends React.PureComponent {
 
   static initialState = {
@@ -207,11 +213,15 @@ class ManagePractitionerForm extends React.PureComponent {
                       <Dialog
                         open={this.state.searchOrganizationDialogOpen}
                         autoScrollBodyContent
+                        contentStyle={customContentStyle}
                       >
                         <AddAssociateOrganizationForm
                           arrayHelpers={arrayHelpers}
                           onAddAssociateOrganization={arrayHelpers.push}
                           callback={this.handleDialogCallback}
+                          roleType={practitionerRoles}
+                          specialtyType={practitionerRoles}
+                          existingOrganizations={values.practitionerRole}
                           onSearch={onSearch}
                           onPageClick={onPageClick}
                           organizations={organizations}
@@ -230,7 +240,7 @@ class ManagePractitionerForm extends React.PureComponent {
                         {errors && errors.practitionerRole &&
                         <span className={styles.error}>{errors.practitionerRole}</span>}
                         {values.practitionerRole && values.practitionerRole.map((pr, index) => {
-                          const { organization } = pr;
+                          const { organization, logicalId } = pr;
                           return (
                             <TableRow key={organization && organization.reference}>
                               <TableRowColumn>{organization.display}</TableRowColumn>
@@ -285,6 +295,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   label="Remove"
                                   backgroundColor={teal500}
                                   labelColor={white}
+                                  disabled={logicalId}
                                   onClick={() => arrayHelpers.remove(index)}
                                 >
                                 </StyledRaisedButton>

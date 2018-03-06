@@ -29,7 +29,7 @@ export default defineMessages({
     },
     minLengthAssociateOrganization: {
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.minLengthAssociateOrganization',
-      defaultMessage: 'Minimum one associate organization required',
+      defaultMessage: 'Minimum {minimumOrganization} associate organization required',
     },
   },
   hintText: {

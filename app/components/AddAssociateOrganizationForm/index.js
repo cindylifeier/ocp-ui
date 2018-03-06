@@ -19,7 +19,7 @@ import H1 from 'components/H1';
 import StyledFlatButton from 'components/StyledFlatButton';
 
 
-function AddAssociateOrganizationForm({ organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, arrayHelpers, callback }) {
+function AddAssociateOrganizationForm({ organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType }) {
   return (
     <div>
       <H1>{<FormattedMessage {...messages.header} />}</H1>
@@ -40,8 +40,11 @@ function AddAssociateOrganizationForm({ organizations, currentPage, totalNumberO
           <AssociateOrganizationTable
             organizations={organizations.data.map(fromBackendToFrontendOrganization)}
             onAddAssociateOrganization={onAddAssociateOrganization}
-            arrayHelpers={arrayHelpers}
+            existingOrganizations={existingOrganizations}
             callback={callback}
+            roleType={roleType}
+            specialtyType={specialtyType}
+
           />
           <CenterAlignedUltimatePagination
             currentPage={currentPage}
@@ -69,8 +72,10 @@ AddAssociateOrganizationForm.propTypes = {
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
   }),
-  arrayHelpers: PropTypes.any,
+  existingOrganizations: PropTypes.array,
   callback: PropTypes.func,
+  roleType: PropTypes.array,
+  specialtyType: PropTypes.array,
 };
 
 export default AddAssociateOrganizationForm;

@@ -18,6 +18,7 @@ import Util from '../../utils/Util';
 
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
+  const minimumOrganization = '1';
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages,
@@ -50,8 +51,6 @@ function ManagePractitioner(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          roleType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
@@ -71,7 +70,8 @@ function ManagePractitioner(props) {
                   .required((<FormattedMessage {...messages.validation.required} />)),
               })
             )
-            .required((<FormattedMessage {...messages.validation.required} />)),
+            .min(minimumOrganization, (
+              <FormattedMessage {...messages.validation.minLengthAssociateOrganization} values={{ minimumOrganization }} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}

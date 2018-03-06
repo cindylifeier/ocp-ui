@@ -11,23 +11,47 @@ export default defineMessages({
     defaultMessage: 'This is the AssociateOrganizationTable component !',
   },
   tableColumnHeaderOrganization: {
-    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Organization',
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.Organization',
     defaultMessage: 'Organization',
   },
   tableColumnHeaderAddress: {
-    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Address',
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.Address',
     defaultMessage: 'Address',
   },
   tableColumnHeaderTelephone: {
-    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Telephone',
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.Telephone',
     defaultMessage: 'Telephone',
   },
   tableColumnHeaderId: {
-    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Id',
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.Id',
     defaultMessage: 'Identifier',
   },
   tableColumnHeaderStatus: {
-    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Status',
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.Status',
     defaultMessage: 'Status',
+  },
+  tableColumnHeaderCode: {
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.tableColumnHeaderCode',
+    defaultMessage: 'Role',
+  },
+  tableColumnHeaderSpecialty: {
+    id: 'ocpui.components.AssociateOrganizationTable.TableColumnHeader.tableColumnHeaderSpecialty',
+    defaultMessage: 'Specialty',
+  },
+  validation: {
+    required: {
+      id: 'ocpui.components.AssociateOrganizationTable.validation.required',
+      defaultMessage: 'Required',
+    },
+  },
+  hint: {
+    code: {
+      id: 'ocpui.components.AssociateOrganizationTable.hint.code',
+      defaultMessage: 'Role',
+    },
+    specialty: {
+      id: 'ocpui.components.AssociateOrganizationTable.hint.specialty',
+      defaultMessage: 'Specialty',
+    },
   },
 });
