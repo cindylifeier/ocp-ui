@@ -11,30 +11,31 @@
  * the linting exception.
  */
 
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { compose } from 'redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
+import { ManageAppointmentPage } from 'containers/ManageAppointmentPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
-import LoginPage from '../LoginPage';
-import ManageLocationPage from '../ManageLocationPage';
-import ManagePractitionerPage from '../ManagePractitionerPage';
-import ManageOrganizationPage from '../ManageOrganizationPage';
-import ManageCareTeamPage from '../ManageCareTeamPage';
-import ManageHealthcareServicePage from '../ManageHealthcareServicePage';
-import Notification from '../Notification';
-import saga from './saga';
+import 'font-awesome/css/font-awesome.min.css';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { compose } from 'redux';
 import injectSaga from '../../utils/injectSaga';
-import ManagePatientPage from '../ManagePatientPage/index';
 import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
 import Authentication from '../Authentication';
-import ManageTaskPage from '../ManageTaskPage';
+import LoginPage from '../LoginPage';
 import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
+import ManageCareTeamPage from '../ManageCareTeamPage';
+import ManageHealthcareServicePage from '../ManageHealthcareServicePage';
+import ManageLocationPage from '../ManageLocationPage';
+import ManageOrganizationPage from '../ManageOrganizationPage';
+import ManagePatientPage from '../ManagePatientPage/index';
+import ManagePractitionerPage from '../ManagePractitionerPage';
 import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
+import ManageTaskPage from '../ManageTaskPage';
+import Notification from '../Notification';
 import PatientPage from '../PatientPage';
+import saga from './saga';
 import './styles.css';
 
 
@@ -70,6 +71,7 @@ export function App() {
             <Route path="/ocp-ui/manage-task/:id?" component={ManageTaskPage} />
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
+            <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
