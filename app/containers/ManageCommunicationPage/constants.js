@@ -17,6 +17,9 @@ export const UPDATE_COMMUNICATION = 'ocpui/ManageCommunicationPage/UPDATE_COMMUN
 
 export const GET_EPISODE_OF_CARES = 'ocpui/ManageCommunicationPage/GET_EPISODE_OF_CARES';
 export const GET_EPISODE_OF_CARES_SUCCESS = 'ocpui/ManageCommunicationPage/GET_EPISODE_OF_CARES_SUCCESS';
+
+export const INITIALIZE_SEARCH_RECIPIENT = 'ocpui/ManageCommunicationPage/INITIALIZE_SEARCH_RECIPIENT';
+export const REMOVE_RECIPIENT = 'ocpui/ManageCommunicationPage/REMOVE_RECIPIENT';
 /**
 *  Other constants
 *

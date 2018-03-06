@@ -15,15 +15,18 @@ import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectEpisodeOfCares } from 'containers/ManageCommunicationPage/selectors';
+import SearchRecipient from 'containers/SearchRecipient';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import ManageCommunication from 'components/ManageCommunication';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import Page from '../../components/Page';
-import PageHeader from '../../components/PageHeader';
-import PageContent from '../../components/PageContent';
-import ManageCommunication from '../../components/ManageCommunication';
+
 import { getLookupsAction } from '../App/actions';
-import { createCommunication, updateCommunication, getEpisodeOfCares } from './actions';
+import { createCommunication, updateCommunication, getEpisodeOfCares,
+  initializeSearchRecipientResults, removeRecipient } from './actions';
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import {
   makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
@@ -34,15 +37,30 @@ import {
   COMMUNICATION_NOT_DONE_REASON,
 } from '../App/constants';
 
-
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+      name: '',
+      member: '',
+    };
     this.handleSave = this.handleSave.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
   componentDidMount() {
     this.props.getLookups();
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
+  }
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  handleOpen() {
+    this.setState({ open: true });
+    this.props.initializeSearchRecipientResults();
   }
   handleSave(communication, actions) {
     const logicalId = this.props.match.params.id;
@@ -53,7 +71,9 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       this.props.createCommunication(communication, this.props.selectedPatient.id, () => actions.setSubmitting(false));
     }
   }
-
+  handleRemoveRecipient(recipient) {
+    this.props.removeRecipient(recipient);
+  }
   render() {
     const editingCommunication = false;
     const {
@@ -70,6 +90,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       communicationMedia,
       episodeOfCares,
     };
+    const initialSelectedRecipients = [];
     return (
       <Page>
         <Helmet>
@@ -83,7 +104,20 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
           subtitle={<FormattedMessage {...messages.subtitle} />}
         />
         <PageContent>
-          <ManageCommunication onSave={this.handleSave} {...manageCommunicationProps} />
+          <ManageCommunication
+            onSave={this.handleSave}
+            {...manageCommunicationProps}
+            // removeRecipient={this.handleRemoveRecipient}
+            handleOpen={this.handleOpen}
+          >
+          </ManageCommunication>
+          <SearchRecipient
+            initialSelectedRecipients={initialSelectedRecipients}
+            isOpen={this.state.open}
+            handleOpen={this.handleOpen}
+            handleClose={this.handleClose}
+          >
+          </SearchRecipient>
         </PageContent>
       </Page>
     );
@@ -96,6 +130,8 @@ ManageCommunicationPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   createCommunication: PropTypes.func.isRequired,
   updateCommunication: PropTypes.func.isRequired,
+  initializeSearchRecipientResults: PropTypes.func.isRequired,
+  removeRecipient: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
@@ -119,6 +155,8 @@ function mapDispatchToProps(dispatch) {
     createCommunication: (communication, patientId, handleSubmitting) => dispatch(createCommunication(communication, patientId, handleSubmitting)),
     updateCommunication: (communication, patientId, handleSubmitting) => dispatch(updateCommunication(communication, patientId, handleSubmitting)),
     getEpisodeOfCares: (patientId) => dispatch(getEpisodeOfCares(patientId)),
+    removeRecipient: (recipient) => dispatch(removeRecipient(recipient)),
+    initializeSearchRecipientResults: () => dispatch(initializeSearchRecipientResults()),
   };
 }
 
