@@ -84,4 +84,34 @@ export default defineMessages({
       defaultMessage: 'Country',
     },
   },
+  addedAddressTable: {
+    tableHeaderAddress1: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAddress1',
+      defaultMessage: 'Address1',
+    },
+    tableHeaderAddress2: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAddress2',
+      defaultMessage: 'Address2',
+    },
+    tableHeaderCity: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderCity',
+      defaultMessage: 'City',
+    },
+    tableHeaderState: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderState',
+      defaultMessage: 'State',
+    },
+    tableHeaderPostalCode: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderPostalCode',
+      defaultMessage: 'Zip Code',
+    },
+    tableHeaderCountry: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderCountry',
+      defaultMessage: 'Country',
+    },
+    tableHeaderAction: {
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAction',
+      defaultMessage: 'Action',
+    },
+  },
 });

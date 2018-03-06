@@ -19,7 +19,9 @@ function AddMultipleAddressForm(props) {
 
   const {
     uspsStates,
+    initialValues,
     onAddAddress,
+    onRemoveAddress,
     handleCloseDialog,
   } = props;
 
@@ -29,7 +31,12 @@ function AddMultipleAddressForm(props) {
       <Formik
         onSubmit={(values) => {
           onAddAddress(values);
+          if (initialValues) {
+            onRemoveAddress(initialValues.index);
+          }
+          handleCloseDialog();
         }}
+        initialValues={{ ...(initialValues || {}).address }}
         validationSchema={yup.object().shape({
           line1: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -122,7 +129,12 @@ function AddMultipleAddressForm(props) {
 
 AddMultipleAddressForm.propTypes = {
   onAddAddress: PropTypes.func.isRequired,
+  onRemoveAddress: PropTypes.func.isRequired,
   handleCloseDialog: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({
+    index: PropTypes.number.isRequired,
+    address: PropTypes.object.isRequired,
+  }),
   uspsStates: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
