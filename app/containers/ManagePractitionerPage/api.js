@@ -6,11 +6,11 @@ import { BASE_PRACTITIONERS_API_URL, getEndpoint } from '../../utils/endpointSer
 
 const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
 
-export function savePractitioner(practitionerFormData) {
+export function savePractitioner(practitionerFormData, roleLookup) {
   if (practitionerFormData.logicalId) {
-    return updatePractitioner(practitionerFormData.logicalId, practitionerFormData);
+    return updatePractitioner(practitionerFormData.logicalId, practitionerFormData, roleLookup);
   }
-  return createPractitioner(practitionerFormData);
+  return createPractitioner(practitionerFormData, roleLookup);
 }
 
 export function getPractitioner(logicalId) {
@@ -33,32 +33,32 @@ export function getPractitionerById(practitioners, logicalId) {
   return null;
 }
 
-function createPractitioner(practitionerFormData) {
+function createPractitioner(practitionerFormData, roleLookup) {
   const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'POST',
-    body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
+    body: JSON.stringify(mapToBffPractitioner(practitionerFormData, roleLookup)),
     headers: {
       'Content-Type': 'application/json',
     },
   });
 }
 
-function updatePractitioner(logicalId, practitionerFormData) {
+function updatePractitioner(logicalId, practitionerFormData, roleLookup) {
   const requestURL = `${baseEndpoint}/${logicalId}`;
   return request(requestURL, {
     method: 'PUT',
-    body: JSON.stringify(mapToBffPractitioner(practitionerFormData)),
+    body: JSON.stringify(mapToBffPractitioner(practitionerFormData, roleLookup)),
     headers: {
       'Content-Type': 'application/json',
     },
   });
 }
 
-function mapToBffPractitioner(practitionerData) {
+function mapToBffPractitioner(practitionerData, roleLookup) {
   const {
-    firstName, lastName, roleType, identifierType, identifierValue,
-    address1, address2, city, state, postalCode, country, telecomType, telecomValue,
+    firstName, lastName, identifierType, identifierValue,
+    address1, address2, city, state, postalCode, country, telecomType, telecomValue, practitionerRole,
   } = practitionerData;
 
   const identifiers = [{
@@ -81,8 +81,19 @@ function mapToBffPractitioner(practitionerData) {
     postalCode,
     countryCode: country,
   }];
-  const practitionerRoles = [{
-    code: roleType,
-  }];
-  return { identifiers, name, telecoms, address, practitionerRoles };
+
+  const selectedPractitionerRole = practitionerRole.map((pr) => {
+    const { organization, code, specialty, active } = pr;
+    const selectedCode = [];
+    selectedCode.push(find(roleLookup, { code }));
+    const selectedSpecialty = [];
+    selectedSpecialty.push(find(roleLookup, { code: specialty }));
+    return ({
+      organization,
+      code: selectedCode,
+      specialty: selectedSpecialty,
+      active });
+  });
+
+  return { identifiers, name, telecoms, address, practitionerRoles: selectedPractitionerRole };
 }

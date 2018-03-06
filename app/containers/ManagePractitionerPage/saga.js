@@ -2,6 +2,7 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 import getOrganizations from 'containers/Organizations/api';
+import { makeSelectPractitionerRoles } from 'containers/App/lookupSelectors';
 import { getPractitionerError, getPractitionerSuccess, savePractitionerError, getOrganizationsError, getOrganizationsSuccess } from './actions';
 import { GET_PRACTITIONER, SAVE_PRACTITIONER, GET_ORGANIZATIONS } from './constants';
 import { getNotificationAction, getPractitioner, getPractitionerById, savePractitioner } from './api';
@@ -11,7 +12,8 @@ import { HOME_URL } from '../App/constants';
 
 function* savePractitionerSaga(action) {
   try {
-    yield call(savePractitioner, action.practitionerFormData);
+    const roleLookup = yield select(makeSelectPractitionerRoles());
+    yield call(savePractitioner, action.practitionerFormData, roleLookup);
     yield put(showNotification(`Successfully ${getNotificationAction(action.practitionerFormData)} the practitioner.`));
     yield call(action.handleSubmitting);
     yield put(goBack());
