@@ -57,6 +57,20 @@ function ManagePractitioner(props) {
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           practitionerRole: yup.array()
+            .of(
+              yup.object().shape({
+                organization: yup.object().shape({
+                  reference: yup.string()
+                    .required((<FormattedMessage {...messages.validation.required} />)),
+                }),
+                code: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+                specialty: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+                active: yup.boolean()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+              })
+            )
             .required((<FormattedMessage {...messages.validation.required} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
