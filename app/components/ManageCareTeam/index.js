@@ -11,12 +11,12 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 
+import Util from 'utils/Util';
+import { mapToPatientName } from 'containers/ManagePatientPage/api';
+import { TEXT_MIN_LENGTH } from 'containers/App/constants';
 import styles from './styles.css';
-import { mapToPatientName } from '../../containers/ManagePatientPage/api';
 import ManageCareTeamForm from './ManageCareTeamForm';
 import messages from './messages';
-import { TEXT_MIN_LENGTH } from '../../containers/App/constants';
-import Util from '../../utils/Util';
 
 function ManageCareTeam(props) {
   const {
