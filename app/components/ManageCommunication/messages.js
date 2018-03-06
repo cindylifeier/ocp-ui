@@ -65,6 +65,10 @@ export default defineMessages({
         defaultMessage: 'Note',
       },
     },
+    addRecipient: {
+      id: 'ocpui.containers.ManageCommunication.form.addRecipient',
+      defaultMessage: 'Add Recipient',
+    },
     saveButton: {
       id: 'ocpui.containers.ManageCommunication.form.saveButton',
       defaultMessage: 'Save',
