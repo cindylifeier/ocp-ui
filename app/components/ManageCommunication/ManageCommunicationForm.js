@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
+import { RaisedButton } from 'material-ui';
+import { addButtonStyle } from 'components/ManageCommunication/constants';
 import { teal500, white } from 'material-ui/styles/colors';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
@@ -9,14 +11,13 @@ import MenuItem from 'material-ui/MenuItem';
 import messages from './messages';
 import FormGrid from '../FormGrid';
 import FormCell from '../FormCell';
-
+import Checkbox from '../Checkbox/index';
 import StyledRaisedButton from '../StyledRaisedButton/index';
 import StyledFlatButton from '../StyledFlatButton/index';
 import TextField from '../TextField';
 import DatePicker from '../DatePicker';
 import { DATE_PICKER_MODE } from '../../containers/App/constants';
 import SelectField from '../SelectField/index';
-import Checkbox from '../Checkbox/index';
 
 
 function ManageCommunicationForm(props) {
@@ -30,6 +31,7 @@ function ManageCommunicationForm(props) {
     communicationNotDoneReasons,
     communicationMedia,
     episodeOfCares,
+    handleOpen,
   } = props;
 // Context =
   return (
@@ -170,11 +172,13 @@ function ManageCommunicationForm(props) {
           />
         </FormCell>
         <FormCell top={10} left={1} width={2}>
-          <TextField
-            floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.recipient} />}
+          <RaisedButton
             fullWidth
-            name="recipient"
-            disabled
+            backgroundColor={teal500}
+            labelColor={white}
+            onClick={handleOpen}
+            style={addButtonStyle}
+            label={<FormattedMessage {...messages.form.addRecipient} />}
           />
         </FormCell>
 
@@ -198,7 +202,6 @@ function ManageCommunicationForm(props) {
                 type="button"
                 default
                 label={<FormattedMessage {...messages.form.cancelButton} />}
-                // onClick={goBack}
               />
             </Cell>
           </Grid>
@@ -217,6 +220,7 @@ ManageCommunicationForm.propTypes = {
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
+  handleOpen: PropTypes.func.isRequired,
 };
 
 export default ManageCommunicationForm;
