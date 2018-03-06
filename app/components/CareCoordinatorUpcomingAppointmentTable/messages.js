@@ -34,12 +34,8 @@ export default defineMessages({
     id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderAction',
     defaultMessage: 'Action',
   },
-  menuItemEdit: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemEdit',
-    defaultMessage: 'Edit',
-  },
-  menuItemRemove: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemRemove',
-    defaultMessage: 'Remove',
+  menuItemCancel: {
+    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemCancel',
+    defaultMessage: 'Cancel',
   },
 });

@@ -55,8 +55,7 @@ function CareCoordinatorUpcomingAppointmentTable({ upcomingAppointments }) { // 
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-                <StyledMenuItem primaryText={<FormattedMessage {...messages.menuItemEdit} />} disabled />
-                <StyledMenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
+                <StyledMenuItem primaryText={<FormattedMessage {...messages.menuItemCancel} />} disabled />
               </IconMenu>
             </TableRowColumn>
           </TableRow>
