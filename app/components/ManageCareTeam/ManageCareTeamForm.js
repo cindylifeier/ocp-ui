@@ -9,15 +9,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import isEmpty from 'lodash/isEmpty';
 
+import Util from 'utils/Util';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import DatePicker from 'components/DatePicker';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import SelectedParticipants from './SelectedParticipants';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import DatePicker from '../DatePicker';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import { addButtonStyle } from './constants';
 import messages from './messages';
 import styles from './styles.css';
-import Util from '../../utils/Util';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
