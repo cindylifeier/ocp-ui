@@ -42,12 +42,12 @@ function AddMultipleAddressForm(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           city: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          state: yup.string()
+          stateCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           postalCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
-          country: yup.string()
+          countryCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={({ isSubmitting, dirty, isValid }) => (
@@ -80,9 +80,9 @@ function AddMultipleAddressForm(props) {
               <Cell>
                 <SelectField
                   fullWidth
-                  name="state"
-                  hintText={<FormattedMessage {...messages.hintText.state} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
+                  name="stateCode"
+                  hintText={<FormattedMessage {...messages.hintText.stateCode} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.stateCode} />}
                 >
                   {uspsStates && uspsStates.map((uspsState) =>
                     <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
@@ -100,9 +100,9 @@ function AddMultipleAddressForm(props) {
               <Cell>
                 <TextField
                   fullWidth
-                  name="country"
-                  hintText={<FormattedMessage {...messages.hintText.country} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
+                  name="countryCode"
+                  hintText={<FormattedMessage {...messages.hintText.countryCode} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.countryCode} />}
                 />
               </Cell>
               <Cell>

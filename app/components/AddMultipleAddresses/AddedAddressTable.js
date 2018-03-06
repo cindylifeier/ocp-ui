@@ -13,6 +13,7 @@ import StyledMenuItem from 'components/StyledMenuItem';
 import messages from './messages';
 
 function AddedAddressTable(props) {
+  const tableColumns = 'repeat(6, 1fr) 80px';
   const {
     errors,
     values,
@@ -22,7 +23,7 @@ function AddedAddressTable(props) {
   return (
     <div>
       <Table>
-        <TableHeader>
+        <TableHeader columns={tableColumns}>
           <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderAddress1} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderAddress2} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderCity} /></TableHeaderColumn>
@@ -35,7 +36,7 @@ function AddedAddressTable(props) {
         {values.addresses && values.addresses.map((address, index) => {
           const { line1, line2, city, state, postalCode, country } = address;
           return (
-            <TableRow key={uniqueId()}>
+            <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{line1}</TableRowColumn>
               <TableRowColumn>{line2}</TableRowColumn>
               <TableRowColumn>{city}</TableRowColumn>

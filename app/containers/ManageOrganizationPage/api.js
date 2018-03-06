@@ -27,16 +27,8 @@ export function updateOrganizationApiCall(id, organizationFormData) {
 }
 
 function mapToBackendOrganization(organizationFormData) {
-  const { name, identifierSystem, identifierValue, status, line1, line2, city, stateCode, postalCode, telecomSystem, telecomValue } = organizationFormData;
+  const { name, identifierSystem, identifierValue, status, addresses, telecomSystem, telecomValue } = organizationFormData;
   const active = status === 'true';
-  const address = {
-    line1,
-    line2,
-    city,
-    stateCode,
-    postalCode,
-  };
-  const addresses = [address];
   const telecom = {
     system: telecomSystem,
     value: telecomValue,

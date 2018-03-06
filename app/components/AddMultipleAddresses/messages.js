@@ -45,16 +45,16 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.city',
       defaultMessage: 'City',
     },
-    state: {
-      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.state',
+    stateCode: {
+      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.stateCode',
       defaultMessage: 'State',
     },
     postalCode: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.postalCode',
       defaultMessage: 'Zip Code',
     },
-    country: {
-      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.country',
+    countryCode: {
+      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.countryCode',
       defaultMessage: 'Country',
     },
   },
@@ -71,16 +71,16 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.city',
       defaultMessage: 'City',
     },
-    state: {
-      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.state',
+    stateCode: {
+      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.stateCode',
       defaultMessage: 'State',
     },
     postalCode: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.postalCode',
       defaultMessage: 'Zip Code',
     },
-    country: {
-      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.country',
+    countryCode: {
+      id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.countryCode',
       defaultMessage: 'Country',
     },
   },
