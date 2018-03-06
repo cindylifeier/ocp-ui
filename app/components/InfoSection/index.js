@@ -4,12 +4,19 @@
  *
  */
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const InfoSection = styled.div`
-  margin: 10px 10px;
+  margin: ${({ margin }) => margin};
 `;
 
-InfoSection.propTypes = {};
+InfoSection.propTypes = {
+  margin: PropTypes.string,
+};
+
+InfoSection.defaultProps = {
+  margin: '10px 10px',
+};
 
 export default InfoSection;

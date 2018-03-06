@@ -98,7 +98,9 @@ ShallowWrapper {
           gap=""
         >
           <Cell__Cell>
-            <InfoSection__InfoSection>
+            <InfoSection__InfoSection
+              margin="10px 10px"
+            >
               <InlineLabel__InlineLabel
                 htmlFor="patient_name_1"
               >
@@ -214,7 +216,9 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <Cell__Cell>
-              <InfoSection__InfoSection>
+              <InfoSection__InfoSection
+                margin="10px 10px"
+              >
                 <InlineLabel__InlineLabel
                   htmlFor="patient_name_1"
                 >
@@ -280,7 +284,9 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": <InfoSection__InfoSection>
+              "children": <InfoSection__InfoSection
+                margin="10px 10px"
+              >
                 <InlineLabel__InlineLabel
                   htmlFor="patient_name_1"
                 >
@@ -321,6 +327,7 @@ ShallowWrapper {
                     patientName
                   </span>,
                 ],
+                "margin": "10px 10px",
               },
               "ref": null,
               "rendered": Array [
@@ -749,7 +756,9 @@ ShallowWrapper {
             gap=""
           >
             <Cell__Cell>
-              <InfoSection__InfoSection>
+              <InfoSection__InfoSection
+                margin="10px 10px"
+              >
                 <InlineLabel__InlineLabel
                   htmlFor="patient_name_1"
                 >
@@ -865,7 +874,9 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <Cell__Cell>
-                <InfoSection__InfoSection>
+                <InfoSection__InfoSection
+                  margin="10px 10px"
+                >
                   <InlineLabel__InlineLabel
                     htmlFor="patient_name_1"
                   >
@@ -931,7 +942,9 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <InfoSection__InfoSection>
+                "children": <InfoSection__InfoSection
+                  margin="10px 10px"
+                >
                   <InlineLabel__InlineLabel
                     htmlFor="patient_name_1"
                   >
@@ -972,6 +985,7 @@ ShallowWrapper {
                       patientName
                     </span>,
                   ],
+                  "margin": "10px 10px",
                 },
                 "ref": null,
                 "rendered": Array [

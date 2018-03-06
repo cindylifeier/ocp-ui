@@ -4,7 +4,9 @@ exports[`<InfoSection /> snapshot tests should have children 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <InfoSection__InfoSection>
+  Symbol(enzyme.__unrendered__): <InfoSection__InfoSection
+    margin="10px 10px"
+  >
     <span>
       test
     </span>
