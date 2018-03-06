@@ -17,7 +17,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import StyledMenuItem from 'components/StyledMenuItem';
 import messages from './messages';
-import { TASK_TABLE_COLUMNS } from './constants';
+import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
 function TaskTable({ elements, cancelTask }) {
   return (
@@ -45,7 +45,7 @@ function TaskTable({ elements, cancelTask }) {
             <NavigationStyledIconMenu>
               <StyledMenuItem
                 primaryText={<FormattedMessage {...messages.actionLabelCancel} />}
-                disabled={status.code === 'cancelled'}
+                disabled={status.code === STATUS_CODE_CANCELLED}
                 onClick={() => cancelTask(logicalId)}
               />
             </NavigationStyledIconMenu>
