@@ -13,9 +13,9 @@ import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
 import Util from 'utils/Util';
+import { mapToPatientName } from 'utils/PatientUtils';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import { mapToPatientName } from 'containers/ManagePatientPage/api';
 import { TEXT_MIN_LENGTH } from 'containers/App/constants';
 import ManageCareTeamForm from './ManageCareTeamForm';
 import messages from './messages';

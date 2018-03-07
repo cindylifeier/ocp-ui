@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import Link from 'react-router-dom/es/Link';
+import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -16,7 +17,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import { MANAGE_RELATED_PERSON_URL } from 'containers/App/constants';
 import messages from './messages';
 import { RELATED_PERSON_TABLE_COLUMNS } from './constants';
@@ -40,7 +40,7 @@ function RelatedPersonTable({ relatedPersons, selectedPatientId }) {
           </TableRowColumn>
           <TableRowColumn>
             <NavigationStyledIconMenu>
-              <StyledMenuItem
+              <MenuItem
                 primaryText={<FormattedMessage {...messages.edit} />}
                 containerElement={<Link
                   to={{

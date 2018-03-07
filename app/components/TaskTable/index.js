@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
+import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -15,7 +16,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
@@ -43,7 +43,7 @@ function TaskTable({ elements, cancelTask }) {
           <TableRowColumn>{owner && owner.display} </TableRowColumn>
           <TableRowColumn>
             <NavigationStyledIconMenu>
-              <StyledMenuItem
+              <MenuItem
                 primaryText={<FormattedMessage {...messages.actionLabelCancel} />}
                 disabled={status.code === STATUS_CODE_CANCELLED}
                 onClick={() => cancelTask(logicalId)}

@@ -10,10 +10,11 @@ import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
+import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
+
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -72,7 +73,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
             </TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.edit} />}
                   containerElement={<Link to={`/ocp-ui/manage-healthcare-service/${element.logicalId}`} />}
                 />

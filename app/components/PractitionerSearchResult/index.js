@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
 
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -18,7 +19,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import messages from './messages';
 
@@ -70,7 +70,7 @@ function displayPractitionerSearchResult(practitioners, columns) {
         <TableRowColumn>{mapToIdentifier(practitioner)}</TableRowColumn>
         <TableRowColumn>
           <NavigationStyledIconMenu>
-            <StyledMenuItem
+            <MenuItem
               primaryText={<FormattedMessage {...messages.edit} />}
               containerElement={<Link to={`${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`} />}
             />

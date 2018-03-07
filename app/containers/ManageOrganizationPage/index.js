@@ -15,7 +15,6 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FlatButton, MenuItem } from 'material-ui';
 import find from 'lodash/find';
-import { teal500, white } from 'material-ui/styles/colors';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
@@ -263,8 +262,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           <StyledRaisedButton
                             fullWidth
                             type="submit"
-                            backgroundColor={teal500}
-                            labelColor={white}
                             label={isSubmitting ?
                               <FormattedMessage {...messages.form.savingButton} /> :
                               <FormattedMessage {...messages.form.saveButton} />}

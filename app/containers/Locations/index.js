@@ -13,6 +13,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -28,7 +30,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
@@ -112,11 +113,11 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
           <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
           <TableRowColumn>
             <NavigationStyledIconMenu>
-              <StyledMenuItem
+              <MenuItem
                 primaryText={<FormattedMessage {...messages.actionLabelEdit} />}
                 containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
               />
-              <StyledMenuItem
+              <MenuItem
                 primaryText={<FormattedMessage {...messages.actionLabelAssignHealthCareService} />}
                 containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
               />
