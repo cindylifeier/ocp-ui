@@ -77,9 +77,16 @@ export const TASK_STATUS = 'TASK_STATUS';
 export const REQUEST_INTENT = 'REQUEST_INTENT';
 export const REQUEST_PRIORITY = 'REQUEST_PRIORITY';
 export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
-export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
 export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
+// Appointment Lookups - Start
+export const APPOINTMENT_STATUS = 'APPOINTMENT_STATUS';
+export const APPOINTMENT_TYPE = 'APPOINTMENT_TYPE';
+export const APPOINTMENT_PARTICIPATION_STATUS = 'APPOINTMENT_PARTICIPATION_STATUS';
+export const APPOINTMENT_PARTICIPATION_TYPE = 'APPOINTMENT_PARTICIPATION_TYPE';
+export const APPOINTMENT_PARTICIPANT_REQUIRED = 'APPOINTMENT_PARTICIPANT_REQUIRED';
+// Appointment Lookups - End
+
 
 /**
  *  Constants to hold the internal urls
@@ -93,6 +100,7 @@ export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
+export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
 
 /**
