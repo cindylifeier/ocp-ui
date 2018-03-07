@@ -13,19 +13,18 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
 import yup from 'yup';
-import messages from './messages';
-import styles from './styles.css';
-import ManageLocationForm from './ManageLocationForm';
-import { TEXT_MIN_LENGTH } from '../../containers/ManageLocationPage/constants';
-import Util from '../../utils/Util';
 
+import Util from 'utils/Util';
+import { TEXT_MIN_LENGTH } from './constants';
+import messages from './messages';
+import ManageLocationForm from './ManageLocationForm';
 
 function ManageLocation(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const { onSave } = props;
   return (
-    <div className={styles.root}>
+    <div>
       <Formik
         initialValues={setFormData(props.location)}
         onSubmit={(values, actions) => {
