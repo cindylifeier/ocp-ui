@@ -4,20 +4,6 @@
   font-style: italic;
 }
 
-.organizationInfoSection {
-  margin:20px 10px;
-  padding-left: 20px;
-}
-
-.organizationInfoLabel {
-  font-weight: bold;
-  display: inline-block;
-}
-
-.organizationName {
-  padding-left: 10px;
-}
-
 .gridItem {
   border-radius: 5px;
   font-size: 100%;

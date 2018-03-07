@@ -7,10 +7,13 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { teal500, white } from 'material-ui/styles/colors';
+import uniqueId from 'lodash/uniqueId';
 
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import FormSubtitle from 'components/FormSubtitle';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import { HOME_URL } from 'containers/App/constants';
 import styles from './styles.css';
 import messages from './messages';
@@ -26,20 +29,19 @@ function ManageHealthcareServiceForm(props) {
     telecomSystems,
     isSubmitting, dirty, isValid, editMode,
   } = props;
+  const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   return (
     <div>
       <FormSubtitle>
         <FormattedMessage {...messages.title} />
       </FormSubtitle>
       <Form>
-        <div className={styles.organizationInfoSection}>
-          <div className={styles.organizationInfoLabel}>
-            {<FormattedMessage {...messages.hintText.organizationNameLabel} />}
-          </div>
-          <div className={styles.organizationName}>
-            {organization.name}
-          </div>
-        </div>
+        <InfoSection margin="3vh 0 0 2vw">
+          <InlineLabel htmlFor={ORGANIZATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.hintText.organizationNameLabel} />&nbsp;
+          </InlineLabel>
+          <span id={ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+        </InfoSection>
         <div className={styles.gridContainer}>
           <div className={`${styles.gridItem} ${styles.name}`}>
             <TextField
