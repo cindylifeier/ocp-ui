@@ -56,6 +56,7 @@ class ManagePractitionerForm extends React.PureComponent {
 
   handleDialogCallback() {
     this.setState({ ...ManagePractitionerForm.initialState });
+    this.props.initialSearchOrganizationResult();
   }
 
   handleAddOrganizations() {
@@ -357,6 +358,7 @@ ManagePractitionerForm.propTypes = {
   })),
   onPageClick: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  initialSearchOrganizationResult: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({

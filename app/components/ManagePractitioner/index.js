@@ -22,7 +22,7 @@ function ManagePractitioner(props) {
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages,
-    organizations } = props;
+    organizations, initialSearchOrganizationResult } = props;
   const formData = {
     uspsStates,
     identifierSystems,
@@ -33,6 +33,7 @@ function ManagePractitioner(props) {
     organizations,
     currentPage,
     totalNumberOfPages,
+    initialSearchOrganizationResult,
   };
   return (
     <div>
@@ -91,6 +92,7 @@ ManagePractitioner.propTypes = {
   editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
   onPageClick: PropTypes.func.isRequired,
+  initialSearchOrganizationResult: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalNumberOfPages: PropTypes.number.isRequired,

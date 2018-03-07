@@ -21,23 +21,22 @@ const makeSelectPractitioner = () => createSelector(
 
 const makeSelectOrganizations = () => createSelector(
   selectManagePractitionerPageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('organizations').toJS(),
 );
-
 
 const makeSelectCurrentPage = () => createSelector(
   selectManagePractitionerPageDomain,
-  (substate) => substate.get('currentPage'),
+  (substate) => substate.getIn(['organizations', 'currentPage']),
 );
 
 const makeSelectTotalNumberOfPages = () => createSelector(
   selectManagePractitionerPageDomain,
-  (substate) => substate.get('totalNumberOfPages'),
+  (substate) => substate.getIn(['organizations', 'totalNumberOfPages']),
 );
 
 const makeSelectOrganizationsData = () => createSelector(
   selectManagePractitionerPageDomain,
-  (substate) => substate && substate.get('data').toJS(),
+  (substate) => substate && substate.getIn(['organizations', 'data']).toJS(),
 );
 
 export {

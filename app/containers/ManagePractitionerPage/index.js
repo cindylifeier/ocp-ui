@@ -17,20 +17,20 @@ import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getPractitioner, initializeManagePractitioner, savePractitioner, getOrganizations, initializeOrganizations } from 'containers/ManagePractitionerPage/actions';
 import reducer from './reducer';
 import saga from './saga';
 import ManagePractitioner from '../../components/ManagePractitioner';
 import messages from './messages';
 import styles from './styles.css';
 import {
-  makeSelectPractitionerIdentifierSystems,
-  makeSelectPractitionerRoles,
-  makeSelectTelecomSystems,
-  makeSelectUspsStates,
+makeSelectPractitionerIdentifierSystems,
+makeSelectPractitionerRoles,
+makeSelectTelecomSystems,
+makeSelectUspsStates,
 } from '../App/lookupSelectors';
 import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
 import { getLookupsAction } from '../App/actions';
-import { getPractitioner, initializeManagePractitioner, savePractitioner, getOrganizations } from './actions';
 import { makeSelectPractitioner, makeSelectCurrentPage, makeSelectOrganizations,
   makeSelectTotalNumberOfPages } from './selectors';
 
@@ -43,6 +43,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
     this.handleSave = this.handleSave.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.initialSearchOrganizationResult = this.initialSearchOrganizationResult.bind(this);
     this.state = {
       currentPage: 1,
       searchValue: '',
@@ -66,6 +67,10 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   handleSearch(searchValue, showInactive, searchType) {
     this.setState({ searchValue, showInactive, searchType });
     this.props.getOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
+  }
+
+  initialSearchOrganizationResult() {
+    this.props.initializeOrganizations();
   }
 
   handlePageClick(currentPage) {
@@ -113,7 +118,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
             : <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />
-        <ManagePractitioner {...formProps} onSave={this.handleSave} onPageClick={this.handlePageClick} onSearch={this.handleSearch} />
+        <ManagePractitioner {...formProps} onSave={this.handleSave} onPageClick={this.handlePageClick} onSearch={this.handleSearch} initialSearchOrganizationResult={this.initialSearchOrganizationResult} />
       </div>
     );
   }
@@ -137,6 +142,7 @@ ManagePractitionerPage.propTypes = {
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
   }),
+  initializeOrganizations: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -153,6 +159,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeManagePractitioner: () => dispatch(initializeManagePractitioner()),
+    initializeOrganizations: () => dispatch(initializeOrganizations()),
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
     onSaveForm: (practitionerFormData, handleSubmitting) => dispatch(savePractitioner(practitionerFormData, handleSubmitting)),
     getPractitioner: (logicalId) => dispatch(getPractitioner(logicalId)),

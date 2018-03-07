@@ -6,21 +6,26 @@
 
 import { fromJS } from 'immutable';
 import {
+  GET_ORGANIZATIONS,
+  GET_ORGANIZATIONS_ERROR,
+  GET_ORGANIZATIONS_SUCCESS,
   GET_PRACTITIONER_ERROR,
   GET_PRACTITIONER_SUCCESS,
   INITIALIZE_MANAGE_PRACTITIONER,
   SAVE_PRACTITIONER,
   SAVE_PRACTITIONER_ERROR,
-  GET_ORGANIZATIONS, GET_ORGANIZATIONS_ERROR, GET_ORGANIZATIONS_SUCCESS,
+  INITIALIZE_ORGANIZATIONS,
 } from './constants';
 
 const initialState = fromJS({
   error: false,
   practitioner: null,
-  loading: false,
-  data: [],
-  currentPage: 0,
-  totalNumberOfPages: 0,
+  organizations: {
+    loading: false,
+    data: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
+  },
 });
 
 function managePractitionerPageReducer(state = initialState, action) {
@@ -41,17 +46,23 @@ function managePractitionerPageReducer(state = initialState, action) {
         .set('error', action.error);
     case GET_ORGANIZATIONS:
       return state
-        .set('loading', true);
+        .setIn(['organizations', 'loading'], true);
+    case INITIALIZE_ORGANIZATIONS:
+      return state
+        .setIn(['organizations', 'loading'], false)
+        .setIn(['organizations', 'data'], fromJS([]))
+        .setIn(['organizations', 'totalNumberOfPages'], 0)
+        .setIn(['organizations', 'currentPage'], 0);
     case GET_ORGANIZATIONS_SUCCESS:
       return state
-        .set('loading', false)
-        .set('data', fromJS(action.organizations.elements))
-        .setIn(['totalNumberOfPages'], action.organizations.totalNumberOfPages)
-        .setIn(['currentPage'], action.organizations.currentPage);
+        .setIn(['organizations', 'loading'], false)
+        .setIn(['organizations', 'data'], fromJS(action.organizations.elements))
+        .setIn(['organizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
+        .setIn(['organizations', 'currentPage'], action.organizations.currentPage);
     case GET_ORGANIZATIONS_ERROR:
       return state
-        .set('loading', false)
-        .set('data', fromJS([]));
+        .set(['organizations', 'loading'], false)
+        .set(['organizations', 'data'], fromJS([]));
     default:
       return state;
   }

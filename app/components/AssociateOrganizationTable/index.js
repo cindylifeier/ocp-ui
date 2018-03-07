@@ -124,7 +124,8 @@ function createSearchResultRows(organizations, onAddAssociateOrganization, exist
   ));
 }
 
-function AssociateOrganizationTable({ organizations, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType }) {
+function AssociateOrganizationTable(props) {
+  const { organizations, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
       <Table>

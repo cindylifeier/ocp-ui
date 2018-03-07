@@ -12,6 +12,7 @@ import {
   SAVE_PRACTITIONER,
   SAVE_PRACTITIONER_ERROR,
   GET_ORGANIZATIONS, GET_ORGANIZATIONS_SUCCESS, GET_ORGANIZATIONS_ERROR,
+  INITIALIZE_ORGANIZATIONS,
 } from './constants';
 
 export function initializeManagePractitioner() {
@@ -53,6 +54,12 @@ export function getPractitionerError(error) {
   return {
     type: GET_PRACTITIONER_ERROR,
     error,
+  };
+}
+
+export function initializeOrganizations() {
+  return {
+    type: INITIALIZE_ORGANIZATIONS,
   };
 }
 

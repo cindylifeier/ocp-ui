@@ -19,7 +19,8 @@ import H1 from 'components/H1';
 import StyledFlatButton from 'components/StyledFlatButton';
 
 
-function AddAssociateOrganizationForm({ organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType }) {
+function AddAssociateOrganizationForm(props) {
+  const { organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
       <H1>{<FormattedMessage {...messages.header} />}</H1>
