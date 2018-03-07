@@ -49,8 +49,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.hintText.activityDefinitions',
       defaultMessage: 'Activity Type',
     },
-    practitioners: {
-      id: 'ocpui.components.ManageTask.manageForm.hintText.practitioners',
+    requester: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.requester',
       defaultMessage: 'Created By',
     },
     createdOn: {
@@ -73,9 +73,17 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.hintText.performerType',
       defaultMessage: 'Participation',
     },
+    eventType: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.eventType',
+      defaultMessage: 'Event Type',
+    },
     taskOwner: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.taskOwner',
       defaultMessage: 'Task Owner',
+    },
+    partOf: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.partOf',
+      defaultMessage: 'Associated Task',
     },
     taskStart: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.taskStart',
@@ -107,8 +115,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.patientName',
       defaultMessage: 'Patient',
     },
-    practitioners: {
-      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.practitioners',
+    requester: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.requester',
       defaultMessage: 'Created By',
     },
     activityDefinitions: {
@@ -135,9 +143,17 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.performerType',
       defaultMessage: 'Participation',
     },
+    eventType: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.eventType',
+      defaultMessage: 'Event Type',
+    },
     taskOwner: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.taskOwner',
       defaultMessage: 'Task Owner',
+    },
+    partOf: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.partOf',
+      defaultMessage: 'Associated Task',
     },
     taskStart: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.taskStart',

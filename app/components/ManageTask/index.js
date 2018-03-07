@@ -14,13 +14,14 @@ import { Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import ManageTaskForm from './ManageTaskForm';
+import { EMPTY_STRING } from '../../containers/App/constants';
 
 
 function ManageTask(props) {
   const {
     onSave, taskStatus, requestIntent,
     requestPriority, taskPerformerType, selectedPatient,
-    organization, activityDefinitions, practitioners,
+    organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
     currentTask, editMode,
   } = props;
   const formData = {
@@ -32,6 +33,9 @@ function ManageTask(props) {
     organization,
     activityDefinitions,
     practitioners,
+    requester,
+    tasksByPatient,
+    eventTypes,
     editMode,
   };
 
@@ -39,7 +43,7 @@ function ManageTask(props) {
     <div>
       {((editMode && currentTask) || !editMode) &&
       <Formik
-        initialValues={setFormData(currentTask)}
+        initialValues={setFormData(currentTask, props)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -53,8 +57,6 @@ function ManageTask(props) {
           performerType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           activityDefinition: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          practitioners: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           taskOwner: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -78,20 +80,49 @@ ManageTask.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
-  organization: PropTypes.array,
+  organization: PropTypes.arrayOf((PropTypes.shape({
+    reference: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  }))),
+  eventTypes: PropTypes.arrayOf((PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }))),
+  tasksByPatient: PropTypes.arrayOf((PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }))),
   activityDefinitions: PropTypes.array,
+  requester: PropTypes.object,
   practitioners: PropTypes.array,
   editMode: PropTypes.bool.isRequired,
   currentTask: PropTypes.any,
 };
-function setFormData(currentTask) {
+function setFormData(currentTask, props) {
   let formData = null;
   if (!isEmpty(currentTask)) {
+    // Edit Form
     formData = merge(Util.pickByIdentity(mapTaskToEditForm(currentTask)));
+  } else {
+     // Create Form
+    formData = merge(Util.pickByIdentity(mapTaskToCreateForm(props)));
   }
   return Util.pickByIdentity(formData);
 }
 
+
+function mapTaskToCreateForm(props) {
+  // Drop down values
+  const requester = {
+    requester: Util.setEmptyStringWhenUndefined(getResourceName(props.requester)),
+  };
+
+  const patientName = {
+    patientName: Util.setEmptyStringWhenUndefined(getResourceName(props.selectedPatient)),
+  };
+
+  return merge(Util.pickByIdentity(requester), Util.pickByIdentity(patientName));
+}
 
 function mapTaskToEditForm(task) {
   // Drop down values
@@ -118,14 +149,39 @@ function mapTaskToEditForm(task) {
 
   let activityDefinition = {};
   if (task.definition && task.definition.reference) {
-    const reference = task.definition.reference.split('/');
     activityDefinition = {
-      activityDefinition: Util.setEmptyStringWhenUndefined(reference[1]),
+      activityDefinition: Util.setEmptyStringWhenUndefined(task.definition.reference),
     };
   }
 
-  return merge(Util.pickByIdentity(priority), Util.pickByIdentity(intent), Util.pickByIdentity(performerType), Util.pickByIdentity(activityDefinition));
+  let organization = {};
+  if (task.organization && task.organization.reference) {
+    organization = {
+      organization: Util.setEmptyStringWhenUndefined(task.organization.reference),
+    };
+  }
+
+  return merge(Util.pickByIdentity(priority),
+                Util.pickByIdentity(intent),
+                Util.pickByIdentity(performerType),
+                Util.pickByIdentity(activityDefinition),
+                Util.pickByIdentity(organization));
 }
 
 
+function getResourceName(resource) {
+  if (resource === undefined) {
+    return '';
+  }
+  const names = resource.name;
+  return names && names
+    .map((name) => {
+      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
+      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
+      let fullName = EMPTY_STRING;
+      fullName = `${firstName} ${lastName}`;
+      return fullName;
+    })
+    .join(', ');
+}
 export default ManageTask;

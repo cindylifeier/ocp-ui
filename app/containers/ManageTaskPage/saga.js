@@ -1,16 +1,35 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import { createTask, getActivityDefinitions, getOrganization, getPractitioners, getEventTypes, getTaskById, getTaskByIdFromStore, updateTask } from 'containers/ManageTaskPage/api';
+import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getTasksByPatient, getPractitioners, getRequester, getTaskById, getTaskByIdFromStore, updateTask } from 'containers/ManageTaskPage/api';
 import { PATIENTS_URL } from 'containers/App/constants';
-import { CREATE_TASK, GET_ACTIVITY_DEFINITIONS, GET_ORGANIZATION, GET_PRACTITIONERS, GET_TASK, PUT_TASK, GET_EVENT_TYPES } from 'containers/ManageTaskPage/constants';
+import { CREATE_TASK, GET_ACTIVITY_DEFINITIONS, GET_EVENT_TYPES, GET_ORGANIZATION, GET_PRACTITIONER, GET_PRACTITIONERS, GET_TASK, GET_TASKS_BY_PATIENT, PUT_TASK } from 'containers/ManageTaskPage/constants';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { showNotification } from 'containers/Notification/actions';
-import { createTaskError, createTaskSuccess, getActivityDefinitionsError, getActivityDefinitionsSuccess, getOrganizationError, getOrganizationSuccess, getPractitionersError, getEventTypesSuccess, getEventTypesError, getPractitionersSuccess, getTaskByIdError, getTaskByIdSuccess, updateTaskError, updateTaskSuccess } from './actions';
+import {
+  createTaskError,
+  createTaskSuccess,
+  getActivityDefinitionsError,
+  getActivityDefinitionsSuccess,
+  getEventTypesError,
+  getEventTypesSuccess,
+  getOrganizationError,
+  getOrganizationSuccess,
+  getPractitionersError,
+  getPractitionersSuccess,
+  getRequesterError,
+  getRequesterSuccess,
+  getTaskByIdError,
+  getTaskByIdSuccess,
+  updateTaskError,
+  updateTaskSuccess,
+  getTasksByPatientError,
+  getTasksByPatientSuccess,
+} from './actions';
 
-export function* getOrganizationSaga() {
+export function* getOrganizationSaga(practitionerId) {
   try {
-    const organization = yield call(getOrganization);
+    const organization = yield call(getOrganization, practitionerId);
     yield put(getOrganizationSuccess(organization));
   } catch (err) {
     yield put(getOrganizationError(err));
@@ -24,9 +43,25 @@ export function* watchGetOrganizationSaga() {
   yield takeLatest(GET_ORGANIZATION, getOrganizationSaga);
 }
 
-export function* getActivityDefinitionsSaga(organizationId) {
+export function* getRequesterSaga(practitionerId) {
   try {
-    const activityDefinitions = yield call(getActivityDefinitions, organizationId);
+    const practitioner = yield call(getRequester, practitionerId);
+    yield put(getRequesterSuccess(practitioner));
+  } catch (err) {
+    yield put(getRequesterError(err));
+  }
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export function* watchGetRequesterSaga() {
+  yield takeLatest(GET_PRACTITIONER, getRequesterSaga);
+}
+
+export function* getActivityDefinitionsSaga(practitionerId) {
+  try {
+    const activityDefinitions = yield call(getActivityDefinitions, practitionerId);
     yield put(getActivityDefinitionsSuccess(activityDefinitions));
   } catch (err) {
     yield put(getActivityDefinitionsError(err));
@@ -56,9 +91,25 @@ export function* watchGetEventTypesSaga() {
   yield takeLatest(GET_EVENT_TYPES, getEventTypesSaga);
 }
 
-export function* getPractitionersSaga() {
+export function* getTasksByPatientSaga(patientId) {
   try {
-    const practitioners = yield call(getPractitioners);
+    const tasksByPatient = yield call(getTasksByPatient, patientId);
+    yield put(getTasksByPatientSuccess(tasksByPatient));
+  } catch (err) {
+    yield put(getTasksByPatientError(err));
+  }
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export function* watchGetTasksByPatientSaga() {
+  yield takeLatest(GET_TASKS_BY_PATIENT, getTasksByPatientSaga);
+}
+
+export function* getPractitionersSaga(practitionerId) {
+  try {
+    const practitioners = yield call(getPractitioners, practitionerId);
     yield put(getPractitionersSuccess(practitioners));
   } catch (err) {
     yield put(getPractitionersError(err));
@@ -149,10 +200,13 @@ function getErrorDetail(err) {
 export default function* rootSaga() {
   yield all([
     watchGetOrganizationSaga(),
+    watchGetRequesterSaga(),
     watchGetActivityDefinitionsSaga(),
     watchGetPractitionersSaga(),
     watchCreateTaskSaga(),
     watchupdateTaskSaga(),
     watchGetTaskByIdSaga(),
+    watchGetEventTypesSaga(),
+    watchGetTasksByPatientSaga(),
   ]);
 }

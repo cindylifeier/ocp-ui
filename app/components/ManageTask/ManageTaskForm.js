@@ -7,11 +7,11 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { teal500, white } from 'material-ui/styles/colors';
+import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import styles from './styles.css';
 import messages from './messages';
 import TextField from '../TextField';
 import SelectField from '../SelectField';
-import { DATE_PICKER_MODE, EMPTY_STRING, PATIENTS_URL } from '../../containers/App/constants';
 import DatePicker from '../DatePicker';
 
 function ManageTaskForm(props) {
@@ -20,12 +20,12 @@ function ManageTaskForm(props) {
     requestIntent,
     requestPriority,
     taskPerformerType,
-    selectedPatient,
-    organization,
     activityDefinitions,
     practitioners,
     eventTypes,
-    isSubmitting, dirty, isValid, editMode,
+    organization,
+    tasksByPatient,
+    isSubmitting, dirty, isValid,
   } = props;
 
   const today = new Date();
@@ -44,7 +44,7 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
             >
               {activityDefinitions && activityDefinitions.map((activityDefinition) =>
-                <MenuItem key={activityDefinition.logicalId} value={activityDefinition.logicalId} primaryText={getResourceDisplayNameAndId(activityDefinition)} />,
+                <MenuItem key={activityDefinition.reference} value={activityDefinition.reference} primaryText={activityDefinition.display} />,
               )}
             </SelectField>
           </div>
@@ -57,19 +57,10 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
             >
               {organization && organization.map((org) =>
-                <MenuItem key={org.logicalId} value={org.logicalId} primaryText={getResourceDisplayNameAndId(org)} />,
+                <MenuItem key={org.reference} value={org.reference} primaryText={org.display} />,
               )}
             </SelectField>
-            <SelectField
-              fullWidth
-              name="practitioners"
-              hintText={<FormattedMessage {...messages.hintText.practitioners} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitioners} />}
-            >
-              {practitioners && practitioners.map((practitioner) =>
-                <MenuItem key={practitioner.logicalId} value={practitioner.logicalId} primaryText={getResourceName(practitioner)} />,
-              )}
-            </SelectField>
+
             <TextField
               fullWidth
               name="patientName"
@@ -77,7 +68,16 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage
                 {...messages.floatingLabelText.patientName}
               />}
-              defaultValue={getResourceName(selectedPatient)}
+              disabled
+            />
+            <TextField
+              fullWidth
+              name="requester"
+              hintText={<FormattedMessage {...messages.hintText.requester} />}
+              floatingLabelText={<FormattedMessage
+                {...messages.floatingLabelText.requester}
+              />}
+              disabled
             />
           </div>
           <div className={`${styles.gridItem} ${styles.timeGroup}`}>
@@ -101,18 +101,18 @@ function ManageTaskForm(props) {
             />
           </div>
           <div className={`${styles.gridItem} ${styles.serviceGroup}`}>
-            {editMode &&
-              <SelectField
-                fullWidth
-                name="status"
-                hintText={<FormattedMessage {...messages.hintText.status} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
-              >
-                {taskStatus && taskStatus.map((status) =>
-                  <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
-                )}
-              </SelectField>
-            }
+
+            <SelectField
+              fullWidth
+              name="status"
+              hintText={<FormattedMessage {...messages.hintText.status} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
+            >
+              {taskStatus && taskStatus.map((status) =>
+                <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
+              )}
+            </SelectField>
+
             <SelectField
               fullWidth
               name="priority"
@@ -135,7 +135,7 @@ function ManageTaskForm(props) {
             </SelectField>
             <SelectField
               fullWidth
-              name="eventType"
+              name="context"
               hintText={<FormattedMessage {...messages.hintText.eventType} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
             >
@@ -152,7 +152,7 @@ function ManageTaskForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
             >
               {practitioners && practitioners.map((practitioner) =>
-                <MenuItem key={practitioner.logicalId} value={practitioner.logicalId} primaryText={getResourceName(practitioner)} />,
+                <MenuItem key={practitioner.reference} value={practitioner.reference} primaryText={practitioner.display} />,
               )}
             </SelectField>
             <SelectField
@@ -163,6 +163,16 @@ function ManageTaskForm(props) {
             >
               {taskPerformerType && taskPerformerType.map((performerType) =>
                 <MenuItem key={performerType.code} value={performerType.code} primaryText={performerType.display} />,
+              )}
+            </SelectField>
+            <SelectField
+              fullWidth
+              name="partOf"
+              hintText={<FormattedMessage {...messages.hintText.partOf} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
+            >
+              {tasksByPatient && tasksByPatient.map((partOf) =>
+                <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
               )}
             </SelectField>
           </div>
@@ -229,9 +239,8 @@ function ManageTaskForm(props) {
 }
 
 ManageTaskForm.propTypes = {
-  selectedPatient: PropTypes.object.isRequired,
-  organization: PropTypes.array,
   activityDefinitions: PropTypes.array,
+  organization: PropTypes.array,
   practitioners: PropTypes.array,
   taskStatus: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -253,33 +262,17 @@ ManageTaskForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  eventTypes: PropTypes.array(PropTypes.shape({
-    reference: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
+  eventTypes: PropTypes.arrayOf(PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  tasksByPatient: PropTypes.arrayOf(PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
   })),
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
-  editMode: PropTypes.bool.isRequired,
 };
-function getResourceName(resource) {
-  const names = resource.name;
-  return names && names
-    .map((name) => {
-      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
-      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      let fullName = EMPTY_STRING;
-      fullName = ` ${firstName} ${lastName}`;
-      return fullName;
-    })
-    .join(', ');
-}
-function getResourceDisplayNameAndId(resource) {
-  let displayName = resource.name;
-  if (resource && resource.name && resource.logicalId) {
-    displayName = `${resource.name}-${resource.logicalId}`;
-  }
-  return displayName;
-}
 
 export default ManageTaskForm;

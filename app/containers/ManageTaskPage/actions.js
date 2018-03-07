@@ -17,6 +17,12 @@ import {
   GET_PRACTITIONERS,
   GET_PRACTITIONERS_ERROR,
   GET_PRACTITIONERS_SUCCESS,
+  GET_PRACTITIONER,
+  GET_PRACTITIONER_ERROR,
+  GET_PRACTITIONER_SUCCESS,
+  GET_TASKS_BY_PATIENT,
+  GET_TASKS_BY_PATIENT_ERROR,
+  GET_TASKS_BY_PATIENT_SUCCESS,
   GET_EVENT_TYPES,
   GET_EVENT_TYPES_ERROR,
   GET_EVENT_TYPES_SUCCESS,
@@ -29,9 +35,10 @@ import {
 } from './constants';
 
 
-export function getOrganization() {
+export function getOrganization(practitionerId) {
   return {
     type: GET_ORGANIZATION,
+    practitionerId,
   };
 }
 export function getOrganizationSuccess(organization) {
@@ -47,11 +54,30 @@ export function getOrganizationError(err) {
     err,
   };
 }
+export function getRequester(practitionerId) {
+  return {
+    type: GET_PRACTITIONER,
+    practitionerId,
+  };
+}
+export function getRequesterSuccess(practitioner) {
+  return {
+    type: GET_PRACTITIONER_SUCCESS,
+    practitioner,
+  };
+}
 
-export function getActivityDefinitions(organizationId) {
+export function getRequestercdError(err) {
+  return {
+    type: GET_PRACTITIONER_ERROR,
+    err,
+  };
+}
+
+export function getActivityDefinitions(practitionerId) {
   return {
     type: GET_ACTIVITY_DEFINITIONS,
-    organizationId,
+    practitionerId,
   };
 }
 
@@ -69,9 +95,10 @@ export function getActivityDefinitionsError(err) {
   };
 }
 
-export function getPractitioners() {
+export function getPractitioners(practitionerId) {
   return {
     type: GET_PRACTITIONERS,
+    practitionerId,
   };
 }
 
@@ -97,16 +124,37 @@ export function getEventTypes(patientId) {
   };
 }
 
-export function getEventTypesSuccess(patient) {
+export function getEventTypesSuccess(eventTypes) {
   return {
     type: GET_EVENT_TYPES_SUCCESS,
-    patient,
+    eventTypes,
   };
 }
 
 export function getEventTypesError(err) {
   return {
     type: GET_EVENT_TYPES_ERROR,
+    err,
+  };
+}
+
+export function getTasksByPatient(patientId) {
+  return {
+    type: GET_TASKS_BY_PATIENT,
+    patientId,
+  };
+}
+
+export function getTasksByPatientSuccess(tasksByPatient) {
+  return {
+    type: GET_TASKS_BY_PATIENT_SUCCESS,
+    tasksByPatient,
+  };
+}
+
+export function getTasksByPatientError(err) {
+  return {
+    type: GET_TASKS_BY_PATIENT_ERROR,
     err,
   };
 }

@@ -19,6 +19,10 @@ export const GET_ACTIVITY_DEFINITIONS = 'ocpui/ManageTaskPage/GET_ACTIVITY_DEFIN
 export const GET_ACTIVITY_DEFINITIONS_SUCCESS = 'ocpui/ManageTaskPage/GET_ACTIVITY_DEFINITIONS_SUCCESS';
 export const GET_ACTIVITY_DEFINITIONS_ERROR = 'ocpui/ManageTaskPage/GET_ACTIVITY_DEFINITIONS_ERROR';
 
+export const GET_PRACTITIONER = 'ocpui/ManageTaskPage/GET_PRACTITIONER';
+export const GET_PRACTITIONER_SUCCESS = 'ocpui/ManageTaskPage/GET_PRACTITIONER_SUCCESS';
+export const GET_PRACTITIONER_ERROR = 'ocpui/ManageTaskPage/GET_PRACTITIONER_ERROR';
+
 export const GET_PRACTITIONERS = 'ocpui/ManageTaskPage/GET_PRACTITIONERS';
 export const GET_PRACTITIONERS_SUCCESS = 'ocpui/ManageTaskPage/GET_PRACTITIONERS_SUCCESS';
 export const GET_PRACTITIONERS_ERROR = 'ocpui/ManageTaskPage/GET_PRACTITIONERS_ERROR';
@@ -39,3 +43,7 @@ export const PUT_TASK = 'ocpui/ManageTaskPage/PUT_TASK ';
 export const GET_TASK_SUCCESS = 'ocpui/ManageTaskPage/GET_TASK_SUCCESS';
 export const GET_TASK_ERROR = 'ocpui/ManageTaskPage/GET_TASK_ERROR';
 export const GET_TASK = 'ocpui/ManageTaskPage/GET_TASK ';
+
+export const GET_TASKS_BY_PATIENT_SUCCESS = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT_SUCCESS';
+export const GET_TASKS_BY_PATIENT_ERROR = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT_ERROR';
+export const GET_TASKS_BY_PATIENT = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT ';
