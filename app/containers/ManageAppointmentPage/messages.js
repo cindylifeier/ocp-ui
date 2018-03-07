@@ -10,16 +10,16 @@ export default defineMessages({
     id: 'ocpui.containers.ManageAppointmentPage.header',
     defaultMessage: 'This is ManageAppointmentPage container !',
   },
-  createModeTitle: {
-    id: 'ocpui.containers.ManageAppointmentPage.createModeTitle',
+  createTitle: {
+    id: 'ocpui.containers.ManageAppointmentPage.createTitle',
     defaultMessage: 'Create Appointment',
   },
-  updateModeTitle: {
-    id: 'ocpui.containers.ManageAppointmentPage.updateModeTitle',
+  updateTitle: {
+    id: 'ocpui.containers.ManageAppointmentPage.updateTitle',
     defaultMessage: 'Update Appointment',
   },
-  subtitle: {
-    id: 'ocpui.containers.ManageAppointmentPage.subtitle',
+  generalInfoTitle: {
+    id: 'ocpui.containers.ManageAppointmentPage.generalInfoTitle',
     defaultMessage: 'General Information',
   },
 });

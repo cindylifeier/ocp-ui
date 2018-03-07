@@ -4,12 +4,18 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { CREATE_APPOINTMENT, INITIALIZE_MANAGE_APPOINTMENT } from 'containers/ManageAppointmentPage/constants';
 
-export function defaultAction() {
+export function initializeManageAppointment() {
   return {
-    type: DEFAULT_ACTION,
+    type: INITIALIZE_MANAGE_APPOINTMENT,
+  };
+}
+
+export function createAppointment(appointment, handleSubmitting) {
+  return {
+    type: CREATE_APPOINTMENT,
+    appointment,
+    handleSubmitting,
   };
 }

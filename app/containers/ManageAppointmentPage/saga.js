@@ -1,6 +1,27 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { determineNotificationForAppointment, saveAppointment } from 'containers/ManageAppointmentPage/api';
+import { SAVE_APPOINTMENT } from 'containers/ManageAppointmentPage/constants';
+import { showNotification } from 'containers/Notification/actions';
+import { goBack } from 'react-router-redux';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+function* saveAppointmentSaga(action) {
+  try {
+    yield call(saveAppointment, action.appointmentFormData);
+    yield put(showNotification(`Successfully ${determineNotificationForAppointment(action.appointmentFormData)} the appointment.`));
+    yield call(action.handleSubmitting);
+    yield put(goBack());
+  } catch (error) {
+    yield put(showNotification(`Failed to ${determineNotificationForAppointment(action.appointmentFormData)} the appointment.`));
+    yield call(action.handleSubmitting);
+  }
+}
+
+function* watchManageAppointmentSaga() {
+  yield takeLatest(SAVE_APPOINTMENT, saveAppointmentSaga);
+}
+
+export default function* rootSaga() {
+  yield all([
+    watchManageAppointmentSaga(),
+  ]);
 }

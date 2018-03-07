@@ -4,11 +4,13 @@
  *
  */
 
+
 /**
  *  ManageAppointmentPage action types
  *  @type {string}
  */
-export const DEFAULT_ACTION = 'ocpui/ManageAppointmentPage/DEFAULT_ACTION';
+export const INITIALIZE_MANAGE_APPOINTMENT = 'ocpui/ManageAppointmentPage/INITIALIZE_MANAGE_APPOINTMENT';
+export const SAVE_APPOINTMENT = 'ocpui/ManageAppointmentPage/SAVE_APPOINTMENT';
 
 
 /**
