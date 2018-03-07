@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/MenuItem';
 
 import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
-import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -24,14 +23,7 @@ import messages from './messages';
 
 const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
-function displayPatientSearchResult(patients, onPatientClick) {
-  // TODO: Will move ConfirmPatientModal to upcoming tasks component
-  let confirmPatientModalReference = null;
-
-  function onPatientModalOpen() {
-    confirmPatientModalReference.handlePatientModalOpen();
-  }
-
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick) {
   return patients && patients.map((patient) => (
     <TableRow
       columns={columns}
@@ -57,7 +49,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
           />
           <MenuItem
             primaryText={<FormattedMessage {...messages.viewDetails} />}
-            onClick={onPatientModalOpen}
+            onClick={() => onPatientViewDetailsClick(patient)}
           />
           <MenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
@@ -89,12 +81,6 @@ function displayPatientSearchResult(patients, onPatientClick) {
 
           <MenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
         </NavigationStyledIconMenu>
-
-        {/* Note: Don’t Overuse Refs, ref is not recommended to use in most cases*/}
-        <ConfirmPatientModal
-          ref={(ref) => (confirmPatientModalReference = ref)}
-          selectedPatient={patient}
-        />
       </TableRowColumn>
     </TableRow>
   ));
@@ -111,7 +97,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -140,7 +126,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick }) {
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick)}
       </Table>
     );
   }
@@ -152,6 +138,7 @@ PatientSearchResult.propTypes = {
   error: PropTypes.any,
   searchResult: PropTypes.any,
   onPatientClick: PropTypes.func,
+  onPatientViewDetailsClick: PropTypes.func,
 };
 
 export default PatientSearchResult;
