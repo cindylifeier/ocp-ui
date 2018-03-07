@@ -14,7 +14,6 @@ import merge from 'lodash/merge';
 
 import Util from 'utils/Util';
 import { TEXT_MIN_LENGTH } from './constants';
-import styles from './styles.css';
 import ManageHealthcareServiceForm from './ManageHealthcareServiceForm';
 import messages from './messages';
 
@@ -32,7 +31,7 @@ function ManageHealthcareService(props) {
     editMode,
   };
   return (
-    <div className={styles.root}>
+    <div>
       {((editMode && currentHealthcareService) || !editMode) &&
       <Formik
         initialValues={setFormData(currentHealthcareService)}
