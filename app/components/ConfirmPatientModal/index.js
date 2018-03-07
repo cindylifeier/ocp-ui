@@ -16,7 +16,6 @@ import { Cell } from 'styled-css-grid';
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
-import StyledMenuItem from 'components/StyledMenuItem';
 import StyledDialog from 'components/StyledDialog';
 import ContinueButton from './ContinueButton';
 import CloseButton from './CloseButton';
@@ -31,8 +30,15 @@ export class ConfirmPatientModal extends React.PureComponent {
       isPatientModalOpen: false,
     };
 
-    this.handlePatientModalOpen = this.handlePatientModalOpen.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+
+  componentWillUnmount() {
+    this.props.onRef(null);
   }
 
   handlePatientModalOpen() {
@@ -47,10 +53,6 @@ export class ConfirmPatientModal extends React.PureComponent {
     const { selectedPatient } = this.props;
     return (
       <div>
-        <StyledMenuItem
-          primaryText={<FormattedMessage {...messages.viewDetails} />}
-          onClick={this.handlePatientModalOpen}
-        />
         <StyledDialog
           open={this.state.isPatientModalOpen}
         >
@@ -90,6 +92,7 @@ export class ConfirmPatientModal extends React.PureComponent {
 }
 
 ConfirmPatientModal.propTypes = {
+  onRef: PropTypes.any,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
