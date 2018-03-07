@@ -30,15 +30,8 @@ export class ConfirmPatientModal extends React.PureComponent {
       isPatientModalOpen: false,
     };
 
+    this.handlePatientModalOpen = this.handlePatientModalOpen.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.onRef(this);
-  }
-
-  componentWillUnmount() {
-    this.props.onRef(null);
   }
 
   handlePatientModalOpen() {
@@ -92,7 +85,6 @@ export class ConfirmPatientModal extends React.PureComponent {
 }
 
 ConfirmPatientModal.propTypes = {
-  onRef: PropTypes.any,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,

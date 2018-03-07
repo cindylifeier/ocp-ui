@@ -89,8 +89,10 @@ function displayPatientSearchResult(patients, onPatientClick) {
 
           <MenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
         </NavigationStyledIconMenu>
+
+        {/* Note: Don’t Overuse Refs, ref is not recommended to use in most cases*/}
         <ConfirmPatientModal
-          onRef={(ref) => (confirmPatientModalReference = ref)}
+          ref={(ref) => (confirmPatientModalReference = ref)}
           selectedPatient={patient}
         />
       </TableRowColumn>
