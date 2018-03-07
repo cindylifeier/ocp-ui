@@ -4,24 +4,25 @@
  *
  */
 
-import ManageHealthcareService from 'components/ManageHealthcareService';
-import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
-import { makeSelectOrganization } from 'containers/Locations/selectors';
-import find from 'lodash/find';
-import isUndefined from 'lodash/isUndefined';
-import merge from 'lodash/merge';
-import Divider from 'material-ui/Divider';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
+import Divider from 'material-ui/Divider';
+
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
+import ManageHealthcareService from 'components/ManageHealthcareService';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
+import { makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
@@ -30,7 +31,7 @@ import {
   HEALTHCARESERVICETYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
-} from '../App/constants';
+} from 'containers/App/constants';
 import {
   makeSelectHealthcareServiceCategories,
   makeSelectHealthcareServiceReferralMethods,
@@ -39,8 +40,8 @@ import {
   makeSelectHealthcareServiceTypes,
   makeSelectTelecomSystems,
   makeSelectTelecomUses,
-} from '../App/lookupSelectors';
-import messages from '../ManageHealthcareServicePage/messages';
+} from 'containers/App/lookupSelectors';
+import messages from './messages';
 import { createHealthcareService, getHealthcareServiceById, updateHealthcareService } from './actions';
 import reducer from './reducer';
 import saga from './saga';
