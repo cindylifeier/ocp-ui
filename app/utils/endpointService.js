@@ -22,6 +22,7 @@ export const BASE_PATIENTS_API_URL = 'ocpui/utils/BASE_PATIENTS_API_URL';
 export const BASE_PRACTITIONERS_API_URL = 'ocpui/utils/BASE_PRACTITIONERS_API_URL';
 export const BASE_RELATED_PERSONS_API_URL = 'ocpui/utils/BASE_RELATED_PERSONS_API_URL';
 export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
+export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
 
 /**
  * Configure all secured and unsecured endpoints
@@ -43,6 +44,7 @@ const apiEndpoints = [
   { key: BASE_PRACTITIONERS_API_URL, url: `${BASE_API_URL}/ocp-fis/practitioners` },
   { key: BASE_RELATED_PERSONS_API_URL, url: `${BASE_API_URL}/ocp-fis/related-persons` },
   { key: BASE_TASKS_API_URL, url: `${BASE_API_URL}/ocp-fis/tasks` },
+  { key: BASE_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
 ];
 
 const configuredEndpoints = collectEndpoints();
