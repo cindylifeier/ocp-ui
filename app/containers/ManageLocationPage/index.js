@@ -14,12 +14,11 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import Divider from 'material-ui/Divider';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectSaveLocationError } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import { getLookupsAction } from '../App/actions';
+import ManageLocation from 'components/ManageLocation';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   ADDRESSUSE,
   LOCATIONIDENTIFIERSYSTEM,
@@ -28,7 +27,7 @@ import {
   TELECOMSYSTEM,
   TELECOMUSE,
   USPSSTATES,
-} from '../App/constants';
+} from 'containers/App/constants';
 import {
   makeSelectAddressUses,
   makeSelectLocationIdentifierSystems,
@@ -37,12 +36,14 @@ import {
   makeSelectTelecomSystems,
   makeSelectTelecomUses,
   makeSelectUspsStates,
-} from '../App/lookupSelectors';
-import ManageLocation from '../../components/ManageLocation/index';
-import { createLocation, updateLocation } from './actions';
-import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
+} from 'containers/App/lookupSelectors';
+import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import messages from './messages';
 import styles from './styles.css';
+import { createLocation, updateLocation } from './actions';
+import { makeSelectSaveLocationError } from './selectors';
+import reducer from './reducer';
+import saga from './saga';
 
 export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
