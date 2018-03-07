@@ -58,7 +58,7 @@ function updatePractitioner(logicalId, practitionerFormData, roleLookup) {
 function mapToBffPractitioner(practitionerData, roleLookup) {
   const {
     firstName, lastName, identifierType, identifierValue,
-    address1, address2, city, state, postalCode, country, telecomType, telecomValue, practitionerRole,
+    address1, address2, city, state, postalCode, country, telecomType, telecomValue, practitionerRoles,
   } = practitionerData;
 
   const identifiers = [{
@@ -82,8 +82,8 @@ function mapToBffPractitioner(practitionerData, roleLookup) {
     countryCode: country,
   }];
 
-  const selectedPractitionerRole = practitionerRole.map((pr) => {
-    const { organization, code, specialty, active } = pr;
+  const selectedPractitionerRole = practitionerRoles.map((pr) => {
+    const { organization, code, specialty, active, logicalId } = pr;
     const selectedCode = [];
     selectedCode.push(find(roleLookup, { code }));
     const selectedSpecialty = [];
@@ -92,7 +92,8 @@ function mapToBffPractitioner(practitionerData, roleLookup) {
       organization,
       code: selectedCode,
       specialty: selectedSpecialty,
-      active });
+      active,
+      logicalId });
   });
 
   return { identifiers, name, telecoms, address, practitionerRoles: selectedPractitionerRole };

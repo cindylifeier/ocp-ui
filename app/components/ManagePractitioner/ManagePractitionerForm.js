@@ -65,7 +65,7 @@ class ManagePractitionerForm extends React.PureComponent {
 
   render() {
     const {
-      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoles,
+      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes,
       organizations,
       currentPage,
       totalNumberOfPages,
@@ -208,7 +208,7 @@ class ManagePractitionerForm extends React.PureComponent {
               </div>
               <div>
                 <FieldArray
-                  name="practitionerRole"
+                  name="practitionerRoles"
                   render={(arrayHelpers) => (
                     <div>
                       <Dialog
@@ -220,9 +220,9 @@ class ManagePractitionerForm extends React.PureComponent {
                           arrayHelpers={arrayHelpers}
                           onAddAssociateOrganization={arrayHelpers.push}
                           callback={this.handleDialogCallback}
-                          roleType={practitionerRoles}
-                          specialtyType={practitionerRoles}
-                          existingOrganizations={values.practitionerRole}
+                          roleType={practitionerRoleCodes}
+                          specialtyType={practitionerRoleCodes}
+                          existingOrganizations={values.practitionerRoles}
                           onSearch={onSearch}
                           onPageClick={onPageClick}
                           organizations={organizations}
@@ -238,9 +238,9 @@ class ManagePractitionerForm extends React.PureComponent {
                           <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
                           <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnRemove} /></TableHeaderColumn>
                         </TableHeader>
-                        {errors && errors.practitionerRole &&
-                        <span className={styles.error}>{errors.practitionerRole}</span>}
-                        {values.practitionerRole && values.practitionerRole.map((pr, index) => {
+                        {errors && errors.practitionerRoles &&
+                        <span className={styles.error}>{errors.practitionerRoles}</span>}
+                        {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
                           const { organization, logicalId } = pr;
                           return (
                             <TableRow key={organization && organization.reference}>
@@ -248,10 +248,10 @@ class ManagePractitionerForm extends React.PureComponent {
                               <TableRowColumn>
                                 <SelectField
                                   fullWidth
-                                  name={`practitionerRole.${index}.code`}
+                                  name={`practitionerRoles.${index}.code`}
                                   hintText={<FormattedMessage {...messages.hintText.roleType} />}
                                 >
-                                  {practitionerRoles && practitionerRoles.map((roleType) =>
+                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -263,10 +263,10 @@ class ManagePractitionerForm extends React.PureComponent {
                               <TableRowColumn>
                                 <SelectField
                                   fullWidth
-                                  name={`practitionerRole.${index}.specialty`}
+                                  name={`practitionerRoles.${index}.specialty`}
                                   hintText={<FormattedMessage {...messages.hintText.specialty} />}
                                 >
-                                  {practitionerRoles && practitionerRoles.map((roleType) =>
+                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -278,7 +278,7 @@ class ManagePractitionerForm extends React.PureComponent {
                               <TableRowColumn>
                                 <SelectField
                                   fullWidth
-                                  name={`practitionerRole.${index}.active`}
+                                  name={`practitionerRoles.${index}.active`}
                                   hintText={<FormattedMessage {...messages.hintText.active} />}
                                 >
                                   <MenuItem
@@ -351,7 +351,7 @@ ManagePractitionerForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  practitionerRoles: PropTypes.arrayOf(PropTypes.shape({
+  practitionerRoleCodes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,

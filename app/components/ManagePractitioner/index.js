@@ -20,14 +20,14 @@ function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const minimumOrganization = '1';
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, editMode, practitioner, onPageClick, onSearch, currentPage,
+  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages,
     organizations, initialSearchOrganizationResult } = props;
   const formData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
-    practitionerRoles,
+    practitionerRoleCodes,
     onPageClick,
     onSearch,
     organizations,
@@ -39,7 +39,7 @@ function ManagePractitioner(props) {
     <div>
       {((editMode && practitioner) || !editMode) &&
       <Formik
-        initialValues={(editMode && setFormData(practitioner)) || { practitionerRole: [] }}
+        initialValues={(editMode && setFormData(practitioner)) || { practitionerRoles: [] }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -88,7 +88,7 @@ ManagePractitioner.propTypes = {
   uspsStates: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
-  practitionerRoles: PropTypes.array.isRequired,
+  practitionerRoleCodes: PropTypes.array.isRequired,
   editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
   onPageClick: PropTypes.func.isRequired,
@@ -108,7 +108,8 @@ function setFormData(practitioner) {
   let formData = null;
   if (!isEmpty(practitioner)) {
     formData = merge(mapPractitionerToFirstIdentifier(practitioner), mapPractitionerToFirstName(practitioner),
-      mapPractitionerToFirstRole(practitioner), mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner));
+      mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner),
+      mapPractitionerRoleFormData(practitioner));
   }
   return Util.pickByIdentity(formData);
 }
@@ -137,17 +138,6 @@ function mapPractitionerToFirstName(practitioner) {
   return name;
 }
 
-function mapPractitionerToFirstRole(practitioner) {
-  let role = {};
-  if (practitioner.practitionerRoles.length > 0) {
-    const firstRole = practitioner.practitionerRoles[0];
-    role = {
-      roleType: Util.setEmptyStringWhenUndefined(firstRole.code),
-    };
-  }
-  return role;
-}
-
 function mapPractitionerToAddress(practitioner) {
   let address = {};
   if (practitioner.address.length > 0) {
@@ -174,4 +164,24 @@ function mapPractitionerToFirstTelecoms(practitioner) {
     };
   }
   return telecom;
+}
+
+function mapPractitionerRoleFormData(practitioner) {
+  const practitionerRoles = [];
+  if (practitioner.practitionerRoles.length > 0) {
+    practitioner.practitionerRoles.map(
+      (practitionerRole) => {
+        const code = practitionerRole.code.length > 0 && practitionerRole.code[0].code;
+        const specialty = practitionerRole.specialty.length > 0 && practitionerRole.specialty[0].code;
+        return practitionerRoles.push({
+          organization: practitionerRole.organization,
+          specialty,
+          code,
+          active: practitionerRole.active,
+          logicalId: practitionerRole.logicalId,
+        });
+      }
+    );
+  }
+  return { practitionerRoles };
 }

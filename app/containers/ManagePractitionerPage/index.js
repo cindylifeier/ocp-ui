@@ -87,7 +87,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoles, selectedPractitioner,
+    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, selectedPractitioner,
       organizations,
       currentPage,
       totalNumberOfPages } = this.props;
@@ -100,7 +100,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       uspsStates,
       identifierSystems,
       telecomSystems,
-      practitionerRoles,
+      practitionerRoleCodes,
       editMode,
       practitioner,
       organizations,
@@ -131,7 +131,7 @@ ManagePractitionerPage.propTypes = {
   uspsStates: PropTypes.array,
   identifierSystems: PropTypes.array,
   telecomSystems: PropTypes.array,
-  practitionerRoles: PropTypes.array,
+  practitionerRoleCodes: PropTypes.array,
   selectedPractitioner: PropTypes.object,
   onSaveForm: PropTypes.func,
   initializeManagePractitioner: PropTypes.func,
@@ -149,7 +149,7 @@ const mapStateToProps = createStructuredSelector({
   uspsStates: makeSelectUspsStates(),
   identifierSystems: makeSelectPractitionerIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
-  practitionerRoles: makeSelectPractitionerRoles(),
+  practitionerRoleCodes: makeSelectPractitionerRoles(),
   selectedPractitioner: makeSelectPractitioner(),
   organizations: makeSelectOrganizations(),
   currentPage: makeSelectCurrentPage(),
