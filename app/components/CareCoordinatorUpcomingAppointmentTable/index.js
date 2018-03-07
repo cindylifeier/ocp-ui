@@ -20,7 +20,7 @@ import TableRowColumn from '../TableRowColumn';
 import StyledMenuItem from '../StyledMenuItem';
 import StyledIconButton from '../StyledIconButton';
 
-function CareCoordinatorUpcomingAppointmentTable({ upcomingAppointments }) { // eslint-disable-line react/prefer-stateless-function
+function CareCoordinatorUpcomingAppointmentTable({ elements }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -33,18 +33,14 @@ function CareCoordinatorUpcomingAppointmentTable({ upcomingAppointments }) { // 
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
         </TableHeader>
-        {upcomingAppointments && upcomingAppointments.map((appointment) => (
+        {elements && elements.map((appointment) => (
           <TableRow key={uniqueId()}>
+            <TableRowColumn>{appointment.displayPatientName}</TableRowColumn>
+            <TableRowColumn>{appointment.typeCode}</TableRowColumn>
+            <TableRowColumn>{appointment.statusCode}</TableRowColumn>
+            <TableRowColumn>{appointment.displayDate}</TableRowColumn>
+            <TableRowColumn>{appointment.displayDuration}</TableRowColumn>
             <TableRowColumn>{appointment.description}</TableRowColumn>
-            <TableRowColumn>{appointment.type}</TableRowColumn>
-            <TableRowColumn>{appointment.status}</TableRowColumn>
-            <TableRowColumn>{appointment.start}</TableRowColumn>
-            <TableRowColumn>{appointment.end}</TableRowColumn>
-            <TableRowColumn>
-              {appointment.participant && appointment.participant.map((actor) => (
-                <TableRowColumn key={uniqueId()}>{actor.name}</TableRowColumn>
-              ))}
-            </TableRowColumn>
             <TableRowColumn>
               <IconMenu
                 iconButtonElement={
@@ -66,7 +62,7 @@ function CareCoordinatorUpcomingAppointmentTable({ upcomingAppointments }) { // 
 }
 
 CareCoordinatorUpcomingAppointmentTable.propTypes = {
-  upcomingAppointments: PropTypes.array.isRequired,
+  elements: PropTypes.array.isRequired,
 };
 
 export default CareCoordinatorUpcomingAppointmentTable;
