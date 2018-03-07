@@ -7,12 +7,12 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { teal500, white } from 'material-ui/styles/colors';
+
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import { HOME_URL } from 'containers/App/constants';
 import styles from './styles.css';
 import messages from './messages';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
-
 
 function ManageHealthcareServiceForm(props) {
   const {
