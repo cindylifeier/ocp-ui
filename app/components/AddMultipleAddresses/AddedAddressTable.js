@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -9,7 +10,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import AddAddressesErrorText from './AddAddressesErrorText';
 import messages from './messages';
 
@@ -48,11 +48,11 @@ function AddedAddressTable(props) {
               <TableRowColumn>{countryCode}</TableRowColumn>
               <TableRowColumn>
                 <NavigationStyledIconMenu>
-                  <StyledMenuItem
+                  <MenuItem
                     primaryText={<FormattedMessage {...messages.addedAddressTable.tableActionEdit} />}
                     onClick={() => handleEditAddress(index, address)}
                   />
-                  <StyledMenuItem
+                  <MenuItem
                     primaryText={<FormattedMessage {...messages.addedAddressTable.tableActionRemove} />}
                     onClick={() => arrayHelpers.remove(index)}
                   />
