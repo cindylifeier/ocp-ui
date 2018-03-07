@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Avatar from 'material-ui/Avatar';
-import MenuItem from 'material-ui/MenuItem';
 import { Cell } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
@@ -47,10 +46,6 @@ export class ConfirmPatientModal extends React.PureComponent {
     const { selectedPatient } = this.props;
     return (
       <div>
-        <MenuItem
-          primaryText={<FormattedMessage {...messages.viewDetails} />}
-          onClick={this.handlePatientModalOpen}
-        />
         <StyledDialog
           open={this.state.isPatientModalOpen}
         >
