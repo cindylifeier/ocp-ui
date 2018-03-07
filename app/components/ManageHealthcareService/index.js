@@ -5,17 +5,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
-import PropTypes from 'prop-types';
+
+import Util from 'utils/Util';
+import { TEXT_MIN_LENGTH } from 'containers/ManagePractitionerPage/constants';
 import styles from './styles.css';
 import ManageHealthcareServiceForm from './ManageHealthcareServiceForm';
-import messages from '../ManagePractitioner/messages';
-import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constants';
-import Util from '../../utils/Util';
+import messages from './messages';
 
 function ManageHealthcareService(props) {
   const minimumLength = TEXT_MIN_LENGTH;
