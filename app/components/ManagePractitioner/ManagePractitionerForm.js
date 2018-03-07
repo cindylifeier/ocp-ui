@@ -296,7 +296,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   label="Remove"
                                   backgroundColor={teal500}
                                   labelColor={white}
-                                  disabled={logicalId}
+                                  disabled={logicalId !== null}
                                   onClick={() => arrayHelpers.remove(index)}
                                 >
                                 </StyledRaisedButton>

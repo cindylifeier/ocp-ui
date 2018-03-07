@@ -8,9 +8,9 @@ import React from 'react';
 // import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
-import Util from 'utils/Util';
 import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
+import find from 'lodash/find';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -31,20 +31,16 @@ const tableColumns = 'repeat(7, 1fr) 50px';
 function renderIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));
 }
-function checkDuplicate(reference, existingOrganizations) {
-  let isDuplicate = false;
-  existingOrganizations.map((org) => {
-    isDuplicate = isDuplicate || Util.equalsIgnoreCase(org.organization.reference, reference);
-    return isDuplicate;
-  });
-  return isDuplicate;
+
+function findExistingOrganization(reference, existingOrganizations) {
+  return find(existingOrganizations, ['organization.reference', reference]);
 }
 
 function createSearchResultRows(organizations, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType) {
   return organizations.map((org) => (
     <Formik
       key={org.id}
-      initialValues={{}}
+      initialValues={findExistingOrganization(`Organization/${org.id}`, existingOrganizations)}
       onSubmit={(values, actions) => {
         const { code, specialty } = values;
         actions.setSubmitting(false);
@@ -111,7 +107,7 @@ function createSearchResultRows(organizations, onAddAssociateOrganization, exist
                       label="Add"
                       type="submit"
                       value={org}
-                      disabled={!dirty || isSubmitting || !isValid || checkDuplicate(`Organization/${org.id}`, existingOrganizations)}
+                      disabled={!dirty || isSubmitting || !isValid || findExistingOrganization(`Organization/${org.id}`, existingOrganizations) !== null}
                     />
                   </TableRowColumn>
                 </TableRow>
