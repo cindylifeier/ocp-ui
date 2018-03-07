@@ -10,8 +10,4 @@ export default defineMessages({
     id: 'ocpui.components.ConfirmPatientModal.continueButton',
     defaultMessage: 'Continue',
   },
-  viewDetails: {
-    id: 'ocpui.components.ConfirmPatientModal.viewDetails',
-    defaultMessage: 'View Details',
-  },
 });

@@ -26,6 +26,12 @@ const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
 function displayPatientSearchResult(patients, onPatientClick) {
   // TODO: Will move ConfirmPatientModal to upcoming tasks component
+  let confirmPatientModalReference = null;
+
+  function onPatientModalOpen() {
+    confirmPatientModalReference.handlePatientModalOpen();
+  }
+
   return patients && patients.map((patient) => (
     <TableRow
       columns={columns}
@@ -49,7 +55,10 @@ function displayPatientSearchResult(patients, onPatientClick) {
             primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
           />
-          <ConfirmPatientModal selectedPatient={patient} />
+          <MenuItem
+            primaryText={<FormattedMessage {...messages.viewDetails} />}
+            onClick={onPatientModalOpen}
+          />
           <MenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
@@ -80,6 +89,12 @@ function displayPatientSearchResult(patients, onPatientClick) {
 
           <MenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
         </NavigationStyledIconMenu>
+
+        {/* Note: Don’t Overuse Refs, ref is not recommended to use in most cases*/}
+        <ConfirmPatientModal
+          ref={(ref) => (confirmPatientModalReference = ref)}
+          selectedPatient={patient}
+        />
       </TableRowColumn>
     </TableRow>
   ));
