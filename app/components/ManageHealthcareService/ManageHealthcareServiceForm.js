@@ -10,6 +10,7 @@ import { teal500, white } from 'material-ui/styles/colors';
 
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
+import FormSubtitle from 'components/FormSubtitle';
 import { HOME_URL } from 'containers/App/constants';
 import styles from './styles.css';
 import messages from './messages';
@@ -27,9 +28,9 @@ function ManageHealthcareServiceForm(props) {
   } = props;
   return (
     <div>
-      <div className={styles.title}>
+      <FormSubtitle>
         <FormattedMessage {...messages.title} />
-      </div>
+      </FormSubtitle>
       <Form>
         <div className={styles.organizationInfoSection}>
           <div className={styles.organizationInfoLabel}>
