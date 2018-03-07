@@ -164,7 +164,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const logicalId = this.props.match.params.id;
     const editMode = !isUndefined(match.params.id);
     let currentTask = null;
-    if (editMode) {
+    if (editMode && this.props.tasks) {
       currentTask = find(this.props.tasks.data.elements, { logicalId });
     }
     const taskProps = {

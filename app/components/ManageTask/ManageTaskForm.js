@@ -83,12 +83,11 @@ function ManageTaskForm(props) {
           <div className={`${styles.gridItem} ${styles.timeGroup}`}>
             <DatePicker
               fullWidth
-              name="createdOn"
-              defaultDate={today}
+              name="authoredOn"
               minDate={today}
               maxDate={today}
-              hintText={<FormattedMessage {...messages.hintText.createdOn} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.createdOn} />}
+              hintText={<FormattedMessage {...messages.hintText.authoredOn} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.authoredOn} />}
             />
             <DatePicker
               fullWidth

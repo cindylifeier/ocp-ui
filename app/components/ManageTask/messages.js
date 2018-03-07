@@ -53,8 +53,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.hintText.requester',
       defaultMessage: 'Created By',
     },
-    createdOn: {
-      id: 'ocpui.components.ManageTask.manageForm.hintText.createdOn',
+    authoredOn: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.authoredOn',
       defaultMessage: 'Created On',
     },
     status: {
@@ -123,8 +123,8 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.activityDefinitions',
       defaultMessage: 'Activity Type',
     },
-    createdOn: {
-      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.createdOn',
+    authoredOn: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.authoredOn',
       defaultMessage: 'Created On',
     },
     status: {

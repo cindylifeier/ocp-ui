@@ -133,6 +133,13 @@ function mapTaskToEditForm(task) {
     };
   }
 
+  let status = {};
+  if (task.status && task.status.code) {
+    status = {
+      status: Util.setEmptyStringWhenUndefined(task.status.code),
+    };
+  }
+
   let intent = {};
   if (task.intent && task.intent.code) {
     intent = {
@@ -154,6 +161,13 @@ function mapTaskToEditForm(task) {
     };
   }
 
+  let taskOwner = {};
+  if (task.owner && task.owner.reference) {
+    taskOwner = {
+      taskOwner: Util.setEmptyStringWhenUndefined(task.owner.reference),
+    };
+  }
+
   let organization = {};
   if (task.organization && task.organization.reference) {
     organization = {
@@ -161,10 +175,36 @@ function mapTaskToEditForm(task) {
     };
   }
 
+  let patientName = {};
+  if (task.beneficiary && task.beneficiary.reference) {
+    patientName = {
+      patientName: Util.setEmptyStringWhenUndefined(task.beneficiary.display),
+    };
+  }
+
+  let requester = {};
+  if (task.agent && task.agent.reference) {
+    requester = {
+      requester: Util.setEmptyStringWhenUndefined(task.agent.display),
+    };
+  }
+
+  let authoredOn = {};
+  if (task.authoredOn) {
+    authoredOn = {
+      authoredOn: Util.setEmptyStringWhenUndefined(task.authoredOn),
+    };
+  }
+
   return merge(Util.pickByIdentity(priority),
                 Util.pickByIdentity(intent),
                 Util.pickByIdentity(performerType),
                 Util.pickByIdentity(activityDefinition),
+                Util.pickByIdentity(status),
+                Util.pickByIdentity(taskOwner),
+                Util.pickByIdentity(patientName),
+                Util.pickByIdentity(requester),
+                Util.pickByIdentity(authoredOn),
                 Util.pickByIdentity(organization));
 }
 
