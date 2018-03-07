@@ -12,7 +12,7 @@
  */
 
 import HomePage from 'containers/HomePage/Loadable';
-import { ManageAppointmentPage } from 'containers/ManageAppointmentPage';
+import ManageAppointmentPage from 'containers/ManageAppointmentPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
 import 'font-awesome/css/font-awesome.min.css';
