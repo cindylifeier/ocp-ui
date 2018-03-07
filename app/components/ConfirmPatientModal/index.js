@@ -16,7 +16,6 @@ import { Cell } from 'styled-css-grid';
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
-import StyledMenuItem from 'components/StyledMenuItem';
 import StyledDialog from 'components/StyledDialog';
 import ContinueButton from './ContinueButton';
 import CloseButton from './CloseButton';
@@ -47,10 +46,6 @@ export class ConfirmPatientModal extends React.PureComponent {
     const { selectedPatient } = this.props;
     return (
       <div>
-        <StyledMenuItem
-          primaryText={<FormattedMessage {...messages.viewDetails} />}
-          onClick={this.handlePatientModalOpen}
-        />
         <StyledDialog
           open={this.state.isPatientModalOpen}
         >

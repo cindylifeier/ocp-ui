@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
 
 import messages from './messages';
 import Table from '../Table';
@@ -18,7 +19,6 @@ import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import { ENTER_KEY } from '../../containers/App/constants';
-import StyledMenuItem from '../StyledMenuItem';
 import NavigationStyledIconMenu from '../StyledIconMenu/NavigationStyledIconMenu';
 
 const tableColumns = 'repeat(5, 1fr) 50px';
@@ -62,23 +62,23 @@ function OrganizationTable({ organizations, onRowClick }) {
             <TableRowColumn>{status}</TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.edit} />}
                   containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.addLocation} />}
                   containerElement={<Link to={'/ocp-ui/manage-location'} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.addHealthCareService} />}
                   containerElement={<Link to={'/ocp-ui/manage-healthcare-service'} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.addActivityDefinition} />}
                   containerElement={<Link to={'/ocp-ui/manage-activity-definition'} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.remove} />}
                 />
               </NavigationStyledIconMenu>
