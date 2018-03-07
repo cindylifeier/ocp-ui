@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import { Cell, Grid } from 'styled-css-grid';
 
 import Util from 'utils/Util';
+import { mapToPatientName } from 'utils/PatientUtils';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
@@ -15,6 +17,8 @@ import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import SelectedParticipants from './SelectedParticipants';
 import messages from './messages';
@@ -33,6 +37,7 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    selectedPatient,
   } = props;
 
   const selectedParticipantsProps = {
@@ -42,6 +47,7 @@ function ManageCareTeamForm(props) {
 
   // To check whether has participant
   const hasParticipants = !isEmpty(selectedParticipants);
+  const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
   return (
     <div>
@@ -51,6 +57,13 @@ function ManageCareTeamForm(props) {
             <FormSubtitle margin="0">
               <FormattedMessage {...messages.title} />
             </FormSubtitle>
+          </Cell>
+          <Cell area="selectedPatient">
+            <InfoSection margin="2vh 0 0 0">
+              <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.labelPatientName} />&nbsp;
+              </InlineLabel>
+              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+            </InfoSection>
           </Cell>
           <Cell area="careTeamName">
             <TextField
@@ -178,6 +191,10 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+  }),
   selectedParticipants: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({

@@ -56,8 +56,9 @@ describe('<ManageCareTeamFormGrid />', () => {
       // Assert
       expect(renderedComponent).toHaveStyleRule('width', 'auto');
       expect(renderedComponent).toHaveStyleRule('margin', '1vh 1vw');
+      expect(renderedComponent).toHaveStyleRule('grid-row-gap', '0.5vh');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "careTeamName"    "category"    "status"    "episodeOfCare"    "reason"    "startDate"    "endDate"    "participantSubtitle"    "addParticipant"    "selectedParticipants"    "buttonGroup"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "selectedPatient"    "careTeamName"    "category"    "status"    "episodeOfCare"    "reason"    "startDate"    "endDate"    "participantSubtitle"    "addParticipant"    "selectedParticipants"    "buttonGroup"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -70,7 +71,7 @@ describe('<ManageCareTeamFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "careTeamName status"      "category ."      "episodeOfCare ."      "reason ."      "startDate ."      "endDate ."      "participantSubtitle participantSubtitle"      "addParticipant ."      "selectedParticipants selectedParticipants"      "buttonGroup ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "selectedPatient selectedPatient"      "careTeamName status"      "category ."      "episodeOfCare ."      "reason ."      "startDate ."      "endDate ."      "participantSubtitle participantSubtitle"      "addParticipant ."      "selectedParticipants selectedParticipants"      "buttonGroup ."', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -83,7 +84,7 @@ describe('<ManageCareTeamFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "careTeamName careTeamName careTeamName careTeamName category category category status status . . ."      "episodeOfCare episodeOfCare episodeOfCare reason reason . . . . . . ."      "startDate startDate endDate endDate . . . . . . . ."      "participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle"      "addParticipant addParticipant . . . . . . . . . ."      "selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants"      "buttonGroup buttonGroup buttonGroup . . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient"      "careTeamName careTeamName careTeamName careTeamName category category category status status . . ."      "episodeOfCare episodeOfCare episodeOfCare reason reason . . . . . . ."      "startDate startDate endDate endDate . . . . . . . ."      "participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle"      "addParticipant addParticipant . . . . . . . . . ."      "selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants"      "buttonGroup buttonGroup buttonGroup . . . . . . . . ."', { media });
     });
   });
 });

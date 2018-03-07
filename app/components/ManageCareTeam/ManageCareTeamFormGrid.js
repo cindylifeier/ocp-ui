@@ -3,9 +3,11 @@ import { Grid } from 'styled-css-grid';
 const ManageCareTeamFormGrid = Grid.extend`
   width: auto;
   margin: 1vh 1vw;
+  grid-row-gap: 0.5vh;
   grid-template-columns: 1fr;
   grid-template-areas:
     "generalInformationSubtitle"
+    "selectedPatient"
     "careTeamName"
     "category"
     "status"
@@ -22,6 +24,7 @@ const ManageCareTeamFormGrid = Grid.extend`
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
+      "selectedPatient selectedPatient"
       "careTeamName status"
       "category ."
       "episodeOfCare ."
@@ -38,6 +41,7 @@ const ManageCareTeamFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
+      "selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient"
       "careTeamName careTeamName careTeamName careTeamName category category category status status . . ."
       "episodeOfCare episodeOfCare episodeOfCare reason reason . . . . . . ."
       "startDate startDate endDate endDate . . . . . . . ."
