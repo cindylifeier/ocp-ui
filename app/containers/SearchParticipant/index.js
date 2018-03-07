@@ -14,42 +14,39 @@ import yup from 'yup';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import { teal500, white } from 'material-ui/styles/colors';
+import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { mapSearchParticipantName } from 'utils/CareTeamUtils';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import Table from 'components/Table';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import TableHeader from 'components/TableHeader';
+import DatePickerWithoutBlur from 'components/DatePickerWithoutBlur';
+import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import FormSubtitle from 'components/FormSubtitle';
+import StyledFlatButton from 'components/StyledFlatButton';
+import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
+import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import reducer from './reducer';
 import saga from './saga';
-import styles from './styles.css';
 import messages from './messages';
-import { floatingLabelStyle, iconButtonStyle, TEXT_MIN_LENGTH } from './constants';
-import { makeSelectParticipantRoles, makeSelectParticipantTypes } from '../App/lookupSelectors';
-import TextField from '../../components/TextField';
-import SelectField from '../../components/SelectField';
+import { TEXT_MIN_LENGTH } from './constants';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
 import { makeSelectSearchParticipantResults } from './selectors';
-import Table from '../../components/Table';
-import TableHeaderColumn from '../../components/TableHeaderColumn';
-import TableRow from '../../components/TableRow';
-import TableRowColumn from '../../components/TableRowColumn';
-import TableHeader from '../../components/TableHeader';
-import DatePickerWithoutBlur from '../../components/DatePickerWithoutBlur/index';
-import SelectFieldWithoutOnClick from '../../components/SelectFieldWithoutOnClick/index';
-import { mapSearchParticipantName } from '../../utils/CareTeamUtils';
-import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-
-const customContentStyle = {
-  width: '70%',
-  maxWidth: 'none',
-};
+import ParticipantName from './ParticipantName';
+import ParticipantSearchContainer from './ParticipantSearchContainer';
+import AddParticipantDialog from './AddParticipantDialog';
+import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -62,7 +59,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookUpFormData();
     this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
   }
@@ -83,7 +80,6 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     const { name, member } = values;
     this.props.searchParticipant(name, member, this.props.selectedPatient.id);
   }
-
 
   createSearchResultHeader() {
     return (
@@ -145,13 +141,13 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
               <Table>
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
-                    <div className={styles.participantResultGridContainer}>
-                      <div className={styles.participantResultGridItem}>
-                        <div className={styles.participantNameGridItem}>
+                    <Grid columns={5}>
+                      <Cell middle>
+                        <ParticipantName>
                           {mapSearchParticipantName(participant)}
-                        </div>
-                      </div>
-                      <div className={styles.participantResultGridItem}>
+                        </ParticipantName>
+                      </Cell>
+                      <Cell middle>
                         <SelectFieldWithoutOnClick
                           name="roleCode"
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
@@ -164,8 +160,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                             />),
                           )}
                         </SelectFieldWithoutOnClick>
-                      </div>
-                      <div className={styles.participantResultGridItem}>
+                      </Cell>
+                      <Cell middle>
                         <DatePickerWithoutBlur
                           fullWidth
                           name="startDate"
@@ -174,8 +170,8 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                           hintText={<FormattedMessage {...messages.hintText.startDate} />}
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
                         />
-                      </div>
-                      <div className={styles.participantResultGridItem}>
+                      </Cell>
+                      <Cell middle>
                         <DatePickerWithoutBlur
                           fullWidth
                           name="endDate"
@@ -184,18 +180,16 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
                           hintText={<FormattedMessage {...messages.hintText.endDate} />}
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
                         />
-                      </div>
-                      <div className={styles.participantResultGridItem}>
-                        <RaisedButton
-                          backgroundColor={teal500}
-                          labelColor={white}
+                      </Cell>
+                      <Cell middle>
+                        <StyledRaisedButton
                           label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                           type="submit"
                           value={participant}
                           disabled={!dirty || isSubmitting || !isValid}
                         />
-                      </div>
-                    </div>
+                      </Cell>
+                    </Grid>
                   </TableRowColumn>
                 </TableRow>
               </Table>
@@ -228,22 +222,21 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
     const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
-      <FlatButton
+      <StyledFlatButton
         label={<FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />}
         onClick={this.handleDialogClose}
       />,
     ];
     return (
-      <Dialog
+      <AddParticipantDialog
         actions={actionsButtons}
         modal={false}
         open={isOpen}
-        contentStyle={customContentStyle}
         autoScrollBodyContent
       >
-        <div className={styles.title}>
+        <FormSubtitle margin="0">
           <FormattedMessage {...messages.addParticipantDialogTitle} />
-        </div>
+        </FormSubtitle>
         <Formik
           onSubmit={(values, actions) => {
             this.handleSearch(values);
@@ -261,35 +254,39 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
             const { isSubmitting, dirty, isValid } = formikProps;
             return (
               <Form>
-                <div className={styles.root}>
-                  <div className={styles.searchGridContainer}>
-                    <TextField
-                      name="name"
-                      fullWidth
-                      floatingLabelStyle={floatingLabelStyle}
-                      hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
-                    />
-                    <SelectField
-                      name="member"
-                      fullWidth
-                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
-                    >
-                      {participantTypes && participantTypes.map((member) =>
-                        <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                      )
-                      }
-                    </SelectField>
-                    <IconButton
-                      style={iconButtonStyle}
-                      tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
-                      type="submit"
-                      disabled={!dirty || isSubmitting || !isValid}
-                    >
-                      <ActionSearch />
-                    </IconButton>
-                  </div>
-                </div>
+                <ParticipantSearchContainer>
+                  <Grid columns={3}>
+                    <Cell>
+                      <TextField
+                        name="name"
+                        fullWidth
+                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
+                      />
+                    </Cell>
+                    <Cell>
+                      <SelectField
+                        name="member"
+                        fullWidth
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
+                      >
+                        {participantTypes && participantTypes.map((member) =>
+                          <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
+                        )
+                        }
+                      </SelectField>
+                    </Cell>
+                    <Cell>
+                      <AddParticipantDialogIconButton
+                        tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
+                        type="submit"
+                        disabled={!dirty || isSubmitting || !isValid}
+                      >
+                        <ActionSearch />
+                      </AddParticipantDialogIconButton>
+                    </Cell>
+                  </Grid>
+                </ParticipantSearchContainer>
               </Form>
             );
           }}
@@ -297,7 +294,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultHeader()}
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultRows()}
         {searchParticipantResult && searchParticipantResult.length === 0 && this.createNoSearchResultTable()}
-      </Dialog>
+      </AddParticipantDialog>
     );
   }
 }
