@@ -14,11 +14,13 @@ import { createStructuredSelector } from 'reselect';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
-import Divider from 'material-ui/Divider';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import ManageHealthcareService from 'components/ManageHealthcareService';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
@@ -45,7 +47,6 @@ import messages from './messages';
 import { createHealthcareService, getHealthcareServiceById, updateHealthcareService } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import styles from './styles.css';
 
 export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -156,20 +157,20 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       currentHealthcareService,
     };
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Manage Healthcare Service</title>
           <meta name="description" content="Manage Healthcare Service page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            {logicalId ? <FormattedMessage {...messages.updateHeader} />
-              : <FormattedMessage {...messages.createHeader} />}
-          </div>
-          <Divider />
+        <PageHeader
+          title={logicalId ?
+            <FormattedMessage {...messages.updateHeader} />
+            : <FormattedMessage {...messages.createHeader} />}
+        />
+        <PageContent>
           <ManageHealthcareService {...formProps} onSave={this.handleSave} />
-        </div>
-      </div>
+        </PageContent>
+      </Page>
     );
   }
 }
