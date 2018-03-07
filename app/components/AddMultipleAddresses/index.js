@@ -11,9 +11,9 @@ import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
 
 import FormSubtitle from 'components/FormSubtitle';
-import AddAddressesButton from 'components/AddMultipleAddresses/AddAddressesButton';
-import AddMultipleAddressForm from 'components/AddMultipleAddresses/AddMultipleAddressForm';
-import AddedAddressTable from 'components/AddMultipleAddresses/AddedAddressTable';
+import AddAddressesButton from './AddAddressesButton';
+import AddMultipleAddressForm from './AddMultipleAddressForm';
+import AddedAddressTable from './AddedAddressTable';
 import messages from './messages';
 
 class AddMultipleAddresses extends React.PureComponent {

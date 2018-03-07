@@ -40,10 +40,16 @@ import { createOrganization, updateOrganization } from './actions';
 import saga from './saga';
 import messages from './messages';
 
+const minimumNumberOfAddresses = 1;
+
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static validationSchemaShape = {
     name: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
+    addresses: yup.array()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .min(minimumNumberOfAddresses, (
+        <FormattedMessage {...messages.validation.minAddresses} values={{ minimumNumberOfAddresses }} />)),
     identifierSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierValue: yup.string()
