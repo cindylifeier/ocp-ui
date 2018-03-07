@@ -153,10 +153,10 @@ function lookupReducer(state = initialState, action) {
         .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
         // Appointment Lookups - Start
         .set(APPOINTMENT_PARTICIPANT_REQUIRED, fromJS((action.lookups && action.lookups.appointmentParticipantRequired) || state.get(APPOINTMENT_PARTICIPANT_REQUIRED)))
-        .set(APPOINTMENT_PARTICIPATION_STATUS, fromJS((action.lookups && action.lookups.appointmentParticipationStatuses) || state.get(APPOINTMENT_PARTICIPATION_STATUS)))
-        .set(APPOINTMENT_PARTICIPATION_TYPE, fromJS((action.lookups && action.lookups.appointmentParticipationTypes) || state.get(APPOINTMENT_PARTICIPATION_TYPE)))
-        .set(APPOINTMENT_STATUS, fromJS((action.lookups && action.lookups.appointmentStatuses) || state.get(APPOINTMENT_STATUS)))
-        .set(APPOINTMENT_TYPE, fromJS((action.lookups && action.lookups.appointmentTypes) || state.get(APPOINTMENT_TYPE)))
+        .set(APPOINTMENT_PARTICIPATION_STATUS, fromJS((action.lookups && action.lookups.appointmentParticipationStatus) || state.get(APPOINTMENT_PARTICIPATION_STATUS)))
+        .set(APPOINTMENT_PARTICIPATION_TYPE, fromJS((action.lookups && action.lookups.appointmentParticipationType) || state.get(APPOINTMENT_PARTICIPATION_TYPE)))
+        .set(APPOINTMENT_STATUS, fromJS((action.lookups && action.lookups.appointmentStatus) || state.get(APPOINTMENT_STATUS)))
+        .set(APPOINTMENT_TYPE, fromJS((action.lookups && action.lookups.appointmentType) || state.get(APPOINTMENT_TYPE)))
         // Appointment Lookups - End
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
