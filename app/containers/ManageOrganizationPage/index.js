@@ -15,31 +15,29 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FlatButton, MenuItem } from 'material-ui';
 import find from 'lodash/find';
-import { teal500, white } from 'material-ui/styles/colors';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
-import saga from './saga';
-import messages from './messages';
-
-import TextField from '../../components/TextField';
-import SelectField from '../../components/SelectField';
-import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
+import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
   makeSelectUspsStates,
-} from '../App/lookupSelectors';
+} from 'containers/App/lookupSelectors';
+import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import PageContent from 'components/PageContent';
 import { createOrganization, updateOrganization } from './actions';
-import { makeSelectOrganizationsData } from '../Organizations/selectors';
-import Page from '../../components/Page';
-import PageHeader from '../../components/PageHeader';
+import saga from './saga';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
 import ManageOrganizationFormCell from './ManageOrganizationFormCell';
-import StyledRaisedButton from '../../components/StyledRaisedButton';
-import PageContent from '../../components/PageContent';
+import messages from './messages';
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
@@ -261,8 +259,6 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           <StyledRaisedButton
                             fullWidth
                             type="submit"
-                            backgroundColor={teal500}
-                            labelColor={white}
                             label={isSubmitting ?
                               <FormattedMessage {...messages.form.savingButton} /> :
                               <FormattedMessage {...messages.form.saveButton} />}
