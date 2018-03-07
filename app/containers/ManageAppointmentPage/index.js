@@ -10,12 +10,14 @@ import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { createAppointment, initializeManageAppointment } from 'containers/ManageAppointmentPage/actions';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
   initializeSearchAppointmentParticipantResult,
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
+import { makeSelectSelectedParticipants } from 'containers/SearchAppointmentParticipant/selectors';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
@@ -161,6 +163,8 @@ ManageAppointmentPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   appointmentStatuses: makeSelectAppointmentStatuses(),
   appointmentTypes: makeSelectAppointmentTypes(),
+  selectedPatient: makeSelectSelectedPatient(),
+  selectedParticipants: makeSelectSelectedParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {
