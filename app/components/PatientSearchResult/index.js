@@ -19,7 +19,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
 
@@ -52,7 +51,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
       </TableRowColumn>
       <TableRowColumn>
         <NavigationStyledIconMenu>
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
           />
@@ -60,7 +59,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
             primaryText={<FormattedMessage {...messages.viewDetails} />}
             onClick={onPatientModalOpen}
           />
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
               to={{
@@ -69,7 +68,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
               }}
             />}
           />
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addCareTeam} />}
             containerElement={<Link
               to={{
@@ -78,7 +77,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
               }}
             />}
           />
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addRelatedPerson} />}
             containerElement={<Link
               to={{
@@ -88,7 +87,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
             />}
           />
 
-          <StyledMenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
+          <MenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
         </NavigationStyledIconMenu>
         <ConfirmPatientModal
           onRef={(ref) => (confirmPatientModalReference = ref)}
