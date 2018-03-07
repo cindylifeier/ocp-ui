@@ -99,7 +99,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       const {
         name,
         identifiers: [{ system: identifierSystem, value: identifierValue }],
-        addresses: [address],
+        addresses,
         telecoms: [{ system: telecomSystem, value: telecomValue }],
         active,
       } = editingOrganization;
@@ -110,7 +110,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
         identifierValue,
         telecomSystem,
         telecomValue,
-        ...address,
+        addresses,
       };
     }
 
@@ -136,7 +136,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
               const addAddressesProps = {
                 uspsStates,
                 errors,
-                values,
+                addresses: values.addresses,
               };
               return (
                 <Form>

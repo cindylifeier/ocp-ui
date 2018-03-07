@@ -47,10 +47,10 @@ class AddMultipleAddresses extends React.PureComponent {
   }
 
   render() {
-    const { uspsStates, errors, values } = this.props;
+    const { uspsStates, errors, addresses } = this.props;
     const addedAddressTableProps = {
       errors,
-      values,
+      addresses,
     };
     return (
       <div>
@@ -98,7 +98,14 @@ AddMultipleAddresses.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   errors: PropTypes.object,
-  values: PropTypes.object,
+  addresses: PropTypes.arrayOf(PropTypes.shape({
+    line1: PropTypes.string,
+    line2: PropTypes.string,
+    city: PropTypes.string,
+    postalCode: PropTypes.string,
+    stateCode: PropTypes.string,
+    countryCode: PropTypes.string,
+  })),
 };
 
 export default AddMultipleAddresses;

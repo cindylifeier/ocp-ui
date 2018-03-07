@@ -17,7 +17,7 @@ function AddedAddressTable(props) {
   const tableColumns = 'repeat(6, 1fr) 80px';
   const {
     errors,
-    values,
+    addresses,
     arrayHelpers,
     handleEditAddress,
   } = props;
@@ -36,7 +36,7 @@ function AddedAddressTable(props) {
         {errors && errors.addresses &&
         <AddAddressesErrorText>{errors.addresses}</AddAddressesErrorText>
         }
-        {values.addresses && values.addresses.map((address, index) => {
+        {addresses && addresses.map((address, index) => {
           const { line1, line2, city, stateCode, postalCode, countryCode } = address;
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
@@ -68,9 +68,16 @@ function AddedAddressTable(props) {
 
 AddedAddressTable.propTypes = {
   errors: PropTypes.object,
-  values: PropTypes.object,
   arrayHelpers: PropTypes.object,
   handleEditAddress: PropTypes.func,
+  addresses: PropTypes.arrayOf(PropTypes.shape({
+    line1: PropTypes.string,
+    line2: PropTypes.string,
+    city: PropTypes.string,
+    postalCode: PropTypes.string,
+    stateCode: PropTypes.string,
+    countryCode: PropTypes.string,
+  })),
 };
 
 export default AddedAddressTable;
