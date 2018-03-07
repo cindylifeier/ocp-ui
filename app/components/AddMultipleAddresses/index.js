@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { teal500, white } from 'material-ui/styles/colors';
 import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
 
@@ -34,7 +33,10 @@ class AddMultipleAddresses extends React.PureComponent {
   }
 
   handleCloseDialog() {
-    this.setState({ isAddressesDialogOpen: false });
+    this.setState({
+      isAddressesDialogOpen: false,
+      editingAddress: null,
+    });
   }
 
   handleEditAddress(index, address) {
@@ -44,7 +46,6 @@ class AddMultipleAddresses extends React.PureComponent {
     }));
   }
 
-  // TODO: remove button color
   render() {
     const { uspsStates, errors, values } = this.props;
     const addedAddressTableProps = {
@@ -57,8 +58,6 @@ class AddMultipleAddresses extends React.PureComponent {
           <FormattedMessage {...messages.header} />
         </FormSubtitle>
         <AddAddressesButton
-          backgroundColor={teal500}
-          labelColor={white}
           onClick={this.handleOpenDialog}
           label={<FormattedMessage {...messages.addAddressesButton} />}
         />

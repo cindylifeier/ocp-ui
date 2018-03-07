@@ -34,15 +34,15 @@ function AddedAddressTable(props) {
         </TableHeader>
         {errors && errors.addresses && <span>{errors.addresses}</span>}
         {values.addresses && values.addresses.map((address, index) => {
-          const { line1, line2, city, state, postalCode, country } = address;
+          const { line1, line2, city, stateCode, postalCode, countryCode } = address;
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{line1}</TableRowColumn>
               <TableRowColumn>{line2}</TableRowColumn>
               <TableRowColumn>{city}</TableRowColumn>
-              <TableRowColumn>{state}</TableRowColumn>
+              <TableRowColumn>{stateCode}</TableRowColumn>
               <TableRowColumn>{postalCode}</TableRowColumn>
-              <TableRowColumn>{country}</TableRowColumn>
+              <TableRowColumn>{countryCode}</TableRowColumn>
               <TableRowColumn>
                 <NavigationStyledIconMenu>
                   <StyledMenuItem

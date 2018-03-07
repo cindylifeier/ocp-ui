@@ -5,7 +5,6 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
-import { teal500, white } from 'material-ui/styles/colors';
 
 import { POSTAL_CODE_PATTERN } from 'containers/App/constants';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -25,7 +24,6 @@ function AddMultipleAddressForm(props) {
     handleCloseDialog,
   } = props;
 
-  // TODO: remove button color
   return (
     <div>
       <Formik
@@ -108,8 +106,6 @@ function AddMultipleAddressForm(props) {
               <Cell>
                 <StyledRaisedButton
                   type="submit"
-                  backgroundColor={teal500}
-                  labelColor={white}
                   label={<FormattedMessage {...messages.saveAddressButton} />}
                   disabled={!dirty || isSubmitting || !isValid}
                 />
