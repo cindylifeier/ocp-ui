@@ -12,7 +12,7 @@ export default defineMessages({
   },
   organizationNameLabel: {
     id: 'app.containers.ManageLocationPage.organizationNameLabel',
-    defaultMessage: 'Organization',
+    defaultMessage: 'Organization:',
   },
   mainLabel: {
     id: 'app.containers.ManageLocationPage.mainLabel',
