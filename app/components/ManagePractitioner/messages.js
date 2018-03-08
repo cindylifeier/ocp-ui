@@ -65,38 +65,6 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.hintText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    telecomType: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.telecomType',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomValue: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.telecomValue',
-      defaultMessage: 'Telecom Value',
-    },
-    address1: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.address1',
-      defaultMessage: 'Address 1',
-    },
-    address2: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.address2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.city',
-      defaultMessage: 'City',
-    },
-    state: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.state',
-      defaultMessage: 'State',
-    },
-    postalCode: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.postalCode',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.country',
-      defaultMessage: 'Country',
-    },
   },
   floatingLabelText: {
     firstName: {
@@ -126,38 +94,6 @@ export default defineMessages({
     identifierValue: {
       id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
-    },
-    telecomType: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.telecomType',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomValue: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.telecomValue',
-      defaultMessage: 'Telecom Value',
-    },
-    address1: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.address1',
-      defaultMessage: 'Address 1',
-    },
-    address2: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.address2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.city',
-      defaultMessage: 'City',
-    },
-    state: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.state',
-      defaultMessage: 'State',
-    },
-    postalCode: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.postalCode',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.country',
-      defaultMessage: 'Country',
     },
   },
   associateOrganizations: {
