@@ -18,6 +18,10 @@ export const UPDATE_COMMUNICATION = 'ocpui/ManageCommunicationPage/UPDATE_COMMUN
 export const GET_EPISODE_OF_CARES = 'ocpui/ManageCommunicationPage/GET_EPISODE_OF_CARES';
 export const GET_EPISODE_OF_CARES_SUCCESS = 'ocpui/ManageCommunicationPage/GET_EPISODE_OF_CARES_SUCCESS';
 
+export const GET_PRACTITIONER = 'ocpui/ManageCommunicationPage/GET_PRACTITIONER';
+export const GET_PRACTITIONER_SUCCESS = 'ocpui/ManageCommunicationPage/GET_PRACTITIONER_SUCCESS';
+export const GET_PRACTITIONER_ERROR = 'ocpui/ManageCommunicationPage/GET_PRACTITIONER_ERROR';
+
 export const INITIALIZE_SEARCH_RECIPIENT = 'ocpui/ManageCommunicationPage/INITIALIZE_SEARCH_RECIPIENT';
 /**
 *  Other constants

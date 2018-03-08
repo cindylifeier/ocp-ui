@@ -1,9 +1,9 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import { CREATE_COMMUNICATION, UPDATE_COMMUNICATION, GET_EPISODE_OF_CARES } from './constants';
+import { CREATE_COMMUNICATION, UPDATE_COMMUNICATION, GET_EPISODE_OF_CARES, GET_PRACTITIONER } from './constants';
 import { showNotification } from '../Notification/actions';
-import { saveCommunicationError, getEpisodeOfCaresSuccess } from './actions';
-import { createCommunication, updateCommunication, getEpisodeOfCares } from './api';
+import { saveCommunicationError, getEpisodeOfCaresSuccess, getPractitionerSuccess, getPractitionerError } from './actions';
+import { createCommunication, updateCommunication, getEpisodeOfCares, getRequester } from './api';
 
 
 export function* createCommunicationSaga(action) {
@@ -44,6 +44,23 @@ export function* getEpisodeOfCaresSaga(action) {
   }
 }
 
+// TODO Refactore when Practitioner profile is establish.
+export function* getPractitionerSaga(action) {
+  try {
+    const practitioner = yield call(getRequester, action.practitionerId);
+    yield put(getPractitionerSuccess(practitioner));
+  } catch (err) {
+    yield put(showNotification('Error in getting practitioner!'));
+    yield put(getPractitionerError(err));
+  }
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export function* watchGetPractitionerSaga() {
+  yield takeLatest(GET_PRACTITIONER, getPractitionerSaga);
+}
 
 export function* watchCreateCommunicationSaga() {
   yield takeLatest(CREATE_COMMUNICATION, createCommunicationSaga);
@@ -63,5 +80,6 @@ export default function* rootSaga() {
     watchCreateCommunicationSaga(),
     watchUpdateCommunicationSaga(),
     watchGetEpisodeOfCaresSaga(),
+    watchGetPractitionerSaga(),
   ]);
 }

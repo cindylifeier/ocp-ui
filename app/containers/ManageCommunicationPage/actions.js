@@ -8,6 +8,8 @@ import {
   SAVE_COMMUNICATION_ERROR, UPDATE_COMMUNICATION,
   GET_EPISODE_OF_CARES, GET_EPISODE_OF_CARES_SUCCESS,
   INITIALIZE_SEARCH_RECIPIENT,
+  GET_PRACTITIONER, GET_PRACTITIONER_SUCCESS,
+  GET_PRACTITIONER_ERROR,
 } from './constants';
 
 
@@ -60,5 +62,27 @@ export function getEpisodeOfCaresSuccess(episodeOfCares) {
 export function initializeSearchRecipientResults() {
   return {
     type: INITIALIZE_SEARCH_RECIPIENT,
+  };
+}
+
+export function getPractitioner(practitionerId) {
+  return {
+    type: GET_PRACTITIONER,
+    practitionerId,
+  };
+}
+
+export function getPractitionerSuccess(practitioner) {
+  return {
+    type: GET_PRACTITIONER_SUCCESS,
+    practitioner,
+  };
+}
+
+
+export function getPractitionerError(practitioner) {
+  return {
+    type: GET_PRACTITIONER_ERROR,
+    practitioner,
   };
 }

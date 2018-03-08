@@ -31,6 +31,7 @@ function ManageCommunication(props) {
     handleRemoveRecipient,
     selectedPatient,
     communication,
+    practitioner,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -43,13 +44,14 @@ function ManageCommunication(props) {
     handleRemoveRecipient,
     selectedPatient,
     communication,
+    practitioner,
   };
   const minimumLength = TEXT_MIN_LENGTH;
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
   return (
     <Formik
-      initialValues={setInitialValues(props.communication, selectedPatient)}
+      initialValues={setInitialValues(props.communication, selectedPatient, practitioner)}
       onSubmit={(values, actions) => {
         onSave(values, actions);
       }}
@@ -100,16 +102,17 @@ ManageCommunication.propTypes = {
   selectedPatient: PropTypes.object.isRequired,
   communication: PropTypes.object,
   handleRemoveRecipient: PropTypes.func.isRequired,
+  practitioner: PropTypes.object,
 };
 
 export default ManageCommunication;
 
 
-function setInitialValues(communication, selectedPatient) {
+function setInitialValues(communication, selectedPatient, practitioner) {
   let formData = null;
   if (selectedPatient) {
     formData = merge(
-      mapToSender(selectedPatient, 'sender'),
+      mapToSender(practitioner, 'sender'),
       mapToSender(selectedPatient, 'subject')
     );
   }
@@ -130,7 +133,7 @@ function setInitialValues(communication, selectedPatient) {
 
 function mapToSender(selectedPatient, fieldName) {
   const fieldObject = {};
-  if (!isUndefined(fieldName) && selectedPatient.name && selectedPatient.name.length > 0) {
+  if (!isUndefined(fieldName) && selectedPatient && selectedPatient.name && selectedPatient.name.length > 0) {
     fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(selectedPatient.name[0]));
   }
   return fieldObject;
