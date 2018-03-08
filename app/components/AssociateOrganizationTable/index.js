@@ -107,7 +107,7 @@ function createSearchResultRows(organizations, onAddAssociateOrganization, exist
                       label="Add"
                       type="submit"
                       value={org}
-                      disabled={!dirty || isSubmitting || !isValid || findExistingOrganization(`Organization/${org.id}`, existingOrganizations) !== null}
+                      disabled={!dirty || isSubmitting || !isValid || findExistingOrganization(`Organization/${org.id}`, existingOrganizations) !== undefined}
                     />
                   </TableRowColumn>
                 </TableRow>
