@@ -45,6 +45,8 @@ import {
   TASK_PERFORMER_TYPE,
   // Task Resource Lookups - End
   RELATED_ARTIFACT_TYPE,
+  PROVIDER_ROLE,
+  PROVIDER_SPECIALTY,
 } from './constants';
 
 // The initial state of the lookup
@@ -92,6 +94,8 @@ const initialState = fromJS({
   TASK_PERFORMER_TYPE: [],
   // Task Resource Lookups - End
   RELATED_ARTIFACT_TYPE: [],
+  PROVIDER_ROLE: [],
+  PROVIDER_SPECIALTY: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -143,6 +147,8 @@ function lookupReducer(state = initialState, action) {
         .set(TASK_PERFORMER_TYPE, fromJS((action.lookups && action.lookups.taskPerformerType) || state.get(TASK_PERFORMER_TYPE)))
         // Task Resource Lookups - End
         .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
+        .set(PROVIDER_ROLE, fromJS((action.lookups && action.lookups.providerRoles) || state.get(PROVIDER_ROLE)))
+        .set(PROVIDER_SPECIALTY, fromJS((action.lookups && action.lookups.providerSpecialties) || state.get(PROVIDER_SPECIALTY)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
