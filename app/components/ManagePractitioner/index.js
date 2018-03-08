@@ -20,14 +20,15 @@ function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const minimumOrganization = '1';
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
+  const { onSave, uspsStates, identifierSystems, telecomSystems, providerRoles, providerSpecialties, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages,
     organizations, initialSearchOrganizationResult } = props;
   const formData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
-    practitionerRoleCodes,
+    providerRoles,
+    providerSpecialties,
     onPageClick,
     onSearch,
     organizations,
@@ -88,7 +89,8 @@ ManagePractitioner.propTypes = {
   uspsStates: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
-  practitionerRoleCodes: PropTypes.array.isRequired,
+  providerRoles: PropTypes.array.isRequired,
+  providerSpecialties: PropTypes.array.isRequired,
   editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
   onPageClick: PropTypes.func.isRequired,
