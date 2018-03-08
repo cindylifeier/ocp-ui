@@ -34,6 +34,7 @@ import PageHeader from 'components/PageHeader';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import PageContent from 'components/PageContent';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
 import ManageOrganizationFormCell from './ManageOrganizationFormCell';
 import { createOrganization, updateOrganization } from './actions';
@@ -138,6 +139,11 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                 errors,
                 addresses: values.addresses,
               };
+              const addTelecomsProps = {
+                telecomSystems,
+                errors,
+                telecoms: values.telecoms,
+              };
               return (
                 <Form>
                   <ManageOrganizationFormGrid columns={12}>
@@ -189,34 +195,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                       </SelectField>
                     </ManageOrganizationFormCell>}
                     <ManageOrganizationFormCell width={12}>
-                      <AddMultipleAddresses
-                        {...addAddressesProps}
-                      />
+                      <AddMultipleAddresses{...addAddressesProps} />
                     </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={4} left={1} width={5}>
-                      <Grid columns="2fr 3fr" gap="">
-                        <Cell>
-                          <SelectField
-                            floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
-                            fullWidth
-                            name="telecomSystem"
-                          >
-                            {telecomSystems && telecomSystems.map((telSystem) => (
-                              <MenuItem
-                                key={telSystem.code}
-                                value={telSystem.code}
-                                primaryText={telSystem.display}
-                              />))}
-                          </SelectField>
-                        </Cell>
-                        <Cell>
-                          <TextField
-                            floatingLabelText={<FormattedMessage {...messages.form.telecomValue} />}
-                            fullWidth
-                            name="telecomValue"
-                          />
-                        </Cell>
-                      </Grid>
+                    <ManageOrganizationFormCell width={12}>
+                      <AddMultipleTelecoms {...addTelecomsProps} />
                     </ManageOrganizationFormCell>
                     <ManageOrganizationFormCell top={5} left={1} width={2}>
                       <Grid columns="1fr 1fr" gap="1vw">

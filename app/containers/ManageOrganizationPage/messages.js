@@ -35,14 +35,6 @@ export default defineMessages({
       id: 'ocpui.containers.ManageOrganizationPage.form.status',
       defaultMessage: 'Status',
     },
-    telecomSystem: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.telecomSystem',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomValue: {
-      id: 'ocpui.containers.ManageOrganizationPage.form.telecomValue',
-      defaultMessage: 'Telecom',
-    },
     saveButton: {
       id: 'ocpui.containers.ManageOrganizationPage.form.saveButton',
       defaultMessage: 'Save',

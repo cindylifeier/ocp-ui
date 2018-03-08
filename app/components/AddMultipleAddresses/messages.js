@@ -12,7 +12,7 @@ export default defineMessages({
   },
   addAddressesButton: {
     id: 'ocpui.components.AddMultipleAddresses.addAddressesButton',
-    defaultMessage: 'Add addresses',
+    defaultMessage: 'Add Addresses',
   },
   saveAddressButton: {
     id: 'ocpui.components.AddMultipleAddresses.saveAddressButton',
