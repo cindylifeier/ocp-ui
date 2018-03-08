@@ -65,7 +65,7 @@ class ManagePractitionerForm extends React.PureComponent {
 
   render() {
     const {
-      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes,
+      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, providerRoles, providerSpecialties,
       organizations,
       currentPage,
       totalNumberOfPages,
@@ -220,8 +220,8 @@ class ManagePractitionerForm extends React.PureComponent {
                           arrayHelpers={arrayHelpers}
                           onAddAssociateOrganization={arrayHelpers.push}
                           callback={this.handleDialogCallback}
-                          roleType={practitionerRoleCodes}
-                          specialtyType={practitionerRoleCodes}
+                          roleType={providerRoles}
+                          specialtyType={providerSpecialties}
                           existingOrganizations={values.practitionerRoles}
                           onSearch={onSearch}
                           onPageClick={onPageClick}
@@ -251,7 +251,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   name={`practitionerRoles.${index}.code`}
                                   hintText={<FormattedMessage {...messages.hintText.roleType} />}
                                 >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                  {providerRoles && providerRoles.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -266,7 +266,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   name={`practitionerRoles.${index}.specialty`}
                                   hintText={<FormattedMessage {...messages.hintText.specialty} />}
                                 >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                  {providerSpecialties && providerSpecialties.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -351,9 +351,12 @@ ManagePractitionerForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  practitionerRoleCodes: PropTypes.arrayOf(PropTypes.shape({
+  providerRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  providerSpecialties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
   onPageClick: PropTypes.func.isRequired,
