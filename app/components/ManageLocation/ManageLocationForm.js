@@ -8,12 +8,13 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import { teal500, white } from 'material-ui/styles/colors';
 import uniqueId from 'lodash/uniqueId';
-import styles from './styles.css';
-import messages from './messages';
 
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
+import { HOME_URL } from 'containers/App/constants';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import messages from './messages';
+import styles from './styles.css';
 
 
 // Material UI Styles
@@ -21,9 +22,11 @@ const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
 
 function ManageLocationForm(props) {
   const {
-    error,
+    errors,
+    values,
     dirty,
     isValid,
+    error,
     uspsStates,
     locationPhysicalTypes,
     addressUses,
@@ -35,6 +38,14 @@ function ManageLocationForm(props) {
     organization,
     location,
   } = props;
+
+  const addTelecomsProps = {
+    telecomSystems,
+    telecomUses,
+    errors,
+    telecoms: values.telecoms,
+  };
+
   return (
     <div>
       <div className={styles.title}>
@@ -108,35 +119,8 @@ function ManageLocationForm(props) {
               floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
             />
           </div>
-          <div className={`${styles.gridItem} ${styles.contactGroup}`}>
-            <SelectField
-              name="telecomSystem"
-              fullWidth
-              hintText={<FormattedMessage {...messages.telecomSystemTypeHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.telecomSystemTypeFloatingLabelText} />}
-            >
-              {telecomSystems && telecomSystems.map((telecomSystem) => (
-                <MenuItem value={telecomSystem.code} primaryText={telecomSystem.display} key={uniqueId()} />
-              ))}
-            </SelectField>
-            <TextField
-              name="telecomSystemValue"
-              fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.telecomSystemValueHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.telecomSystemValueFloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.contactPurpose}`}>
-            <SelectField
-              name="telecomUse"
-              fullWidth
-              floatingLabelText={<FormattedMessage {...messages.telecomUseFloatingLabelText} />}
-            >
-              {telecomUses && telecomUses.map((telecomUse) => (
-                <MenuItem value={telecomUse.code} primaryText={telecomUse.display} key={uniqueId()} />
-              ))}
-            </SelectField>
+          <div className={`${styles.gridItem} ${styles.contact}`}>
+            <AddMultipleTelecoms {...addTelecomsProps} />
           </div>
           <div className={`${styles.gridItem} ${styles.address1}`}>
             <TextField
@@ -224,6 +208,10 @@ function ManageLocationForm(props) {
 }
 
 ManageLocationForm.propTypes = {
+  errors: PropTypes.object,
+  values: PropTypes.object.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
   uspsStates: PropTypes.array.isRequired,
   locationPhysicalTypes: PropTypes.array.isRequired,
   locationStatuses: PropTypes.array.isRequired,
@@ -232,8 +220,6 @@ ManageLocationForm.propTypes = {
   addressUses: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  dirty: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
   organization: PropTypes.object.isRequired,
   location: PropTypes.object,
   error: PropTypes.oneOfType([
