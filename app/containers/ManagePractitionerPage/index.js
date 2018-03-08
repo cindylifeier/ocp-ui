@@ -168,7 +168,6 @@ ManagePractitionerPage.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })),
-  practitionerRoleCodes: PropTypes.array,
   providerRoles: PropTypes.array,
   providerSpecialties: PropTypes.array,
   selectedPractitioner: PropTypes.object,
