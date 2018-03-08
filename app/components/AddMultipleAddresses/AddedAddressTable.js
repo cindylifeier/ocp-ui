@@ -10,7 +10,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import AddAddressesErrorText from './AddAddressesErrorText';
+import StyledCustomErrorText from 'components/StyledCustomErrorText';
 import messages from './messages';
 
 function AddedAddressTable(props) {
@@ -34,7 +34,7 @@ function AddedAddressTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {errors && errors.addresses &&
-        <AddAddressesErrorText>{errors.addresses}</AddAddressesErrorText>
+        <StyledCustomErrorText>{errors.addresses}</StyledCustomErrorText>
         }
         {addresses && addresses.map((address, index) => {
           const { line1, line2, city, stateCode, postalCode, countryCode } = address;
