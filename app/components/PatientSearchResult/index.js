@@ -9,23 +9,21 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
+import MenuItem from 'material-ui/MenuItem';
 
 import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
-import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledMenuItem from 'components/StyledMenuItem';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
 
 const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
-function displayPatientSearchResult(patients, onPatientClick) {
-  // TODO: Will move ConfirmPatientModal to upcoming tasks component
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick) {
   return patients && patients.map((patient) => (
     <TableRow
       columns={columns}
@@ -45,12 +43,15 @@ function displayPatientSearchResult(patients, onPatientClick) {
       </TableRowColumn>
       <TableRowColumn>
         <NavigationStyledIconMenu>
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.edit} />}
             containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
           />
-          <ConfirmPatientModal selectedPatient={patient} />
-          <StyledMenuItem
+          <MenuItem
+            primaryText={<FormattedMessage {...messages.viewDetails} />}
+            onClick={() => onPatientViewDetailsClick(patient)}
+          />
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
               to={{
@@ -59,7 +60,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
               }}
             />}
           />
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addCareTeam} />}
             containerElement={<Link
               to={{
@@ -68,7 +69,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
               }}
             />}
           />
-          <StyledMenuItem
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addRelatedPerson} />}
             containerElement={<Link
               to={{
@@ -78,7 +79,7 @@ function displayPatientSearchResult(patients, onPatientClick) {
             />}
           />
 
-          <StyledMenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
+          <MenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
         </NavigationStyledIconMenu>
       </TableRowColumn>
     </TableRow>
@@ -96,7 +97,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -125,7 +126,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick }) {
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick)}
       </Table>
     );
   }
@@ -137,6 +138,7 @@ PatientSearchResult.propTypes = {
   error: PropTypes.any,
   searchResult: PropTypes.any,
   onPatientClick: PropTypes.func,
+  onPatientViewDetailsClick: PropTypes.func,
 };
 
 export default PatientSearchResult;

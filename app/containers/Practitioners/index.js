@@ -23,24 +23,29 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectCurrentPage,
-  makeSelectCurrentPageSize,
-  makeSelectQueryIncludeInactive,
-  makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType,
-  makeSelectSearchError,
-  makeSelectSearchLoading,
-  makeSelectPractitionerSearchResult,
-  makeSelectTotalPages,
-} from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-import styles from './styles.css';
-import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from './constants';
-import PractitionerSearchResult from '../../components/PractitionerSearchResult';
-import { initializePractitioners, loadPractitionerSearchResult } from './actions';
-import { EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL } from '../App/constants';
+  EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL,
+  PRACTITIONERIDENTIFIERSYSTEM,
+} from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
+import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from 'containers/Practitioners/constants';
+import {
+makeSelectCurrentPage,
+makeSelectCurrentPageSize,
+makeSelectQueryIncludeInactive,
+makeSelectQuerySearchTerms,
+makeSelectQuerySearchType,
+makeSelectSearchError,
+makeSelectSearchLoading,
+makeSelectPractitionerSearchResult,
+makeSelectTotalPages,
+} from 'containers/Practitioners/selectors';
+import reducer from 'containers/Practitioners/reducer';
+import saga from 'containers/Practitioners/saga';
+import messages from 'containers/Practitioners/messages';
+import styles from 'containers/Practitioners/styles.css';
+import PractitionerSearchResult from 'components/PractitionerSearchResult';
+import { initializePractitioners, loadPractitionerSearchResult } from 'containers/Practitioners/actions';
 
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -61,6 +66,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
   componentWillMount() {
     this.props.initializePractitioners();
+    this.props.getLookUpFormData();
   }
 
   handleChangeSearchTerms(event, newValue) {
@@ -93,11 +99,12 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   }
 
   render() {
-    const { loading, error, searchResult } = this.props;
+    const { loading, error, searchResult, identifierSystems } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
+      identifierSystems,
     };
 
     return (
@@ -206,6 +213,8 @@ Practitioners.propTypes = {
   onChangePage: PropTypes.func,
   onSubmitForm: PropTypes.func,
   initializePractitioners: PropTypes.func,
+  getLookUpFormData: PropTypes.func,
+  identifierSystems: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -214,6 +223,7 @@ const mapStateToProps = createStructuredSelector({
   totalPages: makeSelectTotalPages(),
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
+  identifierSystems: makeSelectPractitionerIdentifierSystems(),
   includeInactive: makeSelectQueryIncludeInactive(),
   searchResult: makeSelectPractitionerSearchResult(),
   loading: makeSelectSearchLoading(),
@@ -228,6 +238,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePractitioners: () => dispatch(initializePractitioners()),
+    getLookUpFormData: () => dispatch(getLookupsAction([PRACTITIONERIDENTIFIERSYSTEM])),
   };
 }
 

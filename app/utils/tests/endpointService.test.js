@@ -10,6 +10,8 @@ import {
   BASE_PRACTITIONERS_API_URL,
   BASE_RELATED_PERSONS_API_URL,
   BASE_TASKS_API_URL,
+  BASE_ACTIVITY_DEFINITIONS_API_URL,
+  BASE_EPISODE_OF_CARES_API_URL,
   collectEndpoints,
   getEndpoint,
   isSecuredEndpoint,
@@ -20,7 +22,7 @@ import {
 describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
-    const numberOfEndpoints = 14;
+    const numberOfEndpoints = 16;
     const numberOfUnsecuredEndpoints = 2;
 
     // Act
@@ -48,6 +50,8 @@ describe('endpointService.js', () => {
     const TEST_PRACTITIONERS_API_URL = '/ocp-ui-api/ocp-fis/practitioners';
     const TEST_RELATED_PERSONS_API_URL = '/ocp-ui-api/ocp-fis/related-persons';
     const TEST_TASKS_API_URL = '/ocp-ui-api/ocp-fis/tasks';
+    const TEST_EPISODE_OF_CARES_API_URL = '/ocp-ui-api/ocp-fis/episode-of-cares';
+    const TEST_ACTIVITY_DEFINITIONS_API_URL = '/ocp-ui-api/ocp-fis/activity-definitions';
 
     // Act
     const loginUrl = getEndpoint(LOGIN_API_URL);
@@ -63,6 +67,8 @@ describe('endpointService.js', () => {
     const practitionersUrl = getEndpoint(BASE_PRACTITIONERS_API_URL);
     const relatedPersonsUrl = getEndpoint(BASE_RELATED_PERSONS_API_URL);
     const tasksUrl = getEndpoint(BASE_TASKS_API_URL);
+    const episodeOfCareUrl = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
+    const activityDefinitionUrl = getEndpoint(BASE_ACTIVITY_DEFINITIONS_API_URL);
 
     // Assert
     expect(loginUrl).toEqual(TEST_LOGIN_URL);
@@ -78,6 +84,8 @@ describe('endpointService.js', () => {
     expect(practitionersUrl).toEqual(TEST_PRACTITIONERS_API_URL);
     expect(relatedPersonsUrl).toEqual(TEST_RELATED_PERSONS_API_URL);
     expect(tasksUrl).toEqual(TEST_TASKS_API_URL);
+    expect(episodeOfCareUrl).toEqual(TEST_EPISODE_OF_CARES_API_URL);
+    expect(activityDefinitionUrl).toEqual(TEST_ACTIVITY_DEFINITIONS_API_URL);
   });
 
   it('should throw No endpoint configured', () => {
@@ -108,6 +116,8 @@ describe('endpointService.js', () => {
     const TEST_PRACTITIONERS_API_URL = '/ocp-ui-api/ocp-fis/practitioners?testquery';
     const TEST_RELATED_PERSONS_API_URL = '/ocp-ui-api/ocp-fis/related-persons?testquery';
     const TEST_TASKS_API_URL = '/ocp-ui-api/ocp-fis/tasks?testquery';
+    const TEST_EPISODE_OF_CARES_API_URL = '/ocp-ui-api/ocp-fis/episode-of-cares';
+    const TEST_ACTIVITY_DEFINITIONS_API_URL = '/ocp-ui-api/ocp-fis/activity-definitions';
 
     // Act
     const isLoginUrlSecured = isSecuredEndpoint(TEST_LOGIN_URL);
@@ -124,6 +134,8 @@ describe('endpointService.js', () => {
     const isPractitionersUrlSecured = isSecuredEndpoint(TEST_PRACTITIONERS_API_URL);
     const isRelatedPersonsUrlSecured = isSecuredEndpoint(TEST_RELATED_PERSONS_API_URL);
     const isTasksUrlSecured = isSecuredEndpoint(TEST_TASKS_API_URL);
+    const isEpisodeOfCaresUrlSecured = isSecuredEndpoint(TEST_EPISODE_OF_CARES_API_URL);
+    const isActivityDefinitionsUrlSecured = isSecuredEndpoint(TEST_ACTIVITY_DEFINITIONS_API_URL);
 
     // Assert
     expect(isLoginUrlSecured).toBeFalsy();
@@ -140,5 +152,7 @@ describe('endpointService.js', () => {
     expect(isPractitionersUrlSecured).toBeTruthy();
     expect(isRelatedPersonsUrlSecured).toBeTruthy();
     expect(isTasksUrlSecured).toBeTruthy();
+    expect(isEpisodeOfCaresUrlSecured).toBeTruthy();
+    expect(isActivityDefinitionsUrlSecured).toBeTruthy();
   });
 });

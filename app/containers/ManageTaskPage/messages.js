@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ManageTaskPage.createHeader',
     defaultMessage: 'Create Task',
   },
+  updateHeader: {
+    id: 'ocpui.containers.ManageTaskPage.updateHeader',
+    defaultMessage: 'Update Task',
+  },
 });

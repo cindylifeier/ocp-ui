@@ -29,11 +29,11 @@ export default defineMessages({
     },
     minStartDate: {
       id: 'ocpui.components.ManageTask.manageForm.validation.minStartDate',
-      defaultMessage: 'Effective Start date field must be later than today',
+      defaultMessage: 'Task Start date field must be later than today',
     },
     minEndDate: {
       id: 'ocpui.components.ManageTask.manageForm.validation.minEndDate',
-      defaultMessage: 'Effective End date field must be later than Effective Start date field',
+      defaultMessage: 'Task End date field must be later than Task Start date field',
     },
   },
   hintText: {
@@ -49,12 +49,12 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.hintText.activityDefinitions',
       defaultMessage: 'Activity Type',
     },
-    practitioners: {
-      id: 'ocpui.components.ManageTask.manageForm.hintText.practitioners',
+    requester: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.requester',
       defaultMessage: 'Created By',
     },
-    createdOn: {
-      id: 'ocpui.components.ManageTask.manageForm.hintText.createdOn',
+    authoredOn: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.authoredOn',
       defaultMessage: 'Created On',
     },
     status: {
@@ -73,9 +73,17 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.hintText.performerType',
       defaultMessage: 'Participation',
     },
+    eventType: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.eventType',
+      defaultMessage: 'Event Type',
+    },
     taskOwner: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.taskOwner',
       defaultMessage: 'Task Owner',
+    },
+    partOf: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.partOf',
+      defaultMessage: 'Associated Task',
     },
     taskStart: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.taskStart',
@@ -107,16 +115,16 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.patientName',
       defaultMessage: 'Patient',
     },
-    practitioners: {
-      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.practitioners',
+    requester: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.requester',
       defaultMessage: 'Created By',
     },
     activityDefinitions: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.activityDefinitions',
       defaultMessage: 'Activity Type',
     },
-    createdOn: {
-      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.createdOn',
+    authoredOn: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.authoredOn',
       defaultMessage: 'Created On',
     },
     status: {
@@ -135,9 +143,17 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.performerType',
       defaultMessage: 'Participation',
     },
+    eventType: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.eventType',
+      defaultMessage: 'Event Type',
+    },
     taskOwner: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.taskOwner',
       defaultMessage: 'Task Owner',
+    },
+    partOf: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.partOf',
+      defaultMessage: 'Associated Task',
     },
     taskStart: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.taskStart',

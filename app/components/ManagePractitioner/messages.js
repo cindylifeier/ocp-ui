@@ -27,6 +27,10 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
+    minLengthAssociateOrganization: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.validation.minLengthAssociateOrganization',
+      defaultMessage: 'Minimum {minimumOrganization} associate organization required',
+    },
   },
   hintText: {
     firstName: {
@@ -44,6 +48,14 @@ export default defineMessages({
     roleType: {
       id: 'ocpui.components.ManagePractitioner.manageForm.hintText.roleType',
       defaultMessage: 'Role Type',
+    },
+    specialty: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.hintText.specialty',
+      defaultMessage: 'Specialty',
+    },
+    active: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.active',
+      defaultMessage: 'Active',
     },
     identifierType: {
       id: 'ocpui.components.ManagePractitioner.manageForm.hintText.identifierType',
@@ -103,6 +115,10 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.roleType',
       defaultMessage: 'Role Type',
     },
+    active: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.active',
+      defaultMessage: 'Active',
+    },
     identifierType: {
       id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.identifierType',
       defaultMessage: 'Identifier Type',
@@ -142,6 +158,44 @@ export default defineMessages({
     country: {
       id: 'ocpui.components.ManagePractitioner.manageForm.floatingLabelText.country',
       defaultMessage: 'Country',
+    },
+  },
+  associateOrganizations: {
+    subtitle: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.subtitle',
+      defaultMessage: 'Associate Organizations',
+    },
+    addButtonLabel: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.addButtonLabel',
+      defaultMessage: 'Add',
+    },
+    tableColumnName: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnName',
+      defaultMessage: 'Name',
+    },
+    tableColumnCode: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnCode',
+      defaultMessage: 'Role',
+    },
+    tableColumnSpecialty: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnSpecialty',
+      defaultMessage: 'Specialty',
+    },
+    tableColumnActive: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnActive',
+      defaultMessage: 'Active',
+    },
+    tableColumnRemove: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnRemove',
+      defaultMessage: 'Remove',
+    },
+    tableColumnType: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnType',
+      defaultMessage: 'Artifact Type',
+    },
+    tableColumnAction: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnAction',
+      defaultMessage: 'Action',
     },
   },
 });

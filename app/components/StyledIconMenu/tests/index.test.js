@@ -3,10 +3,10 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import MenuItem from 'material-ui/MenuItem';
 
+import StyledIconButton from 'components/StyledIconButton';
 import StyledIconMenu from '../index';
-import StyledMenuItem from '../../StyledMenuItem';
-import StyledIconButton from '../../StyledIconButton';
 
 configure({ adapter: new Adapter() });
 
@@ -19,7 +19,7 @@ describe('<StyledIconMenu />', () => {
       // Act
       const renderedComponent = shallow((
         <StyledIconMenu iconButtonElement={<StyledIconButton><NavigationMenu /></StyledIconButton>}>
-          <StyledMenuItem primaryText={primaryText} />
+          <MenuItem primaryText={primaryText} />
         </StyledIconMenu>));
 
       // Assert
@@ -39,7 +39,7 @@ describe('<StyledIconMenu />', () => {
       // Act
       const renderedComponent = shallow((
         <StyledIconMenu iconButtonElement={<StyledIconButton><NavigationMenu /></StyledIconButton>}>
-          <StyledMenuItem primaryText={primaryText} />
+          <MenuItem primaryText={primaryText} />
         </StyledIconMenu>));
 
       // Assert
