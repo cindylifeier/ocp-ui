@@ -10,13 +10,15 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
 import merge from 'lodash/merge';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import ManagePractitioner from 'components/ManagePractitioner';
 import {
   makeSelectPractitionerIdentifierSystems,
@@ -36,7 +38,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import {
   makeSelectCurrentPage,
   makeSelectOrganizations,
@@ -119,24 +120,26 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       totalNumberOfPages,
     };
     return (
-      <div className={styles.wrapper}>
+      <Page>
         <Helmet>
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.header}>
-          {editMode ? <FormattedMessage {...messages.updateHeader} />
-            : <FormattedMessage {...messages.createHeader} />}
-        </div>
-        <Divider />
-        <ManagePractitioner
-          {...formProps}
-          onSave={this.handleSave}
-          onPageClick={this.handlePageClick}
-          onSearch={this.handleSearch}
-          initialSearchOrganizationResult={this.initialSearchOrganizationResult}
+        <PageHeader
+          title={editMode ?
+            <FormattedMessage {...messages.updateHeader} /> :
+            <FormattedMessage {...messages.createHeader} />}
         />
-      </div>
+        <PageContent>
+          <ManagePractitioner
+            {...formProps}
+            onSave={this.handleSave}
+            onPageClick={this.handlePageClick}
+            onSearch={this.handleSearch}
+            initialSearchOrganizationResult={this.initialSearchOrganizationResult}
+          />
+        </PageContent>
+      </Page>
     );
   }
 }
