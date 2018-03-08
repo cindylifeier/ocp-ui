@@ -14,9 +14,9 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Address',
     defaultMessage: 'Address',
   },
-  tableColumnHeaderTelephone: {
-    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Telephone',
-    defaultMessage: 'Telephone',
+  tableColumnHeaderTelecom: {
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.Telecom',
+    defaultMessage: 'Contact',
   },
   tableColumnHeaderId: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Id',
