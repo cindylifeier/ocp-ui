@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-
 import { isUndefined } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
@@ -15,13 +14,14 @@ import merge from 'lodash/merge';
 import yup from 'yup';
 
 import Util from 'utils/Util';
+import { POSTAL_CODE_PATTERN } from 'containers/App/constants';
 import { TEXT_MIN_LENGTH } from './constants';
 import messages from './messages';
 import ManageLocationForm from './ManageLocationForm';
 
 function ManageLocation(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
+  const postalCodePattern = new RegExp(POSTAL_CODE_PATTERN);
   const { onSave } = props;
   return (
     <div>
@@ -43,9 +43,6 @@ function ManageLocation(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
-            .min(minimumLength, (
-              <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          telecomSystemValue: yup.string()
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           line1: yup.string()
@@ -123,13 +120,7 @@ function mapLocationToIdentifierFields(location) {
 }
 
 function mapLocationToTelecomFields(location) {
-  let fieldObject = {};
-  if (location.telecoms && location.telecoms.length > 0) {
-    fieldObject = {
-      telecomSystem: Util.setEmptyStringWhenUndefined(location.telecoms[0].system),
-      telecomSystemValue: Util.setEmptyStringWhenUndefined(location.telecoms[0].value),
-      telecomUse: Util.setEmptyStringWhenUndefined(location.telecoms[0].use),
-    };
-  }
-  return fieldObject;
+  return {
+    telecoms: location.telecoms,
+  };
 }

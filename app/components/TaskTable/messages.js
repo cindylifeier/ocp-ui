@@ -34,8 +34,12 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.columnHeaderCreatedOn',
     defaultMessage: 'Created On',
   },
-  actionLabelCancel: {
-    id: 'ocpui.components.TaskTable.actionLabelCancel',
+  editTask: {
+    id: 'ocpui.components.TaskTable.editTask',
+    defaultMessage: 'Edit',
+  },
+  cancelTask: {
+    id: 'ocpui.components.TaskTable.cancelTask',
     defaultMessage: 'Cancel',
   },
 });

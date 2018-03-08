@@ -25,12 +25,18 @@ import PageHeader from 'components/PageHeader';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import PageContent from 'components/PageContent';
 import FormSubtitle from 'components/FormSubtitle';
-import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import {
+  ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, TELECOMUSE,
+  USPSSTATES,
+} from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
+  makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
@@ -40,27 +46,24 @@ import { createOrganization, updateOrganization } from './actions';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
 import ManageOrganizationFormCell from './ManageOrganizationFormCell';
 
+const minimumNumberOfAddresses = 1;
+const minimumNumberOfTelecoms = 1;
+
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static zipPattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   static validationSchemaShape = {
     name: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
+    addresses: yup.array()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .min(minimumNumberOfAddresses, (
+        <FormattedMessage {...messages.validation.minAddresses} values={{ minimumNumberOfAddresses }} />)),
+    telecoms: yup.array()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .min(minimumNumberOfTelecoms, (
+        <FormattedMessage {...messages.validation.minTelecoms} values={{ minimumNumberOfTelecoms }} />)),
     identifierSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierValue: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    line1: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    city: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    stateCode: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    postalCode: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />))
-      .matches(ManageOrganizationPage.zipPattern, (<FormattedMessage {...messages.validation.zipPattern} />)),
-    telecomSystem: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    telecomValue: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
   };
   static validationSchemaCreate = yup.object().shape(ManageOrganizationPage.validationSchemaShape);
@@ -91,7 +94,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match: { url, params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack, push }, organizations } = this.props;
+    const { match: { url, params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, history: { goBack, push }, organizations } = this.props;
     let initialValues = {};
     const editingOrganization = find(organizations, { logicalId: id });
     // if id in the route exists but no initial data to edit
@@ -103,8 +106,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       const {
         name,
         identifiers: [{ system: identifierSystem, value: identifierValue }],
-        addresses: [address],
-        telecoms: [{ system: telecomSystem, value: telecomValue }],
+        addresses,
+        telecoms,
         active,
       } = editingOrganization;
       initialValues = {
@@ -112,9 +115,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
         status: active.toString(),
         identifierSystem,
         identifierValue,
-        telecomSystem,
-        telecomValue,
-        ...address,
+        telecoms,
+        addresses,
       };
     }
 
@@ -122,7 +124,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       <Page>
         <Helmet>
           <title>Manage Organization</title>
-          <meta name="description" content="Description of ManageOrganizationPage" />
+          <meta name="description" content="Manage Organization page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
           title={editingOrganization ?
@@ -138,7 +140,18 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
             initialValues={initialValues}
             onSubmit={editingOrganization ? this.handleSubmitUpdate : this.handleSubmitCreate}
             render={(props) => {
-              const { isSubmitting, dirty, isValid } = props;
+              const { isSubmitting, dirty, isValid, errors, values } = props;
+              const addAddressesProps = {
+                uspsStates,
+                errors,
+                addresses: values.addresses,
+              };
+              const addTelecomsProps = {
+                telecomSystems,
+                telecomUses,
+                errors,
+                telecoms: values.telecoms,
+              };
               return (
                 <Form>
                   <ManageOrganizationFormGrid columns={12}>
@@ -189,72 +202,11 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                           />))}
                       </SelectField>
                     </ManageOrganizationFormCell>}
-                    <ManageOrganizationFormCell top={2} left={1} width={4}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.line1} />}
-                        fullWidth
-                        name="line1"
-                      />
+                    <ManageOrganizationFormCell width={12}>
+                      <AddMultipleAddresses{...addAddressesProps} />
                     </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={2} left={5} width={4}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.line2} />}
-                        fullWidth
-                        name="line2"
-                      />
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={3} left={1} width={4}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.city} />}
-                        fullWidth
-                        name="city"
-                      />
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={3} left={5} width={3}>
-                      <SelectField
-                        floatingLabelText={<FormattedMessage {...messages.form.stateCode} />}
-                        fullWidth
-                        name="stateCode"
-                      >
-                        {uspsStates && uspsStates.map((state) => (
-                          <MenuItem
-                            key={state.code}
-                            value={state.code}
-                            primaryText={state.display}
-                          />))}
-                      </SelectField>
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={3} left={8} width={2}>
-                      <TextField
-                        floatingLabelText={<FormattedMessage {...messages.form.postalCode} />}
-                        fullWidth
-                        name="postalCode"
-                      />
-                    </ManageOrganizationFormCell>
-                    <ManageOrganizationFormCell top={4} left={1} width={5}>
-                      <Grid columns="2fr 3fr" gap="">
-                        <Cell>
-                          <SelectField
-                            floatingLabelText={<FormattedMessage {...messages.form.telecomSystem} />}
-                            fullWidth
-                            name="telecomSystem"
-                          >
-                            {telecomSystems && telecomSystems.map((telSystem) => (
-                              <MenuItem
-                                key={telSystem.code}
-                                value={telSystem.code}
-                                primaryText={telSystem.display}
-                              />))}
-                          </SelectField>
-                        </Cell>
-                        <Cell>
-                          <TextField
-                            floatingLabelText={<FormattedMessage {...messages.form.telecomValue} />}
-                            fullWidth
-                            name="telecomValue"
-                          />
-                        </Cell>
-                      </Grid>
+                    <ManageOrganizationFormCell width={12}>
+                      <AddMultipleTelecoms {...addTelecomsProps} />
                     </ManageOrganizationFormCell>
                     <ManageOrganizationFormCell top={5} left={1} width={2}>
                       <Grid columns="1fr 1fr" gap="1vw">
@@ -283,8 +235,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                 </Form>
               );
             }}
-          >
-          </Formik>
+          />
         </PageContent>
       </Page>
     );
@@ -315,6 +266,12 @@ ManageOrganizationPage.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
+  })),
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
   })),
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -353,12 +310,13 @@ const mapStateToProps = createStructuredSelector({
   organizationIdentifierSystems: makeSelectOrganizationIdentifierSystems(),
   organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
+  telecomUses: makeSelectTelecomUses(),
   organizations: makeSelectOrganizationsData(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, TELECOMUSE, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
     updateOrganization: (id, organization, callback) => dispatch(updateOrganization(id, organization, callback)),
   };

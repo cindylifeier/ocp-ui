@@ -29,6 +29,9 @@ class Util {
   }
 
   static formatDate(date) {
+    if (date === undefined) {
+      return '';
+    }
     const year = date.getFullYear();
 
     let month = (1 + date.getMonth()).toString();

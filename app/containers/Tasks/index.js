@@ -43,8 +43,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   handlePageClick(page) {
-    const { query, patientName } = this.props.tasks;
-    this.props.getTasks({ ...query, pageNumber: page }, patientName);
+    const { query, patientName, patientId } = this.props.tasks;
+    this.props.getTasks({ ...query, pageNumber: page }, patientName, patientId);
   }
 
   cancelTask(logicalId) {
@@ -52,7 +52,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { tasks: { loading, data, patientName } } = this.props;
+    const { tasks: { loading, data, patientName, patientId } } = this.props;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
@@ -69,14 +69,16 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && isEmpty(data) &&
+        {!loading && !isEmpty(patientName) && !isEmpty(patientId) && isEmpty(data) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noTasksFound} />
         </NoResultsFoundText>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div>
-          <CenterAlign><TaskTable elements={data.elements} cancelTask={this.cancelTask} /></CenterAlign>
+          <CenterAlign>
+            <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
+          </CenterAlign>
           <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
@@ -97,6 +99,7 @@ Tasks.propTypes = {
     loading: PropTypes.bool.isRequired,
     query: PropTypes.object,
     patientName: PropTypes.string,
+    patientId: PropTypes.string,
   }),
 };
 
@@ -106,7 +109,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
+    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };

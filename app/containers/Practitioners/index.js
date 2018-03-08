@@ -23,7 +23,12 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import {
+  DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL,
+  PRACTITIONERIDENTIFIERSYSTEM,
+} from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -49,6 +54,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
   componentDidMount() {
     this.props.initializePractitioners();
+    this.props.getLookUpFormData();
   }
 
   handleChangePage(newPage) {
@@ -61,11 +67,12 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   }
 
   render() {
-    const { loading, error, searchResult } = this.props;
+    const { loading, error, searchResult, identifierSystems } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
+      identifierSystems,
     };
 
     return (
@@ -112,6 +119,8 @@ Practitioners.propTypes = {
   onChangePage: PropTypes.func,
   onSubmitForm: PropTypes.func,
   initializePractitioners: PropTypes.func,
+  getLookUpFormData: PropTypes.func,
+  identifierSystems: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -120,6 +129,7 @@ const mapStateToProps = createStructuredSelector({
   totalPages: makeSelectTotalPages(),
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
+  identifierSystems: makeSelectPractitionerIdentifierSystems(),
   includeInactive: makeSelectQueryIncludeInactive(),
   searchResult: makeSelectPractitionerSearchResult(),
   loading: makeSelectSearchLoading(),
@@ -134,6 +144,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePractitioners: () => dispatch(initializePractitioners()),
+    getLookUpFormData: () => dispatch(getLookupsAction([PRACTITIONERIDENTIFIERSYSTEM])),
   };
 }
 

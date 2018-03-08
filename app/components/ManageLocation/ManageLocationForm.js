@@ -17,15 +17,18 @@ import ErrorText from 'components/ErrorText';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import SystemCell from 'components/FieldGroupGrid/SystemCell';
 import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
 
 function ManageLocationForm(props) {
   const {
-    error,
+    errors,
+    values,
     dirty,
     isValid,
+    error,
     uspsStates,
     locationPhysicalTypes,
     addressUses,
@@ -38,6 +41,12 @@ function ManageLocationForm(props) {
     location,
   } = props;
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+  const addTelecomsProps = {
+    telecomSystems,
+    telecomUses,
+    errors,
+    telecoms: values.telecoms,
+  };
   return (
     <Form>
       <ManageLocationFormGrid gap="1vw">
@@ -119,40 +128,8 @@ function ManageLocationForm(props) {
             </ValueCell>
           </FieldGroupGrid>
         </Cell>
-        <Cell area="contactGroup">
-          <FieldGroupGrid>
-            <SystemCell>
-              <SelectField
-                name="telecomSystem"
-                fullWidth
-                hintText={<FormattedMessage {...messages.telecomSystemTypeHintText} />}
-                floatingLabelText={<FormattedMessage {...messages.telecomSystemTypeFloatingLabelText} />}
-              >
-                {telecomSystems && telecomSystems.map((telecomSystem) => (
-                  <MenuItem value={telecomSystem.code} primaryText={telecomSystem.display} key={uniqueId()} />
-                ))}
-              </SelectField>
-            </SystemCell>
-            <ValueCell>
-              <TextField
-                name="telecomSystemValue"
-                fullWidth
-                hintText={<FormattedMessage {...messages.telecomSystemValueHintText} />}
-                floatingLabelText={<FormattedMessage {...messages.telecomSystemValueFloatingLabelText} />}
-              />
-            </ValueCell>
-          </FieldGroupGrid>
-        </Cell>
-        <Cell area="contactPurpose">
-          <SelectField
-            name="telecomUse"
-            fullWidth
-            floatingLabelText={<FormattedMessage {...messages.telecomUseFloatingLabelText} />}
-          >
-            {telecomUses && telecomUses.map((telecomUse) => (
-              <MenuItem value={telecomUse.code} primaryText={telecomUse.display} key={uniqueId()} />
-            ))}
-          </SelectField>
+        <Cell area="contact">
+          <AddMultipleTelecoms {...addTelecomsProps} />
         </Cell>
         <Cell area="address1">
           <TextField
@@ -240,6 +217,10 @@ function ManageLocationForm(props) {
 }
 
 ManageLocationForm.propTypes = {
+  errors: PropTypes.object,
+  values: PropTypes.object.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
   uspsStates: PropTypes.array.isRequired,
   locationPhysicalTypes: PropTypes.array.isRequired,
   locationStatuses: PropTypes.array.isRequired,
@@ -248,8 +229,6 @@ ManageLocationForm.propTypes = {
   addressUses: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  dirty: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
   organization: PropTypes.object.isRequired,
   location: PropTypes.object,
   error: PropTypes.oneOfType([

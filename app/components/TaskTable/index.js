@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -16,10 +17,11 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import { MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask }) {
+function TaskTable({ elements, cancelTask, selectedPatientId }) {
   return (
     <Table>
       <TableHeader columns={TASK_TABLE_COLUMNS}>
@@ -44,7 +46,16 @@ function TaskTable({ elements, cancelTask }) {
           <TableRowColumn>
             <NavigationStyledIconMenu>
               <MenuItem
-                primaryText={<FormattedMessage {...messages.actionLabelCancel} />}
+                primaryText={<FormattedMessage {...messages.editTask} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${MANAGE_TASK_URL}/${logicalId}`,
+                    search: `?patientId=${selectedPatientId}`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.cancelTask} />}
                 disabled={status.code === STATUS_CODE_CANCELLED}
                 onClick={() => cancelTask(logicalId)}
               />
@@ -58,6 +69,7 @@ function TaskTable({ elements, cancelTask }) {
 
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
+  selectedPatientId: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({

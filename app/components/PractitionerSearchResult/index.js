@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import find from 'lodash/find';
 import MenuItem from 'material-ui/MenuItem';
 
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -22,7 +23,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import messages from './messages';
 
-function PractitionerSearchResult({ loading, error, searchResult }) {
+function PractitionerSearchResult({ loading, error, searchResult, identifierSystems }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -32,25 +33,24 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
   }
 
   if (searchResult !== false) {
-    const columns = '15% 15% 10% 10% 1fr 10%';
+    const columns = '15% 15% 10% 50% 10%';
     return (
       <Table>
         <TableHeader columns={columns}>
           <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnRole} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPractitionerSearchResult(searchResult, columns)}
+        {displayPractitionerSearchResult(searchResult, identifierSystems, columns)}
       </Table>
     );
   }
   return (<div />);
 }
 
-function displayPractitionerSearchResult(practitioners, columns) {
+function displayPractitionerSearchResult(practitioners, identifierSystems, columns) {
   return (
     practitioners && practitioners.map((practitioner) => (
       <TableRow key={uniqueId()} columns={columns}>
@@ -64,10 +64,7 @@ function displayPractitionerSearchResult(practitioners, columns) {
           <FormattedMessage {...messages.active} /> :
           <FormattedMessage {...messages.inactive} />}
         </TableRowColumn>
-        <TableRowColumn>
-          {mapToPractitionerRole(practitioner)}
-        </TableRowColumn>
-        <TableRowColumn>{mapToIdentifier(practitioner)}</TableRowColumn>
+        <TableRowColumn>{mapToIdentifier(practitioner, identifierSystems)}</TableRowColumn>
         <TableRowColumn>
           <NavigationStyledIconMenu>
             <MenuItem
@@ -81,21 +78,15 @@ function displayPractitionerSearchResult(practitioners, columns) {
 }
 
 // Todo: Refactor to make reuseable
-function mapToIdentifier(practitioner) {
+function mapToIdentifier(practitioner, identifierSystems) {
   const identifiers = practitioner.identifiers;
   return identifiers && identifiers
     .map((identifier) => {
       const system = identifier.system !== EMPTY_STRING ? identifier.system : 'No system found';
+      const display = find(identifierSystems, { uri: system }) !== null ? find(identifierSystems, { uri: system }).display : system;
       const value = identifier.value !== EMPTY_STRING ? identifier.value : 'No value found';
-      return `${system}: ${value}`;
+      return `${display}: ${value}`;
     })
-    .join(', ');
-}
-
-function mapToPractitionerRole(practitioner) {
-  const practitionerRoles = practitioner.practitionerRoles;
-  return practitionerRoles && practitionerRoles
-    .map((practitionerRole) => practitionerRole.display !== EMPTY_STRING ? practitionerRole.display : '')
     .join(', ');
 }
 
@@ -103,6 +94,7 @@ PractitionerSearchResult.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
   searchResult: PropTypes.any,
+  identifierSystems: PropTypes.array,
 };
 
 export default PractitionerSearchResult;

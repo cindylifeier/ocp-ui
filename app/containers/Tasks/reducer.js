@@ -15,7 +15,7 @@ import {
 const initialState = fromJS({
   loading: false,
   patientName: null,
-  data: null,
+  data: {},
   query: null,
 });
 
@@ -26,8 +26,8 @@ function tasksReducer(state = initialState, action) {
     case GET_TASKS:
       return state
         .set('loading', true)
-        .set('data', null)
         .set('patientName', action.patientName)
+        .set('patientId', action.patientId)
         .set('query', fromJS(action.query));
     case GET_TASKS_SUCCESS:
       return state
