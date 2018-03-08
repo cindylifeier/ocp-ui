@@ -72,7 +72,7 @@ export class Patients extends React.PureComponent {
     const currentPage = 1;
     const showInactive = false;
     this.props.getCareTeams(query, `${firstName} ${lastName}`);
-    this.props.getTasks(query, `${firstName} ${lastName}`);
+    this.props.getTasks(query, `${firstName} ${lastName}`, searchValue);
     this.props.getPatient(searchValue);
     this.props.getRelatedPersons(searchValue, showInactive, currentPage);
   }
@@ -195,7 +195,7 @@ function mapDispatchToProps(dispatch) {
     initializePatients: () => dispatch(initializePatients()),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
-    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
+    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
     getRelatedPersons: (patientId, showInActive, currentPage) => dispatch(getRelatedPersons(patientId, showInActive, currentPage)),
   };
 }

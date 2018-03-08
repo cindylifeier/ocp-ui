@@ -15,7 +15,7 @@ import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
 function AddedTelecomsTable(props) {
-  const tableColumns = 'repeat(2, 1fr) 80px';
+  const tableColumns = 'repeat(3, 1fr) 80px';
   const {
     telecoms,
     errors,
@@ -29,17 +29,19 @@ function AddedTelecomsTable(props) {
         <TableHeader columns={tableColumns}>
           <TableHeaderColumn><FormattedMessage {...messages.addedTelecomsTable.tableHeaderSystem} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedTelecomsTable.tableHeaderValue} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedTelecomsTable.tableHeaderUse} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedTelecomsTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {errors && errors.telecoms &&
         <CustomErrorText>{errors.telecoms}</CustomErrorText>
         }
         {telecoms && telecoms.map((telecom, index) => {
-          const { system, value } = telecom;
+          const { system, value, use } = telecom;
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{upperFirst(system)}</TableRowColumn>
               <TableRowColumn>{value}</TableRowColumn>
+              <TableRowColumn>{upperFirst(use)}</TableRowColumn>
               <TableRowColumn>
                 <NavigationStyledIconMenu>
                   <MenuItem
@@ -67,6 +69,7 @@ AddedTelecomsTable.propTypes = {
   telecoms: PropTypes.arrayOf(PropTypes.shape({
     system: PropTypes.string,
     value: PropTypes.string,
+    use: PropTypes.string,
   })),
 };
 

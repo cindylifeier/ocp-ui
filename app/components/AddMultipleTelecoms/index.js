@@ -47,7 +47,11 @@ class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line r
   }
 
   render() {
-    const { telecomSystems, telecoms, errors } = this.props;
+    const { telecomSystems, telecomUses, telecoms, errors } = this.props;
+    const addedTelecomsFormProps = {
+      telecomSystems,
+      telecomUses,
+    };
     const addedTelecomsTableProps = {
       telecoms,
       errors,
@@ -75,8 +79,8 @@ class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line r
                   initialValues={this.state.editingTelecom}
                   onAddTelecom={arrayHelpers.push}
                   onRemoveTelecom={arrayHelpers.remove}
-                  telecomSystems={telecomSystems}
                   handleCloseDialog={this.handleCloseDialog}
+                  {...addedTelecomsFormProps}
                 />
               </Dialog>
               <AddedTelecomsTable
@@ -97,10 +101,17 @@ AddMultipleTelecoms.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   telecoms: PropTypes.arrayOf(PropTypes.shape({
     system: PropTypes.string,
     value: PropTypes.string,
+    use: PropTypes.string,
   })),
   errors: PropTypes.object,
 };

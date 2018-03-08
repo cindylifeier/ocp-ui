@@ -18,6 +18,7 @@ function AddMultipleTelecomsForm(props) {
   const phonePattern = new RegExp(PHONE_PATTERN);
   const {
     telecomSystems,
+    telecomUses,
     initialValues,
     onAddTelecom,
     onRemoveTelecom,
@@ -55,31 +56,50 @@ function AddMultipleTelecomsForm(props) {
         })}
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
-            <Grid columns="1fr 2fr" gap={EMPTY_STRING}>
-              <Cell>
+            <Grid columns={4}>
+              <Cell width={3}>
+                <Grid columns="1fr 2fr" gap={EMPTY_STRING}>
+                  <Cell>
+                    <SelectField
+                      name="system"
+                      hintText={<FormattedMessage {...messages.hintText.system} />}
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.system} />}
+                      fullWidth
+                    >
+                      {telecomSystems && telecomSystems.map((telecomSystem) => (
+                        <MenuItem
+                          key={telecomSystem.code}
+                          value={telecomSystem.code}
+                          primaryText={telecomSystem.display}
+                        />))}
+                    </SelectField>
+                  </Cell>
+                  <Cell>
+                    <TextField
+                      name="value"
+                      hintText={<FormattedMessage {...messages.hintText.value} />}
+                      floatingLabelText={<FormattedMessage {...messages.floatingLabelText.value} />}
+                      fullWidth
+                    />
+                  </Cell>
+                </Grid>
+              </Cell>
+              <Cell width={1}>
                 <SelectField
-                  name="system"
-                  hintText={<FormattedMessage {...messages.hintText.system} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.system} />}
+                  name="use"
+                  hintText={<FormattedMessage {...messages.hintText.use} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.use} />}
                   fullWidth
                 >
-                  {telecomSystems && telecomSystems.map((telecomSystem) => (
+                  {telecomUses && telecomUses.map((telecomUse) => (
                     <MenuItem
-                      key={telecomSystem.code}
-                      value={telecomSystem.code}
-                      primaryText={telecomSystem.display}
+                      key={telecomUse.code}
+                      value={telecomUse.code}
+                      primaryText={telecomUse.display}
                     />))}
                 </SelectField>
               </Cell>
-              <Cell>
-                <TextField
-                  name="value"
-                  hintText={<FormattedMessage {...messages.hintText.value} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.value} />}
-                  fullWidth
-                />
-              </Cell>
-              <Cell>
+              <Cell width={4}>
                 <StyledRaisedButton
                   type="submit"
                   label={<FormattedMessage {...messages.saveButton} />}
@@ -111,7 +131,13 @@ AddMultipleTelecomsForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
 };
 
 export default AddMultipleTelecomsForm;
