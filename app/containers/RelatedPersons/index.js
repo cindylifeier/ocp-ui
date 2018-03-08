@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import isEmpty from 'lodash/isEmpty';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
-
+import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
+import { getPatientName } from 'utils/patientUtils';
 import injectReducer from 'utils/injectReducer';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
@@ -25,6 +25,7 @@ import styles from './styles.css';
 import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
+
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -33,11 +34,11 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
   componentDidMount() {
     this.props.initializeRelatedPersons();
   }
-  getPatientName(patient) {
-    const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
-    const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
-    return fullName;
-  }
+  // getPatientName(patient) {
+  //   const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
+  //   const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
+  //   return fullName;
+  // }
   handlePageClick(pageNumber) {
     this.props.getRelatedPersons(this.props.selectedPatient.id, true, pageNumber);
   }
@@ -55,7 +56,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
               <div className={styles.patientLabel}>
                 Patient&nbsp;:&nbsp;
               </div>
-              {this.getPatientName(selectedPatient)}
+              {getPatientName(selectedPatient)}
             </div>
             {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable relatedPersons={data.elements} selectedPatientId={selectedPatient.id}></RelatedPersonTable>
