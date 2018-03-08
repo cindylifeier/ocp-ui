@@ -1,23 +1,27 @@
-import isEmpty from 'lodash/isEmpty';
 import { put, takeLatest, all } from 'redux-saga/effects';
 import { getRecipientsError, getRecipientsSuccess } from 'containers/SearchRecipient/actions';
 import { GET_RECIPIENTS } from 'containers/SearchRecipient/constants';
 import { showNotification } from '../Notification/actions';
+// import { getRecipients } from 'containers/SearchRecipient/api';
 
 export function* getRecipientsSaga(action) {
   try {
-    if (!isEmpty(action.patientId)) {
+    if (action.patientId) {
+      // console.log(action.patientId);
       // const recipients = yield call(getRecipients, action.patientId);
+
       const recipients = [
-        { logicalId: '01', name: 'Test1', role: 'Role1' },
-        { logicalId: '02', name: 'Test2', role: 'Role2' },
-        { logicalId: '03', name: 'Test3', role: 'Role3' },
-        { logicalId: '04', name: 'Test4', role: 'Role4' },
+        { reference: 'Practitioner/2658', display: 'Govind Shrestha', checked: true },
+        { reference: 'Patient/2659', display: 'Esono', checked: true },
+        { reference: 'Patient/2660', display: 'Test', checked: false },
+        { reference: 'RelatedPerson/2661', display: 'Test2', checked: true },
+        { reference: 'Practitioner/2662', display: 'Test3', checked: false },
+
       ];
       yield put(getRecipientsSuccess(recipients));
     }
   } catch (error) {
-    yield put(showNotification('No participant found'));
+    yield put(showNotification('No recipient found!!!'));
     yield put(getRecipientsError(error));
   }
 }

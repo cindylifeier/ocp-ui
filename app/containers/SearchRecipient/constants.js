@@ -13,7 +13,9 @@ export const GET_RECIPIENTS_SUCCESS = 'ocpui/SearchRecipient/GET_RECIPIENTS_SUCC
 export const GET_RECIPIENTS_ERROR = 'ocpui/SearchRecipient/GET_RECIPIENTS_ERROR';
 
 export const ADD_RECIPIENT = 'ocpui/SearchRecipient/ADD_RECIPIENT';
+export const SET_SELECT_RECIPIENT_STATUS = 'ocpui/SearchRecipient/SET_SELECT_RECIPIENT_STATUS';
 export const INITIALIZE_SEARCH_RECIPIENT_RESULT = 'ocpui/SearchRecipient/INITIALIZE_SEARCH_RECIPIENT_RESULT';
+export const REMOVE_RECIPIENT = 'ocpui/SearchRecipient/REMOVE_RECIPIENT';
 
 /**
 *  Other constants
