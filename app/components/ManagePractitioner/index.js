@@ -11,18 +11,21 @@ import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
 import yup from 'yup';
+
+import Util from 'utils/Util';
+import { TEXT_MIN_LENGTH } from 'containers/ManagePractitionerPage/constants';
 import ManagePractitionerForm from './ManagePractitionerForm';
 import messages from './messages';
-import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constants';
-import Util from '../../utils/Util';
 
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const minimumOrganization = '1';
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
+  const {
+    onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages,
-    organizations, initialSearchOrganizationResult } = props;
+    organizations, initialSearchOrganizationResult,
+  } = props;
   const formData = {
     uspsStates,
     identifierSystems,
@@ -69,10 +72,13 @@ function ManagePractitioner(props) {
                   .required((<FormattedMessage {...messages.validation.required} />)),
                 active: yup.boolean()
                   .required((<FormattedMessage {...messages.validation.required} />)),
-              })
+              }),
             )
             .min(minimumOrganization, (
-              <FormattedMessage {...messages.validation.minLengthAssociateOrganization} values={{ minimumOrganization }} />)),
+              <FormattedMessage
+                {...messages.validation.minLengthAssociateOrganization}
+                values={{ minimumOrganization }}
+              />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
@@ -180,7 +186,7 @@ function mapPractitionerRoleFormData(practitioner) {
           active: practitionerRole.active,
           logicalId: practitionerRole.logicalId,
         });
-      }
+      },
     );
   }
   return { practitionerRoles };
