@@ -87,6 +87,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageAppointment.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
+    minStartDate: {
+      id: 'ocpui.components.ManageAppointment.manageForm.validation.minStartDate',
+      defaultMessage: 'Date cannot be in the past',
+    },
     minStartTime: {
       id: 'ocpui.components.ManageAppointment.manageForm.validation.minStartTime',
       defaultMessage: 'Start Time field cannot be in the past',
