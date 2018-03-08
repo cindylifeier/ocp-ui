@@ -16,12 +16,7 @@ import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-import styles from './styles.css';
-import ManagePatient from '../../components/ManagePatient';
-import { savePatient } from './actions';
+import ManagePatient from 'components/ManagePatient';
 import {
   makeSelectAdministrativeGenders,
   makeSelectLanguages,
@@ -31,7 +26,7 @@ import {
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreRaces,
   makeSelectUspsStates,
-} from '../App/lookupSelectors';
+} from 'containers/App/lookupSelectors';
 import {
   ADMINISTRATIVEGENDER,
   LANGUAGE,
@@ -41,9 +36,14 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-} from '../App/constants';
-import { getLookupsAction } from '../App/actions';
-import { makeSelectPatientSearchResult } from '../Patients/selectors';
+} from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
+import reducer from './reducer';
+import saga from './saga';
+import messages from './messages';
+import styles from './styles.css';
+import { savePatient } from './actions';
 import { mapToFrontendPatientForm } from './api';
 
 export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
