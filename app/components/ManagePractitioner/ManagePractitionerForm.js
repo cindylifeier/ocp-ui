@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+
 import AddPractitionerRoleForOrganization from 'components/AddPractitionerRoleForOrganization';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -15,12 +16,11 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import styles from './styles.css';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
-
 
 const customContentStyle = {
   width: '70%',
