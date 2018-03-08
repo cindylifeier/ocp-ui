@@ -13,10 +13,10 @@ import Dialog from 'material-ui/Dialog';
 import FormSubtitle from 'components/FormSubtitle';
 import AddTelecomsButton from './AddTelecomsButton';
 import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
+import AddedTelecomsTable from './AddedTelecomsTable';
 import messages from './messages';
 
 class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +47,11 @@ class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line r
   }
 
   render() {
-    const { telecomSystems } = this.props;
+    const { telecomSystems, telecoms, errors } = this.props;
+    const addedTelecomsTableProps = {
+      telecoms,
+      errors,
+    };
     return (
       <div>
         <FormSubtitle subtitleMargin="1vh 0 0 0">
@@ -75,6 +79,11 @@ class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line r
                   handleCloseDialog={this.handleCloseDialog}
                 />
               </Dialog>
+              <AddedTelecomsTable
+                handleEditTelecom={this.handleEditTelecom}
+                arrayHelpers={arrayHelpers}
+                {...addedTelecomsTableProps}
+              />
             </div>
           )}
         />
@@ -89,6 +98,11 @@ AddMultipleTelecoms.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  telecoms: PropTypes.arrayOf(PropTypes.shape({
+    system: PropTypes.string,
+    value: PropTypes.string,
+  })),
+  errors: PropTypes.object,
 };
 
 export default AddMultipleTelecoms;

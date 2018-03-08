@@ -13,7 +13,7 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
-function AddMultipleAddressForm(props) {
+function AddMultipleAddressesForm(props) {
   const postalCodePattern = new RegExp(POSTAL_CODE_PATTERN);
 
   const {
@@ -123,7 +123,7 @@ function AddMultipleAddressForm(props) {
   );
 }
 
-AddMultipleAddressForm.propTypes = {
+AddMultipleAddressesForm.propTypes = {
   onAddAddress: PropTypes.func.isRequired,
   onRemoveAddress: PropTypes.func.isRequired,
   handleCloseDialog: PropTypes.func.isRequired,
@@ -137,5 +137,5 @@ AddMultipleAddressForm.propTypes = {
   })),
 };
 
-export default AddMultipleAddressForm;
+export default AddMultipleAddressesForm;
 

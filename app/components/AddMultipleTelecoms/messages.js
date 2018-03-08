@@ -48,4 +48,26 @@ export default defineMessages({
       defaultMessage: 'Contact',
     },
   },
+  addedTelecomsTable: {
+    tableHeaderSystem: {
+      id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderSystem',
+      defaultMessage: 'Contact Type',
+    },
+    tableHeaderValue: {
+      id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderValue',
+      defaultMessage: 'Contact',
+    },
+    tableHeaderAction: {
+      id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderAction',
+      defaultMessage: 'Action',
+    },
+    tableActionEdit: {
+      id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableActionEdit',
+      defaultMessage: 'Edit',
+    },
+    tableActionRemove: {
+      id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableActionRemove',
+      defaultMessage: 'Remove',
+    },
+  },
 });

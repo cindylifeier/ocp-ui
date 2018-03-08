@@ -84,41 +84,41 @@ export default defineMessages({
       defaultMessage: 'Country',
     },
   },
-  addedAddressTable: {
+  addedAddressesTable: {
     tableHeaderAddress1: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAddress1',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderAddress1',
       defaultMessage: 'Address1',
     },
     tableHeaderAddress2: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAddress2',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderAddress2',
       defaultMessage: 'Address2',
     },
     tableHeaderCity: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderCity',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderCity',
       defaultMessage: 'City',
     },
     tableHeaderState: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderState',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderState',
       defaultMessage: 'State',
     },
     tableHeaderPostalCode: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderPostalCode',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderPostalCode',
       defaultMessage: 'Zip Code',
     },
     tableHeaderCountry: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderCountry',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderCountry',
       defaultMessage: 'Country',
     },
     tableHeaderAction: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableHeaderAction',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderAction',
       defaultMessage: 'Action',
     },
     tableActionEdit: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableActionEdit',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableActionEdit',
       defaultMessage: 'Edit',
     },
     tableActionRemove: {
-      id: 'ocpui.components.AddMultipleAddresses.addedAddressTable.tableActionRemove',
+      id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableActionRemove',
       defaultMessage: 'Remove',
     },
   },

@@ -13,7 +13,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import StyledCustomErrorText from 'components/StyledCustomErrorText';
 import messages from './messages';
 
-function AddedAddressTable(props) {
+function AddedAddressesTable(props) {
   const tableColumns = 'repeat(6, 1fr) 80px';
   const {
     errors,
@@ -25,13 +25,13 @@ function AddedAddressTable(props) {
     <div>
       <Table>
         <TableHeader columns={tableColumns}>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderAddress1} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderAddress2} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderCity} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderState} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderPostalCode} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderCountry} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedAddressTable.tableHeaderAction} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderAddress1} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderAddress2} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderCity} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderState} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderPostalCode} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderCountry} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedAddressesTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {errors && errors.addresses &&
         <StyledCustomErrorText>{errors.addresses}</StyledCustomErrorText>
@@ -49,11 +49,11 @@ function AddedAddressTable(props) {
               <TableRowColumn>
                 <NavigationStyledIconMenu>
                   <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedAddressTable.tableActionEdit} />}
+                    primaryText={<FormattedMessage {...messages.addedAddressesTable.tableActionEdit} />}
                     onClick={() => handleEditAddress(index, address)}
                   />
                   <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedAddressTable.tableActionRemove} />}
+                    primaryText={<FormattedMessage {...messages.addedAddressesTable.tableActionRemove} />}
                     onClick={() => arrayHelpers.remove(index)}
                   />
                 </NavigationStyledIconMenu>
@@ -66,7 +66,7 @@ function AddedAddressTable(props) {
   );
 }
 
-AddedAddressTable.propTypes = {
+AddedAddressesTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
   handleEditAddress: PropTypes.func,
@@ -80,4 +80,4 @@ AddedAddressTable.propTypes = {
   })),
 };
 
-export default AddedAddressTable;
+export default AddedAddressesTable;

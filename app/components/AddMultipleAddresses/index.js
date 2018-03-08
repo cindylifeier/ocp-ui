@@ -12,8 +12,8 @@ import { FieldArray } from 'formik';
 
 import FormSubtitle from 'components/FormSubtitle';
 import AddAddressesButton from './AddAddressesButton';
-import AddMultipleAddressForm from './AddMultipleAddressForm';
-import AddedAddressTable from './AddedAddressTable';
+import AddMultipleAddressesForm from './AddMultipleAddressesForm';
+import AddedAddressesTable from './AddedAddressesTable';
 import messages from './messages';
 
 class AddMultipleAddresses extends React.PureComponent {
@@ -48,7 +48,7 @@ class AddMultipleAddresses extends React.PureComponent {
 
   render() {
     const { uspsStates, errors, addresses } = this.props;
-    const addedAddressTableProps = {
+    const addedAddressesTableProps = {
       errors,
       addresses,
     };
@@ -71,7 +71,7 @@ class AddMultipleAddresses extends React.PureComponent {
                 open={this.state.isAddressesDialogOpen}
                 onRequestClose={this.handleCloseDialog}
               >
-                <AddMultipleAddressForm
+                <AddMultipleAddressesForm
                   initialValues={this.state.editingAddress}
                   onAddAddress={arrayHelpers.push}
                   onRemoveAddress={arrayHelpers.remove}
@@ -79,10 +79,10 @@ class AddMultipleAddresses extends React.PureComponent {
                   handleCloseDialog={this.handleCloseDialog}
                 />
               </Dialog>
-              <AddedAddressTable
+              <AddedAddressesTable
                 handleEditAddress={this.handleEditAddress}
                 arrayHelpers={arrayHelpers}
-                {...addedAddressTableProps}
+                {...addedAddressesTableProps}
               />
             </div>
           )}
