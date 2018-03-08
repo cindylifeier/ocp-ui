@@ -12,7 +12,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-
+import { Link } from 'react-router-dom';
+import { MANAGE_TASK_URL } from '../../containers/App/constants';
 import messages from './messages';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
@@ -34,7 +35,7 @@ const iconStyles = {
   },
 };
 
-function TaskTable({ elements, cancelTask }) {
+function TaskTable({ elements, cancelTask, selectedPatientId }) {
   return (
     <div>
       <Table>
@@ -75,7 +76,17 @@ function TaskTable({ elements, cancelTask }) {
                   >
                     <MenuItem
                       className={styles.menuItem}
-                      primaryText="Cancel"
+                      primaryText={<FormattedMessage {...messages.editTask} />}
+                      containerElement={<Link
+                        to={{
+                          pathname: `${MANAGE_TASK_URL}/${logicalId}`,
+                          search: `?patientId=${selectedPatientId}`,
+                        }}
+                      />}
+                    />
+                    <MenuItem
+                      className={styles.menuItem}
+                      primaryText={<FormattedMessage {...messages.cancelTask} />}
                       disabled={status.code === 'cancelled'}
                       onClick={() => cancelTask(logicalId)}
                     />
@@ -92,6 +103,7 @@ function TaskTable({ elements, cancelTask }) {
 
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
+  selectedPatientId: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({
