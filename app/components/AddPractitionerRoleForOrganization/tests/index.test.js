@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import AssociateOrganizationTable from '../index';
+// import AddPractitionerRoleForOrganization from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<AssociateOrganizationTable />', () => {
+describe('<AddPractitionerRoleForOrganization />', () => {
   it('Expect to have unit tests specified', () => {
     /* expect(true).toEqual(false); */
   });

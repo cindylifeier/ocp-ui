@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.components.AddPractitionerRoleForOrgnaization.header',
+    id: 'ocpui.components.AddPractitionerRoleForOrganization.header',
     defaultMessage: 'Search Organization',
   },
 });

@@ -1,6 +1,6 @@
 /**
 *
-* AssociateOrganizationTable
+* PractitionerRoleForOrganizationTable
 *
 */
 
@@ -120,7 +120,7 @@ function createSearchResultRows(organizations, onAddAssociateOrganization, exist
   ));
 }
 
-function AssociateOrganizationTable(props) {
+function PractitionerRoleForOrganizationTable(props) {
   const { organizations, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
@@ -140,7 +140,7 @@ function AssociateOrganizationTable(props) {
   );
 }
 
-AssociateOrganizationTable.propTypes = {
+PractitionerRoleForOrganizationTable.propTypes = {
   organizations: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     address: PropTypes.string,
@@ -154,4 +154,4 @@ AssociateOrganizationTable.propTypes = {
   specialtyType: PropTypes.array,
 };
 
-export default AssociateOrganizationTable;
+export default PractitionerRoleForOrganizationTable;

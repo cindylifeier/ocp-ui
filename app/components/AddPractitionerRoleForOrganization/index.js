@@ -10,8 +10,8 @@ import SearchBar from 'components/SearchBar';
 import { fromBackendToFrontendOrganization } from 'containers/Organizations/mappings';
 import { Organizations } from 'containers/Organizations';
 import { FormattedMessage } from 'react-intl';
-import AssociateOrganizationTable from 'components/AssociateOrganizationTable';
-import messages from 'components/AddPractitionerRoleForOrgnaization/messages';
+import PractitionerRoleForOrganizationTable from 'components/PractitionerRoleForOrganizationTable';
+import messages from 'components/AddPractitionerRoleForOrganization/messages';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -35,7 +35,7 @@ function AddPractitionerRoleForOrgnaization(props) {
 
       {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
         <div>
-          <AssociateOrganizationTable
+          <PractitionerRoleForOrganizationTable
             organizations={organizations.data.map(fromBackendToFrontendOrganization)}
             onAddAssociateOrganization={onAddAssociateOrganization}
             existingOrganizations={existingOrganizations}

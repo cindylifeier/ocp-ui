@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import AddPractitionerRoleForOrgnaization from 'components/AddPractitionerRoleForOrgnaization';
+import AddPractitionerRoleForOrganization from 'components/AddPractitionerRoleForOrganization';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -216,7 +216,7 @@ class ManagePractitionerForm extends React.PureComponent {
                         autoScrollBodyContent
                         contentStyle={customContentStyle}
                       >
-                        <AddPractitionerRoleForOrgnaization
+                        <AddPractitionerRoleForOrganization
                           arrayHelpers={arrayHelpers}
                           onAddAssociateOrganization={arrayHelpers.push}
                           callback={this.handleDialogCallback}
