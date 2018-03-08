@@ -1,10 +1,10 @@
 import { BASE_EPISODE_OF_CARES_API_URL,
-  BASE_RELATED_PERSONS_API_URL,
+  BASE_COMMUNICATIONS_API_URL,
   getEndpoint } from 'utils/endpointService';
 import * as queryString from 'query-string';
 import request from '../../utils/request';
 
-const baseEndpoint = getEndpoint(BASE_RELATED_PERSONS_API_URL);
+const baseEndpoint = getEndpoint(BASE_COMMUNICATIONS_API_URL);
 
 export function createCommunication(communication) {
   const requestURL = `${baseEndpoint}`;

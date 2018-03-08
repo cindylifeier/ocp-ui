@@ -8,15 +8,15 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   pageTitle: {
     id: 'ocpui.containers.ManageCommunicationPage.pageTitle',
-    defaultMessage: 'Manage Communication',
+    defaultMessage: 'Manage Communications',
   },
   createModeTitle: {
     id: 'ocpui.containers.ManageCommunicationPage.createModeTitle',
-    defaultMessage: 'Create Communication',
+    defaultMessage: 'Create Communications',
   },
   updateModeTitle: {
     id: 'ocpui.containers.ManageCommunicationPage.updateModeTitle',
-    defaultMessage: 'Update Communication',
+    defaultMessage: 'Update Communications',
   },
   subtitle: {
     id: 'ocpui.containers.ManageCommunicationPage.subtitle',
