@@ -1,7 +1,7 @@
 /**
 *
-* AddAssociateOrganizationForm
-*
+* AddPractitionerRoleForOrgnaization
+ *
 */
 
 import React from 'react';
@@ -11,7 +11,7 @@ import { fromBackendToFrontendOrganization } from 'containers/Organizations/mapp
 import { Organizations } from 'containers/Organizations';
 import { FormattedMessage } from 'react-intl';
 import AssociateOrganizationTable from 'components/AssociateOrganizationTable';
-import messages from 'components/AddAssociateOrganizationForm/messages';
+import messages from 'components/AddPractitionerRoleForOrgnaization/messages';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -20,7 +20,7 @@ import H1 from 'components/H1';
 import CloseButton from 'components/ConfirmPatientModal/CloseButton';
 
 
-function AddAssociateOrganizationForm(props) {
+function AddPractitionerRoleForOrgnaization(props) {
   const { organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
@@ -60,7 +60,7 @@ function AddAssociateOrganizationForm(props) {
   );
 }
 
-AddAssociateOrganizationForm.propTypes = {
+AddPractitionerRoleForOrgnaization.propTypes = {
   onPageClick: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   onAddAssociateOrganization: PropTypes.func.isRequired,
@@ -76,4 +76,4 @@ AddAssociateOrganizationForm.propTypes = {
   specialtyType: PropTypes.array,
 };
 
-export default AddAssociateOrganizationForm;
+export default AddPractitionerRoleForOrgnaization;
