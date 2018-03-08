@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { teal500, white } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
 import FormSubtitle from 'components/FormSubtitle';
 import messages from './messages';
 import styles from './styles.css';
@@ -199,15 +198,13 @@ function ManagePatientForm(props) {
             />
           </div>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-            <RaisedButton
+            <StyledRaisedButton
               fullWidth
               type="submit"
               label="Save"
-              backgroundColor={teal500}
-              labelColor={white}
               disabled={!dirty || isSubmitting || !isValid}
             />
-            <FlatButton
+            <StyledFlatButton
               fullWidth
               label="Cancel"
               default
