@@ -94,26 +94,6 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.identifierVlueFloatingLabelText',
     defaultMessage: 'Identifier Value',
   },
-  telecomSystemTypeHintText: {
-    id: 'ocpui.components.ManageLocation.telecomSystemTypeHintText',
-    defaultMessage: 'Telecom System',
-  },
-  telecomSystemTypeFloatingLabelText: {
-    id: 'ocpui.components.ManageLocation.telecomSystemTypeFloatingLabelText',
-    defaultMessage: 'Telecom System',
-  },
-  telecomSystemValueHintText: {
-    id: 'ocpui.components.ManageLocation.telecomSystemValueHintText',
-    defaultMessage: 'Telecom Value',
-  },
-  telecomSystemValueFloatingLabelText: {
-    id: 'ocpui.components.ManageLocation.telecomSystemValueFloatingLabelText',
-    defaultMessage: 'Telecom Value',
-  },
-  telecomUseFloatingLabelText: {
-    id: 'ocpui.components.ManageLocation.telecomUseFloatingLabelText',
-    defaultMessage: 'Telecom Use',
-  },
   saveLocationError: {
     id: 'ocpui.components.ManageLocation.saveLocationError',
     defaultMessage: 'Error in saving location!',
