@@ -7,10 +7,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectAppointmentTypes, makeSelectAppointmentStatuses } from 'containers/App/lookupSelectors';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card/index';
 import NoUpcomingAppointments from 'containers/UpcomingAppointments/NoUpcomingAppointments';
@@ -39,7 +39,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     this.props.getUpcomingAppointments({ pageNumber: page });
   }
   render() {
-    const { upcomingAppointments: { loading, data } } = this.props;
+    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     return (
       <div>
         <Card>
@@ -49,7 +49,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
           <NoUpcomingAppointments>No Upcoming Appointments.</NoUpcomingAppointments>}
           { !isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
-            <CareCoordinatorUpcomingAppointmentTable elements={data.elements} />
+            <CareCoordinatorUpcomingAppointmentTable elements={data.elements} appointmentStatuses={appointmentStatuses} appointmentTypes={appointmentTypes} />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
@@ -66,6 +66,8 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 UpcomingAppointments.propTypes = {
   getUpcomingAppointments: PropTypes.func.isRequired,
   getLookupData: PropTypes.func.isRequired,
+  appointmentTypes: PropTypes.array,
+  appointmentStatuses: PropTypes.array,
   upcomingAppointments: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     data: PropTypes.shape({
@@ -76,6 +78,8 @@ UpcomingAppointments.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   upcomingAppointments: makeSelectUpcomingAppointments(),
+  appointmentTypes: makeSelectAppointmentTypes(),
+  appointmentStatuses: makeSelectAppointmentStatuses(),
 });
 
 function mapDispatchToProps(dispatch) {

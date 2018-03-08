@@ -6,6 +6,7 @@
 
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import find from 'lodash/find';
 
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -20,7 +21,7 @@ import TableRowColumn from '../TableRowColumn';
 import StyledMenuItem from '../StyledMenuItem';
 import StyledIconButton from '../StyledIconButton';
 
-function CareCoordinatorUpcomingAppointmentTable({ elements }) { // eslint-disable-line react/prefer-stateless-function
+function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -36,8 +37,8 @@ function CareCoordinatorUpcomingAppointmentTable({ elements }) { // eslint-disab
         {elements && elements.map((appointment) => (
           <TableRow key={uniqueId()}>
             <TableRowColumn>{appointment.displayPatientName}</TableRowColumn>
-            <TableRowColumn>{appointment.typeCode}</TableRowColumn>
-            <TableRowColumn>{appointment.statusCode}</TableRowColumn>
+            <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
+            <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
             <TableRowColumn>{appointment.displayDate}</TableRowColumn>
             <TableRowColumn>{appointment.displayDuration}</TableRowColumn>
             <TableRowColumn>{appointment.description}</TableRowColumn>
@@ -61,8 +62,17 @@ function CareCoordinatorUpcomingAppointmentTable({ elements }) { // eslint-disab
   );
 }
 
+function mapDisplayFromCode(appointmentLookup, key) {
+  if (key) {
+    return find(appointmentLookup, { code: key }).display;
+  }
+  return key;
+}
+
 CareCoordinatorUpcomingAppointmentTable.propTypes = {
   elements: PropTypes.array.isRequired,
+  appointmentStatuses: PropTypes.array,
+  appointmentTypes: PropTypes.array,
 };
 
 export default CareCoordinatorUpcomingAppointmentTable;
