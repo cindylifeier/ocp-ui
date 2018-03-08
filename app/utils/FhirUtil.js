@@ -1,4 +1,4 @@
-import { emailSystem, maritalStatusSystem, maskedSsnPrefix, mrnSystem, phoneSystem, relationshipSystem, ssnSystem } from './constants';
+import { EMAIL_SYSTEM, maritalStatusSystem, maskedSsnPrefix, mrnSystem, PHONE_SYSTEM, relationshipSystem, ssnSystem } from './constants';
 
 class FhirUtil {
   static getFhirPatientBirthDate(patient) {
@@ -64,7 +64,7 @@ class FhirUtil {
   static getFhirPatientContactPhone(contact) {
     const telecom = contact.telecom;
     const phone = telecom && telecom
-      .filter((t) => t.system === phoneSystem)
+      .filter((t) => t.system === PHONE_SYSTEM)
       .map((t) => t.value)
       .pop();
     return phone || 'No Record Found';
@@ -224,7 +224,7 @@ class FhirUtil {
     const telecom = (FhirUtil.isPatient(patient) && patient.telecom) ||
       (FhirUtil.isPatient(patient.resource) && patient.resource.telecom);
     const phone = telecom && telecom
-      .filter((t) => t.system === phoneSystem)
+      .filter((t) => t.system === PHONE_SYSTEM)
       .filter((t) => t.use === use)
       .map((t) => t.value)
       .pop();
@@ -236,7 +236,7 @@ class FhirUtil {
     const telecom = (FhirUtil.isPatient(patient) && patient.telecom) ||
       (FhirUtil.isPatient(patient.resource) && patient.resource.telecom);
     const phone = telecom && telecom
-      .filter((t) => t.system === emailSystem)
+      .filter((t) => t.system === EMAIL_SYSTEM)
       .map((t) => t.value)
       .pop();
 
