@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
+import upperFirst from 'lodash/upperFirst';
 import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
@@ -37,7 +38,7 @@ function AddedTelecomsTable(props) {
           const { system, value } = telecom;
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{system}</TableRowColumn>
+              <TableRowColumn>{upperFirst(system)}</TableRowColumn>
               <TableRowColumn>{value}</TableRowColumn>
               <TableRowColumn>
                 <NavigationStyledIconMenu>
