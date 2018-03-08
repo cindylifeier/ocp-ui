@@ -18,19 +18,28 @@ import Util from '../../utils/Util';
 
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
+  const minimumOrganization = '1';
   const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoles, editMode, practitioner } = props;
+  const { onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
+    totalNumberOfPages,
+    organizations, initialSearchOrganizationResult } = props;
   const formData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
-    practitionerRoles,
+    practitionerRoleCodes,
+    onPageClick,
+    onSearch,
+    organizations,
+    currentPage,
+    totalNumberOfPages,
+    initialSearchOrganizationResult,
   };
   return (
     <div>
       {((editMode && practitioner) || !editMode) &&
       <Formik
-        initialValues={setFormData(practitioner)}
+        initialValues={(editMode && setFormData(practitioner)) || { practitionerRoles: [] }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -43,12 +52,27 @@ function ManagePractitioner(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          roleType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
+          practitionerRole: yup.array()
+            .of(
+              yup.object().shape({
+                organization: yup.object().shape({
+                  reference: yup.string()
+                    .required((<FormattedMessage {...messages.validation.required} />)),
+                }),
+                code: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+                specialty: yup.string()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+                active: yup.boolean()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
+              })
+            )
+            .min(minimumOrganization, (
+              <FormattedMessage {...messages.validation.minLengthAssociateOrganization} values={{ minimumOrganization }} />)),
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
@@ -64,9 +88,18 @@ ManagePractitioner.propTypes = {
   uspsStates: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,
-  practitionerRoles: PropTypes.array.isRequired,
+  practitionerRoleCodes: PropTypes.array.isRequired,
   editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
+  onPageClick: PropTypes.func.isRequired,
+  initialSearchOrganizationResult: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalNumberOfPages: PropTypes.number.isRequired,
+  organizations: PropTypes.shape({
+    data: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+  }),
 };
 
 export default ManagePractitioner;
@@ -75,7 +108,8 @@ function setFormData(practitioner) {
   let formData = null;
   if (!isEmpty(practitioner)) {
     formData = merge(mapPractitionerToFirstIdentifier(practitioner), mapPractitionerToFirstName(practitioner),
-      mapPractitionerToFirstRole(practitioner), mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner));
+      mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner),
+      mapPractitionerRoleFormData(practitioner));
   }
   return Util.pickByIdentity(formData);
 }
@@ -102,17 +136,6 @@ function mapPractitionerToFirstName(practitioner) {
     };
   }
   return name;
-}
-
-function mapPractitionerToFirstRole(practitioner) {
-  let role = {};
-  if (practitioner.practitionerRoles.length > 0) {
-    const firstRole = practitioner.practitionerRoles[0];
-    role = {
-      roleType: Util.setEmptyStringWhenUndefined(firstRole.code),
-    };
-  }
-  return role;
 }
 
 function mapPractitionerToAddress(practitioner) {
@@ -143,3 +166,22 @@ function mapPractitionerToFirstTelecoms(practitioner) {
   return telecom;
 }
 
+function mapPractitionerRoleFormData(practitioner) {
+  const practitionerRoles = [];
+  if (practitioner.practitionerRoles.length > 0) {
+    practitioner.practitionerRoles.map(
+      (practitionerRole) => {
+        const code = practitionerRole.code.length > 0 && practitionerRole.code[0].code;
+        const specialty = practitionerRole.specialty.length > 0 && practitionerRole.specialty[0].code;
+        return practitionerRoles.push({
+          organization: practitionerRole.organization,
+          specialty,
+          code,
+          active: practitionerRole.active,
+          logicalId: practitionerRole.logicalId,
+        });
+      }
+    );
+  }
+  return { practitionerRoles };
+}
