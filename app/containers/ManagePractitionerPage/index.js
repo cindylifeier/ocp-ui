@@ -17,23 +17,32 @@ import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getPractitioner, initializeManagePractitioner, savePractitioner, getOrganizations, initializeOrganizations } from 'containers/ManagePractitionerPage/actions';
+import ManagePractitioner from 'components/ManagePractitioner';
+import {
+  makeSelectPractitionerIdentifierSystems,
+  makeSelectPractitionerRoles,
+  makeSelectTelecomSystems,
+  makeSelectUspsStates,
+} from 'containers/App/lookupSelectors';
+import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import {
+  getOrganizations,
+  getPractitioner,
+  initializeManagePractitioner,
+  initializeOrganizations,
+  savePractitioner,
+} from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import ManagePractitioner from '../../components/ManagePractitioner';
 import messages from './messages';
 import styles from './styles.css';
 import {
-makeSelectPractitionerIdentifierSystems,
-makeSelectPractitionerRoles,
-makeSelectTelecomSystems,
-makeSelectUspsStates,
-} from '../App/lookupSelectors';
-import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
-import { getLookupsAction } from '../App/actions';
-import { makeSelectPractitioner, makeSelectCurrentPage, makeSelectOrganizations,
-  makeSelectTotalNumberOfPages } from './selectors';
-
+  makeSelectCurrentPage,
+  makeSelectOrganizations,
+  makeSelectPractitioner,
+  makeSelectTotalNumberOfPages,
+} from './selectors';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static SEARCH_BAR_TEXT_LENGTH = 3;
@@ -87,10 +96,12 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, selectedPractitioner,
+    const {
+      match, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, selectedPractitioner,
       organizations,
       currentPage,
-      totalNumberOfPages } = this.props;
+      totalNumberOfPages,
+    } = this.props;
     const editMode = !isUndefined(match.params.id);
     let practitioner = null;
     if (editMode && selectedPractitioner) {
@@ -118,7 +129,13 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
             : <FormattedMessage {...messages.createHeader} />}
         </div>
         <Divider />
-        <ManagePractitioner {...formProps} onSave={this.handleSave} onPageClick={this.handlePageClick} onSearch={this.handleSearch} initialSearchOrganizationResult={this.initialSearchOrganizationResult} />
+        <ManagePractitioner
+          {...formProps}
+          onSave={this.handleSave}
+          onPageClick={this.handlePageClick}
+          onSearch={this.handleSearch}
+          initialSearchOrganizationResult={this.initialSearchOrganizationResult}
+        />
       </div>
     );
   }
