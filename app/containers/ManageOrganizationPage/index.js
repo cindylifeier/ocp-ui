@@ -18,12 +18,19 @@ import find from 'lodash/find';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
-import { ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
+import {
+  ORGANIZATIONIDENTIFIERSYSTEM,
+  ORGANIZATIONSTATUS,
+  TELECOMSYSTEM,
+  TELECOMUSE,
+  USPSSTATES,
+} from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
+  makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
@@ -89,7 +96,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match: { url, params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, history: { goBack, push }, organizations } = this.props;
+    const { match: { url, params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, history: { goBack, push }, organizations } = this.props;
     let initialValues = {};
     const editingOrganization = find(organizations, { logicalId: id });
     // if id in the route exists but no initial data to edit
@@ -141,6 +148,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
               };
               const addTelecomsProps = {
                 telecomSystems,
+                telecomUses,
                 errors,
                 telecoms: values.telecoms,
               };
@@ -259,6 +267,12 @@ ManageOrganizationPage.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -296,12 +310,13 @@ const mapStateToProps = createStructuredSelector({
   organizationIdentifierSystems: makeSelectOrganizationIdentifierSystems(),
   organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
+  telecomUses: makeSelectTelecomUses(),
   organizations: makeSelectOrganizationsData(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, TELECOMUSE, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
     updateOrganization: (id, organization, callback) => dispatch(updateOrganization(id, organization, callback)),
   };
