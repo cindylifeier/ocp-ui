@@ -65,7 +65,9 @@ UpcomingAppointments.propTypes = {
   getUpcomingAppointments: PropTypes.func.isRequired,
   upcomingAppointments: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-    data: PropTypes.array,
+    data: PropTypes.shape({
+      elements: PropTypes.array,
+    }),
   }).isRequired,
 };
 

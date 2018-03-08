@@ -14,8 +14,6 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  patientName: null,
-  data: null,
   query: null,
 });
 
@@ -26,9 +24,7 @@ function upcomingAppointmentsReducer(state = initialState, action) {
     case GET_UPCOMING_APPOINTMENTS:
       return state
         .set('loading', true)
-        .set('data', null)
-        .set('patientName', action.patientName)
-        .set('query', fromJS(action.query));
+        .set('data', null);
     case GET_UPCOMING_APPOINTMENTS_SUCCESS:
       return state
         .set('loading', false)
