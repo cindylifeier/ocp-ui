@@ -1,23 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { teal500, white } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
+import { Cell, Grid } from 'styled-css-grid';
 
+import Util from 'utils/Util';
+import { mapToPatientName } from 'utils/PatientUtils';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import DatePicker from 'components/DatePicker';
+import FormSubtitle from 'components/FormSubtitle';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
+import ErrorText from 'components/ErrorText';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import SelectedParticipants from './SelectedParticipants';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import DatePicker from '../DatePicker';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
-import { addButtonStyle } from './constants';
 import messages from './messages';
-import styles from './styles.css';
-import Util from '../../utils/Util';
+import ManageCareTeamFormGrid from './ManageCareTeamFormGrid';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
@@ -32,6 +37,7 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    selectedPatient,
   } = props;
 
   const selectedParticipantsProps = {
@@ -41,20 +47,33 @@ function ManageCareTeamForm(props) {
 
   // To check whether has participant
   const hasParticipants = !isEmpty(selectedParticipants);
+  const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
   return (
     <div>
       <Form>
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.careTeamName}`}>
+        <ManageCareTeamFormGrid gap="1vw">
+          <Cell area="generalInformationSubtitle">
+            <FormSubtitle margin="0">
+              <FormattedMessage {...messages.title} />
+            </FormSubtitle>
+          </Cell>
+          <Cell area="selectedPatient">
+            <InfoSection margin="2vh 0 0 0">
+              <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.labelPatientName} />&nbsp;
+              </InlineLabel>
+              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+            </InfoSection>
+          </Cell>
+          <Cell area="careTeamName">
             <TextField
               fullWidth
               name="careTeamName"
               hintText={<FormattedMessage {...messages.hintText.careTeamName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.careTeamName} />}
             />
-          </div>
-          <div className={`${styles.gridItem} ${styles.category}`}>
+          </Cell>
+          <Cell area="category">
             <SelectField
               fullWidth
               name="category"
@@ -65,8 +84,8 @@ function ManageCareTeamForm(props) {
                 <MenuItem key={category.code} value={category.code} primaryText={category.display} />,
               )}
             </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.status}`}>
+          </Cell>
+          <Cell area="status">
             <SelectField
               fullWidth
               name="status"
@@ -77,8 +96,8 @@ function ManageCareTeamForm(props) {
                 <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
               )}
             </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.episodeOfCare}`}>
+          </Cell>
+          <Cell area="episodeOfCare">
             <TextField
               fullWidth
               name="episodeOfCare"
@@ -86,8 +105,8 @@ function ManageCareTeamForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
               disabled
             />
-          </div>
-          <div className={`${styles.gridItem} ${styles.reason}`}>
+          </Cell>
+          <Cell area="reason">
             <SelectField
               fullWidth
               name="reason"
@@ -98,8 +117,8 @@ function ManageCareTeamForm(props) {
                 <MenuItem key={reason.code} value={reason.code} primaryText={reason.display} />,
               )}
             </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.startDate}`}>
+          </Cell>
+          <Cell area="startDate">
             <DatePicker
               fullWidth
               name="startDate"
@@ -108,8 +127,8 @@ function ManageCareTeamForm(props) {
               hintText={<FormattedMessage {...messages.hintText.startDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
             />
-          </div>
-          <div className={`${styles.gridItem} ${styles.endDate}`}>
+          </Cell>
+          <Cell area="endDate">
             <DatePicker
               fullWidth
               name="endDate"
@@ -118,51 +137,49 @@ function ManageCareTeamForm(props) {
               hintText={<FormattedMessage {...messages.hintText.endDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
             />
-          </div>
-        </div>
-
-        <div className={styles.title}>
-          <FormattedMessage {...messages.participantTitle} />
-        </div>
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.addParticipant}`}>
-            <RaisedButton
+          </Cell>
+          <Cell area="participantSubtitle">
+            <FormSubtitle margin="0">
+              <FormattedMessage {...messages.participantTitle} />
+            </FormSubtitle>
+          </Cell>
+          <Cell area="addParticipant">
+            <StyledRaisedButton
               fullWidth
-              backgroundColor={teal500}
-              labelColor={white}
               onClick={handleOpen}
-              style={addButtonStyle}
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
             />
-          </div>
-        </div>
-
-        <SelectedParticipants {...selectedParticipantsProps} />
-
-        {!hasParticipants &&
-        <div className={styles.participantError}>{hasParticipants ?
-          '' : <FormattedMessage {...messages.validation.checkParticipants} />}
-        </div>
-        }
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-            <RaisedButton
-              fullWidth
-              type="submit"
-              label="Save"
-              backgroundColor={teal500}
-              labelColor={white}
-              disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || !hasParticipants}
-            />
-            <FlatButton
-              fullWidth
-              label="Cancel"
-              default
-              disabled={isSubmitting}
-              containerElement={<Link to={PATIENTS_URL} />}
-            />
-          </div>
-        </div>
+          </Cell>
+          <Cell area="selectedParticipants">
+            <SelectedParticipants {...selectedParticipantsProps} />
+            {!hasParticipants &&
+            <ErrorText>{hasParticipants ?
+              '' : <FormattedMessage {...messages.validation.checkParticipants} />}
+            </ErrorText>
+            }
+          </Cell>
+          <Cell area="buttonGroup">
+            <Grid columns={2}>
+              <Cell>
+                <StyledRaisedButton
+                  fullWidth
+                  type="submit"
+                  label="Save"
+                  disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || !hasParticipants}
+                />
+              </Cell>
+              <Cell>
+                <StyledFlatButton
+                  fullWidth
+                  label="Cancel"
+                  default
+                  disabled={isSubmitting}
+                  containerElement={<Link to={PATIENTS_URL} />}
+                />
+              </Cell>
+            </Grid>
+          </Cell>
+        </ManageCareTeamFormGrid>
       </Form>
     </div>
   );
@@ -174,6 +191,10 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+  }),
   selectedParticipants: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({

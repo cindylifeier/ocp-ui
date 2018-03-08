@@ -15,28 +15,26 @@ import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import OrganizationTable from 'components/OrganizationTable/Loadable';
+import SearchBar from 'components/SearchBar';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import StyledFlatButton from 'components/StyledFlatButton';
+import CenterAlign from 'components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import { getActiveLocations } from 'containers/Locations/actions';
+import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
+import { getHealthcareServicesByOrganization } from 'containers/HealthcareServices/actions';
 import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { initializeOrganizations, getOrganizations } from './actions';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import OrganizationTable from '../../components/OrganizationTable/Loadable';
-import SearchBar from '../../components/SearchBar';
-import { getActiveLocations } from '../Locations/actions';
+import { getOrganizations, initializeOrganizations } from './actions';
 import { fromBackendToFrontendOrganization } from './mappings';
-import { MANAGE_ORGANIZATION_URL } from '../App/constants';
-import { getHealthcareServicesByOrganization } from '../HealthcareServices/actions';
-import Card from '../../components/Card';
-import CardHeader from '../../components/CardHeader';
-import StyledFlatButton from '../../components/StyledFlatButton';
-import CenterAlign from '../../components/Align/CenterAlign';
-import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class Organizations extends React.PureComponent {
-
-  static SEARCH_BAR_TEXT_LENGTH = 3;
-
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
@@ -81,10 +79,8 @@ export class Organizations extends React.PureComponent {
             containerElement={<Link to={MANAGE_ORGANIZATION_URL} />}
           />
         </CardHeader>
-        <SearchBar
-          minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
-          onSearch={this.handleSearch}
-        />
+
+        <SearchBar onSearch={this.handleSearch} />
 
         {organizations.loading && <RefreshIndicatorLoading />}
 
@@ -103,7 +99,7 @@ export class Organizations extends React.PureComponent {
         ) ||
         ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
           <CenterAlign>
-            <span>No organizations found</span>
+            <NoResultsFoundText>No organizations found</NoResultsFoundText>
           </CenterAlign>))
         }
       </Card>

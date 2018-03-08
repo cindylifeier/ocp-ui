@@ -1,8 +1,8 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 
-import request from '../../utils/request';
-import { BASE_PRACTITIONERS_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
 
@@ -57,8 +57,7 @@ function updatePractitioner(logicalId, practitionerFormData, roleLookup) {
 
 function mapToBffPractitioner(practitionerData, roleLookup) {
   const {
-    firstName, lastName, identifierType, identifierValue,
-    address1, address2, city, state, postalCode, country, telecomType, telecomValue, practitionerRoles,
+    firstName, lastName, identifierType, identifierValue, addresses, telecoms, practitionerRoles,
   } = practitionerData;
 
   const identifiers = [{
@@ -68,18 +67,6 @@ function mapToBffPractitioner(practitionerData, roleLookup) {
   const name = [{
     firstName,
     lastName,
-  }];
-  const telecoms = [{
-    system: telecomType,
-    value: telecomValue,
-  }];
-  const address = [{
-    line1: address1,
-    line2: address2,
-    city,
-    stateCode: state,
-    postalCode,
-    countryCode: country,
   }];
 
   const selectedPractitionerRole = practitionerRoles.map((pr) => {
@@ -93,8 +80,9 @@ function mapToBffPractitioner(practitionerData, roleLookup) {
       code: selectedCode,
       specialty: selectedSpecialty,
       active,
-      logicalId });
+      logicalId,
+    });
   });
 
-  return { identifiers, name, telecoms, address, practitionerRoles: selectedPractitionerRole };
+  return { identifiers, name, telecoms, addresses, practitionerRoles: selectedPractitionerRole };
 }
