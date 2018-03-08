@@ -27,6 +27,10 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.validation.required',
       defaultMessage: 'Required',
     },
+    phone: {
+      id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.validation.phone',
+      defaultMessage: 'Must be with formats: 123-456-7890 (123)456-7890 1234567890 123.456.7890',
+    },
   },
   hintText: {
     system: {

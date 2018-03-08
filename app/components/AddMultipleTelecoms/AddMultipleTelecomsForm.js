@@ -6,7 +6,8 @@ import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 
-import { EMPTY_STRING } from 'containers/App/constants';
+import { EMAIL_SYSTEM, PHONE_SYSTEM } from 'utils/constants';
+import { EMPTY_STRING, PHONE_PATTERN } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -14,6 +15,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import messages from './messages';
 
 function AddMultipleTelecomsForm(props) {
+  const phonePattern = new RegExp(PHONE_PATTERN);
   const {
     telecomSystems,
     initialValues,
@@ -37,7 +39,19 @@ function AddMultipleTelecomsForm(props) {
           system: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           value: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .when('system', {
+              is: EMAIL_SYSTEM,  // alternatively: (val) => val == true
+              then: yup.string().email(),
+              otherwise: null,
+            })
+            .when('system', {
+              is: PHONE_SYSTEM,  // alternatively: (val) => val == true
+              then: yup
+                .string()
+                .matches(phonePattern, (<FormattedMessage {...messages.validation.phone} />)),
+              otherwise: null,
+            }),
         })}
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
