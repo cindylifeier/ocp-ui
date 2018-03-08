@@ -61,8 +61,9 @@ export function createTask(taskFormData) {
 }
 
 export function updateTask(taskFormData) {
+  const taskId = taskFormData.logicalId;
   const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
-  const requestURL = `${baseEndpoint}`;
+  const requestURL = `${baseEndpoint}/${taskId}`;
   return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(taskFormData),
