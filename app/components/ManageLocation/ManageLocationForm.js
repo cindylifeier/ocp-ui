@@ -119,7 +119,7 @@ function ManageLocationForm(props) {
               floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
             />
           </div>
-          <div className={`${styles.gridItem} ${styles.contact}`}>
+          <div className={`${styles.gridItem} ${styles.contacts}`}>
             <AddMultipleTelecoms {...addTelecomsProps} />
           </div>
           <div className={`${styles.gridItem} ${styles.address1}`}>
