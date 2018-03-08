@@ -1,4 +1,3 @@
-import ErrorText from 'components/ErrorText';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
@@ -9,8 +8,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import { Form } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
-import TimePicker from 'material-ui/TimePicker';
 import MenuItem from 'material-ui/MenuItem';
+import TimePicker from 'material-ui/TimePicker';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -120,16 +119,12 @@ function ManageAppointmentForm(props) {
             <StyledRaisedButton
               fullWidth
               onClick={handleOpen}
+              disabled
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
             />
           </Cell>
           <Cell area="selectedParticipants">
             <SelectedParticipants {...selectedParticipantsProps} />
-            {!hasParticipants &&
-            <ErrorText>
-              {hasParticipants ? '' : <FormattedMessage {...messages.validation.checkParticipants} />}
-            </ErrorText>
-            }
           </Cell>
           <Cell area="buttonGroup">
             <Grid columns={2}>
