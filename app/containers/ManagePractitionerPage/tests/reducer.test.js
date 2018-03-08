@@ -6,6 +6,12 @@ describe('managePractitionerPageReducer', () => {
     expect(managePractitionerPageReducer(undefined, {})).toEqual(fromJS({
       error: false,
       practitioner: null,
+      organizations: {
+        loading: false,
+        data: [],
+        currentPage: 0,
+        totalNumberOfPages: 0,
+      },
     }));
   });
 });
