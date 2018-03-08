@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import { teal500, white } from 'material-ui/styles/colors';
 import uniqueId from 'lodash/uniqueId';
+import { Cell, Grid } from 'styled-css-grid';
 
-import { HOME_URL } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
+import FormSubtitle from 'components/FormSubtitle';
+import InlineLabel from 'components/InlineLabel';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
+import ErrorText from 'components/ErrorText';
+import FieldGroupGrid from 'components/FieldGroupGrid';
+import SystemCell from 'components/FieldGroupGrid/SystemCell';
+import ValueCell from 'components/FieldGroupGrid/ValueCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
-import styles from './styles.css';
-
-
-// Material UI Styles
-const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
+import ManageLocationFormGrid from './ManageLocationFormGrid';
 
 function ManageLocationForm(props) {
   const {
@@ -38,172 +40,179 @@ function ManageLocationForm(props) {
     organization,
     location,
   } = props;
-
+  const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   const addTelecomsProps = {
     telecomSystems,
     telecomUses,
     errors,
     telecoms: values.telecoms,
   };
-
   return (
-    <div>
-      <div className={styles.title}>
-        <FormattedMessage {...messages.mainLabel} />
-      </div>
-      <Form>
-        <div className={styles.organizationName}>
-          <div>
-            {<FormattedMessage {...messages.organizationNameLabel} />}
-          </div>
-          <div>
-            <strong>{organization.name}</strong>
-          </div>
-        </div>
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.name}`}>
-            <TextField
-              name="name"
+    <Form>
+      <ManageLocationFormGrid gap="1vw">
+        <Cell area="generalInformationSubtitle">
+          <FormSubtitle margin="3vh 0 1vh 0">
+            <FormattedMessage {...messages.mainLabel} />
+          </FormSubtitle>
+        </Cell>
+        <Cell area="organizationName">
+          <InlineLabel htmlFor={ORGANIZATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.organizationNameLabel} />&nbsp;
+          </InlineLabel>
+          <span id={ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+        </Cell>
+        <Cell area="name">
+          <TextField
+            name="name"
+            fullWidth
+            hintText={<FormattedMessage {...messages.locationNameHintText} />}
+            floatingLabelText={<FormattedMessage {...messages.locationNameFloatingLabelText} />}
+          />
+        </Cell>
+        <Cell area="status">
+          {(location && location.logicalId &&
+            <SelectField
+              name="status"
               fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.locationNameHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.locationNameFloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.status}`}>
-            {(location && location.logicalId &&
+              floatingLabelText={<FormattedMessage {...messages.statusFloatingLabelText} />}
+            >
+              {locationStatuses && locationStatuses.map((locationStatuse) => (
+                <MenuItem key={uniqueId()} value={locationStatuse.code} primaryText={locationStatuse.display} />
+              ))}
+            </SelectField>
+          )}
+        </Cell>
+        <Cell area="locationGroup">
+          <FieldGroupGrid>
+            <SystemCell>
               <SelectField
-                name="status"
+                name="physicalType"
                 fullWidth
-                floatingLabelText={<FormattedMessage {...messages.statusFloatingLabelText} />}
+                floatingLabelText={<FormattedMessage {...messages.locationPhysicalType} />}
               >
-                {locationStatuses && locationStatuses.map((locationStatuse) => (
-                  <MenuItem key={uniqueId()} value={locationStatuse.code} primaryText={locationStatuse.display} />
+                {locationPhysicalTypes && locationPhysicalTypes.map((locationType) => (
+                  <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
                 ))}
               </SelectField>
-            )}
-          </div>
-          <div className={`${styles.gridItem} ${styles.locationGroup}`}>
-            <SelectField
-              name="physicalType"
-              fullWidth
-              floatingLabelText={<FormattedMessage {...messages.locationPhysicalType} />}
-            >
-              {locationPhysicalTypes && locationPhysicalTypes.map((locationType) => (
-                <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
-              ))}
-            </SelectField>
-            <TextField
-              fullWidth
-              name="managingLocationLogicalId"
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
-            <SelectField
-              fullWidth
-              name="identifierSystem"
-              floatingLabelText={<FormattedMessage {...messages.identifierSystemTypeFloatingLabelText} />}
-            >
-              {identifierSystems && identifierSystems.map((identifierSystem) => (
-                <MenuItem key={uniqueId()} value={identifierSystem.display} primaryText={identifierSystem.display} />
-              ))}
-            </SelectField>
-            <TextField
-              name="identifierValue"
-              fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.identifierValueHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.contacts}`}>
-            <AddMultipleTelecoms {...addTelecomsProps} />
-          </div>
-          <div className={`${styles.gridItem} ${styles.address1}`}>
-            <TextField
-              name="line1"
-              fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.address1HintText} />}
-              floatingLabelText={<FormattedMessage {...messages.address1FloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.address2}`}>
-            <TextField
-              name="line2"
-              fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.address2HintText} />}
-              floatingLabelText={<FormattedMessage {...messages.address2FloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.city}`}>
-            <TextField
-              name="city"
-              fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.cityHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.cityFloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.state}`}>
-            <SelectField
-              name="stateCode"
-              fullWidth
-              floatingLabelText={<FormattedMessage {...messages.statesFloatingLabelText} />}
-            >
-              {uspsStates && uspsStates.map((uspsState) => (
-                <MenuItem key={uniqueId()} value={uspsState.code} primaryText={uspsState.display} />
-              ))}
-            </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.postalCode}`}>
-            <TextField
-              name="postalCode"
-              fullWidth
-              floatingLabelStyle={floatingLabelStyle}
-              hintText={<FormattedMessage {...messages.postalCodeHintText} />}
-              floatingLabelText={<FormattedMessage {...messages.postalCodeFloatingLabelText} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.addressUse}`}>
-            <SelectField
-              fullWidth
-              name="use"
-              floatingLabelStyle={floatingLabelStyle}
-              floatingLabelText={<FormattedMessage {...messages.addressUseFloatingLabelText} />}
-            >
-              {addressUses && addressUses.map((addressUse) => (
-                <MenuItem key={uniqueId()} value={addressUse.use} primaryText={addressUse.display} />
-              ))}
-            </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-            <RaisedButton
-              backgroundColor={teal500}
-              labelColor={white}
-              label="Save"
-              type="submit"
-              disabled={!dirty || isSubmitting || !isValid}
-            />
-            <FlatButton
-              type="button"
-              label="Cancel"
-              default
-              disabled={isSubmitting}
-              containerElement={<Link to={HOME_URL} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.errorMessage}`}>
-            {error ?
-              <p className={styles.validationMessage}>{<FormattedMessage {...messages.saveLocationError} />}</p> : ''}
-          </div>
-        </div>
-      </Form>
-    </div>
+            </SystemCell>
+            <ValueCell>
+              <TextField
+                fullWidth
+                name="managingLocationLogicalId"
+                hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
+                floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
+              />
+            </ValueCell>
+          </FieldGroupGrid>
+        </Cell>
+        <Cell area="identifierGroup">
+          <FieldGroupGrid>
+            <SystemCell>
+              <SelectField
+                fullWidth
+                name="identifierSystem"
+                floatingLabelText={<FormattedMessage {...messages.identifierSystemTypeFloatingLabelText} />}
+              >
+                {identifierSystems && identifierSystems.map((identifierSystem) => (
+                  <MenuItem key={uniqueId()} value={identifierSystem.display} primaryText={identifierSystem.display} />
+                ))}
+              </SelectField>
+            </SystemCell>
+            <ValueCell>
+              <TextField
+                name="identifierValue"
+                fullWidth
+                hintText={<FormattedMessage {...messages.identifierValueHintText} />}
+                floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
+              />
+            </ValueCell>
+          </FieldGroupGrid>
+        </Cell>
+        <Cell area="contact">
+          <AddMultipleTelecoms {...addTelecomsProps} />
+        </Cell>
+        <Cell area="address1">
+          <TextField
+            name="line1"
+            fullWidth
+            hintText={<FormattedMessage {...messages.address1HintText} />}
+            floatingLabelText={<FormattedMessage {...messages.address1FloatingLabelText} />}
+          />
+        </Cell>
+        <Cell area="address2">
+          <TextField
+            name="line2"
+            fullWidth
+            hintText={<FormattedMessage {...messages.address2HintText} />}
+            floatingLabelText={<FormattedMessage {...messages.address2FloatingLabelText} />}
+          />
+        </Cell>
+        <Cell area="city">
+          <TextField
+            name="city"
+            fullWidth
+            hintText={<FormattedMessage {...messages.cityHintText} />}
+            floatingLabelText={<FormattedMessage {...messages.cityFloatingLabelText} />}
+          />
+        </Cell>
+        <Cell area="state">
+          <SelectField
+            name="stateCode"
+            fullWidth
+            floatingLabelText={<FormattedMessage {...messages.statesFloatingLabelText} />}
+          >
+            {uspsStates && uspsStates.map((uspsState) => (
+              <MenuItem key={uniqueId()} value={uspsState.code} primaryText={uspsState.display} />
+            ))}
+          </SelectField>
+        </Cell>
+        <Cell area="postalCode">
+          <TextField
+            name="postalCode"
+            fullWidth
+            hintText={<FormattedMessage {...messages.postalCodeHintText} />}
+            floatingLabelText={<FormattedMessage {...messages.postalCodeFloatingLabelText} />}
+          />
+        </Cell>
+        <Cell area="addressUse">
+          <SelectField
+            fullWidth
+            name="use"
+            floatingLabelText={<FormattedMessage {...messages.addressUseFloatingLabelText} />}
+          >
+            {addressUses && addressUses.map((addressUse) => (
+              <MenuItem key={uniqueId()} value={addressUse.use} primaryText={addressUse.display} />
+            ))}
+          </SelectField>
+        </Cell>
+        <Cell area="buttonGroup">
+          <Grid columns={2}>
+            <Cell>
+              <StyledRaisedButton
+                fullWidth
+                label="Save"
+                type="submit"
+                disabled={!dirty || isSubmitting || !isValid}
+              />
+            </Cell>
+            <Cell>
+              <StyledFlatButton
+                fullWidth
+                type="button"
+                label="Cancel"
+                default
+                disabled={isSubmitting}
+                containerElement={<Link to={HOME_URL} />}
+              />
+            </Cell>
+          </Grid>
+        </Cell>
+        <Cell area="errorMessage">
+          {error ?
+            <ErrorText><FormattedMessage {...messages.saveLocationError} /></ErrorText> : ''}
+        </Cell>
+      </ManageLocationFormGrid>
+    </Form>
   );
 }
 

@@ -14,7 +14,7 @@ const StyledRaisedButton = styled(RaisedButton).attrs({
   style: {
     fontSize: '12px',
     fontWeight: 'bold',
-    width: '50px',
+    width: '150px',
   },
 })('');
 

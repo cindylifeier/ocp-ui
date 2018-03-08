@@ -11,69 +11,72 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import uniqueId from 'lodash/uniqueId';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import RelatedPersonTable from 'components/RelatedPersonTable';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
-import RelatedPersonTable from '../../components/RelatedPersonTable';
-import styles from './styles.css';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
+
   componentDidMount() {
     this.props.initializeRelatedPersons();
   }
+
   getPatientName(patient) {
     const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
     const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
     return fullName;
   }
+
   handlePageClick(pageNumber) {
     this.props.getRelatedPersons(this.props.selectedPatient.id, true, pageNumber);
   }
+
   render() {
     const { data, selectedPatient, loading } = this.props;
     return (
-      <div className={styles.card}>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(data.elements) ?
           <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4> :
-          <div className={styles.gridContainer}>
-            <div className={styles.patientInfoSection}>
-              <div className={styles.patientLabel}>
-                Patient&nbsp;:&nbsp;
-              </div>
-              {this.getPatientName(selectedPatient)}
-            </div>
+          <div>
+            <InfoSection>
+              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                <FormattedMessage {...messages.labelPatientName} />&nbsp;
+              </InlineLabel>
+              <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(selectedPatient)}</span>
+            </InfoSection>
             {loading && <RefreshIndicatorLoading />}
-            <RelatedPersonTable relatedPersons={data.elements} selectedPatientId={selectedPatient.id}></RelatedPersonTable>
-            <div className={styles.textCenter}>
-              <UltimatePagination
-                currentPage={data.currentPage}
-                totalPages={data.totalNumberOfPages}
-                boundaryPagesRange={1}
-                siblingPagesRange={1}
-                hidePreviousAndNextPageLinks={false}
-                hideFirstAndLastPageLinks={false}
-                hideEllipsis={false}
-                onChange={this.handlePageClick}
-              />
-            </div>
+            <RelatedPersonTable
+              relatedPersons={data.elements}
+              selectedPatientId={selectedPatient.id}
+            />
+            <CenterAlignedUltimatePagination
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              onChange={this.handlePageClick}
+            />
           </div>
         }
-      </div>
+      </Card>
     );
   }
 }

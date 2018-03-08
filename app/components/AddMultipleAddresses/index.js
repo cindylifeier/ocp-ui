@@ -56,7 +56,7 @@ class AddMultipleAddresses extends React.PureComponent {
     return (
       <div>
         <Section>
-          <FormSubtitle subtitleMargin="1vh 0 0 0">
+          <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
           <AddAddressesButton

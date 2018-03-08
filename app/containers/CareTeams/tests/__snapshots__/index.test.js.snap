@@ -98,23 +98,30 @@ ShallowWrapper {
           gap=""
         >
           <Cell__Cell>
-            <PatientInfoSection__PatientInfoSection>
-              <PatientLabel__PatientLabel>
+            <InfoSection__InfoSection
+              margin="10px 10px"
+            >
+              <InlineLabel__InlineLabel
+                htmlFor="patient_name_1"
+              >
                 <FormattedMessage
-                  defaultMessage="Patient"
+                  defaultMessage="Patient:"
                   id="ocpui.containers.CareTeams.patientLabel"
                   values={Object {}}
                 />
-                 : 
-              </PatientLabel__PatientLabel>
-              patientName
-            </PatientInfoSection__PatientInfoSection>
+                 
+              </InlineLabel__InlineLabel>
+              <span
+                id="patient_name_1"
+              >
+                patientName
+              </span>
+            </InfoSection__InfoSection>
           </Cell__Cell>
           <Cell__Cell>
             <FilterSection__FilterSection>
-              <styled.div
+              <CheckboxFilterGrid
                 columns="60px repeat(1,120px) 180px 1fr"
-                gap=""
               >
                 <Cell__Cell>
                   <styled.div>
@@ -145,7 +152,7 @@ ShallowWrapper {
                     />
                   </styled.div>
                 </Cell__Cell>
-              </styled.div>
+              </CheckboxFilterGrid>
             </FilterSection__FilterSection>
           </Cell__Cell>
         </Grid__Grid>,
@@ -209,23 +216,30 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <Cell__Cell>
-              <PatientInfoSection__PatientInfoSection>
-                <PatientLabel__PatientLabel>
+              <InfoSection__InfoSection
+                margin="10px 10px"
+              >
+                <InlineLabel__InlineLabel
+                  htmlFor="patient_name_1"
+                >
                   <FormattedMessage
-                    defaultMessage="Patient"
+                    defaultMessage="Patient:"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
-                   : 
-                </PatientLabel__PatientLabel>
-                patientName
-              </PatientInfoSection__PatientInfoSection>
+                   
+                </InlineLabel__InlineLabel>
+                <span
+                  id="patient_name_1"
+                >
+                  patientName
+                </span>
+              </InfoSection__InfoSection>
             </Cell__Cell>,
             <Cell__Cell>
               <FilterSection__FilterSection>
-                <styled.div
+                <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -256,7 +270,7 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>
+                </CheckboxFilterGrid>
               </FilterSection__FilterSection>
             </Cell__Cell>,
           ],
@@ -270,17 +284,25 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": <PatientInfoSection__PatientInfoSection>
-                <PatientLabel__PatientLabel>
+              "children": <InfoSection__InfoSection
+                margin="10px 10px"
+              >
+                <InlineLabel__InlineLabel
+                  htmlFor="patient_name_1"
+                >
                   <FormattedMessage
-                    defaultMessage="Patient"
+                    defaultMessage="Patient:"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
-                   : 
-                </PatientLabel__PatientLabel>
-                patientName
-              </PatientInfoSection__PatientInfoSection>,
+                   
+                </InlineLabel__InlineLabel>
+                <span
+                  id="patient_name_1"
+                >
+                  patientName
+                </span>
+              </InfoSection__InfoSection>,
             },
             "ref": null,
             "rendered": Object {
@@ -289,16 +311,23 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <PatientLabel__PatientLabel>
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
                     <FormattedMessage
-                      defaultMessage="Patient"
+                      defaultMessage="Patient:"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
-                     : 
-                  </PatientLabel__PatientLabel>,
-                  "patientName",
+                     
+                  </InlineLabel__InlineLabel>,
+                  <span
+                    id="patient_name_1"
+                  >
+                    patientName
+                  </span>,
                 ],
+                "margin": "10px 10px",
               },
               "ref": null,
               "rendered": Array [
@@ -309,12 +338,13 @@ ShallowWrapper {
                   "props": Object {
                     "children": Array [
                       <FormattedMessage
-                        defaultMessage="Patient"
+                        defaultMessage="Patient:"
                         id="ocpui.containers.CareTeams.patientLabel"
                         values={Object {}}
                       />,
-                      " : ",
+                      " ",
                     ],
+                    "htmlFor": "patient_name_1",
                   },
                   "ref": null,
                   "rendered": Array [
@@ -323,7 +353,7 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "class",
                       "props": Object {
-                        "defaultMessage": "Patient",
+                        "defaultMessage": "Patient:",
                         "id": "ocpui.containers.CareTeams.patientLabel",
                         "values": Object {},
                       },
@@ -331,11 +361,22 @@ ShallowWrapper {
                       "rendered": null,
                       "type": [Function],
                     },
-                    " : ",
+                    " ",
                   ],
                   "type": [Function],
                 },
-                "patientName",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "patientName",
+                    "id": "patient_name_1",
+                  },
+                  "ref": null,
+                  "rendered": "patientName",
+                  "type": "span",
+                },
               ],
               "type": [Function],
             },
@@ -347,9 +388,8 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <FilterSection__FilterSection>
-                <styled.div
+                <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -380,7 +420,7 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>
+                </CheckboxFilterGrid>
               </FilterSection__FilterSection>,
             },
             "ref": null,
@@ -389,9 +429,8 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <styled.div
+                "children": <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -422,13 +461,13 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>,
+                </CheckboxFilterGrid>,
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "class",
+                "nodeType": "function",
                 "props": Object {
                   "children": Array [
                     <Cell__Cell>
@@ -464,7 +503,6 @@ ShallowWrapper {
                     ],
                   ],
                   "columns": "60px repeat(1,120px) 180px 1fr",
-                  "gap": "",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -718,23 +756,30 @@ ShallowWrapper {
             gap=""
           >
             <Cell__Cell>
-              <PatientInfoSection__PatientInfoSection>
-                <PatientLabel__PatientLabel>
+              <InfoSection__InfoSection
+                margin="10px 10px"
+              >
+                <InlineLabel__InlineLabel
+                  htmlFor="patient_name_1"
+                >
                   <FormattedMessage
-                    defaultMessage="Patient"
+                    defaultMessage="Patient:"
                     id="ocpui.containers.CareTeams.patientLabel"
                     values={Object {}}
                   />
-                   : 
-                </PatientLabel__PatientLabel>
-                patientName
-              </PatientInfoSection__PatientInfoSection>
+                   
+                </InlineLabel__InlineLabel>
+                <span
+                  id="patient_name_1"
+                >
+                  patientName
+                </span>
+              </InfoSection__InfoSection>
             </Cell__Cell>
             <Cell__Cell>
               <FilterSection__FilterSection>
-                <styled.div
+                <CheckboxFilterGrid
                   columns="60px repeat(1,120px) 180px 1fr"
-                  gap=""
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -765,7 +810,7 @@ ShallowWrapper {
                       />
                     </styled.div>
                   </Cell__Cell>
-                </styled.div>
+                </CheckboxFilterGrid>
               </FilterSection__FilterSection>
             </Cell__Cell>
           </Grid__Grid>,
@@ -829,23 +874,30 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <Cell__Cell>
-                <PatientInfoSection__PatientInfoSection>
-                  <PatientLabel__PatientLabel>
+                <InfoSection__InfoSection
+                  margin="10px 10px"
+                >
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
                     <FormattedMessage
-                      defaultMessage="Patient"
+                      defaultMessage="Patient:"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
-                     : 
-                  </PatientLabel__PatientLabel>
-                  patientName
-                </PatientInfoSection__PatientInfoSection>
+                     
+                  </InlineLabel__InlineLabel>
+                  <span
+                    id="patient_name_1"
+                  >
+                    patientName
+                  </span>
+                </InfoSection__InfoSection>
               </Cell__Cell>,
               <Cell__Cell>
                 <FilterSection__FilterSection>
-                  <styled.div
+                  <CheckboxFilterGrid
                     columns="60px repeat(1,120px) 180px 1fr"
-                    gap=""
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -876,7 +928,7 @@ ShallowWrapper {
                         />
                       </styled.div>
                     </Cell__Cell>
-                  </styled.div>
+                  </CheckboxFilterGrid>
                 </FilterSection__FilterSection>
               </Cell__Cell>,
             ],
@@ -890,17 +942,25 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <PatientInfoSection__PatientInfoSection>
-                  <PatientLabel__PatientLabel>
+                "children": <InfoSection__InfoSection
+                  margin="10px 10px"
+                >
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
                     <FormattedMessage
-                      defaultMessage="Patient"
+                      defaultMessage="Patient:"
                       id="ocpui.containers.CareTeams.patientLabel"
                       values={Object {}}
                     />
-                     : 
-                  </PatientLabel__PatientLabel>
-                  patientName
-                </PatientInfoSection__PatientInfoSection>,
+                     
+                  </InlineLabel__InlineLabel>
+                  <span
+                    id="patient_name_1"
+                  >
+                    patientName
+                  </span>
+                </InfoSection__InfoSection>,
               },
               "ref": null,
               "rendered": Object {
@@ -909,16 +969,23 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <PatientLabel__PatientLabel>
+                    <InlineLabel__InlineLabel
+                      htmlFor="patient_name_1"
+                    >
                       <FormattedMessage
-                        defaultMessage="Patient"
+                        defaultMessage="Patient:"
                         id="ocpui.containers.CareTeams.patientLabel"
                         values={Object {}}
                       />
-                       : 
-                    </PatientLabel__PatientLabel>,
-                    "patientName",
+                       
+                    </InlineLabel__InlineLabel>,
+                    <span
+                      id="patient_name_1"
+                    >
+                      patientName
+                    </span>,
                   ],
+                  "margin": "10px 10px",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -929,12 +996,13 @@ ShallowWrapper {
                     "props": Object {
                       "children": Array [
                         <FormattedMessage
-                          defaultMessage="Patient"
+                          defaultMessage="Patient:"
                           id="ocpui.containers.CareTeams.patientLabel"
                           values={Object {}}
                         />,
-                        " : ",
+                        " ",
                       ],
+                      "htmlFor": "patient_name_1",
                     },
                     "ref": null,
                     "rendered": Array [
@@ -943,7 +1011,7 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "class",
                         "props": Object {
-                          "defaultMessage": "Patient",
+                          "defaultMessage": "Patient:",
                           "id": "ocpui.containers.CareTeams.patientLabel",
                           "values": Object {},
                         },
@@ -951,11 +1019,22 @@ ShallowWrapper {
                         "rendered": null,
                         "type": [Function],
                       },
-                      " : ",
+                      " ",
                     ],
                     "type": [Function],
                   },
-                  "patientName",
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "patientName",
+                      "id": "patient_name_1",
+                    },
+                    "ref": null,
+                    "rendered": "patientName",
+                    "type": "span",
+                  },
                 ],
                 "type": [Function],
               },
@@ -967,9 +1046,8 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <FilterSection__FilterSection>
-                  <styled.div
+                  <CheckboxFilterGrid
                     columns="60px repeat(1,120px) 180px 1fr"
-                    gap=""
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1000,7 +1078,7 @@ ShallowWrapper {
                         />
                       </styled.div>
                     </Cell__Cell>
-                  </styled.div>
+                  </CheckboxFilterGrid>
                 </FilterSection__FilterSection>,
               },
               "ref": null,
@@ -1009,9 +1087,8 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <styled.div
+                  "children": <CheckboxFilterGrid
                     columns="60px repeat(1,120px) 180px 1fr"
-                    gap=""
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1042,13 +1119,13 @@ ShallowWrapper {
                         />
                       </styled.div>
                     </Cell__Cell>
-                  </styled.div>,
+                  </CheckboxFilterGrid>,
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "function",
                   "props": Object {
                     "children": Array [
                       <Cell__Cell>
@@ -1084,7 +1161,6 @@ ShallowWrapper {
                       ],
                     ],
                     "columns": "60px repeat(1,120px) 180px 1fr",
-                    "gap": "",
                   },
                   "ref": null,
                   "rendered": Array [

@@ -22,4 +22,3 @@ export const CREATE_LOCATION_ERROR = 'ocpui/ManageLocation/CREATE_LOCATION_ERROR
 *  Other constants
 *
 */
-export const TEXT_MIN_LENGTH = 3;

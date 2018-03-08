@@ -4,9 +4,10 @@
  *
  */
 
-import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import request from '../../utils/request';
-import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
+import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
+import request from 'utils/request';
+import queryString from 'utils/queryString';
+import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 
@@ -15,16 +16,9 @@ export default function searchLocationsByIdAndStatus(organizationId, status, cur
   return request(url);
 }
 
-function createUrl(organizationId, status, currentPage) {
-  const initialParams = `pageNumber=${currentPage}&pageSize=${DEFAULT_PAGE_SIZE}&statusList=active,`;
-  let queryParams = '';
-  const baseUrl = `${baseEndpoint}/${organizationId}`.concat('/locations?');
-  if (status && status.length === 0) {
-    queryParams = initialParams;
-  } else if (status && status.length === 1) {
-    queryParams = `${initialParams}${status[0]}`;
-  } else if (status && status.length === 2) {
-    queryParams = `${initialParams}${status[0]},${status[1]}`;
-  }
+function createUrl(organizationId, statusList, pageNumber) {
+  const params = { pageNumber, statusList, pageSize: DEFAULT_PAGE_SIZE };
+  const queryParams = queryString(params);
+  const baseUrl = `${baseEndpoint}/${organizationId}`.concat('/locations');
   return baseUrl.concat(queryParams);
 }
