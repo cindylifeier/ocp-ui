@@ -43,8 +43,12 @@ function SearchBar(props) {
 }
 
 SearchBar.propTypes = {
-  minimumLength: PropTypes.number.isRequired,
+  minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
+};
+
+SearchBar.defaultProps = {
+  minimumLength: 3,
 };
 
 export default SearchBar;

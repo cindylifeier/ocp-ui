@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
 import queryString from 'query-string';
@@ -18,24 +17,26 @@ import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import ManageCareTeam from 'components/ManageCareTeam';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from 'containers/App/constants';
+import { getLookupsAction, getPatient } from 'containers/App/actions';
+import SearchParticipant from 'containers/SearchParticipant';
+import { makeSelectSelectedParticipants } from 'containers/SearchParticipant/selectors';
+import { initializeSearchParticipantResult, removeParticipant } from 'containers/SearchParticipant/actions';
+import {
+  makeSelectCareTeamCategories,
+  makeSelectCareTeamReasons,
+  makeSelectCareTeamStatuses,
+} from 'containers/App/lookupSelectors';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { getCareTeam, initializeManageCareTeam, saveCareTeam } from './actions';
 import { makeSelectCareTeam } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import ManageCareTeam from '../../components/ManageCareTeam';
-import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from '../App/constants';
-import { getLookupsAction, getPatient } from '../App/actions';
 import messages from './messages';
-import styles from './styles.css';
-import SearchParticipant from '../SearchParticipant';
-import { makeSelectSelectedParticipants } from '../SearchParticipant/selectors';
-import { initializeSearchParticipantResult, removeParticipant } from '../SearchParticipant/actions';
 import { mapToEditParticipants } from './api';
-import {
-  makeSelectCareTeamCategories, makeSelectCareTeamReasons,
-  makeSelectCareTeamStatuses,
-} from '../App/lookupSelectors';
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 
 export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -127,34 +128,32 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
     };
 
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Manage CareTeam</title>
           <meta name="description" content="Manage CareTeam page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            {editMode ? <FormattedMessage {...messages.updateHeader} />
-              : <FormattedMessage {...messages.createHeader} />}
-          </div>
-          <Divider />
-          <ManageCareTeam
-            {...manageCareTeamProps}
-            onSave={this.handleSave}
-            removeParticipant={this.handleRemoveParticipant}
-            handleOpen={this.handleOpen}
-          />
-          {((editMode && careTeam) || !editMode) &&
-          <SearchParticipant
-            initialSelectedParticipants={initialSelectedParticipants}
-            isOpen={this.state.open}
-            handleOpen={this.handleOpen}
-            handleClose={this.handleClose}
-          >
-          </SearchParticipant>
-          }
-        </div>
-      </div>
+        <PageHeader
+          title={editMode ?
+            <FormattedMessage {...messages.updateHeader} />
+            : <FormattedMessage {...messages.createHeader} />}
+        />
+        <ManageCareTeam
+          {...manageCareTeamProps}
+          onSave={this.handleSave}
+          removeParticipant={this.handleRemoveParticipant}
+          handleOpen={this.handleOpen}
+        />
+        {((editMode && careTeam) || !editMode) &&
+        <SearchParticipant
+          initialSelectedParticipants={initialSelectedParticipants}
+          isOpen={this.state.open}
+          handleOpen={this.handleOpen}
+          handleClose={this.handleClose}
+        >
+        </SearchParticipant>
+        }
+      </Page>
     );
   }
 }

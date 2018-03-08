@@ -4,15 +4,19 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import { teal500, white } from 'material-ui/styles/colors';
-import styles from './styles.css';
-import messages from './messages';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
+import uniqueId from 'lodash/uniqueId';
+import { Cell, Grid } from 'styled-css-grid';
 
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import FormSubtitle from 'components/FormSubtitle';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
+import { HOME_URL } from 'containers/App/constants';
+import messages from './messages';
+import ManageHealthcareServiceFormGrid from './ManageHealthcareServiceFormGrid';
 
 function ManageHealthcareServiceForm(props) {
   const {
@@ -25,37 +29,36 @@ function ManageHealthcareServiceForm(props) {
     telecomSystems,
     isSubmitting, dirty, isValid, editMode,
   } = props;
+  const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   return (
     <div>
-      <div className={styles.title}>
+      <FormSubtitle>
         <FormattedMessage {...messages.title} />
-      </div>
+      </FormSubtitle>
       <Form>
-        <div className={styles.organizationInfoSection}>
-          <div className={styles.organizationInfoLabel}>
-            {<FormattedMessage {...messages.hintText.organizationNameLabel} />}
-          </div>
-          <div className={styles.organizationName}>
-            {organization.name}
-          </div>
-        </div>
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.name}`}>
+        <InfoSection margin="3vh 0 0 2vw">
+          <InlineLabel htmlFor={ORGANIZATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.hintText.organizationNameLabel} />&nbsp;
+          </InlineLabel>
+          <span id={ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+        </InfoSection>
+        <ManageHealthcareServiceFormGrid>
+          <Cell area="name">
             <TextField
               fullWidth
               name="name"
               hintText={<FormattedMessage {...messages.hintText.name} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.name} />}
             />
-          </div>
-          <div className={`${styles.gridItem} ${styles.programName}`}>
+          </Cell>
+          <Cell area="programName">
             <TextField
               fullWidth
               name="hcsProgramName"
               hintText={<FormattedMessage {...messages.hintText.programName} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.programName} />}
             />
-          </div>
+          </Cell>
           {editMode &&
           <SelectField
             fullWidth
@@ -64,11 +67,11 @@ function ManageHealthcareServiceForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
           >
             {healthcareServiceStatuses && healthcareServiceStatuses.map((hcsStatus) =>
-              (<MenuItem key={hcsStatus.code} value={hcsStatus.code} primaryText={hcsStatus.display} />)
+              (<MenuItem key={hcsStatus.code} value={hcsStatus.code} primaryText={hcsStatus.display} />),
             )}
           </SelectField>
           }
-          <div className={`${styles.gridItem} ${styles.serviceGroup}`}>
+          <Cell area="category">
             <SelectField
               fullWidth
               name="category"
@@ -76,9 +79,11 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.category} />}
             >
               {healthcareServiceCategories && healthcareServiceCategories.map((hcsCategory) =>
-                (<MenuItem key={hcsCategory.code} value={hcsCategory.code} primaryText={hcsCategory.display} />)
+                (<MenuItem key={hcsCategory.code} value={hcsCategory.code} primaryText={hcsCategory.display} />),
               )}
             </SelectField>
+          </Cell>
+          <Cell area="hcsType">
             <SelectField
               fullWidth
               name="hcsType"
@@ -86,9 +91,11 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.type} />}
             >
               {healthcareServiceTypes && healthcareServiceTypes.map((type) =>
-                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />),
               )}
             </SelectField>
+          </Cell>
+          <Cell area="hcsSpecialty">
             <SelectField
               fullWidth
               name="hcsSpecialty"
@@ -96,9 +103,11 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.specialty} />}
             >
               {healthcareServiceSpecialities && healthcareServiceSpecialities.map((type) =>
-                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />),
               )}
             </SelectField>
+          </Cell>
+          <Cell area="hcsReferralMethod">
             <SelectField
               fullWidth
               name="hcsReferralMethod"
@@ -106,11 +115,11 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.referralMethod} />}
             >
               {healthcareServiceReferralMethods && healthcareServiceReferralMethods.map((type) =>
-                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />)
+                (<MenuItem key={type.code} value={type.code} primaryText={type.display} />),
               )}
             </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.contactGroup}`}>
+          </Cell>
+          <Cell area="telecomType">
             <SelectField
               fullWidth
               name="telecomType"
@@ -118,34 +127,40 @@ function ManageHealthcareServiceForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
             >
               {telecomSystems && telecomSystems.map((telecomType) =>
-                (<MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />)
+                (<MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />),
               )}
             </SelectField>
+          </Cell>
+          <Cell area="telecomValue">
             <TextField
               fullWidth
               name="telecomValue"
               hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
             />
-          </div>
-          <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-            <RaisedButton
-              fullWidth
-              type="submit"
-              label="Save"
-              backgroundColor={teal500}
-              labelColor={white}
-              disabled={!dirty || isSubmitting || !isValid}
-            />
-            <FlatButton
-              fullWidth
-              label="Cancel"
-              default
-              disabled={isSubmitting}
-              containerElement={<Link to={HOME_URL} />}
-            />
-          </div>
-        </div>
+          </Cell>
+          <Cell area="buttonGroup">
+            <Grid columns={2}>
+              <Cell>
+                <StyledRaisedButton
+                  fullWidth
+                  type="submit"
+                  label="Save"
+                  disabled={!dirty || isSubmitting || !isValid}
+                />
+              </Cell>
+              <Cell>
+                <StyledFlatButton
+                  fullWidth
+                  label="Cancel"
+                  default
+                  disabled={isSubmitting}
+                  containerElement={<Link to={HOME_URL} />}
+                />
+              </Cell>
+            </Grid>
+          </Cell>
+        </ManageHealthcareServiceFormGrid>
       </Form>
     </div>
   );
