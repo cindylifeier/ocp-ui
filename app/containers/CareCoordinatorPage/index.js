@@ -18,8 +18,8 @@ export class CareCoordinatorPage extends React.PureComponent { // eslint-disable
     return (
       <div>
         <Helmet>
-          <title>CareCoordinatorPage</title>
-          <meta name="description" content="Description of CareCoordinatorPage" />
+          <title>Care Coordinator</title>
+          <meta name="description" content="Care Coordinator page of Omnibus Care Plan application" />
         </Helmet>
         <FormattedMessage {...messages.header} />
       </div>
