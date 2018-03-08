@@ -1,5 +1,5 @@
-import request from '../../utils/request';
-import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 const headers = {
@@ -27,21 +27,8 @@ export function updateOrganizationApiCall(id, organizationFormData) {
 }
 
 function mapToBackendOrganization(organizationFormData) {
-  const { name, identifierSystem, identifierValue, status, line1, line2, city, stateCode, postalCode, telecomSystem, telecomValue } = organizationFormData;
+  const { name, identifierSystem, identifierValue, status, addresses, telecoms } = organizationFormData;
   const active = status === 'true';
-  const address = {
-    line1,
-    line2,
-    city,
-    stateCode,
-    postalCode,
-  };
-  const addresses = [address];
-  const telecom = {
-    system: telecomSystem,
-    value: telecomValue,
-  };
-  const telecoms = [telecom];
   const identifier = {
     system: identifierSystem,
     value: identifierValue,

@@ -1,12 +1,13 @@
-import { call, put, takeEvery, takeLatest, select, all } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import isEmpty from 'lodash/isEmpty';
 import { push } from 'react-router-redux';
-import { getLookupTypesNotInStore } from '../../utils/LookupService';
+
+import { getLookupTypesNotInStore } from 'utils/LookupService';
+import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
+import { showNotification } from 'containers/Notification/actions';
 import { fetchLookups, getPatient, getPatientById } from './api';
-import { GET_PATIENT, PATIENTS_URL, GET_LOOKUPS } from './constants';
-import { makeSelectPatientSearchResult } from '../Patients/selectors';
+import { GET_LOOKUPS, GET_PATIENT, PATIENTS_URL } from './constants';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess, getPatientSuccess } from './actions';
-import { showNotification } from '../Notification/actions';
 
 
 export function* getLookups(action) {

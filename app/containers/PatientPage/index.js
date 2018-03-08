@@ -11,16 +11,19 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import { getPatient } from '../App/actions';
-import renderNotFoundComponent from '../NotFoundPage/render';
-import renderTasksComponent from '../Tasks/render';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { getPatient } from 'containers/App/actions';
+import { getTasks } from 'containers/Tasks/actions';
+import renderNotFoundComponent from 'containers/NotFoundPage/render';
+import renderTasksComponent from 'containers/Tasks/render';
+import GoldenLayout from 'components/GoldenLayout';
+import PatientDetails from 'components/PatientDetails';
+import { mapToPatientName } from 'utils/PatientUtils';
 import renderCommunicationsComponent from '../Communications/render';
-import GoldenLayout from '../../components/GoldenLayout';
 import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
 
-const initialStateMetadata =
+export const initialStateMetadata =
   {
     settings: {
       hasHeaders: true,
@@ -125,7 +128,7 @@ const initialStateMetadata =
     maximisedItemId: null,
   };
 
-const componentMetadata = [
+export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   // TODO: will replace with Communications and Appointments render component
@@ -138,10 +141,18 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
     const patientId = this.props.match.params.id;
     if (patientId) {
       this.props.getPatient(patientId);
+      const searchType = 'patientId';
+      const query = { searchValue: patientId, searchType };
+      const selectedPatientName = mapToPatientName(this.props.selectedPatient);
+      // TODO: Resolve delay issue
+      // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
+      setTimeout(() => this.props.getTasks(query, selectedPatientName), 500);
     }
   }
 
   render() {
+    const { selectedPatient } = this.props;
+    const patientDetailsProps = { selectedPatient };
     return (
       <div>
         <Helmet>
@@ -151,7 +162,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 
         <PatientPageGrid columns={1}>
           <PatientPageCell>
-            <h3>Patient Details Placeholder</h3>
+            <PatientDetails {...patientDetailsProps} />
           </PatientPageCell>
           <PatientPageCell>
             <GoldenLayout
@@ -169,11 +180,18 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 
 PatientPage.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.object,
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
     path: PropTypes.string,
     url: PropTypes.string,
-  }),
+  }).isRequired,
   getPatient: PropTypes.func.isRequired,
+  getTasks: PropTypes.func.isRequired,
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -183,6 +201,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getPatient: (patientId) => dispatch(getPatient(patientId)),
+    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
   };
 }
 

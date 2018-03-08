@@ -4,12 +4,16 @@
 
 import { memoryHistory } from 'react-router-dom';
 import { put } from 'redux-saga/effects';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import React from 'react';
+import 'mock-local-storage';
 
 import configureStore from '../../configureStore';
 import injectSaga from '../injectSaga';
 import * as sagaInjectors from '../sagaInjectors';
+
+configure({ adapter: new Adapter() });
 
 // Fixtures
 const Component = () => null;

@@ -1,8 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import { Route } from 'react-router-dom';
+import 'mock-local-storage';
 
-import App from '../index';
+import { App } from '../index';
+
+configure({ adapter: new Adapter() });
 
 describe('<App />', () => {
   it('should render some routes', () => {
