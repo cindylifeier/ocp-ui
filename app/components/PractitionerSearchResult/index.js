@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import find from 'lodash/find';
 import RefreshIndicatorLoading from '../RefreshIndicatorLoading';
 import styles from './styles.css';
 import { EMPTY_STRING, MANAGE_PRACTITIONER_URL } from '../../containers/App/constants';
@@ -30,7 +31,7 @@ const iconStyles = {
 };
 
 // import styled from 'styled-components';
-function PractitionerSearchResult({ loading, error, searchResult }) {
+function PractitionerSearchResult({ loading, error, searchResult, identifierSystems }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -49,7 +50,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
           <div className={styles.cellGridHeaderItem}>Identifier</div>
           <div />
         </div>
-        {displayPractitionerSearchResult(searchResult)}
+        {displayPractitionerSearchResult(searchResult, identifierSystems)}
       </div>
     );
   }
@@ -57,7 +58,7 @@ function PractitionerSearchResult({ loading, error, searchResult }) {
   return (<div />);
 }
 
-function displayPractitionerSearchResult(practitioners) {
+function displayPractitionerSearchResult(practitioners, identifierSystems) {
   return (
     practitioners && practitioners.map((practitioner) => (
       <div key={uniqueId()} className={styles.rowGridContainer}>
@@ -68,7 +69,7 @@ function displayPractitionerSearchResult(practitioners) {
           {practitioner.name[0].lastName ? practitioner.name[0].lastName : ''}
         </div>
         <div className={styles['cell-grid-item']}>{practitioner.active ? 'Active' : 'Inactive'}</div>
-        <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner)}</div>
+        <div className={styles['cell-grid-item']}>{mapToIdentifier(practitioner, identifierSystems)}</div>
         <IconMenu
           iconButtonElement={
             (<IconButton
@@ -94,13 +95,14 @@ function displayPractitionerSearchResult(practitioners) {
 }
 
 // Todo: Refactor to make reuseable
-function mapToIdentifier(practitioner) {
+function mapToIdentifier(practitioner, identifierSystems) {
   const identifiers = practitioner.identifiers;
   return identifiers && identifiers
     .map((identifier) => {
       const system = identifier.system !== EMPTY_STRING ? identifier.system : 'No system found';
+      const display = find(identifierSystems, { uri: system }) !== null ? find(identifierSystems, { uri: system }).display : system;
       const value = identifier.value !== EMPTY_STRING ? identifier.value : 'No value found';
-      return `${system}: ${value}`;
+      return `${display}: ${value}`;
     })
     .join(', ');
 }
@@ -109,6 +111,7 @@ PractitionerSearchResult.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
   searchResult: PropTypes.any,
+  identifierSystems: PropTypes.array,
 };
 
 export default PractitionerSearchResult;
