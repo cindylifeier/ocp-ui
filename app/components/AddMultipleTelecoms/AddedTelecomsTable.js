@@ -11,7 +11,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import StyledCustomErrorText from 'components/StyledCustomErrorText';
+import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
 function AddedTelecomsTable(props) {
@@ -32,7 +32,7 @@ function AddedTelecomsTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.addedTelecomsTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {errors && errors.telecoms &&
-        <StyledCustomErrorText>{errors.telecoms}</StyledCustomErrorText>
+        <CustomErrorText>{errors.telecoms}</CustomErrorText>
         }
         {telecoms && telecoms.map((telecom, index) => {
           const { system, value } = telecom;

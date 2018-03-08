@@ -3,12 +3,13 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import StyledCustomErrorText from '../index';
+// import CustomErrorText from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<StyledCustomErrorText />', () => {
+describe('<CustomErrorText />', () => {
   it('Expect to have unit tests specified', () => {
+    // FIXME: add unit tests
     // expect(true).toEqual(false);
   });
 });
