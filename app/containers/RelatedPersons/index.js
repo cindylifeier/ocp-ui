@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
-import { getPatientName } from 'utils/patientUtils';
+import { getPatientName } from 'utils/PatientUtils';
 import injectReducer from 'utils/injectReducer';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';

@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import Util from 'utils/Util';
-import { getPatientName } from 'utils/patientUtils';
+import { getPatientName } from 'utils/PatientUtils';
 import { isUndefined } from 'lodash';
 import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
@@ -98,7 +98,7 @@ ManageCommunication.propTypes = {
   episodeOfCares: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
-  communication: PropTypes.object.isRequired,
+  communication: PropTypes.object,
   handleRemoveRecipient: PropTypes.func.isRequired,
 };
 
@@ -130,8 +130,8 @@ function setInitialValues(communication, selectedPatient) {
 
 function mapToSender(selectedPatient, fieldName) {
   const fieldObject = {};
-  if (!isUndefined(fieldName)) {
-    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(selectedPatient));
+  if (!isUndefined(fieldName) && selectedPatient.name && selectedPatient.name.length > 0) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(selectedPatient.name[0]));
   }
   return fieldObject;
 }

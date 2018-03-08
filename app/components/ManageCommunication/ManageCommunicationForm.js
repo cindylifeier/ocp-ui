@@ -14,7 +14,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn/index';
 import TableRowColumn from 'components/TableRowColumn/index';
 import TableRow from 'components/TableRow/index';
 import { getRoleName } from 'utils/CommunicationUtils';
-import { getPatientName } from 'utils/patientUtils';
+import { getPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import FormGrid from '../FormGrid';
 import FormCell from '../FormCell';
