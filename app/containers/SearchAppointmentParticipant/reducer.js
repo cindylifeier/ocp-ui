@@ -15,7 +15,10 @@ import { REMOVE_PARTICIPANT } from 'containers/SearchParticipant/constants';
 import { fromJS } from 'immutable';
 import { filter, uniqBy } from 'lodash';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  searchParticipantResult: [],
+  selectedParticipants: [],
+});
 
 function searchAppointmentParticipantReducer(state = initialState, action) {
   switch (action.type) {
