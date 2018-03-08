@@ -12,11 +12,8 @@ export function fromBackendToFrontendOrganization(org) {
       .filter((i) => i && i !== '')
       .join(', ');
   }
-  // format telephone
-  const [firstTelecom] = telecoms;
-  const { value: telephone } = firstTelecom || { value: '' };
   // format status
   const status = statusBool ? 'Active' : 'Inactive';
-  const rs = { name, address, telephone, id, status, identifiers };
+  const rs = { name, address, telecoms, id, status, identifiers };
   return rs;
 }

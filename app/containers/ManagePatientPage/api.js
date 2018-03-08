@@ -1,6 +1,6 @@
-import request from '../../utils/request';
-import { EMPTY_STRING } from '../App/constants';
-import { BASE_PATIENTS_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import { EMPTY_STRING } from 'containers/App/constants';
 
 const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
@@ -29,17 +29,6 @@ export function putPatient(patientFormData) {
 export function getPatient(patientId) {
   const requestURL = `${baseEndpoint}/${patientId}`;
   return request(requestURL);
-}
-
-export function mapToPatientName(patient) {
-  const names = patient.name;
-  return names && names
-    .map((name) => {
-      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
-      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      return `${firstName} ${lastName}`;
-    })
-    .join(', ');
 }
 
 function mapToBackendPatient(patientFormData) {

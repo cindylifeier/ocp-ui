@@ -111,10 +111,12 @@ export const DEFAULT_START_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 10;
 
 /**
- *  Min input field length.
- * @type {number}
+ *  Constants to hold the form validation
  */
 export const TEXT_MIN_LENGTH = 3;
+export const POSTAL_CODE_PATTERN = '^\\d{5}(?:[-\\s]\\d{4})?$';
+export const PHONE_PATTERN = '^[(]{0,1}[0-9]{3}[)]{0,1}[-s.]{0,1}[0-9]{3}[-s.]{0,1}[0-9]{4}$';
+
 /**
  *  Constants to hold the configuration for date picker
  * @type {object}
@@ -130,3 +132,4 @@ export const DATE_PICKER_MODE = {
 export const ENTER_KEY = 'Enter';
 export const EMPTY_STRING = '';
 export const WHITE_SPACE = ' ';
+

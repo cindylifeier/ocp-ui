@@ -10,16 +10,17 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
 
+import { mapToOrganizationTelecoms } from 'utils/OrganizationUtils';
+import { ENTER_KEY } from 'containers/App/constants';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
-import { ENTER_KEY } from '../../containers/App/constants';
-import StyledMenuItem from '../StyledMenuItem';
-import NavigationStyledIconMenu from '../StyledIconMenu/NavigationStyledIconMenu';
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 
@@ -33,12 +34,12 @@ function OrganizationTable({ organizations, onRowClick }) {
       <TableHeader columns={tableColumns}>
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelephone} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
       </TableHeader>
       {!isEmpty(organizations) && organizations.map((org) => {
-        const { name, address, telephone, id, identifiers, status } = org;
+        const { name, address, id, identifiers, status } = org;
         return (
           <TableRow
             columns={tableColumns}
@@ -57,28 +58,28 @@ function OrganizationTable({ organizations, onRowClick }) {
           >
             <TableRowColumn>{name}</TableRowColumn>
             <TableRowColumn>{address}</TableRowColumn>
-            <TableRowColumn>{telephone}</TableRowColumn>
+            <TableRowColumn>{mapToOrganizationTelecoms(org)}</TableRowColumn>
             <TableRowColumn>{renderIdentifiers(identifiers)}</TableRowColumn>
             <TableRowColumn>{status}</TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.edit} />}
                   containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.addLocation} />}
                   containerElement={<Link to={'/ocp-ui/manage-location'} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.addHealthCareService} />}
                   containerElement={<Link to={'/ocp-ui/manage-healthcare-service'} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.addActivityDefinition} />}
                   containerElement={<Link to={'/ocp-ui/manage-activity-definition'} />}
                 />
-                <StyledMenuItem
+                <MenuItem
                   primaryText={<FormattedMessage {...messages.remove} />}
                 />
               </NavigationStyledIconMenu>
@@ -94,7 +95,10 @@ OrganizationTable.propTypes = {
   organizations: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     address: PropTypes.string,
-    telephone: PropTypes.string,
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+    })),
     id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
   })).isRequired,

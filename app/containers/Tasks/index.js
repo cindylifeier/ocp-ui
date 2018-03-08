@@ -15,14 +15,14 @@ import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import TaskTable from 'components/TaskTable';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import styles from './styles.css';
 import { cancelTask, getTasks, initializeTasks } from './actions';
-import TaskTable from '../../components/TaskTable';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -37,8 +37,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   handlePageClick(page) {
-    const { query, patientName } = this.props.tasks;
-    this.props.getTasks({ ...query, pageNumber: page }, patientName);
+    const { query, patientName, patientId } = this.props.tasks;
+    this.props.getTasks({ ...query, pageNumber: page }, patientName, patientId);
   }
 
   cancelTask(logicalId) {
@@ -46,13 +46,13 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { tasks: { loading, data, patientName } } = this.props;
+    const { tasks: { loading, data, patientName, patientId } } = this.props;
     return (
       <div className={styles.card}>
         <div className={styles.header}>
           <FormattedMessage {...messages.header} />
         </div>
-        {isEmpty(patientName) ?
+        {isEmpty(data) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <div className={styles.gridContainer}>
             <div className={styles.patientInfoSection}>
@@ -67,14 +67,14 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && isEmpty(data) &&
+        {!loading && !isEmpty(patientName) && !isEmpty(patientId) && isEmpty(data) &&
         <div className={styles.noTask}>
           <FormattedMessage {...messages.noTasksFound} />
         </div>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div className={styles.textCenter}>
-          <TaskTable elements={data.elements} cancelTask={this.cancelTask} />
+          <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
           <UltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
@@ -100,6 +100,7 @@ Tasks.propTypes = {
     loading: PropTypes.bool.isRequired,
     query: PropTypes.object,
     patientName: PropTypes.string,
+    patientId: PropTypes.string,
   }),
 };
 
@@ -109,7 +110,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
+    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };

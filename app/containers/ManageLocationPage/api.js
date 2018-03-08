@@ -1,5 +1,5 @@
-import request from '../../utils/request';
-import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from 'utils/endpointService';
 
 export default function createLocation(location, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
@@ -46,8 +46,7 @@ function mapToBffLocation(rawlocation) {
     priority: '',
     display: '',
   }];
-  const { telecomSystem, telecomUse, telecomSystemValue } = rawlocation;
-  location.telecoms = [{ system: telecomSystem, use: telecomUse, value: telecomSystemValue }];
+  location.telecoms = rawlocation.telecoms;
   const { line1, line2, city, stateCode, postalCode, use } = rawlocation;
   location.address = { line1, line2, city, stateCode, postalCode, use, countryCode: 'US' };
   return location;
