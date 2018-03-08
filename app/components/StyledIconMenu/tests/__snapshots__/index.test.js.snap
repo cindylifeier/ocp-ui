@@ -11,8 +11,25 @@ ShallowWrapper {
       </StyledIconButton__StyledIconButton>
     }
   >
-    <StyledMenuItem__StyledMenuItem
+    <MenuItem
+      anchorOrigin={
+        Object {
+          "horizontal": "right",
+          "vertical": "top",
+        }
+      }
+      checked={false}
+      desktop={false}
+      disabled={false}
+      focusState="none"
+      insetChildren={false}
       primaryText="primaryText"
+      targetOrigin={
+        Object {
+          "horizontal": "left",
+          "vertical": "top",
+        }
+      }
     />
   </Styled(IconMenu)>,
   Symbol(enzyme.__renderer__): Object {
@@ -32,8 +49,25 @@ ShallowWrapper {
         "vertical": "top",
       },
       "animated": true,
-      "children": <StyledMenuItem__StyledMenuItem
+      "children": <MenuItem
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "top",
+          }
+        }
+        checked={false}
+        desktop={false}
+        disabled={false}
+        focusState="none"
+        insetChildren={false}
         primaryText="primaryText"
+        targetOrigin={
+          Object {
+            "horizontal": "left",
+            "vertical": "top",
+          }
+        }
       />,
       "className": "sc-bdVaJa bDWFJH",
       "iconButtonElement": <StyledIconButton__StyledIconButton>
@@ -62,7 +96,20 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
+        "anchorOrigin": Object {
+          "horizontal": "right",
+          "vertical": "top",
+        },
+        "checked": false,
+        "desktop": false,
+        "disabled": false,
+        "focusState": "none",
+        "insetChildren": false,
         "primaryText": "primaryText",
+        "targetOrigin": Object {
+          "horizontal": "left",
+          "vertical": "top",
+        },
       },
       "ref": null,
       "rendered": null,
@@ -81,8 +128,25 @@ ShallowWrapper {
           "vertical": "top",
         },
         "animated": true,
-        "children": <StyledMenuItem__StyledMenuItem
+        "children": <MenuItem
+          anchorOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "top",
+            }
+          }
+          checked={false}
+          desktop={false}
+          disabled={false}
+          focusState="none"
+          insetChildren={false}
           primaryText="primaryText"
+          targetOrigin={
+            Object {
+              "horizontal": "left",
+              "vertical": "top",
+            }
+          }
         />,
         "className": "sc-bdVaJa bDWFJH",
         "iconButtonElement": <StyledIconButton__StyledIconButton>
@@ -111,7 +175,20 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
+          "anchorOrigin": Object {
+            "horizontal": "right",
+            "vertical": "top",
+          },
+          "checked": false,
+          "desktop": false,
+          "disabled": false,
+          "focusState": "none",
+          "insetChildren": false,
           "primaryText": "primaryText",
+          "targetOrigin": Object {
+            "horizontal": "left",
+            "vertical": "top",
+          },
         },
         "ref": null,
         "rendered": null,
