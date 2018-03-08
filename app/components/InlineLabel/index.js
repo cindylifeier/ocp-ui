@@ -1,8 +1,8 @@
 /**
-*
-* InlineLabel
-*
-*/
+ *
+ * InlineLabel
+ *
+ */
 
 import styled from 'styled-components';
 

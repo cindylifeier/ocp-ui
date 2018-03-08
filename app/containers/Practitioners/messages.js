@@ -11,11 +11,11 @@ export default defineMessages({
     defaultMessage: 'Practitioners',
   },
   searchHeader: {
-    id: 'ocpui.containers.Patients.searchHeader',
+    id: 'ocpui.containers.Practitioners.searchHeader',
     defaultMessage: 'Search',
   },
   filterLabel: {
-    id: 'ocpui.containers.Patients.filterLabel',
+    id: 'ocpui.containers.Practitioners.filterLabel',
     defaultMessage: 'Include',
   },
   searchTermsInvalid: {
@@ -23,7 +23,11 @@ export default defineMessages({
     defaultMessage: 'Must be at least {SEARCH_TERM_MIN_LENGTH} characters long.',
   },
   inactive: {
-    id: 'ocpui.containers.Locations.checkbox.inactive',
+    id: 'ocpui.containers.Practitioners.checkbox.inactive',
     defaultMessage: 'Inactive',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Practitioners.checkbox.inactive',
+    defaultMessage: 'Create New',
   },
 });

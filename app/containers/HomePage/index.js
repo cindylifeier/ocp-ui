@@ -11,16 +11,12 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
-import GoldenLayout from '../../components/GoldenLayout/Loadable';
-import renderOrganizations from '../Organizations/render';
-import renderPractitioners from '../Practitioners/render';
-import renderLocationsComponent from '../../containers/Locations/render';
-import renderHealthcareServicesComponent from '../HealthcareServices/render';
-import SideBar from '../../components/SideBar';
-import styles from './styles.css';
-
-// import messages from './messages';
+import GoldenLayout from 'components/GoldenLayout/Loadable';
+import renderOrganizations from 'containers/Organizations/render';
+import renderPractitioners from 'containers/Practitioners/render';
+import renderLocationsComponent from 'containers/Locations/render';
+import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
+import Page from 'components/Page';
 
 const initialStateMetadata =
   {
@@ -164,24 +160,17 @@ const componentMetadata = [
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Home</title>
           <meta name="description" content="home page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.gridContainer}>
-          <div className={`${styles.gridItem} ${styles.panel}`}>
-            <SideBar />
-          </div>
-          <div className={`${styles.gridItem} ${styles.content}`}>
-            <GoldenLayout
-              containerId="golden-home"
-              componentMetadata={componentMetadata}
-              stateMetadata={initialStateMetadata}
-            />
-          </div>
-        </div>
-      </div>
+        <GoldenLayout
+          containerId="golden-home"
+          componentMetadata={componentMetadata}
+          stateMetadata={initialStateMetadata}
+        />
+      </Page>
     );
   }
 }

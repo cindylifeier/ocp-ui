@@ -1,8 +1,8 @@
 /**
-*
-* ManagePatient
-*
-*/
+ *
+ * ManagePatient
+ *
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import { Formik } from 'formik';
 import yup from 'yup';
 import ManagePatientForm from './ManagePatientForm';
 import messages from './messages';
-import { TEXT_MIN_LENGTH } from '../../containers/ManagePatientPage/constants';
+import { TEXT_MIN_LENGTH } from './constants';
 
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
