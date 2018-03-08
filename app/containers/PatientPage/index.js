@@ -15,7 +15,7 @@ import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import { getPatient } from '../App/actions';
 import renderNotFoundComponent from '../NotFoundPage/render';
 import renderTasksComponent from '../Tasks/render';
-import renderCommunicationComponent from '../Communication/render';
+import renderCommunicationsComponent from '../Communications/render';
 import GoldenLayout from '../../components/GoldenLayout';
 import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
@@ -91,9 +91,9 @@ const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Communication',
+            title: 'Communications',
             type: 'component',
-            componentName: 'communication',
+            componentName: 'communications',
             isClosable: true,
             reorderEnabled: true,
           }],
@@ -127,8 +127,8 @@ const initialStateMetadata =
 
 const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationComponent },
-  // TODO: will replace with Communication and Appointments render component
+  { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
+  // TODO: will replace with Communications and Appointments render component
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
 ];
 
