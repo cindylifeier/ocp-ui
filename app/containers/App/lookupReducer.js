@@ -35,19 +35,23 @@ import {
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PUBLICATION_STATUS,
-  RELATED_ARTIFACT_TYPE,
   RELATEDPERSONPATIENTRELATIONSHIPTYPES,
-  REQUEST_INTENT,
-  REQUEST_PRIORITY,
   RESOURCE_TYPE,
-  TASK_PERFORMER_TYPE,
-  TASK_STATUS,
   TELECOMSYSTEM,
   TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  // Task Resource Lookups - Start
+  TASK_STATUS,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  // Task Resource Lookups - End
+  RELATED_ARTIFACT_TYPE,
+  PROVIDER_ROLE,
+  PROVIDER_SPECIALTY,
 } from './constants';
 
 // The initial state of the lookup
@@ -100,6 +104,8 @@ const initialState = fromJS({
   APPOINTMENT_PARTICIPATION_TYPE: [],
   APPOINTMENT_STATUS: [],
   APPOINTMENT_TYPE: [],
+  PROVIDER_ROLE: [],
+  PROVIDER_SPECIALTY: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -158,6 +164,8 @@ function lookupReducer(state = initialState, action) {
         .set(APPOINTMENT_STATUS, fromJS((action.lookups && action.lookups.appointmentStatus) || state.get(APPOINTMENT_STATUS)))
         .set(APPOINTMENT_TYPE, fromJS((action.lookups && action.lookups.appointmentType) || state.get(APPOINTMENT_TYPE)))
         // Appointment Lookups - End
+        .set(PROVIDER_ROLE, fromJS((action.lookups && action.lookups.providerRoles) || state.get(PROVIDER_ROLE)))
+        .set(PROVIDER_SPECIALTY, fromJS((action.lookups && action.lookups.providerSpecialties) || state.get(PROVIDER_SPECIALTY)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

@@ -14,6 +14,12 @@ import Divider from 'material-ui/Divider';
 import merge from 'lodash/merge';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
+import {
+  makeSelectPractitionerIdentifierSystems,
+  makeSelectTelecomSystems,
+  makeSelectUspsStates, makeSelectProviderRoles, makeSelectProviderSpecialties,
+} from 'containers/App/lookupSelectors';
+import { PRACTITIONERIDENTIFIERSYSTEM, PROVIDER_ROLE, PROVIDER_SPECIALTY, TELECOMSYSTEM, USPSSTATES } from 'containers/App/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -23,18 +29,10 @@ import saga from './saga';
 import ManagePractitioner from '../../components/ManagePractitioner';
 import messages from './messages';
 import styles from './styles.css';
-import {
-makeSelectPractitionerIdentifierSystems,
-makeSelectPractitionerRoles,
-makeSelectTelecomSystems,
-makeSelectUspsStates,
-} from '../App/lookupSelectors';
-import { PRACTITIONERIDENTIFIERSYSTEM, PRACTITIONERROLES, TELECOMSYSTEM, USPSSTATES } from '../App/constants';
+
 import { getLookupsAction } from '../App/actions';
 import { makeSelectPractitioner, makeSelectCurrentPage, makeSelectOrganizations,
   makeSelectTotalNumberOfPages } from './selectors';
-
-
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static SEARCH_BAR_TEXT_LENGTH = 3;
 
@@ -87,7 +85,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
   }
 
   render() {
-    const { match, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, selectedPractitioner,
+    const { match, uspsStates, identifierSystems, telecomSystems, providerRoles, providerSpecialties, selectedPractitioner,
       organizations,
       currentPage,
       totalNumberOfPages } = this.props;
@@ -100,7 +98,8 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       uspsStates,
       identifierSystems,
       telecomSystems,
-      practitionerRoleCodes,
+      providerRoles,
+      providerSpecialties,
       editMode,
       practitioner,
       organizations,
@@ -131,7 +130,8 @@ ManagePractitionerPage.propTypes = {
   uspsStates: PropTypes.array,
   identifierSystems: PropTypes.array,
   telecomSystems: PropTypes.array,
-  practitionerRoleCodes: PropTypes.array,
+  providerRoles: PropTypes.array,
+  providerSpecialties: PropTypes.array,
   selectedPractitioner: PropTypes.object,
   onSaveForm: PropTypes.func,
   initializeManagePractitioner: PropTypes.func,
@@ -149,7 +149,8 @@ const mapStateToProps = createStructuredSelector({
   uspsStates: makeSelectUspsStates(),
   identifierSystems: makeSelectPractitionerIdentifierSystems(),
   telecomSystems: makeSelectTelecomSystems(),
-  practitionerRoleCodes: makeSelectPractitionerRoles(),
+  providerRoles: makeSelectProviderRoles(),
+  providerSpecialties: makeSelectProviderSpecialties(),
   selectedPractitioner: makeSelectPractitioner(),
   organizations: makeSelectOrganizations(),
   currentPage: makeSelectCurrentPage(),
@@ -160,7 +161,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeManagePractitioner: () => dispatch(initializeManagePractitioner()),
     initializeOrganizations: () => dispatch(initializeOrganizations()),
-    getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PRACTITIONERROLES])),
+    getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PRACTITIONERIDENTIFIERSYSTEM, TELECOMSYSTEM, PROVIDER_ROLE, PROVIDER_SPECIALTY])),
     onSaveForm: (practitionerFormData, handleSubmitting) => dispatch(savePractitioner(practitionerFormData, handleSubmitting)),
     getPractitioner: (logicalId) => dispatch(getPractitioner(logicalId)),
     getOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(getOrganizations(searchValue, showInactive, searchType, currentPage)),

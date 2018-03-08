@@ -87,6 +87,9 @@ export const APPOINTMENT_PARTICIPATION_TYPE = 'APPOINTMENT_PARTICIPATION_TYPE';
 export const APPOINTMENT_PARTICIPANT_REQUIRED = 'APPOINTMENT_PARTICIPANT_REQUIRED';
 // Appointment Lookups - End
 
+// practionerRole lookups
+export const PROVIDER_ROLE = 'PROVIDER_ROLE';
+export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
 
 /**
  *  Constants to hold the internal urls
