@@ -7,7 +7,7 @@
 
 import {
   ADD_RECIPIENT, GET_RECIPIENTS, GET_RECIPIENTS_ERROR,
-  GET_RECIPIENTS_SUCCESS, INITIALIZE_SEARCH_RECIPIENT_RESULT,
+  GET_RECIPIENTS_SUCCESS, INITIALIZE_SEARCH_RECIPIENT_RESULT, REMOVE_RECIPIENT, SET_SELECT_RECIPIENT_STATUS,
 } from 'containers/SearchRecipient/constants';
 
 export function getRecipients(patientId) {
@@ -32,10 +32,25 @@ export function getRecipientsError(error) {
   };
 }
 
-export function addSelectedRecipients(selectedRecipients) {
+export function addSelectedRecipients() {
   return {
     type: ADD_RECIPIENT,
-    selectedRecipients,
+  };
+}
+
+export function removeSelectedRecipient(checked, recipientReference) {
+  return {
+    type: REMOVE_RECIPIENT,
+    checked,
+    recipientReference,
+  };
+}
+
+export function setSelectRecipientStatus(checked, recipientReference) {
+  return {
+    type: SET_SELECT_RECIPIENT_STATUS,
+    checked,
+    recipientReference,
   };
 }
 
