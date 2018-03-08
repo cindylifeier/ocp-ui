@@ -14,12 +14,12 @@ import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
-import IdentifierGroupGrid from 'components/IdentifierGroupGrid';
+import FieldGroupGrid from 'components/FieldGroupGrid';
+import SystemCell from 'components/FieldGroupGrid/SystemCell';
+import ValueCell from 'components/FieldGroupGrid/ValueCell';
 import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
-import LocationGroupGrid from './LocationGroupGrid';
-import ContactGroupGrid from './ContactGroupGrid';
 
 function ManageLocationForm(props) {
   const {
@@ -74,8 +74,8 @@ function ManageLocationForm(props) {
           )}
         </Cell>
         <Cell area="locationGroup">
-          <LocationGroupGrid gap="">
-            <Cell area="physicalType">
+          <FieldGroupGrid>
+            <SystemCell>
               <SelectField
                 name="physicalType"
                 fullWidth
@@ -85,20 +85,20 @@ function ManageLocationForm(props) {
                   <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
                 ))}
               </SelectField>
-            </Cell>
-            <Cell area="managingLocationLogicalId">
+            </SystemCell>
+            <ValueCell>
               <TextField
                 fullWidth
                 name="managingLocationLogicalId"
                 hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
               />
-            </Cell>
-          </LocationGroupGrid>
+            </ValueCell>
+          </FieldGroupGrid>
         </Cell>
         <Cell area="identifierGroup">
-          <IdentifierGroupGrid>
-            <Cell area="identifierSystem">
+          <FieldGroupGrid>
+            <SystemCell>
               <SelectField
                 fullWidth
                 name="identifierSystem"
@@ -108,20 +108,20 @@ function ManageLocationForm(props) {
                   <MenuItem key={uniqueId()} value={identifierSystem.display} primaryText={identifierSystem.display} />
                 ))}
               </SelectField>
-            </Cell>
-            <Cell area="identifierValue">
+            </SystemCell>
+            <ValueCell>
               <TextField
                 name="identifierValue"
                 fullWidth
                 hintText={<FormattedMessage {...messages.identifierValueHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
               />
-            </Cell>
-          </IdentifierGroupGrid>
+            </ValueCell>
+          </FieldGroupGrid>
         </Cell>
         <Cell area="contactGroup">
-          <ContactGroupGrid gap="">
-            <Cell area="telecomSystem">
+          <FieldGroupGrid>
+            <SystemCell>
               <SelectField
                 name="telecomSystem"
                 fullWidth
@@ -132,16 +132,16 @@ function ManageLocationForm(props) {
                   <MenuItem value={telecomSystem.code} primaryText={telecomSystem.display} key={uniqueId()} />
                 ))}
               </SelectField>
-            </Cell>
-            <Cell area="telecomSystemValue">
+            </SystemCell>
+            <ValueCell>
               <TextField
                 name="telecomSystemValue"
                 fullWidth
                 hintText={<FormattedMessage {...messages.telecomSystemValueHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.telecomSystemValueFloatingLabelText} />}
               />
-            </Cell>
-          </ContactGroupGrid>
+            </ValueCell>
+          </FieldGroupGrid>
         </Cell>
         <Cell area="contactPurpose">
           <SelectField

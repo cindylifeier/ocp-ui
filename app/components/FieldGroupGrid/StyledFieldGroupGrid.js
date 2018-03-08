@@ -1,14 +1,15 @@
 import { Grid } from 'styled-css-grid';
+import { SYSTEM, VALUE } from './constants';
 
 const IdentifierGroupGrid = Grid.extend`
   grid-template-columns: 1fr;
   grid-template-areas:
-    "identifierSystem"
-    "identifierValue";
+    "${SYSTEM}"
+    "${VALUE}";
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 2fr;
-    grid-template-areas: "identifierSystem identifierValue";
+    grid-template-areas: "${SYSTEM} ${VALUE}";
   }
 `;
 

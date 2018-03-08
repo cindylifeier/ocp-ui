@@ -3,18 +3,19 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import IdentifierGroupGrid from '../StyledIdentifierGroupGrid';
+import StyledFieldGroupGrid from '../StyledFieldGroupGrid';
+import { SYSTEM, VALUE } from '../constants';
 
 configure({ adapter: new Adapter() });
 
-describe('<IdentifierGroupGrid />', () => {
+describe('<StyledFieldGroupGrid />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<StyledFieldGroupGrid>{children}</StyledFieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +28,7 @@ describe('<IdentifierGroupGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<StyledFieldGroupGrid>{children}</StyledFieldGroupGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +41,7 @@ describe('<IdentifierGroupGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<StyledFieldGroupGrid>{children}</StyledFieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -51,11 +52,11 @@ describe('<IdentifierGroupGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<StyledFieldGroupGrid>{children}</StyledFieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"identifierSystem"    "identifierValue"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', `"${SYSTEM}"    "${VALUE}"`);
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -64,11 +65,11 @@ describe('<IdentifierGroupGrid />', () => {
       const media = '(min-width: 768px)';
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<StyledFieldGroupGrid>{children}</StyledFieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 2fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"identifierSystem identifierValue"', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', `"${SYSTEM} ${VALUE}"`, { media });
     });
   });
 });

@@ -3,18 +3,18 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import IdentifierGroupGrid from '../index';
+import FieldGroupGrid from '../index';
 
 configure({ adapter: new Adapter() });
 
-describe('<IdentifierGroupGrid />', () => {
+describe('<FieldGroupGrid />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot with no gap prop', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<FieldGroupGrid>{children}</FieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -26,7 +26,7 @@ describe('<IdentifierGroupGrid />', () => {
       const gap = '10';
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid gap={gap}>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<FieldGroupGrid gap={gap}>{children}</FieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -39,7 +39,7 @@ describe('<IdentifierGroupGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<FieldGroupGrid>{children}</FieldGroupGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -51,7 +51,7 @@ describe('<IdentifierGroupGrid />', () => {
       const defaultGap = '0';
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<FieldGroupGrid>{children}</FieldGroupGrid>);
 
       // Assert
       expect(renderedComponent.props().gap).toEqual(defaultGap);
@@ -63,7 +63,7 @@ describe('<IdentifierGroupGrid />', () => {
       const gap = '10';
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid gap={gap}>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<FieldGroupGrid gap={gap}>{children}</FieldGroupGrid>);
 
       // Assert
       expect(renderedComponent.props().gap).toEqual(gap);
@@ -76,7 +76,7 @@ describe('<IdentifierGroupGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+      const renderedComponent = shallow(<FieldGroupGrid>{children}</FieldGroupGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');

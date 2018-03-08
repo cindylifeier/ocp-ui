@@ -6,18 +6,18 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledIdentifierGroupGrid from './StyledIdentifierGroupGrid';
+import StyledFieldGroupGrid from './StyledFieldGroupGrid';
 
 function IdentifierGroupGrid({ children, gap, ...rest }) {
   return (
-    <StyledIdentifierGroupGrid gap={gap} {...rest}>
+    <StyledFieldGroupGrid gap={gap} {...rest}>
       {children}
-    </StyledIdentifierGroupGrid>
+    </StyledFieldGroupGrid>
   );
 }
 
 IdentifierGroupGrid.propTypes = {
-  ...StyledIdentifierGroupGrid.propTypes,
+  ...StyledFieldGroupGrid.propTypes,
   children: PropTypes.node,
   gap: PropTypes.string,
 };
