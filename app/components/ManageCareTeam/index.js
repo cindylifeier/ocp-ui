@@ -11,12 +11,10 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 
-import { mapToPatientName } from 'utils/PatientUtils';
-import { TEXT_MIN_LENGTH } from 'containers/App/constants';
 import Util from 'utils/Util';
+import { TEXT_MIN_LENGTH } from 'containers/App/constants';
 import ManageCareTeamForm from './ManageCareTeamForm';
 import messages from './messages';
-import styles from './styles.css';
 
 function ManageCareTeam(props) {
   const {
@@ -34,6 +32,7 @@ function ManageCareTeam(props) {
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
+    selectedPatient,
     careTeamCategories,
     careTeamReasons,
     careTeamStatuses,
@@ -42,19 +41,11 @@ function ManageCareTeam(props) {
     initialSelectedParticipants,
     removeParticipant,
   };
+
   return (
     <div>
       {selectedPatient &&
       <div>
-        <div className={styles.title}>
-          <FormattedMessage {...messages.title} />
-        </div>
-        <div className={styles.patientInfoSection}>
-          <div>Patient:</div>
-          <div className={styles.patientName}>
-            {mapToPatientName(selectedPatient)}
-          </div>
-        </div>
         {((editMode && careTeam) || !editMode) &&
         <Formik
           isInitialValid={editMode}

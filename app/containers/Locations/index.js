@@ -7,17 +7,31 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import { Cell } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import StatusCheckbox from 'components/StatusCheckbox';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import FilterSection from 'components/FilterSection';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
 import {
   makeSelectCurrentPage,
   makeSelectIncludeInactive,
@@ -29,25 +43,11 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import { getFilteredLocations, initializeLocations } from './actions';
-import StatusCheckbox from '../../components/StatusCheckbox';
-import { getHealthcareServicesByLocation } from '../HealthcareServices/actions';
-
-const iconStyles = {
-  iconButton: {
-    position: 'relative',
-  },
-  icon: {
-    width: '100%',
-    height: 26,
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  },
-};
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
+
   constructor(props) {
     super(props);
     this.state = {
@@ -57,26 +57,11 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeLocations();
-  }
-
-  getTelecoms(telecoms) {
-    return telecoms.map((entry) =>
-      (
-        <div key={entry.value}>
-          {entry.system}: {entry.value},
-        </div>
-      ),
-    );
-  }
-
-  getAddress(address) {
-    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
-    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
-    return addressStr ? (<div>{addressStr}</div>) : '';
   }
 
   handleRowClick(locationLogicalId, locationName) {
@@ -96,119 +81,124 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.props.onChangePage(currentPage, this.props.includeInactive, this.props.includeSuspended);
   }
 
-  createRows() {
+  renderTelecoms(telecoms) {
+    return telecoms.map((entry) =>
+      (
+        <div key={entry.value}>
+          {entry.system}: {entry.value},
+        </div>
+      ),
+    );
+  }
+
+  renderAddress(address) {
+    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
+    return addressStr ? (<div>{addressStr}</div>) : '';
+  }
+
+  renderRows() {
     if (this.props.data) {
       return this.props.data.map(({ logicalId, name, status, telecoms, address }) => (
-        <div
+        <TableRow
           role="button"
           tabIndex="0"
           key={logicalId}
-          className={styles.rowGridContainer}
           onClick={() => this.handleRowClick(logicalId, name)}
+          columns={Locations.TABLE_COLUMNS}
         >
-          <div className={styles.cellGridItem}>{name}</div>
-          <div className={styles.cellGridItem}>{status}</div>
-          <div className={styles.cellGridItem}>{this.getTelecoms(telecoms)}</div>
-          <div className={styles.cellGridItem}>{this.getAddress(address)} </div>
-          <IconMenu
-            iconButtonElement={
-              (<IconButton
-                className={styles.iconButton}
-                iconStyle={iconStyles.icon}
-                style={iconStyles.iconButton}
-              >
-                <NavigationMenu />
-              </IconButton>)
-            }
-            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-          >
-            <MenuItem
-              className={styles.menuItem}
-              primaryText="Edit"
-              containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
-            />
-            <MenuItem
-              className={styles.menuItem}
-              primaryText="Assign HealthCareService"
-              containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
-            />
-          </IconMenu>
-        </div>
+          <TableRowColumn>{name}</TableRowColumn>
+          <TableRowColumn>{status}</TableRowColumn>
+          <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
+          <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
+          <TableRowColumn>
+            <NavigationStyledIconMenu>
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.actionLabelEdit} />}
+                containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.actionLabelAssignHealthCareService} />}
+                containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
+              />
+            </NavigationStyledIconMenu>
+          </TableRowColumn>
+        </TableRow>
       ));
     }
-    return '<div></div>';
+    return '<TableRow />';
   }
 
-  createTable() {
+  renderTable() {
     return (
       <div>
-        <div className={styles.card}>
-          <div className={styles.organizationInfoSection}>
-            <div className={styles.organizationInfoLabel}>
-              Organization&nbsp;:&nbsp;
-            </div>
+        <InfoSection>
+          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.labelOrganization} />&nbsp;
+          </InlineLabel>
+          <span
+            id={this.ORGANIZATION_NAME_HTML_ID}
+          >
             {this.props.organization ? this.props.organization.name : ''}
-          </div>
-          <div className={styles.actionSection}>
-            <div className={styles.filterGridContainer}>
-              <div>
-                <FormattedMessage {...messages.filterLabel} />
-              </div>
+          </span>
+        </InfoSection>
+        <FilterSection>
+          <CheckboxFilterGrid>
+            <Cell>
+              <FormattedMessage {...messages.filterLabel} />
+            </Cell>
+            <Cell>
               <StatusCheckbox
                 messages={messages.inactive}
                 elementId="inactiveCheckBox"
                 checked={this.props.includeInactive}
                 handleCheck={this.handleIncludeInactive}
-              >
-              </StatusCheckbox>
+              />
+            </Cell>
+            <Cell>
               <StatusCheckbox
                 messages={messages.suspended}
                 elementId="suspendedCheckBox"
                 checked={this.props.includeSuspended}
                 handleCheck={this.handleIncludeSuspended}
-              >
-              </StatusCheckbox>
-            </div>
-          </div>
-          <div className={styles.table}>
-            <div className={styles.rowHeaderGridContainer}>
-              <div className={styles.cellGridHeaderItem}>Name</div>
-              <div className={styles.cellGridHeaderItem}>Status</div>
-              <div className={styles.cellGridHeaderItem}>Telecoms</div>
-              <div className={styles.cellGridHeaderItem}>Address</div>
-              <div></div>
-            </div>
-            {this.createRows()}
-            <div className={styles.pagination}>
-              <UltimatePagination
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalNumberOfPages}
-                boundaryPagesRange={1}
-                siblingPagesRange={1}
-                hidePreviousAndNextPageLinks={false}
-                hideFirstAndLastPageLinks={false}
-                hideEllipsis={false}
-                onChange={this.handlePageClick}
               />
-            </div>
-          </div>
-        </div>
+            </Cell>
+          </CheckboxFilterGrid>
+        </FilterSection>
+        <Table>
+          <TableHeader columns={Locations.TABLE_COLUMNS}>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
+            <TableHeaderColumn />
+          </TableHeader>
+          {this.renderRows()}
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalNumberOfPages}
+            onChange={this.handlePageClick}
+          />
+        </Table>
       </div>
-    );
+    )
+      ;
   }
 
-  createLocationTable() {
+  renderLocationTable() {
     const { data } = this.props;
     if (data && data.length > 0) {
-      return this.createTable();
+      return this.renderTable();
     }
-    return (<div className={styles.card}><h4> No locations loaded. Please select an organization to view its
-      locations.</h4></div>);
+    return (<h4><FormattedMessage {...messages.noLocationsFound} /></h4>);
   }
 
   render() {
-    return this.createLocationTable();
+    return (
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        {this.renderLocationTable()}
+      </Card>);
   }
 }
 

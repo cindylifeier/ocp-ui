@@ -11,25 +11,31 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import uniqueId from 'lodash/uniqueId';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import CenterAlign from 'components/Align/CenterAlign';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import { cancelTask, getTasks, initializeTasks } from './actions';
 
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.cancelTask = this.cancelTask.bind(this);
+    this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
@@ -48,46 +54,39 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     const { tasks: { loading, data, patientName, patientId } } = this.props;
     return (
-      <div className={styles.card}>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
-        {isEmpty(data) ?
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <div className={styles.gridContainer}>
-            <div className={styles.patientInfoSection}>
-              <div className={styles.patientLabel}>
-                Patient&nbsp;:&nbsp;
-              </div>
-              {patientName}
-            </div>
-          </div>
+          <InfoSection>
+            <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+            </InlineLabel>
+            <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
+          </InfoSection>
         }
 
         {loading &&
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(patientName) && !isEmpty(patientId) && isEmpty(data) &&
-        <div className={styles.noTask}>
+        <NoResultsFoundText>
           <FormattedMessage {...messages.noTasksFound} />
-        </div>}
+        </NoResultsFoundText>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
-        <div className={styles.textCenter}>
-          <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
-          <UltimatePagination
+        <div>
+          <CenterAlign>
+            <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
+          </CenterAlign>
+          <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
             onChange={this.handlePageClick}
           />
         </div>
         }
-      </div>
+      </Card>
     );
   }
 }
