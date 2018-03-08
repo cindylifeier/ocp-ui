@@ -15,11 +15,12 @@ export function initializeTasks() {
   };
 }
 
-export function getTasks(query, patientName) {
+export function getTasks(query, patientName, patientId) {
   return {
     type: GET_TASKS,
     query,
     patientName,
+    patientId,
   };
 }
 
