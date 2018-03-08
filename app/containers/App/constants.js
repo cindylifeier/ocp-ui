@@ -80,12 +80,12 @@ export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
 export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
 export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
-// Communication resource lookups start
+// Communications resource lookups start
 export const COMMUNICATION_STATUS = 'COMMUNICATION_STATUS';
 export const COMMUNICATION_CATEGORY = 'COMMUNICATION_CATEGORY';
 export const COMMUNICATION_NOT_DONE_REASON = 'COMMUNICATION_NOT_DONE_REASON';
 export const COMMUNICATION_MEDIUM = 'COMMUNICATION_MEDIUM';
-// Communication resource lookups end
+// Communications resource lookups end
 
 /**
  *  Constants to hold the internal urls

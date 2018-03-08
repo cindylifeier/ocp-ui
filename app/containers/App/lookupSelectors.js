@@ -41,12 +41,12 @@ import {
   REQUEST_PRIORITY,
   TASK_PERFORMER_TYPE,
   // Task Resource Lookups - End
-// Communication Resource lookups start
+// Communications Resource lookups start
   COMMUNICATION_STATUS,
   COMMUNICATION_CATEGORY,
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_MEDIUM,
-  // Communication Resource lookups end
+  // Communications Resource lookups end
 } from './constants';
 import selectGlobalDomain from './selectors';
 
