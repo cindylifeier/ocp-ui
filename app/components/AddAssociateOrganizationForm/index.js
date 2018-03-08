@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import Close from 'material-ui/svg-icons/navigation/close';
 import SearchBar from 'components/SearchBar';
 import { fromBackendToFrontendOrganization } from 'containers/Organizations/mappings';
 import { Organizations } from 'containers/Organizations';
@@ -16,19 +17,15 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import CenterAlign from 'components/Align/CenterAlign';
 import PropTypes from 'prop-types';
 import H1 from 'components/H1';
-import StyledFlatButton from 'components/StyledFlatButton';
+import CloseButton from 'components/ConfirmPatientModal/CloseButton';
 
 
 function AddAssociateOrganizationForm(props) {
   const { organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
+      <CloseButton tooltip="Close" onClick={callback}><Close /></CloseButton>
       <H1>{<FormattedMessage {...messages.header} />}</H1>
-      <StyledFlatButton
-        type="reset"
-        label={<FormattedMessage {...messages.cancelButtonLabel} />}
-        onClick={callback}
-      />
       <SearchBar
         minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
         onSearch={onSearch}

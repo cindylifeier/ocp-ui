@@ -10,8 +10,4 @@ export default defineMessages({
     id: 'ocpui.components.AddAssociateOrganizationForm.header',
     defaultMessage: 'Search Organization',
   },
-  cancelButtonLabel: {
-    id: 'ocpui.components.AddAssociateOrganizationForm.cancelButtonLabel',
-    defaultMessage: 'Cancel',
-  },
 });
