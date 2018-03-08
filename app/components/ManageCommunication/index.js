@@ -8,6 +8,10 @@ import React from 'react';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
+import Util from 'utils/Util';
+import { getPatientName } from 'utils/patientUtils';
+import { isUndefined } from 'lodash';
+import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
@@ -23,6 +27,10 @@ function ManageCommunication(props) {
     communicationMedia,
     episodeOfCares,
     handleOpen,
+    selectedRecipients,
+    handleRemoveRecipient,
+    selectedPatient,
+    communication,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -31,14 +39,17 @@ function ManageCommunication(props) {
     communicationMedia,
     episodeOfCares,
     handleOpen,
+    selectedRecipients,
+    handleRemoveRecipient,
+    selectedPatient,
+    communication,
   };
-  const initialValues = {};
   const minimumLength = TEXT_MIN_LENGTH;
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={setInitialValues(props.communication, selectedPatient)}
       onSubmit={(values, actions) => {
         onSave(values, actions);
       }}
@@ -85,6 +96,82 @@ ManageCommunication.propTypes = {
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
+  selectedRecipients: PropTypes.array,
+  selectedPatient: PropTypes.object.isRequired,
+  communication: PropTypes.object.isRequired,
+  handleRemoveRecipient: PropTypes.func.isRequired,
 };
 
 export default ManageCommunication;
+
+
+function setInitialValues(communication, selectedPatient) {
+  let formData = null;
+  if (selectedPatient) {
+    formData = merge(
+      mapToSender(selectedPatient, 'sender'),
+      mapToSender(selectedPatient, 'subject')
+    );
+  }
+
+  // if (!isEmpty(communication)) {
+  //   formData = merge(
+  //     mapToSender(selectedPatient, 'name')
+  //     // mapLocationToFiledObject(location, 'status'),
+  //     // mapLocationToFiledObject(location, 'physicalType'),
+  //     // mapLocationToFiledObject(location, 'managingLocationLogicalId'),
+  //     // mapLocationToAddressFields(location),
+  //     // mapLocationToIdentifierFields(location),
+  //     // mapLocationToTelecomFields(location)
+  //   );
+  // }
+  return Util.pickByIdentity(formData);
+}
+
+function mapToSender(selectedPatient, fieldName) {
+  const fieldObject = {};
+  if (!isUndefined(fieldName)) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(selectedPatient));
+  }
+  return fieldObject;
+}
+
+// function mapLocationToAddressFields(location) {
+//   let fieldObject = {};
+//   if (!isUndefined(location.address)) {
+//     fieldObject = {
+//       line1: Util.setEmptyStringWhenUndefined(location.address.line1),
+//       line2: Util.setEmptyStringWhenUndefined(location.address.line2),
+//       city: Util.setEmptyStringWhenUndefined(location.address.city),
+//       stateCode: Util.setEmptyStringWhenUndefined(location.address.stateCode),
+//       postalCode: Util.setEmptyStringWhenUndefined(location.address.postalCode),
+//       countryCode: Util.setEmptyStringWhenUndefined(location.address.countryCode),
+//       use: Util.setEmptyStringWhenUndefined(location.address.use),
+//     };
+//   }
+//   return fieldObject;
+// }
+//
+//
+// function mapLocationToIdentifierFields(location) {
+//   let fieldObject = {};
+//   if (location.identifiers && location.identifiers.length > 0) {
+//     fieldObject = {
+//       identifierSystem: Util.setEmptyStringWhenUndefined(location.identifiers[0].system),
+//       identifierValue: Util.setEmptyStringWhenUndefined(location.identifiers[0].value),
+//     };
+//   }
+//   return fieldObject;
+// }
+//
+// function mapLocationToTelecomFields(location) {
+//   let fieldObject = {};
+//   if (location.telecoms && location.telecoms.length > 0) {
+//     fieldObject = {
+//       telecomSystem: Util.setEmptyStringWhenUndefined(location.telecoms[0].system),
+//       telecomSystemValue: Util.setEmptyStringWhenUndefined(location.telecoms[0].value),
+//       telecomUse: Util.setEmptyStringWhenUndefined(location.telecoms[0].use),
+//     };
+//   }
+//   return fieldObject;
+// }

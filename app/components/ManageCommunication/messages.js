@@ -10,6 +10,18 @@ export default defineMessages({
     id: 'ocpui.components.ManageCommunication.header',
     defaultMessage: 'This is the ManageCommunication component !',
   },
+  recipientTableHeaderName: {
+    id: 'ocpui.components.ManageCommunication.recipientTableHeaderName',
+    defaultMessage: 'Name',
+  },
+  recipientTableHeaderRole: {
+    id: 'ocpui.components.ManageCommunication.recipientTableHeaderRole',
+    defaultMessage: 'Role',
+  },
+  recipientTableHeaderAction: {
+    id: 'ocpui.components.ManageCommunication.recipientTableHeaderAction',
+    defaultMessage: 'Action',
+  },
   form: {
     floatingLabelText: {
       sent: {
@@ -34,7 +46,7 @@ export default defineMessages({
       },
       notDone: {
         id: 'ocpui.containers.ManageCommunication.form.notDone',
-        defaultMessage: 'Communication did not occur.',
+        defaultMessage: 'Communications did not occur.',
       },
       topic: {
         id: 'ocpui.containers.ManageCommunication.form.topic',
@@ -68,6 +80,10 @@ export default defineMessages({
     addRecipient: {
       id: 'ocpui.containers.ManageCommunication.form.addRecipient',
       defaultMessage: 'Add Recipient',
+    },
+    removeRecipient: {
+      id: 'ocpui.containers.ManageCommunication.form.removeRecipient',
+      defaultMessage: 'Remove',
     },
     saveButton: {
       id: 'ocpui.containers.ManageCommunication.form.saveButton',

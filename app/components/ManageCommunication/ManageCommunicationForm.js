@@ -8,6 +8,13 @@ import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { uniqueId } from 'lodash';
 import MenuItem from 'material-ui/MenuItem';
+import Table from 'components/Table/index';
+import TableHeader from 'components/TableHeader/index';
+import TableHeaderColumn from 'components/TableHeaderColumn/index';
+import TableRowColumn from 'components/TableRowColumn/index';
+import TableRow from 'components/TableRow/index';
+import { getRoleName } from 'utils/CommunicationUtils';
+import { getPatientName } from 'utils/patientUtils';
 import messages from './messages';
 import FormGrid from '../FormGrid';
 import FormCell from '../FormCell';
@@ -18,7 +25,6 @@ import TextField from '../TextField';
 import DatePicker from '../DatePicker';
 import { DATE_PICKER_MODE } from '../../containers/App/constants';
 import SelectField from '../SelectField/index';
-
 
 function ManageCommunicationForm(props) {
   const today = new Date();
@@ -32,13 +38,42 @@ function ManageCommunicationForm(props) {
     communicationMedia,
     episodeOfCares,
     handleOpen,
+    selectedRecipients,
+    handleRemoveRecipient,
+    selectedPatient,
   } = props;
-// Context =
+
+  const handleRemoveSelectedRecipient = (check, reference) => {
+    handleRemoveRecipient(check, reference);
+  };
+
+  function createRecipientTableRows() {
+    return selectedRecipients && selectedRecipients.map((recipient) => (
+      <TableRow key={uniqueId()}>
+        <TableRowColumn>
+          {recipient.display}
+        </TableRowColumn>
+        <TableRowColumn>
+          {getRoleName(recipient.reference)}
+        </TableRowColumn>
+        <TableRowColumn>
+          <RaisedButton
+            backgroundColor={teal500}
+            labelColor={white}
+            onClick={() => handleRemoveSelectedRecipient(false, recipient.reference)}
+            style={addButtonStyle}
+            label={<FormattedMessage {...messages.form.removeRecipient} />}
+          />
+        </TableRowColumn>
+      </TableRow>
+    ));
+  }
+
   return (
     <Form>
       <FormGrid columns={12}>
         <FormCell top={1} left={1} width={2}>
-          <span>Patient Name</span>
+          <span>Patient: </span> {getPatientName(selectedPatient)}
         </FormCell>
         <FormCell top={2} left={1} width={4}>
           <Grid columns="2fr 2fr" gap="">
@@ -181,8 +216,20 @@ function ManageCommunicationForm(props) {
             label={<FormattedMessage {...messages.form.addRecipient} />}
           />
         </FormCell>
+        <FormCell top={11} left={1} width={10}>
+          { selectedRecipients && selectedRecipients.length > 0 &&
+            <Table>
+              <TableHeader key={uniqueId()}>
+                <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
+                <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
+                <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderAction} />}</TableHeaderColumn>
+              </TableHeader>
+              {createRecipientTableRows()}
+            </Table>
+          }
+        </FormCell>
 
-        <FormCell top={11} left={1} width={2}>
+        <FormCell top={12} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="1vw">
             <Cell>
               <StyledRaisedButton
@@ -221,6 +268,9 @@ ManageCommunicationForm.propTypes = {
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
   handleOpen: PropTypes.func.isRequired,
+  selectedRecipients: PropTypes.array,
+  selectedPatient: PropTypes.object.isRequired,
+  handleRemoveRecipient: PropTypes.func.isRequired,
 };
 
 export default ManageCommunicationForm;
