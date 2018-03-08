@@ -26,4 +26,12 @@ export default defineMessages({
     id: 'ocpui.containers.HealthcareServices.checkbox.inactive',
     defaultMessage: 'Inactive',
   },
+  labelOrganization: {
+    id: 'ocpui.containers.HealthcareServices.labelOrganization',
+    defaultMessage: 'Organization:',
+  },
+  labelLocation: {
+    id: 'ocpui.containers.HealthcareServices.labelLocation',
+    defaultMessage: 'Location:',
+  },
 });

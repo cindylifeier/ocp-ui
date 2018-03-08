@@ -18,11 +18,17 @@ import find from 'lodash/find';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import PageContent from 'components/PageContent';
+import FormSubtitle from 'components/FormSubtitle';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import {
-  ORGANIZATIONIDENTIFIERSYSTEM,
-  ORGANIZATIONSTATUS,
-  TELECOMSYSTEM,
-  TELECOMUSE,
+  ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS, TELECOMSYSTEM, TELECOMUSE,
   USPSSTATES,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
@@ -34,19 +40,11 @@ import {
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
-import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import PageContent from 'components/PageContent';
-import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
-import ManageOrganizationFormCell from './ManageOrganizationFormCell';
-import { createOrganization, updateOrganization } from './actions';
 import saga from './saga';
 import messages from './messages';
+import { createOrganization, updateOrganization } from './actions';
+import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
+import ManageOrganizationFormCell from './ManageOrganizationFormCell';
 
 const minimumNumberOfAddresses = 1;
 const minimumNumberOfTelecoms = 1;
@@ -132,8 +130,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
           title={editingOrganization ?
             <FormattedMessage {...messages.updateModeTitle} /> :
             <FormattedMessage {...messages.createModeTitle} />}
-          subtitle={<FormattedMessage {...messages.subtitle} />}
         />
+        <FormSubtitle>
+          <FormattedMessage {...messages.subtitle} />
+        </FormSubtitle>
         <PageContent>
           <Formik
             validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
