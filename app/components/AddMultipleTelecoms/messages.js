@@ -41,6 +41,10 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.hintText.value',
       defaultMessage: 'Contact',
     },
+    use: {
+      id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.hintText.use',
+      defaultMessage: 'Contact Purpose',
+    },
   },
   floatingLabelText: {
     system: {
@@ -51,6 +55,10 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.floatingLabelText.value',
       defaultMessage: 'Contact',
     },
+    use: {
+      id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.floatingLabelText.use',
+      defaultMessage: 'Contact Purpose',
+    },
   },
   addedTelecomsTable: {
     tableHeaderSystem: {
@@ -60,6 +68,10 @@ export default defineMessages({
     tableHeaderValue: {
       id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderValue',
       defaultMessage: 'Contact',
+    },
+    tableHeaderUse: {
+      id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderUse',
+      defaultMessage: 'Contact Purpose',
     },
     tableHeaderAction: {
       id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderAction',
