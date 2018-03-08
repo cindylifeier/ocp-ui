@@ -132,16 +132,18 @@ function ManageTaskForm(props) {
                 <MenuItem key={intent.code} value={intent.code} primaryText={intent.display} />,
               )}
             </SelectField>
-            <SelectField
-              fullWidth
-              name="context"
-              hintText={<FormattedMessage {...messages.hintText.eventType} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
-            >
-              {eventTypes && eventTypes.map((eventType) =>
-                <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
-              )}
-            </SelectField>
+            { (eventTypes && eventTypes.length > 0) &&
+              <SelectField
+                fullWidth
+                name="context"
+                hintText={<FormattedMessage {...messages.hintText.eventType} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
+              >
+                {eventTypes && eventTypes.map((eventType) =>
+                  <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
+                )}
+              </SelectField>
+            }
           </div>
           <div className={`${styles.gridItem} ${styles.contextGroup}`}>
             <SelectField
@@ -164,16 +166,18 @@ function ManageTaskForm(props) {
                 <MenuItem key={performerType.code} value={performerType.code} primaryText={performerType.display} />,
               )}
             </SelectField>
-            <SelectField
-              fullWidth
-              name="partOf"
-              hintText={<FormattedMessage {...messages.hintText.partOf} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
-            >
-              {tasksByPatient && tasksByPatient.map((partOf) =>
-                <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
-              )}
-            </SelectField>
+            {(tasksByPatient && tasksByPatient.length > 0) &&
+              <SelectField
+                fullWidth
+                name="partOf"
+                hintText={<FormattedMessage {...messages.hintText.partOf} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
+              >
+                {tasksByPatient && tasksByPatient.map((partOf) =>
+                  <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
+                )}
+              </SelectField>
+            }
           </div>
 
           <div className={`${styles.gridItem} ${styles.effectiveGroup}`}>

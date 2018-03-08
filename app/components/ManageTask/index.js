@@ -47,22 +47,37 @@ function ManageTask(props) {
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
-        validationSchema={yup.object().shape({
-          status: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          intent: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          priority: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          performerType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          activityDefinition: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          taskOwner: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          organization: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-        })}
+        validationSchema={() =>
+          yup.lazy((values) => {
+            let taskStart = new Date();
+            if (values.taskStart) {
+              taskStart = values.taskStart;
+            }
+            return yup.object().shape({
+              status: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              intent: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              priority: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              performerType: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              activityDefinition: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              taskOwner: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              organization: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              description: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              taskStart: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+              taskEnd: yup.date()
+                .min(taskStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+            });
+          })}
+
         render={(formikProps) => <ManageTaskForm {...formikProps} {...formData} />}
       />
       }
@@ -98,13 +113,14 @@ ManageTask.propTypes = {
   editMode: PropTypes.bool.isRequired,
   currentTask: PropTypes.any,
 };
+
 function setFormData(currentTask, props) {
   let formData = null;
   if (!isEmpty(currentTask)) {
     // Edit Form
     formData = merge(Util.pickByIdentity(mapTaskToEditForm(currentTask)));
   } else {
-     // Create Form
+    // Create Form
     formData = merge(Util.pickByIdentity(mapTaskToCreateForm(props)));
   }
   return Util.pickByIdentity(formData);
@@ -112,100 +128,145 @@ function setFormData(currentTask, props) {
 
 
 function mapTaskToCreateForm(props) {
-  // Drop down values
-  const requester = {
+  let selOrg = {};
+  if (props.organization && props.organization.length > 0) {
+    selOrg = props.organization[0];
+  }
+  const formData = {
     requester: Util.setEmptyStringWhenUndefined(getResourceName(props.requester)),
-  };
-
-  const patientName = {
     patientName: Util.setEmptyStringWhenUndefined(getResourceName(props.selectedPatient)),
+    authoredOn: new Date(),
+    lastModifiedDate: new Date(),
+    taskStart: new Date(),
+    organization: Util.setEmptyStringWhenUndefined(selOrg.reference),
   };
-
-  return merge(Util.pickByIdentity(requester), Util.pickByIdentity(patientName));
+  return Util.pickByIdentity(formData);
 }
 
 function mapTaskToEditForm(task) {
-  // Drop down values
-  let priority = {};
-  if (task.priority && task.priority.code) {
-    priority = {
-      priority: Util.setEmptyStringWhenUndefined(task.priority.code),
-    };
-  }
-
-  let status = {};
-  if (task.status && task.status.code) {
-    status = {
-      status: Util.setEmptyStringWhenUndefined(task.status.code),
-    };
-  }
-
-  let intent = {};
-  if (task.intent && task.intent.code) {
-    intent = {
-      intent: Util.setEmptyStringWhenUndefined(task.intent.code),
-    };
-  }
-
-  let performerType = {};
-  if (task.performerType && task.performerType.code) {
-    performerType = {
-      performerType: Util.setEmptyStringWhenUndefined(task.performerType.code),
-    };
-  }
-
+  // Row 1
   let activityDefinition = {};
   if (task.definition && task.definition.reference) {
     activityDefinition = {
       activityDefinition: Util.setEmptyStringWhenUndefined(task.definition.reference),
     };
   }
-
-  let taskOwner = {};
-  if (task.owner && task.owner.reference) {
-    taskOwner = {
-      taskOwner: Util.setEmptyStringWhenUndefined(task.owner.reference),
-    };
-  }
-
+  // Row 2
   let organization = {};
   if (task.organization && task.organization.reference) {
     organization = {
       organization: Util.setEmptyStringWhenUndefined(task.organization.reference),
     };
   }
-
   let patientName = {};
   if (task.beneficiary && task.beneficiary.reference) {
     patientName = {
       patientName: Util.setEmptyStringWhenUndefined(task.beneficiary.display),
     };
   }
-
   let requester = {};
   if (task.agent && task.agent.reference) {
     requester = {
       requester: Util.setEmptyStringWhenUndefined(task.agent.display),
     };
   }
-
+  // Row 3
   let authoredOn = {};
   if (task.authoredOn) {
+    const createDate = Util.setEmptyStringWhenUndefined(task.authoredOn);
     authoredOn = {
-      authoredOn: Util.setEmptyStringWhenUndefined(task.authoredOn),
+      authoredOn: createDate && new Date(createDate),
+    };
+  }
+  let lastModifiedDate = {};
+  if (task.lastModified) {
+    const updateDate = Util.setEmptyStringWhenUndefined(task.lastModified);
+    lastModifiedDate = {
+      lastModifiedDate: updateDate && new Date(updateDate),
+    };
+  }
+  // Row 4 - Drop down values
+  let status = {};
+  if (task.status && task.status.code) {
+    status = {
+      status: Util.setEmptyStringWhenUndefined(task.status.code),
+    };
+  }
+  let priority = {};
+  if (task.priority && task.priority.code) {
+    priority = {
+      priority: Util.setEmptyStringWhenUndefined(task.priority.code),
+    };
+  }
+  let intent = {};
+  if (task.intent && task.intent.code) {
+    intent = {
+      intent: Util.setEmptyStringWhenUndefined(task.intent.code),
+    };
+  }
+  let context = {};
+  if (task.context && task.context.reference) {
+    context = {
+      context: Util.setEmptyStringWhenUndefined(task.context.reference),
+    };
+  }
+  // Row 5
+  let taskOwner = {};
+  if (task.owner && task.owner.reference) {
+    taskOwner = {
+      taskOwner: Util.setEmptyStringWhenUndefined(task.owner.reference),
+    };
+  }
+  let performerType = {};
+  if (task.performerType && task.performerType.code) {
+    performerType = {
+      performerType: Util.setEmptyStringWhenUndefined(task.performerType.code),
+    };
+  }
+  let partOf = {};
+  if (task.partOf && task.partOf.reference) {
+    partOf = {
+      partOf: Util.setEmptyStringWhenUndefined(task.partOf.reference),
+    };
+  }
+  // Row 6
+  let taskStart = {};
+  if (task.executionPeriod && task.executionPeriod.start) {
+    const startDate = Util.setEmptyStringWhenUndefined(task.executionPeriod.start);
+    taskStart = {
+      taskStart: startDate && new Date(startDate),
+    };
+  }
+  let taskEnd = {};
+  if (task.executionPeriod && task.executionPeriod.end) {
+    const endDate = Util.setEmptyStringWhenUndefined(task.executionPeriod.end);
+    taskEnd = {
+      taskEnd: endDate && new Date(endDate),
     };
   }
 
-  return merge(Util.pickByIdentity(priority),
-                Util.pickByIdentity(intent),
-                Util.pickByIdentity(performerType),
-                Util.pickByIdentity(activityDefinition),
-                Util.pickByIdentity(status),
-                Util.pickByIdentity(taskOwner),
-                Util.pickByIdentity(patientName),
-                Util.pickByIdentity(requester),
-                Util.pickByIdentity(authoredOn),
-                Util.pickByIdentity(organization));
+  // Row 7
+  let description = {};
+  if (task.description) {
+    description = {
+      description: Util.setEmptyStringWhenUndefined(task.description),
+    };
+  }
+  let comments = {};
+  if (task.note) {
+    comments = {
+      comments: Util.setEmptyStringWhenUndefined(task.note),
+    };
+  }
+
+
+  return merge(activityDefinition,
+    organization, patientName, requester,
+    authoredOn, lastModifiedDate,
+    status, priority, intent, context,
+    taskOwner, performerType, partOf,
+    taskStart, taskEnd,
+    description, comments);
 }
 
 
@@ -224,4 +285,5 @@ function getResourceName(resource) {
     })
     .join(', ');
 }
+
 export default ManageTask;
