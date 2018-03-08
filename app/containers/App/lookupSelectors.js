@@ -41,7 +41,9 @@ import {
   REQUEST_PRIORITY,
   TASK_PERFORMER_TYPE,
   // Task Resource Lookups - End
-} from './constants';
+  PROVIDER_ROLE,
+  PROVIDER_SPECIALTY,
+} from 'containers/App/constants';
 import selectGlobalDomain from './selectors';
 
 const makeSelectUspsStates = () => createSelector(
@@ -239,6 +241,16 @@ const makeSelectRelatedArtifactTypes = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATED_ARTIFACT_TYPE).toJS(),
 );
 
+const makeSelectProviderRoles = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_ROLE).toJS(),
+);
+
+const makeSelectProviderSpecialties = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_SPECIALTY).toJS(),
+);
+
 // Task Resource Lookups - End
 export {
   makeSelectUspsStates,
@@ -280,4 +292,6 @@ export {
   makeSelectRequestPriorities,
   makeSelectTaskPerformerTypes,
   makeSelectRelatedArtifactTypes,
+  makeSelectProviderRoles,
+  makeSelectProviderSpecialties,
 };

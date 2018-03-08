@@ -23,7 +23,7 @@ function ManagePractitioner(props) {
 
   const {
     onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
-    practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
+    providerRoles, providerSpecialties, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages, organizations, initialSearchOrganizationResult,
   } = props;
   const formData = {
@@ -31,7 +31,8 @@ function ManagePractitioner(props) {
     identifierSystems,
     telecomSystems,
     telecomUses,
-    practitionerRoleCodes,
+    providerRoles,
+    providerSpecialties,
     onPageClick,
     onSearch,
     organizations,
@@ -103,7 +104,8 @@ ManagePractitioner.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })).isRequired,
-  practitionerRoleCodes: PropTypes.array.isRequired,
+  providerRoles: PropTypes.array.isRequired,
+  providerSpecialties: PropTypes.array.isRequired,
   editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
   onPageClick: PropTypes.func.isRequired,

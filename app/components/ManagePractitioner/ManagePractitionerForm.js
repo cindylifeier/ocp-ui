@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 import { teal500, white } from 'material-ui/styles/colors';
+import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,7 +23,6 @@ import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import messages from './messages';
 import styles from './styles.css';
-
 
 const customContentStyle = {
   width: '70%',
@@ -69,7 +68,7 @@ class ManagePractitionerForm extends React.PureComponent {
   render() {
     const {
       isSubmitting, dirty, isValid, values, errors,
-      uspsStates, identifierSystems, telecomSystems, telecomUses, practitionerRoleCodes,
+      uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
       organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
     } = this.props;
 
@@ -166,8 +165,8 @@ class ManagePractitionerForm extends React.PureComponent {
                           arrayHelpers={arrayHelpers}
                           onAddAssociateOrganization={arrayHelpers.push}
                           callback={this.handleDialogCallback}
-                          roleType={practitionerRoleCodes}
-                          specialtyType={practitionerRoleCodes}
+                          roleType={providerRoles}
+                          specialtyType={providerSpecialties}
                           existingOrganizations={values.practitionerRoles}
                           onSearch={onSearch}
                           onPageClick={onPageClick}
@@ -197,7 +196,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   name={`practitionerRoles.${index}.code`}
                                   hintText={<FormattedMessage {...messages.hintText.roleType} />}
                                 >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                  {providerRoles && providerRoles.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -212,7 +211,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   name={`practitionerRoles.${index}.specialty`}
                                   hintText={<FormattedMessage {...messages.hintText.specialty} />}
                                 >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                  {providerSpecialties && providerSpecialties.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -303,9 +302,12 @@ ManagePractitionerForm.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })).isRequired,
-  practitionerRoleCodes: PropTypes.arrayOf(PropTypes.shape({
+  providerRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  providerSpecialties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
   onPageClick: PropTypes.func.isRequired,
