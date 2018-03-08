@@ -1,5 +1,5 @@
 import { EMPTY_STRING } from 'containers/App/constants';
-import { phoneSystem } from 'utils/constants';
+import { PHONE_SYSTEM } from 'utils/constants';
 
 export function mapToPatientName(patient) {
   const names = patient.name;
@@ -15,7 +15,7 @@ export function mapToPatientName(patient) {
 export function mapToPatientPhone(patient) {
   const telecoms = patient.telecom;
   return telecoms && telecoms
-    .filter((telecom) => telecom.system === phoneSystem)
+    .filter((telecom) => telecom.system === PHONE_SYSTEM)
     .map((telecom) => telecom.value)
     .join(', ');
 }
