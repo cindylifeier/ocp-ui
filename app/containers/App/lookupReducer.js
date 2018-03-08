@@ -6,6 +6,11 @@ import {
   ADDRESSTYPE,
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
+  APPOINTMENT_PARTICIPANT_REQUIRED,
+  APPOINTMENT_PARTICIPATION_STATUS,
+  APPOINTMENT_PARTICIPATION_TYPE,
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
   CARETEAMCATEGORY,
   CARETEAMREASON,
   CARETEAMSTATUS,
@@ -30,21 +35,19 @@ import {
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PUBLICATION_STATUS,
+  RELATED_ARTIFACT_TYPE,
   RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
   RESOURCE_TYPE,
+  TASK_PERFORMER_TYPE,
+  TASK_STATUS,
   TELECOMSYSTEM,
   TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-  // Task Resource Lookups - Start
-  TASK_STATUS,
-  REQUEST_INTENT,
-  REQUEST_PRIORITY,
-  TASK_PERFORMER_TYPE,
-  // Task Resource Lookups - End
-  RELATED_ARTIFACT_TYPE,
 } from './constants';
 
 // The initial state of the lookup
@@ -92,6 +95,11 @@ const initialState = fromJS({
   TASK_PERFORMER_TYPE: [],
   // Task Resource Lookups - End
   RELATED_ARTIFACT_TYPE: [],
+  APPOINTMENT_PARTICIPANT_REQUIRED: [],
+  APPOINTMENT_PARTICIPATION_STATUS: [],
+  APPOINTMENT_PARTICIPATION_TYPE: [],
+  APPOINTMENT_STATUS: [],
+  APPOINTMENT_TYPE: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -143,6 +151,13 @@ function lookupReducer(state = initialState, action) {
         .set(TASK_PERFORMER_TYPE, fromJS((action.lookups && action.lookups.taskPerformerType) || state.get(TASK_PERFORMER_TYPE)))
         // Task Resource Lookups - End
         .set(RELATED_ARTIFACT_TYPE, fromJS((action.lookups && action.lookups.relatedArtifactType) || state.get(RELATED_ARTIFACT_TYPE)))
+        // Appointment Lookups - Start
+        .set(APPOINTMENT_PARTICIPANT_REQUIRED, fromJS((action.lookups && action.lookups.appointmentParticipantRequired) || state.get(APPOINTMENT_PARTICIPANT_REQUIRED)))
+        .set(APPOINTMENT_PARTICIPATION_STATUS, fromJS((action.lookups && action.lookups.appointmentParticipationStatus) || state.get(APPOINTMENT_PARTICIPATION_STATUS)))
+        .set(APPOINTMENT_PARTICIPATION_TYPE, fromJS((action.lookups && action.lookups.appointmentParticipationType) || state.get(APPOINTMENT_PARTICIPATION_TYPE)))
+        .set(APPOINTMENT_STATUS, fromJS((action.lookups && action.lookups.appointmentStatus) || state.get(APPOINTMENT_STATUS)))
+        .set(APPOINTMENT_TYPE, fromJS((action.lookups && action.lookups.appointmentType) || state.get(APPOINTMENT_TYPE)))
+        // Appointment Lookups - End
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

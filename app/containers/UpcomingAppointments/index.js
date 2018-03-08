@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { getLookupsAction } from 'containers/App/actions';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card/index';
 import NoUpcomingAppointments from 'containers/UpcomingAppointments/NoUpcomingAppointments';
@@ -23,7 +24,7 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectUpcomingAppointments from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from '../App/constants';
 
 export class UpcomingAppointments extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -32,6 +33,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
   componentDidMount() {
     this.props.getUpcomingAppointments();
+    this.props.getLookupData();
   }
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
@@ -45,7 +47,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
           <RefreshIndicatorLoading />}
           {!loading && isEmpty(data) &&
           <NoUpcomingAppointments>No Upcoming Appointments.</NoUpcomingAppointments>}
-          {!isEmpty(data) && !isEmpty(data.elements) &&
+          { !isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
             <CareCoordinatorUpcomingAppointmentTable elements={data.elements} />
             <CenterAlignedUltimatePagination
@@ -63,6 +65,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 
 UpcomingAppointments.propTypes = {
   getUpcomingAppointments: PropTypes.func.isRequired,
+  getLookupData: PropTypes.func.isRequired,
   upcomingAppointments: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     data: PropTypes.shape({
@@ -78,6 +81,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getUpcomingAppointments: () => dispatch(getUpcomingAppointments()),
+    getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
   };
 }
 
