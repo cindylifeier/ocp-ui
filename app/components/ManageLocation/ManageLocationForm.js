@@ -14,11 +14,11 @@ import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
+import IdentifierGroupGrid from 'components/IdentifierGroupGrid';
 import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
 import LocationGroupGrid from './LocationGroupGrid';
-import IdentifierGroupGrid from './IdentifierGroupGrid';
 import ContactGroupGrid from './ContactGroupGrid';
 
 function ManageLocationForm(props) {
@@ -97,7 +97,7 @@ function ManageLocationForm(props) {
           </LocationGroupGrid>
         </Cell>
         <Cell area="identifierGroup">
-          <IdentifierGroupGrid gap="">
+          <IdentifierGroupGrid>
             <Cell area="identifierSystem">
               <SelectField
                 fullWidth

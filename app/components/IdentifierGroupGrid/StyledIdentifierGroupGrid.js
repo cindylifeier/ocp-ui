@@ -12,6 +12,8 @@ const IdentifierGroupGrid = Grid.extend`
   }
 `;
 
-IdentifierGroupGrid.propTypes = {};
+IdentifierGroupGrid.propTypes = {
+  ...Grid.propTypes,
+};
 
 export default IdentifierGroupGrid;

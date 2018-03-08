@@ -3,18 +3,30 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 
-import IdentifierGroupGrid from '../IdentifierGroupGrid';
+import IdentifierGroupGrid from '../index';
 
 configure({ adapter: new Adapter() });
 
 describe('<IdentifierGroupGrid />', () => {
   describe('snapshot tests', () => {
-    it('should match snapshot', () => {
+    it('should match snapshot with no gap prop', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
       const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+
+      // Assert
+      expect(renderedComponent).toMatchSnapshot();
+    });
+
+    it('should match snapshot with gap prop', () => {
+      // Arrange
+      const children = <div>test</div>;
+      const gap = '10';
+
+      // Act
+      const renderedComponent = shallow(<IdentifierGroupGrid gap={gap}>{children}</IdentifierGroupGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -32,6 +44,30 @@ describe('<IdentifierGroupGrid />', () => {
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
     });
+
+    it('should default gap to 0', () => {
+      // Arrange
+      const children = <div>test</div>;
+      const defaultGap = '0';
+
+      // Act
+      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
+
+      // Assert
+      expect(renderedComponent.props().gap).toEqual(defaultGap);
+    });
+
+    it('should use pass the configured gap', () => {
+      // Arrange
+      const children = <div>test</div>;
+      const gap = '10';
+
+      // Act
+      const renderedComponent = shallow(<IdentifierGroupGrid gap={gap}>{children}</IdentifierGroupGrid>);
+
+      // Assert
+      expect(renderedComponent.props().gap).toEqual(gap);
+    });
   });
 
   describe('style tests', () => {
@@ -44,31 +80,6 @@ describe('<IdentifierGroupGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
-    });
-
-    it('should have default styles', () => {
-      // Arrange
-      const children = <div>test</div>;
-
-      // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
-
-      // Assert
-      expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"identifierSystem"    "identifierValue"');
-    });
-
-    it('should have styles in min-width: 768px', () => {
-      // Arrange
-      const children = <div>test</div>;
-      const media = '(min-width: 768px)';
-
-      // Act
-      const renderedComponent = shallow(<IdentifierGroupGrid>{children}</IdentifierGroupGrid>);
-
-      // Assert
-      expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 2fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"identifierSystem identifierValue"', { media });
     });
   });
 });
