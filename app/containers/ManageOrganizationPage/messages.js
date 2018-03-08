@@ -57,5 +57,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageOrganizationPage.validation.minAddresses',
       defaultMessage: 'Organization must have {minimumNumberOfAddresses} address',
     },
+    minTelecoms: {
+      id: 'ocpui.components.ManageOrganizationPage.validation.minTelecoms',
+      defaultMessage: 'Organization must have {minimumNumberOfAddresses} contact',
+    },
   },
 });

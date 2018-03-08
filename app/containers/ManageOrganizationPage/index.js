@@ -42,6 +42,7 @@ import saga from './saga';
 import messages from './messages';
 
 const minimumNumberOfAddresses = 1;
+const minimumNumberOfTelecoms = 1;
 
 export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static validationSchemaShape = {
@@ -51,13 +52,13 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
       .required((<FormattedMessage {...messages.validation.required} />))
       .min(minimumNumberOfAddresses, (
         <FormattedMessage {...messages.validation.minAddresses} values={{ minimumNumberOfAddresses }} />)),
+    telecoms: yup.array()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .min(minimumNumberOfTelecoms, (
+        <FormattedMessage {...messages.validation.minTelecoms} values={{ minimumNumberOfTelecoms }} />)),
     identifierSystem: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
     identifierValue: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    telecomSystem: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    telecomValue: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
   };
   static validationSchemaCreate = yup.object().shape(ManageOrganizationPage.validationSchemaShape);
@@ -101,7 +102,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
         name,
         identifiers: [{ system: identifierSystem, value: identifierValue }],
         addresses,
-        telecoms: [{ system: telecomSystem, value: telecomValue }],
+        telecoms,
         active,
       } = editingOrganization;
       initialValues = {
@@ -109,8 +110,7 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
         status: active.toString(),
         identifierSystem,
         identifierValue,
-        telecomSystem,
-        telecomValue,
+        telecoms,
         addresses,
       };
     }
