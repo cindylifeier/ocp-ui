@@ -11,6 +11,7 @@ import { FieldArray } from 'formik';
 import Dialog from 'material-ui/Dialog';
 
 import FormSubtitle from 'components/FormSubtitle';
+import Section from 'components/Section';
 import AddTelecomsButton from './AddTelecomsButton';
 import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
 import AddedTelecomsTable from './AddedTelecomsTable';
@@ -58,39 +59,41 @@ class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line r
     };
     return (
       <div>
-        <FormSubtitle subtitleMargin="1vh 0 0 0">
-          <FormattedMessage {...messages.header} />
-        </FormSubtitle>
-        <AddTelecomsButton
-          onClick={this.handleOpenDialog}
-          label={<FormattedMessage {...messages.addTelecomsButton} />}
-        />
-        <FieldArray
-          name="telecoms"
-          render={(arrayHelpers) => (
-            <div>
-              <Dialog
-                title="Add Contacts"
-                modal={false}
-                open={this.state.isTelecomsDialogOpen}
-                onRequestClose={this.handleCloseDialog}
-              >
-                <AddMultipleTelecomsForm
-                  initialValues={this.state.editingTelecom}
-                  onAddTelecom={arrayHelpers.push}
-                  onRemoveTelecom={arrayHelpers.remove}
-                  handleCloseDialog={this.handleCloseDialog}
-                  {...addedTelecomsFormProps}
+        <Section>
+          <FormSubtitle subtitleMargin="1vh 0 0 0">
+            <FormattedMessage {...messages.header} />
+          </FormSubtitle>
+          <AddTelecomsButton
+            onClick={this.handleOpenDialog}
+            label={<FormattedMessage {...messages.addTelecomsButton} />}
+          />
+          <FieldArray
+            name="telecoms"
+            render={(arrayHelpers) => (
+              <div>
+                <Dialog
+                  title="Add Contacts"
+                  modal={false}
+                  open={this.state.isTelecomsDialogOpen}
+                  onRequestClose={this.handleCloseDialog}
+                >
+                  <AddMultipleTelecomsForm
+                    initialValues={this.state.editingTelecom}
+                    onAddTelecom={arrayHelpers.push}
+                    onRemoveTelecom={arrayHelpers.remove}
+                    handleCloseDialog={this.handleCloseDialog}
+                    {...addedTelecomsFormProps}
+                  />
+                </Dialog>
+                <AddedTelecomsTable
+                  handleEditTelecom={this.handleEditTelecom}
+                  arrayHelpers={arrayHelpers}
+                  {...addedTelecomsTableProps}
                 />
-              </Dialog>
-              <AddedTelecomsTable
-                handleEditTelecom={this.handleEditTelecom}
-                arrayHelpers={arrayHelpers}
-                {...addedTelecomsTableProps}
-              />
-            </div>
-          )}
-        />
+              </div>
+            )}
+          />
+        </Section>
       </div>
     );
   }
