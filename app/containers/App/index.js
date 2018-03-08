@@ -19,24 +19,24 @@ import 'font-awesome/css/font-awesome.min.css';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientsPage from 'containers/PatientsPage/Loadable';
-import LoginPage from '../LoginPage';
-import ManageLocationPage from '../ManageLocationPage';
-import ManagePractitionerPage from '../ManagePractitionerPage';
-import ManageOrganizationPage from '../ManageOrganizationPage';
-import ManageCareTeamPage from '../ManageCareTeamPage';
-import ManageHealthcareServicePage from '../ManageHealthcareServicePage';
-import Notification from '../Notification';
+import CareCoordinatorPage from 'containers/CareCoordinatorPage';
+import ManageOrganizationPage from 'containers/ManageOrganizationPage';
+import ManagePractitionerPage from 'containers/ManagePractitionerPage';
+import ManageLocationPage from 'containers/ManageLocationPage';
+import ManageCareTeamPage from 'containers/ManageCareTeamPage';
+import ManageHealthcareServicePage from 'containers/ManageHealthcareServicePage';
+import Authentication from 'containers/Authentication';
+import LoginPage from 'containers/LoginPage';
+import PatientPage from 'containers/PatientPage';
+import ManagePatientPage from 'containers/ManagePatientPage';
+import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
+import ManageTaskPage from 'containers/ManageTaskPage';
+import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
+import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
+import Notification from 'containers/Notification';
+import injectSaga from 'utils/injectSaga';
 import saga from './saga';
-import injectSaga from '../../utils/injectSaga';
-import ManagePatientPage from '../ManagePatientPage/index';
-import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
-import Authentication from '../Authentication';
-import ManageTaskPage from '../ManageTaskPage';
-import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
-import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
-import PatientPage from '../PatientPage';
 import './styles.css';
-
 
 export function App() {
   return (
@@ -56,6 +56,7 @@ export function App() {
           <Authentication>
             <Route path="/ocp-ui/home" component={HomePage} />
             <Route exact path="/ocp-ui/patients" component={PatientsPage} />
+            <Route exact path="/ocp-ui/care-coordinator" component={CareCoordinatorPage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
             <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />

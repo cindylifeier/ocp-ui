@@ -88,6 +88,7 @@ export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
 export const LOGIN_URL = '/ocp-ui/login';
 export const HOME_URL = '/ocp-ui/home';
 export const PATIENTS_URL = '/ocp-ui/patients';
+export const CARE_COORDINATOR_URL = '/ocp-ui/care-coordinator';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
