@@ -11,11 +11,13 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
 import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import ManagePatient from 'components/ManagePatient';
 import {
   makeSelectAdministrativeGenders,
@@ -42,7 +44,6 @@ import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 import { savePatient } from './actions';
 import { mapToFrontendPatientForm } from './api';
 
@@ -53,7 +54,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
     this.handleSave = this.handleSave.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookUpFormData();
   }
 
@@ -80,19 +81,20 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       patient,
     };
     return (
-      <div className={styles.wrapper}>
+      <Page>
         <Helmet>
           <title>Manage Patient</title>
           <meta name="description" content="Manage patient page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.header}>
-          {match.params.id ?
+        <PageHeader
+          title={match.params.id ?
             <FormattedMessage {...messages.updateHeader} /> :
             <FormattedMessage {...messages.createHeader} />}
-        </div>
-        <Divider />
-        <ManagePatient {...formProps} onSave={this.handleSave} />
-      </div>
+        />
+        <PageContent>
+          <ManagePatient {...formProps} onSave={this.handleSave} />
+        </PageContent>
+      </Page>
     );
   }
 }
