@@ -6,7 +6,6 @@
 
 import { fromJS } from 'immutable';
 import {
-  INITIALIZE_UPCOMING_APPOINTMENTS,
   GET_UPCOMING_APPOINTMENTS,
   GET_UPCOMING_APPOINTMENTS_SUCCESS,
   GET_UPCOMING_APPOINTMENTS_ERROR,
@@ -19,8 +18,6 @@ const initialState = fromJS({
 
 function upcomingAppointmentsReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_UPCOMING_APPOINTMENTS:
-      return initialState;
     case GET_UPCOMING_APPOINTMENTS:
       return state
         .set('loading', true)
