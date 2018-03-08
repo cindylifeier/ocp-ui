@@ -14,16 +14,17 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+// import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import Table from 'components/Table/index';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import { makeSelectRecipients } from 'containers/SearchRecipient/selectors';
+import { makeSelectRecipients, makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import {
-  addSelectedRecipients, getRecipients,
-  initializeSearchRecipients,
+  addSelectedRecipients, setSelectRecipientStatus,
 } from 'containers/SearchRecipient/actions';
+import Checkbox from 'material-ui/Checkbox';
+import { getRoleName } from 'utils/CommunicationUtils';
 import StyledFlatButton from 'components/StyledFlatButton/index';
 import Dialog from 'material-ui/Dialog';
 import TableHeader from 'components/TableHeader/index';
@@ -47,18 +48,21 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
     };
     this.addRecipients = this.addRecipients.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.updateCheck = this.updateCheck.bind(this);
   }
 
   componentWillMount() {
-    this.props.getRecipients(this.props.selectedPatient.patientId);
-    this.props.initializeSearchRecipients(this.props.initialSelectedRecipients);
+    // this.props.getRecipients(this.props.selectedPatient.id);
+    // this.props.initializeSearchRecipients(this.props.initialSelectedRecipients);
   }
 
   addRecipients() {
     this.handleDialogClose();
-    const selected = [];
-    // selected.push(recipient);
-    this.props.addSelectedRecipients(selected);
+    this.props.addSelectedRecipients();
+  }
+
+  updateCheck(evt, checked, recipientReference) {
+    this.props.setSelectRecipientStatus(checked, recipientReference);
   }
 
   handleDialogClose() {
@@ -66,39 +70,44 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
     this.props.handleClose();
   }
 
-  createRecipientTableHeader() {
+  createRecipientTable() {
     return (
       <Table>
-        <TableHeader>
+        <TableHeader key={uniqueId()}>
           <TableHeaderColumn></TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
         </TableHeader>
+        {this.createRecipientTableRows()}
       </Table>
     );
   }
 
   createRecipientTableRows() {
     return this.props.recipients.map((recipient) => (
-      <Table>
-        <TableRow key={uniqueId()}>
-          <TableRowColumn>
-            test
-          </TableRowColumn>
-          <TableRowColumn>
-            {recipient.name}
-          </TableRowColumn>
-          <TableRowColumn>
-            {recipient.role}
-          </TableRowColumn>
-        </TableRow>
-      </Table>
+      <TableRow key={uniqueId()}>
+        <TableRowColumn>
+          <Checkbox
+            checked={recipient.checked}
+            onCheck={(evt, checked) => {
+              this.updateCheck(evt, checked, recipient.reference);
+            }}
+          >
+          </Checkbox>
+        </TableRowColumn>
+        <TableRowColumn>
+          {recipient.display}
+        </TableRowColumn>
+        <TableRowColumn>
+          {getRoleName(recipient.reference)}
+        </TableRowColumn>
+      </TableRow>
     ));
   }
 
   createNoRecipientTable() {
     return (<Table>
-      <TableHeader>
+      <TableHeader key={uniqueId()}>
         <TableHeaderColumn></TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
@@ -127,7 +136,7 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
     return (
       <Dialog
         actions={actionsButtons}
-        modal={false}
+        modal
         open={isOpen}
         contentStyle={customContentStyle}
         autoScrollBodyContent
@@ -135,9 +144,10 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
         <div className={styles.title}>
           <FormattedMessage {...messages.addRecipientDialogTitle} />
         </div>
-        {recipients && recipients.length > 0 && this.createRecipientTableHeader()}
-        {recipients && recipients.length > 0 && this.createRecipientTableRows()}
-        {recipients && recipients.length === 0 && this.createNoRecipientTable()}
+        <div>
+          {recipients && recipients.length > 0 && this.createRecipientTable()}
+          {recipients && recipients.length === 0 && this.createNoRecipientTable()}
+        </div>
       </Dialog>
     );
   }
@@ -147,23 +157,25 @@ SearchRecipient.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   addSelectedRecipients: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  getRecipients: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.object,
+  setSelectRecipientStatus: PropTypes.func.isRequired,
+  // selectedPatient: PropTypes.object,
   recipients: PropTypes.array.isRequired,
-  initialSelectedRecipients: PropTypes.array.isRequired,
-  initializeSearchRecipients: PropTypes.func.isRequired,
+  // selectedRecipients: PropTypes.array.isRequired,
+  // initialSelectedRecipients: PropTypes.array.isRequired,
+  // initializeSearchRecipients: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   recipients: makeSelectRecipients(),
-  selectedPatient: makeSelectSelectedPatient(),
+  // selectedPatient: makeSelectSelectedPatient(),
+  selectedRecipients: makeSelectSelectedRecipients(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRecipients: (patientId) => dispatch(getRecipients(patientId)),
-    addSelectedRecipients: (selectedRecipients) => dispatch(addSelectedRecipients(selectedRecipients)),
-    initializeSearchRecipients: (initialSelectedRecipients) => dispatch(initializeSearchRecipients(initialSelectedRecipients)),
+    setSelectRecipientStatus: (checked, recipientReference) => dispatch(setSelectRecipientStatus(checked, recipientReference)),
+    addSelectedRecipients: () => dispatch(addSelectedRecipients()),
+    // initializeSearchRecipients: (initialSelectedRecipients) => dispatch(initializeSearchRecipients(initialSelectedRecipients)),
   };
 }
 
