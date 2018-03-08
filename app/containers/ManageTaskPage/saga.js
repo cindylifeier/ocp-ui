@@ -155,7 +155,7 @@ function* updateTaskSaga(action) {
   }
 }
 
-function* watchupdateTaskSaga() {
+function* watchUpdateTaskSaga() {
   yield takeLatest(PUT_TASK, updateTaskSaga);
 }
 
@@ -204,7 +204,7 @@ export default function* rootSaga() {
     watchGetActivityDefinitionsSaga(),
     watchGetPractitionersSaga(),
     watchCreateTaskSaga(),
-    watchupdateTaskSaga(),
+    watchUpdateTaskSaga(),
     watchGetTaskByIdSaga(),
     watchGetEventTypesSaga(),
     watchGetTasksByPatientSaga(),
