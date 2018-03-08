@@ -7,11 +7,12 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import DatePicker from 'components/DatePicker';
 import messages from './messages';
 import styles from './styles.css';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import DatePicker from '../DatePicker';
 
 function ManagePatientForm(props) {
   const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
