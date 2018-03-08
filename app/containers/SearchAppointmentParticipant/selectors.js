@@ -14,12 +14,18 @@ const selectSearchAppointmentParticipantDomain = (state) => state.get('searchApp
  * Default selector used by SearchAppointmentParticipant
  */
 
-const makeSelectSearchAppointmentParticipant = () => createSelector(
+const makeSelectSearchAppointmentParticipantResults = () => createSelector(
   selectSearchAppointmentParticipantDomain,
-  (substate) => substate.toJS()
+  (subState) => subState.get('searchParticipantResult').toJS()
 );
 
-export default makeSelectSearchAppointmentParticipant;
+const makeSelectSelectedParticipants = () => createSelector(
+  selectSearchAppointmentParticipantDomain,
+  (subState) => subState && subState.get('selectedParticipants').toJS()
+);
+
 export {
   selectSearchAppointmentParticipantDomain,
+  makeSelectSearchAppointmentParticipantResults,
+  makeSelectSelectedParticipants,
 };
