@@ -35,32 +35,12 @@
   grid-area: identifierGroup;
 }
 
-.address1 {
-  grid-area: address1;
+.addresses {
+  grid-area: addresses;
 }
 
-.address2 {
-  grid-area: address2;
-}
-
-.city {
-  grid-area: city;
-}
-
-.state {
-  grid-area: state;
-}
-
-.postalCode {
-  grid-area: postalCode;
-}
-
-.country {
-  grid-area: country;
-}
-
-.contactGroup {
-  grid-area: contactGroup;
+.contacts {
+  grid-area: contacts;
 }
 
 .associateOrganizationGroup {
@@ -88,20 +68,7 @@
   grid-column-gap: 2vw;
   grid-row-gap: 2vh;
   grid-template-columns: 1fr;
-  grid-template-areas:
-    "firstName"
-    "middleName"
-    "lastName"
-    "identifierGroup"
-    "address1"
-    "address2"
-    "city"
-    "state"
-    "postalCode"
-    "country"
-    "contactGroup"
-    "associateOrganizationSection"
-    "buttonGroup";
+  grid-template-areas: "firstName" "middleName" "lastName" "identifierGroup" "addresses" "contacts" "associateOrganizationSection" "buttonGroup";
 }
 
 .addOrganizationsButton {
@@ -115,17 +82,7 @@
 @media only screen and (min-width: 768px) {
   .gridContainer {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "firstName lastName"
-      "middleName ."
-      "identifierGroup identifierGroup"
-      "address1 ."
-      "address2 ."
-      "city state"
-      "postalCode country"
-      "contactGroup contactGroup"
-      "associateOrganizationSection associateOrganizationSection"
-      "buttonGroup .";
+    grid-template-areas: "firstName lastName" "middleName ." "identifierGroup identifierGroup" "addresses addresses" "contacts contacts" "associateOrganizationSection associateOrganizationSection" "buttonGroup .";
   }
 
   .identifierGroup {
@@ -133,9 +90,14 @@
     grid-template-columns: 1fr 2fr;
   }
 
-  .contactGroup {
+  .addresses {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
+  }
+
+  .contacts {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .buttonGroup {
@@ -172,52 +134,25 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .address1 {
-    grid-column: 1 / span 4;
+  .addresses {
+    grid-column: 1 / span 12;
     grid-row: 3;
   }
 
-  .address2 {
-    grid-column: 5 / span 4;
-    grid-row: 3;
-  }
-
-  .city {
-    grid-column: 1 / span 4;
+  .contacts {
+    grid-column: 1 / span 12;
     grid-row: 4;
-  }
-
-  .state {
-    grid-column: 5 / span 3;
-    grid-row: 4;
-  }
-
-  .postalCode {
-    grid-column: 8 / span 2;
-    grid-row: 4;
-  }
-
-  .country {
-    grid-column: 1 / span 4;
-    grid-row: 5;
-  }
-
-  .contactGroup {
-    grid-column: 1 / span 5;
-    grid-row: 6;
-    grid-template-columns: 2fr 3fr;
   }
 
   .associateOrganizationSection {
     grid-column: 1 / span 12;
-    grid-row: 7;
+    grid-row: 5;
     grid-template-columns: 1fr;
   }
 
   .buttonGroup {
     grid-column: 1 / span 2;
-    grid-row: 8;
+    grid-row: 6;
     grid-template-columns: 1fr 1fr;
   }
 }
-
