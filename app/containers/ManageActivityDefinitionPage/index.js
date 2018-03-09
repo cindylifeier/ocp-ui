@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import Divider from 'material-ui/Divider';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -16,6 +15,9 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ManageActivityDefinition from 'components/ManageActivityDefinition';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   ACTION_PARTICIPANT_ROLE,
@@ -38,7 +40,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
 
 export class ManageActivityDefinitionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -75,19 +76,16 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
       organization,
     };
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Manage Activity Definition</title>
           <meta name="description" content="Manage ActivityDefinition page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <FormattedMessage {...messages.createHeader} />
-          </div>
-          <Divider />
+        <PageHeader title={<FormattedMessage {...messages.createHeader} />} />
+        <PageContent>
           <ManageActivityDefinition {...activityDefinitionProps} onSave={this.handleSave} />
-        </div>
-      </div>
+        </PageContent>
+      </Page>
     );
   }
 }
