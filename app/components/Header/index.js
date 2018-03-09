@@ -10,9 +10,9 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionPatients from 'material-ui/svg-icons/action/perm-contact-calendar';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 
-import Logout from '../../containers/Logout';
+import Logout from 'containers/Logout';
+import { HOME_URL, PATIENTS_URL } from 'containers/App/constants';
 import styles from './styles.css';
-import { HOME_URL, PATIENTS_URL } from '../../containers/App/constants';
 
 function Header() {
   return (
