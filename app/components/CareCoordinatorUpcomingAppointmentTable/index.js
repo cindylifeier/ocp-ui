@@ -36,11 +36,11 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
         </TableHeader>
         {elements && elements.map((appointment) => (
           <TableRow key={uniqueId()}>
-            <TableRowColumn>{appointment.displayPatientName}</TableRowColumn>
+            <TableRowColumn>{appointment.patientName}</TableRowColumn>
             <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
             <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
-            <TableRowColumn>{appointment.displayDate}</TableRowColumn>
-            <TableRowColumn>{appointment.displayDuration}</TableRowColumn>
+            <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
+            <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
             <TableRowColumn>{appointment.description}</TableRowColumn>
             <TableRowColumn>
               <IconMenu
