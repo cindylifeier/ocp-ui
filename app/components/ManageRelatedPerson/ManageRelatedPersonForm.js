@@ -8,12 +8,14 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
+import { mapToPatientName } from 'utils/PatientUtils';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox/index';
-import { DATE_PICKER_MODE } from 'containers/App/constants';
-import { mapToPatientName } from 'utils/PatientUtils';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import messages from './messages';
 import styles from './styles.css';
 
@@ -23,6 +25,7 @@ function ManageRelatedPersonForm(props) {
     isSubmitting,
     dirty,
     isValid,
+    values, errors,
     uspsStates,
     patientIdentifierSystems,
     administrativeGenders,
@@ -31,6 +34,18 @@ function ManageRelatedPersonForm(props) {
     relationshipTypes,
     selectedPatient,
   } = props;
+  const addAddressesProps = {
+    uspsStates,
+    errors,
+    addresses: values.addresses,
+  };
+  const addTelecomsProps = {
+    telecomSystems,
+    telecomUses,
+    errors,
+    telecoms: values.telecoms,
+  };
+
   return (
     <div>
       <div className={styles.title}>
@@ -114,7 +129,11 @@ function ManageRelatedPersonForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.relationshipType} />}
             >
               {relationshipTypes && relationshipTypes.reverse().map((relationshipType) =>
-                <MenuItem key={relationshipType.code} value={relationshipType.code} primaryText={relationshipType.display} />,
+                (<MenuItem
+                  key={relationshipType.code}
+                  value={relationshipType.code}
+                  primaryText={relationshipType.display}
+                />),
               )}
             </SelectField>
           </div>
@@ -136,86 +155,11 @@ function ManageRelatedPersonForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
             />
           </div>
-          <div className={`${styles.gridItem} ${styles.address1}`}>
-            <TextField
-              fullWidth
-              name="address1"
-              hintText={<FormattedMessage {...messages.hintText.address1} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
-            />
+          <div className={`${styles.gridItem} ${styles.addresses}`}>
+            <AddMultipleAddresses{...addAddressesProps} />
           </div>
-          <div className={`${styles.gridItem} ${styles.address2}`}>
-            <TextField
-              fullWidth
-              name="address2"
-              hintText={<FormattedMessage {...messages.hintText.address2} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.city}`}>
-            <TextField
-              fullWidth
-              name="city"
-              hintText={<FormattedMessage {...messages.hintText.city} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.state}`}>
-            <SelectField
-              fullWidth
-              name="state"
-              hintText={<FormattedMessage {...messages.hintText.state} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
-            >
-              {uspsStates && uspsStates.map((uspsState) =>
-                <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
-              )}
-            </SelectField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.postalCode}`}>
-            <TextField
-              fullWidth
-              name="zip"
-              hintText={<FormattedMessage {...messages.hintText.zip} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.zip} />}
-            />
-          </div>
-          <div className={`${styles.gridItem} ${styles.country}`}>
-            <TextField
-              fullWidth
-              name="country"
-              hintText={<FormattedMessage {...messages.hintText.country} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
-            >
-            </TextField>
-          </div>
-          <div className={`${styles.gridItem} ${styles.contactGroup}`}>
-            <SelectField
-              fullWidth
-              name="telecomCode"
-              hintText={<FormattedMessage {...messages.hintText.telecomType} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
-            >
-              {telecomSystems && telecomSystems.map((telecomType) =>
-                <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
-              )}
-            </SelectField>
-            <TextField
-              fullWidth
-              name="telecomValue"
-              hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
-            />
-            <SelectField
-              fullWidth
-              name="telecomUse"
-              hintText={<FormattedMessage {...messages.hintText.telecomUse} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomUse} />}
-            >
-              {telecomUses && telecomUses.map((telecomUse) =>
-                <MenuItem key={telecomUse.code} value={telecomUse.code} primaryText={telecomUse.display} />,
-              )}
-            </SelectField>
+          <div className={`${styles.gridItem} ${styles.contacts}`}>
+            <AddMultipleTelecoms {...addTelecomsProps} />
           </div>
           <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
             <RaisedButton
@@ -231,7 +175,7 @@ function ManageRelatedPersonForm(props) {
               label="Cancel"
               default
               disabled={isSubmitting}
-              containerElement={<Link to="/ocp-ui/patients" />}
+              containerElement={<Link to={PATIENTS_URL} />}
             />
           </div>
         </div>
@@ -244,6 +188,8 @@ ManageRelatedPersonForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   uspsStates: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -260,12 +206,13 @@ ManageRelatedPersonForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
   telecomUses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   relationshipTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
