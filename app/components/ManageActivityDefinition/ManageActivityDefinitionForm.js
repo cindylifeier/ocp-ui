@@ -12,18 +12,19 @@ import FlatButton from 'material-ui/FlatButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import Dialog from 'material-ui/Dialog';
 import { teal500, white } from 'material-ui/styles/colors';
+
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import DatePicker from 'components/DatePicker';
+import AddArtifactForm from 'components/AddArtifactForm';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import { DATE_PICKER_MODE, HOME_URL } from 'containers/App/constants';
 import styles from './styles.css';
 import messages from './messages';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import { DATE_PICKER_MODE, HOME_URL } from '../../containers/App/constants';
-import DatePicker from '../DatePicker';
-import AddArtifactForm from '../AddArtifactForm';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
 
 class ManageActivityDefinitionForm extends React.PureComponent {
 
@@ -258,7 +259,8 @@ class ManageActivityDefinitionForm extends React.PureComponent {
                         <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnType} /></TableHeaderColumn>
                         <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnAction} /></TableHeaderColumn>
                       </TableHeader>
-                      {errors && errors.relatedArtifact && <span className={styles.error}>{errors.relatedArtifact}</span>}
+                      {errors && errors.relatedArtifact &&
+                      <span className={styles.error}>{errors.relatedArtifact}</span>}
                       {values.relatedArtifact.map((artifact, index) => {
                         const { display, type } = artifact;
                         return (
