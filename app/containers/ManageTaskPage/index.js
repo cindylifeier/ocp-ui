@@ -5,9 +5,8 @@
  */
 
 import React from 'react';
-
-import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
+import Divider from 'material-ui/Divider';
 import queryString from 'query-string';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
@@ -17,22 +16,22 @@ import { FormattedMessage } from 'react-intl';
 import Util from 'utils/Util';
 import merge from 'lodash/merge';
 import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ManageTask from 'components/ManageTask';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
-import { createTask, getActivityDefinitions, getOrganization, getRequester, getPractitioners, getEventTypes, getTaskById, updateTask, getTasksByPatient } from 'containers/ManageTaskPage/actions';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
-import isUndefined from 'lodash/isUndefined';
 import { getLookupsAction, getPatient } from 'containers/App/actions';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { makeSelectActivityDefinitions, makeSelectOrganization, makeSelectPractitioners, makeSelectPractitioner, makeSelectEventTypes, makeSelectTasksByPatient } from './selectors';
+import { createTask, getActivityDefinitions, getOrganization, getRequester, getPractitioners, getEventTypes, getTaskById, updateTask, getTasksByPatient } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.css';
 import messages from './messages';
-
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
