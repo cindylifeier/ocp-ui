@@ -5,18 +5,16 @@ import ManageAppointmentFormGrid from 'components/ManageAppointment/ManageAppoin
 import SelectField from 'components/SelectField';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import TimePicker from 'components/TimePicker';
 import { Form } from 'formik';
-import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
-import TimePicker from 'material-ui/TimePicker';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import Util from 'utils/Util';
 import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
 import DatePicker from '../DatePicker';
 import TextField from '../TextField';
@@ -33,7 +31,6 @@ function ManageAppointmentForm(props) {
     appointmentTypes,
     handleOpen,
     selectedParticipants,
-    initialSelectedParticipants,
     removeParticipant,
     selectedPatient,
   } = props;
@@ -43,8 +40,6 @@ function ManageAppointmentForm(props) {
     removeParticipant,
   };
 
-  // To check whether has participant
-  const hasParticipants = !isEmpty(selectedParticipants);
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
   return (
@@ -133,7 +128,7 @@ function ManageAppointmentForm(props) {
                   fullWidth
                   type="submit"
                   label="Save"
-                  disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || !hasParticipants}
+                  disabled={!dirty || isSubmitting || !isValid}
                 />
               </Cell>
               <Cell>
@@ -164,7 +159,6 @@ ManageAppointmentForm.propTypes = {
     name: PropTypes.array.isRequired,
   }),
   selectedParticipants: PropTypes.array,
-  initialSelectedParticipants: PropTypes.array,
   appointmentTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -172,12 +166,3 @@ ManageAppointmentForm.propTypes = {
 };
 
 export default ManageAppointmentForm;
-
-function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
-  let isDirty = dirty;
-  const identityOfArray = 'memberId';
-  if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
-    isDirty = true;
-  }
-  return isDirty;
-}

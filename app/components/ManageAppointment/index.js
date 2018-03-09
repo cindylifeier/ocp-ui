@@ -4,7 +4,7 @@
  *
  */
 
-import ManageAppointmentForm from 'components/ManageAppointment/ManageAppointmentFormOne';
+import ManageAppointmentForm from 'components/ManageAppointment/ManageAppointmentForm';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
@@ -50,15 +50,11 @@ function ManageAppointment(props) {
             onSave(values, actions);
           }}
           validationSchema={yup.object().shape({
-            patientName: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
             date: yup.date()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            status: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            startDate: yup.date()
               .required((<FormattedMessage {...messages.validation.required} />))
               .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+            appointmentType: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
           })
           }
           render={(formikProps) => <ManageAppointmentForm {...formikProps} {...propsFromContainer} />}
@@ -79,7 +75,7 @@ ManageAppointment.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
-  appointment: PropTypes.any,
+  appointment: PropTypes.object,
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
   selectedParticipants: PropTypes.array,
