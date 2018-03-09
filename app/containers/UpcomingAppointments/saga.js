@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { GET_UPCOMING_APPOINTMENTS } from 'containers/UpcomingAppointments/constants';
 import { getUpcomingAppointmentsSuccess, getUpcomingAppointmentsError } from './actions';
-import getUpComingAppointmentsApi from './api';
+import getUpcomingAppointmentsApi from './api';
 import { showNotification } from '../Notification/actions';
 
 
@@ -19,9 +19,9 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getUpComingAppointments() {
+export function* getUpcomingAppointments() {
   try {
-    const upcomingAppointmentsPage = yield call(getUpComingAppointmentsApi);
+    const upcomingAppointmentsPage = yield call(getUpcomingAppointmentsApi);
     yield put(getUpcomingAppointmentsSuccess(upcomingAppointmentsPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
@@ -30,12 +30,12 @@ export function* getUpComingAppointments() {
   }
 }
 
-export function* watchGetUpComingAppointments() {
-  yield takeLatest(GET_UPCOMING_APPOINTMENTS, getUpComingAppointments);
+export function* watchGetUpcomingAppointments() {
+  yield takeLatest(GET_UPCOMING_APPOINTMENTS, getUpcomingAppointments);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetUpComingAppointments(),
+    watchGetUpcomingAppointments(),
   ]);
 }
