@@ -4,7 +4,10 @@
  *
  */
 
-import { CREATE_APPOINTMENT, INITIALIZE_MANAGE_APPOINTMENT } from 'containers/ManageAppointmentPage/constants';
+import {
+  INITIALIZE_MANAGE_APPOINTMENT,
+  SAVE_APPOINTMENT,
+} from 'containers/ManageAppointmentPage/constants';
 
 export function initializeManageAppointment() {
   return {
@@ -12,9 +15,9 @@ export function initializeManageAppointment() {
   };
 }
 
-export function createAppointment(appointment, handleSubmitting) {
+export function saveAppointment(appointment, handleSubmitting) {
   return {
-    type: CREATE_APPOINTMENT,
+    type: SAVE_APPOINTMENT,
     appointment,
     handleSubmitting,
   };
