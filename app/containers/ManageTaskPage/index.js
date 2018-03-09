@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Divider from 'material-ui/Divider';
 import queryString from 'query-string';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
@@ -20,17 +19,41 @@ import isUndefined from 'lodash/isUndefined';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
 import { getLookupsAction, getPatient } from 'containers/App/actions';
-import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
+import {
+  makeSelectRequestIntents,
+  makeSelectRequestPriorities,
+  makeSelectTaskPerformerTypes,
+  makeSelectTaskStatuses,
+} from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
-import { makeSelectActivityDefinitions, makeSelectOrganization, makeSelectPractitioners, makeSelectPractitioner, makeSelectEventTypes, makeSelectTasksByPatient } from './selectors';
-import { createTask, getActivityDefinitions, getOrganization, getRequester, getPractitioners, getEventTypes, getTaskById, updateTask, getTasksByPatient } from './actions';
+import {
+  makeSelectActivityDefinitions,
+  makeSelectEventTypes,
+  makeSelectOrganization,
+  makeSelectPractitioner,
+  makeSelectPractitioners,
+  makeSelectTasksByPatient,
+} from './selectors';
+import {
+  createTask,
+  getActivityDefinitions,
+  getEventTypes,
+  getOrganization,
+  getPractitioners,
+  getRequester,
+  getTaskById,
+  getTasksByPatient,
+  updateTask,
+} from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import styles from './styles.css';
 import messages from './messages';
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -38,12 +61,11 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     super(props);
     this.handleSave = this.handleSave.bind(this);
     this.state = {
-      /* practitionerId: 1697,*/
       practitionerId: 1377,
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -183,20 +205,20 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     };
 
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Manage Task</title>
           <meta name="description" content="Manage Task page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            {logicalId ? <FormattedMessage {...messages.updateHeader} />
-              : <FormattedMessage {...messages.createHeader} />}
-          </div>
-          <Divider />
+        <PageHeader
+          title={logicalId ?
+            <FormattedMessage {...messages.updateHeader} /> :
+            <FormattedMessage {...messages.createHeader} />}
+        />
+        <PageContent>
           <ManageTask {...taskProps} onSave={this.handleSave} />
-        </div>
-      </div>
+        </PageContent>
+      </Page>
     );
   }
 }
