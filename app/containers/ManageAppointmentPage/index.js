@@ -11,7 +11,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
-import { createAppointment, initializeManageAppointment } from 'containers/ManageAppointmentPage/actions';
+import { initializeManageAppointment, saveAppointment } from 'containers/ManageAppointmentPage/actions';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
   initializeSearchAppointmentParticipantResult,
@@ -70,7 +70,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
     // Add selected participants to form data
     const selectedParticipants = this.props.selectedParticipants;
     merge(appointmentFormData, { participants: selectedParticipants });
-    this.props.createAppointment(appointmentFormData, () => actions.setSubmitting(false));
+    this.props.saveAppointment(appointmentFormData, () => actions.setSubmitting(false));
   }
 
   handleClose() {
@@ -142,7 +142,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
 ManageAppointmentPage.propTypes = {
   match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
-  createAppointment: PropTypes.func.isRequired,
+  saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
   selectedPatient: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
@@ -171,7 +171,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeManageAppointment: () => dispatch(initializeManageAppointment()),
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
-    createAppointment: (appointment, handleSubmitting) => dispatch(createAppointment(appointment, handleSubmitting)),
+    saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     initializeSearchParticipantResult: () => dispatch(initializeSearchAppointmentParticipantResult()),
   };
