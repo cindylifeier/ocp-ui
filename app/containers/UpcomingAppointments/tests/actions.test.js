@@ -18,12 +18,18 @@ describe('UpcomingAppointments actions', () => {
       };
       expect(getUpcomingAppointments()).toEqual(expected);
     });
+  });
+
+  describe('GetUpcomingAppointmentsSuccess Action', () => {
     it('has a type of GET_UPCOMING_APPOINTMENTS_SUCCESS', () => {
       const expected = {
         type: GET_UPCOMING_APPOINTMENTS_SUCCESS,
       };
       expect(getUpcomingAppointmentsSuccess()).toEqual(expected);
     });
+  });
+
+  describe('GetUpcomingAppointmentsError Action', () => {
     it('has a type of GET_UPCOMING_APPOINTMENTS_ERROR', () => {
       const expected = {
         type: GET_UPCOMING_APPOINTMENTS_ERROR,
