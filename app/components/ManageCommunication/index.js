@@ -112,8 +112,8 @@ function setInitialValues(communication, selectedPatient, practitioner) {
   let formData = null;
   if (selectedPatient) {
     formData = merge(
-      mapToSender(practitioner, 'sender'),
-      mapToSender(selectedPatient, 'subject')
+      mapToParticipantName(practitioner, 'sender'),
+      mapToParticipantName(selectedPatient, 'subject')
     );
   }
 
@@ -131,10 +131,10 @@ function setInitialValues(communication, selectedPatient, practitioner) {
   return Util.pickByIdentity(formData);
 }
 
-function mapToSender(selectedPatient, fieldName) {
+function mapToParticipantName(participant, fieldName) {
   const fieldObject = {};
-  if (!isUndefined(fieldName) && selectedPatient && selectedPatient.name && selectedPatient.name.length > 0) {
-    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(selectedPatient.name[0]));
+  if (!isUndefined(fieldName) && participant && participant.name && participant.name.length > 0) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(participant.name[0]));
   }
   return fieldObject;
 }
