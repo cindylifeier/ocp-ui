@@ -17,13 +17,8 @@ const ManagePatientFormGrid = Grid.extend`
     "ethnicity"
     "language"
     "identifierGroup"
-    "contactGroup"
-    "address1"
-    "address2"
-    "city"
-    "state"
-    "postalCode"
-    "country"
+    "addresses"
+    "contacts"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -35,11 +30,8 @@ const ManagePatientFormGrid = Grid.extend`
       "birthSex race"
       "ethnicity language"
       "identifierGroup identifierGroup"
-      "contactGroup contactGroup"
-      "address1 ."
-      "address2 ."
-      "city state"
-      "postalCode country"
+      "contacts contacts"
+      "addresses addresses"
       "buttonGroup .";
   }
 
@@ -51,10 +43,8 @@ const ManagePatientFormGrid = Grid.extend`
       "birthDate birthDate birthDate birthDate genderCode genderCode birthSex birthSex . . . ."
       "race race ethnicity ethnicity ethnicity language language . . . . ."
       "identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . ."
-      "contactGroup contactGroup contactGroup contactGroup contactGroup . . . . . . ."
-      "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."
-      "city city city city state state state postalCode postalCode . . ."
-      "country country country country . . . . . . . ."
+      "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"
+      "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;
