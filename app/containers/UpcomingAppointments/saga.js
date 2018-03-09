@@ -19,7 +19,7 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getUpcomingAppointments() {
+export function* getUpcomingAppointmentsSaga() {
   try {
     const upcomingAppointmentsPage = yield call(getUpcomingAppointmentsApi);
     yield put(getUpcomingAppointmentsSuccess(upcomingAppointmentsPage));
@@ -30,12 +30,12 @@ export function* getUpcomingAppointments() {
   }
 }
 
-export function* watchGetUpcomingAppointments() {
-  yield takeLatest(GET_UPCOMING_APPOINTMENTS, getUpcomingAppointments);
+export function* watchGetUpcomingAppointmentsSaga() {
+  yield takeLatest(GET_UPCOMING_APPOINTMENTS, getUpcomingAppointmentsSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetUpcomingAppointments(),
+    watchGetUpcomingAppointmentsSaga(),
   ]);
 }
