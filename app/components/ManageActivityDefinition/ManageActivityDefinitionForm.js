@@ -4,14 +4,10 @@ import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import find from 'lodash/find';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import Dialog from 'material-ui/Dialog';
-import { teal500, white } from 'material-ui/styles/colors';
+import { Cell, Grid } from 'styled-css-grid';
 
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
@@ -22,9 +18,15 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
+import InlineLabel from 'components/InlineLabel';
+import FormSubtitle from 'components/FormSubtitle';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
+import ErrorText from 'components/ErrorText';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import { DATE_PICKER_MODE, HOME_URL } from 'containers/App/constants';
-import styles from './styles.css';
 import messages from './messages';
+import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
 class ManageActivityDefinitionForm extends React.PureComponent {
 
@@ -33,26 +35,14 @@ class ManageActivityDefinitionForm extends React.PureComponent {
     editingArtifact: null,
   };
 
-  static addButtonStyle = { width: '150px' };
-  static iconStyles = {
-    iconButton: {
-      position: 'relative',
-    },
-    icon: {
-      width: '100%',
-      height: 26,
-      position: 'absolute',
-      top: '0',
-      right: '0',
-    },
-  };
-
   constructor(props) {
     super(props);
     this.state = { ...ManageActivityDefinitionForm.initialState };
     this.handleDialogCallback = this.handleDialogCallback.bind(this);
     this.handleAddArtifact = this.handleAddArtifact.bind(this);
     this.handleEditArtifact = this.handleEditArtifact.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+    this.LAST_PUBLISHED_DATE_HTML_ID = uniqueId('last_published_date_');
   }
 
   handleDialogCallback() {
@@ -86,242 +76,239 @@ class ManageActivityDefinitionForm extends React.PureComponent {
     const today = new Date();
 
     return (
-      <div>
-        <div className={styles.title}>
-          <FormattedMessage {...messages.title} />
-        </div>
-        <Form>
-          <div className={styles.organizationInfoSection}>
-            <div className={styles.organizationInfoLabel}>
-              {<FormattedMessage {...messages.hintText.organizationNameLabel} />}
-            </div>
-            <div className={styles.organizationName}>
+      <Form>
+        <ManageActivityDefinitionFormGrid>
+          <Cell area="generalInformationSubtitle">
+            <FormSubtitle margin="0">
+              <FormattedMessage {...messages.title} />
+            </FormSubtitle>
+          </Cell>
+          <Cell area="selectedOrganization">
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <FormattedMessage {...messages.hintText.organizationNameLabel} />&nbsp;
+            </InlineLabel>
+            <span id={this.ORGANIZATION_NAME_HTML_ID}>
               {organization.name}
-            </div>
-          </div>
-          <div className={styles.gridContainer}>
-            <div className={`${styles.gridItem} ${styles.version}`}>
-              <TextField
-                fullWidth
-                name="version"
-                hintText={<FormattedMessage {...messages.hintText.version} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.version} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.systemName}`}>
-              <TextField
-                fullWidth
-                name="name"
-                hintText={<FormattedMessage {...messages.hintText.systemName} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.systemName} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.displayName}`}>
-              <TextField
-                fullWidth
-                name="title"
-                hintText={<FormattedMessage {...messages.hintText.displayName} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.displayName} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.description}`}>
-              <TextField
-                fullWidth
-                name="description"
-                hintText={<FormattedMessage {...messages.hintText.description} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
-              />
-            </div>
-            <div className={styles.lastPublishDateLabel}>
-              {<FormattedMessage {...messages.hintText.lastPublishDateLabel} />}
-            </div>
-            <div className={styles.lastPublishDate}>
-              {organization.name}
-            </div>
-            <div className={`${styles.gridItem} ${styles.timeGroup}`}>
-              <DatePicker
-                fullWidth
-                name="effectiveStart"
-                mode={DATE_PICKER_MODE.LANDSCAPE}
-                minDate={today}
-                hintText={<FormattedMessage {...messages.hintText.effectiveStart} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveStart} />}
-              />
-              <DatePicker
-                fullWidth
-                name="effectiveEnd"
-                minDate={today}
-                mode={DATE_PICKER_MODE.LANDSCAPE}
-                hintText={<FormattedMessage {...messages.hintText.effectiveEnd} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveEnd} />}
-              />
-              <TextField
-                fullWidth
-                name="duration"
-                hintText={<FormattedMessage {...messages.hintText.duration} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.duration} />}
-              />
-              <TextField
-                fullWidth
-                name="frequency"
-                hintText={<FormattedMessage {...messages.hintText.frequency} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.frequency} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.serviceGroup}`}>
-              <SelectField
-                fullWidth
-                name="status"
-                hintText={<FormattedMessage {...messages.hintText.status} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
-              >
-                {publicationStatuses && publicationStatuses.map((status) =>
-                  <MenuItem key={status.code} value={status} primaryText={status.display} />,
-                )}
-              </SelectField>
-              <SelectField
-                fullWidth
-                name="topic"
-                hintText={<FormattedMessage {...messages.hintText.topic} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.topic} />}
-              >
-                {definitionTopics && definitionTopics.map((topic) =>
-                  <MenuItem key={topic.code} value={topic} primaryText={topic.display} />,
-                )}
-              </SelectField>
-              <SelectField
-                fullWidth
-                name="kind"
-                hintText={<FormattedMessage {...messages.hintText.resourceType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.resourceType} />}
-              >
-                {resourceTypes && resourceTypes.map((kind) =>
-                  <MenuItem key={kind.code} value={kind} primaryText={kind.display} />,
-                )}
-              </SelectField>
-            </div>
-            <div className={`${styles.gridItem} ${styles.participantGroup}`}>
-              <SelectField
-                fullWidth
-                name="participantType"
-                hintText={<FormattedMessage {...messages.hintText.participantType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantType} />}
-              >
-                {actionParticipantTypes && actionParticipantTypes.map((type) =>
-                  <MenuItem key={type.code} value={type} primaryText={type.display} />,
-                )}
-              </SelectField>
-              <SelectField
-                fullWidth
-                name="participantRole"
-                hintText={<FormattedMessage {...messages.hintText.participantRole} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
-              >
-                {actionParticipantRoles && actionParticipantRoles.map((role) =>
-                  <MenuItem key={role.code} value={role} primaryText={role.display} />,
-                )}
-              </SelectField>
-            </div>
-          </div>
-          <div className={styles.title}>
-            <FormattedMessage {...messages.relatedArtifacts.subtitle} />
-          </div>
-          <div>
-            <div className={styles.addArtifactsButton}>
-              <RaisedButton
-                backgroundColor={teal500}
-                labelColor={white}
-                onClick={this.handleAddArtifact}
-                style={ManageActivityDefinitionForm.addButtonStyle}
-                label={<FormattedMessage {...messages.relatedArtifacts.addButtonLabel} />}
-              />
-            </div>
-            <div className={styles.relatedArtifactsSection}>
-              <FieldArray
-                name="relatedArtifact"
-                render={(arrayHelpers) => (
-                  <div>
-                    <Dialog
-                      open={this.state.artifactsDialogOpen}
-                    >
-                      <AddArtifactForm
-                        initialValues={this.state.editingArtifact}
-                        arrayHelpers={arrayHelpers}
-                        onAddArtifact={arrayHelpers.push}
-                        onRemoveArtifact={arrayHelpers.remove}
-                        relatedArtifactTypes={relatedArtifactTypes}
-                        callback={this.handleDialogCallback}
-                      />
-                    </Dialog>
-                    <Table>
-                      <TableHeader>
-                        <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnName} /></TableHeaderColumn>
-                        <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnType} /></TableHeaderColumn>
-                        <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnAction} /></TableHeaderColumn>
-                      </TableHeader>
-                      {errors && errors.relatedArtifact &&
-                      <span className={styles.error}>{errors.relatedArtifact}</span>}
-                      {values.relatedArtifact.map((artifact, index) => {
-                        const { display, type } = artifact;
-                        return (
-                          <TableRow key={`${display}-${type}`}>
-                            <TableRowColumn>{display}</TableRowColumn>
-                            <TableRowColumn>{find(relatedArtifactTypes, { code: type }).display}</TableRowColumn>
-                            <TableRowColumn>
-                              <IconMenu
-                                iconButtonElement={
-                                  (<IconButton
-                                    className={styles.iconButton}
-                                    iconStyle={ManageActivityDefinitionForm.iconStyles.icon}
-                                    style={ManageActivityDefinitionForm.iconStyles.iconButton}
-                                  >
-                                    <NavigationMenu />
-                                  </IconButton>)
-                                }
-                                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              >
-                                <MenuItem
-                                  className={styles.menuItem}
-                                  primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />}
-                                  onClick={() => this.handleEditArtifact(index, artifact)}
-                                />
-                                <MenuItem
-                                  className={styles.menuItem}
-                                  primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelRemove} />}
-                                  onClick={() => arrayHelpers.remove(index)}
-                                />
-                              </IconMenu>
-                            </TableRowColumn>
-                          </TableRow>
-                        );
-                      })}
-                    </Table>
-                  </div>)}
-              />
-            </div>
-          </div>
-          <div className={styles.gridContainer}>
-            <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-              <RaisedButton
-                fullWidth
-                type="submit"
-                label="Save"
-                backgroundColor={teal500}
-                labelColor={white}
-                disabled={!dirty || isSubmitting || !isValid}
-              />
-              <FlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                containerElement={<Link to={HOME_URL} />}
-              />
-            </div>
-          </div>
-        </Form>
-      </div>
+            </span>
+          </Cell>
+          <Cell area="version">
+            <TextField
+              fullWidth
+              name="version"
+              hintText={<FormattedMessage {...messages.hintText.version} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.version} />}
+            />
+          </Cell>
+          <Cell area="systemName">
+            <TextField
+              fullWidth
+              name="name"
+              hintText={<FormattedMessage {...messages.hintText.systemName} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.systemName} />}
+            />
+          </Cell>
+          <Cell area="displayName">
+            <TextField
+              fullWidth
+              name="title"
+              hintText={<FormattedMessage {...messages.hintText.displayName} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.displayName} />}
+            />
+          </Cell>
+          <Cell area="description">
+            <TextField
+              fullWidth
+              name="description"
+              hintText={<FormattedMessage {...messages.hintText.description} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
+            />
+          </Cell>
+          <Cell area="lastPublishDate">
+            <InlineLabel htmlFor={this.LAST_PUBLISHED_DATE_HTML_ID}>
+              <FormattedMessage {...messages.hintText.lastPublishDateLabel} />&nbsp;
+            </InlineLabel>
+            <span id={this.LAST_PUBLISHED_DATE_HTML_ID}>{organization.name}</span>
+          </Cell>
+          <Cell area="effectivePeriodStart">
+            <DatePicker
+              fullWidth
+              name="effectiveStart"
+              mode={DATE_PICKER_MODE.LANDSCAPE}
+              minDate={today}
+              hintText={<FormattedMessage {...messages.hintText.effectiveStart} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveStart} />}
+            />
+          </Cell>
+          <Cell area="effectivePeriodEnd">
+            <DatePicker
+              fullWidth
+              name="effectiveEnd"
+              minDate={today}
+              mode={DATE_PICKER_MODE.LANDSCAPE}
+              hintText={<FormattedMessage {...messages.hintText.effectiveEnd} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveEnd} />}
+            />
+          </Cell>
+          <Cell area="duration">
+            <TextField
+              fullWidth
+              name="duration"
+              hintText={<FormattedMessage {...messages.hintText.duration} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.duration} />}
+            />
+          </Cell>
+          <Cell area="frequency">
+            <TextField
+              fullWidth
+              name="frequency"
+              hintText={<FormattedMessage {...messages.hintText.frequency} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.frequency} />}
+            />
+          </Cell>
+          <Cell area="status">
+            <SelectField
+              fullWidth
+              name="status"
+              hintText={<FormattedMessage {...messages.hintText.status} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
+            >
+              {publicationStatuses && publicationStatuses.map((status) =>
+                <MenuItem key={status.code} value={status} primaryText={status.display} />,
+              )}
+            </SelectField>
+          </Cell>
+          <Cell area="topic">
+            <SelectField
+              fullWidth
+              name="topic"
+              hintText={<FormattedMessage {...messages.hintText.topic} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.topic} />}
+            >
+              {definitionTopics && definitionTopics.map((topic) =>
+                <MenuItem key={topic.code} value={topic} primaryText={topic.display} />,
+              )}
+            </SelectField>
+          </Cell>
+          <Cell area="kind">
+            <SelectField
+              fullWidth
+              name="kind"
+              hintText={<FormattedMessage {...messages.hintText.resourceType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.resourceType} />}
+            >
+              {resourceTypes && resourceTypes.map((kind) =>
+                <MenuItem key={kind.code} value={kind} primaryText={kind.display} />,
+              )}
+            </SelectField>
+          </Cell>
+          <Cell area="participantType">
+            <SelectField
+              fullWidth
+              name="participantType"
+              hintText={<FormattedMessage {...messages.hintText.participantType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantType} />}
+            >
+              {actionParticipantTypes && actionParticipantTypes.map((type) =>
+                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+              )}
+            </SelectField>
+          </Cell>
+          <Cell area="participantRole">
+            <SelectField
+              fullWidth
+              name="participantRole"
+              hintText={<FormattedMessage {...messages.hintText.participantRole} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
+            >
+              {actionParticipantRoles && actionParticipantRoles.map((role) =>
+                <MenuItem key={role.code} value={role} primaryText={role.display} />,
+              )}
+            </SelectField>
+          </Cell>
+          <Cell area="relatedArtifactSubtitle">
+            <FormSubtitle margin="0">
+              <FormattedMessage {...messages.relatedArtifacts.subtitle} />
+            </FormSubtitle>
+          </Cell>
+          <Cell area="addArtifactsButton">
+            <StyledRaisedButton
+              onClick={this.handleAddArtifact}
+              label={<FormattedMessage {...messages.relatedArtifacts.addButtonLabel} />}
+            />
+          </Cell>
+          <Cell area="relatedArtifactsSection">
+            <FieldArray
+              name="relatedArtifact"
+              render={(arrayHelpers) => (
+                <div>
+                  <Dialog
+                    open={this.state.artifactsDialogOpen}
+                  >
+                    <AddArtifactForm
+                      initialValues={this.state.editingArtifact}
+                      arrayHelpers={arrayHelpers}
+                      onAddArtifact={arrayHelpers.push}
+                      onRemoveArtifact={arrayHelpers.remove}
+                      relatedArtifactTypes={relatedArtifactTypes}
+                      callback={this.handleDialogCallback}
+                    />
+                  </Dialog>
+                  <Table>
+                    <TableHeader>
+                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnName} /></TableHeaderColumn>
+                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnType} /></TableHeaderColumn>
+                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnAction} /></TableHeaderColumn>
+                    </TableHeader>
+                    {errors && errors.relatedArtifact &&
+                    <ErrorText>{errors.relatedArtifact}</ErrorText>}
+                    {values.relatedArtifact.map((artifact, index) => {
+                      const { display, type } = artifact;
+                      return (
+                        <TableRow key={`${display}-${type}`}>
+                          <TableRowColumn>{display}</TableRowColumn>
+                          <TableRowColumn>{find(relatedArtifactTypes, { code: type }).display}</TableRowColumn>
+                          <TableRowColumn>
+                            <NavigationStyledIconMenu>
+                              <MenuItem
+                                primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />}
+                                onClick={() => this.handleEditArtifact(index, artifact)}
+                              />
+                              <MenuItem
+                                primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelRemove} />}
+                                onClick={() => arrayHelpers.remove(index)}
+                              />
+                            </NavigationStyledIconMenu>
+                          </TableRowColumn>
+                        </TableRow>
+                      );
+                    })}
+                  </Table>
+                </div>)}
+            />
+          </Cell>
+          <Cell area="buttonGroup">
+            <Grid columns={2}>
+              <Cell>
+                <StyledRaisedButton
+                  fullWidth
+                  type="submit"
+                  label="Save"
+                  disabled={!dirty || isSubmitting || !isValid}
+                />
+              </Cell>
+              <Cell>
+                <StyledFlatButton
+                  fullWidth
+                  label="Cancel"
+                  default
+                  disabled={isSubmitting}
+                  containerElement={<Link to={HOME_URL} />}
+                />
+              </Cell>
+            </Grid>
+          </Cell>
+        </ManageActivityDefinitionFormGrid>
+      </Form>
     );
   }
 
