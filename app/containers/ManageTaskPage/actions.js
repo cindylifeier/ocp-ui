@@ -67,7 +67,7 @@ export function getRequesterSuccess(practitioner) {
   };
 }
 
-export function getRequestercdError(err) {
+export function getRequesterError(err) {
   return {
     type: GET_PRACTITIONER_ERROR,
     err,
