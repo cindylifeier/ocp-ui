@@ -8,7 +8,7 @@ export function* getRecipientsSaga(action) {
   try {
     if (action.patientId) {
       // console.log(action.patientId);
-      // const recipients = yield call(getRecipients, action.patientId);
+      // const recipients = yield call(getRecipients, action.patientId, action.communicationId);
 
       const recipients = [
         { reference: 'Practitioner/2658', display: 'Govind Shrestha', checked: true },

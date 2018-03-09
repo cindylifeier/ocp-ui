@@ -2,11 +2,15 @@ import * as queryString from 'query-string';
 import request from '../../utils/request';
 import { BASE_COMMUNICATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-export function getRecipients(patientId) {
-  const roles = [];
+export function getRecipients(patientId, communicationId) {
   const baseEndpoint = getEndpoint(BASE_COMMUNICATIONS_API_URL);
-  const queryParams = { searchKey: 'patientId', searchValue: patientId, roles };
+  let queryParams = '';
+  if (patientId && communicationId) {
+    queryParams = { patient: patientId, communication: communicationId };
+  } else if (patientId) {
+    queryParams = { patient: patientId };
+  }
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/search?${stringifiedParams}`;
+  const url = `${baseEndpoint}?${stringifiedParams}`;
   return request(url);
 }
