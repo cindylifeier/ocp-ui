@@ -15,7 +15,7 @@ import isEmpty from 'lodash/isEmpty';
 import { FormattedMessage } from 'react-intl';
 import Card from 'components/Card/index';
 import CardHeader from 'components/CardHeader';
-import NoUpcomingAppointments from 'containers/UpcomingAppointments/NoUpcomingAppointments';
+import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable/index';
 import { getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
@@ -51,7 +51,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
           {loading &&
           <RefreshIndicatorLoading />}
           {!loading && isEmpty(data) &&
-          <NoUpcomingAppointments>{<FormattedMessage {...messages.noUpcomingAppointments} />}</NoUpcomingAppointments>}
+          <NoUpcomingAppointmentsMessage>{<FormattedMessage {...messages.noUpcomingAppointments} />}</NoUpcomingAppointmentsMessage>}
           { !isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
             <CareCoordinatorUpcomingAppointmentTable elements={data.elements} appointmentStatuses={appointmentStatuses} appointmentTypes={appointmentTypes} />
