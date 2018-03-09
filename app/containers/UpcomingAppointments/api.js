@@ -11,3 +11,14 @@ export default function getUpcomingAppointments() {
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }
+
+export function cancelAppointment(id) {
+  const baseEndpoint = getEndpoint(BASE_UPCOMING_APPOINTMENTS_API_URL);
+  const requestURL = `${baseEndpoint}/${id}/cancel`;
+  return request(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}

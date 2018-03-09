@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import { STATUS_CODE_CANCELLED } from 'containers/UpcomingAppointments/constants';
 import messages from './messages';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
@@ -21,7 +22,7 @@ import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import StyledIconButton from '../StyledIconButton';
 
-function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes }) { // eslint-disable-line react/prefer-stateless-function
+function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -52,7 +53,11 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-                <MenuItem primaryText={<FormattedMessage {...messages.menuItemCancel} />} disabled />
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.menuItemCancel} />}
+                  disabled={appointment.statusCode === STATUS_CODE_CANCELLED}
+                  onClick={() => cancelAppointment(appointment.logicalId)}
+                />
               </IconMenu>
             </TableRowColumn>
           </TableRow>
@@ -73,6 +78,7 @@ CareCoordinatorUpcomingAppointmentTable.propTypes = {
   elements: PropTypes.array.isRequired,
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
+  cancelAppointment: PropTypes.func,
 };
 
 export default CareCoordinatorUpcomingAppointmentTable;

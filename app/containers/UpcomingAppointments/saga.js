@@ -1,8 +1,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { GET_UPCOMING_APPOINTMENTS } from 'containers/UpcomingAppointments/constants';
-import { getUpcomingAppointmentsSuccess, getUpcomingAppointmentsError } from './actions';
-import getUpcomingAppointmentsApi from './api';
-import { showNotification } from '../Notification/actions';
+import { CANCEL_APPOINTMENT, GET_UPCOMING_APPOINTMENTS } from 'containers/UpcomingAppointments/constants';
+import getUpcomingAppointmentsApi, { cancelAppointment } from 'containers/UpcomingAppointments/api';
+import { getUpcomingAppointmentsSuccess, getUpcomingAppointmentsError, cancelAppointmentError, cancelAppointmentSuccess } from 'containers/UpcomingAppointments/actions';
+import { showNotification } from 'containers/Notification/actions';
 
 
 function getErrorMessage(err) {
@@ -30,12 +30,29 @@ export function* getUpcomingAppointmentsSaga() {
   }
 }
 
+export function* cancelAppointmentSaga({ id }) {
+  try {
+    yield call(cancelAppointment, id);
+    yield put(cancelAppointmentSuccess(id));
+    yield put(showNotification('Appointment is cancelled.'));
+  } catch (err) {
+    yield put(cancelAppointmentError(err));
+    yield put(showNotification('Failed to cancel appointment.'));
+  }
+}
+
+
 export function* watchGetUpcomingAppointmentsSaga() {
   yield takeLatest(GET_UPCOMING_APPOINTMENTS, getUpcomingAppointmentsSaga);
+}
+
+export function* watchCancelAppointmentSaga() {
+  yield takeLatest(CANCEL_APPOINTMENT, cancelAppointmentSaga);
 }
 
 export default function* rootSaga() {
   yield all([
     watchGetUpcomingAppointmentsSaga(),
+    watchCancelAppointmentSaga(),
   ]);
 }
