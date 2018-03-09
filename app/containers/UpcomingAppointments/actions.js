@@ -9,7 +9,9 @@ import {
   GET_UPCOMING_APPOINTMENTS,
   GET_UPCOMING_APPOINTMENTS_SUCCESS,
   GET_UPCOMING_APPOINTMENTS_ERROR,
-} from './constants';
+  CANCEL_APPOINTMENT, CANCEL_APPOINTMENT_ERROR,
+  CANCEL_APPOINTMENT_SUCCESS,
+} from 'containers/UpcomingAppointments/constants';
 
 export function initializeUpcomingAppointments() {
   return {
@@ -33,6 +35,28 @@ export function getUpcomingAppointmentsSuccess(upcomingAppointmentsPage) {
 export function getUpcomingAppointmentsError(error) {
   return {
     type: GET_UPCOMING_APPOINTMENTS_ERROR,
+    error,
+  };
+}
+
+
+export function cancelAppointment(id) {
+  return {
+    type: CANCEL_APPOINTMENT,
+    id,
+  };
+}
+
+export function cancelAppointmentSuccess(id) {
+  return {
+    type: CANCEL_APPOINTMENT_SUCCESS,
+    id,
+  };
+}
+
+export function cancelAppointmentError(error) {
+  return {
+    type: CANCEL_APPOINTMENT_ERROR,
     error,
   };
 }

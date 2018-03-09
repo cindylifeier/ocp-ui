@@ -17,7 +17,7 @@ import Card from 'components/Card/index';
 import CardHeader from 'components/CardHeader';
 import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable/index';
-import { getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
+import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination/index';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -34,6 +34,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.cancelAppointment = this.cancelAppointment.bind(this);
   }
   componentDidMount() {
     this.props.getUpcomingAppointments();
@@ -41,6 +42,9 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
+  }
+  cancelAppointment(logicalId) {
+    this.props.cancelAppointment(logicalId);
   }
   render() {
     const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
@@ -54,7 +58,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
           <NoUpcomingAppointmentsMessage>{<FormattedMessage {...messages.noUpcomingAppointments} />}</NoUpcomingAppointmentsMessage>}
           { !isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
-            <CareCoordinatorUpcomingAppointmentTable elements={data.elements} appointmentStatuses={appointmentStatuses} appointmentTypes={appointmentTypes} />
+            <CareCoordinatorUpcomingAppointmentTable elements={data.elements} appointmentStatuses={appointmentStatuses} appointmentTypes={appointmentTypes} cancelAppointment={this.cancelAppointment} />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
@@ -79,6 +83,7 @@ UpcomingAppointments.propTypes = {
       elements: PropTypes.array,
     }),
   }).isRequired,
+  cancelAppointment: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -91,6 +96,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getUpcomingAppointments: () => dispatch(getUpcomingAppointments()),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
+    cancelAppointment: (id) => dispatch(cancelAppointment(id)),
   };
 }
 
