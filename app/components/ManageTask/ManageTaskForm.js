@@ -7,12 +7,13 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { teal500, white } from 'material-ui/styles/colors';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
+
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import DatePicker from 'components/DatePicker';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import styles from './styles.css';
 import messages from './messages';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import DatePicker from '../DatePicker';
 
 function ManageTaskForm(props) {
   const {
@@ -43,8 +44,12 @@ function ManageTaskForm(props) {
               hintText={<FormattedMessage {...messages.hintText.activityDefinitions} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
             >
-              {activityDefinitions && activityDefinitions.map((activityDefinition) =>
-                <MenuItem key={activityDefinition.reference} value={activityDefinition.reference} primaryText={activityDefinition.display} />,
+              {activityDefinitions && activityDefinitions.map((activityDefinition) => (
+                <MenuItem
+                  key={activityDefinition.reference}
+                  value={activityDefinition.reference}
+                  primaryText={activityDefinition.display}
+                />),
               )}
             </SelectField>
           </div>
@@ -132,17 +137,17 @@ function ManageTaskForm(props) {
                 <MenuItem key={intent.code} value={intent.code} primaryText={intent.display} />,
               )}
             </SelectField>
-            { (eventTypes && eventTypes.length > 0) &&
-              <SelectField
-                fullWidth
-                name="context"
-                hintText={<FormattedMessage {...messages.hintText.eventType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
-              >
-                {eventTypes && eventTypes.map((eventType) =>
-                  <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
-                )}
-              </SelectField>
+            {(eventTypes && eventTypes.length > 0) &&
+            <SelectField
+              fullWidth
+              name="context"
+              hintText={<FormattedMessage {...messages.hintText.eventType} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
+            >
+              {eventTypes && eventTypes.map((eventType) =>
+                <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
+              )}
+            </SelectField>
             }
           </div>
           <div className={`${styles.gridItem} ${styles.contextGroup}`}>
@@ -152,8 +157,12 @@ function ManageTaskForm(props) {
               hintText={<FormattedMessage {...messages.hintText.taskOwner} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
             >
-              {practitioners && practitioners.map((practitioner) =>
-                <MenuItem key={practitioner.reference} value={practitioner.reference} primaryText={practitioner.display} />,
+              {practitioners && practitioners.map((practitioner) => (
+                <MenuItem
+                  key={practitioner.reference}
+                  value={practitioner.reference}
+                  primaryText={practitioner.display}
+                />),
               )}
             </SelectField>
             <SelectField
@@ -167,16 +176,16 @@ function ManageTaskForm(props) {
               )}
             </SelectField>
             {(tasksByPatient && tasksByPatient.length > 0) &&
-              <SelectField
-                fullWidth
-                name="partOf"
-                hintText={<FormattedMessage {...messages.hintText.partOf} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
-              >
-                {tasksByPatient && tasksByPatient.map((partOf) =>
-                  <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
-                )}
-              </SelectField>
+            <SelectField
+              fullWidth
+              name="partOf"
+              hintText={<FormattedMessage {...messages.hintText.partOf} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
+            >
+              {tasksByPatient && tasksByPatient.map((partOf) =>
+                <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
+              )}
+            </SelectField>
             }
           </div>
 
