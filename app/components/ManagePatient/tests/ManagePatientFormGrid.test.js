@@ -59,7 +59,7 @@ describe('<ManagePatientFormGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('grid-column-gap', '2vw');
       expect(renderedComponent).toHaveStyleRule('grid-row-gap', '2vh');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "firstName"    "lastName"    "birthDate"    "genderCode"    "birthSex"    "race"    "ethnicity"    "language"    "identifierGroup"    "contactGroup"    "address1"    "address2"    "city"    "state"    "postalCode"    "country"    "buttonGroup"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "firstName"    "lastName"    "birthDate"    "genderCode"    "birthSex"    "race"    "ethnicity"    "language"    "identifierGroup"    "addresses"    "contacts"    "buttonGroup"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -72,7 +72,7 @@ describe('<ManagePatientFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "firstName lastName"      "birthDate genderCode"      "birthSex race"      "ethnicity language"      "identifierGroup identifierGroup"      "contactGroup contactGroup"      "address1 ."      "address2 ."      "city state"      "postalCode country"      "buttonGroup ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "firstName lastName"      "birthDate genderCode"      "birthSex race"      "ethnicity language"      "identifierGroup identifierGroup"      "contacts contacts"      "addresses addresses"      "buttonGroup ."', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -85,7 +85,7 @@ describe('<ManagePatientFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."      "birthDate birthDate birthDate birthDate genderCode genderCode birthSex birthSex . . . ."      "race race ethnicity ethnicity ethnicity language language . . . . ."      "identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . ."      "contactGroup contactGroup contactGroup contactGroup contactGroup . . . . . . ."      "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."      "city city city city state state state postalCode postalCode . . ."      "country country country country . . . . . . . ."      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."      "birthDate birthDate birthDate birthDate genderCode genderCode birthSex birthSex . . . ."      "race race ethnicity ethnicity ethnicity language language . . . . ."      "identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . ."      "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"      "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
     });
   });
 });

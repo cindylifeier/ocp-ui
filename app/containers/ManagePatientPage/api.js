@@ -1,6 +1,5 @@
 import request from 'utils/request';
 import { BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
-import { EMPTY_STRING } from 'containers/App/constants';
 
 const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
@@ -34,7 +33,7 @@ export function getPatient(patientId) {
 function mapToBackendPatient(patientFormData) {
   const {
     id, firstName, lastName, birthDate, genderCode, identifierType, identifierValue, language, race,
-    ethnicity, birthSex, address1, address2, city, state, postalCode, country, telecomType, telecomValue,
+    ethnicity, birthSex, addresses, telecoms,
   } = patientFormData;
 
   const identifier = [{
@@ -45,27 +44,14 @@ function mapToBackendPatient(patientFormData) {
     firstName,
     lastName,
   }];
-  const telecom = [{
-    system: telecomType,
-    value: telecomValue,
-  }];
-  const address = [{
-    line1: address1,
-    line2: address2,
-    city,
-    stateCode: state,
-    postalCode,
-    countryCode: country,
-  }];
-  const gender = genderCode;
   return {
     id,
     identifier,
     name,
-    telecom,
-    address,
+    telecoms,
+    addresses,
     birthDate,
-    genderCode: gender,
+    genderCode,
     language,
     race,
     ethnicity,
@@ -76,24 +62,15 @@ function mapToBackendPatient(patientFormData) {
 
 export function mapToFrontendPatientForm(patientData) {
   const {
-    id, identifier, name, telecom, address, birthDate, genderCode, language, race, ethnicity, birthSex,
+    id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex,
   } = patientData;
 
   const identifierType = identifier[0].system;
   const identifierValue = identifier[0].value;
   const firstName = name[0].firstName;
   const lastName = name[0].lastName;
-  const telecomType = telecom.length > 0 ? telecom[0].system : null;
-  const telecomValue = telecom.length > 0 ? telecom[0].value : null;
-  const address1 = address.length > 0 ? address[0].line1 : null;
-  const address2 = address.length > 0 ? address[0].line2 : null;
-  const city = address.length > 0 ? address[0].city : null;
-  const state = address.length > 0 ? address[0].stateCode : null;
-  const postalCode = address.length > 0 ? address[0].postalCode : EMPTY_STRING;
-  const country = address.length > 0 ? address[0].countryCode : null;
   const dob = (birthDate !== undefined && birthDate !== null) ? new Date(birthDate) : null;
   const gender = (genderCode !== undefined && genderCode !== null) ? genderCode.toLowerCase() : null;
-  const teleType = (telecomType !== undefined && telecomType !== null) ? telecomType.toLowerCase() : null;
 
   return {
     id,
@@ -107,14 +84,7 @@ export function mapToFrontendPatientForm(patientData) {
     race,
     ethnicity,
     birthSex,
-    address1,
-    address2,
-    city,
-    state,
-    postalCode,
-    country,
-    telecomType: teleType,
-    telecomValue,
+    addresses,
+    telecoms,
   };
 }
-

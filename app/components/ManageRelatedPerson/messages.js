@@ -23,10 +23,6 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.required',
       defaultMessage: 'Required',
     },
-    zip: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.zip',
-      defaultMessage: 'Must be with formats: 12345 or 12345-6789',
-    },
     invalid: {
       id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
@@ -73,42 +69,6 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    telecomType: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomType',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomUse: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomUse',
-      defaultMessage: 'Telecom Use',
-    },
-    telecomValue: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomValue',
-      defaultMessage: 'Telecom Value',
-    },
-    address1: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.address1',
-      defaultMessage: 'Address 1',
-    },
-    address2: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.address2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.city',
-      defaultMessage: 'City',
-    },
-    state: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.state',
-      defaultMessage: 'State',
-    },
-    zip: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.zip',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.country',
-      defaultMessage: 'Country',
-    },
     startDate: {
       id: 'ocpui.components.ManageRelatedPerson.manageForm.hintText.startDate',
       defaultMessage: 'Start Date',
@@ -150,42 +110,6 @@ export default defineMessages({
     identifierValue: {
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
-    },
-    telecomType: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomType',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomUse: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomUse',
-      defaultMessage: 'Telecom Use',
-    },
-    telecomValue: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.telecomValue',
-      defaultMessage: 'Telecom Value',
-    },
-    address1: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.address1',
-      defaultMessage: 'Address 1',
-    },
-    address2: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.address2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.city',
-      defaultMessage: 'City',
-    },
-    state: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.state',
-      defaultMessage: 'State',
-    },
-    zip: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.zip',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.country',
-      defaultMessage: 'Country',
     },
     startDate: {
       id: 'ocpui.components.ManageRelatedPerson.manageForm.floatingLabelText.startDate',

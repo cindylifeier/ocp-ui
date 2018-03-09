@@ -36,15 +36,21 @@ import {
   REQUEST_INTENT,
   REQUEST_PRIORITY,
   RESOURCE_TYPE,
-  TASK_PERFORMER_TYPE,
-  TASK_STATUS,
   TELECOMSYSTEM,
   TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-} from './constants';
+  // Task Resource Lookups - Start
+  TASK_STATUS,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  // Task Resource Lookups - End
+  PROVIDER_ROLE,
+  PROVIDER_SPECIALTY,
+} from 'containers/App/constants';
 import selectGlobalDomain from './selectors';
 
 const makeSelectUspsStates = () => createSelector(
@@ -267,6 +273,16 @@ const makeSelectAppointmentParticipationRequired = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPANT_REQUIRED).toJS(),
 );
 
+const makeSelectProviderRoles = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_ROLE).toJS(),
+);
+
+const makeSelectProviderSpecialties = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_SPECIALTY).toJS(),
+);
+
 // Task Resource Lookups - End
 export {
   makeSelectUspsStates,
@@ -313,4 +329,6 @@ export {
   makeSelectAppointmentParticipationStatuses,
   makeSelectAppointmentParticipationTypes,
   makeSelectAppointmentParticipationRequired,
+  makeSelectProviderRoles,
+  makeSelectProviderSpecialties,
 };

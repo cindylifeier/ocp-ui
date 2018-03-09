@@ -6,6 +6,7 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
+import { PATIENTS_URL } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
@@ -15,11 +16,28 @@ import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import SystemCell from 'components/FieldGroupGrid/SystemCell';
 import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import messages from './messages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 
 function ManagePatientForm(props) {
-  const { isSubmitting, dirty, isValid, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
+  const {
+    isSubmitting, dirty, isValid, values, errors,
+    uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
+  } = props;
+  const addAddressesProps = {
+    uspsStates,
+    errors,
+    addresses: values.addresses,
+  };
+  const addTelecomsProps = {
+    telecomSystems,
+    telecomUses,
+    errors,
+    telecoms: values.telecoms,
+  };
+
   return (
     <Form>
       <ManagePatientFormGrid>
@@ -137,82 +155,11 @@ function ManagePatientForm(props) {
             )}
           </SelectField>
         </Cell>
-        <Cell area="address1">
-          <TextField
-            fullWidth
-            name="address1"
-            hintText={<FormattedMessage {...messages.hintText.address1} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
-          />
+        <Cell area="addresses">
+          <AddMultipleAddresses{...addAddressesProps} />
         </Cell>
-        <Cell area="address2">
-          <TextField
-            fullWidth
-            name="address2"
-            hintText={<FormattedMessage {...messages.hintText.address2} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
-          />
-        </Cell>
-        <Cell area="city">
-          <TextField
-            fullWidth
-            name="city"
-            hintText={<FormattedMessage {...messages.hintText.city} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
-          />
-        </Cell>
-        <Cell area="state">
-          <SelectField
-            fullWidth
-            name="state"
-            hintText={<FormattedMessage {...messages.hintText.state} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
-          >
-            {uspsStates && uspsStates.map((uspsState) =>
-              <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
-            )}
-          </SelectField>
-        </Cell>
-        <Cell area="postalCode">
-          <TextField
-            fullWidth
-            name="postalCode"
-            hintText={<FormattedMessage {...messages.hintText.postalCode} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
-          />
-        </Cell>
-        <Cell area="country">
-          <TextField
-            fullWidth
-            name="country"
-            hintText={<FormattedMessage {...messages.hintText.country} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
-          >
-          </TextField>
-        </Cell>
-        <Cell area="contactGroup">
-          <FieldGroupGrid>
-            <SystemCell>
-              <SelectField
-                fullWidth
-                name="telecomType"
-                hintText={<FormattedMessage {...messages.hintText.telecomType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
-              >
-                {telecomSystems && telecomSystems.map((telecomType) =>
-                  <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
-                )}
-              </SelectField>
-            </SystemCell>
-            <ValueCell>
-              <TextField
-                fullWidth
-                name="telecomValue"
-                hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
-              />
-            </ValueCell>
-          </FieldGroupGrid>
+        <Cell area="contacts">
+          <AddMultipleTelecoms {...addTelecomsProps} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -230,7 +177,7 @@ function ManagePatientForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to="/ocp-ui/patients" />}
+                containerElement={<Link to={PATIENTS_URL} />}
               />
             </Cell>
           </Grid>
@@ -244,6 +191,8 @@ ManagePatientForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   uspsStates: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -276,7 +225,13 @@ ManagePatientForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
 };
 
 export default ManagePatientForm;

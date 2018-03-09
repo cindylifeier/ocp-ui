@@ -8,6 +8,8 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+
+import { HOME_URL } from 'containers/App/constants';
 import AddPractitionerRoleForOrganization from 'components/AddPractitionerRoleForOrganization';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -15,12 +17,12 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import messages from './messages';
 import styles from './styles.css';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
-import { HOME_URL } from '../../containers/App/constants';
-
 
 const customContentStyle = {
   width: '70%',
@@ -65,14 +67,22 @@ class ManagePractitionerForm extends React.PureComponent {
 
   render() {
     const {
-      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes,
-      organizations,
-      currentPage,
-      totalNumberOfPages,
-      onSearch,
-      onPageClick,
-      values, errors,
+      isSubmitting, dirty, isValid, values, errors,
+      uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
+      organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
     } = this.props;
+
+    const addAddressesProps = {
+      uspsStates,
+      errors,
+      addresses: values.addresses,
+    };
+    const addTelecomsProps = {
+      telecomSystems,
+      telecomUses,
+      errors,
+      telecoms: values.telecoms,
+    };
     return (
       <div>
         <div className={styles.title}>
@@ -122,76 +132,11 @@ class ManagePractitionerForm extends React.PureComponent {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
               />
             </div>
-            <div className={`${styles.gridItem} ${styles.address1}`}>
-              <TextField
-                fullWidth
-                name="address1"
-                hintText={<FormattedMessage {...messages.hintText.address1} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
-              />
+            <div className={`${styles.gridItem} ${styles.addresses}`}>
+              <AddMultipleAddresses{...addAddressesProps} />
             </div>
-            <div className={`${styles.gridItem} ${styles.address2}`}>
-              <TextField
-                fullWidth
-                name="address2"
-                hintText={<FormattedMessage {...messages.hintText.address2} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
-              />
-            </div>
-            <div />
-            <div className={`${styles.gridItem} ${styles.city}`}>
-              <TextField
-                fullWidth
-                name="city"
-                hintText={<FormattedMessage {...messages.hintText.city} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.state}`}>
-              <SelectField
-                fullWidth
-                name="state"
-                hintText={<FormattedMessage {...messages.hintText.state} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
-              >
-                {uspsStates && uspsStates.map((uspsState) =>
-                  <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
-                )}
-              </SelectField>
-            </div>
-            <div className={`${styles.gridItem} ${styles.postalCode}`}>
-              <TextField
-                fullWidth
-                name="postalCode"
-                hintText={<FormattedMessage {...messages.hintText.postalCode} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.country}`}>
-              <TextField
-                fullWidth
-                name="country"
-                hintText={<FormattedMessage {...messages.hintText.country} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.contactGroup}`}>
-              <SelectField
-                fullWidth
-                name="telecomType"
-                hintText={<FormattedMessage {...messages.hintText.telecomType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
-              >
-                {telecomSystems && telecomSystems.map((telecomType) =>
-                  <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
-                )}
-              </SelectField>
-              <TextField
-                fullWidth
-                name="telecomValue"
-                hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
-              />
+            <div className={`${styles.gridItem} ${styles.contacts}`}>
+              <AddMultipleTelecoms {...addTelecomsProps} />
             </div>
             <div className={styles.associateOrganizationSection}>
               <div className={styles.title}>
@@ -220,8 +165,8 @@ class ManagePractitionerForm extends React.PureComponent {
                           arrayHelpers={arrayHelpers}
                           onAddAssociateOrganization={arrayHelpers.push}
                           callback={this.handleDialogCallback}
-                          roleType={practitionerRoleCodes}
-                          specialtyType={practitionerRoleCodes}
+                          roleType={providerRoles}
+                          specialtyType={providerSpecialties}
                           existingOrganizations={values.practitionerRoles}
                           onSearch={onSearch}
                           onPageClick={onPageClick}
@@ -251,7 +196,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   name={`practitionerRoles.${index}.code`}
                                   hintText={<FormattedMessage {...messages.hintText.roleType} />}
                                 >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                  {providerRoles && providerRoles.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -266,7 +211,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                   name={`practitionerRoles.${index}.specialty`}
                                   hintText={<FormattedMessage {...messages.hintText.specialty} />}
                                 >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                  {providerSpecialties && providerSpecialties.map((roleType) =>
                                     (<MenuItem
                                       key={roleType.code}
                                       value={roleType.code}
@@ -350,10 +295,19 @@ ManagePractitionerForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
-  practitionerRoleCodes: PropTypes.arrayOf(PropTypes.shape({
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
+  providerRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  providerSpecialties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
   onPageClick: PropTypes.func.isRequired,

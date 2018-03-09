@@ -1,13 +1,13 @@
 /*
- * AppConstants
- * Each action has a corresponding type, which the reducer knows and picks up on.
- * To avoid weird typos between the reducer and the actions, we save them as
- * constants here. We prefix them with 'yourproject/YourComponent' so we avoid
- * reducers accidentally picking up actions they shouldn't.
- *
- * Follow this format:
- * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
- */
+* AppConstants
+* Each action has a corresponding type, which the reducer knows and picks up on.
+* To avoid weird typos between the reducer and the actions, we save them as
+* constants here. We prefix them with 'yourproject/YourComponent' so we avoid
+* reducers accidentally picking up actions they shouldn't.
+*
+* Follow this format:
+* export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
+*/
 
 export const DEFAULT_LOCALE = 'en';
 
@@ -77,6 +77,7 @@ export const TASK_STATUS = 'TASK_STATUS';
 export const REQUEST_INTENT = 'REQUEST_INTENT';
 export const REQUEST_PRIORITY = 'REQUEST_PRIORITY';
 export const TASK_PERFORMER_TYPE = 'TASK_PERFORMER_TYPE';
+export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 // Task Resource Lookups - End
 export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
 // Appointment Lookups - Start
@@ -87,6 +88,9 @@ export const APPOINTMENT_PARTICIPATION_TYPE = 'APPOINTMENT_PARTICIPATION_TYPE';
 export const APPOINTMENT_PARTICIPANT_REQUIRED = 'APPOINTMENT_PARTICIPANT_REQUIRED';
 // Appointment Lookups - End
 
+// practionerRole lookups
+export const PROVIDER_ROLE = 'PROVIDER_ROLE';
+export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
 
 /**
  *  Constants to hold the internal urls

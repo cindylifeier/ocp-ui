@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -24,6 +23,7 @@ import {
   makeSelectLanguages,
   makeSelectPatientIdentifierSystems,
   makeSelectTelecomSystems,
+  makeSelectTelecomUses,
   makeSelectUsCoreBirthSexes,
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreRaces,
@@ -34,6 +34,7 @@ import {
   LANGUAGE,
   PATIENTIDENTIFIERSYSTEM,
   TELECOMSYSTEM,
+  TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
@@ -41,6 +42,7 @@ import {
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
+import { getPatientById } from 'containers/App/api';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -63,7 +65,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
+    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = this.props;
     const patientId = match.params.id;
     let patient = null;
     if (patientId) {
@@ -78,6 +80,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       usCoreBirthSexes,
       languages,
       telecomSystems,
+      telecomUses,
       patient,
     };
     return (
@@ -114,7 +117,17 @@ ManagePatientPage.propTypes = {
   usCoreEthnicities: PropTypes.array,
   usCoreBirthSexes: PropTypes.array,
   languages: PropTypes.array,
-  telecomSystems: PropTypes.array,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
   patients: PropTypes.any,
 };
 
@@ -127,6 +140,7 @@ const mapStateToProps = createStructuredSelector({
   usCoreBirthSexes: makeSelectUsCoreBirthSexes(),
   languages: makeSelectLanguages(),
   telecomSystems: makeSelectTelecomSystems(),
+  telecomUses: makeSelectTelecomUses(),
   patients: makeSelectPatientSearchResult(),
 });
 
@@ -136,12 +150,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(savePatient(patientFormData, handleSubmitting));
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM])),
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE])),
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({ key: 'managePatientPage', reducer });
 const withSaga = injectSaga({ key: 'managePatientPage', saga });
 
@@ -150,7 +163,3 @@ export default compose(
   withSaga,
   withConnect,
 )(ManagePatientPage);
-
-function getPatientById(patients, id) {
-  return find(patients, { id });
-}
