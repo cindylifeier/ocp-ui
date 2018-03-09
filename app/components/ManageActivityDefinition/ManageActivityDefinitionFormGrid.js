@@ -1,6 +1,6 @@
 import { Grid } from 'styled-css-grid';
 
-const ManagePractitionerFormGrid = Grid.extend`
+const ManageActivityDefinitionFormGrid = Grid.extend`
   padding-left: 0.5vw;
   margin: 2vh 1vw;
   grid-column-gap: 2vw;
@@ -67,6 +67,6 @@ const ManagePractitionerFormGrid = Grid.extend`
   }
 `;
 
-ManagePractitionerFormGrid.propTypes = Grid.propTypes;
+ManageActivityDefinitionFormGrid.propTypes = Grid.propTypes;
 
-export default ManagePractitionerFormGrid;
+export default ManageActivityDefinitionFormGrid;
