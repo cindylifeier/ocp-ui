@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { teal500, white } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import { Cell, Grid } from 'styled-css-grid';
 
 import AddPractitionerRoleForOrganization from 'components/AddPractitionerRoleForOrganization';
 import Table from 'components/Table';
@@ -16,35 +13,23 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
+import FormSubtitle from 'components/FormSubtitle';
+import FieldGroupGrid from 'components/FieldGroupGrid';
+import SystemCell from 'components/FieldGroupGrid/SystemCell';
+import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import ErrorText from 'components/ErrorText';
+import WideDialog from 'components/WideDialog';
 import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
-import styles from './styles.css';
-
-const customContentStyle = {
-  width: '70%',
-  maxWidth: 'none',
-};
+import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 
 class ManagePractitionerForm extends React.PureComponent {
 
   static initialState = {
     searchOrganizationDialogOpen: false,
-  };
-
-  static addButtonStyle = { width: '150px' };
-  static iconStyles = {
-    iconButton: {
-      position: 'relative',
-    },
-    icon: {
-      width: '100%',
-      height: 26,
-      position: 'absolute',
-      top: '0',
-      right: '0',
-    },
   };
 
   constructor(props) {
@@ -75,79 +60,90 @@ class ManagePractitionerForm extends React.PureComponent {
     } = this.props;
     return (
       <div>
-        <div className={styles.title}>
-          <FormattedMessage {...messages.title} />
-        </div>
         <Form>
-          <div className={styles.gridContainer}>
-            <div className={`${styles.gridItem} ${styles.firstName}`}>
+          <ManagePractitionerFormGrid>
+            <Cell area="generalInformationSubtitle">
+              <FormSubtitle margin="1vh 0 0 0">
+                <FormattedMessage {...messages.title} />
+              </FormSubtitle>
+            </Cell>
+            <Cell area="firstName">
               <TextField
                 fullWidth
                 name="firstName"
                 hintText={<FormattedMessage {...messages.hintText.firstName} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.middleName}`}>
+            </Cell>
+            <Cell area="middleName">
               <TextField
                 fullWidth
                 name="middleName"
                 hintText={<FormattedMessage {...messages.hintText.middleName} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.middleName} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.lastName}`}>
+            </Cell>
+            <Cell area="lastName">
               <TextField
                 fullWidth
                 name="lastName"
                 hintText={<FormattedMessage {...messages.hintText.lastName} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.identifierGroup}`}>
-              <SelectField
-                fullWidth
-                name="identifierType"
-                hintText={<FormattedMessage {...messages.hintText.identifierType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
-              >
-                {identifierSystems && identifierSystems.map((identifierType) =>
-                  <MenuItem key={identifierType.uri} value={identifierType.uri} primaryText={identifierType.display} />,
-                )}
-              </SelectField>
-              <TextField
-                fullWidth
-                name="identifierValue"
-                hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
-              />
-            </div>
-            <div className={`${styles.gridItem} ${styles.address1}`}>
+            </Cell>
+            <Cell area="identifierGroup">
+              <FieldGroupGrid>
+                <SystemCell>
+                  <SelectField
+                    fullWidth
+                    name="identifierType"
+                    hintText={<FormattedMessage {...messages.hintText.identifierType} />}
+                    floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
+                  >
+                    {identifierSystems && identifierSystems.map((identifierType) => (
+                      <MenuItem
+                        key={identifierType.uri}
+                        value={identifierType.uri}
+                        primaryText={identifierType.display}
+                      />),
+                    )}
+                  </SelectField>
+                </SystemCell>
+                <ValueCell>
+                  <TextField
+                    fullWidth
+                    name="identifierValue"
+                    hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
+                    floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
+                  />
+                </ValueCell>
+              </FieldGroupGrid>
+            </Cell>
+            <Cell area="address1">
               <TextField
                 fullWidth
                 name="address1"
                 hintText={<FormattedMessage {...messages.hintText.address1} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.address2}`}>
+            </Cell>
+            <Cell area="address2">
               <TextField
                 fullWidth
                 name="address2"
                 hintText={<FormattedMessage {...messages.hintText.address2} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
               />
-            </div>
-            <div />
-            <div className={`${styles.gridItem} ${styles.city}`}>
+            </Cell>
+            <Cell area="city">
               <TextField
                 fullWidth
                 name="city"
                 hintText={<FormattedMessage {...messages.hintText.city} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.state}`}>
+            </Cell>
+            <Cell area="state">
               <SelectField
                 fullWidth
                 name="state"
@@ -158,175 +154,183 @@ class ManagePractitionerForm extends React.PureComponent {
                   <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
                 )}
               </SelectField>
-            </div>
-            <div className={`${styles.gridItem} ${styles.postalCode}`}>
+            </Cell>
+            <Cell area="postalCode">
               <TextField
                 fullWidth
                 name="postalCode"
                 hintText={<FormattedMessage {...messages.hintText.postalCode} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.country}`}>
+            </Cell>
+            <Cell area="country">
               <TextField
                 fullWidth
                 name="country"
                 hintText={<FormattedMessage {...messages.hintText.country} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
               />
-            </div>
-            <div className={`${styles.gridItem} ${styles.contactGroup}`}>
-              <SelectField
-                fullWidth
-                name="telecomType"
-                hintText={<FormattedMessage {...messages.hintText.telecomType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
-              >
-                {telecomSystems && telecomSystems.map((telecomType) =>
-                  <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
-                )}
-              </SelectField>
-              <TextField
-                fullWidth
-                name="telecomValue"
-                hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
-              />
-            </div>
-            <div className={styles.associateOrganizationSection}>
-              <div className={styles.title}>
-                <FormattedMessage {...messages.associateOrganizations.subtitle} />
-              </div>
-              <div className={styles.addOrganizationssButton}>
-                <RaisedButton
-                  backgroundColor={teal500}
-                  labelColor={white}
-                  onClick={this.handleAddOrganizations}
-                  style={ManagePractitionerForm.addButtonStyle}
-                  label={<FormattedMessage {...messages.associateOrganizations.addButtonLabel} />}
-                />
-              </div>
-              <div>
-                <FieldArray
-                  name="practitionerRoles"
-                  render={(arrayHelpers) => (
-                    <div>
-                      <Dialog
-                        open={this.state.searchOrganizationDialogOpen}
-                        autoScrollBodyContent
-                        contentStyle={customContentStyle}
-                      >
-                        <AddPractitionerRoleForOrganization
-                          arrayHelpers={arrayHelpers}
-                          onAddAssociateOrganization={arrayHelpers.push}
-                          callback={this.handleDialogCallback}
-                          roleType={practitionerRoleCodes}
-                          specialtyType={practitionerRoleCodes}
-                          existingOrganizations={values.practitionerRoles}
-                          onSearch={onSearch}
-                          onPageClick={onPageClick}
-                          organizations={organizations}
-                          currentPage={currentPage}
-                          totalNumberOfPages={totalNumberOfPages}
-                        />
-                      </Dialog>
-                      <Table>
-                        <TableHeader>
-                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
-                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
-                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
-                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
-                          <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnRemove} /></TableHeaderColumn>
-                        </TableHeader>
-                        {errors && errors.practitionerRoles &&
-                        <span className={styles.error}>{errors.practitionerRoles}</span>}
-                        {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
-                          const { organization, logicalId } = pr;
-                          return (
-                            <TableRow key={organization && organization.reference}>
-                              <TableRowColumn>{organization.display}</TableRowColumn>
-                              <TableRowColumn>
-                                <SelectField
-                                  fullWidth
-                                  name={`practitionerRoles.${index}.code`}
-                                  hintText={<FormattedMessage {...messages.hintText.roleType} />}
-                                >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
-                                    (<MenuItem
-                                      key={roleType.code}
-                                      value={roleType.code}
-                                      primaryText={roleType.display}
-                                    />),
-                                  )}
-                                </SelectField>
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                <SelectField
-                                  fullWidth
-                                  name={`practitionerRoles.${index}.specialty`}
-                                  hintText={<FormattedMessage {...messages.hintText.specialty} />}
-                                >
-                                  {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
-                                    (<MenuItem
-                                      key={roleType.code}
-                                      value={roleType.code}
-                                      primaryText={roleType.display}
-                                    />),
-                                  )}
-                                </SelectField>
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                <SelectField
-                                  fullWidth
-                                  name={`practitionerRoles.${index}.active`}
-                                  hintText={<FormattedMessage {...messages.hintText.active} />}
-                                >
-                                  <MenuItem
-                                    value
-                                    primaryText="Active"
-                                  />
-                                  <MenuItem
-                                    value={false}
-                                    primaryText="Inactive"
-                                  />
-                                </SelectField>
-                              </TableRowColumn>
-                              <TableRowColumn>
-                                <StyledRaisedButton
-                                  label="Remove"
-                                  backgroundColor={teal500}
-                                  labelColor={white}
-                                  disabled={logicalId !== undefined}
-                                  onClick={() => arrayHelpers.remove(index)}
-                                >
-                                </StyledRaisedButton>
-                              </TableRowColumn>
-                            </TableRow>
-                          );
-                        })}
-                      </Table>
-                    </div>)}
-                />
-              </div>
-            </div>
-            <div className={`${styles.gridItem} ${styles.buttonGroup}`}>
-              <RaisedButton
-                fullWidth
-                type="submit"
-                label="Save"
-                backgroundColor={teal500}
-                labelColor={white}
-                disabled={!dirty || isSubmitting || !isValid}
-              />
-              <FlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                containerElement={<Link to={HOME_URL} />}
-              />
-            </div>
-          </div>
+            </Cell>
+            <Cell area="contactGroup">
+              <FieldGroupGrid>
+                <SystemCell>
+                  <SelectField
+                    fullWidth
+                    name="telecomType"
+                    hintText={<FormattedMessage {...messages.hintText.telecomType} />}
+                    floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
+                  >
+                    {telecomSystems && telecomSystems.map((telecomType) =>
+                      <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
+                    )}
+                  </SelectField>
+                </SystemCell>
+                <ValueCell>
+                  <TextField
+                    fullWidth
+                    name="telecomValue"
+                    hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
+                    floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
+                  />
+                </ValueCell>
+              </FieldGroupGrid>
+            </Cell>
+            <Cell area="associateOrganizationSection">
+              <Grid columns={1}>
+                <Cell>
+                  <FormSubtitle margin="1vh 0 0 0">
+                    <FormattedMessage {...messages.associateOrganizations.subtitle} />
+                  </FormSubtitle>
+                </Cell>
+                <Cell>
+                  <StyledRaisedButton
+                    onClick={this.handleAddOrganizations}
+                    label={<FormattedMessage {...messages.associateOrganizations.addButtonLabel} />}
+                  />
+                </Cell>
+                <Cell>
+                  <FieldArray
+                    name="practitionerRoles"
+                    render={(arrayHelpers) => (
+                      <div>
+                        <WideDialog
+                          open={this.state.searchOrganizationDialogOpen}
+                          autoScrollBodyContent
+                        >
+                          <AddPractitionerRoleForOrganization
+                            arrayHelpers={arrayHelpers}
+                            onAddAssociateOrganization={arrayHelpers.push}
+                            callback={this.handleDialogCallback}
+                            roleType={practitionerRoleCodes}
+                            specialtyType={practitionerRoleCodes}
+                            existingOrganizations={values.practitionerRoles}
+                            onSearch={onSearch}
+                            onPageClick={onPageClick}
+                            organizations={organizations}
+                            currentPage={currentPage}
+                            totalNumberOfPages={totalNumberOfPages}
+                          />
+                        </WideDialog>
+                        <Table>
+                          <TableHeader>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnRemove} /></TableHeaderColumn>
+                          </TableHeader>
+                          {errors && errors.practitionerRoles &&
+                          <ErrorText>{errors.practitionerRoles}</ErrorText>}
+                          {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
+                            const { organization, logicalId } = pr;
+                            return (
+                              <TableRow key={organization && organization.reference}>
+                                <TableRowColumn>{organization.display}</TableRowColumn>
+                                <TableRowColumn>
+                                  <SelectField
+                                    fullWidth
+                                    name={`practitionerRoles.${index}.code`}
+                                    hintText={<FormattedMessage {...messages.hintText.roleType} />}
+                                  >
+                                    {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                      (<MenuItem
+                                        key={roleType.code}
+                                        value={roleType.code}
+                                        primaryText={roleType.display}
+                                      />),
+                                    )}
+                                  </SelectField>
+                                </TableRowColumn>
+                                <TableRowColumn>
+                                  <SelectField
+                                    fullWidth
+                                    name={`practitionerRoles.${index}.specialty`}
+                                    hintText={<FormattedMessage {...messages.hintText.specialty} />}
+                                  >
+                                    {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                      (<MenuItem
+                                        key={roleType.code}
+                                        value={roleType.code}
+                                        primaryText={roleType.display}
+                                      />),
+                                    )}
+                                  </SelectField>
+                                </TableRowColumn>
+                                <TableRowColumn>
+                                  <SelectField
+                                    fullWidth
+                                    name={`practitionerRoles.${index}.active`}
+                                    hintText={<FormattedMessage {...messages.hintText.active} />}
+                                  >
+                                    <MenuItem
+                                      value
+                                      primaryText="Active"
+                                    />
+                                    <MenuItem
+                                      value={false}
+                                      primaryText="Inactive"
+                                    />
+                                  </SelectField>
+                                </TableRowColumn>
+                                <TableRowColumn>
+                                  <StyledRaisedButton
+                                    label="Remove"
+                                    disabled={logicalId !== undefined}
+                                    onClick={() => arrayHelpers.remove(index)}
+                                  >
+                                  </StyledRaisedButton>
+                                </TableRowColumn>
+                              </TableRow>
+                            );
+                          })}
+                        </Table>
+                      </div>)}
+                  />
+                </Cell>
+              </Grid>
+            </Cell>
+            <Cell area="buttonGroup">
+              <Grid columns={2}>
+                <Cell>
+                  <StyledRaisedButton
+                    fullWidth
+                    type="submit"
+                    label="Save"
+                    disabled={!dirty || isSubmitting || !isValid}
+                  />
+                </Cell>
+                <Cell>
+                  <StyledFlatButton
+                    fullWidth
+                    label="Cancel"
+                    default
+                    disabled={isSubmitting}
+                    containerElement={<Link to={HOME_URL} />}
+                  />
+                </Cell>
+              </Grid>
+            </Cell>
+          </ManagePractitionerFormGrid>
         </Form>
       </div>
     );
