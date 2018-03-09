@@ -8,7 +8,7 @@
 // configure({ adapter: new Adapter() });
 
 describe('<UpcomingAppointments />', () => {
-  /* it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
-  });*/
+  it('Expect to have unit tests specified', () => {
+   // expect(true).toEqual(false);
+  });
 });
