@@ -33,6 +33,7 @@ import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledFlatButton from 'components/StyledFlatButton';
+import WideDialog from 'components/WideDialog';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
@@ -45,7 +46,6 @@ import { addParticipants, getSearchParticipant, initializeSearchParticipant } fr
 import { makeSelectSearchParticipantResults } from './selectors';
 import ParticipantName from './ParticipantName';
 import ParticipantSearchContainer from './ParticipantSearchContainer';
-import AddParticipantDialog from './AddParticipantDialog';
 import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
 
 export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -228,7 +228,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
       />,
     ];
     return (
-      <AddParticipantDialog
+      <WideDialog
         actions={actionsButtons}
         modal={false}
         open={isOpen}
@@ -294,7 +294,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultHeader()}
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultRows()}
         {searchParticipantResult && searchParticipantResult.length === 0 && this.createNoSearchResultTable()}
-      </AddParticipantDialog>
+      </WideDialog>
     );
   }
 }
