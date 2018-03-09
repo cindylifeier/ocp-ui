@@ -17,7 +17,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
 import SearchRecipient from 'containers/SearchRecipient';
 import Page from 'components/Page';
-import { getRecipients, removeSelectedRecipient } from 'containers/SearchRecipient/actions';
+import { initializeListOfRecipients, removeSelectedRecipient } from 'containers/SearchRecipient/actions';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
@@ -28,7 +28,7 @@ import messages from './messages';
 
 import { getLookupsAction } from '../App/actions';
 import { createCommunication, updateCommunication, getEpisodeOfCares,
-  initializeSearchRecipientResults, getPractitioner } from './actions';
+  getPractitioner } from './actions';
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import {
   makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
@@ -52,20 +52,20 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.handleOpen = this.handleOpen.bind(this);
     this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
-  componentDidMount() {
-    this.props.getLookups();
-    this.props.getEpisodeOfCares(this.props.selectedPatient.id);
+  componentWillMount() {
     // Logged in Practitioner
     this.props.getPractitioner(this.state.practitionerId);
+    this.props.getLookups();
+    this.props.getEpisodeOfCares(this.props.selectedPatient.id);
+    this.props.initializeListOfRecipients();
   }
   handleClose() {
     this.setState({ open: false });
   }
 
+
   handleOpen() {
     this.setState({ open: true });
-    this.props.initializeSearchRecipientResults();
-    this.props.getRecipients(this.props.selectedPatient.id);
   }
   handleSave(communication, actions) {
     const logicalId = this.props.match.params.id;
@@ -81,6 +81,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   }
   render() {
     const editingCommunication = false;
+    const communicationId = this.props.match.params.id;
     const {
       communicationStatus,
       communicationCategories,
@@ -125,6 +126,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
           </ManageCommunication>
           <SearchRecipient
             initialSelectedRecipients={initialSelectedRecipients}
+            communicationId={communicationId}
             isOpen={this.state.open}
             handleOpen={this.handleOpen}
             handleClose={this.handleClose}
@@ -140,11 +142,9 @@ ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,
-  getRecipients: PropTypes.func.isRequired,
   getPractitioner: PropTypes.func.isRequired,
   createCommunication: PropTypes.func.isRequired,
   updateCommunication: PropTypes.func.isRequired,
-  initializeSearchRecipientResults: PropTypes.func.isRequired,
   removeSelectedRecipient: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
@@ -154,6 +154,7 @@ ManageCommunicationPage.propTypes = {
   selectedRecipients: PropTypes.array,
   getEpisodeOfCares: PropTypes.func.isRequired,
   practitioner: PropTypes.object.isRequired,
+  initializeListOfRecipients: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -174,9 +175,8 @@ function mapDispatchToProps(dispatch) {
     updateCommunication: (communication, patientId, handleSubmitting) => dispatch(updateCommunication(communication, patientId, handleSubmitting)),
     getEpisodeOfCares: (patientId) => dispatch(getEpisodeOfCares(patientId)),
     removeSelectedRecipient: (checked, recipientReference) => dispatch(removeSelectedRecipient(checked, recipientReference)),
-    initializeSearchRecipientResults: () => dispatch(initializeSearchRecipientResults()),
-    getRecipients: (patientId) => dispatch(getRecipients(patientId)),
     getPractitioner: (practitionerId) => dispatch(getPractitioner(practitionerId)),
+    initializeListOfRecipients: () => dispatch(initializeListOfRecipients()),
   };
 }
 

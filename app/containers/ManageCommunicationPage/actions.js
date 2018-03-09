@@ -7,7 +7,6 @@ import {
   CREATE_COMMUNICATION, CREATE_COMMUNICATION_SUCCESS,
   SAVE_COMMUNICATION_ERROR, UPDATE_COMMUNICATION,
   GET_EPISODE_OF_CARES, GET_EPISODE_OF_CARES_SUCCESS,
-  INITIALIZE_SEARCH_RECIPIENT,
   GET_PRACTITIONER, GET_PRACTITIONER_SUCCESS,
   GET_PRACTITIONER_ERROR,
 } from './constants';
@@ -56,12 +55,6 @@ export function getEpisodeOfCaresSuccess(episodeOfCares) {
   return {
     type: GET_EPISODE_OF_CARES_SUCCESS,
     episodeOfCares,
-  };
-}
-
-export function initializeSearchRecipientResults() {
-  return {
-    type: INITIALIZE_SEARCH_RECIPIENT,
   };
 }
 

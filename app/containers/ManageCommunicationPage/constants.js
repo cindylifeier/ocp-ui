@@ -22,7 +22,6 @@ export const GET_PRACTITIONER = 'ocpui/ManageCommunicationPage/GET_PRACTITIONER'
 export const GET_PRACTITIONER_SUCCESS = 'ocpui/ManageCommunicationPage/GET_PRACTITIONER_SUCCESS';
 export const GET_PRACTITIONER_ERROR = 'ocpui/ManageCommunicationPage/GET_PRACTITIONER_ERROR';
 
-export const INITIALIZE_SEARCH_RECIPIENT = 'ocpui/ManageCommunicationPage/INITIALIZE_SEARCH_RECIPIENT';
 /**
 *  Other constants
 *
