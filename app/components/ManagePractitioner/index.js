@@ -13,7 +13,7 @@ import { Formik } from 'formik';
 import yup from 'yup';
 
 import Util from 'utils/Util';
-import { TEXT_MIN_LENGTH } from 'containers/ManagePractitionerPage/constants';
+import { TEXT_MIN_LENGTH } from './constants';
 import ManagePractitionerForm from './ManagePractitionerForm';
 import messages from './messages';
 

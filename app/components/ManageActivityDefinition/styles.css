@@ -1,7 +1,3 @@
-.root {
-  position: relative;
-  background-color: white;
-}
 .validationMessage {
   color: red;
   font-size: 12px;
