@@ -4,19 +4,19 @@ import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 import { Cell } from 'styled-css-grid';
 
-import SystemCell from '../SystemCell';
-import { SYSTEM } from '../constants';
+import SuffixCell from '../SuffixCell';
+import { SUFFIX } from '../constants';
 
 configure({ adapter: new Adapter() });
 
-describe('<SystemCell />', () => {
+describe('<MainCell />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot with default area', () => {
       // Arrange
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<SystemCell>{children}</SystemCell>);
+      const renderedComponent = shallow(<SuffixCell>{children}</SuffixCell>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -28,7 +28,7 @@ describe('<SystemCell />', () => {
       const area = 'area';
 
       // Act
-      const renderedComponent = shallow(<SystemCell area={area}>{children}</SystemCell>);
+      const renderedComponent = shallow(<SuffixCell area={area}>{children}</SuffixCell>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -41,7 +41,7 @@ describe('<SystemCell />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<SystemCell>{children}</SystemCell>);
+      const renderedComponent = shallow(<SuffixCell>{children}</SuffixCell>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -50,10 +50,10 @@ describe('<SystemCell />', () => {
     it('should use default area when not passed', () => {
       // Arrange
       const children = <div>test</div>;
-      const expectedComponent = <Cell area={SYSTEM}>{children}</Cell>;
+      const expectedComponent = <Cell area={SUFFIX}>{children}</Cell>;
 
       // Act
-      const renderedComponent = shallow(<SystemCell>{children}</SystemCell>);
+      const renderedComponent = shallow(<SuffixCell>{children}</SuffixCell>);
 
       // Assert
       expect(renderedComponent.contains(expectedComponent)).toEqual(true);
@@ -66,7 +66,7 @@ describe('<SystemCell />', () => {
       const expectedComponent = <Cell area={area}>{children}</Cell>;
 
       // Act
-      const renderedComponent = shallow(<SystemCell area={area}>{children}</SystemCell>);
+      const renderedComponent = shallow(<SuffixCell area={area}>{children}</SuffixCell>);
 
       // Assert
       expect(renderedComponent.contains(expectedComponent)).toEqual(true);

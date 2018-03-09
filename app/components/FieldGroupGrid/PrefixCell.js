@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Cell } from 'styled-css-grid';
 
-import { SYSTEM } from './constants';
+import { PREFIX } from './constants';
 
-function SystemCell({ area, children, ...rest }) {
+function PrefixCell({ area, children, ...rest }) {
   return (
     <Cell area={area} {...rest}>
       {children}
     </Cell>);
 }
 
-SystemCell.propTypes = {
+PrefixCell.propTypes = {
   ...Cell.propTypes,
   children: PropTypes.node,
   area: PropTypes.string,
 };
 
-SystemCell.defaultProps = {
-  area: SYSTEM,
+PrefixCell.defaultProps = {
+  area: PREFIX,
 };
 
-export default SystemCell;
+export default PrefixCell;

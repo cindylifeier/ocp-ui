@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Cell } from 'styled-css-grid';
 
-import { VALUE } from './constants';
+import { SUFFIX } from './constants';
 
-function SystemCell({ area, children, ...rest }) {
+function SuffixCell({ area, children, ...rest }) {
   return (
     <Cell area={area} {...rest}>
       {children}
     </Cell>);
 }
 
-SystemCell.propTypes = {
+SuffixCell.propTypes = {
   ...Cell.propTypes,
   children: PropTypes.node,
   area: PropTypes.string,
 };
 
-SystemCell.defaultProps = {
-  area: VALUE,
+SuffixCell.defaultProps = {
+  area: SUFFIX,
 };
 
-export default SystemCell;
+export default SuffixCell;

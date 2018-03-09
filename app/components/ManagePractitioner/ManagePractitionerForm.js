@@ -18,8 +18,8 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
-import SystemCell from 'components/FieldGroupGrid/SystemCell';
-import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import MainCell from 'components/FieldGroupGrid/MainCell';
 import ErrorText from 'components/ErrorText';
 import WideDialog from 'components/WideDialog';
 import { HOME_URL } from 'containers/App/constants';
@@ -93,7 +93,7 @@ class ManagePractitionerForm extends React.PureComponent {
             </Cell>
             <Cell area="identifierGroup">
               <FieldGroupGrid>
-                <SystemCell>
+                <PrefixCell>
                   <SelectField
                     fullWidth
                     name="identifierType"
@@ -108,15 +108,15 @@ class ManagePractitionerForm extends React.PureComponent {
                       />),
                     )}
                   </SelectField>
-                </SystemCell>
-                <ValueCell>
+                </PrefixCell>
+                <MainCell>
                   <TextField
                     fullWidth
                     name="identifierValue"
                     hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
                     floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
                   />
-                </ValueCell>
+                </MainCell>
               </FieldGroupGrid>
             </Cell>
             <Cell area="address1">
@@ -173,7 +173,7 @@ class ManagePractitionerForm extends React.PureComponent {
             </Cell>
             <Cell area="contactGroup">
               <FieldGroupGrid>
-                <SystemCell>
+                <PrefixCell>
                   <SelectField
                     fullWidth
                     name="telecomType"
@@ -184,15 +184,15 @@ class ManagePractitionerForm extends React.PureComponent {
                       <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
                     )}
                   </SelectField>
-                </SystemCell>
-                <ValueCell>
+                </PrefixCell>
+                <MainCell>
                   <TextField
                     fullWidth
                     name="telecomValue"
                     hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
                     floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
                   />
-                </ValueCell>
+                </MainCell>
               </FieldGroupGrid>
             </Cell>
             <Cell area="associateOrganizationSection">
