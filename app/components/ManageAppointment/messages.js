@@ -16,7 +16,7 @@ export default defineMessages({
   },
   patientName: {
     id: 'ocpui.components.ManageAppointment.patientName',
-    defaultMessage: 'Patient Name',
+    defaultMessage: 'Patient:',
   },
   participantTitle: {
     id: 'ocpui.components.ManageAppointment.participantTitle',
