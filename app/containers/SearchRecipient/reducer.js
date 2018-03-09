@@ -7,10 +7,9 @@
 import { fromJS } from 'immutable';
 import {
   ADD_RECIPIENT,
-  GET_RECIPIENTS_ERROR, GET_RECIPIENTS_SUCCESS,
+  GET_RECIPIENTS_ERROR, GET_RECIPIENTS_SUCCESS, INITIALIZE_LIST_OF_RECIPIENTS,
   INITIALIZE_SEARCH_RECIPIENT_RESULT, REMOVE_RECIPIENT, SET_SELECT_RECIPIENT_STATUS,
 } from 'containers/SearchRecipient/constants';
-import { INITIALIZE_SEARCH_RECIPIENT } from 'containers/ManageCommunicationPage/constants';
 
 const initialState = fromJS({
   recipients: [],
@@ -19,14 +18,29 @@ const initialState = fromJS({
 
 function searchRecipientReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_SEARCH_RECIPIENT:
+    case INITIALIZE_LIST_OF_RECIPIENTS:
       return state
-        .set('selectedRecipients', fromJS((action.initialSelectedRecipients) || []))
-        .set('recipients', fromJS([]));
-    case GET_RECIPIENTS_SUCCESS:
-      return state
-        // .set('recipients', fromJS((action.recipients && action.recipients.elements) || []));
-        .set('recipients', fromJS((action.recipients) || []));
+        .set('recipients', fromJS([]))
+        .set('selectedRecipients', fromJS([]));
+    case GET_RECIPIENTS_SUCCESS: {
+      const selectedRecipients = state.get('selectedRecipients');
+      const selectedRecipientsAsArray = selectedRecipients.toJS();
+      const recipients = action.recipients;
+      if (selectedRecipientsAsArray.length > 0) {
+        for (let j = 0; j < recipients.length; j += 1) {
+          recipients[j].checked = false;
+        }
+
+        for (let i = 0; i < selectedRecipientsAsArray.length; i += 1) {
+          for (let j = 0; j < recipients.length; j += 1) {
+            if (recipients[j].reference === selectedRecipientsAsArray[i].reference) {
+              recipients[j].checked = true;
+            }
+          }
+        }
+      }
+      return state.set('recipients', fromJS((recipients) || []));
+    }
     case INITIALIZE_SEARCH_RECIPIENT_RESULT:
       return state
         .set('recipients', fromJS([]));
@@ -44,27 +58,31 @@ function searchRecipientReducer(state = initialState, action) {
     case REMOVE_RECIPIENT: {
       const selectedRecipients = state.get('selectedRecipients');
       const selectedRecipientsAsArray = selectedRecipients.toJS();
-      const recipients = [];
+      const newSelectedRecipients = [];
       selectedRecipientsAsArray.forEach((recipient) => {
         if (recipient.reference !== action.recipientReference) {
-          recipients.push(recipient);
+          newSelectedRecipients.push(recipient);
         }
       });
-      return state.set('selectedRecipients', fromJS((recipients) || []));
+      const recipients = state.get('recipients');
+      const recipientsAsArray = recipients.toJS();
+      for (let i = 0; i < recipientsAsArray.length; i += 1) {
+        if (recipientsAsArray[i].reference === action.recipientReference) {
+          recipientsAsArray[i].checked = false;
+        }
+      }
+      return state
+        .set('recipients', fromJS((recipientsAsArray) || []))
+        .set('selectedRecipients', fromJS((newSelectedRecipients) || []));
     }
     case SET_SELECT_RECIPIENT_STATUS: {
       const recipients = state.get('recipients');
       const recipientsAsArray = recipients.toJS();
       for (let i = 0; i < recipientsAsArray.length; i += 1) {
-        if (recipientsAsArray[1].reference === action.recipientReference) {
-          recipientsAsArray[1].checked = action.checked;
+        if (recipientsAsArray[i].reference === action.recipientReference) {
+          recipientsAsArray[i].checked = action.checked;
         }
       }
-      // recipientsAsArray.forEach((recipient) => {
-      //   if (recipient.reference === action.recipientReference) {
-      //     recipient.checked = action.checked;
-      //   }
-      // });
       return state.set('recipients', fromJS((recipientsAsArray) || []));
     }
     case GET_RECIPIENTS_ERROR:
