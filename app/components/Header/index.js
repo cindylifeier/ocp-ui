@@ -3,20 +3,21 @@
  */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
+import { ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionPatients from 'material-ui/svg-icons/action/perm-contact-calendar';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 
+import StyledToolbar from 'components/StyledToolbar';
 import Logout from 'containers/Logout';
 import { HOME_URL, PATIENTS_URL } from 'containers/App/constants';
 import styles from './styles.css';
 
 function Header() {
   return (
-    <Toolbar className={styles.toolbar}>
+    <StyledToolbar>
       <ToolbarGroup firstChild>
         <span className={styles.iconButton}>
           <FlatButton
@@ -46,7 +47,7 @@ function Header() {
           <Logout />
         </span>
       </ToolbarGroup>
-    </Toolbar>
+    </StyledToolbar>
   );
 }
 
