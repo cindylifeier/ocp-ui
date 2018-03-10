@@ -59,7 +59,7 @@ describe('<ManagePractitionerFormGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('grid-column-gap', '2vw');
       expect(renderedComponent).toHaveStyleRule('grid-row-gap', '2vh');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "firstName"    "middleName"    "lastName"    "identifierGroup"    "address1"    "address2"    "city"    "state"    "postalCode"    "country"    "contactGroup"    "associateOrganizationSection"    "buttonGroup"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "firstName"    "middleName"    "lastName"    "identifierGroup"    "addresses"    "contacts"    "associateOrganizationSection"    "buttonGroup"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -72,7 +72,7 @@ describe('<ManagePractitionerFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "firstName lastName"      "middleName ."      "identifierGroup identifierGroup"      "address1 ."      "address2 ."      "city state"      "postalCode country"      "contactGroup contactGroup"      "associateOrganizationSection associateOrganizationSection"      "buttonGroup ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "firstName lastName"      "middleName ."      "identifierGroup identifierGroup"      "addresses addresses"      "contacts contacts"      "associateOrganizationSection associateOrganizationSection"      "buttonGroup ."', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -85,7 +85,7 @@ describe('<ManagePractitionerFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "firstName firstName firstName firstName middleName middleName middleName middleName lastName lastName lastName lastName"      "identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . . ."      "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."      "city city city city state state state postalCode postalCode . . ."      "country country country country . . . . . . . ."      "contactGroup contactGroup contactGroup contactGroup contactGroup . . . . . . ."      "associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection"      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "firstName firstName firstName firstName middleName middleName middleName middleName lastName lastName lastName lastName"      "identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . . ."      "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"      "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"      "associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection"      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
     });
   });
 });

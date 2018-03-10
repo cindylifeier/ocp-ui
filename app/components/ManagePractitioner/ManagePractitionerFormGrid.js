@@ -12,13 +12,8 @@ const ManagePractitionerFormGrid = Grid.extend`
     "middleName"
     "lastName"
     "identifierGroup"
-    "address1"
-    "address2"
-    "city"
-    "state"
-    "postalCode"
-    "country"
-    "contactGroup"
+    "addresses"
+    "contacts"
     "associateOrganizationSection"
     "buttonGroup";
 
@@ -29,11 +24,8 @@ const ManagePractitionerFormGrid = Grid.extend`
       "firstName lastName"
       "middleName ."
       "identifierGroup identifierGroup"
-      "address1 ."
-      "address2 ."
-      "city state"
-      "postalCode country"
-      "contactGroup contactGroup"
+      "addresses addresses"
+      "contacts contacts"
       "associateOrganizationSection associateOrganizationSection"
       "buttonGroup .";
   }
@@ -44,10 +36,8 @@ const ManagePractitionerFormGrid = Grid.extend`
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
       "firstName firstName firstName firstName middleName middleName middleName middleName lastName lastName lastName lastName"
       "identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . . ."
-      "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."
-      "city city city city state state state postalCode postalCode . . ."
-      "country country country country . . . . . . . ."
-      "contactGroup contactGroup contactGroup contactGroup contactGroup . . . . . . ."
+      "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"
+      "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"
       "associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection associateOrganizationSection"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }

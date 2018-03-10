@@ -21,7 +21,6 @@ import { TEXT_MIN_LENGTH } from './constants';
 
 function ManageRelatedPerson(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
   const {
     onSave,
     uspsStates,
@@ -33,7 +32,7 @@ function ManageRelatedPerson(props) {
     selectedPatient,
     selectedRelatedPerson,
   } = props;
-  const lookUpFormData = {
+  const manageRelatedPersonFormProps = {
     onSave,
     uspsStates,
     patientIdentifierSystems,
@@ -43,6 +42,7 @@ function ManageRelatedPerson(props) {
     relationshipTypes,
     selectedPatient,
   };
+
   return (
     <Formik
       initialValues={setInitialValues(selectedRelatedPerson)}
@@ -83,11 +83,9 @@ function ManageRelatedPerson(props) {
               .required((<FormattedMessage {...messages.validation.required} />))
               .min(minimumLength, (
                 <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-            zip: yup.string()
-              .matches(postalCodePattern, (<FormattedMessage {...messages.validation.zip} />)),
           });
         })}
-      render={(formikProps) => <ManageRelatedPersonForm {...formikProps} {...lookUpFormData} />}
+      render={(formikProps) => <ManageRelatedPersonForm {...formikProps} {...manageRelatedPersonFormProps} />}
     />
   );
 }
@@ -97,12 +95,23 @@ ManageRelatedPerson.propTypes = {
   uspsStates: PropTypes.array.isRequired,
   patientIdentifierSystems: PropTypes.array.isRequired,
   administrativeGenders: PropTypes.array.isRequired,
-  telecomUses: PropTypes.array.isRequired,
-  telecomSystems: PropTypes.array.isRequired,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   relationshipTypes: PropTypes.array.isRequired,
   selectedPatient: PropTypes.object,
   selectedRelatedPerson: PropTypes.object,
 };
+
+export default ManageRelatedPerson;
 
 function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGenders, relationshipTypes) {
   const {
@@ -112,17 +121,10 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
     firstName,
     lastName,
     relationshipCode,
-    telecomCode,
-    telecomUse,
-    telecomValue,
+    telecoms,
+    addresses,
     genderCode,
     birthDate,
-    address1,
-    address2,
-    city,
-    zip,
-    state,
-    country,
     identifierType,
     identifierValue,
   } = capturedFormData;
@@ -130,22 +132,15 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
   const genderValue = selectedAdministrativeGenders.display;
   const selectedRelationshipTypes = find(relationshipTypes, { code: relationshipCode });
   const relationshipValue = selectedRelationshipTypes.display;
-  const relatedPerson = {
+  return {
     firstName,
     lastName,
     relationshipCode,
-    telecomCode,
-    telecomUse,
-    telecomValue,
+    telecoms,
+    addresses,
     genderCode,
     genderValue,
     relationshipValue,
-    address1,
-    address2,
-    city,
-    state,
-    zip,
-    country,
     identifierType,
     identifierValue,
     active,
@@ -154,10 +149,7 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
     endDate: endDate.toLocaleDateString(),
     birthDate: birthDate.toLocaleDateString(),
   };
-  return relatedPerson;
 }
-
-export default ManageRelatedPerson;
 
 function setInitialValues(selectedRelatedPerson) {
   let initialValues = null;
@@ -173,15 +165,8 @@ function setInitialValues(selectedRelatedPerson) {
       mapRelatedPersonToDate(selectedRelatedPerson, 'endDate'),
       mapRelatedPersonToFormFields(selectedRelatedPerson, 'identifierType'),
       mapRelatedPersonToFormFields(selectedRelatedPerson, 'identifierValue'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'address1'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'address2'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'city'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'state'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'zip'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'country'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecomCode'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecomValue'),
-      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecomUse'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'addresses'),
+      mapRelatedPersonToFormFields(selectedRelatedPerson, 'telecoms'),
     );
   }
   return Util.pickByIdentity(initialValues);

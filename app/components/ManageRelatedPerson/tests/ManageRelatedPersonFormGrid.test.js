@@ -59,7 +59,7 @@ describe('<ManageRelatedPersonFormGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('grid-column-gap', '2vw');
       expect(renderedComponent).toHaveStyleRule('grid-row-gap', '2vh');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "patientName"    "active"    "firstName"    "lastName"    "relationshipCode"    "birthDate"    "genderCode"    "startDate"    "endDate"    "identifierGroup"    "address1"    "address2"    "city"    "state"    "zip"    "country"    "contactGroup"    "buttonGroup"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "patientName"    "active"    "firstName"    "lastName"    "relationshipCode"    "birthDate"    "genderCode"    "startDate"    "endDate"    "identifierGroup"    "addresses"    "contacts"    "buttonGroup"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -72,7 +72,7 @@ describe('<ManageRelatedPersonFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "patientName active"      "firstName lastName"      "relationshipCode ."      "birthDate genderCode"      "startDate endDate"      "identifierGroup identifierGroup"      "address1 ."      "address2 ."      "city state"      "zip country"      "contactGroup contactGroup"      "buttonGroup  ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "patientName active"      "firstName lastName"      "relationshipCode ."      "birthDate genderCode"      "startDate endDate"      "identifierGroup identifierGroup"      "addresses addresses"      "contacts contacts"      "buttonGroup  ."', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -85,7 +85,7 @@ describe('<ManageRelatedPersonFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "patientName patientName patientName patientName . . . . . . . ."      "active . . . . . . . . . . ."      "firstName firstName lastName lastName . . . . . . . ."      "relationshipCode relationshipCode birthDate birthDate genderCode . . . . . . ."      "startDate startDate endDate endDate . . . . . . . ."      "identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . ."      "address1 address1 address1 address2 address2 address2 . . . . . ."      "city city state state zip zip . . . . . ."      "country country . . . . . . . . . ."      "contactGroup contactGroup contactGroup contactGroup contactGroup contactGroup contactGroup . . . . ."      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "patientName patientName patientName patientName . . . . . . . ."      "active . . . . . . . . . . ."      "firstName firstName lastName lastName . . . . . . . ."      "relationshipCode relationshipCode birthDate birthDate genderCode . . . . . . ."      "startDate startDate endDate endDate . . . . . . . ."      "identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . ."      "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"      "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
     });
   });
 });

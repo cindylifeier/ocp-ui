@@ -18,8 +18,9 @@ import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
-import SuffixCell from 'components/FieldGroupGrid/SuffixCell';
-import { DATE_PICKER_MODE } from 'containers/App/constants';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import { mapToPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
@@ -30,6 +31,7 @@ function ManageRelatedPersonForm(props) {
     isSubmitting,
     dirty,
     isValid,
+    values, errors,
     uspsStates,
     patientIdentifierSystems,
     administrativeGenders,
@@ -39,6 +41,17 @@ function ManageRelatedPersonForm(props) {
     selectedPatient,
   } = props;
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+  const addAddressesProps = {
+    uspsStates,
+    errors,
+    addresses: values.addresses,
+  };
+  const addTelecomsProps = {
+    telecomSystems,
+    telecomUses,
+    errors,
+    telecoms: values.telecoms,
+  };
   return (
     <Form>
       <ManageRelatedPersonFormGrid>
@@ -157,94 +170,11 @@ function ManageRelatedPersonForm(props) {
             </MainCell>
           </FieldGroupGrid>
         </Cell>
-        <Cell area="address1">
-          <TextField
-            fullWidth
-            name="address1"
-            hintText={<FormattedMessage {...messages.hintText.address1} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
-          />
+        <Cell area="addresses">
+          <AddMultipleAddresses{...addAddressesProps} />
         </Cell>
-        <Cell area="address2">
-          <TextField
-            fullWidth
-            name="address2"
-            hintText={<FormattedMessage {...messages.hintText.address2} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
-          />
-        </Cell>
-        <Cell area="city">
-          <TextField
-            fullWidth
-            name="city"
-            hintText={<FormattedMessage {...messages.hintText.city} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
-          />
-        </Cell>
-        <Cell area="state">
-          <SelectField
-            fullWidth
-            name="state"
-            hintText={<FormattedMessage {...messages.hintText.state} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
-          >
-            {uspsStates && uspsStates.map((uspsState) =>
-              <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
-            )}
-          </SelectField>
-        </Cell>
-        <Cell area="zip">
-          <TextField
-            fullWidth
-            name="zip"
-            hintText={<FormattedMessage {...messages.hintText.zip} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.zip} />}
-          />
-        </Cell>
-        <Cell area="country">
-          <TextField
-            fullWidth
-            name="country"
-            hintText={<FormattedMessage {...messages.hintText.country} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
-          >
-          </TextField>
-        </Cell>
-        <Cell area="contactGroup">
-          <FieldGroupGrid withSuffix>
-            <PrefixCell>
-              <SelectField
-                fullWidth
-                name="telecomCode"
-                hintText={<FormattedMessage {...messages.hintText.telecomType} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
-              >
-                {telecomSystems && telecomSystems.map((telecomType) =>
-                  <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
-                )}
-              </SelectField>
-            </PrefixCell>
-            <MainCell>
-              <TextField
-                fullWidth
-                name="telecomValue"
-                hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
-              />
-            </MainCell>
-            <SuffixCell>
-              <SelectField
-                fullWidth
-                name="telecomUse"
-                hintText={<FormattedMessage {...messages.hintText.telecomUse} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomUse} />}
-              >
-                {telecomUses && telecomUses.map((telecomUse) =>
-                  <MenuItem key={telecomUse.code} value={telecomUse.code} primaryText={telecomUse.display} />,
-                )}
-              </SelectField>
-            </SuffixCell>
-          </FieldGroupGrid>
+        <Cell area="contacts">
+          <AddMultipleTelecoms {...addTelecomsProps} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -262,7 +192,7 @@ function ManageRelatedPersonForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to="/ocp-ui/patients" />}
+                containerElement={<Link to={PATIENTS_URL} />}
               />
             </Cell>
           </Grid>
@@ -276,6 +206,8 @@ ManageRelatedPersonForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   uspsStates: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -292,12 +224,13 @@ ManageRelatedPersonForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
   telecomUses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   relationshipTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,

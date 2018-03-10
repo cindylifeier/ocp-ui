@@ -7,11 +7,14 @@ import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 
 import { EMAIL_SYSTEM, PHONE_SYSTEM } from 'utils/constants';
-import { EMPTY_STRING, PHONE_PATTERN } from 'containers/App/constants';
+import { PHONE_PATTERN } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
+import FieldGroupGrid from 'components/FieldGroupGrid';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import MainCell from 'components/FieldGroupGrid/MainCell';
 import messages from './messages';
 
 function AddMultipleTelecomsForm(props) {
@@ -58,8 +61,8 @@ function AddMultipleTelecomsForm(props) {
           <Form>
             <Grid columns={4}>
               <Cell width={3}>
-                <Grid columns="1fr 2fr" gap={EMPTY_STRING}>
-                  <Cell>
+                <FieldGroupGrid>
+                  <PrefixCell>
                     <SelectField
                       name="system"
                       hintText={<FormattedMessage {...messages.hintText.system} />}
@@ -73,16 +76,16 @@ function AddMultipleTelecomsForm(props) {
                           primaryText={telecomSystem.display}
                         />))}
                     </SelectField>
-                  </Cell>
-                  <Cell>
+                  </PrefixCell>
+                  <MainCell>
                     <TextField
                       name="value"
                       hintText={<FormattedMessage {...messages.hintText.value} />}
                       floatingLabelText={<FormattedMessage {...messages.floatingLabelText.value} />}
                       fullWidth
                     />
-                  </Cell>
-                </Grid>
+                  </MainCell>
+                </FieldGroupGrid>
               </Cell>
               <Cell width={1}>
                 <SelectField

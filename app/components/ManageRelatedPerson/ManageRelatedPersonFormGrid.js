@@ -18,13 +18,8 @@ const ManageRelatedPersonFormGrid = Grid.extend`
     "startDate"
     "endDate"
     "identifierGroup"
-    "address1"
-    "address2"
-    "city"
-    "state"
-    "zip"
-    "country"
-    "contactGroup"
+    "addresses"
+    "contacts"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -37,11 +32,8 @@ const ManageRelatedPersonFormGrid = Grid.extend`
       "birthDate genderCode"
       "startDate endDate"
       "identifierGroup identifierGroup"
-      "address1 ."
-      "address2 ."
-      "city state"
-      "zip country"
-      "contactGroup contactGroup"
+      "addresses addresses"
+      "contacts contacts"
       "buttonGroup  .";
   }
 
@@ -55,10 +47,8 @@ const ManageRelatedPersonFormGrid = Grid.extend`
       "relationshipCode relationshipCode birthDate birthDate genderCode . . . . . . ."
       "startDate startDate endDate endDate . . . . . . . ."
       "identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . ."
-      "address1 address1 address1 address2 address2 address2 . . . . . ."
-      "city city state state zip zip . . . . . ."
-      "country country . . . . . . . . . ."
-      "contactGroup contactGroup contactGroup contactGroup contactGroup contactGroup contactGroup . . . . ."
+      "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"
+      "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;

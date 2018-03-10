@@ -22,6 +22,8 @@ import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import ErrorText from 'components/ErrorText';
 import WideDialog from 'components/WideDialog';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
@@ -50,14 +52,22 @@ class ManagePractitionerForm extends React.PureComponent {
 
   render() {
     const {
-      isSubmitting, dirty, isValid, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes,
-      organizations,
-      currentPage,
-      totalNumberOfPages,
-      onSearch,
-      onPageClick,
-      values, errors,
+      isSubmitting, dirty, isValid, values, errors,
+      uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
+      organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
     } = this.props;
+
+    const addAddressesProps = {
+      uspsStates,
+      errors,
+      addresses: values.addresses,
+    };
+    const addTelecomsProps = {
+      telecomSystems,
+      telecomUses,
+      errors,
+      telecoms: values.telecoms,
+    };
     return (
       <div>
         <Form>
@@ -119,81 +129,11 @@ class ManagePractitionerForm extends React.PureComponent {
                 </MainCell>
               </FieldGroupGrid>
             </Cell>
-            <Cell area="address1">
-              <TextField
-                fullWidth
-                name="address1"
-                hintText={<FormattedMessage {...messages.hintText.address1} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address1} />}
-              />
+            <Cell area="addresses">
+              <AddMultipleAddresses{...addAddressesProps} />
             </Cell>
-            <Cell area="address2">
-              <TextField
-                fullWidth
-                name="address2"
-                hintText={<FormattedMessage {...messages.hintText.address2} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.address2} />}
-              />
-            </Cell>
-            <Cell area="city">
-              <TextField
-                fullWidth
-                name="city"
-                hintText={<FormattedMessage {...messages.hintText.city} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.city} />}
-              />
-            </Cell>
-            <Cell area="state">
-              <SelectField
-                fullWidth
-                name="state"
-                hintText={<FormattedMessage {...messages.hintText.state} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.state} />}
-              >
-                {uspsStates && uspsStates.map((uspsState) =>
-                  <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
-                )}
-              </SelectField>
-            </Cell>
-            <Cell area="postalCode">
-              <TextField
-                fullWidth
-                name="postalCode"
-                hintText={<FormattedMessage {...messages.hintText.postalCode} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
-              />
-            </Cell>
-            <Cell area="country">
-              <TextField
-                fullWidth
-                name="country"
-                hintText={<FormattedMessage {...messages.hintText.country} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.country} />}
-              />
-            </Cell>
-            <Cell area="contactGroup">
-              <FieldGroupGrid>
-                <PrefixCell>
-                  <SelectField
-                    fullWidth
-                    name="telecomType"
-                    hintText={<FormattedMessage {...messages.hintText.telecomType} />}
-                    floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomType} />}
-                  >
-                    {telecomSystems && telecomSystems.map((telecomType) =>
-                      <MenuItem key={telecomType.code} value={telecomType.code} primaryText={telecomType.display} />,
-                    )}
-                  </SelectField>
-                </PrefixCell>
-                <MainCell>
-                  <TextField
-                    fullWidth
-                    name="telecomValue"
-                    hintText={<FormattedMessage {...messages.hintText.telecomValue} />}
-                    floatingLabelText={<FormattedMessage {...messages.floatingLabelText.telecomValue} />}
-                  />
-                </MainCell>
-              </FieldGroupGrid>
+            <Cell area="contacts">
+              <AddMultipleTelecoms {...addTelecomsProps} />
             </Cell>
             <Cell area="associateOrganizationSection">
               <Grid columns={1}>
@@ -221,8 +161,8 @@ class ManagePractitionerForm extends React.PureComponent {
                             arrayHelpers={arrayHelpers}
                             onAddAssociateOrganization={arrayHelpers.push}
                             callback={this.handleDialogCallback}
-                            roleType={practitionerRoleCodes}
-                            specialtyType={practitionerRoleCodes}
+                            roleType={providerRoles}
+                            specialtyType={providerSpecialties}
                             existingOrganizations={values.practitionerRoles}
                             onSearch={onSearch}
                             onPageClick={onPageClick}
@@ -252,7 +192,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                     name={`practitionerRoles.${index}.code`}
                                     hintText={<FormattedMessage {...messages.hintText.roleType} />}
                                   >
-                                    {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                    {providerRoles && providerRoles.map((roleType) =>
                                       (<MenuItem
                                         key={roleType.code}
                                         value={roleType.code}
@@ -267,7 +207,7 @@ class ManagePractitionerForm extends React.PureComponent {
                                     name={`practitionerRoles.${index}.specialty`}
                                     hintText={<FormattedMessage {...messages.hintText.specialty} />}
                                   >
-                                    {practitionerRoleCodes && practitionerRoleCodes.map((roleType) =>
+                                    {providerSpecialties && providerSpecialties.map((roleType) =>
                                       (<MenuItem
                                         key={roleType.code}
                                         value={roleType.code}
@@ -354,10 +294,19 @@ ManagePractitionerForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })),
-  practitionerRoleCodes: PropTypes.arrayOf(PropTypes.shape({
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
+  providerRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  providerSpecialties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
   onPageClick: PropTypes.func.isRequired,

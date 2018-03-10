@@ -116,10 +116,19 @@ ManageRelatedPersonPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   patientIdentifierSystems: PropTypes.array,
   administrativeGenders: PropTypes.array,
-  telecomSystems: PropTypes.array,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   relationshipTypes: PropTypes.array,
   selectedPatient: PropTypes.object,
-  telecomUses: PropTypes.array,
   relatedPeronsData: PropTypes.object,
 };
 
@@ -128,9 +137,9 @@ const mapStateToProps = createStructuredSelector({
   patientIdentifierSystems: makeSelectPatientIdentifierSystems(),
   administrativeGenders: makeSelectAdministrativeGenders(),
   telecomSystems: makeSelectTelecomSystems(),
+  telecomUses: makeSelectTelecomUses(),
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
   selectedPatient: makeSelectSelectedPatient(),
-  telecomUses: makeSelectTelecomUses(),
   relatedPeronsData: makeSelectRelatedPersons(),
 });
 

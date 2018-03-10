@@ -20,17 +20,19 @@ import messages from './messages';
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const minimumOrganization = '1';
-  const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
+
   const {
-    onSave, uspsStates, identifierSystems, telecomSystems, practitionerRoleCodes, editMode, practitioner, onPageClick, onSearch, currentPage,
-    totalNumberOfPages,
-    organizations, initialSearchOrganizationResult,
+    onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
+    providerRoles, providerSpecialties, editMode, practitioner, onPageClick, onSearch, currentPage,
+    totalNumberOfPages, organizations, initialSearchOrganizationResult,
   } = props;
   const formData = {
     uspsStates,
     identifierSystems,
     telecomSystems,
-    practitionerRoleCodes,
+    telecomUses,
+    providerRoles,
+    providerSpecialties,
     onPageClick,
     onSearch,
     organizations,
@@ -79,8 +81,6 @@ function ManagePractitioner(props) {
                 {...messages.validation.minLengthAssociateOrganization}
                 values={{ minimumOrganization }}
               />)),
-          postalCode: yup.string()
-            .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
         render={(formikProps) => <ManagePractitionerForm {...formikProps} {...formData} />}
       />
@@ -93,8 +93,19 @@ ManagePractitioner.propTypes = {
   onSave: PropTypes.func.isRequired,
   uspsStates: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,
-  telecomSystems: PropTypes.array.isRequired,
-  practitionerRoleCodes: PropTypes.array.isRequired,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
+  providerRoles: PropTypes.array.isRequired,
+  providerSpecialties: PropTypes.array.isRequired,
   editMode: PropTypes.bool.isRequired,
   practitioner: PropTypes.any,
   onPageClick: PropTypes.func.isRequired,
@@ -114,7 +125,7 @@ function setFormData(practitioner) {
   let formData = null;
   if (!isEmpty(practitioner)) {
     formData = merge(mapPractitionerToFirstIdentifier(practitioner), mapPractitionerToFirstName(practitioner),
-      mapPractitionerToAddress(practitioner), mapPractitionerToFirstTelecoms(practitioner),
+      mapPractitionerToAddresses(practitioner), mapPractitionerToTelecoms(practitioner),
       mapPractitionerRoleFormData(practitioner));
   }
   return Util.pickByIdentity(formData);
@@ -144,32 +155,16 @@ function mapPractitionerToFirstName(practitioner) {
   return name;
 }
 
-function mapPractitionerToAddress(practitioner) {
-  let address = {};
-  if (practitioner.address.length > 0) {
-    const firstAddress = practitioner.address[0];
-    address = {
-      address1: Util.setEmptyStringWhenUndefined(firstAddress.line1),
-      address2: Util.setEmptyStringWhenUndefined(firstAddress.line2),
-      city: Util.setEmptyStringWhenUndefined(firstAddress.city),
-      state: Util.setEmptyStringWhenUndefined(firstAddress.stateCode),
-      postalCode: Util.setEmptyStringWhenUndefined(firstAddress.postalCode),
-      country: Util.setEmptyStringWhenUndefined(firstAddress.countryCode),
-    };
-  }
-  return address;
+function mapPractitionerToAddresses(practitioner) {
+  return {
+    addresses: practitioner.addresses,
+  };
 }
 
-function mapPractitionerToFirstTelecoms(practitioner) {
-  let telecom = {};
-  if (practitioner.telecoms.length > 0) {
-    const firstTelecom = practitioner.telecoms[0];
-    telecom = {
-      telecomType: Util.setEmptyStringWhenUndefined(firstTelecom.system),
-      telecomValue: Util.setEmptyStringWhenUndefined(firstTelecom.value),
-    };
-  }
-  return telecom;
+function mapPractitionerToTelecoms(practitioner) {
+  return {
+    telecoms: practitioner.telecoms,
+  };
 }
 
 function mapPractitionerRoleFormData(practitioner) {

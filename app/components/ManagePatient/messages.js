@@ -19,14 +19,6 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.validation.required',
       defaultMessage: 'Required',
     },
-    email: {
-      id: 'ocpui.components.ManagePatient.manageForm.validation.email',
-      defaultMessage: 'Email must be a valid email',
-    },
-    postalCode: {
-      id: 'ocpui.components.ManagePatient.manageForm.validation.postalCode',
-      defaultMessage: 'Must be with formats: 12345 or 12345-6789',
-    },
     invalid: {
       id: 'ocpui.components.ManagePatient.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
@@ -77,38 +69,6 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.hintText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
-    telecomType: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomType',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomValue: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomValue',
-      defaultMessage: 'Telecom Value',
-    },
-    address1: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.address1',
-      defaultMessage: 'Address 1',
-    },
-    address2: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.address2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.city',
-      defaultMessage: 'City',
-    },
-    state: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.state',
-      defaultMessage: 'State',
-    },
-    postalCode: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.postalCode',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.components.ManagePatient.manageForm.hintText.country',
-      defaultMessage: 'Country',
-    },
   },
   floatingLabelText: {
     firstName: {
@@ -154,38 +114,6 @@ export default defineMessages({
     identifierValue: {
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
-    },
-    telecomType: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomType',
-      defaultMessage: 'Telecom Type',
-    },
-    telecomValue: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.telecomValue',
-      defaultMessage: 'Telecom Value',
-    },
-    address1: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.address1',
-      defaultMessage: 'Address 1',
-    },
-    address2: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.address2',
-      defaultMessage: 'Address 2',
-    },
-    city: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.city',
-      defaultMessage: 'City',
-    },
-    state: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.state',
-      defaultMessage: 'State',
-    },
-    postalCode: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.postalCode',
-      defaultMessage: 'Zip Code',
-    },
-    country: {
-      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.country',
-      defaultMessage: 'Country',
     },
   },
 });
