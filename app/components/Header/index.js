@@ -13,39 +13,37 @@ import ActionHelp from 'material-ui/svg-icons/action/help';
 import StyledToolbar from 'components/StyledToolbar';
 import Logout from 'containers/Logout';
 import { HOME_URL, PATIENTS_URL } from 'containers/App/constants';
-import styles from './styles.css';
+import ToolbarButtonContainer from './ToolbarButtonContainer';
 
 function Header() {
   return (
     <StyledToolbar>
       <ToolbarGroup firstChild>
-        <span className={styles.iconButton}>
+        <ToolbarButtonContainer>
           <FlatButton
             label="Home"
             icon={<ActionHome />}
             containerElement={<Link to={HOME_URL} />}
-            className={styles.font}
           />
-        </span>
-        <span className={styles.iconButton}>
+        </ToolbarButtonContainer>
+        <ToolbarButtonContainer>
           <FlatButton
             label="Patients"
             icon={<ActionPatients />}
             containerElement={<Link to={PATIENTS_URL} />}
-            className={styles.font}
           />
-        </span>
+        </ToolbarButtonContainer>
       </ToolbarGroup>
       <ToolbarGroup lastChild>
         <ToolbarSeparator />
-        <span className={styles.iconButton}>
+        <ToolbarButtonContainer>
           <IconButton tooltip="Help">
             <ActionHelp />
           </IconButton>
-        </span>
-        <span className={styles.iconButton}>
+        </ToolbarButtonContainer>
+        <ToolbarButtonContainer>
           <Logout />
-        </span>
+        </ToolbarButtonContainer>
       </ToolbarGroup>
     </StyledToolbar>
   );
