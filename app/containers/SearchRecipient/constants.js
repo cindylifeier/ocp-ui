@@ -18,6 +18,7 @@ export const INITIALIZE_SEARCH_RECIPIENT_RESULT = 'ocpui/SearchRecipient/INITIAL
 export const REMOVE_RECIPIENT = 'ocpui/SearchRecipient/REMOVE_RECIPIENT';
 
 
+export const INITIALIZE_SEARCH_RECIPIENTS = 'ocpui/SearchRecipient/INITIALIZE_SEARCH_RECIPIENTS';
 export const INITIALIZE_LIST_OF_RECIPIENTS = 'ocpui/SearchRecipient/INITIALIZE_LIST_OF_RECIPIENTS';
 /**
 *  Other constants

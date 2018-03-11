@@ -263,7 +263,7 @@ function mapDispatchToProps(dispatch) {
     getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
     setSelectRecipientStatus: (checked, recipientReference) => dispatch(setSelectRecipientStatus(checked, recipientReference)),
     addSelectedRecipients: () => dispatch(addSelectedRecipients()),
-    // initializeListOfRecipients: () => dispatch(initializeListOfRecipients()),
+    // initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
   };
 }
 

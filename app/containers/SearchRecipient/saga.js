@@ -7,7 +7,7 @@ import { showNotification } from '../Notification/actions';
 export function* getRecipientsSaga(action) {
   try {
     if (action.patientId) {
-      // console.log(action.patientId);
+      console.log(action.patientId);
       // const recipients = yield call(getRecipients, action.patientId, action.communicationId);
 
       const recipients = [

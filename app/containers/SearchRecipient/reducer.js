@@ -7,8 +7,8 @@
 import { fromJS } from 'immutable';
 import {
   ADD_RECIPIENT,
-  GET_RECIPIENTS_ERROR, GET_RECIPIENTS_SUCCESS, INITIALIZE_LIST_OF_RECIPIENTS,
-  INITIALIZE_SEARCH_RECIPIENT_RESULT, REMOVE_RECIPIENT, SET_SELECT_RECIPIENT_STATUS,
+  GET_RECIPIENTS_ERROR, GET_RECIPIENTS_SUCCESS, INITIALIZE_SEARCH_RECIPIENTS,
+  INITIALIZE_SEARCH_RECIPIENT_RESULT, REMOVE_RECIPIENT, SET_SELECT_RECIPIENT_STATUS, INITIALIZE_LIST_OF_RECIPIENTS,
 } from 'containers/SearchRecipient/constants';
 
 const initialState = fromJS({
@@ -18,10 +18,13 @@ const initialState = fromJS({
 
 function searchRecipientReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_LIST_OF_RECIPIENTS:
+    case INITIALIZE_SEARCH_RECIPIENTS:
       return state
         .set('recipients', fromJS([]))
         .set('selectedRecipients', fromJS([]));
+    case INITIALIZE_LIST_OF_RECIPIENTS:
+      return state
+        .set('recipients', fromJS([]));
     case GET_RECIPIENTS_SUCCESS: {
       const selectedRecipients = state.get('selectedRecipients');
       const selectedRecipientsAsArray = selectedRecipients.toJS();
