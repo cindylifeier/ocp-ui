@@ -75,8 +75,7 @@ function mapToBackendAppointmentDuringCreate(appointmentFormData) {
     utcMinutes = toDoubleChars(new Date(endTime).getUTCMinutes());
     appointmentDataToSubmit.end = `${appointmentDateString}T${utcHours}:${utcMinutes}:00.00`;
   }
-  // appointmentDataToSubmit.creatorReference = 'Practitioner/1528';
-  appointmentDataToSubmit.creatorReference = 'Practitioner/1709';
+  appointmentDataToSubmit.creatorReference = 'Practitioner/1528';
   appointmentDataToSubmit.creatorName = 'Lee Coordinator';
   // Participant
   if (!isUndefined(participants) && !isEmpty(participants)) {
