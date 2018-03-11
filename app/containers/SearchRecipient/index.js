@@ -19,6 +19,7 @@ import Table from 'components/Table/index';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
+import DialogHeader from 'components/DialogHeader/index';
 import { makeSelectRecipients, makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import {
   addSelectedRecipients,
@@ -26,6 +27,9 @@ import {
   setSelectRecipientStatus,
 } from 'containers/SearchRecipient/actions';
 import Checkbox from 'material-ui/Checkbox';
+import FormGrid from 'components/FormGrid/index';
+import FormCell from 'components/FormCell/index';
+import { Cell, Grid } from 'styled-css-grid';
 import { getRoleName } from 'utils/CommunicationUtils';
 import StyledFlatButton from 'components/StyledFlatButton/index';
 import Dialog from 'material-ui/Dialog';
@@ -38,7 +42,7 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import StyledIconButton from 'components/StyledIconButton/index';
 import { Form, Formik } from 'formik';
 import TextField from 'components/TextField/index';
-import { floatingLabelStyle, iconButtonStyle } from 'containers/SearchRecipient/constants';
+import { customContentStyle, floatingLabelStyle, iconButtonStyle } from 'containers/SearchRecipient/constants';
 import * as yup from 'yup';
 import { getLookupsAction } from 'containers/App/actions';
 import { PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
@@ -47,13 +51,6 @@ import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
-
-
-const customContentStyle = {
-  width: '70%',
-  maxWidth: 'none',
-};
 
 export class SearchRecipient extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -168,9 +165,9 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
         contentStyle={customContentStyle}
         autoScrollBodyContent
       >
-        <div className={styles.title}>
+        <DialogHeader>
           <FormattedMessage {...messages.addRecipientDialogTitle} />
-        </div>
+        </DialogHeader>
         <div>
           <Formik
             onSubmit={(values, actions) => {
@@ -178,45 +175,55 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
               actions.setSubmitting(false);
             }}
             validationSchema={yup.object().shape({
-              // name: yup.string()
-              //   .required((<FormattedMessage {...messages.validation.required} />))
-              //   .min(minimumLength, (
-              //     <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-              // member: yup.string()
-              //   .required((<FormattedMessage {...messages.validation.required} />)),
             })}
             render={(formikProps) => {
               const { isSubmitting, dirty, isValid } = formikProps;
               return (
                 <Form>
-                  <div className={styles.root}>
-                    <div className={styles.searchGridContainer}>
-                      <TextField
-                        name="name"
-                        fullWidth
-                        floatingLabelStyle={floatingLabelStyle}
-                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
-                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
-                      />
-                      <SelectField
-                        name="member"
-                        fullWidth
-                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
-                      >
-                        {participantTypes && participantTypes.map((member) =>
-                          <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
-                        )}
-                      </SelectField>
-                      <StyledIconButton
-                        style={iconButtonStyle}
-                        tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
-                        type="submit"
-                        disabled={!dirty || isSubmitting || !isValid}
-                      >
-                        <ActionSearch />
-                      </StyledIconButton>
-                    </div>
-                  </div>
+                  <FormGrid columns={12}>
+                    <FormCell top={1} left={1} width={7}>
+                      <Grid columns="3fr 3fr 1fr" gap="">
+                        <Cell>
+                          <TextField
+                            name="name"
+                            fullWidth
+                            floatingLabelStyle={floatingLabelStyle}
+                            hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
+                          />
+                        </Cell>
+                        <Cell>
+                          <SelectField
+                            name="member"
+                            fullWidth
+                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerMember} />}
+                          >
+                            {participantTypes && participantTypes.map((member) =>
+                              <MenuItem key={member.code} value={member.code} primaryText={member.display} />,
+                            )}
+                          </SelectField>
+                          <StyledIconButton
+                            style={iconButtonStyle}
+                            tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
+                            type="submit"
+                            disabled={!dirty || isSubmitting || !isValid}
+                          >
+                            <ActionSearch />
+                          </StyledIconButton>
+                        </Cell>
+                        <Cell>
+                          <StyledIconButton
+                            style={iconButtonStyle}
+                            tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
+                            type="submit"
+                            disabled={!dirty || isSubmitting || !isValid}
+                          >
+                            <ActionSearch />
+                          </StyledIconButton>
+                        </Cell>
+                      </Grid>
+                    </FormCell>
+                  </FormGrid>
                 </Form>
               );
             }}
