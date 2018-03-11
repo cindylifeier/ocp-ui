@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-
+import { uniqueId } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import IconMenu from 'material-ui/IconMenu';
@@ -22,7 +22,6 @@ import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 
-
 const iconStyles = {
   iconButton: {
     position: 'relative',
@@ -37,7 +36,8 @@ const iconStyles = {
 };
 
 
-function CommunicationsTable({ communications, selectedPatientId }) {
+function CommunicationsTable(props) {
+  const { communications, selectedPatientId } = props;
   return (
     <div >
       <Table>
@@ -90,6 +90,14 @@ function CommunicationsTable({ communications, selectedPatientId }) {
             </TableRowColumn>
           </TableRow>
         ))
+        }
+        {(communications.length === 0) && (
+          <TableRow key={uniqueId()}>
+            <TableRowColumn>
+              <FormattedMessage {...messages.noCommunications} />
+            </TableRowColumn>
+          </TableRow>
+        )
         }
       </Table>
     </div>
