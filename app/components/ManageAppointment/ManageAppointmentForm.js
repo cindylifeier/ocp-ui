@@ -92,6 +92,7 @@ function ManageAppointmentForm(props) {
             <TimePicker
               fullWidth
               name="startTime"
+              minutesStep={1}
               hintText={<FormattedMessage {...messages.hintText.startTime} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startTime} />}
             />
@@ -100,6 +101,7 @@ function ManageAppointmentForm(props) {
             <TimePicker
               fullWidth
               name="endTime"
+              minutesStep={1}
               hintText={<FormattedMessage {...messages.hintText.endTime} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endTime} />}
             />

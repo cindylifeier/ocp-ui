@@ -55,6 +55,10 @@ function ManageAppointment(props) {
               .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
             appointmentType: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
+            startTime: yup.date()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            endTime: yup.date()
+              .required((<FormattedMessage {...messages.validation.required} />)),
           })
           }
           render={(formikProps) => <ManageAppointmentForm {...formikProps} {...propsFromContainer} />}
