@@ -30,6 +30,7 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
+import { mapToPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -62,7 +63,10 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
     if (patientId) {
       merge(appointmentFormData, { patientId });
     }
-
+    const patientName = mapToPatientName(this.props.selectedPatient);
+    if (patientName) {
+      merge(appointmentFormData, { patientName });
+    }
     const appointmentId = this.props.match.params.id;
     if (appointmentId) {
       merge(appointmentFormData, { appointmentId });
