@@ -30,8 +30,8 @@ function ManageCommunicationForm(props) {
   const today = new Date();
   const {
     isSubmitting,
-    dirty,
-    isValid,
+    // dirty,
+    // isValid,
     communicationStatus,
     communicationCategories,
     communicationNotDoneReasons,
@@ -101,7 +101,7 @@ function ManageCommunicationForm(props) {
             <Cell>
               <SelectField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.status} />}
-                name="status"
+                name="statusCode"
                 fullWidth
               >
                 {communicationStatus && communicationStatus.map((status) => (
@@ -120,7 +120,7 @@ function ManageCommunicationForm(props) {
             <Cell>
               <SelectField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.context} />}
-                name="context"
+                name="episodeOfCareCode"
                 fullWidth
               >
                 {episodeOfCares && episodeOfCares.map((episodeOfCare) => (
@@ -140,7 +140,7 @@ function ManageCommunicationForm(props) {
         <FormCell top={5} left={1} width={2}>
           <SelectField
             floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
-            name="notDoneReason"
+            name="notDoneReasonCode"
             fullWidth
           >
             {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
@@ -153,7 +153,7 @@ function ManageCommunicationForm(props) {
             <Cell>
               <SelectField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.category} />}
-                name="category"
+                name="categoryCode"
                 fullWidth
               >
                 {communicationCategories && communicationCategories.map((category) => (
@@ -164,7 +164,7 @@ function ManageCommunicationForm(props) {
             <Cell>
               <SelectField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
-                name="medium"
+                name="mediumCode"
                 fullWidth
               >
                 {communicationMedia && communicationMedia.map((communicationMedium) => (
@@ -240,7 +240,7 @@ function ManageCommunicationForm(props) {
                 label={isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!dirty || isSubmitting || !isValid}
+                // disabled={!dirty || isSubmitting || !isValid}
               />
             </Cell>
             <Cell>
@@ -260,8 +260,8 @@ function ManageCommunicationForm(props) {
 
 ManageCommunicationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
-  dirty: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
+  // dirty: PropTypes.bool.isRequired,
+  // isValid: PropTypes.bool.isRequired,
   communicationStatus: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
