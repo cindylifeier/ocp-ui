@@ -6,12 +6,12 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 function* saveAppointmentSaga(action) {
   try {
-    yield call(saveAppointment, action.appointmentFormData);
-    yield put(showNotification(`Successfully ${determineNotificationForAppointment(action.appointmentFormData)} the appointment.`));
+    yield call(saveAppointment, action.appointment);
+    yield put(showNotification(`Successfully ${determineNotificationForAppointment(action.appointment)} the appointment.`));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification(`Failed to ${determineNotificationForAppointment(action.appointmentFormData)} the appointment.`));
+    yield put(showNotification(`Failed to ${determineNotificationForAppointment(action.appointment)} the appointment.`));
     yield call(action.handleSubmitting);
   }
 }
