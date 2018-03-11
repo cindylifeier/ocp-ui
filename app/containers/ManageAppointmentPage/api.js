@@ -38,6 +38,14 @@ function updateAppointmentApiCall(appointmentFormData) {
 }
 
 export function determineNotificationForAppointment(appointmentFormData) {
+  let action = 'create';
+  if (appointmentFormData.appointmentId) {
+    action = 'edit';
+  }
+  return action;
+}
+
+export function determineNotificationForAppointmentInPastTense(appointmentFormData) {
   let action = 'created';
   if (appointmentFormData.appointmentId) {
     action = 'edited';
