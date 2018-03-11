@@ -20,7 +20,7 @@ export function createCommunication(communication) {
 }
 
 export function updateCommunication(communication) {
-  const communicationId = communication.communicationId;
+  const communicationId = communication.logicalId;
   const requestURL = `${baseEndpoint}/${communicationId}`;
   return request(requestURL, {
     method: 'PUT',

@@ -10,10 +10,12 @@ export function* createCommunicationSaga(action) {
   try {
     if (action.communication) {
       yield call(createCommunication, action.communication);
+      yield call(action.handleSubmitting);
       yield put(goBack());
     }
   } catch (error) {
-    yield put(showNotification('Error in creating related person.'));
+    yield put(showNotification('Error in creating communication.'));
+    yield call(action.handleSubmitting);
     yield put(saveCommunicationError(error));
   }
 }
@@ -26,7 +28,7 @@ export function* updateCommunicationSaga(action) {
       yield put(goBack());
     }
   } catch (error) {
-    yield put(showNotification('Error in updating related person.'));
+    yield put(showNotification('Error in updating communication.'));
     yield call(action.handleSubmitting);
     yield put(saveCommunicationError(error));
   }
