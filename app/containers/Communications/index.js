@@ -46,7 +46,7 @@ export class Communications extends React.PureComponent { // eslint-disable-line
   }
   render() {
     const { data, selectedPatient } = this.props;
-
+    const listOfCommunications = data && data.elements ? data.elements : [];
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />}>
@@ -59,7 +59,7 @@ export class Communications extends React.PureComponent { // eslint-disable-line
         {data && data.elements &&
         (
           <div>
-            <CommunicationsTable communications={data.elements} selectedPatientId={selectedPatient.id}></CommunicationsTable>
+            <CommunicationsTable communications={listOfCommunications} selectedPatientId={selectedPatient.id}></CommunicationsTable>
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
