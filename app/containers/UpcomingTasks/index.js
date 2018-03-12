@@ -17,7 +17,6 @@ import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import isEmpty from 'lodash/isEmpty';
 import UpcomingTasksTable from 'components/UpcomingTasksTable';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -52,16 +51,11 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
         <NoResultsFoundText>
           <FormattedMessage {...messages.noUpcomingTasksFound} />
         </NoResultsFoundText>}
-        {!isEmpty(data) && !isEmpty(data.elements) &&
+        {!isEmpty(data) && !isEmpty(data) &&
         <div>
           <CenterAlign>
-            <UpcomingTasksTable elements={data.elements} loginPractitonerId={practitionerId} />
+            <UpcomingTasksTable elements={data} loginPractitonerId={practitionerId} />
           </CenterAlign>
-          <CenterAlignedUltimatePagination
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            onChange={this.handlePageClick}
-          />
         </div>
         }
       </Card>
@@ -71,10 +65,7 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
 
 UpcomingTasks.propTypes = {
   loading: PropTypes.bool,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
+  data: PropTypes.array,
   practitionerId: PropTypes.string,
   initializeUpcomingTasks: PropTypes.func.isRequired,
   getUpcomingTasks: PropTypes.func.isRequired,

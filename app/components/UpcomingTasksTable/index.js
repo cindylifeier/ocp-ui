@@ -29,9 +29,9 @@ function UpcomingTaskTable({ elements }) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {!isEmpty(elements) && elements.map(({ id, benificiary, definition, description, executionPeriod }) => (
-          <TableRow key={id}>
-            <TableRowColumn>{benificiary.display}</TableRowColumn>
+        {!isEmpty(elements) && elements.map(({ logicalId, beneficiary, definition, description, executionPeriod }) => (
+          <TableRow key={logicalId}>
+            <TableRowColumn>{beneficiary.display}</TableRowColumn>
             <TableRowColumn>{definition.display}</TableRowColumn>
             <TableRowColumn>{description}</TableRowColumn>
             <TableRowColumn>{executionPeriod.start}</TableRowColumn>
@@ -46,8 +46,8 @@ function UpcomingTaskTable({ elements }) {
 
 UpcomingTaskTable.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    benificiary: PropTypes.object.isRequired,
+    logicalId: PropTypes.string.isRequired,
+    beneficiary: PropTypes.object.isRequired,
     definition: PropTypes.object,
     description: PropTypes.string,
     executionPeriod: PropTypes.object,

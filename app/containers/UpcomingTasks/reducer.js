@@ -10,7 +10,7 @@ import { GET_UPCOMING_TASKS, GET_UPCOMING_TASKS_SUCCESS, GET_UPCOMING_TASKS_ERRO
 const initialState = fromJS({
   loading: false,
   practitionerId: null,
-  data: {},
+  data: [],
 });
 
 function upcomingTasksReducer(state = initialState, action) {
