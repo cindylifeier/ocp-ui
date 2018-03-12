@@ -10,12 +10,12 @@ const headers = {
 
 export function saveAppointment(appointmentFormData) {
   if (appointmentFormData.appointmentId) {
-    return updateAppointmentApiCall(appointmentFormData);
+    return updateAppointment(appointmentFormData);
   }
-  return createAppointmentApiCall(appointmentFormData);
+  return createAppointment(appointmentFormData);
 }
 
-export function createAppointmentApiCall(appointmentFormData) {
+export function createAppointment(appointmentFormData) {
   const requestUrl = `${baseEndpoint}`;
   const body = JSON.stringify(mapToBackendAppointmentDuringCreate(appointmentFormData));
   return request(requestUrl, {
@@ -25,7 +25,7 @@ export function createAppointmentApiCall(appointmentFormData) {
   });
 }
 
-function updateAppointmentApiCall(appointmentFormData) {
+function updateAppointment(appointmentFormData) {
   const appointmentId = appointmentFormData.appointmentId;
   const requestURL = `${baseEndpoint}/${appointmentId}`;
   return request(requestURL, {
