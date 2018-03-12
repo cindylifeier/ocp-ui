@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
+import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 
 import GoldenLayout from 'components/GoldenLayout';
 
@@ -83,9 +84,9 @@ export const initialStateMetadata =
         width: 100,
         height: 50,
         content: [{
-          title: 'Upcoming Tasks',
+          title: 'Upcoming Appointments',
           type: 'component',
-          componentName: 'upcomingTasks',
+          componentName: 'upcomingAppointments',
           isClosable: true,
           reorderEnabled: true,
         }],
@@ -100,6 +101,7 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'upcomingTasks', text: 'Upcoming Tasks', factoryMethod: renderUpcomingTasksComponent },
+  { name: 'upcomingAppointments', text: 'Upcoming Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
 ];
 
 
