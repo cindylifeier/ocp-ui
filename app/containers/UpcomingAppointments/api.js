@@ -2,16 +2,17 @@ import { SEARCH_KEY, SEARCH_VALUE } from 'containers/UpcomingAppointments/consta
 import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from '../../utils/queryString';
 import request from '../../utils/request';
-import { DEFAULT_PAGE_SIZE, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
+import { DEFAULT_PAGE_SIZE } from '../App/constants';
 
-export default function getUpcomingAppointments() {
-  const query = {
+export default function getUpcomingAppointments(query) {
+  const { pageSize = DEFAULT_PAGE_SIZE } = query;
+  const q = {
+    ...query,
     searchKey: SEARCH_KEY,
     searchValue: SEARCH_VALUE,
-    pageNumber: DEFAULT_START_PAGE_NUMBER,
-    pageSize: DEFAULT_PAGE_SIZE,
+    pageSize,
   };
-  const params = queryString(query);
+  const params = queryString(q);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);

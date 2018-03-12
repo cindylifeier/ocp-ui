@@ -19,9 +19,10 @@ export function initializeUpcomingAppointments() {
   };
 }
 
-export function getUpcomingAppointments() {
+export function getUpcomingAppointments(query) {
   return {
     type: GET_UPCOMING_APPOINTMENTS,
+    query,
   };
 }
 
