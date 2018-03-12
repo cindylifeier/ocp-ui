@@ -11,24 +11,25 @@
  * the linting exception.
  */
 
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { compose } from 'redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import 'font-awesome/css/font-awesome.min.css';
+import Authentication from 'containers/Authentication';
 import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import PatientsPage from 'containers/PatientsPage/Loadable';
-import CareCoordinatorPage from 'containers/CareCoordinatorPage';
-import ManageOrganizationPage from 'containers/ManageOrganizationPage';
-import ManagePractitionerPage from 'containers/ManagePractitionerPage';
-import ManageLocationPage from 'containers/ManageLocationPage';
+import LoginPage from 'containers/LoginPage';
+import ManageAppointmentPage from 'containers/ManageAppointmentPage';
 import ManageCareTeamPage from 'containers/ManageCareTeamPage';
 import ManageHealthcareServicePage from 'containers/ManageHealthcareServicePage';
-import Authentication from 'containers/Authentication';
-import LoginPage from 'containers/LoginPage';
+import ManageLocationPage from 'containers/ManageLocationPage';
+import ManageOrganizationPage from 'containers/ManageOrganizationPage';
+import ManagePatientPage from 'containers/ManagePatientPage/index';
+import ManagePractitionerPage from 'containers/ManagePractitionerPage';
+import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientPage from 'containers/PatientPage';
-import ManagePatientPage from 'containers/ManagePatientPage';
+import PatientsPage from 'containers/PatientsPage/Loadable';
+import 'font-awesome/css/font-awesome.min.css';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { compose } from 'redux';
+import CareCoordinatorPage from 'containers/CareCoordinatorPage';
 import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
 import ManageTaskPage from 'containers/ManageTaskPage';
 import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
@@ -71,6 +72,7 @@ export function App() {
             <Route path="/ocp-ui/manage-task/:id?" component={ManageTaskPage} />
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
+            <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
