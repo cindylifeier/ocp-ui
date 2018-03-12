@@ -11,30 +11,31 @@
  * the linting exception.
  */
 
+import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
+import Authentication from 'containers/Authentication';
+import HomePage from 'containers/HomePage/Loadable';
+import LoginPage from 'containers/LoginPage';
+import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
+import ManageAppointmentPage from 'containers/ManageAppointmentPage';
+import ManageCareTeamPage from 'containers/ManageCareTeamPage';
+import ManageHealthcareServicePage from 'containers/ManageHealthcareServicePage';
+import ManageLocationPage from 'containers/ManageLocationPage';
+import ManageOrganizationPage from 'containers/ManageOrganizationPage';
+import ManagePatientPage from 'containers/ManagePatientPage/index';
+import ManagePractitionerPage from 'containers/ManagePractitionerPage';
+import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage/index';
+import ManageTaskPage from 'containers/ManageTaskPage';
+import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Notification from 'containers/Notification';
+import PatientPage from 'containers/PatientPage';
+import PatientsPage from 'containers/PatientsPage/Loadable';
+import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import 'font-awesome/css/font-awesome.min.css';
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import PatientsPage from 'containers/PatientsPage/Loadable';
-import LoginPage from '../LoginPage';
-import ManageLocationPage from '../ManageLocationPage';
-import ManagePractitionerPage from '../ManagePractitionerPage';
-import ManageOrganizationPage from '../ManageOrganizationPage';
-import ManageCareTeamPage from '../ManageCareTeamPage';
-import ManageHealthcareServicePage from '../ManageHealthcareServicePage';
-import Notification from '../Notification';
+import { compose } from 'redux';
+import injectSaga from 'utils/injectSaga';
 import saga from './saga';
-import injectSaga from '../../utils/injectSaga';
-import ManagePatientPage from '../ManagePatientPage/index';
-import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
-import Authentication from '../Authentication';
-import ManageTaskPage from '../ManageTaskPage';
-import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
-import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
-import PatientPage from '../PatientPage';
 import './styles.css';
 
 
@@ -70,6 +71,7 @@ export function App() {
             <Route path="/ocp-ui/manage-task/:id?" component={ManageTaskPage} />
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
+            <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
