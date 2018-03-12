@@ -20,12 +20,12 @@ export function* searchAppointmentParticipantSaga(action) {
   }
 }
 
-export function* watchSearchAppointmentParticipant() {
+export function* watchSearchAppointmentParticipantSaga() {
   yield takeLatest(SEARCH_APPOINTMENT_PARTICIPANT, searchAppointmentParticipantSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchSearchAppointmentParticipant(),
+    watchSearchAppointmentParticipantSaga(),
   ]);
 }
