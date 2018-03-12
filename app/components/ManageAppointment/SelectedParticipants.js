@@ -1,13 +1,13 @@
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import Table from 'components/Table/index';
+import TableHeader from 'components/TableHeader/index';
+import TableHeaderColumn from 'components/TableHeaderColumn/index';
+import TableRow from 'components/TableRow/index';
+import TableRowColumn from 'components/TableRowColumn/index';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Table from '../Table/index';
-import TableHeader from '../TableHeader/index';
-import TableHeaderColumn from '../TableHeaderColumn/index';
-import TableRow from '../TableRow/index';
-import TableRowColumn from '../TableRowColumn/index';
 
 import messages from './messages';
 
@@ -29,9 +29,11 @@ function SelectedParticipants(props) {
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRequired} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationStatus} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipationStatus} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
       </TableHeader>
       {selectedParticipants && selectedParticipants.length > 0 ?

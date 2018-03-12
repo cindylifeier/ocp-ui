@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash';
 import isUndefined from 'lodash/isUndefined';
 import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
-import request from '../../utils/request';
+import request from 'utils/request';
 
 const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
 const headers = {
