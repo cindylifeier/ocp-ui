@@ -1,3 +1,4 @@
+import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
@@ -5,6 +6,7 @@ import ManageAppointmentFormGrid from 'components/ManageAppointment/ManageAppoin
 import SelectField from 'components/SelectField';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
 import TimePicker from 'components/TimePicker';
 import { Form } from 'formik';
 import uniqueId from 'lodash/uniqueId';
@@ -15,9 +17,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { DATE_PICKER_MODE, PATIENTS_URL } from '../../containers/App/constants';
-import DatePicker from '../DatePicker';
-import TextField from '../TextField';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import messages from './messages';
 
 import SelectedParticipants from './SelectedParticipants';

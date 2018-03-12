@@ -11,30 +11,30 @@
  * the linting exception.
  */
 
+import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
+import Authentication from 'containers/Authentication';
 import HomePage from 'containers/HomePage/Loadable';
+import LoginPage from 'containers/LoginPage';
+import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
 import ManageAppointmentPage from 'containers/ManageAppointmentPage';
+import ManageCareTeamPage from 'containers/ManageCareTeamPage';
+import ManageHealthcareServicePage from 'containers/ManageHealthcareServicePage';
+import ManageLocationPage from 'containers/ManageLocationPage';
+import ManageOrganizationPage from 'containers/ManageOrganizationPage';
+import ManagePatientPage from 'containers/ManagePatientPage/index';
+import ManagePractitionerPage from 'containers/ManagePractitionerPage';
+import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage/index';
+import ManageTaskPage from 'containers/ManageTaskPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Notification from 'containers/Notification';
+import PatientPage from 'containers/PatientPage';
 import PatientsPage from 'containers/PatientsPage/Loadable';
 import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { compose } from 'redux';
-import injectSaga from '../../utils/injectSaga';
-import AssignHealthCareServiceToLocationPage from '../AssignHealthcareServiceToLocationPage';
-import Authentication from '../Authentication';
-import LoginPage from '../LoginPage';
-import ManageActivityDefinitionPage from '../ManageActivityDefinitionPage';
-import ManageCareTeamPage from '../ManageCareTeamPage';
-import ManageHealthcareServicePage from '../ManageHealthcareServicePage';
-import ManageLocationPage from '../ManageLocationPage';
-import ManageOrganizationPage from '../ManageOrganizationPage';
-import ManagePatientPage from '../ManagePatientPage/index';
-import ManagePractitionerPage from '../ManagePractitionerPage';
-import ManageRelatedPersonPage from '../ManageRelatedPersonPage/index';
-import ManageTaskPage from '../ManageTaskPage';
-import Notification from '../Notification';
-import PatientPage from '../PatientPage';
+import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 import './styles.css';
 
