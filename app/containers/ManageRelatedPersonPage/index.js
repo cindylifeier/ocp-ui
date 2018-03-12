@@ -8,35 +8,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import queryString from 'query-string';
 import find from 'lodash/find';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import {
+  ADMINISTRATIVEGENDER,
+  PATIENTIDENTIFIERSYSTEM,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  TELECOMSYSTEM,
+  TELECOMUSE,
+  USPSSTATES,
+} from 'containers/App/constants';
+import { getLookupsAction, getPatient } from 'containers/App/actions';
+import ManageRelatedPerson from 'components/ManageRelatedPerson';
+import makeSelectRelatedPersons from 'containers/RelatedPersons/selectors';
+import {
+  makeSelectAdministrativeGenders,
+  makeSelectPatientIdentifierSystems,
+  makeSelectRelatedPersonPatientRelationshipTypes,
+  makeSelectTelecomSystems,
+  makeSelectTelecomUses,
+  makeSelectUspsStates,
+} from 'containers/App/lookupSelectors';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { createRelatedPerson, updateRelatedPerson } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-// import messages from './messages';
-import {
-  ADMINISTRATIVEGENDER, PATIENTIDENTIFIERSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES, TELECOMSYSTEM, TELECOMUSE,
-  USPSSTATES,
-} from '../App/constants';
-import { getLookupsAction, getPatient } from '../App/actions';
-import ManageRelatedPerson from '../../components/ManageRelatedPerson';
-import { createRelatedPerson, updateRelatedPerson } from './actions';
-import makeSelectRelatedPersons from '../RelatedPersons/selectors';
-import {
-  makeSelectAdministrativeGenders, makeSelectPatientIdentifierSystems, makeSelectRelatedPersonPatientRelationshipTypes,
-  makeSelectTelecomSystems, makeSelectTelecomUses, makeSelectUspsStates,
-} from '../App/lookupSelectors';
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
+
 
 export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
   }
+
   componentWillMount() {
     this.props.getLookups();
     const queryObj = queryString.parse(this.props.location.search);
@@ -45,6 +54,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       this.props.getPatient(patientId);
     }
   }
+
   handleSave(relatedPerson, actions) {
     const relatedPersonId = this.props.match.params.id;
     if (relatedPersonId) {
@@ -54,6 +64,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       this.props.createRelatedPerson(relatedPerson, () => actions.setSubmitting(false));
     }
   }
+
   render() {
     const {
       uspsStates,
@@ -62,7 +73,8 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       telecomSystems,
       telecomUses,
       relationshipTypes,
-      selectedPatient } = this.props;
+      selectedPatient,
+    } = this.props;
     const relatedPersonId = this.props.match.params.id;
     const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
     const manageRelatedPersonProps = {
@@ -97,10 +109,19 @@ ManageRelatedPersonPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   patientIdentifierSystems: PropTypes.array,
   administrativeGenders: PropTypes.array,
-  telecomSystems: PropTypes.array,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   relationshipTypes: PropTypes.array,
   selectedPatient: PropTypes.object,
-  telecomUses: PropTypes.array,
   relatedPeronsData: PropTypes.object,
 };
 
@@ -109,9 +130,9 @@ const mapStateToProps = createStructuredSelector({
   patientIdentifierSystems: makeSelectPatientIdentifierSystems(),
   administrativeGenders: makeSelectAdministrativeGenders(),
   telecomSystems: makeSelectTelecomSystems(),
+  telecomUses: makeSelectTelecomUses(),
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
   selectedPatient: makeSelectSelectedPatient(),
-  telecomUses: makeSelectTelecomUses(),
   relatedPeronsData: makeSelectRelatedPersons(),
 });
 

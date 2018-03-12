@@ -106,7 +106,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
           </InlineLabel>
           <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>
         </InfoSection>}
-        {!isEmpty(organization) &&
+        {!isEmpty(organization) && isEmpty(location) &&
         <div>
           <FilterSection>
             <CheckboxFilterGrid>

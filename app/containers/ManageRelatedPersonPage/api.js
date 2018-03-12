@@ -1,5 +1,5 @@
-import request from '../../utils/request';
-import { BASE_RELATED_PERSONS_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_RELATED_PERSONS_API_URL, getEndpoint } from 'utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_RELATED_PERSONS_API_URL);
 

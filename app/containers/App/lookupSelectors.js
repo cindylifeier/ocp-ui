@@ -4,6 +4,11 @@ import {
   ACTION_PARTICIPANT_TYPE,
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
+  APPOINTMENT_PARTICIPANT_REQUIRED,
+  APPOINTMENT_PARTICIPATION_STATUS,
+  APPOINTMENT_PARTICIPATION_TYPE,
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
   CARETEAMCATEGORY,
   CARETEAMREASON,
   CARETEAMSTATUS,
@@ -26,8 +31,8 @@ import {
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PUBLICATION_STATUS,
-  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RELATED_ARTIFACT_TYPE,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RESOURCE_TYPE,
   TELECOMSYSTEM,
   TELECOMUSE,
@@ -241,6 +246,31 @@ const makeSelectRelatedArtifactTypes = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATED_ARTIFACT_TYPE).toJS(),
 );
 
+const makeSelectAppointmentStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_STATUS).toJS(),
+);
+
+const makeSelectAppointmentTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_TYPE).toJS(),
+);
+
+const makeSelectAppointmentParticipationStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPATION_STATUS).toJS(),
+);
+
+const makeSelectAppointmentParticipationTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPATION_TYPE).toJS(),
+);
+
+const makeSelectAppointmentParticipationRequired = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPANT_REQUIRED).toJS(),
+);
+
 const makeSelectProviderRoles = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_ROLE).toJS(),
@@ -292,6 +322,11 @@ export {
   makeSelectRequestPriorities,
   makeSelectTaskPerformerTypes,
   makeSelectRelatedArtifactTypes,
+  makeSelectAppointmentStatuses,
+  makeSelectAppointmentTypes,
+  makeSelectAppointmentParticipationStatuses,
+  makeSelectAppointmentParticipationTypes,
+  makeSelectAppointmentParticipationRequired,
   makeSelectProviderRoles,
   makeSelectProviderSpecialties,
 };
