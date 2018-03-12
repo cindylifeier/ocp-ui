@@ -9,6 +9,10 @@
  *  @type {string}
  */
 
+export const GET_COMMUNICATION = 'ocpui/ManageCommunicationPage/GET_COMMUNICATION';
+export const GET_COMMUNICATION_SUCCESS = 'ocpui/ManageCommunicationPage/GET_COMMUNICATION_SUCCESS';
+export const GET_COMMUNICATION_ERROR = 'ocpui/ManageCommunicationPage/GET_COMMUNICATION_ERROR';
+
 export const CREATE_COMMUNICATION = 'ocpui/ManageCommunicationPage/CREATE_COMMUNICATION';
 export const CREATE_COMMUNICATION_SUCCESS = 'ocpui/ManageCommunicationPage/CREATE_COMMUNICATION_SUCCESS';
 export const SAVE_COMMUNICATION_ERROR = 'ocpui/ManageCommunicationPage/SAVE_COMMUNICATION_ERROR';

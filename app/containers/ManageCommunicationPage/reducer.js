@@ -9,6 +9,7 @@ import {
   SAVE_COMMUNICATION_ERROR,
   GET_EPISODE_OF_CARES_SUCCESS,
   GET_PRACTITIONER_SUCCESS,
+  GET_COMMUNICATION_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -27,6 +28,8 @@ function manageCommunicationPageReducer(state = initialState, action) {
       return state.set('episodeOfCares', fromJS((action.episodeOfCares) || {}));
     case GET_PRACTITIONER_SUCCESS:
       return state.setIn(['practitioner'], fromJS((action.practitioner) || {}));
+    case GET_COMMUNICATION_SUCCESS:
+      return state.setIn(['communication'], fromJS((action.communication) || {}));
     default:
       return state;
   }

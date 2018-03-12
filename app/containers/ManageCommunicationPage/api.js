@@ -31,6 +31,11 @@ export function updateCommunication(communication) {
   });
 }
 
+export function getCommunication(communicationId) {
+  const requestURL = `${baseEndpoint}/${communicationId}`;
+  return request(requestURL);
+}
+
 export function getEpisodeOfCares(patientId) {
   const baseEndpointEpisodeOfCare = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
   const queryParams = { patient: patientId };

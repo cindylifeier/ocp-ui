@@ -9,6 +9,8 @@ import {
   GET_EPISODE_OF_CARES, GET_EPISODE_OF_CARES_SUCCESS,
   GET_PRACTITIONER, GET_PRACTITIONER_SUCCESS,
   GET_PRACTITIONER_ERROR,
+  GET_COMMUNICATION, GET_COMMUNICATION_ERROR,
+  GET_COMMUNICATION_SUCCESS,
 } from './constants';
 
 
@@ -43,6 +45,29 @@ export function updateCommunication(communication, patientId, handleSubmitting) 
     handleSubmitting,
   };
 }
+
+export function getCommunication(communicationId) {
+  return {
+    type: GET_COMMUNICATION,
+    communicationId,
+  };
+}
+
+export function getCommunicationSuccess(communication) {
+  return {
+    type: GET_COMMUNICATION_SUCCESS,
+    communication,
+  };
+}
+
+
+export function getCommunicationError(error) {
+  return {
+    type: GET_COMMUNICATION_ERROR,
+    error,
+  };
+}
+
 
 export function getEpisodeOfCares(patientId) {
   return {

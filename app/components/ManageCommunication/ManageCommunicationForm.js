@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
+import Util from 'utils/Util';
+import Link from 'react-router-dom/es/Link';
 import { RaisedButton } from 'material-ui';
+import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import { addButtonStyle } from 'components/ManageCommunication/constants';
 import { teal500, white } from 'material-ui/styles/colors';
 import { FormattedMessage } from 'react-intl';
@@ -23,15 +26,14 @@ import StyledRaisedButton from '../StyledRaisedButton/index';
 import StyledFlatButton from '../StyledFlatButton/index';
 import TextField from '../TextField';
 import DatePicker from '../DatePicker';
-import { DATE_PICKER_MODE } from '../../containers/App/constants';
 import SelectField from '../SelectField/index';
 
 function ManageCommunicationForm(props) {
   const today = new Date();
   const {
     isSubmitting,
-    // dirty,
-    // isValid,
+    dirty,
+    isValid,
     communicationStatus,
     communicationCategories,
     communicationNotDoneReasons,
@@ -41,8 +43,8 @@ function ManageCommunicationForm(props) {
     selectedRecipients,
     handleRemoveRecipient,
     selectedPatient,
+    initialSelectedRecipients,
   } = props;
-
   const handleRemoveSelectedRecipient = (check, reference) => {
     handleRemoveRecipient(check, reference);
   };
@@ -240,7 +242,7 @@ function ManageCommunicationForm(props) {
                 label={isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                // disabled={!dirty || isSubmitting || !isValid}
+                disabled={!isFormDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid}
               />
             </Cell>
             <Cell>
@@ -249,6 +251,8 @@ function ManageCommunicationForm(props) {
                 type="button"
                 default
                 label={<FormattedMessage {...messages.form.cancelButton} />}
+                disabled={isSubmitting}
+                containerElement={<Link to={PATIENTS_URL} />}
               />
             </Cell>
           </Grid>
@@ -260,10 +264,11 @@ function ManageCommunicationForm(props) {
 
 ManageCommunicationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
-  // dirty: PropTypes.bool.isRequired,
-  // isValid: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
   communicationStatus: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
+  initialSelectedRecipients: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
@@ -274,3 +279,14 @@ ManageCommunicationForm.propTypes = {
 };
 
 export default ManageCommunicationForm;
+
+
+function isFormDirty(dirty, selectedRecipients, initialSelectedRecipients) {
+  let isDirty = dirty;
+  const identityOfArray = 'reference';
+  if (!Util.isUnorderedArraysEqual(selectedRecipients, initialSelectedRecipients, identityOfArray)) {
+    isDirty = true;
+  }
+
+  return isDirty;
+}

@@ -1,10 +1,27 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import { CREATE_COMMUNICATION, UPDATE_COMMUNICATION, GET_EPISODE_OF_CARES, GET_PRACTITIONER } from './constants';
+import {
+  CREATE_COMMUNICATION,
+  UPDATE_COMMUNICATION,
+  GET_EPISODE_OF_CARES,
+  GET_PRACTITIONER,
+  GET_COMMUNICATION,
+} from './constants';
 import { showNotification } from '../Notification/actions';
-import { saveCommunicationError, getEpisodeOfCaresSuccess, getPractitionerSuccess, getPractitionerError } from './actions';
-import { createCommunication, updateCommunication, getEpisodeOfCares, getRequester } from './api';
-
+import { saveCommunicationError,
+  getEpisodeOfCaresSuccess,
+  getPractitionerSuccess,
+  getPractitionerError,
+  getCommunicationError,
+  getCommunicationSuccess,
+} from './actions';
+import {
+  createCommunication,
+  updateCommunication,
+  getEpisodeOfCares,
+  getRequester,
+  getCommunication,
+} from './api';
 
 export function* createCommunicationSaga(action) {
   try {
@@ -57,6 +74,16 @@ export function* getPractitionerSaga(action) {
   }
 }
 
+
+export function* getCommunicationSaga(action) {
+  try {
+    const communication = yield call(getCommunication, action.communicationId);
+    yield put(getCommunicationSuccess(communication));
+  } catch (err) {
+    yield put(showNotification('Error in getting communication!'));
+    yield put(getCommunicationError(err));
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -76,6 +103,10 @@ export function* watchGetEpisodeOfCaresSaga() {
   yield takeLatest(GET_EPISODE_OF_CARES, getEpisodeOfCaresSaga);
 }
 
+export function* watchGetCommunicationSaga() {
+  yield takeLatest(GET_COMMUNICATION, getCommunicationSaga);
+}
+
 
 export default function* rootSaga() {
   yield all([
@@ -83,5 +114,6 @@ export default function* rootSaga() {
     watchUpdateCommunicationSaga(),
     watchGetEpisodeOfCaresSaga(),
     watchGetPractitionerSaga(),
+    watchGetCommunicationSaga(),
   ]);
 }

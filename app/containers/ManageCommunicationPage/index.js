@@ -14,7 +14,10 @@ import { compose } from 'redux';
 import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
+import {
+  makeSelectCommunication, makeSelectEpisodeOfCares,
+  makeSelectPractitioner,
+} from 'containers/ManageCommunicationPage/selectors';
 import SearchRecipient from 'containers/SearchRecipient';
 import Page from 'components/Page';
 import {
@@ -31,7 +34,7 @@ import messages from './messages';
 
 import { getLookupsAction } from '../App/actions';
 import { createCommunication, updateCommunication, getEpisodeOfCares,
-  getPractitioner } from './actions';
+  getPractitioner, getCommunication } from './actions';
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import {
   makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
@@ -60,6 +63,11 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
   componentWillMount() {
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      this.props.getCommunication(logicalId);
+    }
+
     // Logged in Practitioner
     this.props.getPractitioner(this.state.practitionerId);
     this.props.getLookups();
@@ -89,8 +97,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   }
   render() {
     const editingCommunication = false;
-    const communicationId = this.props.match.params.id;
     const {
+      communication,
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
@@ -100,6 +108,11 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedPatient,
       // practitioner, // TODO fix delay in getting practitioner
     } = this.props;
+    const communicationId = this.props.match.params.id;
+    let initialSelectedRecipients = [];
+    if (communicationId && selectedRecipients && communication && communication.recipients) {
+      initialSelectedRecipients = communication.recipients;
+    }
     console.log(this.props.practitioner);
     const practitioner = this.state.selectedPractitioner;
     const manageCommunicationProps = {
@@ -111,8 +124,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedRecipients,
       selectedPatient,
       practitioner,
+      initialSelectedRecipients,
     };
-    const initialSelectedRecipients = [];
     return (
       <Page>
         <Helmet>
@@ -152,6 +165,7 @@ ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,
+  getCommunication: PropTypes.func.isRequired,
   getPractitioner: PropTypes.func.isRequired,
   createCommunication: PropTypes.func.isRequired,
   updateCommunication: PropTypes.func.isRequired,
@@ -166,6 +180,7 @@ ManageCommunicationPage.propTypes = {
   practitioner: PropTypes.object.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
   initializeListOfRecipients: PropTypes.func.isRequired,
+  communication: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -177,6 +192,7 @@ const mapStateToProps = createStructuredSelector({
   episodeOfCares: makeSelectEpisodeOfCares(),
   selectedRecipients: makeSelectSelectedRecipients(),
   practitioner: makeSelectPractitioner(),
+  communication: makeSelectCommunication,
 });
 
 function mapDispatchToProps(dispatch) {
@@ -189,6 +205,7 @@ function mapDispatchToProps(dispatch) {
     getPractitioner: (practitionerId) => dispatch(getPractitioner(practitionerId)),
     initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
     initializeListOfRecipients: () => dispatch(initializeListOfRecipients()),
+    getCommunication: (communicationId) => dispatch(getCommunication(communicationId)),
   };
 }
 
