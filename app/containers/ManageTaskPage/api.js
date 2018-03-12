@@ -37,7 +37,7 @@ export function getEventTypes(patientId) {
 
 export function getTasksByPatient(patientId) {
   const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
-  const requestURL = `${baseEndpoint}?patient=${patientId.patientId}`;
+  const requestURL = `${baseEndpoint}/task-references/?patient=${patientId.patientId}`;
   return request(requestURL);
 }
 
