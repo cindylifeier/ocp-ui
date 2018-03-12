@@ -17,7 +17,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn/index';
 import TableRowColumn from 'components/TableRowColumn/index';
 import TableRow from 'components/TableRow/index';
 import { getRoleName } from 'utils/CommunicationUtils';
-import { getPatientName } from 'utils/PatientUtils';
+// import { getPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import FormGrid from '../FormGrid';
 import FormCell from '../FormCell';
@@ -242,7 +242,7 @@ function ManageCommunicationForm(props) {
                 label={isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!isFormDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid}
+                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid}
               />
             </Cell>
             <Cell>
@@ -281,12 +281,21 @@ ManageCommunicationForm.propTypes = {
 export default ManageCommunicationForm;
 
 
-function isFormDirty(dirty, selectedRecipients, initialSelectedRecipients) {
-  let isDirty = dirty;
+function isDirty(dirty, selectedRecipients, initialSelectedRecipients) {
+  let isFormDirty = false;
   const identityOfArray = 'reference';
   if (!Util.isUnorderedArraysEqual(selectedRecipients, initialSelectedRecipients, identityOfArray)) {
-    isDirty = true;
+    isFormDirty = true;
   }
 
-  return isDirty;
+  return isFormDirty;
+}
+
+
+function getPatientName(patient) {
+  if (patient && patient.name && patient.name.length > 0) {
+    const name = patient.name[0];
+    return (name && name.firstName && name.lastName) ? name.firstName.concat(' ').concat(name.lastName) : '';
+  }
+  return '';
 }

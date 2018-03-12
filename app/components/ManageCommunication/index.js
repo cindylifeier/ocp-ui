@@ -12,6 +12,7 @@ import find from 'lodash/find';
 import Util from 'utils/Util';
 import { getPatientName } from 'utils/PatientUtils';
 import { isUndefined } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
 import { PATIENT, PRACTITIONER } from 'components/ManageCommunication/constants';
@@ -69,37 +70,29 @@ function ManageCommunication(props) {
           selectedRecipients);
         onSave(communicationToBeSubmitted, actions);
       }}
-      validationSchema={() =>
-        yup.lazy((values) => {
-          console.log(values);
-          return yup.object().shape({
-            statusCode: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            notDone: yup.boolean()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            notDoneReasonCode: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            categoryCode: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            mediumCode: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            // recipients: yup.string()
-            //   .required((<FormattedMessage {...messages.validation.required} />))
-            //   .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-            sent: yup.date()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
-            sender: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-            payloadContent: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .max(textAreaMaxLength, (<FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
-              .min(textAreaMinLength, (<FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
-
-          });
-        }
-        )
+      validationSchema={
+        yup.object().shape({
+          statusCode: yup.string()
+          .required((<FormattedMessage {...messages.validation.required} />)),
+          notDone: yup.boolean()
+          .required((<FormattedMessage {...messages.validation.required} />)),
+          notDoneReasonCode: yup.string()
+          .required((<FormattedMessage {...messages.validation.required} />)),
+          categoryCode: yup.string()
+          .required((<FormattedMessage {...messages.validation.required} />)),
+          mediumCode: yup.string()
+          .required((<FormattedMessage {...messages.validation.required} />)),
+          sent: yup.date()
+          .required((<FormattedMessage {...messages.validation.required} />))
+          .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+          sender: yup.string()
+          .required((<FormattedMessage {...messages.validation.required} />))
+          .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+          payloadContent: yup.string()
+          .required((<FormattedMessage {...messages.validation.required} />))
+          .max(textAreaMaxLength, (<FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
+          .min(textAreaMinLength, (<FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
+        })
       }
       render={(formikProps) => <ManageCommunicationForm {...formikProps} {...propsFromContainer} />}
     >
@@ -128,28 +121,34 @@ export default ManageCommunication;
 
 function setInitialValues(communication, selectedPatient, practitioner) {
   let formData = null;
-  if (selectedPatient) {
-    formData = merge(
-      mapToParticipantName(practitioner, 'sender'),
+  let subjectData = null;
+  let senderData = null;
+  let communicationData = null;
+  if (!isEmpty(selectedPatient)) {
+    subjectData = merge(
       mapToParticipantName(selectedPatient, 'subject'),
     );
   }
-
-  if (selectedPatient && communication) {
-    formData = merge(
-      formData,
-      mapToCommunicationFieldObject(communication, 'sent'),
-      mapToCommunicationFieldObject(communication, 'statusCode'),
-      mapToCommunicationFieldObject(communication, 'notDoneReasonCode'),
-      mapToCommunicationFieldObject(communication, 'notDone'),
-      mapToCommunicationFieldObject(communication, 'payloadContent'),
-      mapToCommunicationFieldObject(communication, 'note'),
-      mapToCommunicationFieldObject(communication, 'categoryCode'),
-      mapToCommunicationFieldObject(communication, 'mediumCode'),
-      mapToCommunicationReference(communication, 'topic')
+  if (!isEmpty(practitioner)) {
+    senderData = merge(
+      mapToParticipantName(practitioner, 'sender'),
     );
   }
 
+  if (!isEmpty(communication)) {
+    communicationData = merge(
+      mapToFormDateField(communication, 'sent'),
+      mapToFormField(communication, 'notDone'),
+      mapToFormField(communication, 'notDoneReasonCode'),
+      mapToFormField(communication, 'payloadContent'),
+      mapToFormField(communication, 'note'),
+      mapToFormField(communication, 'categoryCode'),
+      mapToFormField(communication, 'mediumCode'),
+      mapToFormField(communication, 'topic'),
+      mapToFormField(communication, 'statusCode'),
+    );
+  }
+  formData = merge(subjectData, senderData, communicationData);
   return Util.pickByIdentity(formData);
 }
 
@@ -157,22 +156,6 @@ function mapToParticipantName(participant, fieldName) {
   const fieldObject = {};
   if (!isUndefined(fieldName) && participant && participant.name && participant.name.length > 0) {
     fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(participant.name[0]));
-  }
-  return fieldObject;
-}
-
-function mapToCommunicationReference(communication, fieldName) {
-  const fieldObject = {};
-  if (!isUndefined(fieldName) && communication && communication[fieldName] && communication[fieldName].display) {
-    fieldObject[fieldName] = communication[fieldName].display;
-  }
-  return fieldObject;
-}
-
-function mapToCommunicationFieldObject(communication, field) {
-  const fieldObject = {};
-  if (communication && communication[field]) {
-    fieldObject[field] = communication[field];
   }
   return fieldObject;
 }
@@ -256,4 +239,21 @@ function createEmptyReference() {
     reference: '',
     display: '',
   };
+}
+
+
+function mapToFormField(entity, fieldName) {
+  const fieldObject = {};
+  if (!isUndefined(entity[fieldName])) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(entity[fieldName]);
+  }
+  return fieldObject;
+}
+
+function mapToFormDateField(entity, fieldName) {
+  const fieldObject = {};
+  if (!isUndefined(entity[fieldName])) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(entity[fieldName]) && new Date(entity[fieldName]);
+  }
+  return fieldObject;
 }

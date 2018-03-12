@@ -119,5 +119,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageCommunication.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
+    minStartDate: {
+      id: 'ocpui.components.ManageCommunication.manageForm.validation.minStartDate',
+      defaultMessage: 'Sent date field must be later than today',
+    },
   },
 });
