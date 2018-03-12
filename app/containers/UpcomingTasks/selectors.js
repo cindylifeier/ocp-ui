@@ -6,20 +6,25 @@ import { createSelector } from 'reselect';
 const selectUpcomingTasksDomain = (state) => state.get('upcomingTasks');
 
 /**
- * Other specific selectors
- */
-
-
-/**
  * Default selector used by UpcomingTasks
  */
 
 const makeSelectUpcomingTasks = () => createSelector(
   selectUpcomingTasksDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS()
 );
 
-export default makeSelectUpcomingTasks;
-export {
+/**
+ * Other specific selectors
+ */
+
+const makeSelectUpcomingTasksLoading = () => createSelector(
   selectUpcomingTasksDomain,
+  (substate) => substate.get('loading'),
+);
+export default makeSelectUpcomingTasks;
+
+export {
+  makeSelectUpcomingTasks,
+  makeSelectUpcomingTasksLoading,
 };

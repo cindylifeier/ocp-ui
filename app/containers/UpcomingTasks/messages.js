@@ -8,6 +8,10 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.UpcomingTasks.header',
-    defaultMessage: 'This is UpcomingTasks container !',
+    defaultMessage: 'Upcoming Tasks',
+  },
+  noUpcomingTasksFound: {
+    id: 'ocpui.containers.UpcomingTasks.noUpcomingTasksFound',
+    defaultMessage: 'No Upcoming Tasks Found.',
   },
 });
