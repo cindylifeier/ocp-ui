@@ -25,8 +25,11 @@ import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import { HOME_URL } from 'containers/App/constants';
-import messages from './messages';
-import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
+import Section from 'components/Section';
+import AddOrganizationsButton from 'components/ManagePractitioner/AddOrganizationsButton';
+import messages from 'components/ManagePractitioner/messages';
+import ManagePractitionerFormGrid from 'components/ManagePractitioner/ManagePractitionerFormGrid';
+
 
 class ManagePractitionerForm extends React.PureComponent {
 
@@ -136,14 +139,14 @@ class ManagePractitionerForm extends React.PureComponent {
               <AddMultipleTelecoms {...addTelecomsProps} />
             </Cell>
             <Cell area="associateOrganizationSection">
-              <Grid columns={1}>
+              <Section>
                 <Cell>
                   <FormSubtitle margin="1vh 0 0 0">
                     <FormattedMessage {...messages.associateOrganizations.subtitle} />
                   </FormSubtitle>
                 </Cell>
                 <Cell>
-                  <StyledRaisedButton
+                  <AddOrganizationsButton
                     onClick={this.handleAddOrganizations}
                     label={<FormattedMessage {...messages.associateOrganizations.addButtonLabel} />}
                   />
@@ -247,7 +250,7 @@ class ManagePractitionerForm extends React.PureComponent {
                       </div>)}
                   />
                 </Cell>
-              </Grid>
+              </Section>
             </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>

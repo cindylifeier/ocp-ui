@@ -103,7 +103,7 @@ export default defineMessages({
     },
     addButtonLabel: {
       id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.addButtonLabel',
-      defaultMessage: 'Add',
+      defaultMessage: 'Add Organizations',
     },
     tableColumnName: {
       id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnName',
