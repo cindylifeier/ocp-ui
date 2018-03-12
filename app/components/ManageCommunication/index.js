@@ -33,6 +33,7 @@ function ManageCommunication(props) {
     selectedPatient,
     communication,
     practitioner,
+    initialSelectedRecipients,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -46,6 +47,7 @@ function ManageCommunication(props) {
     selectedPatient,
     communication,
     practitioner,
+    initialSelectedRecipients,
   };
   const minimumLength = TEXT_MIN_LENGTH;
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
@@ -114,6 +116,7 @@ ManageCommunication.propTypes = {
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
+  initialSelectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
   communication: PropTypes.object,
   handleRemoveRecipient: PropTypes.func.isRequired,
