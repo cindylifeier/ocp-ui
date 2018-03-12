@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import queryString from 'query-string';
@@ -15,6 +16,10 @@ import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import ManageRelatedPerson from 'components/ManageRelatedPerson';
 import {
   ADMINISTRATIVEGENDER,
   PATIENTIDENTIFIERSYSTEM,
@@ -24,8 +29,6 @@ import {
   USPSSTATES,
 } from 'containers/App/constants';
 import { getLookupsAction, getPatient } from 'containers/App/actions';
-import ManageRelatedPerson from 'components/ManageRelatedPerson';
-import makeSelectRelatedPersons from 'containers/RelatedPersons/selectors';
 import {
   makeSelectAdministrativeGenders,
   makeSelectPatientIdentifierSystems,
@@ -35,10 +38,11 @@ import {
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
-import { createRelatedPerson, updateRelatedPerson } from './actions';
+import makeSelectRelatedPersons from 'containers/RelatedPersons/selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import { createRelatedPerson, updateRelatedPerson } from './actions';
+import messages from './messages';
 
 export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -88,13 +92,16 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       selectedRelatedPerson,
     };
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Manage Related Person</title>
           <meta name="description" content="Description of ManageRelatedPersonPage" />
         </Helmet>
-        <ManageRelatedPerson {...manageRelatedPersonProps} onSave={this.handleSave} />
-      </div>
+        <PageHeader title={<FormattedMessage {...messages.header} />} />
+        <PageContent>
+          <ManageRelatedPerson {...manageRelatedPersonProps} onSave={this.handleSave} />
+        </PageContent>
+      </Page>
     );
   }
 }

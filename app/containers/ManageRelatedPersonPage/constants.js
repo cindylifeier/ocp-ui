@@ -17,4 +17,3 @@ export const UPDATE_RELATED_PERSON = 'ocpui/ManageRelatedPerson/UPDATE_RELATED_P
 *  Other constants
 *
 */
-export const TEXT_MIN_LENGTH = 3;

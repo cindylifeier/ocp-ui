@@ -13,8 +13,8 @@ import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import FieldGroupGrid from 'components/FieldGroupGrid';
-import SystemCell from 'components/FieldGroupGrid/SystemCell';
-import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import MainCell from 'components/FieldGroupGrid/MainCell';
 import messages from './messages';
 
 function AddMultipleTelecomsForm(props) {
@@ -62,7 +62,7 @@ function AddMultipleTelecomsForm(props) {
             <Grid columns={4}>
               <Cell width={3}>
                 <FieldGroupGrid>
-                  <SystemCell>
+                  <PrefixCell>
                     <SelectField
                       name="system"
                       hintText={<FormattedMessage {...messages.hintText.system} />}
@@ -76,15 +76,15 @@ function AddMultipleTelecomsForm(props) {
                           primaryText={telecomSystem.display}
                         />))}
                     </SelectField>
-                  </SystemCell>
-                  <ValueCell>
+                  </PrefixCell>
+                  <MainCell>
                     <TextField
                       name="value"
                       hintText={<FormattedMessage {...messages.hintText.value} />}
                       floatingLabelText={<FormattedMessage {...messages.floatingLabelText.value} />}
                       fullWidth
                     />
-                  </ValueCell>
+                  </MainCell>
                 </FieldGroupGrid>
               </Cell>
               <Cell width={1}>

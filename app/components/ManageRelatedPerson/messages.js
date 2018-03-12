@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageRelatedPerson.manageForm.title',
     defaultMessage: 'General Information',
   },
+  patientLabel: {
+    id: 'ocpui.components.ManageRelatedPerson.manageForm.patientLabel',
+    defaultMessage: 'Patient:',
+  },
   active: {
     id: 'ocpui.components.ManageRelatedPerson.manageForm.active',
     defaultMessage: 'Active',

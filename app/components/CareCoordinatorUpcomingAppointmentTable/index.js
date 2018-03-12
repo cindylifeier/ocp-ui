@@ -5,22 +5,20 @@
  */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 import find from 'lodash/find';
 
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import { STATUS_CODE_CANCELLED } from 'containers/UpcomingAppointments/constants';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
-import StyledIconButton from '../StyledIconButton';
 
 function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment }) { // eslint-disable-line react/prefer-stateless-function
   return (
@@ -44,21 +42,13 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
             <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
             <TableRowColumn>{appointment.description}</TableRowColumn>
             <TableRowColumn>
-              <IconMenu
-                iconButtonElement={
-                  (<StyledIconButton>
-                    <NavigationMenu />
-                  </StyledIconButton>)
-                }
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-              >
+              <NavigationStyledIconMenu>
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.menuItemCancel} />}
                   disabled={appointment.statusCode === STATUS_CODE_CANCELLED}
                   onClick={() => cancelAppointment(appointment.logicalId)}
                 />
-              </IconMenu>
+              </NavigationStyledIconMenu>
             </TableRowColumn>
           </TableRow>
         ))}

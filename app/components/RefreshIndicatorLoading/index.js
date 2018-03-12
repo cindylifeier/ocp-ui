@@ -4,22 +4,19 @@
  *
  */
 
-import React from 'react';
-import { RefreshIndicator } from 'material-ui';
-import styles from './styles.css';
+import styled from 'styled-components';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
-function RefreshIndicatorLoading() {
-  return (
-    <RefreshIndicator
-      size={50}
-      left={-25}
-      top={0}
-      loadingColor="#FF9800"
-      status={'loading'}
-      className={styles.center}
-    />
-  );
-}
+const RefreshIndicatorLoading = styled(RefreshIndicator).attrs({
+  size: 50,
+  left: -25,
+  top: 0,
+  loadingColor: '#FF9800',
+  status: 'loading',
+})`
+  margin-top: 33%;
+  margin-left: 50%;
+`;
 
 RefreshIndicatorLoading.propTypes = {};
 
