@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import {
   ACTION_PARTICIPANT_ROLE,
   ACTION_PARTICIPANT_TYPE,
@@ -30,25 +29,24 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
+  PROVIDER_ROLE,
+  PROVIDER_SPECIALTY,
   PUBLICATION_STATUS,
   RELATED_ARTIFACT_TYPE,
   RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
   RESOURCE_TYPE,
+  TASK_PERFORMER_TYPE,
+  TASK_STATUS,
   TELECOMSYSTEM,
   TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-  // Task Resource Lookups - Start
-  TASK_STATUS,
-  REQUEST_INTENT,
-  REQUEST_PRIORITY,
-  TASK_PERFORMER_TYPE,
-  // Task Resource Lookups - End
-  PROVIDER_ROLE,
-  PROVIDER_SPECIALTY,
 } from 'containers/App/constants';
+import { createSelector } from 'reselect';
 import selectGlobalDomain from './selectors';
 
 const makeSelectUspsStates = () => createSelector(

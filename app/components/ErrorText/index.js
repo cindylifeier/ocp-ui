@@ -6,7 +6,6 @@
 
 import styled from 'styled-components';
 
-
 const ErrorText = styled.span`
   color: rgb(244, 67, 54);
   padding-left: 0.5vw;
@@ -14,5 +13,6 @@ const ErrorText = styled.span`
 `;
 
 ErrorText.propTypes = {};
+
 
 export default ErrorText;
