@@ -4,23 +4,24 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
-import { getPatient } from 'containers/App/actions';
-import { getTasks } from 'containers/Tasks/actions';
-import renderNotFoundComponent from 'containers/NotFoundPage/render';
-import renderTasksComponent from 'containers/Tasks/render';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
+import { getPatient } from 'containers/App/actions';
+import renderAppointmentsComponent from 'containers/Appointments/render';
+import { getTasks } from 'containers/Tasks/actions';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import { mapToPatientName } from 'utils/PatientUtils';
-import PatientPageGrid from './PatientPageGrid';
+
+import makeSelectSelectedPatient from '../App/sharedDataSelectors';
+import renderNotFoundComponent from '../NotFoundPage/render';
+import renderTasksComponent from '../Tasks/render';
 import PatientPageCell from './PatientPageCell';
+import PatientPageGrid from './PatientPageGrid';
 
 export const initialStateMetadata =
   {
@@ -131,7 +132,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   // TODO: will replace with Communication and Appointments render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
