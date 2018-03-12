@@ -8,7 +8,7 @@ import { SEARCH_APPOINTMENT_PARTICIPANT } from 'containers/SearchAppointmentPart
 import isEmpty from 'lodash/isEmpty';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-export function* searchAppointmentParticipantWorker(action) {
+export function* searchAppointmentParticipantSaga(action) {
   try {
     if (!isEmpty(action.name) && !isEmpty(action.member)) {
       const participants = yield call(searchAppointmentParticipant, action.name, action.member, action.patientId);
@@ -21,7 +21,7 @@ export function* searchAppointmentParticipantWorker(action) {
 }
 
 export function* watchSearchAppointmentParticipant() {
-  yield takeLatest(SEARCH_APPOINTMENT_PARTICIPANT, searchAppointmentParticipantWorker);
+  yield takeLatest(SEARCH_APPOINTMENT_PARTICIPANT, searchAppointmentParticipantSaga);
 }
 
 export default function* rootSaga() {
