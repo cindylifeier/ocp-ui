@@ -13,6 +13,8 @@ import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 
 import GoldenLayout from 'components/GoldenLayout';
+import CareCoordinatorPageGrid from 'containers/CareCoordinatorPage/CareCoordinatorPageGrid';
+import CareCoordinatorPageCell from 'containers/CareCoordinatorPage/CareCoordinatorPageCell';
 
 export const initialStateMetadata =
   {
@@ -113,12 +115,16 @@ export class CareCoordinatorPage extends React.PureComponent { // eslint-disable
           <title>Care Coordinator</title>
           <meta name="description" content="Care Coordinator page of Omnibus Care Plan application" />
         </Helmet>
-        <GoldenLayout
-          containerId="golden-patient"
-          containerHeight="200vh"
-          componentMetadata={componentMetadata}
-          stateMetadata={initialStateMetadata}
-        />
+        <CareCoordinatorPageGrid columns={1}>
+          <CareCoordinatorPageCell>
+            <GoldenLayout
+              containerId="golden-patient"
+              containerHeight="150vh"
+              componentMetadata={componentMetadata}
+              stateMetadata={initialStateMetadata}
+            />
+          </CareCoordinatorPageCell>
+        </CareCoordinatorPageGrid>
       </div>
     );
   }
