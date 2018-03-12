@@ -1,2 +1,3 @@
-export const SYSTEM = 'fieldGroupSystem';
-export const VALUE = 'fieldGroupValue';
+export const PREFIX = 'fieldGroupPrefix';
+export const MAIN = 'fieldGroupMain';
+export const SUFFIX = 'fieldGroupSuffix';

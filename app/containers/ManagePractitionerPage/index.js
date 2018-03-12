@@ -10,20 +10,15 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
 import merge from 'lodash/merge';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {
-  getOrganizations,
-  getPractitioner,
-  initializeManagePractitioner,
-  initializeOrganizations,
-  savePractitioner,
-} from 'containers/ManagePractitionerPage/actions';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
 import ManagePractitioner from 'components/ManagePractitioner';
 import {
   makeSelectPractitionerIdentifierSystems,
@@ -44,15 +39,21 @@ import {
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import {
+  getOrganizations,
+  getPractitioner,
+  initializeManagePractitioner,
+  initializeOrganizations,
+  savePractitioner,
+} from './actions';
+import reducer from './reducer';
+import saga from './saga';
+import messages from './messages';
+import {
   makeSelectCurrentPage,
   makeSelectOrganizations,
   makeSelectPractitioner,
   makeSelectTotalNumberOfPages,
 } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-import styles from './styles.css';
 
 export class ManagePractitionerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -129,24 +130,26 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       totalNumberOfPages,
     };
     return (
-      <div className={styles.wrapper}>
+      <Page>
         <Helmet>
           <title>Manage Practitioner</title>
           <meta name="description" content="Manage practitioner page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.header}>
-          {editMode ? <FormattedMessage {...messages.updateHeader} />
-            : <FormattedMessage {...messages.createHeader} />}
-        </div>
-        <Divider />
-        <ManagePractitioner
-          onSave={this.handleSave}
-          onPageClick={this.handlePageClick}
-          onSearch={this.handleSearch}
-          initialSearchOrganizationResult={this.initialSearchOrganizationResult}
-          {...formProps}
+        <PageHeader
+          title={editMode ?
+            <FormattedMessage {...messages.updateHeader} /> :
+            <FormattedMessage {...messages.createHeader} />}
         />
-      </div>
+        <PageContent>
+          <ManagePractitioner
+            onSave={this.handleSave}
+            onPageClick={this.handlePageClick}
+            onSearch={this.handleSearch}
+            initialSearchOrganizationResult={this.initialSearchOrganizationResult}
+            {...formProps}
+          />
+        </PageContent>
+      </Page>
     );
   }
 }

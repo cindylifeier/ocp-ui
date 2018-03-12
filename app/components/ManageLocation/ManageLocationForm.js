@@ -15,8 +15,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
 import FieldGroupGrid from 'components/FieldGroupGrid';
-import SystemCell from 'components/FieldGroupGrid/SystemCell';
-import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
@@ -84,7 +84,7 @@ function ManageLocationForm(props) {
         </Cell>
         <Cell area="locationGroup">
           <FieldGroupGrid>
-            <SystemCell>
+            <PrefixCell>
               <SelectField
                 name="physicalType"
                 fullWidth
@@ -94,20 +94,20 @@ function ManageLocationForm(props) {
                   <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
                 ))}
               </SelectField>
-            </SystemCell>
-            <ValueCell>
+            </PrefixCell>
+            <MainCell>
               <TextField
                 fullWidth
                 name="managingLocationLogicalId"
                 hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
               />
-            </ValueCell>
+            </MainCell>
           </FieldGroupGrid>
         </Cell>
         <Cell area="identifierGroup">
           <FieldGroupGrid>
-            <SystemCell>
+            <PrefixCell>
               <SelectField
                 fullWidth
                 name="identifierSystem"
@@ -117,15 +117,15 @@ function ManageLocationForm(props) {
                   <MenuItem key={uniqueId()} value={identifierSystem.display} primaryText={identifierSystem.display} />
                 ))}
               </SelectField>
-            </SystemCell>
-            <ValueCell>
+            </PrefixCell>
+            <MainCell>
               <TextField
                 name="identifierValue"
                 fullWidth
                 hintText={<FormattedMessage {...messages.identifierValueHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
               />
-            </ValueCell>
+            </MainCell>
           </FieldGroupGrid>
         </Cell>
         <Cell area="contact">

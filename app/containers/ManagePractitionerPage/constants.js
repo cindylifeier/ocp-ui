@@ -24,4 +24,3 @@ export const GET_ORGANIZATIONS_ERROR = 'ocpui/ManagePractitionerPage/GET_ORGANIZ
  *  Other constants
  *
  */
-export const TEXT_MIN_LENGTH = 3;

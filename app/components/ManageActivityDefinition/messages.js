@@ -63,7 +63,7 @@ export default defineMessages({
     },
     lastPublishDateLabel: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.lastPublishDateLabel',
-      defaultMessage: 'Last Publish Date',
+      defaultMessage: 'Last Publish Date:',
     },
     duration: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.duration',
