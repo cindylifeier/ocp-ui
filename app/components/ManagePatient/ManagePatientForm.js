@@ -14,8 +14,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
-import SystemCell from 'components/FieldGroupGrid/SystemCell';
-import ValueCell from 'components/FieldGroupGrid/ValueCell';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import messages from './messages';
@@ -85,7 +85,7 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="identifierGroup">
           <FieldGroupGrid>
-            <SystemCell>
+            <PrefixCell>
               <SelectField
                 fullWidth
                 name="identifierType"
@@ -96,15 +96,15 @@ function ManagePatientForm(props) {
                   <MenuItem key={identifierType.oid} value={identifierType.oid} primaryText={identifierType.display} />,
                 )}
               </SelectField>
-            </SystemCell>
-            <ValueCell>
+            </PrefixCell>
+            <MainCell>
               <TextField
                 fullWidth
                 name="identifierValue"
                 hintText={<FormattedMessage {...messages.hintText.identifierValue} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierValue} />}
               />
-            </ValueCell>
+            </MainCell>
           </FieldGroupGrid>
         </Cell>
         <Cell area="language">

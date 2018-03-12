@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <IdentifierGroupGrid
     gap="10"
+    withSuffix={false}
   >
     <div>
       test
@@ -27,6 +28,7 @@ ShallowWrapper {
         test
       </div>,
       "gap": "10",
+      "withSuffix": false,
     },
     "ref": null,
     "rendered": Object {
@@ -52,6 +54,7 @@ ShallowWrapper {
           test
         </div>,
         "gap": "10",
+        "withSuffix": false,
       },
       "ref": null,
       "rendered": Object {
@@ -84,6 +87,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <IdentifierGroupGrid
     gap="0"
+    withSuffix={false}
   >
     <div>
       test
@@ -105,6 +109,7 @@ ShallowWrapper {
         test
       </div>,
       "gap": "0",
+      "withSuffix": false,
     },
     "ref": null,
     "rendered": Object {
@@ -130,6 +135,7 @@ ShallowWrapper {
           test
         </div>,
         "gap": "0",
+        "withSuffix": false,
       },
       "ref": null,
       "rendered": Object {

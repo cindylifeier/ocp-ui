@@ -6,19 +6,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../Header';
-import styles from './styles.css';
+import Header from 'components/Header';
+import LayoutGrid from './LayoutGrid';
+import HeaderContainer from './HeaderContainer';
+import ContentContainer from './ContentContainer';
 
 function Layout(props) {
   return (
-    <div className={styles.gridContainer}>
-      <div className={styles.header}>
+    <LayoutGrid columns={1}>
+      <HeaderContainer>
         <Header />
-      </div>
-      <div className={styles.content}>
+      </HeaderContainer>
+      <ContentContainer>
         <main>{props.children}</main>
-      </div>
-    </div>
+      </ContentContainer>
+    </LayoutGrid>
   );
 }
 
