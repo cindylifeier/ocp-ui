@@ -37,22 +37,6 @@ function updateAppointment(appointmentFormData) {
   });
 }
 
-export function determineNotificationForAppointment(appointmentFormData) {
-  let action = 'create';
-  if (appointmentFormData.appointmentId) {
-    action = 'edit';
-  }
-  return action;
-}
-
-export function determineNotificationForAppointmentInPastTense(appointmentFormData) {
-  let action = 'created';
-  if (appointmentFormData.appointmentId) {
-    action = 'edited';
-  }
-  return action;
-}
-
 function mapToBackendAppointmentDuringCreate(appointmentFormData) {
   const { appointmentType, date, description, startTime, endTime, participants, patientId, patientName } = appointmentFormData;
   const appointmentDataToSubmit = {};
