@@ -26,10 +26,11 @@ import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import { HOME_URL } from 'containers/App/constants';
 import Section from 'components/Section';
-import AddOrganizationsButton from 'components/ManagePractitioner/AddOrganizationsButton';
-import messages from 'components/ManagePractitioner/messages';
-import ManagePractitionerFormGrid from 'components/ManagePractitioner/ManagePractitionerFormGrid';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+
+import AddOrganizationsButton from './AddOrganizationsButton';
+import messages from './messages';
+import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 
 
 class ManagePractitionerForm extends React.PureComponent {
