@@ -14,12 +14,14 @@ import { compose } from 'redux';
 import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import find from 'lodash/find';
 import {
-  makeSelectCommunication, makeSelectEpisodeOfCares,
+  makeSelectEpisodeOfCares,
   makeSelectPractitioner,
 } from 'containers/ManageCommunicationPage/selectors';
 import SearchRecipient from 'containers/SearchRecipient';
 import Page from 'components/Page';
+import { makeSelectCommunications } from 'containers/Communications/selectors';
 import {
   initializeListOfRecipients, initializeSearchRecipients,
   removeSelectedRecipient, setInitialRecipients,
@@ -34,7 +36,7 @@ import messages from './messages';
 
 import { getLookupsAction } from '../App/actions';
 import { createCommunication, updateCommunication, getEpisodeOfCares,
-  getPractitioner, getCommunication } from './actions';
+  getPractitioner } from './actions';
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
 import {
   makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
@@ -44,7 +46,6 @@ import {
   COMMUNICATION_CATEGORY, COMMUNICATION_STATUS, COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
 } from '../App/constants';
-
 
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -63,11 +64,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
   componentWillMount() {
-    const logicalId = this.props.match.params.id;
-    if (logicalId) {
-      this.props.getCommunication(logicalId);
-    }
-
     // Logged in Practitioner
     this.props.getPractitioner(this.state.practitionerId);
     this.props.getLookups();
@@ -101,7 +97,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   render() {
     const editingCommunication = false;
     const {
-      communication,
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
@@ -111,9 +106,10 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedPatient,
       // practitioner, // TODO fix delay in getting practitioner
     } = this.props;
-    const communicationId = this.props.match.params.id;
+    const logicalId = this.props.match.params.id;
     let initialSelectedRecipients = [];
-    if (communicationId && communication && communication.recipients) {
+    const communication = find(this.props.communications.elements, { logicalId });
+    if (communication && communication.recipients) {
       initialSelectedRecipients = communication.recipients;
       this.setInitialSelectedRecipients(communication.recipients);
     }
@@ -127,6 +123,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       episodeOfCares,
       selectedRecipients,
       selectedPatient,
+      communication,
       practitioner,
       initialSelectedRecipients,
     };
@@ -152,7 +149,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
           </ManageCommunication>
           <SearchRecipient
             initialSelectedRecipients={initialSelectedRecipients}
-            communicationId={communicationId}
+            communicationId={logicalId}
             isOpen={this.state.open}
             handleOpen={this.handleOpen}
             handleClose={this.handleClose}
@@ -168,7 +165,6 @@ ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,
-  getCommunication: PropTypes.func.isRequired,
   getPractitioner: PropTypes.func.isRequired,
   createCommunication: PropTypes.func.isRequired,
   updateCommunication: PropTypes.func.isRequired,
@@ -179,12 +175,12 @@ ManageCommunicationPage.propTypes = {
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
+  communications: PropTypes.object,
   getEpisodeOfCares: PropTypes.func.isRequired,
   practitioner: PropTypes.object.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
   initializeListOfRecipients: PropTypes.func.isRequired,
   setInitialRecipients: PropTypes.func.isRequired,
-  communication: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -196,7 +192,7 @@ const mapStateToProps = createStructuredSelector({
   episodeOfCares: makeSelectEpisodeOfCares(),
   selectedRecipients: makeSelectSelectedRecipients(),
   practitioner: makeSelectPractitioner(),
-  communication: makeSelectCommunication,
+  communications: makeSelectCommunications(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -209,7 +205,6 @@ function mapDispatchToProps(dispatch) {
     getPractitioner: (practitionerId) => dispatch(getPractitioner(practitionerId)),
     initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
     initializeListOfRecipients: () => dispatch(initializeListOfRecipients()),
-    getCommunication: (communicationId) => dispatch(getCommunication(communicationId)),
     setInitialRecipients: (selectedRecipients) => dispatch(setInitialRecipients(selectedRecipients)),
   };
 }

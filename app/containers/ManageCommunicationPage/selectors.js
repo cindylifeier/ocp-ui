@@ -29,17 +29,9 @@ const makeSelectPractitioner = () => createSelector(
   (substate) => substate.get('practitioner').toJS()
 );
 
-
-const makeSelectCommunication = () => createSelector(
-  selectManageCommunicationPageDomain,
-  (substate) => substate.get('communication').toJS()
-);
-
-
 export default makeSelectManageCommunicationPage;
 export {
   selectManageCommunicationPageDomain,
   makeSelectEpisodeOfCares,
   makeSelectPractitioner,
-  makeSelectCommunication,
 };
