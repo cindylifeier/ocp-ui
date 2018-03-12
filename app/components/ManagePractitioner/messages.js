@@ -121,17 +121,13 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnActive',
       defaultMessage: 'Active',
     },
-    tableColumnRemove: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnRemove',
-      defaultMessage: 'Remove',
-    },
-    tableColumnType: {
-      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnType',
-      defaultMessage: 'Artifact Type',
-    },
     tableColumnAction: {
       id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableColumnAction',
       defaultMessage: 'Action',
+    },
+    tableActionRemove: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.associateOrganizations.tableActionRemove',
+      defaultMessage: 'Remove',
     },
   },
 });

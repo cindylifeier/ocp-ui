@@ -29,6 +29,7 @@ import Section from 'components/Section';
 import AddOrganizationsButton from 'components/ManagePractitioner/AddOrganizationsButton';
 import messages from 'components/ManagePractitioner/messages';
 import ManagePractitionerFormGrid from 'components/ManagePractitioner/ManagePractitionerFormGrid';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 
 
 class ManagePractitionerForm extends React.PureComponent {
@@ -180,7 +181,7 @@ class ManagePractitionerForm extends React.PureComponent {
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnRemove} /></TableHeaderColumn>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnAction} /></TableHeaderColumn>
                           </TableHeader>
                           {errors && errors.practitionerRoles &&
                           <ErrorText>{errors.practitionerRoles}</ErrorText>}
@@ -236,12 +237,13 @@ class ManagePractitionerForm extends React.PureComponent {
                                   </SelectField>
                                 </TableRowColumn>
                                 <TableRowColumn>
-                                  <StyledRaisedButton
-                                    label="Remove"
-                                    disabled={logicalId !== undefined}
-                                    onClick={() => arrayHelpers.remove(index)}
-                                  >
-                                  </StyledRaisedButton>
+                                  <NavigationStyledIconMenu>
+                                    <MenuItem
+                                      primaryText={<FormattedMessage {...messages.associateOrganizations.tableActionRemove} />}
+                                      disabled={logicalId !== undefined}
+                                      onClick={() => arrayHelpers.remove(index)}
+                                    />
+                                  </NavigationStyledIconMenu>
                                 </TableRowColumn>
                               </TableRow>
                             );
