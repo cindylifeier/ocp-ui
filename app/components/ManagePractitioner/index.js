@@ -61,7 +61,7 @@ function ManagePractitioner(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          practitionerRole: yup.array()
+          practitionerRoles: yup.array()
             .of(
               yup.object().shape({
                 organization: yup.object().shape({
