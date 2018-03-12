@@ -61,7 +61,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     super(props);
     this.handleSave = this.handleSave.bind(this);
     this.state = {
-      practitionerId: 1377,
+      practitionerId: 1961,
     };
   }
 

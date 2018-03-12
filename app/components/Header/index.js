@@ -8,11 +8,12 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionPatients from 'material-ui/svg-icons/action/perm-contact-calendar';
+import ActionCareCoordinator from 'material-ui/svg-icons/action/perm-identity';
 import ActionHelp from 'material-ui/svg-icons/action/help';
+import { HOME_URL, PATIENTS_URL, CARE_COORDINATOR_URL } from 'containers/App/constants';
 
 import StyledToolbar from 'components/StyledToolbar';
 import Logout from 'containers/Logout';
-import { HOME_URL, PATIENTS_URL } from 'containers/App/constants';
 import ToolbarButtonContainer from './ToolbarButtonContainer';
 
 function Header() {
@@ -35,6 +36,14 @@ function Header() {
         </ToolbarButtonContainer>
       </ToolbarGroup>
       <ToolbarGroup lastChild>
+
+        <ToolbarButtonContainer>
+          <FlatButton
+            label="CareCoordinator"
+            icon={<ActionCareCoordinator />}
+            containerElement={<Link to={CARE_COORDINATOR_URL} />}
+          />
+        </ToolbarButtonContainer>
         <ToolbarSeparator />
         <ToolbarButtonContainer>
           <IconButton tooltip="Help">

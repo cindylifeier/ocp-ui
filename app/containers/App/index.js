@@ -11,11 +11,9 @@
  * the linting exception.
  */
 
-import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
 import Authentication from 'containers/Authentication';
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage';
-import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
 import ManageAppointmentPage from 'containers/ManageAppointmentPage';
 import ManageCareTeamPage from 'containers/ManageCareTeamPage';
 import ManageHealthcareServicePage from 'containers/ManageHealthcareServicePage';
@@ -23,10 +21,7 @@ import ManageLocationPage from 'containers/ManageLocationPage';
 import ManageOrganizationPage from 'containers/ManageOrganizationPage';
 import ManagePatientPage from 'containers/ManagePatientPage/index';
 import ManagePractitionerPage from 'containers/ManagePractitionerPage';
-import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage/index';
-import ManageTaskPage from 'containers/ManageTaskPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Notification from 'containers/Notification';
 import PatientPage from 'containers/PatientPage';
 import PatientsPage from 'containers/PatientsPage/Loadable';
 import 'font-awesome/css/font-awesome.min.css';
@@ -34,10 +29,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { compose } from 'redux';
+import CareCoordinatorPage from 'containers/CareCoordinatorPage';
+import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
+import ManageTaskPage from 'containers/ManageTaskPage';
+import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
+import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
+import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 import './styles.css';
-
 
 export function App() {
   return (
@@ -57,6 +57,7 @@ export function App() {
           <Authentication>
             <Route path="/ocp-ui/home" component={HomePage} />
             <Route exact path="/ocp-ui/patients" component={PatientsPage} />
+            <Route exact path="/ocp-ui/care-coordinator" component={CareCoordinatorPage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
             <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />
