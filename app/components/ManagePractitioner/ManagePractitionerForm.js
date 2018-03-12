@@ -31,6 +31,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import AddOrganizationsButton from './AddOrganizationsButton';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
+import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';
 
 
 class ManagePractitionerForm extends React.PureComponent {
@@ -177,7 +178,7 @@ class ManagePractitionerForm extends React.PureComponent {
                           />
                         </WideDialog>
                         <Table>
-                          <TableHeader>
+                          <TableHeader columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
@@ -189,7 +190,7 @@ class ManagePractitionerForm extends React.PureComponent {
                           {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
                             const { organization, logicalId } = pr;
                             return (
-                              <TableRow key={organization && organization.reference}>
+                              <TableRow key={organization && organization.reference} columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
                                 <TableRowColumn>{organization.display}</TableRowColumn>
                                 <TableRowColumn>
                                   <SelectField
