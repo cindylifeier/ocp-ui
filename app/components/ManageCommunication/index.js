@@ -215,13 +215,13 @@ function mapToCommunication(values,
     payloadContent,
     note,
     sent,
-    // episodeOfCareCode,
+    episodeOfCareCode,
   } = values;
   const status = find(communicationStatus, { code: statusCode });
   const category = find(communicationCategories, { code: categoryCode });
   const noteDoneReason = find(communicationNotDoneReasons, { code: notDoneReasonCode });
   const medium = find(communicationMedia, { code: mediumCode });
-  // const episodeOfCare = find(episodeOfCares, { code: episodeOfCareCode });
+  const episodeOfCare = find(episodeOfCares, { reference: episodeOfCareCode });
 
   const communication = {
     note,
@@ -239,7 +239,7 @@ function mapToCommunication(values,
     mediumVaule: medium.display, // TODO fix tipo in key
     subject: getReferenceObject(selectedPatient, PATIENT),
     sender: getReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
-    context: createEmptyReference(),
+    context: episodeOfCare,
     topic: createEmptyReference(),
     definition: createEmptyReference(),
     recipient: selectedRecipients, // TODO change to recipients

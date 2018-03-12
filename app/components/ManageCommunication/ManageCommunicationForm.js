@@ -98,8 +98,8 @@ function ManageCommunicationForm(props) {
             </Cell>
           </Grid>
         </FormCell>
-        <FormCell top={3} left={1} width={6}>
-          <Grid columns="2fr 2fr 2fr" gap="">
+        <FormCell top={3} left={1} width={7}>
+          <Grid columns="2fr 2fr 3fr" gap="">
             <Cell>
               <SelectField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.status} />}
@@ -126,7 +126,7 @@ function ManageCommunicationForm(props) {
                 fullWidth
               >
                 {episodeOfCares && episodeOfCares.map((episodeOfCare) => (
-                  <MenuItem key={uniqueId()} value={episodeOfCare.code} primaryText={episodeOfCare.display} />
+                  <MenuItem key={uniqueId()} value={episodeOfCare.reference} primaryText={episodeOfCare.display} />
                 ))}
               </SelectField>
             </Cell>
