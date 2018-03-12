@@ -146,7 +146,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
           <ManageCommunication
             onSave={this.handleSave}
             {...manageCommunicationProps}
-            // removeRecipient={this.handleRemoveRecipient}
             handleOpen={this.handleOpen}
             handleRemoveRecipient={this.handleRemoveRecipient}
           >

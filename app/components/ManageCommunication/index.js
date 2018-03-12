@@ -208,7 +208,6 @@ function mapToCommunication(values,
     payloadContent,
     notDone,
     sent: sent.toLocaleDateString(),
-    received: sent.toLocaleDateString(),
     statusCode,
     statusValue: status.display,
     categoryCode,
@@ -216,7 +215,7 @@ function mapToCommunication(values,
     notDoneReasonCode,
     notDoneReasonValue: noteDoneReason.display,
     mediumCode,
-    mediumVaule: medium.display, // TODO fix tipo in key
+    mediumValue: medium.display, // TODO fix tipo in key
     subject: getReferenceObject(selectedPatient, PATIENT),
     sender: getReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
     context: episodeOfCare,
