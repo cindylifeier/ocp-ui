@@ -13,8 +13,8 @@ import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 
 import GoldenLayout from 'components/GoldenLayout';
-import CareCoordinatorPageGrid from 'containers/CareCoordinatorPage/CareCoordinatorPageGrid';
-import CareCoordinatorPageCell from 'containers/CareCoordinatorPage/CareCoordinatorPageCell';
+import CareCoordinatorPageGrid from './CareCoordinatorPageGrid';
+import CareCoordinatorPageCell from './CareCoordinatorPageCell';
 
 export const initialStateMetadata =
   {
