@@ -45,7 +45,7 @@ function ManageCommunication(props) {
     selectedRecipients,
     handleRemoveRecipient,
     selectedPatient,
-    communication,
+    // communication,
     practitioner,
     initialSelectedRecipients,
   };
@@ -54,7 +54,7 @@ function ManageCommunication(props) {
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
   return (
     <Formik
-      initialValues={setInitialValues(props.communication, selectedPatient, practitioner)}
+      initialValues={setInitialValues(communication, selectedPatient, practitioner)}
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
         const communicationToBeSubmitted = mapToCommunication(
@@ -131,21 +131,25 @@ function setInitialValues(communication, selectedPatient, practitioner) {
   if (selectedPatient) {
     formData = merge(
       mapToParticipantName(practitioner, 'sender'),
-      mapToParticipantName(selectedPatient, 'subject')
+      mapToParticipantName(selectedPatient, 'subject'),
     );
   }
 
-  // if (!isEmpty(communication)) {
-  //   formData = merge(
-  //     mapToSender(selectedPatient, 'name')
-  //     // mapLocationToFiledObject(location, 'status'),
-  //     // mapLocationToFiledObject(location, 'physicalType'),
-  //     // mapLocationToFiledObject(location, 'managingLocationLogicalId'),
-  //     // mapLocationToAddressFields(location),
-  //     // mapLocationToIdentifierFields(location),
-  //     // mapLocationToTelecomFields(location)
-  //   );
-  // }
+  if (selectedPatient && communication) {
+    formData = merge(
+      formData,
+      mapToCommunicationFieldObject(communication, 'sent'),
+      mapToCommunicationFieldObject(communication, 'statusCode'),
+      mapToCommunicationFieldObject(communication, 'notDoneReasonCode'),
+      mapToCommunicationFieldObject(communication, 'notDone'),
+      mapToCommunicationFieldObject(communication, 'payloadContent'),
+      mapToCommunicationFieldObject(communication, 'note'),
+      mapToCommunicationFieldObject(communication, 'categoryCode'),
+      mapToCommunicationFieldObject(communication, 'mediumCode'),
+      mapToCommunicationReference(communication, 'topic')
+    );
+  }
+
   return Util.pickByIdentity(formData);
 }
 
@@ -157,45 +161,21 @@ function mapToParticipantName(participant, fieldName) {
   return fieldObject;
 }
 
-// function mapLocationToAddressFields(location) {
-//   let fieldObject = {};
-//   if (!isUndefined(location.address)) {
-//     fieldObject = {
-//       line1: Util.setEmptyStringWhenUndefined(location.address.line1),
-//       line2: Util.setEmptyStringWhenUndefined(location.address.line2),
-//       city: Util.setEmptyStringWhenUndefined(location.address.city),
-//       stateCode: Util.setEmptyStringWhenUndefined(location.address.stateCode),
-//       postalCode: Util.setEmptyStringWhenUndefined(location.address.postalCode),
-//       countryCode: Util.setEmptyStringWhenUndefined(location.address.countryCode),
-//       use: Util.setEmptyStringWhenUndefined(location.address.use),
-//     };
-//   }
-//   return fieldObject;
-// }
-//
-//
-// function mapLocationToIdentifierFields(location) {
-//   let fieldObject = {};
-//   if (location.identifiers && location.identifiers.length > 0) {
-//     fieldObject = {
-//       identifierSystem: Util.setEmptyStringWhenUndefined(location.identifiers[0].system),
-//       identifierValue: Util.setEmptyStringWhenUndefined(location.identifiers[0].value),
-//     };
-//   }
-//   return fieldObject;
-// }
-//
-// function mapLocationToTelecomFields(location) {
-//   let fieldObject = {};
-//   if (location.telecoms && location.telecoms.length > 0) {
-//     fieldObject = {
-//       telecomSystem: Util.setEmptyStringWhenUndefined(location.telecoms[0].system),
-//       telecomSystemValue: Util.setEmptyStringWhenUndefined(location.telecoms[0].value),
-//       telecomUse: Util.setEmptyStringWhenUndefined(location.telecoms[0].use),
-//     };
-//   }
-//   return fieldObject;
-// }
+function mapToCommunicationReference(communication, fieldName) {
+  const fieldObject = {};
+  if (!isUndefined(fieldName) && communication && communication[fieldName] && communication[fieldName].display) {
+    fieldObject[fieldName] = communication[fieldName].display;
+  }
+  return fieldObject;
+}
+
+function mapToCommunicationFieldObject(communication, field) {
+  const fieldObject = {};
+  if (communication && communication[field]) {
+    fieldObject[field] = communication[field];
+  }
+  return fieldObject;
+}
 
 function mapToCommunication(values,
                             communicationStatus,

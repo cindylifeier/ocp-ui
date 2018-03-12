@@ -115,7 +115,7 @@ function ManageCommunicationForm(props) {
               <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.topic} />}
                 fullWidth
-                name="Topic"
+                name="topic"
                 disabled
               />
             </Cell>
