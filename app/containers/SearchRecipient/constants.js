@@ -20,12 +20,13 @@ export const REMOVE_RECIPIENT = 'ocpui/SearchRecipient/REMOVE_RECIPIENT';
 
 export const INITIALIZE_SEARCH_RECIPIENTS = 'ocpui/SearchRecipient/INITIALIZE_SEARCH_RECIPIENTS';
 export const INITIALIZE_LIST_OF_RECIPIENTS = 'ocpui/SearchRecipient/INITIALIZE_LIST_OF_RECIPIENTS';
+export const SET_SELECTED_RECIPIENTS = 'ocpui/SearchRecipient/SET_SELECTED_RECIPIENTS';
 /**
 *  Other constants
 *
 */
 
-export const fieldStyle = { width: '15vw', padding: '2px' };
+// export const fieldStyle = { width: '15vw', padding: '2px' };
 export const floatingLabelStyle = { fontFamily: 'Roboto, sans-serif' };
 export const iconButtonStyle = { top: '26px', height: '30px' };
 export const customContentStyle = { width: '70%', maxWidth: 'none' };

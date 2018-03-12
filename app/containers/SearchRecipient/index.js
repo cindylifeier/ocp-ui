@@ -216,7 +216,7 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
                             style={iconButtonStyle}
                             tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
                             type="submit"
-                            disabled={!dirty || isSubmitting || !isValid}
+                            disabled={isSubmitting}
                           >
                             <ActionSearch />
                           </StyledIconButton>

@@ -1,23 +1,23 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { call, put, takeLatest, all } from 'redux-saga/effects';
 import { getRecipientsError, getRecipientsSuccess } from 'containers/SearchRecipient/actions';
 import { GET_RECIPIENTS } from 'containers/SearchRecipient/constants';
-import { showNotification } from '../Notification/actions';
-// import { getRecipients } from 'containers/SearchRecipient/api';
+import { getRecipients } from 'containers/SearchRecipient/api';
+import { showNotification } from 'containers/Notification/actions';
 
 export function* getRecipientsSaga(action) {
   try {
     if (action.patientId) {
       console.log(action.patientId);
-      // const recipients = yield call(getRecipients, action.patientId, action.communicationId);
+      const recipients = yield call(getRecipients, action.patientId, action.communicationId);
 
-      const recipients = [
-        { reference: 'Practitioner/2658', display: 'Govind Shrestha', checked: true },
-        { reference: 'Patient/2659', display: 'Esono', checked: true },
-        { reference: 'Patient/2660', display: 'Test', checked: false },
-        { reference: 'RelatedPerson/2661', display: 'Test2', checked: true },
-        { reference: 'Practitioner/2662', display: 'Test3', checked: false },
-
-      ];
+      // const recipients = [
+      //   { reference: 'Practitioner/2658', display: 'Govind Shrestha', checked: true },
+      //   { reference: 'Patient/2659', display: 'Esono', checked: true },
+      //   { reference: 'Patient/2660', display: 'Test', checked: false },
+      //   { reference: 'RelatedPerson/2661', display: 'Test2', checked: true },
+      //   { reference: 'Practitioner/2662', display: 'Test3', checked: false },
+      //
+      // ];
       yield put(getRecipientsSuccess(recipients));
     }
   } catch (error) {

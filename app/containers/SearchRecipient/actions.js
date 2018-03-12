@@ -9,7 +9,7 @@ import {
   ADD_RECIPIENT, GET_RECIPIENTS, GET_RECIPIENTS_ERROR,
   GET_RECIPIENTS_SUCCESS, INITIALIZE_SEARCH_RECIPIENTS,
   REMOVE_RECIPIENT,
-  SET_SELECT_RECIPIENT_STATUS, INITIALIZE_LIST_OF_RECIPIENTS,
+  SET_SELECT_RECIPIENT_STATUS, INITIALIZE_LIST_OF_RECIPIENTS, SET_SELECTED_RECIPIENTS,
 } from 'containers/SearchRecipient/constants';
 
 export function getRecipients(patientId, communicationId) {
@@ -67,5 +67,12 @@ export function initializeListOfRecipients() {
 export function initializeSearchRecipients() {
   return {
     type: INITIALIZE_SEARCH_RECIPIENTS,
+  };
+}
+
+export function setInitialRecipients(selectedRecipients) {
+  return {
+    type: SET_SELECTED_RECIPIENTS,
+    selectedRecipients,
   };
 }
