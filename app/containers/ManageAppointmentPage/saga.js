@@ -20,12 +20,12 @@ function* saveAppointmentSaga(action) {
   }
 }
 
-function* watchManageAppointmentSaga() {
+function* watchSaveAppointmentSaga() {
   yield takeLatest(SAVE_APPOINTMENT, saveAppointmentSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchManageAppointmentSaga(),
+    watchSaveAppointmentSaga(),
   ]);
 }
