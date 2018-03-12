@@ -11,39 +11,42 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Divider from 'material-ui/Divider';
-import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-import styles from './styles.css';
-import ManagePatient from '../../components/ManagePatient';
-import { savePatient } from './actions';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import ManagePatient from 'components/ManagePatient';
 import {
   makeSelectAdministrativeGenders,
   makeSelectLanguages,
   makeSelectPatientIdentifierSystems,
   makeSelectTelecomSystems,
+  makeSelectTelecomUses,
   makeSelectUsCoreBirthSexes,
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreRaces,
   makeSelectUspsStates,
-} from '../App/lookupSelectors';
+} from 'containers/App/lookupSelectors';
 import {
   ADMINISTRATIVEGENDER,
   LANGUAGE,
   PATIENTIDENTIFIERSYSTEM,
   TELECOMSYSTEM,
+  TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-} from '../App/constants';
-import { getLookupsAction } from '../App/actions';
-import { makeSelectPatientSearchResult } from '../Patients/selectors';
+} from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
+import { getPatientById } from 'containers/App/api';
+import reducer from './reducer';
+import saga from './saga';
+import messages from './messages';
+import { savePatient } from './actions';
 import { mapToFrontendPatientForm } from './api';
 
 export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -53,7 +56,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
     this.handleSave = this.handleSave.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookUpFormData();
   }
 
@@ -62,7 +65,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = this.props;
+    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = this.props;
     const patientId = match.params.id;
     let patient = null;
     if (patientId) {
@@ -77,22 +80,24 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       usCoreBirthSexes,
       languages,
       telecomSystems,
+      telecomUses,
       patient,
     };
     return (
-      <div className={styles.wrapper}>
+      <Page>
         <Helmet>
           <title>Manage Patient</title>
           <meta name="description" content="Manage patient page of Omnibus Care Plan application" />
         </Helmet>
-        <div className={styles.header}>
-          {match.params.id ?
+        <PageHeader
+          title={match.params.id ?
             <FormattedMessage {...messages.updateHeader} /> :
             <FormattedMessage {...messages.createHeader} />}
-        </div>
-        <Divider />
-        <ManagePatient {...formProps} onSave={this.handleSave} />
-      </div>
+        />
+        <PageContent>
+          <ManagePatient {...formProps} onSave={this.handleSave} />
+        </PageContent>
+      </Page>
     );
   }
 }
@@ -112,7 +117,17 @@ ManagePatientPage.propTypes = {
   usCoreEthnicities: PropTypes.array,
   usCoreBirthSexes: PropTypes.array,
   languages: PropTypes.array,
-  telecomSystems: PropTypes.array,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
   patients: PropTypes.any,
 };
 
@@ -125,6 +140,7 @@ const mapStateToProps = createStructuredSelector({
   usCoreBirthSexes: makeSelectUsCoreBirthSexes(),
   languages: makeSelectLanguages(),
   telecomSystems: makeSelectTelecomSystems(),
+  telecomUses: makeSelectTelecomUses(),
   patients: makeSelectPatientSearchResult(),
 });
 
@@ -134,12 +150,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(savePatient(patientFormData, handleSubmitting));
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM])),
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE])),
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({ key: 'managePatientPage', reducer });
 const withSaga = injectSaga({ key: 'managePatientPage', saga });
 
@@ -148,7 +163,3 @@ export default compose(
   withSaga,
   withConnect,
 )(ManagePatientPage);
-
-function getPatientById(patients, id) {
-  return find(patients, { id });
-}

@@ -9,10 +9,10 @@ import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import styles from './styles.css';
+
 import ManageActivityDefinitionForm from './ManageActivityDefinitionForm';
 import messages from './messages';
-import { TEXT_MIN_LENGTH } from '../../containers/ManagePractitionerPage/constants';
+import { TEXT_MIN_LENGTH } from './constants';
 
 function ManageActivityDefinition(props) {
   const minimumLength = TEXT_MIN_LENGTH;
@@ -28,59 +28,57 @@ function ManageActivityDefinition(props) {
   };
 
   return (
-    <div className={styles.root}>
-      <Formik
-        initialValues={{ relatedArtifact: [] }}
-        onSubmit={(values, actions) => {
-          onSave(values, actions);
-        }}
-        validationSchema={() =>
-          yup.lazy((values) => {
-            let effectiveStart = new Date();
-            if (values.effectiveStart) {
-              effectiveStart = values.effectiveStart;
-            }
-            return yup.object().shape({
-              version: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />))
-                .min(minimumLength, (
-                  <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-              name: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />))
-                .min(minimumLength, (
-                  <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-              title: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />))
-                .min(minimumLength, (
-                  <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-              effectiveStart: yup.date()
-                .required((<FormattedMessage {...messages.validation.required} />))
-                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
-              effectiveEnd: yup.date()
-                .required((<FormattedMessage {...messages.validation.required} />))
-                .min(effectiveStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
-              duration: yup.number()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              frequency: yup.number()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              status: yup.object()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              topic: yup.object()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              kind: yup.object()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              participantType: yup.object()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              participantRole: yup.object()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              relatedArtifact: yup.array()
-                .required((<FormattedMessage {...messages.validation.requiredRelatedArtifacts} />))
-                .min(1, (<FormattedMessage {...messages.validation.minLengthdRelatedArtifacts} />)),
-            });
-          })}
-        render={(formikProps) => <ManageActivityDefinitionForm {...formikProps} {...formData} />}
-      />
-    </div>
+    <Formik
+      initialValues={{ relatedArtifact: [] }}
+      onSubmit={(values, actions) => {
+        onSave(values, actions);
+      }}
+      validationSchema={() =>
+        yup.lazy((values) => {
+          let effectiveStart = new Date();
+          if (values.effectiveStart) {
+            effectiveStart = values.effectiveStart;
+          }
+          return yup.object().shape({
+            version: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(minimumLength, (
+                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            name: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(minimumLength, (
+                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            title: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(minimumLength, (
+                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            effectiveStart: yup.date()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+            effectiveEnd: yup.date()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(effectiveStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+            duration: yup.number()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            frequency: yup.number()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            status: yup.object()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            topic: yup.object()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            kind: yup.object()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            participantType: yup.object()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            participantRole: yup.object()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            relatedArtifact: yup.array()
+              .required((<FormattedMessage {...messages.validation.requiredRelatedArtifacts} />))
+              .min(1, (<FormattedMessage {...messages.validation.minLengthdRelatedArtifacts} />)),
+          });
+        })}
+      render={(formikProps) => <ManageActivityDefinitionForm {...formikProps} {...formData} />}
+    />
   );
 }
 

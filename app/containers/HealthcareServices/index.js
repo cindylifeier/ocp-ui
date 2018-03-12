@@ -11,10 +11,29 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import uniqueId from 'lodash/uniqueId';
+import { Cell } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import HealthcareServiceTable from 'components/HealthcareServiceTable';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import StatusCheckbox from 'components/StatusCheckbox';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import FilterSection from 'components/FilterSection';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import CenterAlign from 'components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import {
+  getHealthcareServicesByLocation,
+  getHealthcareServicesByOrganization,
+  initializeHealthcareServices,
+} from './actions';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -28,16 +47,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import styles from './styles.css';
-import HealthcareServiceTable from '../../components/HealthcareServiceTable/index';
-import {
-  getHealthcareServicesByLocation,
-  getHealthcareServicesByOrganization,
-  initializeHealthcareServices,
-} from './actions';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading/index';
-import StatusCheckbox from '../../components/StatusCheckbox/index';
-import { DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 
 export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -47,6 +56,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentWillMount() {
@@ -76,40 +87,42 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
   render() {
     const { loading, healthcareServices, organization, location } = this.props;
     return (
-      <div className={styles.card}>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
         {!isEmpty(organization) &&
-        <div className={styles.organizationInfoSection}>
-          <div className={styles.organizationInfoLabel}>
-            Organization&nbsp;:&nbsp;
-          </div>
-          {organization.name}
-        </div>}
+        <InfoSection>
+          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.labelOrganization} />&nbsp;
+          </InlineLabel>
+          <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+        </InfoSection>}
         {!isEmpty(location) &&
-        <div className={styles.locationInfoSection}>
-          <div className={styles.locationInfoLabel}>
-            Location&nbsp;:&nbsp;
-          </div>
-          {location.name}
-        </div>}
-        {!isEmpty(organization) &&
+        <InfoSection>
+          <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+            <FormattedMessage {...messages.labelLocation} />&nbsp;
+          </InlineLabel>
+          <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>
+        </InfoSection>}
+        {!isEmpty(organization) && isEmpty(location) &&
         <div>
-          <div className={styles.actionSection}>
-            <div className={styles.filterGridContainer}>
-              <div>
+          <FilterSection>
+            <CheckboxFilterGrid>
+              <Cell>
                 <FormattedMessage {...messages.filterLabel} />
-              </div>
-              <StatusCheckbox
-                messages={messages.inactive}
-                elementId="inactiveCheckBox"
-                checked={this.props.includeInactive}
-                handleCheck={this.handleCheck}
-              >
-              </StatusCheckbox>
-            </div>
-          </div>
+              </Cell>
+              <Cell>
+                <StatusCheckbox
+                  messages={messages.inactive}
+                  elementId="inactiveCheckBox"
+                  checked={this.props.includeInactive}
+                  handleCheck={this.handleCheck}
+                />
+              </Cell>
+            </CheckboxFilterGrid>
+          </FilterSection>
         </div>
         }
 
@@ -117,27 +130,24 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-        <div className={styles.noHealthcareServicesFound}>
+        <NoResultsFoundText>
           <FormattedMessage {...messages.noHealthcareServicesFound} />
-        </div>
+        </NoResultsFoundText>
         }
 
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
-        <div className={styles.textCenter}>
-          <HealthcareServiceTable elements={healthcareServices} />
-          <UltimatePagination
+        <div>
+          <CenterAlign>
+            <HealthcareServiceTable elements={healthcareServices} />
+          </CenterAlign>
+          <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
             onChange={this.handlePageClick}
           />
         </div>
         }
-      </div>
+      </Card>
     );
   }
 }

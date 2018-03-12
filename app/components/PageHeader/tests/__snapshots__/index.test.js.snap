@@ -5,11 +5,6 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PageHeader
-    subtitle={
-      <div>
-        subtitle
-      </div>
-    }
     title={
       <div>
         title
@@ -37,11 +32,6 @@ ShallowWrapper {
         <Divider
           inset={false}
         />,
-        <PageSubtitle__PageSubtitle>
-          <div>
-            subtitle
-          </div>
-        </PageSubtitle__PageSubtitle>,
       ],
     },
     "ref": null,
@@ -80,29 +70,6 @@ ShallowWrapper {
         "rendered": null,
         "type": [Function],
       },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": <div>
-            subtitle
-          </div>,
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "subtitle",
-          },
-          "ref": null,
-          "rendered": "subtitle",
-          "type": "div",
-        },
-        "type": [Function],
-      },
     ],
     "type": "div",
   },
@@ -121,11 +88,6 @@ ShallowWrapper {
           <Divider
             inset={false}
           />,
-          <PageSubtitle__PageSubtitle>
-            <div>
-              subtitle
-            </div>
-          </PageSubtitle__PageSubtitle>,
         ],
       },
       "ref": null,
@@ -162,29 +124,6 @@ ShallowWrapper {
           },
           "ref": null,
           "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": <div>
-              subtitle
-            </div>,
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "subtitle",
-            },
-            "ref": null,
-            "rendered": "subtitle",
-            "type": "div",
-          },
           "type": [Function],
         },
       ],

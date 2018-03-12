@@ -13,12 +13,23 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
-import Divider from 'material-ui/Divider';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
+import uniqueId from 'lodash/uniqueId';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import HealthcareServiceTable from 'components/HealthcareServiceTable';
+import StyledFlatButton from 'components/StyledFlatButton';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import InlineLabel from 'components/InlineLabel';
+import CenterAlign from 'components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import H3 from 'components/H3';
+import InfoSection from 'components/InfoSection';
+import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -28,10 +39,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import styles from './styles.css';
 import messages from './messages';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import HealthcareServiceTable from '../../components/HealthcareServiceTable';
 import {
   getHealthcareServicesLocationAssignment,
   initializeAssignHealthCareServiceToLocationPage,
@@ -39,8 +47,6 @@ import {
   unassignHealthcareServicesLocationAssignment,
   updateHealthcareServicesLocationAssignment,
 } from './actions';
-import { makeSelectLocations, makeSelectOrganization } from '../Locations/selectors';
-
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -56,6 +62,8 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
     this.onCheckAssignedCheckbox = this.onCheckAssignedCheckbox.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleUnassignHealthcareService = this.handleUnassignHealthcareService.bind(this);
+    this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentDidMount() {
@@ -97,45 +105,41 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
     const selectedLocation = find(this.props.location, { logicalId });
     const { loading, healthcareServices, organization } = this.props;
     const actions = [
-      <FlatButton
-        label="Cancel"
+      <StyledFlatButton
+        label={<FormattedMessage {...messages.dialogButtonLabelCancel} />}
         primary
         onClick={this.handleCloseDialog}
       />,
-      <FlatButton
-        label="Submit"
+      <StyledFlatButton
+        label={<FormattedMessage {...messages.dialogButtonLabelSubmit} />}
         primary
         keyboardFocused
         onClick={this.handleUnassignHealthcareService}
       />,
     ];
     return (
-      <div className={styles.root}>
+      <Page>
         <Helmet>
           <title>Assign Healthcare Service To the Location</title>
           <meta name="description" content="Assign the selected Healthcare Service to the Location" />
         </Helmet>
-        <div className={styles.header}>
-          <FormattedMessage {...messages.header} />
-        </div>
-        <Divider />
-
-        <div>
+        <PageHeader title={<FormattedMessage {...messages.header} />} />
+        <PageContent>
           {isEmpty(organization) &&
           <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
           {organization && selectedLocation && <div>
-            <div className={styles.organizationInfoSection}>
-              <div className={styles.organizationInfoLabel}>
-                Organization&nbsp;:&nbsp;
-              </div>
-              {organization.name}
-            </div>
-            <div className={styles.locationInfoSection}>
-              <div className={styles.locationInfoLabel}>
-                Location&nbsp;:&nbsp;
-              </div>
-              {selectedLocation.name}
-            </div>
+            <InfoSection>
+              <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+                <FormattedMessage {...messages.labelOrganization} />&nbsp;
+              </InlineLabel>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
+            </InfoSection>
+            <InfoSection>
+              <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+                <FormattedMessage {...messages.labelLocation} />&nbsp;
+              </InlineLabel>
+              <span id={this.LOCATION_NAME_HTML_ID}>{selectedLocation.name}</span>
+            </InfoSection>
           </div>
           }
 
@@ -143,29 +147,30 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
           <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-          <div className={styles.noHealthcareServices}>
+          <NoResultsFoundText>
             <FormattedMessage {...messages.noHealthcareServicesFound} />
-          </div>
+          </NoResultsFoundText>
           }
 
           {!loading && !isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
-          <div className={styles.textCenter}>
-            <HealthcareServiceTable elements={healthcareServices} showAssigned onCheck={this.onCheckAssignedCheckbox} />
-            <UltimatePagination
+          <div>
+            <CenterAlign>
+              <HealthcareServiceTable
+                elements={healthcareServices}
+                showAssigned
+                onCheck={this.onCheckAssignedCheckbox}
+              />
+            </CenterAlign>
+            <CenterAlignedUltimatePagination
               currentPage={this.props.currentPage}
               totalPages={this.props.totalPages}
-              boundaryPagesRange={1}
-              siblingPagesRange={1}
-              hidePreviousAndNextPageLinks={false}
-              hideFirstAndLastPageLinks={false}
-              hideEllipsis={false}
               onChange={this.handlePageClick}
             />
           </div>
           }
-        </div>
+        </PageContent>
         <Dialog
-          title="Unassign Healthcare Service"
+          title={<H3><FormattedMessage {...messages.dialogTitleUnassignHealthcareService} /></H3>}
           actions={actions}
           modal
           open={this.state.open}
@@ -179,7 +184,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
             }}
           />
         </Dialog>
-      </div>
+      </Page>
     );
   }
 }

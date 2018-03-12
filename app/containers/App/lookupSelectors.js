@@ -4,6 +4,11 @@ import {
   ACTION_PARTICIPANT_TYPE,
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
+  APPOINTMENT_PARTICIPANT_REQUIRED,
+  APPOINTMENT_PARTICIPATION_STATUS,
+  APPOINTMENT_PARTICIPATION_TYPE,
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
   CARETEAMCATEGORY,
   CARETEAMREASON,
   CARETEAMSTATUS,
@@ -25,29 +30,28 @@ import {
   PATIENTIDENTIFIERSYSTEM,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
+  PROVIDER_ROLE,
+  PROVIDER_SPECIALTY,
   PUBLICATION_STATUS,
-  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   RELATED_ARTIFACT_TYPE,
+  RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  REQUEST_INTENT,
+  REQUEST_PRIORITY,
   RESOURCE_TYPE,
+  TASK_PERFORMER_TYPE,
+  TASK_STATUS,
   TELECOMSYSTEM,
   TELECOMUSE,
   USCOREBIRTHSEX,
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-  // Task Resource Lookups - Start
-  TASK_STATUS,
-  REQUEST_INTENT,
-  REQUEST_PRIORITY,
-  TASK_PERFORMER_TYPE,
-  // Task Resource Lookups - End
-// Communications Resource lookups start
   COMMUNICATION_STATUS,
   COMMUNICATION_CATEGORY,
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_MEDIUM,
-  // Communications Resource lookups end
-} from './constants';
+} from 'containers/App/constants';
+import { createSelector } from 'reselect';
 import selectGlobalDomain from './selectors';
 
 const makeSelectUspsStates = () => createSelector(
@@ -245,6 +249,41 @@ const makeSelectRelatedArtifactTypes = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATED_ARTIFACT_TYPE).toJS(),
 );
 
+const makeSelectAppointmentStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_STATUS).toJS(),
+);
+
+const makeSelectAppointmentTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_TYPE).toJS(),
+);
+
+const makeSelectAppointmentParticipationStatuses = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPATION_STATUS).toJS(),
+);
+
+const makeSelectAppointmentParticipationTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPATION_TYPE).toJS(),
+);
+
+const makeSelectAppointmentParticipationRequired = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPANT_REQUIRED).toJS(),
+);
+
+const makeSelectProviderRoles = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_ROLE).toJS(),
+);
+
+const makeSelectProviderSpecialties = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PROVIDER_SPECIALTY).toJS(),
+);
+
 const makeSelectCommunicationStatus = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_STATUS).toJS(),
@@ -306,6 +345,13 @@ export {
   makeSelectRequestPriorities,
   makeSelectTaskPerformerTypes,
   makeSelectRelatedArtifactTypes,
+  makeSelectAppointmentStatuses,
+  makeSelectAppointmentTypes,
+  makeSelectAppointmentParticipationStatuses,
+  makeSelectAppointmentParticipationTypes,
+  makeSelectAppointmentParticipationRequired,
+  makeSelectProviderRoles,
+  makeSelectProviderSpecialties,
   makeSelectCommunicationStatus,
   makeSelectCommunicationCategories,
   makeSelectCommunicationNotDoneReasons,

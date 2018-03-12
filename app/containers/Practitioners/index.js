@@ -11,91 +11,59 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { FlatButton, RaisedButton, SelectField } from 'material-ui';
+import isEmpty from 'lodash/isEmpty';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import TextField from 'material-ui/TextField';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import Checkbox from 'material-ui/Checkbox';
-import { teal500, white } from 'material-ui/styles/colors';
-import MenuItem from 'material-ui/MenuItem';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import PractitionerSearchResult from 'components/PractitionerSearchResult';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import StyledFlatButton from 'components/StyledFlatButton';
+import SearchBar from 'components/SearchBar';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import CenterAlign from 'components/Align/CenterAlign';
 import {
-  EMPTY_STRING, ENTER_KEY, MANAGE_PRACTITIONER_URL,
+  DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL,
   PRACTITIONERIDENTIFIERSYSTEM,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
-import { SEARCH_TERM_MIN_LENGTH, SEARCH_TYPE } from 'containers/Practitioners/constants';
 import {
-makeSelectCurrentPage,
-makeSelectCurrentPageSize,
-makeSelectQueryIncludeInactive,
-makeSelectQuerySearchTerms,
-makeSelectQuerySearchType,
-makeSelectSearchError,
-makeSelectSearchLoading,
-makeSelectPractitionerSearchResult,
-makeSelectTotalPages,
-} from 'containers/Practitioners/selectors';
-import reducer from 'containers/Practitioners/reducer';
-import saga from 'containers/Practitioners/saga';
-import messages from 'containers/Practitioners/messages';
-import styles from 'containers/Practitioners/styles.css';
-import PractitionerSearchResult from 'components/PractitionerSearchResult';
-import { initializePractitioners, loadPractitionerSearchResult } from 'containers/Practitioners/actions';
-
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectPractitionerSearchResult,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectTotalPages,
+} from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+import messages from './messages';
+import { initializePractitioners, loadPractitionerSearchResult } from './actions';
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = {
-      searchTerms: EMPTY_STRING,
-      searchType: SEARCH_TYPE.NAME,
-      includeInactive: false,
-      currentPage: 1,
-    };
-    this.handleChangeSearchTerms = this.handleChangeSearchTerms.bind(this);
-    this.handleChangeSearchType = this.handleChangeSearchType.bind(this);
-    this.handleChangeShowInactive = this.handleChangeShowInactive.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializePractitioners();
     this.props.getLookUpFormData();
   }
 
-  handleChangeSearchTerms(event, newValue) {
-    this.setState({ searchTerms: newValue });
-  }
-
-  handleChangeSearchType(event, key, value) {
-    this.setState({ searchType: value });
-  }
-
-  handleChangeShowInactive(event, checked) {
-    this.setState({ includeInactive: checked });
-  }
-
   handleChangePage(newPage) {
-    this.setState({ currentPage: newPage });
-    this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
+    const { searchTerms, searchType, includeInactive } = this.props;
+    this.props.onChangePage(searchTerms, searchType, includeInactive, newPage);
   }
 
-  handleSearch() {
-    if (this.state.searchTerms && this.state.searchTerms.trim().length > 0) {
-      this.props.onSubmitForm(this.state.searchTerms, this.state.searchType, this.state.includeInactive, this.state.currentPage);
-    }
-  }
-
-  preventEnterSubmission(event) {
-    if (event.key === ENTER_KEY) {
-      event.preventDefault();
-    }
+  handleSearch(searchTerms, includeInactive, searchType) {
+    this.props.onSubmitForm(searchTerms, searchType, includeInactive, DEFAULT_START_PAGE_NUMBER);
   }
 
   render() {
@@ -108,89 +76,27 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     };
 
     return (
-      <div className={styles.card}>
-        <div className={styles.gridHeaderContainer}>
-          <div className={styles.gridItem}>
-            <div className={styles.header}>
-              <FormattedMessage {...messages.header} />
-            </div>
-          </div>
-          <div className={styles.gridItem}>
-            <span className={styles.iconButton}>
-              <FlatButton
-                label="Create New"
-                icon={<ContentAddCircle />}
-                className={styles.font}
-                containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-              />
-            </span>
-          </div>
-        </div>
-        <form>
-          <div className={styles.searchSection}>
-            <div className={styles.searchHeader}>
-              <ActionSearch color={'#336666'} />
-              <FormattedMessage {...messages.searchHeader} />
-            </div>
-            <div className={styles.searchGridContainer}>
-              <SelectField
-                fullWidth
-                value={this.state.searchType}
-                onChange={this.handleChangeSearchType}
-              >
-                <MenuItem value={SEARCH_TYPE.NAME} primaryText="By Name" />
-                <MenuItem value={SEARCH_TYPE.IDENTIFIER} primaryText="By ID" />
-              </SelectField>
-              <TextField
-                fullWidth
-                hintText="Name or ID"
-                underlineShow={false}
-                errorText={this.state.searchTerms.trim().length > 0 && this.state.searchTerms.length < 3 ?
-                  <FormattedMessage {...messages.searchTermsInvalid} values={{ SEARCH_TERM_MIN_LENGTH }} /> : ''}
-                value={this.state.searchTerms}
-                onChange={this.handleChangeSearchTerms}
-                onKeyPress={this.preventEnterSubmission}
-              />
-            </div>
-            <div className={styles.filterGridContainer}>
-              <div>
-                <FormattedMessage {...messages.filterLabel} />
-              </div>
-              <Checkbox
-                label={<FormattedMessage {...messages.inactive} />}
-                value={this.state.includeInactive}
-                onCheck={this.handleChangeShowInactive}
-              />
-            </div>
-            <div className={styles.buttonGridContainer}>
-              <RaisedButton
-                fullWidth
-                label="Search"
-                backgroundColor={teal500}
-                labelColor={white}
-                onClick={this.handleSearch}
-                disabled={this.state.searchTerms === EMPTY_STRING || this.state.searchTerms.length < SEARCH_TERM_MIN_LENGTH}
-              />
-            </div>
-          </div>
-        </form>
-        <br />
-        <PractitionerSearchResult {...searchResultProps} />
-        <div className={styles.pagination}>
-          {this.props.searchResult &&
-          <UltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalPages}
-            boundaryPagesRange={1}
-            siblingPagesRange={1}
-            hidePreviousAndNextPageLinks={false}
-            hideFirstAndLastPageLinks={false}
-            hideEllipsis={false}
-            onChange={this.handleChangePage}
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />}>
+          <StyledFlatButton
+            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+            icon={<ContentAddCircle />}
+            containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
           />
-          }
-        </div>
-      </div>
+        </CardHeader>
+        <SearchBar
+          onSearch={this.handleSearch}
+        />
+        <CenterAlign>
+          <PractitionerSearchResult {...searchResultProps} />
+        </CenterAlign>
+        {!isEmpty(searchResult) &&
+        <CenterAlignedUltimatePagination
+          currentPage={this.props.currentPage}
+          totalPages={this.props.totalPages}
+          onChange={this.handleChangePage}
+        />}
+      </Card>
     );
   }
 }

@@ -11,37 +11,39 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import { Checkbox } from 'material-ui';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import CareTeamTable from 'components/CareTeamTable';
+import Card from 'components/Card';
+import CardHeader from 'components/CardHeader';
+import CenterAlign from 'components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import FilterSection from 'components/FilterSection';
+import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
+import { getLookupsAction } from 'containers/App/actions';
+import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import makeSelectCareTeams from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import RefreshIndicatorLoading from '../../components/RefreshIndicatorLoading';
-import CareTeamTable from '../../components/CareTeamTable';
 import { getCareTeams, initializeCareTeams } from './actions';
-import { makeSelectCareTeamStatuses } from '../App/lookupSelectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
-import { getLookupsAction } from '../App/actions';
-import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
-import Card from '../../components/Card';
-import CardHeader from '../../components/CardHeader';
-import CenterAlign from '../../components/Align/CenterAlign';
-import FilterSection from './FilterSection';
-import CheckboxGrid from './CheckboxGrid';
-import NoCareTeamSection from './NoCareTeamSection';
-import PatientInfoSection from './PatientInfoSection';
-import PatientLabel from './PatientLabel';
-import CenterAlignedUltimatePagination from '../../components/CenterAlignedUltimatePagination';
 
 export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
+    this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
@@ -69,7 +71,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
     return (
       <FilterSection>
-        <CheckboxGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)} gap="">
+        <CheckboxFilterGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)}>
           <Cell><CenterAlign>Include</CenterAlign></Cell>
           {filteredCareTeamStatuses.map(({ code, display }) => (
             <Cell key={code}>
@@ -84,7 +86,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
             </Cell>
           ))
           }
-        </CheckboxGrid>
+        </CheckboxFilterGrid>
       </FilterSection>);
   }
 
@@ -97,12 +99,12 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <Grid columns={1} gap="">
             <Cell>
-              <PatientInfoSection>
-                <PatientLabel>
-                  <FormattedMessage {...messages.patientLabel} />&nbsp;:&nbsp;
-                </PatientLabel>
-                {patientName}
-              </PatientInfoSection>
+              <InfoSection>
+                <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                  <FormattedMessage {...messages.patientLabel} />&nbsp;
+                </InlineLabel>
+                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
+              </InfoSection>
             </Cell>
             <Cell>
               {!isEmpty(careTeamStatuses) &&
@@ -115,8 +117,8 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && isEmpty(data) &&
-        <NoCareTeamSection>No care teams found.</NoCareTeamSection>}
+        {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
+        <NoResultsFoundText>No care teams found.</NoResultsFoundText>}
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <CenterAlign>

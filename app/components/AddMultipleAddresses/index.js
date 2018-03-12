@@ -11,6 +11,7 @@ import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
 
 import FormSubtitle from 'components/FormSubtitle';
+import Section from 'components/Section';
 import AddAddressesButton from './AddAddressesButton';
 import AddMultipleAddressesForm from './AddMultipleAddressesForm';
 import AddedAddressesTable from './AddedAddressesTable';
@@ -54,39 +55,41 @@ class AddMultipleAddresses extends React.PureComponent {
     };
     return (
       <div>
-        <FormSubtitle subtitleMargin="1vh 0 0 0">
-          <FormattedMessage {...messages.header} />
-        </FormSubtitle>
-        <AddAddressesButton
-          onClick={this.handleOpenDialog}
-          label={<FormattedMessage {...messages.addAddressesButton} />}
-        />
-        <FieldArray
-          name="addresses"
-          render={(arrayHelpers) => (
-            <div>
-              <Dialog
-                title="Add Addresses"
-                modal={false}
-                open={this.state.isAddressesDialogOpen}
-                onRequestClose={this.handleCloseDialog}
-              >
-                <AddMultipleAddressesForm
-                  initialValues={this.state.editingAddress}
-                  onAddAddress={arrayHelpers.push}
-                  onRemoveAddress={arrayHelpers.remove}
-                  uspsStates={uspsStates}
-                  handleCloseDialog={this.handleCloseDialog}
+        <Section>
+          <FormSubtitle margin="1vh 0 0 0">
+            <FormattedMessage {...messages.header} />
+          </FormSubtitle>
+          <AddAddressesButton
+            onClick={this.handleOpenDialog}
+            label={<FormattedMessage {...messages.addAddressesButton} />}
+          />
+          <FieldArray
+            name="addresses"
+            render={(arrayHelpers) => (
+              <div>
+                <Dialog
+                  title="Add Addresses"
+                  modal={false}
+                  open={this.state.isAddressesDialogOpen}
+                  onRequestClose={this.handleCloseDialog}
+                >
+                  <AddMultipleAddressesForm
+                    initialValues={this.state.editingAddress}
+                    onAddAddress={arrayHelpers.push}
+                    onRemoveAddress={arrayHelpers.remove}
+                    uspsStates={uspsStates}
+                    handleCloseDialog={this.handleCloseDialog}
+                  />
+                </Dialog>
+                <AddedAddressesTable
+                  handleEditAddress={this.handleEditAddress}
+                  arrayHelpers={arrayHelpers}
+                  {...addedAddressesTableProps}
                 />
-              </Dialog>
-              <AddedAddressesTable
-                handleEditAddress={this.handleEditAddress}
-                arrayHelpers={arrayHelpers}
-                {...addedAddressesTableProps}
-              />
-            </div>
-          )}
-        />
+              </div>
+            )}
+          />
+        </Section>
       </div>
     );
   }

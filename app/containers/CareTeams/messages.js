@@ -16,6 +16,6 @@ export default defineMessages({
   },
   patientLabel: {
     id: 'ocpui.containers.CareTeams.patientLabel',
-    defaultMessage: 'Patient',
+    defaultMessage: 'Patient:',
   },
 });

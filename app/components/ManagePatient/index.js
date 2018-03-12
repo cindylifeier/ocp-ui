@@ -1,8 +1,8 @@
 /**
-*
-* ManagePatient
-*
-*/
+ *
+ * ManagePatient
+ *
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,13 +11,12 @@ import { Formik } from 'formik';
 import yup from 'yup';
 import ManagePatientForm from './ManagePatientForm';
 import messages from './messages';
-import { TEXT_MIN_LENGTH } from '../../containers/ManagePatientPage/constants';
+import { TEXT_MIN_LENGTH } from './constants';
 
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const postalCodePattern = new RegExp('^\\d{5}(?:[-\\s]\\d{4})?$');
-  const { onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems } = props;
-  const lookUpFormData = {
+  const { onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = props;
+  const managePatientFormProps = {
     uspsStates,
     patientIdentifierSystems,
     administrativeGenders,
@@ -26,6 +25,7 @@ function ManagePatient(props) {
     usCoreBirthSexes,
     languages,
     telecomSystems,
+    telecomUses,
   };
   return (
     <div>
@@ -51,10 +51,8 @@ function ManagePatient(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          postalCode: yup.string()
-            .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
-        render={(formikProps) => <ManagePatientForm {...formikProps} {...lookUpFormData} />}
+        render={(formikProps) => <ManagePatientForm {...formikProps} {...managePatientFormProps} />}
       />
     </div>
   );
@@ -69,7 +67,17 @@ ManagePatient.propTypes = {
   usCoreEthnicities: PropTypes.array.isRequired,
   usCoreBirthSexes: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
-  telecomSystems: PropTypes.array.isRequired,
+  telecomSystems: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   patient: PropTypes.object,
 };
 

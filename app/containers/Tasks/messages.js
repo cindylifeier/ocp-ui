@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'ocpui.containers.Tasks.noTasksFound',
     defaultMessage: 'No tasks found.',
   },
+  labelPatientName: {
+    id: 'ocpui.containers.Tasks.labelPatientName',
+    defaultMessage: 'Patient:',
+  },
 });
