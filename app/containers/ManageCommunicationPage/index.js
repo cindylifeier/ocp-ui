@@ -22,7 +22,7 @@ import SearchRecipient from 'containers/SearchRecipient';
 import Page from 'components/Page';
 import {
   initializeListOfRecipients, initializeSearchRecipients,
-  removeSelectedRecipient,
+  removeSelectedRecipient, setInitialRecipients,
 } from 'containers/SearchRecipient/actions';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import PageHeader from 'components/PageHeader';
@@ -74,10 +74,9 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
     this.props.initializeSearchRecipients();
   }
-  handleClose() {
-    this.setState({ open: false });
+  setInitialSelectedRecipients(recipients) {
+    this.props.setInitialRecipients(recipients);
   }
-
 
   handleOpen() {
     this.props.initializeListOfRecipients();
@@ -95,6 +94,10 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   handleRemoveRecipient(checked, recipientReference) {
     this.props.removeSelectedRecipient(checked, recipientReference);
   }
+
+  handleClose() {
+    this.setState({ open: false });
+  }
   render() {
     const editingCommunication = false;
     const {
@@ -110,8 +113,9 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     } = this.props;
     const communicationId = this.props.match.params.id;
     let initialSelectedRecipients = [];
-    if (communicationId && selectedRecipients && communication && communication.recipients) {
+    if (communicationId && communication && communication.recipients) {
       initialSelectedRecipients = communication.recipients;
+      this.setInitialSelectedRecipients(communication.recipients);
     }
     console.log(this.props.practitioner);
     const practitioner = this.state.selectedPractitioner;
@@ -180,6 +184,7 @@ ManageCommunicationPage.propTypes = {
   practitioner: PropTypes.object.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
   initializeListOfRecipients: PropTypes.func.isRequired,
+  setInitialRecipients: PropTypes.func.isRequired,
   communication: PropTypes.object,
 };
 
@@ -206,6 +211,7 @@ function mapDispatchToProps(dispatch) {
     initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
     initializeListOfRecipients: () => dispatch(initializeListOfRecipients()),
     getCommunication: (communicationId) => dispatch(getCommunication(communicationId)),
+    setInitialRecipients: (selectedRecipients) => dispatch(setInitialRecipients(selectedRecipients)),
   };
 }
 
