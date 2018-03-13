@@ -9,8 +9,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-import IconButton from 'material-ui/IconButton';
-import ActionLogout from 'material-ui/svg-icons/action/exit-to-app';
+import IconButton from 'material-ui-next/IconButton';
+import Tooltip from 'material-ui-next/Tooltip';
+import ActionLogout from 'material-ui-icons/ExitToApp';
 
 
 import injectSaga from 'utils/injectSaga';
@@ -22,12 +23,11 @@ export class Logout extends React.PureComponent { // eslint-disable-line react/p
   render() {
     return (
       <div>
-        <IconButton
-          tooltip={<FormattedMessage {...messages.logoutButton} />}
-          onClick={this.props.onLogout}
-        >
-          <ActionLogout />
-        </IconButton>
+        <Tooltip title={<FormattedMessage {...messages.logoutButton} />}>
+          <IconButton onClick={this.props.onLogout}>
+            <ActionLogout />
+          </IconButton>
+        </Tooltip>
       </div>
     );
   }
