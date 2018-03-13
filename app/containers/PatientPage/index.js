@@ -130,7 +130,7 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  // TODO: will replace with Communication and Appointments render component
+  // TODO: will replace with Communication render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
 ];
