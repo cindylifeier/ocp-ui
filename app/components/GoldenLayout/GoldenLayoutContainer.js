@@ -10,6 +10,15 @@ const GoldenLayoutContainer = styled.div`
   /* Enable scroll content */
   & .lm_content {
     overflow: auto;
+    background: #f4f4f4;
+  }
+
+  & .lm_tab.lm_active {
+    background: #f4f4f4;
+    color: #33666f;
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 18px;
   }
 `;
 
