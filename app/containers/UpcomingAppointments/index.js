@@ -23,11 +23,11 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import CenterAlign from 'components/Align/CenterAlign';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { APPOINTMENT_STATUS, APPOINTMENT_TYPE, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import makeSelectUpcomingAppointments from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from '../App/constants';
 
 
 export class UpcomingAppointments extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -37,7 +37,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     this.cancelAppointment = this.cancelAppointment.bind(this);
   }
   componentDidMount() {
-    this.props.getUpcomingAppointments();
+    this.props.getUpcomingAppointments({ pageNumber: DEFAULT_START_PAGE_NUMBER });
     this.props.getLookupData();
   }
   handlePageClick(page) {
@@ -94,7 +94,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUpcomingAppointments: () => dispatch(getUpcomingAppointments()),
+    getUpcomingAppointments: (query) => dispatch(getUpcomingAppointments(query)),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     cancelAppointment: (id) => dispatch(cancelAppointment(id)),
   };

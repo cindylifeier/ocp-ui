@@ -76,8 +76,8 @@ function ManageLocationForm(props) {
               fullWidth
               floatingLabelText={<FormattedMessage {...messages.statusFloatingLabelText} />}
             >
-              {locationStatuses && locationStatuses.map((locationStatuse) => (
-                <MenuItem key={uniqueId()} value={locationStatuse.code} primaryText={locationStatuse.display} />
+              {locationStatuses && locationStatuses.map((locationStatus) => (
+                <MenuItem key={uniqueId()} value={locationStatus.code} primaryText={locationStatus.display} />
               ))}
             </SelectField>
           )}

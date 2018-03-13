@@ -24,7 +24,7 @@ export const BASE_RELATED_PERSONS_API_URL = 'ocpui/utils/BASE_RELATED_PERSONS_AP
 export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
 export const BASE_EPISODE_OF_CARES_API_URL = 'ocpui/utils/BASE_EPISODE_OF_CARES_API_URL';
 export const BASE_ACTIVITY_DEFINITIONS_API_URL = 'ocpui/utils/BASE_ACTIVITY_DEFINITIONS_API_URL';
-export const BASE_UPCOMING_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_UPCOMING_APPOINTMENTS_API_URL';
+export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
 
 
 /**
@@ -49,7 +49,7 @@ const apiEndpoints = [
   { key: BASE_TASKS_API_URL, url: `${BASE_API_URL}/ocp-fis/tasks` },
   { key: BASE_EPISODE_OF_CARES_API_URL, url: `${BASE_API_URL}/ocp-fis/episode-of-cares` },
   { key: BASE_ACTIVITY_DEFINITIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/activity-definitions` },
-  { key: BASE_UPCOMING_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
+  { key: BASE_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
 ];
 
 const configuredEndpoints = collectEndpoints();

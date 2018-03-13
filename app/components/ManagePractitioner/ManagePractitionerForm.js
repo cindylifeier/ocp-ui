@@ -25,8 +25,14 @@ import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import { HOME_URL } from 'containers/App/constants';
+import Section from 'components/Section';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+
+import AddOrganizationsButton from './AddOrganizationsButton';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
+import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';
+
 
 class ManagePractitionerForm extends React.PureComponent {
 
@@ -136,14 +142,14 @@ class ManagePractitionerForm extends React.PureComponent {
               <AddMultipleTelecoms {...addTelecomsProps} />
             </Cell>
             <Cell area="associateOrganizationSection">
-              <Grid columns={1}>
+              <Section>
                 <Cell>
                   <FormSubtitle margin="1vh 0 0 0">
                     <FormattedMessage {...messages.associateOrganizations.subtitle} />
                   </FormSubtitle>
                 </Cell>
                 <Cell>
-                  <StyledRaisedButton
+                  <AddOrganizationsButton
                     onClick={this.handleAddOrganizations}
                     label={<FormattedMessage {...messages.associateOrganizations.addButtonLabel} />}
                   />
@@ -172,19 +178,19 @@ class ManagePractitionerForm extends React.PureComponent {
                           />
                         </WideDialog>
                         <Table>
-                          <TableHeader>
+                          <TableHeader columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
                             <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnRemove} /></TableHeaderColumn>
+                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnAction} /></TableHeaderColumn>
                           </TableHeader>
                           {errors && errors.practitionerRoles &&
                           <ErrorText>{errors.practitionerRoles}</ErrorText>}
                           {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
                             const { organization, logicalId } = pr;
                             return (
-                              <TableRow key={organization && organization.reference}>
+                              <TableRow key={organization && organization.reference} columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
                                 <TableRowColumn>{organization.display}</TableRowColumn>
                                 <TableRowColumn>
                                   <SelectField
@@ -233,12 +239,13 @@ class ManagePractitionerForm extends React.PureComponent {
                                   </SelectField>
                                 </TableRowColumn>
                                 <TableRowColumn>
-                                  <StyledRaisedButton
-                                    label="Remove"
-                                    disabled={logicalId !== undefined}
-                                    onClick={() => arrayHelpers.remove(index)}
-                                  >
-                                  </StyledRaisedButton>
+                                  <NavigationStyledIconMenu>
+                                    <MenuItem
+                                      primaryText={<FormattedMessage {...messages.associateOrganizations.tableActionRemove} />}
+                                      disabled={logicalId !== undefined}
+                                      onClick={() => arrayHelpers.remove(index)}
+                                    />
+                                  </NavigationStyledIconMenu>
                                 </TableRowColumn>
                               </TableRow>
                             );
@@ -247,7 +254,7 @@ class ManagePractitionerForm extends React.PureComponent {
                       </div>)}
                   />
                 </Cell>
-              </Grid>
+              </Section>
             </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>

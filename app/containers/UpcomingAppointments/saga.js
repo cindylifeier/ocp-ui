@@ -19,9 +19,9 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getUpcomingAppointmentsSaga() {
+export function* getUpcomingAppointmentsSaga({ query }) {
   try {
-    const upcomingAppointmentsPage = yield call(getUpcomingAppointmentsApi);
+    const upcomingAppointmentsPage = yield call(getUpcomingAppointmentsApi, query);
     yield put(getUpcomingAppointmentsSuccess(upcomingAppointmentsPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
