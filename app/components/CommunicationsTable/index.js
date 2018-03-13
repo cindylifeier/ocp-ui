@@ -8,33 +8,19 @@ import React from 'react';
 import { uniqueId } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import { Cell, Grid } from 'styled-css-grid';
 import Link from 'react-router-dom/es/Link';
 import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
-import styles from './styles.css';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import StyledIconButton from '../StyledIconButton';
 import messages from './messages';
 import Table from '../Table';
 import TableHeader from '../TableHeader';
 import TableHeaderColumn from '../TableHeaderColumn';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
-
-const iconStyles = {
-  iconButton: {
-    position: 'relative',
-  },
-  icon: {
-    width: '100%',
-    height: 26,
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  },
-};
-
 
 function CommunicationsTable(props) {
   const { communications, selectedPatientId } = props;
@@ -48,7 +34,7 @@ function CommunicationsTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderSender} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderSent} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
+          <TableHeaderColumn></TableHeaderColumn>
         </TableHeader>
         {communications && communications.map((communication) => (
           <TableRow key={communication.logicalId}>
@@ -59,23 +45,18 @@ function CommunicationsTable(props) {
             <TableRowColumn>{communication.sent}</TableRowColumn>
             <TableRowColumn>{communication.statusValue}</TableRowColumn>
             <TableRowColumn>
-              <div className={styles.iconButtonGridContainer}>
-                <div className={styles.iconButtonGridItem}>
+              <Grid columns="1fr 50px" gap="0px">
+                <Cell left="2">
                   <IconMenu
                     iconButtonElement={
-                      (<IconButton
-                        className={styles.iconButton}
-                        iconStyle={iconStyles.icon}
-                        style={iconStyles.iconButton}
-                      >
+                      (<StyledIconButton>
                         <NavigationMenu />
-                      </IconButton>)
+                      </StyledIconButton>)
                     }
                     anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                   >
                     <MenuItem
-                      className={styles.menuItem}
                       primaryText="Edit"
                       containerElement={<Link
                         to={{
@@ -85,8 +66,8 @@ function CommunicationsTable(props) {
                       />}
                     />
                   </IconMenu>
-                </div>
-              </div>
+                </Cell>
+              </Grid>
             </TableRowColumn>
           </TableRow>
         ))

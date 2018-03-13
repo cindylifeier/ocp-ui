@@ -30,10 +30,6 @@ export default defineMessages({
     id: 'ocpui.components.communicationTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
-  columnHeaderAction: {
-    id: 'ocpui.components.communicationTable.columnHeaderAction',
-    defaultMessage: 'Action',
-  },
   noCommunications: {
     id: 'ocpui.containers.communicationsTable.noCommunications',
     defaultMessage: 'No Communications for selected patient. Please create communication.',
