@@ -18,10 +18,8 @@ import { createStructuredSelector } from 'reselect';
 import { mapToPatientName } from 'utils/PatientUtils';
 
 import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import renderNotFoundComponent from '../NotFoundPage/render';
 import renderTasksComponent from '../Tasks/render';
 import renderCommunicationsComponent from '../Communications/render';
-import PatientPageGrid from './PatientPageGrid';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
 
@@ -132,11 +130,8 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  // TODO: will replace with Communication and Appointments render component
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
-  // TODO: will replace with Communications and Appointments render component
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

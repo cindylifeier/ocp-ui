@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import uniqueId from 'lodash/uniqueId';
 import { compose } from 'redux';
-import UltimatePagination from 'react-ultimate-pagination-material-ui';
 import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
 import { getPatientName } from 'utils/PatientUtils';
@@ -28,7 +28,6 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getRelatedPersons, initializeRelatedPersons } from './actions';
-
 
 export class RelatedPersons extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -57,7 +56,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
               <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
                 <FormattedMessage {...messages.labelPatientName} />&nbsp;
               </InlineLabel>
-              <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(selectedPatient)}</span>
+              <span id={this.PATIENT_NAME_HTML_ID}>{getPatientName(selectedPatient)}</span>
             </InfoSection>
             {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable

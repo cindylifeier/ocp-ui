@@ -104,16 +104,14 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       episodeOfCares,
       selectedRecipients,
       selectedPatient,
-      // practitioner, // TODO fix delay in getting practitioner
     } = this.props;
     const logicalId = this.props.match.params.id;
     let initialSelectedRecipients = [];
     const communication = find(this.props.communications.elements, { logicalId });
-    if (communication && communication.recipients) {
-      initialSelectedRecipients = communication.recipients;
-      this.setInitialSelectedRecipients(communication.recipients);
+    if (communication && communication.recipient) {
+      const recipients = communication.recipient;
+      initialSelectedRecipients = recipients;
     }
-    console.log(this.props.practitioner);
     const practitioner = this.state.selectedPractitioner;
     const manageCommunicationProps = {
       communicationStatus,
@@ -177,7 +175,6 @@ ManageCommunicationPage.propTypes = {
   selectedRecipients: PropTypes.array,
   communications: PropTypes.object,
   getEpisodeOfCares: PropTypes.func.isRequired,
-  practitioner: PropTypes.object.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
   initializeListOfRecipients: PropTypes.func.isRequired,
   setInitialRecipients: PropTypes.func.isRequired,

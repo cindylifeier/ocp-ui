@@ -51,7 +51,6 @@ import {
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_MEDIUM,
 } from 'containers/App/constants';
-import { createSelector } from 'reselect';
 import selectGlobalDomain from './selectors';
 
 const makeSelectUspsStates = () => createSelector(
