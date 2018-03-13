@@ -9,12 +9,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
-import trim from 'lodash/trim';
-import toUpper from 'lodash/toUpper';
 import IconMenu from 'material-ui/IconMenu';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import MenuItem from 'material-ui/MenuItem';
 
+import Util from 'utils/Util';
 import StyledIconButton from 'components/StyledIconButton';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -89,7 +88,7 @@ function getPatientIdFromTask(beneficiary) {
   const patientPattern = 'Patient/';
   let patientId = null;
   if (!isUndefined(beneficiary.reference)) {
-    patientId = trim(toUpper(beneficiary.reference), toUpper(patientPattern));
+    patientId = Util.extractTrimmedStringByCharacters(beneficiary.reference, patientPattern);
   }
   return patientId;
 }
