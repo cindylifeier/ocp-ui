@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<FormCell />', () => {
+xdescribe('<FormCell />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

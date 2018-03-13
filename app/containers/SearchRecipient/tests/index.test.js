@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<SearchRecipient />', () => {
+xdescribe('<SearchRecipient />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

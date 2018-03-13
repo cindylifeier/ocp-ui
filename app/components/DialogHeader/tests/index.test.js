@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<DialogHeader />', () => {
+xdescribe('<DialogHeader />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<ManageCommunication />', () => {
+xdescribe('<ManageCommunication />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

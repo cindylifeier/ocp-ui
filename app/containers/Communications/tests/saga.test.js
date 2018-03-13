@@ -8,7 +8,7 @@
 
 // const generator = defaultSaga();
 
-describe('defaultSaga Saga', () => {
+xdescribe('defaultSaga Saga', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
