@@ -53,7 +53,7 @@ function CommunicationsTable(props) {
         {communications && communications.map((communication) => (
           <TableRow key={communication.logicalId}>
             <TableRowColumn>{communication.categoryValue}</TableRowColumn>
-            <TableRowColumn>{communication.mediumVaule}</TableRowColumn>
+            <TableRowColumn>{communication.mediumValue}</TableRowColumn>
             <TableRowColumn> { getRecipientsList(communication.recipient)}</TableRowColumn>
             <TableRowColumn>{communication.sender.display}</TableRowColumn>
             <TableRowColumn>{communication.sent}</TableRowColumn>

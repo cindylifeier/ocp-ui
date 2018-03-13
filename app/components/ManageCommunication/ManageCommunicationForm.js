@@ -232,10 +232,9 @@ function ManageCommunicationForm(props) {
         </FormCell>
 
         <FormCell top={12} left={1} width={2}>
-          <Grid columns="1fr 1fr" gap="1vw">
+          <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
               <StyledRaisedButton
-                fullWidth
                 type="submit"
                 backgroundColor={teal500}
                 labelColor={white}
@@ -247,7 +246,6 @@ function ManageCommunicationForm(props) {
             </Cell>
             <Cell>
               <StyledFlatButton
-                fullWidth
                 type="button"
                 default
                 label={<FormattedMessage {...messages.form.cancelButton} />}

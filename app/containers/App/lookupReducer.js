@@ -174,6 +174,11 @@ function lookupReducer(state = initialState, action) {
         // Appointment Lookups - End
         .set(PROVIDER_ROLE, fromJS((action.lookups && action.lookups.providerRoles) || state.get(PROVIDER_ROLE)))
         .set(PROVIDER_SPECIALTY, fromJS((action.lookups && action.lookups.providerSpecialties) || state.get(PROVIDER_SPECIALTY)))
+        // Communication Resource lookups start
+        .set(COMMUNICATION_STATUS, fromJS((action.lookups && action.lookups.communicationStatus) || state.get(COMMUNICATION_STATUS)))
+        .set(COMMUNICATION_CATEGORY, fromJS((action.lookups && action.lookups.communicationCategory) || state.get(COMMUNICATION_CATEGORY)))
+        .set(COMMUNICATION_NOT_DONE_REASON, fromJS((action.lookups && action.lookups.communicationNotDoneReason) || state.get(COMMUNICATION_NOT_DONE_REASON)))
+        .set(COMMUNICATION_MEDIUM, fromJS((action.lookups && action.lookups.communicationMedium) || state.get(COMMUNICATION_MEDIUM)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
