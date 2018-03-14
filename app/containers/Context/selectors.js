@@ -21,17 +21,17 @@ const makeSelectContext = () => createSelector(
 
 const makeSelectPatient = () => createSelector(
   selectContextDomain,
-  (substate) => substate.get('patient').toJS(),
+  (substate) => substate.get('patient') && substate.get('patient').toJS(),
 );
 
 const makeSelectOrganization = () => createSelector(
   selectContextDomain,
-  (substate) => substate.get('organization').toJS(),
+  (substate) => substate.get('organization') && substate.get('organization').toJS(),
 );
 
 const makeSelectUser = () => createSelector(
   selectContextDomain,
-  (substate) => substate.get('user').toJS(),
+  (substate) => substate.get('user') && substate.get('user').toJS(),
 );
 
 export default makeSelectContext;
