@@ -25,7 +25,7 @@ export function Authentication(props) {
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <PrivateLayout>
+      <PrivateLayout auth={props.auth}>
         {props.children}
       </PrivateLayout> :
       <Redirect
