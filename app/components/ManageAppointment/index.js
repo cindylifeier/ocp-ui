@@ -4,16 +4,16 @@
  *
  */
 
-import ManageAppointmentForm from 'components/ManageAppointment/ManageAppointmentForm';
+import React from 'react';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import React from 'react';
-
 import { FormattedMessage } from 'react-intl';
-import mapToPatientName from 'utils/PatientUtils';
-import Util from 'utils/Util';
 import yup from 'yup';
+
+import Util from 'utils/Util';
+import { mapToPatientName } from 'utils/PatientUtils';
+import ManageAppointmentForm from './ManageAppointmentForm';
 import messages from './messages';
 
 function ManageAppointment(props) {
