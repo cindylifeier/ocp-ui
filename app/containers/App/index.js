@@ -35,6 +35,7 @@ import ManageTaskPage from 'containers/ManageTaskPage';
 import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
+import Context from 'containers/Context';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 import './styles.css';
@@ -48,7 +49,7 @@ export function App() {
       >
         <meta name="description" content="Omnibus Care Plan application" />
       </Helmet>
-      <div>
+      <Context>
         <Switch>
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
@@ -77,7 +78,7 @@ export function App() {
           <Route component={NotFoundPage} />
         </Switch>
         <Notification />
-      </div>
+      </Context>
     </div>
   );
 }
