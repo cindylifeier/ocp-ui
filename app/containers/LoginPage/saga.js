@@ -1,14 +1,14 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
+import { removeToken, storeAuthStatus, storeToken } from 'utils/tokenService';
+import { checkAuthenticated } from 'utils/auth';
+import { HOME_URL } from 'containers/App/constants';
+import { showNotification } from 'containers/Notification/actions';
+import { makeSelectLocation } from 'containers/App/selectors';
 import { getLoginErrorDetail, login } from './api';
-import { showNotification } from '../Notification/actions';
 import { loginError, loginSuccess } from './actions';
 import { LOGIN } from './constants';
-import { HOME_URL } from '../App/constants';
-import { removeToken, storeAuthStatus, storeToken } from '../../utils/tokenService';
-import { makeSelectLocation } from '../App/selectors';
-import { checkAuthenticated } from '../../utils/auth';
 
 function* loginSaga(loginAction) {
   try {
