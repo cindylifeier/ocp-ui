@@ -1,0 +1,22 @@
+/*
+ *
+ * Context constants
+ *
+ */
+
+/**
+ *  Context action types
+ *  @type {string}
+ */
+export const SET_PATIENT = 'ocpui/Context/SET_PATIENT';
+export const SET_ORGANIZATION = 'ocpui/Context/SET_ORGANIZATION';
+export const SET_USER = 'ocpui/Context/SET_USER';
+export const CLEAR_PATIENT = 'ocpui/Context/CLEAR_PATIENT';
+export const CLEAR_ORGANIZATION = 'ocpui/Context/CLEAR_ORGANIZATION';
+export const CLEAR_USER = 'ocpui/Context/CLEAR_USER';
+export const CLEAR_ALL = 'ocpui/Context/CLEAR_ALL';
+
+/**
+*  Other constants
+*
+*/
