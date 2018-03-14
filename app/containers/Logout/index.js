@@ -14,6 +14,7 @@ import ActionLogout from 'material-ui/svg-icons/action/exit-to-app';
 
 
 import injectSaga from 'utils/injectSaga';
+import { clearAll } from 'containers/Context/actions';
 import saga from './saga';
 import messages from './messages';
 import { logout } from './actions';
@@ -39,7 +40,10 @@ Logout.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onLogout: () => dispatch(logout()),
+    onLogout: () => {
+      dispatch(logout());
+      dispatch(clearAll());
+    },
   };
 }
 
