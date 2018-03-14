@@ -19,17 +19,17 @@ const makeSelectContext = () => createSelector(
   (substate) => substate.toJS(),
 );
 
-const makeSelectPatientContext = () => createSelector(
+const makeSelectPatient = () => createSelector(
   selectContextDomain,
   (substate) => substate.get('patient').toJS(),
 );
 
-const makeSelectOrganizationContext = () => createSelector(
+const makeSelectOrganization = () => createSelector(
   selectContextDomain,
   (substate) => substate.get('organization').toJS(),
 );
 
-const makeSelectUserContext = () => createSelector(
+const makeSelectUser = () => createSelector(
   selectContextDomain,
   (substate) => substate.get('user').toJS(),
 );
@@ -38,7 +38,7 @@ export default makeSelectContext;
 
 export {
   selectContextDomain,
-  makeSelectPatientContext,
-  makeSelectOrganizationContext,
-  makeSelectUserContext,
+  makeSelectPatient,
+  makeSelectOrganization,
+  makeSelectUser,
 };
