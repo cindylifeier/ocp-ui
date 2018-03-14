@@ -13,10 +13,14 @@ import HeaderContainer from './HeaderContainer';
 import ContentContainer from './ContentContainer';
 
 function PrivateLayout(props) {
+  const privateHeaderProps = {
+    auth: props.auth,
+    context: props.context,
+  };
   return (
     <LayoutGrid columns={1}>
       <HeaderContainer>
-        <PrivateHeader auth={props.auth} />
+        <PrivateHeader {...privateHeaderProps} />
       </HeaderContainer>
       <ContentContainer>
         <main>{props.children}</main>
@@ -30,6 +34,14 @@ PrivateLayout.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }),
+  context: PropTypes.shape({
+    patient: PropTypes.shape({
+      user_name: PropTypes.string,
+      user_id: PropTypes.string,
+      email: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default PrivateLayout;

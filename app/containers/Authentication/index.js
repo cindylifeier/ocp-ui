@@ -22,10 +22,23 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
+  // TODO: Will get context from props
+  const context = {
+    patient: {
+      user_name: 'ocp-test@ocpemail.com',
+      user_id: 'f6fdfa6d-ebbf-435a-8236-e6f1c6cb2edc',
+      email: 'ocp-test@ocpemail.com',
+      name: 'Test User',
+    },
+  };
+  const privateLayoutProps = {
+    auth: props.auth,
+    context,
+  };
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <PrivateLayout auth={props.auth}>
+      <PrivateLayout {...privateLayoutProps}>
         {props.children}
       </PrivateLayout> :
       <Redirect

@@ -26,7 +26,10 @@ function PrivateHeader(props) {
       {props.auth.isAuthenticated &&
       <ToolbarGroup lastChild>
         <AccountBox />
-        <strong>Care Coordinator</strong>
+        {props.context.patient.name ?
+          <strong>{props.context.patient.name}</strong> :
+          <strong>{props.context.patient.user_name}</strong>
+        }
         <Logout />
       </ToolbarGroup>
       }
@@ -38,6 +41,14 @@ PrivateHeader.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }),
+  context: PropTypes.shape({
+    patient: PropTypes.shape({
+      user_name: PropTypes.string,
+      user_id: PropTypes.string,
+      email: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default PrivateHeader;
