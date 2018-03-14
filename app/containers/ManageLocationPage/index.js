@@ -39,7 +39,8 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectLocations } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import messages from './messages';
 import { createLocation, updateLocation } from './actions';
 import { makeSelectSaveLocationError } from './selectors';

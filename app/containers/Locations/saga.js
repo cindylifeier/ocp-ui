@@ -1,9 +1,14 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import {
-  GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS, STATUS_ACTIVE, STATUS_INACTIVE,
-  STATUS_SUSPENDED } from './constants';
+  GET_ACTIVE_LOCATIONS,
+  GET_FILTERED_LOCATIONS,
+  STATUS_ACTIVE,
+  STATUS_INACTIVE,
+  STATUS_SUSPENDED,
+} from './constants';
 import { getLocationsError, getLocationsSuccess } from './actions';
-import { makeSelectIncludeInactive, makeSelectIncludeSuspended, makeSelectOrganization } from './selectors';
+import { makeSelectIncludeInactive, makeSelectIncludeSuspended } from './selectors';
 import searchLocationsByIdAndStatus from './api';
 
 /**

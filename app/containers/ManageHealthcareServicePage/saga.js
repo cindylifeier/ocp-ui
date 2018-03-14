@@ -1,19 +1,27 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import { showNotification } from '../Notification/actions';
+
+import { showNotification } from 'containers/Notification/actions';
+import { makeSelectOrganization } from 'containers/Context/selectors';
+import { HOME_URL } from 'containers/App/constants';
+import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
 import {
-  createHealthcareService, updateHealthcareService, getHealthcareServiceById, getHealthcareServiceByIdFromStore,
+  createHealthcareService,
+  getHealthcareServiceById,
+  getHealthcareServiceByIdFromStore,
+  updateHealthcareService,
 } from './api';
 import {
-  createHealthcareServiceSuccess, createHealthcareServiceError, updateHealthcareServiceError,
-  updateHealthcareServiceSuccess, getHealthcareServiceByIdSuccess,
+  createHealthcareServiceError,
+  createHealthcareServiceSuccess,
   getHealthcareServiceByIdError,
+  getHealthcareServiceByIdSuccess,
+  updateHealthcareServiceError,
+  updateHealthcareServiceSuccess,
 } from './actions';
-import { makeSelectOrganization } from '../Locations/selectors';
-import { GET_HEALTHCARE_SERVICE, CREATE_HEALTHCARE_SERVICE, UPDATE_HEALTHCARE_SERVICE } from './constants';
-import { HOME_URL } from '../App/constants';
-import { makeSelectHealthcareServices } from '../HealthcareServices/selectors';
+
+import { CREATE_HEALTHCARE_SERVICE, GET_HEALTHCARE_SERVICE, UPDATE_HEALTHCARE_SERVICE } from './constants';
 
 function* createHealthcareServiceSaga(action) {
   try {

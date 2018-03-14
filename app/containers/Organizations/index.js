@@ -24,9 +24,9 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import { getActiveLocations } from 'containers/Locations/actions';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
 import { getHealthcareServicesByOrganization } from 'containers/HealthcareServices/actions';
+import { setOrganization } from 'containers/Context/actions';
 import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -48,7 +48,7 @@ export class Organizations extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeOrganizations();
   }
 
@@ -57,9 +57,10 @@ export class Organizations extends React.PureComponent {
     this.props.getOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
   }
 
-  handleRowClick({ id, name }) {
+  handleRowClick(organization) {
+    this.props.setOrganization(organization);
+    const { id, name } = organization;
     const currentPage = 1;
-    this.props.getActiveLocations(id, name, currentPage);
     this.props.getHealthcareServicesByOrganization(id, name, currentPage);
   }
 
@@ -109,8 +110,8 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
+  setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
-  getActiveLocations: PropTypes.func.isRequired,
   getHealthcareServicesByOrganization: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalNumberOfPages: PropTypes.number.isRequired,
@@ -130,8 +131,8 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
     getOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(getOrganizations(searchValue, showInactive, searchType, currentPage)),
-    getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
     getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage)),
+    setOrganization: (organization) => dispatch(setOrganization(organization)),
   };
 }
 

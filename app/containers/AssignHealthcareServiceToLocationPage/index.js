@@ -29,7 +29,8 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import H3 from 'components/H3';
 import InfoSection from 'components/InfoSection';
-import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectLocations } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,

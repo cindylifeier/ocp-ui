@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 import MenuItem from 'material-ui/MenuItem';
 
 import injectSaga from 'utils/injectSaga';
@@ -32,18 +33,18 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import {
   makeSelectCurrentPage,
   makeSelectIncludeInactive,
   makeSelectIncludeSuspended,
   makeSelectLocations,
-  makeSelectOrganization,
   makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getFilteredLocations, initializeLocations } from './actions';
+import { getActiveLocations, getFilteredLocations, initializeLocations } from './actions';
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
@@ -62,6 +63,18 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   componentDidMount() {
     this.props.initializeLocations();
+    const { organization } = this.props;
+    if (organization) {
+      this.props.getActiveLocations(1);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization)) {
+      this.props.getActiveLocations(1);
+    }
   }
 
   handleRowClick(locationLogicalId, locationName) {
@@ -208,6 +221,7 @@ Locations.propTypes = {
   onChangePage: PropTypes.func.isRequired,
   initializeLocations: PropTypes.func.isRequired,
   getHealthcareServicesByLocation: PropTypes.func.isRequired,
+  getActiveLocations: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
@@ -238,6 +252,7 @@ function mapDispatchToProps(dispatch) {
     onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
     initializeLocations: () => dispatch(initializeLocations()),
     getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName) => dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName)),
+    getActiveLocations: (currentPage) => dispatch(getActiveLocations(currentPage)),
   };
 }
 

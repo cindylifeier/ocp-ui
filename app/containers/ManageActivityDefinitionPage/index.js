@@ -27,7 +27,7 @@ import {
   RELATED_ARTIFACT_TYPE,
   RESOURCE_TYPE,
 } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import { createActivityDefinition } from 'containers/ManageActivityDefinitionPage/actions';
 import {
   makeSelectActionParticipantRoles,

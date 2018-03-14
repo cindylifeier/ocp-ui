@@ -16,13 +16,7 @@ const selectLocationsDomain = (state) => state.get('locations');
 
 const makeSelectLocations = () => createSelector(
   selectLocationsDomain,
-  (substate) => substate.get('data').toJS()
-);
-
-
-const makeSelectOrganization = () => createSelector(
-  selectLocationsDomain,
-  (substate) => substate.get('organization'),
+  (substate) => substate.get('data').toJS(),
 );
 
 const makeSelectCurrentPage = () => createSelector(
@@ -49,7 +43,6 @@ const makeSelectIncludeSuspended = () => createSelector(
 export {
   makeSelectLocations,
   selectLocationsDomain,
-  makeSelectOrganization,
   makeSelectCurrentPage,
   makeSelectTotalNumberOfPages,
   makeSelectIncludeInactive,
