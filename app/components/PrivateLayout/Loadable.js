@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Layout
+ * Asynchronously loads the component for PrivateLayout
  *
  */
 

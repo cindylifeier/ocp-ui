@@ -10,10 +10,11 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import makeSelectAuth from '../App/authSelectors';
-import { LOGIN_URL } from '../App/constants';
-import { isTokenExpired, removeToken, retrieveToken } from '../../utils/tokenService';
-import Layout from '../../components/Layout';
+
+import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
+import makeSelectAuth from 'containers/App/authSelectors';
+import { LOGIN_URL } from 'containers/App/constants';
+import PrivateLayout from 'components/PrivateLayout';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
@@ -24,9 +25,9 @@ export function Authentication(props) {
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <Layout>
+      <PrivateLayout>
         {props.children}
-      </Layout> :
+      </PrivateLayout> :
       <Redirect
         to={{
           pathname: LOGIN_URL,
