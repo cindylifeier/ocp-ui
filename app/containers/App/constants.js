@@ -96,6 +96,7 @@ export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
  * @type {string}
  */
 export const LOGIN_URL = '/ocp-ui/login';
+export const WORKSPACE_SELECTION_URL = '/ocp-ui/workspace-selection';
 export const HOME_URL = '/ocp-ui/home';
 export const PATIENTS_URL = '/ocp-ui/patients';
 export const CARE_COORDINATOR_URL = '/ocp-ui/care-coordinator';

@@ -12,6 +12,7 @@
  */
 
 import Authentication from 'containers/Authentication';
+import WorkspaceSelectionPage from 'containers/WorkspaceSelectionPage';
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import ManageAppointmentPage from 'containers/ManageAppointmentPage';
@@ -55,6 +56,7 @@ export function App() {
           <Route path="/ocp-ui/login" component={LoginPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
+            <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
             <Route path="/ocp-ui/home" component={HomePage} />
             <Route exact path="/ocp-ui/patients" component={PatientsPage} />
             <Route exact path="/ocp-ui/care-coordinator" component={CareCoordinatorPage} />
