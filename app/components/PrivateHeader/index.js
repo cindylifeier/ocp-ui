@@ -9,6 +9,9 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { ToolbarGroup } from 'material-ui/Toolbar';
 import AccountBox from 'material-ui/svg-icons/action/account-box';
+import FlatButton from 'material-ui/FlatButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
 
 import Logout from 'containers/Logout';
 import StyledBrandImage from 'components/StyledBrandImage';
@@ -17,24 +20,62 @@ import PrivateHeaderToolbar from './PrivateHeaderToolbar';
 import messages from './messages';
 
 
-function PrivateHeader(props) {
-  return (
-    <PrivateHeaderToolbar>
-      <ToolbarGroup firstChild>
-        <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
-      </ToolbarGroup>
-      {props.auth.isAuthenticated &&
-      <ToolbarGroup lastChild>
-        <AccountBox />
-        {props.context.patient.name ?
-          <strong>{props.context.patient.name}</strong> :
-          <strong>{props.context.patient.user_name}</strong>
+class PrivateHeader extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+  }
+
+  getUserProfileName() {
+    return this.props.context.patient.name ? this.props.context.patient.name : this.props.context.patient.user_name;
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    this.setState({
+      isOpen: true,
+      anchorEl: event.currentTarget,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({ isOpen: false });
+  }
+
+  render() {
+    const { auth } = this.props;
+    return (
+      <PrivateHeaderToolbar>
+        <ToolbarGroup firstChild>
+          <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
+        </ToolbarGroup>
+        {auth.isAuthenticated &&
+        <ToolbarGroup lastChild>
+          <FlatButton
+            label={this.getUserProfileName()}
+            icon={<AccountBox />}
+            onClick={this.handleClick}
+          />
+        </ToolbarGroup>
         }
-        <Logout />
-      </ToolbarGroup>
-      }
-    </PrivateHeaderToolbar>
-  );
+        <Popover
+          open={this.state.isOpen}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+          onRequestClose={this.handleRequestClose}
+        >
+          <Menu>
+            <Logout />
+          </Menu>
+        </Popover>
+      </PrivateHeaderToolbar>
+    );
+  }
 }
 
 PrivateHeader.propTypes = {
