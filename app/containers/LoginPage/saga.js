@@ -1,11 +1,13 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import jwt from 'jsonwebtoken';
 
 import { removeToken, storeAuthStatus, storeToken } from 'utils/tokenService';
 import { checkAuthenticated } from 'utils/auth';
 import { HOME_URL } from 'containers/App/constants';
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectLocation } from 'containers/App/selectors';
+import { setUser } from 'containers/Context/actions';
 import { getLoginErrorDetail, login } from './api';
 import { loginError, loginSuccess } from './actions';
 import { LOGIN } from './constants';
@@ -13,6 +15,8 @@ import { LOGIN } from './constants';
 function* loginSaga(loginAction) {
   try {
     const authData = yield call(login, loginAction.loginCredentials);
+    const { user_id, user_name, email, scope } = yield call(jwt.decode, authData.access_token);
+    yield put(setUser({ user_id, user_name, email, scope }));
     yield call(storeToken, authData);
     yield call(storeAuthStatus, true);
     const isAuthenticated = yield call(checkAuthenticated);
