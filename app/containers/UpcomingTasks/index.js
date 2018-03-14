@@ -10,17 +10,20 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
+import { getPatient } from 'containers/App/actions';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
-import isEmpty from 'lodash/isEmpty';
 import UpcomingTasksTable from 'components/UpcomingTasksTable';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
+import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import { makeSelectUpcomingTasks, makeSelectUpcomingTasksLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -32,11 +35,28 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
     this.state = {
       practitionerId: 1961,
       /* practitionerId: 1377,*/
+      isPatientModalOpen: false,
     };
+    this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
+    this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
   }
+
   componentWillMount() {
     this.props.initializeUpcomingTasks();
     this.props.getUpcomingTasks(this.state.practitionerId);
+  }
+
+  handlePatientViewDetailsClick(patientId) {
+    this.setState({ isPatientModalOpen: true });
+    this.props.getPatient(patientId);
+  }
+
+  handlePatientModalOpen() {
+    this.setState({ isPatientModalOpen: true });
+  }
+
+  handlePatientModalClose() {
+    this.setState({ isPatientModalOpen: false });
   }
 
   render() {
@@ -54,10 +74,20 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
         {!isEmpty(data) && !isEmpty(data) &&
         <div>
           <CenterAlign>
-            <UpcomingTasksTable elements={data} loginPractitonerId={practitionerId} />
+            <UpcomingTasksTable
+              elements={data}
+              loginPractitonerId={practitionerId}
+              onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+            />
           </CenterAlign>
         </div>
         }
+        {this.props.selectedPatient &&
+        <ConfirmPatientModal
+          selectedPatient={this.props.selectedPatient}
+          isPatientModalOpen={this.state.isPatientModalOpen}
+          onPatientModalClose={this.handlePatientModalClose}
+        />}
       </Card>
     );
   }
@@ -69,17 +99,24 @@ UpcomingTasks.propTypes = {
   practitionerId: PropTypes.string,
   initializeUpcomingTasks: PropTypes.func.isRequired,
   getUpcomingTasks: PropTypes.func.isRequired,
+  getPatient: PropTypes.func.isRequired,
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectUpcomingTasksLoading(),
   data: makeSelectUpcomingTasks(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeUpcomingTasks: () => dispatch(initializeUpcomingTasks()),
     getUpcomingTasks: (practitionerId) => dispatch(getUpcomingTasks(practitionerId)),
+    getPatient: (patientId) => dispatch(getPatient(patientId)),
   };
 }
 

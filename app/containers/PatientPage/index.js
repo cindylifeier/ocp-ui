@@ -130,7 +130,7 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  // TODO: will replace with Communication and Appointments render component
+  // TODO: will replace with Communication render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
 ];
@@ -146,7 +146,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
       const selectedPatientName = mapToPatientName(this.props.selectedPatient);
       // TODO: Resolve delay issue
       // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
-      setTimeout(() => this.props.getTasks(query, selectedPatientName), 500);
+      setTimeout(() => this.props.getTasks(query, selectedPatientName, patientId), 500);
     }
   }
 
@@ -201,7 +201,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getPatient: (patientId) => dispatch(getPatient(patientId)),
-    getTasks: (query, patientName) => dispatch(getTasks(query, patientName)),
+    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
   };
 }
 
