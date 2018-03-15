@@ -55,7 +55,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 />}
               />
               <MenuItem
-                primaryText={<FormattedMessage {...messages.createCommunication} />}
+                primaryText={<FormattedMessage {...messages.addCommunication} />}
                 containerElement={<Link
                   to={{
                     pathname: `${MANAGE_COMMUNICATION_URL}`,
