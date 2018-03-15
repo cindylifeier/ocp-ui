@@ -38,9 +38,9 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.editTask',
     defaultMessage: 'Edit',
   },
-  createCommunication: {
-    id: 'ocpui.components.TaskTable.createCommunication',
-    defaultMessage: 'Create Communication',
+  addCommunication: {
+    id: 'ocpui.components.TaskTable.addCommunication',
+    defaultMessage: 'Add Communication',
   },
   cancelTask: {
     id: 'ocpui.components.TaskTable.cancelTask',
