@@ -1,6 +1,6 @@
 
 import { fromJS } from 'immutable';
-import contextReducer from '../reducer';
+import contextReducer from '../contextReducer';
 
 describe('contextReducer', () => {
   it('returns the initial state', () => {

@@ -30,7 +30,7 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import H3 from 'components/H3';
 import InfoSection from 'components/InfoSection';
 import { makeSelectLocations } from 'containers/Locations/selectors';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,

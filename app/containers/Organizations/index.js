@@ -25,7 +25,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
-import { setOrganization } from 'containers/Context/actions';
+import { setOrganization } from 'containers/App/contextActions';
 import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
 import reducer from './reducer';
 import saga from './saga';

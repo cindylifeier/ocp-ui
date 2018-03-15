@@ -3,7 +3,7 @@ import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
 import { CREATE_ACTIVITY_DEFINITION } from 'containers/ManageActivityDefinitionPage/constants';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { createActivityDefinition } from './api';
 import { createActivityDefinitionError, createActivityDefinitionSuccess } from './actions';
 

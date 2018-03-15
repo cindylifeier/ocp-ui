@@ -1,4 +1,4 @@
-import { clearAll, clearOrganization, clearPatient, clearUser, setOrganization, setPatient, setUser } from '../actions';
+import { clearAll, clearOrganization, clearPatient, clearUser, setOrganization, setPatient, setUser } from '../contextActions';
 import {
   CLEAR_ALL,
   CLEAR_ORGANIZATION,
@@ -7,7 +7,7 @@ import {
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
-} from '../constants';
+} from '../contextConstants';
 
 describe('Context actions', () => {
   describe('setPatient Action', () => {

@@ -3,7 +3,7 @@ import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from 'containers/Notification/actions';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { HOME_URL } from 'containers/App/constants';
 import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
 import {

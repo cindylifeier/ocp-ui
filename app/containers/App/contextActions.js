@@ -12,7 +12,7 @@ import {
   CLEAR_ORGANIZATION,
   CLEAR_USER,
   CLEAR_ALL,
-} from './constants';
+} from './contextConstants';
 
 export function setPatient(patient) {
   return {

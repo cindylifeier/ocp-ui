@@ -1,7 +1,7 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   GET_HEALTHCARE_SERVICES_BY_LOCATION,
   GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,

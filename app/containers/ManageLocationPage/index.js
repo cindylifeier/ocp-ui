@@ -40,7 +40,7 @@ import {
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import { makeSelectLocations } from 'containers/Locations/selectors';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import messages from './messages';
 import { createLocation, updateLocation } from './actions';
 import { makeSelectSaveLocationError } from './selectors';

@@ -33,7 +33,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
-import { makeSelectOrganization } from 'containers/Context/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectIncludeInactive,

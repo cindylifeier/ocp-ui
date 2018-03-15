@@ -14,7 +14,7 @@ import ActionLogout from 'material-ui/svg-icons/action/exit-to-app';
 
 
 import injectSaga from 'utils/injectSaga';
-import { clearAll } from 'containers/Context/actions';
+import { clearAll } from 'containers/App/contextActions';
 import saga from './saga';
 import messages from './messages';
 import { logout } from './actions';
