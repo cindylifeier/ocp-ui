@@ -223,39 +223,15 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
             </Step>
           </Stepper>
           <StepContent>
-            {finished ? (
-              <div>
-                <p><strong>Role:</strong> {this.state.roleValue}</p>
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Reset"
-                      secondary
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label="Continue"
-                      primary
-                      onClick={this.handleNavigateTo}
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            ) : (
-              <div>
-                {this.getAdminStepContent(stepIndex)}
-                <RaisedButton
-                  label={'Next'}
-                  primary
-                  onClick={this.handleNext}
-                />
-              </div>
-            )}
+            <div>
+              {this.getAdminStepContent(stepIndex)}
+              <p><strong>Role:</strong> {this.state.roleValue}</p>
+              <RaisedButton
+                label="Continue"
+                primary
+                onClick={this.handleNavigateTo}
+              />
+            </div>
           </StepContent>
         </StepperSection>
       </div>
@@ -450,7 +426,12 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                     <RaisedButton
                       label={stepIndex === 1 ? 'Finish' : 'Next'}
                       primary
-                      onClick={this.handleNext}
+                      onClick={() => {
+                        this.setState({
+                          stepIndex: stepIndex + 1,
+                          finished: stepIndex >= 1,
+                        });
+                      }}
                     />
                   </Cell>
                 </Grid>
