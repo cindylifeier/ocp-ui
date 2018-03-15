@@ -31,7 +31,7 @@ class PrivateHeader extends React.PureComponent {
   }
 
   getUserProfileName() {
-    return this.props.context.patient.name ? this.props.context.patient.name : this.props.context.patient.user_name;
+    return this.props.context.user.name ? this.props.context.user.name : this.props.context.user.user_name;
   }
 
   handleClick(event) {
@@ -77,7 +77,7 @@ class PrivateHeader extends React.PureComponent {
 
 PrivateHeader.propTypes = {
   context: PropTypes.shape({
-    patient: PropTypes.shape({
+    user: PropTypes.shape({
       user_name: PropTypes.string,
       user_id: PropTypes.string,
       email: PropTypes.string,

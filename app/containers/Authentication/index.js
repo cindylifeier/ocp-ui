@@ -24,7 +24,7 @@ export function Authentication(props) {
   }
   // TODO: Will get context from props
   const context = {
-    patient: {
+    user: {
       user_name: 'ocp-test@ocpemail.com',
       user_id: 'f6fdfa6d-ebbf-435a-8236-e6f1c6cb2edc',
       email: 'ocp-test@ocpemail.com',

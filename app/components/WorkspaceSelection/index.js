@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Step, StepLabel, Stepper } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -35,6 +34,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.handleRoleChange = this.handleRoleChange.bind(this);
     this.handleOrganizationChange = this.handleOrganizationChange.bind(this);
     this.handleCareManagerChange = this.handleCareManagerChange.bind(this);
+    this.handleNavigateTo = this.handleNavigateTo.bind(this);
   }
 
   getStepContent(stepIndex) {
@@ -47,11 +47,11 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               value={this.state.roleValue}
               onChange={this.handleRoleChange}
             >
-              <MenuItem value={1} primaryText={OCP_ADMIN} />
-              <MenuItem value={2} primaryText={CARE_MANAGER} />
-              <MenuItem value={3} primaryText={CARE_COORDINATOR} />
-              <MenuItem value={4} primaryText={PATIENT} />
-              <MenuItem value={5} primaryText={PCP} />
+              <MenuItem value={OCP_ADMIN} primaryText={OCP_ADMIN} />
+              <MenuItem value={CARE_MANAGER} primaryText={CARE_MANAGER} />
+              <MenuItem value={CARE_COORDINATOR} primaryText={CARE_COORDINATOR} />
+              <MenuItem value={PATIENT} primaryText={PATIENT} />
+              <MenuItem value={PCP} primaryText={PCP} />
             </SelectField>
           </div>
         );
@@ -119,9 +119,13 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.setState({ careManagerValue: value });
   }
 
+  handleNavigateTo() {
+    const linkTo = getLinkTo(this.state.roleValue);
+    this.props.history.push(linkTo);
+  }
+
   render() {
     const { finished, stepIndex } = this.state;
-    const { context } = this.props;
     return (
       <div>
         <StepperSection>
@@ -157,7 +161,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                     <RaisedButton
                       label="Continue"
                       primary
-                      containerElement={<Link to={getLinkTo(context.role)} />}
+                      onClick={this.handleNavigateTo}
                     />
                   </Cell>
                 </Grid>
@@ -191,8 +195,8 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 }
 
 WorkspaceSelection.propTypes = {
-  context: PropTypes.shape({
-    role: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }),
 };
 
