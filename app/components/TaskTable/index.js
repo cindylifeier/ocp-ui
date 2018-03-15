@@ -17,7 +17,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { MANAGE_TASK_URL } from 'containers/App/constants';
+import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
@@ -51,6 +51,15 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                   to={{
                     pathname: `${MANAGE_TASK_URL}/${logicalId}`,
                     search: `?patientId=${selectedPatientId}`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.createCommunication} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${MANAGE_COMMUNICATION_URL}`,
+                    search: `?patientId=${selectedPatientId}&taskId=${logicalId}`,
                   }}
                 />}
               />
