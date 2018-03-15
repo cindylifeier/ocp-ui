@@ -25,7 +25,6 @@ import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
-import { getHealthcareServicesByOrganization } from 'containers/HealthcareServices/actions';
 import { setOrganization } from 'containers/Context/actions';
 import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
 import reducer from './reducer';
@@ -59,9 +58,6 @@ export class Organizations extends React.PureComponent {
 
   handleRowClick(organization) {
     this.props.setOrganization(organization);
-    const { id, name } = organization;
-    const currentPage = 1;
-    this.props.getHealthcareServicesByOrganization(id, name, currentPage);
   }
 
   handlePageClick(currentPage) {
@@ -112,7 +108,6 @@ Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
   setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
-  getHealthcareServicesByOrganization: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
@@ -131,7 +126,6 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
     getOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(getOrganizations(searchValue, showInactive, searchType, currentPage)),
-    getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),
   };
 }

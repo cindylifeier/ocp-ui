@@ -1,13 +1,15 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+
+import { showNotification } from 'containers/Notification/actions';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import {
   GET_HEALTHCARE_SERVICES_BY_LOCATION,
   GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
   STATUS_ACTIVE,
   STATUS_INACTIVE,
 } from './constants';
-import { showNotification } from '../Notification/actions';
 import { getHealthcareServicesByLocation, getHealthcareServicesByOrganization } from './api';
-import { makeSelectIncludeInactive, makeSelectLocation, makeSelectOrganization } from './selectors';
+import { makeSelectIncludeInactive, makeSelectLocation } from './selectors';
 import { getHealthcareServicesError, getHealthcareServicesSuccess } from './actions';
 
 export function* getHealthcareServicesByOrganizationSaga(action) {

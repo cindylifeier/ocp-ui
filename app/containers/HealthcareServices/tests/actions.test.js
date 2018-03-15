@@ -31,20 +31,16 @@ describe('HealthcareServices actions', () => {
   describe('Get Healthcare Services by Organization Action', () => {
     it('has a type of GET_HEALTHCARE_SERVICES_BY_ORGANIZATION', () => {
       // Arrange
-      const organizationId = 'organizationId';
-      const organizationName = 'organizationName';
       const currentPage = 1;
       const includeInactive = true;
       const expected = {
         type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
-        organizationId,
-        organizationName,
         currentPage,
         includeInactive,
       };
 
       // Act
-      const action = getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive);
+      const action = getHealthcareServicesByOrganization(currentPage, includeInactive);
 
       // Assert
       expect(action).toEqual(expected);
@@ -54,16 +50,12 @@ describe('HealthcareServices actions', () => {
   describe('Get Healthcare Services by Location Action', () => {
     it('has a type of GET_HEALTHCARE_SERVICES_BY_LOCATION', () => {
       // Arrange
-      const organizationId = 'organizationId';
-      const organizationName = 'organizationName';
       const locationId = 'locationId';
       const locationName = 'locationName';
       const currentPage = 1;
       const includeInactive = true;
       const expected = {
         type: GET_HEALTHCARE_SERVICES_BY_LOCATION,
-        organizationId,
-        organizationName,
         locationId,
         locationName,
         currentPage,
@@ -71,7 +63,7 @@ describe('HealthcareServices actions', () => {
       };
 
       // Act
-      const action = getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage, includeInactive);
+      const action = getHealthcareServicesByLocation(locationId, locationName, currentPage, includeInactive);
 
       // Assert
       expect(action).toEqual(expected);

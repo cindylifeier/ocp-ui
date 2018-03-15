@@ -78,8 +78,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   }
 
   handleRowClick(locationLogicalId, locationName) {
-    const { organization: { id, name } } = this.props;
-    this.props.getHealthcareServicesByLocation(id, name, locationLogicalId, locationName);
+    this.props.getHealthcareServicesByLocation(locationLogicalId, locationName);
   }
 
   handleIncludeInactive(event, checked) {

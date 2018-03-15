@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 import { Cell } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
@@ -28,6 +29,7 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import { makeSelectOrganization } from 'containers/Context/selectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import {
   getHealthcareServicesByLocation,
@@ -39,7 +41,6 @@ import {
   makeSelectHealthcareServices,
   makeSelectIncludeInactive,
   makeSelectLocation,
-  makeSelectOrganization,
   makeSelectQueryError,
   makeSelectQueryLoading,
   makeSelectTotalNumberOfPages,
@@ -60,8 +61,20 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeHealthcareServices();
+    const { organization } = this.props;
+    if (organization) {
+      this.props.getHealthcareServicesByOrganization(1);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization)) {
+      this.props.getHealthcareServicesByOrganization(1);
+    }
   }
 
   handlePageClick(currentPage) {
@@ -179,8 +192,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
-    getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage, includeInactive) =>
-      dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
+    getHealthcareServicesByOrganization: (currentPage, includeInactive) =>
+      dispatch(getHealthcareServicesByOrganization(currentPage, includeInactive)),
     getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName, currentPage, includeInactive) =>
       dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage, includeInactive)),
   };

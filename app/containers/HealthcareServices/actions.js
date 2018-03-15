@@ -18,21 +18,17 @@ export function initializeHealthcareServices() {
   };
 }
 
-export function getHealthcareServicesByOrganization(organizationId, organizationName, currentPage = 1, includeInactive = false) {
+export function getHealthcareServicesByOrganization(currentPage = 1, includeInactive = false) {
   return {
     type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
-    organizationId,
-    organizationName,
     currentPage,
     includeInactive,
   };
 }
 
-export function getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage = 1, includeInactive = false) {
+export function getHealthcareServicesByLocation(locationId, locationName, currentPage = 1, includeInactive = false) {
   return {
     type: GET_HEALTHCARE_SERVICES_BY_LOCATION,
-    organizationId,
-    organizationName,
     locationId,
     locationName,
     currentPage,
