@@ -18,7 +18,7 @@ import { FormattedMessage } from 'react-intl';
 import { PATIENT, PRACTITIONER } from 'components/ManageCommunication/constants';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
-import { TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH, TEXT_MIN_LENGTH } from '../../containers/App/constants';
+import { TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from '../../containers/App/constants';
 
 function ManageCommunication(props) {
   const {
@@ -50,7 +50,6 @@ function ManageCommunication(props) {
     practitioner,
     initialSelectedRecipients,
   };
-  const minimumLength = TEXT_MIN_LENGTH;
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
   return (
@@ -73,25 +72,20 @@ function ManageCommunication(props) {
       validationSchema={
         yup.object().shape({
           statusCode: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
           notDone: yup.boolean()
-          .required((<FormattedMessage {...messages.validation.required} />)),
-          notDoneReasonCode: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
           categoryCode: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
           mediumCode: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
           sent: yup.date()
-          .required((<FormattedMessage {...messages.validation.required} />))
-          .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
-          sender: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />))
-          .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
           payloadContent: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />))
-          .max(textAreaMaxLength, (<FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
-          .min(textAreaMinLength, (<FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .max(textAreaMaxLength, (<FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
+            .min(textAreaMinLength, (<FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
         })
       }
       render={(formikProps) => <ManageCommunicationForm {...formikProps} {...propsFromContainer} />}

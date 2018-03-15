@@ -123,5 +123,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageCommunication.manageForm.validation.minStartDate',
       defaultMessage: 'Sent date field must be later than today',
     },
+    noRecipients: {
+      id: 'ocpui.components.ManageCareTeam.manageForm.validation.noRecipients',
+      defaultMessage: 'At least one Recipient must be selected',
+    },
   },
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import Util from 'utils/Util';
+import ErrorText from 'components/ErrorText/index';
 import Link from 'react-router-dom/es/Link';
 import { RaisedButton } from 'material-ui';
 import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
@@ -17,7 +18,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn/index';
 import TableRowColumn from 'components/TableRowColumn/index';
 import TableRow from 'components/TableRow/index';
 import { getRoleName } from 'utils/CommunicationUtils';
-// import { getPatientName } from 'utils/PatientUtils';
+import isEmpty from 'lodash/isEmpty';
 import messages from './messages';
 import FormGrid from '../FormGrid';
 import FormCell from '../FormCell';
@@ -27,6 +28,7 @@ import StyledFlatButton from '../StyledFlatButton/index';
 import TextField from '../TextField';
 import DatePicker from '../DatePicker';
 import SelectField from '../SelectField/index';
+
 
 function ManageCommunicationForm(props) {
   const today = new Date();
@@ -45,6 +47,7 @@ function ManageCommunicationForm(props) {
     selectedPatient,
     initialSelectedRecipients,
   } = props;
+  const hasRecipients = !isEmpty(selectedRecipients);
   const handleRemoveSelectedRecipient = (check, reference) => {
     handleRemoveRecipient(check, reference);
   };
@@ -229,6 +232,11 @@ function ManageCommunicationForm(props) {
               {createRecipientTableRows()}
             </Table>
           }
+          {!hasRecipients &&
+          <ErrorText>{hasRecipients ?
+            '' : <FormattedMessage {...messages.validation.noRecipients} />}
+          </ErrorText>
+          }
         </FormCell>
 
         <FormCell top={12} left={1} width={2}>
@@ -241,7 +249,7 @@ function ManageCommunicationForm(props) {
                 label={isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid}
+                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
               />
             </Cell>
             <Cell>
@@ -278,14 +286,12 @@ ManageCommunicationForm.propTypes = {
 
 export default ManageCommunicationForm;
 
-
 function isDirty(dirty, selectedRecipients, initialSelectedRecipients) {
-  let isFormDirty = false;
+  let isFormDirty = dirty;
   const identityOfArray = 'reference';
   if (!Util.isUnorderedArraysEqual(selectedRecipients, initialSelectedRecipients, identityOfArray)) {
     isFormDirty = true;
   }
-
   return isFormDirty;
 }
 
