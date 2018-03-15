@@ -20,7 +20,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { HOME_URL } from 'containers/App/constants';
+import { CARE_COORDINATOR, CARE_MANAGER, HOME_URL, OCP_ADMIN, PATIENT, PCP } from 'containers/App/constants';
 import makeSelectWorkspaceSelectionPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -54,11 +54,11 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
               value={this.state.roleValue}
               onChange={this.handleRoleChange}
             >
-              <MenuItem value={1} primaryText="OCP Admin" />
-              <MenuItem value={2} primaryText="Care Manager" />
-              <MenuItem value={3} primaryText="Care Coordinator" />
-              <MenuItem value={4} primaryText="Patient" />
-              <MenuItem value={5} primaryText="PCP" />
+              <MenuItem value={1} primaryText={OCP_ADMIN} />
+              <MenuItem value={2} primaryText={CARE_MANAGER} />
+              <MenuItem value={3} primaryText={CARE_COORDINATOR} />
+              <MenuItem value={4} primaryText={PATIENT} />
+              <MenuItem value={5} primaryText={PCP} />
             </SelectField>
           </div>
         );

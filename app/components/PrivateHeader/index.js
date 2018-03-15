@@ -47,13 +47,11 @@ class PrivateHeader extends React.PureComponent {
   }
 
   render() {
-    const { auth } = this.props;
     return (
       <PrivateHeaderToolbar>
         <ToolbarGroup firstChild>
           <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
         </ToolbarGroup>
-        {auth.isAuthenticated &&
         <ToolbarGroup lastChild>
           <FlatButton
             label={this.getUserProfileName()}
@@ -61,7 +59,6 @@ class PrivateHeader extends React.PureComponent {
             onClick={this.handleClick}
           />
         </ToolbarGroup>
-        }
         <Popover
           open={this.state.isOpen}
           anchorEl={this.state.anchorEl}
@@ -79,9 +76,6 @@ class PrivateHeader extends React.PureComponent {
 }
 
 PrivateHeader.propTypes = {
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired,
-  }),
   context: PropTypes.shape({
     patient: PropTypes.shape({
       user_name: PropTypes.string,

@@ -6,21 +6,29 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Cell } from 'styled-css-grid';
 
 import PrivateHeader from 'components/PrivateHeader';
+import PrivateNavigation from 'components/PrivateNavigation';
 import LayoutGrid from './LayoutGrid';
+import HeaderGrid from './HeaderGrid';
 import HeaderContainer from './HeaderContainer';
 import ContentContainer from './ContentContainer';
 
 function PrivateLayout(props) {
-  const privateHeaderProps = {
-    auth: props.auth,
-    context: props.context,
-  };
   return (
     <LayoutGrid columns={1}>
       <HeaderContainer>
-        <PrivateHeader {...privateHeaderProps} />
+        <HeaderGrid columns={1}>
+          <Cell>
+            <PrivateHeader context={props.context} />
+          </Cell>
+          {props.context.role &&
+          <Cell>
+            <PrivateNavigation context={props.context} />
+          </Cell>
+          }
+        </HeaderGrid>
       </HeaderContainer>
       <ContentContainer>
         <main>{props.children}</main>
@@ -31,10 +39,8 @@ function PrivateLayout(props) {
 
 PrivateLayout.propTypes = {
   children: PropTypes.node,
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool.isRequired,
-  }),
   context: PropTypes.shape({
+    role: PropTypes.string,
     patient: PropTypes.shape({
       user_name: PropTypes.string,
       user_id: PropTypes.string,

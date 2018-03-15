@@ -10,7 +10,6 @@ import { Toolbar } from 'material-ui/Toolbar';
 const PrivateHeaderToolbar = styled(Toolbar).attrs({
   style: {
     backgroundColor: '#fafafa',
-    marginRight: '10px',
   },
 })('');
 

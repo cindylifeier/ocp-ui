@@ -109,6 +109,16 @@ export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
 
 /**
+ *  Constants to hold the workspace roles
+ * @type {string}
+ */
+export const OCP_ADMIN = 'OCP Admin';
+export const CARE_MANAGER = 'Care Manager';
+export const CARE_COORDINATOR = 'Care Coordinator';
+export const PATIENT = 'Patient';
+export const PCP = 'PCP';
+
+/**
  *  Constants to hold the default pagination page size and start page number
  * @type {number}
  */

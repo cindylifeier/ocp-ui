@@ -32,7 +32,6 @@ export function Authentication(props) {
     },
   };
   const privateLayoutProps = {
-    auth: props.auth,
     context,
   };
   return (
