@@ -95,6 +95,7 @@ export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
  *  Constants to hold the internal urls
  * @type {string}
  */
+  // TODO: Rename url to page
 export const LOGIN_URL = '/ocp-ui/login';
 export const WORKSPACE_SELECTION_URL = '/ocp-ui/workspace-selection';
 export const HOME_URL = '/ocp-ui/home';
