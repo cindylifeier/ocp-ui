@@ -11,6 +11,7 @@ import {
   INITIALIZE_SEARCH_RECIPIENT_RESULT, REMOVE_RECIPIENT, SET_SELECT_RECIPIENT_STATUS, INITIALIZE_LIST_OF_RECIPIENTS,
   SET_SELECTED_RECIPIENTS,
 } from 'containers/SearchRecipient/constants';
+import Utils from 'utils/Util';
 
 const initialState = fromJS({
   recipients: [],
@@ -30,8 +31,7 @@ function searchRecipientReducer(state = initialState, action) {
       return state
         .set('selectedRecipients', fromJS(action.selectedRecipients));
     case GET_RECIPIENTS_SUCCESS: {
-      const selectedRecipients = state.get('selectedRecipients');
-      const selectedRecipientsAsArray = selectedRecipients.toJS();
+      const selectedRecipientsAsArray = Utils.getFromState(state, 'selectedRecipients');
       const recipients = action.recipients;
       if (selectedRecipientsAsArray.length > 0) {
         for (let j = 0; j < recipients.length; j += 1) {
@@ -52,8 +52,7 @@ function searchRecipientReducer(state = initialState, action) {
       return state
         .set('recipients', fromJS([]));
     case ADD_RECIPIENT: {
-      const recipients = state.get('recipients');
-      const recipientsAsArray = recipients.toJS();
+      const recipientsAsArray = Utils.getFromState(state, 'recipients');
       const selectedRecipients = [];
       recipientsAsArray.forEach((recipient) => {
         if (recipient.checked) {
@@ -63,16 +62,14 @@ function searchRecipientReducer(state = initialState, action) {
       return state.set('selectedRecipients', fromJS((selectedRecipients) || []));
     }
     case REMOVE_RECIPIENT: {
-      const selectedRecipients = state.get('selectedRecipients');
-      const selectedRecipientsAsArray = selectedRecipients.toJS();
+      const selectedRecipientsAsArray = Utils.getFromState(state, 'selectedRecipients');
       const newSelectedRecipients = [];
       selectedRecipientsAsArray.forEach((recipient) => {
         if (recipient.reference !== action.recipientReference) {
           newSelectedRecipients.push(recipient);
         }
       });
-      const recipients = state.get('recipients');
-      const recipientsAsArray = recipients.toJS();
+      const recipientsAsArray = Utils.getFromState(state, 'recipients');
       for (let i = 0; i < recipientsAsArray.length; i += 1) {
         if (recipientsAsArray[i].reference === action.recipientReference) {
           recipientsAsArray[i].checked = false;
@@ -83,8 +80,7 @@ function searchRecipientReducer(state = initialState, action) {
         .set('selectedRecipients', fromJS((newSelectedRecipients) || []));
     }
     case SET_SELECT_RECIPIENT_STATUS: {
-      const recipients = state.get('recipients');
-      const recipientsAsArray = recipients.toJS();
+      const recipientsAsArray = Utils.getFromState(state, 'recipients');
       for (let i = 0; i < recipientsAsArray.length; i += 1) {
         if (recipientsAsArray[i].reference === action.recipientReference) {
           recipientsAsArray[i].checked = action.checked;

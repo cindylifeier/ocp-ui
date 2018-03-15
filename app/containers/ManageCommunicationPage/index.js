@@ -70,6 +70,15 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
     this.props.initializeSearchRecipients();
   }
+  componentDidMount() {
+    const logicalId = this.props.match.params.id;
+    const communication = find(this.props.communications.elements, { logicalId });
+    if (communication && communication.recipient) {
+      const recipients = communication.recipient;
+      this.props.setInitialRecipients(recipients);
+    }
+  }
+
   setInitialSelectedRecipients(recipients) {
     this.props.setInitialRecipients(recipients);
   }
@@ -90,7 +99,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   handleRemoveRecipient(checked, recipientReference) {
     this.props.removeSelectedRecipient(checked, recipientReference);
   }
-
   handleClose() {
     this.setState({ open: false });
   }
@@ -109,8 +117,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     let initialSelectedRecipients = [];
     const communication = find(this.props.communications.elements, { logicalId });
     if (communication && communication.recipient) {
-      const recipients = communication.recipient;
-      initialSelectedRecipients = recipients;
+      initialSelectedRecipients = communication.recipient;
     }
     const practitioner = this.state.selectedPractitioner;
     const manageCommunicationProps = {
