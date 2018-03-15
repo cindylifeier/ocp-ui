@@ -1,9 +1,9 @@
-import request from '../../../utils/request';
-import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from '../../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 import { getHealthcareServicesByOrganization } from '../api';
 
-jest.mock('../../../utils/request');
-jest.mock('../../../utils/endpointService');
+jest.mock('utils/request');
+jest.mock('utils/endpointService');
 
 describe('Healthcare Services api.js', () => {
   const mockRequest = jest.fn();

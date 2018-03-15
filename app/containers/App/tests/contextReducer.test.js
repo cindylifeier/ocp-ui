@@ -7,6 +7,7 @@ describe('contextReducer', () => {
     expect(contextReducer(undefined, {})).toEqual(fromJS({
       user: null,
       organization: null,
+      location: null,
       patient: null,
     }));
   });

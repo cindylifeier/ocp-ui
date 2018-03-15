@@ -1,13 +1,11 @@
 import {
-  GET_HEALTHCARE_SERVICES_BY_LOCATION,
-  GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
+  GET_HEALTHCARE_SERVICES,
   GET_HEALTHCARE_SERVICES_ERROR,
   GET_HEALTHCARE_SERVICES_SUCCESS,
   INITIALIZE_HEALTHCARE_SERVICES,
 } from '../constants';
 import {
-  getHealthcareServicesByLocation,
-  getHealthcareServicesByOrganization,
+  getHealthcareServices,
   getHealthcareServicesError,
   getHealthcareServicesSuccess,
   initializeHealthcareServices,
@@ -29,41 +27,18 @@ describe('HealthcareServices actions', () => {
   });
 
   describe('Get Healthcare Services by Organization Action', () => {
-    it('has a type of GET_HEALTHCARE_SERVICES_BY_ORGANIZATION', () => {
+    it('has a type of GET_HEALTHCARE_SERVICES', () => {
       // Arrange
       const currentPage = 1;
       const includeInactive = true;
       const expected = {
-        type: GET_HEALTHCARE_SERVICES_BY_ORGANIZATION,
+        type: GET_HEALTHCARE_SERVICES,
         currentPage,
         includeInactive,
       };
 
       // Act
-      const action = getHealthcareServicesByOrganization(currentPage, includeInactive);
-
-      // Assert
-      expect(action).toEqual(expected);
-    });
-  });
-
-  describe('Get Healthcare Services by Location Action', () => {
-    it('has a type of GET_HEALTHCARE_SERVICES_BY_LOCATION', () => {
-      // Arrange
-      const locationId = 'locationId';
-      const locationName = 'locationName';
-      const currentPage = 1;
-      const includeInactive = true;
-      const expected = {
-        type: GET_HEALTHCARE_SERVICES_BY_LOCATION,
-        locationId,
-        locationName,
-        currentPage,
-        includeInactive,
-      };
-
-      // Act
-      const action = getHealthcareServicesByLocation(locationId, locationName, currentPage, includeInactive);
+      const action = getHealthcareServices(currentPage, includeInactive);
 
       // Assert
       expect(action).toEqual(expected);

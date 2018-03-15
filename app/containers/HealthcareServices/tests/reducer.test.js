@@ -8,7 +8,6 @@ describe('healthcareServicesReducer', () => {
       loading: false,
       error: false,
       data: [],
-      location: null,
       currentPage: 0,
       totalNumberOfPages: 0,
       includeInactive: false,
