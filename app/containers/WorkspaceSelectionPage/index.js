@@ -13,6 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { CARE_COORDINATOR } from 'containers/App/constants';
 import WorkspaceSelection from 'components/WorkspaceSelection';
 import makeSelectWorkspaceSelectionPage from './selectors';
 import reducer from './reducer';
@@ -20,13 +21,17 @@ import saga from './saga';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    // TODO: Will get context from props
+    const context = {
+      role: CARE_COORDINATOR,
+    };
     return (
       <div>
         <Helmet>
           <title>Switch Role</title>
           <meta name="description" content="Switch role page of Omnibus Care Plan application" />
         </Helmet>
-        <WorkspaceSelection />
+        <WorkspaceSelection context={context} />
       </div>
     );
   }

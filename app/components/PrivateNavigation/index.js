@@ -28,32 +28,6 @@ import messages from './messages';
 
 function PrivateNavigation(props) {
   const role = props.context.role;
-
-  // TODO: Will configure link urls
-  function getLinkTo() {
-    let linkTo;
-    switch (role) {
-      case OCP_ADMIN:
-        linkTo = HOME_URL;
-        break;
-      case CARE_MANAGER:
-        linkTo = PATIENTS_URL;
-        break;
-      case CARE_COORDINATOR:
-        linkTo = CARE_COORDINATOR_URL;
-        break;
-      case PATIENT:
-        linkTo = CARE_COORDINATOR_URL;
-        break;
-      case PCP:
-        linkTo = CARE_COORDINATOR_URL;
-        break;
-      default:
-        linkTo = WORKSPACE_SELECTION_URL;
-    }
-    return linkTo;
-  }
-
   return (
     <StyledToolbar>
       <ToolbarGroup firstChild>
@@ -61,11 +35,36 @@ function PrivateNavigation(props) {
           label={<FormattedMessage {...messages.navButton} />}
           icon={<ActionHome />}
           primary
-          containerElement={<Link to={getLinkTo()} />}
+          containerElement={<Link to={getLinkTo(role)} />}
         />
       </ToolbarGroup>
     </StyledToolbar>
   );
+}
+
+// TODO: Will configure link urls
+export function getLinkTo(role) {
+  let linkTo;
+  switch (role) {
+    case OCP_ADMIN:
+      linkTo = HOME_URL;
+      break;
+    case CARE_MANAGER:
+      linkTo = PATIENTS_URL;
+      break;
+    case CARE_COORDINATOR:
+      linkTo = CARE_COORDINATOR_URL;
+      break;
+    case PATIENT:
+      linkTo = CARE_COORDINATOR_URL;
+      break;
+    case PCP:
+      linkTo = CARE_COORDINATOR_URL;
+      break;
+    default:
+      linkTo = WORKSPACE_SELECTION_URL;
+  }
+  return linkTo;
 }
 
 PrivateNavigation.propTypes = {

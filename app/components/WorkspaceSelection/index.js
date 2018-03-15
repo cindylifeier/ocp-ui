@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Step, StepLabel, Stepper } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,7 +14,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
-import { CARE_COORDINATOR, CARE_MANAGER, HOME_URL, OCP_ADMIN, PATIENT, PCP } from 'containers/App/constants';
+import { CARE_COORDINATOR, CARE_MANAGER, OCP_ADMIN, PATIENT, PCP } from 'containers/App/constants';
+import { getLinkTo } from 'components/PrivateNavigation';
 import StepperSection from './StepperSection';
 import StepContent from './StepContent';
 
@@ -119,6 +121,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 
   render() {
     const { finished, stepIndex } = this.state;
+    const { context } = this.props;
     return (
       <div>
         <StepperSection>
@@ -154,14 +157,14 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                     <RaisedButton
                       label="Continue"
                       primary
-                      containerElement={<Link to={HOME_URL} />}
+                      containerElement={<Link to={getLinkTo(context.role)} />}
                     />
                   </Cell>
                 </Grid>
               </div>
             ) : (
               <div>
-                {this.getStepContent(stepIndex, this.state.value, this.handleChange)}
+                {this.getStepContent(stepIndex)}
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -187,6 +190,10 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   }
 }
 
-WorkspaceSelection.propTypes = {};
+WorkspaceSelection.propTypes = {
+  context: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }),
+};
 
 export default WorkspaceSelection;
