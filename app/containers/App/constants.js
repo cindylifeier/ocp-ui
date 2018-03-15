@@ -91,6 +91,10 @@ export const APPOINTMENT_PARTICIPANT_REQUIRED = 'APPOINTMENT_PARTICIPANT_REQUIRE
 export const PROVIDER_ROLE = 'PROVIDER_ROLE';
 export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
 
+// flag lookups
+export const FLAG_STATUS = 'FLAG_STATUS';
+export const FLAG_CATEGORY = 'FLAG_CATEGORY';
+
 /**
  *  Constants to hold the internal urls
  * @type {string}
