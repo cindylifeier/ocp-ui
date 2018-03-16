@@ -36,6 +36,7 @@ function ManageCommunication(props) {
     practitioner,
     initialSelectedRecipients,
     editMode,
+    selectedTask,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -56,7 +57,7 @@ function ManageCommunication(props) {
   return (
     <Formik
       isInitialValid={editMode}
-      initialValues={setInitialValues(communication, selectedPatient, practitioner)}
+      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask)}
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
         const communicationToBeSubmitted = mapToCommunication(
@@ -68,7 +69,8 @@ function ManageCommunication(props) {
           episodeOfCares,
           selectedPatient,
           practitioner,
-          selectedRecipients);
+          selectedRecipients,
+          selectedTask);
         onSave(communicationToBeSubmitted, actions);
       }}
       validationSchema={
@@ -111,16 +113,18 @@ ManageCommunication.propTypes = {
   handleRemoveRecipient: PropTypes.func.isRequired,
   practitioner: PropTypes.object,
   editMode: PropTypes.bool,
+  selectedTask: PropTypes.object,
 };
 
 export default ManageCommunication;
 
 
-function setInitialValues(communication, selectedPatient, practitioner) {
+function setInitialValues(communication, selectedPatient, practitioner, selectedTask) {
   let formData = null;
   let subjectData = null;
   let senderData = null;
   let communicationData = null;
+  let topicData = null;
   if (!isEmpty(selectedPatient)) {
     subjectData = merge(
       mapToParticipantName(selectedPatient, 'subject'),
@@ -145,7 +149,11 @@ function setInitialValues(communication, selectedPatient, practitioner) {
       mapToFormField(communication, 'statusCode'),
     );
   }
-  formData = merge(subjectData, senderData, communicationData);
+
+  if (selectedTask) {
+    topicData = mapToTopicFieldFromSelectedTask(selectedTask);
+  }
+  formData = merge(subjectData, senderData, communicationData, topicData);
   return Util.pickByIdentity(formData);
 }
 
@@ -153,6 +161,15 @@ function mapToParticipantName(participant, fieldName) {
   const fieldObject = {};
   if (!isUndefined(fieldName) && participant && participant.name && participant.name.length > 0) {
     fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(participant.name[0]));
+  }
+  return fieldObject;
+}
+
+
+function mapToTopicFieldFromSelectedTask(selectedTask) {
+  const fieldObject = {};
+  if (selectedTask && selectedTask.definition && selectedTask.definition.display) {
+    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedTask.definition.display);
   }
   return fieldObject;
 }
@@ -165,7 +182,8 @@ function mapToCommunication(values,
                             episodeOfCares,
                             selectedPatient,
                             practitioner,
-                            selectedRecipients) {
+                            selectedRecipients,
+                            selectedTask) {
   const {
     statusCode,
     categoryCode,
@@ -199,7 +217,7 @@ function mapToCommunication(values,
     subject: getReferenceObject(selectedPatient, PATIENT),
     sender: getReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
     context: episodeOfCare,
-    topic: createEmptyReference(),
+    topic: createTopicReference(selectedTask),
     definition: createEmptyReference(),
     recipient: selectedRecipients, // TODO change to recipients
   };
@@ -236,6 +254,14 @@ function createEmptyReference() {
     reference: '',
     display: '',
   };
+}
+
+
+function createTopicReference(selectedTask) {
+  if (selectedTask && selectedTask.definition) {
+    return selectedTask.definition;
+  }
+  return { reference: '', display: '' };
 }
 
 

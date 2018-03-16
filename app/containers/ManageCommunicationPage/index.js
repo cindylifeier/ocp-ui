@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import queryString from 'query-string';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import merge from 'lodash/merge';
@@ -22,6 +23,7 @@ import {
 import SearchRecipient from 'containers/SearchRecipient';
 import Page from 'components/Page';
 import { makeSelectCommunications } from 'containers/Communications/selectors';
+import { makeSelectTasks } from 'containers/Tasks/selectors';
 import {
   initializeListOfRecipients, initializeSearchRecipients,
   removeSelectedRecipient, setInitialRecipients,
@@ -47,6 +49,7 @@ import {
   COMMUNICATION_CATEGORY, COMMUNICATION_STATUS, COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
 } from '../App/constants';
+
 
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -103,6 +106,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   handleClose() {
     this.setState({ open: false });
   }
+
   render() {
     const editingCommunication = false;
     const {
@@ -115,6 +119,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       episodeOfCares,
       selectedRecipients,
       selectedPatient,
+      location,
+      tasks,
     } = this.props;
     const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
@@ -124,6 +130,13 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       initialSelectedRecipients = communication.recipient;
     }
     const practitioner = this.state.selectedPractitioner;
+    let selectedTask = null;
+    if (location && location.search) {
+      const queryObj = queryString.parse(location.search);
+      const taskId = queryObj.taskId;
+      selectedTask = find(tasks.data.elements, { logicalId: taskId });
+    }
+
     const manageCommunicationProps = {
       communicationStatus,
       communicationCategories,
@@ -136,6 +149,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       practitioner,
       initialSelectedRecipients,
       editMode,
+      selectedTask,
     };
     return (
       <Page>
@@ -173,6 +187,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
 
 ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,
   getPractitioner: PropTypes.func.isRequired,
@@ -185,6 +200,7 @@ ManageCommunicationPage.propTypes = {
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
+  tasks: PropTypes.array,
   communications: PropTypes.object,
   getEpisodeOfCares: PropTypes.func.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
@@ -202,6 +218,7 @@ const mapStateToProps = createStructuredSelector({
   selectedRecipients: makeSelectSelectedRecipients(),
   practitioner: makeSelectPractitioner(),
   communications: makeSelectCommunications(),
+  tasks: makeSelectTasks(),
 });
 
 function mapDispatchToProps(dispatch) {
