@@ -93,7 +93,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div>
           <CenterAlign>
-            <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patient.id} />
+            <TaskTable elements={data.elements} cancelTask={this.cancelTask} patientId={patient.id} />
           </CenterAlign>
           <CenterAlignedUltimatePagination
             currentPage={data.currentPage}

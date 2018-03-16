@@ -23,6 +23,7 @@ import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
@@ -68,26 +69,31 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
-        {isEmpty(data.elements) ?
-          <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4> :
+        {isEmpty(patient) && (
+          <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4>)}
+        {!isEmpty(patient) && (
+          <InfoSection>
+            <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+            </InlineLabel>
+            <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(patient)}</span>
+          </InfoSection>)}
+        {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
+          <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
+        }
+        {!isEmpty(patient) && !isEmpty(data.elements) && (
           <div>
-            <InfoSection>
-              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                <FormattedMessage {...messages.labelPatientName} />&nbsp;
-              </InlineLabel>
-              <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(patient)}</span>
-            </InfoSection>
             {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable
               relatedPersons={data.elements}
-              selectedPatientId={patient.id}
+              patientId={patient.id}
             />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
               onChange={this.handlePageClick}
             />
-          </div>
+          </div>)
         }
       </Card>
     );

@@ -5,15 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PatientPage
-    getPatient={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            "id",
-          ],
-        ],
-      }
-    }
+    getPatient={[MockFunction]}
     match={
       Object {
         "params": Object {
@@ -21,7 +13,7 @@ ShallowWrapper {
         },
       }
     }
-    selectedPatient={
+    patient={
       Object {
         "id": "1",
         "name": Array [
@@ -59,7 +51,7 @@ ShallowWrapper {
         >
           <styled.section>
             <PatientDetails
-              selectedPatient={
+              patient={
                 Object {
                   "id": "1",
                   "name": Array [
@@ -266,7 +258,7 @@ ShallowWrapper {
           "children": Array [
             <styled.section>
               <PatientDetails
-                selectedPatient={
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -427,7 +419,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <PatientDetails
-                selectedPatient={
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -443,7 +435,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "selectedPatient": Object {
+                "patient": Object {
                   "id": "1",
                   "name": Array [
                     "test",
@@ -774,7 +766,7 @@ ShallowWrapper {
           >
             <styled.section>
               <PatientDetails
-                selectedPatient={
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -981,7 +973,7 @@ ShallowWrapper {
             "children": Array [
               <styled.section>
                 <PatientDetails
-                  selectedPatient={
+                  patient={
                     Object {
                       "id": "1",
                       "name": Array [
@@ -1142,7 +1134,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <PatientDetails
-                  selectedPatient={
+                  patient={
                     Object {
                       "id": "1",
                       "name": Array [
@@ -1158,7 +1150,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "selectedPatient": Object {
+                  "patient": Object {
                     "id": "1",
                     "name": Array [
                       "test",

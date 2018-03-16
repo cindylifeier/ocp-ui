@@ -24,7 +24,7 @@ import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
-import { getLookupsAction, getPatient } from 'containers/App/actions';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectRequestIntents,
   makeSelectRequestPriorities,
@@ -73,9 +73,10 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     }
     const queryObj = queryString.parse(this.props.location.search);
     const patientId = queryObj.patientId;
-    if (patientId) {
-      this.props.getPatient(patientId);
-    }
+    // TODO: refresh patient context?
+    // if (patientId) {
+      // this.props.getPatient(patientId);
+    // }
     // get organization for the given practitioner
     this.props.getOrganization(this.state.practitionerId);
     // get practitioner details for the given practitioner
@@ -232,7 +233,6 @@ ManageTaskPage.propTypes = {
     url: PropTypes.string,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
-  getPatient: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,
   getRequester: PropTypes.func,
   getPractitioners: PropTypes.func.isRequired,
@@ -281,7 +281,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE])),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
     getOrganization: (practitionerId) => dispatch(getOrganization(practitionerId)),
     getRequester: (practitionerId) => dispatch(getRequester(practitionerId)),
     getActivityDefinitions: (practitionerId) => dispatch(getActivityDefinitions(practitionerId)),

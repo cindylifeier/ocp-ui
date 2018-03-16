@@ -4,22 +4,18 @@
  *
  */
 
-import GoldenLayout from 'components/GoldenLayout';
-import PatientDetails from 'components/PatientDetails';
-import { getPatient } from 'containers/App/actions';
-import renderAppointmentsComponent from 'containers/Appointments/render';
-import { getTasks } from 'containers/Tasks/actions';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { mapToPatientName } from 'utils/PatientUtils';
-
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import renderNotFoundComponent from '../NotFoundPage/render';
-import renderTasksComponent from '../Tasks/render';
+import GoldenLayout from 'components/GoldenLayout';
+import PatientDetails from 'components/PatientDetails';
+import renderAppointmentsComponent from 'containers/Appointments/render';
+import renderNotFoundComponent from 'containers/NotFoundPage/render';
+import renderTasksComponent from 'containers/Tasks/render';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
 
@@ -138,21 +134,16 @@ export const componentMetadata = [
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    const patientId = this.props.match.params.id;
-    if (patientId) {
-      this.props.getPatient(patientId);
-      const searchType = 'patientId';
-      const query = { searchValue: patientId, searchType };
-      const selectedPatientName = mapToPatientName(this.props.selectedPatient);
-      // TODO: Resolve delay issue
-      // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
-      setTimeout(() => this.props.getTasks(query, selectedPatientName, patientId), 500);
-    }
+    // TODO: refresh patient context?
+    // const patientId = this.props.match.params.id;
+    // if (patientId) {
+    //   this.props.getPatient(patientId);
+    // }
   }
 
   render() {
-    const { selectedPatient } = this.props;
-    const patientDetailsProps = { selectedPatient };
+    const { patient } = this.props;
+    const patientDetailsProps = { patient };
     return (
       <div>
         <Helmet>
@@ -179,29 +170,19 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 }
 
 PatientPage.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired,
-    path: PropTypes.string,
-    url: PropTypes.string,
-  }).isRequired,
-  getPatient: PropTypes.func.isRequired,
-  getTasks: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
   }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
+    dispatch,
   };
 }
 

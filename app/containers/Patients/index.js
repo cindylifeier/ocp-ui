@@ -47,7 +47,7 @@ export class Patients extends React.PureComponent {
     super(props);
     this.state = {
       currentPage: 1,
-      selectedPatient: null,
+      patient: null,
       isPatientModalOpen: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -68,7 +68,7 @@ export class Patients extends React.PureComponent {
 
   handlePatientViewDetailsClick(patient) {
     this.setState({
-      selectedPatient: patient,
+      patient,
       isPatientModalOpen: true,
     });
   }
@@ -125,9 +125,9 @@ export class Patients extends React.PureComponent {
         />
         }
         {/* TODO: Will move ConfirmPatientModal to upcoming tasks component*/}
-        {this.state.selectedPatient &&
+        {this.state.patient &&
         <ConfirmPatientModal
-          selectedPatient={this.state.selectedPatient}
+          patient={this.state.patient}
           isPatientModalOpen={this.state.isPatientModalOpen}
           onPatientModalClose={this.handlePatientModalClose}
         />}
