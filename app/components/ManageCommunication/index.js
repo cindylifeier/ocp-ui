@@ -179,7 +179,7 @@ function mapToCommunication(values,
   } = values;
   const status = find(communicationStatus, { code: statusCode });
   const category = find(communicationCategories, { code: categoryCode });
-  const noteDoneReason = find(communicationNotDoneReasons, { code: notDoneReasonCode });
+  const notDoneReason = find(communicationNotDoneReasons, { code: notDoneReasonCode });
   const medium = find(communicationMedia, { code: mediumCode });
   const episodeOfCare = find(episodeOfCares, { reference: episodeOfCareCode });
 
@@ -193,7 +193,7 @@ function mapToCommunication(values,
     categoryCode,
     categoryValue: category.display,
     notDoneReasonCode,
-    notDoneReasonValue: noteDoneReason.display,
+    notDoneReasonValue: notDoneReason ? notDoneReason.display : '',
     mediumCode,
     mediumValue: medium.display, // TODO fix tipo in key
     subject: getReferenceObject(selectedPatient, PATIENT),
