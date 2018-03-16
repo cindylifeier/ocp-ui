@@ -24,7 +24,7 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
     return (
       <div>
         <Helmet>
-          <title>PractitionerWorkspacePage</title>
+          <title>Practitioner Workspace</title>
           <meta name="description" content="Practitioner workspace page of Omnibus Care Plan application" />
         </Helmet>
         <FormattedMessage {...messages.header} />

@@ -20,8 +20,8 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
     return (
       <div>
         <Helmet>
-          <title>Switch Role</title>
-          <meta name="description" content="Switch role page of Omnibus Care Plan application" />
+          <title>Workspace Selection</title>
+          <meta name="description" content="Workspace selection page of Omnibus Care Plan application" />
         </Helmet>
         <WorkspaceSelection
           {...this.props}
