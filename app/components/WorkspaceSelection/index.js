@@ -17,7 +17,66 @@ import { CARE_COORDINATOR, CARE_MANAGER, OCP_ADMIN, ORGANIZATION_ADMIN, PATIENT,
 import { getLinkUrlByRole } from 'components/PrivateNavigation';
 import StepperSection from './StepperSection';
 import StepContent from './StepContent';
+import RoleSelectField from './RoleSelectField';
 
+
+// Todo: will get data from backend
+const organizations = [
+  {
+    logicalId: '1',
+    name: 'Organization A',
+  },
+  {
+    logicalId: '2',
+    name: 'Organization B',
+  },
+  {
+    logicalId: '3',
+    name: 'Organization C',
+  },
+];
+const patients = [
+  {
+    id: '1',
+    name: 'Patient A',
+  },
+  {
+    id: '2',
+    name: 'Patient B',
+  },
+  {
+    id: '3',
+    name: 'Patient C',
+  },
+];
+const careCoordinators = [
+  {
+    logicalId: '1',
+    name: 'Care Coordinators A',
+  },
+  {
+    logicalId: '2',
+    name: 'Care Coordinators B',
+  },
+  {
+    logicalId: '3',
+    name: 'Care Coordinators C',
+  },
+];
+const careManagers = [
+  {
+    logicalId: '1',
+    name: 'Care Manager A',
+  },
+  {
+    logicalId: '2',
+    name: 'Care Manager B',
+  },
+  {
+    logicalId: '3',
+    name: 'Care Manager C',
+  },
+];
 
 class WorkspaceSelection extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -25,7 +84,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.state = {
       finished: false,
       stepIndex: 0,
-      roleValue: OCP_ADMIN,
+      roleValue: CARE_MANAGER,
       adminValue: null,
       organizationValue: null,
       careManagerValue: null,
@@ -81,11 +140,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               value={this.state.careManagerValue}
               onChange={this.handleCareManagerChange}
             >
-              <MenuItem value={1} primaryText="Care Manager A" />
-              <MenuItem value={2} primaryText="Care Manager B" />
-              <MenuItem value={3} primaryText="Care Manager C" />
-              <MenuItem value={4} primaryText="Care Manager D" />
-              <MenuItem value={5} primaryText="Care Manager E" />
+              {careManagers && careManagers.map((careManager) =>
+                <MenuItem key={careManager.logicalId} value={careManager.logicalId} primaryText={careManager.name} />,
+              )}
             </SelectField>
           </div>
         );
@@ -108,11 +165,13 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               value={this.state.careCoordinatorValue}
               onChange={this.handleCareCoordinatorChange}
             >
-              <MenuItem value={1} primaryText="Coordinator A" />
-              <MenuItem value={2} primaryText="Coordinator B" />
-              <MenuItem value={3} primaryText="Coordinator C" />
-              <MenuItem value={4} primaryText="Coordinator D" />
-              <MenuItem value={5} primaryText="Coordinator E" />
+              {careCoordinators && careCoordinators.map((careCoordinator) =>
+                (<MenuItem
+                  key={careCoordinator.logicalId}
+                  value={careCoordinator.logicalId}
+                  primaryText={careCoordinator.name}
+                />),
+              )}
             </SelectField>
           </div>
         );
@@ -133,11 +192,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               value={this.state.patientValue}
               onChange={this.handlePatientChange}
             >
-              <MenuItem value={1} primaryText="Patient A" />
-              <MenuItem value={2} primaryText="Patient B" />
-              <MenuItem value={3} primaryText="Patient C" />
-              <MenuItem value={4} primaryText="Patient D" />
-              <MenuItem value={5} primaryText="Patient E" />
+              {patients && patients.map((patient) =>
+                <MenuItem key={patient.id} value={patient.id} primaryText={patient.name} />,
+              )}
             </SelectField>
           </div>
         );
@@ -149,17 +206,16 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   buildSelectRoleContent() {
     return (
       <div>
-        <SelectField
+        <RoleSelectField
           floatingLabelText="Select Role"
           value={this.state.roleValue}
-          fullWidth
           onChange={this.handleRoleChange}
         >
           <MenuItem value={OCP_ADMIN} primaryText={OCP_ADMIN} />
           <MenuItem value={CARE_MANAGER} primaryText={`${CARE_MANAGER}/${ORGANIZATION_ADMIN}`} />
           <MenuItem value={CARE_COORDINATOR} primaryText={`${CARE_COORDINATOR}/${PCP}`} />
           <MenuItem value={PATIENT} primaryText={PATIENT} />
-        </SelectField>
+        </RoleSelectField>
       </div>
     );
   }
@@ -172,11 +228,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
           value={this.state.organizationValue}
           onChange={this.handleOrganizationChange}
         >
-          <MenuItem value={1} primaryText="Organization A" />
-          <MenuItem value={2} primaryText="Organization B" />
-          <MenuItem value={3} primaryText="Organization C" />
-          <MenuItem value={4} primaryText="Organization D" />
-          <MenuItem value={5} primaryText="Organization E" />
+          {organizations && organizations.map((organization) =>
+            <MenuItem key={organization.logicalId} value={organization.logicalId} primaryText={organization.name} />,
+          )}
         </SelectField>
       </div>
     );
