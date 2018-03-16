@@ -11,6 +11,8 @@ export default function getUpcomingAppointments(query) {
     searchKey: SEARCH_KEY,
     searchValue: SEARCH_VALUE,
     pageSize,
+    showPastAppointments: false,
+    sortByStartTimeAsc: true,
   };
   const params = queryString(q);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
