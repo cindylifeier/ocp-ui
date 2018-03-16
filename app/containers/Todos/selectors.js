@@ -16,8 +16,9 @@ const selectTodosDomain = (state) => state.get('todos');
 
 const makeSelectTodos = () => createSelector(
   selectTodosDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS()
 );
+
 
 export default makeSelectTodos;
 export {

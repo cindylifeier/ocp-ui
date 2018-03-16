@@ -1,6 +1,25 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { GET_TODOS_SUCCESS } from 'containers/Todos/constants';
+import { getTodoError, getTodoSuccess } from 'containers/Todos/actions';
+import { showNotification } from '../Notification/actions';
+import { getTodos } from './api';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+export function* getTodosSaga(action) {
+  try {
+    const todos = yield call(getTodos, action.patientId, action.definition, action.pageNumber);
+    yield put(getTodoSuccess(todos));
+  } catch (error) {
+    yield put(showNotification('Error in getting To Do.'));
+    yield put(getTodoError(error));
+  }
+}
+
+export function* watchGetTodosSaga() {
+  yield takeLatest(GET_TODOS_SUCCESS, getTodosSaga);
+}
+
+export default function* rootSaga() {
+  yield all([
+    watchGetTodosSaga(),
+  ]);
 }
