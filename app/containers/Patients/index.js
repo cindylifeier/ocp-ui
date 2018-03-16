@@ -23,7 +23,6 @@ import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { getRelatedPersons } from 'containers/RelatedPersons/actions';
 import { getPatient } from 'containers/App/actions';
 import { setPatient } from 'containers/App/contextActions';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
@@ -70,11 +69,8 @@ export class Patients extends React.PureComponent {
     const { id: searchValue, name: [{ firstName, lastName }] } = patient;
     const searchType = 'patientId';
     const query = { searchValue, searchType };
-    const currentPage = 1;
-    const showInactive = false;
     this.props.getTasks(query, `${firstName} ${lastName}`, searchValue);
     this.props.getPatient(searchValue);
-    this.props.getRelatedPersons(searchValue, showInactive, currentPage);
   }
 
   handlePatientViewDetailsClick(patient) {
@@ -166,7 +162,6 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   getTasks: PropTypes.func.isRequired,
-  getRelatedPersons: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
 };
@@ -194,7 +189,6 @@ function mapDispatchToProps(dispatch) {
     initializePatients: () => dispatch(initializePatients()),
     getPatient: (patientId) => dispatch(getPatient(patientId)),
     getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
-    getRelatedPersons: (patientId, showInActive, currentPage) => dispatch(getRelatedPersons(patientId, showInActive, currentPage)),
     setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }
