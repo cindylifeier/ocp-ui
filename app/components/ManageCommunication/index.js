@@ -145,14 +145,17 @@ function setInitialValues(communication, selectedPatient, practitioner, selected
       mapToFormField(communication, 'note'),
       mapToFormField(communication, 'categoryCode'),
       mapToFormField(communication, 'mediumCode'),
-      mapToFormField(communication, 'topic'),
+      mapToTopicFromCommunication(communication),
       mapToFormField(communication, 'statusCode'),
     );
   }
 
-  if (selectedTask) {
-    topicData = mapToTopicFieldFromSelectedTask(selectedTask);
+  if (isEmpty(communication)) {
+    topicData = merge(
+      mapToTopicFromTaskReference(selectedTask),
+    );
   }
+
   formData = merge(subjectData, senderData, communicationData, topicData);
   return Util.pickByIdentity(formData);
 }
@@ -166,8 +169,16 @@ function mapToParticipantName(participant, fieldName) {
 }
 
 
-function mapToTopicFieldFromSelectedTask(selectedTask) {
-  const fieldObject = {};
+function mapToTopicFromCommunication(communication) {
+  const fieldObject = { topic: '' };
+  if (communication && communication.topic && communication.topic.display) {
+    fieldObject.topic = Util.setEmptyStringWhenUndefined(communication.topic.display);
+  }
+  return fieldObject;
+}
+
+function mapToTopicFromTaskReference(selectedTask) {
+  const fieldObject = { topic: '' };
   if (selectedTask && selectedTask.definition && selectedTask.definition.display) {
     fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedTask.definition.display);
   }
