@@ -3,10 +3,11 @@ import { DEFAULT_PAGE_SIZE, DEFAULT_START_PAGE_NUMBER } from '../App/constants';
 import request from '../../utils/request';
 import { BASE_CARE_TEAMS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-export default function getCareTeams(query, statusList) {
-  const { pageNumber = DEFAULT_START_PAGE_NUMBER, pageSize = DEFAULT_PAGE_SIZE } = query;
+export default function getCareTeams(patientId, pageNumber = DEFAULT_START_PAGE_NUMBER, statusList, pageSize = DEFAULT_PAGE_SIZE) {
+  const searchType = 'patientId';
   const q = {
-    ...query,
+    searchValue: patientId,
+    searchType,
     pageNumber,
     pageSize,
     statusList,
