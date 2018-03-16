@@ -6,12 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { getTodos } from 'containers/Todos/actions';
-import queryString from 'query-string';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectTodos from './selectors';
@@ -27,8 +27,7 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   componentDidMount() {
-    const queryObj = queryString.parse(this.props.location.search);
-    const patientId = queryObj.patientId;
+    const patientId = this.props.selectedPatient.id;
     if (patientId) {
       const definition = 'todo';
       const pageNumber = 1;
@@ -37,8 +36,7 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   handlePageClick(pageNumber) {
-    const queryObj = queryString.parse(this.props.location.search);
-    const patientId = queryObj.patientId;
+    const patientId = this.props.selectedPatient.id;
     if (patientId) {
       const definition = 'todo';
       this.props.getTodos(patientId, definition, pageNumber);
@@ -56,13 +54,14 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
 }
 
 Todos.propTypes = {
-  todos: PropTypes.array.isRequired,
+  todos: PropTypes.object.isRequired,
   getTodos: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
+  selectedPatient: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   todos: makeSelectTodos(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
