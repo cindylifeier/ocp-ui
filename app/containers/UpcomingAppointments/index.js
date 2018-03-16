@@ -20,6 +20,7 @@ import {
 } from 'containers/App/constants';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
+import { PRACTITIONERIDVALUE } from 'containers/UpcomingAppointments/constants';
 import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import isEmpty from 'lodash/isEmpty';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
@@ -46,7 +47,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   componentDidMount() {
-    this.props.getUpcomingAppointments({ pageNumber: DEFAULT_START_PAGE_NUMBER, practitionerid: 1528 });
+    this.props.getUpcomingAppointments({ pageNumber: DEFAULT_START_PAGE_NUMBER, practitionerid: PRACTITIONERIDVALUE });
     this.props.getLookupData();
   }
 
