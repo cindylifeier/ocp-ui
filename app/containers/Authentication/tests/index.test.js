@@ -14,9 +14,13 @@ describe('<Authentication />', () => {
     const auth = {
       isAuthenticated,
     };
+    const workspace = {
+      workflowRole: 'Patient',
+    };
     const location = '/test-location';
     const props = {
       auth,
+      workspace,
       location,
     };
 
