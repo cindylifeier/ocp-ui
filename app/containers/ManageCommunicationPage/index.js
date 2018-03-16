@@ -26,6 +26,7 @@ import {
   initializeListOfRecipients, initializeSearchRecipients,
   removeSelectedRecipient, setInitialRecipients,
 } from 'containers/SearchRecipient/actions';
+import isUndefined from 'lodash/isUndefined';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
@@ -105,6 +106,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
   render() {
     const editingCommunication = false;
     const {
+      match,
+      communications,
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
@@ -113,9 +116,10 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedRecipients,
       selectedPatient,
     } = this.props;
-    const logicalId = this.props.match.params.id;
+    const logicalId = match.params.id;
+    const editMode = !isUndefined(match.params.id);
     let initialSelectedRecipients = [];
-    const communication = find(this.props.communications.elements, { logicalId });
+    const communication = find(communications.elements, { logicalId });
     if (communication && communication.recipient) {
       initialSelectedRecipients = communication.recipient;
     }
@@ -131,6 +135,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       communication,
       practitioner,
       initialSelectedRecipients,
+      editMode,
     };
     return (
       <Page>

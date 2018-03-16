@@ -35,6 +35,7 @@ function ManageCommunication(props) {
     communication,
     practitioner,
     initialSelectedRecipients,
+    editMode,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -54,6 +55,7 @@ function ManageCommunication(props) {
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
   return (
     <Formik
+      isInitialValid={editMode}
       initialValues={setInitialValues(communication, selectedPatient, practitioner)}
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
@@ -108,6 +110,7 @@ ManageCommunication.propTypes = {
   communication: PropTypes.object,
   handleRemoveRecipient: PropTypes.func.isRequired,
   practitioner: PropTypes.object,
+  editMode: PropTypes.bool,
 };
 
 export default ManageCommunication;
