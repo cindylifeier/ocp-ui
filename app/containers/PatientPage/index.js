@@ -7,7 +7,7 @@
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import { getPatient } from 'containers/App/actions';
-import renderAppointmentsComponent from 'containers/Appointments/render';
+import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import { getTasks } from 'containers/Tasks/actions';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -132,7 +132,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   // TODO: will replace with Communication render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
