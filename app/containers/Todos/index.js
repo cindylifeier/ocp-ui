@@ -10,6 +10,12 @@ import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import Card from 'components/Card';
+import { MANAGE_TASK_URL } from 'containers/App/constants';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import { Link } from 'react-router-dom';
+import CardHeader from 'components/CardHeader';
+import StyledFlatButton from 'components/StyledFlatButton';
 import { compose } from 'redux';
 import { getTodos } from 'containers/Todos/actions';
 import injectSaga from 'utils/injectSaga';
@@ -18,7 +24,6 @@ import makeSelectTodos from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-
 
 export class Todos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -43,12 +48,20 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
     }
   }
   render() {
-    const { todos } = this.props;
+    const { todos, selectedPatient } = this.props;
+    const patientId = selectedPatient.id;
+    const MANAGE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}`;
     console.log(todos);
     return (
-      <div>
-        <FormattedMessage {...messages.header} />
-      </div>
+      <Card>
+        <CardHeader title={<FormattedMessage {...messages.header} />}>
+          <StyledFlatButton
+            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+            icon={<ContentAddCircle />}
+            containerElement={<Link to={MANAGE_TODO_URL} />}
+          />
+        </CardHeader>
+      </Card>
     );
   }
 }
