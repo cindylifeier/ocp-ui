@@ -4,12 +4,11 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { SET_WORKFLOW_ROLE } from './constants';
 
-export function defaultAction() {
+export function setWorkflowRole(workflowRole) {
   return {
-    type: DEFAULT_ACTION,
+    type: SET_WORKFLOW_ROLE,
+    workflowRole,
   };
 }

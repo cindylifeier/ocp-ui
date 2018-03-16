@@ -15,6 +15,7 @@ import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
+import makeSelectWorkspace from 'containers/App/workspaceSelectors';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
@@ -30,6 +31,8 @@ export function Authentication(props) {
       email: 'ocp-test@ocpemail.com',
       name: 'Test User',
     },
+    // Todo: will remove after integrate with context
+    role: props.workspace.workflowRole,
   };
   const privateLayoutProps = {
     context,
@@ -57,6 +60,9 @@ Authentication.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }),
+  workspace: PropTypes.shape({
+    workflowRole: PropTypes.string,
+  }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
     state: PropTypes.object,
@@ -68,6 +74,7 @@ Authentication.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   auth: makeSelectAuth(),
+  workspace: makeSelectWorkspace(),
 });
 
 const withConnect = connect(mapStateToProps);

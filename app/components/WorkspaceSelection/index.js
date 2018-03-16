@@ -506,6 +506,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   }
 
   handleNavigateTo() {
+    this.props.onSetWorkflowRole(this.state.roleValue);
     const linkTo = getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
@@ -521,6 +522,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 }
 
 WorkspaceSelection.propTypes = {
+  onSetWorkflowRole: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
