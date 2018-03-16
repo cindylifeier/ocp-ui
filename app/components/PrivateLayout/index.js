@@ -12,6 +12,7 @@ import PrivateHeader from 'components/PrivateHeader';
 import PrivateNavigation from 'components/PrivateNavigation';
 import LayoutGrid from './LayoutGrid';
 import HeaderGrid from './HeaderGrid';
+import HeaderCell from './HeaderCell';
 import HeaderContainer from './HeaderContainer';
 import ContentContainer from './ContentContainer';
 
@@ -20,9 +21,9 @@ function PrivateLayout(props) {
     <LayoutGrid columns={1}>
       <HeaderContainer>
         <HeaderGrid columns={1}>
-          <Cell>
+          <HeaderCell>
             <PrivateHeader context={props.context} />
-          </Cell>
+          </HeaderCell>
           {props.context.role &&
           <Cell>
             <PrivateNavigation context={props.context} />
