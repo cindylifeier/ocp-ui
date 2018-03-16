@@ -17,13 +17,11 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PatientSearchResult from 'components/PatientSearchResult';
 import { MANAGE_PATIENT_URL } from 'containers/App/constants';
-import { getTasks } from 'containers/Tasks/actions';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { getPatient } from 'containers/App/actions';
 import { setPatient } from 'containers/App/contextActions';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import {
@@ -66,11 +64,6 @@ export class Patients extends React.PureComponent {
 
   handlePatientClick(patient) {
     this.props.setPatient(patient);
-    const { id: searchValue, name: [{ firstName, lastName }] } = patient;
-    const searchType = 'patientId';
-    const query = { searchValue, searchType };
-    this.props.getTasks(query, `${firstName} ${lastName}`, searchValue);
-    this.props.getPatient(searchValue);
   }
 
   handlePatientViewDetailsClick(patient) {
@@ -161,8 +154,6 @@ Patients.propTypes = {
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
-  getTasks: PropTypes.func.isRequired,
-  getPatient: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
 };
 
@@ -187,8 +178,6 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePatients: () => dispatch(initializePatients()),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
     setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }
