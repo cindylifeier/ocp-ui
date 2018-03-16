@@ -4,30 +4,38 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectAppointmentTypes, makeSelectAppointmentStatuses } from 'containers/App/lookupSelectors';
-import isEmpty from 'lodash/isEmpty';
-import { FormattedMessage } from 'react-intl';
+import CenterAlign from 'components/Align/CenterAlign';
 import Card from 'components/Card/index';
 import CardHeader from 'components/CardHeader';
-import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable/index';
-import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination/index';
-import CenterAlign from 'components/Align/CenterAlign';
-import injectSaga from 'utils/injectSaga';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
+import StyledFlatButton from 'components/StyledFlatButton';
+import { getLookupsAction } from 'containers/App/actions';
+import {
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_APPOINTMENT_URL,
+} from 'containers/App/constants';
+import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
+import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
+import isEmpty from 'lodash/isEmpty';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import { APPOINTMENT_STATUS, APPOINTMENT_TYPE, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import makeSelectUpcomingAppointments from './selectors';
+import injectSaga from 'utils/injectSaga';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import makeSelectUpcomingAppointments from './selectors';
 
 
 export class UpcomingAppointments extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -36,27 +44,40 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     this.handlePageClick = this.handlePageClick.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
   }
+
   componentDidMount() {
-    this.props.getUpcomingAppointments({ pageNumber: DEFAULT_START_PAGE_NUMBER });
+    this.props.getUpcomingAppointments({ pageNumber: DEFAULT_START_PAGE_NUMBER, practitionerid: 1528 });
     this.props.getLookupData();
   }
+
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
   }
+
   cancelAppointment(logicalId) {
     this.props.cancelAppointment(logicalId);
   }
+
   render() {
     const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     return (
       <div>
         <Card>
-          <CardHeader title={<FormattedMessage {...messages.header} />} />
+          <CardHeader title={<FormattedMessage {...messages.header} />}>
+            {this.props.showCreateButton ?
+              <StyledFlatButton
+                label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+                icon={<ContentAddCircle />}
+                containerElement={<Link to={MANAGE_APPOINTMENT_URL} />}
+              />
+              : null}
+          </CardHeader>
           {loading &&
           <RefreshIndicatorLoading />}
           {!loading && isEmpty(data) &&
-          <NoUpcomingAppointmentsMessage>{<FormattedMessage {...messages.noUpcomingAppointments} />}</NoUpcomingAppointmentsMessage>}
-          { !isEmpty(data) && !isEmpty(data.elements) &&
+          <NoUpcomingAppointmentsMessage>{
+            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoUpcomingAppointmentsMessage>}
+          {!isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
             <CareCoordinatorUpcomingAppointmentTable elements={data.elements} appointmentStatuses={appointmentStatuses} appointmentTypes={appointmentTypes} cancelAppointment={this.cancelAppointment} />
             <CenterAlignedUltimatePagination
@@ -73,6 +94,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 }
 
 UpcomingAppointments.propTypes = {
+  showCreateButton: PropTypes.bool,
   getUpcomingAppointments: PropTypes.func.isRequired,
   getLookupData: PropTypes.func.isRequired,
   appointmentTypes: PropTypes.array,
@@ -85,7 +107,7 @@ UpcomingAppointments.propTypes = {
   }).isRequired,
   cancelAppointment: PropTypes.func,
 };
-
+UpcomingAppointments.defaultProps = { showCreateButton: true };
 const mapStateToProps = createStructuredSelector({
   upcomingAppointments: makeSelectUpcomingAppointments(),
   appointmentTypes: makeSelectAppointmentTypes(),

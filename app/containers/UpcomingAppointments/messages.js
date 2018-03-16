@@ -6,7 +6,11 @@ export default defineMessages({
     defaultMessage: 'Upcoming Appointments',
   },
   noUpcomingAppointments: {
-    id: 'ocpui.containers.CareTeams.noUpcomingAppointments',
+    id: 'ocpui.containers.noUpcomingAppointments.noUpcomingAppointments',
     defaultMessage: 'No Upcoming Appointments loaded.',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.noUpcomingAppointments.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
   },
 });
