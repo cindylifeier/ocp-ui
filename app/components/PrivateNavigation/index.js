@@ -22,13 +22,13 @@ import {
   PRACTITIONER_WORKSPACE,
   WORKSPACE_SELECTION_URL,
 } from 'containers/App/constants';
-import StyledToolbar from 'components/StyledToolbar';
+import PrivateNavigationToolbar from './PrivateNavigationToolbar';
 import messages from './messages';
 
 function PrivateNavigation(props) {
   const role = props.context.role;
   return (
-    <StyledToolbar>
+    <PrivateNavigationToolbar>
       <ToolbarGroup firstChild>
         <FlatButton
           label={<FormattedMessage {...messages.navButton} />}
@@ -37,7 +37,7 @@ function PrivateNavigation(props) {
           containerElement={<Link to={getLinkUrlByRole(role)} />}
         />
       </ToolbarGroup>
-    </StyledToolbar>
+    </PrivateNavigationToolbar>
   );
 }
 

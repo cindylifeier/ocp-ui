@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { ToolbarGroup } from 'material-ui/Toolbar';
 import AccountBox from 'material-ui/svg-icons/action/account-box';
+import Notifications from 'material-ui/svg-icons/social/notifications';
 import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
@@ -53,6 +54,7 @@ class PrivateHeader extends React.PureComponent {
           <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
+          <Notifications viewBox="-2 -2 25 25" />
           <FlatButton
             label={this.getUserProfileName()}
             icon={<AccountBox />}
