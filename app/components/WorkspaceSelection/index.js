@@ -13,8 +13,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
-import { CARE_COORDINATOR, CARE_MANAGER, OCP_ADMIN, PATIENT, PCP } from 'containers/App/constants';
-import { getLinkTo } from 'components/PrivateNavigation';
+import { CARE_COORDINATOR, CARE_MANAGER, OCP_ADMIN, ORGANIZATION_ADMIN, PATIENT, PCP } from 'containers/App/constants';
+import { getLinkUrlByRole } from 'components/PrivateNavigation';
 import StepperSection from './StepperSection';
 import StepContent from './StepContent';
 
@@ -31,7 +31,6 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
       careManagerValue: null,
       careCoordinatorValue: null,
       patientValue: null,
-      pcpValue: null,
     };
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
@@ -41,7 +40,6 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.handleCareManagerChange = this.handleCareManagerChange.bind(this);
     this.handleCareCoordinatorChange = this.handleCareCoordinatorChange.bind(this);
     this.handlePatientChange = this.handlePatientChange.bind(this);
-    this.handlePcpChange = this.handlePcpChange.bind(this);
     this.handleNavigateTo = this.handleNavigateTo.bind(this);
   }
 
@@ -55,8 +53,6 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
         return this.configureCareCoordinatorStepContent(finished, stepIndex);
       case PATIENT:
         return this.configurePatientStepContent(finished, stepIndex);
-      case PCP:
-        return this.configurePcpStepContent(finished, stepIndex);
       default:
         return null;
     }
@@ -150,46 +146,19 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  getPcpStepContent(stepIndex) {
-    switch (stepIndex) {
-      case 0:
-        return this.buildSelectRoleContent();
-      case 1:
-        return this.buildSelectOrganizationContent();
-      case 2:
-        return (
-          <div>
-            <SelectField
-              floatingLabelText="Select Pcp"
-              value={this.state.pcpValue}
-              onChange={this.handlePcpChange}
-            >
-              <MenuItem value={1} primaryText="Pcp A" />
-              <MenuItem value={2} primaryText="Pcp B" />
-              <MenuItem value={3} primaryText="Pcp C" />
-              <MenuItem value={4} primaryText="Pcp D" />
-              <MenuItem value={5} primaryText="Pcp E" />
-            </SelectField>
-          </div>
-        );
-      default:
-        return null;
-    }
-  }
-
   buildSelectRoleContent() {
     return (
       <div>
         <SelectField
           floatingLabelText="Select Role"
           value={this.state.roleValue}
+          fullWidth
           onChange={this.handleRoleChange}
         >
           <MenuItem value={OCP_ADMIN} primaryText={OCP_ADMIN} />
-          <MenuItem value={CARE_MANAGER} primaryText={CARE_MANAGER} />
-          <MenuItem value={CARE_COORDINATOR} primaryText={CARE_COORDINATOR} />
+          <MenuItem value={CARE_MANAGER} primaryText={`${CARE_MANAGER}/${ORGANIZATION_ADMIN}`} />
+          <MenuItem value={CARE_COORDINATOR} primaryText={`${CARE_COORDINATOR}/${PCP}`} />
           <MenuItem value={PATIENT} primaryText={PATIENT} />
-          <MenuItem value={PCP} primaryText={PCP} />
         </SelectField>
       </div>
     );
@@ -443,74 +412,6 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  configurePcpStepContent(finished, stepIndex) {
-    return (
-      <div>
-        <StepperSection>
-          <Stepper activeStep={stepIndex}>
-            <Step>
-              <StepLabel>Select Role</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Select Organization</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Select PCP</StepLabel>
-            </Step>
-          </Stepper>
-          <StepContent>
-            {finished ? (
-              <div>
-                <p><strong>Role:</strong> {this.state.roleValue}</p>
-                <p><strong>Organization:</strong> {this.state.organizationValue}</p>
-                <p><strong>PCP:</strong> {this.state.pcpValue}</p>
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Reset"
-                      secondary
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label="Continue"
-                      primary
-                      onClick={this.handleNavigateTo}
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            ) : (
-              <div>
-                {this.getPcpStepContent(stepIndex)}
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Back"
-                      disabled={stepIndex === 0}
-                      onClick={this.handlePrev}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label={stepIndex === 2 ? 'Finish' : 'Next'}
-                      primary
-                      onClick={this.handleNext}
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            )}
-          </StepContent>
-        </StepperSection>
-      </div>
-    );
-  }
-
   handleNext() {
     const { stepIndex } = this.state;
     this.setState({
@@ -550,12 +451,8 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.setState({ patientValue: value });
   }
 
-  handlePcpChange(event, index, value) {
-    this.setState({ pcpValue: value });
-  }
-
   handleNavigateTo() {
-    const linkTo = getLinkTo(this.state.roleValue);
+    const linkTo = getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
 

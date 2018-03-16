@@ -95,9 +95,7 @@ export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
  *  Constants to hold the internal urls
  * @type {string}
  */
-  // TODO: Rename url to page
 export const LOGIN_URL = '/ocp-ui/login';
-export const WORKSPACE_SELECTION_URL = '/ocp-ui/workspace-selection';
 export const HOME_URL = '/ocp-ui/home';
 export const PATIENTS_URL = '/ocp-ui/patients';
 export const CARE_COORDINATOR_URL = '/ocp-ui/care-coordinator';
@@ -110,11 +108,21 @@ export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
 
 /**
- *  Constants to hold the workspace roles
+ *  Constants to hold the workspace urls
+ * @type {string}
+ */
+export const WORKSPACE_SELECTION_URL = '/ocp-ui/workspace-selection';
+export const ADMIN_WORKSPACE = '/ocp-ui/admin-workspace';
+export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
+export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
+
+/**
+ *  Constants to hold the workflow roles
  * @type {string}
  */
 export const OCP_ADMIN = 'OCP Admin';
 export const CARE_MANAGER = 'Care Manager';
+export const ORGANIZATION_ADMIN = 'Organization Admin';
 export const CARE_COORDINATOR = 'Care Coordinator';
 export const PATIENT = 'Patient';
 export const PCP = 'PCP';

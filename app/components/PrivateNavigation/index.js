@@ -13,14 +13,13 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
 import {
+  ADMIN_WORKSPACE,
   CARE_COORDINATOR,
-  CARE_COORDINATOR_URL,
   CARE_MANAGER,
-  HOME_URL,
   OCP_ADMIN,
   PATIENT,
-  PATIENTS_URL,
-  PCP,
+  PATIENT_WORKSPACE,
+  PRACTITIONER_WORKSPACE,
   WORKSPACE_SELECTION_URL,
 } from 'containers/App/constants';
 import StyledToolbar from 'components/StyledToolbar';
@@ -35,36 +34,32 @@ function PrivateNavigation(props) {
           label={<FormattedMessage {...messages.navButton} />}
           icon={<ActionHome />}
           primary
-          containerElement={<Link to={getLinkTo(role)} />}
+          containerElement={<Link to={getLinkUrlByRole(role)} />}
         />
       </ToolbarGroup>
     </StyledToolbar>
   );
 }
 
-// TODO: Will configure link urls
-export function getLinkTo(role) {
-  let linkTo;
+export function getLinkUrlByRole(role) {
+  let linkUrl;
   switch (role) {
     case OCP_ADMIN:
-      linkTo = HOME_URL;
+      linkUrl = ADMIN_WORKSPACE;
       break;
     case CARE_MANAGER:
-      linkTo = PATIENTS_URL;
+      linkUrl = PRACTITIONER_WORKSPACE;
       break;
     case CARE_COORDINATOR:
-      linkTo = CARE_COORDINATOR_URL;
+      linkUrl = PRACTITIONER_WORKSPACE;
       break;
     case PATIENT:
-      linkTo = CARE_COORDINATOR_URL;
-      break;
-    case PCP:
-      linkTo = CARE_COORDINATOR_URL;
+      linkUrl = PATIENT_WORKSPACE;
       break;
     default:
-      linkTo = WORKSPACE_SELECTION_URL;
+      linkUrl = WORKSPACE_SELECTION_URL;
   }
-  return linkTo;
+  return linkUrl;
 }
 
 PrivateNavigation.propTypes = {
