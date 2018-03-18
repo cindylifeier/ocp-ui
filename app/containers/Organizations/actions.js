@@ -5,10 +5,10 @@
  */
 
 import {
+  SEARCH_ORGANIZATIONS,
+  SEARCH_ORGANIZATIONS_ERROR,
+  SEARCH_ORGANIZATIONS_SUCCESS,
   INITIALIZE_ORGANIZATIONS,
-  GET_ORGANIZATIONS,
-  GET_ORGANIZATIONS_ERROR,
-  GET_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
 export function initializeOrganizations() {
@@ -17,9 +17,9 @@ export function initializeOrganizations() {
   };
 }
 
-export function getOrganizations(searchValue, showInactive, searchType, currentPage) {
+export function searchOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: GET_ORGANIZATIONS,
+    type: SEARCH_ORGANIZATIONS,
     searchValue,
     showInactive,
     searchType,
@@ -27,16 +27,16 @@ export function getOrganizations(searchValue, showInactive, searchType, currentP
   };
 }
 
-export function getOrganizationsSuccess(organizations) {
+export function searchOrganizationsSuccess(organizations) {
   return {
-    type: GET_ORGANIZATIONS_SUCCESS,
+    type: SEARCH_ORGANIZATIONS_SUCCESS,
     organizations,
   };
 }
 
-export function getOrganizationsError(err) {
+export function searchOrganizationsError(err) {
   return {
-    type: GET_ORGANIZATIONS_ERROR,
+    type: SEARCH_ORGANIZATIONS_ERROR,
     err,
   };
 }

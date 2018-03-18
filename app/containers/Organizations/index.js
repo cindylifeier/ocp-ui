@@ -31,7 +31,7 @@ import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOf
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getOrganizations, initializeOrganizations } from './actions';
+import { searchOrganizations, initializeOrganizations } from './actions';
 import { fromBackendToFrontendOrganization } from './mappings';
 
 export class Organizations extends React.PureComponent {
@@ -54,7 +54,7 @@ export class Organizations extends React.PureComponent {
 
   handleSearch(searchValue, showInactive, searchType) {
     this.setState({ searchValue, showInactive, searchType });
-    this.props.getOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
+    this.props.searchOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
   }
 
   handleRowClick({ id, name }) {
@@ -65,7 +65,7 @@ export class Organizations extends React.PureComponent {
 
   handlePageClick(currentPage) {
     this.setState({ currentPage });
-    this.props.getOrganizations(this.state.searchValue, this.state.showInactive, this.state.searchType, currentPage);
+    this.props.searchOrganizations(this.state.searchValue, this.state.showInactive, this.state.searchType, currentPage);
   }
 
   render() {
@@ -109,7 +109,7 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
-  getOrganizations: PropTypes.func.isRequired,
+  searchOrganizations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
   getHealthcareServicesByOrganization: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
@@ -129,7 +129,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
-    getOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(getOrganizations(searchValue, showInactive, searchType, currentPage)),
+    searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
     getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
     getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage)),
   };

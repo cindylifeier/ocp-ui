@@ -1,14 +1,21 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import getOrganizations from 'containers/Organizations/api';
+
+import searchOrganizations from 'containers/Organizations/api';
 import { makeSelectProviderRoles, makeSelectProviderSpecialties } from 'containers/App/lookupSelectors';
-import { getPractitionerError, getPractitionerSuccess, savePractitionerError, getOrganizationsError, getOrganizationsSuccess } from './actions';
-import { GET_PRACTITIONER, SAVE_PRACTITIONER, GET_ORGANIZATIONS } from './constants';
+import { showNotification } from 'containers/Notification/actions';
+import { makeSelectPractitionerSearchResult } from 'containers/Practitioners/selectors';
+import { HOME_URL } from 'containers/App/constants';
+import {
+  getOrganizationsError,
+  getOrganizationsSuccess,
+  getPractitionerError,
+  getPractitionerSuccess,
+  savePractitionerError,
+} from './actions';
+import { GET_ORGANIZATIONS, GET_PRACTITIONER, SAVE_PRACTITIONER } from './constants';
 import { getNotificationAction, getPractitioner, getPractitionerById, savePractitioner } from './api';
-import { showNotification } from '../Notification/actions';
-import { makeSelectPractitionerSearchResult } from '../Practitioners/selectors';
-import { HOME_URL } from '../App/constants';
 
 function* savePractitionerSaga(action) {
   try {
@@ -46,7 +53,7 @@ function* getPractitionerSaga({ logicalId }) {
 export function* getOrganizationsSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
     if (searchValue) {
-      const organizations = yield call(getOrganizations, searchValue, showInactive, searchType, currentPage);
+      const organizations = yield call(searchOrganizations, searchValue, showInactive, searchType, currentPage);
       yield put(getOrganizationsSuccess(organizations));
     }
   } catch (err) {

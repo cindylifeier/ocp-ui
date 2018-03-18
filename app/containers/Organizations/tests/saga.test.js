@@ -6,9 +6,9 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { fromJS } from 'immutable';
 import rootSaga, { getOrganizationsSaga, watchGetOrganizationsSaga } from '../saga';
-import { GET_ORGANIZATIONS } from '../constants';
-import getOrganizations from '../api';
-import { getOrganizationsError, getOrganizationsSuccess } from '../actions';
+import { SEARCH_ORGANIZATIONS } from '../constants';
+import searchOrganizations from '../api';
+import { searchOrganizationsError, searchOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
   describe('rootSaga', () => {
@@ -25,7 +25,7 @@ describe('Organizations.saga', () => {
   });
 
   describe('watchGetOrganizationsSaga', () => {
-    it('it should takeLatest of GET_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
+    it('it should takeLatest of SEARCH_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
       // Arrange
       const generator = watchGetOrganizationsSaga();
 
@@ -33,7 +33,7 @@ describe('Organizations.saga', () => {
       const effect = generator.next().value;
 
       // Assert
-      expect(effect).toEqual(takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga));
+      expect(effect).toEqual(takeLatest(SEARCH_ORGANIZATIONS, getOrganizationsSaga));
     });
   });
 
@@ -56,9 +56,9 @@ describe('Organizations.saga', () => {
       const { value: finalValue, done: finalDone } = generator.next();
 
       // Assert
-      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallEffect).toEqual(call(searchOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putOrganizationsEffect).toEqual(put(getOrganizationsSuccess(mockOrganizations)));
+      expect(putOrganizationsEffect).toEqual(put(searchOrganizationsSuccess(mockOrganizations)));
       expect(putOrganizationsIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);
@@ -91,9 +91,9 @@ describe('Organizations.saga', () => {
       const { value: finalValue, done: finalDone } = generator.next();
 
       // Assert
-      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallEffect).toEqual(call(searchOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putErrorEffect).toEqual(put(getOrganizationsError(error)));
+      expect(putErrorEffect).toEqual(put(searchOrganizationsError(error)));
       expect(putErrorEffectIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);
