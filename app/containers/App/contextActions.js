@@ -10,6 +10,9 @@ import {
   CLEAR_ORGANIZATION,
   CLEAR_PATIENT,
   CLEAR_USER,
+  GET_LOCATION,
+  GET_ORGANIZATION,
+  GET_PATIENT,
   REFRESH_LOCATION,
   REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
@@ -92,5 +95,26 @@ export function refreshOrganization() {
 export function refreshLocation() {
   return {
     type: REFRESH_LOCATION,
+  };
+}
+
+export function getPatient(logicalId) {
+  return {
+    type: GET_PATIENT,
+    logicalId,
+  };
+}
+
+export function getOrganization(logicalId) {
+  return {
+    type: GET_ORGANIZATION,
+    logicalId,
+  };
+}
+
+export function getLocation(logicalId) {
+  return {
+    type: GET_LOCATION,
+    logicalId,
   };
 }

@@ -16,6 +16,7 @@ import renderAppointmentsComponent from 'containers/Appointments/render';
 import renderNotFoundComponent from 'containers/NotFoundPage/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
 
@@ -134,11 +135,13 @@ export const componentMetadata = [
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    // TODO: refresh patient context?
-    // const patientId = this.props.match.params.id;
-    // if (patientId) {
-    //   this.props.getPatient(patientId);
-    // }
+    const patientId = this.props.match.params.id;
+    const { patient } = this.props;
+    if (patient && patient.id && patient.id === patientId) {
+      this.props.refreshPatient();
+    } else {
+      this.props.getPatient(patientId);
+    }
   }
 
   render() {
@@ -151,6 +154,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
           <meta name="description" content="Patient page of Omnibus Care Plan application" />
         </Helmet>
 
+        {patient &&
         <PatientPageGrid columns={1}>
           <PatientPageCell>
             <PatientDetails {...patientDetailsProps} />
@@ -163,17 +167,26 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
               stateMetadata={initialStateMetadata}
             />
           </PatientPageCell>
-        </PatientPageGrid>
+        </PatientPageGrid>}
       </div>
     );
   }
 }
 
 PatientPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  refreshPatient: PropTypes.func.isRequired,
+  getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -182,7 +195,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    refreshPatient: () => dispatch(refreshPatient()),
+    getPatient: (logicalId) => dispatch(getPatient(logicalId)),
   };
 }
 

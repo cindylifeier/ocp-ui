@@ -29,45 +29,39 @@ describe('<PatientPage />', () => {
   });
 
   describe('behavioral tests', () => {
-    // TODO: refresh patient context?
-    // it('should call getPatient with match.params.id', () => {
-    //   // Arrange
-    //   const id = 'id';
-    //   const params = { id };
-    //   const match = { params };
-    //   const getPatient = jest.fn();
-    //   const patient = {
-    //     id: '1',
-    //     name: ['test'],
-    //   };
-    //   const props = { match, patient };
-    //
-    //   // Act
-    //   shallow(<PatientPage {...props} getPatient={getPatient} />);
-    //
-    //   // Assert
-    //   expect(getPatient).toBeCalledWith(id);
-    // });
+    it('should call getPatient with match.params.id', () => {
+      // Arrange
+      const id = 'id';
+      const params = { id };
+      const match = { params };
+      const getPatient = jest.fn();
+      const patient = {
+        id: '1',
+        name: ['test'],
+      };
+      const props = { match, patient };
 
-    // TODO: refresh patient context?
-    // it('should call getPatient only once', () => {
-    //   // Arrange
-    //   const id = 'id';
-    //   const params = { id };
-    //   const match = { params };
-    //   const getPatient = jest.fn();
-    //   const selectedPatient = {
-    //     id: '1',
-    //     name: ['test'],
-    //   };
-    //   const props = { match, selectedPatient };
-    //
-    //   // Act
-    //   shallow(<PatientPage {...props} getPatient={getPatient} />);
-    //
-    //   // Assert
-    //   expect(getPatient).toHaveBeenCalledTimes(1);
-    // });
+      // Act
+      shallow(<PatientPage {...props} getPatient={getPatient} />);
+
+      // Assert
+      expect(getPatient).toBeCalledWith(id);
+    });
+
+    it('should call getPatient only once', () => {
+      // Arrange
+      const id = 'id';
+      const params = { id };
+      const match = { params };
+      const getPatient = jest.fn();
+      const props = { match };
+
+      // Act
+      shallow(<PatientPage {...props} getPatient={getPatient} />);
+
+      // Assert
+      expect(getPatient).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('structural tests', () => {
@@ -77,11 +71,11 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
-      const selectedPatient = {
+      const patient = {
         id: '1',
         name: ['test'],
       };
-      const props = { match, selectedPatient };
+      const props = { match, patient };
 
       // Act
       const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
