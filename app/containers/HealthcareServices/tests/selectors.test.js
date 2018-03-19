@@ -119,7 +119,7 @@ describe('HealthcareServices selectors', () => {
     });
   });
 
-  describe('makeSelectCurrentPage', () => {
+  describe('makeSelectSearchOrganizationCurrentPage', () => {
     it('should select current page', () => {
       // Arrange
       const data = [
@@ -157,7 +157,7 @@ describe('HealthcareServices selectors', () => {
     });
   });
 
-  describe('makeSelectTotalNumberOfPages', () => {
+  describe('makeSelectSearchOrganizationTotalNumberOfPages', () => {
     it('should select total number of pages', () => {
       // Arrange
       const data = [

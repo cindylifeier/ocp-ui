@@ -6,6 +6,8 @@
 
 import { fromJS } from 'immutable';
 import {
+  GET_ORGANIZATIONS,
+  GET_ORGANIZATIONS_SUCCESS,
   INITIALIZE_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
@@ -13,7 +15,12 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  data: [],
+  listOrganizations: {
+    loading: false,
+    data: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
+  },
   searchOrganizations: {
     loading: false,
     result: [],
@@ -26,6 +33,15 @@ function organizationsReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_ORGANIZATIONS:
       return initialState;
+    case GET_ORGANIZATIONS:
+      return state
+        .setIn(['listOrganizations', 'loading'], true);
+    case GET_ORGANIZATIONS_SUCCESS:
+      return state
+        .setIn(['listOrganizations', 'loading'], false)
+        .setIn(['listOrganizations', 'result'], fromJS(action.organizations.elements))
+        .setIn(['listOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
+        .setIn(['listOrganizations', 'currentPage'], action.organizations.currentPage);
     case SEARCH_ORGANIZATIONS:
       return state
         .setIn(['searchOrganizations', 'loading'], true);

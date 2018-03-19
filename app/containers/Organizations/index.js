@@ -27,7 +27,7 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import { getActiveLocations } from 'containers/Locations/actions';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
 import { getHealthcareServicesByOrganization } from 'containers/HealthcareServices/actions';
-import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
+import { makeSelectSearchOrganizationCurrentPage, makeSelectOrganizations, makeSelectSearchOrganizationTotalNumberOfPages } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -124,8 +124,8 @@ Organizations.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
-  currentPage: makeSelectCurrentPage(),
-  totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  currentPage: makeSelectSearchOrganizationCurrentPage(),
+  totalNumberOfPages: makeSelectSearchOrganizationTotalNumberOfPages(),
 });
 
 function mapDispatchToProps(dispatch) {
