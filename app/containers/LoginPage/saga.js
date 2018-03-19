@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { removeToken, storeAuthStatus, storeToken } from 'utils/tokenService';
 import { checkAuthenticated } from 'utils/auth';
-import { HOME_URL } from 'containers/App/constants';
+import { WORKSPACE_SELECTION_URL } from 'containers/App/constants';
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectLocation } from 'containers/App/selectors';
 import { setUser } from 'containers/App/contextActions';
@@ -28,7 +28,7 @@ function* loginSaga(loginAction) {
     yield call(loginAction.handleSubmitting);
     // Redirect to referrer address
     const location = yield select(makeSelectLocation());
-    const { from } = location.state || { from: { pathname: HOME_URL } };
+    const { from } = location.state || { from: { pathname: WORKSPACE_SELECTION_URL } };
     yield put(push(from));
   } catch (error) {
     yield put(loginError(getLoginErrorDetail(error)));
