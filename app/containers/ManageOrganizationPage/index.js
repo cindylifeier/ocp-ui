@@ -39,7 +39,7 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import { makeSelectOrganizationsData } from 'containers/Organizations/selectors';
+import { makeSelectSearchOrganizationResult } from 'containers/Organizations/selectors';
 import saga from './saga';
 import messages from './messages';
 import { createOrganization, updateOrganization } from './actions';
@@ -311,7 +311,7 @@ const mapStateToProps = createStructuredSelector({
   organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
-  organizations: makeSelectOrganizationsData(),
+  organizations: makeSelectSearchOrganizationResult(),
 });
 
 function mapDispatchToProps(dispatch) {

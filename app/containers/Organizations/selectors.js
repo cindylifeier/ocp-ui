@@ -16,23 +16,23 @@ const selectOrganizationsDomain = (state) => state.get('organizations');
 
 const makeSelectOrganizations = () => createSelector(
   selectOrganizationsDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 
 const makeSelectCurrentPage = () => createSelector(
   selectOrganizationsDomain,
-  (substate) => substate.get('currentPage'),
+  (substate) => substate.getIn(['searchOrganizations', 'currentPage']),
 );
 
 const makeSelectTotalNumberOfPages = () => createSelector(
   selectOrganizationsDomain,
-  (substate) => substate.get('totalNumberOfPages'),
+  (substate) => substate.getIn(['searchOrganizations', 'totalNumberOfPages']),
 );
 
-const makeSelectOrganizationsData = () => createSelector(
+const makeSelectSearchOrganizationResult = () => createSelector(
   selectOrganizationsDomain,
-  (substate) => substate && substate.get('data').toJS(),
+  (substate) => substate && substate.getIn(['searchOrganizations', 'result']).toJS(),
 );
 
 export {
@@ -40,5 +40,5 @@ export {
   makeSelectOrganizations,
   makeSelectCurrentPage,
   makeSelectTotalNumberOfPages,
-  makeSelectOrganizationsData,
+  makeSelectSearchOrganizationResult,
 };

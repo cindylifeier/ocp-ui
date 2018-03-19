@@ -31,7 +31,7 @@ import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOf
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { searchOrganizations, initializeOrganizations } from './actions';
+import { initializeOrganizations, searchOrganizations } from './actions';
 import { fromBackendToFrontendOrganization } from './mappings';
 
 export class Organizations extends React.PureComponent {
@@ -82,22 +82,22 @@ export class Organizations extends React.PureComponent {
 
         <SearchBar onSearch={this.handleSearch} />
 
-        {organizations.loading && <RefreshIndicatorLoading />}
+        {organizations.searchOrganizations.loading && <RefreshIndicatorLoading />}
 
-        {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
+        {(!organizations.searchOrganizations.loading && organizations.searchOrganizations.result && organizations.searchOrganizations.result.length > 0 &&
           <div>
             <OrganizationTable
-              organizations={organizations.data.map(fromBackendToFrontendOrganization)}
+              organizations={organizations.searchOrganizations.result.map(fromBackendToFrontendOrganization)}
               onRowClick={this.handleRowClick}
             />
             <CenterAlignedUltimatePagination
-              currentPage={this.props.currentPage}
-              totalPages={this.props.totalNumberOfPages}
+              currentPage={organizations.searchOrganizations.currentPage}
+              totalPages={organizations.searchOrganizations.totalNumberOfPages}
               onChange={this.handlePageClick}
             />
           </div>
         ) ||
-        ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
+        ((!organizations.searchOrganizations.loading && organizations.searchOrganizations.result && organizations.searchOrganizations.result.length === 0 &&
           <CenterAlign>
             <NoResultsFoundText>No organizations found</NoResultsFoundText>
           </CenterAlign>))
@@ -112,11 +112,13 @@ Organizations.propTypes = {
   searchOrganizations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
   getHealthcareServicesByOrganization: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
-    data: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired,
+    searchOrganizations: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      currentPage: PropTypes.number.isRequired,
+      totalNumberOfPages: PropTypes.number.isRequired,
+      result: PropTypes.array.isRequired,
+    }),
   }),
 };
 
