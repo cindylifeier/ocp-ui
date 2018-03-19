@@ -12,6 +12,7 @@ import { FieldArray } from 'formik';
 
 import Section from 'components/Section';
 import FormSubtitle from 'components/FormSubtitle';
+import H1 from 'components/H1';
 import AddFlagsButton from './AddFlagsButton';
 import messages from './messages';
 import AddFlagForm from './AddFlagForm';
@@ -74,7 +75,7 @@ class AddFlags extends React.PureComponent {
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title="Add Advisory"
+                  title={<H1> <FormattedMessage {...messages.addFlagDialogHeader} /> </H1>}
                   modal={false}
                   open={this.state.isFlagDialogOpen}
                   onRequestClose={this.handleCloseDialog}

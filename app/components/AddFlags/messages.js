@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.AddFlags.addFlagButton',
     defaultMessage: 'Add Advisory',
   },
+  addFlagDialogHeader: {
+    id: 'ocpui.components.AddFlags.addFlagDialogHeader',
+    defaultMessage: 'Add Advisory',
+  },
   addedFlagsTable: {
     tableHeaderStatus: {
       id: 'ocpui.components.AddFlags.addedFlagsTable.tableHeaderStatus',
