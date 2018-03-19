@@ -1,8 +1,13 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { CANCEL_APPOINTMENT, GET_UPCOMING_APPOINTMENTS } from 'containers/UpcomingAppointments/constants';
-import getUpcomingAppointmentsApi, { cancelAppointment } from 'containers/UpcomingAppointments/api';
-import { getUpcomingAppointmentsSuccess, getUpcomingAppointmentsError, cancelAppointmentError, cancelAppointmentSuccess } from 'containers/UpcomingAppointments/actions';
 import { showNotification } from 'containers/Notification/actions';
+import {
+  cancelAppointmentError,
+  cancelAppointmentSuccess,
+  getUpcomingAppointmentsError,
+  getUpcomingAppointmentsSuccess,
+} from 'containers/UpcomingAppointments/actions';
+import getUpcomingAppointmentsApi, { cancelAppointment } from 'containers/UpcomingAppointments/api';
+import { CANCEL_APPOINTMENT, GET_UPCOMING_APPOINTMENTS } from 'containers/UpcomingAppointments/constants';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 
 function getErrorMessage(err) {

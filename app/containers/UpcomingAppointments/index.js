@@ -42,8 +42,7 @@ import injectSaga from 'utils/injectSaga';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import makeSelectUpcomingAppointments from './selectors';
-
+import { makeSelectShowPastAppointments, makeSelectUpcomingAppointments } from './selectors';
 
 export class UpcomingAppointments extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -80,41 +79,19 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 
   handleCheck(event, checked) {
     const patientId = this.props.selectedPatient.id;
-    if (checked) {
-      if (!isUndefined(patientId)) {
-        this.props.getUpcomingAppointments({
-          pageNumber: DEFAULT_START_PAGE_NUMBER,
-          practitionerId: PRACTITIONERIDVALUE,
-          patientId,
-          showPastAppointments: true,
-          sortByStartTimeAsc: false,
-        });
-      } else {
-        this.props.getUpcomingAppointments({
-          pageNumber: DEFAULT_START_PAGE_NUMBER,
-          practitionerId: PRACTITIONERIDVALUE,
-          showPastAppointments: true,
-          sortByStartTimeAsc: false,
-        });
-      }
-    }
-    if (!checked) {
-      if (!isUndefined(patientId)) {
-        this.props.getUpcomingAppointments({
-          pageNumber: DEFAULT_START_PAGE_NUMBER,
-          practitionerId: PRACTITIONERIDVALUE,
-          patientId,
-          showPastAppointments: false,
-          sortByStartTimeAsc: true,
-        });
-      } else {
-        this.props.getUpcomingAppointments({
-          pageNumber: DEFAULT_START_PAGE_NUMBER,
-          practitionerId: PRACTITIONERIDVALUE,
-          showPastAppointments: false,
-          sortByStartTimeAsc: true,
-        });
-      }
+    if (!isUndefined(patientId)) {
+      this.props.getUpcomingAppointments({
+        pageNumber: DEFAULT_START_PAGE_NUMBER,
+        practitionerId: PRACTITIONERIDVALUE,
+        patientId,
+        showPastAppointments: checked,
+      });
+    } else {
+      this.props.getUpcomingAppointments({
+        pageNumber: DEFAULT_START_PAGE_NUMBER,
+        practitionerId: PRACTITIONERIDVALUE,
+        showPastAppointments: checked,
+      });
     }
   }
 
@@ -137,7 +114,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
                   <Cell>
                     <StatusCheckbox
                       messages={messages.showPastAppointments}
-                      elementId="showPastApptsCheckBox"
+                      elementId="showPastAppointmentsCheckBox"
                       checked={this.props.showPastAppointments}
                       handleCheck={this.handleCheck}
                     />
@@ -191,7 +168,7 @@ UpcomingAppointments.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  showPastAppointments: PropTypes.any,
+  showPastAppointments: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -199,11 +176,12 @@ const mapStateToProps = createStructuredSelector({
   appointmentTypes: makeSelectAppointmentTypes(),
   appointmentStatuses: makeSelectAppointmentStatuses(),
   selectedPatient: makeSelectSelectedPatient(),
+  showPastAppointments: makeSelectShowPastAppointments(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUpcomingAppointments: (query) => dispatch(getUpcomingAppointments(query)),
+    getUpcomingAppointments: (query, showPastAppointments) => dispatch(getUpcomingAppointments(query, showPastAppointments)),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     cancelAppointment: (id) => dispatch(cancelAppointment(id)),
   };

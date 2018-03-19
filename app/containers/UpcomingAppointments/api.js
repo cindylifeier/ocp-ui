@@ -1,7 +1,8 @@
+import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
+import { isUndefined } from 'lodash';
 import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
-import queryString from '../../utils/queryString';
-import request from '../../utils/request';
-import { DEFAULT_PAGE_SIZE } from '../App/constants';
+import queryString from 'utils/queryString';
+import request from 'utils/request';
 
 export default function getUpcomingAppointments(query) {
   const { pageSize = DEFAULT_PAGE_SIZE } = query;
@@ -9,6 +10,9 @@ export default function getUpcomingAppointments(query) {
     ...query,
     pageSize,
   };
+  if (isUndefined(query.sortByStartTimeAsc)) {
+    q.sortByStartTimeAsc = !(!isUndefined(query.showPastAppointments) && query.showPastAppointments);
+  }
   const params = queryString(q);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
   const requestURL = `${baseEndpoint}/search${params}`;
