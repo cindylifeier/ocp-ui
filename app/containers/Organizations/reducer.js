@@ -23,7 +23,7 @@ const initialState = fromJS({
   },
   searchOrganizations: {
     loading: false,
-    result: [],
+    result: false,
     currentPage: 0,
     totalNumberOfPages: 0,
   },
@@ -39,7 +39,7 @@ function organizationsReducer(state = initialState, action) {
     case GET_ORGANIZATIONS_SUCCESS:
       return state
         .setIn(['listOrganizations', 'loading'], false)
-        .setIn(['listOrganizations', 'result'], fromJS(action.organizations.elements))
+        .setIn(['listOrganizations', 'data'], fromJS(action.organizations.elements))
         .setIn(['listOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
         .setIn(['listOrganizations', 'currentPage'], action.organizations.currentPage);
     case SEARCH_ORGANIZATIONS:

@@ -13,7 +13,7 @@ describe('organizationsReducer', () => {
       },
       searchOrganizations: {
         loading: false,
-        result: [],
+        result: false,
         currentPage: 0,
         totalNumberOfPages: 0,
       },

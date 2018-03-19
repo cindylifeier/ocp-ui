@@ -14,4 +14,12 @@ export default defineMessages({
     id: 'ocpui.containers.Organizations.buttonLabelCreateNew',
     defaultMessage: 'Create New',
   },
+  filterLabel: {
+    id: 'ocpui.containers.Organizations.filterLabel',
+    defaultMessage: 'Include',
+  },
+  checkboxLabel: {
+    id: 'ocpui.containers.Organizations.checkboxLabel',
+    defaultMessage: 'Inactive',
+  },
 });

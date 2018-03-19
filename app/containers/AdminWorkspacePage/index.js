@@ -110,18 +110,13 @@ export const componentMetadata = [
 ];
 
 export class AdminWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 1,
-      showInactive: false,
-    };
-  }
 
   componentDidMount() {
     // TODO: Resolve delay issue
     // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
-    setTimeout(() => this.props.getOrganizations(this.state.showInactive, this.state.currentPage), 500);
+    const defaultShowInactive = false;
+    const defaultCurrentPage = 1;
+    setTimeout(() => this.props.getOrganizations(defaultShowInactive, defaultCurrentPage), 500);
   }
 
   render() {
