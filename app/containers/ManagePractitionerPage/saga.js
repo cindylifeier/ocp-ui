@@ -2,7 +2,7 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import searchOrganizations from 'containers/Organizations/api';
+import { searchOrganizations } from 'containers/Organizations/api';
 import { makeSelectProviderRoles, makeSelectProviderSpecialties } from 'containers/App/lookupSelectors';
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectPractitionerSearchResult } from 'containers/Practitioners/selectors';
