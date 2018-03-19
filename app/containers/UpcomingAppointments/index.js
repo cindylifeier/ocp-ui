@@ -19,10 +19,12 @@ import {
   MANAGE_APPOINTMENT_URL,
 } from 'containers/App/constants';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
 import { PRACTITIONERIDVALUE } from 'containers/UpcomingAppointments/constants';
 import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -47,7 +49,19 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   componentDidMount() {
-    this.props.getUpcomingAppointments({ pageNumber: DEFAULT_START_PAGE_NUMBER, practitionerid: PRACTITIONERIDVALUE });
+    const patientId = this.props.selectedPatient.id;
+    if (!isUndefined(patientId)) {
+      this.props.getUpcomingAppointments({
+        pageNumber: DEFAULT_START_PAGE_NUMBER,
+        practitionerid: PRACTITIONERIDVALUE,
+        patientId,
+      });
+    } else {
+      this.props.getUpcomingAppointments({
+        pageNumber: DEFAULT_START_PAGE_NUMBER,
+        practitionerid: PRACTITIONERIDVALUE,
+      });
+    }
     this.props.getLookupData();
   }
 
@@ -60,18 +74,20 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   render() {
+    const currentPath = window.location.pathname;
+    const patientDetailsPage = currentPath.indexOf('patients') >= 0;
     const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     return (
       <div>
         <Card>
           <CardHeader title={<FormattedMessage {...messages.header} />}>
-            {this.props.showCreateButton ?
-              <StyledFlatButton
-                label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-                icon={<ContentAddCircle />}
-                containerElement={<Link to={MANAGE_APPOINTMENT_URL} />}
-              />
-              : null}
+            {patientDetailsPage &&
+            <StyledFlatButton
+              label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
+              icon={<ContentAddCircle />}
+              containerElement={<Link to={MANAGE_APPOINTMENT_URL} />}
+            />
+            }
           </CardHeader>
           {loading &&
           <RefreshIndicatorLoading />}
@@ -95,7 +111,6 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 }
 
 UpcomingAppointments.propTypes = {
-  showCreateButton: PropTypes.bool,
   getUpcomingAppointments: PropTypes.func.isRequired,
   getLookupData: PropTypes.func.isRequired,
   appointmentTypes: PropTypes.array,
@@ -107,12 +122,17 @@ UpcomingAppointments.propTypes = {
     }),
   }).isRequired,
   cancelAppointment: PropTypes.func,
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
-UpcomingAppointments.defaultProps = { showCreateButton: true };
+
 const mapStateToProps = createStructuredSelector({
   upcomingAppointments: makeSelectUpcomingAppointments(),
   appointmentTypes: makeSelectAppointmentTypes(),
   appointmentStatuses: makeSelectAppointmentStatuses(),
+  selectedPatient: makeSelectSelectedPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
