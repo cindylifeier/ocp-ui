@@ -8,8 +8,6 @@ export default function getUpcomingAppointments(query) {
   const q = {
     ...query,
     pageSize,
-    showPastAppointments: false,
-    sortByStartTimeAsc: true,
   };
   const params = queryString(q);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);

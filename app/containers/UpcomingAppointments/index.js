@@ -9,7 +9,10 @@ import Card from 'components/Card/index';
 import CardHeader from 'components/CardHeader';
 import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable/index';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination/index';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import FilterSection from 'components/FilterSection';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
+import StatusCheckbox from 'components/StatusCheckbox';
 import StyledFlatButton from 'components/StyledFlatButton';
 import { getLookupsAction } from 'containers/App/actions';
 import {
@@ -33,6 +36,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import messages from './messages';
@@ -45,6 +49,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
   }
 
@@ -55,11 +60,15 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         practitionerId: PRACTITIONERIDVALUE,
         patientId,
+        showPastAppointments: false,
+        sortByStartTimeAsc: true,
       });
     } else {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         practitionerId: PRACTITIONERIDVALUE,
+        showPastAppointments: false,
+        sortByStartTimeAsc: true,
       });
     }
     this.props.getLookupData();
@@ -67,6 +76,46 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
+  }
+
+  handleCheck(event, checked) {
+    const patientId = this.props.selectedPatient.id;
+    if (checked) {
+      if (!isUndefined(patientId)) {
+        this.props.getUpcomingAppointments({
+          pageNumber: DEFAULT_START_PAGE_NUMBER,
+          practitionerId: PRACTITIONERIDVALUE,
+          patientId,
+          showPastAppointments: true,
+          sortByStartTimeAsc: false,
+        });
+      } else {
+        this.props.getUpcomingAppointments({
+          pageNumber: DEFAULT_START_PAGE_NUMBER,
+          practitionerId: PRACTITIONERIDVALUE,
+          showPastAppointments: true,
+          sortByStartTimeAsc: false,
+        });
+      }
+    }
+    if (!checked) {
+      if (!isUndefined(patientId)) {
+        this.props.getUpcomingAppointments({
+          pageNumber: DEFAULT_START_PAGE_NUMBER,
+          practitionerId: PRACTITIONERIDVALUE,
+          patientId,
+          showPastAppointments: false,
+          sortByStartTimeAsc: true,
+        });
+      } else {
+        this.props.getUpcomingAppointments({
+          pageNumber: DEFAULT_START_PAGE_NUMBER,
+          practitionerId: PRACTITIONERIDVALUE,
+          showPastAppointments: false,
+          sortByStartTimeAsc: true,
+        });
+      }
+    }
   }
 
   cancelAppointment(logicalId) {
@@ -81,6 +130,22 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
       <div>
         <Card>
           <CardHeader title={<FormattedMessage {...messages.header} />}>
+            {patientDetailsPage &&
+            <div>
+              <FilterSection>
+                <CheckboxFilterGrid>
+                  <Cell>
+                    <StatusCheckbox
+                      messages={messages.showPastAppointments}
+                      elementId="showPastApptsCheckBox"
+                      checked={this.props.showPastAppointments}
+                      handleCheck={this.handleCheck}
+                    />
+                  </Cell>
+                </CheckboxFilterGrid>
+              </FilterSection>
+            </div>
+            }
             {patientDetailsPage &&
             <StyledFlatButton
               label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
@@ -126,6 +191,7 @@ UpcomingAppointments.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  showPastAppointments: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
