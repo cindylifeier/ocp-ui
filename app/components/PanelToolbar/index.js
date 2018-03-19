@@ -14,6 +14,7 @@ import AddCircle from 'material-ui/svg-icons/content/add-circle';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
 import SearchIcon from 'material-ui/svg-icons/action/search';
+import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import { white } from 'material-ui/styles/colors';
 
@@ -80,10 +81,15 @@ export class PanelToolbar extends React.PureComponent {
             }
             {showSearchIcon &&
             <IconButton
-              tooltip={<FormattedMessage {...messages.search} />}
+              tooltip={this.state.isShowSearchBar ?
+                <FormattedMessage {...messages.cancelSearch} /> :
+                <FormattedMessage {...messages.search} />
+              }
               onClick={this.handleShowSearchBar}
             >
-              <SearchIcon color={white} />
+              {this.state.isShowSearchBar ?
+                <CancelIcon color={white} /> : <SearchIcon color={white} />
+              }
             </IconButton>
             }
           </ToolbarGroup>
