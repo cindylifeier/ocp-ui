@@ -9,13 +9,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
 import WorkspaceSelection from 'components/WorkspaceSelection';
-import { setWorkflowRole } from './actions';
+import { makeSelectUser } from 'containers/App/contextSelectors';
+import { setUser } from 'containers/App/contextActions';
 import saga from './saga';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.onSetWorkflowRole = this.onSetWorkflowRole.bind(this);
+  }
+
+  onSetWorkflowRole(role) {
+    const { user } = this.props;
+    this.props.setUser({ ...user, role });
+  }
+
   render() {
     return (
       <div>
@@ -25,7 +37,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         </Helmet>
         <WorkspaceSelection
           {...this.props}
-          onSetWorkflowRole={this.props.onSetWorkflowRole}
+          onSetWorkflowRole={this.onSetWorkflowRole}
         />
       </div>
     );
@@ -33,16 +45,21 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
 }
 
 WorkspaceSelectionPage.propTypes = {
-  onSetWorkflowRole: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
+
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSetWorkflowRole: (workflowRole) => dispatch(setWorkflowRole(workflowRole)),
+    setUser: (user) => dispatch(setUser(user)),
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withSaga = injectSaga({ key: 'workspaceSelectionPage', saga });
 
