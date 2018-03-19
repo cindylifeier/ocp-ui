@@ -20,9 +20,8 @@ export const CLEAR_ALL = 'ocpui/Context/CLEAR_ALL';
 export const REFRESH_PATIENT = 'ocpui/Context/REFRESH_PATIENT';
 export const REFRESH_ORGANIZATION = 'ocpui/Context/REFRESH_ORGANIZATION';
 export const REFRESH_LOCATION = 'ocpui/Context/REFRESH_LOCATION';
-export const REFRESH_USER = 'ocpui/Context/REFRESH_USER';
 
 /**
-*  Other constants
-*
-*/
+ *  Other constants
+ *
+ */

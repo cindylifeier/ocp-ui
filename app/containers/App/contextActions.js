@@ -5,19 +5,18 @@
  */
 
 import {
-  SET_PATIENT,
-  SET_ORGANIZATION,
-  SET_LOCATION,
-  SET_USER,
-  CLEAR_PATIENT,
-  CLEAR_ORGANIZATION,
-  CLEAR_LOCATION,
-  CLEAR_USER,
   CLEAR_ALL,
-  REFRESH_PATIENT,
-  REFRESH_ORGANIZATION,
+  CLEAR_LOCATION,
+  CLEAR_ORGANIZATION,
+  CLEAR_PATIENT,
+  CLEAR_USER,
   REFRESH_LOCATION,
-  REFRESH_USER,
+  REFRESH_ORGANIZATION,
+  REFRESH_PATIENT,
+  SET_LOCATION,
+  SET_ORGANIZATION,
+  SET_PATIENT,
+  SET_USER,
 } from './contextConstants';
 
 export function setPatient(patient) {
@@ -93,11 +92,5 @@ export function refreshOrganization() {
 export function refreshLocation() {
   return {
     type: REFRESH_LOCATION,
-  };
-}
-
-export function refreshUser() {
-  return {
-    type: REFRESH_USER,
   };
 }
