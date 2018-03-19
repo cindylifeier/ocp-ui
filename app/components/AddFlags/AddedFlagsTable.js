@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
+import find from 'lodash/find';
 import MenuItem from 'material-ui/MenuItem';
 
 import Util from 'utils/Util';
@@ -21,6 +22,8 @@ function AddedFlagsTable(props) {
     flags,
     arrayHelpers,
     handleEditFlag,
+    flagStatuses,
+    flagCategories,
   } = props;
   return (
     <div>
@@ -41,8 +44,8 @@ function AddedFlagsTable(props) {
           const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{category}</TableRowColumn>
-              <TableRowColumn>{status}</TableRowColumn>
+              <TableRowColumn>{find(flagCategories, { code: category }).display}</TableRowColumn>
+              <TableRowColumn>{find(flagStatuses, { code: status }).display}</TableRowColumn>
               <TableRowColumn>{code}</TableRowColumn>
               <TableRowColumn>{author && author.display }</TableRowColumn>
               <TableRowColumn>{flagStart && Util.formatDate(flagStart)}</TableRowColumn>
@@ -78,6 +81,14 @@ AddedFlagsTable.propTypes = {
     status: PropTypes.string,
     author: PropTypes.string,
   })),
+  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  flagCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default AddedFlagsTable;
