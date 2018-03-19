@@ -55,7 +55,7 @@ class PrivateHeader extends React.PureComponent {
   render() {
     return (
       <StyledToolbar
-        backgroundColor="#fafafa"
+        color="#fafafa"
         height="60px"
       >
         <ToolbarGroup firstChild>
