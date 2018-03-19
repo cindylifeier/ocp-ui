@@ -9,7 +9,7 @@ import { Toolbar } from 'material-ui/Toolbar';
 
 const PanelMUToolbar = styled(Toolbar).attrs({
   style: {
-    backgroundColor: 'rgba(145, 170, 179, 1)',
+    backgroundColor: '#91AAB3',
     height: '30px',
   },
 })('');

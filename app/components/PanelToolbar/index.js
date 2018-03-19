@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { ToolbarGroup } from 'material-ui/Toolbar';
-import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import AddCircle from 'material-ui/svg-icons/content/add-circle';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
@@ -20,6 +19,7 @@ import { white } from 'material-ui/styles/colors';
 
 import SearchBar from 'components/SearchBar';
 import PanelMUToolbar from './PanelMUToolbar';
+import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
 
 
@@ -52,10 +52,9 @@ export class PanelToolbar extends React.PureComponent {
         <PanelMUToolbar>
           <ToolbarGroup firstChild>
             {showNewItem &&
-            <FlatButton
+            <AddNewItemButton
               label={addNewItem.labelName}
               icon={<AddCircle color={white} />}
-              labelStyle={{ color: white }}
               containerElement={<Link to={addNewItem.linkUrl} />}
             />
             }
