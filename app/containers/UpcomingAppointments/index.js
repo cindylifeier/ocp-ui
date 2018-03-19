@@ -53,13 +53,13 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     if (!isUndefined(patientId)) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerid: PRACTITIONERIDVALUE,
+        practitionerId: PRACTITIONERIDVALUE,
         patientId,
       });
     } else {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerid: PRACTITIONERIDVALUE,
+        practitionerId: PRACTITIONERIDVALUE,
       });
     }
     this.props.getLookupData();
