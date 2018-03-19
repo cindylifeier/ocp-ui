@@ -65,7 +65,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getLookups();
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -183,9 +183,11 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       tasksByPatient,
     } = this.props;
     const logicalId = this.props.match.params.id;
-    const editMode = !isUndefined(match.params.id);
+    const queryObj = queryString.parse(this.props.location.search);
+    const isMainTask = queryObj.isMainTask === 'true';
+    const editMode = !isUndefined(match.params.id) && isMainTask;
     let currentTask = null;
-    if (editMode && this.props.tasks) {
+    if (logicalId && this.props.tasks) {
       currentTask = find(this.props.tasks.data.elements, { logicalId });
     }
     const taskProps = {
@@ -202,7 +204,20 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       editMode,
       currentTask,
       tasksByPatient,
+      isMainTask,
     };
+    const isEdit = !!logicalId;
+    let titleHeader;
+    if ((isEdit === true) && (isMainTask === true)) {
+      titleHeader = <FormattedMessage {...messages.updateMainHeader} />;
+    } else if ((isEdit === true) && (isMainTask === false)) {
+      titleHeader = <FormattedMessage {...messages.updateHeader} />;
+    } else if ((isEdit === false) && (isMainTask === true)) {
+      titleHeader = <FormattedMessage {...messages.createMainHeader} />;
+    } else if ((isEdit === false) && (isMainTask === false)) {
+      titleHeader = <FormattedMessage {...messages.createHeader} />;
+    }
+
 
     return (
       <Page>
@@ -211,9 +226,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
           <meta name="description" content="Manage Task page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
-          title={logicalId ?
-            <FormattedMessage {...messages.updateHeader} /> :
-            <FormattedMessage {...messages.createHeader} />}
+          title={titleHeader}
         />
         <PageContent>
           <ManageTask {...taskProps} onSave={this.handleSave} />
