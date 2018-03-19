@@ -18,7 +18,7 @@ import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import { white } from 'material-ui/styles/colors';
 
 import SearchBar from 'components/SearchBar';
-import PanelMUToolbar from './PanelMUToolbar';
+import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
 
@@ -49,7 +49,10 @@ export class PanelToolbar extends React.PureComponent {
     } = this.props;
     return (
       <div>
-        <PanelMUToolbar>
+        <StyledToolbar
+          backgroundColor="#91AAB3"
+          height="30px"
+        >
           <ToolbarGroup firstChild>
             {showNewItem &&
             <AddNewItemButton
@@ -84,7 +87,7 @@ export class PanelToolbar extends React.PureComponent {
             </IconButton>
             }
           </ToolbarGroup>
-        </PanelMUToolbar>
+        </StyledToolbar>
         {this.state.isShowSearchBar &&
         <SearchBar onSearch={onSearch} />
         }
