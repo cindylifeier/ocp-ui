@@ -55,6 +55,15 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 />}
               />
               <MenuItem
+                primaryText={<FormattedMessage {...messages.addSubTask} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${MANAGE_TASK_URL}/${logicalId}`,
+                    search: `?patientId=${selectedPatientId}&isMainTask=false`,
+                  }}
+                />}
+              />
+              <MenuItem
                 primaryText={<FormattedMessage {...messages.cancelTask} />}
                 disabled={status.code === STATUS_CODE_CANCELLED}
                 onClick={() => cancelTask(logicalId)}
