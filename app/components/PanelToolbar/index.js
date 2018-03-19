@@ -50,7 +50,7 @@ export class PanelToolbar extends React.PureComponent {
     return (
       <div>
         <StyledToolbar
-          backgroundColor="#91AAB3"
+          color="#91AAB3"
           height="30px"
         >
           <ToolbarGroup firstChild>
