@@ -44,7 +44,7 @@ function ManagePatientForm(props) {
     flagStatuses,
     flagCategories,
     errors,
-    flags: values.telecoms,
+    flags: values.flags,
   };
 
   return (

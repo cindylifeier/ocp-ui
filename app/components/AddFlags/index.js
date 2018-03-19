@@ -49,6 +49,10 @@ class AddFlags extends React.PureComponent {
 
   render() {
     const { errors, flags, flagStatuses, flagCategories } = this.props;
+    const addFlagFormProps = {
+      flagStatuses,
+      flagCategories,
+    };
     const addedFlagTableProps = {
       errors,
       flags,
@@ -80,7 +84,7 @@ class AddFlags extends React.PureComponent {
                     onAddFlag={arrayHelpers.push}
                     onRemoveFlag={arrayHelpers.remove}
                     handleCloseDialog={this.handleCloseDialog}
-                    {...addedFlagTableProps}
+                    {...addFlagFormProps}
                   />
                 </Dialog>
                 <AddedFlagsTable
