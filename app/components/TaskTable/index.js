@@ -50,7 +50,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 containerElement={<Link
                   to={{
                     pathname: `${MANAGE_TASK_URL}/${logicalId}`,
-                    search: `?patientId=${selectedPatientId}`,
+                    search: `?patientId=${selectedPatientId}&isMainTask=true`,
                   }}
                 />}
               />
