@@ -23,7 +23,7 @@ const initialState = fromJS({
   },
   searchOrganizations: {
     loading: false,
-    result: false,
+    result: [],
     currentPage: 0,
     totalNumberOfPages: 0,
   },

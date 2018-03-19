@@ -1,4 +1,3 @@
-
 import { fromJS } from 'immutable';
 import organizationsReducer from '../reducer';
 
@@ -13,7 +12,7 @@ describe('organizationsReducer', () => {
       },
       searchOrganizations: {
         loading: false,
-        result: false,
+        result: [],
         currentPage: 0,
         totalNumberOfPages: 0,
       },

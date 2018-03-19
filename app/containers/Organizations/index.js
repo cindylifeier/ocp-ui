@@ -13,6 +13,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
+import PanelToolbar from 'components/PanelToolbar';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import Card from 'components/Card';
@@ -80,10 +82,14 @@ export class Organizations extends React.PureComponent {
 
   render() {
     const { organizations } = this.props;
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_ORGANIZATION_URL,
+    };
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
-
+        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         {/* By default list all organizations */}
         {organizations.listOrganizations.loading && <RefreshIndicatorLoading />}
         {(!organizations.listOrganizations.loading && organizations.listOrganizations.data && organizations.listOrganizations.data.length > 0
