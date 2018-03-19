@@ -57,7 +57,6 @@ export class Patients extends React.PureComponent {
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handlePatientClick = this.handlePatientClick.bind(this);
 
-    // TODO: Will move handle ConfirmPatientModal to upcoming tasks component
     this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
   }
@@ -77,7 +76,6 @@ export class Patients extends React.PureComponent {
     this.props.getRelatedPersons(searchValue, showInactive, currentPage);
   }
 
-  // TODO: Will move handle ConfirmPatientModal to upcoming tasks component
   handlePatientViewDetailsClick(patient) {
     this.setState({
       selectedPatient: patient,
