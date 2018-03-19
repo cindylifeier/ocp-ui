@@ -1,5 +1,6 @@
 import request from 'utils/request';
 import { BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import Util from 'utils/Util';
 
 const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
@@ -33,8 +34,9 @@ export function getPatient(patientId) {
 function mapToBackendPatient(patientFormData) {
   const {
     id, firstName, lastName, birthDate, genderCode, identifierType, identifierValue, language, race,
-    ethnicity, birthSex, addresses, telecoms,
+    ethnicity, birthSex, addresses, telecoms, flags,
   } = patientFormData;
+
 
   const identifier = [{
     system: identifierType,
@@ -44,25 +46,34 @@ function mapToBackendPatient(patientFormData) {
     firstName,
     lastName,
   }];
+  const mappedFlags = mapToBackendFlags(flags);
   return {
     id,
     identifier,
     name,
     telecoms,
     addresses,
-    birthDate,
+    birthDate: Util.formatDate(birthDate),
     genderCode,
     language,
     race,
     ethnicity,
     birthSex,
+    flags: mappedFlags,
     active: true,
   };
 }
 
+function mapToBackendFlags(flags) {
+  return flags.map((flag) => {
+    const { status, category, logicalId, code, flagStart, flagEnd } = flag;
+    return { status, category, logicalId, code, period: { start: Util.formatDate(flagStart), end: Util.formatDate(flagEnd) }, author: { display: 'practitioner', reference: 'Practitoner/1557' } };
+  });
+}
+
 export function mapToFrontendPatientForm(patientData) {
   const {
-    id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex,
+    id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex, flags,
   } = patientData;
 
   const identifierType = identifier[0].system;
@@ -86,5 +97,6 @@ export function mapToFrontendPatientForm(patientData) {
     birthSex,
     addresses,
     telecoms,
+    flags,
   };
 }
