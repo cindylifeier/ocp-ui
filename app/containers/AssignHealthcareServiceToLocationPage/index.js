@@ -30,23 +30,24 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import H3 from 'components/H3';
 import InfoSection from 'components/InfoSection';
 import { makeSelectLocations } from 'containers/Locations/selectors';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
-  makeSelectCurrentPage,
-  makeSelectHealthcareServices,
-  makeSelectQueryError,
-  makeSelectQueryLoading,
-  makeSelectTotalNumberOfPages,
+makeSelectCurrentPage,
+makeSelectHealthcareServices,
+makeSelectQueryError,
+makeSelectQueryLoading,
+makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import {
-  getHealthcareServicesLocationAssignment,
-  initializeAssignHealthCareServiceToLocationPage,
-  markHealthcareServiceAsAssigned,
-  unassignHealthcareServicesLocationAssignment,
-  updateHealthcareServicesLocationAssignment,
+getHealthcareServicesLocationAssignment,
+initializeAssignHealthCareServiceToLocationPage,
+markHealthcareServiceAsAssigned,
+unassignHealthcareServicesLocationAssignment,
+updateHealthcareServicesLocationAssignment,
 } from './actions';
 
 export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -69,13 +70,13 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
   componentDidMount() {
     this.props.initializeAssignHealthCareServiceToLocationPage();
-    this.props.getHealthcareServicesLocationAssignment(this.props.organization.logicalId, this.props.organization.name, this.props.match.params.id, 1);
+    this.props.getHealthcareServicesLocationAssignment(DEFAULT_START_PAGE_NUMBER);
   }
 
   onCheckAssignedCheckbox(evt, checked, healthcareServiceLogicalId) {
     const locationLogicalId = this.props.match.params.id;
     if (checked) {
-      this.props.updateHealthcareServicesLocationAssignment(this.props.organization.logicalId, locationLogicalId, healthcareServiceLogicalId);
+      this.props.updateHealthcareServicesLocationAssignment(healthcareServiceLogicalId);
     } else {
       const selectedLocation = find(this.props.location, { logicalId: locationLogicalId });
       const selectedHealthcareService = find(this.props.healthcareServices, { logicalId: healthcareServiceLogicalId });
@@ -96,8 +97,7 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   }
 
   handleUnassignHealthcareService() {
-    const locationLogicalId = this.props.match.params.id;
-    this.props.unassignHealthcareServicesLocationAssignment(this.props.organization.logicalId, locationLogicalId, this.state.healthcareServiceLogicalId);
+    this.props.unassignHealthcareServicesLocationAssignment(this.state.healthcareServiceLogicalId);
     this.setState({ open: false });
   }
 
@@ -218,9 +218,9 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeAssignHealthCareServiceToLocationPage: () => dispatch(initializeAssignHealthCareServiceToLocationPage()),
-    getHealthcareServicesLocationAssignment: (organizationId, organizationName, locationId, currentPage) => dispatch(getHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage)),
-    updateHealthcareServicesLocationAssignment: (organizationId, locationId, healthcareServiceId) => dispatch(updateHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
-    unassignHealthcareServicesLocationAssignment: (organizationId, locationId, healthcareServiceId) => dispatch(unassignHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId)),
+    getHealthcareServicesLocationAssignment: (currentPage) => dispatch(getHealthcareServicesLocationAssignment(currentPage)),
+    updateHealthcareServicesLocationAssignment: (healthcareServiceId) => dispatch(updateHealthcareServicesLocationAssignment(healthcareServiceId)),
+    unassignHealthcareServicesLocationAssignment: (healthcareServiceId) => dispatch(unassignHealthcareServicesLocationAssignment(healthcareServiceId)),
     markHealthcareServiceAsAssigned: (healthcareServiceId) => dispatch(markHealthcareServiceAsAssigned(healthcareServiceId)),
   };
 }
