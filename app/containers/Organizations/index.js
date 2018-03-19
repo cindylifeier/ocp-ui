@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Checkbox from 'material-ui/Checkbox';
-import { Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -38,7 +36,6 @@ import messages from './messages';
 export class Organizations extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleCheckInactive = this.handleCheckInactive.bind(this);
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
@@ -46,7 +43,6 @@ export class Organizations extends React.PureComponent {
     this.state = {
       listOrganizations: {
         currentPage: 1,
-        showInactive: false,
       },
       searchOrganizations: {
         currentPage: 1,
@@ -61,13 +57,9 @@ export class Organizations extends React.PureComponent {
     this.props.initializeOrganizations();
   }
 
-  handleCheckInactive(event, showInactive) {
-    this.setState({ listOrganizations: { showInactive } });
-  }
-
   handleListPageClick(currentPage) {
     this.setState({ listOrganizations: { currentPage } });
-    this.props.getOrganizations(this.state.listOrganizations.showInactive, currentPage);
+    this.props.getOrganizations(currentPage);
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -93,15 +85,6 @@ export class Organizations extends React.PureComponent {
         <CardHeader title={<FormattedMessage {...messages.header} />} />
 
         {/* By default list all organizations */}
-        <Grid gap="5px" columns="70px 300px">
-          <div>
-            <FormattedMessage {...messages.filterLabel} />
-          </div>
-          <Checkbox
-            label={<FormattedMessage {...messages.checkboxLabel} />}
-            onCheck={this.handleCheckInactive}
-          />
-        </Grid>
         {organizations.listOrganizations.loading && <RefreshIndicatorLoading />}
         {(!organizations.listOrganizations.loading && organizations.listOrganizations.data && organizations.listOrganizations.data.length > 0
             ? <div>
@@ -174,7 +157,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
-    getOrganizations: (showInactive, currentPage) => dispatch(getOrganizations(showInactive, currentPage)),
+    getOrganizations: (currentPage) => dispatch(getOrganizations(currentPage)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
     getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
     getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage)),

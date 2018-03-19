@@ -4,9 +4,9 @@ import { GET_ORGANIZATIONS, SEARCH_ORGANIZATIONS } from './constants';
 import { getOrganizations, searchOrganizations } from './api';
 import { getOrganizationsSuccess, searchOrganizationsError, searchOrganizationsSuccess } from './actions';
 
-export function* getOrganizationsSaga({ showInactive, currentPage }) {
+export function* getOrganizationsSaga({ currentPage }) {
   try {
-    const organizations = yield call(getOrganizations, showInactive, currentPage);
+    const organizations = yield call(getOrganizations, currentPage);
     yield put(getOrganizationsSuccess(organizations));
   } catch (err) {
     yield put(showNotification('Failed to get the organizations.'));

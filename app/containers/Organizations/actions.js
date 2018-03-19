@@ -19,10 +19,9 @@ export function initializeOrganizations() {
   };
 }
 
-export function getOrganizations(showInactive, currentPage) {
+export function getOrganizations(currentPage) {
   return {
     type: GET_ORGANIZATIONS,
-    showInactive,
     currentPage,
   };
 }

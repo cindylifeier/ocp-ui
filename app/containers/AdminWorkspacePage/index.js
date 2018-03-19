@@ -114,9 +114,8 @@ export class AdminWorkspacePage extends React.PureComponent { // eslint-disable-
   componentDidMount() {
     // TODO: Resolve delay issue
     // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
-    const defaultShowInactive = false;
-    const defaultCurrentPage = 1;
-    setTimeout(() => this.props.getOrganizations(defaultShowInactive, defaultCurrentPage), 500);
+    const initialCurrentPage = 1;
+    setTimeout(() => this.props.getOrganizations(initialCurrentPage), 500);
   }
 
   render() {
