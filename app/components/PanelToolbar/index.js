@@ -101,7 +101,7 @@ PanelToolbar.propTypes = {
   showFilterIcon: PropTypes.bool,
   showSearchIcon: PropTypes.bool,
   addNewItem: PropTypes.shape({
-    labelName: PropTypes.string.isRequired,
+    labelName: PropTypes.node.isRequired,
     linkUrl: PropTypes.string.isRequired,
   }),
   onSearch: PropTypes.func,
