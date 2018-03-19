@@ -4,6 +4,7 @@ import { getLookupTypesNotInStore } from 'utils/LookupService';
 import { fetchLookups } from './api';
 import { GET_LOOKUPS } from './constants';
 import { getLookupsError, getLookupsFromStore, getLookupsSuccess } from './actions';
+import contextRootSaga from './contextSaga';
 
 export function* getLookups(action) {
   try {
@@ -26,5 +27,7 @@ export function* watchGetLookupsSaga() {
 export default function* rootSaga() {
   yield all([
     watchGetLookupsSaga(),
+    // TODO: further investigate why contextRootSaga cannot be injected within App.js
+    contextRootSaga(),
   ]);
 }
