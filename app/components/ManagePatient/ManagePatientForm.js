@@ -18,6 +18,7 @@ import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddFlags from 'components/AddFlags';
 import messages from './messages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 
@@ -25,6 +26,7 @@ function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
+    flagStatuses, flagCategories,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -36,6 +38,13 @@ function ManagePatientForm(props) {
     telecomUses,
     errors,
     telecoms: values.telecoms,
+  };
+
+  const addFlagsProps = {
+    flagStatuses,
+    flagCategories,
+    errors,
+    flags: values.telecoms,
   };
 
   return (
@@ -161,6 +170,9 @@ function ManagePatientForm(props) {
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
         </Cell>
+        <Cell area="flags">
+          <AddFlags {...addFlagsProps} />
+        </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
@@ -232,6 +244,14 @@ ManagePatientForm.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })).isRequired,
+  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  flagCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
 };
 
 export default ManagePatientForm;

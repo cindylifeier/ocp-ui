@@ -19,7 +19,7 @@ import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManagePatient from 'components/ManagePatient';
 import {
-  makeSelectAdministrativeGenders,
+  makeSelectAdministrativeGenders, makeSelectFlagCategories, makeSelectFlagStatuses,
   makeSelectLanguages,
   makeSelectPatientIdentifierSystems,
   makeSelectTelecomSystems,
@@ -30,7 +30,7 @@ import {
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import {
-  ADMINISTRATIVEGENDER,
+  ADMINISTRATIVEGENDER, FLAG_CATEGORY, FLAG_STATUS,
   LANGUAGE,
   PATIENTIDENTIFIERSYSTEM,
   TELECOMSYSTEM,
@@ -65,7 +65,8 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = this.props;
+    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
+      usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories } = this.props;
     const patientId = match.params.id;
     let patient = null;
     if (patientId) {
@@ -81,6 +82,8 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       languages,
       telecomSystems,
       telecomUses,
+      flagStatuses,
+      flagCategories,
       patient,
     };
     return (
@@ -128,6 +131,16 @@ ManagePatientPage.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })),
+  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  flagCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   patients: PropTypes.any,
 };
 
@@ -141,7 +154,10 @@ const mapStateToProps = createStructuredSelector({
   languages: makeSelectLanguages(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
+  flagStatuses: makeSelectFlagStatuses(),
+  flagCategories: makeSelectFlagCategories(),
   patients: makeSelectPatientSearchResult(),
+
 });
 
 function mapDispatchToProps(dispatch) {
@@ -150,7 +166,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(savePatient(patientFormData, handleSubmitting));
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE])),
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY])),
   };
 }
 
