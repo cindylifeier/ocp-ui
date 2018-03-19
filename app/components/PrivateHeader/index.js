@@ -19,8 +19,8 @@ import Menu from 'material-ui/Menu';
 import { CARE_COORDINATOR_URL, HOME_URL, PATIENTS_URL } from 'containers/App/constants';
 import Logout from 'containers/Logout';
 import StyledBrandImage from 'components/StyledBrandImage';
+import StyledToolbar from 'components/StyledToolbar';
 import brandImg from 'images/omnibus-care-plan-logo.png';
-import PrivateHeaderToolbar from './PrivateHeaderToolbar';
 import NavSelectField from './NavSelectField';
 import messages from './messages';
 
@@ -54,7 +54,10 @@ class PrivateHeader extends React.PureComponent {
   // Todo: temporary navigation for development use and will remove it
   render() {
     return (
-      <PrivateHeaderToolbar>
+      <StyledToolbar
+        backgroundColor="#fafafa"
+        height="60px"
+      >
         <ToolbarGroup firstChild>
           <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
         </ToolbarGroup>
@@ -91,7 +94,7 @@ class PrivateHeader extends React.PureComponent {
             <Logout />
           </Menu>
         </Popover>
-      </PrivateHeaderToolbar>
+      </StyledToolbar>
     );
   }
 }
