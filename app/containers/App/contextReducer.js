@@ -30,8 +30,8 @@ function contextReducer(state = initialState, action) {
       return state.set('patient', fromJS(action.patient));
     case SET_ORGANIZATION:
       return state
-        .set('organization', fromJS(action.organization))
-        .set('location', fromJS(null));
+        .set('location', state.getIn(['organization', 'logicalId']) === action.organization.logicalId ? state.get('location') : fromJS(null))
+        .set('organization', fromJS(action.organization));
     case SET_LOCATION:
       return state.set('location', fromJS(action.location));
     case SET_USER:

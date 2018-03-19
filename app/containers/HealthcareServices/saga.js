@@ -17,11 +17,11 @@ export function* getHealthcareServicesSaga(action) {
     status.push(STATUS_ACTIVE);
     if (includeInactive) status.push(STATUS_INACTIVE);
     let healthCareServices = null;
-    if (!isEmpty(organization) && !isEmpty(organization.id) && (isEmpty(location) || isEmpty(location.logicalId))) {
-      healthCareServices = yield call(getHealthcareServicesByOrganization, organization.id, status, action.currentPage);
+    if (!isEmpty(organization) && !isEmpty(organization.logicalId) && (isEmpty(location) || isEmpty(location.logicalId))) {
+      healthCareServices = yield call(getHealthcareServicesByOrganization, organization.logicalId, status, action.currentPage);
     }
-    if (!isEmpty(organization) && !isEmpty(organization.id) && !isEmpty(location) && !isEmpty(location.logicalId)) {
-      healthCareServices = yield call(getHealthcareServicesByLocation, organization.id, location.logicalId, status, action.currentPage);
+    if (!isEmpty(organization) && !isEmpty(organization.logicalId) && !isEmpty(location) && !isEmpty(location.logicalId)) {
+      healthCareServices = yield call(getHealthcareServicesByLocation, organization.logicalId, location.logicalId, status, action.currentPage);
     }
     yield put(getHealthcareServicesSuccess(healthCareServices));
   } catch (err) {

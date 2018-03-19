@@ -24,7 +24,7 @@ export function* fetchLocationsByOrganizationIdAndStatus(action) {
     status.push(STATUS_ACTIVE);
     if (includeInactive) status.push(STATUS_INACTIVE);
     if (includeSuspended) status.push(STATUS_SUSPENDED);
-    const locations = yield call(searchLocationsByIdAndStatus, organization.id, status, action.currentPage);
+    const locations = yield call(searchLocationsByIdAndStatus, organization.logicalId, status, action.currentPage);
     yield put(getLocationsSuccess(locations, includeInactive, includeSuspended));
   } catch (err) {
     yield put(getLocationsError(err));

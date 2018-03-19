@@ -26,7 +26,7 @@ import { CREATE_HEALTHCARE_SERVICE, GET_HEALTHCARE_SERVICE, UPDATE_HEALTHCARE_SE
 function* createHealthcareServiceSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const createHealthcareServiceResponse = yield call(createHealthcareService, action.healthcareServiceFormData, organization.id);
+    const createHealthcareServiceResponse = yield call(createHealthcareService, action.healthcareServiceFormData, organization.logicalId);
     yield put(createHealthcareServiceSuccess(createHealthcareServiceResponse));
     yield put(showNotification('Successfully created the healthcare service.'));
     yield call(action.handleSubmitting);
@@ -45,7 +45,7 @@ function* watchCreateHealthcareServiceSaga() {
 function* updateHealthcareServiceSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const updateHealthcareServiceResponse = yield call(updateHealthcareService, action.healthcareServiceFormData, organization.id);
+    const updateHealthcareServiceResponse = yield call(updateHealthcareService, action.healthcareServiceFormData, organization.logicalId);
     yield put(updateHealthcareServiceSuccess(updateHealthcareServiceResponse));
     yield put(showNotification('Successfully updated the healthcare service.'));
     yield call(action.handleSubmitting);

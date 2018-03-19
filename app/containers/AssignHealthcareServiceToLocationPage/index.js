@@ -69,13 +69,13 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
 
   componentDidMount() {
     this.props.initializeAssignHealthCareServiceToLocationPage();
-    this.props.getHealthcareServicesLocationAssignment(this.props.organization.id, this.props.organization.name, this.props.match.params.id, 1);
+    this.props.getHealthcareServicesLocationAssignment(this.props.organization.logicalId, this.props.organization.name, this.props.match.params.id, 1);
   }
 
   onCheckAssignedCheckbox(evt, checked, healthcareServiceLogicalId) {
     const locationLogicalId = this.props.match.params.id;
     if (checked) {
-      this.props.updateHealthcareServicesLocationAssignment(this.props.organization.id, locationLogicalId, healthcareServiceLogicalId);
+      this.props.updateHealthcareServicesLocationAssignment(this.props.organization.logicalId, locationLogicalId, healthcareServiceLogicalId);
     } else {
       const selectedLocation = find(this.props.location, { logicalId: locationLogicalId });
       const selectedHealthcareService = find(this.props.healthcareServices, { logicalId: healthcareServiceLogicalId });
@@ -92,12 +92,12 @@ export class AssignHealthCareServiceToLocationPage extends React.PureComponent {
   }
 
   handlePageClick(currentPage) {
-    this.props.getHealthcareServicesLocationAssignment(this.props.organization.id, this.props.organization.name, this.props.match.params.id, currentPage);
+    this.props.getHealthcareServicesLocationAssignment(this.props.organization.logicalId, this.props.organization.name, this.props.match.params.id, currentPage);
   }
 
   handleUnassignHealthcareService() {
     const locationLogicalId = this.props.match.params.id;
-    this.props.unassignHealthcareServicesLocationAssignment(this.props.organization.id, locationLogicalId, this.state.healthcareServiceLogicalId);
+    this.props.unassignHealthcareServicesLocationAssignment(this.props.organization.logicalId, locationLogicalId, this.state.healthcareServiceLogicalId);
     this.setState({ open: false });
   }
 

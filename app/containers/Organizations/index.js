@@ -31,7 +31,6 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getOrganizations, initializeOrganizations } from './actions';
-import { fromBackendToFrontendOrganization } from './mappings';
 
 export class Organizations extends React.PureComponent {
   constructor(props) {
@@ -84,7 +83,7 @@ export class Organizations extends React.PureComponent {
         {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
           <div>
             <OrganizationTable
-              organizations={organizations.data.map(fromBackendToFrontendOrganization)}
+              organizations={organizations.data}
               onRowClick={this.handleRowClick}
             />
             <CenterAlignedUltimatePagination

@@ -61,9 +61,9 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     const logicalId = this.props.match.params.id;
     if (logicalId && location) {
       const mergedLocation = merge(location, { logicalId });
-      this.props.updateLocation(mergedLocation, this.props.organization.id);
+      this.props.updateLocation(mergedLocation, this.props.organization.logicalId);
     } else {
-      this.props.createLocation(location, this.props.organization.id);
+      this.props.createLocation(location, this.props.organization.logicalId);
     }
   }
 

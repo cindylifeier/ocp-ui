@@ -10,7 +10,7 @@ import { createActivityDefinitionError, createActivityDefinitionSuccess } from '
 function* createActivityDefinitionSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const createActivityDefinitionResponse = yield call(createActivityDefinition, action.activityDefinitionFormData, organization.id);
+    const createActivityDefinitionResponse = yield call(createActivityDefinition, action.activityDefinitionFormData, organization.logicalId);
     yield put(createActivityDefinitionSuccess(createActivityDefinitionResponse));
     yield put(showNotification('Successfully create the activity definition.'));
     yield call(action.handleSubmitting);

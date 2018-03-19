@@ -21,6 +21,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
+import { fromBackendToFrontendOrganization } from './mappings';
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 
@@ -38,17 +39,18 @@ function OrganizationTable({ organizations, onRowClick }) {
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
       </TableHeader>
-      {!isEmpty(organizations) && organizations.map((org) => {
+      {!isEmpty(organizations) && organizations.map((organization) => {
+        const org = fromBackendToFrontendOrganization(organization);
         const { name, address, id, identifiers, status } = org;
         return (
           <TableRow
             columns={tableColumns}
             key={org.id}
-            onClick={() => onRowClick && onRowClick(org)}
+            onClick={() => onRowClick && onRowClick(organization)}
             onKeyPress={(e) => {
               if (e.key === ENTER_KEY) {
                 if (onRowClick) {
-                  onRowClick(org);
+                  onRowClick(organization);
                 }
               }
               e.preventDefault();
