@@ -12,6 +12,36 @@ export function getActiveOrganizations() {
 }
 
 // Todo: will get data from backend
+export function getWorkflowRoles() {
+  return {
+    ocpAdminWorkflowRole: {
+      value: 'ocpAdminRole',
+      display: 'OCP Admin',
+    },
+    careManagerWorkflowRole: {
+      value: 'careManagerRole',
+      display: 'Care Manager',
+    },
+    orgAdminWorkflowRole: {
+      value: 'orgAdminRole',
+      display: 'Organization Admin',
+    },
+    careCoordinatorWorkflowRole: {
+      value: 'careCoordinatorRole',
+      display: 'Care Coordinator',
+    },
+    patientWorkflowRole: {
+      value: 'patientRole',
+      display: 'Patient',
+    },
+    pcpWorkflowRole: {
+      value: 'pcpRole',
+      display: 'PCP',
+    },
+  };
+}
+
+// Todo: will get data from backend
 export function getCareManagers() {
   const careManagers = [
     {

@@ -13,7 +13,22 @@ import {
   GET_ORGANIZATIONS_SUCCESS,
   GET_PATIENTS,
   GET_PATIENTS_SUCCESS,
+  GET_WORKFLOW_ROLES,
+  GET_WORKFLOW_ROLES_SUCCESS,
 } from './constants';
+
+export function getWorkflowRoles() {
+  return {
+    type: GET_WORKFLOW_ROLES,
+  };
+}
+
+export function getWorkflowRolesSuccess(workflowRoles) {
+  return {
+    type: GET_WORKFLOW_ROLES_SUCCESS,
+    workflowRoles,
+  };
+}
 
 export function getOrganizations() {
   return {
