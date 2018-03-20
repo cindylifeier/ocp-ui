@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import { Step, StepLabel, Stepper } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -14,12 +13,36 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-import { CARE_COORDINATOR, CARE_MANAGER, OCP_ADMIN, ORGANIZATION_ADMIN, PATIENT, PCP } from 'containers/App/constants';
+
 import { getLinkUrlByRole } from 'components/PrivateNavigation';
 import StepperSection from './StepperSection';
 import StepContent from './StepContent';
 import RoleSelectField from './RoleSelectField';
 
+const ocpAdminWorkflowRole = {
+  value: 'ocpAdminRole',
+  display: 'OCP Admin',
+};
+const careManagerWorkflowRole = {
+  value: 'careManagerRole',
+  display: 'Care Manager',
+};
+const orgAdminWorkflowRole = {
+  value: 'orgAdminRole',
+  display: 'Organization Admin',
+};
+const careCoordinatorWorkflowRole = {
+  value: 'careCoordinatorRole',
+  display: 'Care Coordinator',
+};
+const patientWorkflowRole = {
+  value: 'patientRole',
+  display: 'Patient',
+};
+const pcpWorkflowRole = {
+  value: 'pcpRole',
+  display: 'PCP',
+};
 
 class WorkspaceSelection extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -27,7 +50,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.state = {
       finished: false,
       stepIndex: 0,
-      roleValue: CARE_MANAGER,
+      roleValue: careManagerWorkflowRole.value,
       organizationValue: null,
       careManagerValue: null,
       careCoordinatorValue: null,
@@ -45,13 +68,13 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 
   getStepContentBasedOnRole(finished, stepIndex, organizations, careManagers, careCoordinators, patients) {
     switch (this.state.roleValue) {
-      case OCP_ADMIN:
+      case ocpAdminWorkflowRole.value:
         return this.renderOcpAdminStepContent(finished, stepIndex);
-      case CARE_MANAGER:
+      case careManagerWorkflowRole.value:
         return this.renderCareManagerStepContent(finished, stepIndex, organizations, careManagers);
-      case CARE_COORDINATOR:
+      case careCoordinatorWorkflowRole.value:
         return this.renderCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators);
-      case PATIENT:
+      case patientWorkflowRole.value:
         return this.renderPatientStepContent(finished, stepIndex, patients);
       default:
         return null;
@@ -181,19 +204,11 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 
   handleNavigateTo() {
     const { organizations, careManagers, careCoordinators, patients } = this.props;
-    this.props.onSetWorkflowRole(this.state.roleValue);
-    if (!isEmpty(this.state.organizationValue)) {
-      this.props.onSetOrganization(find(organizations, { logicalId: this.state.organizationValue }));
-    }
-    if (!isEmpty(this.state.careManagerValue)) {
-      this.props.onSetCareManager(find(careManagers, { logicalId: this.state.careManagerValue }));
-    }
-    if (!isEmpty(this.state.careCoordinatorValue)) {
-      this.props.onSetCareCoordinator(find(careCoordinators, { logicalId: this.state.careCoordinatorValue }));
-    }
-    if (!isEmpty(this.state.patientValue)) {
-      this.props.onSetPatient(find(patients, { id: this.state.patientValue }));
-    }
+    const organization = find(organizations, { logicalId: this.state.organizationValue });
+    const careManager = find(careManagers, { logicalId: this.state.careManagerValue });
+    const careCoordinator = find(careCoordinators, { logicalId: this.state.careCoordinatorValue });
+    const patient = find(patients, { logicalId: this.state.patientValue });
+    this.props.onSetWorkspaceContext(this.state.roleValue, organization, careManager, careCoordinator, patient);
     const linkTo = getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
@@ -206,10 +221,16 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
           value={this.state.roleValue}
           onChange={this.handleRoleChange}
         >
-          <MenuItem value={OCP_ADMIN} primaryText={OCP_ADMIN} />
-          <MenuItem value={CARE_MANAGER} primaryText={`${CARE_MANAGER}/${ORGANIZATION_ADMIN}`} />
-          <MenuItem value={CARE_COORDINATOR} primaryText={`${CARE_COORDINATOR}/${PCP}`} />
-          <MenuItem value={PATIENT} primaryText={PATIENT} />
+          <MenuItem value={ocpAdminWorkflowRole.value} primaryText={ocpAdminWorkflowRole.display} />
+          <MenuItem
+            value={careManagerWorkflowRole.value}
+            primaryText={`${careManagerWorkflowRole.display}/${orgAdminWorkflowRole.display}`}
+          />
+          <MenuItem
+            value={careCoordinatorWorkflowRole.value}
+            primaryText={`${careCoordinatorWorkflowRole.display}/${pcpWorkflowRole.display}`}
+          />
+          <MenuItem value={patientWorkflowRole.value} primaryText={patientWorkflowRole.display} />
         </RoleSelectField>
       </div>
     );
@@ -473,11 +494,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 }
 
 WorkspaceSelection.propTypes = {
-  onSetWorkflowRole: PropTypes.func.isRequired,
-  onSetOrganization: PropTypes.func.isRequired,
-  onSetCareManager: PropTypes.func.isRequired,
-  onSetCareCoordinator: PropTypes.func.isRequired,
-  onSetPatient: PropTypes.func,
+  onSetWorkspaceContext: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),

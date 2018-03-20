@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -31,11 +32,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
 
   constructor(props) {
     super(props);
-    this.onSetWorkflowRole = this.onSetWorkflowRole.bind(this);
-    this.handleSetOrganization = this.handleSetOrganization.bind(this);
-    this.handleSetCareManager = this.handleSetCareManager.bind(this);
-    this.handleSetCareCoordinator = this.handleSetCareCoordinator.bind(this);
-    this.handleSetPatient = this.handleSetPatient.bind(this);
+    this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
   }
 
   componentDidMount() {
@@ -45,27 +42,21 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
     this.props.getPatients();
   }
 
-  onSetWorkflowRole(role) {
+  handleSetWorkspaceContext(role, organization, careManager, careCoordinator, patient) {
     const { user } = this.props;
     this.props.setUser({ ...user, role });
-  }
-
-  handleSetOrganization(organization) {
-    this.props.setOrganization(organization);
-  }
-
-  handleSetCareManager(careManager) {
-    const { user } = this.props;
-    this.props.setUser({ ...user, resource: careManager });
-  }
-
-  handleSetCareCoordinator(careCoordinator) {
-    const { user } = this.props;
-    this.props.setUser({ ...user, resource: careCoordinator });
-  }
-
-  handleSetPatient(patient) {
-    this.props.setPatient(patient);
+    if (!isEmpty(organization)) {
+      this.props.setOrganization(organization);
+    }
+    if (!isEmpty(careManager)) {
+      this.props.setUser({ ...user, role, resource: careManager });
+    }
+    if (!isEmpty(careCoordinator)) {
+      this.props.setUser({ ...user, role, resource: careCoordinator });
+    }
+    if (!isEmpty(patient)) {
+      this.props.setPatient(patient);
+    }
   }
 
   render() {
@@ -87,11 +78,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         </Helmet>
         <WorkspaceSelection
           {...workspaceSelectionProps}
-          onSetWorkflowRole={this.onSetWorkflowRole}
-          onSetOrganization={this.handleSetOrganization}
-          onSetCareManager={this.handleSetCareManager}
-          onSetCareCoordinator={this.handleSetCareCoordinator}
-          onSetPatient={this.handleSetPatient}
+          onSetWorkspaceContext={this.handleSetWorkspaceContext}
         />
       </div>
     );
