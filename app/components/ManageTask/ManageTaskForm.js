@@ -188,16 +188,15 @@ function ManageTaskForm(props) {
         </Cell>
         <Cell area="partOf">
           {(tasksByPatient && tasksByPatient.length > 0) && !isMainTask &&
-          <SelectField
+          <TextField
             fullWidth
-            name="partOf"
+            name="selPartOf"
             hintText={<FormattedMessage {...messages.hintText.partOf} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
-          >
-            {tasksByPatient && tasksByPatient.map((partOf) =>
-              <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
-            )}
-          </SelectField>
+            floatingLabelText={<FormattedMessage
+              {...messages.floatingLabelText.partOf}
+            />}
+            disabled
+          />
           }
         </Cell>
         <Cell area="taskStart">

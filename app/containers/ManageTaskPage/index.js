@@ -182,13 +182,28 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       requester,
       tasksByPatient,
     } = this.props;
-    const logicalId = this.props.match.params.id;
-    const queryObj = queryString.parse(this.props.location.search);
-    const isMainTask = queryObj.isMainTask === 'true';
-    const editMode = !isUndefined(match.params.id) && isMainTask;
-    let currentTask = null;
+    let logicalId = this.props.match.params.id;
     if (logicalId && this.props.tasks) {
       currentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
+    const queryObj = queryString.parse(this.props.location.search);
+    const isMainTask = queryObj.isMainTask === 'true';
+    logicalId = queryObj.mainTaskId;
+    const editMode = !isUndefined(match.params.id);
+    let currentTask = null;
+    let parentTask = null;
+    if (logicalId && this.props.tasks) {
+      parentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
+    let titleHeader;
+    if (editMode && isMainTask) {
+      titleHeader = <FormattedMessage {...messages.updateMainHeader} />;
+    } else if (editMode && !isMainTask) {
+      titleHeader = <FormattedMessage {...messages.updateSubHeader} />;
+    } else if (!editMode && isMainTask) {
+      titleHeader = <FormattedMessage {...messages.createMainHeader} />;
+    } else if (!editMode && !isMainTask) {
+      titleHeader = <FormattedMessage {...messages.createSubHeader} />;
     }
     const taskProps = {
       taskStatus,
@@ -205,19 +220,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       currentTask,
       tasksByPatient,
       isMainTask,
+      parentTask,
     };
-    const isEdit = !!logicalId;
-    let titleHeader;
-    if ((isEdit === true) && (isMainTask === true)) {
-      titleHeader = <FormattedMessage {...messages.updateMainHeader} />;
-    } else if ((isEdit === true) && (isMainTask === false)) {
-      titleHeader = <FormattedMessage {...messages.updateHeader} />;
-    } else if ((isEdit === false) && (isMainTask === true)) {
-      titleHeader = <FormattedMessage {...messages.createMainHeader} />;
-    } else if ((isEdit === false) && (isMainTask === false)) {
-      titleHeader = <FormattedMessage {...messages.createHeader} />;
-    }
-
 
     return (
       <Page>
