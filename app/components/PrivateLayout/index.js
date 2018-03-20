@@ -22,11 +22,11 @@ function PrivateLayout(props) {
       <HeaderContainer>
         <HeaderGrid columns={1}>
           <HeaderCell>
-            <PrivateHeader context={props.context} />
+            <PrivateHeader user={props.user} />
           </HeaderCell>
-          {props.context.role &&
+          {props.user.role &&
           <Cell>
-            <PrivateNavigation context={props.context} />
+            <PrivateNavigation user={props.user} />
           </Cell>
           }
         </HeaderGrid>
@@ -40,14 +40,8 @@ function PrivateLayout(props) {
 
 PrivateLayout.propTypes = {
   children: PropTypes.node,
-  context: PropTypes.shape({
+  user: PropTypes.shape({
     role: PropTypes.string,
-    patient: PropTypes.shape({
-      user_name: PropTypes.string,
-      user_id: PropTypes.string,
-      email: PropTypes.string,
-      name: PropTypes.string,
-    }),
   }).isRequired,
 };
 

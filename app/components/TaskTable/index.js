@@ -21,7 +21,7 @@ import { MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask, selectedPatientId }) {
+function TaskTable({ elements, cancelTask, patientId }) {
   return (
     <Table>
       <TableHeader columns={TASK_TABLE_COLUMNS}>
@@ -50,7 +50,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 containerElement={<Link
                   to={{
                     pathname: `${MANAGE_TASK_URL}/${logicalId}`,
-                    search: `?patientId=${selectedPatientId}`,
+                    search: `?patientId=${patientId}`,
                   }}
                 />}
               />
@@ -69,7 +69,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
 
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
-  selectedPatientId: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({

@@ -24,15 +24,13 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import { getActiveLocations } from 'containers/Locations/actions';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
-import { getHealthcareServicesByOrganization } from 'containers/HealthcareServices/actions';
+import { setOrganization } from 'containers/App/contextActions';
 import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getOrganizations, initializeOrganizations } from './actions';
-import { fromBackendToFrontendOrganization } from './mappings';
 
 export class Organizations extends React.PureComponent {
   constructor(props) {
@@ -48,7 +46,7 @@ export class Organizations extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeOrganizations();
   }
 
@@ -57,10 +55,8 @@ export class Organizations extends React.PureComponent {
     this.props.getOrganizations(searchValue, showInactive, searchType, this.state.currentPage);
   }
 
-  handleRowClick({ id, name }) {
-    const currentPage = 1;
-    this.props.getActiveLocations(id, name, currentPage);
-    this.props.getHealthcareServicesByOrganization(id, name, currentPage);
+  handleRowClick(organization) {
+    this.props.setOrganization(organization);
   }
 
   handlePageClick(currentPage) {
@@ -87,7 +83,7 @@ export class Organizations extends React.PureComponent {
         {(!organizations.loading && organizations.data && organizations.data.length > 0 &&
           <div>
             <OrganizationTable
-              organizations={organizations.data.map(fromBackendToFrontendOrganization)}
+              organizations={organizations.data}
               onRowClick={this.handleRowClick}
             />
             <CenterAlignedUltimatePagination
@@ -109,9 +105,8 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
+  setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
-  getActiveLocations: PropTypes.func.isRequired,
-  getHealthcareServicesByOrganization: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
@@ -130,8 +125,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
     getOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(getOrganizations(searchValue, showInactive, searchType, currentPage)),
-    getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
-    getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage)),
+    setOrganization: (organization) => dispatch(setOrganization(organization)),
   };
 }
 

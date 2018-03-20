@@ -20,7 +20,7 @@ import H3 from 'components/H3';
 import { mapToPatientAddress, mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 
 function PatientDetails(props) {
-  const { selectedPatient } = props;
+  const { patient } = props;
   return (
     <div>
       <PatientDetailsGrid columns={1}>
@@ -31,16 +31,16 @@ function PatientDetails(props) {
           >
             <PatientBasicInfoCell height={2}><Avatar size={55} src={patientAvatar} /></PatientBasicInfoCell>
             <PatientBasicInfoCell width={4} height={1}>
-              <H3>{mapToPatientName(selectedPatient)}</H3>
+              <H3>{mapToPatientName(patient)}</H3>
             </PatientBasicInfoCell>
             <PatientBasicInfoCell height={1}>
-              ID{WHITE_SPACE}<strong>{selectedPatient.id}</strong>
+              ID{WHITE_SPACE}<strong>{patient.id}</strong>
             </PatientBasicInfoCell>
             <PatientBasicInfoCell height={1}>
-              Gender{WHITE_SPACE}<strong>{upperFirst(selectedPatient.genderCode)}</strong>
+              Gender{WHITE_SPACE}<strong>{upperFirst(patient.genderCode)}</strong>
             </PatientBasicInfoCell>
             <PatientBasicInfoCell height={1}>
-              DOB{WHITE_SPACE}<strong>{selectedPatient.birthDate}</strong></PatientBasicInfoCell>
+              DOB{WHITE_SPACE}<strong>{patient.birthDate}</strong></PatientBasicInfoCell>
             <PatientBasicInfoCell height={1}>
               Care Coordinator{WHITE_SPACE}<strong>Lee Coordinator(hard-coded)</strong>
             </PatientBasicInfoCell>
@@ -48,8 +48,8 @@ function PatientDetails(props) {
         </PatientDetailsCell>
         <PatientDetailsCell>
           <DetailsPanelGrid columns={4}>
-            <Cell>Address{WHITE_SPACE}<strong>{mapToPatientAddress(selectedPatient)}</strong></Cell>
-            <Cell>Contact{WHITE_SPACE}<strong>{mapToPatientPhone(selectedPatient)}</strong></Cell>
+            <Cell>Address{WHITE_SPACE}<strong>{mapToPatientAddress(patient)}</strong></Cell>
+            <Cell>Contact{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong></Cell>
             <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
             <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
           </DetailsPanelGrid>
@@ -60,7 +60,7 @@ function PatientDetails(props) {
 }
 
 PatientDetails.propTypes = {
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
   }),

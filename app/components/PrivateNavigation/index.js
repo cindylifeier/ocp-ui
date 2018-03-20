@@ -26,7 +26,7 @@ import StyledToolbar from 'components/StyledToolbar';
 import messages from './messages';
 
 function PrivateNavigation(props) {
-  const role = props.context.role;
+  const role = props.user.role;
   return (
     <StyledToolbar>
       <ToolbarGroup firstChild>
@@ -63,7 +63,7 @@ export function getLinkUrlByRole(role) {
 }
 
 PrivateNavigation.propTypes = {
-  context: PropTypes.shape({
+  user: PropTypes.shape({
     role: PropTypes.string.isRequired,
   }).isRequired,
 };

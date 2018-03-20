@@ -32,7 +32,7 @@ function ManageAppointmentForm(props) {
     handleOpen,
     selectedParticipants,
     removeParticipant,
-    selectedPatient,
+    patient,
   } = props;
 
   const selectedParticipantsProps = {
@@ -55,7 +55,7 @@ function ManageAppointmentForm(props) {
             <InfoSection margin="2vh 0 0 0">
               <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.patientName} />&nbsp;
               </InlineLabel>
-              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
             </InfoSection>
           </Cell>
           <Cell area="description">
@@ -74,7 +74,11 @@ function ManageAppointmentForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentType} />}
             >
               {appointmentTypes && appointmentTypes.map((appointmentType) =>
-                <MenuItem key={appointmentType.code} value={appointmentType.code} primaryText={appointmentType.display} />,
+                (<MenuItem
+                  key={appointmentType.code}
+                  value={appointmentType.code}
+                  primaryText={appointmentType.display}
+                />),
               )}
             </SelectField>
           </Cell>
@@ -156,7 +160,7 @@ ManageAppointmentForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),

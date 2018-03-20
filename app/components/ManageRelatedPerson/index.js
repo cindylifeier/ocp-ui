@@ -29,7 +29,7 @@ function ManageRelatedPerson(props) {
     telecomUses,
     telecomSystems,
     relationshipTypes,
-    selectedPatient,
+    patient,
     selectedRelatedPerson,
   } = props;
   const manageRelatedPersonFormProps = {
@@ -40,14 +40,14 @@ function ManageRelatedPerson(props) {
     telecomSystems,
     telecomUses,
     relationshipTypes,
-    selectedPatient,
+    patient,
   };
 
   return (
     <Formik
       initialValues={setInitialValues(selectedRelatedPerson)}
       onSubmit={(values, actions) => {
-        const relatedPerson = mapToRelatedPerson(values, selectedPatient, administrativeGenders, relationshipTypes);
+        const relatedPerson = mapToRelatedPerson(values, patient, administrativeGenders, relationshipTypes);
         onSave(relatedPerson, actions);
       }}
       validationSchema={() =>
@@ -107,13 +107,13 @@ ManageRelatedPerson.propTypes = {
     definition: PropTypes.string,
   })).isRequired,
   relationshipTypes: PropTypes.array.isRequired,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
   selectedRelatedPerson: PropTypes.object,
 };
 
 export default ManageRelatedPerson;
 
-function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGenders, relationshipTypes) {
+function mapToRelatedPerson(capturedFormData, patient, administrativeGenders, relationshipTypes) {
   const {
     startDate,
     endDate,
@@ -144,7 +144,7 @@ function mapToRelatedPerson(capturedFormData, selectedPatient, administrativeGen
     identifierType,
     identifierValue,
     active,
-    patient: selectedPatient.id,
+    patient: patient.id,
     startDate: startDate.toLocaleDateString(),
     endDate: endDate.toLocaleDateString(),
     birthDate: birthDate.toLocaleDateString(),
