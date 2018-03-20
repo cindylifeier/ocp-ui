@@ -5,30 +5,28 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PractitionerSearchResult from 'components/PractitionerSearchResult';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
-import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import {
-  DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_PRACTITIONER_URL,
   PRACTITIONERIDENTIFIERSYSTEM,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
+import { PanelToolbar } from 'components/PanelToolbar';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -74,19 +72,15 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
       searchResult,
       identifierSystems,
     };
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_PRACTITIONER_URL,
+    };
 
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-          />
-        </CardHeader>
-        <SearchBar
-          onSearch={this.handleSearch}
-        />
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         <CenterAlign>
           <PractitionerSearchResult {...searchResultProps} />
         </CenterAlign>
