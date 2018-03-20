@@ -13,12 +13,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
-// import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
-import Table from 'components/Table/index';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
 import DialogHeader from 'components/DialogHeader/index';
 import { makeSelectRecipients, makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import {
@@ -26,15 +20,12 @@ import {
   getRecipients,
   setSelectRecipientStatus,
 } from 'containers/SearchRecipient/actions';
-import Checkbox from 'material-ui/Checkbox';
 import FormGrid from 'components/FormGrid/index';
 import FormCell from 'components/FormCell/index';
 import { Cell, Grid } from 'styled-css-grid';
 import { getRoleName } from 'utils/CommunicationUtils';
 import StyledFlatButton from 'components/StyledFlatButton/index';
 import Dialog from 'material-ui/Dialog';
-import TableHeader from 'components/TableHeader/index';
-import uniqueId from 'lodash/uniqueId';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import SelectField from 'components/SelectField/index';
 import MenuItem from 'material-ui/MenuItem';
@@ -43,14 +34,16 @@ import StyledIconButton from 'components/StyledIconButton/index';
 import { Form, Formik } from 'formik';
 import TextField from 'components/TextField/index';
 import { customContentStyle, floatingLabelStyle, iconButtonStyle } from 'containers/SearchRecipient/constants';
-import * as yup from 'yup';
+import yup from 'yup';
 import { getLookupsAction } from 'containers/App/actions';
 import { PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import RecipientsTable from 'components/RecipientsTable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+
 
 export class SearchRecipient extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -65,8 +58,6 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
   }
 
   componentDidMount() {
-    // this.props.getRecipients(this.props.selectedPatient.id);
-    // this.props.initializeSearchRecipients(this.props.initialSelectedRecipients);
     this.props.getLookUpFormData();
   }
 
@@ -93,59 +84,8 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
     }
   }
 
-  createRecipientTable() {
-    return (
-      <Table>
-        <TableHeader key={uniqueId()}>
-          <TableHeaderColumn></TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
-        </TableHeader>
-        {this.createRecipientTableRows()}
-      </Table>
-    );
-  }
-
-  createRecipientTableRows() {
-    return this.props.recipients.map((recipient) => (
-      <TableRow key={uniqueId()}>
-        <TableRowColumn>
-          <Checkbox
-            checked={recipient.checked}
-            onCheck={(evt, checked) => {
-              this.updateCheck(evt, checked, recipient.reference);
-            }}
-            disabled={recipientIsSelected(recipient.reference, this.props.selectedRecipients)}
-          >
-          </Checkbox>
-        </TableRowColumn>
-        <TableRowColumn>
-          {recipient.display}
-        </TableRowColumn>
-        <TableRowColumn>
-          {getRoleName(recipient.reference)}
-        </TableRowColumn>
-      </TableRow>
-    ));
-  }
-
-  createNoRecipientTable() {
-    return (<Table>
-      <TableHeader key={uniqueId()}>
-        <TableHeaderColumn></TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
-      </TableHeader>
-      <TableRow key={uniqueId()}>
-        <TableRowColumn> {<FormattedMessage {...messages.noRecipientRecord} />}</TableRowColumn>
-        <TableRowColumn> </TableRowColumn>
-        <TableRowColumn> </TableRowColumn>
-      </TableRow>
-    </Table>);
-  }
-
   render() {
-    const { isOpen, recipients, participantTypes } = this.props;
+    const { isOpen, recipients, participantTypes, selectedRecipients } = this.props;
     const actionsButtons = [
       <StyledFlatButton
         label={<FormattedMessage {...messages.dialogCancelBtnLabel} />}
@@ -228,8 +168,12 @@ export class SearchRecipient extends React.PureComponent { // eslint-disable-lin
               );
             }}
           />
-          {recipients && recipients.length > 0 && this.createRecipientTable()}
-          {recipients && recipients.length === 0 && this.createNoRecipientTable()}
+          <RecipientsTable
+            recipients={recipients}
+            updateCheck={this.updateCheck}
+            selectedRecipients={selectedRecipients}
+            getRoleName={getRoleName}
+          />
         </div>
       </Dialog>
     );
@@ -246,7 +190,6 @@ SearchRecipient.propTypes = {
   selectedPatient: PropTypes.object,
   recipients: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
-  // initialSelectedRecipients: PropTypes.array.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -270,7 +213,6 @@ function mapDispatchToProps(dispatch) {
     getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
     setSelectRecipientStatus: (checked, recipientReference) => dispatch(setSelectRecipientStatus(checked, recipientReference)),
     addSelectedRecipients: () => dispatch(addSelectedRecipients()),
-    // initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
   };
 }
 
@@ -284,14 +226,3 @@ export default compose(
   withSaga,
   withConnect,
 )(SearchRecipient);
-
-function recipientIsSelected(recipientReference, selectedRecipients) {
-  if (recipientReference && selectedRecipients && selectedRecipients.length > 0) {
-    for (let i = 0; i < selectedRecipients.length; i += 1) {
-      if (selectedRecipients[i].reference === recipientReference) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
