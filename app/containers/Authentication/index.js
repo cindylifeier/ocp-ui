@@ -16,6 +16,7 @@ import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
 import { makeSelectUser } from 'containers/App/contextSelectors';
+import { getLinkUrlByRole } from 'containers/WorkspaceSelectionPage/api';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
@@ -30,7 +31,10 @@ export function Authentication(props) {
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <PrivateLayout {...privateLayoutProps}>
+      <PrivateLayout
+        {...privateLayoutProps}
+        onNavigateToLinkUrlByRole={getLinkUrlByRole}
+      >
         {props.children}
       </PrivateLayout> :
       <Redirect

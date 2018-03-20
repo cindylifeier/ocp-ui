@@ -13,8 +13,6 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-
-import { getLinkUrlByRole } from 'components/PrivateNavigation';
 import StepperSection from './StepperSection';
 import StepContent from './StepContent';
 import RoleSelectField from './RoleSelectField';
@@ -188,7 +186,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     const careCoordinator = find(careCoordinators, { logicalId: this.state.careCoordinatorValue });
     const patient = find(patients, { logicalId: this.state.patientValue });
     this.props.onSetWorkspaceContext(this.state.roleValue, organization, careManager, careCoordinator, patient);
-    const linkTo = getLinkUrlByRole(this.state.roleValue);
+    const linkTo = this.props.onNavigateToLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
 
@@ -478,6 +476,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 }
 
 WorkspaceSelection.propTypes = {
+  onNavigateToLinkUrlByRole: PropTypes.func.isRequired,
   onSetWorkspaceContext: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,

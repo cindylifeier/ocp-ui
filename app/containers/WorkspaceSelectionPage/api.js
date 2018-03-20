@@ -1,6 +1,37 @@
 import request from 'utils/request';
 import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
+import {
+  ADMIN_WORKSPACE,
+  CARE_COORDINATOR_ROLE_VALUE,
+  CARE_MANAGER_ROLE_VALUE,
+  OCP_ADMIN_ROLE_VALUE,
+  PATIENT_ROLE_VALUE,
+  PATIENT_WORKSPACE,
+  PRACTITIONER_WORKSPACE,
+  WORKSPACE_SELECTION_URL,
+} from 'containers/App/constants';
+
+export function getLinkUrlByRole(role) {
+  let linkUrl;
+  switch (role) {
+    case OCP_ADMIN_ROLE_VALUE:
+      linkUrl = ADMIN_WORKSPACE;
+      break;
+    case CARE_MANAGER_ROLE_VALUE:
+      linkUrl = PRACTITIONER_WORKSPACE;
+      break;
+    case CARE_COORDINATOR_ROLE_VALUE:
+      linkUrl = PRACTITIONER_WORKSPACE;
+      break;
+    case PATIENT_ROLE_VALUE:
+      linkUrl = PATIENT_WORKSPACE;
+      break;
+    default:
+      linkUrl = WORKSPACE_SELECTION_URL;
+  }
+  return linkUrl;
+}
 
 export function getActiveOrganizations() {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);

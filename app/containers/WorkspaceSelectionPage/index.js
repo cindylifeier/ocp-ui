@@ -28,6 +28,7 @@ import {
   makeSelectWorkflowRolesData,
 } from './selectors';
 import { flattenPatientData } from './mapping';
+import { getLinkUrlByRole } from './api';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -82,6 +83,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         {!isEmpty(workflowRoles) &&
         <WorkspaceSelection
           {...workspaceSelectionProps}
+          onNavigateToLinkUrlByRole={getLinkUrlByRole}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
         />
         }
