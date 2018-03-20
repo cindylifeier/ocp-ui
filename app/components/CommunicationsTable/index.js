@@ -14,13 +14,14 @@ import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import StyledIconButton from '../StyledIconButton';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import Table from 'components/Table';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
+import StyledIconButton from '../StyledIconButton';
+
 
 function CommunicationsTable(props) {
   const { communications, selectedPatientId } = props;

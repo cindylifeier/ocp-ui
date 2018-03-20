@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { getCommunications } from 'containers/Communications/actions';
-// import { makeSelectCommunicationsLoading } from 'containers/Communications/selectors';
 import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import CommunicationsTable from 'components/CommunicationsTable';
 import CardHeader from 'components/CardHeader';
@@ -82,16 +81,13 @@ export class Communications extends React.PureComponent { // eslint-disable-line
 
 Communications.propTypes = {
   getCommunications: PropTypes.func.isRequired,
-  // match: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object,
-  // loading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectCommunications(),
   selectedPatient: makeSelectSelectedPatient(),
-  // loading: makeSelectCommunicationsLoading(),
 });
 
 function mapDispatchToProps(dispatch) {

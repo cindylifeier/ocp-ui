@@ -62,11 +62,10 @@ function ManageCommunicationForm(props) {
           {getRoleName(recipient.reference)}
         </TableRowColumn>
         <TableRowColumn>
-          <RaisedButton
+          <StyledRaisedButton
             backgroundColor={teal500}
             labelColor={white}
             onClick={() => handleRemoveSelectedRecipient(false, recipient.reference)}
-            style={addButtonStyle}
             label={<FormattedMessage {...messages.form.removeRecipient} />}
           />
         </TableRowColumn>

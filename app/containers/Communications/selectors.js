@@ -9,12 +9,6 @@ const selectCommunicationDomain = (state) => state.get('communications');
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by Communications
- */
-
-
 const makeSelectCommunications = () => createSelector(
   selectCommunicationDomain,
   (substate) => substate.get('data').toJS()
