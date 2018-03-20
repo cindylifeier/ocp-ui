@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
-import { getCareCoordinators, getCareManagers, getOrganizations, getPatients, setWorkflowRole } from './actions';
+import { getCareCoordinators, getCareManagers, getOrganizations, getPatients } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -126,7 +126,6 @@ function mapDispatchToProps(dispatch) {
     getCareManagers: () => dispatch(getCareManagers()),
     getCareCoordinators: () => dispatch(getCareCoordinators()),
     getPatients: () => dispatch(getPatients()),
-    onSetWorkflowRole: (workflowRole) => dispatch(setWorkflowRole(workflowRole)),
     setUser: (user) => dispatch(setUser(user)),
   };
 }

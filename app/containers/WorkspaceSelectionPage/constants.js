@@ -9,7 +9,6 @@
  *  @type {string}
  */
 export const DEFAULT_ACTION = 'ocpui/WorkspaceSelectionPage/DEFAULT_ACTION';
-export const SET_WORKFLOW_ROLE = 'ocpui/WorkspaceSelectionPage/SET_WORKFLOW_ROLE';
 export const GET_ORGANIZATIONS = 'ocpui/WorkspaceSelectionPage/GET_ORGANIZATIONS';
 export const GET_ORGANIZATIONS_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_ORGANIZATIONS_SUCCESS';
 export const GET_CARE_MANAGERS = 'ocpui/WorkspaceSelectionPage/GET_CARE_MANAGERS';

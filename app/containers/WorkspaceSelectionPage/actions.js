@@ -13,15 +13,7 @@ import {
   GET_ORGANIZATIONS_SUCCESS,
   GET_PATIENTS,
   GET_PATIENTS_SUCCESS,
-  SET_WORKFLOW_ROLE,
 } from './constants';
-
-export function setWorkflowRole(workflowRole) {
-  return {
-    type: SET_WORKFLOW_ROLE,
-    workflowRole,
-  };
-}
 
 export function getOrganizations() {
   return {
