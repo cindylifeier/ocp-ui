@@ -108,22 +108,6 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
         <Card>
           <CardHeader title={<FormattedMessage {...messages.header} />}>
             {patientDetailsPage &&
-            <div>
-              <FilterSection>
-                <CheckboxFilterGrid>
-                  <Cell>
-                    <StatusCheckbox
-                      messages={messages.showPastAppointments}
-                      elementId="showPastAppointmentsCheckBox"
-                      checked={this.props.showPastAppointments}
-                      handleCheck={this.handleCheck}
-                    />
-                  </Cell>
-                </CheckboxFilterGrid>
-              </FilterSection>
-            </div>
-            }
-            {patientDetailsPage &&
             <StyledFlatButton
               label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
               icon={<ContentAddCircle />}
@@ -131,6 +115,22 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
             />
             }
           </CardHeader>
+          {patientDetailsPage &&
+          <div>
+            <FilterSection>
+              <CheckboxFilterGrid>
+                <Cell>
+                  <StatusCheckbox
+                    messages={messages.showPastAppointments}
+                    elementId="showPastAppointmentsCheckBox"
+                    checked={this.props.showPastAppointments}
+                    handleCheck={this.handleCheck}
+                  />
+                </Cell>
+              </CheckboxFilterGrid>
+            </FilterSection>
+          </div>
+          }
           {loading &&
           <RefreshIndicatorLoading />}
           {!loading && isEmpty(data) &&
