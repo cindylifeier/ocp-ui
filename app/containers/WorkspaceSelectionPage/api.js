@@ -1,5 +1,5 @@
 import request from 'utils/request';
-import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
 
 export function getActiveOrganizations() {
@@ -53,23 +53,7 @@ export function getCareCoordinators() {
   };
 }
 
-// Todo: will get data from backend
 export function getPatients() {
-  const patients = [
-    {
-      id: '1',
-      name: 'Patient A',
-    },
-    {
-      id: '2',
-      name: 'Patient B',
-    },
-    {
-      id: '3',
-      name: 'Patient C',
-    },
-  ];
-  return {
-    elements: patients,
-  };
+  const requestURL = getEndpoint(BASE_PATIENTS_API_URL);
+  return request(requestURL);
 }
