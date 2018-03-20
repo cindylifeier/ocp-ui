@@ -16,12 +16,12 @@ export function* getRecipientsSaga(action) {
   }
 }
 
-export function* watchGetRecipients() {
+export function* watchGetRecipientsSaga() {
   yield takeLatest(GET_RECIPIENTS, getRecipientsSaga);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchGetRecipients(),
+    watchGetRecipientsSaga(),
   ]);
 }
