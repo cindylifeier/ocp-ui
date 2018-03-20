@@ -37,6 +37,7 @@ function ManageCommunication(props) {
     initialSelectedRecipients,
     editMode,
     selectedTask,
+    selectedAppointment,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -57,7 +58,7 @@ function ManageCommunication(props) {
   return (
     <Formik
       isInitialValid={editMode}
-      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask)}
+      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment)}
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
         const communicationToBeSubmitted = mapToCommunication(
@@ -114,12 +115,13 @@ ManageCommunication.propTypes = {
   practitioner: PropTypes.object,
   editMode: PropTypes.bool,
   selectedTask: PropTypes.object,
+  selectedAppointment: PropTypes.object,
 };
 
 export default ManageCommunication;
 
 
-function setInitialValues(communication, selectedPatient, practitioner, selectedTask) {
+function setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment) {
   let formData = null;
   let subjectData = null;
   let senderData = null;
@@ -150,9 +152,14 @@ function setInitialValues(communication, selectedPatient, practitioner, selected
     );
   }
 
-  if (isEmpty(communication)) {
+  if (isEmpty(communication) && !isEmpty(selectedTask)) {
     topicData = merge(
       mapToTopicFromTaskReference(selectedTask),
+    );
+  }
+  if (isEmpty(communication) && !isEmpty(selectedAppointment)) {
+    topicData = merge(
+      mapToTopicFromAppointmentReference(selectedAppointment),
     );
   }
 
@@ -181,6 +188,14 @@ function mapToTopicFromTaskReference(selectedTask) {
   const fieldObject = { topic: '' };
   if (selectedTask && selectedTask.definition && selectedTask.definition.display) {
     fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedTask.definition.display);
+  }
+  return fieldObject;
+}
+
+function mapToTopicFromAppointmentReference(selectedAppointment) {
+  const fieldObject = { topic: '' };
+  if (selectedAppointment && selectedAppointment.definition && selectedAppointment.definition.display) {
+    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedAppointment.definition.display);
   }
   return fieldObject;
 }

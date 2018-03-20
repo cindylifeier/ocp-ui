@@ -121,6 +121,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedPatient,
       location,
       tasks,
+      appointments,
     } = this.props;
     const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
@@ -137,6 +138,13 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedTask = find(tasks.data.elements, { logicalId: taskId });
     }
 
+    let selectedAppointment = null;
+    if (location && location.search) {
+      const queryObj = queryString.parse(location.search);
+      const appointmentId = queryObj.appointmentId;
+      selectedAppointment = find(appointments.data.elements, { logicalId: appointmentId });
+    }
+
     const manageCommunicationProps = {
       communicationStatus,
       communicationCategories,
@@ -150,6 +158,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       initialSelectedRecipients,
       editMode,
       selectedTask,
+      selectedAppointment,
     };
     return (
       <Page>
@@ -201,6 +210,7 @@ ManageCommunicationPage.propTypes = {
   communicationMedia: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
   tasks: PropTypes.array,
+  appointments: PropTypes.array,
   communications: PropTypes.object,
   getEpisodeOfCares: PropTypes.func.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
@@ -219,6 +229,7 @@ const mapStateToProps = createStructuredSelector({
   practitioner: makeSelectPractitioner(),
   communications: makeSelectCommunications(),
   tasks: makeSelectTasks(),
+  appointments: makeSelectTasks(),
 });
 
 function mapDispatchToProps(dispatch) {
