@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 import find from 'lodash/find';
-
+import { Link } from 'react-router-dom';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -20,7 +20,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import { STATUS_CODE_CANCELLED } from 'containers/UpcomingAppointments/constants';
 import messages from './messages';
 
-function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment }) { // eslint-disable-line react/prefer-stateless-function
+function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -43,6 +43,15 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
             <TableRowColumn>{appointment.description}</TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.addCommunication} />}
+                  containerElement={<Link
+                    to={{
+                      pathname: `${communicationBaseUrl}`,
+                      search: `?patientId=${patientId}&appointmentId=${appointment.logicalId}`,
+                    }}
+                  />}
+                />
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.menuItemCancel} />}
                   disabled={appointment.statusCode === STATUS_CODE_CANCELLED}
@@ -69,6 +78,8 @@ CareCoordinatorUpcomingAppointmentTable.propTypes = {
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
+  communicationBaseUrl: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
 };
 
 export default CareCoordinatorUpcomingAppointmentTable;

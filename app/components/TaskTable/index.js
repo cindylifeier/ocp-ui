@@ -20,7 +20,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask, selectedPatientId, communicationBaseUrl, taskBaseUrl }) {
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl }) {
   return (
     <Table>
       <TableHeader columns={TASK_TABLE_COLUMNS}>
@@ -48,10 +48,8 @@ function TaskTable({ elements, cancelTask, selectedPatientId, communicationBaseU
                 primaryText={<FormattedMessage {...messages.editTask} />}
                 containerElement={<Link
                   to={{
-                    pathname: `${MANAGE_TASK_URL}/${logicalId}`,
-                    search: `?patientId=${patientId}`,
                     pathname: `${taskBaseUrl}/${logicalId}`,
-                    search: `?patientId=${selectedPatientId}`,
+                    search: `?patientId=${patientId}`,
                   }}
                 />}
               />
@@ -60,7 +58,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId, communicationBaseU
                 containerElement={<Link
                   to={{
                     pathname: `${communicationBaseUrl}`,
-                    search: `?patientId=${selectedPatientId}&taskId=${logicalId}`,
+                    search: `?patientId=${patientId}&taskId=${logicalId}`,
                   }}
                 />}
               />
@@ -79,7 +77,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId, communicationBaseU
 
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
-  selectedPatientId: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
   communicationBaseUrl: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
