@@ -11,7 +11,11 @@ export default defineMessages({
     defaultMessage: 'TO DO',
   },
   buttonLabelCreateNew: {
-    id: 'ocpui.containers.Appointments.buttonLabelCreateNew',
+    id: 'ocpui.containers.Todos.buttonLabelCreateNew',
     defaultMessage: 'Create New',
+  },
+  noTodosFound: {
+    id: 'ocpui.containers.Todos.noTodosFound',
+    defaultMessage: 'No Todos found.',
   },
 });

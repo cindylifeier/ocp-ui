@@ -20,7 +20,12 @@ const makeSelectTodos = () => createSelector(
 );
 
 
+const makeSelectSearchLoading = () => createSelector(
+  selectTodosDomain,
+  (substate) => substate.get('loading'),
+);
 export default makeSelectTodos;
 export {
-  selectTodosDomain,
+  makeSelectTodos,
+  makeSelectSearchLoading,
 };

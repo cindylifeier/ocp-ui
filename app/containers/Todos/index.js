@@ -10,17 +10,22 @@ import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
 import { MANAGE_TASK_URL } from 'containers/App/constants';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import { Link } from 'react-router-dom';
 import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import { compose } from 'redux';
 import { getTodos } from 'containers/Todos/actions';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import { makeSelectSearchLoading, makeSelectTodos } from 'containers/Todos/selectors';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import TodoList from 'components/TodoList/index';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectTodos from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -48,10 +53,10 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
     }
   }
   render() {
-    const { todos, selectedPatient } = this.props;
+    const { todos, selectedPatient, loading } = this.props;
     const patientId = selectedPatient.id;
     const MANAGE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}`;
-    console.log(todos);
+    console.log(loading);
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />}>
@@ -61,6 +66,22 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
             containerElement={<Link to={MANAGE_TODO_URL} />}
           />
         </CardHeader>
+        {loading && <RefreshIndicatorLoading />}
+        {!loading && isEmpty(todos) &&
+        <NoResultsFoundText>
+          <FormattedMessage {...messages.noTodosFound} />
+        </NoResultsFoundText>}
+        {!isEmpty(todos) && !isEmpty(todos.elements) &&
+        <div>
+          <TodoList todos={todos.elements} />
+          <CenterAlignedUltimatePagination
+            currentPage={todos.currentPage}
+            totalPages={todos.totalNumberOfPages}
+            onChange={this.handlePageClick}
+          />
+        </div>
+        }
+
       </Card>
     );
   }
@@ -70,11 +91,13 @@ Todos.propTypes = {
   todos: PropTypes.object.isRequired,
   getTodos: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   todos: makeSelectTodos(),
   selectedPatient: makeSelectSelectedPatient(),
+  loading: makeSelectSearchLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
