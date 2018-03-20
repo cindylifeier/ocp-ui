@@ -23,6 +23,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import CenterAlign from 'components/Align/CenterAlign';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
@@ -53,6 +54,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     const { tasks: { loading, data, patientName, patientId } } = this.props;
+    const commmunicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const taskBaseUrl = MANAGE_TASK_URL;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
@@ -77,7 +80,13 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div>
           <CenterAlign>
-            <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
+            <TaskTable
+              elements={data.elements}
+              cancelTask={this.cancelTask}
+              selectedPatientId={patientId}
+              commmunicationBaseUrl={commmunicationBaseUrl}
+              taskBaseUrl={taskBaseUrl}
+            />
           </CenterAlign>
           <CenterAlignedUltimatePagination
             currentPage={data.currentPage}

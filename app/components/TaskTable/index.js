@@ -17,11 +17,10 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask, selectedPatientId }) {
+function TaskTable({ elements, cancelTask, selectedPatientId, commmunicationBaseUrl, taskBaseUrl }) {
   return (
     <Table>
       <TableHeader columns={TASK_TABLE_COLUMNS}>
@@ -49,7 +48,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 primaryText={<FormattedMessage {...messages.editTask} />}
                 containerElement={<Link
                   to={{
-                    pathname: `${MANAGE_TASK_URL}/${logicalId}`,
+                    pathname: `${taskBaseUrl}/${logicalId}`,
                     search: `?patientId=${selectedPatientId}`,
                   }}
                 />}
@@ -58,7 +57,7 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 primaryText={<FormattedMessage {...messages.addCommunication} />}
                 containerElement={<Link
                   to={{
-                    pathname: `${MANAGE_COMMUNICATION_URL}`,
+                    pathname: `${commmunicationBaseUrl}`,
                     search: `?patientId=${selectedPatientId}&taskId=${logicalId}`,
                   }}
                 />}
@@ -79,6 +78,8 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
   selectedPatientId: PropTypes.string.isRequired,
+  commmunicationBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({
