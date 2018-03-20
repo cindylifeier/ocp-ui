@@ -60,14 +60,12 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
         practitionerId: PRACTITIONERIDVALUE,
         patientId,
         showPastAppointments: false,
-        sortByStartTimeAsc: true,
       });
     } else {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         practitionerId: PRACTITIONERIDVALUE,
         showPastAppointments: false,
-        sortByStartTimeAsc: true,
       });
     }
     this.props.getLookupData();
@@ -83,8 +81,8 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         practitionerId: PRACTITIONERIDVALUE,
-        patientId,
         showPastAppointments: checked,
+        patientId,
       });
     } else {
       this.props.getUpcomingAppointments({

@@ -10,9 +10,7 @@ export default function getUpcomingAppointments(query) {
     ...query,
     pageSize,
   };
-  if (isUndefined(query.sortByStartTimeAsc)) {
-    q.sortByStartTimeAsc = !(!isUndefined(query.showPastAppointments) && query.showPastAppointments);
-  }
+  q.sortByStartTimeAsc = !(!isUndefined(query.showPastAppointments) && query.showPastAppointments);
   const params = queryString(q);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
   const requestURL = `${baseEndpoint}/search${params}`;
