@@ -38,6 +38,8 @@ function ManageCommunication(props) {
     editMode,
     selectedTask,
     selectedAppointment,
+    datePickerMode,
+    patientUrl,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -52,6 +54,8 @@ function ManageCommunication(props) {
     // communication,
     practitioner,
     initialSelectedRecipients,
+    datePickerMode,
+    patientUrl,
   };
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
@@ -116,6 +120,8 @@ ManageCommunication.propTypes = {
   editMode: PropTypes.bool,
   selectedTask: PropTypes.object,
   selectedAppointment: PropTypes.object,
+  datePickerMode: PropTypes.object.isRequired,
+  patientUrl: PropTypes.string.isRequired,
 };
 
 export default ManageCommunication;

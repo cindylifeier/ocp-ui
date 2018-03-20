@@ -4,9 +4,6 @@ import { Form } from 'formik';
 import Util from 'utils/Util';
 import ErrorText from 'components/ErrorText';
 import Link from 'react-router-dom/es/Link';
-import { RaisedButton } from 'material-ui';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
-import { addButtonStyle } from 'components/ManageCommunication/constants';
 import { teal500, white } from 'material-ui/styles/colors';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
@@ -45,6 +42,8 @@ function ManageCommunicationForm(props) {
     handleRemoveRecipient,
     selectedPatient,
     initialSelectedRecipients,
+    datePickerMode,
+    patientUrl,
   } = props;
   const hasRecipients = !isEmpty(selectedRecipients);
   const handleRemoveSelectedRecipient = (check, reference) => {
@@ -85,7 +84,7 @@ function ManageCommunicationForm(props) {
                 fullWidth
                 name="sent"
                 minDate={today}
-                mode={DATE_PICKER_MODE.LANDSCAPE}
+                mode={datePickerMode.LANDSCAPE}
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.sent} />}
               />
             </Cell>
@@ -210,12 +209,11 @@ function ManageCommunicationForm(props) {
           />
         </FormCell>
         <FormCell top={10} left={1} width={2}>
-          <RaisedButton
+          <StyledRaisedButton
             fullWidth
             backgroundColor={teal500}
             labelColor={white}
             onClick={handleOpen}
-            style={addButtonStyle}
             label={<FormattedMessage {...messages.form.addRecipient} />}
           />
         </FormCell>
@@ -256,7 +254,7 @@ function ManageCommunicationForm(props) {
                 default
                 label={<FormattedMessage {...messages.form.cancelButton} />}
                 disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
+                containerElement={<Link to={patientUrl} />}
               />
             </Cell>
           </Grid>
@@ -280,6 +278,8 @@ ManageCommunicationForm.propTypes = {
   selectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
   handleRemoveRecipient: PropTypes.func.isRequired,
+  datePickerMode: PropTypes.object.isRequired,
+  patientUrl: PropTypes.string.isRequired,
 };
 
 export default ManageCommunicationForm;

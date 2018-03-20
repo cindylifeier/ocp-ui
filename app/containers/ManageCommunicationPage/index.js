@@ -28,6 +28,17 @@ import {
   initializeListOfRecipients, initializeSearchRecipients,
   removeSelectedRecipient, setInitialRecipients,
 } from 'containers/SearchRecipient/actions';
+
+import { getLookupsAction } from 'containers/App/actions';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import {
+  makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
+  makeSelectCommunicationNotDoneReasons,
+} from 'containers/App/lookupSelectors';
+import {
+  COMMUNICATION_CATEGORY, COMMUNICATION_STATUS, COMMUNICATION_MEDIUM,
+  COMMUNICATION_NOT_DONE_REASON, DATE_PICKER_MODE, PATIENTS_URL,
+} from 'containers/App/constants';
 import isUndefined from 'lodash/isUndefined';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import PageHeader from 'components/PageHeader';
@@ -36,20 +47,8 @@ import ManageCommunication from 'components/ManageCommunication';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-
-import { getLookupsAction } from '../App/actions';
 import { createCommunication, updateCommunication, getEpisodeOfCares,
   getPractitioner } from './actions';
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import {
-  makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
-  makeSelectCommunicationNotDoneReasons,
-} from '../App/lookupSelectors';
-import {
-  COMMUNICATION_CATEGORY, COMMUNICATION_STATUS, COMMUNICATION_MEDIUM,
-  COMMUNICATION_NOT_DONE_REASON,
-} from '../App/constants';
-
 
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -144,7 +143,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       const appointmentId = queryObj.appointmentId;
       selectedAppointment = find(appointments.data.elements, { logicalId: appointmentId });
     }
-
+    const datePickerMode = DATE_PICKER_MODE;
+    const patientUrl = PATIENTS_URL;
     const manageCommunicationProps = {
       communicationStatus,
       communicationCategories,
@@ -175,6 +175,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
         <PageContent>
           <ManageCommunication
             onSave={this.handleSave}
+            datePickerMode={datePickerMode}
+            patientUrl={patientUrl}
             {...manageCommunicationProps}
             handleOpen={this.handleOpen}
             handleRemoveRecipient={this.handleRemoveRecipient}
