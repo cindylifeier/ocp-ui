@@ -7,11 +7,11 @@ import {
   getOrganizationsSuccess,
   getPatientsSuccess,
 } from './actions';
-import { getCareCoordinators, getCareManagers, getOrganizations, getPatients } from './api';
+import { getCareCoordinators, getCareManagers, getActiveOrganizations, getPatients } from './api';
 
 export function* getOrganizationsSaga() {
   try {
-    const organizations = yield call(getOrganizations);
+    const organizations = yield call(getActiveOrganizations);
     yield put(getOrganizationsSuccess(organizations));
   } catch (err) {
     yield put(showNotification('Failed to get the organizations.'));

@@ -1,10 +1,13 @@
 import request from 'utils/request';
 import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
+import queryString from 'utils/queryString';
 
-export function getOrganizations() {
+export function getActiveOrganizations() {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   // Todo: Change list organization endpoint
-  const requestURL = `${baseEndpoint}/all`;
+  const showInactive = false;
+  const params = queryString({ showInactive });
+  const requestURL = `${baseEndpoint}/all${params}`;
   return request(requestURL);
 }
 
