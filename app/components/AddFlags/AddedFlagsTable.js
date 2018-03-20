@@ -44,8 +44,8 @@ function AddedFlagsTable(props) {
           const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{find(flagCategories, { code: category }).display}</TableRowColumn>
-              <TableRowColumn>{find(flagStatuses, { code: status }).display}</TableRowColumn>
+              <TableRowColumn>{find(flagCategories, { code: category }) && (find(flagCategories, { code: category })).display}</TableRowColumn>
+              <TableRowColumn>{find(flagStatuses, { code: status }) && (find(flagStatuses, { code: status })).display}</TableRowColumn>
               <TableRowColumn>{code}</TableRowColumn>
               <TableRowColumn>{author && author.display }</TableRowColumn>
               <TableRowColumn>{flagStart && Util.formatDate(flagStart)}</TableRowColumn>
@@ -79,7 +79,10 @@ AddedFlagsTable.propTypes = {
     category: PropTypes.string,
     code: PropTypes.string,
     status: PropTypes.string,
-    author: PropTypes.string,
+    author: PropTypes.shape({
+      code: PropTypes.string,
+      display: PropTypes.string,
+    }),
   })),
   flagStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,

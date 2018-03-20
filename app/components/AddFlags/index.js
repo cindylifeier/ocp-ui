@@ -104,7 +104,15 @@ class AddFlags extends React.PureComponent {
 
 AddFlags.propTypes = {
   errors: PropTypes.object,
-  flags: PropTypes.array,
+  flags: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string,
+    code: PropTypes.string,
+    status: PropTypes.string,
+    author: PropTypes.shape({
+      code: PropTypes.string,
+      display: PropTypes.string,
+    }),
+  })),
   flagStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
