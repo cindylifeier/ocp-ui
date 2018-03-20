@@ -7,13 +7,14 @@
 import { fromJS } from 'immutable';
 
 import {
+  GET_ACTIVE_LOCATIONS,
+  GET_FILTERED_LOCATIONS,
   GET_LOCATIONS_SUCCESS,
-  GET_ACTIVE_LOCATIONS, GET_FILTERED_LOCATIONS, INITIALIZE_LOCATIONS,
+  INITIALIZE_LOCATIONS,
 } from './constants';
 
 const initialState = fromJS({
   data: [],
-  organization: {},
   currentPage: 0,
   totalNumberOfPages: 0,
   includeInactive: false,
@@ -30,12 +31,12 @@ function locationsReducer(state = initialState, action) {
     case INITIALIZE_LOCATIONS:
       return initialState;
     case GET_LOCATIONS_SUCCESS:
-      return state.set('data', fromJS((action.locations && action.locations.elements) || []))
+      return state
+        .set('data', fromJS((action.locations && action.locations.elements) || []))
         .setIn(['totalNumberOfPages'], action.locations.totalNumberOfPages)
         .setIn(['currentPage'], action.locations.currentPage);
     case GET_ACTIVE_LOCATIONS: {
-      const organization = { id: action.organizationId, name: action.organizationName };
-      return state.setIn(['organization'], organization)
+      return state
         .setIn(['includeInactive'], false)
         .setIn(['includeSuspended'], false);
     }

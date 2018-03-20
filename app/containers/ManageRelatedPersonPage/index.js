@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import queryString from 'query-string';
 import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
@@ -28,7 +27,7 @@ import {
   TELECOMUSE,
   USPSSTATES,
 } from 'containers/App/constants';
-import { getLookupsAction, getPatient } from 'containers/App/actions';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectAdministrativeGenders,
   makeSelectPatientIdentifierSystems,
@@ -37,8 +36,8 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import makeSelectRelatedPersons from 'containers/RelatedPersons/selectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import { createRelatedPerson, updateRelatedPerson } from './actions';
@@ -50,13 +49,14 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
     this.handleSave = this.handleSave.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
-    const queryObj = queryString.parse(this.props.location.search);
-    const patientId = queryObj.patientId;
-    if (patientId) {
-      this.props.getPatient(patientId);
-    }
+    // TODO: refresh patient context?
+    // const queryObj = queryString.parse(this.props.location.search);
+    // const patientId = queryObj.patientId;
+    // if (patientId) {
+    //   this.props.getPatient(patientId);
+    // }
   }
 
   handleSave(relatedPerson, actions) {
@@ -77,7 +77,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       telecomSystems,
       telecomUses,
       relationshipTypes,
-      selectedPatient,
+      patient,
     } = this.props;
     const relatedPersonId = this.props.match.params.id;
     const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
@@ -88,7 +88,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
       telecomSystems,
       telecomUses,
       relationshipTypes,
-      selectedPatient,
+      patient,
       selectedRelatedPerson,
     };
     return (
@@ -109,10 +109,8 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
 ManageRelatedPersonPage.propTypes = {
   uspsStates: PropTypes.array,
   match: PropTypes.object,
-  getPatient: PropTypes.func.isRequired,
   createRelatedPerson: PropTypes.func.isRequired,
   updateRelatedPerson: PropTypes.func.isRequired,
-  location: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
   patientIdentifierSystems: PropTypes.array,
   administrativeGenders: PropTypes.array,
@@ -128,7 +126,7 @@ ManageRelatedPersonPage.propTypes = {
     definition: PropTypes.string,
   })).isRequired,
   relationshipTypes: PropTypes.array,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
   relatedPeronsData: PropTypes.object,
 };
 
@@ -139,14 +137,13 @@ const mapStateToProps = createStructuredSelector({
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
   relatedPeronsData: makeSelectRelatedPersons(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, TELECOMUSE, TELECOMSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES])),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
     createRelatedPerson: (relatedPerson, handleSubmitting) => dispatch(createRelatedPerson(relatedPerson, handleSubmitting)),
     updateRelatedPerson: (relatedPerson, handleSubmitting) => dispatch(updateRelatedPerson(relatedPerson, handleSubmitting)),
   };

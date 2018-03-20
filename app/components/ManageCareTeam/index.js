@@ -18,7 +18,7 @@ import messages from './messages';
 
 function ManageCareTeam(props) {
   const {
-    selectedPatient,
+    patient,
     careTeam,
     editMode,
     careTeamCategories,
@@ -32,7 +32,7 @@ function ManageCareTeam(props) {
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
-    selectedPatient,
+    patient,
     careTeamCategories,
     careTeamReasons,
     careTeamStatuses,
@@ -44,7 +44,7 @@ function ManageCareTeam(props) {
 
   return (
     <div>
-      {selectedPatient &&
+      {patient &&
       <div>
         {((editMode && careTeam) || !editMode) &&
         <Formik
@@ -90,7 +90,7 @@ ManageCareTeam.propTypes = {
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),

@@ -1,4 +1,4 @@
-import { EMPTY_STRING } from '../App/constants';
+import { EMPTY_STRING } from 'containers/App/constants';
 
 export function fromBackendToFrontendOrganization(org) {
   const { name, addresses: addressArr, telecoms, logicalId: id, active: statusBool, identifiers: identifiersRaw } = org;
