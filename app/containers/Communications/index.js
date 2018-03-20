@@ -18,10 +18,10 @@ import CommunicationsTable from 'components/CommunicationsTable';
 import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
 import Link from 'react-router-dom/es/Link';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
 import makeSelectCommunications from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -46,6 +46,7 @@ export class Communications extends React.PureComponent { // eslint-disable-line
   render() {
     const { data, selectedPatient } = this.props;
     const listOfCommunications = data && data.elements ? data.elements : [];
+    const manageCommunicationBaseUrl = MANAGE_COMMUNICATION_URL;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />}>
@@ -58,7 +59,12 @@ export class Communications extends React.PureComponent { // eslint-disable-line
         {data && data.elements &&
         (
           <div>
-            <CommunicationsTable communications={listOfCommunications} selectedPatientId={selectedPatient.id}></CommunicationsTable>
+            <CommunicationsTable
+              communications={listOfCommunications}
+              selectedPatientId={selectedPatient.id}
+              manageCommunicationBaseUrl={manageCommunicationBaseUrl}
+            >
+            </CommunicationsTable>
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
