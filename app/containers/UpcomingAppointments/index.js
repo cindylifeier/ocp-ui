@@ -21,8 +21,8 @@ import {
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_APPOINTMENT_URL,
 } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
 import { PRACTITIONERIDVALUE } from 'containers/UpcomingAppointments/constants';
 import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
@@ -53,8 +53,8 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   componentDidMount() {
-    const patientId = this.props.selectedPatient.id;
-    if (!isUndefined(patientId)) {
+    const patientId = this.props.patient ? this.props.patient.id : null;
+    if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         practitionerId: PRACTITIONERIDVALUE,
@@ -76,7 +76,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   handleCheck(event, checked) {
-    const patientId = this.props.selectedPatient.id;
+    const patientId = this.props.patient.id;
     if (!isUndefined(patientId)) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
@@ -160,12 +160,9 @@ UpcomingAppointments.propTypes = {
     data: PropTypes.shape({
       elements: PropTypes.array,
     }),
-  }).isRequired,
-  cancelAppointment: PropTypes.func,
-  selectedPatient: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.array,
   }),
+  cancelAppointment: PropTypes.func,
+  patient: PropTypes.object,
   showPastAppointments: PropTypes.bool,
 };
 
@@ -173,7 +170,7 @@ const mapStateToProps = createStructuredSelector({
   upcomingAppointments: makeSelectUpcomingAppointments(),
   appointmentTypes: makeSelectAppointmentTypes(),
   appointmentStatuses: makeSelectAppointmentStatuses(),
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
   showPastAppointments: makeSelectShowPastAppointments(),
 });
 
