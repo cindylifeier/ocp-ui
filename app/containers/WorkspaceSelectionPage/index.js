@@ -14,7 +14,7 @@ import { createStructuredSelector } from 'reselect';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/contextSelectors';
-import { setUser } from 'containers/App/contextActions';
+import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
 import { getCareCoordinators, getCareManagers, getOrganizations, getPatients } from './actions';
 import reducer from './reducer';
@@ -49,21 +49,22 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
     this.props.setUser({ ...user, role });
   }
 
-  // Todo: Integrate with context
   handleSetOrganization(organization) {
-    console.log(organization);
+    this.props.setOrganization(organization);
   }
 
   handleSetCareManager(careManager) {
-    console.log(careManager);
+    const { user } = this.props;
+    this.props.setUser({ ...user, resource: careManager });
   }
 
   handleSetCareCoordinator(careCoordinator) {
-    console.log(careCoordinator);
+    const { user } = this.props;
+    this.props.setUser({ ...user, resource: careCoordinator });
   }
 
   handleSetPatient(patient) {
-    console.log(patient);
+    this.props.setPatient(patient);
   }
 
   render() {
@@ -109,6 +110,8 @@ WorkspaceSelectionPage.propTypes = {
   getCareCoordinators: PropTypes.func.isRequired,
   getPatients: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
+  setOrganization: PropTypes.func.isRequired,
+  setPatient: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
@@ -127,6 +130,8 @@ function mapDispatchToProps(dispatch) {
     getCareCoordinators: () => dispatch(getCareCoordinators()),
     getPatients: () => dispatch(getPatients()),
     setUser: (user) => dispatch(setUser(user)),
+    setOrganization: (organization) => dispatch(setOrganization(organization)),
+    setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }
 

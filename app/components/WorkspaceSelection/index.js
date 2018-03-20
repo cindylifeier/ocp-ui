@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import find from 'lodash/find';
 import { Step, StepLabel, Stepper } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -444,18 +445,19 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   }
 
   handleNavigateTo() {
+    const { organizations, careManagers, careCoordinators, patients } = this.props;
     this.props.onSetWorkflowRole(this.state.roleValue);
     if (!isEmpty(this.state.organizationValue)) {
-      this.props.onSetOrganization(this.state.organizationValue);
+      this.props.onSetOrganization(find(organizations, { logicalId: this.state.organizationValue }));
     }
     if (!isEmpty(this.state.careManagerValue)) {
-      this.props.onSetCareManager(this.state.careManagerValue);
+      this.props.onSetCareManager(find(careManagers, { logicalId: this.state.careManagerValue }));
     }
     if (!isEmpty(this.state.careCoordinatorValue)) {
-      this.props.onSetCareCoordinator(this.state.careCoordinatorValue);
+      this.props.onSetCareCoordinator(find(careCoordinators, { logicalId: this.state.careCoordinatorValue }));
     }
     if (!isEmpty(this.state.patientValue)) {
-      this.props.onSetPatient(this.state.patientValue);
+      this.props.onSetPatient(find(patients, { id: this.state.patientValue }));
     }
     const linkTo = getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
