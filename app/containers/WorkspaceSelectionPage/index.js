@@ -25,6 +25,7 @@ import {
   makeSelectOrganizationsData,
   makeSelectPatientsData,
 } from './selectors';
+import { flattenPatientData } from './mapping';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -76,7 +77,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
       organizations,
       careManagers,
       careCoordinators,
-      patients,
+      patients: flattenPatientData(patients),
     };
     return (
       <div>

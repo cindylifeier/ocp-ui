@@ -14,8 +14,6 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-
-import { mapToPatientName } from 'utils/PatientUtils';
 import { CARE_COORDINATOR, CARE_MANAGER, OCP_ADMIN, ORGANIZATION_ADMIN, PATIENT, PCP } from 'containers/App/constants';
 import { getLinkUrlByRole } from 'components/PrivateNavigation';
 import StepperSection from './StepperSection';
@@ -136,7 +134,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               onChange={this.handlePatientChange}
             >
               {patients && patients.map((patient) =>
-                <MenuItem key={patient.id} value={patient.id} primaryText={mapToPatientName(patient)} />,
+                <MenuItem key={patient.id} value={patient.id} primaryText={patient.name} />,
               )}
             </SelectField>
           </div>
