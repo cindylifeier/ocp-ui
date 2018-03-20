@@ -33,7 +33,7 @@ export function Authentication(props) {
       // child component will be rendered here
       <PrivateLayout
         {...privateLayoutProps}
-        onNavigateToLinkUrlByRole={getLinkUrlByRole}
+        onGetNavigateToLinkUrlByRole={getLinkUrlByRole}
       >
         {props.children}
       </PrivateLayout> :
