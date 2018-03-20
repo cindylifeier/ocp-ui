@@ -14,10 +14,6 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 
 import {
   ADMIN_WORKSPACE,
-  CARE_COORDINATOR,
-  CARE_MANAGER,
-  OCP_ADMIN,
-  PATIENT,
   PATIENT_WORKSPACE,
   PRACTITIONER_WORKSPACE,
   WORKSPACE_SELECTION_URL,
@@ -41,19 +37,37 @@ function PrivateNavigation(props) {
   );
 }
 
+// Todo: will refactor this method
 export function getLinkUrlByRole(role) {
+  const ocpAdminWorkflowRole = {
+    value: 'ocpAdminRole',
+    display: 'OCP Admin',
+  };
+  const careManagerWorkflowRole = {
+    value: 'careManagerRole',
+    display: 'Care Manager',
+  };
+  const careCoordinatorWorkflowRole = {
+    value: 'careCoordinatorRole',
+    display: 'Care Coordinator',
+  };
+  const patientWorkflowRole = {
+    value: 'patientRole',
+    display: 'Patient',
+  };
+
   let linkUrl;
   switch (role) {
-    case OCP_ADMIN:
+    case ocpAdminWorkflowRole.value:
       linkUrl = ADMIN_WORKSPACE;
       break;
-    case CARE_MANAGER:
+    case careManagerWorkflowRole.value:
       linkUrl = PRACTITIONER_WORKSPACE;
       break;
-    case CARE_COORDINATOR:
+    case careCoordinatorWorkflowRole.value:
       linkUrl = PRACTITIONER_WORKSPACE;
       break;
-    case PATIENT:
+    case patientWorkflowRole.value:
       linkUrl = PATIENT_WORKSPACE;
       break;
     default:
