@@ -43,6 +43,7 @@ export class Organizations extends React.PureComponent {
     this.handleRowClick = this.handleRowClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.state = {
+      isShowSearchResult: false,
       listOrganizations: {
         currentPage: 1,
       },
@@ -65,7 +66,10 @@ export class Organizations extends React.PureComponent {
   }
 
   handleSearch(searchValue, showInactive, searchType) {
-    this.setState({ searchOrganizations: { searchValue, showInactive, searchType } });
+    this.setState({
+      isShowSearchResult: true,
+      searchOrganizations: { searchValue, showInactive, searchType },
+    });
     this.props.searchOrganizations(searchValue, showInactive, searchType, this.state.searchOrganizations.currentPage);
   }
 
@@ -86,50 +90,44 @@ export class Organizations extends React.PureComponent {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
     };
+    // By initial to show listing organizations data
+    let organizationData = {
+      loading: organizations.listOrganizations.loading,
+      data: organizations.listOrganizations.data,
+      currentPage: organizations.listOrganizations.currentPage,
+      totalNumberOfPages: organizations.listOrganizations.totalNumberOfPages,
+      handlePageClick: this.handleListPageClick,
+    };
+    if (this.state.isShowSearchResult) {
+      organizationData = {
+        loading: organizations.searchOrganizations.loading,
+        data: organizations.searchOrganizations.result,
+        currentPage: organizations.searchOrganizations.currentPage,
+        totalNumberOfPages: organizations.searchOrganizations.totalNumberOfPages,
+        handlePageClick: this.handleSearchPageClick,
+      };
+    }
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
         <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        {/* By default list all organizations */}
-        {organizations.listOrganizations.loading && <RefreshIndicatorLoading />}
-        {(!organizations.listOrganizations.loading && organizations.listOrganizations.data && organizations.listOrganizations.data.length > 0
+        {organizationData.loading && <RefreshIndicatorLoading />}
+        {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
             ? <div>
               <OrganizationTable
-                organizations={organizations.listOrganizations.data.map(fromBackendToFrontendOrganization)}
+                organizations={organizationData.data.map(fromBackendToFrontendOrganization)}
                 onRowClick={this.handleRowClick}
               />
               <CenterAlignedUltimatePagination
-                currentPage={organizations.listOrganizations.currentPage}
-                totalPages={organizations.listOrganizations.totalNumberOfPages}
-                onChange={this.handleListPageClick}
+                currentPage={organizationData.currentPage}
+                totalPages={organizationData.totalNumberOfPages}
+                onChange={organizationData.handlePageClick}
               />
             </div> :
             (<CenterAlign>
               <NoResultsFoundText>No organizations found</NoResultsFoundText>
             </CenterAlign>)
         )}
-
-        {/* Show search organization result */}
-        {organizations.searchOrganizations.loading && <RefreshIndicatorLoading />}
-
-        {(!organizations.searchOrganizations.loading && organizations.searchOrganizations.result && organizations.searchOrganizations.result.length > 0 &&
-          <div>
-            <OrganizationTable
-              organizations={organizations.searchOrganizations.result.map(fromBackendToFrontendOrganization)}
-              onRowClick={this.handleRowClick}
-            />
-            <CenterAlignedUltimatePagination
-              currentPage={organizations.searchOrganizations.currentPage}
-              totalPages={organizations.searchOrganizations.totalNumberOfPages}
-              onChange={this.handleSearchPageClick}
-            />
-          </div>
-        ) ||
-        ((!organizations.searchOrganizations.loading && organizations.searchOrganizations.result && organizations.searchOrganizations.result.length === 0 &&
-          <CenterAlign>
-            <NoResultsFoundText>No organizations found</NoResultsFoundText>
-          </CenterAlign>))
-        }
       </Card>
     );
   }
@@ -142,14 +140,17 @@ Organizations.propTypes = {
   getActiveLocations: PropTypes.func.isRequired,
   getHealthcareServicesByOrganization: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
+    listOrganizations: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      currentPage: PropTypes.number.isRequired,
+      totalNumberOfPages: PropTypes.number.isRequired,
+      data: PropTypes.array,
+    }),
     searchOrganizations: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
       currentPage: PropTypes.number.isRequired,
       totalNumberOfPages: PropTypes.number.isRequired,
-      result: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.bool,
-      ]),
+      result: PropTypes.array,
     }),
   }),
 };
