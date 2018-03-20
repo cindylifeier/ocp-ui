@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
-import renderAppointmentsComponent from 'containers/Appointments/render';
+import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import renderNotFoundComponent from 'containers/NotFoundPage/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
@@ -129,7 +129,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   // TODO: will replace with Communication render component
   { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
