@@ -5,10 +5,11 @@
  */
 
 import {
-  GET_FILTERED_LOCATIONS,
   GET_ACTIVE_LOCATIONS,
+  GET_FILTERED_LOCATIONS,
+  GET_LOCATIONS_ERROR,
   GET_LOCATIONS_SUCCESS,
-  GET_LOCATIONS_ERROR, INITIALIZE_LOCATIONS,
+  INITIALIZE_LOCATIONS,
 } from './constants';
 
 
@@ -21,20 +22,17 @@ export function getFilteredLocations(currentPage, includeInactive, includeSuspen
   };
 }
 
-export function getActiveLocations(organizationId, organizationName, currentPage) {
+export function getActiveLocations(currentPage) {
   return {
     type: GET_ACTIVE_LOCATIONS,
-    organizationId,
-    organizationName,
     currentPage,
   };
 }
 
-export function getLocationsSuccess(locations, organizationId, includeInactive, includeSuspended) {
+export function getLocationsSuccess(locations, includeInactive, includeSuspended) {
   return {
     type: GET_LOCATIONS_SUCCESS,
     locations,
-    organizationId,
     includeInactive,
     includeSuspended,
   };

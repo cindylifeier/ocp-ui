@@ -2,8 +2,7 @@ import { EMPTY_STRING } from 'containers/App/constants';
 import { PHONE_SYSTEM } from 'utils/constants';
 
 export function mapToPatientName(patient) {
-  const names = patient.name;
-  return names && names
+  return patient && patient.name && patient.name
     .map((name) => {
       const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
       const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;

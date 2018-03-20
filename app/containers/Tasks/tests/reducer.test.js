@@ -5,9 +5,7 @@ describe('tasksReducer', () => {
   it('returns the initial state', () => {
     expect(tasksReducer(undefined, {})).toEqual(fromJS({
       loading: false,
-      patientName: null,
       data: {},
-      query: null,
     }));
   });
 });

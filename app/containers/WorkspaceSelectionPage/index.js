@@ -13,6 +13,8 @@ import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { makeSelectUser } from 'containers/App/contextSelectors';
+import { setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
 import { getCareCoordinators, getCareManagers, getOrganizations, getPatients, setWorkflowRole } from './actions';
 import reducer from './reducer';
@@ -28,6 +30,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
 
   constructor(props) {
     super(props);
+    this.onSetWorkflowRole = this.onSetWorkflowRole.bind(this);
     this.handleSetOrganization = this.handleSetOrganization.bind(this);
     this.handleSetCareManager = this.handleSetCareManager.bind(this);
     this.handleSetCareCoordinator = this.handleSetCareCoordinator.bind(this);
@@ -39,6 +42,11 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
     this.props.getCareManagers();
     this.props.getCareCoordinators();
     this.props.getPatients();
+  }
+
+  onSetWorkflowRole(role) {
+    const { user } = this.props;
+    this.props.setUser({ ...user, role });
   }
 
   // Todo: Integrate with context
@@ -77,7 +85,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         </Helmet>
         <WorkspaceSelection
           {...workspaceSelectionProps}
-          onSetWorkflowRole={this.props.onSetWorkflowRole}
+          onSetWorkflowRole={this.onSetWorkflowRole}
           onSetOrganization={this.handleSetOrganization}
           onSetCareManager={this.handleSetCareManager}
           onSetCareCoordinator={this.handleSetCareCoordinator}
@@ -96,11 +104,12 @@ WorkspaceSelectionPage.propTypes = {
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
   patients: PropTypes.any.isRequired,
-  onSetWorkflowRole: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
   getPatients: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -108,6 +117,7 @@ const mapStateToProps = createStructuredSelector({
   careManagers: makeCareManagersData(),
   careCoordinators: makeCareCoordinatorsData(),
   patients: makeSelectPatientsData(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -117,6 +127,7 @@ function mapDispatchToProps(dispatch) {
     getCareCoordinators: () => dispatch(getCareCoordinators()),
     getPatients: () => dispatch(getPatients()),
     onSetWorkflowRole: (workflowRole) => dispatch(setWorkflowRole(workflowRole)),
+    setUser: (user) => dispatch(setUser(user)),
   };
 }
 
