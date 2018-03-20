@@ -15,7 +15,9 @@ describe('<CareTeams />', () => {
       const initializeCareTeams = jest.fn();
       const getCareTeams = jest.fn();
       const query = { a1: 'a1', a2: 'a2' };
-      const patientName = 'patientName';
+      const firstName = 'firstName';
+      const lastName = 'lastName';
+      const patient = { name: [{ firstName, lastName }] };
       const statusList = ['active', 'inactive'];
       const loading = false;
       const elements = [{
@@ -42,7 +44,6 @@ describe('<CareTeams />', () => {
         loading,
         data,
         query,
-        patientName,
         statusList,
       };
       const careTeamStatuses = [{
@@ -61,6 +62,7 @@ describe('<CareTeams />', () => {
         initializeCareTeams,
         careTeams,
         careTeamStatuses,
+        patient,
       };
 
       // Act
@@ -78,7 +80,9 @@ describe('<CareTeams />', () => {
       const initializeCareTeams = jest.fn();
       const getCareTeams = jest.fn();
       const query = { a1: 'a1', a2: 'a2' };
-      const patientName = 'patientName';
+      const firstName = 'firstName';
+      const lastName = 'lastName';
+      const patient = { name: [{ firstName, lastName }] };
       const statusList = ['active', 'inactive'];
       const loading = false;
       const elements = [{
@@ -105,7 +109,7 @@ describe('<CareTeams />', () => {
         loading,
         data,
         query,
-        patientName,
+        patient,
         statusList,
       };
       const careTeamStatuses = [{
@@ -122,6 +126,7 @@ describe('<CareTeams />', () => {
         getCareTeams,
         initializeLookups,
         initializeCareTeams,
+        patient,
         careTeams,
         careTeamStatuses,
       };
@@ -130,7 +135,7 @@ describe('<CareTeams />', () => {
       const renderedComponent = shallow(<CareTeams {...props} />);
 
       // Assert
-      expect(renderedComponent.contains(patientName)).toBe(true);
+      expect(renderedComponent.contains(`${firstName} ${lastName}`)).toBe(true);
     });
 
     it('should call initialization functions', () => {

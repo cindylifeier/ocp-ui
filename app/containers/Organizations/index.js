@@ -14,16 +14,15 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
-import PanelToolbar from 'components/PanelToolbar';
+import { setOrganization } from 'containers/App/contextActions';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
+import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import { getActiveLocations } from 'containers/Locations/actions';
-import { getHealthcareServicesByOrganization } from 'containers/HealthcareServices/actions';
 import {
   makeSelectOrganizations,
   makeSelectSearchOrganizationCurrentPage,
@@ -31,16 +30,15 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
-import { fromBackendToFrontendOrganization } from './mappings';
 import messages from './messages';
+import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
 
 export class Organizations extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.state = {
       isShowSearchResult: false,
@@ -56,13 +54,8 @@ export class Organizations extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeOrganizations();
-  }
-
-  handleListPageClick(currentPage) {
-    this.setState({ listOrganizations: { currentPage } });
-    this.props.getOrganizations(currentPage);
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -73,10 +66,13 @@ export class Organizations extends React.PureComponent {
     this.props.searchOrganizations(searchValue, showInactive, searchType, this.state.searchOrganizations.currentPage);
   }
 
-  handleRowClick({ id, name }) {
-    const currentPage = 1;
-    this.props.getActiveLocations(id, name, currentPage);
-    this.props.getHealthcareServicesByOrganization(id, name, currentPage);
+  handleRowClick(organization) {
+    this.props.setOrganization(organization);
+  }
+
+  handleListPageClick(currentPage) {
+    this.setState({ listOrganizations: { currentPage } });
+    this.props.getOrganizations(currentPage);
   }
 
   handleSearchPageClick(currentPage) {
@@ -115,7 +111,7 @@ export class Organizations extends React.PureComponent {
         {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
             ? <div>
               <OrganizationTable
-                organizations={organizationData.data.map(fromBackendToFrontendOrganization)}
+                organizations={organizationData.data}
                 onRowClick={this.handleRowClick}
               />
               <CenterAlignedUltimatePagination
@@ -135,10 +131,9 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
+  setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
-  getActiveLocations: PropTypes.func.isRequired,
-  getHealthcareServicesByOrganization: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
     listOrganizations: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
@@ -166,8 +161,7 @@ function mapDispatchToProps(dispatch) {
     initializeOrganizations: () => dispatch(initializeOrganizations()),
     getOrganizations: (currentPage) => dispatch(getOrganizations(currentPage)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
-    getActiveLocations: (organizationId, organizationName, currentPage) => dispatch(getActiveLocations(organizationId, organizationName, currentPage)),
-    getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage) => dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage)),
+    setOrganization: (organization) => dispatch(setOrganization(organization)),
   };
 }
 

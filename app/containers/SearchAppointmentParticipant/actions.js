@@ -15,12 +15,11 @@ import {
   SEARCH_APPOINTMENT_PARTICIPANT_SUCCESS,
 } from 'containers/SearchAppointmentParticipant/constants';
 
-export function getAppointmentSearchParticipant(name, member, patientId) {
+export function getAppointmentSearchParticipant(name, member) {
   return {
     type: SEARCH_APPOINTMENT_PARTICIPANT,
     name,
     member,
-    patientId,
   };
 }
 

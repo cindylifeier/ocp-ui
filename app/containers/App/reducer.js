@@ -13,13 +13,8 @@
 import { combineReducers } from 'redux-immutable';
 import lookupReducer from './lookupReducer';
 import authReducer from './authReducer';
-import sharedDataReducer from './sharedDataReducer';
-import workspaceReducer from './workspaceReducer';
 
 export default combineReducers({
   auth: authReducer,
   lookup: lookupReducer,
-  // Todo: will remove after integrate with context
-  workspace: workspaceReducer,
-  sharedData: sharedDataReducer,
 });

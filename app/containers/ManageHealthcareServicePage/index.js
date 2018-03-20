@@ -24,7 +24,7 @@ import PageContent from 'components/PageContent';
 import ManageHealthcareService from 'components/ManageHealthcareService';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
-import { makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,

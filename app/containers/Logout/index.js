@@ -12,6 +12,7 @@ import { compose } from 'redux';
 import MenuItem from 'material-ui/MenuItem';
 
 import injectSaga from 'utils/injectSaga';
+import { clearAll } from 'containers/App/contextActions';
 import saga from './saga';
 import messages from './messages';
 import { logout } from './actions';
@@ -35,7 +36,10 @@ Logout.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onLogout: () => dispatch(logout()),
+    onLogout: () => {
+      dispatch(logout());
+      dispatch(clearAll());
+    },
   };
 }
 

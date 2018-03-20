@@ -1,16 +1,16 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import { showNotification } from '../Notification/actions';
-import { createActivityDefinition } from './api';
-import { createActivityDefinitionSuccess, createActivityDefinitionError } from './actions';
-import { CREATE_ACTIVITY_DEFINITION } from '../ManageActivityDefinitionPage/constants';
-import { makeSelectOrganization } from '../Locations/selectors';
 
+import { showNotification } from 'containers/Notification/actions';
+import { CREATE_ACTIVITY_DEFINITION } from 'containers/ManageActivityDefinitionPage/constants';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { createActivityDefinition } from './api';
+import { createActivityDefinitionError, createActivityDefinitionSuccess } from './actions';
 
 function* createActivityDefinitionSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const createActivityDefinitionResponse = yield call(createActivityDefinition, action.activityDefinitionFormData, organization.id);
+    const createActivityDefinitionResponse = yield call(createActivityDefinition, action.activityDefinitionFormData, organization.logicalId);
     yield put(createActivityDefinitionSuccess(createActivityDefinitionResponse));
     yield put(showNotification('Successfully create the activity definition.'));
     yield call(action.handleSubmitting);

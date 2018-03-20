@@ -3,8 +3,6 @@ import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
   makeSelectIncludeInactive,
-  makeSelectLocation,
-  makeSelectOrganization,
   makeSelectQueryError,
   makeSelectQueryLoading,
   makeSelectTotalNumberOfPages,
@@ -233,89 +231,6 @@ describe('HealthcareServices selectors', () => {
 
       // Assert
       expect(substate).toEqual(includeInactive);
-    });
-  });
-
-  describe('makeSelectOrganization', () => {
-    it('should select organization', () => {
-      // Arrange
-      const data = [
-        { mockDataContent: 'mockDataContent1' },
-        { mockDataContent: 'mockDataContent2' },
-      ];
-      const loading = false;
-      const error = false;
-      const currentPage = 10;
-      const totalNumberOfPages = 6;
-      const includeInactive = false;
-      const organization = {
-        id: '11111',
-        name: 'Organization Name',
-      };
-      const healthcareServices = {
-        loading,
-        error,
-        data,
-        organization,
-        location: {
-          id: '22222',
-          name: 'Location Name',
-        },
-        currentPage,
-        totalNumberOfPages,
-        includeInactive,
-      };
-      const mockState = fromJS({
-        healthcareServices,
-      });
-
-      // Act
-      const substate = makeSelectOrganization()(mockState);
-
-      // Assert
-      expect(substate.toJS()).toEqual(organization);
-    });
-  });
-
-  describe('makeSelectLocation', () => {
-    it('should select location', () => {
-      // Arrange
-      const data = [
-        { mockDataContent: 'mockDataContent1' },
-        { mockDataContent: 'mockDataContent2' },
-      ];
-      const loading = false;
-      const error = false;
-      const currentPage = 10;
-      const totalNumberOfPages = 6;
-      const includeInactive = false;
-      const organization = {
-        id: '11111',
-        name: 'Organization Name',
-      };
-      const location = {
-        id: '22222',
-        name: 'Location Name',
-      };
-      const healthcareServices = {
-        loading,
-        error,
-        data,
-        organization,
-        location,
-        currentPage,
-        totalNumberOfPages,
-        includeInactive,
-      };
-      const mockState = fromJS({
-        healthcareServices,
-      });
-
-      // Act
-      const substate = makeSelectLocation()(mockState);
-
-      // Assert
-      expect(substate.toJS()).toEqual(location);
     });
   });
 });
