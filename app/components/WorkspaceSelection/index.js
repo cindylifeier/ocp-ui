@@ -46,13 +46,13 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   getStepContentBasedOnRole(finished, stepIndex, organizations, careManagers, careCoordinators, patients) {
     switch (this.state.roleValue) {
       case OCP_ADMIN:
-        return this.configureOcpAdminStepContent(finished, stepIndex);
+        return this.renderOcpAdminStepContent(finished, stepIndex);
       case CARE_MANAGER:
-        return this.configureCareManagerStepContent(finished, stepIndex, organizations, careManagers);
+        return this.renderCareManagerStepContent(finished, stepIndex, organizations, careManagers);
       case CARE_COORDINATOR:
-        return this.configureCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators);
+        return this.renderCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators);
       case PATIENT:
-        return this.configurePatientStepContent(finished, stepIndex, patients);
+        return this.renderPatientStepContent(finished, stepIndex, patients);
       default:
         return null;
     }
@@ -61,7 +61,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   getAdminStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return this.buildSelectRoleContent();
+        return this.renderSelectRoleContent();
       default:
         return null;
     }
@@ -70,9 +70,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   getManagerStepContent(stepIndex, organizations, careManagers) {
     switch (stepIndex) {
       case 0:
-        return this.buildSelectRoleContent();
+        return this.renderSelectRoleContent();
       case 1:
-        return this.buildSelectOrganizationContent(organizations);
+        return this.renderSelectOrganizationContent(organizations);
       case 2:
         return (
           <div>
@@ -95,9 +95,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   getCoordinatorStepContent(stepIndex, organizations, careCoordinators) {
     switch (stepIndex) {
       case 0:
-        return this.buildSelectRoleContent();
+        return this.renderSelectRoleContent();
       case 1:
-        return this.buildSelectOrganizationContent(organizations);
+        return this.renderSelectOrganizationContent(organizations);
       case 2:
         return (
           <div>
@@ -124,7 +124,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   getPatientStepContent(stepIndex, patients) {
     switch (stepIndex) {
       case 0:
-        return this.buildSelectRoleContent();
+        return this.renderSelectRoleContent();
       case 1:
         return (
           <div>
@@ -144,7 +144,61 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  buildSelectRoleContent() {
+  handleNext() {
+    const { stepIndex } = this.state;
+    this.setState({
+      stepIndex: stepIndex + 1,
+      finished: stepIndex >= 2,
+    });
+  }
+
+  handlePrev() {
+    const { stepIndex } = this.state;
+    if (stepIndex > 0) {
+      this.setState({ stepIndex: stepIndex - 1 });
+    }
+  }
+
+  handleRoleChange(event, index, value) {
+    this.setState({ roleValue: value });
+  }
+
+  handleOrganizationChange(event, index, value) {
+    this.setState({ organizationValue: value });
+  }
+
+  handleCareManagerChange(event, index, value) {
+    this.setState({ careManagerValue: value });
+  }
+
+  handleCareCoordinatorChange(event, index, value) {
+    this.setState({ careCoordinatorValue: value });
+  }
+
+  handlePatientChange(event, index, value) {
+    this.setState({ patientValue: value });
+  }
+
+  handleNavigateTo() {
+    const { organizations, careManagers, careCoordinators, patients } = this.props;
+    this.props.onSetWorkflowRole(this.state.roleValue);
+    if (!isEmpty(this.state.organizationValue)) {
+      this.props.onSetOrganization(find(organizations, { logicalId: this.state.organizationValue }));
+    }
+    if (!isEmpty(this.state.careManagerValue)) {
+      this.props.onSetCareManager(find(careManagers, { logicalId: this.state.careManagerValue }));
+    }
+    if (!isEmpty(this.state.careCoordinatorValue)) {
+      this.props.onSetCareCoordinator(find(careCoordinators, { logicalId: this.state.careCoordinatorValue }));
+    }
+    if (!isEmpty(this.state.patientValue)) {
+      this.props.onSetPatient(find(patients, { id: this.state.patientValue }));
+    }
+    const linkTo = getLinkUrlByRole(this.state.roleValue);
+    this.props.history.push(linkTo);
+  }
+
+  renderSelectRoleContent() {
     return (
       <div>
         <RoleSelectField
@@ -161,7 +215,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  buildSelectOrganizationContent(organizations) {
+  renderSelectOrganizationContent(organizations) {
     return (
       <div>
         <SelectField
@@ -177,7 +231,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  configureOcpAdminStepContent(finished, stepIndex) {
+  renderOcpAdminStepContent(finished, stepIndex) {
     return (
       <div>
         <StepperSection>
@@ -202,7 +256,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  configureCareManagerStepContent(finished, stepIndex, organizations, careManagers) {
+  renderCareManagerStepContent(finished, stepIndex, organizations, careManagers) {
     return (
       <div>
         <StepperSection>
@@ -270,7 +324,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  configureCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators) {
+  renderCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators) {
     return (
       <div>
         <StepperSection>
@@ -338,7 +392,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  configurePatientStepContent(finished, stepIndex, patients) {
+  renderPatientStepContent(finished, stepIndex, patients) {
     return (
       <div>
         <StepperSection>
@@ -405,60 +459,6 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
         </StepperSection>
       </div>
     );
-  }
-
-  handleNext() {
-    const { stepIndex } = this.state;
-    this.setState({
-      stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
-    });
-  }
-
-  handlePrev() {
-    const { stepIndex } = this.state;
-    if (stepIndex > 0) {
-      this.setState({ stepIndex: stepIndex - 1 });
-    }
-  }
-
-  handleRoleChange(event, index, value) {
-    this.setState({ roleValue: value });
-  }
-
-  handleOrganizationChange(event, index, value) {
-    this.setState({ organizationValue: value });
-  }
-
-  handleCareManagerChange(event, index, value) {
-    this.setState({ careManagerValue: value });
-  }
-
-  handleCareCoordinatorChange(event, index, value) {
-    this.setState({ careCoordinatorValue: value });
-  }
-
-  handlePatientChange(event, index, value) {
-    this.setState({ patientValue: value });
-  }
-
-  handleNavigateTo() {
-    const { organizations, careManagers, careCoordinators, patients } = this.props;
-    this.props.onSetWorkflowRole(this.state.roleValue);
-    if (!isEmpty(this.state.organizationValue)) {
-      this.props.onSetOrganization(find(organizations, { logicalId: this.state.organizationValue }));
-    }
-    if (!isEmpty(this.state.careManagerValue)) {
-      this.props.onSetCareManager(find(careManagers, { logicalId: this.state.careManagerValue }));
-    }
-    if (!isEmpty(this.state.careCoordinatorValue)) {
-      this.props.onSetCareCoordinator(find(careCoordinators, { logicalId: this.state.careCoordinatorValue }));
-    }
-    if (!isEmpty(this.state.patientValue)) {
-      this.props.onSetPatient(find(patients, { id: this.state.patientValue }));
-    }
-    const linkTo = getLinkUrlByRole(this.state.roleValue);
-    this.props.history.push(linkTo);
   }
 
   render() {
