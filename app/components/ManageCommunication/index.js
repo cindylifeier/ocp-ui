@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-import * as yup from 'yup';
+import yup from 'yup';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import find from 'lodash/find';
@@ -15,10 +15,9 @@ import { isUndefined } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
-import { PATIENT, PRACTITIONER } from 'components/ManageCommunication/constants';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
-import { TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from '../../containers/App/constants';
+import { PATIENT, PRACTITIONER, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 
 function ManageCommunication(props) {
   const {
@@ -51,7 +50,6 @@ function ManageCommunication(props) {
     selectedRecipients,
     handleRemoveRecipient,
     selectedPatient,
-    // communication,
     practitioner,
     initialSelectedRecipients,
     datePickerMode,
