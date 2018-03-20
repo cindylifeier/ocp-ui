@@ -21,7 +21,7 @@ import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import renderNotFound from 'containers/NotFoundPage/render';
 import { makeSelectUser } from 'containers/App/contextSelectors';
-import { CARE_COORDINATOR, CARE_MANAGER, ORGANIZATION_ADMIN, PCP } from 'containers/App/constants';
+import { CARE_COORDINATOR, CARE_MANAGER } from 'containers/App/constants';
 import makeSelectPractitionerWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -345,7 +345,7 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
 
 PractitionerWorkspacePage.propTypes = {
   user: PropTypes.shape({
-    role: PropTypes.oneOf([CARE_MANAGER, CARE_COORDINATOR, ORGANIZATION_ADMIN, PCP]).isRequired,
+    role: PropTypes.oneOf([CARE_MANAGER, CARE_COORDINATOR]).isRequired,
   }).isRequired,
 };
 
