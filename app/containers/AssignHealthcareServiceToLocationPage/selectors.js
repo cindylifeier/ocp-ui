@@ -38,16 +38,6 @@ const makeSelectIncludeInactive = () => createSelector(
   (substate) => substate.get('includeInactive'),
 );
 
-const makeSelectOrganization = () => createSelector(
-  selectAssignHealthCareServiceToLocationPageDomain,
-  (substate) => substate.get('organization'),
-);
-
-const makeSelectLocation = () => createSelector(
-  selectAssignHealthCareServiceToLocationPageDomain,
-  (substate) => substate.get('location'),
-);
-
 export {
   selectAssignHealthCareServiceToLocationPageDomain,
   makeSelectHealthcareServices,
@@ -56,6 +46,4 @@ export {
   makeSelectCurrentPage,
   makeSelectTotalNumberOfPages,
   makeSelectIncludeInactive,
-  makeSelectOrganization,
-  makeSelectLocation,
 };

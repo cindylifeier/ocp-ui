@@ -5,7 +5,9 @@
  */
 
 import {
-  GET_RELATED_PERSONS, GET_RELATED_PERSONS_ERROR, GET_RELATED_PERSONS_SUCCESS,
+  GET_RELATED_PERSONS,
+  GET_RELATED_PERSONS_ERROR,
+  GET_RELATED_PERSONS_SUCCESS,
   INITIALIZE_RELATED_PERSONS,
 } from './constants';
 
@@ -16,10 +18,9 @@ export function initializeRelatedPersons() {
   };
 }
 
-export function getRelatedPersons(patientId, showInActive, pageNumber) {
+export function getRelatedPersons(showInActive, pageNumber) {
   return {
     type: GET_RELATED_PERSONS,
-    patientId,
     showInActive,
     pageNumber,
   };

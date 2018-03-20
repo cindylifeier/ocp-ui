@@ -21,6 +21,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
+import { fromBackendToFrontendOrganization } from './mappings';
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 
@@ -38,17 +39,18 @@ function OrganizationTable({ organizations, onRowClick }) {
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
       </TableHeader>
-      {!isEmpty(organizations) && organizations.map((org) => {
+      {!isEmpty(organizations) && organizations.map((organization) => {
+        const org = fromBackendToFrontendOrganization(organization);
         const { name, address, id, identifiers, status } = org;
         return (
           <TableRow
             columns={tableColumns}
             key={org.id}
-            onClick={() => onRowClick && onRowClick(org)}
+            onClick={() => onRowClick && onRowClick(organization)}
             onKeyPress={(e) => {
               if (e.key === ENTER_KEY) {
                 if (onRowClick) {
-                  onRowClick(org);
+                  onRowClick(organization);
                 }
               }
               e.preventDefault();
@@ -93,14 +95,30 @@ function OrganizationTable({ organizations, onRowClick }) {
 
 OrganizationTable.propTypes = {
   organizations: PropTypes.arrayOf(PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+    active: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    address: PropTypes.string,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    })),
     telecoms: PropTypes.arrayOf(PropTypes.shape({
       system: PropTypes.string,
       value: PropTypes.string,
+      use: PropTypes.string,
     })),
-    id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
   })).isRequired,
   onRowClick: PropTypes.func,
 };

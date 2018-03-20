@@ -19,8 +19,6 @@ export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
 export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
-export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
-export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
 
 /**
  *  Global object keys

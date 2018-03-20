@@ -44,7 +44,6 @@ ShallowWrapper {
           "totalNumberOfPages": 100,
         },
         "loading": false,
-        "patientName": "patientName",
         "query": Object {
           "a1": "a1",
           "a2": "a2",
@@ -55,7 +54,15 @@ ShallowWrapper {
         ],
       }
     }
-    getCareTeams={[MockFunction]}
+    getCareTeams={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            1,
+          ],
+        ],
+      }
+    }
     initializeCareTeams={
       [MockFunction] {
         "calls": Array [
@@ -67,6 +74,16 @@ ShallowWrapper {
       [MockFunction] {
         "calls": Array [
           Array [],
+        ],
+      }
+    }
+    patient={
+      Object {
+        "name": Array [
+          Object {
+            "firstName": "firstName",
+            "lastName": "lastName",
+          },
         ],
       }
     }
@@ -114,7 +131,7 @@ ShallowWrapper {
               <span
                 id="patient_name_1"
               >
-                patientName
+                firstName lastName
               </span>
             </InfoSection__InfoSection>
           </Cell__Cell>
@@ -232,7 +249,7 @@ ShallowWrapper {
                 <span
                   id="patient_name_1"
                 >
-                  patientName
+                  firstName lastName
                 </span>
               </InfoSection__InfoSection>
             </Cell__Cell>,
@@ -300,7 +317,7 @@ ShallowWrapper {
                 <span
                   id="patient_name_1"
                 >
-                  patientName
+                  firstName lastName
                 </span>
               </InfoSection__InfoSection>,
             },
@@ -324,7 +341,7 @@ ShallowWrapper {
                   <span
                     id="patient_name_1"
                   >
-                    patientName
+                    firstName lastName
                   </span>,
                 ],
                 "margin": "10px 10px",
@@ -370,11 +387,11 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "patientName",
+                    "children": "firstName lastName",
                     "id": "patient_name_1",
                   },
                   "ref": null,
-                  "rendered": "patientName",
+                  "rendered": "firstName lastName",
                   "type": "span",
                 },
               ],
@@ -772,7 +789,7 @@ ShallowWrapper {
                 <span
                   id="patient_name_1"
                 >
-                  patientName
+                  firstName lastName
                 </span>
               </InfoSection__InfoSection>
             </Cell__Cell>
@@ -890,7 +907,7 @@ ShallowWrapper {
                   <span
                     id="patient_name_1"
                   >
-                    patientName
+                    firstName lastName
                   </span>
                 </InfoSection__InfoSection>
               </Cell__Cell>,
@@ -958,7 +975,7 @@ ShallowWrapper {
                   <span
                     id="patient_name_1"
                   >
-                    patientName
+                    firstName lastName
                   </span>
                 </InfoSection__InfoSection>,
               },
@@ -982,7 +999,7 @@ ShallowWrapper {
                     <span
                       id="patient_name_1"
                     >
-                      patientName
+                      firstName lastName
                     </span>,
                   ],
                   "margin": "10px 10px",
@@ -1028,11 +1045,11 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "patientName",
+                      "children": "firstName lastName",
                       "id": "patient_name_1",
                     },
                     "ref": null,
-                    "rendered": "patientName",
+                    "rendered": "firstName lastName",
                     "type": "span",
                   },
                 ],
