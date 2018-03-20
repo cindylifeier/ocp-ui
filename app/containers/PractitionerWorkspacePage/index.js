@@ -136,6 +136,154 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
     maximisedItemId: null,
   };
 
+  static careCoordinatorLayout = {
+    settings: {
+      hasHeaders: true,
+      constrainDragToContainer: false,
+      reorderEnabled: true,
+      selectionEnabled: false,
+      popoutWholeStack: false,
+      blockedPopoutsThrowError: true,
+      closePopoutsOnUnload: true,
+      showPopoutIcon: false,
+      showMaximiseIcon: true,
+      showCloseIcon: true,
+      responsiveMode: 'onload',
+      tabOverlapAllowance: 0,
+      reorderOnTabMenuClick: true,
+      tabControlOffset: 10,
+    },
+    dimensions: {
+      borderWidth: 5,
+      borderGrabWidth: 15,
+      minItemHeight: 10,
+      minItemWidth: 10,
+      headerHeight: 20,
+      dragProxyWidth: 300,
+      dragProxyHeight: 200,
+    },
+    labels: {
+      close: 'close',
+      maximise: 'maximise',
+      minimise: 'minimise',
+      popout: 'open in new window',
+      popin: 'pop in',
+      tabDropdown: 'additional tabs',
+    },
+    content: [{
+      type: 'row',
+      isClosable: true,
+      reorderEnabled: true,
+      title: '',
+      height: 100,
+      content: [{
+        type: 'column',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        width: 100,
+        content: [{
+          type: 'stack',
+          width: 100,
+          height: 25,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Patients',
+            type: 'component',
+            componentName: 'patients',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 25,
+          content: [{
+            title: 'Upcoming Tasks',
+            type: 'component',
+            componentName: 'upcomingTasks',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 25,
+          content: [{
+            title: 'Upcoming Appointments',
+            type: 'component',
+            componentName: 'upcomingAppointments',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'row',
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          height: 25,
+          content: [{
+            type: 'stack',
+            header: {},
+            isClosable: true,
+            reorderEnabled: true,
+            title: '',
+            activeItemIndex: 0,
+            // "height" : 11.385503563510786,
+            width: 50,
+            content: [{
+              title: 'TO DO',
+              type: 'component',
+              componentName: 'todos',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            ],
+          }, {
+            type: 'stack',
+            header: {},
+            isClosable: true,
+            reorderEnabled: true,
+            title: '',
+            activeItemIndex: 0,
+            width: 50,
+            content: [{
+              title: 'Calendar',
+              type: 'component',
+              componentName: 'calendar',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            ],
+          },
+          ],
+        },
+        ],
+      },
+      ],
+    },
+    ],
+    isClosable: true,
+    reorderEnabled: true,
+    title: '',
+    openPopouts: [],
+    maximisedItemId: null,
+  };
+
   constructor(props) {
     super(props);
     this.getStateMetadataForRole = this.getStateMetadataForRole.bind(this);
@@ -146,6 +294,8 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
     switch (role) {
       case CARE_MANAGER:
         return PractitionerWorkspacePage.careManagerLayout;
+      case CARE_COORDINATOR:
+        return PractitionerWorkspacePage.careCoordinatorLayout;
       default:
         return null;
     }
