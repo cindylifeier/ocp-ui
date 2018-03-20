@@ -5,6 +5,8 @@ import eq from 'lodash/eq';
 import sortBy from 'lodash/sortBy';
 import isEqual from 'lodash/isEqual';
 import upperCase from 'lodash/upperCase';
+import trim from 'lodash/trim';
+import toUpper from 'lodash/toUpper';
 
 import { EMPTY_STRING } from '../containers/App/constants';
 
@@ -26,6 +28,10 @@ class Util {
     const sortedOtherArray = sortBy(otherArray, [(o) => o[identityOfArray]]);
 
     return isEqual(sortedArray, sortedOtherArray);
+  }
+
+  static extractTrimmedStringByCharacters(string, characters) {
+    return trim(toUpper(string), toUpper(characters));
   }
 
   static formatDate(date) {
