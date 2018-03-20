@@ -10,7 +10,6 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import Link from 'react-router-dom/es/Link';
-import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -19,12 +18,12 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import Table from 'components/Table';
+import StyledIconButton from 'components/StyledIconButton';
 import messages from './messages';
-import StyledIconButton from '../StyledIconButton';
 
 
 function CommunicationsTable(props) {
-  const { communications, selectedPatientId } = props;
+  const { communications, selectedPatientId, manageCommunicationBaseUrl } = props;
   return (
     <div >
       <Table>
@@ -61,7 +60,7 @@ function CommunicationsTable(props) {
                       primaryText="Edit"
                       containerElement={<Link
                         to={{
-                          pathname: `${MANAGE_COMMUNICATION_URL}/${communication.logicalId}`,
+                          pathname: `${manageCommunicationBaseUrl}/${communication.logicalId}`,
                           search: `?patientId=${selectedPatientId}`,
                         }}
                       />}
@@ -88,6 +87,7 @@ function CommunicationsTable(props) {
 
 CommunicationsTable.propTypes = {
   communications: PropTypes.array.isRequired,
+  manageCommunicationBaseUrl: PropTypes.string.isRequired,
   selectedPatientId: PropTypes.string.isRequired,
 };
 

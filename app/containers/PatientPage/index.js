@@ -17,9 +17,9 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { mapToPatientName } from 'utils/PatientUtils';
 
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import renderTasksComponent from '../Tasks/render';
-import renderCommunicationsComponent from '../Communications/render';
+import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import renderTasksComponent from 'containers/Tasks/render';
+import renderCommunicationsComponent from 'containers/Communications/render';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
 
