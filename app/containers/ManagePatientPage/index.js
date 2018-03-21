@@ -65,7 +65,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = this.props;
+    const { history: { goBack }, match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = this.props;
     const patientId = match.params.id;
     let patient = null;
     if (patientId) {
@@ -95,7 +95,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
             <FormattedMessage {...messages.createHeader} />}
         />
         <PageContent>
-          <ManagePatient {...formProps} onSave={this.handleSave} />
+          <ManagePatient {...formProps} onSave={this.handleSave} onCancel={goBack} />
         </PageContent>
       </Page>
     );
@@ -103,6 +103,9 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
 }
 
 ManagePatientPage.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

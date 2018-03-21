@@ -1,12 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-
-import { PATIENTS_URL } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
@@ -24,7 +21,7 @@ import ManagePatientFormGrid from './ManagePatientFormGrid';
 function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
-    uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
+    uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, onCancel,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -177,7 +174,7 @@ function ManagePatientForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
+                onClick={onCancel}
               />
             </Cell>
           </Grid>
@@ -188,6 +185,7 @@ function ManagePatientForm(props) {
 }
 
 ManagePatientForm.propTypes = {
+  onCancel: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
