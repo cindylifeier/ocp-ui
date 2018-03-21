@@ -23,7 +23,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.state = {
       finished: false,
       stepIndex: 0,
-      roleValue: props.workflowRoles.careManagerWorkflowRole.value,
+      roleValue: props.defaultRole,
       organizationValue: null,
       careManagerValue: null,
       careCoordinatorValue: null,
@@ -492,6 +492,7 @@ WorkspaceSelection.propTypes = {
   careCoordinators: PropTypes.any.isRequired,
   patients: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
+  defaultRole: PropTypes.string.isRequired,
 };
 
 export default WorkspaceSelection;
