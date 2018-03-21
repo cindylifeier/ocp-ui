@@ -96,7 +96,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
             <RecordsRange
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
-              totalElements={this.props.totalElements}
+              totalElements={data.totalElements}
               currentPageSize={data.currentPageSize}
             />
           </div>)
@@ -112,7 +112,6 @@ RelatedPersons.propTypes = {
   data: PropTypes.object.isRequired,
   patient: PropTypes.object,
   loading: PropTypes.bool,
-  totalElements: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
