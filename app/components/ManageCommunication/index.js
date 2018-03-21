@@ -17,7 +17,8 @@ import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
-import { PATIENT, PRACTITIONER, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
+import { PATIENT, PRACTITIONER, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH, APPOINTMENT, TASK } from './constants';
+
 
 function ManageCommunication(props) {
   const {
@@ -73,7 +74,8 @@ function ManageCommunication(props) {
           selectedPatient,
           practitioner,
           selectedRecipients,
-          selectedTask);
+          selectedTask,
+          selectedAppointment);
         onSave(communicationToBeSubmitted, actions);
       }}
       validationSchema={
@@ -158,12 +160,12 @@ function setInitialValues(communication, selectedPatient, practitioner, selected
 
   if (isEmpty(communication) && !isEmpty(selectedTask)) {
     topicData = merge(
-      mapToTopicFromTaskReference(selectedTask),
+      mapToTopicFromTask(selectedTask),
     );
   }
   if (isEmpty(communication) && !isEmpty(selectedAppointment)) {
     topicData = merge(
-      mapToTopicFromAppointmentReference(selectedAppointment),
+      mapToTopicFromAppointment(selectedAppointment),
     );
   }
 
@@ -188,18 +190,18 @@ function mapToTopicFromCommunication(communication) {
   return fieldObject;
 }
 
-function mapToTopicFromTaskReference(selectedTask) {
+function mapToTopicFromTask(selectedTask) {
   const fieldObject = { topic: '' };
-  if (selectedTask && selectedTask.definition && selectedTask.definition.display) {
-    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedTask.definition.display);
+  if (selectedTask && selectedTask.description) {
+    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedTask.description);
   }
   return fieldObject;
 }
 
-function mapToTopicFromAppointmentReference(selectedAppointment) {
+function mapToTopicFromAppointment(selectedAppointment) {
   const fieldObject = { topic: '' };
-  if (selectedAppointment && selectedAppointment.definition && selectedAppointment.definition.display) {
-    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedAppointment.definition.display);
+  if (selectedAppointment && selectedAppointment.description) {
+    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedAppointment.description);
   }
   return fieldObject;
 }
@@ -213,7 +215,8 @@ function mapToCommunication(values,
                             selectedPatient,
                             practitioner,
                             selectedRecipients,
-                            selectedTask) {
+                            selectedTask,
+                            selectedAppointment) {
   const {
     statusCode,
     categoryCode,
@@ -247,10 +250,15 @@ function mapToCommunication(values,
     subject: getReferenceObject(selectedPatient, PATIENT),
     sender: getReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
     context: episodeOfCare,
-    topic: createTopicReference(selectedTask),
     definition: createEmptyReference(),
     recipient: selectedRecipients, // TODO change to recipients
   };
+
+  if (selectedTask) {
+    communication.topic = getReferenceObject(selectedTask, TASK);
+  } else if (selectedAppointment) {
+    communication.topic = getReferenceObject(selectedAppointment, APPOINTMENT);
+  }
   return communication;
 }
 
@@ -285,15 +293,6 @@ function createEmptyReference() {
     display: '',
   };
 }
-
-
-function createTopicReference(selectedTask) {
-  if (selectedTask && selectedTask.definition) {
-    return selectedTask.definition;
-  }
-  return { reference: '', display: '' };
-}
-
 
 function mapToFormField(entity, fieldName) {
   const fieldObject = {};

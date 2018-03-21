@@ -1,6 +1,8 @@
 
 export const PATIENT = 'Patient';
 export const PRACTITIONER = 'Practitioner';
+export const TASK = 'Task';
+export const APPOINTMENT = 'Appointment';
 
 /**
  *  Max TextArea field length.
