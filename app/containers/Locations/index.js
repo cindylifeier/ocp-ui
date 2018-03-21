@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Cell } from 'styled-css-grid';
+import { Cell, Grid } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 import MenuItem from 'material-ui/MenuItem';
@@ -31,10 +31,12 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import StyledFlatButton from 'components/StyledFlatButton';
+import LeftAlign from 'components/Align/LeftAlign';
 import { PanelToolbar } from 'components/PanelToolbar';
 import { MANAGE_LOCATION_URL } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { setLocation } from 'containers/App/contextActions';
+import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { clearLocation, setLocation } from 'containers/App/contextActions';
 import {
   makeSelectCurrentPage,
   makeSelectIncludeInactive,
@@ -60,6 +62,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentDidMount() {
@@ -158,6 +161,28 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             {this.props.organization ? this.props.organization.name : ''}
           </span>
         </InfoSection>
+        {this.props.location &&
+        <InfoSection width="fit-content" maxWidth="500px">
+          <Grid columns="1fr 1fr">
+            <Cell middle>
+              <div>
+                <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+                  <FormattedMessage {...messages.labelLocation} />&nbsp;
+                </InlineLabel>
+                <span id={this.LOCATION_NAME_HTML_ID}>{this.props.location.name || ''}</span>
+              </div>
+            </Cell>
+            <Cell middle>
+              <LeftAlign>
+                <StyledFlatButton
+                  label="Clear"
+                  onClick={this.props.clearLocation}
+                />
+              </LeftAlign>
+            </Cell>
+          </Grid>
+        </InfoSection>
+        }
         <FilterSection>
           <CheckboxFilterGrid>
             <Cell>
@@ -229,8 +254,10 @@ Locations.propTypes = {
   initializeLocations: PropTypes.func.isRequired,
   getActiveLocations: PropTypes.func.isRequired,
   setLocation: PropTypes.func.isRequired,
+  clearLocation: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
+  location: PropTypes.object,
   currentPage: PropTypes.number,
   totalNumberOfPages: PropTypes.number,
   includeInactive: PropTypes.bool,
@@ -240,6 +267,7 @@ Locations.propTypes = {
 const mapStateToProps = createStructuredSelector({
   data: makeSelectLocations(),
   organization: makeSelectOrganization(),
+  location: makeSelectLocation(),
   currentPage: makeSelectCurrentPage(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
   includeInactive: makeSelectIncludeInactive(),
@@ -260,6 +288,7 @@ function mapDispatchToProps(dispatch) {
     initializeLocations: () => dispatch(initializeLocations()),
     getActiveLocations: (currentPage) => dispatch(getActiveLocations(currentPage)),
     setLocation: (location) => dispatch(setLocation(location)),
+    clearLocation: () => dispatch(clearLocation()),
   };
 }
 
