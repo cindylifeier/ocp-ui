@@ -16,11 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
-import CenterAlign from 'components/Align/CenterAlign';
 import { PanelToolbar } from 'components/PanelToolbar';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import NoResultsFoundText from 'components/NoResultsFoundText';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import PractitionerTable from 'components/PractitionerTable';
 import reducer from './reducer';
 import saga from './saga';
@@ -82,21 +78,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
         <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        {practitionersData.loading && <RefreshIndicatorLoading />}
-        {(!practitionersData.loading && practitionersData.data &&
-          practitionersData.data.length > 0 ?
-            <div>
-              <PractitionerTable practitioners={practitionersData.data} />
-              <CenterAlignedUltimatePagination
-                currentPage={practitionersData.currentPage}
-                totalPages={practitionersData.totalNumberOfPages}
-                onChange={practitionersData.handleChangePage}
-              />
-            </div> :
-            (<CenterAlign>
-              <NoResultsFoundText>No practitioners found</NoResultsFoundText>
-            </CenterAlign>)
-        )}
+        <PractitionerTable practitionersData={practitionersData} />
       </Card>
     );
   }
