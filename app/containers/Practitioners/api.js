@@ -1,12 +1,12 @@
-import { DEFAULT_PAGE_SIZE } from '../App/constants';
-import request from '../../utils/request';
-import queryString from '../../utils/queryString';
-import { BASE_PRACTITIONERS_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import queryString from 'utils/queryString';
+import { BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
+import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
-export default function searchPractitioners(searchTerms, searchType, includeInactive, currentPage) {
+export default function searchPractitioners(searchType, searchValue, includeInactive, currentPage) {
   const params = queryString({
     searchType,
-    searchValue: searchTerms,
+    searchValue,
     showInactive: includeInactive,
     page: currentPage,
     size: DEFAULT_PAGE_SIZE,

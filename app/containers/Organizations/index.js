@@ -23,11 +23,7 @@ import CardHeader from 'components/CardHeader';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import {
-  makeSelectOrganizations,
-  makeSelectSearchOrganizationCurrentPage,
-  makeSelectSearchOrganizationTotalNumberOfPages,
-} from './selectors';
+import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -154,8 +150,6 @@ Organizations.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
-  currentPage: makeSelectSearchOrganizationCurrentPage(),
-  totalNumberOfPages: makeSelectSearchOrganizationTotalNumberOfPages(),
 });
 
 function mapDispatchToProps(dispatch) {

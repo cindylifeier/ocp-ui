@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import { searchOrganizations } from 'containers/Organizations/api';
 import { makeSelectProviderRoles, makeSelectProviderSpecialties } from 'containers/App/lookupSelectors';
 import { showNotification } from 'containers/Notification/actions';
-import { makeSelectPractitionerSearchResult } from 'containers/Practitioners/selectors';
+import makeSelectPractitioners from 'containers/Practitioners/selectors';
 import { HOME_URL } from 'containers/App/constants';
 import {
   getOrganizationsError,
@@ -36,8 +36,8 @@ function* getPractitionerSaga({ logicalId }) {
   try {
     let practitioner;
     // Load practitioners from store
-    const practitioners = yield select(makeSelectPractitionerSearchResult());
-    practitioner = getPractitionerById(practitioners, logicalId);
+    const practitioners = yield select(makeSelectPractitioners);
+    practitioner = getPractitionerById(practitioners.searchOrganizations.result, logicalId);
     // fetch from backend if cannot find practitioner from store
     if (isEmpty(practitioner)) {
       practitioner = yield call(getPractitioner, logicalId);
