@@ -20,7 +20,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StatusCheckbox from 'components/StatusCheckbox';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
@@ -32,6 +31,8 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import { PanelToolbar } from 'components/PanelToolbar';
+import { MANAGE_LOCATION_URL } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { setLocation } from 'containers/App/contextActions';
 import {
@@ -209,9 +210,13 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_LOCATION_URL,
+    };
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar addNewItem={addNewItem} showSearchIcon={false} />
         {this.renderLocationTable()}
       </Card>);
   }
