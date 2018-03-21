@@ -80,6 +80,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
       addressUses,
       identifierSystems,
       organization,
+      history: { goBack },
     } = this.props;
     const localProps = {
       error,
@@ -109,6 +110,7 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
           <ManageLocation
             {...localProps}
             onSave={this.handleSaveLocation}
+            onCancel={goBack}
           />
         </PageContent>
       </Page>
@@ -117,6 +119,9 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
 }
 
 ManageLocationPage.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
   createLocation: PropTypes.func.isRequired,
