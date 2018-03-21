@@ -14,10 +14,11 @@ import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getLinkUrlByRole } from 'containers/App/helpers';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
-import { getCareCoordinators, getCareManagers, getOrganizations, getPatients } from './actions';
+import { getCareCoordinators, getCareManagers, getOrganizations, getPatients, getWorkflowRoles } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -25,6 +26,7 @@ import {
   makeCareManagersData,
   makeSelectOrganizationsData,
   makeSelectPatientsData,
+  makeSelectWorkflowRolesData,
 } from './selectors';
 import { flattenPatientData } from './mapping';
 
@@ -36,6 +38,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
   }
 
   componentDidMount() {
+    this.props.getWorkflowRoles();
     this.props.getOrganizations();
     this.props.getCareManagers();
     this.props.getCareCoordinators();
@@ -61,7 +64,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
 
   render() {
     const {
-      history, organizations, careManagers, careCoordinators, patients,
+      history, organizations, careManagers, careCoordinators, patients, workflowRoles,
     } = this.props;
     const workspaceSelectionProps = {
       history,
@@ -69,6 +72,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
       careManagers,
       careCoordinators,
       patients: flattenPatientData(patients),
+      workflowRoles,
     };
     return (
       <div>
@@ -76,10 +80,13 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
           <title>Workspace Selection</title>
           <meta name="description" content="Workspace selection page of Omnibus Care Plan application" />
         </Helmet>
+        {!isEmpty(workflowRoles) &&
         <WorkspaceSelection
           {...workspaceSelectionProps}
+          getLinkUrlByRole={getLinkUrlByRole}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
         />
+        }
       </div>
     );
   }
@@ -93,6 +100,8 @@ WorkspaceSelectionPage.propTypes = {
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
   patients: PropTypes.any.isRequired,
+  workflowRoles: PropTypes.any.isRequired,
+  getWorkflowRoles: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
@@ -104,6 +113,7 @@ WorkspaceSelectionPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  workflowRoles: makeSelectWorkflowRolesData(),
   organizations: makeSelectOrganizationsData(),
   careManagers: makeCareManagersData(),
   careCoordinators: makeCareCoordinatorsData(),
@@ -113,6 +123,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    getWorkflowRoles: () => dispatch(getWorkflowRoles()),
     getOrganizations: () => dispatch(getOrganizations()),
     getCareManagers: () => dispatch(getCareManagers()),
     getCareCoordinators: () => dispatch(getCareCoordinators()),

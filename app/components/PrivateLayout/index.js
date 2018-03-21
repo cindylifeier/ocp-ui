@@ -26,7 +26,10 @@ function PrivateLayout(props) {
           </HeaderCell>
           {props.user.role &&
           <Cell>
-            <PrivateNavigation user={props.user} />
+            <PrivateNavigation
+              user={props.user}
+              getLinkUrlByRole={props.getLinkUrlByRole}
+            />
           </Cell>
           }
         </HeaderGrid>
@@ -43,6 +46,7 @@ PrivateLayout.propTypes = {
   user: PropTypes.shape({
     role: PropTypes.string,
   }).isRequired,
+  getLinkUrlByRole: PropTypes.func.isRequired,
 };
 
 export default PrivateLayout;
