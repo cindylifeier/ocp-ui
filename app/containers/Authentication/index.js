@@ -25,24 +25,24 @@ export function Authentication(props) {
     removeToken();
   }
   const user = props.user;
-  const privateLayoutProps = {
-    user,
-  };
   return (
-    isAuthenticated ?
+    isAuthenticated && user ?
       // child component will be rendered here
       <PrivateLayout
-        {...privateLayoutProps}
+        user={user}
         getLinkUrlByRole={getLinkUrlByRole}
       >
         {props.children}
       </PrivateLayout> :
-      <Redirect
-        to={{
-          pathname: LOGIN_URL,
-          state: { from: props.location },
-        }}
-      />
+      <div>
+        {removeToken()}
+        <Redirect
+          to={{
+            pathname: LOGIN_URL,
+            state: { from: props.location },
+          }}
+        />
+      </div>
   );
 }
 
