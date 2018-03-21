@@ -255,9 +255,9 @@ function mapToCommunication(values,
   };
 
   if (selectedTask) {
-    communication.topic = getReferenceObject(selectedTask, TASK);
+    communication.topic = getTopicReference(selectedTask, TASK);
   } else if (selectedAppointment) {
-    communication.topic = getReferenceObject(selectedAppointment, APPOINTMENT);
+    communication.topic = getTopicReference(selectedAppointment, APPOINTMENT);
   }
   return communication;
 }
@@ -266,6 +266,13 @@ function getReferenceObject(object, referenceName) {
   return {
     reference: getReference(object, referenceName),
     display: getDisplay(object),
+  };
+}
+
+function getTopicReference(referenceObject, referenceName) {
+  return {
+    reference: getReference(referenceObject, referenceName),
+    display: referenceObject && referenceObject.description ? referenceObject.description : '',
   };
 }
 
