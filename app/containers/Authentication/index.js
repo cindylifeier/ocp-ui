@@ -12,11 +12,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
+import { getLinkUrlByRole } from 'containers/App/helpers';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
 import { makeSelectUser } from 'containers/App/contextSelectors';
-import { getLinkUrlByRole } from 'containers/WorkspaceSelectionPage/api';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;

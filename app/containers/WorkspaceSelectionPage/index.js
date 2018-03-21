@@ -14,6 +14,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getLinkUrlByRole } from 'containers/App/helpers';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
@@ -28,7 +29,6 @@ import {
   makeSelectWorkflowRolesData,
 } from './selectors';
 import { flattenPatientData } from './mapping';
-import { getLinkUrlByRole } from './api';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
