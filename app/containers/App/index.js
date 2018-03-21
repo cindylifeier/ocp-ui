@@ -43,6 +43,7 @@ import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 import './styles.css';
+import ManageCommunicationPage from '../ManageCommunicationPage';
 
 export function App() {
   return (
@@ -82,6 +83,7 @@ export function App() {
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
+            <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>

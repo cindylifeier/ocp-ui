@@ -8,7 +8,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
-import Link from 'react-router-dom/es/Link';
+import { Link } from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
