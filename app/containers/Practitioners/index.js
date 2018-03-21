@@ -13,8 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { MANAGE_PRACTITIONER_URL, PRACTITIONERIDENTIFIERSYSTEM } from 'containers/App/constants';
-import { getLookupsAction } from 'containers/App/actions';
+import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -22,7 +21,7 @@ import { PanelToolbar } from 'components/PanelToolbar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import PractitionerSearchResult from 'components/PractitionerSearchResult';
+import PractitionerTable from 'components/PractitionerTable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -35,10 +34,10 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.state = {
       isShowSearchResult: true,
       searchPractitioners: {
-        currentPage: 1,
+        searchType: 'name',
         searchValue: '',
         includeInactive: false,
-        searchType: 'name',
+        currentPage: 1,
       },
     };
     this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
@@ -47,7 +46,6 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
   componentDidMount() {
     this.props.initializePractitioners();
-    this.props.getLookUpFormData();
   }
 
   handleChangeSearchPage(currentPage) {
@@ -55,7 +53,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
   }
 
-  handleSearch(searchType, searchValue, includeInactive) {
+  handleSearch(searchValue, includeInactive, searchType) {
     this.setState({
       isShowSearchResult: true,
       searchPractitioners: { searchType, searchValue, includeInactive },
@@ -65,9 +63,6 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
   render() {
     const { practitioners } = this.props;
-    const searchResultProps = {
-      practitioners,
-    };
     let practitionersData;
     if (this.state.isShowSearchResult) {
       practitionersData = {
@@ -75,7 +70,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         data: practitioners.searchPractitioners.result,
         currentPage: practitioners.searchPractitioners.currentPage,
         totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
-        handlePageClick: this.handleChangeSearchPage,
+        handleChangePage: this.handleChangeSearchPage,
       };
     }
     const addNewItem = {
@@ -91,11 +86,11 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         {(!practitionersData.loading && practitionersData.data &&
           practitionersData.data.length > 0 ?
             <div>
-              <PractitionerSearchResult {...searchResultProps} />
+              <PractitionerTable practitioners={practitionersData.data} />
               <CenterAlignedUltimatePagination
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalPages}
-                onChange={this.handleChangeSearchPage}
+                currentPage={practitionersData.currentPage}
+                totalPages={practitionersData.totalNumberOfPages}
+                onChange={practitionersData.handleChangePage}
               />
             </div> :
             (<CenterAlign>
@@ -117,11 +112,8 @@ Practitioners.propTypes = {
       error: PropTypes.bool,
     }),
   }),
-  currentPage: PropTypes.number,
-  totalPages: PropTypes.number,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
-  getLookUpFormData: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -131,7 +123,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getLookUpFormData: () => dispatch(getLookupsAction([PRACTITIONERIDENTIFIERSYSTEM])),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }
