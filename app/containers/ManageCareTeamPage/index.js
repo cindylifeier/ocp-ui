@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import isUndefined from 'lodash/isUndefined';
-import queryString from 'query-string';
 import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
@@ -21,7 +20,7 @@ import ManageCareTeam from 'components/ManageCareTeam';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { CARETEAMCATEGORY, CARETEAMREASON, CARETEAMSTATUS } from 'containers/App/constants';
-import { getLookupsAction, getPatient } from 'containers/App/actions';
+import { getLookupsAction } from 'containers/App/actions';
 import SearchParticipant from 'containers/SearchParticipant';
 import { makeSelectSelectedParticipants } from 'containers/SearchParticipant/selectors';
 import { initializeSearchParticipantResult, removeParticipant } from 'containers/SearchParticipant/actions';
@@ -30,7 +29,7 @@ import {
   makeSelectCareTeamReasons,
   makeSelectCareTeamStatuses,
 } from 'containers/App/lookupSelectors';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { getCareTeam, initializeManageCareTeam, saveCareTeam } from './actions';
 import { makeSelectCareTeam } from './selectors';
 import reducer from './reducer';
@@ -54,11 +53,12 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
   componentDidMount() {
     this.props.getLookUpFormData();
-    const queryObj = queryString.parse(this.props.location.search);
-    const patientId = queryObj.patientId;
-    if (patientId) {
-      this.props.getPatient(patientId);
-    }
+    // TODO: refresh patient context?
+    // const queryObj = queryString.parse(this.props.location.search);
+    // const patientId = queryObj.patientId;
+    // if (patientId) {
+    //   this.props.getPatient(patientId);
+    // }
     const careTeamId = this.props.match.params.id;
     if (careTeamId) {
       this.props.getCareTeam(careTeamId);
@@ -70,7 +70,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   }
 
   handleSave(careTeamFormData, actions) {
-    const patientId = this.props.selectedPatient.id;
+    const patientId = this.props.patient.id;
     if (patientId) {
       merge(careTeamFormData, { patientId });
     }
@@ -101,7 +101,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   render() {
     const {
       match,
-      selectedPatient,
+      patient,
       selectedCareTeam,
       careTeamCategories,
       careTeamStatuses,
@@ -117,7 +117,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       initialSelectedParticipants = mapToEditParticipants(careTeam.participants);
     }
     const manageCareTeamProps = {
-      selectedPatient,
+      patient,
       careTeam,
       editMode,
       careTeamCategories,
@@ -160,10 +160,8 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
 ManageCareTeamPage.propTypes = {
   match: PropTypes.object,
-  location: PropTypes.object,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
   selectedCareTeam: PropTypes.object,
-  getPatient: PropTypes.func.isRequired,
   getCareTeam: PropTypes.func.isRequired,
   initializeManageCareTeam: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
@@ -177,7 +175,7 @@ ManageCareTeamPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
   selectedCareTeam: makeSelectCareTeam(),
   careTeamCategories: makeSelectCareTeamCategories(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
@@ -189,7 +187,6 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeManageCareTeam: () => dispatch(initializeManageCareTeam()),
     getLookUpFormData: () => dispatch(getLookupsAction([CARETEAMCATEGORY, CARETEAMSTATUS, CARETEAMREASON])),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
     getCareTeam: (careTeamId) => dispatch(getCareTeam(careTeamId)),
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeParticipant(participant)),

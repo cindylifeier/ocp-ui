@@ -5,20 +5,16 @@ describe('CareTeams actions', () => {
   describe('Get Care Teams Action', () => {
     it('has a type of GET_CARE_TEAMS', () => {
       // Arrange
-      const searchValue = 'searchValue';
-      const searchType = 'patientId';
-      const patientName = 'Patient Name';
+      const pageNumber = 10;
       const statusList = ['active', 'inactive'];
-      const query = { searchValue, searchType };
       const expected = {
         type: GET_CARE_TEAMS,
-        query,
-        patientName,
+        pageNumber,
         statusList,
       };
 
       // Act
-      const action = getCareTeams(query, patientName, statusList);
+      const action = getCareTeams(pageNumber, statusList);
 
       // Assert
       expect(action).toEqual(expected);

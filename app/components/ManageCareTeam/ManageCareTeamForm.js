@@ -37,7 +37,7 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
-    selectedPatient,
+    patient,
   } = props;
 
   const selectedParticipantsProps = {
@@ -62,7 +62,7 @@ function ManageCareTeamForm(props) {
             <InfoSection margin="2vh 0 0 0">
               <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.labelPatientName} />&nbsp;
               </InlineLabel>
-              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
             </InfoSection>
           </Cell>
           <Cell area="careTeamName">
@@ -191,7 +191,7 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),

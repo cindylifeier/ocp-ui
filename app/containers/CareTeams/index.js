@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 import { Checkbox } from 'material-ui';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -31,6 +32,7 @@ import FilterSection from 'components/FilterSection';
 import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectCareTeams from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -49,22 +51,34 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   componentDidMount() {
     this.props.initializeCareTeams();
     this.props.initializeLookups();
+    const { patient } = this.props;
+    if (patient) {
+      this.props.getCareTeams(1);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient)) {
+      this.props.getCareTeams(1);
+    }
   }
 
   calculateCheckboxColumns({ length }) {
     return `60px repeat(${length < 1 ? 0 : length - 1},120px) 180px 1fr`;
   }
 
-  handlePageClick(page) {
-    const { query, patientName, statusList } = this.props.careTeams;
-    this.props.getCareTeams({ ...query, pageNumber: page }, patientName, statusList);
+  handlePageClick(pageNumber) {
+    const { statusList } = this.props.careTeams;
+    this.props.getCareTeams(pageNumber, statusList);
   }
 
   handleStatusListChange(code, checked) {
-    const { query, patientName, statusList } = this.props.careTeams;
+    const { statusList } = this.props.careTeams;
     const filteredStatusList = statusList.filter((c) => c !== code);
     const newStatusList = checked ? [...filteredStatusList, code] : filteredStatusList;
-    this.props.getCareTeams({ ...query, pageNumber: DEFAULT_START_PAGE_NUMBER }, patientName, newStatusList);
+    this.props.getCareTeams(DEFAULT_START_PAGE_NUMBER, newStatusList);
   }
 
   renderFilter(careTeamStatuses, statusList) {
@@ -91,7 +105,12 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
-    const { careTeams: { loading, data, patientName, statusList }, careTeamStatuses } = this.props;
+    const { careTeams: { loading, data, statusList }, careTeamStatuses, patient } = this.props;
+    let patientName = null;
+    if (patient) {
+      const { name: [{ firstName, lastName }] } = patient;
+      patientName = [firstName, lastName].filter((n) => !isEmpty(n)).join(' ');
+    }
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
@@ -151,16 +170,18 @@ CareTeams.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   })),
+  patient: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   careTeams: makeSelectCareTeams(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCareTeams: (query, patientName, statusList) => dispatch(getCareTeams(query, patientName, statusList)),
+    getCareTeams: (pageNumber, statusList) => dispatch(getCareTeams(pageNumber, statusList)),
     initializeLookups: () => dispatch(getLookupsAction([CARETEAMSTATUS])),
     initializeCareTeams: () => dispatch(initializeCareTeams()),
   };

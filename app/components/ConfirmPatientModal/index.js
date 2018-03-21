@@ -24,7 +24,7 @@ import PatientModalCell from './PatientModalCell';
 import messages from './messages';
 
 function ConfirmPatientModal(props) {
-  const { selectedPatient, isPatientModalOpen, onPatientModalClose } = props;
+  const { patient, isPatientModalOpen, onPatientModalClose } = props;
   return (
     <div>
       <StyledDialog
@@ -37,25 +37,25 @@ function ConfirmPatientModal(props) {
         >
           <Cell center><Avatar size={80} src={defaultPatientAvatarImage} /></Cell>
           <PatientModalCell center>
-            Name{WHITE_SPACE}<strong>{mapToPatientName(selectedPatient)}</strong>
+            Name{WHITE_SPACE}<strong>{mapToPatientName(patient)}</strong>
           </PatientModalCell>
           <PatientModalCell center>
-            DOB{WHITE_SPACE}<strong>{selectedPatient.birthDate}</strong>
+            DOB{WHITE_SPACE}<strong>{patient.birthDate}</strong>
           </PatientModalCell>
           <PatientModalCell center>
-            Gender{WHITE_SPACE}<strong>{upperFirst(selectedPatient.genderCode)}</strong>
+            Gender{WHITE_SPACE}<strong>{upperFirst(patient.genderCode)}</strong>
           </PatientModalCell>
           <PatientModalCell center>
-            ID{WHITE_SPACE}<strong>{selectedPatient.id}</strong>
+            ID{WHITE_SPACE}<strong>{patient.id}</strong>
           </PatientModalCell>
           <PatientModalCell center>
-            Phone{WHITE_SPACE}<strong>{mapToPatientPhone(selectedPatient)}</strong>
+            Phone{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong>
           </PatientModalCell>
           <Cell center>
             <ContinueButton
               label={<FormattedMessage {...messages.continueButton} />}
               onClick={onPatientModalClose}
-              containerElement={<Link to={`${PATIENTS_URL}/${selectedPatient.id}`} />}
+              containerElement={<Link to={`${PATIENTS_URL}/${patient.id}`} />}
             />
           </Cell>
         </PatientModalGrid>
@@ -67,7 +67,7 @@ function ConfirmPatientModal(props) {
 ConfirmPatientModal.propTypes = {
   isPatientModalOpen: PropTypes.bool.isRequired,
   onPatientModalClose: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
     birthDate: PropTypes.string,

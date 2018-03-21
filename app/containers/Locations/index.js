@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 import MenuItem from 'material-ui/MenuItem';
 
 import injectSaga from 'utils/injectSaga';
@@ -31,19 +32,19 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { getHealthcareServicesByLocation } from 'containers/HealthcareServices/actions';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { setLocation } from 'containers/App/contextActions';
 import {
   makeSelectCurrentPage,
   makeSelectIncludeInactive,
   makeSelectIncludeSuspended,
   makeSelectLocations,
-  makeSelectOrganization,
   makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getFilteredLocations, initializeLocations } from './actions';
+import { getActiveLocations, getFilteredLocations, initializeLocations } from './actions';
 
 export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
@@ -62,11 +63,22 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   componentDidMount() {
     this.props.initializeLocations();
+    const { organization } = this.props;
+    if (organization) {
+      this.props.getActiveLocations(1);
+    }
   }
 
-  handleRowClick(locationLogicalId, locationName) {
-    const { organization: { id, name } } = this.props;
-    this.props.getHealthcareServicesByLocation(id, name, locationLogicalId, locationName);
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization)) {
+      this.props.getActiveLocations(1);
+    }
+  }
+
+  handleRowClick(location) {
+    this.props.setLocation(location);
   }
 
   handleIncludeInactive(event, checked) {
@@ -99,32 +111,35 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
 
   renderRows() {
     if (this.props.data) {
-      return this.props.data.map(({ logicalId, name, status, telecoms, address }) => (
-        <TableRow
-          role="button"
-          tabIndex="0"
-          key={logicalId}
-          onClick={() => this.handleRowClick(logicalId, name)}
-          columns={Locations.TABLE_COLUMNS}
-        >
-          <TableRowColumn>{name}</TableRowColumn>
-          <TableRowColumn>{status}</TableRowColumn>
-          <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
-          <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
-          <TableRowColumn>
-            <NavigationStyledIconMenu>
-              <MenuItem
-                primaryText={<FormattedMessage {...messages.actionLabelEdit} />}
-                containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
-              />
-              <MenuItem
-                primaryText={<FormattedMessage {...messages.actionLabelAssignHealthCareService} />}
-                containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
-              />
-            </NavigationStyledIconMenu>
-          </TableRowColumn>
-        </TableRow>
-      ));
+      return this.props.data.map((location) => {
+        const { logicalId, name, status, telecoms, address } = location;
+        return (
+          <TableRow
+            role="button"
+            tabIndex="0"
+            key={logicalId}
+            onClick={() => this.handleRowClick(location)}
+            columns={Locations.TABLE_COLUMNS}
+          >
+            <TableRowColumn>{name}</TableRowColumn>
+            <TableRowColumn>{status}</TableRowColumn>
+            <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
+            <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
+            <TableRowColumn>
+              <NavigationStyledIconMenu>
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.actionLabelEdit} />}
+                  containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
+                />
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.actionLabelAssignHealthCareService} />}
+                  containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
+                />
+              </NavigationStyledIconMenu>
+            </TableRowColumn>
+          </TableRow>
+        );
+      });
     }
     return '<TableRow />';
   }
@@ -207,7 +222,8 @@ Locations.propTypes = {
   onCheckIncludeSuspended: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
   initializeLocations: PropTypes.func.isRequired,
-  getHealthcareServicesByLocation: PropTypes.func.isRequired,
+  getActiveLocations: PropTypes.func.isRequired,
+  setLocation: PropTypes.func.isRequired,
   data: PropTypes.array,
   organization: PropTypes.object,
   currentPage: PropTypes.number,
@@ -237,7 +253,8 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (currentPage, includeInactive, includeSuspended) => dispatch(getFilteredLocations(currentPage, includeInactive, includeSuspended)),
     initializeLocations: () => dispatch(initializeLocations()),
-    getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName) => dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName)),
+    getActiveLocations: (currentPage) => dispatch(getActiveLocations(currentPage)),
+    setLocation: (location) => dispatch(setLocation(location)),
   };
 }
 

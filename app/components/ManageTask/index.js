@@ -20,7 +20,7 @@ import ManageTaskForm from './ManageTaskForm';
 function ManageTask(props) {
   const {
     onSave, taskStatus, requestIntent,
-    requestPriority, taskPerformerType, selectedPatient,
+    requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
     currentTask, editMode, isMainTask, parentTask,
   } = props;
@@ -29,7 +29,7 @@ function ManageTask(props) {
     requestIntent,
     requestPriority,
     taskPerformerType,
-    selectedPatient,
+    patient,
     organization,
     activityDefinitions,
     practitioners,
@@ -45,7 +45,7 @@ function ManageTask(props) {
     <div>
       {((editMode && (currentTask || isMainTask)) || !editMode) &&
       <Formik
-        initialValues={setFormData(currentTask, isMainTask, parentTask, organization, selectedPatient, requester)}
+        initialValues={setFormData(currentTask, isMainTask, parentTask, organization, patient, requester)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -91,7 +91,7 @@ ManageTask.propTypes = {
   requestIntent: PropTypes.array.isRequired,
   requestPriority: PropTypes.array.isRequired,
   taskPerformerType: PropTypes.array.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),

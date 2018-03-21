@@ -21,7 +21,7 @@ ShallowWrapper {
         },
       }
     }
-    selectedPatient={
+    patient={
       Object {
         "id": "1",
         "name": Array [
@@ -59,7 +59,7 @@ ShallowWrapper {
         >
           <styled.section>
             <PatientDetails
-              selectedPatient={
+              patient={
                 Object {
                   "id": "1",
                   "name": Array [
@@ -266,7 +266,7 @@ ShallowWrapper {
           "children": Array [
             <styled.section>
               <PatientDetails
-                selectedPatient={
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -427,7 +427,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <PatientDetails
-                selectedPatient={
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -443,7 +443,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "selectedPatient": Object {
+                "patient": Object {
                   "id": "1",
                   "name": Array [
                     "test",
@@ -774,7 +774,7 @@ ShallowWrapper {
           >
             <styled.section>
               <PatientDetails
-                selectedPatient={
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -981,7 +981,7 @@ ShallowWrapper {
             "children": Array [
               <styled.section>
                 <PatientDetails
-                  selectedPatient={
+                  patient={
                     Object {
                       "id": "1",
                       "name": Array [
@@ -1142,7 +1142,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <PatientDetails
-                  selectedPatient={
+                  patient={
                     Object {
                       "id": "1",
                       "name": Array [
@@ -1158,7 +1158,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "selectedPatient": Object {
+                  "patient": Object {
                     "id": "1",
                     "name": Array [
                       "test",

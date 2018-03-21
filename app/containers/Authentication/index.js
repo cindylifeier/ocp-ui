@@ -10,10 +10,13 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import makeSelectAuth from '../App/authSelectors';
-import { LOGIN_URL } from '../App/constants';
-import { isTokenExpired, removeToken, retrieveToken } from '../../utils/tokenService';
-import Layout from '../../components/Layout';
+
+import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
+import { getLinkUrlByRole } from 'containers/App/helpers';
+import makeSelectAuth from 'containers/App/authSelectors';
+import { LOGIN_URL } from 'containers/App/constants';
+import PrivateLayout from 'components/PrivateLayout';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
@@ -21,12 +24,19 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
+  const user = props.user;
+  const privateLayoutProps = {
+    user,
+  };
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <Layout>
+      <PrivateLayout
+        {...privateLayoutProps}
+        getLinkUrlByRole={getLinkUrlByRole}
+      >
         {props.children}
-      </Layout> :
+      </PrivateLayout> :
       <Redirect
         to={{
           pathname: LOGIN_URL,
@@ -44,6 +54,7 @@ Authentication.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }),
+  user: PropTypes.object,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     state: PropTypes.object,
@@ -55,6 +66,7 @@ Authentication.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   auth: makeSelectAuth(),
+  user: makeSelectUser(),
 });
 
 const withConnect = connect(mapStateToProps);

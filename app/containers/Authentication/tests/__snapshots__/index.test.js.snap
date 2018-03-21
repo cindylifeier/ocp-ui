@@ -11,6 +11,11 @@ ShallowWrapper {
       }
     }
     location="/test-location"
+    workspace={
+      Object {
+        "workflowRole": "Patient",
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
