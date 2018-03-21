@@ -28,10 +28,6 @@ import { getOrganizations, initializeOrganizations, searchOrganizations } from '
 export class Organizations extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleRowClick = this.handleRowClick.bind(this);
-    this.handleListPageClick = this.handleListPageClick.bind(this);
-    this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.state = {
       isShowSearchResult: false,
       listOrganizations: {
@@ -44,6 +40,10 @@ export class Organizations extends React.PureComponent {
         searchType: 'name',
       },
     };
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
+    this.handleListPageClick = this.handleListPageClick.bind(this);
+    this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
   }
 
   componentDidMount() {
@@ -65,12 +65,10 @@ export class Organizations extends React.PureComponent {
   }
 
   handleListPageClick(currentPage) {
-    this.setState({ listOrganizations: { currentPage } });
     this.props.getOrganizations(currentPage);
   }
 
   handleSearchPageClick(currentPage) {
-    this.setState({ currentPage });
     this.props.searchOrganizations(this.state.searchOrganizations.searchValue, this.state.searchOrganizations.showInactive, this.state.searchOrganizations.searchType, currentPage);
   }
 

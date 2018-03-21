@@ -18,17 +18,21 @@ import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import { PanelToolbar } from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
+import { getPractitioners, initializePractitioners, searchPractitioners } from './actions';
+import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import { initializePractitioners, searchPractitioners } from './actions';
 import makeSelectPractitioners from './selectors';
+import messages from './messages';
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      isShowSearchResult: true,
+      isShowSearchResult: false,
+      listPractitioners: {
+        currentPage: 1,
+      },
       searchPractitioners: {
         searchType: 'name',
         searchValue: '',
@@ -36,17 +40,15 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         currentPage: 1,
       },
     };
-    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
+    this.handleChangeListPage = this.handleChangeListPage.bind(this);
   }
 
   componentDidMount() {
     this.props.initializePractitioners();
-  }
-
-  handleChangeSearchPage(currentPage) {
-    this.setState({ currentPage });
-    this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
+    const initialCurrentPage = 1;
+    this.props.getPractitioners(initialCurrentPage);
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
@@ -57,22 +59,37 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
   }
 
+  handleChangeSearchPage(currentPage) {
+    this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
+  }
+
+  handleChangeListPage(currentPage) {
+    this.props.getPractitioners(currentPage);
+  }
+
   render() {
     const { practitioners } = this.props;
-    let practitionersData;
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_PRACTITIONER_URL,
+    };
+    // By initial to show listing practitioners data
+    let practitionersData = {
+      loading: practitioners.listPractitioners.loading,
+      data: flattenPractitionerData(practitioners.listPractitioners.data),
+      currentPage: practitioners.listPractitioners.currentPage,
+      totalNumberOfPages: practitioners.listPractitioners.totalNumberOfPages,
+      handleChangePage: this.handleChangeListPage,
+    };
     if (this.state.isShowSearchResult) {
       practitionersData = {
         loading: practitioners.searchPractitioners.loading,
-        data: practitioners.searchPractitioners.result,
+        data: flattenPractitionerData(practitioners.searchPractitioners.result),
         currentPage: practitioners.searchPractitioners.currentPage,
         totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
         handleChangePage: this.handleChangeSearchPage,
       };
     }
-    const addNewItem = {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_PRACTITIONER_URL,
-    };
 
     return (
       <Card>
@@ -94,6 +111,7 @@ Practitioners.propTypes = {
       error: PropTypes.bool,
     }),
   }),
+  getPractitioners: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
 };
@@ -105,6 +123,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
+    getPractitioners: (currentPage) => dispatch(getPractitioners(currentPage)),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }

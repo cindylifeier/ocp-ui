@@ -48,8 +48,6 @@ function PractitionerTable(props) {
                   <TableRow
                     columns={tableColumns}
                     key={logicalId}
-                    role="button"
-                    tabIndex="0"
                   >
                     <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
                     <TableRowColumn>{renderLastName(name)}</TableRowColumn>
@@ -59,7 +57,7 @@ function PractitionerTable(props) {
                         <FormattedMessage {...messages.inactive} />
                       }
                     </TableRowColumn>
-                    <TableRowColumn>{renderIdentifiers(identifiers)}</TableRowColumn>
+                    <TableRowColumn>{identifiers}</TableRowColumn>
                     <TableRowColumn>
                       <NavigationStyledIconMenu>
                         <MenuItem
@@ -94,10 +92,6 @@ function renderLastName(names) {
   return names && names.map((name) => (<div key={uniqueId()}>{name.lastName}</div>));
 }
 
-function renderIdentifiers(identifiers) {
-  return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));
-}
-
 PractitionerTable.propTypes = {
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
@@ -106,15 +100,9 @@ PractitionerTable.propTypes = {
     handleChangePage: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,
-      identifiers: PropTypes.arrayOf(PropTypes.shape({
-        system: PropTypes.string,
-        oid: PropTypes.string,
-        value: PropTypes.string,
-        priority: PropTypes.number,
-        display: PropTypes.string,
-      })),
+      identifiers: PropTypes.string,
       active: PropTypes.bool,
-      name: PropTypes.array.isRequired,
+      name: PropTypes.array,
       addresses: PropTypes.arrayOf(PropTypes.shape({
         line1: PropTypes.string,
         line2: PropTypes.string,

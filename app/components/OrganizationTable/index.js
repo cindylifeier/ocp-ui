@@ -129,7 +129,7 @@ OrganizationTable.propTypes = {
         display: PropTypes.string,
       })),
       active: PropTypes.bool,
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
       addresses: PropTypes.arrayOf(PropTypes.shape({
         line1: PropTypes.string,
         line2: PropTypes.string,
