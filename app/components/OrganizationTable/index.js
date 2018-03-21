@@ -43,7 +43,8 @@ function OrganizationTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
-                const { logicalId, name, addresses, telecoms, identifiers, active } = organization;
+                const flattenOrganization = props.flattenOrganizationData(organization);
+                const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
                 return (
                   <TableRow
                     columns={tableColumns}
@@ -119,14 +120,33 @@ OrganizationTable.propTypes = {
     handlePageClick: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,
-      identifiers: PropTypes.string,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
       active: PropTypes.bool,
-      name: PropTypes.string,
-      addresses: PropTypes.string,
-      telecoms: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      addresses: PropTypes.arrayOf(PropTypes.shape({
+        line1: PropTypes.string,
+        line2: PropTypes.string,
+        city: PropTypes.string,
+        stateCode: PropTypes.string,
+        postalCode: PropTypes.string,
+        countryCode: PropTypes.string,
+        use: PropTypes.string,
+      })),
+      telecoms: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        value: PropTypes.string,
+        use: PropTypes.string,
+      })),
     })).isRequired,
   }),
   onRowClick: PropTypes.func,
+  flattenOrganizationData: PropTypes.func,
 };
 
 export default OrganizationTable;

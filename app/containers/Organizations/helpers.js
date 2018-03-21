@@ -1,10 +1,10 @@
 import { mapToAddresses, mapToIdentifiers, mapToTelecoms } from 'containers/App/helpers';
 
-export function flattenOrganizationData(organizations) {
-  return organizations && organizations.map((organization) => ({
+export function flattenOrganizationData(organization) {
+  return {
     ...organization,
     telecoms: mapToTelecoms(organization.telecoms),
     identifiers: mapToIdentifiers(organization.identifiers),
     addresses: mapToAddresses(organization.addresses),
-  }));
+  };
 }
