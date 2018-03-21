@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
+import { getLinkUrlByRole } from 'containers/App/helpers';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
@@ -30,7 +31,10 @@ export function Authentication(props) {
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <PrivateLayout {...privateLayoutProps}>
+      <PrivateLayout
+        {...privateLayoutProps}
+        getLinkUrlByRole={getLinkUrlByRole}
+      >
         {props.children}
       </PrivateLayout> :
       <Redirect
