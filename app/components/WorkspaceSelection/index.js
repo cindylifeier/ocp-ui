@@ -39,40 +39,41 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.handleNavigateTo = this.handleNavigateTo.bind(this);
   }
 
-  getStepContentBasedOnRole(finished, stepIndex, organizations, careManagers, careCoordinators, patients, workflowRoles) {
+  getStepContentBasedOnRole(finished, stepIndex) {
     const {
       ocpAdminWorkflowRole, careManagerWorkflowRole, careCoordinatorWorkflowRole, patientWorkflowRole,
-    } = workflowRoles;
+    } = this.props.workflowRoles;
 
     switch (this.state.roleValue) {
       case ocpAdminWorkflowRole.value:
-        return this.renderOcpAdminStepContent(finished, stepIndex, workflowRoles);
+        return this.renderOcpAdminStepContent(finished, stepIndex);
       case careManagerWorkflowRole.value:
-        return this.renderCareManagerStepContent(finished, stepIndex, organizations, careManagers, workflowRoles);
+        return this.renderCareManagerStepContent(finished, stepIndex);
       case careCoordinatorWorkflowRole.value:
-        return this.renderCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators, workflowRoles);
+        return this.renderCareCoordinatorStepContent(finished, stepIndex);
       case patientWorkflowRole.value:
-        return this.renderPatientStepContent(finished, stepIndex, patients, workflowRoles);
+        return this.renderPatientStepContent(finished, stepIndex);
       default:
         return null;
     }
   }
 
-  getAdminStepContent(stepIndex, workflowRoles) {
+  getAdminStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return this.renderSelectRoleContent(workflowRoles);
+        return this.renderSelectRoleContent();
       default:
         return null;
     }
   }
 
-  getManagerStepContent(stepIndex, organizations, careManagers, workflowRoles) {
+  getManagerStepContent(stepIndex) {
+    const { careManagers } = this.props;
     switch (stepIndex) {
       case 0:
-        return this.renderSelectRoleContent(workflowRoles);
+        return this.renderSelectRoleContent();
       case 1:
-        return this.renderSelectOrganizationContent(organizations);
+        return this.renderSelectOrganizationContent();
       case 2:
         return (
           <div>
@@ -92,12 +93,13 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  getCoordinatorStepContent(stepIndex, organizations, careCoordinators, workflowRoles) {
+  getCoordinatorStepContent(stepIndex) {
+    const { careCoordinators } = this.props;
     switch (stepIndex) {
       case 0:
-        return this.renderSelectRoleContent(workflowRoles);
+        return this.renderSelectRoleContent();
       case 1:
-        return this.renderSelectOrganizationContent(organizations);
+        return this.renderSelectOrganizationContent();
       case 2:
         return (
           <div>
@@ -121,10 +123,11 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     }
   }
 
-  getPatientStepContent(stepIndex, patients, workflowRoles) {
+  getPatientStepContent(stepIndex) {
+    const { patients } = this.props;
     switch (stepIndex) {
       case 0:
-        return this.renderSelectRoleContent(workflowRoles);
+        return this.renderSelectRoleContent();
       case 1:
         return (
           <div>
@@ -190,12 +193,12 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.props.history.push(linkTo);
   }
 
-  renderSelectRoleContent(workflowRoles) {
+  renderSelectRoleContent() {
     const {
       ocpAdminWorkflowRole, careManagerWorkflowRole,
       careCoordinatorWorkflowRole, patientWorkflowRole,
       orgAdminWorkflowRole, pcpWorkflowRole,
-    } = workflowRoles;
+    } = this.props.workflowRoles;
     return (
       <div>
         <RoleSelectField
@@ -218,7 +221,8 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  renderSelectOrganizationContent(organizations) {
+  renderSelectOrganizationContent() {
+    const { organizations } = this.props;
     return (
       <div>
         <SelectField
@@ -234,7 +238,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  renderOcpAdminStepContent(finished, stepIndex, workflowRoles) {
+  renderOcpAdminStepContent(finished, stepIndex) {
     return (
       <div>
         <StepperSection>
@@ -245,7 +249,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
           </Stepper>
           <StepContent>
             <div>
-              {this.getAdminStepContent(stepIndex, workflowRoles)}
+              {this.getAdminStepContent(stepIndex)}
               <p><strong>Role:</strong> {this.state.roleValue}</p>
               <RaisedButton
                 label="Continue"
@@ -259,7 +263,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  renderCareManagerStepContent(finished, stepIndex, organizations, careManagers, workflowRoles) {
+  renderCareManagerStepContent(finished, stepIndex) {
     return (
       <div>
         <StepperSection>
@@ -302,7 +306,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               </div>
             ) : (
               <div>
-                {this.getManagerStepContent(stepIndex, organizations, careManagers, workflowRoles)}
+                {this.getManagerStepContent(stepIndex)}
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -327,7 +331,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  renderCareCoordinatorStepContent(finished, stepIndex, organizations, careCoordinators, workflowRoles) {
+  renderCareCoordinatorStepContent(finished, stepIndex) {
     return (
       <div>
         <StepperSection>
@@ -370,7 +374,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               </div>
             ) : (
               <div>
-                {this.getCoordinatorStepContent(stepIndex, organizations, careCoordinators, workflowRoles)}
+                {this.getCoordinatorStepContent(stepIndex)}
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -395,7 +399,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  renderPatientStepContent(finished, stepIndex, patients, workflowRoles) {
+  renderPatientStepContent(finished, stepIndex) {
     return (
       <div>
         <StepperSection>
@@ -434,7 +438,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               </div>
             ) : (
               <div>
-                {this.getPatientStepContent(stepIndex, patients, workflowRoles)}
+                {this.getPatientStepContent(stepIndex)}
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -465,11 +469,10 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
-    const { organizations, careManagers, careCoordinators, patients, workflowRoles } = this.props;
     const { finished, stepIndex } = this.state;
     return (
       <div>
-        {this.getStepContentBasedOnRole(finished, stepIndex, organizations, careManagers, careCoordinators, patients, workflowRoles)}
+        {this.getStepContentBasedOnRole(finished, stepIndex)}
       </div>
     );
   }
