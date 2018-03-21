@@ -41,9 +41,10 @@ import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPag
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
+import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import saga from './saga';
 import './styles.css';
-import ManageCommunicationPage from '../ManageCommunicationPage';
+
 
 export function App() {
   return (
