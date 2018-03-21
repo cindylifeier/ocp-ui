@@ -21,7 +21,7 @@ import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import renderNotFound from 'containers/NotFoundPage/render';
 import { makeSelectUser } from 'containers/App/contextSelectors';
-import { CARE_COORDINATOR, CARE_MANAGER } from 'containers/App/constants';
+import { makeSelectWorkflowRolesData } from 'containers/WorkspaceSelectionPage/selectors';
 import makeSelectPractitionerWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -314,6 +314,8 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
   }
 
   getStateMetadataForRole() {
+    const CARE_MANAGER = this.props.workflowRoles.careManagerWorkflowRole.value;
+    const CARE_COORDINATOR = this.props.workflowRoles.careCoordinatorWorkflowRole.value;
     const { user: { role } } = this.props;
     switch (role) {
       case CARE_MANAGER:
@@ -345,13 +347,22 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
 
 PractitionerWorkspacePage.propTypes = {
   user: PropTypes.shape({
-    role: PropTypes.oneOf([CARE_MANAGER, CARE_COORDINATOR]).isRequired,
+    role: PropTypes.string.isRequired,
   }).isRequired,
+  workflowRoles: PropTypes.shape({
+    careManagerWorkflowRole: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
+    careCoordinatorWorkflowRole: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   practitionerworkspacepage: makeSelectPractitionerWorkspacePage(),
   user: makeSelectUser(),
+  workflowRoles: makeSelectWorkflowRolesData(),
 });
 
 function mapDispatchToProps(dispatch) {
