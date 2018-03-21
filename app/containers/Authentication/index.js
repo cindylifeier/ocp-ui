@@ -12,10 +12,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { isTokenExpired, removeToken, retrieveToken } from 'utils/tokenService';
+import { getLinkUrlByRole } from 'containers/App/helpers';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
-import makeSelectWorkspace from 'containers/App/workspaceSelectors';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
@@ -23,24 +24,17 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
-  // TODO: Will get context from props
-  const context = {
-    user: {
-      user_name: 'ocp-test@ocpemail.com',
-      user_id: 'f6fdfa6d-ebbf-435a-8236-e6f1c6cb2edc',
-      email: 'ocp-test@ocpemail.com',
-      name: 'Test User',
-    },
-    // Todo: will remove after integrate with context
-    role: props.workspace.workflowRole,
-  };
+  const user = props.user;
   const privateLayoutProps = {
-    context,
+    user,
   };
   return (
     isAuthenticated ?
       // child component will be rendered here
-      <PrivateLayout {...privateLayoutProps}>
+      <PrivateLayout
+        {...privateLayoutProps}
+        getLinkUrlByRole={getLinkUrlByRole}
+      >
         {props.children}
       </PrivateLayout> :
       <Redirect
@@ -60,9 +54,7 @@ Authentication.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
   }),
-  workspace: PropTypes.shape({
-    workflowRole: PropTypes.string,
-  }),
+  user: PropTypes.object,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     state: PropTypes.object,
@@ -74,7 +66,7 @@ Authentication.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   auth: makeSelectAuth(),
-  workspace: makeSelectWorkspace(),
+  user: makeSelectUser(),
 });
 
 const withConnect = connect(mapStateToProps);

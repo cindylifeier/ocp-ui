@@ -1,3 +1,6 @@
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import isEmpty from 'lodash/isEmpty';
+
 import { showNotification } from 'containers/Notification/actions';
 import {
   getSearchAppointmentParticipantError,
@@ -5,13 +8,13 @@ import {
 } from 'containers/SearchAppointmentParticipant/actions';
 import { searchAppointmentParticipant } from 'containers/SearchAppointmentParticipant/api';
 import { SEARCH_APPOINTMENT_PARTICIPANT } from 'containers/SearchAppointmentParticipant/constants';
-import isEmpty from 'lodash/isEmpty';
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 
 export function* searchAppointmentParticipantSaga(action) {
+  const patient = yield select(makeSelectPatient());
   try {
-    if (!isEmpty(action.name) && !isEmpty(action.member)) {
-      const participants = yield call(searchAppointmentParticipant, action.name, action.member, action.patientId);
+    if (!isEmpty(action.name) && !isEmpty(action.member) && !isEmpty(patient) && !isEmpty(patient.id)) {
+      const participants = yield call(searchAppointmentParticipant, action.name, action.member, patient.id);
       yield put(getSearchAppointmentParticipantSuccess(participants));
     }
   } catch (error) {

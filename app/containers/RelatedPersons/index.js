@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,7 +23,8 @@ import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -38,6 +40,18 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
 
   componentDidMount() {
     this.props.initializeRelatedPersons();
+    const { patient } = this.props;
+    if (patient) {
+      this.props.getRelatedPersons(true, 1);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient)) {
+      this.props.getRelatedPersons(true, 1);
+    }
   }
 
   getPatientName(patient) {
@@ -47,34 +61,39 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
   }
 
   handlePageClick(pageNumber) {
-    this.props.getRelatedPersons(this.props.selectedPatient.id, true, pageNumber);
+    this.props.getRelatedPersons(true, pageNumber);
   }
 
   render() {
-    const { data, selectedPatient, loading } = this.props;
+    const { data, patient, loading } = this.props;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
-        {isEmpty(data.elements) ?
-          <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4> :
+        {isEmpty(patient) && (
+          <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4>)}
+        {!isEmpty(patient) && (
+          <InfoSection>
+            <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+            </InlineLabel>
+            <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(patient)}</span>
+          </InfoSection>)}
+        {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
+          <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
+        }
+        {!isEmpty(patient) && !isEmpty(data.elements) && (
           <div>
-            <InfoSection>
-              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                <FormattedMessage {...messages.labelPatientName} />&nbsp;
-              </InlineLabel>
-              <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(selectedPatient)}</span>
-            </InfoSection>
             {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable
               relatedPersons={data.elements}
-              selectedPatientId={selectedPatient.id}
+              patientId={patient.id}
             />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
               onChange={this.handlePageClick}
             />
-          </div>
+          </div>)
         }
       </Card>
     );
@@ -85,19 +104,19 @@ RelatedPersons.propTypes = {
   getRelatedPersons: PropTypes.func.isRequired,
   initializeRelatedPersons: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
   loading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectRelatedPersons(),
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
   loading: makeSelectRelatedPersonsSearchLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRelatedPersons: (patientId, showInActive, pageNumber) => dispatch(getRelatedPersons(patientId, showInActive, pageNumber)),
+    getRelatedPersons: (showInActive, pageNumber) => dispatch(getRelatedPersons(showInActive, pageNumber)),
     initializeRelatedPersons: () => dispatch(initializeRelatedPersons()),
   };
 }

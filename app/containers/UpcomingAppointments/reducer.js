@@ -4,21 +4,22 @@
  *
  */
 
-import { fromJS } from 'immutable';
 import {
-  GET_UPCOMING_APPOINTMENTS,
-  GET_UPCOMING_APPOINTMENTS_SUCCESS,
-  GET_UPCOMING_APPOINTMENTS_ERROR,
-  LOADING,
-  DATA,
   CANCEL_APPOINTMENT_SUCCESS,
+  DATA,
+  GET_UPCOMING_APPOINTMENTS,
+  GET_UPCOMING_APPOINTMENTS_ERROR,
+  GET_UPCOMING_APPOINTMENTS_SUCCESS,
+  LOADING,
   STATUS_CODE_CANCELLED,
 } from 'containers/UpcomingAppointments/constants';
+import { fromJS } from 'immutable';
 import find from 'lodash/find';
 
 const initialState = fromJS({
   loading: false,
   query: null,
+  showPastAppointments: false,
 });
 
 function upcomingAppointmentsReducer(state = initialState, action) {
@@ -26,6 +27,7 @@ function upcomingAppointmentsReducer(state = initialState, action) {
     case GET_UPCOMING_APPOINTMENTS:
       return state
         .set(LOADING, true)
+        .set('showPastAppointments', action.query.showPastAppointments)
         .set(DATA, null);
     case GET_UPCOMING_APPOINTMENTS_SUCCESS:
       return state
