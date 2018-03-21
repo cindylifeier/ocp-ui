@@ -80,13 +80,13 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "communication",
-                    "text": "Communication",
+                    "name": "appointments",
+                    "text": "My Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
+                    "name": "communications",
+                    "text": "Communications",
                   },
                 ]
               }
@@ -121,10 +121,10 @@ ShallowWrapper {
                               "activeItemIndex": 0,
                               "content": Array [
                                 Object {
-                                  "componentName": "communication",
+                                  "componentName": "communications",
                                   "isClosable": true,
                                   "reorderEnabled": true,
-                                  "title": "Communication",
+                                  "title": "Communications",
                                   "type": "component",
                                 },
                               ],
@@ -287,13 +287,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ]
                 }
@@ -328,10 +328,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -471,13 +471,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ]
                 }
@@ -512,10 +512,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -614,13 +614,13 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "communication",
-                    "text": "Communication",
+                    "name": "appointments",
+                    "text": "My Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
+                    "name": "communications",
+                    "text": "Communications",
                   },
                 ],
                 "containerHeight": "200vh",
@@ -653,10 +653,10 @@ ShallowWrapper {
                               "activeItemIndex": 0,
                               "content": Array [
                                 Object {
-                                  "componentName": "communication",
+                                  "componentName": "communications",
                                   "isClosable": true,
                                   "reorderEnabled": true,
-                                  "title": "Communication",
+                                  "title": "Communications",
                                   "type": "component",
                                 },
                               ],
@@ -795,13 +795,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ]
                 }
@@ -836,10 +836,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -1002,13 +1002,13 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "communication",
-                        "text": "Communication",
+                        "name": "appointments",
+                        "text": "My Appointments",
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
+                        "name": "communications",
+                        "text": "Communications",
                       },
                     ]
                   }
@@ -1043,10 +1043,10 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "communication",
+                                      "componentName": "communications",
                                       "isClosable": true,
                                       "reorderEnabled": true,
-                                      "title": "Communication",
+                                      "title": "Communications",
                                       "type": "component",
                                     },
                                   ],
@@ -1186,13 +1186,13 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "communication",
-                        "text": "Communication",
+                        "name": "appointments",
+                        "text": "My Appointments",
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
+                        "name": "communications",
+                        "text": "Communications",
                       },
                     ]
                   }
@@ -1227,10 +1227,10 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "communication",
+                                      "componentName": "communications",
                                       "isClosable": true,
                                       "reorderEnabled": true,
-                                      "title": "Communication",
+                                      "title": "Communications",
                                       "type": "component",
                                     },
                                   ],
@@ -1329,13 +1329,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ],
                   "containerHeight": "200vh",
@@ -1368,10 +1368,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],

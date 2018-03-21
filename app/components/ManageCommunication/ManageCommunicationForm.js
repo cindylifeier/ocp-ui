@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import Util from 'utils/Util';
 import ErrorText from 'components/ErrorText';
-import Link from 'react-router-dom/es/Link';
+import { Link } from 'react-router-dom';
 import { teal500, white } from 'material-ui/styles/colors';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';

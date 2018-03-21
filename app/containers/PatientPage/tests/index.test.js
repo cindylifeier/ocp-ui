@@ -9,7 +9,7 @@ import { componentMetadata, initialStateMetadata, PatientPage } from '../index';
 
 configure({ adapter: new Adapter() });
 
-xdescribe('<PatientPage />', () => {
+describe('<PatientPage />', () => {
   describe('snapshot tests', () => {
     // Arrange
     const id = 'id';

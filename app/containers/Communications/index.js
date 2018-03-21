@@ -19,7 +19,7 @@ import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
-import Link from 'react-router-dom/es/Link';
+import { Link } from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectCommunications from './selectors';

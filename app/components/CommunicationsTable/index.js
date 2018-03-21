@@ -9,7 +9,7 @@ import { uniqueId } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
-import Link from 'react-router-dom/es/Link';
+import { Link } from 'react-router-dom';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
