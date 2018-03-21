@@ -25,9 +25,8 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import CenterAlign from 'components/Align/CenterAlign';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
@@ -70,8 +69,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     const { tasks: { loading, data }, patient } = this.props;
     const patientName = mapToPatientName(patient);
-    const { tasks: { loading, data, patientName, patientId } } = this.props;
-    const commmunicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const taskBaseUrl = MANAGE_TASK_URL;
     return (
       <Card>
@@ -100,8 +98,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
             <TaskTable
               elements={data.elements}
               cancelTask={this.cancelTask}
-              patientId={patientId}
-              commmunicationBaseUrl={commmunicationBaseUrl}
+              patientId={patient.id}
+              communicationBaseUrl={communicationBaseUrl}
               taskBaseUrl={taskBaseUrl}
             />
           </CenterAlign>
