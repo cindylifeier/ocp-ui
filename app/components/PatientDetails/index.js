@@ -22,7 +22,7 @@ import H3 from 'components/H3';
 import { mapToPatientAddress, mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 
 function PatientDetails(props) {
-  const { patient } = props;
+  const { patient, isPatientUser } = props;
   return (
     <div>
       <PatientDetailsGrid columns={1}>
@@ -54,7 +54,9 @@ function PatientDetails(props) {
             <Cell>Contact{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong></Cell>
             <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
             <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
-            <Cell><Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} ><Flag /><strong>Advisory</strong></Link></Cell>
+            {!isPatientUser &&
+              <Cell><Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} ><Flag /><strong>Advisory</strong></Link></Cell>
+            }
           </DetailsPanelGrid>
         </PatientDetailsCell>
       </PatientDetailsGrid>
@@ -67,6 +69,7 @@ PatientDetails.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  isPatientUser: PropTypes.bool.isRequired,
 };
 
 export default PatientDetails;
