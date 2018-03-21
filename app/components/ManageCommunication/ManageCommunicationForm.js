@@ -264,6 +264,7 @@ function ManageCommunicationForm(props) {
   );
 }
 
+
 ManageCommunicationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
@@ -282,8 +283,6 @@ ManageCommunicationForm.propTypes = {
   patientUrl: PropTypes.string.isRequired,
 };
 
-export default ManageCommunicationForm;
-
 function isDirty(dirty, selectedRecipients, initialSelectedRecipients) {
   let isFormDirty = dirty;
   const identityOfArray = 'reference';
@@ -301,3 +300,6 @@ function getPatientName(patient) {
   }
   return '';
 }
+
+export default ManageCommunicationForm;
+

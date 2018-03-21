@@ -124,8 +124,6 @@ ManageCommunication.propTypes = {
   patientUrl: PropTypes.string.isRequired,
 };
 
-export default ManageCommunication;
-
 
 function setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment) {
   let formData = null;
@@ -325,3 +323,6 @@ function mapToFormDateField(entity, fieldName) {
   }
   return fieldObject;
 }
+
+export default ManageCommunication;
+
