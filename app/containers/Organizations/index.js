@@ -15,14 +15,10 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
-import CenterAlign from 'components/Align/CenterAlign';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import NoResultsFoundText from 'components/NoResultsFoundText';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -105,23 +101,10 @@ export class Organizations extends React.PureComponent {
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
         <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        {organizationData.loading && <RefreshIndicatorLoading />}
-        {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
-            ? <div>
-              <OrganizationTable
-                organizations={organizationData.data}
-                onRowClick={this.handleRowClick}
-              />
-              <CenterAlignedUltimatePagination
-                currentPage={organizationData.currentPage}
-                totalPages={organizationData.totalNumberOfPages}
-                onChange={organizationData.handlePageClick}
-              />
-            </div> :
-            (<CenterAlign>
-              <NoResultsFoundText>No organizations found</NoResultsFoundText>
-            </CenterAlign>)
-        )}
+        <OrganizationTable
+          organizationData={organizationData}
+          onRowClick={this.handleRowClick}
+        />
       </Card>
     );
   }
