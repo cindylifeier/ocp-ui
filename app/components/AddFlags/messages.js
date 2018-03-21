@@ -61,6 +61,10 @@ export default defineMessages({
       id: 'ocpui.components.AddFlags.addFlagForm.validation.required',
       defaultMessage: 'Required',
     },
+    minEndDate: {
+      id: 'ocpui.components.AddFlags.addFlagForm.validation.minEndDate',
+      defaultMessage: 'Flag End date field must be later than flag Start date field',
+    },
   },
   hintText: {
     category: {

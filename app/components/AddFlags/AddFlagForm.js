@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
+import find from 'lodash/find';
 
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
@@ -15,6 +16,10 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
+function checkDuplicate(flags, code, category) {
+  return find(flags, { code, category }) !== undefined;
+}
+
 function AddFlagForm(props) {
   const {
     initialValues,
@@ -23,6 +28,7 @@ function AddFlagForm(props) {
     handleCloseDialog,
     flagStatuses,
     flagCategories,
+    flags,
   } = props;
 
   const today = new Date();
@@ -38,17 +44,26 @@ function AddFlagForm(props) {
           handleCloseDialog();
         }}
         initialValues={{ ...(initialValues || { flag: { flagStart: new Date() } }).flag }}
-        validationSchema={yup.object().shape({
-          code: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          category: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          status: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          flagStart: yup.date()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-        })}
-        render={({ isSubmitting, dirty, isValid }) => (
+        validationSchema={() =>
+          yup.lazy((values) => {
+            let flagStart = new Date();
+            if (values.flagStart) {
+              flagStart = values.flagStart;
+            }
+            return yup.object().shape({
+              code: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              category: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              status: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              flagStart: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              flagEnd: yup.date()
+                .min(flagStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+            });
+          })}
+        render={({ isSubmitting, dirty, isValid, values }) => (
           <Form>
             <Grid columns="repeat(2, 1fr)">
               <Cell>
@@ -117,7 +132,7 @@ function AddFlagForm(props) {
                 <StyledRaisedButton
                   type="submit"
                   label={<FormattedMessage {...messages.saveFlagButton} />}
-                  disabled={!dirty || isSubmitting || !isValid}
+                  disabled={!dirty || isSubmitting || !isValid || checkDuplicate(flags, values.code, values.category)}
                 />
                 <StyledFlatButton
                   type="reset"
@@ -138,8 +153,8 @@ AddFlagForm.propTypes = {
   onRemoveFlag: PropTypes.func.isRequired,
   handleCloseDialog: PropTypes.func.isRequired,
   initialValues: PropTypes.shape({
-    index: PropTypes.number.isRequired,
-    address: PropTypes.object.isRequired,
+    index: PropTypes.number,
+    flag: PropTypes.object,
   }),
   flagStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -148,6 +163,15 @@ AddFlagForm.propTypes = {
   flagCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
+  })),
+  flags: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string,
+    code: PropTypes.string,
+    status: PropTypes.string,
+    author: PropTypes.shape({
+      code: PropTypes.string,
+      display: PropTypes.string,
+    }),
   })),
 };
 

@@ -53,6 +53,7 @@ class AddFlags extends React.PureComponent {
     const addFlagFormProps = {
       flagStatuses,
       flagCategories,
+      flags,
     };
     const addedFlagTableProps = {
       errors,
