@@ -13,7 +13,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getOrganizations } from 'containers/Organizations/actions';
 import renderOrganizations from 'containers/Organizations/render';
 import renderPractitioners from 'containers/Practitioners/render';
 import GoldenLayout from 'components/GoldenLayout';
@@ -110,14 +109,6 @@ export const componentMetadata = [
 ];
 
 export class AdminWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
-  componentDidMount() {
-    // TODO: Resolve delay issue
-    // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
-    const initialCurrentPage = 1;
-    setTimeout(() => this.props.getOrganizations(initialCurrentPage), 500);
-  }
-
   render() {
     return (
       <Page>
@@ -136,7 +127,7 @@ export class AdminWorkspacePage extends React.PureComponent { // eslint-disable-
 }
 
 AdminWorkspacePage.propTypes = {
-  getOrganizations: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -145,7 +136,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getOrganizations: (showInactive, currentPage) => dispatch(getOrganizations(showInactive, currentPage)),
+    dispatch,
   };
 }
 

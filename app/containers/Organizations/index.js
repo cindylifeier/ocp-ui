@@ -56,6 +56,8 @@ export class Organizations extends React.PureComponent {
 
   componentDidMount() {
     this.props.initializeOrganizations();
+    const initialCurrentPage = 1;
+    this.props.getOrganizations(initialCurrentPage);
   }
 
   handleSearch(searchValue, showInactive, searchType) {
