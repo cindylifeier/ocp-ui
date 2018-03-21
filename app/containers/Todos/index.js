@@ -22,13 +22,14 @@ import { compose } from 'redux';
 import { getTodos } from 'containers/Todos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { makeSelectSearchLoading, makeSelectTodos } from 'containers/Todos/selectors';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import TodoList from 'components/TodoList/index';
+import TodoList from 'components/TodoList';
+import { PATIENTS } from 'containers/Todos/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+
 
 export class Todos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -40,23 +41,14 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
     const patientId = this.props.selectedPatient.id;
     if (patientId) {
       const definition = 'todo';
-      const pageNumber = 1;
-      this.props.getTodos(patientId, definition, pageNumber);
-    }
-  }
-
-  handlePageClick(pageNumber) {
-    const patientId = this.props.selectedPatient.id;
-    if (patientId) {
-      const definition = 'todo';
-      this.props.getTodos(patientId, definition, pageNumber);
+      this.props.getTodos(patientId, definition);
     }
   }
   render() {
     const { todos, selectedPatient, loading } = this.props;
     const patientId = selectedPatient.id;
     const MANAGE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}`;
-    console.log(loading);
+    const isPatientWorkspace = window.location.href.includes(PATIENTS);
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />}>
@@ -71,24 +63,18 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
         <NoResultsFoundText>
           <FormattedMessage {...messages.noTodosFound} />
         </NoResultsFoundText>}
-        {!isEmpty(todos) && !isEmpty(todos.elements) &&
+        {!isEmpty(todos) &&
         <div>
-          <TodoList todos={todos.elements} />
-          <CenterAlignedUltimatePagination
-            currentPage={todos.currentPage}
-            totalPages={todos.totalNumberOfPages}
-            onChange={this.handlePageClick}
-          />
+          <TodoList todos={todos} isPatientWorkspace={isPatientWorkspace} />
         </div>
         }
-
       </Card>
     );
   }
 }
 
 Todos.propTypes = {
-  todos: PropTypes.object.isRequired,
+  todos: PropTypes.array.isRequired,
   getTodos: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,

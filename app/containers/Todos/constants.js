@@ -19,3 +19,4 @@ export const GET_TODOS_ERROR = 'ocpui/Todos/GET_TODOS_ERROR';
 */
 
 export const PAGE_SIZE = 10;
+export const PATIENTS = 'patient';
