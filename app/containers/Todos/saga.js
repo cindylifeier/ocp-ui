@@ -6,7 +6,7 @@ import { getTodos } from './api';
 
 export function* getTodosSaga(action) {
   try {
-    const todos = yield call(getTodos, action.patientId, action.definition, action.pageNumber);
+    const todos = yield call(getTodos, action.patientId, action.definition);
     yield put(getTodoSuccess(todos));
   } catch (error) {
     yield put(showNotification('Error in getting To Do.'));
