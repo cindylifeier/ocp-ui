@@ -83,7 +83,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         {!isEmpty(workflowRoles) &&
         <WorkspaceSelection
           {...workspaceSelectionProps}
-          onGetNavigateToLinkUrlByRole={getLinkUrlByRole}
+          getLinkUrlByRole={getLinkUrlByRole}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
         />
         }

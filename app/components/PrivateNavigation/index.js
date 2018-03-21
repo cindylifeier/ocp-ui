@@ -23,7 +23,7 @@ function PrivateNavigation(props) {
           label={<FormattedMessage {...messages.navButton} />}
           icon={<ActionHome />}
           primary
-          containerElement={<Link to={props.onGetNavigateToLinkUrlByRole(role)} />}
+          containerElement={<Link to={props.getLinkUrlByRole(role)} />}
         />
       </ToolbarGroup>
     </StyledToolbar>
@@ -34,7 +34,7 @@ PrivateNavigation.propTypes = {
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,
   }).isRequired,
-  onGetNavigateToLinkUrlByRole: PropTypes.func.isRequired,
+  getLinkUrlByRole: PropTypes.func.isRequired,
 };
 
 export default PrivateNavigation;
