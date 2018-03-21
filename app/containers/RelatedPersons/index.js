@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RelatedPersonTable from 'components/RelatedPersonTable';
@@ -25,7 +25,7 @@ import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
+import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading, makeSelectRelatedPersonsTotalElements } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -93,6 +93,12 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
               totalPages={data.totalNumberOfPages}
               onChange={this.handlePageClick}
             />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={this.props.totalElements}
+              currentPageSize={data.currentPageSize}
+            />
           </div>)
         }
       </Card>
@@ -106,12 +112,14 @@ RelatedPersons.propTypes = {
   data: PropTypes.object.isRequired,
   patient: PropTypes.object,
   loading: PropTypes.bool,
+  totalElements: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectRelatedPersons(),
   patient: makeSelectPatient(),
   loading: makeSelectRelatedPersonsSearchLoading(),
+  totalElements: makeSelectRelatedPersonsTotalElements(),
 });
 
 function mapDispatchToProps(dispatch) {
