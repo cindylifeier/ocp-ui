@@ -106,7 +106,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
 
   render() {
     const {
-      match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties, selectedPractitioner,
+      match, history, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties, selectedPractitioner,
       organizations,
       currentPage,
       totalNumberOfPages,
@@ -117,6 +117,7 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
       practitioner = selectedPractitioner;
     }
     const formProps = {
+      history,
       uspsStates,
       identifierSystems,
       telecomSystems,
@@ -156,6 +157,9 @@ export class ManagePractitionerPage extends React.PureComponent { // eslint-disa
 
 ManagePractitionerPage.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   getPractitioner: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
