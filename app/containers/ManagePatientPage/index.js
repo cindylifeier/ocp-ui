@@ -54,6 +54,10 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+    this.practitioner = {
+      reference: 'Practitioner/1961',
+      display: 'Robert Johnson',
+    };
   }
 
   componentDidMount() {
@@ -85,6 +89,7 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       flagStatuses,
       flagCategories,
       patient,
+      practitioner: this.practitioner,
     };
     return (
       <Page>

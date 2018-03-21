@@ -49,11 +49,13 @@ class AddFlags extends React.PureComponent {
   }
 
   render() {
-    const { errors, flags, flagStatuses, flagCategories } = this.props;
+    const { errors, flags, flagStatuses, flagCategories, patientName, practitioner } = this.props;
     const addFlagFormProps = {
       flagStatuses,
       flagCategories,
       flags,
+      patientName,
+      practitioner,
     };
     const addedFlagTableProps = {
       errors,
@@ -86,6 +88,7 @@ class AddFlags extends React.PureComponent {
                     onAddFlag={arrayHelpers.push}
                     onRemoveFlag={arrayHelpers.remove}
                     handleCloseDialog={this.handleCloseDialog}
+                    patientName={patientName}
                     {...addFlagFormProps}
                   />
                 </Dialog>
@@ -122,6 +125,11 @@ AddFlags.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  patientName: PropTypes.string,
+  practitioner: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
 };
 
 export default AddFlags;

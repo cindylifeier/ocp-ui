@@ -26,7 +26,7 @@ function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
-    flagStatuses, flagCategories,
+    flagStatuses, flagCategories, practitioner,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -39,12 +39,13 @@ function ManagePatientForm(props) {
     errors,
     telecoms: values.telecoms,
   };
-
   const addFlagsProps = {
     flagStatuses,
     flagCategories,
     errors,
     flags: values.flags,
+    practitioner,
+    patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
 
   return (
@@ -252,6 +253,10 @@ ManagePatientForm.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  practitioner: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
 };
 
 export default ManagePatientForm;

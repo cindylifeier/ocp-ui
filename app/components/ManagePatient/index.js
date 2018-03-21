@@ -16,7 +16,7 @@ import { TEXT_MIN_LENGTH } from './constants';
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const { onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
-    usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses,
+    usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
     flagCategories } = props;
   const managePatientFormProps = {
     uspsStates,
@@ -30,6 +30,7 @@ function ManagePatient(props) {
     telecomUses,
     flagStatuses,
     flagCategories,
+    practitioner,
   };
   return (
     <div>
@@ -91,6 +92,10 @@ ManagePatient.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   patient: PropTypes.object,
+  practitioner: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
 };
 
 export default ManagePatient;

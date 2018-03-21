@@ -6,6 +6,7 @@ import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 import find from 'lodash/find';
+import merge from 'lodash/merge';
 import remove from 'lodash/remove';
 
 
@@ -33,10 +34,21 @@ function AddFlagForm(props) {
     flagStatuses,
     flagCategories,
     flags,
+    patientName,
+    practitioner,
   } = props;
-
+  let initialValueFlag = null;
+  let author = null;
+  if (initialValues !== null) {
+    const { index, flag } = initialValues;
+    author = flag.author;
+    const { logicalId, flagStart, flagEnd, code, status, category } = flag;
+    initialValueFlag = {
+      index,
+      flag: { logicalId, authorName: author.display, flagStart, flagEnd, code, status, category },
+    };
+  }
   const today = new Date();
-
   return (
     <div>
       <Formik
@@ -44,15 +56,19 @@ function AddFlagForm(props) {
           if (initialValues) {
             onRemoveFlag(initialValues.index);
           }
-          onAddFlag(values);
+          if (initialValues !== null) {
+            onAddFlag(merge(values, { author }));
+          } else {
+            onAddFlag(merge(values, { author: practitioner }));
+          }
           handleCloseDialog();
         }}
-        initialValues={{ ...(initialValues || { flag: { flagStart: new Date() } }).flag }}
+        initialValues={{ ...(initialValueFlag || { flag: { flagStart: new Date() } }).flag }}
         validationSchema={() =>
           yup.lazy((values) => {
-            let flagStart = new Date();
+            let DefaultflagStart = new Date();
             if (values.flagStart) {
-              flagStart = values.flagStart;
+              DefaultflagStart = values.flagStart;
             }
             return yup.object().shape({
               code: yup.string()
@@ -64,12 +80,32 @@ function AddFlagForm(props) {
               flagStart: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               flagEnd: yup.date()
-                .min(flagStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+                .min(DefaultflagStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}
         render={({ isSubmitting, dirty, isValid, values }) => (
           <Form>
             <Grid columns="repeat(2, 1fr)">
+              <Cell>
+                <TextField
+                  fullWidth
+                  name="subject"
+                  hintText={<FormattedMessage {...messages.hintText.patientName} />}
+                  defaultValue={patientName}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.patientName} />}
+                  disabled
+                />
+              </Cell>
+              <Cell>
+                <TextField
+                  fullWidth
+                  name="authorName"
+                  hintText={<FormattedMessage {...messages.hintText.author} />}
+                  defaultValue={practitioner && practitioner.display}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.author} />}
+                  disabled
+                />
+              </Cell>
               <Cell>
                 <SelectField
                   fullWidth
@@ -159,6 +195,11 @@ AddFlagForm.propTypes = {
   initialValues: PropTypes.shape({
     index: PropTypes.number,
     flag: PropTypes.object,
+  }),
+  patientName: PropTypes.string,
+  practitioner: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
   }),
   flagStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
