@@ -29,6 +29,11 @@ ShallowWrapper {
         ],
       }
     }
+    user={
+      Object {
+        "role": "ocpAdminRole",
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -59,6 +64,7 @@ ShallowWrapper {
         >
           <styled.section>
             <PatientDetails
+              isPatientUser={false}
               patient={
                 Object {
                   "id": "1",
@@ -266,6 +272,7 @@ ShallowWrapper {
           "children": Array [
             <styled.section>
               <PatientDetails
+                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -427,6 +434,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <PatientDetails
+                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -443,6 +451,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
+                "isPatientUser": false,
                 "patient": Object {
                   "id": "1",
                   "name": Array [
@@ -774,6 +783,7 @@ ShallowWrapper {
           >
             <styled.section>
               <PatientDetails
+                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -981,6 +991,7 @@ ShallowWrapper {
             "children": Array [
               <styled.section>
                 <PatientDetails
+                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1142,6 +1153,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <PatientDetails
+                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1158,6 +1170,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
+                  "isPatientUser": false,
                   "patient": Object {
                     "id": "1",
                     "name": Array [
