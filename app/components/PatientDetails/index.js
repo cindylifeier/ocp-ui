@@ -6,12 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import Avatar from 'material-ui/Avatar';
+import Flag from 'material-ui/svg-icons/content/flag';
 import upperFirst from 'lodash/upperFirst';
 
 import patientAvatar from 'images/patient-avatar.png';
-import { WHITE_SPACE } from 'containers/App/constants';
+import { MANAGE_PATIENT_URL, WHITE_SPACE } from 'containers/App/constants';
 import PatientDetailsGrid from 'components/PatientDetails/PatientDetailsGrid';
 import PatientDetailsCell from 'components/PatientDetails/PatientDetailsCell';
 import DetailsPanelGrid from 'components/PatientDetails/DetailsPanelGrid';
@@ -47,11 +49,12 @@ function PatientDetails(props) {
           </Grid>
         </PatientDetailsCell>
         <PatientDetailsCell>
-          <DetailsPanelGrid columns={4}>
+          <DetailsPanelGrid columns={'repeat(4, 1fr) 100px '}>
             <Cell>Address{WHITE_SPACE}<strong>{mapToPatientAddress(selectedPatient)}</strong></Cell>
             <Cell>Contact{WHITE_SPACE}<strong>{mapToPatientPhone(selectedPatient)}</strong></Cell>
             <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
             <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
+            <Cell><Link to={`${MANAGE_PATIENT_URL}/${selectedPatient.id}`} ><Flag /><strong>Advisory</strong></Link></Cell>
           </DetailsPanelGrid>
         </PatientDetailsCell>
       </PatientDetailsGrid>
