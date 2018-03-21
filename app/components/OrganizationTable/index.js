@@ -8,11 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
+import isEmpty from 'lodash/isEmpty';
 
-import { mapToOrganizationTelecoms } from 'utils/OrganizationUtils';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -24,14 +22,10 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
-import { fromBackendToFrontendOrganization } from './mappings';
+
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 const ENTER_KEY = 'Enter';
-
-function renderIdentifiers(identifiers) {
-  return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));
-}
 
 function OrganizationTable(props) {
   const { organizationData, onRowClick } = props;
@@ -49,12 +43,11 @@ function OrganizationTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
-                const org = fromBackendToFrontendOrganization(organization);
-                const { name, address, id, identifiers, status } = org;
+                const { logicalId, name, addresses, telecoms, identifiers, active } = organization;
                 return (
                   <TableRow
                     columns={tableColumns}
-                    key={org.id}
+                    key={logicalId}
                     onClick={() => onRowClick && onRowClick(organization)}
                     onKeyPress={(e) => {
                       if (e.key === ENTER_KEY) {
@@ -68,15 +61,20 @@ function OrganizationTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{address}</TableRowColumn>
-                    <TableRowColumn>{mapToOrganizationTelecoms(org)}</TableRowColumn>
-                    <TableRowColumn>{renderIdentifiers(identifiers)}</TableRowColumn>
-                    <TableRowColumn>{status}</TableRowColumn>
+                    <TableRowColumn>{addresses}</TableRowColumn>
+                    <TableRowColumn>{telecoms}</TableRowColumn>
+                    <TableRowColumn>{identifiers}</TableRowColumn>
+                    <TableRowColumn>
+                      {active ?
+                        <FormattedMessage {...messages.active} /> :
+                        <FormattedMessage {...messages.inactive} />
+                      }
+                    </TableRowColumn>
                     <TableRowColumn>
                       <NavigationStyledIconMenu>
                         <MenuItem
                           primaryText={<FormattedMessage {...messages.edit} />}
-                          containerElement={<Link to={`/ocp-ui/manage-organization/${id}`} />}
+                          containerElement={<Link to={`/ocp-ui/manage-organization/${logicalId}`} />}
                         />
                         <MenuItem
                           primaryText={<FormattedMessage {...messages.addLocation} />}
@@ -121,29 +119,11 @@ OrganizationTable.propTypes = {
     handlePageClick: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,
-      identifiers: PropTypes.arrayOf(PropTypes.shape({
-        system: PropTypes.string,
-        oid: PropTypes.string,
-        value: PropTypes.string,
-        priority: PropTypes.number,
-        display: PropTypes.string,
-      })),
+      identifiers: PropTypes.string,
       active: PropTypes.bool,
       name: PropTypes.string,
-      addresses: PropTypes.arrayOf(PropTypes.shape({
-        line1: PropTypes.string,
-        line2: PropTypes.string,
-        city: PropTypes.string,
-        stateCode: PropTypes.string,
-        postalCode: PropTypes.string,
-        countryCode: PropTypes.string,
-        use: PropTypes.string,
-      })),
-      telecoms: PropTypes.arrayOf(PropTypes.shape({
-        system: PropTypes.string,
-        value: PropTypes.string,
-        use: PropTypes.string,
-      })),
+      addresses: PropTypes.string,
+      telecoms: PropTypes.string,
     })).isRequired,
   }),
   onRowClick: PropTypes.func,

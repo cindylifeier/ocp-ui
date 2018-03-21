@@ -24,6 +24,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
+import { flattenOrganizationData } from './helpers';
 
 export class Organizations extends React.PureComponent {
   constructor(props) {
@@ -81,7 +82,7 @@ export class Organizations extends React.PureComponent {
     // By initial to show listing organizations data
     let organizationData = {
       loading: organizations.listOrganizations.loading,
-      data: organizations.listOrganizations.data,
+      data: flattenOrganizationData(organizations.listOrganizations.data),
       currentPage: organizations.listOrganizations.currentPage,
       totalNumberOfPages: organizations.listOrganizations.totalNumberOfPages,
       handlePageClick: this.handleListPageClick,
@@ -89,7 +90,7 @@ export class Organizations extends React.PureComponent {
     if (this.state.isShowSearchResult) {
       organizationData = {
         loading: organizations.searchOrganizations.loading,
-        data: organizations.searchOrganizations.result,
+        data: flattenOrganizationData(organizations.searchOrganizations.result),
         currentPage: organizations.searchOrganizations.currentPage,
         totalNumberOfPages: organizations.searchOrganizations.totalNumberOfPages,
         handlePageClick: this.handleSearchPageClick,
