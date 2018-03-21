@@ -45,7 +45,7 @@ function ManageTask(props) {
     <div>
       {((editMode && (currentTask || isMainTask)) || !editMode) &&
       <Formik
-        initialValues={setFormData(currentTask, isMainTask, parentTask, requester)}
+        initialValues={setFormData(currentTask, isMainTask, parentTask, organization, selectedPatient, requester)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -131,24 +131,20 @@ function setFormData(currentTask, isMainTask, parentTask, organization, selected
     // Create Main Task Form
     formData = mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester);
   }
+  console.log('formData', formData);
   return formData;
 }
 
-function mapPropsToRequester(requester) {
+function mapTaskReadProperites(requester) {
   return {
     selRequester: Util.setEmptyStringWhenUndefined(getResourceName(requester)),
+    authoredOn: new Date(),
+    lastModifiedDate: new Date(),
+    taskStart: new Date(),
   };
 }
 
 function mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester) {
-  let selOrg = {};
-  let organizationData = {};
-  if (organization && organization.length > 0) {
-    selOrg = organization[0];
-    organizationData = {
-      selOrganization: selOrg && selOrg.display ? selOrg.display : '',
-    };
-  }
   // Row 1
   let activityDefinition = {};
   if (parentTask && parentTask.definition && parentTask.definition.reference) {
@@ -156,6 +152,18 @@ function mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requ
       activityDefinition: Util.setEmptyStringWhenUndefined(parentTask.definition.reference),
     };
   }
+
+  // Row 2
+  let selOrganization = {};
+  if (organization && organization.length > 0 && organization[0] != null && organization[0].display != null) {
+    selOrganization = {
+      selOrganization: organization[0].display,
+    };
+  }
+  const patientName = {
+    patientName: Util.setEmptyStringWhenUndefined(getResourceName(selectedPatient)),
+  };
+
   // Row 5
   let taskOwner = {};
   if (parentTask && parentTask.owner && parentTask.owner.reference) {
@@ -169,13 +177,7 @@ function mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requ
       partOf: `Task/${parentTask.logicalId}`,
     };
   }
-  const readData = {
-    patientName: Util.setEmptyStringWhenUndefined(getResourceName(selectedPatient)),
-    authoredOn: new Date(),
-    lastModifiedDate: new Date(),
-    taskStart: new Date(),
-  };
-  return merge(activityDefinition, organizationData, taskOwner, selPartOf, readData, mapPropsToRequester(requester));
+  return merge(activityDefinition, selOrganization, patientName, taskOwner, selPartOf, mapTaskReadProperites(requester));
 }
 
 function mapMainTaskToEditForm(task) {
