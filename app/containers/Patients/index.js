@@ -12,10 +12,11 @@ import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PatientSearchResult from 'components/PatientSearchResult';
+
 import { MANAGE_PATIENT_URL } from 'containers/App/constants';
 import { getCareTeams } from 'containers/CareTeams/actions';
 import { getTasks } from 'containers/Tasks/actions';
@@ -37,12 +38,14 @@ import {
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectTotalPages,
+  makeSelectPatientTotalElements,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import { SEARCH_BAR_TEXT_LENGTH } from './constants';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+
 
 export class Patients extends React.PureComponent {
 
@@ -128,11 +131,19 @@ export class Patients extends React.PureComponent {
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />
         {this.props.searchResult &&
-        <CenterAlignedUltimatePagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={this.handleChangePage}
-        />
+        <div>
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            onChange={this.handleChangePage}
+          />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.searchResult.length}
+          />
+        </div>
         }
         {/* TODO: Will move ConfirmPatientModal to upcoming tasks component*/}
         {this.state.selectedPatient &&
@@ -159,6 +170,7 @@ Patients.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
   onChangePage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
@@ -173,6 +185,7 @@ Patients.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   searchResult: makeSelectPatientSearchResult(),
+  totalElements: makeSelectPatientTotalElements(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
   currentPage: makeSelectCurrentPage(),
