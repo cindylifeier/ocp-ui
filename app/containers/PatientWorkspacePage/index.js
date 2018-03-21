@@ -8,27 +8,200 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import renderNotFoundComponent from 'containers/NotFoundPage/render';
+import GoldenLayout from 'components/GoldenLayout';
+import Page from 'components/Page';
 import makeSelectPatientWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
+export const initialStateMetadata =
+  {
+    settings: {
+      hasHeaders: true,
+      constrainDragToContainer: false,
+      reorderEnabled: true,
+      selectionEnabled: false,
+      popoutWholeStack: false,
+      blockedPopoutsThrowError: true,
+      closePopoutsOnUnload: true,
+      showPopoutIcon: true,
+      showMaximiseIcon: true,
+      showCloseIcon: true,
+      responsiveMode: 'onload',
+      tabOverlapAllowance: 0,
+      reorderOnTabMenuClick: true,
+      tabControlOffset: 10,
+    },
+    dimensions: {
+      borderWidth: 5,
+      borderGrabWidth: 15,
+      minItemHeight: 10,
+      minItemWidth: 10,
+      headerHeight: 20,
+      dragProxyWidth: 300,
+      dragProxyHeight: 200,
+    },
+    labels: {
+      close: 'close',
+      maximise: 'maximise',
+      minimise: 'minimise',
+      popout: 'open in new window',
+      popin: 'pop in',
+      tabDropdown: 'additional tabs',
+    },
+    content: [{
+      type: 'column',
+      isClosable: true,
+      reorderEnabled: true,
+      title: '',
+      width: 100,
+      content: [{
+        type: 'row',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        height: 80,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 80,
+          width: 50,
+          content: [{
+            title: 'My To Do',
+            type: 'component',
+            componentName: 'todo',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          content: [{
+            title: 'Calendar',
+            type: 'component',
+            componentName: 'calendar',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        },
+        ],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 70,
+        content: [{
+          title: 'Tasks',
+          type: 'component',
+          componentName: 'tasks',
+          isClosable: true,
+          reorderEnabled: true,
+        },
+        ],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 70,
+        content: [{
+          title: 'Communication',
+          type: 'component',
+          componentName: 'communication',
+          isClosable: true,
+          reorderEnabled: true,
+        },
+        ],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 70,
+        content: [{
+          title: 'My Appointments',
+          type: 'component',
+          componentName: 'appointments',
+          isClosable: true,
+          reorderEnabled: true,
+        },
+        ],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 70,
+        content: [{
+          title: 'Consents',
+          type: 'component',
+          componentName: 'consents',
+          isClosable: true,
+          reorderEnabled: true,
+        },
+        ],
+      },
+      ],
+    },
+    ],
+    isClosable: true,
+    reorderEnabled: true,
+    title: '',
+    openPopouts: [],
+    maximisedItemId: null,
+  };
+
+// TODO: will replace with particular render components
+export const componentMetadata = [
+  { name: 'todo', text: 'My to do', factoryMethod: renderNotFoundComponent },
+  { name: 'calendar', text: 'Calendar', factoryMethod: renderNotFoundComponent },
+  { name: 'tasks', text: 'Tasks', factoryMethod: renderNotFoundComponent },
+  { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
+  { name: 'consents', text: 'Consents', factoryMethod: renderNotFoundComponent },
+];
 
 export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Patient Workspace</title>
           <meta name="description" content="Patient workspace page of Omnibus Care Plan application" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
-      </div>
+        <GoldenLayout
+          containerHeight="380vh"
+          containerId="golden-patient-workspace"
+          componentMetadata={componentMetadata}
+          stateMetadata={initialStateMetadata}
+        />
+      </Page>
     );
   }
 }
