@@ -16,6 +16,7 @@ import SelectField from 'components/SelectField';
 import TextField from 'components/TextField';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import MenuItem from 'material-ui/MenuItem';
+import Padding from 'components/Padding';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import messages from './messages';
@@ -72,13 +73,15 @@ function SearchRecipientDialogContent(props) {
                       </SelectField>
                     </Cell>
                     <Cell>
-                      <StyledIconButton
-                        tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        <ActionSearch />
-                      </StyledIconButton>
+                      <Padding top={'40px'}>
+                        <StyledIconButton
+                          tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          <ActionSearch />
+                        </StyledIconButton>
+                      </Padding>
                     </Cell>
                   </Grid>
                 </FormCell>
