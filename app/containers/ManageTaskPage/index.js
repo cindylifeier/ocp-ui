@@ -65,7 +65,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -183,6 +183,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       tasksByPatient,
     } = this.props;
     let logicalId = this.props.match.params.id;
+    let currentTask = null;
     if (logicalId && this.props.tasks) {
       currentTask = find(this.props.tasks.data.elements, { logicalId });
     }
@@ -190,7 +191,6 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const isMainTask = queryObj.isMainTask === 'true';
     logicalId = queryObj.mainTaskId;
     const editMode = !isUndefined(match.params.id);
-    let currentTask = null;
     let parentTask = null;
     if (logicalId && this.props.tasks) {
       parentTask = find(this.props.tasks.data.elements, { logicalId });
