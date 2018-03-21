@@ -5,6 +5,8 @@
  */
 
 import {
+  GET_PRACTITIONERS,
+  GET_PRACTITIONERS_SUCCESS,
   INITIALIZE_PRACTITIONERS,
   SEARCH_PRACTITIONERS,
   SEARCH_PRACTITIONERS_ERROR,
@@ -14,6 +16,20 @@ import {
 export function initializePractitioners() {
   return {
     type: INITIALIZE_PRACTITIONERS,
+  };
+}
+
+export function getPractitioners(currentPage) {
+  return {
+    type: GET_PRACTITIONERS,
+    currentPage,
+  };
+}
+
+export function getPractitionersSuccess(practitioners) {
+  return {
+    type: GET_PRACTITIONERS_SUCCESS,
+    practitioners,
   };
 }
 
