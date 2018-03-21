@@ -1,11 +1,9 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
-import isEmpty from 'lodash/isEmpty';
 
 import { searchOrganizations } from 'containers/Organizations/api';
 import { makeSelectProviderRoles, makeSelectProviderSpecialties } from 'containers/App/lookupSelectors';
 import { showNotification } from 'containers/Notification/actions';
-import makeSelectPractitioners from 'containers/Practitioners/selectors';
 import { HOME_URL } from 'containers/App/constants';
 import {
   getOrganizationsError,
@@ -15,7 +13,7 @@ import {
   savePractitionerError,
 } from './actions';
 import { GET_ORGANIZATIONS, GET_PRACTITIONER, SAVE_PRACTITIONER } from './constants';
-import { getNotificationAction, getPractitioner, getPractitionerById, savePractitioner } from './api';
+import { getNotificationAction, getPractitioner, savePractitioner } from './api';
 
 function* savePractitionerSaga(action) {
   try {
@@ -34,14 +32,7 @@ function* savePractitionerSaga(action) {
 
 function* getPractitionerSaga({ logicalId }) {
   try {
-    let practitioner;
-    // Load practitioners from store
-    const practitioners = yield select(makeSelectPractitioners);
-    practitioner = getPractitionerById(practitioners.searchOrganizations.result, logicalId);
-    // fetch from backend if cannot find practitioner from store
-    if (isEmpty(practitioner)) {
-      practitioner = yield call(getPractitioner, logicalId);
-    }
+    const practitioner = yield call(getPractitioner, logicalId);
     yield put(getPractitionerSuccess(practitioner));
   } catch (error) {
     yield put(showNotification('No matching practitioner found.'));
