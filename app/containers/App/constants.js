@@ -115,15 +115,13 @@ export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
 export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
 
 /**
- *  Constants to hold the workflow roles
+ *  Constants to hold the workflow role values
  * @type {string}
  */
-export const OCP_ADMIN = 'OCP Admin';
-export const CARE_MANAGER = 'Care Manager';
-export const ORGANIZATION_ADMIN = 'Organization Admin';
-export const CARE_COORDINATOR = 'Care Coordinator';
-export const PATIENT = 'Patient';
-export const PCP = 'PCP';
+export const OCP_ADMIN_ROLE_VALUE = 'ocpAdminRole';
+export const CARE_MANAGER_ROLE_VALUE = 'careManagerRole';
+export const CARE_COORDINATOR_ROLE_VALUE = 'careCoordinatorRole';
+export const PATIENT_ROLE_VALUE = 'patientRole';
 
 /**
  *  Constants to hold the default pagination page size and start page number

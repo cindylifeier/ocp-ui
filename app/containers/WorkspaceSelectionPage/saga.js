@@ -1,13 +1,29 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
-import { GET_CARE_COORDINATORS, GET_CARE_MANAGERS, GET_ORGANIZATIONS, GET_PATIENTS } from './constants';
+import {
+  GET_CARE_COORDINATORS,
+  GET_CARE_MANAGERS,
+  GET_ORGANIZATIONS,
+  GET_PATIENTS,
+  GET_WORKFLOW_ROLES,
+} from './constants';
 import {
   getCareCoordinatorsSuccess,
   getCareManagersSuccess,
   getOrganizationsSuccess,
   getPatientsSuccess,
+  getWorkflowRolesSuccess,
 } from './actions';
-import { getCareCoordinators, getCareManagers, getActiveOrganizations, getPatients } from './api';
+import { getActiveOrganizations, getCareCoordinators, getCareManagers, getPatients, getWorkflowRoles } from './api';
+
+export function* getWorkflowRolesSaga() {
+  try {
+    const workflowRoles = yield call(getWorkflowRoles);
+    yield put(getWorkflowRolesSuccess(workflowRoles));
+  } catch (err) {
+    yield put(showNotification('Failed to get the workflow roles.'));
+  }
+}
 
 export function* getOrganizationsSaga() {
   try {
@@ -45,6 +61,10 @@ export function* getPatientsSaga() {
   }
 }
 
+export function* watchGetWorkflowRolesSaga() {
+  yield takeLatest(GET_WORKFLOW_ROLES, getWorkflowRolesSaga);
+}
+
 export function* watchGetOrganizationsSaga() {
   yield takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga);
 }
@@ -66,6 +86,7 @@ export function* watchGetPatientsSaga() {
  */
 export default function* rootSaga() {
   yield all([
+    watchGetWorkflowRolesSaga(),
     watchGetOrganizationsSaga(),
     watchGetCareManagersSaga(),
     watchGetCareCoordinatorsSaga(),
