@@ -1,8 +1,8 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { showNotification } from 'containers/Notification/actions';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import getTasksApi, { cancelTask } from './api';
-import { showNotification } from '../Notification/actions';
 import { cancelTaskError, cancelTaskSuccess, getTasksError, getTasksSuccess } from './actions';
 import { CANCEL_TASK, GET_TASKS } from './constants';
 
@@ -20,10 +20,16 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getTasksSaga({ query }) {
+export function* getTasksSaga({ pageNumber }) {
   try {
-    const tasksPage = yield call(getTasksApi, query);
-    yield put(getTasksSuccess(tasksPage));
+    const patient = yield select(makeSelectPatient());
+    if (!patient || !patient.id) {
+      yield put(showNotification('No patient is selected.'));
+    } else {
+      const { id } = patient;
+      const tasksPage = yield call(getTasksApi, id, pageNumber);
+      yield put(getTasksSuccess(tasksPage));
+    }
   } catch (err) {
     const errMsg = getErrorMessage(err);
     yield put(getTasksError(err));
