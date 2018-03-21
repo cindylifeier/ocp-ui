@@ -67,7 +67,7 @@ function mapToBackendPatient(patientFormData) {
 function mapToBackendFlags(flags) {
   return flags.map((flag) => {
     const { status, category, logicalId, code, flagStart, flagEnd } = flag;
-    return { status, category, logicalId, code, period: { start: Util.formatDate(flagStart), end: Util.formatDate(flagEnd) }, author: { display: 'HealthCare Officer', reference: 'Practitioner/1557' } };
+    return { status, category, logicalId, code, period: { start: flagStart && Util.formatDate(flagStart), end: flagEnd && Util.formatDate(flagEnd) }, author: { display: 'HealthCare Officer', reference: 'Practitioner/1557' } };
   });
 }
 
@@ -104,6 +104,6 @@ export function mapToFrontendPatientForm(patientData) {
 function mapToFrontendFlags(flags) {
   return flags.map((flag) => {
     const { status, category, logicalId, code, period, author } = flag;
-    return { status, category, logicalId, code, flagStart: new Date(period.start), flagEnd: new Date(period.end), author };
+    return { status, category, logicalId, code, flagStart: period.start && new Date(period.start), flagEnd: period.end && new Date(period.end), author };
   });
 }

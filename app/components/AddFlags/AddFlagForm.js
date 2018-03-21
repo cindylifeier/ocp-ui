@@ -6,6 +6,7 @@ import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 import find from 'lodash/find';
+import remove from 'lodash/remove';
 
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
@@ -16,7 +17,10 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
-function checkDuplicate(flags, code, category) {
+function isDuplicate(initialValues, flags, code, category) {
+  if (initialValues !== null) {
+    return find(remove(flags, initialValues.index), { code, category }) !== undefined;
+  }
   return find(flags, { code, category }) !== undefined;
 }
 
@@ -132,7 +136,7 @@ function AddFlagForm(props) {
                 <StyledRaisedButton
                   type="submit"
                   label={<FormattedMessage {...messages.saveFlagButton} />}
-                  disabled={!dirty || isSubmitting || !isValid || checkDuplicate(flags, values.code, values.category)}
+                  disabled={!dirty || isSubmitting || !isValid || isDuplicate(initialValues, flags, values.code, values.category)}
                 />
                 <StyledFlatButton
                   type="reset"
