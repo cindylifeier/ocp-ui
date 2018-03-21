@@ -309,16 +309,14 @@ function mapMainTaskToEditForm(task) {
 
 function getResourceName(resource) {
   if (resource === undefined) {
-    return '';
+    return EMPTY_STRING;
   }
   const names = resource.name;
   return names && names
     .map((name) => {
       const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
       const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      let fullName = EMPTY_STRING;
-      fullName = `${firstName} ${lastName}`;
-      return fullName;
+      return `${firstName} ${lastName}`;
     })
     .join(', ');
 }
