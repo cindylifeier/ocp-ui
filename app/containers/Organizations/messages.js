@@ -12,6 +12,6 @@ export default defineMessages({
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.Organizations.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
+    defaultMessage: 'New Organization',
   },
 });

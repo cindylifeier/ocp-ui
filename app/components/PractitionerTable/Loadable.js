@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for PractitionerSearchResult
+ * Asynchronously loads the component for PractitionerTable
  *
  */
 
