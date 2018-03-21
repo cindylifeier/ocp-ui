@@ -19,8 +19,6 @@ export const GET_LOOKUPS = 'ocpui/App/GET_LOOKUPS';
 export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
-export const GET_PATIENT = 'ocpui/ManageCareTeamPage/GET_PATIENT';
-export const GET_PATIENT_SUCCESS = 'ocpui/ManageCareTeamPage/GET_PATIENT_SUCCESS';
 
 /**
  *  Global object keys
@@ -110,6 +108,24 @@ export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
 export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
+
+/**
+ *  Constants to hold the workspace urls
+ * @type {string}
+ */
+export const WORKSPACE_SELECTION_URL = '/ocp-ui/workspace-selection';
+export const ADMIN_WORKSPACE = '/ocp-ui/admin-workspace';
+export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
+export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
+
+/**
+ *  Constants to hold the workflow role values
+ * @type {string}
+ */
+export const OCP_ADMIN_ROLE_VALUE = 'ocpAdminRole';
+export const CARE_MANAGER_ROLE_VALUE = 'careManagerRole';
+export const CARE_COORDINATOR_ROLE_VALUE = 'careCoordinatorRole';
+export const PATIENT_ROLE_VALUE = 'patientRole';
 
 /**
  *  Constants to hold the default pagination page size and start page number

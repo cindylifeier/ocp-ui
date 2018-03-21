@@ -19,7 +19,13 @@ const makeSelectUpcomingAppointments = () => createSelector(
   (substate) => substate.toJS()
 );
 
-export default makeSelectUpcomingAppointments;
+const makeSelectShowPastAppointments = () => createSelector(
+  selectUpcomingAppointmentsDomain,
+  (substate) => substate.get('showPastAppointments'),
+);
+
 export {
   selectUpcomingAppointmentsDomain,
+  makeSelectUpcomingAppointments,
+  makeSelectShowPastAppointments,
 };

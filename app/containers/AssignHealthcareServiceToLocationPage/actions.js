@@ -22,12 +22,9 @@ export function initializeAssignHealthCareServiceToLocationPage() {
   };
 }
 
-export function getHealthcareServicesLocationAssignment(organizationId, organizationName, locationId, currentPage = 1) {
+export function getHealthcareServicesLocationAssignment(currentPage = 1) {
   return {
     type: GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
-    organizationId,
-    locationId,
-    organizationName,
     currentPage,
   };
 }
@@ -46,11 +43,9 @@ export function getHealthcareServicesLocationAssignmentServicesError(error) {
   };
 }
 
-export function updateHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId) {
+export function updateHealthcareServicesLocationAssignment(healthcareServiceId) {
   return {
     type: UPDATE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
-    organizationId,
-    locationId,
     healthcareServiceId,
   };
 }
@@ -62,11 +57,9 @@ export function updateHealthcareServicesLocationAssignmentServicesError(error) {
   };
 }
 
-export function unassignHealthcareServicesLocationAssignment(organizationId, locationId, healthcareServiceId) {
+export function unassignHealthcareServicesLocationAssignment(healthcareServiceId) {
   return {
     type: UNASSIGN_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT,
-    organizationId,
-    locationId,
     healthcareServiceId,
   };
 }

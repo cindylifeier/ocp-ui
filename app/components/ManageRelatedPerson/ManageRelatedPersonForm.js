@@ -38,7 +38,7 @@ function ManageRelatedPersonForm(props) {
     telecomUses,
     telecomSystems,
     relationshipTypes,
-    selectedPatient,
+    patient,
   } = props;
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   const addAddressesProps = {
@@ -64,7 +64,7 @@ function ManageRelatedPersonForm(props) {
           <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}>
             <FormattedMessage {...messages.patientLabel} />&nbsp;
           </InlineLabel>
-          <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+          <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
         </Cell>
         <Cell area="active">
           <Checkbox
@@ -236,7 +236,7 @@ ManageRelatedPersonForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
 };
 
 export default ManageRelatedPersonForm;

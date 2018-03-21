@@ -20,7 +20,7 @@ import ManageTaskForm from './ManageTaskForm';
 function ManageTask(props) {
   const {
     onSave, taskStatus, requestIntent,
-    requestPriority, taskPerformerType, selectedPatient,
+    requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
     currentTask, editMode,
   } = props;
@@ -29,7 +29,7 @@ function ManageTask(props) {
     requestIntent,
     requestPriority,
     taskPerformerType,
-    selectedPatient,
+    patient,
     organization,
     activityDefinitions,
     practitioners,
@@ -91,7 +91,7 @@ ManageTask.propTypes = {
   requestIntent: PropTypes.array.isRequired,
   requestPriority: PropTypes.array.isRequired,
   taskPerformerType: PropTypes.array.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
@@ -134,7 +134,7 @@ function mapTaskToCreateForm(props) {
   }
   const formData = {
     requester: Util.setEmptyStringWhenUndefined(getResourceName(props.requester)),
-    patientName: Util.setEmptyStringWhenUndefined(getResourceName(props.selectedPatient)),
+    patientName: Util.setEmptyStringWhenUndefined(getResourceName(props.patient)),
     authoredOn: new Date(),
     lastModifiedDate: new Date(),
     taskStart: new Date(),

@@ -6,17 +6,11 @@
 
 import { fromJS } from 'immutable';
 import find from 'lodash/find';
-import {
-  CANCEL_TASK_SUCCESS,
-  GET_TASKS, GET_TASKS_ERROR, GET_TASKS_SUCCESS,
-  INITIALIZE_TASKS,
-} from './constants';
+import { CANCEL_TASK_SUCCESS, GET_TASKS, GET_TASKS_ERROR, GET_TASKS_SUCCESS, INITIALIZE_TASKS } from './constants';
 
 const initialState = fromJS({
   loading: false,
-  patientName: null,
   data: {},
-  query: null,
 });
 
 function tasksReducer(state = initialState, action) {
@@ -26,9 +20,7 @@ function tasksReducer(state = initialState, action) {
     case GET_TASKS:
       return state
         .set('loading', true)
-        .set('patientName', action.patientName)
-        .set('patientId', action.patientId)
-        .set('query', fromJS(action.query));
+        .set('data', fromJS({}));
     case GET_TASKS_SUCCESS:
       return state
         .set('loading', false)

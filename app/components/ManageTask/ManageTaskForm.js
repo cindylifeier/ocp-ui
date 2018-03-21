@@ -5,6 +5,7 @@ import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
 
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
@@ -155,7 +156,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
           >
             {eventTypes && eventTypes.map((eventType) =>
-              <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
+              <MenuItem key={eventType.code || eventType.reference || uniqueId()} value={eventType.code} primaryText={eventType.display} />,
             )}
           </SelectField>
           }

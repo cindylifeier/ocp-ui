@@ -21,8 +21,6 @@ const initialState = fromJS({
   loading: false,
   error: false,
   data: [],
-  organization: null,
-  location: null,
   currentPage: 0,
   totalNumberOfPages: 0,
   includeInactive: false,
@@ -33,13 +31,9 @@ function assignHealthCareServiceToLocationPageReducer(state = initialState, acti
     case INITIALIZE_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT:
       return initialState;
     case GET_HEALTHCARE_SERVICES_LOCATION_ASSIGNMENT: {
-      const organization = { id: action.organizationId, name: action.organizationName };
-      const location = { id: action.locationId };
       return state
         .set('currentPage', action.currentPage)
         .set('includeInactive', action.includeInactive)
-        .set('organization', organization)
-        .set('location', location)
         .set('loading', true)
         .set('error', false);
     }
