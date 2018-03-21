@@ -1,14 +1,16 @@
 import * as queryString from 'query-string';
 import request from '../../utils/request';
-import { PAGE_SIZE } from './constants';
 import { BASE_TASKS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
 
-export function getTodos(patientId, definition, pageNumber) {
-  const pageSize = PAGE_SIZE;
-  const queryParams = { patientId, definition, pageNumber, pageSize };
+export function getTodos(patientId, definition) {
+  console.log(patientId);
+  console.log(definition);
+  // TODO: Remove this hard code
+  const queryParams = { patientId: '152', definition: 'harry' };
+  // const queryParams = { patientId, definition };
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/subtasks/search?${stringifiedParams}`;
+  const url = `${baseEndpoint}/subtasks?${stringifiedParams}`;
   return request(url);
 }
