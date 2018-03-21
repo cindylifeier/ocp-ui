@@ -30,7 +30,7 @@ import {
 } from 'containers/SearchRecipient/actions';
 
 import { getLookupsAction } from 'containers/App/actions';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
   makeSelectCommunicationNotDoneReasons,
@@ -41,6 +41,7 @@ import {
 } from 'containers/App/constants';
 import isUndefined from 'lodash/isUndefined';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
+import { makeSelectUpcomingAppointments } from 'containers/UpcomingAppointments/selectors';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageCommunication from 'components/ManageCommunication';
@@ -67,7 +68,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
   componentWillMount() {
-    // Logged in Practitioner
     this.props.getPractitioner(this.state.practitionerId);
     this.props.getLookups();
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
@@ -211,8 +211,8 @@ ManageCommunicationPage.propTypes = {
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   selectedRecipients: PropTypes.array,
-  tasks: PropTypes.array,
-  appointments: PropTypes.array,
+  tasks: PropTypes.object,
+  appointments: PropTypes.object,
   communications: PropTypes.object,
   getEpisodeOfCares: PropTypes.func.isRequired,
   initializeSearchRecipients: PropTypes.func.isRequired,
@@ -221,7 +221,7 @@ ManageCommunicationPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedPatient: makeSelectSelectedPatient(),
+  selectedPatient: makeSelectPatient(),
   communicationStatus: makeSelectCommunicationStatus(),
   communicationCategories: makeSelectCommunicationCategories(),
   communicationNotDoneReasons: makeSelectCommunicationNotDoneReasons(),
@@ -231,7 +231,7 @@ const mapStateToProps = createStructuredSelector({
   practitioner: makeSelectPractitioner(),
   communications: makeSelectCommunications(),
   tasks: makeSelectTasks(),
-  appointments: makeSelectTasks(),
+  appointments: makeSelectUpcomingAppointments(),
 });
 
 function mapDispatchToProps(dispatch) {

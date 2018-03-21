@@ -29,7 +29,7 @@ import SearchRecipientDialogContent from 'components/SearchRecipientDialogConten
 import { getLookupsAction } from 'containers/App/actions';
 import { PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -136,7 +136,7 @@ SearchRecipient.propTypes = {
 const mapStateToProps = createStructuredSelector({
   recipients: makeSelectRecipients(),
   participantTypes: makeSelectParticipantTypes(),
-  selectedPatient: makeSelectSelectedPatient(),
+  selectedPatient: makeSelectPatient(),
   selectedRecipients: makeSelectSelectedRecipients(),
 });
 

@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { getCommunications } from 'containers/Communications/actions';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import CommunicationsTable from 'components/CommunicationsTable';
 import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -26,7 +26,6 @@ import makeSelectCommunications from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-
 
 export class Communications extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -93,7 +92,7 @@ Communications.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectCommunications(),
-  selectedPatient: makeSelectSelectedPatient(),
+  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
