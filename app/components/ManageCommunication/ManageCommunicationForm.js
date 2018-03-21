@@ -71,6 +71,24 @@ function ManageCommunicationForm(props) {
     ));
   }
 
+  function canSave(isDirty, recipients, initialRecipients) {
+    let isFormDirty = isDirty;
+    const identityOfArray = 'reference';
+    if (!Util.isUnorderedArraysEqual(recipients, initialRecipients, identityOfArray)) {
+      isFormDirty = true;
+    }
+    return isFormDirty;
+  }
+
+  function getPatientName(patient) {
+    let patientName = '';
+    if (patient && patient.name && patient.name.length > 0) {
+      const name = patient.name[0];
+      patientName = (name && name.firstName && name.lastName) ? name.firstName.concat(' ').concat(name.lastName) : '';
+    }
+    return patientName;
+  }
+
   return (
     <Form>
       <FormGrid columns={12}>
@@ -245,7 +263,7 @@ function ManageCommunicationForm(props) {
                 label={isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
+                disabled={!canSave(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
               />
             </Cell>
             <Cell>
@@ -264,7 +282,6 @@ function ManageCommunicationForm(props) {
   );
 }
 
-
 ManageCommunicationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
@@ -282,24 +299,6 @@ ManageCommunicationForm.propTypes = {
   datePickerMode: PropTypes.object.isRequired,
   patientUrl: PropTypes.string.isRequired,
 };
-
-function isDirty(dirty, selectedRecipients, initialSelectedRecipients) {
-  let isFormDirty = dirty;
-  const identityOfArray = 'reference';
-  if (!Util.isUnorderedArraysEqual(selectedRecipients, initialSelectedRecipients, identityOfArray)) {
-    isFormDirty = true;
-  }
-  return isFormDirty;
-}
-
-
-function getPatientName(patient) {
-  if (patient && patient.name && patient.name.length > 0) {
-    const name = patient.name[0];
-    return (name && name.firstName && name.lastName) ? name.firstName.concat(' ').concat(name.lastName) : '';
-  }
-  return '';
-}
 
 export default ManageCommunicationForm;
 
