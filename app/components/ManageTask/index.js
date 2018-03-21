@@ -43,9 +43,9 @@ function ManageTask(props) {
 
   return (
     <div>
-      {((editMode && currentTask) || !editMode) &&
+      {((editMode && (currentTask || isMainTask)) || !editMode) &&
       <Formik
-        initialValues={setFormData(currentTask, isMainTask, parentTask, props)}
+        initialValues={setFormData(currentTask, isMainTask, parentTask, requester)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -122,58 +122,60 @@ ManageTask.propTypes = {
   }),
 };
 
-function setFormData(currentTask, isMainTask, parentTask, props) {
+function setFormData(currentTask, isMainTask, parentTask, organization, selectedPatient, requester) {
   let formData = null;
   if (!isEmpty(currentTask) && isMainTask) {
     // Edit Main TaskForm
-    formData = merge(mapMainTaskToEditForm(currentTask));
+    formData = mapMainTaskToEditForm(currentTask);
   } else {
     // Create Main Task Form
-    formData = merge(mapMainTaskToCreateForm(props));
+    formData = mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester);
   }
-  console.log('formdata', formData);
   return formData;
 }
 
+function mapPropsToRequester(requester) {
+  return {
+    selRequester: Util.setEmptyStringWhenUndefined(getResourceName(requester)),
+  };
+}
 
-function mapMainTaskToCreateForm(props) {
+function mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester) {
   let selOrg = {};
-  let selOrganization = {};
-  if (props.organization && props.organization.length > 0) {
-    selOrg = props.organization[0];
-    selOrganization = {
-      selOrganization: Util.setEmptyStringWhenUndefined(selOrg.display),
+  let organizationData = {};
+  if (organization && organization.length > 0) {
+    selOrg = organization[0];
+    organizationData = {
+      selOrganization: selOrg && selOrg.display ? selOrg.display : '',
     };
   }
   // Row 1
   let activityDefinition = {};
-  if (props.parentTask && props.parentTask.definition && props.parentTask.definition.reference) {
+  if (parentTask && parentTask.definition && parentTask.definition.reference) {
     activityDefinition = {
-      activityDefinition: Util.setEmptyStringWhenUndefined(props.parentTask.definition.reference),
+      activityDefinition: Util.setEmptyStringWhenUndefined(parentTask.definition.reference),
     };
   }
   // Row 5
   let taskOwner = {};
-  if (props.parentTask && props.parentTask.owner && props.parentTask.owner.reference) {
+  if (parentTask && parentTask.owner && parentTask.owner.reference) {
     taskOwner = {
-      taskOwner: props.parentTask.owner.reference,
+      taskOwner: parentTask.owner.reference,
     };
   }
   let selPartOf = {};
-  if (props.parentTask && props.parentTask.description) {
+  if (parentTask && parentTask.logicalId) {
     selPartOf = {
-      selPartOf: props.parentTask.description,
+      partOf: `Task/${parentTask.logicalId}`,
     };
   }
   const readData = {
-    selRequester: Util.setEmptyStringWhenUndefined(getResourceName(props.requester)),
-    patientName: Util.setEmptyStringWhenUndefined(getResourceName(props.selectedPatient)),
+    patientName: Util.setEmptyStringWhenUndefined(getResourceName(selectedPatient)),
     authoredOn: new Date(),
     lastModifiedDate: new Date(),
     taskStart: new Date(),
   };
-  const formData = merge(activityDefinition, selOrganization, taskOwner, selPartOf, readData);
-  return formData;
+  return merge(activityDefinition, organizationData, taskOwner, selPartOf, readData, mapPropsToRequester(requester));
 }
 
 function mapMainTaskToEditForm(task) {
