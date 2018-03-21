@@ -5,20 +5,15 @@
 */
 
 import React from 'react';
-// import styled from 'styled-components';
 
-// import { FormattedMessage } from 'react-intl';
 import TodoCardGrid from 'components/TodoCardContent/TodoCardGrid';
 import ToDoCardCell from 'components/TodoCardContent/TodoCardCell';
 import Align from 'components/Align';
-import Checkbox from 'material-ui/Checkbox';
 import { Cell, Grid } from 'styled-css-grid';
-// import messages from './messages';
 import PropTypes from 'prop-types';
 
-
 function TodoCardContent(props) {
-  const { dueDate, patientName } = props;
+  const { dueDate, patientName, status, description, isPatientWorkspace } = props;
   const dueDateStr = 'Due '.concat(dueDate);
   return (
     <div>
@@ -27,27 +22,27 @@ function TodoCardContent(props) {
           <Grid columns="6fr 6fr" gap="">
             <Cell>
               <strong>
-                <Checkbox name="test" label={dueDateStr} />
+                {dueDateStr}
               </strong>
             </Cell>
             <Cell>
               <Align variant="right">
-                <strong>{patientName}</strong>
+                {isPatientWorkspace ? '' : <strong>{patientName}</strong>}
               </Align>
             </Cell>
           </Grid>
         </ToDoCardCell>
         <ToDoCardCell top={2} left={1} width={12}>
-         Confirm adherence to medication recommendations Old <br />
+          {description}
         </ToDoCardCell>
         <ToDoCardCell top={3} left={1} width={12}>
           <Grid columns="6fr 6fr" gap="">
             <Cell>
-              <span>!Overdue</span>
+              <span>{status}</span>
             </Cell>
             <Cell>
               <Align variant="right">
-                <a href="">View</a>
+                <a href="">Manage</a>
               </Align>
             </Cell>
           </Grid>
@@ -57,9 +52,13 @@ function TodoCardContent(props) {
   );
 }
 
+
 TodoCardContent.propTypes = {
-  dueDate: PropTypes.String.isRequired,
-  patientName: PropTypes.String.isRequired,
+  dueDate: PropTypes.string.isRequired,
+  patientName: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  isPatientWorkspace: PropTypes.bool.isRequired,
 };
 
 export default TodoCardContent;

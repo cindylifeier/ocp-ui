@@ -5,17 +5,13 @@
 */
 
 import React from 'react';
-// import styled from 'styled-components';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 import isEmpty from 'lodash/isEmpty';
 import TodoCard from 'components/TodoCard/index';
 import TodoCardContent from 'components/TodoCardContent/index';
 import PropTypes from 'prop-types';
 
 function TodoList(props) {
-  const { todos } = props;
+  const { todos, isPatientWorkspace } = props;
   return (
     <div>
       {todos && todos.length > 0 &&
@@ -23,6 +19,9 @@ function TodoList(props) {
           {!isEmpty(todos) && todos.map((todo) =>
             (<TodoCard key={todo.logicalId}>
               <TodoCardContent
+                isPatientWorkspace={isPatientWorkspace}
+                description={todo.description}
+                status={todo.taskDue}
                 dueDate={todo.executionPeriod && todo.executionPeriod.end ? todo.executionPeriod.end : ''}
                 patientName={todo.beneficiary.display}
               />
@@ -37,6 +36,7 @@ function TodoList(props) {
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
+  isPatientWorkspace: PropTypes.bool.isRequired,
 };
 
 export default TodoList;
