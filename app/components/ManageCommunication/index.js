@@ -153,6 +153,7 @@ function setInitialValues(communication, selectedPatient, practitioner, selected
       mapToFormField(communication, 'note'),
       mapToFormField(communication, 'categoryCode'),
       mapToFormField(communication, 'mediumCode'),
+      getEpisodeOfCareCodeReference(communication, 'context'),
       mapToTopicFromCommunication(communication),
       mapToFormField(communication, 'statusCode'),
     );
@@ -247,8 +248,8 @@ function mapToCommunication(values,
     notDoneReasonValue: notDoneReason ? notDoneReason.display : '',
     mediumCode,
     mediumValue: medium.display, // TODO fix tipo in key
-    subject: getReferenceObject(selectedPatient, PATIENT),
-    sender: getReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
+    subject: createReferenceObject(selectedPatient, PATIENT),
+    sender: createReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
     context: episodeOfCare,
     definition: createEmptyReference(),
     recipient: selectedRecipients, // TODO change to recipients
@@ -262,11 +263,19 @@ function mapToCommunication(values,
   return communication;
 }
 
-function getReferenceObject(object, referenceName) {
+function createReferenceObject(object, referenceName) {
   return {
     reference: getReference(object, referenceName),
     display: getDisplay(object),
   };
+}
+
+function getEpisodeOfCareCodeReference(referenceObject, referenceName) {
+  const episodeOfCareObject = { episodeOfCareCode: '' };
+  if (referenceObject && referenceObject[referenceName] && referenceObject[referenceName].reference) {
+    episodeOfCareObject.episodeOfCareCode = referenceObject[referenceName].reference;
+  }
+  return episodeOfCareObject;
 }
 
 function getTopicReference(referenceObject, referenceName) {
