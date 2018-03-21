@@ -71,8 +71,8 @@ function ManageCommunicationForm(props) {
     ));
   }
 
-  function canSave(isDirty, recipients, initialRecipients) {
-    let isFormDirty = isDirty;
+  function isDirty(formState, recipients, initialRecipients) {
+    let isFormDirty = formState;
     const identityOfArray = 'reference';
     if (!Util.isUnorderedArraysEqual(recipients, initialRecipients, identityOfArray)) {
       isFormDirty = true;
@@ -263,7 +263,7 @@ function ManageCommunicationForm(props) {
                 label={isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!canSave(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
+                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
               />
             </Cell>
             <Cell>
