@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 import { Step, StepLabel, Stepper } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -37,6 +38,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.handleCareCoordinatorChange = this.handleCareCoordinatorChange.bind(this);
     this.handlePatientChange = this.handlePatientChange.bind(this);
     this.handleNavigateTo = this.handleNavigateTo.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   getStepContentBasedOnRole() {
@@ -194,6 +196,19 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     this.props.history.push(linkTo);
   }
 
+  handleReset(event) {
+    event.preventDefault();
+    this.setState({
+      finished: false,
+      stepIndex: 0,
+      roleValue: this.props.workflowRoles.careManagerWorkflowRole.value,
+      organizationValue: null,
+      careManagerValue: null,
+      careCoordinatorValue: null,
+      patientValue: null,
+    });
+  }
+
   renderSelectRoleContent() {
     const {
       ocpAdminWorkflowRole, careManagerWorkflowRole,
@@ -292,10 +307,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                     <FlatButton
                       label="Reset"
                       secondary
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
+                      onClick={this.handleReset}
                     />
                   </Cell>
                   <Cell>
@@ -323,6 +335,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                       label={stepIndex === 2 ? 'Finish' : 'Next'}
                       primary
                       onClick={this.handleNext}
+                      disabled={(stepIndex > 0 && isEmpty(this.state.organizationValue)) ||
+                      (stepIndex > 1 && isEmpty(this.state.careManagerValue))
+                      }
                     />
                   </Cell>
                 </Grid>
@@ -361,10 +376,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                     <FlatButton
                       label="Reset"
                       secondary
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
+                      onClick={this.handleReset}
                     />
                   </Cell>
                   <Cell>
@@ -392,6 +404,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                       label={stepIndex === 2 ? 'Finish' : 'Next'}
                       primary
                       onClick={this.handleNext}
+                      disabled={(stepIndex > 0 && isEmpty(this.state.organizationValue)) ||
+                      (stepIndex > 1 && isEmpty(this.state.careCoordinatorValue))
+                      }
                     />
                   </Cell>
                 </Grid>
@@ -426,10 +441,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                     <FlatButton
                       label="Reset"
                       secondary
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
+                      onClick={this.handleReset}
                     />
                   </Cell>
                   <Cell>
@@ -462,6 +474,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
                           finished: stepIndex >= 1,
                         });
                       }}
+                      disabled={stepIndex > 0 && isEmpty(this.state.patientValue)}
                     />
                   </Cell>
                 </Grid>
