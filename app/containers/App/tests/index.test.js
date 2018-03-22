@@ -8,7 +8,7 @@ import { App } from '../index';
 
 configure({ adapter: new Adapter() });
 
-describe('<App />', () => {
+xdescribe('<App />', () => {
   it('should render some routes', () => {
     const renderedComponent = shallow(
       <App />

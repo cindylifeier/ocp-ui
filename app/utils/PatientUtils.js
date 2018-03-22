@@ -36,3 +36,7 @@ function combineAddress(address) {
   addressStr.push(address.countryCode || '');
   return addressStr.filter((field) => field !== '').join(', ');
 }
+
+export function getPatientName(name) {
+  return (name && name.firstName && name.lastName) ? name.firstName.concat(' ').concat(name.lastName) : '';
+}

@@ -48,6 +48,14 @@ class Util {
 
     return `${month}/${day}/${year}`;
   }
+
+  static getFromState(state, key) {
+    const value = state.get(key);
+    if (value) {
+      return value.toJS();
+    }
+    return null;
+  }
 }
 
 export default Util;

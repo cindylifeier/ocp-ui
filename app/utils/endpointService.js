@@ -27,6 +27,7 @@ export const BASE_ACTIVITY_DEFINITIONS_API_URL = 'ocpui/utils/BASE_ACTIVITY_DEFI
 export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
 
 
+export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
 /**
  * Configure all secured and unsecured endpoints
  * isSecured property is used to specify secured or unsecured endpoint. By default isSecured property will set true if it is missing to set
@@ -50,6 +51,7 @@ const apiEndpoints = [
   { key: BASE_EPISODE_OF_CARES_API_URL, url: `${BASE_API_URL}/ocp-fis/episode-of-cares` },
   { key: BASE_ACTIVITY_DEFINITIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/activity-definitions` },
   { key: BASE_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
+  { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
 ];
 
 const configuredEndpoints = collectEndpoints();

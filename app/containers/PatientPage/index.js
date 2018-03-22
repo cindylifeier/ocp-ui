@@ -13,13 +13,14 @@ import { createStructuredSelector } from 'reselect';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
-import renderNotFoundComponent from 'containers/NotFoundPage/render';
-import renderTasksComponent from 'containers/Tasks/render';
+import renderCommunicationsComponent from 'containers/Communications/render';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { getPatient, refreshPatient } from 'containers/App/contextActions';
+import renderTasksComponent from 'containers/Tasks/render';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
+
 
 export const initialStateMetadata =
   {
@@ -92,9 +93,9 @@ export const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Communication',
+            title: 'Communications',
             type: 'component',
-            componentName: 'communication',
+            componentName: 'communications',
             isClosable: true,
             reorderEnabled: true,
           }],
@@ -128,9 +129,8 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  // TODO: will replace with Communication render component
-  { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
+  { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

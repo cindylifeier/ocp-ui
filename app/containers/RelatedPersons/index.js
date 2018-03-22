@@ -15,6 +15,7 @@ import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
+import { getPatientName } from 'utils/PatientUtils';
 import injectReducer from 'utils/injectReducer';
 import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -54,12 +55,6 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
     }
   }
 
-  getPatientName(patient) {
-    const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
-    const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
-    return fullName;
-  }
-
   handlePageClick(pageNumber) {
     this.props.getRelatedPersons(true, pageNumber);
   }
@@ -76,7 +71,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
             <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
               <FormattedMessage {...messages.labelPatientName} />&nbsp;
             </InlineLabel>
-            <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(patient)}</span>
+            <span id={this.PATIENT_NAME_HTML_ID}>{getPatientName(patient)}</span>
           </InfoSection>)}
         {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
           <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
