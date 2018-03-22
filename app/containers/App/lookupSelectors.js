@@ -46,7 +46,11 @@ USCOREBIRTHSEX,
 USCOREETHNICITY,
 USCORERACE,
 USPSSTATES,
-} from './constants';
+  COMMUNICATION_STATUS,
+  COMMUNICATION_CATEGORY,
+  COMMUNICATION_NOT_DONE_REASON,
+  COMMUNICATION_MEDIUM,
+} from 'containers/App/constants';
 import selectGlobalDomain from './selectors';
 
 const makeSelectUspsStates = () => createSelector(
@@ -289,6 +293,26 @@ const makeSelectFlagCategories = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(FLAG_CATEGORY).toJS(),
 );
 
+const makeSelectCommunicationStatus = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_STATUS).toJS(),
+);
+
+const makeSelectCommunicationCategories = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_CATEGORY).toJS(),
+);
+
+const makeSelectCommunicationNotDoneReasons = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_NOT_DONE_REASON).toJS(),
+);
+
+const makeSelectCommunicationMedia = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_MEDIUM).toJS(),
+);
+
 // Task Resource Lookups - End
 export {
   makeSelectUspsStates,
@@ -339,4 +363,8 @@ export {
   makeSelectProviderSpecialties,
   makeSelectFlagStatuses,
   makeSelectFlagCategories,
+  makeSelectCommunicationStatus,
+  makeSelectCommunicationCategories,
+  makeSelectCommunicationNotDoneReasons,
+  makeSelectCommunicationMedia,
 };
