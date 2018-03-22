@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -77,7 +77,7 @@ Todos.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   todos: makeSelectTodos(),
-  selectedPatient: makeSelectSelectedPatient(),
+  selectedPatient: makeSelectPatient(),
   loading: makeSelectSearchLoading(),
 });
 
