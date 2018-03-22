@@ -69,7 +69,7 @@ export const initialStateMetadata =
         title: '',
         activeItemIndex: 0,
         content: [{
-          title: 'Organizations',
+          title: 'ORGANIZATIONS',
           type: 'component',
           componentName: 'organizations',
           isClosable: true,
@@ -85,7 +85,7 @@ export const initialStateMetadata =
         activeItemIndex: 0,
         width: 50,
         content: [{
-          title: 'Practitioners',
+          title: 'PRACTITIONERS',
           type: 'component',
           componentName: 'practitioners',
           isClosable: true,
