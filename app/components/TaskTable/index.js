@@ -27,18 +27,18 @@ function TaskTable({ elements, cancelTask, patientId }) {
       <TableHeader columns={TASK_TABLE_COLUMNS}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPriority} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
         <TableHeaderColumn />
       </TableHeader>
-      {!isEmpty(elements) && elements.map(({ logicalId, definition, status, priority, authoredOn, executionPeriod, agent, owner }) => (
+      {!isEmpty(elements) && elements.map(({ logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner }) => (
         <TableRow key={logicalId} columns={TASK_TABLE_COLUMNS}>
           <TableRowColumn>{definition && definition.display}</TableRowColumn>
           <TableRowColumn>{status && status.display}</TableRowColumn>
-          <TableRowColumn>{priority && priority.display}</TableRowColumn>
+          <TableRowColumn>{description}</TableRowColumn>
           <TableRowColumn>{authoredOn}</TableRowColumn>
           <TableRowColumn>{executionPeriod && executionPeriod.start} - {executionPeriod && executionPeriod.end} </TableRowColumn>
           <TableRowColumn>{agent && agent.display} </TableRowColumn>
