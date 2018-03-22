@@ -13,12 +13,14 @@ import { createStructuredSelector } from 'reselect';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
-import renderNotFoundComponent from 'containers/NotFoundPage/render';
-import renderTasksComponent from 'containers/Tasks/render';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import renderCommunicationsComponent from 'containers/Communications/render';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
+import renderTasksComponent from 'containers/Tasks/render';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
+
 
 export const initialStateMetadata =
   {
@@ -43,7 +45,7 @@ export const initialStateMetadata =
       borderGrabWidth: 15,
       minItemHeight: 10,
       minItemWidth: 10,
-      headerHeight: 20,
+      headerHeight: 30,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },
@@ -91,9 +93,9 @@ export const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Communication',
+            title: 'Communications',
             type: 'component',
-            componentName: 'communication',
+            componentName: 'communications',
             isClosable: true,
             reorderEnabled: true,
           }],
@@ -127,9 +129,8 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  // TODO: will replace with Communication render component
-  { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
+  { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
 ];
 
 export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -145,8 +146,9 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
-    const { patient } = this.props;
-    const patientDetailsProps = { patient };
+    const { patient, user } = this.props;
+    const isPatientUser = user.role === PATIENT_ROLE_VALUE;
+    const patientDetailsProps = { patient, isPatientUser };
     return (
       <div>
         <Helmet>
@@ -185,12 +187,16 @@ PatientPage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  user: PropTypes.shape({
+    role: PropTypes.string,
+  }),
   refreshPatient: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

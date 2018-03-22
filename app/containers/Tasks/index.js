@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
@@ -26,6 +25,7 @@ import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -66,6 +66,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     const { tasks: { loading, data }, patient } = this.props;
     const patientName = mapToPatientName(patient);
+    const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const taskBaseUrl = MANAGE_TASK_URL;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
@@ -90,7 +92,13 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {!isEmpty(data) &&
         <div>
           <CenterAlign>
-            <TaskTable elements={data} cancelTask={this.cancelTask} patientId={patient.id} />
+            <TaskTable
+              elements={data}
+              cancelTask={this.cancelTask}
+              patientId={patient.id}
+              communicationBaseUrl={communicationBaseUrl}
+              taskBaseUrl={taskBaseUrl}
+            />
           </CenterAlign>
         </div>
         }

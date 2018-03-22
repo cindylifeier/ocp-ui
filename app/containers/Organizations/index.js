@@ -85,6 +85,8 @@ export class Organizations extends React.PureComponent {
       data: organizations.listOrganizations.data,
       currentPage: organizations.listOrganizations.currentPage,
       totalNumberOfPages: organizations.listOrganizations.totalNumberOfPages,
+      currentPageSize: organizations.listOrganizations.currentPageSize,
+      totalElements: organizations.listOrganizations.totalElements,
       handlePageClick: this.handleListPageClick,
     };
     if (this.state.isShowSearchResult) {
@@ -93,6 +95,8 @@ export class Organizations extends React.PureComponent {
         data: organizations.searchOrganizations.result,
         currentPage: organizations.searchOrganizations.currentPage,
         totalNumberOfPages: organizations.searchOrganizations.totalNumberOfPages,
+        currentPageSize: organizations.searchOrganizations.currentPageSize,
+        totalElements: organizations.searchOrganizations.totalElements,
         handlePageClick: this.handleSearchPageClick,
       };
     }
@@ -120,6 +124,8 @@ Organizations.propTypes = {
       loading: PropTypes.bool.isRequired,
       currentPage: PropTypes.number.isRequired,
       totalNumberOfPages: PropTypes.number.isRequired,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
       data: PropTypes.array,
     }),
     searchOrganizations: PropTypes.shape({

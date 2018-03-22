@@ -24,8 +24,14 @@ const makeSelectRelatedPersonsSearchLoading = () => createSelector(
   (substate) => substate.get('loading'),
 );
 
+const makeSelectRelatedPersonsTotalElements = () => createSelector(
+  selectRelatedPersonsDomain,
+  (substate) => substate && substate.getIn(['data', 'totalElements']),
+);
+
 export default makeSelectRelatedPersons;
 export {
   selectRelatedPersonsDomain,
   makeSelectRelatedPersonsSearchLoading,
+  makeSelectRelatedPersonsTotalElements,
 };

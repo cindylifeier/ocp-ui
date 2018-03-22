@@ -79,6 +79,8 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
       data: flattenPractitionerData(practitioners.listPractitioners.data),
       currentPage: practitioners.listPractitioners.currentPage,
       totalNumberOfPages: practitioners.listPractitioners.totalNumberOfPages,
+      currentPageSize: practitioners.listPractitioners.currentPageSize,
+      totalElements: practitioners.listPractitioners.totalElements,
       handleChangePage: this.handleChangeListPage,
     };
     if (this.state.isShowSearchResult) {
@@ -87,6 +89,8 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         data: flattenPractitionerData(practitioners.searchPractitioners.result),
         currentPage: practitioners.searchPractitioners.currentPage,
         totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
+        currentPageSize: practitioners.searchPractitioners.currentPageSize,
+        totalElements: practitioners.searchPractitioners.totalElements,
         handleChangePage: this.handleChangeSearchPage,
       };
     }
@@ -103,10 +107,21 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
 Practitioners.propTypes = {
   practitioners: PropTypes.shape({
+    listPractitioners: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      currentPage: PropTypes.number.isRequired,
+      totalNumberOfPages: PropTypes.number.isRequired,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
+      result: PropTypes.array,
+      error: PropTypes.bool,
+    }),
     searchPractitioners: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
       currentPage: PropTypes.number.isRequired,
       totalNumberOfPages: PropTypes.number.isRequired,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
       result: PropTypes.array,
       error: PropTypes.bool,
     }),

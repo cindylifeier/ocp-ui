@@ -28,6 +28,11 @@ const makeSelectPatientSearchResult = () => createSelector(
   (patientsState) => patientsState && patientsState.getIn(['searchPatients', 'result']),
 );
 
+const makeSelectPatientTotalElements = () => createSelector(
+  selectPatients,
+  (patientsState) => patientsState && patientsState.getIn(['searchPatients', 'totalElements']),
+);
+
 const makeSelectCurrentPageSize = () => createSelector(
   selectPatients,
   (patientsState) => patientsState.getIn(['searchPatients', 'currentPageSize']),
@@ -71,4 +76,5 @@ export {
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
   makeSelectQueryIncludeInactive,
+  makeSelectPatientTotalElements,
 };

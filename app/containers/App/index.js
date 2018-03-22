@@ -41,8 +41,10 @@ import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPag
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
+import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import saga from './saga';
 import './styles.css';
+
 
 export function App() {
   return (
@@ -82,6 +84,7 @@ export function App() {
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
+            <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
