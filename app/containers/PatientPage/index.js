@@ -10,8 +10,10 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
+import { flattenPatientData } from 'containers/PatientPage/helpers';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
@@ -159,7 +161,10 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
         {patient &&
         <PatientPageGrid columns={1}>
           <PatientPageCell>
-            <PatientDetails {...patientDetailsProps} />
+            <PatientDetails
+              {...patientDetailsProps}
+              flattenPatientData={flattenPatientData}
+            />
           </PatientPageCell>
           <PatientPageCell>
             <GoldenLayout

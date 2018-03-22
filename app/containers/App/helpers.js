@@ -2,7 +2,11 @@
  * Helpers is a collection of useful common shared functions are used by OCP Domain containers
  *
  */
+import isEmpty from 'lodash/isEmpty';
+import upperFirst from 'lodash/upperFirst';
+import identity from 'lodash/identity';
 
+import { PHONE_SYSTEM } from 'utils/constants';
 import {
   ADMIN_WORKSPACE,
   CARE_COORDINATOR_ROLE_VALUE,
@@ -14,13 +18,21 @@ import {
   PRACTITIONER_WORKSPACE,
   WORKSPACE_SELECTION_URL,
 } from 'containers/App/constants';
-import upperFirst from 'lodash/upperFirst';
 
 /**
- * Mapping Fhir resource
+ * Mapping Fhir resources
  * @returns {*}
- * @param identifiers
  */
+
+export function mapToName(nameArray) {
+  let name;
+  if (!isEmpty(nameArray)) {
+    const [{ firstName, lastName }] = nameArray;
+    name = [firstName, lastName].filter(identity).join(' ');
+  }
+  return name;
+}
+
 export function mapToIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => {
     const system = identifier.system !== EMPTY_STRING ? identifier.system : EMPTY_STRING;
@@ -35,6 +47,13 @@ export function mapToTelecoms(telecoms) {
     const value = telecom.value !== EMPTY_STRING ? telecom.value : EMPTY_STRING;
     return `${system} ${value}`;
   }).join(', ');
+}
+
+export function mapToPhone(telecoms) {
+  return telecoms && telecoms
+    .filter((telecom) => telecom.system === PHONE_SYSTEM)
+    .map((telecom) => telecom.value)
+    .join(', ');
 }
 
 export function mapToAddresses(addresses) {
