@@ -55,7 +55,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
     this.handleSave = this.handleSave.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
     const logicalId = this.props.match.params.id;
     if (logicalId) {
@@ -137,6 +137,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
       telecomSystems,
       telecomUses,
       organization,
+      history: { goBack },
     } = this.props;
     const logicalId = this.props.match.params.id;
     const editMode = !isUndefined(match.params.id);
@@ -168,7 +169,7 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
             : <FormattedMessage {...messages.createHeader} />}
         />
         <PageContent>
-          <ManageHealthcareService {...formProps} onSave={this.handleSave} />
+          <ManageHealthcareService {...formProps} onSave={this.handleSave} onCancel={goBack} />
         </PageContent>
       </Page>
     );
@@ -177,6 +178,9 @@ export class ManageHealthcareServicePage extends React.PureComponent { // eslint
 
 ManageHealthcareServicePage.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getSelectedHealthcareService: PropTypes.func.isRequired,
   healthcareServiceCategories: PropTypes.array,
