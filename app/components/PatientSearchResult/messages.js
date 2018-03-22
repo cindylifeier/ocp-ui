@@ -66,4 +66,8 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.addRelatedPerson',
     defaultMessage: 'Add Related Person',
   },
+  addAdvisory: {
+    id: 'ocpui.components.PatientSearchResult.addAdvisory',
+    defaultMessage: 'Add Advisory',
+  },
 });

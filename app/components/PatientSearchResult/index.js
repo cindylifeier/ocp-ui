@@ -52,6 +52,10 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
             onClick={() => onPatientViewDetailsClick(patient)}
           />
           <MenuItem
+            primaryText={<FormattedMessage {...messages.addAdvisory} />}
+            containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
+          />
+          <MenuItem
             primaryText={<FormattedMessage {...messages.addTask} />}
             containerElement={<Link
               to={{
