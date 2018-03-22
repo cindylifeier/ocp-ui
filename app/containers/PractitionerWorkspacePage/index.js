@@ -31,10 +31,10 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
     { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
     { name: 'locations', text: 'LOCATIONS', factoryMethod: renderLocationsComponent },
     { name: 'healthcareServices', text: 'HEALTHCARE SERVICES', factoryMethod: renderHealthcareServicesComponent },
-    { name: 'upcomingTasks', text: 'PATIENT\'S TASKS', factoryMethod: renderUpcomingTasksComponent },
+    { name: 'upcomingTasks', text: 'TASKS', factoryMethod: renderUpcomingTasksComponent },
     {
       name: 'upcomingAppointments',
-      text: 'PATIENT\'S APPOINTMENTS',
+      text: 'APPOINTMENTS',
       factoryMethod: renderUpcomingAppointmentsComponent,
     },
     { name: 'todos', text: 'MY TO DO', factoryMethod: renderNotFound },
@@ -244,7 +244,7 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
         activeItemIndex: 0,
         height: 25,
         content: [{
-          title: 'PATIENT\'S TASKS',
+          title: 'TASKS',
           type: 'component',
           componentName: 'upcomingTasks',
           isClosable: true,
@@ -260,7 +260,7 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
         activeItemIndex: 0,
         height: 25,
         content: [{
-          title: 'PATIENT\'S APPOINTMENTS',
+          title: 'APPOINTMENTS',
           type: 'component',
           componentName: 'upcomingAppointments',
           isClosable: true,
