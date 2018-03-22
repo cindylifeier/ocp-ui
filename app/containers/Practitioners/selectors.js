@@ -54,6 +54,11 @@ const makeSelectTotalPages = () => createSelector(
   (practitionersState) => practitionersState.getIn(['searchPractitioners', 'totalPages']),
 );
 
+const makeSelectTotalElements = () => createSelector(
+  selectPractitionersDomain,
+  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'totalElements']),
+);
+
 export {
   selectPractitionersDomain,
   makeSelectSearchLoading,
@@ -65,4 +70,5 @@ export {
   makeSelectCurrentPageSize,
   makeSelectCurrentPage,
   makeSelectTotalPages,
+  makeSelectTotalElements,
 };

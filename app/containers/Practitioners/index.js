@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PractitionerSearchResult from 'components/PractitionerSearchResult';
@@ -39,11 +40,13 @@ import {
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectTotalPages,
+  makeSelectTotalElements,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { initializePractitioners, loadPractitionerSearchResult } from './actions';
+
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -91,11 +94,20 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
           <PractitionerSearchResult {...searchResultProps} />
         </CenterAlign>
         {!isEmpty(searchResult) &&
-        <CenterAlignedUltimatePagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={this.handleChangePage}
-        />}
+        <div>
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            onChange={this.handleChangePage}
+          />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.currentPageSize}
+          />
+        </div>
+        }
       </Card>
     );
   }
@@ -115,7 +127,9 @@ Practitioners.propTypes = {
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
   currentPage: PropTypes.number,
+  currentPageSize: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
   onChangePage: PropTypes.func,
   onSubmitForm: PropTypes.func,
   initializePractitioners: PropTypes.func,
@@ -127,6 +141,7 @@ const mapStateToProps = createStructuredSelector({
   currentPage: makeSelectCurrentPage(),
   currentPageSize: makeSelectCurrentPageSize(),
   totalPages: makeSelectTotalPages(),
+  totalElements: makeSelectTotalElements(),
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   identifierSystems: makeSelectPractitionerIdentifierSystems(),

@@ -41,6 +41,7 @@ function practitionersReducer(state = initialState, action) {
         .setIn(['searchPractitioners', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)
         .setIn(['searchPractitioners', 'currentPage'], action.searchResult.currentPage)
         .setIn(['searchPractitioners', 'currentPageSize'], action.searchResult.currentPageSize)
+        .setIn(['searchPractitioners', 'totalElements'], action.searchResult.totalElements)
         .setIn(['searchPractitioners', 'totalPages'], action.searchResult.totalNumberOfPages);
     case SEARCH_PRACTITIONERS_ERROR:
       return state
