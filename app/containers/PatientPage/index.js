@@ -13,13 +13,14 @@ import { createStructuredSelector } from 'reselect';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import renderTasksComponent from 'containers/Tasks/render';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
+
 
 export const initialStateMetadata =
   {
