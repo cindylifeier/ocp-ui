@@ -95,6 +95,10 @@ export const COMMUNICATION_NOT_DONE_REASON = 'COMMUNICATION_NOT_DONE_REASON';
 export const COMMUNICATION_MEDIUM = 'COMMUNICATION_MEDIUM';
 // Communications resource lookups end
 
+// flag lookups
+export const FLAG_STATUS = 'FLAG_STATUS';
+export const FLAG_CATEGORY = 'FLAG_CATEGORY';
+
 /**
  *  Constants to hold the internal urls
  * @type {string}

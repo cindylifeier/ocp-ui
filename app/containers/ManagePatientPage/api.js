@@ -1,5 +1,6 @@
 import request from 'utils/request';
 import { BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import Util from 'utils/Util';
 
 const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
@@ -33,8 +34,9 @@ export function getPatient(patientId) {
 function mapToBackendPatient(patientFormData) {
   const {
     id, firstName, lastName, birthDate, genderCode, identifierType, identifierValue, language, race,
-    ethnicity, birthSex, addresses, telecoms,
+    ethnicity, birthSex, addresses, telecoms, flags,
   } = patientFormData;
+
 
   const identifier = [{
     system: identifierType,
@@ -44,25 +46,34 @@ function mapToBackendPatient(patientFormData) {
     firstName,
     lastName,
   }];
+  const mappedFlags = mapToBackendFlags(flags);
   return {
     id,
     identifier,
     name,
     telecoms,
     addresses,
-    birthDate,
+    birthDate: Util.formatDate(birthDate),
     genderCode,
     language,
     race,
     ethnicity,
     birthSex,
+    flags: mappedFlags,
     active: true,
   };
 }
 
+function mapToBackendFlags(flags) {
+  return flags.map((flag) => {
+    const { status, category, logicalId, code, flagStart, flagEnd, author } = flag;
+    return { status, category, logicalId, code, period: { start: flagStart && Util.formatDate(flagStart), end: flagEnd && Util.formatDate(flagEnd) }, author };
+  });
+}
+
 export function mapToFrontendPatientForm(patientData) {
   const {
-    id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex,
+    id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex, flags,
   } = patientData;
 
   const identifierType = identifier[0].system;
@@ -71,7 +82,7 @@ export function mapToFrontendPatientForm(patientData) {
   const lastName = name[0].lastName;
   const dob = (birthDate !== undefined && birthDate !== null) ? new Date(birthDate) : null;
   const gender = (genderCode !== undefined && genderCode !== null) ? genderCode.toLowerCase() : null;
-
+  const mappedFlags = mapToFrontendFlags(flags);
   return {
     id,
     firstName,
@@ -86,5 +97,13 @@ export function mapToFrontendPatientForm(patientData) {
     birthSex,
     addresses,
     telecoms,
+    flags: mappedFlags,
   };
+}
+
+function mapToFrontendFlags(flags) {
+  return flags.map((flag) => {
+    const { status, category, logicalId, code, period, author } = flag;
+    return { status, category, logicalId, code, flagStart: period.start && new Date(period.start), flagEnd: period.end && new Date(period.end), author };
+  });
 }

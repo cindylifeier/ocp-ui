@@ -14,6 +14,7 @@ import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
@@ -107,6 +108,12 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
             onChange={this.handlePageClick}
+          />
+          <RecordsRange
+            currentPage={data.currentPage}
+            totalPages={data.totalNumberOfPages}
+            totalElements={data.totalElements}
+            currentPageSize={data.currentPageSize}
           />
         </div>
         }
