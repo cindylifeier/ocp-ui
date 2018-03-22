@@ -34,6 +34,8 @@ function locationsReducer(state = initialState, action) {
       return state
         .set('data', fromJS((action.locations && action.locations.elements) || []))
         .setIn(['totalNumberOfPages'], action.locations.totalNumberOfPages)
+        .setIn(['totalElements'], action.locations.totalElements)
+        .setIn(['currentPageSize'], action.locations.currentPageSize)
         .setIn(['currentPage'], action.locations.currentPage);
     case GET_ACTIVE_LOCATIONS: {
       return state

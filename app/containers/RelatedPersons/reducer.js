@@ -25,6 +25,7 @@ function relatedPersonsReducer(state = initialState, action) {
       return state
         .set('error', false)
         .set('loading', false)
+        .setIn(['relatedPersons', 'totalElements'], action.relatedPersons.totalNumberOfPages)
         .set('data', fromJS((action.relatedPersons) || {}));
     default:
       return state;

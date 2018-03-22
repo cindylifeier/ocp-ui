@@ -41,7 +41,7 @@ const initialStateMetadata =
       borderGrabWidth: 15,
       minItemHeight: 10,
       minItemWidth: 10,
-      headerHeight: 20,
+      headerHeight: 30,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },

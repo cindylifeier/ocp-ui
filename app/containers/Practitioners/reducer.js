@@ -41,6 +41,8 @@ function practitionersReducer(state = initialState, action) {
       return state
         .setIn(['listPractitioners', 'loading'], false)
         .setIn(['listPractitioners', 'data'], fromJS(action.practitioners.elements))
+        .setIn(['listPractitioners', 'totalElements'], action.practitioners.totalElements)
+        .setIn(['listPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
         .setIn(['listPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
         .setIn(['listPractitioners', 'currentPage'], action.practitioners.currentPage);
     case SEARCH_PRACTITIONERS:
@@ -50,6 +52,8 @@ function practitionersReducer(state = initialState, action) {
       return state
         .setIn(['searchPractitioners', 'loading'], false)
         .setIn(['searchPractitioners', 'result'], fromJS(action.practitioners.elements))
+        .setIn(['searchPractitioners', 'totalElements'], action.practitioners.totalElements)
+        .setIn(['searchPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
         .setIn(['searchPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
         .setIn(['searchPractitioners', 'currentPage'], action.practitioners.currentPage);
     case SEARCH_PRACTITIONERS_ERROR:
