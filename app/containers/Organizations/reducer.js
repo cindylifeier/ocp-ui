@@ -31,7 +31,9 @@ function organizationsReducer(state = initialState, action) {
         .set('loading', false)
         .set('data', fromJS(action.organizations.elements))
         .setIn(['totalNumberOfPages'], action.organizations.totalNumberOfPages)
-        .setIn(['currentPage'], action.organizations.currentPage);
+        .setIn(['totalElements'], action.organizations.totalElements)
+        .setIn(['currentPage'], action.organizations.currentPage)
+        .setIn(['currentPageSize'], action.organizations.currentPageSize);
     case GET_ORGANIZATIONS_ERROR:
       return state
         .set('loading', false)

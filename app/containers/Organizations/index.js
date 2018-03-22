@@ -13,6 +13,7 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -26,7 +27,7 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
-import { makeSelectCurrentPage, makeSelectOrganizations, makeSelectTotalNumberOfPages } from './selectors';
+import { makeSelectCurrentPage, makeSelectCurrentPageSize, makeSelectOrganizations, makeSelectTotalNumberOfPages, makeSelectTotalElements } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -91,6 +92,12 @@ export class Organizations extends React.PureComponent {
               totalPages={this.props.totalNumberOfPages}
               onChange={this.handlePageClick}
             />
+            <RecordsRange
+              currentPage={this.props.currentPage}
+              totalPages={this.props.totalNumberOfPages}
+              totalElements={this.props.totalElements}
+              currentPageSize={this.props.currentPageSize}
+            />
           </div>
         ) ||
         ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
@@ -108,7 +115,9 @@ Organizations.propTypes = {
   setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
+  currentPageSize: PropTypes.number,
   totalNumberOfPages: PropTypes.number.isRequired,
+  totalElements: PropTypes.number,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
@@ -118,7 +127,9 @@ Organizations.propTypes = {
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
   currentPage: makeSelectCurrentPage(),
+  currentPageSize: makeSelectCurrentPageSize(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  totalElements: makeSelectTotalElements(),
 });
 
 function mapDispatchToProps(dispatch) {
