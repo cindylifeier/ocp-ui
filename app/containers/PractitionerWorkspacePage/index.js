@@ -32,10 +32,13 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
     { name: 'locations', text: 'LOCATIONS', factoryMethod: renderLocationsComponent },
     { name: 'healthcareServices', text: 'HEALTHCARE SERVICES', factoryMethod: renderHealthcareServicesComponent },
     { name: 'upcomingTasks', text: 'PATIENT\'S TASKS', factoryMethod: renderUpcomingTasksComponent },
-    { name: 'upcomingAppointments', text: 'PATIENT\'S APPOINTMENTS', factoryMethod: renderUpcomingAppointmentsComponent },
+    {
+      name: 'upcomingAppointments',
+      text: 'PATIENT\'S APPOINTMENTS',
+      factoryMethod: renderUpcomingAppointmentsComponent,
+    },
     { name: 'todos', text: 'MY TO DO', factoryMethod: renderNotFound },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderNotFound },
-    { name: 'consents', text: 'CONSENTS', factoryMethod: renderNotFound },
   ];
 
   static careManagerLayout = {
