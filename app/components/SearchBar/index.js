@@ -9,13 +9,14 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
+import isEmpty from 'lodash/isEmpty';
+import head from 'lodash/head';
 
-import messages from './messages';
 import SearchBarForm from './SearchBarForm';
+import messages from './messages';
 
 const SEARCH_BY_NAME = 'name';
 const SEARCH_BY_ID = 'identifier';
-const initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
 
 function SearchBar(props) {
   const { minimumLength, onSearch, searchField } = props;
@@ -23,7 +24,7 @@ function SearchBar(props) {
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues={initialFormValues(searchField)}
         onSubmit={(values, actions) => {
           const { searchValue, showInactive, searchType } = values;
           onSearch(searchValue, showInactive, searchType);
@@ -50,7 +51,7 @@ SearchBar.propTypes = {
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
-    })),
+    })).isRequired,
     searchValueHintText: PropTypes.node.isRequired,
   }),
 };
@@ -70,3 +71,14 @@ SearchBar.defaultProps = {
 };
 
 export default SearchBar;
+
+function initialFormValues(searchField) {
+  let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
+  if (!isEmpty(searchField.searchTypes)) {
+    initialValues = {
+      showInactive: false,
+      searchType: head(searchField.searchTypes).value,
+    };
+  }
+  return initialValues;
+}
