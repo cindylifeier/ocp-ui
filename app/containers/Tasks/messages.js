@@ -22,4 +22,8 @@ export default defineMessages({
     id: 'ocpui.containers.Tasks.labelPatientName',
     defaultMessage: 'Patient:',
   },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Tasks.buttonLabelCreateNew',
+    defaultMessage: 'New Task',
+  },
 });

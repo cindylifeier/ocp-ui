@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
@@ -13,12 +12,13 @@ import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
+import { DATE_PICKER_MODE } from 'containers/App/constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
 function ManageTaskForm(props) {
   const {
+    history,
     taskStatus,
     requestIntent,
     requestPriority,
@@ -257,7 +257,7 @@ function ManageTaskForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
+                onClick={history.goBack}
               />
             </Cell>
           </Grid>
@@ -268,6 +268,9 @@ function ManageTaskForm(props) {
 }
 
 ManageTaskForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   activityDefinitions: PropTypes.array,
   practitioners: PropTypes.array,
   taskStatus: PropTypes.arrayOf(PropTypes.shape({
