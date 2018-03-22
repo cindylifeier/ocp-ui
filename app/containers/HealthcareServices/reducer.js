@@ -38,6 +38,8 @@ function healthcareServicesReducer(state = initialState, action) {
         .set('data', fromJS((action.healthcareServices && action.healthcareServices.elements) || []))
         .set('loading', false)
         .set('totalNumberOfPages', action.healthcareServices.totalNumberOfPages)
+        .set('totalElements', action.healthcareServices.totalElements)
+        .set('currentPageSize', action.healthcareServices.currentPageSize)
         .set('currentPage', action.healthcareServices.currentPage);
     case GET_HEALTHCARE_SERVICES_ERROR:
       return state

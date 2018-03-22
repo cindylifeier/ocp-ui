@@ -32,6 +32,7 @@ import isUndefined from 'lodash/isUndefined';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import PropTypes from 'prop-types';
 import React from 'react';
+import RecordsRange from 'components/RecordsRange';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -150,6 +151,12 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
               onChange={this.handlePageClick}
+            />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={data.totalElements}
+              currentPageSize={data.currentPageSize}
             />
           </CenterAlign>
           }

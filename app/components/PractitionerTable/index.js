@@ -12,6 +12,7 @@ import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
+import RecordsRange from 'components/RecordsRange';
 import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -75,6 +76,12 @@ function PractitionerTable(props) {
               totalPages={practitionersData.totalNumberOfPages}
               onChange={practitionersData.handleChangePage}
             />
+            <RecordsRange
+              currentPage={practitionersData.currentPage}
+              totalPages={practitionersData.totalNumberOfPages}
+              totalElements={practitionersData.totalElements}
+              currentPageSize={practitionersData.currentPageSize}
+            />
           </div> :
           (<CenterAlign>
             <NoResultsFoundText>No practitioners found</NoResultsFoundText>
@@ -97,6 +104,8 @@ PractitionerTable.propTypes = {
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
     handleChangePage: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,
