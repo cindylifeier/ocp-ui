@@ -49,7 +49,16 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
                 containerElement={<Link
                   to={{
                     pathname: `${taskBaseUrl}/${logicalId}`,
-                    search: `?patientId=${patientId}`,
+                    search: `?patientId=${patientId}&isMainTask=true`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.addSubTask} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${taskBaseUrl}`,
+                    search: `?patientId=${patientId}&isMainTask=false&mainTaskId=${logicalId}`,
                   }}
                 />}
               />

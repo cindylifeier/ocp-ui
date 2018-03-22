@@ -83,7 +83,7 @@ export default defineMessages({
     },
     partOf: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.partOf',
-      defaultMessage: 'Associated Task',
+      defaultMessage: 'Main Task',
     },
     taskStart: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.taskStart',
@@ -153,7 +153,7 @@ export default defineMessages({
     },
     partOf: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.partOf',
-      defaultMessage: 'Associated Task',
+      defaultMessage: 'Main Task',
     },
     taskStart: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.taskStart',
