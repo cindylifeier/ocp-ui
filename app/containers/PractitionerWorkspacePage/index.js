@@ -28,14 +28,14 @@ import saga from './saga';
 
 export class PractitionerWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static componentMetadata = [
-    { name: 'patients', text: 'Patients', factoryMethod: renderPatientsComponent },
-    { name: 'locations', text: 'Locations', factoryMethod: renderLocationsComponent },
-    { name: 'healthcareServices', text: 'Healthcare Services', factoryMethod: renderHealthcareServicesComponent },
-    { name: 'upcomingTasks', text: 'Upcoming Tasks', factoryMethod: renderUpcomingTasksComponent },
-    { name: 'upcomingAppointments', text: 'Upcoming Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
-    { name: 'todos', text: 'TO DO', factoryMethod: renderNotFound },
-    { name: 'calendar', text: 'Calendar', factoryMethod: renderNotFound },
-    { name: 'consents', text: 'Consents', factoryMethod: renderNotFound },
+    { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
+    { name: 'locations', text: 'LOCATIONS', factoryMethod: renderLocationsComponent },
+    { name: 'healthcareServices', text: 'HEALTHCARE SERVICES', factoryMethod: renderHealthcareServicesComponent },
+    { name: 'upcomingTasks', text: 'PATIENT\'S TASKS', factoryMethod: renderUpcomingTasksComponent },
+    { name: 'upcomingAppointments', text: 'PATIENT\'S APPOINTMENTS', factoryMethod: renderUpcomingAppointmentsComponent },
+    { name: 'todos', text: 'MY TO DO', factoryMethod: renderNotFound },
+    { name: 'calendar', text: 'CALENDAR', factoryMethod: renderNotFound },
+    { name: 'consents', text: 'CONSENTS', factoryMethod: renderNotFound },
   ];
 
   static careManagerLayout = {
