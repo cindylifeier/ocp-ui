@@ -17,7 +17,7 @@ import SearchButtonContainerGrid from './SearchButtonContainerGrid';
 import messages from './messages';
 
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchTypes } = props;
+  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText } } = props;
   return (
     <Form>
       <SearchSection>
@@ -37,7 +37,7 @@ function SearchBarForm(props) {
           <TextField
             fullWidth
             name="searchValue"
-            hintText={<FormattedMessage {...messages.hintText} />}
+            hintText={searchValueHintText}
           />
         </SearchContainerGrid>
         <SearchContainerGrid gap="5px" columns="70px 300px">
@@ -68,10 +68,13 @@ SearchBarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
-  searchTypes: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    display: PropTypes.node.isRequired,
-  })).isRequired,
+  searchField: PropTypes.shape({
+    searchTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
+    searchValueHintText: PropTypes.node.isRequired,
+  }).isRequired,
 };
 
 export default SearchBarForm;

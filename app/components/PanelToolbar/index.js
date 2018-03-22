@@ -47,7 +47,7 @@ export class PanelToolbar extends React.PureComponent {
       showSearchIcon,
       addNewItem,
       onSearch,
-      searchTypes,
+      searchField,
     } = this.props;
     return (
       <div>
@@ -98,7 +98,7 @@ export class PanelToolbar extends React.PureComponent {
         {this.state.isShowSearchBar &&
         <SearchBar
           onSearch={onSearch}
-          searchTypes={searchTypes}
+          searchField={searchField}
         />
         }
       </div>
@@ -117,10 +117,13 @@ PanelToolbar.propTypes = {
     linkUrl: PropTypes.string.isRequired,
   }),
   onSearch: PropTypes.func,
-  searchTypes: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    display: PropTypes.node.isRequired,
-  })),
+  searchField: PropTypes.shape({
+    searchTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
+    searchValueHintText: PropTypes.node.isRequired,
+  }),
 };
 
 PanelToolbar.defaultProps = {

@@ -18,8 +18,8 @@ const SEARCH_BY_ID = 'identifier';
 const initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
 
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchTypes } = props;
-  const searchFormProps = { searchTypes };
+  const { minimumLength, onSearch, searchField } = props;
+  const searchFormProps = { searchField };
   return (
     <div>
       <Formik
@@ -46,24 +46,27 @@ function SearchBar(props) {
 SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
-  searchTypes: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    display: PropTypes.node.isRequired,
-  })),
+  searchField: PropTypes.shape({
+    searchTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
+    searchValueHintText: PropTypes.node.isRequired,
+  }),
 };
 
 SearchBar.defaultProps = {
   minimumLength: 3,
-  searchTypes: [
-    {
+  searchField: {
+    searchTypes: [{
       value: SEARCH_BY_NAME,
       display: <FormattedMessage {...messages.searchByName} />,
-    },
-    {
+    }, {
       value: SEARCH_BY_ID,
       display: <FormattedMessage {...messages.searchById} />,
-    },
-  ],
+    }],
+    searchValueHintText: <FormattedMessage {...messages.hintText} />,
+  },
 };
 
 export default SearchBar;
