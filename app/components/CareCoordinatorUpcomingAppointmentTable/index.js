@@ -4,20 +4,20 @@
  *
  */
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import MenuItem from 'material-ui/MenuItem';
-import uniqueId from 'lodash/uniqueId';
-import find from 'lodash/find';
-import { Link } from 'react-router-dom';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import { STATUS_CODE_CANCELLED } from 'containers/UpcomingAppointments/constants';
+import find from 'lodash/find';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import messages from './messages';
 
 function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl }) { // eslint-disable-line react/prefer-stateless-function
@@ -43,6 +43,7 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
             <TableRowColumn>{appointment.description}</TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
+                {patientId &&
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.addCommunication} />}
                   containerElement={<Link
@@ -52,6 +53,7 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
                     }}
                   />}
                 />
+                }
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.menuItemCancel} />}
                   disabled={appointment.statusCode === STATUS_CODE_CANCELLED}
