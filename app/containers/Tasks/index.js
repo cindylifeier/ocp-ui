@@ -24,9 +24,7 @@ import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
@@ -37,7 +35,10 @@ import { cancelTask, getTasks, initializeTasks } from './actions';
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.state = {
+      practitionerId: 1961,
+      isPatientModalOpen: false,
+    };
     this.cancelTask = this.cancelTask.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
@@ -46,7 +47,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     this.props.initializeTasks();
     const { patient } = this.props;
     if (patient) {
-      this.props.getTasks(DEFAULT_START_PAGE_NUMBER);
+      this.props.getTasks(this.state.practitionerId, patient.id);
     }
   }
 
@@ -54,12 +55,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     const { patient } = this.props;
     const { patient: newPatient } = nextProps;
     if (!isEqual(patient, newPatient)) {
-      this.props.getTasks(DEFAULT_START_PAGE_NUMBER);
+      this.props.getTasks(this.state.practitionerId, nextProps.patient.id);
     }
-  }
-
-  handlePageClick(page) {
-    this.props.getTasks(page);
   }
 
   cancelTask(logicalId) {
@@ -90,16 +87,11 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
           <FormattedMessage {...messages.noTasksFound} />
         </NoResultsFoundText>}
 
-        {!isEmpty(data) && !isEmpty(data.elements) &&
+        {!isEmpty(data) &&
         <div>
           <CenterAlign>
-            <TaskTable elements={data.elements} cancelTask={this.cancelTask} patientId={patient.id} />
+            <TaskTable elements={data} cancelTask={this.cancelTask} patientId={patient.id} />
           </CenterAlign>
-          <CenterAlignedUltimatePagination
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            onChange={this.handlePageClick}
-          />
         </div>
         }
       </Card>
@@ -124,7 +116,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (pageNumber) => dispatch(getTasks(pageNumber)),
+    getTasks: (practitionerId, patientId) => dispatch(getTasks(practitionerId, patientId)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };
