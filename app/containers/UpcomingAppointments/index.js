@@ -6,20 +6,17 @@
 
 import CenterAlign from 'components/Align/CenterAlign';
 import Card from 'components/Card/index';
-import CardHeader from 'components/CardHeader';
 import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable/index';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination/index';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
 import StatusCheckbox from 'components/StatusCheckbox';
-import StyledFlatButton from 'components/StyledFlatButton';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
   DEFAULT_START_PAGE_NUMBER,
-  MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
 } from 'containers/App/constants';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
@@ -29,18 +26,17 @@ import { PRACTITIONERIDVALUE } from 'containers/UpcomingAppointments/constants';
 import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import PropTypes from 'prop-types';
 import React from 'react';
 import RecordsRange from 'components/RecordsRange';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import { PanelToolbar } from 'components/PanelToolbar';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -107,15 +103,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     return (
       <div>
         <Card>
-          <CardHeader title={<FormattedMessage {...messages.header} />}>
-            {patientDetailsPage &&
-            <StyledFlatButton
-              label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-              icon={<ContentAddCircle />}
-              containerElement={<Link to={MANAGE_APPOINTMENT_URL} />}
-            />
-            }
-          </CardHeader>
+          <PanelToolbar showNewItem={false} showSearchIcon={false} />
           {patientDetailsPage &&
           <div>
             <FilterSection>
