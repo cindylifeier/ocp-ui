@@ -32,11 +32,6 @@ import messages from './messages';
 
 
 export class Todos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.handlePageClick = this.handlePageClick.bind(this);
-  }
-
   componentDidMount() {
     const patientId = this.props.selectedPatient.id;
     if (patientId) {
