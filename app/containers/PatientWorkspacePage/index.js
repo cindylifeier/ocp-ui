@@ -13,9 +13,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import renderNotFoundComponent from 'containers/NotFoundPage/render';
+import renderFactory from 'utils/goldenLayout/renderFactory';
+import renderTasks from 'containers/Tasks/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
+import Card from 'components/Card';
+import PanelToolbar from 'components/PanelToolbar';
 import makeSelectPatientWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -66,7 +69,7 @@ export const initialStateMetadata =
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        height: 80,
+        height: 60,
         content: [{
           type: 'stack',
           header: {},
@@ -74,7 +77,7 @@ export const initialStateMetadata =
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
-          height: 80,
+          height: 60,
           width: 50,
           content: [{
             title: 'My To Do',
@@ -109,7 +112,7 @@ export const initialStateMetadata =
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 70,
+        height: 60,
         content: [{
           title: 'Tasks',
           type: 'component',
@@ -125,7 +128,7 @@ export const initialStateMetadata =
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 70,
+        height: 60,
         content: [{
           title: 'Communication',
           type: 'component',
@@ -141,7 +144,7 @@ export const initialStateMetadata =
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 70,
+        height: 60,
         content: [{
           title: 'My Appointments',
           type: 'component',
@@ -157,7 +160,7 @@ export const initialStateMetadata =
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 70,
+        height: 60,
         content: [{
           title: 'Consents',
           type: 'component',
@@ -178,13 +181,24 @@ export const initialStateMetadata =
   };
 
 // TODO: will replace with particular render components
+function renderEmptyGoldenLayoutComponent() {
+  return (
+    <Card>
+      <PanelToolbar
+        showNewItem={false}
+        showUploadIcon={false}
+      />
+    </Card>
+  );
+}
+
 export const componentMetadata = [
-  { name: 'todo', text: 'My to do', factoryMethod: renderNotFoundComponent },
-  { name: 'calendar', text: 'Calendar', factoryMethod: renderNotFoundComponent },
-  { name: 'tasks', text: 'Tasks', factoryMethod: renderNotFoundComponent },
-  { name: 'communication', text: 'Communication', factoryMethod: renderNotFoundComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderNotFoundComponent },
-  { name: 'consents', text: 'Consents', factoryMethod: renderNotFoundComponent },
+  { name: 'todo', text: 'My to do', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'calendar', text: 'Calendar', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
+  { name: 'communication', text: 'Communication', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'consents', text: 'Consents', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
 ];
 
 export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -196,7 +210,7 @@ export class PatientWorkspacePage extends React.PureComponent { // eslint-disabl
           <meta name="description" content="Patient workspace page of Omnibus Care Plan application" />
         </Helmet>
         <GoldenLayout
-          containerHeight="380vh"
+          containerHeight="330vh"
           containerId="golden-patient-workspace"
           componentMetadata={componentMetadata}
           stateMetadata={initialStateMetadata}
