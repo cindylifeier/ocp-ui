@@ -32,8 +32,7 @@ export function* getTasksSaga({ pageNumber }) {
     }
   } catch (err) {
     const errMsg = getErrorMessage(err);
-    yield put(getTasksError(err));
-    yield put(showNotification(errMsg));
+    yield put(getTasksError(errMsg));
   }
 }
 

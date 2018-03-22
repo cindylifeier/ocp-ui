@@ -26,7 +26,9 @@ function tasksReducer(state = initialState, action) {
         .set('loading', false)
         .set('data', fromJS(action.tasksPage || {}));
     case GET_TASKS_ERROR:
-      return state.set('loading', false);
+      return state
+        .set('loading', false)
+        .set('error', action.error);
     case CANCEL_TASK_SUCCESS: {
       const data = state.get('data').toJS();
       find(data.elements, { logicalId: action.id }).status = { code: 'cancelled', display: 'Cancelled' };
