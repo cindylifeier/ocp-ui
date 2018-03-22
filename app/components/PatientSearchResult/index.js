@@ -60,7 +60,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
             containerElement={<Link
               to={{
                 pathname: MANAGE_TASK_URL,
-                search: `?patientId=${patient.id}`,
+                search: `?patientId=${patient.id}&isMainTask=true`,
               }}
             />}
           />

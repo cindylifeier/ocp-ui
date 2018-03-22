@@ -183,11 +183,28 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       requester,
       tasksByPatient,
     } = this.props;
-    const logicalId = this.props.match.params.id;
-    const editMode = !isUndefined(match.params.id);
+    let logicalId = this.props.match.params.id;
     let currentTask = null;
-    if (editMode && this.props.tasks) {
+    if (logicalId && this.props.tasks) {
       currentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
+    const queryObj = queryString.parse(this.props.location.search);
+    const isMainTask = queryObj.isMainTask === 'true';
+    logicalId = queryObj.mainTaskId;
+    const editMode = !isUndefined(match.params.id);
+    let parentTask = null;
+    if (logicalId && this.props.tasks) {
+      parentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
+    let titleHeader;
+    if (editMode && isMainTask) {
+      titleHeader = <FormattedMessage {...messages.updateMainHeader} />;
+    } else if (editMode && !isMainTask) {
+      titleHeader = <FormattedMessage {...messages.updateSubHeader} />;
+    } else if (!editMode && isMainTask) {
+      titleHeader = <FormattedMessage {...messages.createMainHeader} />;
+    } else if (!editMode && !isMainTask) {
+      titleHeader = <FormattedMessage {...messages.createSubHeader} />;
     }
     const taskProps = {
       taskStatus,
@@ -203,6 +220,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       editMode,
       currentTask,
       tasksByPatient,
+      isMainTask,
+      parentTask,
     };
 
     return (
@@ -212,9 +231,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
           <meta name="description" content="Manage Task page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
-          title={logicalId ?
-            <FormattedMessage {...messages.updateHeader} /> :
-            <FormattedMessage {...messages.createHeader} />}
+          title={titleHeader}
         />
         <PageContent>
           <ManageTask {...taskProps} onSave={this.handleSave} />
