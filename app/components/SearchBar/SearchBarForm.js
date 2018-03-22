@@ -5,21 +5,19 @@ import { MenuItem, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
-import messages from './messages';
+import uniqueId from 'lodash/uniqueId';
 
-import TextField from '../TextField';
-import Checkbox from '../Checkbox';
-import SelectField from '../SelectField';
+import TextField from 'components/TextField';
+import Checkbox from 'components/Checkbox';
+import SelectField from 'components/SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
 import SearchContainerGrid from './SearchContainerGrid';
 import SearchButtonContainerGrid from './SearchButtonContainerGrid';
-
-export const SEARCH_BY_NAME = 'name';
-export const SEARCH_BY_ID = 'identifier';
+import messages from './messages';
 
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid } = props;
+  const { isSubmitting, dirty, isValid, searchTypes } = props;
   return (
     <Form>
       <SearchSection>
@@ -32,8 +30,9 @@ function SearchBarForm(props) {
             fullWidth
             name="searchType"
           >
-            <MenuItem value={SEARCH_BY_NAME} primaryText={<FormattedMessage {...messages.searchByName} />} />
-            <MenuItem value={SEARCH_BY_ID} primaryText={<FormattedMessage {...messages.searchById} />} />
+            {searchTypes && searchTypes.map((searchType) =>
+              <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
+            )}
           </SelectField>
           <TextField
             fullWidth
@@ -69,6 +68,10 @@ SearchBarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  searchTypes: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    display: PropTypes.node.isRequired,
+  })).isRequired,
 };
 
 export default SearchBarForm;

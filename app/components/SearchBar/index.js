@@ -11,13 +11,15 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
-import SearchBarForm, { SEARCH_BY_ID, SEARCH_BY_NAME } from './SearchBarForm';
+import SearchBarForm from './SearchBarForm';
 
+const SEARCH_BY_NAME = 'name';
+const SEARCH_BY_ID = 'identifier';
 const initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
-const regexMatchesSearchTypes = new RegExp(`(${SEARCH_BY_NAME}|${SEARCH_BY_ID})`);
 
 function SearchBar(props) {
-  const { minimumLength, onSearch } = props;
+  const { minimumLength, onSearch, searchTypes } = props;
+  const searchFormProps = { searchTypes };
   return (
     <div>
       <Formik
@@ -32,11 +34,10 @@ function SearchBar(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           searchType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
-            .matches(regexMatchesSearchTypes, (<FormattedMessage {...messages.validation.invalid} />)),
+            .required((<FormattedMessage {...messages.validation.required} />)),
           showInactive: yup.boolean(),
         })}
-        render={SearchBarForm}
+        render={(formikProps) => <SearchBarForm {...formikProps} {...searchFormProps} />}
       />
     </div>
   );
@@ -45,10 +46,24 @@ function SearchBar(props) {
 SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
+  searchTypes: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    display: PropTypes.node.isRequired,
+  })),
 };
 
 SearchBar.defaultProps = {
   minimumLength: 3,
+  searchTypes: [
+    {
+      value: SEARCH_BY_NAME,
+      display: <FormattedMessage {...messages.searchByName} />,
+    },
+    {
+      value: SEARCH_BY_ID,
+      display: <FormattedMessage {...messages.searchById} />,
+    },
+  ],
 };
 
 export default SearchBar;
