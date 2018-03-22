@@ -5,8 +5,15 @@
  */
 
 import {
-  GET_TASKS, GET_TASKS_SUCCESS, GET_TASKS_ERROR, INITIALIZE_TASKS, CANCEL_TASK,
-  CANCEL_TASK_SUCCESS, CANCEL_TASK_ERROR,
+  CANCEL_TASK,
+  CANCEL_TASK_ERROR,
+  CANCEL_TASK_SUCCESS,
+  GET_TASKS,
+  GET_TASKS_ERROR,
+  GET_TASKS_SUCCESS,
+  SEARCH_TASKS,
+  SEARCH_TASKS_SUCCESS,
+  INITIALIZE_TASKS,
 } from './constants';
 
 export function initializeTasks() {
@@ -33,6 +40,22 @@ export function getTasksError(error) {
   return {
     type: GET_TASKS_ERROR,
     error,
+  };
+}
+
+export function searchTasks(searchType, searchValue, currentPage) {
+  return {
+    type: SEARCH_TASKS,
+    searchType,
+    searchValue,
+    currentPage,
+  };
+}
+
+export function searchTasksSuccess(tasks) {
+  return {
+    type: SEARCH_TASKS_SUCCESS,
+    tasks,
   };
 }
 
