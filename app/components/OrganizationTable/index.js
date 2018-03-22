@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
 
+import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -22,7 +23,6 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
-
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 const ENTER_KEY = 'Enter';
@@ -103,6 +103,12 @@ function OrganizationTable(props) {
               totalPages={organizationData.totalNumberOfPages}
               onChange={organizationData.handlePageClick}
             />
+            <RecordsRange
+              currentPage={organizationData.currentPage}
+              totalPages={organizationData.totalNumberOfPages}
+              totalElements={organizationData.totalElements}
+              currentPageSize={organizationData.currentPageSize}
+            />
           </div> :
           (<CenterAlign>
             <NoResultsFoundText>No organizations found</NoResultsFoundText>
@@ -117,6 +123,8 @@ OrganizationTable.propTypes = {
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
     handlePageClick: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,

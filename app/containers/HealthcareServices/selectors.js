@@ -33,6 +33,16 @@ const makeSelectTotalNumberOfPages = () => createSelector(
   (substate) => substate.get('totalNumberOfPages'),
 );
 
+const makeSelectCurrentPageSize = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('currentPageSize'),
+);
+
+const makeSelectTotalElements = () => createSelector(
+  selectHealthcareServicesDomain,
+  (substate) => substate.get('totalElements'),
+);
+
 const makeSelectIncludeInactive = () => createSelector(
   selectHealthcareServicesDomain,
   (substate) => substate.get('includeInactive'),
@@ -47,4 +57,6 @@ export {
   makeSelectCurrentPage,
   makeSelectTotalNumberOfPages,
   makeSelectIncludeInactive,
+  makeSelectCurrentPageSize,
+  makeSelectTotalElements,
 };
