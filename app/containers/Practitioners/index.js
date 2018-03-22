@@ -5,161 +5,126 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import isEmpty from 'lodash/isEmpty';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 
-import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import PractitionerSearchResult from 'components/PractitionerSearchResult';
+import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
-import SearchBar from 'components/SearchBar';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
-import {
-  DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL,
-  PRACTITIONERIDENTIFIERSYSTEM,
-} from 'containers/App/constants';
-import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
-import {
-  makeSelectCurrentPage,
-  makeSelectCurrentPageSize,
-  makeSelectPractitionerSearchResult,
-  makeSelectQueryIncludeInactive,
-  makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType,
-  makeSelectSearchError,
-  makeSelectSearchLoading,
-  makeSelectTotalPages,
-  makeSelectTotalElements,
-} from './selectors';
+import { PanelToolbar } from 'components/PanelToolbar';
+import PractitionerTable from 'components/PractitionerTable';
+import { getPractitioners, initializePractitioners, searchPractitioners } from './actions';
+import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
 import saga from './saga';
+import makeSelectPractitioners from './selectors';
 import messages from './messages';
-import { initializePractitioners, loadPractitionerSearchResult } from './actions';
-
 
 export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.handleChangePage = this.handleChangePage.bind(this);
+    this.state = {
+      isShowSearchResult: false,
+      listPractitioners: {
+        currentPage: 1,
+      },
+      searchPractitioners: {
+        searchType: 'name',
+        searchValue: '',
+        includeInactive: false,
+        currentPage: 1,
+      },
+    };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
+    this.handleChangeListPage = this.handleChangeListPage.bind(this);
   }
 
   componentDidMount() {
     this.props.initializePractitioners();
-    this.props.getLookUpFormData();
+    const initialCurrentPage = 1;
+    this.props.getPractitioners(initialCurrentPage);
   }
 
-  handleChangePage(newPage) {
-    const { searchTerms, searchType, includeInactive } = this.props;
-    this.props.onChangePage(searchTerms, searchType, includeInactive, newPage);
+  handleSearch(searchValue, includeInactive, searchType) {
+    this.setState({
+      isShowSearchResult: true,
+      searchPractitioners: { searchType, searchValue, includeInactive },
+    });
+    this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
   }
 
-  handleSearch(searchTerms, includeInactive, searchType) {
-    this.props.onSubmitForm(searchTerms, searchType, includeInactive, DEFAULT_START_PAGE_NUMBER);
+  handleChangeSearchPage(currentPage) {
+    this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
+  }
+
+  handleChangeListPage(currentPage) {
+    this.props.getPractitioners(currentPage);
   }
 
   render() {
-    const { loading, error, searchResult, identifierSystems } = this.props;
-    const searchResultProps = {
-      loading,
-      error,
-      searchResult,
-      identifierSystems,
+    const { practitioners } = this.props;
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_PRACTITIONER_URL,
     };
+    // By initial to show listing practitioners data
+    let practitionersData = {
+      loading: practitioners.listPractitioners.loading,
+      data: flattenPractitionerData(practitioners.listPractitioners.data),
+      currentPage: practitioners.listPractitioners.currentPage,
+      totalNumberOfPages: practitioners.listPractitioners.totalNumberOfPages,
+      handleChangePage: this.handleChangeListPage,
+    };
+    if (this.state.isShowSearchResult) {
+      practitionersData = {
+        loading: practitioners.searchPractitioners.loading,
+        data: flattenPractitionerData(practitioners.searchPractitioners.result),
+        currentPage: practitioners.searchPractitioners.currentPage,
+        totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
+        handleChangePage: this.handleChangeSearchPage,
+      };
+    }
 
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-          />
-        </CardHeader>
-        <SearchBar
-          onSearch={this.handleSearch}
-        />
-        <CenterAlign>
-          <PractitionerSearchResult {...searchResultProps} />
-        </CenterAlign>
-        {!isEmpty(searchResult) &&
-        <div>
-          <CenterAlignedUltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalPages}
-            onChange={this.handleChangePage}
-          />
-          <RecordsRange
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalPages}
-            totalElements={this.props.totalElements}
-            currentPageSize={this.props.currentPageSize}
-          />
-        </div>
-        }
+        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        <PractitionerTable practitionersData={practitionersData} />
       </Card>
     );
   }
 }
 
 Practitioners.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  searchResult: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
-  searchTerms: PropTypes.string,
-  searchType: PropTypes.string,
-  includeInactive: PropTypes.bool,
-  currentPage: PropTypes.number,
-  currentPageSize: PropTypes.number,
-  totalPages: PropTypes.number,
-  totalElements: PropTypes.number,
-  onChangePage: PropTypes.func,
-  onSubmitForm: PropTypes.func,
+  practitioners: PropTypes.shape({
+    searchPractitioners: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      currentPage: PropTypes.number.isRequired,
+      totalNumberOfPages: PropTypes.number.isRequired,
+      result: PropTypes.array,
+      error: PropTypes.bool,
+    }),
+  }),
+  getPractitioners: PropTypes.func.isRequired,
+  searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
-  getLookUpFormData: PropTypes.func,
-  identifierSystems: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentPage: makeSelectCurrentPage(),
-  currentPageSize: makeSelectCurrentPageSize(),
-  totalPages: makeSelectTotalPages(),
-  totalElements: makeSelectTotalElements(),
-  searchTerms: makeSelectQuerySearchTerms(),
-  searchType: makeSelectQuerySearchType(),
-  identifierSystems: makeSelectPractitionerIdentifierSystems(),
-  includeInactive: makeSelectQueryIncludeInactive(),
-  searchResult: makeSelectPractitionerSearchResult(),
-  loading: makeSelectSearchLoading(),
-  error: makeSelectSearchError(),
+  practitioners: makeSelectPractitioners(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitForm: (searchTerms, searchType, includeInactive) => {
-      const currentPage = 1;
-      dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage));
-    },
-    onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getLookUpFormData: () => dispatch(getLookupsAction([PRACTITIONERIDENTIFIERSYSTEM])),
+    getPractitioners: (currentPage) => dispatch(getPractitioners(currentPage)),
+    searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }
 

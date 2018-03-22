@@ -9,66 +9,17 @@ const selectPractitionersDomain = (state) => state.get('practitioners');
  * Other specific selectors
  */
 
-const makeSelectSearchLoading = () => createSelector(
+/**
+ * Default selector used by Organizations
+ */
+
+const makeSelectPractitioners = () => createSelector(
   selectPractitionersDomain,
-  (practitionersState) => practitionersState.get('loading'),
+  (substate) => substate.toJS(),
 );
 
-const makeSelectSearchError = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.get('error'),
-);
-
-const makeSelectPractitionerSearchResult = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState && practitionersState.getIn(['searchPractitioners', 'result']),
-);
-
-const makeSelectQuerySearchTerms = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'queryParameters', 'searchTerms']),
-);
-
-const makeSelectQuerySearchType = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'queryParameters', 'searchType']),
-);
-
-const makeSelectQueryIncludeInactive = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'queryParameters', 'includeInactive']),
-);
-
-const makeSelectCurrentPageSize = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'currentPageSize']),
-);
-
-const makeSelectCurrentPage = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'currentPage']),
-);
-
-const makeSelectTotalPages = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'totalPages']),
-);
-
-const makeSelectTotalElements = () => createSelector(
-  selectPractitionersDomain,
-  (practitionersState) => practitionersState.getIn(['searchPractitioners', 'totalElements']),
-);
+export default makeSelectPractitioners;
 
 export {
   selectPractitionersDomain,
-  makeSelectSearchLoading,
-  makeSelectSearchError,
-  makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType,
-  makeSelectQueryIncludeInactive,
-  makeSelectPractitionerSearchResult,
-  makeSelectCurrentPageSize,
-  makeSelectCurrentPage,
-  makeSelectTotalPages,
-  makeSelectTotalElements,
 };
