@@ -28,7 +28,7 @@ import {
   makeSelectPatientsData,
   makeSelectWorkflowRolesData,
 } from './selectors';
-import { flattenPatientData } from './mapping';
+import { flattenPatientData } from './helpers';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
