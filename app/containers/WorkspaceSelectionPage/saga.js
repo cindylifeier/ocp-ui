@@ -34,18 +34,18 @@ export function* getOrganizationsSaga() {
   }
 }
 
-export function* getCareManagersSaga({ role }) {
+export function* getCareManagersSaga({ role, organization }) {
   try {
-    const careManagers = yield call(getCareManagers, role);
+    const careManagers = yield call(getCareManagers, role, organization);
     yield put(getCareManagersSuccess(careManagers));
   } catch (err) {
     yield put(showNotification('Failed to get the care managers.'));
   }
 }
 
-export function* getCareCoordinatorsSaga({ role }) {
+export function* getCareCoordinatorsSaga({ role, organization }) {
   try {
-    const careCoordinators = yield call(getCareCoordinators, role);
+    const careCoordinators = yield call(getCareCoordinators, role, organization);
     yield put(getCareCoordinatorsSuccess(careCoordinators));
   } catch (err) {
     yield put(showNotification('Failed to get the care coordinators.'));

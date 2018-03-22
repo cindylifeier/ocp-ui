@@ -37,17 +37,17 @@ export function getWorkflowRoles() {
   };
 }
 
-export function getCareManagers(role) {
+export function getCareManagers(role, organization) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const params = queryString({ role });
-  const requestURL = `${baseEndpoint}${params}`;
+  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
   return request(requestURL);
 }
 
-export function getCareCoordinators(role) {
+export function getCareCoordinators(role, organization) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const params = queryString({ role });
-  const requestURL = `${baseEndpoint}${params}`;
+  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
   return request(requestURL);
 }
 

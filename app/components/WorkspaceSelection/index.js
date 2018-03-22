@@ -68,7 +68,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   }
 
   getManagerStepContent() {
-    const { careManagers } = this.props;
+    const { careManagers, mapToName } = this.props;
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
@@ -84,9 +84,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
             >
               {careManagers && careManagers.map((careManager) =>
                 (<MenuItem
-                  key={careManager.reference}
-                  value={careManager.reference}
-                  primaryText={careManager.display}
+                  key={careManager.logicalId}
+                  value={careManager.logicalId}
+                  primaryText={mapToName(careManager.name)}
                 />),
               )}
             </SelectField>
@@ -98,7 +98,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   }
 
   getCoordinatorStepContent() {
-    const { careCoordinators } = this.props;
+    const { careCoordinators, mapToName } = this.props;
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
@@ -114,9 +114,9 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
             >
               {careCoordinators && careCoordinators.map((careCoordinator) =>
                 (<MenuItem
-                  key={careCoordinator.reference}
-                  value={careCoordinator.reference}
-                  primaryText={careCoordinator.display}
+                  key={careCoordinator.logicalId}
+                  value={careCoordinator.logicalId}
+                  primaryText={mapToName(careCoordinator.name)}
                 />),
               )}
             </SelectField>
@@ -175,20 +175,20 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
       careCoordinatorValue: null,
       patientValue: null,
     });
-    const { workflowRoles: { careManagerWorkflowRole, careCoordinatorWorkflowRole }, onCareManagerSelection, onCareCoordinatorSelection } = this.props;
-    switch (value) {
-      case careManagerWorkflowRole.value:
-        onCareManagerSelection(value);
-        break;
-      case careCoordinatorWorkflowRole.value:
-        onCareCoordinatorSelection(value);
-        break;
-      default:
-    }
   }
 
   handleOrganizationChange(event, index, value) {
     this.setState({ organizationValue: value });
+    const { workflowRoles: { careManagerWorkflowRole, careCoordinatorWorkflowRole }, onCareManagerSelection, onCareCoordinatorSelection } = this.props;
+    switch (this.state.roleValue) {
+      case careManagerWorkflowRole.value:
+        onCareManagerSelection(this.state.roleValue, value);
+        break;
+      case careCoordinatorWorkflowRole.value:
+        onCareCoordinatorSelection(this.state.roleValue, value);
+        break;
+      default:
+    }
   }
 
   handleCareManagerChange(event, index, value) {
@@ -499,6 +499,7 @@ WorkspaceSelection.propTypes = {
   onCareManagerSelection: PropTypes.func.isRequired,
   onCareCoordinatorSelection: PropTypes.func.isRequired,
   getLinkUrlByRole: PropTypes.func.isRequired,
+  mapToName: PropTypes.func.isRequired,
   onSetWorkspaceContext: PropTypes.func.isRequired,
   flattenPatientsData: PropTypes.func.isRequired,
   history: PropTypes.shape({

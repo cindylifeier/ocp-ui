@@ -15,6 +15,17 @@ import {
   WORKSPACE_SELECTION_URL,
 } from 'containers/App/constants';
 import upperFirst from 'lodash/upperFirst';
+import isEmpty from 'lodash/isEmpty';
+import identity from 'lodash/identity';
+
+export function mapToName(nameArray) {
+  let name;
+  if (!isEmpty(nameArray)) {
+    const [{ firstName, lastName }] = nameArray;
+    name = [firstName, lastName].filter(identity).join(' ');
+  }
+  return name;
+}
 
 /**
  * Mapping Fhir resource

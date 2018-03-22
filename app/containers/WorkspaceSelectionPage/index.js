@@ -14,7 +14,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getLinkUrlByRole } from 'containers/App/helpers';
+import { getLinkUrlByRole, mapToName } from 'containers/App/helpers';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
@@ -43,9 +43,6 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
   componentDidMount() {
     this.props.getWorkflowRoles();
     this.props.getOrganizations();
-    if (this.state.defaultRole) {
-      this.props.getCareManagers(this.defaultRole);
-    }
     this.props.getPatients();
   }
 
@@ -53,9 +50,6 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
     const defaultRole = nextProps.workflowRoles && nextProps.workflowRoles.careManagerWorkflowRole && nextProps.workflowRoles.careManagerWorkflowRole.value;
     if (defaultRole !== this.state.defaultRole) {
       this.setState({ defaultRole });
-      if (defaultRole) {
-        this.props.getCareManagers(defaultRole);
-      }
     }
   }
 
@@ -98,6 +92,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         <WorkspaceSelection
           {...workspaceSelectionProps}
           getLinkUrlByRole={getLinkUrlByRole}
+          mapToName={mapToName}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
           flattenPatientsData={flattenPatientsData}
           defaultRole={this.state.defaultRole}
@@ -143,8 +138,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
     getOrganizations: () => dispatch(getOrganizations()),
-    getCareManagers: (role) => dispatch(getCareManagers(role)),
-    getCareCoordinators: (role) => dispatch(getCareCoordinators(role)),
+    getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
+    getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),
     getPatients: () => dispatch(getPatients()),
     setUser: (user) => dispatch(setUser(user)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),
