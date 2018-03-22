@@ -21,42 +21,19 @@ function RecordsRange(props) {
   return (
     <div>
       <CenterAlign>
-        <div>
-          Debug Mode
-          <div>TotalElement: { props.totalElements }</div>
-          <div>currentPageSize: { props.currentPageSize }</div>
-          <div>currentPage: { props.currentPage }</div>
-          <div>totalPages: { props.totalPages }</div>
-          <div>
-            Test
-            <div>
-              LastPage
-              &lt;{(props.totalElements - props.currentPageSize) + 1}
-              -{props.totalElements}&gt;
-              / {props.totalElements}
-            </div>
-            <div>
-              NotLastPage
-              &lt;{recordStart(props.currentPage, props.currentPageSize)}
-              -{recordEnd(props.currentPage, props.currentPageSize)}&gt;
-              / {props.totalElements}
-            </div>
-          </div>
-          <div>=====================</div>
-        </div>
         {lastPage ? (
           <div>
-            LastPage
-            &lt;{(props.totalElements - props.currentPageSize) + 1}
-            -{props.totalElements}&gt;
-            / {props.totalElements}
+            Records :
+            &lt;&nbsp;{(props.totalElements - props.currentPageSize) + 1}&nbsp;
+            -&nbsp;{props.totalElements}&nbsp;&gt;&nbsp;
+            &nbsp;/&nbsp;{props.totalElements}
           </div>
         ) : (
           <div>
-            NotLastPage
-            &lt;{recordStart(props.currentPage, props.currentPageSize)}
-            -{recordEnd(props.currentPage, props.currentPageSize)}&gt;
-            / {props.totalElements}
+           Records :
+            &lt;&nbsp;{recordStart(props.currentPage, props.currentPageSize)}&nbsp;
+            -&nbsp;{recordEnd(props.currentPage, props.currentPageSize)}&nbsp;&gt;&nbsp;
+            &nbsp;/&nbsp;{props.totalElements}
           </div>
         )}
       </CenterAlign>
