@@ -15,7 +15,8 @@ import { Cell, Grid } from 'styled-css-grid';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import renderFactory from 'utils/goldenLayout/renderFactory';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import renderTasks from 'containers/Tasks/render';
 import GoldenLayout from 'components/GoldenLayout';
@@ -205,7 +206,7 @@ export const componentMetadata = [
 
 export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { patient } = this.props;
+    const { patient, user } = this.props;
     return (
       <Page>
         <Helmet>
@@ -215,7 +216,10 @@ export class PatientWorkspacePage extends React.PureComponent { // eslint-disabl
         {patient &&
         <Grid columns={1}>
           <Cell>
-            <PatientDetails patient={patient} />
+            <PatientDetails
+              patient={patient}
+              isPatientUser={user.role === PATIENT_ROLE_VALUE}
+            />
           </Cell>
           <Cell>
             <GoldenLayout
@@ -236,10 +240,14 @@ PatientWorkspacePage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
