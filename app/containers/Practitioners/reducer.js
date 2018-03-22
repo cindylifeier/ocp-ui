@@ -6,20 +6,27 @@
 
 import { fromJS } from 'immutable';
 import {
+  GET_PRACTITIONERS,
+  GET_PRACTITIONERS_SUCCESS,
   INITIALIZE_PRACTITIONERS,
-  LOAD_PRACTITIONER_SEARCH_RESULT,
+  SEARCH_PRACTITIONERS,
   SEARCH_PRACTITIONERS_ERROR,
   SEARCH_PRACTITIONERS_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
-  loading: false,
-  error: false,
-  searchPractitioners: {
-    result: false,
-    totalPages: 0,
-    currentPageSize: 0,
+  listPractitioners: {
+    loading: false,
+    data: [],
     currentPage: 0,
+    totalNumberOfPages: 0,
+  },
+  searchPractitioners: {
+    loading: false,
+    result: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
+    error: false,
   },
 });
 
@@ -27,25 +34,32 @@ function practitionersReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_PRACTITIONERS:
       return initialState;
-    case LOAD_PRACTITIONER_SEARCH_RESULT:
+    case GET_PRACTITIONERS:
       return state
-        .set('loading', true)
-        .set('error', false)
-        .setIn(['searchPractitioners', 'result'], false);
+        .setIn(['listPractitioners', 'loading'], true);
+    case GET_PRACTITIONERS_SUCCESS:
+      return state
+        .setIn(['listPractitioners', 'loading'], false)
+        .setIn(['listPractitioners', 'data'], fromJS(action.practitioners.elements))
+        .setIn(['listPractitioners', 'totalElements'], action.practitioners.totalElements)
+        .setIn(['listPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
+        .setIn(['listPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
+        .setIn(['listPractitioners', 'currentPage'], action.practitioners.currentPage);
+    case SEARCH_PRACTITIONERS:
+      return state
+        .setIn(['searchPractitioners', 'loading'], true);
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
-        .set('loading', false)
-        .setIn(['searchPractitioners', 'result'], action.searchResult.elements)
-        .setIn(['searchPractitioners', 'queryParameters', 'searchTerms'], action.queryParameters.searchTerms)
-        .setIn(['searchPractitioners', 'queryParameters', 'searchType'], action.queryParameters.searchType)
-        .setIn(['searchPractitioners', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)
-        .setIn(['searchPractitioners', 'currentPage'], action.searchResult.currentPage)
-        .setIn(['searchPractitioners', 'currentPageSize'], action.searchResult.currentPageSize)
-        .setIn(['searchPractitioners', 'totalPages'], action.searchResult.totalNumberOfPages);
+        .setIn(['searchPractitioners', 'loading'], false)
+        .setIn(['searchPractitioners', 'result'], fromJS(action.practitioners.elements))
+        .setIn(['searchPractitioners', 'totalElements'], action.practitioners.totalElements)
+        .setIn(['searchPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
+        .setIn(['searchPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
+        .setIn(['searchPractitioners', 'currentPage'], action.practitioners.currentPage);
     case SEARCH_PRACTITIONERS_ERROR:
       return state
-        .set('loading', false)
-        .set('error', action.error);
+        .setIn(['searchPractitioners', 'loading'], false)
+        .setIn(['searchPractitioners', 'error'], action.error);
     default: {
       return state;
     }

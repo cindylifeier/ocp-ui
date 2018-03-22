@@ -5,8 +5,10 @@
  */
 
 import {
+  GET_PRACTITIONERS,
+  GET_PRACTITIONERS_SUCCESS,
   INITIALIZE_PRACTITIONERS,
-  LOAD_PRACTITIONER_SEARCH_RESULT,
+  SEARCH_PRACTITIONERS,
   SEARCH_PRACTITIONERS_ERROR,
   SEARCH_PRACTITIONERS_SUCCESS,
 } from './constants';
@@ -17,23 +19,34 @@ export function initializePractitioners() {
   };
 }
 
-export function loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage) {
+export function getPractitioners(currentPage) {
   return {
-    type: LOAD_PRACTITIONER_SEARCH_RESULT,
-    searchTerms,
+    type: GET_PRACTITIONERS,
+    currentPage,
+  };
+}
+
+export function getPractitionersSuccess(practitioners) {
+  return {
+    type: GET_PRACTITIONERS_SUCCESS,
+    practitioners,
+  };
+}
+
+export function searchPractitioners(searchType, searchValue, includeInactive, currentPage) {
+  return {
+    type: SEARCH_PRACTITIONERS,
     searchType,
+    searchValue,
     includeInactive,
     currentPage,
   };
 }
 
-export function searchPractitionersSuccess(searchResult, searchTerms, searchType, includeInactive) {
+export function searchPractitionersSuccess(practitioners) {
   return {
     type: SEARCH_PRACTITIONERS_SUCCESS,
-    searchResult,
-    queryParameters: {
-      searchTerms, searchType, includeInactive,
-    },
+    practitioners,
   };
 }
 

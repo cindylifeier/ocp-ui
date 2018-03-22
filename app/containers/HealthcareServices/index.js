@@ -15,6 +15,7 @@ import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 import { Cell } from 'styled-css-grid';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
@@ -38,6 +39,8 @@ import {
   makeSelectQueryError,
   makeSelectQueryLoading,
   makeSelectTotalNumberOfPages,
+  makeSelectTotalElements,
+  makeSelectCurrentPageSize,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -139,6 +142,12 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
             totalPages={this.props.totalPages}
             onChange={this.handlePageClick}
           />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.currentPageSize}
+          />
         </div>
         }
       </Card>
@@ -152,6 +161,8 @@ HealthcareServices.propTypes = {
   healthcareServices: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
+  currentPageSize: PropTypes.number,
   initializeHealthcareServices: PropTypes.func,
   getHealthcareServices: PropTypes.func.isRequired,
   organization: PropTypes.object,
@@ -165,6 +176,8 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectQueryError(),
   currentPage: makeSelectCurrentPage(),
   totalPages: makeSelectTotalNumberOfPages(),
+  totalElements: makeSelectTotalElements(),
+  currentPageSize: makeSelectCurrentPageSize(),
   includeInactive: makeSelectIncludeInactive(),
   healthcareServices: makeSelectHealthcareServices(),
 });

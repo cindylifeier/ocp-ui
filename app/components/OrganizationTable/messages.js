@@ -46,4 +46,12 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.remove',
     defaultMessage: 'Remove',
   },
+  active: {
+    id: 'ocpui.components.OrganizationTable.active',
+    defaultMessage: 'Active',
+  },
+  inactive: {
+    id: 'ocpui.components.OrganizationTable.inactive',
+    defaultMessage: 'Inactive',
+  },
 });

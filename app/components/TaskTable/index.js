@@ -17,11 +17,10 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask, patientId }) {
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl }) {
   return (
     <Table>
       <TableHeader columns={TASK_TABLE_COLUMNS}>
@@ -49,8 +48,26 @@ function TaskTable({ elements, cancelTask, patientId }) {
                 primaryText={<FormattedMessage {...messages.editTask} />}
                 containerElement={<Link
                   to={{
-                    pathname: `${MANAGE_TASK_URL}/${logicalId}`,
-                    search: `?patientId=${patientId}`,
+                    pathname: `${taskBaseUrl}/${logicalId}`,
+                    search: `?patientId=${patientId}&isMainTask=true`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.addSubTask} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${taskBaseUrl}`,
+                    search: `?patientId=${patientId}&isMainTask=false&mainTaskId=${logicalId}`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.addCommunication} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${communicationBaseUrl}`,
+                    search: `?patientId=${patientId}&taskId=${logicalId}`,
                   }}
                 />}
               />
@@ -70,6 +87,8 @@ function TaskTable({ elements, cancelTask, patientId }) {
 TaskTable.propTypes = {
   cancelTask: PropTypes.func.isRequired,
   patientId: PropTypes.string.isRequired,
+  communicationBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({

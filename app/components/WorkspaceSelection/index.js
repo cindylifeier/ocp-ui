@@ -129,6 +129,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
 
   getPatientStepContent() {
     const { patients } = this.props;
+    const flattenedPatients = this.props.flattenPatientsData(patients);
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
@@ -140,7 +141,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
               value={this.state.patientValue}
               onChange={this.handlePatientChange}
             >
-              {patients && patients.map((patient) =>
+              {flattenedPatients && flattenedPatients.map((patient) =>
                 <MenuItem key={patient.id} value={patient.id} primaryText={patient.name} />,
               )}
             </SelectField>
@@ -207,7 +208,7 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
     const organization = find(organizations, { logicalId: this.state.organizationValue });
     const careManager = find(careManagers, { reference: this.state.careManagerValue });
     const careCoordinator = find(careCoordinators, { reference: this.state.careCoordinatorValue });
-    const patient = find(patients, { logicalId: this.state.patientValue });
+    const patient = find(patients, { id: this.state.patientValue });
     this.props.onSetWorkspaceContext(this.state.roleValue, organization, careManager, careCoordinator, patient);
     const linkTo = this.props.getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
@@ -499,6 +500,7 @@ WorkspaceSelection.propTypes = {
   onCareCoordinatorSelection: PropTypes.func.isRequired,
   getLinkUrlByRole: PropTypes.func.isRequired,
   onSetWorkspaceContext: PropTypes.func.isRequired,
+  flattenPatientsData: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),

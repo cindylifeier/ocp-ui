@@ -11,9 +11,9 @@ ShallowWrapper {
       }
     }
     location="/test-location"
-    workspace={
+    user={
       Object {
-        "workflowRole": "Patient",
+        "role": "Patient",
       }
     }
   />,
@@ -27,37 +27,89 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "class",
+    "nodeType": "host",
     "props": Object {
-      "push": false,
-      "to": Object {
-        "pathname": "/ocp-ui/login",
-        "state": Object {
-          "from": "/test-location",
-        },
-      },
+      "children": Array [
+        undefined,
+        <Redirect
+          push={false}
+          to={
+            Object {
+              "pathname": "/ocp-ui/login",
+              "state": Object {
+                "from": "/test-location",
+              },
+            }
+          }
+        />,
+      ],
     },
     "ref": null,
-    "rendered": null,
-    "type": [Function],
+    "rendered": Array [
+      undefined,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "push": false,
+          "to": Object {
+            "pathname": "/ocp-ui/login",
+            "state": Object {
+              "from": "/test-location",
+            },
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "host",
       "props": Object {
-        "push": false,
-        "to": Object {
-          "pathname": "/ocp-ui/login",
-          "state": Object {
-            "from": "/test-location",
-          },
-        },
+        "children": Array [
+          undefined,
+          <Redirect
+            push={false}
+            to={
+              Object {
+                "pathname": "/ocp-ui/login",
+                "state": Object {
+                  "from": "/test-location",
+                },
+              }
+            }
+          />,
+        ],
       },
       "ref": null,
-      "rendered": null,
-      "type": [Function],
+      "rendered": Array [
+        undefined,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "push": false,
+            "to": Object {
+              "pathname": "/ocp-ui/login",
+              "state": Object {
+                "from": "/test-location",
+              },
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
     },
   ],
   Symbol(enzyme.__options__): Object {

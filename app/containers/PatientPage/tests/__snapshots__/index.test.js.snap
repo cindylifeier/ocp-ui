@@ -29,6 +29,11 @@ ShallowWrapper {
         ],
       }
     }
+    user={
+      Object {
+        "role": "ocpAdminRole",
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -59,6 +64,7 @@ ShallowWrapper {
         >
           <styled.section>
             <PatientDetails
+              isPatientUser={false}
               patient={
                 Object {
                   "id": "1",
@@ -80,13 +86,13 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "communication",
-                    "text": "Communication",
+                    "name": "appointments",
+                    "text": "My Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
+                    "name": "communications",
+                    "text": "Communications",
                   },
                 ]
               }
@@ -121,10 +127,10 @@ ShallowWrapper {
                               "activeItemIndex": 0,
                               "content": Array [
                                 Object {
-                                  "componentName": "communication",
+                                  "componentName": "communications",
                                   "isClosable": true,
                                   "reorderEnabled": true,
-                                  "title": "Communication",
+                                  "title": "Communications",
                                   "type": "component",
                                 },
                               ],
@@ -172,7 +178,7 @@ ShallowWrapper {
                     "borderWidth": 5,
                     "dragProxyHeight": 200,
                     "dragProxyWidth": 300,
-                    "headerHeight": 20,
+                    "headerHeight": 30,
                     "minItemHeight": 10,
                     "minItemWidth": 10,
                   },
@@ -266,6 +272,7 @@ ShallowWrapper {
           "children": Array [
             <styled.section>
               <PatientDetails
+                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -287,13 +294,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ]
                 }
@@ -328,10 +335,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -379,7 +386,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },
@@ -427,6 +434,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <PatientDetails
+                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -443,6 +451,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
+                "isPatientUser": false,
                 "patient": Object {
                   "id": "1",
                   "name": Array [
@@ -471,13 +480,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ]
                 }
@@ -512,10 +521,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -563,7 +572,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },
@@ -614,13 +623,13 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "communication",
-                    "text": "Communication",
+                    "name": "appointments",
+                    "text": "My Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
+                    "name": "communications",
+                    "text": "Communications",
                   },
                 ],
                 "containerHeight": "200vh",
@@ -653,10 +662,10 @@ ShallowWrapper {
                               "activeItemIndex": 0,
                               "content": Array [
                                 Object {
-                                  "componentName": "communication",
+                                  "componentName": "communications",
                                   "isClosable": true,
                                   "reorderEnabled": true,
-                                  "title": "Communication",
+                                  "title": "Communications",
                                   "type": "component",
                                 },
                               ],
@@ -704,7 +713,7 @@ ShallowWrapper {
                     "borderWidth": 5,
                     "dragProxyHeight": 200,
                     "dragProxyWidth": 300,
-                    "headerHeight": 20,
+                    "headerHeight": 30,
                     "minItemHeight": 10,
                     "minItemWidth": 10,
                   },
@@ -774,6 +783,7 @@ ShallowWrapper {
           >
             <styled.section>
               <PatientDetails
+                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -795,13 +805,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ]
                 }
@@ -836,10 +846,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -887,7 +897,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },
@@ -981,6 +991,7 @@ ShallowWrapper {
             "children": Array [
               <styled.section>
                 <PatientDetails
+                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1002,13 +1013,13 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "communication",
-                        "text": "Communication",
+                        "name": "appointments",
+                        "text": "My Appointments",
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
+                        "name": "communications",
+                        "text": "Communications",
                       },
                     ]
                   }
@@ -1043,10 +1054,10 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "communication",
+                                      "componentName": "communications",
                                       "isClosable": true,
                                       "reorderEnabled": true,
-                                      "title": "Communication",
+                                      "title": "Communications",
                                       "type": "component",
                                     },
                                   ],
@@ -1094,7 +1105,7 @@ ShallowWrapper {
                         "borderWidth": 5,
                         "dragProxyHeight": 200,
                         "dragProxyWidth": 300,
-                        "headerHeight": 20,
+                        "headerHeight": 30,
                         "minItemHeight": 10,
                         "minItemWidth": 10,
                       },
@@ -1142,6 +1153,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <PatientDetails
+                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1158,6 +1170,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
+                  "isPatientUser": false,
                   "patient": Object {
                     "id": "1",
                     "name": Array [
@@ -1186,13 +1199,13 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "communication",
-                        "text": "Communication",
+                        "name": "appointments",
+                        "text": "My Appointments",
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
+                        "name": "communications",
+                        "text": "Communications",
                       },
                     ]
                   }
@@ -1227,10 +1240,10 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "communication",
+                                      "componentName": "communications",
                                       "isClosable": true,
                                       "reorderEnabled": true,
-                                      "title": "Communication",
+                                      "title": "Communications",
                                       "type": "component",
                                     },
                                   ],
@@ -1278,7 +1291,7 @@ ShallowWrapper {
                         "borderWidth": 5,
                         "dragProxyHeight": 200,
                         "dragProxyWidth": 300,
-                        "headerHeight": 20,
+                        "headerHeight": 30,
                         "minItemHeight": 10,
                         "minItemWidth": 10,
                       },
@@ -1329,13 +1342,13 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
                     },
                   ],
                   "containerHeight": "200vh",
@@ -1368,10 +1381,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -1419,7 +1432,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },

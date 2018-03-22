@@ -88,6 +88,16 @@ export const APPOINTMENT_PARTICIPANT_REQUIRED = 'APPOINTMENT_PARTICIPANT_REQUIRE
 // practionerRole lookups
 export const PROVIDER_ROLE = 'PROVIDER_ROLE';
 export const PROVIDER_SPECIALTY = 'PROVIDER_SPECIALTY';
+// Communications resource lookups start
+export const COMMUNICATION_STATUS = 'COMMUNICATION_STATUS';
+export const COMMUNICATION_CATEGORY = 'COMMUNICATION_CATEGORY';
+export const COMMUNICATION_NOT_DONE_REASON = 'COMMUNICATION_NOT_DONE_REASON';
+export const COMMUNICATION_MEDIUM = 'COMMUNICATION_MEDIUM';
+// Communications resource lookups end
+
+// flag lookups
+export const FLAG_STATUS = 'FLAG_STATUS';
+export const FLAG_CATEGORY = 'FLAG_CATEGORY';
 
 /**
  *  Constants to hold the internal urls
@@ -99,6 +109,7 @@ export const PATIENTS_URL = '/ocp-ui/patients';
 export const CARE_COORDINATOR_URL = '/ocp-ui/care-coordinator';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
+export const MANAGE_COMMUNICATION_URL = '/ocp-ui/manage-communication';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
@@ -136,6 +147,7 @@ export const DEFAULT_PAGE_SIZE = 10;
 export const TEXT_MIN_LENGTH = 3;
 export const POSTAL_CODE_PATTERN = '^\\d{5}(?:[-\\s]\\d{4})?$';
 export const PHONE_PATTERN = '^[(]{0,1}[0-9]{3}[)]{0,1}[-s.]{0,1}[0-9]{3}[-s.]{0,1}[0-9]{4}$';
+
 
 /**
  *  Constants to hold the configuration for date picker

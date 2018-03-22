@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
@@ -24,7 +23,6 @@ import ErrorText from 'components/ErrorText';
 import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import { HOME_URL } from 'containers/App/constants';
 import Section from 'components/Section';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 
@@ -58,7 +56,7 @@ class ManagePractitionerForm extends React.PureComponent {
 
   render() {
     const {
-      isSubmitting, dirty, isValid, values, errors,
+      history, isSubmitting, dirty, isValid, values, errors,
       uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
       organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
     } = this.props;
@@ -272,7 +270,7 @@ class ManagePractitionerForm extends React.PureComponent {
                     label="Cancel"
                     default
                     disabled={isSubmitting}
-                    containerElement={<Link to={HOME_URL} />}
+                    onClick={history.goBack}
                   />
                 </Cell>
               </Grid>
@@ -285,6 +283,9 @@ class ManagePractitionerForm extends React.PureComponent {
 }
 
 ManagePractitionerForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

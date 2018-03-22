@@ -22,6 +22,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CareTeamTable from 'components/CareTeamTable';
+import RecordsRange from 'components/RecordsRange';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -146,6 +147,12 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
             onChange={this.handlePageClick}
+          />
+          <RecordsRange
+            currentPage={data.currentPage}
+            totalPages={data.totalNumberOfPages}
+            totalElements={data.totalElements}
+            currentPageSize={data.currentPageSize}
           />
         </CenterAlign>
         }

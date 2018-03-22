@@ -20,6 +20,7 @@ import {
   APPOINTMENT_TYPE,
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_APPOINTMENT_URL,
+  MANAGE_COMMUNICATION_URL,
 } from 'containers/App/constants';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
@@ -31,6 +32,7 @@ import isUndefined from 'lodash/isUndefined';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import PropTypes from 'prop-types';
 import React from 'react';
+import RecordsRange from 'components/RecordsRange';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -98,9 +100,10 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   render() {
+    const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const currentPath = window.location.pathname;
     const patientDetailsPage = currentPath.indexOf('patients') >= 0;
-    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
+    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses, patient } = this.props;
     return (
       <div>
         <Card>
@@ -136,11 +139,24 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
             <FormattedMessage {...messages.noUpcomingAppointments} />}</NoUpcomingAppointmentsMessage>}
           {!isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
-            <CareCoordinatorUpcomingAppointmentTable elements={data.elements} appointmentStatuses={appointmentStatuses} appointmentTypes={appointmentTypes} cancelAppointment={this.cancelAppointment} />
+            <CareCoordinatorUpcomingAppointmentTable
+              elements={data.elements}
+              appointmentStatuses={appointmentStatuses}
+              appointmentTypes={appointmentTypes}
+              cancelAppointment={this.cancelAppointment}
+              patientId={patient.id}
+              communicationBaseUrl={communicationBaseUrl}
+            />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
               onChange={this.handlePageClick}
+            />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={data.totalElements}
+              currentPageSize={data.currentPageSize}
             />
           </CenterAlign>
           }

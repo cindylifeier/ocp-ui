@@ -13,6 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import RecordsRange from 'components/RecordsRange';
 import PatientSearchResult from 'components/PatientSearchResult';
 import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -30,6 +31,7 @@ import {
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectTotalPages,
+  makeSelectPatientTotalElements,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
@@ -101,11 +103,19 @@ export class Patients extends React.PureComponent {
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />
         {this.props.searchResult &&
-        <CenterAlignedUltimatePagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={this.handleChangePage}
-        />
+        <div>
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            onChange={this.handleChangePage}
+          />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.searchResult.length}
+          />
+        </div>
         }
         {/* TODO: Will move ConfirmPatientModal to upcoming tasks component*/}
         {this.state.patient &&
@@ -132,6 +142,7 @@ Patients.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
   onChangePage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
@@ -143,6 +154,7 @@ Patients.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   searchResult: makeSelectPatientSearchResult(),
+  totalElements: makeSelectPatientTotalElements(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
   currentPage: makeSelectCurrentPage(),

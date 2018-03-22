@@ -16,6 +16,7 @@ import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 import MenuItem from 'material-ui/MenuItem';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -43,6 +44,8 @@ import {
   makeSelectIncludeSuspended,
   makeSelectLocations,
   makeSelectTotalNumberOfPages,
+  makeSelectCurrentPageSize,
+  makeSelectTotalElements,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -220,6 +223,12 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
             totalPages={this.props.totalNumberOfPages}
             onChange={this.handlePageClick}
           />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalNumberOfPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.currentPageSize}
+          />
         </Table>
       </div>
     )
@@ -260,6 +269,8 @@ Locations.propTypes = {
   location: PropTypes.object,
   currentPage: PropTypes.number,
   totalNumberOfPages: PropTypes.number,
+  totalElements: PropTypes.number,
+  currentPageSize: PropTypes.number,
   includeInactive: PropTypes.bool,
   includeSuspended: PropTypes.bool,
 };
@@ -270,6 +281,8 @@ const mapStateToProps = createStructuredSelector({
   location: makeSelectLocation(),
   currentPage: makeSelectCurrentPage(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  currentPageSize: makeSelectCurrentPageSize(),
+  totalElements: makeSelectTotalElements(),
   includeInactive: makeSelectIncludeInactive(),
   includeSuspended: makeSelectIncludeSuspended(),
 });

@@ -13,8 +13,9 @@ import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
+import { getPatientName } from 'utils/PatientUtils';
 import injectReducer from 'utils/injectReducer';
 import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -25,7 +26,7 @@ import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading } from './selectors';
+import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading, makeSelectRelatedPersonsTotalElements } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -54,12 +55,6 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
     }
   }
 
-  getPatientName(patient) {
-    const name = !isEmpty(patient) && !isEmpty(patient.name) ? (patient.name) : '';
-    const fullName = name.length > 0 ? (name[0].firstName.concat(' ').concat(name[0].lastName)) : '';
-    return fullName;
-  }
-
   handlePageClick(pageNumber) {
     this.props.getRelatedPersons(true, pageNumber);
   }
@@ -76,7 +71,7 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
             <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
               <FormattedMessage {...messages.labelPatientName} />&nbsp;
             </InlineLabel>
-            <span id={this.PATIENT_NAME_HTML_ID}>{this.getPatientName(patient)}</span>
+            <span id={this.PATIENT_NAME_HTML_ID}>{getPatientName(patient)}</span>
           </InfoSection>)}
         {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
           <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
@@ -92,6 +87,12 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
               currentPage={data.currentPage}
               totalPages={data.totalNumberOfPages}
               onChange={this.handlePageClick}
+            />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={data.totalElements}
+              currentPageSize={data.currentPageSize}
             />
           </div>)
         }
@@ -112,6 +113,7 @@ const mapStateToProps = createStructuredSelector({
   data: makeSelectRelatedPersons(),
   patient: makeSelectPatient(),
   loading: makeSelectRelatedPersonsSearchLoading(),
+  totalElements: makeSelectRelatedPersonsTotalElements(),
 });
 
 function mapDispatchToProps(dispatch) {

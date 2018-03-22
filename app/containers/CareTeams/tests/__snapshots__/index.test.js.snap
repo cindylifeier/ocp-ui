@@ -208,6 +208,12 @@ ShallowWrapper {
             siblingPagesRange={1}
             totalPages={100}
           />
+          <RecordsRange
+            currentPage={10}
+            currentPageSize={undefined}
+            totalElements={undefined}
+            totalPages={100}
+          />
         </styled.div>,
       ],
     },
@@ -706,6 +712,12 @@ ShallowWrapper {
               siblingPagesRange={1}
               totalPages={100}
             />,
+            <RecordsRange
+              currentPage={10}
+              currentPageSize={undefined}
+              totalElements={undefined}
+              totalPages={100}
+            />,
           ],
         },
         "ref": null,
@@ -748,6 +760,20 @@ ShallowWrapper {
               "hidePreviousAndNextPageLinks": false,
               "onChange": [Function],
               "siblingPagesRange": 1,
+              "totalPages": 100,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "currentPage": 10,
+              "currentPageSize": undefined,
+              "totalElements": undefined,
               "totalPages": 100,
             },
             "ref": null,
@@ -872,6 +898,12 @@ ShallowWrapper {
               hidePreviousAndNextPageLinks={false}
               onChange={[Function]}
               siblingPagesRange={1}
+              totalPages={100}
+            />
+            <RecordsRange
+              currentPage={10}
+              currentPageSize={undefined}
+              totalElements={undefined}
               totalPages={100}
             />
           </styled.div>,
@@ -1372,6 +1404,12 @@ ShallowWrapper {
                 siblingPagesRange={1}
                 totalPages={100}
               />,
+              <RecordsRange
+                currentPage={10}
+                currentPageSize={undefined}
+                totalElements={undefined}
+                totalPages={100}
+              />,
             ],
           },
           "ref": null,
@@ -1414,6 +1452,20 @@ ShallowWrapper {
                 "hidePreviousAndNextPageLinks": false,
                 "onChange": [Function],
                 "siblingPagesRange": 1,
+                "totalPages": 100,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "currentPage": 10,
+                "currentPageSize": undefined,
+                "totalElements": undefined,
                 "totalPages": 100,
               },
               "ref": null,
