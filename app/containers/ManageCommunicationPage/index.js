@@ -25,19 +25,26 @@ import Page from 'components/Page';
 import { makeSelectCommunications } from 'containers/Communications/selectors';
 import { makeSelectTasks } from 'containers/Tasks/selectors';
 import {
-  initializeListOfRecipients, initializeSearchRecipients,
-  removeSelectedRecipient, setInitialRecipients,
+  initializeListOfRecipients,
+  initializeSearchRecipients,
+  removeSelectedRecipient,
+  setInitialRecipients,
 } from 'containers/SearchRecipient/actions';
 
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import {
-  makeSelectCommunicationCategories, makeSelectCommunicationStatus, makeSelectCommunicationMedia,
+  makeSelectCommunicationCategories,
+  makeSelectCommunicationStatus,
+  makeSelectCommunicationMedia,
   makeSelectCommunicationNotDoneReasons,
 } from 'containers/App/lookupSelectors';
 import {
-  COMMUNICATION_CATEGORY, COMMUNICATION_STATUS, COMMUNICATION_MEDIUM,
-  COMMUNICATION_NOT_DONE_REASON, DATE_PICKER_MODE, PATIENTS_URL,
+  COMMUNICATION_CATEGORY,
+  COMMUNICATION_STATUS,
+  COMMUNICATION_MEDIUM,
+  COMMUNICATION_NOT_DONE_REASON,
+  DATE_PICKER_MODE, PATIENTS_URL,
 } from 'containers/App/constants';
 import isUndefined from 'lodash/isUndefined';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
@@ -48,7 +55,10 @@ import ManageCommunication from 'components/ManageCommunication';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { createCommunication, updateCommunication, getEpisodeOfCares,
+import {
+  createCommunication,
+  updateCommunication,
+  getEpisodeOfCares,
   getPractitioner } from './actions';
 
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -80,10 +90,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       const recipients = communication.recipient;
       this.props.setInitialRecipients(recipients);
     }
-  }
-
-  setInitialSelectedRecipients(recipients) {
-    this.props.setInitialRecipients(recipients);
   }
 
   handleOpen() {
