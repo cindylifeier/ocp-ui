@@ -59,7 +59,7 @@ describe('<ManageTaskFormGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('grid-column-gap', '2vw');
       expect(renderedComponent).toHaveStyleRule('grid-row-gap', '2vh');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "activityDefinitions"    "organization"    "patientName"    "requester"    "authoredOn"    "lastModifiedDate"    "status"    "priority"    "intent"    "context"    "taskOwner"    "performerType"    "partOf"    "taskStart"    "taskEnd"    "description"    "comments"    "buttonGroup"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "activityDefinition"    "selOrganization"    "patientName"    "selRequester"    "authoredOn"    "lastModifiedDate"    "status"    "priority"    "intent"    "context"    "taskOwner"    "performerType"    "partOf"    "taskStart"    "taskEnd"    "description"    "comments"    "buttonGroup"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -72,7 +72,7 @@ describe('<ManageTaskFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "activityDefinitions activityDefinitions"      "organization organization"      "patientName patientName"      "requester requester"      "authoredOn lastModifiedDate"      "status priority"      "intent context"      "taskOwner taskOwner"      "performerType performerType"      "partOf partOf"      "taskStart taskEnd"      "description description"      "comments comments"      "buttonGroup  ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "activityDefinition activityDefinition"      "selOrganization selOrganization"      "patientName patientName"      "selRequester selRequester"      "authoredOn lastModifiedDate"      "status priority"      "intent context"      "taskOwner taskOwner"      "performerType performerType"      "partOf partOf"      "taskStart taskEnd"      "description description"      "comments comments"      "buttonGroup  ."', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -85,7 +85,7 @@ describe('<ManageTaskFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "activityDefinitions activityDefinitions activityDefinitions activityDefinitions . . . . . . . ."      "organization organization organization organization patientName patientName patientName patientName requester requester requester requester"      "authoredOn authoredOn lastModifiedDate lastModifiedDate . . . . . . . ."      "status status status priority priority priority intent intent intent context context context"      "taskOwner taskOwner taskOwner taskOwner performerType performerType performerType performerType partOf partOf partOf partOf"      "taskStart taskStart taskEnd taskEnd . . . . . . . ."      "description description description . . . . . . . . ."      "comments comments comments . . . . . . . . ."      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "activityDefinition activityDefinition activityDefinition activityDefinition . . . . . . . ."      "selOrganization selOrganization selOrganization selOrganization patientName patientName patientName patientName selRequester selRequester selRequester selRequester"      "authoredOn authoredOn lastModifiedDate lastModifiedDate . . . . . . . ."      "status status status priority priority priority intent intent intent context context context"      "taskOwner taskOwner taskOwner taskOwner performerType performerType performerType performerType partOf partOf partOf partOf"      "taskStart taskStart taskEnd taskEnd . . . . . . . ."      "description description description . . . . . . . . ."      "comments comments comments . . . . . . . . ."      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
     });
   });
 });
