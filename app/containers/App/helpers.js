@@ -23,7 +23,7 @@ import upperFirst from 'lodash/upperFirst';
  */
 export function mapToIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => {
-    const system = identifier.system !== EMPTY_STRING ? identifier.system : EMPTY_STRING;
+    const system = identifier.systemDisplay !== EMPTY_STRING ? identifier.systemDisplay : EMPTY_STRING;
     const value = identifier.value !== EMPTY_STRING ? identifier.value : EMPTY_STRING;
     return `${system} ${value}`;
   }).join(', ');
