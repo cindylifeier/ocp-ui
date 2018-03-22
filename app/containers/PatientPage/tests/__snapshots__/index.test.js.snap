@@ -64,6 +64,7 @@ ShallowWrapper {
         >
           <styled.section>
             <PatientDetails
+              flattenPatientData={[Function]}
               isPatientUser={false}
               patient={
                 Object {
@@ -272,6 +273,7 @@ ShallowWrapper {
           "children": Array [
             <styled.section>
               <PatientDetails
+                flattenPatientData={[Function]}
                 isPatientUser={false}
                 patient={
                   Object {
@@ -434,6 +436,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <PatientDetails
+                flattenPatientData={[Function]}
                 isPatientUser={false}
                 patient={
                   Object {
@@ -451,6 +454,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
+                "flattenPatientData": [Function],
                 "isPatientUser": false,
                 "patient": Object {
                   "id": "1",
@@ -783,6 +787,7 @@ ShallowWrapper {
           >
             <styled.section>
               <PatientDetails
+                flattenPatientData={[Function]}
                 isPatientUser={false}
                 patient={
                   Object {
@@ -991,6 +996,7 @@ ShallowWrapper {
             "children": Array [
               <styled.section>
                 <PatientDetails
+                  flattenPatientData={[Function]}
                   isPatientUser={false}
                   patient={
                     Object {
@@ -1153,6 +1159,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <PatientDetails
+                  flattenPatientData={[Function]}
                   isPatientUser={false}
                   patient={
                     Object {
@@ -1170,6 +1177,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
+                  "flattenPatientData": [Function],
                   "isPatientUser": false,
                   "patient": Object {
                     "id": "1",
