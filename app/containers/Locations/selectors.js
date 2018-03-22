@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import { selectOrganizationsDomain } from 'containers/Organizations/selectors';
 
 /**
  * Direct selector to the locations state domain
@@ -31,7 +30,7 @@ const makeSelectCurrentPageSize = () => createSelector(
 );
 
 const makeSelectTotalElements = () => createSelector(
-  selectOrganizationsDomain,
+  selectLocationsDomain,
   (substate) => substate.get('totalElements'),
 );
 
