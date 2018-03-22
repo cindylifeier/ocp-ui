@@ -124,8 +124,8 @@ Organizations.propTypes = {
       loading: PropTypes.bool.isRequired,
       currentPage: PropTypes.number.isRequired,
       totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number.isRequired,
-      totalElements: PropTypes.number.isRequired,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
       data: PropTypes.array,
     }),
     searchOrganizations: PropTypes.shape({
