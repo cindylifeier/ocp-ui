@@ -38,5 +38,15 @@ describe('<GoldenLayoutContainer />', () => {
         modifier: ' .lm_content',
       });
     });
+
+    it('should have GoldenLayout title style to set to uppercase', () => {
+      // Act
+      const renderedComponent = shallow(<GoldenLayoutContainer />);
+
+      // Assert
+      expect(renderedComponent).toHaveStyleRule('text-transform', 'uppercase', {
+        modifier: ' .lm_title',
+      });
+    });
   });
 });
