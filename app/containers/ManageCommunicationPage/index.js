@@ -131,14 +131,14 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     }
     const practitioner = this.state.selectedPractitioner;
     let selectedTask = null;
-    if (location && location.search) {
+    if (location && location.search && tasks && tasks.data && tasks.data.elements) {
       const queryObj = queryString.parse(location.search);
       const taskId = queryObj.taskId;
       selectedTask = find(tasks.data.elements, { logicalId: taskId });
     }
 
     let selectedAppointment = null;
-    if (location && location.search) {
+    if (location && location.search && appointments && appointments.data && appointments.data.elements) {
       const queryObj = queryString.parse(location.search);
       const appointmentId = queryObj.appointmentId;
       selectedAppointment = find(appointments.data.elements, { logicalId: appointmentId });
