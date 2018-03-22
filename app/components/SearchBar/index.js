@@ -21,6 +21,18 @@ const SEARCH_BY_ID = 'identifier';
 function SearchBar(props) {
   const { minimumLength, onSearch, searchField } = props;
   const searchFormProps = { searchField };
+
+  function initialFormValues() {
+    let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
+    if (!isEmpty(searchField.searchTypes)) {
+      initialValues = {
+        showInactive: false,
+        searchType: head(searchField.searchTypes).value,
+      };
+    }
+    return initialValues;
+  }
+
   return (
     <div>
       <Formik
@@ -71,14 +83,3 @@ SearchBar.defaultProps = {
 };
 
 export default SearchBar;
-
-function initialFormValues(searchField) {
-  let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
-  if (!isEmpty(searchField.searchTypes)) {
-    initialValues = {
-      showInactive: false,
-      searchType: head(searchField.searchTypes).value,
-    };
-  }
-  return initialValues;
-}
