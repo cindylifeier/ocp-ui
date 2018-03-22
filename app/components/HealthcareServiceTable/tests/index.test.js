@@ -528,7 +528,6 @@ describe('<HealthcareServiceTable />', () => {
       const renderedComponent = shallow(<HealthcareServiceTable elements={mockElements} />);
 
       // Assert
-      console.log(renderedComponent.debug());
       expect(renderedComponent.contains(identifierSystem1)).toBe(false);
       expect(renderedComponent.contains(identifierSystem2)).toBe(false);
       expect(renderedComponent.contains(identifierSystem3)).toBe(false);

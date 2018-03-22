@@ -6,12 +6,20 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  createHeader: {
-    id: 'ocpui.containers.ManageTaskPage.createHeader',
-    defaultMessage: 'Create Task',
+  createMainHeader: {
+    id: 'ocpui.containers.ManageTaskPage.createMainHeader',
+    defaultMessage: 'Create Main Task',
   },
-  updateHeader: {
-    id: 'ocpui.containers.ManageTaskPage.updateHeader',
-    defaultMessage: 'Update Task',
+  updateMainHeader: {
+    id: 'ocpui.containers.ManageTaskPage.updateMainHeader',
+    defaultMessage: 'Update Main Task',
+  },
+  createSubHeader: {
+    id: 'ocpui.containers.ManageTaskPage.createSubHeader',
+    defaultMessage: 'Create Sub Task',
+  },
+  updateSubHeader: {
+    id: 'ocpui.containers.ManageTaskPage.updateSubHeader',
+    defaultMessage: 'Update Sub Task',
   },
 });
