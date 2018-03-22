@@ -38,6 +38,7 @@ function patientsReducer(state = initialState, action) {
         .setIn(['searchPatients', 'currentPage'], action.searchResult.currentPage)
         .setIn(['searchPatients', 'currentPageSize'], action.searchResult.currentPageSize)
         .setIn(['searchPatients', 'totalPages'], action.searchResult.totalNumberOfPages)
+        .setIn(['searchPatients', 'totalElements'], action.searchResult.totalElements)
         .setIn(['searchPatients', 'queryParameters', 'searchTerms'], action.queryParameters.searchTerms)
         .setIn(['searchPatients', 'queryParameters', 'searchType'], action.queryParameters.searchType)
         .setIn(['searchPatients', 'queryParameters', 'includeInactive'], action.queryParameters.includeInactive)
