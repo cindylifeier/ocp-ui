@@ -2,7 +2,11 @@
  * Helpers is a collection of useful common shared functions are used by OCP Domain containers
  *
  */
+import isEmpty from 'lodash/isEmpty';
+import upperFirst from 'lodash/upperFirst';
+import identity from 'lodash/identity';
 
+import { PHONE_SYSTEM } from 'utils/constants';
 import {
   ADMIN_WORKSPACE,
   CARE_COORDINATOR_ROLE_VALUE,
@@ -14,9 +18,11 @@ import {
   PRACTITIONER_WORKSPACE,
   WORKSPACE_SELECTION_URL,
 } from 'containers/App/constants';
-import upperFirst from 'lodash/upperFirst';
-import isEmpty from 'lodash/isEmpty';
-import identity from 'lodash/identity';
+
+/**
+ * Mapping Fhir resources
+ * @returns {*}
+ */
 
 export function mapToName(nameArray) {
   let name;
@@ -27,14 +33,9 @@ export function mapToName(nameArray) {
   return name;
 }
 
-/**
- * Mapping Fhir resource
- * @returns {*}
- * @param identifiers
- */
 export function mapToIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => {
-    const system = identifier.system !== EMPTY_STRING ? identifier.system : EMPTY_STRING;
+    const system = identifier.systemDisplay !== EMPTY_STRING ? identifier.systemDisplay : EMPTY_STRING;
     const value = identifier.value !== EMPTY_STRING ? identifier.value : EMPTY_STRING;
     return `${system} ${value}`;
   }).join(', ');
@@ -46,6 +47,13 @@ export function mapToTelecoms(telecoms) {
     const value = telecom.value !== EMPTY_STRING ? telecom.value : EMPTY_STRING;
     return `${system} ${value}`;
   }).join(', ');
+}
+
+export function mapToPhone(telecoms) {
+  return telecoms && telecoms
+    .filter((telecom) => telecom.system === PHONE_SYSTEM)
+    .map((telecom) => telecom.value)
+    .join(', ');
 }
 
 export function mapToAddresses(addresses) {

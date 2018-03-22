@@ -75,7 +75,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 
   handleCheck(event, checked) {
     const patientId = this.props.patient.id;
-    if (!isUndefined(patientId)) {
+    if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         practitionerId: PRACTITIONERIDVALUE,
@@ -99,7 +99,8 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const currentPath = window.location.pathname;
     const patientDetailsPage = currentPath.indexOf('patients') >= 0;
-    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses, patient } = this.props;
+    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
+    const patientId = this.props.patient ? this.props.patient.id : null;
     return (
       <div>
         <Card>
@@ -132,7 +133,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
               appointmentStatuses={appointmentStatuses}
               appointmentTypes={appointmentTypes}
               cancelAppointment={this.cancelAppointment}
-              patientId={patient.id}
+              patientId={patientId}
               communicationBaseUrl={communicationBaseUrl}
             />
             <CenterAlignedUltimatePagination
