@@ -28,7 +28,7 @@ import {
   makeSelectPatientsData,
   makeSelectWorkflowRolesData,
 } from './selectors';
-import { flattenPatientData } from './helpers';
+import { flattenPatientsData } from './helpers';
 
 export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -71,7 +71,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
       organizations,
       careManagers,
       careCoordinators,
-      patients: flattenPatientData(patients),
+      patients,
       workflowRoles,
     };
     return (
@@ -85,6 +85,7 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
           {...workspaceSelectionProps}
           getLinkUrlByRole={getLinkUrlByRole}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
+          flattenPatientsData={flattenPatientsData}
         />
         }
       </div>
