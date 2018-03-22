@@ -10,16 +10,18 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import renderFactory from 'utils/goldenLayout/renderFactory';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
+import PatientDetails from 'components/PatientDetails';
 import renderTasks from 'containers/Tasks/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
-import makeSelectPatientWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -203,29 +205,41 @@ export const componentMetadata = [
 
 export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { patient } = this.props;
     return (
       <Page>
         <Helmet>
           <title>Patient Workspace</title>
           <meta name="description" content="Patient workspace page of Omnibus Care Plan application" />
         </Helmet>
-        <GoldenLayout
-          containerHeight="330vh"
-          containerId="golden-patient-workspace"
-          componentMetadata={componentMetadata}
-          stateMetadata={initialStateMetadata}
-        />
+        {patient &&
+        <Grid columns={1}>
+          <Cell>
+            <PatientDetails patient={patient} />
+          </Cell>
+          <Cell>
+            <GoldenLayout
+              containerHeight="350vh"
+              containerId="golden-patient-workspace"
+              componentMetadata={componentMetadata}
+              stateMetadata={initialStateMetadata}
+            />
+          </Cell>
+        </Grid>}
       </Page>
     );
   }
 }
 
 PatientWorkspacePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  patientworkspacepage: makeSelectPatientWorkspacePage(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
