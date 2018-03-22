@@ -41,6 +41,8 @@ function organizationsReducer(state = initialState, action) {
         .setIn(['listOrganizations', 'loading'], false)
         .setIn(['listOrganizations', 'data'], fromJS(action.organizations.elements))
         .setIn(['listOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
+        .setIn(['listOrganizations', 'totalElements'], action.organizations.totalElements)
+        .setIn(['listOrganizations', 'currentPageSize'], action.organizations.currentPageSize)
         .setIn(['listOrganizations', 'currentPage'], action.organizations.currentPage);
     case SEARCH_ORGANIZATIONS:
       return state
@@ -50,6 +52,8 @@ function organizationsReducer(state = initialState, action) {
         .setIn(['searchOrganizations', 'loading'], false)
         .setIn(['searchOrganizations', 'result'], fromJS(action.organizations.elements))
         .setIn(['searchOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
+        .setIn(['searchOrganizations', 'totalElements'], action.organizations.totalElements)
+        .setIn(['searchOrganizations', 'currentPageSize'], action.organizations.currentPageSize)
         .setIn(['searchOrganizations', 'currentPage'], action.organizations.currentPage);
     case SEARCH_ORGANIZATIONS_ERROR:
       return state
