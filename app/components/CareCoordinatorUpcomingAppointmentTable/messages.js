@@ -38,4 +38,8 @@ export default defineMessages({
     id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemCancel',
     defaultMessage: 'Cancel',
   },
+  addCommunication: {
+    id: 'ocpui.components.TaskTable.addCommunication',
+    defaultMessage: 'Add Communication',
+  },
 });

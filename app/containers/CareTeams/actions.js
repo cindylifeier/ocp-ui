@@ -12,11 +12,10 @@ export function initializeCareTeams() {
   };
 }
 
-export function getCareTeams(query, patientName, statusList = []) {
+export function getCareTeams(pageNumber, statusList = []) {
   return {
     type: GET_CARE_TEAMS,
-    query,
-    patientName,
+    pageNumber,
     statusList,
   };
 }

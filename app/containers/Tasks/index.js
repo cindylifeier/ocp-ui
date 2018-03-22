@@ -12,9 +12,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { mapToPatientName } from 'utils/PatientUtils';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
 import Card from 'components/Card';
@@ -24,6 +27,8 @@ import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -40,11 +45,22 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
 
   componentDidMount() {
     this.props.initializeTasks();
+    const { patient } = this.props;
+    if (patient) {
+      this.props.getTasks(DEFAULT_START_PAGE_NUMBER);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient)) {
+      this.props.getTasks(DEFAULT_START_PAGE_NUMBER);
+    }
   }
 
   handlePageClick(page) {
-    const { query, patientName, patientId } = this.props.tasks;
-    this.props.getTasks({ ...query, pageNumber: page }, patientName, patientId);
+    this.props.getTasks(page);
   }
 
   cancelTask(logicalId) {
@@ -52,7 +68,10 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { tasks: { loading, data, patientName, patientId } } = this.props;
+    const { tasks: { loading, data }, patient } = this.props;
+    const patientName = mapToPatientName(patient);
+    const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const taskBaseUrl = MANAGE_TASK_URL;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />} />
@@ -69,7 +88,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && !isEmpty(patientId) && isEmpty(data) &&
+        {!loading && !isEmpty(patientName) && !isEmpty(patient.id) && isEmpty(data) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noTasksFound} />
         </NoResultsFoundText>}
@@ -77,12 +96,24 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <div>
           <CenterAlign>
-            <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
+            <TaskTable
+              elements={data.elements}
+              cancelTask={this.cancelTask}
+              patientId={patient.id}
+              communicationBaseUrl={communicationBaseUrl}
+              taskBaseUrl={taskBaseUrl}
+            />
           </CenterAlign>
           <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}
             onChange={this.handlePageClick}
+          />
+          <RecordsRange
+            currentPage={data.currentPage}
+            totalPages={data.totalNumberOfPages}
+            totalElements={data.totalElements}
+            currentPageSize={data.currentPageSize}
           />
         </div>
         }
@@ -97,19 +128,18 @@ Tasks.propTypes = {
   getTasks: PropTypes.func.isRequired,
   tasks: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-    query: PropTypes.object,
-    patientName: PropTypes.string,
-    patientId: PropTypes.string,
   }),
+  patient: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
+    getTasks: (pageNumber) => dispatch(getTasks(pageNumber)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };

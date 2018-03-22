@@ -8,8 +8,6 @@ describe('healthcareServicesReducer', () => {
       loading: false,
       error: false,
       data: [],
-      organization: null,
-      location: null,
       currentPage: 0,
       totalNumberOfPages: 0,
       includeInactive: false,
@@ -36,6 +34,8 @@ describe('healthcareServicesReducer', () => {
       healthcareServices: {
         totalNumberOfPages: 2,
         currentPage: 2,
+        currentPageSize: 2,
+        totalElements: 2,
         elements,
       },
     };
@@ -46,6 +46,8 @@ describe('healthcareServicesReducer', () => {
       organization: null,
       currentPage: 2,
       totalNumberOfPages: 2,
+      currentPageSize: 2,
+      totalElements: 2,
       includeInactive: false,
     };
     expect(healthcareServicesReducer(initialState, action)).toEqual(fromJS(expectState));

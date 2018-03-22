@@ -9,11 +9,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-import IconButton from 'material-ui/IconButton';
-import ActionLogout from 'material-ui/svg-icons/action/exit-to-app';
-
+import MenuItem from 'material-ui/MenuItem';
 
 import injectSaga from 'utils/injectSaga';
+import { clearAll } from 'containers/App/contextActions';
 import saga from './saga';
 import messages from './messages';
 import { logout } from './actions';
@@ -22,12 +21,10 @@ export class Logout extends React.PureComponent { // eslint-disable-line react/p
   render() {
     return (
       <div>
-        <IconButton
-          tooltip={<FormattedMessage {...messages.logoutButton} />}
+        <MenuItem
+          primaryText={<FormattedMessage {...messages.logoutButton} />}
           onClick={this.props.onLogout}
-        >
-          <ActionLogout />
-        </IconButton>
+        />
       </div>
     );
   }
@@ -39,7 +36,10 @@ Logout.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onLogout: () => dispatch(logout()),
+    onLogout: () => {
+      dispatch(logout());
+      dispatch(clearAll());
+    },
   };
 }
 

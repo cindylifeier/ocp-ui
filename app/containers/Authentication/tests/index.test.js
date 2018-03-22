@@ -14,9 +14,13 @@ describe('<Authentication />', () => {
     const auth = {
       isAuthenticated,
     };
+    const user = {
+      role: 'Patient',
+    };
     const location = '/test-location';
     const props = {
       auth,
+      user,
       location,
     };
 

@@ -20,16 +20,16 @@ import ManageTaskForm from './ManageTaskForm';
 function ManageTask(props) {
   const {
     onSave, taskStatus, requestIntent,
-    requestPriority, taskPerformerType, selectedPatient,
+    requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
-    currentTask, editMode,
+    currentTask, editMode, isMainTask, parentTask,
   } = props;
   const formData = {
     taskStatus,
     requestIntent,
     requestPriority,
     taskPerformerType,
-    selectedPatient,
+    patient,
     organization,
     activityDefinitions,
     practitioners,
@@ -37,13 +37,15 @@ function ManageTask(props) {
     tasksByPatient,
     eventTypes,
     editMode,
+    isMainTask,
+    parentTask,
   };
 
   return (
     <div>
-      {((editMode && currentTask) || !editMode) &&
+      {((editMode && (currentTask || isMainTask)) || !editMode) &&
       <Formik
-        initialValues={setFormData(currentTask, props)}
+        initialValues={setFormData(currentTask, isMainTask, parentTask, organization, patient, requester)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -65,8 +67,6 @@ function ManageTask(props) {
               activityDefinition: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               taskOwner: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              organization: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               description: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
@@ -91,7 +91,7 @@ ManageTask.propTypes = {
   requestIntent: PropTypes.array.isRequired,
   requestPriority: PropTypes.array.isRequired,
   taskPerformerType: PropTypes.array.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
@@ -111,39 +111,75 @@ ManageTask.propTypes = {
   requester: PropTypes.object,
   practitioners: PropTypes.array,
   editMode: PropTypes.bool.isRequired,
-  currentTask: PropTypes.any,
+  isMainTask: PropTypes.bool.isRequired,
+  currentTask: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
+  parentTask: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
 };
 
-function setFormData(currentTask, props) {
+function setFormData(currentTask, isMainTask, parentTask, organization, selectedPatient, requester) {
   let formData = null;
-  if (!isEmpty(currentTask)) {
-    // Edit Form
-    formData = merge(Util.pickByIdentity(mapTaskToEditForm(currentTask)));
+  if (!isEmpty(currentTask) && isMainTask) {
+    // Edit Main TaskForm
+    formData = mapMainTaskToEditForm(currentTask);
   } else {
-    // Create Form
-    formData = merge(Util.pickByIdentity(mapTaskToCreateForm(props)));
+    // Create Main Task Form
+    formData = mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester);
   }
-  return Util.pickByIdentity(formData);
+  return formData;
 }
 
-
-function mapTaskToCreateForm(props) {
-  let selOrg = {};
-  if (props.organization && props.organization.length > 0) {
-    selOrg = props.organization[0];
-  }
-  const formData = {
-    requester: Util.setEmptyStringWhenUndefined(getResourceName(props.requester)),
-    patientName: Util.setEmptyStringWhenUndefined(getResourceName(props.selectedPatient)),
+function mapTaskReadProperites(requester) {
+  return {
+    selRequester: Util.setEmptyStringWhenUndefined(getResourceName(requester)),
     authoredOn: new Date(),
     lastModifiedDate: new Date(),
     taskStart: new Date(),
-    organization: Util.setEmptyStringWhenUndefined(selOrg.reference),
   };
-  return Util.pickByIdentity(formData);
 }
 
-function mapTaskToEditForm(task) {
+function mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester) {
+  // Row 1
+  let activityDefinition = {};
+  if (parentTask && parentTask.definition && parentTask.definition.reference) {
+    activityDefinition = {
+      activityDefinition: Util.setEmptyStringWhenUndefined(parentTask.definition.reference),
+    };
+  }
+
+  // Row 2
+  let selOrganization = {};
+  if (organization && organization.length > 0 && organization[0] != null && organization[0].display != null) {
+    selOrganization = {
+      selOrganization: organization[0].display,
+    };
+  }
+  const patientName = {
+    patientName: Util.setEmptyStringWhenUndefined(getResourceName(selectedPatient)),
+  };
+
+  // Row 5
+  let taskOwner = {};
+  if (parentTask && parentTask.owner && parentTask.owner.reference) {
+    taskOwner = {
+      taskOwner: parentTask.owner.reference,
+    };
+  }
+  let selPartOf = {};
+  if (parentTask && parentTask.logicalId) {
+    selPartOf = {
+      partOf: `Task/${parentTask.logicalId}`,
+    };
+  }
+  return merge(activityDefinition, selOrganization, patientName, taskOwner, selPartOf, mapTaskReadProperites(requester));
+}
+
+function mapMainTaskToEditForm(task) {
   // Row 1
   let activityDefinition = {};
   if (task.definition && task.definition.reference) {
@@ -152,22 +188,22 @@ function mapTaskToEditForm(task) {
     };
   }
   // Row 2
-  let organization = {};
-  if (task.organization && task.organization.reference) {
-    organization = {
-      organization: Util.setEmptyStringWhenUndefined(task.organization.reference),
+  let selOrganization = {};
+  if (task.organization && task.organization.display) {
+    selOrganization = {
+      selOrganization: Util.setEmptyStringWhenUndefined(task.organization.display),
     };
   }
   let patientName = {};
-  if (task.beneficiary && task.beneficiary.reference) {
+  if (task.beneficiary && task.beneficiary.display) {
     patientName = {
       patientName: Util.setEmptyStringWhenUndefined(task.beneficiary.display),
     };
   }
-  let requester = {};
-  if (task.agent && task.agent.reference) {
-    requester = {
-      requester: Util.setEmptyStringWhenUndefined(task.agent.display),
+  let selRequester = {};
+  if (task.agent && task.agent.display) {
+    selRequester = {
+      selRequester: Util.setEmptyStringWhenUndefined(task.agent.display),
     };
   }
   // Row 3
@@ -261,7 +297,7 @@ function mapTaskToEditForm(task) {
 
 
   return merge(activityDefinition,
-    organization, patientName, requester,
+    selOrganization, patientName, selRequester,
     authoredOn, lastModifiedDate,
     status, priority, intent, context,
     taskOwner, performerType, partOf,
@@ -272,16 +308,14 @@ function mapTaskToEditForm(task) {
 
 function getResourceName(resource) {
   if (resource === undefined) {
-    return '';
+    return EMPTY_STRING;
   }
   const names = resource.name;
   return names && names
     .map((name) => {
       const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
       const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
-      let fullName = EMPTY_STRING;
-      fullName = `${firstName} ${lastName}`;
-      return fullName;
+      return `${firstName} ${lastName}`;
     })
     .join(', ');
 }

@@ -16,11 +16,13 @@ describe('<PatientPage />', () => {
     const params = { id };
     const match = { params };
     const getPatient = jest.fn();
-    const selectedPatient = {
+    const patient = {
       id: '1',
       name: ['test'],
     };
-    const props = { match, selectedPatient };
+    const role = 'ocpAdminRole';
+    const user = { role };
+    const props = { match, patient, user };
     // Act
     const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
 
@@ -35,11 +37,13 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
-      const selectedPatient = {
+      const patient = {
         id: '1',
         name: ['test'],
       };
-      const props = { match, selectedPatient };
+      const role = 'ocpAdminRole';
+      const user = { role };
+      const props = { match, patient, user };
 
       // Act
       shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -54,11 +58,9 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
-      const selectedPatient = {
-        id: '1',
-        name: ['test'],
-      };
-      const props = { match, selectedPatient };
+      const role = 'ocpAdminRole';
+      const user = { role };
+      const props = { match, user };
 
       // Act
       shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -75,11 +77,13 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
-      const selectedPatient = {
+      const patient = {
         id: '1',
         name: ['test'],
       };
-      const props = { match, selectedPatient };
+      const role = 'ocpAdminRole';
+      const user = { role };
+      const props = { match, patient, user };
 
       // Act
       const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);

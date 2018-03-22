@@ -1,4 +1,6 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest, select } from 'redux-saga/effects';
+
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { DEFAULT_CARE_TEAM_STATUS_CODE, GET_CARE_TEAMS } from './constants';
 import { getCareTeamsError, getCareTeamsSuccess } from './actions';
 import getCareTeamsApi from './api';
@@ -18,10 +20,16 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getCareTeams({ query, statusList }) {
+export function* getCareTeams({ pageNumber, statusList }) {
   try {
-    const careTeamsPage = yield call(getCareTeamsApi, query, [DEFAULT_CARE_TEAM_STATUS_CODE, ...statusList]);
-    yield put(getCareTeamsSuccess(careTeamsPage));
+    const patient = yield select(makeSelectPatient());
+    if (!patient || !patient.id) {
+      yield put(showNotification('No patient is selected.'));
+    } else {
+      const { id } = patient;
+      const careTeamsPage = yield call(getCareTeamsApi, id, pageNumber, [DEFAULT_CARE_TEAM_STATUS_CODE, ...statusList]);
+      yield put(getCareTeamsSuccess(careTeamsPage));
+    }
   } catch (err) {
     const errMsg = getErrorMessage(err);
     yield put(getCareTeamsError(err));

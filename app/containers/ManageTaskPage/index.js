@@ -23,9 +23,8 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
-import { getLookupsAction, getPatient } from 'containers/App/actions';
+import { getLookupsAction } from 'containers/App/actions';
 import {
   makeSelectRequestIntents,
   makeSelectRequestPriorities,
@@ -33,6 +32,7 @@ import {
   makeSelectTaskStatuses,
 } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectActivityDefinitions,
   makeSelectEventTypes,
@@ -73,9 +73,10 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     }
     const queryObj = queryString.parse(this.props.location.search);
     const patientId = queryObj.patientId;
-    if (patientId) {
-      this.props.getPatient(patientId);
-    }
+    // TODO: refresh patient context?
+    // if (patientId) {
+      // this.props.getPatient(patientId);
+    // }
     // get organization for the given practitioner
     this.props.getOrganization(this.state.practitionerId);
     // get practitioner details for the given practitioner
@@ -125,8 +126,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
 
 
     // patient
-    const patientId = this.props.selectedPatient.id;
-    const name = getResourceDisplayName(this.props.selectedPatient);
+    const patientId = this.props.patient.id;
+    const name = getResourceDisplayName(this.props.patient);
     taskDataToSubmit.beneficiary = {
       reference: `Patient/${patientId}`,
       display: name,
@@ -175,18 +176,35 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       requestPriority,
       taskPerformerType,
       eventTypes,
-      selectedPatient,
+      patient,
       organization,
       activityDefinitions,
       practitioners,
       requester,
       tasksByPatient,
     } = this.props;
-    const logicalId = this.props.match.params.id;
-    const editMode = !isUndefined(match.params.id);
+    let logicalId = this.props.match.params.id;
     let currentTask = null;
-    if (editMode && this.props.tasks) {
+    if (logicalId && this.props.tasks) {
       currentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
+    const queryObj = queryString.parse(this.props.location.search);
+    const isMainTask = queryObj.isMainTask === 'true';
+    logicalId = queryObj.mainTaskId;
+    const editMode = !isUndefined(match.params.id);
+    let parentTask = null;
+    if (logicalId && this.props.tasks) {
+      parentTask = find(this.props.tasks.data.elements, { logicalId });
+    }
+    let titleHeader;
+    if (editMode && isMainTask) {
+      titleHeader = <FormattedMessage {...messages.updateMainHeader} />;
+    } else if (editMode && !isMainTask) {
+      titleHeader = <FormattedMessage {...messages.updateSubHeader} />;
+    } else if (!editMode && isMainTask) {
+      titleHeader = <FormattedMessage {...messages.createMainHeader} />;
+    } else if (!editMode && !isMainTask) {
+      titleHeader = <FormattedMessage {...messages.createSubHeader} />;
     }
     const taskProps = {
       taskStatus,
@@ -194,7 +212,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       requestPriority,
       taskPerformerType,
       eventTypes,
-      selectedPatient,
+      patient,
       organization,
       activityDefinitions,
       practitioners,
@@ -202,6 +220,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       editMode,
       currentTask,
       tasksByPatient,
+      isMainTask,
+      parentTask,
     };
 
     return (
@@ -211,9 +231,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
           <meta name="description" content="Manage Task page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
-          title={logicalId ?
-            <FormattedMessage {...messages.updateHeader} /> :
-            <FormattedMessage {...messages.createHeader} />}
+          title={titleHeader}
         />
         <PageContent>
           <ManageTask {...taskProps} onSave={this.handleSave} />
@@ -232,7 +250,6 @@ ManageTaskPage.propTypes = {
     url: PropTypes.string,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
-  getPatient: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,
   getRequester: PropTypes.func,
   getPractitioners: PropTypes.func.isRequired,
@@ -257,7 +274,7 @@ ManageTaskPage.propTypes = {
   taskPerformerType: PropTypes.array,
   eventTypes: PropTypes.array,
   location: PropTypes.object,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
   createTask: PropTypes.func,
   getTask: PropTypes.func,
   updateTask: PropTypes.func,
@@ -269,7 +286,7 @@ const mapStateToProps = createStructuredSelector({
   requestPriority: makeSelectRequestPriorities(),
   taskPerformerType: makeSelectTaskPerformerTypes(),
   eventTypes: makeSelectEventTypes(),
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
   organization: makeSelectOrganization(),
   activityDefinitions: makeSelectActivityDefinitions(),
   practitioners: makeSelectPractitioners(),
@@ -281,7 +298,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE])),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
     getOrganization: (practitionerId) => dispatch(getOrganization(practitionerId)),
     getRequester: (practitionerId) => dispatch(getRequester(practitionerId)),
     getActivityDefinitions: (practitionerId) => dispatch(getActivityDefinitions(practitionerId)),

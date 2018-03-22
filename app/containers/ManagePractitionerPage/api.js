@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 
 import request from 'utils/request';
@@ -24,13 +23,6 @@ export function getNotificationAction(practitionerFormData) {
     action = 'edit';
   }
   return action;
-}
-
-export function getPractitionerById(practitioners, logicalId) {
-  if (!isEmpty(practitioners)) {
-    return find(practitioners, { logicalId });
-  }
-  return null;
 }
 
 function createPractitioner(practitionerFormData, roleLookup, specialtyLookup) {

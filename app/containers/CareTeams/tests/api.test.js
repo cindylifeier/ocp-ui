@@ -22,12 +22,15 @@ describe('CareTeams api.js', () => {
 
   it('should call request with correct request url', () => {
     // Arrange
-    const query = { searchValue: 'searchValue', searchType: 'searchType', pageNumber: 1, pageSize: 10 };
     const statusList = ['active', 'inactive'];
-    const expected = '/base-url/care-teams/search?searchValue=searchValue&searchType=searchType&pageNumber=1&pageSize=10&statusList=active%2Cinactive';
+    const patientId = 'patientId';
+    const searchType = 'patientId';
+    const pageNumber = 2;
+    const pageSize = 20;
+    const expected = `/base-url/care-teams/search?searchValue=${patientId}&searchType=${searchType}&pageNumber=${pageNumber}&pageSize=${pageSize}&statusList=active%2Cinactive`;
 
     // Act
-    getCareTeams(query, statusList);
+    getCareTeams(patientId, pageNumber, statusList, pageSize);
 
     // Assert
     expect(mockGetEndpoint).toBeCalledWith(endpointService.BASE_CARE_TEAMS_API_URL);

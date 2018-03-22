@@ -11,7 +11,17 @@
  * the linting exception.
  */
 
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { compose } from 'redux';
+import 'font-awesome/css/font-awesome.min.css';
+
 import Authentication from 'containers/Authentication';
+import WorkspaceSelectionPage from 'containers/WorkspaceSelectionPage';
+import AdminWorkspacePage from 'containers/AdminWorkspacePage';
+import PractitionerWorkspacePage from 'containers/PractitionerWorkspacePage';
+import PatientWorkspacePage from 'containers/PatientWorkspacePage';
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import ManageAppointmentPage from 'containers/ManageAppointmentPage';
@@ -24,11 +34,6 @@ import ManagePractitionerPage from 'containers/ManagePractitionerPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientPage from 'containers/PatientPage';
 import PatientsPage from 'containers/PatientsPage/Loadable';
-import 'font-awesome/css/font-awesome.min.css';
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { compose } from 'redux';
 import CareCoordinatorPage from 'containers/CareCoordinatorPage';
 import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
 import ManageTaskPage from 'containers/ManageTaskPage';
@@ -36,8 +41,10 @@ import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPag
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
+import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import saga from './saga';
 import './styles.css';
+
 
 export function App() {
   return (
@@ -55,6 +62,10 @@ export function App() {
           <Route path="/ocp-ui/login" component={LoginPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
+            <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
+            <Route path="/ocp-ui/admin-workspace" component={AdminWorkspacePage} />
+            <Route path="/ocp-ui/practitioner-workspace" component={PractitionerWorkspacePage} />
+            <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
             <Route path="/ocp-ui/home" component={HomePage} />
             <Route exact path="/ocp-ui/patients" component={PatientsPage} />
             <Route exact path="/ocp-ui/care-coordinator" component={CareCoordinatorPage} />
@@ -73,6 +84,7 @@ export function App() {
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
+            <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>

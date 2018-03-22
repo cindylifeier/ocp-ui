@@ -1,6 +1,6 @@
 /*
  *
- * LoginPage reducer
+ * authReducer
  *
  */
 

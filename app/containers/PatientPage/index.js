@@ -7,22 +7,24 @@
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import { getPatient } from 'containers/App/actions';
-import renderAppointmentsComponent from 'containers/Appointments/render';
 import renderTodosComponent from 'containers/Todos/render';
-import { getTasks } from 'containers/Tasks/actions';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { mapToPatientName } from 'utils/PatientUtils';
-
-import makeSelectSelectedPatient from '../App/sharedDataSelectors';
-import renderNotFoundComponent from '../NotFoundPage/render';
-import renderTasksComponent from '../Tasks/render';
+import GoldenLayout from 'components/GoldenLayout';
+import PatientDetails from 'components/PatientDetails';
+import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
+import renderCommunicationsComponent from 'containers/Communications/render';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { getPatient, refreshPatient } from 'containers/App/contextActions';
+import renderTasksComponent from 'containers/Tasks/render';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
+
 
 export const initialStateMetadata =
   {
@@ -47,7 +49,7 @@ export const initialStateMetadata =
       borderGrabWidth: 15,
       minItemHeight: 10,
       minItemWidth: 10,
-      headerHeight: 20,
+      headerHeight: 30,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },
@@ -95,9 +97,9 @@ export const initialStateMetadata =
           activeItemIndex: 0,
           height: 50,
           content: [{
-            title: 'Communication',
+            title: 'Communications',
             type: 'component',
-            componentName: 'notFoundComponent',
+            componentName: 'communications',
             isClosable: true,
             reorderEnabled: true,
           }],
@@ -168,8 +170,8 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  { name: 'notFoundComponent', text: 'notFoundComponent', factoryMethod: renderNotFoundComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderAppointmentsComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
+  { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'todos', text: 'To Do', factoryMethod: renderTodosComponent },
 ];
 
@@ -177,20 +179,18 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
 
   componentDidMount() {
     const patientId = this.props.match.params.id;
-    if (patientId) {
+    const { patient } = this.props;
+    if (patient && patient.id && patient.id === patientId) {
+      this.props.refreshPatient();
+    } else {
       this.props.getPatient(patientId);
-      const searchType = 'patientId';
-      const query = { searchValue: patientId, searchType };
-      const selectedPatientName = mapToPatientName(this.props.selectedPatient);
-      // TODO: Resolve delay issue
-      // To delay to call dispatch getTasks in order to ensure goldenLayout instance get mount
-      setTimeout(() => this.props.getTasks(query, selectedPatientName, patientId), 500);
     }
   }
 
   render() {
-    const { selectedPatient } = this.props;
-    const patientDetailsProps = { selectedPatient };
+    const { patient, user } = this.props;
+    const isPatientUser = user.role === PATIENT_ROLE_VALUE;
+    const patientDetailsProps = { patient, isPatientUser };
     return (
       <div>
         <Helmet>
@@ -198,6 +198,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
           <meta name="description" content="Patient page of Omnibus Care Plan application" />
         </Helmet>
 
+        {patient &&
         <PatientPageGrid columns={1}>
           <PatientPageCell>
             <PatientDetails {...patientDetailsProps} />
@@ -210,7 +211,7 @@ export class PatientPage extends React.PureComponent { // eslint-disable-line re
               stateMetadata={initialStateMetadata}
             />
           </PatientPageCell>
-        </PatientPageGrid>
+        </PatientPageGrid>}
       </div>
     );
   }
@@ -224,22 +225,26 @@ PatientPage.propTypes = {
     path: PropTypes.string,
     url: PropTypes.string,
   }).isRequired,
-  getPatient: PropTypes.func.isRequired,
-  getTasks: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  user: PropTypes.shape({
+    role: PropTypes.string,
+  }),
+  refreshPatient: PropTypes.func.isRequired,
+  getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
+    refreshPatient: () => dispatch(refreshPatient()),
+    getPatient: (logicalId) => dispatch(getPatient(logicalId)),
   };
 }
 

@@ -12,20 +12,18 @@ import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PatientSearchResult from 'components/PatientSearchResult';
+
 import { MANAGE_PATIENT_URL } from 'containers/App/constants';
-import { getCareTeams } from 'containers/CareTeams/actions';
-import { getTasks } from 'containers/Tasks/actions';
 import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { getRelatedPersons } from 'containers/RelatedPersons/actions';
-import { getPatient } from 'containers/App/actions';
+import { setPatient } from 'containers/App/contextActions';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import {
   makeSelectCurrentPage,
@@ -37,6 +35,7 @@ import {
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectTotalPages,
+  makeSelectPatientTotalElements,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import { SEARCH_BAR_TEXT_LENGTH } from './constants';
@@ -44,13 +43,14 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+
 export class Patients extends React.PureComponent {
 
   constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
-      selectedPatient: null,
+      patient: null,
       isPatientModalOpen: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -61,24 +61,17 @@ export class Patients extends React.PureComponent {
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializePatients();
   }
 
-  handlePatientClick({ id: searchValue, name: [{ firstName, lastName }] }) {
-    const searchType = 'patientId';
-    const query = { searchValue, searchType };
-    const currentPage = 1;
-    const showInactive = false;
-    this.props.getCareTeams(query, `${firstName} ${lastName}`);
-    this.props.getTasks(query, `${firstName} ${lastName}`, searchValue);
-    this.props.getPatient(searchValue);
-    this.props.getRelatedPersons(searchValue, showInactive, currentPage);
+  handlePatientClick(patient) {
+    this.props.setPatient(patient);
   }
 
   handlePatientViewDetailsClick(patient) {
     this.setState({
-      selectedPatient: patient,
+      patient,
       isPatientModalOpen: true,
     });
   }
@@ -128,16 +121,24 @@ export class Patients extends React.PureComponent {
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />
         {this.props.searchResult &&
-        <CenterAlignedUltimatePagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={this.handleChangePage}
-        />
+        <div>
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            onChange={this.handleChangePage}
+          />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.searchResult.length}
+          />
+        </div>
         }
         {/* TODO: Will move ConfirmPatientModal to upcoming tasks component*/}
-        {this.state.selectedPatient &&
+        {this.state.patient &&
         <ConfirmPatientModal
-          selectedPatient={this.state.selectedPatient}
+          patient={this.state.patient}
           isPatientModalOpen={this.state.isPatientModalOpen}
           onPatientModalClose={this.handlePatientModalClose}
         />}
@@ -159,20 +160,19 @@ Patients.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
   onChangePage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
-  getCareTeams: PropTypes.func.isRequired,
-  getTasks: PropTypes.func.isRequired,
-  getRelatedPersons: PropTypes.func.isRequired,
-  getPatient: PropTypes.func.isRequired,
+  setPatient: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = createStructuredSelector({
   searchResult: makeSelectPatientSearchResult(),
+  totalElements: makeSelectPatientTotalElements(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
   currentPage: makeSelectCurrentPage(),
@@ -191,10 +191,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePatients: () => dispatch(initializePatients()),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
-    getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
-    getRelatedPersons: (patientId, showInActive, currentPage) => dispatch(getRelatedPersons(patientId, showInActive, currentPage)),
+    setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }
 

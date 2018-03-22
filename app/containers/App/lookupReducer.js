@@ -50,6 +50,13 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  // Communications Resource lookups start
+  COMMUNICATION_STATUS,
+  COMMUNICATION_CATEGORY,
+  COMMUNICATION_NOT_DONE_REASON,
+  COMMUNICATION_MEDIUM,
+  FLAG_STATUS,
+  FLAG_CATEGORY,
 } from './constants';
 
 // The initial state of the lookup
@@ -104,6 +111,13 @@ const initialState = fromJS({
   APPOINTMENT_TYPE: [],
   PROVIDER_ROLE: [],
   PROVIDER_SPECIALTY: [],
+  FLAG_STATUS: [],
+  FLAG_CATEGORY: [],
+  // Communications Resource lookups start
+  COMMUNICATION_STATUS: [],
+  COMMUNICATION_CATEGORY: [],
+  COMMUNICATION_NOT_DONE_REASON: [],
+  COMMUNICATION_MEDIUM: [],
 });
 
 function lookupReducer(state = initialState, action) {
@@ -164,6 +178,14 @@ function lookupReducer(state = initialState, action) {
         // Appointment Lookups - End
         .set(PROVIDER_ROLE, fromJS((action.lookups && action.lookups.providerRoles) || state.get(PROVIDER_ROLE)))
         .set(PROVIDER_SPECIALTY, fromJS((action.lookups && action.lookups.providerSpecialties) || state.get(PROVIDER_SPECIALTY)))
+        // flag lookups
+        .set(FLAG_STATUS, fromJS((action.lookups && action.lookups.flagStatus) || state.get(FLAG_STATUS)))
+        .set(FLAG_CATEGORY, fromJS((action.lookups && action.lookups.flagCategory) || state.get(FLAG_CATEGORY)))
+        // Communication Resource lookups start
+        .set(COMMUNICATION_STATUS, fromJS((action.lookups && action.lookups.communicationStatus) || state.get(COMMUNICATION_STATUS)))
+        .set(COMMUNICATION_CATEGORY, fromJS((action.lookups && action.lookups.communicationCategory) || state.get(COMMUNICATION_CATEGORY)))
+        .set(COMMUNICATION_NOT_DONE_REASON, fromJS((action.lookups && action.lookups.communicationNotDoneReason) || state.get(COMMUNICATION_NOT_DONE_REASON)))
+        .set(COMMUNICATION_MEDIUM, fromJS((action.lookups && action.lookups.communicationMedium) || state.get(COMMUNICATION_MEDIUM)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

@@ -16,18 +16,22 @@ const selectLocationsDomain = (state) => state.get('locations');
 
 const makeSelectLocations = () => createSelector(
   selectLocationsDomain,
-  (substate) => substate.get('data').toJS()
-);
-
-
-const makeSelectOrganization = () => createSelector(
-  selectLocationsDomain,
-  (substate) => substate.get('organization'),
+  (substate) => substate.get('data').toJS(),
 );
 
 const makeSelectCurrentPage = () => createSelector(
   selectLocationsDomain,
   (substate) => substate.get('currentPage'),
+);
+
+const makeSelectCurrentPageSize = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('currentPageSize'),
+);
+
+const makeSelectTotalElements = () => createSelector(
+  selectLocationsDomain,
+  (substate) => substate.get('totalElements'),
 );
 
 const makeSelectTotalNumberOfPages = () => createSelector(
@@ -49,8 +53,9 @@ const makeSelectIncludeSuspended = () => createSelector(
 export {
   makeSelectLocations,
   selectLocationsDomain,
-  makeSelectOrganization,
   makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectTotalElements,
   makeSelectTotalNumberOfPages,
   makeSelectIncludeInactive,
   makeSelectIncludeSuspended,

@@ -11,8 +11,8 @@ import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
+import Login from 'components/Login';
 import saga from './saga';
-import Login from '../../components/Login';
 import { login } from './actions';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

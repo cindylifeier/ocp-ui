@@ -9,9 +9,8 @@ import { GET_CARE_TEAMS, GET_CARE_TEAMS_ERROR, GET_CARE_TEAMS_SUCCESS, INITIALIZ
 
 const initialState = fromJS({
   loading: false,
-  patientName: null,
   data: null,
-  query: null,
+  pageNumber: null,
   statusList: [],
 });
 
@@ -23,8 +22,7 @@ function careTeamsReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('data', null)
-        .set('patientName', action.patientName)
-        .set('query', fromJS(action.query))
+        .set('pageNumber', fromJS(action.pageNumber || null))
         .set('statusList', fromJS(action.statusList));
     case GET_CARE_TEAMS_SUCCESS:
       return state
