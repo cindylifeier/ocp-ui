@@ -7,7 +7,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -27,7 +26,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
   return patients && patients.map((patient) => (
     <TableRow
       columns={columns}
-      key={`patient-${uniqueId()}`}
+      key={`patient_${patient.id}`}
       onClick={() => onPatientClick && onPatientClick(patient)}
       role="button"
       tabIndex="0"
@@ -91,10 +90,10 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
 }
 
 function getIdentifiers(identifier) {
-  return identifier.map((entry) =>
+  return identifier.map(({ systemDisplay, value }) =>
     (
-      <div key={`patient-id-${uniqueId()}`}>
-        {entry.systemDisplay}: {entry.value}
+      <div key={`patient_id_${systemDisplay}_${value}`}>
+        {systemDisplay}: {value}
         <br />
       </div>
     ),

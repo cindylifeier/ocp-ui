@@ -131,12 +131,22 @@ Organizations.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       data: PropTypes.array,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
     }),
     searchOrganizations: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
       currentPage: PropTypes.number.isRequired,
       totalNumberOfPages: PropTypes.number.isRequired,
       result: PropTypes.array,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
     }),
   }),
 };
