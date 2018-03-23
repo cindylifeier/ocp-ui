@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-
+import { FormattedMessage } from 'react-intl';
 import TodoCardGrid from 'components/TodoCardContent/TodoCardGrid';
 import ToDoCardCell from 'components/TodoCardContent/TodoCardCell';
 import Align from 'components/Align';
@@ -14,6 +14,8 @@ import PropTypes from 'prop-types';
 import NotificationPriorityHigh from 'material-ui/svg-icons/notification/priority-high';
 import ContentFlag from 'material-ui/svg-icons/content/flag';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/TodoCardContent/constants';
+import messages from './messages';
+
 
 function TodoCardContent(props) {
   const {
@@ -21,24 +23,22 @@ function TodoCardContent(props) {
     patientName,
     status,
     description,
-    isPatientWorkspace,
-    // todoMainTaskLogicalId,
+    user,
     todoLogicalId,
     taskBaseUrl,
     patientId,
   } = props;
+  console.log(user);
   const dueDateStr = 'Due '.concat(dueDate);
-  // const editTodoUrl = `${taskBaseUrl}/${todoLogicalId}?patientId=${patientId}isMainTask=false&mainTaskId=${todoMainTaskLogicalId}`;
-  const editTodoUrl = `${taskBaseUrl}/${todoLogicalId}?patientId=${patientId}isMainTask=false`;
-
+  const editTodoUrl = `${taskBaseUrl}/${todoLogicalId}?patientId=${patientId}&isMainTask=false`;
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
-      statusElement = (<div><ContentFlag />{statusStr}</div>);
+      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh />{statusStr}</div>);
+      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === DUE_TODAY) {
-      statusElement = (<div><NotificationPriorityHigh />{statusStr}</div>);
+      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
     return statusElement;
   }
@@ -54,7 +54,7 @@ function TodoCardContent(props) {
             </Cell>
             <Cell>
               <Align variant="right">
-                {isPatientWorkspace ? '' : <strong>{patientName}</strong>}
+                {patientId ? '' : <strong>{patientName}</strong>}
               </Align>
             </Cell>
           </Grid>
@@ -68,9 +68,11 @@ function TodoCardContent(props) {
               {getStatusWithIcon(status)}
             </Cell>
             <Cell>
-              <Align variant="right">
-                <a href={editTodoUrl}>Manage</a>
-              </Align>
+              { patientId &&
+                <Align variant="right">
+                  <a href={editTodoUrl}>Manage</a>
+                </Align>
+              }
             </Cell>
           </Grid>
         </ToDoCardCell>
@@ -86,10 +88,9 @@ TodoCardContent.propTypes = {
   patientId: PropTypes.string,
   status: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  // todoMainTaskLogicalId: PropTypes.string.isRequired,
   todoLogicalId: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,
-  isPatientWorkspace: PropTypes.bool.isRequired,
+  user: PropTypes.object,
 };
 
 export default TodoCardContent;
