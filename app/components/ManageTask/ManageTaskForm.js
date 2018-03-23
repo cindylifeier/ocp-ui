@@ -12,11 +12,12 @@ import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
-import { DATE_PICKER_MODE } from 'containers/App/constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
 function ManageTaskForm(props) {
+  const datePickerLandscapeMode = 'landscape';
+
   const {
     history,
     taskStatus,
@@ -205,7 +206,7 @@ function ManageTaskForm(props) {
           <DatePicker
             fullWidth
             name="taskStart"
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode={datePickerLandscapeMode}
             minDate={today}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
@@ -216,7 +217,7 @@ function ManageTaskForm(props) {
             fullWidth
             name="taskEnd"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskEnd} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskEnd} />}
           />
