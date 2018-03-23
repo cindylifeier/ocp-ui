@@ -38,7 +38,7 @@ function updateAppointment(appointmentFormData) {
 }
 
 function mapToBackendAppointmentDuringCreate(appointmentFormData) {
-  const { appointmentType, date, description, startTime, endTime, participants, patientId, patientName } = appointmentFormData;
+  const { appointmentType, date, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
   const appointmentDataToSubmit = {};
   if (!isUndefined(description)) {
     appointmentDataToSubmit.description = description;
@@ -67,8 +67,8 @@ function mapToBackendAppointmentDuringCreate(appointmentFormData) {
     utcMinutes = toDoubleChars(new Date(endTime).getUTCMinutes());
     appointmentDataToSubmit.end = `${appointmentDateString}T${utcHours}:${utcMinutes}:00.00`;
   }
-  appointmentDataToSubmit.creatorReference = 'Practitioner/1528';
-  appointmentDataToSubmit.creatorName = 'Lee Coordinator';
+  appointmentDataToSubmit.creatorReference = `Practitioner/${practitionerId}`;
+  appointmentDataToSubmit.creatorName = practitionerName;
   // Participant
   if (!isUndefined(participants) && !isEmpty(participants)) {
     // TODO: When adding Participants is implemented

@@ -52,19 +52,22 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   componentDidMount() {
     const patientId = this.props.patient ? this.props.patient.id : null;
     const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
-    if (!isUndefined(patientId) && patientId != null) {
-      this.props.getUpcomingAppointments({
-        pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId,
-        patientId,
-        showPastAppointments: false,
-      });
-    } else {
-      this.props.getUpcomingAppointments({
-        pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId,
-        showPastAppointments: false,
-      });
+
+    if (!isUndefined(practitionerId) && practitionerId != null) {
+      if (!isUndefined(patientId) && patientId != null) {
+        this.props.getUpcomingAppointments({
+          pageNumber: DEFAULT_START_PAGE_NUMBER,
+          practitionerId,
+          patientId,
+          showPastAppointments: false,
+        });
+      } else {
+        this.props.getUpcomingAppointments({
+          pageNumber: DEFAULT_START_PAGE_NUMBER,
+          practitionerId,
+          showPastAppointments: false,
+        });
+      }
     }
     this.props.getLookupData();
   }
