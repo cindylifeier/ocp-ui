@@ -36,12 +36,7 @@ export function Authentication(props) {
       </PrivateLayout> :
       <div>
         {removeToken()}
-        <Redirect
-          to={{
-            pathname: LOGIN_URL,
-            state: { from: props.location },
-          }}
-        />
+        <Redirect to={LOGIN_URL} />
       </div>
   );
 }
@@ -55,13 +50,6 @@ Authentication.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
   }),
   user: PropTypes.object,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-    state: PropTypes.object,
-    search: PropTypes.string,
-    hash: PropTypes.string,
-    key: PropTypes.string,
-  }),
 };
 
 const mapStateToProps = createStructuredSelector({
