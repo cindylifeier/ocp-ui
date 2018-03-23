@@ -19,9 +19,9 @@ import { Link } from 'react-router-dom';
 import CardHeader from 'components/CardHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import { compose } from 'redux';
-import { getTodos } from 'containers/Todos/actions';
+import { getTodoMainTask, getTodos } from 'containers/Todos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import { makeSelectSearchLoading, makeSelectTodos } from 'containers/Todos/selectors';
+import { makeSelectSearchLoading, makeSelectTodoMainTask, makeSelectTodos } from 'containers/Todos/selectors';
 import TodoList from 'components/TodoList';
 import { PATIENTS } from 'containers/Todos/constants';
 import injectSaga from 'utils/injectSaga';
@@ -35,22 +35,25 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
   componentDidMount() {
     const patientId = this.props.selectedPatient.id;
     if (patientId) {
-      const definition = 'todo';
+      const definition = 'To-Do';
       this.props.getTodos(patientId, definition);
+      this.props.getTodoMainTask(patientId, definition);
     }
   }
   render() {
-    const { todos, selectedPatient, loading } = this.props;
+    const { todos, selectedPatient, loading, todoMainTask } = this.props;
     const patientId = selectedPatient.id;
-    const MANAGE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}`;
+    const CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
+    // const EDIT_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
     const isPatientWorkspace = window.location.href.includes(PATIENTS);
+    const taskBaseUrl = MANAGE_TASK_URL;
     return (
       <Card>
         <CardHeader title={<FormattedMessage {...messages.header} />}>
           <StyledFlatButton
             label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
             icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_TODO_URL} />}
+            containerElement={<Link to={CREATE_TODO_URL} />}
           />
         </CardHeader>
         {loading && <RefreshIndicatorLoading />}
@@ -60,7 +63,13 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
         </NoResultsFoundText>}
         {!isEmpty(todos) &&
         <div>
-          <TodoList todos={todos} isPatientWorkspace={isPatientWorkspace} />
+          <TodoList
+            todos={todos}
+            patientId={patientId}
+            taskBaseUrl={taskBaseUrl}
+            todoMainTaskLogicalId={todoMainTask.logicalId}
+            isPatientWorkspace={isPatientWorkspace}
+          />
         </div>
         }
       </Card>
@@ -71,19 +80,23 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
 Todos.propTypes = {
   todos: PropTypes.array.isRequired,
   getTodos: PropTypes.func.isRequired,
+  getTodoMainTask: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object.isRequired,
+  todoMainTask: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   todos: makeSelectTodos(),
   selectedPatient: makeSelectPatient(),
+  todoMainTask: makeSelectTodoMainTask(),
   loading: makeSelectSearchLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getTodos: (patientId, definition) => dispatch(getTodos(patientId, definition)),
+    getTodoMainTask: (patientId, definition) => dispatch(getTodoMainTask(patientId, definition)),
   };
 }
 
