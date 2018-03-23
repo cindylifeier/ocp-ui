@@ -1,18 +1,19 @@
 
 import {
-  defaultAction,
+  getTodoSuccess,
 } from '../actions';
 import {
-  DEFAULT_ACTION,
+  GET_TODOS_SUCCESS,
 } from '../constants';
 
 describe('Todos actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_TODOS_SUCCESS,
+        todos: undefined,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getTodoSuccess()).toEqual(expected);
     });
   });
 });

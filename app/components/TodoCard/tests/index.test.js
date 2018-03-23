@@ -27,12 +27,12 @@ describe('<TodoCard />', () => {
     const renderedComponent = shallow(<TodoCard>{children}</TodoCard>);
 
     // Assert
-    expect(renderedComponent).toHaveStyleRule('padding', '10px');
+    expect(renderedComponent).toHaveStyleRule('padding', '4px !important');
     expect(renderedComponent).toHaveStyleRule('background-color', 'white');
-    expect(renderedComponent).toHaveStyleRule('margin', '10px');
+    expect(renderedComponent).toHaveStyleRule('margin-top', '10px');
     expect(renderedComponent).toHaveStyleRule('min-width', '650px');
-    expect(renderedComponent).toHaveStyleRule('min-height', '0');
-    expect(renderedComponent).toHaveStyleRule('height', '100px');
+    expect(renderedComponent).toHaveStyleRule('min-height', '150px');
+    expect(renderedComponent).toHaveStyleRule('height', '100%');
     expect(renderedComponent).toHaveStyleRule('border-radius', '2px');
     expect(renderedComponent).toHaveStyleRule('position', 'relative');
     expect(renderedComponent).toHaveStyleRule('box-shadow', '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)');
