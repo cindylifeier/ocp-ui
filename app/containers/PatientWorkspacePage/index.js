@@ -23,6 +23,7 @@ import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
+import StickyDiv from 'components/StickyDiv';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
@@ -188,10 +189,12 @@ export const initialStateMetadata =
 function renderEmptyGoldenLayoutComponent() {
   return (
     <Card>
-      <PanelToolbar
-        showNewItem={false}
-        showUploadIcon={false}
-      />
+      <StickyDiv>
+        <PanelToolbar
+          showNewItem={false}
+          showUploadIcon={false}
+        />
+      </StickyDiv>
     </Card>
   );
 }
