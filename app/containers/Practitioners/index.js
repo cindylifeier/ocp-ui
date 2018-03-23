@@ -10,14 +10,18 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import StickyDiv from 'components/StickyDiv';
 import Card from 'components/Card';
+import InfoSection from 'components/InfoSection';
 import { PanelToolbar } from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
-import { getPractitioners, initializePractitioners, searchPractitioners } from './actions';
+import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
 import saga from './saga';
@@ -46,8 +50,18 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
   componentDidMount() {
     this.props.initializePractitioners();
-    const initialCurrentPage = 1;
-    this.props.getPractitioners(initialCurrentPage);
+    const { organization } = this.props;
+    if (organization) {
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization)) {
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+    }
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
@@ -63,7 +77,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   }
 
   handleChangeListPage(currentPage) {
-    this.props.getPractitioners(currentPage);
+    this.props.getPractitionersInOrganization(currentPage);
   }
 
   render() {
@@ -96,14 +110,44 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        <PractitionerTable practitionersData={practitionersData} />
+        <StickyDiv>
+          <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        </StickyDiv>
+        <InfoSection margin="10px 0">
+          <PractitionerTable practitionersData={practitionersData} />
+        </InfoSection>
       </Card>
     );
   }
 }
 
 Practitioners.propTypes = {
+  organization: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+    active: PropTypes.bool,
+    name: PropTypes.string,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+  }),
   practitioners: PropTypes.shape({
     listPractitioners: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
@@ -112,7 +156,11 @@ Practitioners.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       result: PropTypes.array,
-      error: PropTypes.bool,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
     }),
     searchPractitioners: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
@@ -121,22 +169,27 @@ Practitioners.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       result: PropTypes.array,
-      error: PropTypes.bool,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
     }),
   }),
-  getPractitioners: PropTypes.func.isRequired,
+  getPractitionersInOrganization: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
+  organization: makeSelectOrganization(),
   practitioners: makeSelectPractitioners(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getPractitioners: (currentPage) => dispatch(getPractitioners(currentPage)),
+    getPractitionersInOrganization: (currentPage) => dispatch(getPractitionersInOrganization(currentPage)),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }

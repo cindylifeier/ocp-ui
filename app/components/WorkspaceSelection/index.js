@@ -208,8 +208,8 @@ class WorkspaceSelection extends React.PureComponent { // eslint-disable-line re
   handleNavigateTo() {
     const { organizations, careManagers, careCoordinators, patients } = this.props;
     const organization = find(organizations, { logicalId: this.state.organizationValue });
-    const careManager = find(careManagers, { reference: this.state.careManagerValue });
-    const careCoordinator = find(careCoordinators, { reference: this.state.careCoordinatorValue });
+    const careManager = find(careManagers, { logicalId: this.state.careManagerValue });
+    const careCoordinator = find(careCoordinators, { logicalId: this.state.careCoordinatorValue });
     const patient = find(patients, { id: this.state.patientValue });
     this.props.onSetWorkspaceContext(this.state.roleValue, organization, careManager, careCoordinator, patient);
     const linkTo = this.props.getLinkUrlByRole(this.state.roleValue);

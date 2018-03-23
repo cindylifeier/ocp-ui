@@ -6,6 +6,7 @@
 
 import {
   GET_ORGANIZATIONS,
+  GET_ORGANIZATIONS_ERROR,
   GET_ORGANIZATIONS_SUCCESS,
   INITIALIZE_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS,
@@ -33,6 +34,13 @@ export function getOrganizationsSuccess(organizations) {
   };
 }
 
+export function getOrganizationsError(error) {
+  return {
+    type: GET_ORGANIZATIONS_ERROR,
+    error,
+  };
+}
+
 export function searchOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
     type: SEARCH_ORGANIZATIONS,
@@ -50,9 +58,9 @@ export function searchOrganizationsSuccess(organizations) {
   };
 }
 
-export function searchOrganizationsError(err) {
+export function searchOrganizationsError(error) {
   return {
     type: SEARCH_ORGANIZATIONS_ERROR,
-    err,
+    error,
   };
 }

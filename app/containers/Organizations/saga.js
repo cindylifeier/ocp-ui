@@ -1,15 +1,19 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { showNotification } from 'containers/Notification/actions';
 import { GET_ORGANIZATIONS, SEARCH_ORGANIZATIONS } from './constants';
-import { getOrganizations, searchOrganizations } from './api';
-import { getOrganizationsSuccess, searchOrganizationsError, searchOrganizationsSuccess } from './actions';
+import { getErrorDetail, getOrganizations, searchOrganizations } from './api';
+import {
+  getOrganizationsError,
+  getOrganizationsSuccess,
+  searchOrganizationsError,
+  searchOrganizationsSuccess,
+} from './actions';
 
 export function* getOrganizationsSaga({ currentPage }) {
   try {
     const organizations = yield call(getOrganizations, currentPage);
     yield put(getOrganizationsSuccess(organizations));
   } catch (err) {
-    yield put(showNotification('Failed to get the organizations.'));
+    yield put(getOrganizationsError(getErrorDetail(err)));
   }
 }
 
@@ -20,7 +24,7 @@ export function* searchOrganizationsSaga({ searchValue, showInactive, searchType
       yield put(searchOrganizationsSuccess(organizations));
     }
   } catch (err) {
-    yield put(searchOrganizationsError(err));
+    yield put(searchOrganizationsError(getErrorDetail(err)));
   }
 }
 

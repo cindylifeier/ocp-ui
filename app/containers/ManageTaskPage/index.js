@@ -75,7 +75,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const patientId = queryObj.patientId;
     // TODO: refresh patient context?
     // if (patientId) {
-      // this.props.getPatient(patientId);
+    // this.props.getPatient(patientId);
     // }
     // get organization for the given practitioner
     this.props.getOrganization(this.state.practitionerId);
@@ -171,6 +171,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
   render() {
     const {
       match,
+      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -186,7 +187,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     let logicalId = this.props.match.params.id;
     let currentTask = null;
     if (logicalId && this.props.tasks) {
-      currentTask = find(this.props.tasks.data.elements, { logicalId });
+      currentTask = find(this.props.tasks.data, { logicalId });
     }
     const queryObj = queryString.parse(this.props.location.search);
     const isMainTask = queryObj.isMainTask === 'true';
@@ -194,7 +195,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const editMode = !isUndefined(match.params.id);
     let parentTask = null;
     if (logicalId && this.props.tasks) {
-      parentTask = find(this.props.tasks.data.elements, { logicalId });
+      parentTask = find(this.props.tasks.data, { logicalId });
     }
     let titleHeader;
     if (editMode && isMainTask) {
@@ -207,6 +208,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       titleHeader = <FormattedMessage {...messages.createSubHeader} />;
     }
     const taskProps = {
+      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -248,6 +250,9 @@ ManageTaskPage.propTypes = {
     }),
     path: PropTypes.string,
     url: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,

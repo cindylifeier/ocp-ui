@@ -165,7 +165,7 @@ function* getTaskByIdSaga({ logicalId }) {
     let selectedTask;
     // Load Tasks from store
     const tasks = yield select(makeSelectTasks());
-    selectedTask = getTaskByIdFromStore(tasks.data.elements, logicalId);
+    selectedTask = getTaskByIdFromStore(tasks.data, logicalId);
     // fetch from backend if cannot find Task from store
     if (isEmpty(selectedTask)) {
       selectedTask = yield call(getTaskById, logicalId);

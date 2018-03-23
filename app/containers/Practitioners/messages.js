@@ -6,10 +6,6 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.Practitioners.header',
-    defaultMessage: 'Practitioners',
-  },
   searchHeader: {
     id: 'ocpui.containers.Practitioners.searchHeader',
     defaultMessage: 'Search',

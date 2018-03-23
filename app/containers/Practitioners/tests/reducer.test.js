@@ -9,6 +9,7 @@ describe('practitionersReducer', () => {
         data: [],
         currentPage: 0,
         totalNumberOfPages: 0,
+        error: false,
       },
       searchPractitioners: {
         loading: false,

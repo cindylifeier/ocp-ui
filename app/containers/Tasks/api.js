@@ -1,19 +1,11 @@
-import queryString from 'utils/queryString';
 import request from 'utils/request';
+import queryString from 'utils/queryString';
 import { BASE_TASKS_API_URL, getEndpoint } from 'utils/endpointService';
-import { DEFAULT_PAGE_SIZE, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 
-export default function getTasks(patientId, pageNumber = DEFAULT_START_PAGE_NUMBER, pageSize = DEFAULT_PAGE_SIZE) {
-  const searchType = 'patientId';
-  const q = {
-    searchValue: patientId,
-    searchType,
-    pageNumber,
-    pageSize,
-  };
-  const params = queryString(q);
+export default function getTasks(practitioner, patient) {
   const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
-  const requestURL = `${baseEndpoint}/search${params}`;
+  const params = queryString({ practitioner, patient });
+  const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
