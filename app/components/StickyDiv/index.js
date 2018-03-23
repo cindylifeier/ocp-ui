@@ -19,7 +19,7 @@ StickyDiv.propTypes = {
 };
 
 StickyDiv.defaultProps = {
-  top: '10px',
+  top: '0',
 };
 
 export default StickyDiv;
