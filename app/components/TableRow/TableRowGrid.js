@@ -16,6 +16,10 @@ const TableRowGrid = Grid.extend`
     background-color: #dce4ef;
     cursor: pointer;
   }
+
+  &:focus {
+    background-color: #93b9ea;
+  }
 `;
 
 TableRowGrid.propTypes = {};

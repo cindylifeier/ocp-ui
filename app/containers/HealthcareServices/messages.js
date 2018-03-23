@@ -6,13 +6,17 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
+  healthCareService: {
     id: 'ocpui.containers.HealthcareServices.header',
+    defaultMessage: 'healthcare services',
+  },
+  labelHealthCareService: {
+    id: 'ocpui.containers.HealthcareServices.labelHealthCareService',
     defaultMessage: 'Healthcare Services',
   },
   filterLabel: {
     id: 'ocpui.containers.Patients.filterLabel',
-    defaultMessage: 'Include',
+    defaultMessage: 'Include:',
   },
   organizationNotSelected: {
     id: 'ocpui.containers.HealthcareServices.organizationNotSelected',
