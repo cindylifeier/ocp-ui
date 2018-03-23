@@ -19,6 +19,11 @@ const makeSelectTodos = () => createSelector(
   (substate) => substate.get('data').toJS()
 );
 
+const makeSelectTodoMainTask = () => createSelector(
+  selectTodosDomain,
+  (substate) => substate.get('todoMainTask').toJS()
+);
+
 
 const makeSelectSearchLoading = () => createSelector(
   selectTodosDomain,
@@ -28,4 +33,5 @@ export default makeSelectTodos;
 export {
   makeSelectTodos,
   makeSelectSearchLoading,
+  makeSelectTodoMainTask,
 };
