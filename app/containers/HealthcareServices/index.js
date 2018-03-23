@@ -91,7 +91,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
 
         {!isEmpty(organization) &&
         <InfoSection>
-          The healthcare services for &nbsp;
+          The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
           <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
             <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
           </InlineLabel>

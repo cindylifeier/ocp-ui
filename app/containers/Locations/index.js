@@ -155,7 +155,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
       <div>
         <InfoSection>
           <div>
-            The locations for &nbsp;
+            The <FormattedMessage {...messages.locations} /> for &nbsp;
             <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
               <span id={this.ORGANIZATION_NAME_HTML_ID}>
                 {this.props.organization ? this.props.organization.name : ''}&nbsp;

@@ -86,7 +86,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     return (
       <FilterSection>
         <CheckboxFilterGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)}>
-          <Cell><CenterAlign>Include</CenterAlign></Cell>
+          <Cell><CenterAlign><FormattedMessage {...messages.includeLabel} /></CenterAlign></Cell>
           {filteredCareTeamStatuses.map(({ code, display }) => (
             <Cell key={code}>
               <CenterAlign>
@@ -119,7 +119,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
             <Cell>
               <InfoSection>
                 <div>
-                  The care teams for&nbsp;
+                  The <FormattedMessage {...messages.careTeams} /> for&nbsp;
                   <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
                     <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
                   </InlineLabel>

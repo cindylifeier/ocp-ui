@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.containers.CareTeams.header',
     defaultMessage: 'Care Teams',
   },
+  careTeams: {
+    id: 'ocpui.containers.CareTeams.header',
+    defaultMessage: 'care teams',
+  },
   patientNotSelected: {
     id: 'ocpui.containers.CareTeams.patientNotSelected',
     defaultMessage: 'No Care Teams loaded. Please select a patient to view his/her Care Teams.',
@@ -17,5 +21,9 @@ export default defineMessages({
   patientLabel: {
     id: 'ocpui.containers.CareTeams.patientLabel',
     defaultMessage: 'Patient:',
+  },
+  includeLabel: {
+    id: 'ocpui.containers.CareTeams.includeLabel',
+    defaultMessage: 'Include: ',
   },
 });
