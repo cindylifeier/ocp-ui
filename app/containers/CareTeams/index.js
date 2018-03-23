@@ -118,10 +118,13 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
           <Grid columns={1} gap="">
             <Cell>
               <InfoSection>
-                <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                  <FormattedMessage {...messages.patientLabel} />&nbsp;
-                </InlineLabel>
-                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
+                <div>
+                  The care teams for&nbsp;
+                  <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                    <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                  </InlineLabel>
+                  are :
+                </div>
               </InfoSection>
             </Cell>
             <Cell>

@@ -101,8 +101,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
             <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
               <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
             </InlineLabel>
-            are :
           </span>}
+          are :
         </InfoSection>}
         {!isEmpty(organization) && isEmpty(location) &&
         <div>
