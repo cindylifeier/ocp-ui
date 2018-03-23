@@ -32,6 +32,10 @@ const GoldenLayoutContainer = styled.div`
     font-size: 18px;
     height: 20px;
   }
+
+  & .lm_title {
+    text-transform: uppercase;
+  }
 `;
 
 GoldenLayoutContainer.propTypes = {
