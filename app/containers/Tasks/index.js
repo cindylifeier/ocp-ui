@@ -79,10 +79,11 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <InfoSection>
+            The <FormattedMessage {...messages.tasks} /> for&nbsp;
             <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+              <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
             </InlineLabel>
-            <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
+            are :
           </InfoSection>
         }
 
