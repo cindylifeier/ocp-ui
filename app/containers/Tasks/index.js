@@ -26,6 +26,7 @@ import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import TaskTable from 'components/TaskTable';
 import PanelToolbar from 'components/PanelToolbar';
+import StickyDiv from 'components/StickyDiv';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -72,17 +73,20 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     const patientName = mapToPatientName(patient);
     return (
       <Card>
-        <PanelToolbar
-          addNewItem={addNewItem}
-          showNewItem={user.role !== PATIENT_ROLE_VALUE}
-        />
+        <StickyDiv>
+          <PanelToolbar
+            addNewItem={addNewItem}
+            showNewItem={user.role !== PATIENT_ROLE_VALUE}
+          />
+        </StickyDiv>
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <InfoSection>
+            The <FormattedMessage {...messages.tasks} /> for&nbsp;
             <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+              <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
             </InlineLabel>
-            <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
+            are :
           </InfoSection>
         }
 

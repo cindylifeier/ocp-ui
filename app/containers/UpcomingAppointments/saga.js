@@ -1,3 +1,4 @@
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
 import {
   cancelAppointmentError,
@@ -7,7 +8,7 @@ import {
 } from 'containers/UpcomingAppointments/actions';
 import getUpcomingAppointmentsApi, { cancelAppointment } from 'containers/UpcomingAppointments/api';
 import { CANCEL_APPOINTMENT, GET_UPCOMING_APPOINTMENTS } from 'containers/UpcomingAppointments/constants';
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 
 function getErrorMessage(err) {
@@ -15,7 +16,7 @@ function getErrorMessage(err) {
   if (err && err.message === 'Failed to fetch') {
     errorMessage = 'Failed to retrieve patient\'s upcoming appointments. Server is offline.';
   } else if (err && err.response && err.response.status === 404) {
-    errorMessage = 'Not have any upcoming appointments..';
+    errorMessage = 'You do not have any upcoming appointments.';
   } else if (err && err.response && err.response.status === 500) {
     errorMessage = 'Failed to retrieve patient\'s upcoming appointments. Unknown server error.';
   } else {
@@ -24,9 +25,38 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getUpcomingAppointmentsSaga({ query }) {
+export function* getUpcomingAppointmentsSaga({ query: { showPastAppointments, pageNumber } }) {
   try {
-    const upcomingAppointmentsPage = yield call(getUpcomingAppointmentsApi, query);
+    let queryParams = {
+      showPastAppointments,
+      pageNumber,
+    };
+    const patient = yield select(makeSelectPatient());
+    const practitioner = yield select(makeSelectUser());
+    const patientId = patient ? patient.id : null;
+    const practitionerId = (practitioner && practitioner.resource) ? practitioner.resource.logicalId : null;
+
+    if (patientId && practitionerId) {
+      queryParams = {
+        showPastAppointments,
+        pageNumber,
+        patientId,
+        practitionerId,
+      };
+    } else if (patientId) {
+      queryParams = {
+        showPastAppointments,
+        pageNumber,
+        patientId,
+      };
+    } else if (practitionerId) {
+      queryParams = {
+        showPastAppointments,
+        pageNumber,
+        practitionerId,
+      };
+    }
+    const upcomingAppointmentsPage = yield call(getUpcomingAppointmentsApi, queryParams);
     yield put(getUpcomingAppointmentsSuccess(upcomingAppointmentsPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
