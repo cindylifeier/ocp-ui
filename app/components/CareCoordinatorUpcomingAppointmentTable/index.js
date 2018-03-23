@@ -81,7 +81,7 @@ CareCoordinatorUpcomingAppointmentTable.propTypes = {
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
   communicationBaseUrl: PropTypes.string.isRequired,
-  patientId: PropTypes.string.isRequired,
+  patientId: PropTypes.string,
 };
 
 export default CareCoordinatorUpcomingAppointmentTable;
