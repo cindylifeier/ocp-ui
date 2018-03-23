@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.containers.Tasks.patientNotSelected',
     defaultMessage: 'No tasks loaded. Please select a patient to view his/her tasks.',
   },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Tasks.buttonLabelCreateNew',
+    defaultMessage: 'New Task',
+  },
   noTasksFound: {
     id: 'ocpui.containers.Tasks.noTasksFound',
     defaultMessage: 'No tasks found.',
@@ -17,9 +21,5 @@ export default defineMessages({
   labelPatientName: {
     id: 'ocpui.containers.Tasks.labelPatientName',
     defaultMessage: 'Patient:',
-  },
-  buttonLabelCreateNew: {
-    id: 'ocpui.containers.Tasks.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
   },
 });

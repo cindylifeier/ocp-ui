@@ -79,7 +79,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const patientId = queryObj.patientId;
     // TODO: refresh patient context?
     // if (patientId) {
-      // this.props.getPatient(patientId);
+    // this.props.getPatient(patientId);
     // }
     // get organization for the given practitioner
     this.props.getOrganization(this.state.practitionerId);
@@ -175,6 +175,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
   render() {
     const {
       match,
+      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -211,6 +212,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       titleHeader = <FormattedMessage {...messages.createSubHeader} />;
     }
     const taskProps = {
+      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -252,6 +254,9 @@ ManageTaskPage.propTypes = {
     }),
     path: PropTypes.string,
     url: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,

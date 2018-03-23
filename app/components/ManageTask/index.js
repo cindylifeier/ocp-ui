@@ -19,12 +19,13 @@ import ManageTaskForm from './ManageTaskForm';
 
 function ManageTask(props) {
   const {
-    onSave, taskStatus, requestIntent,
+    history, onSave, taskStatus, requestIntent,
     requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
     currentTask, editMode, isMainTask, parentTask,
   } = props;
   const formData = {
+    history,
     taskStatus,
     requestIntent,
     requestPriority,
@@ -86,6 +87,9 @@ function ManageTask(props) {
 }
 
 ManageTask.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   onSave: PropTypes.func.isRequired,
   taskStatus: PropTypes.array.isRequired,
   requestIntent: PropTypes.array.isRequired,
@@ -308,6 +312,10 @@ function mapMainTaskToEditForm(task) {
 
 function getResourceName(resource) {
   if (resource === undefined) {
+    return EMPTY_STRING;
+  }
+
+  if (resource === null) {
     return EMPTY_STRING;
   }
   const names = resource.name;
