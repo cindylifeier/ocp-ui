@@ -12,6 +12,8 @@ import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
+import SubTaskTable from 'components/SubTaskTable';
+import { MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
@@ -241,6 +243,9 @@ function ManageTaskForm(props) {
             hintText={<FormattedMessage {...messages.hintText.comments} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
+        </Cell>
+        <Cell area="subTasksSection">
+          <SubTaskTable patientId="1526" taskBaseUrl={MANAGE_TASK_URL} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>

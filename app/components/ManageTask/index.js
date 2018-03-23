@@ -314,6 +314,10 @@ function getResourceName(resource) {
   if (resource === undefined) {
     return EMPTY_STRING;
   }
+
+  if (resource === null) {
+    return EMPTY_STRING;
+  }
   const names = resource.name;
   return names && names
     .map((name) => {
