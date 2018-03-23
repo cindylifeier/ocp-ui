@@ -11,10 +11,22 @@ import ToDoCardCell from 'components/TodoCardContent/TodoCardCell';
 import Align from 'components/Align';
 import { Cell, Grid } from 'styled-css-grid';
 import PropTypes from 'prop-types';
+import Link from 'react-router-dom';
 
 function TodoCardContent(props) {
-  const { dueDate, patientName, status, description, isPatientWorkspace } = props;
+  const {
+    dueDate,
+    patientName,
+    status,
+    description,
+    isPatientWorkspace,
+    todoMainTaskLogicalId,
+    todoLogicalId,
+    taskBaseUrl,
+    patientId,
+  } = props;
   const dueDateStr = 'Due '.concat(dueDate);
+  const editTodoUrl = `${taskBaseUrl}/${todoLogicalId}?patientId=${patientId}isMainTask=false&mainTaskId=${todoMainTaskLogicalId}`;
   return (
     <div>
       <TodoCardGrid column={12}>
@@ -42,7 +54,7 @@ function TodoCardContent(props) {
             </Cell>
             <Cell>
               <Align variant="right">
-                <a href="">Manage</a>
+                <Link to={editTodoUrl}>Manage</Link>
               </Align>
             </Cell>
           </Grid>
@@ -56,8 +68,12 @@ function TodoCardContent(props) {
 TodoCardContent.propTypes = {
   dueDate: PropTypes.string.isRequired,
   patientName: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  todoMainTaskLogicalId: PropTypes.string.isRequired,
+  todoLogicalId: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string.isRequired,
   isPatientWorkspace: PropTypes.bool.isRequired,
 };
 
