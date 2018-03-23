@@ -15,7 +15,6 @@ import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
-import { getPatientName } from 'utils/PatientUtils';
 import injectReducer from 'utils/injectReducer';
 import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -60,16 +59,22 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
 
   render() {
     const { data, patient, loading } = this.props;
+    let patientName = null;
+    if (patient) {
+      const { name: [{ firstName, lastName }] } = patient;
+      patientName = [firstName, lastName].filter((n) => !isEmpty(n)).join(' ');
+    }
     return (
       <Card>
         {isEmpty(patient) && (
           <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4>)}
         {!isEmpty(patient) && (
           <InfoSection>
+            The <FormattedMessage {...messages.relatedPersons} /> for&nbsp;
             <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-              <FormattedMessage {...messages.labelPatientName} />&nbsp;
+              <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
             </InlineLabel>
-            <span id={this.PATIENT_NAME_HTML_ID}>{getPatientName(patient)}</span>
+            are :
           </InfoSection>)}
         {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
           <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
