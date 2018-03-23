@@ -8,6 +8,7 @@ import { fromJS } from 'immutable';
 import {
   GET_ORGANIZATIONS,
   GET_ORGANIZATIONS_SUCCESS,
+  GET_ORGANIZATIONS_ERROR,
   INITIALIZE_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
@@ -44,6 +45,11 @@ function organizationsReducer(state = initialState, action) {
         .setIn(['listOrganizations', 'totalElements'], action.organizations.totalElements)
         .setIn(['listOrganizations', 'currentPageSize'], action.organizations.currentPageSize)
         .setIn(['listOrganizations', 'currentPage'], action.organizations.currentPage);
+    case GET_ORGANIZATIONS_ERROR:
+      return state
+        .setIn(['listOrganizations', 'loading'], false)
+        .setIn(['listOrganizations', 'data'], fromJS([]))
+        .setIn(['listOrganizations', 'error'], action.error);
     case SEARCH_ORGANIZATIONS:
       return state
         .setIn(['searchOrganizations', 'loading'], true);
@@ -58,7 +64,8 @@ function organizationsReducer(state = initialState, action) {
     case SEARCH_ORGANIZATIONS_ERROR:
       return state
         .setIn(['searchOrganizations', 'loading'], false)
-        .setIn(['searchOrganizations', 'result'], fromJS([]));
+        .setIn(['searchOrganizations', 'result'], fromJS([]))
+        .setIn(['searchOrganizations', 'error'], action.error);
     default:
       return state;
   }

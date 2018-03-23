@@ -96,7 +96,7 @@ describe('Organizations.saga', () => {
       // Assert
       expect(apiCallEffect).toEqual(call(searchOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putErrorEffect).toEqual(put(searchOrganizationsError(error)));
+      expect(putErrorEffect).toEqual(put(searchOrganizationsError(error.message)));
       expect(putErrorEffectIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);
