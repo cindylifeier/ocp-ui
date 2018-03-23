@@ -57,7 +57,7 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
   handleSearch() {
   }
   render() {
-    const { todos, selectedPatient, loading, todoMainTask, user } = this.props;
+    const { todos, selectedPatient, loading, todoMainTask } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const todoMainTaskId = this.getTodoMainTaskId(todoMainTask);
     let CREATE_TODO_URL = '';
@@ -81,7 +81,6 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} showFilter={false} />
           <TodoList
             todos={todos}
-            user={user}
             patientId={patientId}
             taskBaseUrl={taskBaseUrl}
             todoMainTaskLogicalId={todoMainTaskId}

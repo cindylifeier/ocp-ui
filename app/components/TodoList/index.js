@@ -11,7 +11,7 @@ import TodoCardContent from 'components/TodoCardContent/index';
 import PropTypes from 'prop-types';
 
 function TodoList(props) {
-  const { todos, taskBaseUrl, patientId, user } = props;
+  const { todos, taskBaseUrl, patientId } = props;
   return (
     <div>
       {todos && todos.length > 0 &&
@@ -21,7 +21,6 @@ function TodoList(props) {
               <TodoCardContent
                 description={todo.description}
                 todoLogicalId={todo.logicalId}
-                user={user}
                 patientId={patientId}
                 status={todo.taskDue}
                 dueDate={todo.executionPeriod && todo.executionPeriod.end ? todo.executionPeriod.end : ''}
@@ -40,7 +39,6 @@ function TodoList(props) {
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
   patientId: PropTypes.string,
-  user: PropTypes.object,
   taskBaseUrl: PropTypes.string.isRequired,
 };
 

@@ -23,12 +23,10 @@ function TodoCardContent(props) {
     patientName,
     status,
     description,
-    user,
     todoLogicalId,
     taskBaseUrl,
     patientId,
   } = props;
-  console.log(user);
   const dueDateStr = 'Due '.concat(dueDate);
   const editTodoUrl = `${taskBaseUrl}/${todoLogicalId}?patientId=${patientId}&isMainTask=false`;
   function getStatusWithIcon(statusStr) {
@@ -90,7 +88,6 @@ TodoCardContent.propTypes = {
   description: PropTypes.string.isRequired,
   todoLogicalId: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,
-  user: PropTypes.object,
 };
 
 export default TodoCardContent;
