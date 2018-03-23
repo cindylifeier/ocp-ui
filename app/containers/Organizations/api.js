@@ -18,3 +18,13 @@ export function searchOrganizations(searchValue, showInactive, searchType, page)
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }
+
+export function getErrorDetail(error) {
+  let errorDetail = error.message;
+  if (error && error.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (error && error.response && error.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
+}

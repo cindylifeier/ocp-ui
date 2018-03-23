@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
@@ -13,12 +12,14 @@ import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
 function ManageTaskForm(props) {
+  const datePickerLandscapeMode = 'landscape';
+
   const {
+    history,
     taskStatus,
     requestIntent,
     requestPriority,
@@ -205,7 +206,7 @@ function ManageTaskForm(props) {
           <DatePicker
             fullWidth
             name="taskStart"
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode={datePickerLandscapeMode}
             minDate={today}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
@@ -216,7 +217,7 @@ function ManageTaskForm(props) {
             fullWidth
             name="taskEnd"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskEnd} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskEnd} />}
           />
@@ -257,7 +258,7 @@ function ManageTaskForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
+                onClick={history.goBack}
               />
             </Cell>
           </Grid>
@@ -268,6 +269,9 @@ function ManageTaskForm(props) {
 }
 
 ManageTaskForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   activityDefinitions: PropTypes.array,
   practitioners: PropTypes.array,
   taskStatus: PropTypes.arrayOf(PropTypes.shape({
