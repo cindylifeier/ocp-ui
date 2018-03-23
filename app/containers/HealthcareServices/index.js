@@ -19,7 +19,6 @@ import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -30,12 +29,9 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { makeSelectOrganization, makeSelectLocation } from 'containers/App/contextSelectors';
+import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import {
-  getHealthcareServices,
-  initializeHealthcareServices,
-} from './actions';
+import { getHealthcareServices, initializeHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -90,7 +86,6 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     const { loading, healthcareServices, organization, location } = this.props;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 

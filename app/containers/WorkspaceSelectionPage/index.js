@@ -14,7 +14,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getLinkUrlByRole } from 'containers/App/helpers';
+import { getLinkUrlByRole, mapToName } from 'containers/App/helpers';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
@@ -35,14 +35,22 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
   constructor(props) {
     super(props);
     this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
+    this.state = {
+      defaultRole: props.workflowRoles && props.workflowRoles.careManagerWorkflowRole && props.workflowRoles.careManagerWorkflowRole.value,
+    };
   }
 
   componentDidMount() {
     this.props.getWorkflowRoles();
     this.props.getOrganizations();
-    this.props.getCareManagers();
-    this.props.getCareCoordinators();
     this.props.getPatients();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const defaultRole = nextProps.workflowRoles && nextProps.workflowRoles.careManagerWorkflowRole && nextProps.workflowRoles.careManagerWorkflowRole.value;
+    if (defaultRole !== this.state.defaultRole) {
+      this.setState({ defaultRole });
+    }
   }
 
   handleSetWorkspaceContext(role, organization, careManager, careCoordinator, patient) {
@@ -84,8 +92,12 @@ export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disa
         <WorkspaceSelection
           {...workspaceSelectionProps}
           getLinkUrlByRole={getLinkUrlByRole}
+          mapToName={mapToName}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
           flattenPatientsData={flattenPatientsData}
+          defaultRole={this.state.defaultRole}
+          onCareManagerSelection={this.props.getCareManagers}
+          onCareCoordinatorSelection={this.props.getCareCoordinators}
         />
         }
       </div>
@@ -126,8 +138,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
     getOrganizations: () => dispatch(getOrganizations()),
-    getCareManagers: () => dispatch(getCareManagers()),
-    getCareCoordinators: () => dispatch(getCareCoordinators()),
+    getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
+    getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),
     getPatients: () => dispatch(getPatients()),
     setUser: (user) => dispatch(setUser(user)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),

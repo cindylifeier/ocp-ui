@@ -12,6 +12,6 @@ export default defineMessages({
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.Patients.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
+    defaultMessage: 'New Patient',
   },
 });

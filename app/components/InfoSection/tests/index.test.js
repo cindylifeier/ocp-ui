@@ -35,7 +35,7 @@ describe('<InfoSection />', () => {
   });
 
   describe('style tests', () => {
-    it('should have margin', () => {
+    it('should have default styles', () => {
       // Arrange
       const children = (<span>test</span>);
 
@@ -44,6 +44,25 @@ describe('<InfoSection />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('margin', '10px 10px');
+      expect(renderedComponent).toHaveStyleRule('width', 'auto');
+      expect(renderedComponent).toHaveStyleRule('max-width', 'none');
+    });
+
+    it('should have custom styles', () => {
+      // Arrange
+      const children = (<span>test</span>);
+      const margin = '20px';
+      const width = '200px';
+      const maxWidth = '500pc';
+      const props = { margin, width, maxWidth };
+
+      // Act
+      const renderedComponent = shallow(<InfoSection {...props}>{children}</InfoSection>);
+
+      // Assert
+      expect(renderedComponent).toHaveStyleRule('margin', margin);
+      expect(renderedComponent).toHaveStyleRule('width', width);
+      expect(renderedComponent).toHaveStyleRule('max-width', maxWidth);
     });
   });
 });

@@ -23,7 +23,6 @@ import { makeSelectPatient } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -77,7 +76,6 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     const patientName = mapToPatientName(patient);
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
         <PanelToolbar addNewItem={addNewItem} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :

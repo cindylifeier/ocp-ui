@@ -94,7 +94,7 @@ function getIdentifiers(identifier) {
   return identifier.map((entry) =>
     (
       <div key={`patient-id-${uniqueId()}`}>
-        {entry.system}: {entry.value}
+        {entry.systemDisplay}: {entry.value}
         <br />
       </div>
     ),
