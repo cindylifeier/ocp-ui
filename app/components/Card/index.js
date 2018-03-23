@@ -7,9 +7,8 @@ import styled from 'styled-components';
 
 
 const Card = styled.div`
-  padding: 10px;
+  padding: 0 1px 10px 1px;
   background-color: white;
-  margin: 10px;
   min-width: 650px;
   min-height: 430px;
   height: 100%;

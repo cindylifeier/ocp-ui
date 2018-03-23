@@ -1,6 +1,10 @@
 import request from 'utils/request';
-import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
+import {
+  CARE_COORDINATOR_ROLE_VALUE, CARE_MANAGER_ROLE_VALUE, OCP_ADMIN_ROLE_VALUE,
+  PATIENT_ROLE_VALUE,
+} from 'containers/App/constants';
 
 export function getActiveOrganizations() {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
@@ -15,72 +19,36 @@ export function getActiveOrganizations() {
 export function getWorkflowRoles() {
   return {
     ocpAdminWorkflowRole: {
-      value: 'ocpAdminRole',
+      value: OCP_ADMIN_ROLE_VALUE,
       display: 'OCP Admin',
     },
     careManagerWorkflowRole: {
-      value: 'careManagerRole',
-      display: 'Care Manager',
-    },
-    orgAdminWorkflowRole: {
-      value: 'orgAdminRole',
-      display: 'Organization Admin',
+      value: CARE_MANAGER_ROLE_VALUE,
+      display: 'Care Manager/Organization Admin',
     },
     careCoordinatorWorkflowRole: {
-      value: 'careCoordinatorRole',
-      display: 'Care Coordinator',
+      value: CARE_COORDINATOR_ROLE_VALUE,
+      display: 'Care Coordinator/PCP',
     },
     patientWorkflowRole: {
-      value: 'patientRole',
+      value: PATIENT_ROLE_VALUE,
       display: 'Patient',
     },
-    pcpWorkflowRole: {
-      value: 'pcpRole',
-      display: 'PCP',
-    },
   };
 }
 
-// Todo: will get data from backend
-export function getCareManagers() {
-  const careManagers = [
-    {
-      logicalId: '1',
-      name: 'Care Manager A',
-    },
-    {
-      logicalId: '2',
-      name: 'Care Manager B',
-    },
-    {
-      logicalId: '3',
-      name: 'Care Manager C',
-    },
-  ];
-  return {
-    elements: careManagers,
-  };
+export function getCareManagers(role, organization) {
+  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const params = queryString({ role });
+  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
+  return request(requestURL);
 }
 
-// Todo: will get data from backend
-export function getCareCoordinators() {
-  const careCoordinators = [
-    {
-      logicalId: '1',
-      name: 'Care Coordinators A',
-    },
-    {
-      logicalId: '2',
-      name: 'Care Coordinators B',
-    },
-    {
-      logicalId: '3',
-      name: 'Care Coordinators C',
-    },
-  ];
-  return {
-    elements: careCoordinators,
-  };
+export function getCareCoordinators(role, organization) {
+  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const params = queryString({ role });
+  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
+  return request(requestURL);
 }
 
 export function getPatients() {

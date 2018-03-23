@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
@@ -18,7 +17,6 @@ import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
 
@@ -39,6 +37,7 @@ function ManageLocationForm(props) {
     isSubmitting,
     organization,
     location,
+    onCancel,
   } = props;
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   const addTelecomsProps = {
@@ -202,7 +201,7 @@ function ManageLocationForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to={HOME_URL} />}
+                onClick={onCancel}
               />
             </Cell>
           </Grid>
@@ -217,6 +216,7 @@ function ManageLocationForm(props) {
 }
 
 ManageLocationForm.propTypes = {
+  onCancel: PropTypes.func.isRequired,
   errors: PropTypes.object,
   values: PropTypes.object.isRequired,
   isValid: PropTypes.bool.isRequired,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
@@ -14,7 +13,6 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
-import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageHealthcareServiceFormGrid from './ManageHealthcareServiceFormGrid';
 
@@ -28,6 +26,7 @@ function ManageHealthcareServiceForm(props) {
     healthcareServiceStatuses,
     telecomSystems,
     isSubmitting, dirty, isValid, editMode,
+    onCancel,
   } = props;
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   return (
@@ -155,7 +154,7 @@ function ManageHealthcareServiceForm(props) {
                   label="Cancel"
                   default
                   disabled={isSubmitting}
-                  containerElement={<Link to={HOME_URL} />}
+                  onClick={onCancel}
                 />
               </Cell>
             </Grid>
@@ -168,6 +167,7 @@ function ManageHealthcareServiceForm(props) {
 
 ManageHealthcareServiceForm.propTypes = {
   organization: PropTypes.object.isRequired,
+  onCancel: PropTypes.func.isRequired,
   healthcareServiceCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,

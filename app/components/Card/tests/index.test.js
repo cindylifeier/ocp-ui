@@ -27,9 +27,8 @@ describe('<Card />', () => {
     const renderedComponent = shallow(<Card>{children}</Card>);
 
     // Assert
-    expect(renderedComponent).toHaveStyleRule('padding', '10px');
+    expect(renderedComponent).toHaveStyleRule('padding', '0 1px 10px 1px');
     expect(renderedComponent).toHaveStyleRule('background-color', 'white');
-    expect(renderedComponent).toHaveStyleRule('margin', '10px');
     expect(renderedComponent).toHaveStyleRule('min-width', '650px');
     expect(renderedComponent).toHaveStyleRule('min-height', '430px');
     expect(renderedComponent).toHaveStyleRule('height', '100%');

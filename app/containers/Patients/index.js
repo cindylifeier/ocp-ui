@@ -8,41 +8,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import RecordsRange from 'components/RecordsRange';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import RecordsRange from 'components/RecordsRange';
 import PatientSearchResult from 'components/PatientSearchResult';
-
-import { MANAGE_PATIENT_URL } from 'containers/App/constants';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
-import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { setPatient } from 'containers/App/contextActions';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
+import { PanelToolbar } from 'components/PanelToolbar';
+import { CARE_MANAGER_ROLE_VALUE, MANAGE_PATIENT_URL } from 'containers/App/constants';
+import { setPatient } from 'containers/App/contextActions';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
   makeSelectPatientSearchResult,
+  makeSelectPatientTotalElements,
   makeSelectQueryIncludeInactive,
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectTotalPages,
-  makeSelectPatientTotalElements,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
-import { SEARCH_BAR_TEXT_LENGTH } from './constants';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-
 
 export class Patients extends React.PureComponent {
 
@@ -76,10 +71,6 @@ export class Patients extends React.PureComponent {
     });
   }
 
-  handlePatientModalOpen() {
-    this.setState({ isPatientModalOpen: true });
-  }
-
   handlePatientModalClose() {
     this.setState({ isPatientModalOpen: false });
   }
@@ -94,27 +85,21 @@ export class Patients extends React.PureComponent {
   }
 
   render() {
-    const { loading, error, searchResult } = this.props;
+    const { loading, error, searchResult, user: { role } } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
     };
-
+    const addNewItem = role === CARE_MANAGER_ROLE_VALUE ? {
+      addNewItem: {
+        labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+        linkUrl: MANAGE_PATIENT_URL,
+      },
+    } : undefined;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_PATIENT_URL} />}
-          />
-        </CardHeader>
-        <SearchBar
-          minimumLength={SEARCH_BAR_TEXT_LENGTH}
-          onSearch={this.handleSearch}
-        />
-        <br />
+        <PanelToolbar {...addNewItem} showNewItem={!!addNewItem} onSearch={this.handleSearch} />
         <PatientSearchResult
           {...searchResultProps}
           onPatientClick={this.handlePatientClick}
@@ -167,6 +152,9 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 
@@ -181,6 +169,7 @@ const mapStateToProps = createStructuredSelector({
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -3,9 +3,11 @@ import queryString from 'utils/queryString';
 import { BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
-export function getPractitioners(page) {
-  // Todo: Will change to getPractitioners endpoint once it is implemented
-  return searchPractitioners('name', 'Practitioner', false, page);
+export function getPractitionersInOrganization(organizationId, page) {
+  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const params = queryString({ page, size: DEFAULT_PAGE_SIZE });
+  const requestURL = `${baseEndpoint}/organization/${organizationId}${params}`;
+  return request(requestURL);
 }
 
 export function searchPractitioners(searchType, searchValue, showInactive, page) {
@@ -13,4 +15,14 @@ export function searchPractitioners(searchType, searchValue, showInactive, page)
   const params = queryString({ searchType, searchValue, showInactive, size: DEFAULT_PAGE_SIZE, page });
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
+}
+
+export function getErrorDetail(error) {
+  let errorDetail = error.message;
+  if (error && error.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (error && error.response && error.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
 }
