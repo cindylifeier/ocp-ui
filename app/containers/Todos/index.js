@@ -14,13 +14,10 @@ import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
 import { MANAGE_TASK_URL } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import { Link } from 'react-router-dom';
-import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
 import { compose } from 'redux';
 import { getTodoMainTask, getTodos } from 'containers/Todos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import { PanelToolbar } from 'components/PanelToolbar/index';
 import { makeSelectSearchLoading, makeSelectTodoMainTask, makeSelectTodos } from 'containers/Todos/selectors';
 import TodoList from 'components/TodoList';
 import { PATIENTS } from 'containers/Todos/constants';
@@ -32,6 +29,10 @@ import messages from './messages';
 
 
 export class Todos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
   componentDidMount() {
     const patientId = this.props.selectedPatient.id;
     if (patientId) {
@@ -40,22 +41,23 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
       this.props.getTodoMainTask(patientId, definition);
     }
   }
+  handleSearch() {
+  // handleSearch(searchValue, showInactive, searchType) {
+    // this.props.searchTodo(searchValue, showInactive, searchType, this.state.searchOrganizations.currentPage);
+  }
   render() {
     const { todos, selectedPatient, loading, todoMainTask } = this.props;
     const patientId = selectedPatient.id;
-    const CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
-    // const EDIT_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
+    // const CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
+    // const EDIT_TODO_URL = `${MANAGE_TASK_URL}/(todo edit)?patientId=${patientId}&isMainTask=false`;
     const isPatientWorkspace = window.location.href.includes(PATIENTS);
     const taskBaseUrl = MANAGE_TASK_URL;
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_TASK_URL,
+    };
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={CREATE_TODO_URL} />}
-          />
-        </CardHeader>
         {loading && <RefreshIndicatorLoading />}
         {!loading && isEmpty(todos) &&
         <NoResultsFoundText>
@@ -63,6 +65,7 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
         </NoResultsFoundText>}
         {!isEmpty(todos) &&
         <div>
+          <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} showFilter={false} />
           <TodoList
             todos={todos}
             patientId={patientId}

@@ -11,7 +11,7 @@ import {
 } from 'containers/Todos/constants';
 
 const initialState = fromJS({
-  data: {},
+  data: [],
   todoMainTask: {},
   loading: false,
 });
