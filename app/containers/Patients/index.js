@@ -19,19 +19,20 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import { PanelToolbar } from 'components/PanelToolbar';
-import { MANAGE_PATIENT_URL } from 'containers/App/constants';
+import { CARE_MANAGER_ROLE_VALUE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
   makeSelectPatientSearchResult,
+  makeSelectPatientTotalElements,
   makeSelectQueryIncludeInactive,
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectTotalPages,
-  makeSelectPatientTotalElements,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
@@ -84,19 +85,21 @@ export class Patients extends React.PureComponent {
   }
 
   render() {
-    const { loading, error, searchResult } = this.props;
+    const { loading, error, searchResult, user: { role } } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
     };
-    const addNewItem = {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_PATIENT_URL,
-    };
+    const addNewItem = role === CARE_MANAGER_ROLE_VALUE ? {
+      addNewItem: {
+        labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+        linkUrl: MANAGE_PATIENT_URL,
+      },
+    } : undefined;
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        <PanelToolbar {...addNewItem} showNewItem={!!addNewItem} onSearch={this.handleSearch} />
         <PatientSearchResult
           {...searchResultProps}
           onPatientClick={this.handlePatientClick}
@@ -149,6 +152,9 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 
@@ -163,6 +169,7 @@ const mapStateToProps = createStructuredSelector({
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
