@@ -21,7 +21,4 @@ export const CANCEL_APPOINTMENT_ERROR = 'ocpui/UpcomingAppointments/CANCEL_APPOI
 */
 export const LOADING = 'loading';
 export const DATA = 'data';
-
-export const PRACTITIONERIDVALUE = '1528';
-
 export const STATUS_CODE_CANCELLED = 'cancelled';

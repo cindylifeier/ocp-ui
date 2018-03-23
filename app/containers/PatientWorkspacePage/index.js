@@ -19,6 +19,7 @@ import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import renderTasks from 'containers/Tasks/render';
+import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import Card from 'components/Card';
@@ -204,7 +205,7 @@ export const componentMetadata = [
   { name: 'calendar', text: 'Calendar', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
   { name: 'consents', text: 'Consents', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
 ];
 
