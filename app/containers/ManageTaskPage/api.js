@@ -85,3 +85,9 @@ export function getTaskById(logicalId) {
   const requestURL = `${baseEndpoint}/${logicalId}`;
   return request(requestURL);
 }
+
+export function getSubTasksByParentId(logicalId) {
+  const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
+  const requestURL = `${baseEndpoint}?parentTask=${logicalId}`;
+  return request(requestURL);
+}

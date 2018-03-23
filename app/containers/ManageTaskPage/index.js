@@ -40,6 +40,7 @@ import {
   makeSelectPractitioner,
   makeSelectPractitioners,
   makeSelectTasksByPatient,
+  makeSelectSubTasks,
 } from './selectors';
 import {
   createTask,
@@ -50,6 +51,7 @@ import {
   getRequester,
   getTaskById,
   getTasksByPatient,
+  getSubTasks,
   updateTask,
 } from './actions';
 import reducer from './reducer';
@@ -70,6 +72,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const logicalId = this.props.match.params.id;
     if (logicalId) {
       this.props.getTask(logicalId);
+      // get subtasks belonging to main task
+      this.props.getSubTasks(logicalId);
     }
     const queryObj = queryString.parse(this.props.location.search);
     const patientId = queryObj.patientId;
@@ -278,6 +282,7 @@ ManageTaskPage.propTypes = {
   createTask: PropTypes.func,
   getTask: PropTypes.func,
   updateTask: PropTypes.func,
+  getSubTasks: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -292,6 +297,7 @@ const mapStateToProps = createStructuredSelector({
   practitioners: makeSelectPractitioners(),
   requester: makeSelectPractitioner(),
   tasks: makeSelectTasks(),
+  subTasks: makeSelectSubTasks(),
   tasksByPatient: makeSelectTasksByPatient(),
 });
 
@@ -306,6 +312,7 @@ function mapDispatchToProps(dispatch) {
     getPractitioners: (practitionerId) => dispatch(getPractitioners(practitionerId)),
     createTask: (taskFormData, handleSubmitting) => dispatch(createTask(taskFormData, handleSubmitting)),
     getTask: (logicalId) => dispatch(getTaskById(logicalId)),
+    getSubTasks: (logicalId) => dispatch(getSubTasks(logicalId)),
     updateTask: (taskFormData, handleSubmitting) => dispatch(updateTask(taskFormData, handleSubmitting)),
   };
 }

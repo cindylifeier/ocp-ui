@@ -32,6 +32,9 @@ import {
   GET_TASK,
   GET_TASK_ERROR,
   GET_TASK_SUCCESS,
+  GET_SUB_TASKS,
+  GET_SUB_TASKS_ERROR,
+  GET_SUB_TASKS_SUCCESS,
 } from './constants';
 
 
@@ -226,5 +229,27 @@ export function getTaskByIdSuccess(response) {
   return {
     type: GET_TASK_SUCCESS,
     response,
+  };
+}
+
+export function getSubTasks(logicalId) {
+  return {
+    type: GET_SUB_TASKS,
+    logicalId,
+  };
+}
+
+export function getSubTasksError(error) {
+  return {
+    type: GET_SUB_TASKS_ERROR,
+    error,
+  };
+}
+
+
+export function getSubTasksSuccess(subTasks) {
+  return {
+    type: GET_SUB_TASKS_SUCCESS,
+    subTasks,
   };
 }

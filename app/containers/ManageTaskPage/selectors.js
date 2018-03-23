@@ -38,6 +38,11 @@ const makeSelectTasksByPatient = () => createSelector(
   (substate) => substate && substate.get('tasksByPatient'),
 );
 
+const makeSelectSubTasks = () => createSelector(
+  selectManageTaskPageDomain,
+  (substate) => substate && substate.get('subTasks'),
+);
+
 
 export {
   selectManageTaskPageDomain,
@@ -47,4 +52,5 @@ export {
   makeSelectPractitioner,
   makeSelectEventTypes,
   makeSelectTasksByPatient,
+  makeSelectSubTasks,
 };

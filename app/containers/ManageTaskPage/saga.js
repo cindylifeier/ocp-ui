@@ -1,9 +1,9 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack, push } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getTasksByPatient, getPractitioners, getRequester, getTaskById, getTaskByIdFromStore, updateTask } from 'containers/ManageTaskPage/api';
+import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getTaskById, getTaskByIdFromStore, getTasksByPatient, getSubTasksByParentId, updateTask } from 'containers/ManageTaskPage/api';
 import { PATIENTS_URL } from 'containers/App/constants';
-import { CREATE_TASK, GET_ACTIVITY_DEFINITIONS, GET_EVENT_TYPES, GET_ORGANIZATION, GET_PRACTITIONER, GET_PRACTITIONERS, GET_TASK, GET_TASKS_BY_PATIENT, PUT_TASK } from 'containers/ManageTaskPage/constants';
+import { CREATE_TASK, GET_ACTIVITY_DEFINITIONS, GET_EVENT_TYPES, GET_ORGANIZATION, GET_PRACTITIONER, GET_PRACTITIONERS, GET_SUB_TASKS, GET_TASK, GET_TASKS_BY_PATIENT, PUT_TASK } from 'containers/ManageTaskPage/constants';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { showNotification } from 'containers/Notification/actions';
 import {
@@ -21,10 +21,12 @@ import {
   getRequesterSuccess,
   getTaskByIdError,
   getTaskByIdSuccess,
-  updateTaskError,
-  updateTaskSuccess,
   getTasksByPatientError,
   getTasksByPatientSuccess,
+  getSubTasksError,
+  getSubTasksSuccess,
+  updateTaskError,
+  updateTaskSuccess,
 } from './actions';
 
 export function* getOrganizationSaga(practitionerId) {
@@ -181,6 +183,19 @@ function* getTaskByIdSaga({ logicalId }) {
 function* watchGetTaskByIdSaga() {
   yield takeLatest(GET_TASK, getTaskByIdSaga);
 }
+function* getSubTasksSaga({ logicalId }) {
+  try {
+    const subTasks = yield call(getSubTasksByParentId, logicalId);
+    yield put(getSubTasksSuccess(subTasks));
+  } catch (error) {
+    yield put(showNotification('No SubTasks found.'));
+    yield put(getSubTasksError(error));
+  }
+}
+
+function* watchGetSubTasksSaga() {
+  yield takeLatest(GET_SUB_TASKS, getSubTasksSaga);
+}
 
 function getErrorDetail(err) {
   let errorDetail = '';
@@ -208,5 +223,6 @@ export default function* rootSaga() {
     watchGetTaskByIdSaga(),
     watchGetEventTypesSaga(),
     watchGetTasksByPatientSaga(),
+    watchGetSubTasksSaga(),
   ]);
 }
