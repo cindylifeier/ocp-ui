@@ -1,9 +1,11 @@
 import request from 'utils/request';
+import queryString from 'utils/queryString';
 import { BASE_TASKS_API_URL, getEndpoint } from 'utils/endpointService';
 
-export default function getTasks(practitionerId, patientId) {
+export default function getTasks(practitioner, patient) {
   const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
-  const requestURL = `${baseEndpoint}?practitioner=${practitionerId}&patient=${patientId}`;
+  const params = queryString({ practitioner, patient });
+  const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
