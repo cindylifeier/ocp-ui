@@ -19,7 +19,6 @@ import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
 import Sticky from 'components/Sticky';
-import CardHeader from 'components/CardHeader';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -103,7 +102,6 @@ export class Organizations extends React.PureComponent {
     }
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
         <Sticky>
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         </Sticky>
