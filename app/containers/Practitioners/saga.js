@@ -1,15 +1,15 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
-import { getPractitionersSuccess, searchPractitionersError, searchPractitionersSuccess } from './actions';
-import { getPractitioners, searchPractitioners } from './api';
-import { GET_PRACTITIONERS, SEARCH_PRACTITIONERS } from './constants';
+import { getPractitionersInOrganizationSuccess, searchPractitionersError, searchPractitionersSuccess } from './actions';
+import { getPractitionersInOrganization, searchPractitioners } from './api';
+import { GET_PRACTITIONERS_IN_ORGANIZATION, SEARCH_PRACTITIONERS } from './constants';
 
 
 export function* getPractitionersSaga({ currentPage }) {
   try {
-    const practitioners = yield call(getPractitioners, currentPage);
-    yield put(getPractitionersSuccess(practitioners));
+    const practitioners = yield call(getPractitionersInOrganization, currentPage);
+    yield put(getPractitionersInOrganizationSuccess(practitioners));
   } catch (err) {
     yield put(showNotification('Failed to get the practitioners.'));
   }
@@ -26,7 +26,7 @@ export function* searchPractitionersSaga({ searchType, searchValue, includeInact
 }
 
 export function* watchGetPractitionersSaga() {
-  yield takeLatest(GET_PRACTITIONERS, getPractitionersSaga);
+  yield takeLatest(GET_PRACTITIONERS_IN_ORGANIZATION, getPractitionersSaga);
 }
 
 

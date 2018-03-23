@@ -3,7 +3,7 @@ import queryString from 'utils/queryString';
 import { BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
-export function getPractitioners(page) {
+export function getPractitionersInOrganization(page) {
   // Todo: Will change to getPractitioners endpoint once it is implemented
   return searchPractitioners('name', 'Practitioner', false, page);
 }

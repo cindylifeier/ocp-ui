@@ -18,7 +18,7 @@ import Card from 'components/Card';
 import CardHeader from 'components/CardHeader';
 import { PanelToolbar } from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
-import { getPractitioners, initializePractitioners, searchPractitioners } from './actions';
+import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
 import saga from './saga';
@@ -138,7 +138,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getPractitioners: (currentPage) => dispatch(getPractitioners(currentPage)),
+    getPractitioners: (currentPage) => dispatch(getPractitionersInOrganization(currentPage)),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }
