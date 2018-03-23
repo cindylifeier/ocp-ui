@@ -42,7 +42,7 @@ function TodoList(props) {
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
   // todoMainTaskLogicalId: PropTypes.string.isRequired,
-  patientId: PropTypes.string.isRequired,
+  patientId: PropTypes.string,
   taskBaseUrl: PropTypes.string.isRequired,
   isPatientWorkspace: PropTypes.bool.isRequired,
 };

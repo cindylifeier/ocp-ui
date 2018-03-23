@@ -83,7 +83,7 @@ function TodoCardContent(props) {
 TodoCardContent.propTypes = {
   dueDate: PropTypes.string.isRequired,
   patientName: PropTypes.string.isRequired,
-  patientId: PropTypes.string.isRequired,
+  patientId: PropTypes.string,
   status: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   // todoMainTaskLogicalId: PropTypes.string.isRequired,
