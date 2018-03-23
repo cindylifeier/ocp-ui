@@ -25,6 +25,7 @@ import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
 import reducer from './reducer';
 import saga from './saga';
+import { flattenPatientData } from './helpers';
 
 export const initialStateMetadata =
   {
@@ -219,6 +220,7 @@ export class PatientWorkspacePage extends React.PureComponent { // eslint-disabl
             <PatientDetails
               patient={patient}
               isPatientUser={user.role === PATIENT_ROLE_VALUE}
+              flattenPatientData={flattenPatientData}
             />
           </Cell>
           <Cell>
