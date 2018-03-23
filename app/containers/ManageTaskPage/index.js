@@ -187,7 +187,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     let logicalId = this.props.match.params.id;
     let currentTask = null;
     if (logicalId && this.props.tasks) {
-      currentTask = find(this.props.tasks.data.elements, { logicalId });
+      currentTask = find(this.props.tasks.data, { logicalId });
     }
     const queryObj = queryString.parse(this.props.location.search);
     const isMainTask = queryObj.isMainTask === 'true';
@@ -195,7 +195,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const editMode = !isUndefined(match.params.id);
     let parentTask = null;
     if (logicalId && this.props.tasks) {
-      parentTask = find(this.props.tasks.data.elements, { logicalId });
+      parentTask = find(this.props.tasks.data, { logicalId });
     }
     let titleHeader;
     if (editMode && isMainTask) {

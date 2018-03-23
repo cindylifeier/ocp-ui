@@ -20,6 +20,8 @@ function tasksReducer(state = initialState, action) {
     case GET_TASKS:
       return state
         .set('loading', true)
+        .set('practitionerId', action.practitionerId)
+        .set('patientId', action.patientId)
         .set('data', fromJS({}));
     case GET_TASKS_SUCCESS:
       return state

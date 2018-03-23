@@ -22,10 +22,11 @@ export function initializeTasks() {
   };
 }
 
-export function getTasks(pageNumber) {
+export function getTasks(practitionerId, patientId) {
   return {
     type: GET_TASKS,
-    pageNumber,
+    practitionerId,
+    patientId,
   };
 }
 

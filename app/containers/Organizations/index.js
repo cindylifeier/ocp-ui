@@ -18,7 +18,8 @@ import { setOrganization } from 'containers/App/contextActions';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
+import StickyDiv from 'components/StickyDiv';
+import InfoSection from 'components/InfoSection';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -102,13 +103,16 @@ export class Organizations extends React.PureComponent {
     }
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
-        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        <OrganizationTable
-          organizationData={organizationData}
-          onRowClick={this.handleRowClick}
-          flattenOrganizationData={flattenOrganizationData}
-        />
+        <StickyDiv>
+          <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        </StickyDiv>
+        <InfoSection margin="10px 0">
+          <OrganizationTable
+            organizationData={organizationData}
+            onRowClick={this.handleRowClick}
+            flattenOrganizationData={flattenOrganizationData}
+          />
+        </InfoSection>
       </Card>
     );
   }
