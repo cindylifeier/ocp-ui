@@ -15,7 +15,7 @@ function getErrorMessage(err) {
   if (err && err.message === 'Failed to fetch') {
     errorMessage = 'Failed to retrieve patient\'s upcoming appointments. Server is offline.';
   } else if (err && err.response && err.response.status === 404) {
-    errorMessage = 'Not have any upcoming appointments..';
+    errorMessage = 'You do not have any upcoming appointments.';
   } else if (err && err.response && err.response.status === 500) {
     errorMessage = 'Failed to retrieve patient\'s upcoming appointments. Unknown server error.';
   } else {
