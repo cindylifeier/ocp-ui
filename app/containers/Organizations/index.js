@@ -19,6 +19,7 @@ import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
 import Sticky from 'components/Sticky';
+import InfoSection from 'components/InfoSection';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -105,11 +106,13 @@ export class Organizations extends React.PureComponent {
         <Sticky>
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         </Sticky>
-        <OrganizationTable
-          organizationData={organizationData}
-          onRowClick={this.handleRowClick}
-          flattenOrganizationData={flattenOrganizationData}
-        />
+        <InfoSection margin="10px 0">
+          <OrganizationTable
+            organizationData={organizationData}
+            onRowClick={this.handleRowClick}
+            flattenOrganizationData={flattenOrganizationData}
+          />
+        </InfoSection>
       </Card>
     );
   }
