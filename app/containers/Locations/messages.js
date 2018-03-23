@@ -6,13 +6,13 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.Locations.header',
-    defaultMessage: 'Locations',
+  locations: {
+    id: 'ocpui.containers.Locations.locations',
+    defaultMessage: 'locations',
   },
   filterLabel: {
     id: 'ocpui.containers.Locations.filterLabel',
-    defaultMessage: 'Include',
+    defaultMessage: 'Include:',
   },
   inactive: {
     id: 'ocpui.containers.Locations.checkbox.inactive',

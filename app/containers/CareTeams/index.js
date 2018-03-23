@@ -24,7 +24,6 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CareTeamTable from 'components/CareTeamTable';
 import RecordsRange from 'components/RecordsRange';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -87,7 +86,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     return (
       <FilterSection>
         <CheckboxFilterGrid columns={this.calculateCheckboxColumns(filteredCareTeamStatuses)}>
-          <Cell><CenterAlign>Include</CenterAlign></Cell>
+          <Cell><CenterAlign><FormattedMessage {...messages.includeLabel} /></CenterAlign></Cell>
           {filteredCareTeamStatuses.map(({ code, display }) => (
             <Cell key={code}>
               <CenterAlign>
@@ -114,16 +113,18 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
     }
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <Grid columns={1} gap="">
             <Cell>
               <InfoSection>
-                <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                  <FormattedMessage {...messages.patientLabel} />&nbsp;
-                </InlineLabel>
-                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
+                <div>
+                  The <FormattedMessage {...messages.careTeams} /> for&nbsp;
+                  <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                    <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                  </InlineLabel>
+                  are :
+                </div>
               </InfoSection>
             </Cell>
             <Cell>
