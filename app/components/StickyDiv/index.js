@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 const StickyDiv = styled.div`
   position: sticky;
   top: ${({ top }) => top};
+  z-index: 9999;
 `;
 
 StickyDiv.propTypes = {
