@@ -13,17 +13,10 @@ import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-
-import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import {
-  DEFAULT_START_PAGE_NUMBER,
-  MANAGE_COMMUNICATION_URL,
-  MANAGE_TASK_URL,
-  PATIENT_ROLE_VALUE,
-} from 'containers/App/constants';
+import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
@@ -31,7 +24,6 @@ import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import PanelToolbar from 'components/PanelToolbar';
 import makeSelectTasks from './selectors';
@@ -43,7 +35,10 @@ import { cancelTask, getTasks, initializeTasks } from './actions';
 export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.state = {
+      practitionerId: 1961,
+      isPatientModalOpen: false,
+    };
     this.cancelTask = this.cancelTask.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
@@ -52,7 +47,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     this.props.initializeTasks();
     const { patient } = this.props;
     if (patient) {
-      this.props.getTasks(DEFAULT_START_PAGE_NUMBER);
+      this.props.getTasks(this.state.practitionerId, patient.id);
     }
   }
 
@@ -60,12 +55,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     const { patient } = this.props;
     const { patient: newPatient } = nextProps;
     if (!isEqual(patient, newPatient)) {
-      this.props.getTasks(DEFAULT_START_PAGE_NUMBER);
+      this.props.getTasks(this.state.practitionerId, nextProps.patient.id);
     }
-  }
-
-  handlePageClick(page) {
-    this.props.getTasks(page);
   }
 
   cancelTask(logicalId) {
@@ -103,28 +94,17 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
           <FormattedMessage {...messages.noTasksFound} />
         </NoResultsFoundText>}
 
-        {!isEmpty(data) && !isEmpty(data.elements) &&
+        {!isEmpty(data) &&
         <div>
           <CenterAlign>
             <TaskTable
-              elements={data.elements}
+              elements={data}
               cancelTask={this.cancelTask}
               patientId={patient.id}
               communicationBaseUrl={MANAGE_COMMUNICATION_URL}
               taskBaseUrl={MANAGE_TASK_URL}
             />
           </CenterAlign>
-          <CenterAlignedUltimatePagination
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            onChange={this.handlePageClick}
-          />
-          <RecordsRange
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            totalElements={data.totalElements}
-            currentPageSize={data.currentPageSize}
-          />
         </div>
         }
       </Card>
@@ -153,7 +133,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (pageNumber) => dispatch(getTasks(pageNumber)),
+    getTasks: (practitionerId, patientId) => dispatch(getTasks(practitionerId, patientId)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };
