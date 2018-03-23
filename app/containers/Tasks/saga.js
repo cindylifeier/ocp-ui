@@ -25,8 +25,7 @@ export function* getTasksSaga({ practitionerId, patientId }) {
     yield put(getTasksSuccess(tasksPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
-    yield put(getTasksError(err));
-    yield put(showNotification(errMsg));
+    yield put(getTasksError(errMsg));
   }
 }
 
