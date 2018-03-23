@@ -117,6 +117,8 @@ ShallowWrapper {
           <Cell__Cell>
             <InfoSection__InfoSection
               margin="10px 10px"
+              maxWidth="none"
+              width="auto"
             >
               <InlineLabel__InlineLabel
                 htmlFor="patient_name_1"
@@ -241,6 +243,8 @@ ShallowWrapper {
             <Cell__Cell>
               <InfoSection__InfoSection
                 margin="10px 10px"
+                maxWidth="none"
+                width="auto"
               >
                 <InlineLabel__InlineLabel
                   htmlFor="patient_name_1"
@@ -309,6 +313,8 @@ ShallowWrapper {
             "props": Object {
               "children": <InfoSection__InfoSection
                 margin="10px 10px"
+                maxWidth="none"
+                width="auto"
               >
                 <InlineLabel__InlineLabel
                   htmlFor="patient_name_1"
@@ -351,6 +357,8 @@ ShallowWrapper {
                   </span>,
                 ],
                 "margin": "10px 10px",
+                "maxWidth": "none",
+                "width": "auto",
               },
               "ref": null,
               "rendered": Array [
@@ -801,6 +809,8 @@ ShallowWrapper {
             <Cell__Cell>
               <InfoSection__InfoSection
                 margin="10px 10px"
+                maxWidth="none"
+                width="auto"
               >
                 <InlineLabel__InlineLabel
                   htmlFor="patient_name_1"
@@ -925,6 +935,8 @@ ShallowWrapper {
               <Cell__Cell>
                 <InfoSection__InfoSection
                   margin="10px 10px"
+                  maxWidth="none"
+                  width="auto"
                 >
                   <InlineLabel__InlineLabel
                     htmlFor="patient_name_1"
@@ -993,6 +1005,8 @@ ShallowWrapper {
               "props": Object {
                 "children": <InfoSection__InfoSection
                   margin="10px 10px"
+                  maxWidth="none"
+                  width="auto"
                 >
                   <InlineLabel__InlineLabel
                     htmlFor="patient_name_1"
@@ -1035,6 +1049,8 @@ ShallowWrapper {
                     </span>,
                   ],
                   "margin": "10px 10px",
+                  "maxWidth": "none",
+                  "width": "auto",
                 },
                 "ref": null,
                 "rendered": Array [

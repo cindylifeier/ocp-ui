@@ -54,4 +54,12 @@ export default defineMessages({
     id: 'ocpui.containers.Locations.labelOrganization',
     defaultMessage: 'Organization:',
   },
+  labelLocation: {
+    id: 'ocpui.containers.Locations.labelLocation',
+    defaultMessage: 'Location:',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Locations.buttonLabelCreateNew',
+    defaultMessage: 'New Location',
+  },
 });

@@ -109,6 +109,7 @@ export const PATIENTS_URL = '/ocp-ui/patients';
 export const CARE_COORDINATOR_URL = '/ocp-ui/care-coordinator';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
+export const MANAGE_LOCATION_URL = '/ocp-ui/manage-location';
 export const MANAGE_COMMUNICATION_URL = '/ocp-ui/manage-communication';
 export const MANAGE_CARE_TEAM_URL = '/ocp-ui/manage-care-team';
 export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
@@ -130,8 +131,8 @@ export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
  * @type {string}
  */
 export const OCP_ADMIN_ROLE_VALUE = 'ocpAdminRole';
-export const CARE_MANAGER_ROLE_VALUE = 'careManagerRole';
-export const CARE_COORDINATOR_ROLE_VALUE = 'careCoordinatorRole';
+export const CARE_MANAGER_ROLE_VALUE = 'CAREMNGR';
+export const CARE_COORDINATOR_ROLE_VALUE = '171M00000X';
 export const PATIENT_ROLE_VALUE = 'patientRole';
 
 /**
