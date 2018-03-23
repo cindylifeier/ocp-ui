@@ -22,5 +22,4 @@ export const GET_TODO_MAIN_TASK_ERROR = 'ocpui/Todos/GET_TODO_MAIN_TASK_ERROR';
 *
 */
 
-export const PAGE_SIZE = 10;
-export const PATIENTS = 'patient';
+export const TODO_DEFINITION = 'To-DO';

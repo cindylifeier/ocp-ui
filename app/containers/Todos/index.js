@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -20,7 +20,7 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar/index';
 import { makeSelectSearchLoading, makeSelectTodoMainTask, makeSelectTodos } from 'containers/Todos/selectors';
 import TodoList from 'components/TodoList';
-import { PATIENTS } from 'containers/Todos/constants';
+import { TODO_DEFINITION } from 'containers/Todos/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
@@ -34,28 +34,40 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
     this.handleSearch = this.handleSearch.bind(this);
   }
   componentDidMount() {
-    // const patientId = this.props.selectedPatient.id;
-    // if (patientId) {
-    const definition = 'To-Do';
-    const patientId = 3970;
-    this.props.getTodos(patientId, definition);
-    this.props.getTodoMainTask(patientId, definition);
-    // }
+    const { user, selectedPatient } = this.props;
+    const definition = TODO_DEFINITION;
+    const patientId = selectedPatient ? selectedPatient.id : null;
+    const practitionerId = user && user.resource && user.resource.logicalId ? user.resource.logicalId : null;
+    if (patientId) {
+      this.props.getTodos(patientId, null, definition);
+      this.props.getTodoMainTask(patientId, definition);
+    } else if (practitionerId) {
+      this.props.getTodos(null, practitionerId, definition);
+    }
   }
+
+  getTodoMainTaskId(todoMainTask) {
+    let todoMintaskId = null;
+    if (todoMainTask && todoMainTask.length > 0) {
+      todoMintaskId = todoMainTask[0].reference.split('/')[1];
+    }
+    return todoMintaskId;
+  }
+
   handleSearch() {
-  // handleSearch(searchValue, showInactive, searchType) {
-    // this.props.searchTodo(searchValue, showInactive, searchType, this.state.searchOrganizations.currentPage);
   }
   render() {
-    const { todos, selectedPatient, loading, todoMainTask } = this.props;
+    const { todos, selectedPatient, loading, todoMainTask, user } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
-    // const CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
-    // const EDIT_TODO_URL = `${MANAGE_TASK_URL}/(todo edit)?patientId=${patientId}&isMainTask=false`;
-    const isPatientWorkspace = window.location.href.includes(PATIENTS);
+    const todoMainTaskId = this.getTodoMainTaskId(todoMainTask);
+    let CREATE_TODO_URL = '';
+    if (patientId && todoMainTaskId) {
+      CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTaskId}`;
+    }
     const taskBaseUrl = MANAGE_TASK_URL;
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_TASK_URL,
+      linkUrl: CREATE_TODO_URL,
     };
     return (
       <Card>
@@ -69,10 +81,10 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} showFilter={false} />
           <TodoList
             todos={todos}
+            user={user}
             patientId={patientId}
             taskBaseUrl={taskBaseUrl}
-            todoMainTaskLogicalId={todoMainTask.logicalId}
-            isPatientWorkspace={isPatientWorkspace}
+            todoMainTaskLogicalId={todoMainTaskId}
           />
         </div>
         }
@@ -87,6 +99,7 @@ Todos.propTypes = {
   getTodoMainTask: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object,
   todoMainTask: PropTypes.object,
+  user: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };
 
@@ -95,11 +108,12 @@ const mapStateToProps = createStructuredSelector({
   selectedPatient: makeSelectPatient(),
   todoMainTask: makeSelectTodoMainTask(),
   loading: makeSelectSearchLoading(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTodos: (patientId, definition) => dispatch(getTodos(patientId, definition)),
+    getTodos: (patientId, practitionerId, definition) => dispatch(getTodos(patientId, practitionerId, definition)),
     getTodoMainTask: (patientId, definition) => dispatch(getTodoMainTask(patientId, definition)),
   };
 }

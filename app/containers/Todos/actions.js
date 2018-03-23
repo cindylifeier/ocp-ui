@@ -8,10 +8,11 @@ import {
   GET_TODO_MAIN_TASK_SUCCESS,
 } from 'containers/Todos/constants';
 
-export function getTodos(patientId, definition) {
+export function getTodos(patientId, practitionerId, definition) {
   return {
     type: GET_TODOS,
     patientId,
+    practitionerId,
     definition,
   };
 }
@@ -43,7 +44,7 @@ export function getTodoMainTask(patientId, definition) {
 export function getTodoMainTaskSuccess(todoMainTask) {
   return {
     type: GET_TODO_MAIN_TASK_SUCCESS,
-    todosTaskRefrence: todoMainTask,
+    todoMainTask,
   };
 }
 
