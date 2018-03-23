@@ -18,17 +18,22 @@ import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
+import {
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_COMMUNICATION_URL,
+  MANAGE_TASK_URL,
+  PATIENT_ROLE_VALUE,
+} from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TaskTable from 'components/TaskTable';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import PanelToolbar from 'components/PanelToolbar';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -68,13 +73,18 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { tasks: { loading, data }, patient } = this.props;
+    const { tasks: { loading, data }, patient, user } = this.props;
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_TASK_URL,
+    };
     const patientName = mapToPatientName(patient);
-    const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
-    const taskBaseUrl = MANAGE_TASK_URL;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          showNewItem={user.role !== PATIENT_ROLE_VALUE}
+        />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <InfoSection>
@@ -100,8 +110,8 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
               elements={data.elements}
               cancelTask={this.cancelTask}
               patientId={patient.id}
-              communicationBaseUrl={communicationBaseUrl}
-              taskBaseUrl={taskBaseUrl}
+              communicationBaseUrl={MANAGE_COMMUNICATION_URL}
+              taskBaseUrl={MANAGE_TASK_URL}
             />
           </CenterAlign>
           <CenterAlignedUltimatePagination
@@ -130,11 +140,15 @@ Tasks.propTypes = {
     loading: PropTypes.bool.isRequired,
   }),
   patient: PropTypes.object,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -15,7 +15,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import { PanelToolbar } from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
 import { getPractitioners, initializePractitioners, searchPractitioners } from './actions';
@@ -97,7 +96,6 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
         <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         <PractitionerTable practitionersData={practitionersData} />
       </Card>
