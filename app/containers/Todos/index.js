@@ -34,12 +34,13 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
     this.handleSearch = this.handleSearch.bind(this);
   }
   componentDidMount() {
-    const patientId = this.props.selectedPatient.id;
-    if (patientId) {
-      const definition = 'To-Do';
-      this.props.getTodos(patientId, definition);
-      this.props.getTodoMainTask(patientId, definition);
-    }
+    // const patientId = this.props.selectedPatient.id;
+    // if (patientId) {
+    const definition = 'To-Do';
+    const patientId = 3970;
+    this.props.getTodos(patientId, definition);
+    this.props.getTodoMainTask(patientId, definition);
+    // }
   }
   handleSearch() {
   // handleSearch(searchValue, showInactive, searchType) {
@@ -47,7 +48,7 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
   }
   render() {
     const { todos, selectedPatient, loading, todoMainTask } = this.props;
-    const patientId = selectedPatient.id;
+    const patientId = selectedPatient ? selectedPatient.id : null;
     // const CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTask.logicalId}`;
     // const EDIT_TODO_URL = `${MANAGE_TASK_URL}/(todo edit)?patientId=${patientId}&isMainTask=false`;
     const isPatientWorkspace = window.location.href.includes(PATIENTS);
@@ -84,8 +85,8 @@ Todos.propTypes = {
   todos: PropTypes.array.isRequired,
   getTodos: PropTypes.func.isRequired,
   getTodoMainTask: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.object.isRequired,
-  todoMainTask: PropTypes.object.isRequired,
+  selectedPatient: PropTypes.object,
+  todoMainTask: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };
 
