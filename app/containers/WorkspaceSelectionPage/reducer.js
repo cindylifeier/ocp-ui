@@ -47,7 +47,7 @@ function workspaceSelectionPageReducer(state = initialState, action) {
         .setIn(['careCoordinators', 'data'], fromJS(action.careCoordinators.elements));
     case GET_PATIENTS_SUCCESS:
       return state
-        .setIn(['patients', 'data'], fromJS(action.patients));
+        .setIn(['patients', 'data'], fromJS(action.patients.elements));
     default:
       return state;
   }
