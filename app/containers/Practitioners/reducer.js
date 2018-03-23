@@ -7,6 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   GET_PRACTITIONERS_IN_ORGANIZATION,
+  GET_PRACTITIONERS_IN_ORGANIZATION_ERROR,
   GET_PRACTITIONERS_IN_ORGANIZATION_SUCCESS,
   INITIALIZE_PRACTITIONERS,
   SEARCH_PRACTITIONERS,
@@ -20,6 +21,7 @@ const initialState = fromJS({
     data: [],
     currentPage: 0,
     totalNumberOfPages: 0,
+    error: false,
   },
   searchPractitioners: {
     loading: false,
@@ -45,6 +47,10 @@ function practitionersReducer(state = initialState, action) {
         .setIn(['listPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
         .setIn(['listPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
         .setIn(['listPractitioners', 'currentPage'], action.practitioners.currentPage);
+    case GET_PRACTITIONERS_IN_ORGANIZATION_ERROR:
+      return state
+        .setIn(['listPractitioners', 'loading'], false)
+        .setIn(['listPractitioners', 'error'], action.error);
     case SEARCH_PRACTITIONERS:
       return state
         .setIn(['searchPractitioners', 'loading'], true);

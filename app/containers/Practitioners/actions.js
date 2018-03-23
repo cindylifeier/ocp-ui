@@ -6,6 +6,7 @@
 
 import {
   GET_PRACTITIONERS_IN_ORGANIZATION,
+  GET_PRACTITIONERS_IN_ORGANIZATION_ERROR,
   GET_PRACTITIONERS_IN_ORGANIZATION_SUCCESS,
   INITIALIZE_PRACTITIONERS,
   SEARCH_PRACTITIONERS,
@@ -30,6 +31,13 @@ export function getPractitionersInOrganizationSuccess(practitioners) {
   return {
     type: GET_PRACTITIONERS_IN_ORGANIZATION_SUCCESS,
     practitioners,
+  };
+}
+
+export function getPractitionersInOrganizationError(error) {
+  return {
+    type: GET_PRACTITIONERS_IN_ORGANIZATION_ERROR,
+    error,
   };
 }
 

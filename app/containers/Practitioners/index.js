@@ -152,7 +152,11 @@ Practitioners.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       result: PropTypes.array,
-      error: PropTypes.bool,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
     }),
     searchPractitioners: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
@@ -161,7 +165,11 @@ Practitioners.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       result: PropTypes.array,
-      error: PropTypes.bool,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
     }),
   }),
   getPractitionersInOrganization: PropTypes.func.isRequired,

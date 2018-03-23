@@ -1,9 +1,13 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { showNotification } from 'containers/Notification/actions';
-import { getPractitionersInOrganizationSuccess, searchPractitionersError, searchPractitionersSuccess } from './actions';
-import { getPractitionersInOrganization, searchPractitioners } from './api';
+import {
+  getPractitionersInOrganizationError,
+  getPractitionersInOrganizationSuccess,
+  searchPractitionersError,
+  searchPractitionersSuccess,
+} from './actions';
+import { getErrorDetail, getPractitionersInOrganization, searchPractitioners } from './api';
 import { GET_PRACTITIONERS_IN_ORGANIZATION, SEARCH_PRACTITIONERS } from './constants';
 
 
@@ -13,7 +17,7 @@ export function* getPractitionersInOrganizationSaga({ currentPage }) {
     const practitioners = yield call(getPractitionersInOrganization, organization.logicalId, currentPage);
     yield put(getPractitionersInOrganizationSuccess(practitioners));
   } catch (err) {
-    yield put(showNotification('Failed to get the practitioners.'));
+    yield put(getPractitionersInOrganizationError(getErrorDetail(err)));
   }
 }
 
@@ -23,7 +27,7 @@ export function* searchPractitionersSaga({ searchType, searchValue, includeInact
     const practitioners = yield call(searchPractitioners, searchType, searchValue, includeInactive, currentPage);
     yield put(searchPractitionersSuccess(practitioners));
   } catch (error) {
-    yield put(searchPractitionersError(error));
+    yield put(searchPractitionersError(getErrorDetail(error)));
   }
 }
 
