@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Cell, Grid } from 'styled-css-grid';
+import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 import MenuItem from 'material-ui/MenuItem';
@@ -33,7 +33,6 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
-import LeftAlign from 'components/Align/LeftAlign';
 import { PanelToolbar } from 'components/PanelToolbar';
 import { MANAGE_LOCATION_URL } from 'containers/App/constants';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
@@ -155,35 +154,23 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     return (
       <div>
         <InfoSection>
-          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-            <FormattedMessage {...messages.labelOrganization} />&nbsp;
-          </InlineLabel>
-          <span
-            id={this.ORGANIZATION_NAME_HTML_ID}
-          >
-            {this.props.organization ? this.props.organization.name : ''}
-          </span>
+          <div>
+            The locations for &nbsp;
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>
+                {this.props.organization ? this.props.organization.name : ''}&nbsp;
+              </span>
+            </InlineLabel>
+            are :
+          </div>
         </InfoSection>
         {this.props.location &&
         <InfoSection width="fit-content" maxWidth="500px">
-          <Grid columns="1fr 1fr">
-            <Cell middle>
-              <div>
-                <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
-                  <FormattedMessage {...messages.labelLocation} />&nbsp;
-                </InlineLabel>
-                <span id={this.LOCATION_NAME_HTML_ID}>{this.props.location.name || ''}</span>
-              </div>
-            </Cell>
-            <Cell middle>
-              <LeftAlign>
-                <StyledFlatButton
-                  label="Clear"
-                  onClick={this.props.clearLocation}
-                />
-              </LeftAlign>
-            </Cell>
-          </Grid>
+          <StyledFlatButton
+            label="Clear"
+            onClick={this.props.clearLocation}
+          />
+
         </InfoSection>
         }
         <FilterSection>
