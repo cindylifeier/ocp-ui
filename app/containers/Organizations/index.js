@@ -18,7 +18,7 @@ import { setOrganization } from 'containers/App/contextActions';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
-import Sticky from 'components/Sticky';
+import StickyDiv from 'components/StickyDiv';
 import InfoSection from 'components/InfoSection';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
@@ -103,9 +103,9 @@ export class Organizations extends React.PureComponent {
     }
     return (
       <Card>
-        <Sticky>
+        <StickyDiv>
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        </Sticky>
+        </StickyDiv>
         <InfoSection margin="10px 0">
           <OrganizationTable
             organizationData={organizationData}

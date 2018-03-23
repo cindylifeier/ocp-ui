@@ -1,23 +1,24 @@
 /**
  *
- * Sticky
+ * StickyDiv
  *
  */
 
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Sticky = styled.div`
+
+const StickyDiv = styled.div`
   position: sticky;
   top: ${({ top }) => top};
 `;
 
-Sticky.propTypes = {
+StickyDiv.propTypes = {
   top: PropTypes.string,
 };
 
-Sticky.defaultProps = {
+StickyDiv.defaultProps = {
   top: '10px',
 };
 
-export default Sticky;
+export default StickyDiv;
