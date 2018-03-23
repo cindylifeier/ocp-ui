@@ -91,17 +91,18 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
 
         {!isEmpty(organization) &&
         <InfoSection>
+          The healthcare services for &nbsp;
           <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-            <FormattedMessage {...messages.labelOrganization} />&nbsp;
+            <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
           </InlineLabel>
-          <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
-        </InfoSection>}
-        {!isEmpty(location) &&
-        <InfoSection>
-          <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
-            <FormattedMessage {...messages.labelLocation} />&nbsp;
-          </InlineLabel>
-          <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>
+          {!isEmpty(location) &&
+          <span>
+            at the&nbsp;
+            <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+              <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
+            </InlineLabel>
+            are :
+          </span>}
         </InfoSection>}
         {!isEmpty(organization) && isEmpty(location) &&
         <div>
