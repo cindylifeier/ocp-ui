@@ -20,7 +20,6 @@ import injectReducer from 'utils/injectReducer';
 import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -63,7 +62,6 @@ export class RelatedPersons extends React.PureComponent { // eslint-disable-line
     const { data, patient, loading } = this.props;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
         {isEmpty(patient) && (
           <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4>)}
         {!isEmpty(patient) && (
