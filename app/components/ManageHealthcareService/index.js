@@ -19,7 +19,7 @@ import messages from './messages';
 
 function ManageHealthcareService(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const { onSave, healthcareServiceCategories, healthcareServiceTypes, healthcareServiceSpecialities, healthcareServiceReferralMethods, healthcareServiceStatuses, telecomSystems, organization, editMode, currentHealthcareService } = props;
+  const { onSave, healthcareServiceCategories, healthcareServiceTypes, healthcareServiceSpecialities, healthcareServiceReferralMethods, healthcareServiceStatuses, telecomSystems, organization, editMode, currentHealthcareService, onCancel } = props;
   const formData = {
     organization,
     healthcareServiceCategories,
@@ -52,7 +52,7 @@ function ManageHealthcareService(props) {
           category: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
-        render={(formikProps) => <ManageHealthcareServiceForm {...formikProps} {...formData} />}
+        render={(formikProps) => <ManageHealthcareServiceForm {...formikProps} {...formData} onCancel={onCancel} />}
       />
       }
     </div>
@@ -61,6 +61,7 @@ function ManageHealthcareService(props) {
 
 ManageHealthcareService.propTypes = {
   onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
   organization: PropTypes.object.isRequired,
   healthcareServiceCategories: PropTypes.array.isRequired,
   healthcareServiceTypes: PropTypes.array.isRequired,

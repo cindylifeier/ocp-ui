@@ -43,9 +43,11 @@ export function getOrganizationsSuccess(organizations) {
   };
 }
 
-export function getCareManagers() {
+export function getCareManagers(role, organization) {
   return {
     type: GET_CARE_MANAGERS,
+    role,
+    organization,
   };
 }
 
@@ -56,9 +58,11 @@ export function getCareManagersSuccess(careManagers) {
   };
 }
 
-export function getCareCoordinators() {
+export function getCareCoordinators(role, organization) {
   return {
     type: GET_CARE_COORDINATORS,
+    role,
+    organization,
   };
 }
 

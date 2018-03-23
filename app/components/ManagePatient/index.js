@@ -17,7 +17,7 @@ function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const { onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
     usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
-    flagCategories } = props;
+    flagCategories, onCancel } = props;
   const managePatientFormProps = {
     uspsStates,
     patientIdentifierSystems,
@@ -57,13 +57,14 @@ function ManagePatient(props) {
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
-        render={(formikProps) => <ManagePatientForm {...formikProps} {...managePatientFormProps} />}
+        render={(formikProps) => (<ManagePatientForm {...formikProps} {...managePatientFormProps} onCancel={onCancel} />)}
       />
     </div>
   );
 }
 
 ManagePatient.propTypes = {
+  onCancel: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   uspsStates: PropTypes.array.isRequired,
   patientIdentifierSystems: PropTypes.array.isRequired,

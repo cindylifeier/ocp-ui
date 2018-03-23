@@ -21,7 +21,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL iXaPUi",
+      "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL dnwZIj",
     },
     "ref": null,
     "rendered": null,
@@ -33,7 +33,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL iXaPUi",
+        "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL dnwZIj",
       },
       "ref": null,
       "rendered": null,
