@@ -61,7 +61,7 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
     const { loading, data, practitionerId } = this.props;
     return (
       <Card>
-        <PanelToolbar showNewItem={false} showSearchIcon={false} />
+        <PanelToolbar showSearchIcon={false} />
         {loading &&
         <RefreshIndicatorLoading />}
 

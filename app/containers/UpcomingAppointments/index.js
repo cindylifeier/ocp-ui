@@ -92,7 +92,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     return (
       <div>
         <Card>
-          <PanelToolbar showNewItem={false} showSearchIcon={false} />
+          <PanelToolbar showSearchIcon={false} />
           {showPastAppFilter &&
           <div>
             <FilterSection>
