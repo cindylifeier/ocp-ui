@@ -15,11 +15,12 @@ import { Cell, Grid } from 'styled-css-grid';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import renderFactory from 'utils/goldenLayout/renderFactory';
+import renderTasks from 'containers/Tasks/render';
+import renderCommunicationsComponent from 'containers/Communications/render';
+import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
-import renderTasks from 'containers/Tasks/render';
-import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import Card from 'components/Card';
@@ -201,7 +202,7 @@ export const componentMetadata = [
   { name: 'todo', text: 'My to do', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
-  { name: 'communication', text: 'Communication', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
   { name: 'consents', text: 'Consents', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
 ];
