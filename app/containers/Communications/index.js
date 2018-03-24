@@ -44,19 +44,16 @@ export class Communications extends React.PureComponent { // eslint-disable-line
   }
 
   render() {
-    const addNewItem = {
+    const { data, selectedPatient, user } = this.props;
+    const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_COMMUNICATION_URL,
     };
-    const { data, selectedPatient, user } = this.props;
     const listOfCommunications = data && data.elements ? data.elements : [];
     return (
       <Card>
         <StickyDiv>
-          <PanelToolbar
-            addNewItem={addNewItem}
-            showNewItem={user.role !== PATIENT_ROLE_VALUE}
-          />
+          <PanelToolbar addNewItem={addNewItem} />
         </StickyDiv>
         {data && data.elements &&
         (
