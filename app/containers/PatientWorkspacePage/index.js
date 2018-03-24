@@ -191,10 +191,7 @@ function renderEmptyGoldenLayoutComponent() {
   return (
     <Card>
       <StickyDiv>
-        <PanelToolbar
-          showNewItem={false}
-          showUploadIcon={false}
-        />
+        <PanelToolbar showUploadIcon={false} />
       </StickyDiv>
     </Card>
   );
