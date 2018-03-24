@@ -6,7 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
-  GET_COMMUNICATIONS, GET_COMMUNICATIONS_SUCCESS,
+  GET_COMMUNICATIONS,
+  GET_COMMUNICATIONS_ERROR,
+  GET_COMMUNICATIONS_SUCCESS,
   INITIALIZE_COMMUNICATIONS,
 } from 'containers/Communications/constants';
 
@@ -26,6 +28,10 @@ function communicationsReducer(state = initialState, action) {
         .set('error', false)
         .set('loading', false)
         .set('data', fromJS((action.communications) || {}));
+    case GET_COMMUNICATIONS_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
     default:
       return state;
   }

@@ -19,7 +19,6 @@ import StickyDiv from 'components/StickyDiv';
 import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
 import CommunicationsTable from 'components/CommunicationsTable';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectCommunications from './selectors';
@@ -53,41 +52,26 @@ export class Communications extends React.PureComponent { // eslint-disable-line
   }
 
   render() {
-    const { data, selectedPatient, user } = this.props;
+    const { communications, selectedPatient, user } = this.props;
     const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_COMMUNICATION_URL,
     };
-    const listOfCommunications = data && data.elements ? data.elements : [];
+    const communicationsData = {
+      manageCommunicationBaseUrl: MANAGE_COMMUNICATION_URL,
+      selectedPatientId: selectedPatient.id,
+      loading: communications.loading,
+      data: communications.data,
+    };
     return (
       <Card>
         <StickyDiv>
           <PanelToolbar addNewItem={addNewItem} />
         </StickyDiv>
-        {data && data.elements &&
-        (
-          <div>
-            <CommunicationsTable
-              communications={listOfCommunications}
-              selectedPatientId={selectedPatient.id}
-              manageCommunicationBaseUrl={MANAGE_COMMUNICATION_URL}
-            >
-            </CommunicationsTable>
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              boundaryPagesRange={1}
-              siblingPagesRange={1}
-              hidePreviousAndNextPageLinks={false}
-              hideFirstAndLastPageLinks={false}
-              hideEllipsis={false}
-              onChange={this.handlePageClick}
-            >
-            </CenterAlignedUltimatePagination>
-          </div>
-        )
-        }
-
+        <CommunicationsTable
+          communicationsData={communicationsData}
+          handleChangePage={this.handlePageClick}
+        />
       </Card>
     );
   }
@@ -95,7 +79,21 @@ export class Communications extends React.PureComponent { // eslint-disable-line
 
 Communications.propTypes = {
   getCommunications: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
+  communications: PropTypes.shape({
+    data: PropTypes.shape({
+      currentPage: PropTypes.number,
+      totalNumberOfPages: PropTypes.number,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
+      elements: PropTypes.array,
+    }),
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
+  }),
   selectedPatient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
@@ -107,7 +105,7 @@ Communications.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  data: makeSelectCommunications(),
+  communications: makeSelectCommunications(),
   selectedPatient: makeSelectPatient(),
 });
 
