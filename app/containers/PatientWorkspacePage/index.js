@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -18,7 +19,7 @@ import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasks from 'containers/Tasks/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
-import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { PATIENT_ROLE_VALUE, PATIENT_WORKSPACE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import GoldenLayout from 'components/GoldenLayout';
@@ -29,6 +30,7 @@ import StickyDiv from 'components/StickyDiv';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
+import messages from './messages';
 
 export const initialStateMetadata =
   {
@@ -198,13 +200,27 @@ function renderEmptyGoldenLayoutComponent() {
   );
 }
 
+function renderEmptyConsentComponent() {
+  const addNewItem = {
+    labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+    linkUrl: PATIENT_WORKSPACE,
+  };
+  return (
+    <Card>
+      <StickyDiv>
+        <PanelToolbar addNewItem={addNewItem} showUploadIcon={false} />
+      </StickyDiv>
+    </Card>
+  );
+}
+
 export const componentMetadata = [
   { name: 'todo', text: 'My to do', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
-  { name: 'consents', text: 'Consents', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'consents', text: 'Consents', factoryMethod: renderFactory(renderEmptyConsentComponent) },
 ];
 
 export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
