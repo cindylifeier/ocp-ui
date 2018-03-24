@@ -11,15 +11,14 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Card from 'components/Card';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getCommunications } from 'containers/Communications/actions';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import StickyDiv from 'components/StickyDiv';
+import { MANAGE_COMMUNICATION_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { PanelToolbar } from 'components/PanelToolbar';
 import CommunicationsTable from 'components/CommunicationsTable';
-import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import { MANAGE_COMMUNICATION_URL } from 'containers/App/constants';
-import { Link } from 'react-router-dom';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectCommunications from './selectors';
@@ -32,6 +31,7 @@ export class Communications extends React.PureComponent { // eslint-disable-line
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);
   }
+
   componentDidMount() {
     const pageNumber = 1;
     const patientId = this.props.selectedPatient.id;
@@ -42,26 +42,26 @@ export class Communications extends React.PureComponent { // eslint-disable-line
     const patientId = this.props.selectedPatient.id;
     this.props.getCommunications(patientId, pageNumber);
   }
+
   render() {
-    const { data, selectedPatient } = this.props;
+    const { data, selectedPatient, user } = this.props;
+    const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_COMMUNICATION_URL,
+    };
     const listOfCommunications = data && data.elements ? data.elements : [];
-    const manageCommunicationBaseUrl = MANAGE_COMMUNICATION_URL;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_COMMUNICATION_URL} />}
-          />
-        </CardHeader>
+        <StickyDiv>
+          <PanelToolbar addNewItem={addNewItem} />
+        </StickyDiv>
         {data && data.elements &&
         (
           <div>
             <CommunicationsTable
               communications={listOfCommunications}
               selectedPatientId={selectedPatient.id}
-              manageCommunicationBaseUrl={manageCommunicationBaseUrl}
+              manageCommunicationBaseUrl={MANAGE_COMMUNICATION_URL}
             >
             </CommunicationsTable>
             <CenterAlignedUltimatePagination
@@ -88,9 +88,13 @@ Communications.propTypes = {
   getCommunications: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
   data: makeSelectCommunications(),
   selectedPatient: makeSelectPatient(),
 });
