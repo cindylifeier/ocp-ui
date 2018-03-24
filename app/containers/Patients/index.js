@@ -99,7 +99,7 @@ export class Patients extends React.PureComponent {
     } : undefined;
     return (
       <Card>
-        <PanelToolbar {...addNewItem} showNewItem={!!addNewItem} onSearch={this.handleSearch} />
+        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} />
         <PatientSearchResult
           {...searchResultProps}
           onPatientClick={this.handlePatientClick}

@@ -66,7 +66,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     const { tasks: { loading, data }, patient, user } = this.props;
-    const addNewItem = {
+    const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_TASK_URL,
     };
@@ -74,10 +74,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     return (
       <Card>
         <StickyDiv>
-          <PanelToolbar
-            addNewItem={addNewItem}
-            showNewItem={user.role !== PATIENT_ROLE_VALUE}
-          />
+          <PanelToolbar addNewItem={addNewItem} />
         </StickyDiv>
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
