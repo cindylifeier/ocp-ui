@@ -10,15 +10,15 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import Card from 'components/Card';
+import isEqual from 'lodash/isEqual';
 
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getCommunications } from 'containers/Communications/actions';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import StickyDiv from 'components/StickyDiv';
-import { MANAGE_COMMUNICATION_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
-import { PanelToolbar } from 'components/PanelToolbar';
+import Card from 'components/Card';
+import PanelToolbar from 'components/PanelToolbar';
 import CommunicationsTable from 'components/CommunicationsTable';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectCommunications from './selectors';
@@ -33,52 +33,45 @@ export class Communications extends React.PureComponent { // eslint-disable-line
   }
 
   componentDidMount() {
-    const pageNumber = 1;
-    const patientId = this.props.selectedPatient.id;
-    this.props.getCommunications(patientId, pageNumber);
+    const { selectedPatient } = this.props;
+    if (selectedPatient) {
+      this.props.getCommunications(DEFAULT_START_PAGE_NUMBER);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { selectedPatient } = this.props;
+    const { selectedPatient: newOrganization } = nextProps;
+    if (!isEqual(selectedPatient, newOrganization)) {
+      this.props.getCommunications(DEFAULT_START_PAGE_NUMBER);
+    }
   }
 
   handlePageClick(pageNumber) {
-    const patientId = this.props.selectedPatient.id;
-    this.props.getCommunications(patientId, pageNumber);
+    this.props.getCommunications(pageNumber);
   }
 
   render() {
-    const { data, selectedPatient, user } = this.props;
+    const { communications, selectedPatient, user } = this.props;
     const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_COMMUNICATION_URL,
     };
-    const listOfCommunications = data && data.elements ? data.elements : [];
+    const communicationsData = {
+      manageCommunicationBaseUrl: MANAGE_COMMUNICATION_URL,
+      selectedPatientId: selectedPatient.id,
+      loading: communications.loading,
+      data: communications.data,
+    };
     return (
       <Card>
         <StickyDiv>
           <PanelToolbar addNewItem={addNewItem} />
         </StickyDiv>
-        {data && data.elements &&
-        (
-          <div>
-            <CommunicationsTable
-              communications={listOfCommunications}
-              selectedPatientId={selectedPatient.id}
-              manageCommunicationBaseUrl={MANAGE_COMMUNICATION_URL}
-            >
-            </CommunicationsTable>
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              boundaryPagesRange={1}
-              siblingPagesRange={1}
-              hidePreviousAndNextPageLinks={false}
-              hideFirstAndLastPageLinks={false}
-              hideEllipsis={false}
-              onChange={this.handlePageClick}
-            >
-            </CenterAlignedUltimatePagination>
-          </div>
-        )
-        }
-
+        <CommunicationsTable
+          communicationsData={communicationsData}
+          handleChangePage={this.handlePageClick}
+        />
       </Card>
     );
   }
@@ -86,8 +79,25 @@ export class Communications extends React.PureComponent { // eslint-disable-line
 
 Communications.propTypes = {
   getCommunications: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  selectedPatient: PropTypes.object,
+  communications: PropTypes.shape({
+    data: PropTypes.shape({
+      currentPage: PropTypes.number,
+      totalNumberOfPages: PropTypes.number,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
+      elements: PropTypes.array,
+    }),
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
+  }),
+  selectedPatient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,
   }).isRequired,
@@ -95,13 +105,13 @@ Communications.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  data: makeSelectCommunications(),
+  communications: makeSelectCommunications(),
   selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCommunications: (patientId, pageNumber) => dispatch(getCommunications(patientId, pageNumber)),
+    getCommunications: (pageNumber) => dispatch(getCommunications(pageNumber)),
   };
 }
 
