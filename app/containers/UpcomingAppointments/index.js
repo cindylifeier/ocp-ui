@@ -62,7 +62,7 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   handleCheck(event, checked) {
-    const patientId = this.props.patient.id;
+    const patientId = this.props.patient ? this.props.patient.id : null;
     const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
     if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
