@@ -1,4 +1,4 @@
-import * as queryString from 'query-string';
+import queryString from 'query-string';
 import request from 'utils/request';
 import { BASE_TASKS_API_URL, getEndpoint } from 'utils/endpointService';
 
