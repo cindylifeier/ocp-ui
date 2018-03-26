@@ -13,7 +13,7 @@ import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import SubTaskTable from 'components/SubTaskTable';
-import { MANAGE_TASK_URL } from 'containers/App/constants';
+import { MANAGE_TASK_URL } from './constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
