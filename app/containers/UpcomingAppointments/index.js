@@ -18,7 +18,9 @@ import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
+  CARE_COORDINATOR_ROLE_VALUE,
   DEFAULT_START_PAGE_NUMBER,
+  MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
 } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
@@ -89,10 +91,17 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
     const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
+    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
+    const addNewItem = (patientId && role === CARE_COORDINATOR_ROLE_VALUE) ? {
+      addNewItem: {
+        labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+        linkUrl: MANAGE_APPOINTMENT_URL,
+      },
+    } : undefined;
     return (
       <div>
         <Card>
-          <PanelToolbar showSearchIcon={false} />
+          <PanelToolbar {...addNewItem} showSearchIcon={false} />
           {showPastAppFilter &&
           <div>
             <FilterSection>
