@@ -9,11 +9,6 @@ const selectTodosDomain = (state) => state.get('todos');
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by Todos
- */
-
 const makeSelectTodos = () => createSelector(
   selectTodosDomain,
   (substate) => substate.get('data').toJS()
