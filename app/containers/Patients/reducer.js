@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+import isEmpty from 'lodash/isEmpty';
 import {
   INITIALIZE_PATIENTS,
   LOAD_PATIENT_SEARCH_RESULT,
@@ -25,8 +26,13 @@ const initialState = fromJS({
 
 function patientsReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_PATIENTS:
+    case INITIALIZE_PATIENTS: {
+      if (!isEmpty(action.patients)) {
+        return initialState
+          .setIn(['searchPatients', 'result'], action.patients);
+      }
       return initialState;
+    }
     case LOAD_PATIENT_SEARCH_RESULT:
       return state
         .set('loading', true)
