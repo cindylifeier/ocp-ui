@@ -7,5 +7,6 @@ export function flattenPatientData(patient) {
     identifiers: mapToIdentifiers(patient.identifiers),
     addresses: mapToAddresses(patient.addresses),
     phones: mapToPhone(patient.telecoms),
+    flags: patient.flags,
   };
 }
