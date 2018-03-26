@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -56,6 +57,14 @@ export class Organizations extends React.PureComponent {
       this.props.initializeOrganizations();
       const initialCurrentPage = 1;
       this.props.getOrganizations(initialCurrentPage);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization) && !this.state.isShowSearchResult) {
+      this.props.initializeOrganizations([newOrganization]);
     }
   }
 
