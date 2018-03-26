@@ -3,14 +3,14 @@
  * To Do Card
  *
  */
-import Card from 'components/Card';
+import styled from 'styled-components';
 
-
-const TodoCard = Card.extend`
+const TodoCard = styled.div`
   min-height: 0;
   min-height: 150px;
   margin-top: 10px;
   padding: 4px !important;
+  border: 1px solid rgb(204, 204, 204);
 `;
 
 TodoCard.propTypes = {};
