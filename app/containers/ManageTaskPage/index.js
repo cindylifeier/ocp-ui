@@ -73,9 +73,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('props', this.props);
     const { match: { params: { id } } } = this.props;
-    console.log('nextProps', nextProps);
     const { match: { params: { id: { newId } } } } = nextProps;
     if (id !== newId) {
       this.componentDidMount();
