@@ -46,7 +46,7 @@ function mapToBackendPatient(patientFormData) {
     firstName,
     lastName,
   }];
-  const mappedFlags = mapToBackendFlags(flags);
+  const mappedFlags = flags !== undefined ? mapToBackendFlags(flags) : undefined;
   return {
     id,
     identifier,
