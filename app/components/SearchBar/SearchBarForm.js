@@ -40,7 +40,7 @@ function SearchBarForm(props) {
             hintText={searchValueHintText}
           />
         </SearchContainerGrid>
-        <SearchContainerGrid gap="5px" columns="70px 300px">
+        <SearchContainerGrid gap="5px" columns="100px 300px">
           <div>
             <FormattedMessage {...messages.filterLabel} />
           </div>
