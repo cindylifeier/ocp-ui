@@ -1,8 +1,8 @@
 /**
-*
-* ManageCommunication
-*
-*/
+ *
+ * ManageCommunication
+ *
+ */
 
 import React from 'react';
 import yup from 'yup';
@@ -17,11 +17,12 @@ import merge from 'lodash/merge';
 import { FormattedMessage } from 'react-intl';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
-import { PATIENT, PRACTITIONER, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH, APPOINTMENT, TASK } from './constants';
+import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 
 
 function ManageCommunication(props) {
   const {
+    history,
     onSave,
     communicationStatus,
     communicationCategories,
@@ -39,9 +40,9 @@ function ManageCommunication(props) {
     selectedTask,
     selectedAppointment,
     datePickerMode,
-    patientUrl,
   } = props;
   const propsFromContainer = {
+    history,
     communicationStatus,
     communicationCategories,
     communicationNotDoneReasons,
@@ -54,7 +55,6 @@ function ManageCommunication(props) {
     practitioner,
     initialSelectedRecipients,
     datePickerMode,
-    patientUrl,
   };
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
@@ -93,17 +93,21 @@ function ManageCommunication(props) {
             .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
           payloadContent: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
-            .max(textAreaMaxLength, (<FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
-            .min(textAreaMinLength, (<FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
+            .max(textAreaMaxLength, (
+              <FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
+            .min(textAreaMinLength, (
+              <FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
         })
       }
       render={(formikProps) => <ManageCommunicationForm {...formikProps} {...propsFromContainer} />}
-    >
-    </Formik>
+    />
   );
 }
 
 ManageCommunication.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   onSave: PropTypes.func.isRequired,
   handleOpen: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
@@ -121,7 +125,6 @@ ManageCommunication.propTypes = {
   selectedTask: PropTypes.object,
   selectedAppointment: PropTypes.object,
   datePickerMode: PropTypes.object.isRequired,
-  patientUrl: PropTypes.string.isRequired,
 };
 
 

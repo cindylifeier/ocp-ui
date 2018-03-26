@@ -16,13 +16,10 @@ import merge from 'lodash/merge';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import find from 'lodash/find';
-import {
-  makeSelectEpisodeOfCares,
-  makeSelectPractitioner,
-} from 'containers/ManageCommunicationPage/selectors';
+import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
 import SearchRecipient from 'containers/SearchRecipient';
 import Page from 'components/Page';
-import { makeSelectCommunications } from 'containers/Communications/selectors';
+import makeSelectCommunications from 'containers/Communications/selectors';
 import { makeSelectTasks } from 'containers/Tasks/selectors';
 import {
   initializeListOfRecipients,
@@ -35,16 +32,16 @@ import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectCommunicationCategories,
-  makeSelectCommunicationStatus,
   makeSelectCommunicationMedia,
   makeSelectCommunicationNotDoneReasons,
+  makeSelectCommunicationStatus,
 } from 'containers/App/lookupSelectors';
 import {
   COMMUNICATION_CATEGORY,
-  COMMUNICATION_STATUS,
   COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
-  DATE_PICKER_MODE, PATIENTS_URL,
+  COMMUNICATION_STATUS,
+  DATE_PICKER_MODE,
 } from 'containers/App/constants';
 import isUndefined from 'lodash/isUndefined';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
@@ -55,11 +52,7 @@ import ManageCommunication from 'components/ManageCommunication';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import {
-  createCommunication,
-  updateCommunication,
-  getEpisodeOfCares,
-  getPractitioner } from './actions';
+import { createCommunication, getEpisodeOfCares, getPractitioner, updateCommunication } from './actions';
 
 export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -77,15 +70,17 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.handleOpen = this.handleOpen.bind(this);
     this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
+
   componentWillMount() {
     this.props.getPractitioner(this.state.practitionerId);
     this.props.getLookups();
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
     this.props.initializeSearchRecipients();
   }
+
   componentDidMount() {
     const logicalId = this.props.match.params.id;
-    const communication = find(this.props.communications.elements, { logicalId });
+    const communication = find(this.props.communications.data.elements, { logicalId });
     if (communication && communication.recipient) {
       const recipients = communication.recipient;
       this.props.setInitialRecipients(recipients);
@@ -96,6 +91,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     this.props.initializeListOfRecipients();
     this.setState({ open: true });
   }
+
   handleSave(communication, actions) {
     const logicalId = this.props.match.params.id;
     if (logicalId && communication) {
@@ -105,9 +101,11 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       this.props.createCommunication(communication, this.props.selectedPatient.id, () => actions.setSubmitting(false));
     }
   }
+
   handleRemoveRecipient(checked, recipientReference) {
     this.props.removeSelectedRecipient(checked, recipientReference);
   }
+
   handleClose() {
     this.setState({ open: false });
   }
@@ -116,6 +114,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     const editingCommunication = false;
     const {
       match,
+      history,
       communications,
       communicationStatus,
       communicationCategories,
@@ -131,7 +130,7 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
     const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
     let initialSelectedRecipients = [];
-    const communication = find(communications.elements, { logicalId });
+    const communication = find(communications.data.elements, { logicalId });
     if (communication && communication.recipient) {
       initialSelectedRecipients = communication.recipient;
     }
@@ -150,8 +149,8 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
       selectedAppointment = find(appointments.data.elements, { logicalId: appointmentId });
     }
     const datePickerMode = DATE_PICKER_MODE;
-    const patientUrl = PATIENTS_URL;
     const manageCommunicationProps = {
+      history,
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
@@ -182,7 +181,6 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
           <ManageCommunication
             onSave={this.handleSave}
             datePickerMode={datePickerMode}
-            patientUrl={patientUrl}
             {...manageCommunicationProps}
             handleOpen={this.handleOpen}
             handleRemoveRecipient={this.handleRemoveRecipient}
@@ -204,6 +202,9 @@ export class ManageCommunicationPage extends React.PureComponent { // eslint-dis
 
 ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   location: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,

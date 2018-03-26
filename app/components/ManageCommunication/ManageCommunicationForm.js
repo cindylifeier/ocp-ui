@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import Util from 'utils/Util';
 import ErrorText from 'components/ErrorText';
-import { Link } from 'react-router-dom';
 import { teal500, white } from 'material-ui/styles/colors';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
@@ -29,6 +28,7 @@ import messages from './messages';
 function ManageCommunicationForm(props) {
   const today = new Date();
   const {
+    history,
     isSubmitting,
     dirty,
     isValid,
@@ -43,7 +43,6 @@ function ManageCommunicationForm(props) {
     selectedPatient,
     initialSelectedRecipients,
     datePickerMode,
-    patientUrl,
   } = props;
   const hasRecipients = !isEmpty(selectedRecipients);
   const handleRemoveSelectedRecipient = (check, reference) => {
@@ -272,7 +271,7 @@ function ManageCommunicationForm(props) {
                 default
                 label={<FormattedMessage {...messages.form.cancelButton} />}
                 disabled={isSubmitting}
-                containerElement={<Link to={patientUrl} />}
+                onClick={history.goBack}
               />
             </Cell>
           </Grid>
@@ -283,6 +282,9 @@ function ManageCommunicationForm(props) {
 }
 
 ManageCommunicationForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
@@ -297,7 +299,6 @@ ManageCommunicationForm.propTypes = {
   selectedPatient: PropTypes.object.isRequired,
   handleRemoveRecipient: PropTypes.func.isRequired,
   datePickerMode: PropTypes.object.isRequired,
-  patientUrl: PropTypes.string.isRequired,
 };
 
 export default ManageCommunicationForm;

@@ -50,6 +50,6 @@ export default defineMessages({
   },
   filterLabel: {
     id: 'ocpui.containers.Patients.filterLabel',
-    defaultMessage: 'Include',
+    defaultMessage: 'Include:',
   },
 });

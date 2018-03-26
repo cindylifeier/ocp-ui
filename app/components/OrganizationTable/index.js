@@ -16,8 +16,8 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import StickyTableHeader from 'components/StickyTableHeader';
 import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
@@ -35,13 +35,13 @@ function OrganizationTable(props) {
       {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
           ? <div>
             <Table>
-              <TableHeader columns={tableColumns}>
+              <StickyTableHeader columns={tableColumns} top="30px">
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
-              </TableHeader>
+              </StickyTableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
                 const flattenOrganization = props.flattenOrganizationData(organization);
                 const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;

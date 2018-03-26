@@ -1,14 +1,17 @@
-import * as queryString from 'query-string';
-import request from '../../utils/request';
+import queryString from 'utils/queryString';
+import request from 'utils/request';
+import { BASE_COMMUNICATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 import { PAGE_SIZE } from './constants';
-import { BASE_COMMUNICATIONS_API_URL, getEndpoint } from '../../utils/endpointService';
 
 const baseEndpoint = getEndpoint(BASE_COMMUNICATIONS_API_URL);
 
 export function getCommunications(patientId, pageNumber) {
-  const pageSize = PAGE_SIZE;
-  const queryParams = { searchKey: 'patientId', searchValue: patientId, pageNumber, pageSize };
-  const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/search?${stringifiedParams}`;
+  const params = queryString({
+    searchKey: 'patientId',
+    searchValue: patientId,
+    pageNumber,
+    pageSize: PAGE_SIZE,
+  });
+  const url = `${baseEndpoint}/search${params}`;
   return request(url);
 }
