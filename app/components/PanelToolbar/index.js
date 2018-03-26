@@ -17,6 +17,7 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import { white } from 'material-ui/styles/colors';
+import isUndefined from 'lodash/isUndefined';
 
 import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
@@ -40,7 +41,6 @@ export class PanelToolbar extends React.PureComponent {
 
   render() {
     const {
-      showNewItem,
       showUploadIcon,
       showSettingIcon,
       showFilterIcon,
@@ -57,7 +57,7 @@ export class PanelToolbar extends React.PureComponent {
           height="30px"
         >
           <ToolbarGroup firstChild>
-            {showNewItem &&
+            {!isUndefined(addNewItem) &&
             <AddNewItemButton
               label={addNewItem.labelName}
               icon={<AddCircle color={white} />}
@@ -109,7 +109,6 @@ export class PanelToolbar extends React.PureComponent {
 }
 
 PanelToolbar.propTypes = {
-  showNewItem: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
@@ -130,7 +129,7 @@ PanelToolbar.propTypes = {
 };
 
 PanelToolbar.defaultProps = {
-  showNewItem: true,
+  addNewItem: undefined,
   showUploadIcon: true,
   showSettingIcon: true,
   showFilterIcon: true,
