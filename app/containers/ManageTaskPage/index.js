@@ -194,8 +194,9 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const queryObj = queryString.parse(this.props.location.search);
     const isMainTask = queryObj.isMainTask === 'true';
     if (logicalId && this.props.tasks) {
-      currentTask = find(this.props.tasks.data, { logicalId });
-      if (currentTask === undefined && !isMainTask) {
+      if (isMainTask) {
+        currentTask = find(this.props.tasks.data, { logicalId });
+      } else {
         currentTask = find(this.props.subTasks, { logicalId });
       }
     }
