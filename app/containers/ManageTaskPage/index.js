@@ -72,14 +72,6 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     this.props.getTasksByPatient(patientId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { match: { params: { id } } } = this.props;
-    const { match: { params: { id: { newId } } } } = nextProps;
-    if (id !== newId) {
-      this.componentDidMount();
-    }
-  }
-
   handleSave(taskFormData, actions) {
     const taskDataToSubmit = {};
     const {
