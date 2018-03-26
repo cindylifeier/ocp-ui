@@ -23,7 +23,7 @@ import H3 from 'components/H3';
 function PatientDetails(props) {
   const { patient, isPatientUser } = props;
   const flattenPatient = props.flattenPatientData(patient);
-  const { id, name, addresses, phones, birthDate, genderCode } = flattenPatient;
+  const { id, name, addresses, phones, birthDate, genderCode, flags } = flattenPatient;
   return (
     <div>
       <PatientDetailsGrid columns={1}>
@@ -55,7 +55,7 @@ function PatientDetails(props) {
             <Cell>Contact{WHITE_SPACE}<strong>{phones}</strong></Cell>
             <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
             <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
-            {!isPatientUser &&
+            {!isPatientUser && flags.length > 0 &&
             <Cell><Link to={`${MANAGE_PATIENT_URL}/${id}`}><Flag /><strong>Advisory</strong></Link></Cell>
             }
           </DetailsPanelGrid>
