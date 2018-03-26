@@ -15,7 +15,6 @@ import isEqual from 'lodash/isEqual';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getCommunications } from 'containers/Communications/actions';
 import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
-import StickyDiv from 'components/StickyDiv';
 import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
 import CommunicationsTable from 'components/CommunicationsTable';
@@ -65,9 +64,7 @@ export class Communications extends React.PureComponent { // eslint-disable-line
     };
     return (
       <Card>
-        <StickyDiv>
-          <PanelToolbar addNewItem={addNewItem} />
-        </StickyDiv>
+        <PanelToolbar addNewItem={addNewItem} />
         <CommunicationsTable
           communicationsData={communicationsData}
           handleChangePage={this.handlePageClick}

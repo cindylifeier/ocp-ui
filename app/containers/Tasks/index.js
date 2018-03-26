@@ -26,7 +26,6 @@ import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import TaskTable from 'components/TaskTable';
 import PanelToolbar from 'components/PanelToolbar';
-import StickyDiv from 'components/StickyDiv';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -73,9 +72,7 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
     const patientName = mapToPatientName(patient);
     return (
       <Card>
-        <StickyDiv>
-          <PanelToolbar addNewItem={addNewItem} />
-        </StickyDiv>
+        <PanelToolbar addNewItem={addNewItem} />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
           <InfoSection>
