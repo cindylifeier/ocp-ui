@@ -27,7 +27,6 @@ import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
-import StickyDiv from 'components/StickyDiv';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
@@ -194,9 +193,7 @@ export const initialStateMetadata =
 function renderEmptyGoldenLayoutComponent() {
   return (
     <Card>
-      <StickyDiv>
-        <PanelToolbar showUploadIcon={false} />
-      </StickyDiv>
+      <PanelToolbar showUploadIcon={false} />
     </Card>
   );
 }
@@ -208,9 +205,7 @@ function renderEmptyConsentComponent() {
   };
   return (
     <Card>
-      <StickyDiv>
-        <PanelToolbar addNewItem={addNewItem} showUploadIcon={false} />
-      </StickyDiv>
+      <PanelToolbar addNewItem={addNewItem} showUploadIcon={false} />
     </Card>
   );
 }

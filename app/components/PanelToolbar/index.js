@@ -19,6 +19,7 @@ import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import { white } from 'material-ui/styles/colors';
 import isUndefined from 'lodash/isUndefined';
 
+import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
@@ -39,7 +40,7 @@ export class PanelToolbar extends React.PureComponent {
     this.setState({ isShowSearchBar: !this.state.isShowSearchBar });
   }
 
-  render() {
+  renderPanelToolBar() {
     const {
       showUploadIcon,
       showSettingIcon,
@@ -106,9 +107,26 @@ export class PanelToolbar extends React.PureComponent {
       </div>
     );
   }
+
+  render() {
+    const {
+      sticky,
+    } = this.props;
+    let renderContent = (
+      <div>{this.renderPanelToolBar()}</div>
+    );
+    if (sticky) {
+      renderContent = (
+        <StickyDiv>{this.renderPanelToolBar()}</StickyDiv>
+      );
+    }
+
+    return renderContent;
+  }
 }
 
 PanelToolbar.propTypes = {
+  sticky: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
@@ -129,6 +147,7 @@ PanelToolbar.propTypes = {
 };
 
 PanelToolbar.defaultProps = {
+  sticky: true,
   addNewItem: undefined,
   showUploadIcon: true,
   showSettingIcon: true,

@@ -20,7 +20,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
-import { PanelToolbar } from 'components/PanelToolbar';
+import PanelToolbar from 'components/PanelToolbar';
 import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectUpcomingTasks, makeSelectUpcomingTasksLoading } from './selectors';
