@@ -188,7 +188,6 @@ function* getSubTasksSaga({ logicalId }) {
     const subTasks = yield call(getSubTasksByParentId, logicalId);
     yield put(getSubTasksSuccess(subTasks));
   } catch (error) {
-    yield put(showNotification('No SubTasks found.'));
     yield put(getSubTasksError(error));
   }
 }
