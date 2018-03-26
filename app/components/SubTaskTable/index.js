@@ -19,9 +19,8 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
-import { TASK_TABLE_COLUMNS } from './constants';
+import { TASK_TABLE_COLUMNS, MANAGE_TASK_URL } from './constants';
 import AddSubTaskButton from './AddSubTaskButton';
 
 

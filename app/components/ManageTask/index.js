@@ -12,8 +12,7 @@ import Util from 'utils/Util';
 import yup from 'yup';
 import { Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
-
-import { EMPTY_STRING } from 'containers/App/constants';
+import { EMPTY_STRING } from './constants';
 import messages from './messages';
 import ManageTaskForm from './ManageTaskForm';
 
