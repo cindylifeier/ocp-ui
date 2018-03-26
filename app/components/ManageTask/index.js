@@ -51,6 +51,7 @@ function ManageTask(props) {
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
+        enableReinitialize
         validationSchema={() =>
           yup.lazy((values) => {
             let taskStart = new Date();
