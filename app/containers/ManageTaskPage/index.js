@@ -25,35 +25,11 @@ import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-import {
-  makeSelectRequestIntents,
-  makeSelectRequestPriorities,
-  makeSelectTaskPerformerTypes,
-  makeSelectTaskStatuses,
-} from 'containers/App/lookupSelectors';
+import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import {
-  makeSelectActivityDefinitions,
-  makeSelectEventTypes,
-  makeSelectOrganization,
-  makeSelectPractitioner,
-  makeSelectPractitioners,
-  makeSelectTasksByPatient,
-  makeSelectSubTasks,
-} from './selectors';
-import {
-  createTask,
-  getActivityDefinitions,
-  getEventTypes,
-  getOrganization,
-  getPractitioners,
-  getRequester,
-  getTaskById,
-  getTasksByPatient,
-  getSubTasks,
-  updateTask,
-} from './actions';
+import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectOrganization, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
+import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -94,6 +70,16 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     this.props.getEventTypes(patientId);
     // get the existing tasks for the patient
     this.props.getTasksByPatient(patientId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('props', this.props);
+    const { match: { params: { id } } } = this.props;
+    console.log('nextProps', nextProps);
+    const { match: { params: { id: { newId } } } } = nextProps;
+    if (id !== newId) {
+      this.componentDidMount();
+    }
   }
 
   handleSave(taskFormData, actions) {
