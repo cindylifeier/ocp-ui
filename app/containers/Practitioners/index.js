@@ -16,10 +16,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import StickyDiv from 'components/StickyDiv';
 import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
-import { PanelToolbar } from 'components/PanelToolbar';
+import PanelToolbar from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
@@ -110,9 +109,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <Card>
-        <StickyDiv>
-          <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        </StickyDiv>
+        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         <InfoSection margin="0 0 10px 0">
           <PractitionerTable practitionersData={practitionersData} />
         </InfoSection>

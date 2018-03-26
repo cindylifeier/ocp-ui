@@ -10,7 +10,7 @@ import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorU
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination/index';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
-import { PanelToolbar } from 'components/PanelToolbar';
+import PanelToolbar from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
 import StatusCheckbox from 'components/StatusCheckbox';
