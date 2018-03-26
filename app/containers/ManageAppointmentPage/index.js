@@ -9,6 +9,7 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import { initializeManageAppointment, saveAppointment } from 'containers/ManageAppointmentPage/actions';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
@@ -30,7 +31,6 @@ import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -60,6 +60,14 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
 
   handleSave(appointmentFormData, actions) {
     const patientId = this.props.patient.id;
+    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    if (practitionerId) {
+      merge(appointmentFormData, { practitionerId });
+    }
+    const practitionerName = mapToPatientName(this.props.user.resource);
+    if (practitionerName) {
+      merge(appointmentFormData, { practitionerName });
+    }
     if (patientId) {
       merge(appointmentFormData, { patientId });
     }
@@ -149,6 +157,7 @@ ManageAppointmentPage.propTypes = {
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
   patient: PropTypes.object,
+  user: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
   initializeSearchParticipantResult: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
@@ -168,6 +177,7 @@ const mapStateToProps = createStructuredSelector({
   appointmentStatuses: makeSelectAppointmentStatuses(),
   appointmentTypes: makeSelectAppointmentTypes(),
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
   selectedParticipants: makeSelectSelectedParticipants(),
 });
 

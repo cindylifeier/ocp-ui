@@ -20,7 +20,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
-import { PanelToolbar } from 'components/PanelToolbar';
+import PanelToolbar from 'components/PanelToolbar';
 import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectUpcomingTasks, makeSelectUpcomingTasksLoading } from './selectors';
@@ -61,7 +61,7 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
     const { loading, data, practitionerId } = this.props;
     return (
       <Card>
-        <PanelToolbar showNewItem={false} showSearchIcon={false} />
+        <PanelToolbar showSearchIcon={false} />
         {loading &&
         <RefreshIndicatorLoading />}
 

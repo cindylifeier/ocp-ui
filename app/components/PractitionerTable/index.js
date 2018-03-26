@@ -19,7 +19,7 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
+import StickyTableHeader from 'components/StickyTableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
@@ -37,12 +37,12 @@ function PractitionerTable(props) {
         practitionersData.data.length > 0 ?
           <div>
             <Table>
-              <TableHeader columns={tableColumns}>
+              <StickyTableHeader columns={tableColumns} top="30px">
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
-              </TableHeader>
+              </StickyTableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
                 const { logicalId, name, active, identifiers } = practitioner;
                 return (

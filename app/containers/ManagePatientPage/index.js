@@ -19,7 +19,9 @@ import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManagePatient from 'components/ManagePatient';
 import {
-  makeSelectAdministrativeGenders, makeSelectFlagCategories, makeSelectFlagStatuses,
+  makeSelectAdministrativeGenders,
+  makeSelectFlagCategories,
+  makeSelectFlagStatuses,
   makeSelectLanguages,
   makeSelectPatientIdentifierSystems,
   makeSelectTelecomSystems,
@@ -30,7 +32,9 @@ import {
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
 import {
-  ADMINISTRATIVEGENDER, FLAG_CATEGORY, FLAG_STATUS,
+  ADMINISTRATIVEGENDER,
+  FLAG_CATEGORY,
+  FLAG_STATUS,
   LANGUAGE,
   PATIENTIDENTIFIERSYSTEM,
   TELECOMSYSTEM,
@@ -41,6 +45,7 @@ import {
   USPSSTATES,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
+import { getPatient } from 'containers/App/contextActions';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import { getPatientById } from 'containers/App/api';
 import reducer from './reducer';
@@ -65,12 +70,17 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   handleSave(patientFormData, actions) {
-    this.props.onSaveForm(patientFormData, () => actions.setSubmitting(false));
+    this.props.onSaveForm(patientFormData, () => {
+      actions.setSubmitting(false);
+      this.props.getPatient(patientFormData.id);
+    });
   }
 
   render() {
-    const { history: { goBack }, match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
-      usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories } = this.props;
+    const {
+      history: { goBack }, match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
+      usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories,
+    } = this.props;
     const patientId = match.params.id;
     let patient = null;
     if (patientId) {
@@ -120,6 +130,7 @@ ManagePatientPage.propTypes = {
     }).isRequired,
   }).isRequired,
   onSaveForm: PropTypes.func,
+  getPatient: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
   patientIdentifierSystems: PropTypes.array,
@@ -175,6 +186,7 @@ function mapDispatchToProps(dispatch) {
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
       USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY])),
+    getPatient: (id) => dispatch(getPatient(id)),
   };
 }
 

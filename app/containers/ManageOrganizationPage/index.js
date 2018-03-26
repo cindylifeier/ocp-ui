@@ -13,19 +13,10 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
-import { FlatButton, MenuItem } from 'material-ui';
+import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
-import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import PageContent from 'components/PageContent';
-import FormSubtitle from 'components/FormSubtitle';
-import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import {
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
@@ -43,6 +34,16 @@ import {
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { getOrganization } from 'containers/App/contextActions';
+import StyledFlatButton from 'components/StyledFlatButton';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import PageContent from 'components/PageContent';
+import FormSubtitle from 'components/FormSubtitle';
+import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import saga from './saga';
 import messages from './messages';
 import { createOrganization, updateOrganization } from './actions';
@@ -97,7 +98,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
   handleSubmitUpdate(values, actions) {
     const { match: { params: { id } } } = this.props;
-    this.props.updateOrganization(id, values, () => actions.setSubmitting(false));
+    this.props.updateOrganization(id, values, () => {
+      actions.setSubmitting(false);
+      this.props.getOrganization(id);
+    });
   }
 
   render() {
@@ -216,8 +220,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                       <ManageOrganizationFormCell width={12}>
                         <AddMultipleTelecoms {...addTelecomsProps} />
                       </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell top={5} left={1} width={2}>
-                        <Grid columns="1fr 1fr" gap="1vw">
+                      <ManageOrganizationFormCell top={5} left={1} width={4}>
+                        <Grid columns={2}>
                           <Cell>
                             <StyledRaisedButton
                               fullWidth
@@ -229,9 +233,8 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
                             />
                           </Cell>
                           <Cell>
-                            <FlatButton
+                            <StyledFlatButton
                               fullWidth
-                              type="button"
                               default
                               label={<FormattedMessage {...messages.form.cancelButton} />}
                               onClick={goBack}

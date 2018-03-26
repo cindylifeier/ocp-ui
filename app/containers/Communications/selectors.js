@@ -11,17 +11,10 @@ const selectCommunicationDomain = (state) => state.get('communications');
 
 const makeSelectCommunications = () => createSelector(
   selectCommunicationDomain,
-  (substate) => substate.get('data').toJS()
+  (substate) => substate.toJS(),
 );
-
-const makeSelectCommunicationsLoading = () => createSelector(
-  selectCommunicationDomain,
-  (substate) => substate.get('loading'),
-);
-
 
 export default makeSelectCommunications;
 export {
-  makeSelectCommunications,
-  makeSelectCommunicationsLoading,
+  selectCommunicationDomain,
 };

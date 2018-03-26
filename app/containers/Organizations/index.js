@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -18,8 +19,8 @@ import { setOrganization } from 'containers/App/contextActions';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import Card from 'components/Card';
-import StickyDiv from 'components/StickyDiv';
 import InfoSection from 'components/InfoSection';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -49,9 +50,21 @@ export class Organizations extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.initializeOrganizations();
-    const initialCurrentPage = 1;
-    this.props.getOrganizations(initialCurrentPage);
+    if (this.props.organization) {
+      this.props.initializeOrganizations([this.props.organization]);
+    } else {
+      this.props.initializeOrganizations();
+      const initialCurrentPage = 1;
+      this.props.getOrganizations(initialCurrentPage);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization) && !this.state.isShowSearchResult) {
+      this.props.initializeOrganizations([newOrganization]);
+    }
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -103,10 +116,8 @@ export class Organizations extends React.PureComponent {
     }
     return (
       <Card>
-        <StickyDiv>
-          <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
-        </StickyDiv>
-        <InfoSection margin="10px 0">
+        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        <InfoSection margin="0 0 10px 0">
           <OrganizationTable
             organizationData={organizationData}
             onRowClick={this.handleRowClick}
@@ -120,6 +131,7 @@ export class Organizations extends React.PureComponent {
 
 Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
+  organization: PropTypes.object,
   setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
@@ -153,11 +165,12 @@ Organizations.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    initializeOrganizations: () => dispatch(initializeOrganizations()),
+    initializeOrganizations: (organizations) => dispatch(initializeOrganizations(organizations)),
     getOrganizations: (currentPage) => dispatch(getOrganizations(currentPage)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),

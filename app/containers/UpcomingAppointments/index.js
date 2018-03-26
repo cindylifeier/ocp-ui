@@ -10,25 +10,27 @@ import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorU
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination/index';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
+import PanelToolbar from 'components/PanelToolbar';
+import RecordsRange from 'components/RecordsRange';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading/index';
 import StatusCheckbox from 'components/StatusCheckbox';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
+  CARE_COORDINATOR_ROLE_VALUE,
   DEFAULT_START_PAGE_NUMBER,
+  MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
 } from 'containers/App/constants';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import { cancelAppointment, getUpcomingAppointments } from 'containers/UpcomingAppointments/actions';
-import { PRACTITIONERIDVALUE } from 'containers/UpcomingAppointments/constants';
 import NoUpcomingAppointmentsMessage from 'containers/UpcomingAppointments/NoUpcomingAppointmentsMessage';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
 import React from 'react';
-import RecordsRange from 'components/RecordsRange';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -36,7 +38,6 @@ import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { PanelToolbar } from 'components/PanelToolbar';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -51,21 +52,10 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   componentDidMount() {
-    const patientId = this.props.patient ? this.props.patient.id : null;
-    if (!isUndefined(patientId) && patientId != null) {
-      this.props.getUpcomingAppointments({
-        pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId: PRACTITIONERIDVALUE,
-        patientId,
-        showPastAppointments: false,
-      });
-    } else {
-      this.props.getUpcomingAppointments({
-        pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId: PRACTITIONERIDVALUE,
-        showPastAppointments: false,
-      });
-    }
+    this.props.getUpcomingAppointments({
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
     this.props.getLookupData();
   }
 
@@ -74,18 +64,19 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
   }
 
   handleCheck(event, checked) {
-    const patientId = this.props.patient.id;
+    const patientId = this.props.patient ? this.props.patient.id : null;
+    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
     if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId: PRACTITIONERIDVALUE,
+        practitionerId,
         showPastAppointments: checked,
         patientId,
       });
     } else {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId: PRACTITIONERIDVALUE,
+        practitionerId,
         showPastAppointments: checked,
       });
     }
@@ -97,15 +88,21 @@ export class UpcomingAppointments extends React.PureComponent { // eslint-disabl
 
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
-    const currentPath = window.location.pathname;
-    const patientDetailsPage = currentPath.indexOf('patients') >= 0;
     const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
+    const showPastAppFilter = true;
+    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
+    const addNewItem = (patientId && role === CARE_COORDINATOR_ROLE_VALUE) ? {
+      addNewItem: {
+        labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+        linkUrl: MANAGE_APPOINTMENT_URL,
+      },
+    } : undefined;
     return (
       <div>
         <Card>
-          <PanelToolbar showNewItem={false} showSearchIcon={false} />
-          {patientDetailsPage &&
+          <PanelToolbar {...addNewItem} showSearchIcon={false} />
+          {showPastAppFilter &&
           <div>
             <FilterSection>
               <CheckboxFilterGrid>
@@ -168,6 +165,7 @@ UpcomingAppointments.propTypes = {
   }),
   cancelAppointment: PropTypes.func,
   patient: PropTypes.object,
+  user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
 };
 
@@ -176,6 +174,7 @@ const mapStateToProps = createStructuredSelector({
   appointmentTypes: makeSelectAppointmentTypes(),
   appointmentStatuses: makeSelectAppointmentStatuses(),
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
   showPastAppointments: makeSelectShowPastAppointments(),
 });
 

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const StickyDiv = styled.div`
   position: sticky;
   top: ${({ top }) => top};
-  z-index: 9999;
+  z-index: 9;
 `;
 
 StickyDiv.propTypes = {
@@ -19,7 +19,7 @@ StickyDiv.propTypes = {
 };
 
 StickyDiv.defaultProps = {
-  top: '10px',
+  top: '0',
 };
 
 export default StickyDiv;
