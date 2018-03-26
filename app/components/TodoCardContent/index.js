@@ -12,10 +12,13 @@ import Align from 'components/Align';
 import { Cell, Grid } from 'styled-css-grid';
 import PropTypes from 'prop-types';
 import NotificationPriorityHigh from 'material-ui/svg-icons/notification/priority-high';
+import ActionEvent from 'material-ui/svg-icons/action/event';
 import ContentFlag from 'material-ui/svg-icons/content/flag';
 import TodoItemDescriptionBoxModel from 'components/TodoCardContent/TodoItemDescriptionBoxModel';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/TodoCardContent/constants';
+
 import messages from './messages';
+
 
 function TodoCardContent(props) {
   const {
@@ -36,7 +39,7 @@ function TodoCardContent(props) {
     } else if (statusStr === OVER_DUE) {
       statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === DUE_TODAY) {
-      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
+      statusElement = (<div><ActionEvent /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
     return statusElement;
   }
