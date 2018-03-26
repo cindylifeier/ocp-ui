@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -61,6 +62,14 @@ export class Patients extends React.PureComponent {
       this.props.initializePatients([this.props.patient]);
     } else {
       this.props.initializePatients();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient) && !this.props.currentPage) {
+      this.props.initializePatients([newPatient]);
     }
   }
 
