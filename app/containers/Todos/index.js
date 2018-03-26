@@ -72,13 +72,13 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
+        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} showFilter={false} />
         {!loading && isEmpty(todos) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noTodosFound} />
         </NoResultsFoundText>}
         {!isEmpty(todos) &&
         <div>
-          <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} showFilter={false} />
           <TodoList
             todos={todos}
             patientId={patientId}
