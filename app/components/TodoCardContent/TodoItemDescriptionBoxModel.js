@@ -10,8 +10,8 @@ const TodoItemDescriptionBoxModel = styled.div`
   width: 100%;
   border: 0 solid;
   border-radius: 5px;
-  padding: 10px;
-  margin: 1px;
+  padding: 5px;
+  margin-top: 10px;
 `;
 
 TodoItemDescriptionBoxModel.propTypes = {};
