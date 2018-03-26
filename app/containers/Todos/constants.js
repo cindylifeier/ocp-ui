@@ -22,4 +22,4 @@ export const GET_TODO_MAIN_TASK_ERROR = 'ocpui/Todos/GET_TODO_MAIN_TASK_ERROR';
 *
 */
 
-export const TODO_DEFINITION = 'To-DO';
+export const TODO_DEFINITION = 'To-Do';
