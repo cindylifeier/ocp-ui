@@ -30,6 +30,8 @@ function ManageTaskForm(props) {
     practitioners,
     eventTypes,
     tasksByPatient,
+    subTasks,
+    patient,
     isSubmitting, dirty, isValid, isMainTask,
   } = props;
   const today = new Date();
@@ -245,7 +247,7 @@ function ManageTaskForm(props) {
           />
         </Cell>
         <Cell area="subTasksSection">
-          <SubTaskTable patientId="1526" taskBaseUrl={MANAGE_TASK_URL} />
+          <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -278,6 +280,7 @@ ManageTaskForm.propTypes = {
     goBack: PropTypes.func.isRequired,
   }).isRequired,
   activityDefinitions: PropTypes.array,
+  subTasks: PropTypes.array,
   practitioners: PropTypes.array,
   taskStatus: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -311,6 +314,10 @@ ManageTaskForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   isMainTask: PropTypes.bool.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+  }),
 };
 
 export default ManageTaskForm;

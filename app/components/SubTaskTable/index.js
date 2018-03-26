@@ -63,7 +63,7 @@ function SubTaskTable({ elements, patientId, taskBaseUrl }) {
                     containerElement={<Link
                       to={{
                         pathname: `${taskBaseUrl}/${logicalId}`,
-                        search: `?patientId=${patientId}&isMainTask=true`,
+                        search: `?patientId=${patientId}&isMainTask=false`,
                       }}
                     />}
                   />

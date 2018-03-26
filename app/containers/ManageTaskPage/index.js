@@ -187,14 +187,18 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       practitioners,
       requester,
       tasksByPatient,
+      subTasks,
     } = this.props;
     let logicalId = this.props.match.params.id;
     let currentTask = null;
-    if (logicalId && this.props.tasks) {
-      currentTask = find(this.props.tasks.data, { logicalId });
-    }
     const queryObj = queryString.parse(this.props.location.search);
     const isMainTask = queryObj.isMainTask === 'true';
+    if (logicalId && this.props.tasks) {
+      currentTask = find(this.props.tasks.data, { logicalId });
+      if (currentTask === undefined && !isMainTask) {
+        currentTask = find(this.props.subTasks, { logicalId });
+      }
+    }
     logicalId = queryObj.mainTaskId;
     const editMode = !isUndefined(match.params.id);
     let parentTask = null;
@@ -228,6 +232,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       tasksByPatient,
       isMainTask,
       parentTask,
+      subTasks,
     };
 
     return (
@@ -274,6 +279,7 @@ ManageTaskPage.propTypes = {
     display: PropTypes.string.isRequired,
   }))),
   tasks: PropTypes.any,
+  subTasks: PropTypes.any,
   practitioners: PropTypes.any,
   requester: PropTypes.object,
   activityDefinitions: PropTypes.any,

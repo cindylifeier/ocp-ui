@@ -22,7 +22,7 @@ function ManageTask(props) {
     history, onSave, taskStatus, requestIntent,
     requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
-    currentTask, editMode, isMainTask, parentTask,
+    currentTask, editMode, isMainTask, parentTask, subTasks,
   } = props;
   const formData = {
     history,
@@ -40,6 +40,7 @@ function ManageTask(props) {
     editMode,
     isMainTask,
     parentTask,
+    subTasks,
   };
 
   return (
@@ -92,6 +93,7 @@ ManageTask.propTypes = {
   }).isRequired,
   onSave: PropTypes.func.isRequired,
   taskStatus: PropTypes.array.isRequired,
+  subTasks: PropTypes.array,
   requestIntent: PropTypes.array.isRequired,
   requestPriority: PropTypes.array.isRequired,
   taskPerformerType: PropTypes.array.isRequired,
@@ -128,13 +130,14 @@ ManageTask.propTypes = {
 
 function setFormData(currentTask, isMainTask, parentTask, organization, selectedPatient, requester) {
   let formData = null;
-  if (!isEmpty(currentTask) && isMainTask) {
-    // Edit Main TaskForm
+  if (!isEmpty(currentTask)) {
+    // Edit Main and Sub TaskForm
     formData = mapMainTaskToEditForm(currentTask);
   } else {
     // Create Main Task Form
     formData = mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester);
   }
+  console.log(formData);
   return formData;
 }
 
