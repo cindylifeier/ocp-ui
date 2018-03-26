@@ -13,9 +13,9 @@ import { Cell, Grid } from 'styled-css-grid';
 import PropTypes from 'prop-types';
 import NotificationPriorityHigh from 'material-ui/svg-icons/notification/priority-high';
 import ContentFlag from 'material-ui/svg-icons/content/flag';
+import TodoItemDescriptionBoxModel from 'components/TodoCardContent/TodoItemDescriptionBoxModel';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/TodoCardContent/constants';
 import messages from './messages';
-
 
 function TodoCardContent(props) {
   const {
@@ -58,7 +58,9 @@ function TodoCardContent(props) {
           </Grid>
         </ToDoCardCell>
         <ToDoCardCell top={2} left={1} width={12}>
-          {description}
+          <TodoItemDescriptionBoxModel>
+            {description}
+          </TodoItemDescriptionBoxModel>
         </ToDoCardCell>
         <ToDoCardCell top={3} left={1} width={12}>
           <Grid columns="6fr 6fr" gap="">
