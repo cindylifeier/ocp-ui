@@ -106,7 +106,7 @@ export class Organizations extends React.PureComponent {
         <StickyDiv>
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         </StickyDiv>
-        <InfoSection margin="10px 0">
+        <InfoSection margin="0 0 10px 0">
           <OrganizationTable
             organizationData={organizationData}
             onRowClick={this.handleRowClick}

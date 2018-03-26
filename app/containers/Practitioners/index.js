@@ -113,7 +113,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
         <StickyDiv>
           <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
         </StickyDiv>
-        <InfoSection margin="10px 0">
+        <InfoSection margin="0 0 10px 0">
           <PractitionerTable practitionersData={practitionersData} />
         </InfoSection>
       </Card>
