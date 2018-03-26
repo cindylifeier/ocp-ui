@@ -9,12 +9,14 @@ import isEmpty from 'lodash/isEmpty';
 import TodoCard from 'components/TodoCard/index';
 import TodoCardContent from 'components/TodoCardContent/index';
 import PropTypes from 'prop-types';
+import Padding from 'components/Padding';
 
 function TodoList(props) {
   const { todos, taskBaseUrl, patientId } = props;
   return (
     <div>
-      {todos && todos.length > 0 &&
+      <Padding top={'10px'} right={'10px'} bottom={'10px'} left={'10px'}>
+        {todos && todos.length > 0 &&
         <div>
           {!isEmpty(todos) && todos.map((todo) =>
             (<TodoCard key={todo.logicalId}>
@@ -32,6 +34,7 @@ function TodoList(props) {
           }
         </div>
       }
+      </Padding>
     </div>
   );
 }
