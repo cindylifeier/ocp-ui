@@ -14,13 +14,13 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 function getErrorMessage(err) {
   let errorMessage = '';
   if (err && err.message === 'Failed to fetch') {
-    errorMessage = 'Failed to retrieve patient\'s upcoming appointments. Server is offline.';
+    errorMessage = 'Failed to retrieve the appointment list. Server is offline.';
   } else if (err && err.response && err.response.status === 404) {
-    errorMessage = 'You do not have any upcoming appointments.';
+    errorMessage = 'No appointments to show.';
   } else if (err && err.response && err.response.status === 500) {
-    errorMessage = 'Failed to retrieve patient\'s upcoming appointments. Unknown server error.';
+    errorMessage = 'Failed to retrieve the appointment list. Unknown server error.';
   } else {
-    errorMessage = 'Failed to retrieve patient\'s upcoming appointments.. Unknown error.';
+    errorMessage = 'Failed to retrieve the appointment list. Unknown error.';
   }
   return errorMessage;
 }
