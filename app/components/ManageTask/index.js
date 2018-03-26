@@ -137,7 +137,6 @@ function setFormData(currentTask, isMainTask, parentTask, organization, selected
     // Create Main Task Form
     formData = mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requester);
   }
-  console.log(formData);
   return formData;
 }
 
