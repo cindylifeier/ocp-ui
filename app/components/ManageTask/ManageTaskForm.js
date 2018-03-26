@@ -201,7 +201,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
           >
             {tasksByPatient && tasksByPatient.map((partOf) =>
-              <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
+              <MenuItem key={uniqueId()} value={partOf.reference} primaryText={partOf.display} />,
             )}
           </SelectField>
           }
@@ -246,9 +246,10 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
         </Cell>
-        <Cell area="subTasksSection">
+        { isMainTask && <Cell area="subTasksSection">
           <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
         </Cell>
+        }
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
