@@ -29,19 +29,23 @@ import { getOrganizations, initializeOrganizations, searchOrganizations } from '
 import { flattenOrganizationData } from './helpers';
 
 export class Organizations extends React.PureComponent {
+  static initalState = {
+    isShowSearchResult: false,
+    listOrganizations: {
+      currentPage: 1,
+    },
+    searchOrganizations: {
+      currentPage: 1,
+      searchValue: '',
+      showInactive: false,
+      searchType: 'name',
+    },
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      isShowSearchResult: false,
-      listOrganizations: {
-        currentPage: 1,
-      },
-      searchOrganizations: {
-        currentPage: 1,
-        searchValue: '',
-        showInactive: false,
-        searchType: 'name',
-      },
+      ...Organizations.initalState,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
@@ -62,8 +66,9 @@ export class Organizations extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     const { organization } = this.props;
     const { organization: newOrganization } = nextProps;
-    if (!isEqual(organization, newOrganization) && !this.state.isShowSearchResult) {
+    if (!isEqual(organization, newOrganization)) {
       this.props.initializeOrganizations([newOrganization]);
+      this.setState({ ...Organizations.initalState });
     }
   }
 
