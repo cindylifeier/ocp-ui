@@ -97,7 +97,10 @@ export class ManageOrganizationPage extends React.PureComponent { // eslint-disa
 
   handleSubmitUpdate(values, actions) {
     const { match: { params: { id } } } = this.props;
-    this.props.updateOrganization(id, values, () => actions.setSubmitting(false));
+    this.props.updateOrganization(id, values, () => {
+      actions.setSubmitting(false);
+      this.props.getOrganization(id);
+    });
   }
 
   render() {
