@@ -64,7 +64,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
     if (practitionerId) {
       merge(appointmentFormData, { practitionerId });
     }
-    const practitionerName = mapToPatientName(this.props.user.resource.name[0]);
+    const practitionerName = mapToPatientName(this.props.user.resource);
     if (practitionerName) {
       merge(appointmentFormData, { practitionerName });
     }
