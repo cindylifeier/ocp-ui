@@ -14,9 +14,10 @@ import {
   SEARCH_ORGANIZATIONS_SUCCESS,
 } from './constants';
 
-export function initializeOrganizations() {
+export function initializeOrganizations(organizations) {
   return {
     type: INITIALIZE_ORGANIZATIONS,
+    organizations,
   };
 }
 

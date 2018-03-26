@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,7 +22,7 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import { PanelToolbar } from 'components/PanelToolbar';
 import { CARE_MANAGER_ROLE_VALUE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -57,7 +58,19 @@ export class Patients extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.initializePatients();
+    if (this.props.patient) {
+      this.props.initializePatients([this.props.patient]);
+    } else {
+      this.props.initializePatients();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient) && !this.props.currentPage) {
+      this.props.initializePatients([newPatient]);
+    }
   }
 
   handlePatientClick(patient) {
@@ -105,7 +118,7 @@ export class Patients extends React.PureComponent {
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />
-        {this.props.searchResult &&
+        {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
           <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
@@ -155,6 +168,7 @@ Patients.propTypes = {
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,
   }).isRequired,
+  patient: PropTypes.object,
 };
 
 
@@ -170,6 +184,7 @@ const mapStateToProps = createStructuredSelector({
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
   user: makeSelectUser(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -179,7 +194,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
-    initializePatients: () => dispatch(initializePatients()),
+    initializePatients: (patients) => dispatch(initializePatients(patients)),
     setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }
