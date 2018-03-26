@@ -98,17 +98,20 @@ function OrganizationTable(props) {
                 );
               })}
             </Table>
-            <CenterAlignedUltimatePagination
-              currentPage={organizationData.currentPage}
-              totalPages={organizationData.totalNumberOfPages}
-              onChange={organizationData.handlePageClick}
-            />
-            <RecordsRange
-              currentPage={organizationData.currentPage}
-              totalPages={organizationData.totalNumberOfPages}
-              totalElements={organizationData.totalElements}
-              currentPageSize={organizationData.currentPageSize}
-            />
+            {!!organizationData && !!organizationData.currentPage &&
+            <div>
+              <CenterAlignedUltimatePagination
+                currentPage={organizationData.currentPage}
+                totalPages={organizationData.totalNumberOfPages}
+                onChange={organizationData.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={organizationData.currentPage}
+                totalPages={organizationData.totalNumberOfPages}
+                totalElements={organizationData.totalElements}
+                currentPageSize={organizationData.currentPageSize}
+              />
+            </div>}
           </div> :
           (<CenterAlign>
             <NoResultsFoundText>No organizations found</NoResultsFoundText>
