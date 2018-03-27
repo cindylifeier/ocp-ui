@@ -38,7 +38,7 @@ export function mapToIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => {
     const system = identifier.systemDisplay !== EMPTY_STRING ? identifier.systemDisplay : EMPTY_STRING;
     const value = identifier.value !== EMPTY_STRING ? identifier.value : EMPTY_STRING;
-    return `${system} ${value}`;
+    return `${system}: ${value}`;
   }).join(NEW_LINE_CHARACTER);
 }
 
