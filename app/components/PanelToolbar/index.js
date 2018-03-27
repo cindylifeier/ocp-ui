@@ -159,7 +159,11 @@ PanelToolbar.defaultProps = {
 
 
 // Create the config for SizeMe
-const config = { monitorHeight: true };
+const config = {
+  monitorWidth: false,
+  monitorHeight: true,
+  refreshRate: 250,
+};
 
 // Call SizeMe with the config to get back the HOC.
 const sizeMeHOC = sizeMe(config);

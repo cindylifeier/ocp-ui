@@ -16,7 +16,7 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import StickyTableHeader from 'components/StickyTableHeader';
+import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
@@ -35,13 +35,13 @@ function OrganizationTable(props) {
       {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
           ? <div>
             <Table>
-              <StickyTableHeader columns={tableColumns} top={`${relativeTop}px`}>
+              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
-              </StickyTableHeader>
+              </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
                 const flattenOrganization = props.flattenOrganizationData(organization);
                 const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
@@ -122,7 +122,7 @@ function OrganizationTable(props) {
 }
 
 OrganizationTable.propTypes = {
-  relativeTop: PropTypes.string.isRequired,
+  relativeTop: PropTypes.number.isRequired,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
