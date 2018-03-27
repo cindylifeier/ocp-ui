@@ -4,7 +4,7 @@
  *
  */
 
-import renderTodosComponent from 'containers/Todos/render';
+import renderToDosComponent from 'containers/ToDos/render';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
@@ -91,7 +91,7 @@ export const initialStateMetadata =
                   content: [{
                     title: 'MY TO DO',
                     type: 'component',
-                    componentName: 'todos',
+                    componentName: 'toDos',
                     isClosable: true,
                     reorderEnabled: true,
                   },
@@ -184,7 +184,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
-  { name: 'todos', text: 'MY TO DO', factoryMethod: renderTodosComponent },
+  { name: 'toDos', text: 'MY TO DO', factoryMethod: renderToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
 ];
 

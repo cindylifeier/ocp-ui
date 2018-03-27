@@ -10,7 +10,7 @@ import CheckboxGrid from './CheckboxGrid';
 
 function CheckboxFilterGrid({ columns, children }) {
   return (
-    <CheckboxGrid columns={columns || `70px repeat(${(React.Children.count(children) - 1)}, 120px)`}>
+    <CheckboxGrid columns={columns || `100px repeat(${(React.Children.count(children) - 1)}, 110px)`}>
       {children}
     </CheckboxGrid>
   );

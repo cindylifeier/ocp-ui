@@ -66,7 +66,7 @@ export class CareTeams extends React.PureComponent { // eslint-disable-line reac
   }
 
   calculateCheckboxColumns({ length }) {
-    return `60px repeat(${length < 1 ? 0 : length - 1},120px) 180px 1fr`;
+    return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
   }
 
   handlePageClick(pageNumber) {
