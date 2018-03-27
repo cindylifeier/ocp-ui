@@ -17,7 +17,7 @@ import SearchButtonContainerGrid from './SearchButtonContainerGrid';
 import messages from './messages';
 
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText } } = props;
+  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showFilter } = props;
   return (
     <Form>
       <SearchSection>
@@ -40,15 +40,18 @@ function SearchBarForm(props) {
             hintText={searchValueHintText}
           />
         </SearchContainerGrid>
-        <SearchContainerGrid gap="5px" columns="100px 300px">
-          <div>
-            <FormattedMessage {...messages.filterLabel} />
-          </div>
-          <Checkbox
-            name="showInactive"
-            label={<FormattedMessage {...messages.includeInactive} />}
-          />
-        </SearchContainerGrid>
+        { showFilter &&
+          <SearchContainerGrid gap="5px" columns="100px 300px">
+            <div>
+              <FormattedMessage {...messages.filterLabel} />
+            </div>
+            <Checkbox
+              name="showInactive"
+              label={<FormattedMessage {...messages.includeInactive} />}
+            />
+          </SearchContainerGrid>
+        }
+
         <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
           <RaisedButton
             fullWidth
@@ -67,6 +70,7 @@ function SearchBarForm(props) {
 SearchBarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
+  showFilter: PropTypes.bool,
   isValid: PropTypes.bool.isRequired,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({

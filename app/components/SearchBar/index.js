@@ -19,8 +19,8 @@ const SEARCH_BY_NAME = 'name';
 const SEARCH_BY_ID = 'identifier';
 
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField } = props;
-  const searchFormProps = { searchField };
+  const { minimumLength, onSearch, searchField, showFilter } = props;
+  const searchFormProps = { searchField, showFilter };
 
   function initialFormValues() {
     let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
@@ -59,6 +59,7 @@ function SearchBar(props) {
 SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
+  showFilter: PropTypes.bool,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,

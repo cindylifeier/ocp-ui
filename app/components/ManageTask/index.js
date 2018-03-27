@@ -12,8 +12,7 @@ import Util from 'utils/Util';
 import yup from 'yup';
 import { Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
-
-import { EMPTY_STRING } from 'containers/App/constants';
+import { EMPTY_STRING } from './constants';
 import messages from './messages';
 import ManageTaskForm from './ManageTaskForm';
 
@@ -22,7 +21,7 @@ function ManageTask(props) {
     history, onSave, taskStatus, requestIntent,
     requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
-    currentTask, editMode, isMainTask, parentTask,
+    currentTask, editMode, isMainTask, parentTask, subTasks,
   } = props;
   const formData = {
     history,
@@ -40,6 +39,7 @@ function ManageTask(props) {
     editMode,
     isMainTask,
     parentTask,
+    subTasks,
   };
 
   return (
@@ -50,6 +50,7 @@ function ManageTask(props) {
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
+        enableReinitialize
         validationSchema={() =>
           yup.lazy((values) => {
             let taskStart = new Date();
@@ -92,6 +93,7 @@ ManageTask.propTypes = {
   }).isRequired,
   onSave: PropTypes.func.isRequired,
   taskStatus: PropTypes.array.isRequired,
+  subTasks: PropTypes.array,
   requestIntent: PropTypes.array.isRequired,
   requestPriority: PropTypes.array.isRequired,
   taskPerformerType: PropTypes.array.isRequired,
@@ -128,8 +130,8 @@ ManageTask.propTypes = {
 
 function setFormData(currentTask, isMainTask, parentTask, organization, selectedPatient, requester) {
   let formData = null;
-  if (!isEmpty(currentTask) && isMainTask) {
-    // Edit Main TaskForm
+  if (!isEmpty(currentTask)) {
+    // Edit Main and Sub TaskForm
     formData = mapMainTaskToEditForm(currentTask);
   } else {
     // Create Main Task Form
@@ -312,6 +314,10 @@ function mapMainTaskToEditForm(task) {
 
 function getResourceName(resource) {
   if (resource === undefined) {
+    return EMPTY_STRING;
+  }
+
+  if (resource === null) {
     return EMPTY_STRING;
   }
   const names = resource.name;

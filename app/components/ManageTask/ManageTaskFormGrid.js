@@ -25,6 +25,7 @@ const ManageTaskFormGrid = Grid.extend`
     "taskEnd"
     "description"
     "comments"
+    "subTasksSection"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -44,6 +45,7 @@ const ManageTaskFormGrid = Grid.extend`
       "taskStart taskEnd"
       "description description"
       "comments comments"
+      "subTasksSection subTasksSection"
       "buttonGroup  .";
   }
 
@@ -59,6 +61,7 @@ const ManageTaskFormGrid = Grid.extend`
       "taskStart taskStart taskEnd taskEnd . . . . . . . ."
       "description description description . . . . . . . . ."
       "comments comments comments . . . . . . . . ."
+      "subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;

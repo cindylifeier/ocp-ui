@@ -12,6 +12,8 @@ import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
+import SubTaskTable from 'components/SubTaskTable';
+import { MANAGE_TASK_URL } from './constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
@@ -28,6 +30,8 @@ function ManageTaskForm(props) {
     practitioners,
     eventTypes,
     tasksByPatient,
+    subTasks,
+    patient,
     isSubmitting, dirty, isValid, isMainTask,
   } = props;
   const today = new Date();
@@ -197,7 +201,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
           >
             {tasksByPatient && tasksByPatient.map((partOf) =>
-              <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
+              <MenuItem key={uniqueId()} value={partOf.reference} primaryText={partOf.display} />,
             )}
           </SelectField>
           }
@@ -242,6 +246,10 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
         </Cell>
+        { isMainTask && <Cell area="subTasksSection">
+          <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
+        </Cell>
+        }
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
@@ -273,6 +281,7 @@ ManageTaskForm.propTypes = {
     goBack: PropTypes.func.isRequired,
   }).isRequired,
   activityDefinitions: PropTypes.array,
+  subTasks: PropTypes.array,
   practitioners: PropTypes.array,
   taskStatus: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -306,6 +315,10 @@ ManageTaskForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   isMainTask: PropTypes.bool.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+  }),
 };
 
 export default ManageTaskForm;

@@ -12,6 +12,7 @@ import {
   CARE_COORDINATOR_ROLE_VALUE,
   CARE_MANAGER_ROLE_VALUE,
   EMPTY_STRING,
+  NEW_LINE_CHARACTER,
   OCP_ADMIN_ROLE_VALUE,
   PATIENT_ROLE_VALUE,
   PATIENT_WORKSPACE,
@@ -38,7 +39,7 @@ export function mapToIdentifiers(identifiers) {
     const system = identifier.systemDisplay !== EMPTY_STRING ? identifier.systemDisplay : EMPTY_STRING;
     const value = identifier.value !== EMPTY_STRING ? identifier.value : EMPTY_STRING;
     return `${system}: ${value}`;
-  }).join(', ');
+  }).join(NEW_LINE_CHARACTER);
 }
 
 export function mapToTelecoms(telecoms) {
@@ -46,20 +47,20 @@ export function mapToTelecoms(telecoms) {
     const system = telecom.system !== EMPTY_STRING ? upperFirst(telecom.system) : EMPTY_STRING;
     const value = telecom.value !== EMPTY_STRING ? telecom.value : EMPTY_STRING;
     return `${system} ${value}`;
-  }).join(', ');
+  }).join(NEW_LINE_CHARACTER);
 }
 
 export function mapToPhone(telecoms) {
   return telecoms && telecoms
     .filter((telecom) => telecom.system === PHONE_SYSTEM)
     .map((telecom) => telecom.value)
-    .join(', ');
+    .join(NEW_LINE_CHARACTER);
 }
 
 export function mapToAddresses(addresses) {
   return addresses && addresses
     .map((address) => combineAddress(address))
-    .join(', ');
+    .join(NEW_LINE_CHARACTER);
 }
 
 function combineAddress(address) {
@@ -70,7 +71,9 @@ function combineAddress(address) {
   addressStr.push(address.postalCode || '');
   addressStr.push(address.stateCode || '');
   addressStr.push(address.countryCode || '');
-  return addressStr.filter((field) => field !== '');
+  return addressStr
+    .filter((field) => field !== '')
+    .join(', ');
 }
 
 export function getLinkUrlByRole(role) {
