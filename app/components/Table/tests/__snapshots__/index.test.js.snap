@@ -5,7 +5,10 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Table__Table>
-    <TableHeader>
+    <TableHeader
+      relativeTop="0"
+      sticky={true}
+    >
       <TableHeaderColumn__TableHeaderColumn>
         Col
       </TableHeaderColumn__TableHeaderColumn>
@@ -29,7 +32,10 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <TableHeader>
+        <TableHeader
+          relativeTop="0"
+          sticky={true}
+        >
           <TableHeaderColumn__TableHeaderColumn>
             Col
           </TableHeaderColumn__TableHeaderColumn>
@@ -52,6 +58,8 @@ ShallowWrapper {
           "children": <TableHeaderColumn__TableHeaderColumn>
             Col
           </TableHeaderColumn__TableHeaderColumn>,
+          "relativeTop": "0",
+          "sticky": true,
         },
         "ref": null,
         "rendered": Object {
@@ -100,7 +108,10 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <TableHeader>
+          <TableHeader
+            relativeTop="0"
+            sticky={true}
+          >
             <TableHeaderColumn__TableHeaderColumn>
               Col
             </TableHeaderColumn__TableHeaderColumn>
@@ -123,6 +134,8 @@ ShallowWrapper {
             "children": <TableHeaderColumn__TableHeaderColumn>
               Col
             </TableHeaderColumn__TableHeaderColumn>,
+            "relativeTop": "0",
+            "sticky": true,
           },
           "ref": null,
           "rendered": Object {

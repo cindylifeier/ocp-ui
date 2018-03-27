@@ -4,7 +4,10 @@ exports[`<TableHeader /> should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <TableHeader>
+  Symbol(enzyme.__unrendered__): <TableHeader
+    relativeTop="0"
+    sticky={true}
+  >
     <TableHeaderColumn__TableHeaderColumn>
       Col
     </TableHeaderColumn__TableHeaderColumn>
@@ -21,28 +24,18 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
-      "children": <TableHeaderColumn__TableHeaderColumn>
-        Col
-      </TableHeaderColumn__TableHeaderColumn>,
-      "columns": "repeat(1, 1fr)",
-      "gap": "5px",
+      "children": <styled.div
+        columns="repeat(1, 1fr)"
+        gap="5px"
+      >
+        <TableHeaderColumn__TableHeaderColumn>
+          Col
+        </TableHeaderColumn__TableHeaderColumn>
+      </styled.div>,
+      "top": "0px",
     },
     "ref": null,
     "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": "Col",
-      },
-      "ref": null,
-      "rendered": "Col",
-      "type": [Function],
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
       "instance": null,
       "key": undefined,
       "nodeType": "class",
@@ -63,6 +56,52 @@ ShallowWrapper {
         },
         "ref": null,
         "rendered": "Col",
+        "type": [Function],
+      },
+      "type": [Function],
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": <styled.div
+          columns="repeat(1, 1fr)"
+          gap="5px"
+        >
+          <TableHeaderColumn__TableHeaderColumn>
+            Col
+          </TableHeaderColumn__TableHeaderColumn>
+        </styled.div>,
+        "top": "0px",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <TableHeaderColumn__TableHeaderColumn>
+            Col
+          </TableHeaderColumn__TableHeaderColumn>,
+          "columns": "repeat(1, 1fr)",
+          "gap": "5px",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Col",
+          },
+          "ref": null,
+          "rendered": "Col",
+          "type": [Function],
+        },
         "type": [Function],
       },
       "type": [Function],
