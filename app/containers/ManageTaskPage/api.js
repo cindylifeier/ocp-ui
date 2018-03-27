@@ -11,40 +11,40 @@ import {
 import request from 'utils/request';
 
 
-export function getOrganization(practitionerId) {
+export function getOrganization({ practitionerId }) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-  const requestURL = `${baseEndpoint}?practitioner=${practitionerId.practitionerId}`;
+  const requestURL = `${baseEndpoint}?practitioner=${practitionerId}`;
   return request(requestURL);
 }
 
-export function getRequester(practitionerId) {
+export function getRequester({ practitionerId }) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const requestURL = `${baseEndpoint}/${practitionerId.practitionerId}`;
+  const requestURL = `${baseEndpoint}/${practitionerId}`;
   return request(requestURL);
 }
 
-export function getActivityDefinitions(practitionerId) {
+export function getActivityDefinitions({ practitionerId }) {
   const baseEndpoint = getEndpoint(BASE_ACTIVITY_DEFINITIONS_API_URL);
-  const requestURL = `${baseEndpoint}?practitioner=${practitionerId.practitionerId}`;
+  const requestURL = `${baseEndpoint}?practitioner=${practitionerId}`;
   return request(requestURL);
 }
 
-export function getEventTypes(patientId) {
+export function getEventTypes({ patientId }) {
   const baseEndpoint = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
-  const requestURL = `${baseEndpoint}?patient=${patientId.patientId}`;
+  const requestURL = `${baseEndpoint}?patient=${patientId}`;
   return request(requestURL);
 }
 
-export function getTasksByPatient(patientId) {
+export function getTasksByPatient({ patientId }) {
   const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
-  const requestURL = `${baseEndpoint}/task-references/?patient=${patientId.patientId}`;
+  const requestURL = `${baseEndpoint}/task-references/?patient=${patientId}`;
   return request(requestURL);
 }
 
 
-export function getPractitioners(practitionerId) {
+export function getPractitioners({ practitionerId }) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const requestURL = `${baseEndpoint}?practitioner=${practitionerId.practitionerId}`;
+  const requestURL = `${baseEndpoint}?practitioner=${practitionerId}`;
   return request(requestURL);
 }
 
@@ -83,5 +83,11 @@ export function getTaskByIdFromStore(tasks, logicalId) {
 export function getTaskById(logicalId) {
   const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
   const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL);
+}
+
+export function getSubTasksByParentId(logicalId) {
+  const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
+  const requestURL = `${baseEndpoint}?partOf=${logicalId}`;
   return request(requestURL);
 }

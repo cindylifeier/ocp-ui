@@ -25,33 +25,11 @@ import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-import {
-  makeSelectRequestIntents,
-  makeSelectRequestPriorities,
-  makeSelectTaskPerformerTypes,
-  makeSelectTaskStatuses,
-} from 'containers/App/lookupSelectors';
+import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import {
-  makeSelectActivityDefinitions,
-  makeSelectEventTypes,
-  makeSelectOrganization,
-  makeSelectPractitioner,
-  makeSelectPractitioners,
-  makeSelectTasksByPatient,
-} from './selectors';
-import {
-  createTask,
-  getActivityDefinitions,
-  getEventTypes,
-  getOrganization,
-  getPractitioners,
-  getRequester,
-  getTaskById,
-  getTasksByPatient,
-  updateTask,
-} from './actions';
+import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectOrganization, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
+import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -70,6 +48,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     const logicalId = this.props.match.params.id;
     if (logicalId) {
       this.props.getTask(logicalId);
+      // get subtasks belonging to main task
+      this.props.getSubTasks(logicalId);
     }
     const queryObj = queryString.parse(this.props.location.search);
     const patientId = queryObj.patientId;
@@ -183,14 +163,19 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       practitioners,
       requester,
       tasksByPatient,
+      subTasks,
     } = this.props;
     let logicalId = this.props.match.params.id;
     let currentTask = null;
-    if (logicalId && this.props.tasks) {
-      currentTask = find(this.props.tasks.data, { logicalId });
-    }
     const queryObj = queryString.parse(this.props.location.search);
     const isMainTask = queryObj.isMainTask === 'true';
+    if (logicalId && this.props.tasks) {
+      if (isMainTask) {
+        currentTask = find(this.props.tasks.data, { logicalId });
+      } else {
+        currentTask = find(this.props.subTasks, { logicalId });
+      }
+    }
     logicalId = queryObj.mainTaskId;
     const editMode = !isUndefined(match.params.id);
     let parentTask = null;
@@ -224,6 +209,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       tasksByPatient,
       isMainTask,
       parentTask,
+      subTasks,
     };
 
     return (
@@ -270,6 +256,7 @@ ManageTaskPage.propTypes = {
     display: PropTypes.string.isRequired,
   }))),
   tasks: PropTypes.any,
+  subTasks: PropTypes.any,
   practitioners: PropTypes.any,
   requester: PropTypes.object,
   activityDefinitions: PropTypes.any,
@@ -283,6 +270,7 @@ ManageTaskPage.propTypes = {
   createTask: PropTypes.func,
   getTask: PropTypes.func,
   updateTask: PropTypes.func,
+  getSubTasks: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -297,6 +285,7 @@ const mapStateToProps = createStructuredSelector({
   practitioners: makeSelectPractitioners(),
   requester: makeSelectPractitioner(),
   tasks: makeSelectTasks(),
+  subTasks: makeSelectSubTasks(),
   tasksByPatient: makeSelectTasksByPatient(),
 });
 
@@ -311,6 +300,7 @@ function mapDispatchToProps(dispatch) {
     getPractitioners: (practitionerId) => dispatch(getPractitioners(practitionerId)),
     createTask: (taskFormData, handleSubmitting) => dispatch(createTask(taskFormData, handleSubmitting)),
     getTask: (logicalId) => dispatch(getTaskById(logicalId)),
+    getSubTasks: (logicalId) => dispatch(getSubTasks(logicalId)),
     updateTask: (taskFormData, handleSubmitting) => dispatch(updateTask(taskFormData, handleSubmitting)),
   };
 }
