@@ -30,6 +30,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.state = {
+      relativeTop: 0,
       isShowSearchResult: false,
       listPractitioners: {
         currentPage: 1,
@@ -44,6 +45,7 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
     this.handleChangeListPage = this.handleChangeListPage.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +62,10 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
     if (!isEqual(organization, newOrganization)) {
       this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
@@ -108,9 +114,16 @@ export class Practitioners extends React.PureComponent { // eslint-disable-line 
 
     return (
       <div>
-        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          onSearch={this.handleSearch}
+          onSize={this.onSize}
+        />
         <InfoSection margin="0 0 10px 0">
-          <PractitionerTable practitionersData={practitionersData} />
+          <PractitionerTable
+            relativeTop={this.state.relativeTop}
+            practitionersData={practitionersData}
+          />
         </InfoSection>
       </div>
     );
