@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -15,22 +14,19 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import renderFactory from 'utils/goldenLayout/renderFactory';
+import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderTasks from 'containers/Tasks/render';
 import renderToDosComponent from 'containers/ToDos/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
-import { PATIENT_ROLE_VALUE, PATIENT_WORKSPACE } from 'containers/App/constants';
+import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
-import Card from 'components/Card';
-import PanelToolbar from 'components/PanelToolbar';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
-import messages from './messages';
 
 export const initialStateMetadata =
   {
@@ -189,34 +185,13 @@ export const initialStateMetadata =
     maximisedItemId: null,
   };
 
-// TODO: will replace with particular render components
-function renderEmptyGoldenLayoutComponent() {
-  return (
-    <Card>
-      <PanelToolbar showUploadIcon={false} />
-    </Card>
-  );
-}
-
-function renderEmptyConsentComponent() {
-  const addNewItem = {
-    labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-    linkUrl: PATIENT_WORKSPACE,
-  };
-  return (
-    <Card>
-      <PanelToolbar addNewItem={addNewItem} showUploadIcon={false} />
-    </Card>
-  );
-}
-
 export const componentMetadata = [
   { name: 'toDo', text: 'My to do', factoryMethod: renderToDosComponent },
-  { name: 'calendar', text: 'Calendar', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstruction },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
-  { name: 'consents', text: 'Consents', factoryMethod: renderFactory(renderEmptyConsentComponent) },
+  { name: 'consents', text: 'Consents', factoryMethod: renderUnderConstruction },
 ];
 
 export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

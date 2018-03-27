@@ -14,13 +14,13 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import GoldenLayout from 'components/GoldenLayout';
+import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderPatientsComponent from 'containers/Patients/render';
 import renderLocationsComponent from 'containers/Locations/render';
 import renderToDosComponent from 'containers/ToDos/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
-import renderNotFound from 'containers/NotFoundPage/render';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectWorkflowRolesData } from 'containers/WorkspaceSelectionPage/selectors';
 import makeSelectPractitionerWorkspacePage from './selectors';
@@ -42,7 +42,7 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
       text: 'MY TO DO',
       factoryMethod: renderToDosComponent,
     },
-    { name: 'calendar', text: 'CALENDAR', factoryMethod: renderNotFound },
+    { name: 'calendar', text: 'CALENDAR', factoryMethod: renderUnderConstruction },
   ];
 
   static careManagerLayout = {

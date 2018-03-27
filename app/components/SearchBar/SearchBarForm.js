@@ -8,7 +8,7 @@ import { teal500, white } from 'material-ui/styles/colors';
 import uniqueId from 'lodash/uniqueId';
 
 import TextField from 'components/TextField';
-import Checkbox from 'components/Checkbox';
+import StyledCheckbox from 'components/StyledCheckbox';
 import SelectField from 'components/SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
@@ -41,11 +41,11 @@ function SearchBarForm(props) {
           />
         </SearchContainerGrid>
         { showFilter &&
-          <SearchContainerGrid gap="5px" columns="70px 300px">
+          <SearchContainerGrid gap="5px" columns="100px 300px">
             <div>
               <FormattedMessage {...messages.filterLabel} />
             </div>
-            <Checkbox
+            <StyledCheckbox
               name="showInactive"
               label={<FormattedMessage {...messages.includeInactive} />}
             />
