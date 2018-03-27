@@ -100,7 +100,7 @@ function renderLastName(names) {
 }
 
 PractitionerTable.propTypes = {
-  relativeTop: PropTypes.string.isRequired,
+  relativeTop: PropTypes.number.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
