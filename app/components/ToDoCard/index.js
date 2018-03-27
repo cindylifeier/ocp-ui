@@ -5,13 +5,13 @@
  */
 import styled from 'styled-components';
 
-const TodoCard = styled.div`
+const ToDoCard = styled.div`
   min-height: 150px;
   margin-top: 10px;
   padding-bottom: 4px !important;
   border: 1px solid rgb(204, 204, 204);
 `;
 
-TodoCard.propTypes = {};
+ToDoCard.propTypes = {};
 
-export default TodoCard;
+export default ToDoCard;

@@ -2,12 +2,12 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
-import TodoCard from 'components/TodoCard/index';
+import TodoCard from 'components/ToDoCard';
 
 
 configure({ adapter: new Adapter() });
 
-describe('<TodoCard />', () => {
+describe('<ToDoCard />', () => {
   it('should have children', () => {
     // Arrange
     const children = (<span>test</span>);
