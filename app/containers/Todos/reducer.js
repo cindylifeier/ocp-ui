@@ -12,7 +12,7 @@ import {
 
 const initialState = fromJS({
   data: [],
-  todoMainTask: {},
+  todoMainTask: [],
   loading: false,
 });
 
