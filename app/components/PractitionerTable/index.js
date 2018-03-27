@@ -29,7 +29,7 @@ import messages from './messages';
 const tableColumns = 'repeat(4, 1fr) 50px';
 
 function PractitionerTable(props) {
-  const { practitionersData } = props;
+  const { relativeTop, practitionersData } = props;
   return (
     <div>
       {practitionersData.loading && <RefreshIndicatorLoading />}
@@ -37,7 +37,7 @@ function PractitionerTable(props) {
         practitionersData.data.length > 0 ?
           <div>
             <Table>
-              <StickyTableHeader columns={tableColumns} top="30px">
+              <StickyTableHeader columns={tableColumns} top={`${relativeTop}px`}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
@@ -100,6 +100,7 @@ function renderLastName(names) {
 }
 
 PractitionerTable.propTypes = {
+  relativeTop: PropTypes.string.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,

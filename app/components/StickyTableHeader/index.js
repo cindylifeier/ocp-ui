@@ -23,7 +23,7 @@ function StickyTableHeader({ children, columns, top }) {
 StickyTableHeader.propTypes = {
   children: PropTypes.node,
   columns: PropTypes.string,
-  top: PropTypes.string,
+  top: PropTypes.string.isRequired,
 };
 
 StickyTableHeader.defaultProps = {

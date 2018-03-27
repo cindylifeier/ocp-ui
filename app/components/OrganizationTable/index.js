@@ -28,14 +28,14 @@ const tableColumns = 'repeat(5, 1fr) 50px';
 const ENTER_KEY = 'Enter';
 
 function OrganizationTable(props) {
-  const { organizationData, onRowClick } = props;
+  const { organizationData, onRowClick, relativeTop } = props;
   return (
     <div>
       {organizationData.loading && <RefreshIndicatorLoading />}
       {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
           ? <div>
             <Table>
-              <StickyTableHeader columns={tableColumns} top="30px">
+              <StickyTableHeader columns={tableColumns} top={`${relativeTop}px`}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
@@ -122,6 +122,7 @@ function OrganizationTable(props) {
 }
 
 OrganizationTable.propTypes = {
+  relativeTop: PropTypes.string.isRequired,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
