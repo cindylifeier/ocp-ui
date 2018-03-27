@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import Padding from 'components/Padding';
 
 function TodoList(props) {
-  const { todos, taskBaseUrl, patientId } = props;
+  const { todos, taskBaseUrl, patientId, isPatient } = props;
   return (
     <div>
       <Padding top={'10px'} right={'10px'} bottom={'10px'} left={'10px'}>
@@ -24,6 +24,7 @@ function TodoList(props) {
                 description={todo.description}
                 todoLogicalId={todo.logicalId}
                 patientId={patientId}
+                isPatient={isPatient}
                 status={todo.taskDue}
                 dueDate={todo.executionPeriod && todo.executionPeriod.end ? todo.executionPeriod.end : ''}
                 patientName={todo.beneficiary.display}
@@ -43,6 +44,7 @@ TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
   patientId: PropTypes.string,
   taskBaseUrl: PropTypes.string.isRequired,
+  isPatient: PropTypes.bool,
 };
 
 export default TodoList;

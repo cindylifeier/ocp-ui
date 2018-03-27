@@ -59,16 +59,17 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     const { todos, selectedPatient, loading, todoMainTask } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
+    const isPatient = (selectedPatient && selectedPatient.id);
     const todoMainTaskId = this.getTodoMainTaskId(todoMainTask);
     let CREATE_TODO_URL = '';
     if (patientId && todoMainTaskId) {
       CREATE_TODO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${todoMainTaskId}`;
     }
     const taskBaseUrl = MANAGE_TASK_URL;
-    const addNewItem = {
+    const addNewItem = isPatient ? {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_TODO_URL,
-    };
+    } : undefined;
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
@@ -82,6 +83,7 @@ export class Todos extends React.PureComponent { // eslint-disable-line react/pr
           <TodoList
             todos={todos}
             patientId={patientId}
+            isPatient={isPatient}
             taskBaseUrl={taskBaseUrl}
             todoMainTaskLogicalId={todoMainTaskId}
           />
@@ -97,7 +99,7 @@ Todos.propTypes = {
   getTodos: PropTypes.func.isRequired,
   getTodoMainTask: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object,
-  todoMainTask: PropTypes.object,
+  todoMainTask: PropTypes.array,
   user: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };

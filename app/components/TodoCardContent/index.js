@@ -29,9 +29,10 @@ function TodoCardContent(props) {
     todoLogicalId,
     taskBaseUrl,
     patientId,
+    isPatient,
   } = props;
   const dueDateStr = 'Due '.concat(dueDate);
-  const patientNameStr = patientId ? patientName : '';
+  const patientNameStr = !isPatient ? patientName : '';
   const editTodoUrl = `${taskBaseUrl}/${todoLogicalId}?patientId=${patientId}&isMainTask=false`;
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
@@ -59,7 +60,7 @@ function TodoCardContent(props) {
               {getStatusWithIcon(status)}
             </Cell>
             <Cell>
-              { patientId &&
+              { isPatient &&
                 <Align variant="right">
                   <a href={editTodoUrl}>Manage</a>
                 </Align>
@@ -81,6 +82,7 @@ TodoCardContent.propTypes = {
   description: PropTypes.string.isRequired,
   todoLogicalId: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,
+  isPatient: PropTypes.bool,
 };
 
 export default TodoCardContent;
