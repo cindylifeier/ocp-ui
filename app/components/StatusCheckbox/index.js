@@ -7,15 +7,6 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import StyledCheckbox from 'components/StyledCheckbox';
 
-const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  checkbox: {
-    marginBottom: 300,
-  },
-};
-
 function StatusCheckbox(props) {
   return (
     <span>
@@ -27,7 +18,6 @@ function StatusCheckbox(props) {
             id={props.elementId}
             onCheck={props.handleCheck}
             checked={props.checked}
-            style={styles.checkbox}
           />
         )}
       </FormattedMessage>
