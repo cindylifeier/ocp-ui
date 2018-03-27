@@ -41,10 +41,10 @@ export function getToDoMainTask(patientId, definition) {
   };
 }
 
-export function getToDoMainTaskSuccess(todoMainTask) {
+export function getToDoMainTaskSuccess(toDoMainTask) {
   return {
     type: GET_TO_DO_MAIN_TASK_SUCCESS,
-    todoMainTask,
+    toDoMainTask,
   };
 }
 
