@@ -11,17 +11,20 @@ import TableHeaderGrid from './TableHeaderGrid';
 
 function TableHeader(props) {
   const { sticky, children, columns, relativeTop } = props;
-  let renderContent = (
-    <TableHeaderGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
-      {children}
-    </TableHeaderGrid>
-  );
+
+  function renderTableHeader() {
+    return (
+      <TableHeaderGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
+        {children}
+      </TableHeaderGrid>
+    );
+  }
+
+  let renderContent = renderTableHeader();
   if (sticky) {
     renderContent = (
       <StickyDiv top={`${relativeTop}px`}>
-        <TableHeaderGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
-          {children}
-        </TableHeaderGrid>
+        {renderTableHeader()}
       </StickyDiv>
     );
   }
