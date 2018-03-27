@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import GoldenLayout from 'components/GoldenLayout';
 import renderPatientsComponent from 'containers/Patients/render';
 import renderLocationsComponent from 'containers/Locations/render';
-import renderTodosComponent from 'containers/Todos/render';
+import renderToDosComponent from 'containers/ToDos/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
@@ -38,9 +38,9 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
       text: 'APPOINTMENTS',
       factoryMethod: renderUpcomingAppointmentsComponent,
     },
-    { name: 'todos',
+    { name: 'toDos',
       text: 'MY TO DO',
-      factoryMethod: renderTodosComponent,
+      factoryMethod: renderToDosComponent,
     },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderNotFound },
   ];
@@ -200,7 +200,7 @@ export class PractitionerWorkspacePage extends React.PureComponent { // eslint-d
           content: [{
             title: 'MY TO DO',
             type: 'component',
-            componentName: 'todos',
+            componentName: 'toDos',
             isClosable: true,
             reorderEnabled: true,
           },

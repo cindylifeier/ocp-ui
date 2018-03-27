@@ -17,7 +17,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasks from 'containers/Tasks/render';
-import renderTodosComponent from 'containers/Todos/render';
+import renderToDosComponent from 'containers/ToDos/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import { PATIENT_ROLE_VALUE, PATIENT_WORKSPACE } from 'containers/App/constants';
@@ -91,7 +91,7 @@ export const initialStateMetadata =
           content: [{
             title: 'My To Do',
             type: 'component',
-            componentName: 'todo',
+            componentName: 'toDo',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -211,7 +211,7 @@ function renderEmptyConsentComponent() {
 }
 
 export const componentMetadata = [
-  { name: 'todo', text: 'My to do', factoryMethod: renderTodosComponent },
+  { name: 'toDo', text: 'My to do', factoryMethod: renderToDosComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
