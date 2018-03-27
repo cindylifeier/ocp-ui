@@ -34,7 +34,6 @@ import ManagePractitionerPage from 'containers/ManagePractitionerPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientPage from 'containers/PatientPage';
 import PatientsPage from 'containers/PatientsPage/Loadable';
-import CareCoordinatorPage from 'containers/CareCoordinatorPage';
 import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
 import ManageTaskPage from 'containers/ManageTaskPage';
 import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
@@ -68,7 +67,6 @@ export function App() {
             <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
             <Route path="/ocp-ui/home" component={HomePage} />
             <Route exact path="/ocp-ui/patients" component={PatientsPage} />
-            <Route exact path="/ocp-ui/care-coordinator" component={CareCoordinatorPage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
             <Route path="/ocp-ui/manage-practitioner/:id?" component={ManagePractitionerPage} />

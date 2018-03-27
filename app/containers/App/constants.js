@@ -106,7 +106,6 @@ export const FLAG_CATEGORY = 'FLAG_CATEGORY';
 export const LOGIN_URL = '/ocp-ui/login';
 export const HOME_URL = '/ocp-ui/home';
 export const PATIENTS_URL = '/ocp-ui/patients';
-export const CARE_COORDINATOR_URL = '/ocp-ui/care-coordinator';
 export const MANAGE_PRACTITIONER_URL = '/ocp-ui/manage-practitioner';
 export const MANAGE_ORGANIZATION_URL = '/ocp-ui/manage-organization';
 export const MANAGE_LOCATION_URL = '/ocp-ui/manage-location';

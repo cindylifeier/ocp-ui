@@ -16,7 +16,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 
-import { CARE_COORDINATOR_URL, HOME_URL, PATIENTS_URL } from 'containers/App/constants';
+import { HOME_URL, PATIENTS_URL } from 'containers/App/constants';
 import Logout from 'containers/Logout';
 import StyledBrandImage from 'components/StyledBrandImage';
 import StyledToolbar from 'components/StyledToolbar';
@@ -69,10 +69,6 @@ class PrivateHeader extends React.PureComponent {
           >
             <MenuItem primaryText="Home Page" containerElement={<Link to={HOME_URL} />} />
             <MenuItem primaryText="Patients Page" containerElement={<Link to={PATIENTS_URL} />} />
-            <MenuItem
-              primaryText="Care Coordinator Page"
-              containerElement={<Link to={CARE_COORDINATOR_URL} />}
-            />
           </NavSelectField>
         </ToolbarGroup>
         <ToolbarGroup lastChild>
