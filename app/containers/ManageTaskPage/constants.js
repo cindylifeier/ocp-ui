@@ -44,6 +44,11 @@ export const GET_TASK_SUCCESS = 'ocpui/ManageTaskPage/GET_TASK_SUCCESS';
 export const GET_TASK_ERROR = 'ocpui/ManageTaskPage/GET_TASK_ERROR';
 export const GET_TASK = 'ocpui/ManageTaskPage/GET_TASK ';
 
+
+export const GET_SUB_TASKS_SUCCESS = 'ocpui/ManageTaskPage/GET_SUB_TASKS_SUCCESS';
+export const GET_SUB_TASKS_ERROR = 'ocpui/ManageTaskPage/GET_SUB_TASKS_ERROR';
+export const GET_SUB_TASKS = 'ocpui/ManageTaskPage/GET_SUB_TASKS ';
+
 export const GET_TASKS_BY_PATIENT_SUCCESS = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT_SUCCESS';
 export const GET_TASKS_BY_PATIENT_ERROR = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT_ERROR';
 export const GET_TASKS_BY_PATIENT = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT ';

@@ -10,7 +10,7 @@ const GoldenLayoutContainer = styled.div`
   /* Enable scroll content */
   & .lm_content {
     overflow: auto;
-    background: #f2f2f2;
+    background: #fff;
   }
 
   & .lm_tab {
