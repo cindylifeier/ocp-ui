@@ -136,7 +136,7 @@ ShallowWrapper {
           <Cell__Cell>
             <FilterSection__FilterSection>
               <CheckboxFilterGrid
-                columns="60px repeat(1,120px) 180px 1fr"
+                columns="100px repeat(1,110px) 180px 1fr"
               >
                 <Cell__Cell>
                   <styled.div>
@@ -256,7 +256,7 @@ ShallowWrapper {
             <Cell__Cell>
               <FilterSection__FilterSection>
                 <CheckboxFilterGrid
-                  columns="60px repeat(1,120px) 180px 1fr"
+                  columns="100px repeat(1,110px) 180px 1fr"
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -454,7 +454,7 @@ ShallowWrapper {
             "props": Object {
               "children": <FilterSection__FilterSection>
                 <CheckboxFilterGrid
-                  columns="60px repeat(1,120px) 180px 1fr"
+                  columns="100px repeat(1,110px) 180px 1fr"
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -499,7 +499,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <CheckboxFilterGrid
-                  columns="60px repeat(1,120px) 180px 1fr"
+                  columns="100px repeat(1,110px) 180px 1fr"
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -579,7 +579,7 @@ ShallowWrapper {
                       </Cell__Cell>,
                     ],
                   ],
-                  "columns": "60px repeat(1,120px) 180px 1fr",
+                  "columns": "100px repeat(1,110px) 180px 1fr",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -894,7 +894,7 @@ ShallowWrapper {
             <Cell__Cell>
               <FilterSection__FilterSection>
                 <CheckboxFilterGrid
-                  columns="60px repeat(1,120px) 180px 1fr"
+                  columns="100px repeat(1,110px) 180px 1fr"
                 >
                   <Cell__Cell>
                     <styled.div>
@@ -1014,7 +1014,7 @@ ShallowWrapper {
               <Cell__Cell>
                 <FilterSection__FilterSection>
                   <CheckboxFilterGrid
-                    columns="60px repeat(1,120px) 180px 1fr"
+                    columns="100px repeat(1,110px) 180px 1fr"
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1212,7 +1212,7 @@ ShallowWrapper {
               "props": Object {
                 "children": <FilterSection__FilterSection>
                   <CheckboxFilterGrid
-                    columns="60px repeat(1,120px) 180px 1fr"
+                    columns="100px repeat(1,110px) 180px 1fr"
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1257,7 +1257,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": <CheckboxFilterGrid
-                    columns="60px repeat(1,120px) 180px 1fr"
+                    columns="100px repeat(1,110px) 180px 1fr"
                   >
                     <Cell__Cell>
                       <styled.div>
@@ -1337,7 +1337,7 @@ ShallowWrapper {
                         </Cell__Cell>,
                       ],
                     ],
-                    "columns": "60px repeat(1,120px) 180px 1fr",
+                    "columns": "100px repeat(1,110px) 180px 1fr",
                   },
                   "ref": null,
                   "rendered": Array [
