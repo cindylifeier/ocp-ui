@@ -45,6 +45,7 @@ export class Patients extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      relativeTop: 0,
       currentPage: 1,
       patient: null,
       isPatientModalOpen: false,
@@ -52,9 +53,9 @@ export class Patients extends React.PureComponent {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handlePatientClick = this.handlePatientClick.bind(this);
-
     this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +72,10 @@ export class Patients extends React.PureComponent {
     if (!isEqual(patient, newPatient) && !this.props.currentPage) {
       this.props.initializePatients([newPatient]);
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
   }
 
   handlePatientClick(patient) {
@@ -112,9 +117,10 @@ export class Patients extends React.PureComponent {
     } : undefined;
     return (
       <Card>
-        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} />
+        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} onSize={this.onSize} />
         <PatientSearchResult
           {...searchResultProps}
+          relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />
