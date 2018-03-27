@@ -81,7 +81,7 @@ export class ToDos extends React.PureComponent { // eslint-disable-line react/pr
         {!isEmpty(toDos) &&
         <div>
           <ToDoList
-            todos={toDos}
+            toDos={toDos}
             patientId={patientId}
             isPatient={isPatient}
             taskBaseUrl={taskBaseUrl}
