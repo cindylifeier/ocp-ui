@@ -18,6 +18,7 @@ import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import { white } from 'material-ui/styles/colors';
 import isUndefined from 'lodash/isUndefined';
+import sizeMe from 'react-sizeme';
 
 import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
@@ -156,4 +157,11 @@ PanelToolbar.defaultProps = {
   showFilter: true,
 };
 
-export default PanelToolbar;
+
+// Create the config for SizeMe
+const config = { monitorHeight: true };
+
+// Call SizeMe with the config to get back the HOC.
+const sizeMeHOC = sizeMe(config);
+
+export default sizeMeHOC(PanelToolbar);

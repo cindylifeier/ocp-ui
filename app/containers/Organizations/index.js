@@ -30,6 +30,7 @@ import { flattenOrganizationData } from './helpers';
 
 export class Organizations extends React.PureComponent {
   static initalState = {
+    relativeTop: 0,
     isShowSearchResult: false,
     listOrganizations: {
       currentPage: 1,
@@ -51,6 +52,7 @@ export class Organizations extends React.PureComponent {
     this.handleRowClick = this.handleRowClick.bind(this);
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +72,10 @@ export class Organizations extends React.PureComponent {
       this.props.initializeOrganizations([newOrganization]);
       this.setState({ ...Organizations.initalState });
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -121,9 +127,14 @@ export class Organizations extends React.PureComponent {
     }
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          onSearch={this.handleSearch}
+          onSize={this.onSize}
+        />
         <InfoSection margin="0 0 10px 0">
           <OrganizationTable
+            relativeTop={this.state.relativeTop}
             organizationData={organizationData}
             onRowClick={this.handleRowClick}
             flattenOrganizationData={flattenOrganizationData}
