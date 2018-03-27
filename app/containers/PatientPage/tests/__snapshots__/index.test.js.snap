@@ -97,7 +97,7 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "todos",
+                    "name": "toDos",
                     "text": "MY TO DO",
                   },
                   Object {
@@ -122,7 +122,7 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "todos",
+                                      "componentName": "toDos",
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "MY TO DO",
@@ -359,7 +359,7 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "todos",
+                      "name": "toDos",
                       "text": "MY TO DO",
                     },
                     Object {
@@ -384,7 +384,7 @@ ShallowWrapper {
                                     "activeItemIndex": 0,
                                     "content": Array [
                                       Object {
-                                        "componentName": "todos",
+                                        "componentName": "toDos",
                                         "isClosable": true,
                                         "reorderEnabled": true,
                                         "title": "MY TO DO",
@@ -600,7 +600,7 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "todos",
+                      "name": "toDos",
                       "text": "MY TO DO",
                     },
                     Object {
@@ -625,7 +625,7 @@ ShallowWrapper {
                                     "activeItemIndex": 0,
                                     "content": Array [
                                       Object {
-                                        "componentName": "todos",
+                                        "componentName": "toDos",
                                         "isClosable": true,
                                         "reorderEnabled": true,
                                         "title": "MY TO DO",
@@ -796,7 +796,7 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "todos",
+                    "name": "toDos",
                     "text": "MY TO DO",
                   },
                   Object {
@@ -819,7 +819,7 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "todos",
+                                      "componentName": "toDos",
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "MY TO DO",
@@ -1032,7 +1032,7 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "todos",
+                      "name": "toDos",
                       "text": "MY TO DO",
                     },
                     Object {
@@ -1057,7 +1057,7 @@ ShallowWrapper {
                                     "activeItemIndex": 0,
                                     "content": Array [
                                       Object {
-                                        "componentName": "todos",
+                                        "componentName": "toDos",
                                         "isClosable": true,
                                         "reorderEnabled": true,
                                         "title": "MY TO DO",
@@ -1294,7 +1294,7 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "todos",
+                        "name": "toDos",
                         "text": "MY TO DO",
                       },
                       Object {
@@ -1319,7 +1319,7 @@ ShallowWrapper {
                                       "activeItemIndex": 0,
                                       "content": Array [
                                         Object {
-                                          "componentName": "todos",
+                                          "componentName": "toDos",
                                           "isClosable": true,
                                           "reorderEnabled": true,
                                           "title": "MY TO DO",
@@ -1535,7 +1535,7 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "todos",
+                        "name": "toDos",
                         "text": "MY TO DO",
                       },
                       Object {
@@ -1560,7 +1560,7 @@ ShallowWrapper {
                                       "activeItemIndex": 0,
                                       "content": Array [
                                         Object {
-                                          "componentName": "todos",
+                                          "componentName": "toDos",
                                           "isClosable": true,
                                           "reorderEnabled": true,
                                           "title": "MY TO DO",
@@ -1731,7 +1731,7 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "todos",
+                      "name": "toDos",
                       "text": "MY TO DO",
                     },
                     Object {
@@ -1754,7 +1754,7 @@ ShallowWrapper {
                                     "activeItemIndex": 0,
                                     "content": Array [
                                       Object {
-                                        "componentName": "todos",
+                                        "componentName": "toDos",
                                         "isClosable": true,
                                         "reorderEnabled": true,
                                         "title": "MY TO DO",
