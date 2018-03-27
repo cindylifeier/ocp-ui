@@ -6,7 +6,7 @@ describe('todosReducer', () => {
   it('returns the initial state', () => {
     expect(todosReducer(undefined, {})).toEqual(fromJS({
       data: [],
-      todoMainTask: {},
+      todoMainTask: [],
       loading: false,
     }));
   });
