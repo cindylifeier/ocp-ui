@@ -18,7 +18,7 @@ import { Cell } from 'styled-css-grid';
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Card from 'components/Card';
+import { PanelToolbar } from 'components/PanelToolbar';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -85,7 +85,11 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
   render() {
     const { loading, healthcareServices, organization, location } = this.props;
     return (
-      <Card>
+      <div>
+        <PanelToolbar
+          onSearch={null}
+          showFilter={false}
+        />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
@@ -151,7 +155,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
           />
         </div>
         }
-      </Card>
+      </div>
     );
   }
 }
