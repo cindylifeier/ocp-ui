@@ -13,13 +13,24 @@ const selectPatientToDosDomain = (state) => state.get('patientToDos');
 /**
  * Default selector used by PatientToDos
  */
-
 const makeSelectPatientToDos = () => createSelector(
   selectPatientToDosDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS()
 );
 
-export default makeSelectPatientToDos;
-export {
+const makeSelectPatientToDoMainTask = () => createSelector(
   selectPatientToDosDomain,
+  (substate) => substate.get('toDoMainTask').toJS()
+);
+
+
+const makeSelectSearchLoading = () => createSelector(
+  selectPatientToDosDomain,
+  (substate) => substate.get('loading'),
+);
+
+export {
+  makeSelectPatientToDos,
+  makeSelectPatientToDoMainTask,
+  makeSelectSearchLoading,
 };
