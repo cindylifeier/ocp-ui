@@ -23,7 +23,6 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { DATE_PICKER_MODE } from 'containers/App/constants';
 import messages from './messages';
 import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
@@ -133,7 +132,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
             <DatePicker
               fullWidth
               name="effectiveStart"
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               minDate={today}
               hintText={<FormattedMessage {...messages.hintText.effectiveStart} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveStart} />}
@@ -144,7 +143,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
               fullWidth
               name="effectiveEnd"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.effectiveEnd} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveEnd} />}
             />

@@ -5,23 +5,18 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { ToolbarGroup } from 'material-ui/Toolbar';
 import AccountBox from 'material-ui/svg-icons/action/account-box';
 import Notifications from 'material-ui/svg-icons/social/notifications';
 import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
-
-import { PATIENTS_URL } from 'containers/App/constants';
 import Logout from 'containers/Logout';
 import StyledBrandImage from 'components/StyledBrandImage';
 import StyledToolbar from 'components/StyledToolbar';
 import brandImg from 'images/omnibus-care-plan-logo.png';
-import NavSelectField from './NavSelectField';
 import messages from './messages';
 
 
@@ -51,7 +46,6 @@ class PrivateHeader extends React.PureComponent {
     this.setState({ isOpen: false });
   }
 
-  // Todo: temporary navigation for development use and will remove it
   render() {
     return (
       <StyledToolbar
@@ -60,15 +54,6 @@ class PrivateHeader extends React.PureComponent {
       >
         <ToolbarGroup firstChild>
           <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <NavSelectField
-            value={null}
-            floatingLabelText="For Developer Temporary Navigation Use Only"
-            floatingLabelStyle={{ color: 'red' }}
-          >
-            <MenuItem primaryText="Patients Page" containerElement={<Link to={PATIENTS_URL} />} />
-          </NavSelectField>
         </ToolbarGroup>
         <ToolbarGroup lastChild>
           <Notifications viewBox="-2 -2 25 25" />

@@ -101,6 +101,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   render() {
     const {
       match,
+      history,
       patient,
       selectedCareTeam,
       careTeamCategories,
@@ -117,6 +118,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       initialSelectedParticipants = mapToEditParticipants(careTeam.participants);
     }
     const manageCareTeamProps = {
+      history,
       patient,
       careTeam,
       editMode,
@@ -160,6 +162,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
 ManageCareTeamPage.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   patient: PropTypes.object,
   selectedCareTeam: PropTypes.object,
   getCareTeam: PropTypes.func.isRequired,

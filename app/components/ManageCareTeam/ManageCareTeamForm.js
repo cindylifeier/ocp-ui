@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
@@ -19,7 +18,6 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import SelectedParticipants from './SelectedParticipants';
 import messages from './messages';
 import ManageCareTeamFormGrid from './ManageCareTeamFormGrid';
@@ -27,6 +25,7 @@ import ManageCareTeamFormGrid from './ManageCareTeamFormGrid';
 function ManageCareTeamForm(props) {
   const today = new Date();
   const {
+    history,
     isSubmitting,
     dirty,
     isValid,
@@ -123,7 +122,7 @@ function ManageCareTeamForm(props) {
               fullWidth
               name="startDate"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.startDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
             />
@@ -133,7 +132,7 @@ function ManageCareTeamForm(props) {
               fullWidth
               name="endDate"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.endDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
             />
@@ -174,7 +173,7 @@ function ManageCareTeamForm(props) {
                   label="Cancel"
                   default
                   disabled={isSubmitting}
-                  containerElement={<Link to={PATIENTS_URL} />}
+                  onClick={history.goBack}
                 />
               </Cell>
             </Grid>
@@ -186,6 +185,9 @@ function ManageCareTeamForm(props) {
 }
 
 ManageCareTeamForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
