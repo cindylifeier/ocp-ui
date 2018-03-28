@@ -17,7 +17,7 @@ import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
 import AddedTelecomsTable from './AddedTelecomsTable';
 import messages from './messages';
 
-class AddMultipleTelecoms extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class AddMultipleTelecoms extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

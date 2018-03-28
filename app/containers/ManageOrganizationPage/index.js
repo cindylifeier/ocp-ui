@@ -53,7 +53,7 @@ import ManageOrganizationFormCell from './ManageOrganizationFormCell';
 const minimumNumberOfAddresses = 1;
 const minimumNumberOfTelecoms = 1;
 
-export class ManageOrganizationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageOrganizationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static validationSchemaShape = {
     name: yup.string()
       .required((<FormattedMessage {...messages.validation.required} />)),
