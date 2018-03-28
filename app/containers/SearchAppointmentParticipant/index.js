@@ -34,7 +34,6 @@ import AddParticipantDialogIconButton from 'containers/SearchAppointmentParticip
 import { TEXT_MIN_LENGTH } from 'containers/SearchAppointmentParticipant/constants';
 import ParticipantName from 'containers/SearchAppointmentParticipant/ParticipantName';
 import ParticipantSearchContainer from 'containers/SearchAppointmentParticipant/ParticipantSearchContainer';
-import { makeSelectSearchAppointmentParticipantResults } from 'containers/SearchAppointmentParticipant/selectors';
 import { Form, Formik } from 'formik';
 import { uniqueId } from 'lodash';
 import { MenuItem } from 'material-ui';
@@ -54,6 +53,7 @@ import * as yup from 'yup';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectSearchAppointmentParticipantResults } from './selectors';
 
 export class SearchAppointmentParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
