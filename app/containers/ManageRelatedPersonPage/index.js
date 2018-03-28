@@ -43,7 +43,7 @@ import saga from './saga';
 import { createRelatedPerson, updateRelatedPerson } from './actions';
 import messages from './messages';
 
-export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageRelatedPersonPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
@@ -71,6 +71,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
 
   render() {
     const {
+      history,
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
@@ -82,6 +83,7 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
     const relatedPersonId = this.props.match.params.id;
     const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
     const manageRelatedPersonProps = {
+      history,
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
@@ -109,6 +111,9 @@ export class ManageRelatedPersonPage extends React.PureComponent { // eslint-dis
 ManageRelatedPersonPage.propTypes = {
   uspsStates: PropTypes.array,
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   createRelatedPerson: PropTypes.func.isRequired,
   updateRelatedPerson: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,

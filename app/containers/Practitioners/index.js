@@ -26,7 +26,7 @@ import saga from './saga';
 import makeSelectPractitioners from './selectors';
 import messages from './messages';
 
-export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Practitioners extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

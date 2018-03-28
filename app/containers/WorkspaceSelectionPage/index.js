@@ -30,7 +30,7 @@ import {
 } from './selectors';
 import { flattenPatientsData } from './helpers';
 
-export class WorkspaceSelectionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class WorkspaceSelectionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
