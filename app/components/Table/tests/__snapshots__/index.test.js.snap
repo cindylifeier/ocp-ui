@@ -6,7 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Table__Table>
     <TableHeader
-      relativeTop="0"
+      relativeTop={0}
       sticky={true}
     >
       <TableHeaderColumn__TableHeaderColumn>
@@ -33,7 +33,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <TableHeader
-          relativeTop="0"
+          relativeTop={0}
           sticky={true}
         >
           <TableHeaderColumn__TableHeaderColumn>
@@ -58,7 +58,7 @@ ShallowWrapper {
           "children": <TableHeaderColumn__TableHeaderColumn>
             Col
           </TableHeaderColumn__TableHeaderColumn>,
-          "relativeTop": "0",
+          "relativeTop": 0,
           "sticky": true,
         },
         "ref": null,
@@ -109,7 +109,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <TableHeader
-            relativeTop="0"
+            relativeTop={0}
             sticky={true}
           >
             <TableHeaderColumn__TableHeaderColumn>
@@ -134,7 +134,7 @@ ShallowWrapper {
             "children": <TableHeaderColumn__TableHeaderColumn>
               Col
             </TableHeaderColumn__TableHeaderColumn>,
-            "relativeTop": "0",
+            "relativeTop": 0,
             "sticky": true,
           },
           "ref": null,
