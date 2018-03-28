@@ -66,8 +66,8 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
-    this.onPanelResize = this.onPanelResize.bind(this);
-    this.onFilterResize = this.onFilterResize.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
@@ -88,11 +88,11 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     }
   }
 
-  onPanelResize(size) {
+  handlePanelResize(size) {
     this.setState({ panelHeight: size.height });
   }
 
-  onFilterResize(size) {
+  handleFilterResize(size) {
     this.setState({ filterHeight: size.height });
   }
 
@@ -166,7 +166,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
   renderTable() {
     return (
       <div>
-        <SizedStickyDiv onSize={this.onFilterResize} top={`${this.state.panelHeight}px`}>
+        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
           <InfoSection margin="0px">
             <div>
               The <FormattedMessage {...messages.locations} /> for &nbsp;
@@ -252,7 +252,7 @@ export class Locations extends React.PureComponent { // eslint-disable-line reac
     };
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} showSearchIcon={false} onSize={this.onPanelResize} />
+        <PanelToolbar addNewItem={addNewItem} showSearchIcon={false} onSize={this.handlePanelResize} />
         {this.renderLocationTable()}
       </Card>);
   }

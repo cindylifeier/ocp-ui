@@ -58,8 +58,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
-    this.onPanelResize = this.onPanelResize.bind(this);
-    this.onFilterResize = this.onFilterResize.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
@@ -80,11 +80,11 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     }
   }
 
-  onPanelResize(size) {
+  handlePanelResize(size) {
     this.setState({ panelHeight: size.height });
   }
 
-  onFilterResize(size) {
+  handleFilterResize(size) {
     this.setState({ filterHeight: size.height });
   }
 
@@ -100,11 +100,11 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     const { loading, healthcareServices, organization, location } = this.props;
     return (
       <Card>
-        <PanelToolbar showSearchIcon={false} onSize={this.onPanelResize} />
+        <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-        <SizedStickyDiv onSize={this.onFilterResize} top={`${this.state.panelHeight}px`}>
+        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
           {!isEmpty(organization) &&
           <InfoSection margin="0px">
             The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
