@@ -16,7 +16,7 @@ import makeSelectNotification from './selectors';
 import reducer from './reducer';
 import { resetNotification } from './actions';
 
-export class Notification extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Notification extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     const { notification: { open, message } } = this.props;

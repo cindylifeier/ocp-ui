@@ -51,7 +51,7 @@ import saga from './saga';
 import messages from './messages';
 import { getActiveLocations, getFilteredLocations, initializeLocations } from './actions';
 
-export class Locations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
 
   constructor(props) {

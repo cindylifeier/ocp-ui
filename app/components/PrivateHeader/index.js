@@ -20,7 +20,7 @@ import brandImg from 'images/omnibus-care-plan-logo.png';
 import messages from './messages';
 
 
-class PrivateHeader extends React.PureComponent {
+class PrivateHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

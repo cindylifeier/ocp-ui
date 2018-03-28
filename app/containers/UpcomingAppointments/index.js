@@ -43,7 +43,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { makeSelectShowPastAppointments, makeSelectUpcomingAppointments } from './selectors';
 
-export class UpcomingAppointments extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class UpcomingAppointments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);

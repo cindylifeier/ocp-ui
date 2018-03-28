@@ -26,7 +26,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import messages from './messages';
 import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
-class ManageActivityDefinitionForm extends React.PureComponent {
+class ManageActivityDefinitionForm extends React.Component {
 
   static initialState = {
     artifactsDialogOpen: false,

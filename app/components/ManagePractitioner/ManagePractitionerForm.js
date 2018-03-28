@@ -32,7 +32,7 @@ import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';
 
 
-class ManagePractitionerForm extends React.PureComponent {
+class ManagePractitionerForm extends React.Component {
 
   static initialState = {
     searchOrganizationDialogOpen: false,

@@ -18,7 +18,7 @@ import messages from './messages';
 import AddFlagForm from './AddFlagForm';
 import AddedFlagsTable from './AddedFlagsTable';
 
-class AddFlags extends React.PureComponent {
+class AddFlags extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
