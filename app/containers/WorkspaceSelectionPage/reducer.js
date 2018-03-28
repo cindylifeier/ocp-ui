@@ -9,8 +9,8 @@ import {
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS_SUCCESS,
   GET_ORGANIZATIONS_SUCCESS,
-  GET_PATIENTS_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
+  SEARCH_PATIENT_SUCCESS,
 } from 'containers/WorkspaceSelectionPage/constants';
 
 const initialState = fromJS({
@@ -26,8 +26,10 @@ const initialState = fromJS({
   careCoordinators: {
     data: [],
   },
-  patients: {
-    data: [],
+  searchPatient: {
+    result: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
   },
 });
 
@@ -45,9 +47,13 @@ function workspaceSelectionPageReducer(state = initialState, action) {
     case GET_CARE_COORDINATORS_SUCCESS:
       return state
         .setIn(['careCoordinators', 'data'], fromJS(action.careCoordinators.elements));
-    case GET_PATIENTS_SUCCESS:
+    case SEARCH_PATIENT_SUCCESS:
       return state
-        .setIn(['patients', 'data'], fromJS(action.patients.elements));
+        .setIn(['searchPatient', 'result'], fromJS(action.patients.elements))
+        .setIn(['searchPatient', 'totalElements'], action.patients.totalElements)
+        .setIn(['searchPatient', 'currentPageSize'], action.patients.currentPageSize)
+        .setIn(['searchPatient', 'totalNumberOfPages'], action.patients.totalNumberOfPages)
+        .setIn(['searchPatient', 'currentPage'], action.patients.currentPage);
     default:
       return state;
   }
