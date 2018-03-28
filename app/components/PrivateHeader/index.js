@@ -16,7 +16,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 
-import { HOME_URL, PATIENTS_URL } from 'containers/App/constants';
+import { PATIENTS_URL } from 'containers/App/constants';
 import Logout from 'containers/Logout';
 import StyledBrandImage from 'components/StyledBrandImage';
 import StyledToolbar from 'components/StyledToolbar';
@@ -67,7 +67,6 @@ class PrivateHeader extends React.PureComponent {
             floatingLabelText="For Developer Temporary Navigation Use Only"
             floatingLabelStyle={{ color: 'red' }}
           >
-            <MenuItem primaryText="Home Page" containerElement={<Link to={HOME_URL} />} />
             <MenuItem primaryText="Patients Page" containerElement={<Link to={PATIENTS_URL} />} />
           </NavSelectField>
         </ToolbarGroup>

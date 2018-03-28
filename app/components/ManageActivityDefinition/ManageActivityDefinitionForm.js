@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
@@ -24,7 +23,7 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ErrorText from 'components/ErrorText';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { DATE_PICKER_MODE, HOME_URL } from 'containers/App/constants';
+import { DATE_PICKER_MODE } from 'containers/App/constants';
 import messages from './messages';
 import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
@@ -62,6 +61,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
 
   render() {
     const {
+      history,
       organization,
       publicationStatuses,
       definitionTopics,
@@ -302,7 +302,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
                   label="Cancel"
                   default
                   disabled={isSubmitting}
-                  containerElement={<Link to={HOME_URL} />}
+                  onClick={history.goBack}
                 />
               </Cell>
             </Grid>
@@ -315,6 +315,9 @@ class ManageActivityDefinitionForm extends React.PureComponent {
 }
 
 ManageActivityDefinitionForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   organization: PropTypes.object.isRequired,
   publicationStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,

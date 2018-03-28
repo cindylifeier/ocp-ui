@@ -22,7 +22,6 @@ import WorkspaceSelectionPage from 'containers/WorkspaceSelectionPage';
 import AdminWorkspacePage from 'containers/AdminWorkspacePage';
 import PractitionerWorkspacePage from 'containers/PractitionerWorkspacePage';
 import PatientWorkspacePage from 'containers/PatientWorkspacePage';
-import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import ManageAppointmentPage from 'containers/ManageAppointmentPage';
 import ManageCareTeamPage from 'containers/ManageCareTeamPage';
@@ -65,7 +64,6 @@ export function App() {
             <Route path="/ocp-ui/admin-workspace" component={AdminWorkspacePage} />
             <Route path="/ocp-ui/practitioner-workspace" component={PractitionerWorkspacePage} />
             <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
-            <Route path="/ocp-ui/home" component={HomePage} />
             <Route exact path="/ocp-ui/patients" component={PatientsPage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
