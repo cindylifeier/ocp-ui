@@ -11,10 +11,10 @@ import {
   GET_CARE_MANAGERS_SUCCESS,
   GET_ORGANIZATIONS,
   GET_ORGANIZATIONS_SUCCESS,
-  GET_PATIENTS,
-  GET_PATIENTS_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
+  SEARCH_PATIENT,
+  SEARCH_PATIENT_SUCCESS,
 } from './constants';
 
 export function getWorkflowRoles() {
@@ -73,15 +73,19 @@ export function getCareCoordinatorsSuccess(careCoordinators) {
   };
 }
 
-export function getPatients() {
+export function searchPatient(searchType, searchValue, includeInactive, currentPage) {
   return {
-    type: GET_PATIENTS,
+    type: SEARCH_PATIENT,
+    searchType,
+    searchValue,
+    includeInactive,
+    currentPage,
   };
 }
 
-export function getPatientsSuccess(patients) {
+export function searchPatientSuccess(patients) {
   return {
-    type: GET_PATIENTS_SUCCESS,
+    type: SEARCH_PATIENT_SUCCESS,
     patients,
   };
 }

@@ -17,8 +17,8 @@ export const GET_CARE_MANAGERS = 'ocpui/WorkspaceSelectionPage/GET_CARE_MANAGERS
 export const GET_CARE_MANAGERS_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_CARE_MANAGERS_SUCCESS';
 export const GET_CARE_COORDINATORS = 'ocpui/WorkspaceSelectionPage/GET_CARE_COORDINATORS';
 export const GET_CARE_COORDINATORS_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_CARE_COORDINATORS_SUCCESS';
-export const GET_PATIENTS = 'ocpui/WorkspaceSelectionPage/GET_PATIENTS';
-export const GET_PATIENTS_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_PATIENTS_SUCCESS';
+export const SEARCH_PATIENT = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENT';
+export const SEARCH_PATIENT_SUCCESS = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENT_SUCCESS';
 
 
 /**
