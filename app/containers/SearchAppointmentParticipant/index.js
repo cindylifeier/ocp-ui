@@ -38,7 +38,7 @@ import ParticipantSearchContainer from 'containers/SearchAppointmentParticipant/
 import { Form, Formik } from 'formik';
 import { uniqueId } from 'lodash';
 import { MenuItem } from 'material-ui';
-import { ActionSearch } from 'material-ui/svg-icons/action/search';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
