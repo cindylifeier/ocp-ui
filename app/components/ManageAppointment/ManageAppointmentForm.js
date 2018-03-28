@@ -120,7 +120,6 @@ function ManageAppointmentForm(props) {
             <StyledRaisedButton
               fullWidth
               onClick={handleOpen}
-              disabled
               label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
             />
           </Cell>
