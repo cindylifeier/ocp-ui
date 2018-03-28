@@ -29,18 +29,20 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import PanelToolbar from 'components/PanelToolbar';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { getHealthcareServices, initializeHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
   makeSelectHealthcareServices,
   makeSelectIncludeInactive,
   makeSelectQueryError,
   makeSelectQueryLoading,
-  makeSelectTotalNumberOfPages,
   makeSelectTotalElements,
-  makeSelectCurrentPageSize,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -51,9 +53,13 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     super(props);
     this.state = {
       currentPage: 1,
+      panelHeight: 0,
+      filterHeight: 0,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.onPanelResize = this.onPanelResize.bind(this);
+    this.onFilterResize = this.onFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
@@ -74,6 +80,14 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     }
   }
 
+  onPanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  onFilterResize(size) {
+    this.setState({ filterHeight: size.height });
+  }
+
   handlePageClick(currentPage) {
     this.props.getHealthcareServices(currentPage, this.props.includeInactive);
   }
@@ -86,26 +100,27 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     const { loading, healthcareServices, organization, location } = this.props;
     return (
       <Card>
+        <PanelToolbar showSearchIcon={false} onSize={this.onPanelResize} />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-        {!isEmpty(organization) &&
-        <InfoSection>
-          The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
-          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-            <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
-          </InlineLabel>
-          {!isEmpty(location) &&
-          <span>
-            at the&nbsp;
-            <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
-              <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
+        <SizedStickyDiv onSize={this.onFilterResize} top={`${this.state.panelHeight}px`}>
+          {!isEmpty(organization) &&
+          <InfoSection margin="0px">
+            The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
             </InlineLabel>
-          </span>}
-          are :
-        </InfoSection>}
-        {!isEmpty(organization) && isEmpty(location) &&
-        <div>
+            {!isEmpty(location) &&
+            <span>
+              at the&nbsp;
+              <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+                <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
+              </InlineLabel>
+            </span>}
+            are :
+          </InfoSection>}
+          {!isEmpty(organization) && isEmpty(location) &&
           <FilterSection>
             <CheckboxFilterGrid>
               <Cell>
@@ -121,8 +136,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
               </Cell>
             </CheckboxFilterGrid>
           </FilterSection>
-        </div>
-        }
+          }
+        </SizedStickyDiv>
 
         {loading &&
         <RefreshIndicatorLoading />}
@@ -136,7 +151,10 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
         <div>
           <CenterAlign>
-            <HealthcareServiceTable elements={healthcareServices} />
+            <HealthcareServiceTable
+              elements={healthcareServices}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+            />
           </CenterAlign>
           <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
