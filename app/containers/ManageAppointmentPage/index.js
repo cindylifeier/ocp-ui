@@ -101,6 +101,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
   render() {
     const {
       match,
+      history,
       patient,
       appointmentStatuses,
       appointmentTypes,
@@ -110,6 +111,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     const appointment = null;
     const initialSelectedParticipants = [];
     const manageAppointmentProps = {
+      history,
       patient,
       appointment,
       editMode,
@@ -153,6 +155,9 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
 
 ManageAppointmentPage.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,

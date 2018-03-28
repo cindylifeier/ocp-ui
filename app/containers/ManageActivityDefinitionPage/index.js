@@ -58,6 +58,7 @@ export class ManageActivityDefinitionPage extends React.Component { // eslint-di
 
   render() {
     const {
+      history,
       publicationStatuses,
       definitionTopics,
       resourceTypes,
@@ -67,6 +68,7 @@ export class ManageActivityDefinitionPage extends React.Component { // eslint-di
       organization,
     } = this.props;
     const activityDefinitionProps = {
+      history,
       publicationStatuses,
       definitionTopics,
       resourceTypes,
@@ -91,6 +93,9 @@ export class ManageActivityDefinitionPage extends React.Component { // eslint-di
 }
 
 ManageActivityDefinitionPage.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   publicationStatuses: PropTypes.array,
   definitionTopics: PropTypes.array,

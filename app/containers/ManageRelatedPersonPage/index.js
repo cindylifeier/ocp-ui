@@ -71,6 +71,7 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
 
   render() {
     const {
+      history,
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
@@ -82,6 +83,7 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
     const relatedPersonId = this.props.match.params.id;
     const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
     const manageRelatedPersonProps = {
+      history,
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
@@ -109,6 +111,9 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
 ManageRelatedPersonPage.propTypes = {
   uspsStates: PropTypes.array,
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   createRelatedPerson: PropTypes.func.isRequired,
   updateRelatedPerson: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
