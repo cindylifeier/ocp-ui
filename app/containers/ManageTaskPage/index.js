@@ -25,6 +25,7 @@ import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectToDos } from 'containers/ToDos/selectors';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
@@ -33,6 +34,7 @@ import { createTask, getActivityDefinitions, getEventTypes, getOrganization, get
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { TO_DO_DEFINITION } from './constants';
 
 export class ManageTaskPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -44,26 +46,23 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
   }
 
   componentDidMount() {
+    const { match, location } = this.props;
     this.props.getLookups();
-    const logicalId = this.props.match.params.id;
+    const logicalId = match.params.id;
     if (logicalId) {
       this.props.getTask(logicalId);
-      // get subtasks belonging to main task
+      // get sub tasks belonging to main task
       this.props.getSubTasks(logicalId);
     }
-    const queryObj = queryString.parse(this.props.location.search);
+    const queryObj = queryString.parse(location.search);
     const patientId = queryObj.patientId;
-    // TODO: refresh patient context?
-    // if (patientId) {
-    // this.props.getPatient(patientId);
-    // }
     // get organization for the given practitioner
     this.props.getOrganization(this.state.practitionerId);
     // get practitioner details for the given practitioner
     this.props.getRequester(this.state.practitionerId);
     // get Activity Definitions-for for the given practitioner
     this.props.getActivityDefinitions(this.state.practitionerId);
-    // get practitioners belonging to requestor organization
+    // get practitioners belonging to requester organization
     this.props.getPractitioners(this.state.practitionerId);
 
     // get episode of cares for the given patient
@@ -150,6 +149,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
 
   render() {
     const {
+      tasks,
       match,
       history,
       taskStatus,
@@ -164,16 +164,24 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       requester,
       tasksByPatient,
       subTasks,
+      toDoSubTasks,
     } = this.props;
-    let logicalId = this.props.match.params.id;
+    let logicalId = match.params.id;
     let currentTask = null;
-    const queryObj = queryString.parse(this.props.location.search);
+    const queryObj = queryString.parse(location.search);
     const isMainTask = queryObj.isMainTask === 'true';
-    if (logicalId && this.props.tasks) {
+    let filteredActivityDefinitions = activityDefinitions;
+    if (logicalId && tasks) {
       if (isMainTask) {
-        currentTask = find(this.props.tasks.data, { logicalId });
+        currentTask = find(tasks.data, { logicalId });
+        filteredActivityDefinitions = activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
       } else {
-        currentTask = find(this.props.subTasks, { logicalId });
+        currentTask = find(subTasks, { logicalId });
+        if (currentTask === undefined) {
+          currentTask = find(toDoSubTasks, { logicalId });
+        } else {
+          filteredActivityDefinitions = activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
+        }
       }
     }
     logicalId = queryObj.mainTaskId;
@@ -192,6 +200,8 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
     } else if (!editMode && !isMainTask) {
       titleHeader = <FormattedMessage {...messages.createSubHeader} />;
     }
+
+
     const taskProps = {
       history,
       taskStatus,
@@ -201,7 +211,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       eventTypes,
       patient,
       organization,
-      activityDefinitions,
+      activityDefinitions: filteredActivityDefinitions,
       practitioners,
       requester,
       editMode,
@@ -210,6 +220,7 @@ export class ManageTaskPage extends React.PureComponent { // eslint-disable-line
       isMainTask,
       parentTask,
       subTasks,
+      toDoSubTasks,
     };
 
     return (
@@ -265,6 +276,7 @@ ManageTaskPage.propTypes = {
   requestPriority: PropTypes.array,
   taskPerformerType: PropTypes.array,
   eventTypes: PropTypes.array,
+  toDoSubTasks: PropTypes.array,
   location: PropTypes.object,
   patient: PropTypes.object,
   createTask: PropTypes.func,
@@ -287,6 +299,7 @@ const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
   subTasks: makeSelectSubTasks(),
   tasksByPatient: makeSelectTasksByPatient(),
+  toDoSubTasks: makeSelectToDos(),
 });
 
 function mapDispatchToProps(dispatch) {

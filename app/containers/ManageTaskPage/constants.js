@@ -52,3 +52,5 @@ export const GET_SUB_TASKS = 'ocpui/ManageTaskPage/GET_SUB_TASKS ';
 export const GET_TASKS_BY_PATIENT_SUCCESS = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT_SUCCESS';
 export const GET_TASKS_BY_PATIENT_ERROR = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT_ERROR';
 export const GET_TASKS_BY_PATIENT = 'ocpui/ManageTaskPage/GET_TASKS_BY_PATIENT ';
+
+export const TO_DO_DEFINITION = 'To-Do';
