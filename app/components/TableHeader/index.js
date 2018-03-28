@@ -41,7 +41,7 @@ TableHeader.propTypes = {
 
 TableHeader.defaultProps = {
   sticky: true,
-  relativeTop: '0',
+  relativeTop: 0,
 };
 
 export default TableHeader;
