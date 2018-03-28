@@ -1,8 +1,10 @@
 import request from 'utils/request';
-import { BASE_ORGANIZATIONS_API_URL, BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_ORGANIZATIONS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
 import {
-  CARE_COORDINATOR_ROLE_VALUE, CARE_MANAGER_ROLE_VALUE, OCP_ADMIN_ROLE_VALUE,
+  CARE_COORDINATOR_ROLE_VALUE,
+  CARE_MANAGER_ROLE_VALUE,
+  OCP_ADMIN_ROLE_VALUE,
   PATIENT_ROLE_VALUE,
 } from 'containers/App/constants';
 
@@ -51,7 +53,3 @@ export function getCareCoordinators(role, organization) {
   return request(requestURL);
 }
 
-export function getPatients() {
-  const requestURL = getEndpoint(BASE_PATIENTS_API_URL);
-  return request(requestURL);
-}

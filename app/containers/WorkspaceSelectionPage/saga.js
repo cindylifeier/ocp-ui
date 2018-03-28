@@ -1,20 +1,22 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
+import searchPatients from 'containers/Patients/api';
 import {
   GET_CARE_COORDINATORS,
   GET_CARE_MANAGERS,
   GET_ORGANIZATIONS,
-  GET_PATIENTS,
   GET_WORKFLOW_ROLES,
+  SEARCH_PATIENT,
 } from './constants';
 import {
   getCareCoordinatorsSuccess,
   getCareManagersSuccess,
   getOrganizationsSuccess,
-  getPatientsSuccess,
   getWorkflowRolesSuccess,
+  searchPatientError,
+  searchPatientSuccess,
 } from './actions';
-import { getActiveOrganizations, getCareCoordinators, getCareManagers, getPatients, getWorkflowRoles } from './api';
+import { getActiveOrganizations, getCareCoordinators, getCareManagers, getWorkflowRoles } from './api';
 
 export function* getWorkflowRolesSaga() {
   try {
@@ -52,12 +54,12 @@ export function* getCareCoordinatorsSaga({ role, organization }) {
   }
 }
 
-export function* getPatientsSaga() {
+export function* searchPatientSaga({ searchType, searchValue, includeInactive, currentPage }) {
   try {
-    const patients = yield call(getPatients);
-    yield put(getPatientsSuccess(patients));
+    const patients = yield call(searchPatients, searchType, searchValue, includeInactive, currentPage);
+    yield put(searchPatientSuccess(patients));
   } catch (err) {
-    yield put(showNotification('Failed to get the patients.'));
+    yield put(searchPatientError(err.message));
   }
 }
 
@@ -77,8 +79,8 @@ export function* watchGetCareCoordinatorsSaga() {
   yield takeLatest(GET_CARE_COORDINATORS, getCareCoordinatorsSaga);
 }
 
-export function* watchGetPatientsSaga() {
-  yield takeLatest(GET_PATIENTS, getPatientsSaga);
+export function* watchSearchPatientSaga() {
+  yield takeLatest(SEARCH_PATIENT, searchPatientSaga);
 }
 
 /**
@@ -90,6 +92,6 @@ export default function* rootSaga() {
     watchGetOrganizationsSaga(),
     watchGetCareManagersSaga(),
     watchGetCareCoordinatorsSaga(),
-    watchGetPatientsSaga(),
+    watchSearchPatientSaga(),
   ]);
 }

@@ -15,6 +15,7 @@ import {
   GET_WORKFLOW_ROLES_SUCCESS,
   SEARCH_PATIENT,
   SEARCH_PATIENT_SUCCESS,
+  SEARCH_PATIENT_ERROR,
 } from './constants';
 
 export function getWorkflowRoles() {
@@ -87,5 +88,12 @@ export function searchPatientSuccess(patients) {
   return {
     type: SEARCH_PATIENT_SUCCESS,
     patients,
+  };
+}
+
+export function searchPatientError(error) {
+  return {
+    type: SEARCH_PATIENT_ERROR,
+    error,
   };
 }

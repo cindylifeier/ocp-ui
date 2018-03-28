@@ -10,6 +10,7 @@ import {
   GET_CARE_MANAGERS_SUCCESS,
   GET_ORGANIZATIONS_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
+  SEARCH_PATIENT_ERROR,
   SEARCH_PATIENT_SUCCESS,
 } from 'containers/WorkspaceSelectionPage/constants';
 
@@ -54,6 +55,9 @@ function workspaceSelectionPageReducer(state = initialState, action) {
         .setIn(['searchPatient', 'currentPageSize'], action.patients.currentPageSize)
         .setIn(['searchPatient', 'totalNumberOfPages'], action.patients.totalNumberOfPages)
         .setIn(['searchPatient', 'currentPage'], action.patients.currentPage);
+    case SEARCH_PATIENT_ERROR:
+      return state
+        .setIn(['searchPatient', 'error'], action.error);
     default:
       return state;
   }
