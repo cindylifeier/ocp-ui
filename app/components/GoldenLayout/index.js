@@ -35,7 +35,8 @@ function generateUniqueId() {
   return uniqueId;
 }
 
-class GoldenLayout extends React.Component { // eslint-disable-line react/prefer-stateless-function
+// Note: Do not change component type to React.Component
+class GoldenLayout extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.layout = null;
