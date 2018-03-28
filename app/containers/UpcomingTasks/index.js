@@ -28,21 +28,27 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class UpcomingTasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class UpcomingTasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       practitionerId: 1961,
       /* practitionerId: 1377,*/
       isPatientModalOpen: false,
+      panelHeight: 0,
     };
     this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
   }
 
   componentDidMount() {
     this.props.initializeUpcomingTasks();
     this.props.getUpcomingTasks(this.state.practitionerId);
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
   }
 
   handlePatientViewDetailsClick() {
@@ -61,7 +67,7 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
     const { loading, data, practitionerId } = this.props;
     return (
       <Card>
-        <PanelToolbar showSearchIcon={false} />
+        <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
         {loading &&
         <RefreshIndicatorLoading />}
 
@@ -76,6 +82,7 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
               elements={data}
               loginPractitonerId={practitionerId}
               onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+              relativeTop={this.state.panelHeight}
             />
           </CenterAlign>
         </div>
