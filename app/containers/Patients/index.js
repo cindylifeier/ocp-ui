@@ -40,7 +40,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class Patients extends React.PureComponent {
+export class Patients extends React.Component {
 
   constructor(props) {
     super(props);
