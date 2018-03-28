@@ -4,6 +4,10 @@ import patientToDosReducer from '../reducer';
 
 describe('patientToDosReducer', () => {
   it('returns the initial state', () => {
-    expect(patientToDosReducer(undefined, {})).toEqual(fromJS({}));
+    expect(patientToDosReducer(undefined, {})).toEqual(fromJS({
+      data: [],
+      toDoMainTask: [],
+      loading: false,
+    }));
   });
 });
