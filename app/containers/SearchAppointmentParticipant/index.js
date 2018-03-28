@@ -15,6 +15,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import TextField from 'components/TextField';
+import WideDialog from 'components/WideDialog';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_PARTICIPANT_REQUIRED,
@@ -23,13 +24,13 @@ import {
   PARTICIPANTROLE,
   PARTICIPANTTYPE,
 } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
 import {
   addAppointmentParticipants,
   getAppointmentSearchParticipant,
   initializeSearchAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
-import AddParticipantDialog from 'containers/SearchAppointmentParticipant/AddParticipantDialog';
 import AddParticipantDialogIconButton from 'containers/SearchAppointmentParticipant/AddParticipantDialogIconButton';
 import { TEXT_MIN_LENGTH } from 'containers/SearchAppointmentParticipant/constants';
 import ParticipantName from 'containers/SearchAppointmentParticipant/ParticipantName';
@@ -85,7 +86,7 @@ export class SearchAppointmentParticipant extends React.PureComponent { // eslin
 
   handleSearch(values) {
     const { name, member } = values;
-    this.props.searchParticipant(name, member);
+    this.props.searchParticipant(name, member, this.props.patient.id);
   }
 
   createSearchResultHeader() {
@@ -206,7 +207,7 @@ export class SearchAppointmentParticipant extends React.PureComponent { // eslin
       />,
     ];
     return (
-      <AddParticipantDialog
+      <WideDialog
         actions={actionsButtons}
         modal={false}
         open={isOpen}
@@ -272,7 +273,7 @@ export class SearchAppointmentParticipant extends React.PureComponent { // eslin
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultHeader()}
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultRows()}
         {searchParticipantResult && searchParticipantResult.length === 0 && this.createNoSearchResultTable()}
-      </AddParticipantDialog>
+      </WideDialog>
     );
   }
 }
@@ -288,6 +289,7 @@ SearchAppointmentParticipant.propTypes = {
   searchParticipant: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantRoles: PropTypes.array,
+  patient: PropTypes.object,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -299,6 +301,7 @@ SearchAppointmentParticipant.propTypes = {
 const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   participantRoles: makeSelectParticipantRoles(),
+  patient: makeSelectPatient(),
   searchParticipantResult: makeSelectSearchAppointmentParticipantResults(),
 });
 
