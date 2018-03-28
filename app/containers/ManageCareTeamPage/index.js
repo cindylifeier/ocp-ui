@@ -37,7 +37,7 @@ import saga from './saga';
 import messages from './messages';
 import { mapToEditParticipants } from './api';
 
-export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageCareTeamPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -101,6 +101,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
   render() {
     const {
       match,
+      history,
       patient,
       selectedCareTeam,
       careTeamCategories,
@@ -117,6 +118,7 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
       initialSelectedParticipants = mapToEditParticipants(careTeam.participants);
     }
     const manageCareTeamProps = {
+      history,
       patient,
       careTeam,
       editMode,
@@ -160,6 +162,9 @@ export class ManageCareTeamPage extends React.PureComponent { // eslint-disable-
 
 ManageCareTeamPage.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   patient: PropTypes.object,
   selectedCareTeam: PropTypes.object,
   getCareTeam: PropTypes.func.isRequired,

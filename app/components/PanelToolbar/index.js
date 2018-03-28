@@ -27,7 +27,7 @@ import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
 
 
-export class PanelToolbar extends React.PureComponent {
+export class PanelToolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

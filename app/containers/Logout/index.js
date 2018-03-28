@@ -17,7 +17,7 @@ import saga from './saga';
 import messages from './messages';
 import { logout } from './actions';
 
-export class Logout extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Logout extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>

@@ -40,7 +40,7 @@ import messages from './messages';
 import { getCareTeams, initializeCareTeams } from './actions';
 import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 
-export class CareTeams extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class CareTeams extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handlePageClick = this.handlePageClick.bind(this);

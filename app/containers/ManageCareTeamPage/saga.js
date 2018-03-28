@@ -1,18 +1,12 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { goBack, push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from '../Notification/actions';
 import { GET_CARE_TEAM, SAVE_CARE_TEAM } from './constants';
 import { getCareTeamSuccess } from './actions';
 import makeSelectCareTeams from '../CareTeams/selectors';
-import {
-  determineNotificationForSavingCareTeam,
-  getCareTeam,
-  getCareTeamById,
-  saveCareTeam,
-} from './api';
-import { PATIENTS_URL } from '../App/constants';
+import { determineNotificationForSavingCareTeam, getCareTeam, getCareTeamById, saveCareTeam } from './api';
 
 function* getCareTeamSaga({ careTeamId }) {
   try {
@@ -28,7 +22,7 @@ function* getCareTeamSaga({ careTeamId }) {
     yield put(getCareTeamSuccess(careTeam));
   } catch (error) {
     yield put(showNotification('No match care team found.'));
-    yield put(push(PATIENTS_URL));
+    yield put(goBack());
   }
 }
 
