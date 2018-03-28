@@ -15,7 +15,7 @@ This coding practices documentation is a companion documentation of [style guide
 
   When use `npm run generate` to generate component:
   - For presentational component, select **Stateless Function** component.
-  - For container component, select `React.PureComponent`.
+  - For container component, select `React.Component`.
 
 ## Redux Action Type Constant Naming Convention
   - General: `<VERB IN PRESENT TENSE IN UPPER CASE>_<NOUN IN UPPER CASE>`

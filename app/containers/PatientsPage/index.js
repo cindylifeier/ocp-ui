@@ -155,7 +155,7 @@ const componentMetadata = [
   { name: 'relatedPersons', text: 'Related Persons', factoryMethod: renderRelatedPersonsComponent },
 ];
 
-export class PatientsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class PatientsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <Page>

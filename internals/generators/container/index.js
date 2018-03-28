@@ -11,7 +11,7 @@ module.exports = {
     name: 'type',
     message: 'Select the base component type:',
     default: 'Stateless Function',
-    choices: () => ['Stateless Function', 'React.PureComponent', 'React.Component'],
+    choices: () => ['Stateless Function', 'React.Component'],
   }, {
     type: 'input',
     name: 'name',
