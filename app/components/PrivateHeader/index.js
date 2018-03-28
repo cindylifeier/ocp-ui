@@ -25,7 +25,7 @@ import NavSelectField from './NavSelectField';
 import messages from './messages';
 
 
-class PrivateHeader extends React.PureComponent {
+class PrivateHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

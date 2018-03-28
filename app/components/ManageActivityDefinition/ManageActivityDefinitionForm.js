@@ -28,7 +28,7 @@ import { DATE_PICKER_MODE, HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
-class ManageActivityDefinitionForm extends React.PureComponent {
+class ManageActivityDefinitionForm extends React.Component {
 
   static initialState = {
     artifactsDialogOpen: false,
