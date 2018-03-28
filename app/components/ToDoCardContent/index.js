@@ -10,6 +10,7 @@ import ToDoCardGrid from 'components/ToDoCardGrid';
 import ToDoCardCell from 'components/ToDoCardCell';
 import Align from 'components/Align';
 import { Cell, Grid } from 'styled-css-grid';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import NotificationPriorityHigh from 'material-ui/svg-icons/notification/priority-high';
 import ActionEvent from 'material-ui/svg-icons/action/event';
@@ -30,9 +31,10 @@ function ToDoCardContent(props) {
     taskBaseUrl,
     patientId,
     isPatient,
+    isPractitioner,
   } = props;
-  const dueDateStr = 'Due '.concat(dueDate);
-  const patientNameStr = !isPatient ? patientName : '';
+  const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
+  const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
   const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
@@ -62,7 +64,7 @@ function ToDoCardContent(props) {
             <Cell>
               { isPatient &&
                 <Align variant="right">
-                  <a href={editTodoUrl}>Manage</a>
+                  <Link to={editTodoUrl}>Manage</Link>
                 </Align>
               }
             </Cell>
@@ -83,6 +85,7 @@ ToDoCardContent.propTypes = {
   toDoLogicalId: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,
   isPatient: PropTypes.bool,
+  isPractitioner: PropTypes.bool,
 };
 
 export default ToDoCardContent;

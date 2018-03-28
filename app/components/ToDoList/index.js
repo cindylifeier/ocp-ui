@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import Padding from 'components/Padding';
 
 function ToDoList(props) {
-  const { toDos, taskBaseUrl, patientId, isPatient } = props;
+  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner } = props;
   return (
     <div>
       <Padding top={'10px'} right={'10px'} bottom={'10px'} left={'10px'}>
@@ -25,6 +25,7 @@ function ToDoList(props) {
                 toDoLogicalId={toDo.logicalId}
                 patientId={patientId}
                 isPatient={isPatient}
+                isPractitioner={isPractitioner}
                 status={toDo.taskDue}
                 dueDate={toDo.executionPeriod && toDo.executionPeriod.end ? toDo.executionPeriod.end : ''}
                 patientName={toDo.beneficiary.display}
@@ -45,6 +46,7 @@ ToDoList.propTypes = {
   patientId: PropTypes.string,
   taskBaseUrl: PropTypes.string.isRequired,
   isPatient: PropTypes.bool,
+  isPractitioner: PropTypes.bool,
 };
 
 export default ToDoList;
