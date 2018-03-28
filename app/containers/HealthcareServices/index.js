@@ -31,7 +31,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { getHealthcareServices, initializeHealthcareServices } from './actions';
+import { getHealthcareServices, initializeHealthcareServices, searchHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
   makeSelectHealthcareServices,
@@ -51,7 +51,15 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     super(props);
     this.state = {
       currentPage: 1,
+      searchHealthcareServices: {
+        searchType: 'name',
+        searchValue: '',
+        includeInactive: false,
+        currentPage: 1,
+      },
     };
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
@@ -74,6 +82,18 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     }
   }
 
+  handleSearch(searchValue, includeInactive, searchType) {
+    this.setState({
+      isShowSearchResult: true,
+      searchHealthcareServices: { searchValue, includeInactive, searchType },
+    });
+    this.props.searchHealthcareServices(searchType, searchValue, includeInactive, this.state.searchHealthcareServices.currentPage);
+  }
+
+  handleChangeSearchPage(currentPage) {
+    this.props.searchHealthcareServices(this.state.searchHealthcareServices.searchType, this.state.searchHealthcareServices.searchValue, this.state.searchHealthcareServices.includeInactive, currentPage);
+  }
+
   handlePageClick(currentPage) {
     this.props.getHealthcareServices(currentPage, this.props.includeInactive);
   }
@@ -87,7 +107,7 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
     return (
       <div>
         <PanelToolbar
-          onSearch={null}
+          onSearch={this.handleSearch}
           showFilter={false}
         />
         {isEmpty(organization) &&
@@ -172,6 +192,7 @@ HealthcareServices.propTypes = {
   getHealthcareServices: PropTypes.func.isRequired,
   organization: PropTypes.object,
   location: PropTypes.object,
+  searchHealthcareServices: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -192,6 +213,8 @@ function mapDispatchToProps(dispatch) {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
     getHealthcareServices: (currentPage, includeInactive) =>
       dispatch(getHealthcareServices(currentPage, includeInactive)),
+    searchHealthcareServices: (searchType, searchValue, includeInactive, currentPage) =>
+      dispatch(searchHealthcareServices(searchType, searchValue, includeInactive, currentPage)),
   };
 }
 

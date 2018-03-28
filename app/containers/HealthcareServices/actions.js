@@ -8,6 +8,9 @@ import {
   GET_HEALTHCARE_SERVICES,
   GET_HEALTHCARE_SERVICES_ERROR,
   GET_HEALTHCARE_SERVICES_SUCCESS,
+  SEARCH_HEALTHCARE_SERVICES,
+  SEARCH_HEALTHCARE_SERVICES_SUCCESS,
+  SEARCH_HEALTHCARE_SERVICES_ERROR,
   INITIALIZE_HEALTHCARE_SERVICES,
 } from './constants';
 
@@ -39,3 +42,26 @@ export function getHealthcareServicesError(error) {
   };
 }
 
+export function searchHealthcareServices(searchType, searchValue, includeInactive, currentPage) {
+  return {
+    type: SEARCH_HEALTHCARE_SERVICES,
+    searchType,
+    searchValue,
+    includeInactive,
+    currentPage,
+  };
+}
+
+export function searchHealthcareServicesSuccess(healthcareServices) {
+  return {
+    type: SEARCH_HEALTHCARE_SERVICES_SUCCESS,
+    healthcareServices,
+  };
+}
+
+export function searchHealthcareServicesError(error) {
+  return {
+    type: SEARCH_HEALTHCARE_SERVICES_ERROR,
+    error,
+  };
+}

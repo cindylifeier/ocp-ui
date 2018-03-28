@@ -24,3 +24,24 @@ export function getHealthcareServicesByLocation(organizationId, locationId, stat
   const url = `${baseEndpoint}/${organizationId}/locations/${locationId}/healthcare-services${params}`;
   return request(url);
 }
+
+export function searchHealthcareServices(organizationId, searchValue, searchKey, page) {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
+  const params = queryString({
+    searchKey,
+    searchValue,
+    pageSize: DEFAULT_PAGE_SIZE,
+    pageNumber: page });
+  const url = `${baseEndpoint}/${organizationId}/healthcare-services${params}`;
+  return request(url);
+}
+
+export function getErrorDetail(error) {
+  let errorDetail = error.message;
+  if (error && error.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (error && error.response && error.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
+}
