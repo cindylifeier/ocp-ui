@@ -43,7 +43,7 @@ import saga from './saga';
 import { createRelatedPerson, updateRelatedPerson } from './actions';
 import messages from './messages';
 
-export class ManageRelatedPersonPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageRelatedPersonPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);

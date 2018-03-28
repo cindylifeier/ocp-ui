@@ -35,7 +35,7 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-export class ManageAppointmentPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);

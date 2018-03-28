@@ -54,7 +54,7 @@ import saga from './saga';
 import messages from './messages';
 import { createCommunication, getEpisodeOfCares, getPractitioner, updateCommunication } from './actions';
 
-export class ManageCommunicationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageCommunicationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

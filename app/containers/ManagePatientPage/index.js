@@ -54,7 +54,7 @@ import messages from './messages';
 import { savePatient } from './actions';
 import { mapToFrontendPatientForm } from './api';
 
-export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManagePatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);

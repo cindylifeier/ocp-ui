@@ -107,7 +107,7 @@ export const componentMetadata = [
 ];
 
 
-export class CareCoordinatorPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class CareCoordinatorPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
