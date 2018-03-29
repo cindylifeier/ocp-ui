@@ -111,6 +111,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     const participationTypes = this.props.participationTypes;
     const participationRequiredValues = this.props.participationRequired;
     const participationStatusValues = this.props.participationStatus;
+    const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
     return this.props.searchParticipantResult.map((participant) => (
       <Formik
         key={uniqueId()}
@@ -125,7 +126,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
           const smallParticipationStatus = find(participationStatusValues, { code: participationStatusCode });
           const smallParticipant = {
             memberId: participant.member.id,
-            memberType: participant.member.type,
+            memberType: capitalizeFirstLetter(participant.member.type),
             name: mapSearchParticipantName(participant),
             participationType: smallParticipationType,
             required: smallParticipationRequired,
