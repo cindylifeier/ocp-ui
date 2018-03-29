@@ -113,7 +113,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           getLinkUrlByRole={getLinkUrlByRole}
           mapToName={mapToName}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
-          flattenPatientsData={flattenPatientData}
+          flattenPatientData={flattenPatientData}
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
           onCareCoordinatorSelection={this.props.getCareCoordinators}

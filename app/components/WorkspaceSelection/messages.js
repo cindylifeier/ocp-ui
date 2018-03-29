@@ -10,13 +10,9 @@ export default defineMessages({
     id: 'ocpui.components.WorkspaceSelection.header',
     defaultMessage: 'This is the WorkspaceSelection component !',
   },
-  tableHeaderColumnFirstName: {
-    id: 'ocpui.components.WorkspaceSelection.tableHeaderColumnFirstName',
-    defaultMessage: 'First Name',
-  },
-  tableHeaderColumnLastName: {
-    id: 'ocpui.components.WorkspaceSelection.tableHeaderColumnLastName',
-    defaultMessage: 'Last Name',
+  tableHeaderColumnName: {
+    id: 'ocpui.components.WorkspaceSelection.tableHeaderColumnName',
+    defaultMessage: 'Name',
   },
   tableHeaderColumnDOB: {
     id: 'ocpui.components.WorkspaceSelection.tableHeaderColumnDOB',

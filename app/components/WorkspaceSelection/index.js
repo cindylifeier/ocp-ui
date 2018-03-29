@@ -134,18 +134,18 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   getPatientStepContent() {
-    const { onPatientSearch, searchPatientData, onChangeSearchPage, flattenPatientsData } = this.props;
+    const { onPatientSearch, searchPatientData, onChangeSearchPage, flattenPatientData } = this.props;
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
       case 1:
         return (
           <InfoSection margin="10px 0">
-            <SearchBar onSearch={onPatientSearch} />
+            <SearchBar showFilter onSearch={onPatientSearch} />
             <PatientTable
               searchPatientData={searchPatientData}
               onChangeSearchPage={onChangeSearchPage}
-              flattenPatientsData={flattenPatientsData}
+              flattenPatientData={flattenPatientData}
               onPatientSelect={this.handlePatientSelect}
             />
           </InfoSection>
@@ -433,6 +433,10 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   renderPatientStepContent() {
     const { stepIndex, finished } = this.state;
+    let patientName = null;
+    if (!isEmpty(this.state.selectPatient) && this.state.selectPatient.name) {
+      patientName = this.props.flattenPatientData(this.state.selectPatient).name;
+    }
     return (
       <div>
         <StepperSection>
@@ -448,7 +452,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
             {finished ? (
               <div>
                 <p><strong>Role:</strong> {this.state.roleValue}</p>
-                <p><strong>Patient ID:</strong> {this.state.selectPatient.id}</p>
+                <p><strong>Patient ID:</strong> {patientName}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -516,7 +520,7 @@ WorkspaceSelection.propTypes = {
   getLinkUrlByRole: PropTypes.func.isRequired,
   mapToName: PropTypes.func.isRequired,
   onSetWorkspaceContext: PropTypes.func.isRequired,
-  flattenPatientsData: PropTypes.func.isRequired,
+  flattenPatientData: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
