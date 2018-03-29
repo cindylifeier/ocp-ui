@@ -94,7 +94,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
           <TableHeaderColumn>{
             <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
           <TableHeaderColumn>{
@@ -145,7 +145,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
                       <Cell middle>
                         <SelectFieldWithoutOnClick
                           name="roleCode"
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantType} />}
                         >
                           {participantRoles && participantRoles.map((participantRole) =>
                             (<MenuItem
@@ -181,7 +181,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     return (<Table>
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
         <TableHeaderColumn>{
           <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
         <TableHeaderColumn>{
