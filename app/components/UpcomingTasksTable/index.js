@@ -25,11 +25,11 @@ import messages from './messages';
 
 const tableColumns = 'repeat(6, 1fr) 50px';
 
-function UpcomingTaskTable({ elements, onPatientViewDetailsClick }) {
+function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop }) {
   return (
     <div>
       <Table>
-        <TableHeader columns={tableColumns}>
+        <TableHeader columns={tableColumns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTask} /></TableHeaderColumn>
@@ -72,6 +72,7 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick }) {
 }
 
 UpcomingTaskTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     beneficiary: PropTypes.object.isRequired,

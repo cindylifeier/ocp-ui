@@ -100,7 +100,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop }) {
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -120,7 +120,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
   if (searchResult !== false && searchResult !== null && searchResult.length !== 0) {
     return (
       <Table>
-        <TableHeader columns={columns}>
+        <TableHeader columns={columns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.firstName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.lastName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.dob} /></TableHeaderColumn>
@@ -137,6 +137,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
 }
 
 PatientSearchResult.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.any,
   searchResult: PropTypes.any,

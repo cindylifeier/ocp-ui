@@ -20,11 +20,11 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import messages from './messages';
 
-function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl }) { // eslint-disable-line react/prefer-stateless-function
+function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
-        <TableHeader>
+        <TableHeader relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
@@ -76,6 +76,7 @@ function mapDisplayFromCode(appointmentLookup, key) {
 }
 
 CareCoordinatorUpcomingAppointmentTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.array.isRequired,
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,

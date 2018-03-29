@@ -24,6 +24,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import TaskTable from 'components/TaskTable';
 import PanelToolbar from 'components/PanelToolbar';
 import makeSelectTasks from './selectors';
@@ -36,10 +37,14 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   constructor(props) {
     super(props);
     this.state = {
+      panelHeight: 0,
+      filterHeight: 0,
       practitionerId: 1961,
       isPatientModalOpen: false,
     };
     this.cancelTask = this.cancelTask.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
@@ -59,6 +64,14 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     }
   }
 
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
+  }
+
   cancelTask(logicalId) {
     this.props.cancelTask(logicalId);
   }
@@ -72,16 +85,22 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     const patientName = mapToPatientName(patient);
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          showSearchIcon={false}
+          onSize={this.handlePanelResize}
+        />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <InfoSection>
-            The <FormattedMessage {...messages.tasks} /> for&nbsp;
-            <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-              <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
-            </InlineLabel>
-            are :
-          </InfoSection>
+          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+            <InfoSection margin="0px">
+              The <FormattedMessage {...messages.tasks} /> for&nbsp;
+              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+              </InlineLabel>
+              are :
+            </InfoSection>
+          </SizedStickyDiv>
         }
 
         {loading &&
@@ -96,6 +115,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
         <div>
           <CenterAlign>
             <TaskTable
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
               elements={data}
               cancelTask={this.cancelTask}
               patientId={patient.id}
