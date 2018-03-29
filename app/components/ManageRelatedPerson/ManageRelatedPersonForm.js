@@ -9,7 +9,7 @@ import uniqueId from 'lodash/uniqueId';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
-import StyledCheckbox from 'components/StyledCheckbox';
+import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import InlineLabel from 'components/InlineLabel';
@@ -66,11 +66,10 @@ function ManageRelatedPersonForm(props) {
           <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
         </Cell>
         <Cell area="active">
-          <StyledCheckbox
+          <StyledFormikCheckbox
             name="active"
             label={<FormattedMessage {...messages.active} />}
-          >
-          </StyledCheckbox>
+          />
         </Cell>
         <Cell area="firstName">
           <TextField
