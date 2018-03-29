@@ -24,12 +24,12 @@ import messages from './messages';
 const tableColumns = 'repeat(5, 1fr)';
 
 function PatientTable(props) {
-  const { searchPatientData, onChangeSearchPage, flattenPatientData, onPatientSelect } = props;
+  const { searchPatientsData, onChangeSearchPage, flattenPatientData, onPatientSelect } = props;
   return (
     <div>
-      {searchPatientData.loading && <RefreshIndicatorLoading />}
-      {(!searchPatientData.loading && searchPatientData.result &&
-        searchPatientData.result.length > 0 ?
+      {searchPatientsData.loading && <RefreshIndicatorLoading />}
+      {(!searchPatientsData.loading && searchPatientsData.result &&
+        searchPatientsData.result.length > 0 ?
           <div>
             <Table>
               <TableHeader columns={tableColumns} sticky={false}>
@@ -39,7 +39,7 @@ function PatientTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               </TableHeader>
-              {!isEmpty(searchPatientData.result) && searchPatientData.result.map((patient) => {
+              {!isEmpty(searchPatientsData.result) && searchPatientsData.result.map((patient) => {
                 const { id, name, birthDate, genderCode, identifier, active } = flattenPatientData(patient);
                 return (
                   <TableRow
@@ -64,8 +64,8 @@ function PatientTable(props) {
               })}
             </Table>
             <CenterAlignedUltimatePagination
-              currentPage={searchPatientData.currentPage}
-              totalPages={searchPatientData.totalNumberOfPages}
+              currentPage={searchPatientsData.currentPage}
+              totalPages={searchPatientsData.totalNumberOfPages}
               onChange={onChangeSearchPage}
             />
           </div> :
@@ -78,7 +78,7 @@ function PatientTable(props) {
 }
 
 PatientTable.propTypes = {
-  searchPatientData: PropTypes.shape({
+  searchPatientsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,

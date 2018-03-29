@@ -14,8 +14,8 @@ import {
   getWorkflowRolesSuccess,
   searchOrganizationsError,
   searchOrganizationsSuccess,
-  searchPatientError,
-  searchPatientSuccess,
+  searchPatientsError,
+  searchPatientsSuccess,
 } from './actions';
 import { getCareCoordinators, getCareManagers, getWorkflowRoles, searchPatients } from './api';
 
@@ -49,9 +49,9 @@ export function* getCareCoordinatorsSaga({ role, organization }) {
 export function* searchPatientsSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
     const patients = yield call(searchPatients, searchValue, showInactive, searchType, currentPage);
-    yield put(searchPatientSuccess(patients));
+    yield put(searchPatientsSuccess(patients));
   } catch (err) {
-    yield put(searchPatientError(err.message));
+    yield put(searchPatientsError(err.message));
   }
 }
 

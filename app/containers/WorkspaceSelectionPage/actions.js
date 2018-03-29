@@ -96,14 +96,14 @@ export function searchPatients(searchValue, showInactive, searchType, currentPag
   };
 }
 
-export function searchPatientSuccess(patients) {
+export function searchPatientsSuccess(patients) {
   return {
     type: SEARCH_PATIENTS_SUCCESS,
     patients,
   };
 }
 
-export function searchPatientError(error) {
+export function searchPatientsError(error) {
   return {
     type: SEARCH_PATIENTS_ERROR,
     error,

@@ -19,7 +19,7 @@ import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
-import { getCareCoordinators, getCareManagers, getOrganizations, getWorkflowRoles, searchPatient } from './actions';
+import { getCareCoordinators, getCareManagers, getWorkflowRoles, searchOrganizations, searchPatients } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -37,7 +37,13 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     super(props);
     this.state = {
       defaultRole: props.workflowRoles && props.workflowRoles.careManagerWorkflowRole && props.workflowRoles.careManagerWorkflowRole.value,
-      searchPatient: {
+      searchPatients: {
+        searchValue: '',
+        searchType: 'name',
+        showInactive: false,
+        currentPage: 1,
+      },
+      searchOrganizations: {
         searchValue: '',
         searchType: 'name',
         showInactive: false,
@@ -47,11 +53,12 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
     this.handlePatientSearch = this.handlePatientSearch.bind(this);
     this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
+    this.handleOrganizationSearch = this.handleOrganizationSearch.bind(this);
+    this.handleChangeOrganizationSearchPage = this.handleChangeOrganizationSearchPage.bind(this);
   }
 
   componentDidMount() {
     this.props.getWorkflowRoles();
-    this.props.getOrganizations();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,27 +85,38 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     }
   }
 
+  handleOrganizationSearch(searchValue, showInactive, searchType) {
+    this.setState({
+      searchOrganizations: { searchValue, showInactive, searchType },
+    });
+    this.props.searchOrganizations(searchValue, showInactive, searchType, DEFAULT_START_PAGE_NUMBER);
+  }
+
+  handleChangeOrganizationSearchPage(currentPage) {
+    this.props.searchOrganizations(this.state.searchOrganizations.searchValue, this.state.searchOrganizations.showInactive, this.state.searchOrganizations.searchType, currentPage);
+  }
+
   handlePatientSearch(searchValue, showInactive, searchType) {
     this.setState({
-      searchPatient: { searchValue, showInactive, searchType },
+      searchPatients: { searchValue, showInactive, searchType },
     });
-    this.props.searchPatient(searchValue, showInactive, searchType, DEFAULT_START_PAGE_NUMBER);
+    this.props.searchPatients(searchValue, showInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
   handleChangeSearchPage(currentPage) {
-    this.props.searchPatient(this.state.searchPatient.searchValue, this.state.searchPatient.showInactive, this.state.searchPatient.searchType, currentPage);
+    this.props.searchPatients(this.state.searchPatients.searchValue, this.state.searchPatients.showInactive, this.state.searchPatients.searchType, currentPage);
   }
 
   render() {
     const {
-      history, organizations, careManagers, careCoordinators, searchPatientData, workflowRoles,
+      history, searchOrganizationsData, careManagers, careCoordinators, searchPatientsData, workflowRoles,
     } = this.props;
     const workspaceSelectionProps = {
       history,
-      organizations,
+      searchOrganizationsData,
       careManagers,
       careCoordinators,
-      searchPatientData,
+      searchPatientsData,
       workflowRoles,
     };
     return (
@@ -119,6 +137,8 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           onCareCoordinatorSelection={this.props.getCareCoordinators}
           onPatientSearch={this.handlePatientSearch}
           onChangeSearchPage={this.handleChangeSearchPage}
+          onOrganizationSearch={this.handleOrganizationSearch}
+          onChangeOrganizationSearchPage={this.handleChangeOrganizationSearchPage}
         />
         }
       </div>
@@ -130,17 +150,17 @@ WorkspaceSelectionPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
-  organizations: PropTypes.any.isRequired,
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
-  searchPatientData: PropTypes.any.isRequired,
+  searchPatientsData: PropTypes.any.isRequired,
+  searchOrganizationsData: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
   user: PropTypes.object,
   getWorkflowRoles: PropTypes.func.isRequired,
-  getOrganizations: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
-  searchPatient: PropTypes.func.isRequired,
+  searchPatients: PropTypes.func.isRequired,
+  searchOrganizations: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
   setOrganization: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
@@ -148,20 +168,20 @@ WorkspaceSelectionPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   workflowRoles: makeSelectWorkflowRolesData(),
-  organizations: makeSelectOrganizationsData(),
+  searchOrganizationsData: makeSelectOrganizationsData(),
   careManagers: makeCareManagersData(),
   careCoordinators: makeCareCoordinatorsData(),
-  searchPatientData: makeSelectPatientsData(),
+  searchPatientsData: makeSelectPatientsData(),
   user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
-    getOrganizations: () => dispatch(getOrganizations()),
     getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
     getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),
-    searchPatient: (searchValue, showInactive, searchType, currentPage) => dispatch(searchPatient(searchValue, showInactive, searchType, currentPage)),
+    searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
+    searchPatients: (searchValue, showInactive, searchType, currentPage) => dispatch(searchPatients(searchValue, showInactive, searchType, currentPage)),
     setUser: (user) => dispatch(setUser(user)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),
     setPatient: (patient) => dispatch(setPatient(patient)),
