@@ -14,14 +14,14 @@ import messages from './messages';
 
 export function GoBackButton(props) {
   const history = createHistory();
-  const { label, isDisabled } = props;
+  const { label, disabled } = props;
   return (
     <div>
       <StyledFlatButton
         fullWidth
         label={label}
         default
-        disabled={isDisabled}
+        disabled={disabled}
         onClick={() => history.goBack()}
       />
     </div>
@@ -30,12 +30,12 @@ export function GoBackButton(props) {
 
 GoBackButton.propTypes = {
   label: PropTypes.node.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 GoBackButton.defaultProps = {
   label: <FormattedMessage {...messages.label} />,
-  isDisabled: false,
+  disabled: false,
 };
 
 export default GoBackButton;

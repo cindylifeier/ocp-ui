@@ -12,10 +12,10 @@ describe('<GoBackButton />', () => {
     it('should match snapshot', () => {
       // Arrange
       const label = 'goBackButton';
-      const isDisabled = false;
+      const disabled = false;
       const props = {
         label,
-        isDisabled,
+        disabled,
       };
 
       // Act
