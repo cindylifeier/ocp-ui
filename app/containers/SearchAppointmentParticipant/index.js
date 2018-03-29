@@ -99,12 +99,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{
-            <FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
-          <TableHeaderColumn>{
-            <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
-          <TableHeaderColumn>{
-            <FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
         </TableHeader>
       </Table>
@@ -152,15 +148,10 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
               <Table>
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
-                    <Grid columns={5}>
+                    <Grid columns={4}>
                       <Cell middle>
                         <ParticipantName>
                           {mapSearchParticipantName(participant)}
-                        </ParticipantName>
-                      </Cell>
-                      <Cell middle>
-                        <ParticipantName>
-                          {participant.member.type}
                         </ParticipantName>
                       </Cell>
                       <Cell middle>
@@ -214,12 +205,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     return (<Table>
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{
-          <FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
-        <TableHeaderColumn>{
-          <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
-        <TableHeaderColumn>{
-          <FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
       </TableHeader>
       <TableRow key={uniqueId()}>
