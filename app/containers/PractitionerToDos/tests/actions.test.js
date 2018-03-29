@@ -1,18 +1,20 @@
 
 import {
-  defaultAction,
-} from '../actions';
+  getPractitionerToDos,
+} from 'containers/PractitionerToDos/actions';
 import {
-  DEFAULT_ACTION,
-} from '../constants';
+  GET_PRACTITIONER_TO_DOS,
+} from 'containers/PractitionerToDos/constants';
 
 describe('PractitionerToDos actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_PRACTITIONER_TO_DOS,
+        practitionerId: 0,
+        definition: '',
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getPractitionerToDos(0, '')).toEqual(expected);
     });
   });
 });

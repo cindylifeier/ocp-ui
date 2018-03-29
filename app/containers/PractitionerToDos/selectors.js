@@ -8,18 +8,18 @@ const selectPractitionerToDosDomain = (state) => state.get('practitionerToDos');
 /**
  * Other specific selectors
  */
-
-
-/**
- * Default selector used by PractitionerToDos
- */
-
 const makeSelectPractitionerToDos = () => createSelector(
   selectPractitionerToDosDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS()
 );
 
-export default makeSelectPractitionerToDos;
-export {
+const makeSelectSearchLoading = () => createSelector(
   selectPractitionerToDosDomain,
+  (substate) => substate.get('loading'),
+);
+
+
+export {
+  makeSelectPractitionerToDos,
+  makeSelectSearchLoading,
 };
