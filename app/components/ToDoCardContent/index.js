@@ -39,9 +39,9 @@ function ToDoCardContent(props) {
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
-      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
     } else if (statusStr === DUE_TODAY) {
       statusElement = (<div><ActionEvent /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
