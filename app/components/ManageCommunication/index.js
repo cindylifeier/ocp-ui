@@ -22,7 +22,6 @@ import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AR
 
 function ManageCommunication(props) {
   const {
-    history,
     onSave,
     communicationStatus,
     communicationCategories,
@@ -42,7 +41,6 @@ function ManageCommunication(props) {
     datePickerMode,
   } = props;
   const propsFromContainer = {
-    history,
     communicationStatus,
     communicationCategories,
     communicationNotDoneReasons,
@@ -105,9 +103,6 @@ function ManageCommunication(props) {
 }
 
 ManageCommunication.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   onSave: PropTypes.func.isRequired,
   handleOpen: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,

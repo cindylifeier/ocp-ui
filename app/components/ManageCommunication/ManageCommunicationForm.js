@@ -19,7 +19,7 @@ import FormGrid from 'components/FormGrid';
 import FormCell from 'components/FormCell';
 import Checkbox from 'components/Checkbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import TextField from 'components/TextField';
 import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
@@ -28,7 +28,6 @@ import messages from './messages';
 function ManageCommunicationForm(props) {
   const today = new Date();
   const {
-    history,
     isSubmitting,
     dirty,
     isValid,
@@ -235,15 +234,15 @@ function ManageCommunicationForm(props) {
           />
         </FormCell>
         <FormCell top={11} left={1} width={10}>
-          { selectedRecipients && selectedRecipients.length > 0 &&
-            <Table>
-              <TableHeader key={uniqueId()}>
-                <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
-                <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
-                <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderAction} />}</TableHeaderColumn>
-              </TableHeader>
-              {createRecipientTableRows()}
-            </Table>
+          {selectedRecipients && selectedRecipients.length > 0 &&
+          <Table>
+            <TableHeader key={uniqueId()}>
+              <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
+              <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
+              <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderAction} />}</TableHeaderColumn>
+            </TableHeader>
+            {createRecipientTableRows()}
+          </Table>
           }
           {!hasRecipients &&
           <ErrorText>{hasRecipients ?
@@ -266,12 +265,9 @@ function ManageCommunicationForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                type="button"
-                default
+              <GoBackButton
                 label={<FormattedMessage {...messages.form.cancelButton} />}
                 disabled={isSubmitting}
-                onClick={history.goBack}
               />
             </Cell>
           </Grid>
@@ -282,9 +278,6 @@ function ManageCommunicationForm(props) {
 }
 
 ManageCommunicationForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
