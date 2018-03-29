@@ -19,6 +19,7 @@ import renderTasks from 'containers/Tasks/render';
 import renderToDosComponent from 'containers/ToDos/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
+import renderConsents from 'containers/Consents/render';
 import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
@@ -38,7 +39,7 @@ export const initialStateMetadata =
       popoutWholeStack: false,
       blockedPopoutsThrowError: true,
       closePopoutsOnUnload: true,
-      showPopoutIcon: true,
+      showPopoutIcon: false,
       showMaximiseIcon: true,
       showCloseIcon: true,
       responsiveMode: 'onload',
@@ -191,7 +192,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
-  { name: 'consents', text: 'Consents', factoryMethod: renderUnderConstruction },
+  { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
 ];
 
 export class PatientWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function

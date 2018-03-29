@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import ToDoCardGrid from 'components/ToDoCardGrid';
 import ToDoCardCell from 'components/ToDoCardCell';
 import Align from 'components/Align';
+import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import PropTypes from 'prop-types';
 import NotificationPriorityHigh from 'material-ui/svg-icons/notification/priority-high';
@@ -62,7 +63,7 @@ function ToDoCardContent(props) {
             <Cell>
               { isPatient &&
                 <Align variant="right">
-                  <a href={editTodoUrl}>Manage</a>
+                  <Link to={editTodoUrl}>Manage</Link>
                 </Align>
               }
             </Cell>

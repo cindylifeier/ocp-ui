@@ -49,6 +49,7 @@ function ManageTaskForm(props) {
             name="activityDefinition"
             hintText={<FormattedMessage {...messages.hintText.activityDefinitions} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
+            disabled={!isMainTask}
           >
             {activityDefinitions && activityDefinitions.map((activityDefinition) => (
               <MenuItem
@@ -156,6 +157,7 @@ function ManageTaskForm(props) {
             name="context"
             hintText={<FormattedMessage {...messages.hintText.eventType} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
+            disabled={!isMainTask}
           >
             {eventTypes && eventTypes.map((eventType) =>
               <MenuItem key={uniqueId()} value={eventType.reference} primaryText={eventType.display} />,
