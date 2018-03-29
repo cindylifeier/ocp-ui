@@ -6,11 +6,11 @@
 
 import { fromJS } from 'immutable';
 import {
- GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
+  GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
   GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS,
   GET_PATIENT_TO_DOS,
   GET_PATIENT_TO_DOS_ERROR,
- GET_PATIENT_TO_DOS_SUCCESS,
+  GET_PATIENT_TO_DOS_SUCCESS,
 } from 'containers/PatientToDos/constants';
 
 const initialState = fromJS({

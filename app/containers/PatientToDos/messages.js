@@ -6,10 +6,6 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.PatientToDos.header',
-    defaultMessage: 'This is PatientToDos container !',
-  },
   noToDoError: {
     id: 'ocpui.containers.PatientToDos.noToDoError',
     defaultMessage: 'Error in getting To Do.',
