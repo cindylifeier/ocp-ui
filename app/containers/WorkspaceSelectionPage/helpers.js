@@ -1,9 +1,9 @@
-import { mapToPatientName } from 'utils/PatientUtils';
+import { mapToIdentifiers } from 'containers/App/helpers';
 
-export function flattenPatientsData(patients) {
-  return patients && patients.map((patient) => ({
+export function flattenPatientData(patient) {
+  return {
     ...patient,
-    name: mapToPatientName(patient),
-  }));
+    identifier: mapToIdentifiers(patient.identifier),
+  };
 }
 

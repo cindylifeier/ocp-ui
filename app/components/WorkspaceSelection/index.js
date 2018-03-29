@@ -14,9 +14,13 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
+
+import SearchBar from 'components/SearchBar';
+import InfoSection from 'components/InfoSection';
 import StepperSection from './StepperSection';
 import StepContent from './StepContent';
 import RoleSelectField from './RoleSelectField';
+import PatientTable from './PatientTable';
 
 class WorkspaceSelection extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -28,7 +32,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       organizationValue: null,
       careManagerValue: null,
       careCoordinatorValue: null,
-      patientValue: null,
+      selectPatient: null,
     };
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
@@ -36,7 +40,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.handleOrganizationChange = this.handleOrganizationChange.bind(this);
     this.handleCareManagerChange = this.handleCareManagerChange.bind(this);
     this.handleCareCoordinatorChange = this.handleCareCoordinatorChange.bind(this);
-    this.handlePatientChange = this.handlePatientChange.bind(this);
+    this.handlePatientSelect = this.handlePatientSelect.bind(this);
     this.handleNavigateTo = this.handleNavigateTo.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
@@ -130,24 +134,21 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   getPatientStepContent() {
-    const { patients } = this.props;
-    const flattenedPatients = this.props.flattenPatientsData(patients);
+    const { onPatientSearch, searchPatientData, onChangeSearchPage, flattenPatientsData } = this.props;
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
       case 1:
         return (
-          <div>
-            <SelectField
-              floatingLabelText="Select Patient"
-              value={this.state.patientValue}
-              onChange={this.handlePatientChange}
-            >
-              {flattenedPatients && flattenedPatients.map((patient) =>
-                <MenuItem key={patient.id} value={patient.id} primaryText={patient.name} />,
-              )}
-            </SelectField>
-          </div>
+          <InfoSection margin="10px 0">
+            <SearchBar onSearch={onPatientSearch} />
+            <PatientTable
+              searchPatientData={searchPatientData}
+              onChangeSearchPage={onChangeSearchPage}
+              flattenPatientsData={flattenPatientsData}
+              onPatientSelect={this.handlePatientSelect}
+            />
+          </InfoSection>
         );
       default:
         return null;
@@ -175,7 +176,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       organizationValue: null,
       careManagerValue: null,
       careCoordinatorValue: null,
-      patientValue: null,
+      selectPatient: null,
     });
   }
 
@@ -201,17 +202,16 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.setState({ careCoordinatorValue: value });
   }
 
-  handlePatientChange(event, index, value) {
-    this.setState({ patientValue: value });
+  handlePatientSelect(selectPatient) {
+    this.setState({ selectPatient });
   }
 
   handleNavigateTo() {
-    const { organizations, careManagers, careCoordinators, patients } = this.props;
+    const { organizations, careManagers, careCoordinators } = this.props;
     const organization = find(organizations, { logicalId: this.state.organizationValue });
     const careManager = find(careManagers, { logicalId: this.state.careManagerValue });
     const careCoordinator = find(careCoordinators, { logicalId: this.state.careCoordinatorValue });
-    const patient = find(patients, { id: this.state.patientValue });
-    this.props.onSetWorkspaceContext(this.state.roleValue, organization, careManager, careCoordinator, patient);
+    this.props.onSetWorkspaceContext(this.state.roleValue, organization, careManager, careCoordinator, this.state.selectPatient);
     const linkTo = this.props.getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
@@ -225,7 +225,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       organizationValue: null,
       careManagerValue: null,
       careCoordinatorValue: null,
-      patientValue: null,
+      selectPatient: null,
     });
   }
 
@@ -448,7 +448,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
             {finished ? (
               <div>
                 <p><strong>Role:</strong> {this.state.roleValue}</p>
-                <p><strong>Patient ID:</strong> {this.state.patientValue}</p>
+                <p><strong>Patient ID:</strong> {this.state.selectPatient.id}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -487,7 +487,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
                           finished: stepIndex >= 1,
                         });
                       }}
-                      disabled={stepIndex > 0 && isEmpty(this.state.patientValue)}
+                      disabled={stepIndex > 0 && isEmpty(this.state.selectPatient)}
                     />
                   </Cell>
                 </Grid>
@@ -511,6 +511,8 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 WorkspaceSelection.propTypes = {
   onCareManagerSelection: PropTypes.func.isRequired,
   onCareCoordinatorSelection: PropTypes.func.isRequired,
+  onPatientSearch: PropTypes.func.isRequired,
+  onChangeSearchPage: PropTypes.func.isRequired,
   getLinkUrlByRole: PropTypes.func.isRequired,
   mapToName: PropTypes.func.isRequired,
   onSetWorkspaceContext: PropTypes.func.isRequired,
@@ -521,7 +523,7 @@ WorkspaceSelection.propTypes = {
   organizations: PropTypes.any.isRequired,
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
-  patients: PropTypes.any.isRequired,
+  searchPatientData: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
   defaultRole: PropTypes.string,
 };

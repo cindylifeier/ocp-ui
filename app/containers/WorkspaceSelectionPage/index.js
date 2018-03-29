@@ -29,7 +29,7 @@ import {
   makeSelectPatientsData,
   makeSelectWorkflowRolesData,
 } from './selectors';
-import { flattenPatientsData } from './helpers';
+import { flattenPatientData } from './helpers';
 
 export class WorkspaceSelectionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -91,14 +91,14 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
 
   render() {
     const {
-      history, organizations, careManagers, careCoordinators, patients, workflowRoles,
+      history, organizations, careManagers, careCoordinators, searchPatientData, workflowRoles,
     } = this.props;
     const workspaceSelectionProps = {
       history,
       organizations,
       careManagers,
       careCoordinators,
-      patients,
+      searchPatientData,
       workflowRoles,
     };
     return (
@@ -113,11 +113,12 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           getLinkUrlByRole={getLinkUrlByRole}
           mapToName={mapToName}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
-          flattenPatientsData={flattenPatientsData}
+          flattenPatientsData={flattenPatientData}
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
           onCareCoordinatorSelection={this.props.getCareCoordinators}
           onPatientSearch={this.handlePatientSearch}
+          onChangeSearchPage={this.handleChangeSearchPage}
         />
         }
       </div>
@@ -132,7 +133,7 @@ WorkspaceSelectionPage.propTypes = {
   organizations: PropTypes.any.isRequired,
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
-  patients: PropTypes.any.isRequired,
+  searchPatientData: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
   user: PropTypes.object,
   getWorkflowRoles: PropTypes.func.isRequired,
@@ -150,7 +151,7 @@ const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizationsData(),
   careManagers: makeCareManagersData(),
   careCoordinators: makeCareCoordinatorsData(),
-  patients: makeSelectPatientsData(),
+  searchPatientData: makeSelectPatientsData(),
   user: makeSelectUser(),
 });
 
