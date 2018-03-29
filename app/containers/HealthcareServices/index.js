@@ -50,12 +50,10 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
       searchHealthcareServices: {
         searchType: 'name',
         searchValue: '',
         includeInactive: false,
-        currentPage: 1,
       },
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -84,14 +82,13 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 
   handleSearch(searchValue, includeInactive, searchType) {
     this.setState({
-      isShowSearchResult: true,
       searchHealthcareServices: { searchValue, includeInactive, searchType },
     });
-    this.props.searchHealthcareServices(searchType, searchValue, includeInactive, this.state.searchHealthcareServices.currentPage);
+    this.props.searchHealthcareServices(searchValue, includeInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
   handleChangeSearchPage(currentPage) {
-    this.props.searchHealthcareServices(this.state.searchHealthcareServices.searchType, this.state.searchHealthcareServices.searchValue, this.state.searchHealthcareServices.includeInactive, currentPage);
+    this.props.searchHealthcareServices(this.state.searchHealthcareServices.searchValue, this.state.searchHealthcareServices.includeInactive, this.state.searchHealthcareServices.searchType, currentPage);
   }
 
   handlePageClick(currentPage) {
@@ -213,8 +210,8 @@ function mapDispatchToProps(dispatch) {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
     getHealthcareServices: (currentPage, includeInactive) =>
       dispatch(getHealthcareServices(currentPage, includeInactive)),
-    searchHealthcareServices: (searchType, searchValue, includeInactive, currentPage) =>
-      dispatch(searchHealthcareServices(searchType, searchValue, includeInactive, currentPage)),
+    searchHealthcareServices: (searchValue, includeInactive, searchType, currentPage) =>
+      dispatch(searchHealthcareServices(searchValue, includeInactive, searchType, currentPage)),
   };
 }
 

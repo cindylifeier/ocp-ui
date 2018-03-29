@@ -25,13 +25,14 @@ export function getHealthcareServicesByLocation(organizationId, locationId, stat
   return request(url);
 }
 
-export function searchHealthcareServices(organizationId, searchValue, searchKey, page) {
+export function searchHealthcareServices(organizationId, searchValue, includeInactive, searchType, currentPage) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const params = queryString({
-    searchKey,
+    searchKey: searchType,
     searchValue,
     pageSize: DEFAULT_PAGE_SIZE,
-    pageNumber: page });
+    pageNumber: currentPage,
+  });
   const url = `${baseEndpoint}/${organizationId}/healthcare-services${params}`;
   return request(url);
 }

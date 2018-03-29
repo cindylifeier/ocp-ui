@@ -42,12 +42,12 @@ export function getHealthcareServicesError(error) {
   };
 }
 
-export function searchHealthcareServices(searchType, searchValue, includeInactive, currentPage) {
+export function searchHealthcareServices(searchValue, includeInactive, searchType, currentPage) {
   return {
     type: SEARCH_HEALTHCARE_SERVICES,
-    searchType,
     searchValue,
     includeInactive,
+    searchType,
     currentPage,
   };
 }
