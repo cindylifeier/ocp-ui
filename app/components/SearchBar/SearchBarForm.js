@@ -8,7 +8,7 @@ import { teal500, white } from 'material-ui/styles/colors';
 import uniqueId from 'lodash/uniqueId';
 
 import TextField from 'components/TextField';
-import StyledCheckbox from 'components/StyledCheckbox';
+import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import SelectField from 'components/SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
@@ -45,7 +45,7 @@ function SearchBarForm(props) {
             <div>
               <FormattedMessage {...messages.filterLabel} />
             </div>
-            <StyledCheckbox
+            <StyledFormikCheckbox
               name="showInactive"
               label={<FormattedMessage {...messages.includeInactive} />}
             />
