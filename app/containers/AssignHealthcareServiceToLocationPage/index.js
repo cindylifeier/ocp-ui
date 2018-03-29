@@ -50,7 +50,7 @@ unassignHealthcareServicesLocationAssignment,
 updateHealthcareServicesLocationAssignment,
 } from './actions';
 
-export class AssignHealthCareServiceToLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class AssignHealthCareServiceToLocationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

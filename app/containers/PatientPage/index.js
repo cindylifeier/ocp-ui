@@ -188,7 +188,7 @@ export const componentMetadata = [
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
 ];
 
-export class PatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class PatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
     const patientId = this.props.match.params.id;

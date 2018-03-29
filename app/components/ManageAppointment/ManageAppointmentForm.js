@@ -14,10 +14,8 @@ import MenuItem from 'material-ui/MenuItem';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import messages from './messages';
 
 import SelectedParticipants from './SelectedParticipants';
@@ -25,6 +23,7 @@ import SelectedParticipants from './SelectedParticipants';
 function ManageAppointmentForm(props) {
   const today = new Date();
   const {
+    history,
     isSubmitting,
     dirty,
     isValid,
@@ -87,7 +86,7 @@ function ManageAppointmentForm(props) {
               fullWidth
               name="date"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.date} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.date} />}
             />
@@ -143,7 +142,7 @@ function ManageAppointmentForm(props) {
                   label="Cancel"
                   default
                   disabled={isSubmitting}
-                  containerElement={<Link to={PATIENTS_URL} />}
+                  onClick={history.goBack}
                 />
               </Cell>
             </Grid>
@@ -155,6 +154,9 @@ function ManageAppointmentForm(props) {
 }
 
 ManageAppointmentForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

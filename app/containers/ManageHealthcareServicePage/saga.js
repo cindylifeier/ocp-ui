@@ -1,10 +1,9 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { goBack, push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { HOME_URL } from 'containers/App/constants';
 import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
 import {
   createHealthcareService,
@@ -74,7 +73,7 @@ function* getHealthcareServiceByIdSaga({ logicalId }) {
     yield put(getHealthcareServiceByIdSuccess(selectedHealthcareService));
   } catch (error) {
     yield put(showNotification('No matching healthcare service found.'));
-    yield put(push(HOME_URL));
+    yield put(goBack());
     yield put(getHealthcareServiceByIdError(error));
   }
 }

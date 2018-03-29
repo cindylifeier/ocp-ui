@@ -32,7 +32,7 @@ import saga from './saga';
 import messages from './messages';
 import { cancelTask, getTasks, initializeTasks } from './actions';
 
-export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

@@ -34,7 +34,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class SearchRecipient extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SearchRecipient extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
