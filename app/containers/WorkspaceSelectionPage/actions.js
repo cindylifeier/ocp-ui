@@ -9,10 +9,11 @@ import {
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS,
   GET_CARE_MANAGERS_SUCCESS,
-  GET_ORGANIZATIONS,
-  GET_ORGANIZATIONS_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
+  SEARCH_ORGANIZATION,
+  SEARCH_ORGANIZATION_ERROR,
+  SEARCH_ORGANIZATION_SUCCESS,
   SEARCH_PATIENT,
   SEARCH_PATIENT_ERROR,
   SEARCH_PATIENT_SUCCESS,
@@ -31,16 +32,27 @@ export function getWorkflowRolesSuccess(workflowRoles) {
   };
 }
 
-export function getOrganizations() {
+export function searchOrganization(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: GET_ORGANIZATIONS,
+    type: SEARCH_ORGANIZATION,
+    searchValue,
+    showInactive,
+    searchType,
+    currentPage,
   };
 }
 
-export function getOrganizationsSuccess(organizations) {
+export function searchOrganizationSuccess(organizations) {
   return {
-    type: GET_ORGANIZATIONS_SUCCESS,
+    type: SEARCH_ORGANIZATION_SUCCESS,
     organizations,
+  };
+}
+
+export function searchOrganizationError(error) {
+  return {
+    type: SEARCH_ORGANIZATION_ERROR,
+    error,
   };
 }
 
