@@ -11,16 +11,16 @@
 export const DEFAULT_ACTION = 'ocpui/WorkspaceSelectionPage/DEFAULT_ACTION';
 export const GET_WORKFLOW_ROLES = 'ocpui/WorkspaceSelectionPage/GET_WORKFLOW_ROLES';
 export const GET_WORKFLOW_ROLES_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_WORKFLOW_ROLES_SUCCESS';
-export const SEARCH_ORGANIZATION = 'ocpui/WorkspaceSelectionPage/SEARCH_ORGANIZATION';
-export const SEARCH_ORGANIZATION_SUCCESS = 'ocpui/WorkspaceSelectionPage/SEARCH_ORGANIZATION_SUCCESS';
-export const SEARCH_ORGANIZATION_ERROR = 'ocpui/WorkspaceSelectionPage/SEARCH_ORGANIZATION_ERROR';
+export const SEARCH_ORGANIZATIONS = 'ocpui/WorkspaceSelectionPage/SEARCH_ORGANIZATIONS';
+export const SEARCH_ORGANIZATIONS_SUCCESS = 'ocpui/WorkspaceSelectionPage/SEARCH_ORGANIZATIONS_SUCCESS';
+export const SEARCH_ORGANIZATIONS_ERROR = 'ocpui/WorkspaceSelectionPage/SEARCH_ORGANIZATIONS_ERROR';
 export const GET_CARE_MANAGERS = 'ocpui/WorkspaceSelectionPage/GET_CARE_MANAGERS';
 export const GET_CARE_MANAGERS_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_CARE_MANAGERS_SUCCESS';
 export const GET_CARE_COORDINATORS = 'ocpui/WorkspaceSelectionPage/GET_CARE_COORDINATORS';
 export const GET_CARE_COORDINATORS_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_CARE_COORDINATORS_SUCCESS';
-export const SEARCH_PATIENT = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENT';
-export const SEARCH_PATIENT_SUCCESS = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENT_SUCCESS';
-export const SEARCH_PATIENT_ERROR = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENT_ERROR';
+export const SEARCH_PATIENTS = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENTS';
+export const SEARCH_PATIENTS_SUCCESS = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENTS_SUCCESS';
+export const SEARCH_PATIENTS_ERROR = 'ocpui/WorkspaceSelectionPage/SEARCH_PATIENTS_ERROR';
 
 
 /**

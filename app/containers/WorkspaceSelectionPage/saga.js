@@ -1,21 +1,23 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { searchOrganizations } from 'containers/Organizations/api';
 import { showNotification } from 'containers/Notification/actions';
 import {
   GET_CARE_COORDINATORS,
   GET_CARE_MANAGERS,
-  GET_ORGANIZATIONS,
   GET_WORKFLOW_ROLES,
-  SEARCH_PATIENT,
+  SEARCH_ORGANIZATIONS,
+  SEARCH_PATIENTS,
 } from './constants';
 import {
   getCareCoordinatorsSuccess,
   getCareManagersSuccess,
-  getOrganizationsSuccess,
   getWorkflowRolesSuccess,
+  searchOrganizationsError,
+  searchOrganizationsSuccess,
   searchPatientError,
   searchPatientSuccess,
 } from './actions';
-import { getActiveOrganizations, getCareCoordinators, getCareManagers, getWorkflowRoles, searchPatients } from './api';
+import { getCareCoordinators, getCareManagers, getWorkflowRoles, searchPatients } from './api';
 
 export function* getWorkflowRolesSaga() {
   try {
@@ -23,15 +25,6 @@ export function* getWorkflowRolesSaga() {
     yield put(getWorkflowRolesSuccess(workflowRoles));
   } catch (err) {
     yield put(showNotification('Failed to get the workflow roles.'));
-  }
-}
-
-export function* getOrganizationsSaga() {
-  try {
-    const organizations = yield call(getActiveOrganizations);
-    yield put(getOrganizationsSuccess(organizations));
-  } catch (err) {
-    yield put(showNotification('Failed to get the organizations.'));
   }
 }
 
@@ -53,7 +46,7 @@ export function* getCareCoordinatorsSaga({ role, organization }) {
   }
 }
 
-export function* searchPatientSaga({ searchValue, showInactive, searchType, currentPage }) {
+export function* searchPatientsSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
     const patients = yield call(searchPatients, searchValue, showInactive, searchType, currentPage);
     yield put(searchPatientSuccess(patients));
@@ -62,12 +55,21 @@ export function* searchPatientSaga({ searchValue, showInactive, searchType, curr
   }
 }
 
+export function* searchOrganizationsSaga({ searchValue, showInactive, searchType, currentPage }) {
+  try {
+    const organizations = yield call(searchOrganizations, searchValue, showInactive, searchType, currentPage);
+    yield put(searchOrganizationsSuccess(organizations));
+  } catch (err) {
+    yield put(searchOrganizationsError(err.message));
+  }
+}
+
 export function* watchGetWorkflowRolesSaga() {
   yield takeLatest(GET_WORKFLOW_ROLES, getWorkflowRolesSaga);
 }
 
-export function* watchGetOrganizationsSaga() {
-  yield takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga);
+export function* watchSearchOrganizationsSaga() {
+  yield takeLatest(SEARCH_ORGANIZATIONS, searchOrganizationsSaga);
 }
 
 export function* watchGetCareManagersSaga() {
@@ -78,8 +80,8 @@ export function* watchGetCareCoordinatorsSaga() {
   yield takeLatest(GET_CARE_COORDINATORS, getCareCoordinatorsSaga);
 }
 
-export function* watchSearchPatientSaga() {
-  yield takeLatest(SEARCH_PATIENT, searchPatientSaga);
+export function* watchSearchPatientsSaga() {
+  yield takeLatest(SEARCH_PATIENTS, searchPatientsSaga);
 }
 
 /**
@@ -88,9 +90,9 @@ export function* watchSearchPatientSaga() {
 export default function* rootSaga() {
   yield all([
     watchGetWorkflowRolesSaga(),
-    watchGetOrganizationsSaga(),
+    watchSearchOrganizationsSaga(),
     watchGetCareManagersSaga(),
     watchGetCareCoordinatorsSaga(),
-    watchSearchPatientSaga(),
+    watchSearchPatientsSaga(),
   ]);
 }

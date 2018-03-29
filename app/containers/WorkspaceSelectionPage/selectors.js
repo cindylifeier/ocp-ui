@@ -15,7 +15,7 @@ const makeSelectWorkflowRolesData = () => createSelector(
 
 const makeSelectOrganizationsData = () => createSelector(
   selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['organizations', 'data']).toJS(),
+  (substate) => substate && substate.get('searchOrganizations').toJS(),
 );
 
 const makeCareManagersData = () => createSelector(
@@ -30,7 +30,7 @@ const makeCareCoordinatorsData = () => createSelector(
 
 const makeSelectPatientsData = () => createSelector(
   selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.get('searchPatient').toJS(),
+  (substate) => substate && substate.get('searchPatients').toJS(),
 );
 
 /**

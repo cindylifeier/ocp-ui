@@ -9,12 +9,12 @@ import {
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
-  SEARCH_ORGANIZATION,
-  SEARCH_ORGANIZATION_ERROR,
-  SEARCH_ORGANIZATION_SUCCESS,
-  SEARCH_PATIENT,
-  SEARCH_PATIENT_ERROR,
-  SEARCH_PATIENT_SUCCESS,
+  SEARCH_ORGANIZATIONS,
+  SEARCH_ORGANIZATIONS_ERROR,
+  SEARCH_ORGANIZATIONS_SUCCESS,
+  SEARCH_PATIENTS,
+  SEARCH_PATIENTS_ERROR,
+  SEARCH_PATIENTS_SUCCESS,
 } from 'containers/WorkspaceSelectionPage/constants';
 
 const initialState = fromJS({
@@ -27,13 +27,13 @@ const initialState = fromJS({
   careCoordinators: {
     data: [],
   },
-  searchOrganization: {
+  searchOrganizations: {
     loading: false,
     result: [],
     currentPage: 0,
     totalNumberOfPages: 0,
   },
-  searchPatient: {
+  searchPatients: {
     loading: false,
     result: [],
     currentPage: 0,
@@ -52,36 +52,36 @@ function workspaceSelectionPageReducer(state = initialState, action) {
     case GET_CARE_COORDINATORS_SUCCESS:
       return state
         .setIn(['careCoordinators', 'data'], fromJS(action.careCoordinators.elements));
-    case SEARCH_ORGANIZATION:
+    case SEARCH_ORGANIZATIONS:
       return state
-        .setIn(['searchOrganization', 'loading'], true);
-    case SEARCH_ORGANIZATION_SUCCESS:
+        .setIn(['searchOrganizations', 'loading'], true);
+    case SEARCH_ORGANIZATIONS_SUCCESS:
       return state
-        .setIn(['searchOrganization', 'loading'], false)
-        .setIn(['searchOrganization', 'result'], fromJS(action.organizations.elements))
-        .setIn(['searchOrganization', 'totalElements'], action.organizations.totalElements)
-        .setIn(['searchOrganization', 'currentPageSize'], action.organizations.currentPageSize)
-        .setIn(['searchOrganization', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
-        .setIn(['searchOrganization', 'currentPage'], action.organizations.currentPage);
-    case SEARCH_ORGANIZATION_ERROR:
+        .setIn(['searchOrganizations', 'loading'], false)
+        .setIn(['searchOrganizations', 'result'], fromJS(action.organizations.elements))
+        .setIn(['searchOrganizations', 'totalElements'], action.organizations.totalElements)
+        .setIn(['searchOrganizations', 'currentPageSize'], action.organizations.currentPageSize)
+        .setIn(['searchOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
+        .setIn(['searchOrganizations', 'currentPage'], action.organizations.currentPage);
+    case SEARCH_ORGANIZATIONS_ERROR:
       return state
-        .setIn(['searchOrganization', 'loading'], false)
-        .setIn(['searchOrganization', 'error'], action.error);
-    case SEARCH_PATIENT:
+        .setIn(['searchOrganizations', 'loading'], false)
+        .setIn(['searchOrganizations', 'error'], action.error);
+    case SEARCH_PATIENTS:
       return state
-        .setIn(['searchPatient', 'loading'], true);
-    case SEARCH_PATIENT_SUCCESS:
+        .setIn(['searchPatients', 'loading'], true);
+    case SEARCH_PATIENTS_SUCCESS:
       return state
-        .setIn(['searchPatient', 'loading'], false)
-        .setIn(['searchPatient', 'result'], fromJS(action.patients.elements))
-        .setIn(['searchPatient', 'totalElements'], action.patients.totalElements)
-        .setIn(['searchPatient', 'currentPageSize'], action.patients.currentPageSize)
-        .setIn(['searchPatient', 'totalNumberOfPages'], action.patients.totalNumberOfPages)
-        .setIn(['searchPatient', 'currentPage'], action.patients.currentPage);
-    case SEARCH_PATIENT_ERROR:
+        .setIn(['searchPatients', 'loading'], false)
+        .setIn(['searchPatients', 'result'], fromJS(action.patients.elements))
+        .setIn(['searchPatients', 'totalElements'], action.patients.totalElements)
+        .setIn(['searchPatients', 'currentPageSize'], action.patients.currentPageSize)
+        .setIn(['searchPatients', 'totalNumberOfPages'], action.patients.totalNumberOfPages)
+        .setIn(['searchPatients', 'currentPage'], action.patients.currentPage);
+    case SEARCH_PATIENTS_ERROR:
       return state
-        .setIn(['searchPatient', 'loading'], false)
-        .setIn(['searchPatient', 'error'], action.error);
+        .setIn(['searchPatients', 'loading'], false)
+        .setIn(['searchPatients', 'error'], action.error);
     default:
       return state;
   }

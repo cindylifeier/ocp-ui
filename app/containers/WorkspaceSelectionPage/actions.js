@@ -11,12 +11,12 @@ import {
   GET_CARE_MANAGERS_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
-  SEARCH_ORGANIZATION,
-  SEARCH_ORGANIZATION_ERROR,
-  SEARCH_ORGANIZATION_SUCCESS,
-  SEARCH_PATIENT,
-  SEARCH_PATIENT_ERROR,
-  SEARCH_PATIENT_SUCCESS,
+  SEARCH_ORGANIZATIONS,
+  SEARCH_ORGANIZATIONS_ERROR,
+  SEARCH_ORGANIZATIONS_SUCCESS,
+  SEARCH_PATIENTS,
+  SEARCH_PATIENTS_ERROR,
+  SEARCH_PATIENTS_SUCCESS,
 } from './constants';
 
 export function getWorkflowRoles() {
@@ -32,9 +32,9 @@ export function getWorkflowRolesSuccess(workflowRoles) {
   };
 }
 
-export function searchOrganization(searchValue, showInactive, searchType, currentPage) {
+export function searchOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: SEARCH_ORGANIZATION,
+    type: SEARCH_ORGANIZATIONS,
     searchValue,
     showInactive,
     searchType,
@@ -42,16 +42,16 @@ export function searchOrganization(searchValue, showInactive, searchType, curren
   };
 }
 
-export function searchOrganizationSuccess(organizations) {
+export function searchOrganizationsSuccess(organizations) {
   return {
-    type: SEARCH_ORGANIZATION_SUCCESS,
+    type: SEARCH_ORGANIZATIONS_SUCCESS,
     organizations,
   };
 }
 
-export function searchOrganizationError(error) {
+export function searchOrganizationsError(error) {
   return {
-    type: SEARCH_ORGANIZATION_ERROR,
+    type: SEARCH_ORGANIZATIONS_ERROR,
     error,
   };
 }
@@ -86,9 +86,9 @@ export function getCareCoordinatorsSuccess(careCoordinators) {
   };
 }
 
-export function searchPatient(searchValue, showInactive, searchType, currentPage) {
+export function searchPatients(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: SEARCH_PATIENT,
+    type: SEARCH_PATIENTS,
     searchValue,
     showInactive,
     searchType,
@@ -98,14 +98,14 @@ export function searchPatient(searchValue, showInactive, searchType, currentPage
 
 export function searchPatientSuccess(patients) {
   return {
-    type: SEARCH_PATIENT_SUCCESS,
+    type: SEARCH_PATIENTS_SUCCESS,
     patients,
   };
 }
 
 export function searchPatientError(error) {
   return {
-    type: SEARCH_PATIENT_ERROR,
+    type: SEARCH_PATIENTS_ERROR,
     error,
   };
 }
