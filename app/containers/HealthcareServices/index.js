@@ -47,18 +47,29 @@ import saga from './saga';
 import messages from './messages';
 
 export class HealthcareServices extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static initalState = {
+    reltaiveTop: 0,
+    isShowSearchResult: false,
+    listHealthcareServices: {
+      currentPage: 1,
+    },
+    searchHealthcareServices: {
+      currentPage: 1,
+      searchValue: '',
+      includeInactive: false,
+      searchType: 'name',
+    },
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      searchHealthcareServices: {
-        searchType: 'name',
-        searchValue: '',
-        includeInactive: false,
-      },
+      ...HealthcareServices.initalState,
     };
+    this.onSize = this.onSize.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleListPageClick = this.handleListPageClick.bind(this);
+    this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
@@ -77,22 +88,28 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     const { organization: newOrganization, location: newLocation } = nextProps;
     if (!isEqual(organization, newOrganization) || !isEqual(location, newLocation)) {
       this.props.getHealthcareServices(1);
+      this.setState({ ...HealthcareServices.initalState });
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
     this.setState({
       searchHealthcareServices: { searchValue, includeInactive, searchType },
+      isShowSearchResult: true,
     });
     this.props.searchHealthcareServices(searchValue, includeInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
-  handleChangeSearchPage(currentPage) {
-    this.props.searchHealthcareServices(this.state.searchHealthcareServices.searchValue, this.state.searchHealthcareServices.includeInactive, this.state.searchHealthcareServices.searchType, currentPage);
+  handleListPageClick(currentPage) {
+    this.props.getHealthcareServices(currentPage, this.props.includeInactive);
   }
 
-  handlePageClick(currentPage) {
-    this.props.getHealthcareServices(currentPage, this.props.includeInactive);
+  handleSearchPageClick(currentPage) {
+    this.props.searchHealthcareServices(this.state.searchHealthcareServices.searchValue, this.state.searchHealthcareServices.includeInactive, this.state.searchHealthcareServices.searchType, currentPage);
   }
 
   handleCheck(event, checked) {
@@ -101,10 +118,19 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 
   render() {
     const { loading, healthcareServices, organization, location } = this.props;
+    let healthcareServicesData = {
+      handlePageClick: this.handleListPageClick,
+    };
+    if (this.state.isShowSearchResult) {
+      healthcareServicesData = {
+        handlePageClick: this.handleSearchPageClick,
+      };
+    }
     return (
       <div>
         <PanelToolbar
           onSearch={this.handleSearch}
+          onSize={this.onSize}
           showFilter={false}
         />
         {isEmpty(organization) &&
@@ -112,7 +138,8 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 
         {!isEmpty(organization) &&
         <InfoSection>
-          The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
+          {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
+          <FormattedMessage {...messages.healthCareService} /> for &nbsp;
           <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
             <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
           </InlineLabel>
@@ -125,7 +152,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           </span>}
           are :
         </InfoSection>}
-        {!isEmpty(organization) && isEmpty(location) &&
+        {!this.state.isShowSearchResult && !isEmpty(organization) && isEmpty(location) &&
         <div>
           <FilterSection>
             <CheckboxFilterGrid>
@@ -159,11 +186,13 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           <CenterAlign>
             <HealthcareServiceTable elements={healthcareServices} />
           </CenterAlign>
+
           <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
-            onChange={this.handlePageClick}
+            onChange={healthcareServicesData.handlePageClick}
           />
+
           <RecordsRange
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
