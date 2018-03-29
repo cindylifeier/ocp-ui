@@ -30,7 +30,7 @@ const makeCareCoordinatorsData = () => createSelector(
 
 const makeSelectPatientsData = () => createSelector(
   selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['patients', 'data']).toJS(),
+  (substate) => substate && substate.get('searchPatient').toJS(),
 );
 
 /**

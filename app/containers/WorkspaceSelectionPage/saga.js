@@ -1,6 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
-import searchPatients from 'containers/Patients/api';
 import {
   GET_CARE_COORDINATORS,
   GET_CARE_MANAGERS,
@@ -16,7 +15,7 @@ import {
   searchPatientError,
   searchPatientSuccess,
 } from './actions';
-import { getActiveOrganizations, getCareCoordinators, getCareManagers, getWorkflowRoles } from './api';
+import { getActiveOrganizations, getCareCoordinators, getCareManagers, getWorkflowRoles, searchPatients } from './api';
 
 export function* getWorkflowRolesSaga() {
   try {
@@ -54,9 +53,9 @@ export function* getCareCoordinatorsSaga({ role, organization }) {
   }
 }
 
-export function* searchPatientSaga({ searchType, searchValue, includeInactive, currentPage }) {
+export function* searchPatientSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
-    const patients = yield call(searchPatients, searchType, searchValue, includeInactive, currentPage);
+    const patients = yield call(searchPatients, searchValue, showInactive, searchType, currentPage);
     yield put(searchPatientSuccess(patients));
   } catch (err) {
     yield put(searchPatientError(err.message));

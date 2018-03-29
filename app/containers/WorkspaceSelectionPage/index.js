@@ -15,10 +15,11 @@ import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLinkUrlByRole, mapToName } from 'containers/App/helpers';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
-import { getCareCoordinators, getCareManagers, getOrganizations, getPatients, getWorkflowRoles } from './actions';
+import { getCareCoordinators, getCareManagers, getOrganizations, getWorkflowRoles, searchPatient } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -34,16 +35,23 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
 
   constructor(props) {
     super(props);
-    this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
     this.state = {
       defaultRole: props.workflowRoles && props.workflowRoles.careManagerWorkflowRole && props.workflowRoles.careManagerWorkflowRole.value,
+      searchPatient: {
+        searchValue: '',
+        searchType: 'name',
+        showInactive: false,
+        currentPage: 1,
+      },
     };
+    this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
+    this.handlePatientSearch = this.handlePatientSearch.bind(this);
+    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
   }
 
   componentDidMount() {
     this.props.getWorkflowRoles();
     this.props.getOrganizations();
-    this.props.getPatients();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,6 +76,17 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     if (!isEmpty(patient)) {
       this.props.setPatient(patient);
     }
+  }
+
+  handlePatientSearch(searchValue, showInactive, searchType) {
+    this.setState({
+      searchPatient: { searchValue, showInactive, searchType },
+    });
+    this.props.searchPatient(searchValue, showInactive, searchType, DEFAULT_START_PAGE_NUMBER);
+  }
+
+  handleChangeSearchPage(currentPage) {
+    this.props.searchPatient(this.state.searchPatient.searchValue, this.state.searchPatient.showInactive, this.state.searchPatient.searchType, currentPage);
   }
 
   render() {
@@ -98,6 +117,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
           onCareCoordinatorSelection={this.props.getCareCoordinators}
+          onPatientSearch={this.handlePatientSearch}
         />
         }
       </div>
@@ -114,15 +134,15 @@ WorkspaceSelectionPage.propTypes = {
   careCoordinators: PropTypes.any.isRequired,
   patients: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
+  user: PropTypes.object,
   getWorkflowRoles: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
-  getPatients: PropTypes.func.isRequired,
+  searchPatient: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
   setOrganization: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
-  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -140,7 +160,7 @@ function mapDispatchToProps(dispatch) {
     getOrganizations: () => dispatch(getOrganizations()),
     getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
     getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),
-    getPatients: () => dispatch(getPatients()),
+    searchPatient: (searchValue, showInactive, searchType, currentPage) => dispatch(searchPatient(searchValue, showInactive, searchType, currentPage)),
     setUser: (user) => dispatch(setUser(user)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),
     setPatient: (patient) => dispatch(setPatient(patient)),
