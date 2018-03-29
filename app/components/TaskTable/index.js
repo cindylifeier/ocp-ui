@@ -20,10 +20,10 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl }) {
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop }) {
   return (
     <Table>
-      <TableHeader columns={TASK_TABLE_COLUMNS}>
+      <TableHeader columns={TASK_TABLE_COLUMNS} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
@@ -85,6 +85,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
 }
 
 TaskTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   cancelTask: PropTypes.func.isRequired,
   patientId: PropTypes.string.isRequired,
   communicationBaseUrl: PropTypes.string.isRequired,

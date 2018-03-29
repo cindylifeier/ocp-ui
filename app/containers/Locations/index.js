@@ -39,17 +39,18 @@ import { makeSelectLocation, makeSelectOrganization } from 'containers/App/conte
 import { clearLocation, setLocation } from 'containers/App/contextActions';
 import {
   makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
   makeSelectIncludeInactive,
   makeSelectIncludeSuspended,
   makeSelectLocations,
-  makeSelectTotalNumberOfPages,
-  makeSelectCurrentPageSize,
   makeSelectTotalElements,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getActiveLocations, getFilteredLocations, initializeLocations } from './actions';
+import SizedStickyDiv from '../../components/StickyDiv/SizedStickyDiv';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
@@ -58,11 +59,15 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     super(props);
     this.state = {
       currentPage: 1,
+      panelHeight: 0,
+      filterHeight: 0,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
@@ -81,6 +86,14 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     if (!isEqual(organization, newOrganization)) {
       this.props.getActiveLocations(1);
     }
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
   }
 
   handleRowClick(location) {
@@ -153,51 +166,53 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   renderTable() {
     return (
       <div>
-        <InfoSection>
-          <div>
-            The <FormattedMessage {...messages.locations} /> for &nbsp;
-            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-              <span id={this.ORGANIZATION_NAME_HTML_ID}>
-                {this.props.organization ? this.props.organization.name : ''}&nbsp;
-              </span>
-            </InlineLabel>
-            are :
-          </div>
-        </InfoSection>
-        {this.props.location &&
-        <InfoSection width="fit-content" maxWidth="500px">
-          <StyledFlatButton
-            label="Clear"
-            onClick={this.props.clearLocation}
-          />
+        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+          <InfoSection margin="0px">
+            <div>
+              The <FormattedMessage {...messages.locations} /> for &nbsp;
+              <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+                <span id={this.ORGANIZATION_NAME_HTML_ID}>
+                  {this.props.organization ? this.props.organization.name : ''}&nbsp;
+                </span>
+              </InlineLabel>
+              are :
+            </div>
+          </InfoSection>
+          {this.props.location &&
+          <InfoSection margin="0px" width="fit-content" maxWidth="500px">
+            <StyledFlatButton
+              label="Clear"
+              onClick={this.props.clearLocation}
+            />
 
-        </InfoSection>
-        }
-        <FilterSection>
-          <CheckboxFilterGrid>
-            <Cell>
-              <FormattedMessage {...messages.filterLabel} />
-            </Cell>
-            <Cell>
-              <StatusCheckbox
-                messages={messages.inactive}
-                elementId="inactiveCheckBox"
-                checked={this.props.includeInactive}
-                handleCheck={this.handleIncludeInactive}
-              />
-            </Cell>
-            <Cell>
-              <StatusCheckbox
-                messages={messages.suspended}
-                elementId="suspendedCheckBox"
-                checked={this.props.includeSuspended}
-                handleCheck={this.handleIncludeSuspended}
-              />
-            </Cell>
-          </CheckboxFilterGrid>
-        </FilterSection>
+          </InfoSection>
+          }
+          <FilterSection>
+            <CheckboxFilterGrid>
+              <Cell>
+                <FormattedMessage {...messages.filterLabel} />
+              </Cell>
+              <Cell>
+                <StatusCheckbox
+                  messages={messages.inactive}
+                  elementId="inactiveCheckBox"
+                  checked={this.props.includeInactive}
+                  handleCheck={this.handleIncludeInactive}
+                />
+              </Cell>
+              <Cell>
+                <StatusCheckbox
+                  messages={messages.suspended}
+                  elementId="suspendedCheckBox"
+                  checked={this.props.includeSuspended}
+                  handleCheck={this.handleIncludeSuspended}
+                />
+              </Cell>
+            </CheckboxFilterGrid>
+          </FilterSection>
+        </SizedStickyDiv>
         <Table>
-          <TableHeader columns={Locations.TABLE_COLUMNS}>
+          <TableHeader columns={Locations.TABLE_COLUMNS} relativeTop={this.state.panelHeight + this.state.filterHeight}>
             <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
             <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
             <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
@@ -237,7 +252,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     };
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} showSearchIcon={false} />
+        <PanelToolbar addNewItem={addNewItem} showSearchIcon={false} onSize={this.handlePanelResize} />
         {this.renderLocationTable()}
       </Card>);
   }

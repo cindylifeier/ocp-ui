@@ -18,7 +18,6 @@ import { Cell } from 'styled-css-grid';
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { PanelToolbar } from 'components/PanelToolbar';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -29,18 +28,20 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import PanelToolbar from 'components/PanelToolbar';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { getHealthcareServices, initializeHealthcareServices, searchHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
   makeSelectHealthcareServices,
   makeSelectIncludeInactive,
   makeSelectQueryError,
   makeSelectQueryLoading,
-  makeSelectTotalNumberOfPages,
   makeSelectTotalElements,
-  makeSelectCurrentPageSize,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -49,6 +50,9 @@ import messages from './messages';
 export class HealthcareServices extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static initalState = {
     reltaiveTop: 0,
+    panelHeight: 0,
+    filterHeight: 0,
+    currentPage: 1,
     isShowSearchResult: false,
     listHealthcareServices: {
       currentPage: 1,
@@ -71,6 +75,8 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
@@ -104,6 +110,14 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     this.props.searchHealthcareServices(searchValue, includeInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
+  }
+
   handleListPageClick(currentPage) {
     this.props.getHealthcareServices(currentPage, this.props.includeInactive);
   }
@@ -130,30 +144,30 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
       <div>
         <PanelToolbar
           onSearch={this.handleSearch}
-          onSize={this.onSize}
+          onSize={this.handlePanelResize}
           showFilter={false}
         />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-        {!isEmpty(organization) &&
-        <InfoSection>
-          {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
-          <FormattedMessage {...messages.healthCareService} /> for &nbsp;
-          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-            <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
-          </InlineLabel>
-          {!isEmpty(location) &&
-          <span>
-            at the&nbsp;
-            <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
-              <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
+        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+          {!isEmpty(organization) &&
+          <InfoSection margin="0px">
+            {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
+            <FormattedMessage {...messages.healthCareService} /> for &nbsp;
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
             </InlineLabel>
-          </span>}
-          are :
-        </InfoSection>}
-        {!this.state.isShowSearchResult && !isEmpty(organization) && isEmpty(location) &&
-        <div>
+            {!isEmpty(location) &&
+            <span>
+              at the&nbsp;
+              <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+                <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
+              </InlineLabel>
+            </span>}
+            are :
+          </InfoSection>}
+          {!this.state.isShowSearchResult && !isEmpty(organization) && isEmpty(location) &&
           <FilterSection>
             <CheckboxFilterGrid>
               <Cell>
@@ -169,8 +183,8 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
               </Cell>
             </CheckboxFilterGrid>
           </FilterSection>
-        </div>
-        }
+          }
+        </SizedStickyDiv>
 
         {loading &&
         <RefreshIndicatorLoading />}
@@ -184,7 +198,10 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
         <div>
           <CenterAlign>
-            <HealthcareServiceTable elements={healthcareServices} />
+            <HealthcareServiceTable
+              elements={healthcareServices}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+            />
           </CenterAlign>
 
           <CenterAlignedUltimatePagination
