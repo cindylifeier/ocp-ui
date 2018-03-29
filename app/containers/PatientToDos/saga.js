@@ -25,7 +25,7 @@ export function* getPatientToDosSaga(action) {
 
 export function* getToDoMainTaskSaga(action) {
   try {
-    const toDoMainTask = yield call(getToDoMainTask, action.patientId, action.definition);
+    const toDoMainTask = yield call(getToDoMainTask, action.patientId, action.organizationId, action.definition);
     yield put(getPatientToDoMainTaskSuccess(toDoMainTask));
   } catch (error) {
     yield put(showNotification(<FormattedMessage {...messages.noTaskReferenceError} />));

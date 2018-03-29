@@ -16,8 +16,8 @@ export function getPatientToDos(patientId, practitionerId, definition) {
   return request(url);
 }
 
-export function getToDoMainTask(patientId, definition) {
-  const queryParams = { patient: patientId, definition };
+export function getToDoMainTask(patientId, organizationId, definition) {
+  const queryParams = { patient: patientId, organization: organizationId, definition };
   const stringifiedParams = queryString.stringify(queryParams);
   const url = `${baseEndpoint}/task-references?${stringifiedParams}`;
   return request(url);

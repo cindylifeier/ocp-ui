@@ -34,10 +34,11 @@ export function getPatientToDoError(error) {
 }
 
 
-export function getPatientToDoMainTask(patientId, definition) {
+export function getPatientToDoMainTask(patientId, organizationId, definition) {
   return {
     type: GET_PATIENT_TO_DO_MAIN_TASK,
     patientId,
+    organizationId,
     definition,
   };
 }
