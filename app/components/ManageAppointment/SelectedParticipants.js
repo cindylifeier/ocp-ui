@@ -41,9 +41,9 @@ function SelectedParticipants(props) {
           <TableRow key={uniqueId()}>
             <TableRowColumn>{participant.name}</TableRowColumn>
             <TableRowColumn>{capitalizeFirstLetter(participant.memberType)}</TableRowColumn>
-            <TableRowColumn>{participant.participationType}</TableRowColumn>
-            <TableRowColumn>{participant.required}</TableRowColumn>
-            <TableRowColumn>{participant.status}</TableRowColumn>
+            <TableRowColumn>{capitalizeFirstLetter(participant.participationType.display)}</TableRowColumn>
+            <TableRowColumn>{capitalizeFirstLetter(participant.required.display)}</TableRowColumn>
+            <TableRowColumn>{capitalizeFirstLetter(participant.status.display)}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton
                 onClick={() => handleRemoveParticipant(participant)}

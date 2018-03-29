@@ -41,6 +41,7 @@ import ParticipantName from 'containers/SearchAppointmentParticipant/Participant
 import ParticipantSearchContainer from 'containers/SearchAppointmentParticipant/ParticipantSearchContainer';
 import { Form, Formik } from 'formik';
 import { uniqueId } from 'lodash';
+import find from 'lodash/find';
 import { MenuItem } from 'material-ui';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import PropTypes from 'prop-types';
@@ -112,26 +113,35 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
   createSearchResultRows() {
     const participationTypes = this.props.participationTypes;
-    const participationRequired = this.props.participationRequired;
+    const participationRequiredValues = this.props.participationRequired;
+    const participationStatusValues = this.props.participationStatus;
     return this.props.searchParticipantResult.map((participant) => (
       <Formik
         key={uniqueId()}
         initialValues={{}}
         onSubmit={(values, actions) => {
-          // const { roleCode } = values;
-          // const role = find(this.props.participantRoles, { code: roleCode });
+          const participationTypeCode = values.participationType;
+          const smallParticipationType = find(participationTypes, { code: participationTypeCode });
+          const participationRequiredCode = values.participationRequired;
+          const smallParticipationRequired = find(participationRequiredValues, { code: participationRequiredCode });
+          // default
+          const participationStatusCode = 'needs-action';
+          const smallParticipationStatus = find(participationStatusValues, { code: participationStatusCode });
           const smallParticipant = {
-            // roleCode,
-            // roleDisplay: role.display,
             memberId: participant.member.id,
             memberType: participant.member.type,
             name: mapSearchParticipantName(participant),
+            participationType: smallParticipationType,
+            required: smallParticipationRequired,
+            status: smallParticipationStatus,
           };
           this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
         }}
         validationSchema={yup.object().shape({
-          roleCode: yup.string()
+          participationType: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          participationRequired: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })
         }
@@ -172,7 +182,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
                           name="participationRequired"
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participationRequired} />}
                         >
-                          {participationRequired && participationRequired.map((req) =>
+                          {participationRequiredValues && participationRequiredValues.map((req) =>
                             (<MenuItem
                               key={uniqueId()}
                               value={req.code}
@@ -321,6 +331,7 @@ SearchAppointmentParticipant.propTypes = {
   })),
   participationTypes: PropTypes.array,
   participationRequired: PropTypes.array,
+  participationStatus: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
