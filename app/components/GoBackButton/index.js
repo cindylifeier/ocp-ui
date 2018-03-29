@@ -12,8 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import StyledFlatButton from 'components/StyledFlatButton';
 import messages from './messages';
 
-
-export function GoBackButton(props) { // eslint-disable-line react/prefer-stateless-function
+export function GoBackButton(props) {
   const history = createHistory();
   const { label, isDisabled } = props;
   return (
