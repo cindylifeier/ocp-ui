@@ -6,8 +6,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.PractitionerToDos.header',
-    defaultMessage: 'This is PractitionerToDos container !',
+  noToDoError: {
+    id: 'ocpui.containers.Practitioner.noToDoError',
+    defaultMessage: 'Error in getting To Do.',
+  },
+  noTaskReferenceError: {
+    id: 'ocpui.containers.Practitioner.noTaskReferenceError',
+    defaultMessage: 'Error in getting To Do Task reference.',
+  },
+  noToDosFound: {
+    id: 'ocpui.containers.Practitioner.noToDosFound',
+    defaultMessage: 'No To Dos found.',
   },
 });
