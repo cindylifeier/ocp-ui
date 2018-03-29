@@ -38,6 +38,7 @@ import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -46,9 +47,15 @@ import { makeSelectShowPastAppointments, makeSelectUpcomingAppointments } from '
 export class UpcomingAppointments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      panelHeight: 0,
+      filterHeight: 0,
+    };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +64,14 @@ export class UpcomingAppointments extends React.Component { // eslint-disable-li
       showPastAppointments: false,
     });
     this.props.getLookupData();
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
   }
 
   handlePageClick(page) {
@@ -101,9 +116,9 @@ export class UpcomingAppointments extends React.Component { // eslint-disable-li
     return (
       <div>
         <Card>
-          <PanelToolbar {...addNewItem} showSearchIcon={false} />
+          <PanelToolbar {...addNewItem} showSearchIcon={false} onSize={this.handlePanelResize} />
           {showPastAppFilter &&
-          <div>
+          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
             <FilterSection>
               <CheckboxFilterGrid>
                 <Cell>
@@ -116,7 +131,7 @@ export class UpcomingAppointments extends React.Component { // eslint-disable-li
                 </Cell>
               </CheckboxFilterGrid>
             </FilterSection>
-          </div>
+          </SizedStickyDiv>
           }
           {loading &&
           <RefreshIndicatorLoading />}
@@ -132,6 +147,7 @@ export class UpcomingAppointments extends React.Component { // eslint-disable-li
               cancelAppointment={this.cancelAppointment}
               patientId={patientId}
               communicationBaseUrl={communicationBaseUrl}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
             />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}
