@@ -46,6 +46,14 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.handleReset = this.handleReset.bind(this);
   }
 
+  getOrganizationName() {
+    let organizationName = null;
+    if (!isEmpty(this.state.selectOrganization) && this.state.selectOrganization.name) {
+      organizationName = this.state.selectOrganization.name;
+    }
+    return organizationName;
+  }
+
   getStepContentBasedOnRole() {
     const {
       ocpAdminWorkflowRole, careManagerWorkflowRole, careCoordinatorWorkflowRole, patientWorkflowRole,
@@ -218,6 +226,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   handleReset(event) {
     event.preventDefault();
+    this.props.initializeSearch();
     this.setState({
       finished: false,
       stepIndex: 0,
@@ -293,10 +302,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   renderCareManagerStepContent() {
     const { stepIndex, finished } = this.state;
-    let organizationName = null;
-    if (!isEmpty(this.state.selectOrganization) && this.state.selectOrganization.name) {
-      organizationName = this.state.selectOrganization.name;
-    }
     return (
       <div>
         <StepperSection>
@@ -315,7 +320,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
             {finished ? (
               <div>
                 <p><strong>Role:</strong> {this.state.roleValue}</p>
-                <p><strong>Organization Name:</strong> {organizationName}</p>
+                <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
                 <p><strong>Care Manager ID:</strong> {this.state.careManagerValue}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
@@ -384,7 +389,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
             {finished ? (
               <div>
                 <p><strong>Role:</strong> {this.state.roleValue}</p>
-                <p><strong>Organization ID:</strong> {this.state.selectOrganization}</p>
+                <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
                 <p><strong>Coordinator ID:</strong> {this.state.careCoordinatorValue}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
@@ -517,6 +522,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 WorkspaceSelection.propTypes = {
   onCareManagerSelection: PropTypes.func.isRequired,
   onCareCoordinatorSelection: PropTypes.func.isRequired,
+  initializeSearch: PropTypes.func.isRequired,
   onPatientSearch: PropTypes.func.isRequired,
   onChangePatientSearchPage: PropTypes.func.isRequired,
   onOrganizationSearch: PropTypes.func.isRequired,

@@ -19,7 +19,14 @@ import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
-import { getCareCoordinators, getCareManagers, getWorkflowRoles, searchOrganizations, searchPatients } from './actions';
+import {
+  getCareCoordinators,
+  getCareManagers,
+  getWorkflowRoles,
+  initializeSearch,
+  searchOrganizations,
+  searchPatients,
+} from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -134,6 +141,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
           onCareCoordinatorSelection={this.props.getCareCoordinators}
+          initializeSearch={this.props.initializeSearch}
           flattenPatientData={flattenPatientData}
           onPatientSearch={this.handlePatientSearch}
           onChangePatientSearchPage={this.handleChangePatientSearchPage}
@@ -157,6 +165,7 @@ WorkspaceSelectionPage.propTypes = {
   searchOrganizationsData: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
   user: PropTypes.object,
+  initializeSearch: PropTypes.func.isRequired,
   getWorkflowRoles: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
@@ -178,6 +187,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializeSearch: () => dispatch(initializeSearch()),
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
     getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
     getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),

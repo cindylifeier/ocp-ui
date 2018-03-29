@@ -9,6 +9,7 @@ import {
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
+  INITIALIZE_SEARCH,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
   SEARCH_ORGANIZATIONS_SUCCESS,
@@ -43,6 +44,16 @@ const initialState = fromJS({
 
 function workspaceSelectionPageReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_SEARCH:
+      return state
+        .setIn(['searchOrganizations', 'result'], fromJS([]))
+        .setIn(['searchOrganizations', 'totalElements'], 0)
+        .setIn(['searchOrganizations', 'totalNumberOfPages'], 0)
+        .setIn(['searchOrganizations', 'currentPage'], 0)
+        .setIn(['searchPatients', 'result'], fromJS([]))
+        .setIn(['searchPatients', 'totalElements'], 0)
+        .setIn(['searchPatients', 'totalNumberOfPages'], 0)
+        .setIn(['searchPatients', 'currentPage'], 0);
     case GET_WORKFLOW_ROLES_SUCCESS:
       return state
         .setIn(['workflowRoles', 'data'], fromJS(action.workflowRoles));

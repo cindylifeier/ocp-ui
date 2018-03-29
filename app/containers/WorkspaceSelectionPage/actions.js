@@ -5,6 +5,7 @@
  */
 
 import {
+  INITIALIZE_SEARCH,
   GET_CARE_COORDINATORS,
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS,
@@ -18,6 +19,12 @@ import {
   SEARCH_PATIENTS_ERROR,
   SEARCH_PATIENTS_SUCCESS,
 } from './constants';
+
+export function initializeSearch() {
+  return {
+    type: INITIALIZE_SEARCH,
+  };
+}
 
 export function getWorkflowRoles() {
   return {
