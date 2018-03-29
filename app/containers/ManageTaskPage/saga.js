@@ -1,9 +1,31 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { goBack, push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
-import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getTaskById, getTaskByIdFromStore, getTasksByPatient, getSubTasksByParentId, updateTask } from 'containers/ManageTaskPage/api';
-import { PATIENTS_URL } from 'containers/App/constants';
-import { CREATE_TASK, GET_ACTIVITY_DEFINITIONS, GET_EVENT_TYPES, GET_ORGANIZATION, GET_PRACTITIONER, GET_PRACTITIONERS, GET_SUB_TASKS, GET_TASK, GET_TASKS_BY_PATIENT, PUT_TASK } from 'containers/ManageTaskPage/constants';
+import {
+  createTask,
+  getActivityDefinitions,
+  getEventTypes,
+  getOrganization,
+  getPractitioners,
+  getRequester,
+  getSubTasksByParentId,
+  getTaskById,
+  getTaskByIdFromStore,
+  getTasksByPatient,
+  updateTask,
+} from 'containers/ManageTaskPage/api';
+import {
+  CREATE_TASK,
+  GET_ACTIVITY_DEFINITIONS,
+  GET_EVENT_TYPES,
+  GET_ORGANIZATION,
+  GET_PRACTITIONER,
+  GET_PRACTITIONERS,
+  GET_SUB_TASKS,
+  GET_TASK,
+  GET_TASKS_BY_PATIENT,
+  PUT_TASK,
+} from 'containers/ManageTaskPage/constants';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { showNotification } from 'containers/Notification/actions';
 import {
@@ -19,12 +41,12 @@ import {
   getPractitionersSuccess,
   getRequesterError,
   getRequesterSuccess,
+  getSubTasksError,
+  getSubTasksSuccess,
   getTaskByIdError,
   getTaskByIdSuccess,
   getTasksByPatientError,
   getTasksByPatientSuccess,
-  getSubTasksError,
-  getSubTasksSuccess,
   updateTaskError,
   updateTaskSuccess,
 } from './actions';
@@ -175,7 +197,7 @@ function* getTaskByIdSaga({ logicalId }) {
     yield put(getTaskByIdSuccess(selectedTask));
   } catch (error) {
     yield put(showNotification('No matching Task found.'));
-    yield put(push(PATIENTS_URL));
+    yield put(goBack());
     yield put(getTaskByIdError(error));
   }
 }
@@ -183,6 +205,7 @@ function* getTaskByIdSaga({ logicalId }) {
 function* watchGetTaskByIdSaga() {
   yield takeLatest(GET_TASK, getTaskByIdSaga);
 }
+
 function* getSubTasksSaga({ logicalId }) {
   try {
     const subTasks = yield call(getSubTasksByParentId, logicalId);

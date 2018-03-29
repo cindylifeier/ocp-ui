@@ -48,7 +48,7 @@ import ParticipantName from './ParticipantName';
 import ParticipantSearchContainer from './ParticipantSearchContainer';
 import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
 
-export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SearchParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

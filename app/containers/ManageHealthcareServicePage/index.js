@@ -48,7 +48,7 @@ import { createHealthcareService, getHealthcareServiceById, updateHealthcareServ
 import reducer from './reducer';
 import saga from './saga';
 
-export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageHealthcareServicePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);

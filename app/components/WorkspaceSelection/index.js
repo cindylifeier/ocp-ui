@@ -18,7 +18,7 @@ import StepperSection from './StepperSection';
 import StepContent from './StepContent';
 import RoleSelectField from './RoleSelectField';
 
-class WorkspaceSelection extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class WorkspaceSelection extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {

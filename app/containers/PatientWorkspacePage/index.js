@@ -194,7 +194,7 @@ export const componentMetadata = [
   { name: 'consents', text: 'Consents', factoryMethod: renderUnderConstruction },
 ];
 
-export class PatientWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class PatientWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { patient, user } = this.props;
     return (

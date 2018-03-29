@@ -85,7 +85,7 @@ ShallowWrapper {
     "props": Object {
       "children": <Table__Table>
         <TableHeader
-          relativeTop="0"
+          relativeTop={0}
           sticky={true}
         >
           <TableHeaderColumn__TableHeaderColumn>
@@ -416,7 +416,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <TableHeader
-            relativeTop="0"
+            relativeTop={0}
             sticky={true}
           >
             <TableHeaderColumn__TableHeaderColumn>
@@ -800,7 +800,7 @@ ShallowWrapper {
               </TableHeaderColumn__TableHeaderColumn>,
               <TableHeaderColumn__TableHeaderColumn />,
             ],
-            "relativeTop": "0",
+            "relativeTop": 0,
             "sticky": true,
           },
           "ref": null,
@@ -2500,7 +2500,7 @@ ShallowWrapper {
       "props": Object {
         "children": <Table__Table>
           <TableHeader
-            relativeTop="0"
+            relativeTop={0}
             sticky={true}
           >
             <TableHeaderColumn__TableHeaderColumn>
@@ -2831,7 +2831,7 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <TableHeader
-              relativeTop="0"
+              relativeTop={0}
               sticky={true}
             >
               <TableHeaderColumn__TableHeaderColumn>
@@ -3215,7 +3215,7 @@ ShallowWrapper {
                 </TableHeaderColumn__TableHeaderColumn>,
                 <TableHeaderColumn__TableHeaderColumn />,
               ],
-              "relativeTop": "0",
+              "relativeTop": 0,
               "sticky": true,
             },
             "ref": null,
