@@ -17,7 +17,7 @@ import AddMultipleAddressesForm from './AddMultipleAddressesForm';
 import AddedAddressesTable from './AddedAddressesTable';
 import messages from './messages';
 
-class AddMultipleAddresses extends React.PureComponent {
+class AddMultipleAddresses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,10 +1,9 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { goBack, push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 
 import { searchOrganizations } from 'containers/Organizations/api';
 import { makeSelectProviderRoles, makeSelectProviderSpecialties } from 'containers/App/lookupSelectors';
 import { showNotification } from 'containers/Notification/actions';
-import { HOME_URL } from 'containers/App/constants';
 import {
   getOrganizationsError,
   getOrganizationsSuccess,
@@ -36,7 +35,7 @@ function* getPractitionerSaga({ logicalId }) {
     yield put(getPractitionerSuccess(practitioner));
   } catch (error) {
     yield put(showNotification('No matching practitioner found.'));
-    yield put(push(HOME_URL));
+    yield put(goBack());
     yield put(getPractitionerError(error));
   }
 }

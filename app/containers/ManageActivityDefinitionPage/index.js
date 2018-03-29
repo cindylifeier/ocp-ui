@@ -41,7 +41,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class ManageActivityDefinitionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageActivityDefinitionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
@@ -58,6 +58,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
 
   render() {
     const {
+      history,
       publicationStatuses,
       definitionTopics,
       resourceTypes,
@@ -67,6 +68,7 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
       organization,
     } = this.props;
     const activityDefinitionProps = {
+      history,
       publicationStatuses,
       definitionTopics,
       resourceTypes,
@@ -91,6 +93,9 @@ export class ManageActivityDefinitionPage extends React.PureComponent { // eslin
 }
 
 ManageActivityDefinitionPage.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   publicationStatuses: PropTypes.array,
   definitionTopics: PropTypes.array,

@@ -35,7 +35,7 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-export class ManageAppointmentPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
@@ -101,6 +101,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
   render() {
     const {
       match,
+      history,
       patient,
       appointmentStatuses,
       appointmentTypes,
@@ -110,6 +111,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
     const appointment = null;
     const initialSelectedParticipants = [];
     const manageAppointmentProps = {
+      history,
       patient,
       appointment,
       editMode,
@@ -153,6 +155,9 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
 
 ManageAppointmentPage.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,

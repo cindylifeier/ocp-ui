@@ -27,7 +27,7 @@ import makeSelectPractitionerWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-export class PractitionerWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class PractitionerWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static componentMetadata = [
     { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
     { name: 'locations', text: 'LOCATIONS', factoryMethod: renderLocationsComponent },

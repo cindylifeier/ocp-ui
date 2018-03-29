@@ -108,7 +108,7 @@ export const componentMetadata = [
   { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
 ];
 
-export class AdminWorkspacePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class AdminWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <Page>

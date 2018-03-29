@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
@@ -20,7 +19,6 @@ import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import { mapToPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
@@ -28,6 +26,7 @@ import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
 function ManageRelatedPersonForm(props) {
   const today = new Date();
   const {
+    history,
     isSubmitting,
     dirty,
     isValid,
@@ -131,7 +130,7 @@ function ManageRelatedPersonForm(props) {
             fullWidth
             name="startDate"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode="landscape"
             hintText={<FormattedMessage {...messages.hintText.startDate} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
           />
@@ -141,7 +140,7 @@ function ManageRelatedPersonForm(props) {
             fullWidth
             name="endDate"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode="landscape"
             hintText={<FormattedMessage {...messages.hintText.endDate} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
           />
@@ -192,7 +191,7 @@ function ManageRelatedPersonForm(props) {
                 label="Cancel"
                 default
                 disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
+                onClick={history.goBack}
               />
             </Cell>
           </Grid>
@@ -203,6 +202,9 @@ function ManageRelatedPersonForm(props) {
 }
 
 ManageRelatedPersonForm.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
