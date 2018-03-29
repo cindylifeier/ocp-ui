@@ -21,11 +21,15 @@ import {
   APPOINTMENT_PARTICIPANT_REQUIRED,
   APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPATION_TYPE,
-  PARTICIPANTROLE,
   PARTICIPANTTYPE,
 } from 'containers/App/constants';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
+import {
+  makeSelectAppointmentParticipationRequired,
+  makeSelectAppointmentParticipationStatuses,
+  makeSelectAppointmentParticipationTypes,
+  makeSelectParticipantTypes,
+} from 'containers/App/lookupSelectors';
 import {
   addAppointmentParticipants,
   getAppointmentSearchParticipant,
@@ -94,7 +98,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
+          <TableHeaderColumn>{
+            <FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
           <TableHeaderColumn>{
             <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
           <TableHeaderColumn>{
@@ -106,17 +111,18 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
   }
 
   createSearchResultRows() {
-    const participantRoles = this.props.participantRoles;
+    const participationTypes = this.props.participationTypes;
+    const participationRequired = this.props.participationRequired;
     return this.props.searchParticipantResult.map((participant) => (
       <Formik
         key={uniqueId()}
         initialValues={{}}
         onSubmit={(values, actions) => {
-          const { roleCode } = values;
-          const role = find(this.props.participantRoles, { code: roleCode });
+          // const { roleCode } = values;
+          // const role = find(this.props.participantRoles, { code: roleCode });
           const smallParticipant = {
-            roleCode,
-            roleDisplay: role.display,
+            // roleCode,
+            // roleDisplay: role.display,
             memberId: participant.member.id,
             memberType: participant.member.type,
             name: mapSearchParticipantName(participant),
@@ -143,21 +149,38 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
                         </ParticipantName>
                       </Cell>
                       <Cell middle>
+                        <ParticipantName>
+                          {participant.member.type}
+                        </ParticipantName>
+                      </Cell>
+                      <Cell middle>
                         <SelectFieldWithoutOnClick
-                          name="roleCode"
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantType} />}
+                          name="participationType"
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participationType} />}
                         >
-                          {participantRoles && participantRoles.map((participantRole) =>
+                          {participationTypes && participationTypes.map((participationType) =>
                             (<MenuItem
                               key={uniqueId()}
-                              value={participantRole.code}
-                              primaryText={participantRole.display}
+                              value={participationType.code}
+                              primaryText={participationType.display}
                             />),
                           )}
                         </SelectFieldWithoutOnClick>
                       </Cell>
-                      <Cell middle />
-                      <Cell middle />
+                      <Cell middle>
+                        <SelectFieldWithoutOnClick
+                          name="participationRequired"
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participationRequired} />}
+                        >
+                          {participationRequired && participationRequired.map((req) =>
+                            (<MenuItem
+                              key={uniqueId()}
+                              value={req.code}
+                              primaryText={req.display}
+                            />),
+                          )}
+                        </SelectFieldWithoutOnClick>
+                      </Cell>
                       <Cell middle>
                         <StyledRaisedButton
                           label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
@@ -181,7 +204,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     return (<Table>
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipantType} />}</TableHeaderColumn>
         <TableHeaderColumn>{
           <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
         <TableHeaderColumn>{
@@ -288,7 +312,6 @@ SearchAppointmentParticipant.propTypes = {
   initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
-  participantRoles: PropTypes.array,
   patient: PropTypes.object,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -296,11 +319,15 @@ SearchAppointmentParticipant.propTypes = {
     definition: PropTypes.string,
     system: PropTypes.string,
   })),
+  participationTypes: PropTypes.array,
+  participationRequired: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
-  participantRoles: makeSelectParticipantRoles(),
+  participationTypes: makeSelectAppointmentParticipationTypes(),
+  participationRequired: makeSelectAppointmentParticipationRequired(),
+  participationStatus: makeSelectAppointmentParticipationStatuses(),
   patient: makeSelectPatient(),
   searchParticipantResult: makeSelectSearchAppointmentParticipantResults(),
 });
@@ -308,7 +335,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([PARTICIPANTTYPE,
-      PARTICIPANTROLE, APPOINTMENT_PARTICIPATION_STATUS,
+      APPOINTMENT_PARTICIPATION_STATUS,
       APPOINTMENT_PARTICIPATION_TYPE,
       APPOINTMENT_PARTICIPANT_REQUIRED])),
     searchParticipant: (name, member) => dispatch(getAppointmentSearchParticipant(name, member)),
