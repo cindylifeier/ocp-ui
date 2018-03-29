@@ -83,7 +83,7 @@ ToDoCardContent.propTypes = {
   status: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   toDoLogicalId: PropTypes.string.isRequired,
-  taskBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
   isPractitioner: PropTypes.bool,
 };

@@ -44,7 +44,7 @@ function ToDoList(props) {
 ToDoList.propTypes = {
   toDos: PropTypes.array.isRequired,
   patientId: PropTypes.string,
-  taskBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
   isPractitioner: PropTypes.bool,
 };
