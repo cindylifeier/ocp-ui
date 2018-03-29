@@ -1,6 +1,6 @@
 /**
  *
- * PatientTable
+ * OrganizationTable
  *
  */
 
@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
-import upperFirst from 'lodash/upperFirst';
 
 import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
@@ -23,36 +22,37 @@ import messages from './messages';
 
 const tableColumns = 'repeat(5, 1fr)';
 
-function PatientTable(props) {
-  const { searchPatientsData, onChangePatientSearchPage, flattenPatientData, onPatientSelect } = props;
+function OrganizationTable(props) {
+  const { searchOrganizationsData, onChangeOrganizationSearchPage, flattenOrganizationData, onOrganizationSelect } = props;
   return (
     <div>
-      {searchPatientsData.loading && <RefreshIndicatorLoading />}
-      {(!searchPatientsData.loading && searchPatientsData.result &&
-        searchPatientsData.result.length > 0 ?
+      {searchOrganizationsData.loading && <RefreshIndicatorLoading />}
+      {(!searchOrganizationsData.loading && searchOrganizationsData.result &&
+        searchOrganizationsData.result.length > 0 ?
           <div>
             <Table>
               <TableHeader columns={tableColumns} sticky={false}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnDOB} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnGender} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganizationAddresses} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganizationTelecoms} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               </TableHeader>
-              {!isEmpty(searchPatientsData.result) && searchPatientsData.result.map((patient) => {
-                const { id, name, birthDate, genderCode, identifier, active } = flattenPatientData(patient);
+              {!isEmpty(searchOrganizationsData.result) && searchOrganizationsData.result.map((organization) => {
+                const flattenedOrganization = flattenOrganizationData(organization);
+                const { logicalId, name, telecoms, addresses, identifiers, active } = flattenedOrganization;
                 return (
                   <TableRow
-                    key={id}
+                    key={logicalId}
                     columns={tableColumns}
-                    onClick={() => onPatientSelect && onPatientSelect(patient)}
+                    onClick={() => onOrganizationSelect && onOrganizationSelect(organization)}
                     role="button"
                     tabIndex="0"
                   >
                     <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{birthDate}</TableRowColumn>
-                    <TableRowColumn>{upperFirst(genderCode)}</TableRowColumn>
-                    <TableRowColumn>{identifier}</TableRowColumn>
+                    <TableRowColumn>{addresses}</TableRowColumn>
+                    <TableRowColumn>{telecoms}</TableRowColumn>
+                    <TableRowColumn>{identifiers}</TableRowColumn>
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
@@ -64,21 +64,21 @@ function PatientTable(props) {
               })}
             </Table>
             <CenterAlignedUltimatePagination
-              currentPage={searchPatientsData.currentPage}
-              totalPages={searchPatientsData.totalNumberOfPages}
-              onChange={onChangePatientSearchPage}
+              currentPage={searchOrganizationsData.currentPage}
+              totalPages={searchOrganizationsData.totalNumberOfPages}
+              onChange={onChangeOrganizationSearchPage}
             />
           </div> :
           (<CenterAlign>
-            <NoResultsFoundText>No patients found</NoResultsFoundText>
+            <NoResultsFoundText>No organizations found</NoResultsFoundText>
           </CenterAlign>)
       )}
     </div>
   );
 }
 
-PatientTable.propTypes = {
-  searchPatientsData: PropTypes.shape({
+OrganizationTable.propTypes = {
+  searchOrganizationsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
@@ -86,9 +86,9 @@ PatientTable.propTypes = {
     totalElements: PropTypes.number,
     result: PropTypes.any.isRequired,
   }),
-  onChangePatientSearchPage: PropTypes.func.isRequired,
-  flattenPatientData: PropTypes.func.isRequired,
-  onPatientSelect: PropTypes.func.isRequired,
+  onChangeOrganizationSearchPage: PropTypes.func.isRequired,
+  flattenOrganizationData: PropTypes.func.isRequired,
+  onOrganizationSelect: PropTypes.func.isRequired,
 };
 
-export default PatientTable;
+export default OrganizationTable;

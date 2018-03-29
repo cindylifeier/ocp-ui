@@ -30,6 +30,14 @@ export default defineMessages({
     id: 'ocpui.components.WorkspaceSelection.tableHeaderColumnStatus',
     defaultMessage: 'Status',
   },
+  tableColumnHeaderOrganizationAddresses: {
+    id: 'ocpui.components.WorkspaceSelection.tableColumnHeaderOrganizationAddresses',
+    defaultMessage: 'Address',
+  },
+  tableColumnHeaderOrganizationTelecoms: {
+    id: 'ocpui.components.WorkspaceSelection.tableColumnHeaderOrganizationTelecoms',
+    defaultMessage: 'Telecoms',
+  },
   active: {
     id: 'ocpui.components.WorkspaceSelection.active',
     defaultMessage: 'Active',

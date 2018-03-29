@@ -29,7 +29,7 @@ import {
   makeSelectPatientsData,
   makeSelectWorkflowRolesData,
 } from './selectors';
-import { flattenPatientData } from './helpers';
+import { flattenOrganizationData, flattenPatientData } from './helpers';
 
 export class WorkspaceSelectionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -52,7 +52,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     };
     this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
     this.handlePatientSearch = this.handlePatientSearch.bind(this);
-    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
+    this.handleChangePatientSearchPage = this.handleChangePatientSearchPage.bind(this);
     this.handleOrganizationSearch = this.handleOrganizationSearch.bind(this);
     this.handleChangeOrganizationSearchPage = this.handleChangeOrganizationSearchPage.bind(this);
   }
@@ -103,7 +103,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     this.props.searchPatients(searchValue, showInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
-  handleChangeSearchPage(currentPage) {
+  handleChangePatientSearchPage(currentPage) {
     this.props.searchPatients(this.state.searchPatients.searchValue, this.state.searchPatients.showInactive, this.state.searchPatients.searchType, currentPage);
   }
 
@@ -131,12 +131,13 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           getLinkUrlByRole={getLinkUrlByRole}
           mapToName={mapToName}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
-          flattenPatientData={flattenPatientData}
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
           onCareCoordinatorSelection={this.props.getCareCoordinators}
+          flattenPatientData={flattenPatientData}
           onPatientSearch={this.handlePatientSearch}
-          onChangeSearchPage={this.handleChangeSearchPage}
+          onChangePatientSearchPage={this.handleChangePatientSearchPage}
+          flattenOrganizationData={flattenOrganizationData}
           onOrganizationSearch={this.handleOrganizationSearch}
           onChangeOrganizationSearchPage={this.handleChangeOrganizationSearchPage}
         />
