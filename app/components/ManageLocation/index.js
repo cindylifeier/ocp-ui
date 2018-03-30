@@ -22,7 +22,7 @@ import ManageLocationForm from './ManageLocationForm';
 function ManageLocation(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp(POSTAL_CODE_PATTERN);
-  const { onSave, onCancel } = props;
+  const { onSave } = props;
   return (
     <div>
       <Formik
@@ -54,7 +54,7 @@ function ManageLocation(props) {
           postalCode: yup.string()
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
         })}
-        render={(formikProps) => <ManageLocationForm {...formikProps} {...props} onCancel={onCancel} />}
+        render={(formikProps) => <ManageLocationForm {...formikProps} {...props} />}
       />
     </div>
   );
@@ -62,7 +62,6 @@ function ManageLocation(props) {
 
 ManageLocation.propTypes = {
   onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
   location: PropTypes.object,
 };
 

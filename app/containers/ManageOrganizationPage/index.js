@@ -34,7 +34,7 @@ import {
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { getOrganization } from 'containers/App/contextActions';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import Page from 'components/Page';
@@ -105,7 +105,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
   }
 
   render() {
-    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, history: { goBack }, organization } = this.props;
+    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, organization } = this.props;
     let initialValues = {};
     let editingOrganization = null;
     // if id in the route exists but no initial data to edit
@@ -233,11 +233,8 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                             />
                           </Cell>
                           <Cell>
-                            <StyledFlatButton
-                              fullWidth
-                              default
+                            <GoBackButton
                               label={<FormattedMessage {...messages.form.cancelButton} />}
-                              onClick={goBack}
                             />
                           </Cell>
                         </Grid>
@@ -260,9 +257,6 @@ ManageOrganizationPage.propTypes = {
   createOrganization: PropTypes.func.isRequired,
   updateOrganization: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   uspsStates: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,

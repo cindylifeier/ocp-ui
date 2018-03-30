@@ -18,7 +18,6 @@ import messages from './messages';
 
 function ManageCareTeam(props) {
   const {
-    history,
     patient,
     careTeam,
     editMode,
@@ -33,7 +32,6 @@ function ManageCareTeam(props) {
   } = props;
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
-    history,
     patient,
     careTeamCategories,
     careTeamReasons,
@@ -88,9 +86,6 @@ function ManageCareTeam(props) {
 }
 
 ManageCareTeam.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
