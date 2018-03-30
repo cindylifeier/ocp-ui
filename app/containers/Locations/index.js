@@ -252,7 +252,11 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     };
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} showSearchIcon={false} onSize={this.handlePanelResize} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          onSize={this.handlePanelResize}
+          showFilter={false}
+        />
         {this.renderLocationTable()}
       </Card>);
   }
