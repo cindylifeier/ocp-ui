@@ -16,7 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderTasks from 'containers/Tasks/render';
-import renderToDosComponent from 'containers/ToDos/render';
+import renderPatientToDosComponent from 'containers/PatientToDos/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import renderConsents from 'containers/Consents/render';
@@ -187,7 +187,7 @@ export const initialStateMetadata =
   };
 
 export const componentMetadata = [
-  { name: 'toDo', text: 'My to do', factoryMethod: renderToDosComponent },
+  { name: 'toDo', text: 'My to do', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstruction },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },

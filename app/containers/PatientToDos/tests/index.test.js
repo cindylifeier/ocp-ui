@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import { ToDos } from '../index';
+// import { PatientToDos } from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<ToDos />', () => {
-  it('Expect to have unit tests specified', () => {
+describe('<PatientToDos />', () => {
+  xit('Expect to have unit tests specified', () => {
     expect(true).toEqual(true);
   });
 });

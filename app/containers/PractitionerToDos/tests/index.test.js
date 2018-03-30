@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import ToDoCardGrid from '../index';
+// import { PractitionerToDos } from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<ToDoCardGrid />', () => {
+describe('<PractitionerToDos />', () => {
   xit('Expect to have unit tests specified', () => {
     expect(true).toEqual(true);
   });
