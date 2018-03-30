@@ -8,7 +8,7 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
@@ -23,7 +23,7 @@ function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
-    flagStatuses, flagCategories, practitioner, onCancel,
+    flagStatuses, flagCategories, practitioner,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -182,13 +182,7 @@ function ManagePatientForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                onClick={onCancel}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -198,7 +192,6 @@ function ManagePatientForm(props) {
 }
 
 ManagePatientForm.propTypes = {
-  onCancel: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

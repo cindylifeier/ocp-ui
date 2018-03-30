@@ -31,16 +31,17 @@ function ToDoCardContent(props) {
     taskBaseUrl,
     patientId,
     isPatient,
+    isPractitioner,
   } = props;
-  const dueDateStr = 'Due '.concat(dueDate);
-  const patientNameStr = !isPatient ? patientName : '';
+  const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
+  const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
   const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
-      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
     } else if (statusStr === DUE_TODAY) {
       statusElement = (<div><ActionEvent /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
@@ -82,8 +83,9 @@ ToDoCardContent.propTypes = {
   status: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   toDoLogicalId: PropTypes.string.isRequired,
-  taskBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
+  isPractitioner: PropTypes.bool,
 };
 
 export default ToDoCardContent;

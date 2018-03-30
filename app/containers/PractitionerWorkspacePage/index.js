@@ -17,7 +17,7 @@ import GoldenLayout from 'components/GoldenLayout';
 import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderPatientsComponent from 'containers/Patients/render';
 import renderLocationsComponent from 'containers/Locations/render';
-import renderToDosComponent from 'containers/ToDos/render';
+import renderPractitionerToDosComponent from 'containers/PractitionerToDos/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
@@ -40,7 +40,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     },
     { name: 'toDos',
       text: 'MY TO DO',
-      factoryMethod: renderToDosComponent,
+      factoryMethod: renderPractitionerToDosComponent,
     },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderUnderConstruction },
   ];

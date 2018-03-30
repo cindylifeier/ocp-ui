@@ -11,7 +11,7 @@ import SelectField from 'components/SelectField';
 import FormSubtitle from 'components/FormSubtitle';
 import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
@@ -37,7 +37,6 @@ function ManageLocationForm(props) {
     isSubmitting,
     organization,
     location,
-    onCancel,
   } = props;
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   const addTelecomsProps = {
@@ -195,14 +194,7 @@ function ManageLocationForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                type="button"
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                onClick={onCancel}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -216,7 +208,6 @@ function ManageLocationForm(props) {
 }
 
 ManageLocationForm.propTypes = {
-  onCancel: PropTypes.func.isRequired,
   errors: PropTypes.object,
   values: PropTypes.object.isRequired,
   isValid: PropTypes.bool.isRequired,

@@ -25,7 +25,7 @@ import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
 import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectToDos } from 'containers/ToDos/selectors';
+import { makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
@@ -151,7 +151,6 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     const {
       tasks,
       match,
-      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -203,7 +202,6 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
 
 
     const taskProps = {
-      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -247,9 +245,6 @@ ManageTaskPage.propTypes = {
     }),
     path: PropTypes.string,
     url: PropTypes.string,
-  }).isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,
@@ -299,7 +294,7 @@ const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
   subTasks: makeSelectSubTasks(),
   tasksByPatient: makeSelectTasksByPatient(),
-  toDoSubTasks: makeSelectToDos(),
+  toDoSubTasks: makeSelectPatientToDos(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -8,7 +8,7 @@
 // configure({ adapter: new Adapter() });
 
 describe('<ToDoCardGrid />', () => {
-  it('Expect to have unit tests specified', () => {
+  xit('Expect to have unit tests specified', () => {
     expect(true).toEqual(true);
   });
 });
