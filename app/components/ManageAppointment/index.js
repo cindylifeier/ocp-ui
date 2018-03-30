@@ -18,7 +18,6 @@ import messages from './messages';
 
 function ManageAppointment(props) {
   const {
-    history,
     patient,
     appointment,
     editMode,
@@ -31,7 +30,6 @@ function ManageAppointment(props) {
     removeParticipant,
   } = props;
   const propsFromContainer = {
-    history,
     patient,
     appointmentStatuses,
     appointmentTypes,
@@ -73,9 +71,6 @@ function ManageAppointment(props) {
 }
 
 ManageAppointment.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,

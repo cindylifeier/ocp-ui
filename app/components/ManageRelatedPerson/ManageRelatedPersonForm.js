@@ -11,7 +11,7 @@ import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import InlineLabel from 'components/InlineLabel';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
@@ -26,7 +26,6 @@ import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
 function ManageRelatedPersonForm(props) {
   const today = new Date();
   const {
-    history,
     isSubmitting,
     dirty,
     isValid,
@@ -185,13 +184,7 @@ function ManageRelatedPersonForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                onClick={history.goBack}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -201,9 +194,6 @@ function ManageRelatedPersonForm(props) {
 }
 
 ManageRelatedPersonForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

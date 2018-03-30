@@ -137,7 +137,6 @@ export class ManageHealthcareServicePage extends React.Component { // eslint-dis
       telecomSystems,
       telecomUses,
       organization,
-      history: { goBack },
     } = this.props;
     const logicalId = this.props.match.params.id;
     const editMode = !isUndefined(match.params.id);
@@ -169,7 +168,7 @@ export class ManageHealthcareServicePage extends React.Component { // eslint-dis
             : <FormattedMessage {...messages.createHeader} />}
         />
         <PageContent>
-          <ManageHealthcareService {...formProps} onSave={this.handleSave} onCancel={goBack} />
+          <ManageHealthcareService {...formProps} onSave={this.handleSave} />
         </PageContent>
       </Page>
     );
@@ -178,9 +177,6 @@ export class ManageHealthcareServicePage extends React.Component { // eslint-dis
 
 ManageHealthcareServicePage.propTypes = {
   match: PropTypes.object,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getSelectedHealthcareService: PropTypes.func.isRequired,
   healthcareServiceCategories: PropTypes.array,

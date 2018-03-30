@@ -20,7 +20,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import InlineLabel from 'components/InlineLabel';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
@@ -60,7 +60,6 @@ class ManageActivityDefinitionForm extends React.Component {
 
   render() {
     const {
-      history,
       organization,
       publicationStatuses,
       definitionTopics,
@@ -296,13 +295,7 @@ class ManageActivityDefinitionForm extends React.Component {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  onClick={history.goBack}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
@@ -314,9 +307,6 @@ class ManageActivityDefinitionForm extends React.Component {
 }
 
 ManageActivityDefinitionForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   organization: PropTypes.object.isRequired,
   publicationStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,

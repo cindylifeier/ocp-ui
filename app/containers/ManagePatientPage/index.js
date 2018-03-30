@@ -78,7 +78,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
 
   render() {
     const {
-      history: { goBack }, match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
+      match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
       usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories,
     } = this.props;
     const patientId = match.params.id;
@@ -113,7 +113,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
             <FormattedMessage {...messages.createHeader} />}
         />
         <PageContent>
-          <ManagePatient {...formProps} onSave={this.handleSave} onCancel={goBack} />
+          <ManagePatient {...formProps} onSave={this.handleSave} />
         </PageContent>
       </Page>
     );
@@ -121,9 +121,6 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
 }
 
 ManagePatientPage.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

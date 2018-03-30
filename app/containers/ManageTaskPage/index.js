@@ -151,7 +151,6 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     const {
       tasks,
       match,
-      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -203,7 +202,6 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
 
 
     const taskProps = {
-      history,
       taskStatus,
       requestIntent,
       requestPriority,
@@ -247,9 +245,6 @@ ManageTaskPage.propTypes = {
     }),
     path: PropTypes.string,
     url: PropTypes.string,
-  }).isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
   getOrganization: PropTypes.func.isRequired,

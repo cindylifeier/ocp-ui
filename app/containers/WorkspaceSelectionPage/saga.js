@@ -1,20 +1,23 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { searchOrganizations } from 'containers/Organizations/api';
 import { showNotification } from 'containers/Notification/actions';
 import {
   GET_CARE_COORDINATORS,
   GET_CARE_MANAGERS,
-  GET_ORGANIZATIONS,
-  GET_PATIENTS,
   GET_WORKFLOW_ROLES,
+  SEARCH_ORGANIZATIONS,
+  SEARCH_PATIENTS,
 } from './constants';
 import {
   getCareCoordinatorsSuccess,
   getCareManagersSuccess,
-  getOrganizationsSuccess,
-  getPatientsSuccess,
   getWorkflowRolesSuccess,
+  searchOrganizationsError,
+  searchOrganizationsSuccess,
+  searchPatientsError,
+  searchPatientsSuccess,
 } from './actions';
-import { getActiveOrganizations, getCareCoordinators, getCareManagers, getPatients, getWorkflowRoles } from './api';
+import { getCareCoordinators, getCareManagers, getWorkflowRoles, searchPatients } from './api';
 
 export function* getWorkflowRolesSaga() {
   try {
@@ -22,15 +25,6 @@ export function* getWorkflowRolesSaga() {
     yield put(getWorkflowRolesSuccess(workflowRoles));
   } catch (err) {
     yield put(showNotification('Failed to get the workflow roles.'));
-  }
-}
-
-export function* getOrganizationsSaga() {
-  try {
-    const organizations = yield call(getActiveOrganizations);
-    yield put(getOrganizationsSuccess(organizations));
-  } catch (err) {
-    yield put(showNotification('Failed to get the organizations.'));
   }
 }
 
@@ -52,12 +46,21 @@ export function* getCareCoordinatorsSaga({ role, organization }) {
   }
 }
 
-export function* getPatientsSaga() {
+export function* searchPatientsSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
-    const patients = yield call(getPatients);
-    yield put(getPatientsSuccess(patients));
+    const patients = yield call(searchPatients, searchValue, showInactive, searchType, currentPage);
+    yield put(searchPatientsSuccess(patients));
   } catch (err) {
-    yield put(showNotification('Failed to get the patients.'));
+    yield put(searchPatientsError(err.message));
+  }
+}
+
+export function* searchOrganizationsSaga({ searchValue, showInactive, searchType, currentPage }) {
+  try {
+    const organizations = yield call(searchOrganizations, searchValue, showInactive, searchType, currentPage);
+    yield put(searchOrganizationsSuccess(organizations));
+  } catch (err) {
+    yield put(searchOrganizationsError(err.message));
   }
 }
 
@@ -65,8 +68,8 @@ export function* watchGetWorkflowRolesSaga() {
   yield takeLatest(GET_WORKFLOW_ROLES, getWorkflowRolesSaga);
 }
 
-export function* watchGetOrganizationsSaga() {
-  yield takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga);
+export function* watchSearchOrganizationsSaga() {
+  yield takeLatest(SEARCH_ORGANIZATIONS, searchOrganizationsSaga);
 }
 
 export function* watchGetCareManagersSaga() {
@@ -77,8 +80,8 @@ export function* watchGetCareCoordinatorsSaga() {
   yield takeLatest(GET_CARE_COORDINATORS, getCareCoordinatorsSaga);
 }
 
-export function* watchGetPatientsSaga() {
-  yield takeLatest(GET_PATIENTS, getPatientsSaga);
+export function* watchSearchPatientsSaga() {
+  yield takeLatest(SEARCH_PATIENTS, searchPatientsSaga);
 }
 
 /**
@@ -87,9 +90,9 @@ export function* watchGetPatientsSaga() {
 export default function* rootSaga() {
   yield all([
     watchGetWorkflowRolesSaga(),
-    watchGetOrganizationsSaga(),
+    watchSearchOrganizationsSaga(),
     watchGetCareManagersSaga(),
     watchGetCareCoordinatorsSaga(),
-    watchGetPatientsSaga(),
+    watchSearchPatientsSaga(),
   ]);
 }
