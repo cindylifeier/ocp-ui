@@ -12,27 +12,29 @@ import PropTypes from 'prop-types';
 import Padding from 'components/Padding';
 
 function ToDoList(props) {
-  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner } = props;
+  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner, openDialog } = props;
   return (
     <div>
       <Padding top={'10px'} right={'10px'} bottom={'10px'} left={'10px'}>
         {toDos && toDos.length > 0 &&
         <div>
           {!isEmpty(toDos) && toDos.map((toDo) =>
-            (<ToDoCard key={toDo.logicalId}>
-              <ToDoCardContent
-                description={toDo.description}
-                toDoLogicalId={toDo.logicalId}
-                patientId={patientId}
-                isPatient={isPatient}
-                isPractitioner={isPractitioner}
-                status={toDo.taskDue}
-                dueDate={toDo.executionPeriod && toDo.executionPeriod.end ? toDo.executionPeriod.end : ''}
-                patientName={toDo.beneficiary.display}
-                taskBaseUrl={taskBaseUrl}
-              />
-            </ToDoCard>)
-          )
+
+              (<ToDoCard key={toDo.logicalId}>
+                <ToDoCardContent
+                  description={toDo.description}
+                  toDoLogicalId={toDo.logicalId}
+                  patientId={patientId}
+                  isPatient={isPatient}
+                  isPractitioner={isPractitioner}
+                  status={toDo.taskDue}
+                  dueDate={toDo.executionPeriod && toDo.executionPeriod.end ? toDo.executionPeriod.end : ''}
+                  patientName={toDo.beneficiary.display}
+                  taskBaseUrl={taskBaseUrl}
+                  openDialog={openDialog}
+                />
+              </ToDoCard>)
+            )
           }
         </div>
       }
@@ -47,6 +49,7 @@ ToDoList.propTypes = {
   taskBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
   isPractitioner: PropTypes.bool,
+  openDialog: PropTypes.func,
 };
 
 export default ToDoList;
