@@ -14,36 +14,76 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectManageConsentPage from './selectors';
+import { getLookupsAction } from 'containers/App/actions';
+import { CONSENT_ACTION, CONSENT_CATEGORY, CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_ROLE_TYPE } from 'containers/App/constants';
+import ManageConsent from 'components/ManageConsent';
+import PageHeader from 'components/PageHeader';
+import Page from 'components/Page';
+import PageContent from 'components/PageContent';
+import { makeSelectConsentStateCodes, makeSelectConsentCategory, makeSelectSecurityRoleType, makeSelectConsentAction, makeSelectPurposeOfUse } from 'containers/App/lookupSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
 export class ManageConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  componentDidMount() {
+    this.props.getLookups();
+  }
   render() {
+    const {
+      consentStateCodes,
+      consentCategory,
+      securityRoleType,
+      consentAction,
+      purposeOfUse,
+    } = this.props;
+    const consentProps = {
+      consentStateCodes,
+      consentCategory,
+      securityRoleType,
+      consentAction,
+      purposeOfUse,
+    };
     return (
-      <div>
+      <Page>
         <Helmet>
           <title>Manage Consent</title>
           <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
         </Helmet>
-        <FormattedMessage {...messages.createHeader} />
-      </div>
+        <PageHeader
+          title={<FormattedMessage {...messages.createHeader} />}
+        />
+        <PageContent>
+          <ManageConsent {...consentProps} />
+        </PageContent>
+      </Page>
     );
   }
 }
 
 ManageConsentPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getLookups: PropTypes.func.isRequired,
+  consentStateCodes: PropTypes.array,
+  consentCategory: PropTypes.array,
+  securityRoleType: PropTypes.array,
+  consentAction: PropTypes.array,
+  purposeOfUse: PropTypes.array,
+
+
 };
 
 const mapStateToProps = createStructuredSelector({
-  manageconsentpage: makeSelectManageConsentPage(),
+  consentStateCodes: makeSelectConsentStateCodes(),
+  consentCategory: makeSelectConsentCategory(),
+  securityRoleType: makeSelectSecurityRoleType(),
+  consentAction: makeSelectConsentAction(),
+  purposeOfUse: makeSelectPurposeOfUse(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getLookups: () => dispatch(getLookupsAction([CONSENT_STATE_CODES, CONSENT_CATEGORY, SECURITY_ROLE_TYPE, CONSENT_ACTION, PURPOSE_OF_USE])),
   };
 }
 
