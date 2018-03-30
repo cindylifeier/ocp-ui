@@ -58,6 +58,13 @@ import {
   COMMUNICATION_MEDIUM,
   FLAG_STATUS,
   FLAG_CATEGORY,
+  // Consent Resource Lookups - Start
+  CONSENT_STATE_CODES,
+  CONSENT_CATEGORY,
+  SECURITY_ROLE_TYPE,
+  CONSENT_ACTION,
+  PURPOSE_OF_USE,
+  // Consent Resource Lookups - End
 } from './constants';
 
 // The initial state of the lookup
@@ -120,6 +127,13 @@ const initialState = fromJS({
   COMMUNICATION_CATEGORY: [],
   COMMUNICATION_NOT_DONE_REASON: [],
   COMMUNICATION_MEDIUM: [],
+  // Consent Resource Lookups - Start
+  CONSENT_STATE_CODES: [],
+  CONSENT_CATEGORY: [],
+  SECURITY_ROLE_TYPE: [],
+  CONSENT_ACTION: [],
+  PURPOSE_OF_USE: [],
+  // Consent Resource Lookups - End
 });
 
 function lookupReducer(state = initialState, action) {
@@ -189,6 +203,13 @@ function lookupReducer(state = initialState, action) {
         .set(COMMUNICATION_CATEGORY, fromJS((action.lookups && action.lookups.communicationCategory) || state.get(COMMUNICATION_CATEGORY)))
         .set(COMMUNICATION_NOT_DONE_REASON, fromJS((action.lookups && action.lookups.communicationNotDoneReason) || state.get(COMMUNICATION_NOT_DONE_REASON)))
         .set(COMMUNICATION_MEDIUM, fromJS((action.lookups && action.lookups.communicationMedium) || state.get(COMMUNICATION_MEDIUM)))
+        // Consent Resource Lookups - Start
+        .set(CONSENT_STATE_CODES, fromJS((action.lookups && action.lookups.consentStateCodes) || state.get(CONSENT_STATE_CODES)))
+        .set(CONSENT_CATEGORY, fromJS((action.lookups && action.lookups.consentCategory) || state.get(CONSENT_CATEGORY)))
+        .set(SECURITY_ROLE_TYPE, fromJS((action.lookups && action.lookups.securityRoleType) || state.get(SECURITY_ROLE_TYPE)))
+        .set(CONSENT_ACTION, fromJS((action.lookups && action.lookups.consentAction) || state.get(CONSENT_ACTION)))
+        .set(PURPOSE_OF_USE, fromJS((action.lookups && action.lookups.purposeOfUse) || state.get(PURPOSE_OF_USE)))
+        // Consent Resource Lookups - End
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state
