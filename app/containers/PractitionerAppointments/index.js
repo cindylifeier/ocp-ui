@@ -4,46 +4,178 @@
  *
  */
 
-import React from 'react';
+import CenterAlign from 'components/Align/CenterAlign';
+import Card from 'components/Card';
+import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import FilterSection from 'components/FilterSection';
+import { PanelToolbar } from 'components/PanelToolbar';
+import RecordsRange from 'components/RecordsRange';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import StatusCheckbox from 'components/StatusCheckbox';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import { getLookupsAction } from 'containers/App/actions';
+import {
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_COMMUNICATION_URL,
+} from 'containers/App/constants';
+import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { Cell } from 'styled-css-grid';
+import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectPractitionerAppointments from './selectors';
+import { cancelPractitionerAppointment, getPractitionerAppointments } from './actions';
+import messages from './messages';
+import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import { makeSelectPractitionerAppointments, makeSelectShowPastAppointments } from './selectors';
 
 export class PractitionerAppointments extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      panelHeight: 0,
+      filterHeight: 0,
+    };
+    this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+    this.cancelAppointment = this.cancelAppointment.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getUpcomingAppointments({
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
+    this.props.getLookupData();
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
+  }
+
+  handlePageClick(page) {
+    this.props.getUpcomingAppointments({ pageNumber: page });
+  }
+
+  handleCheck(event, checked) {
+    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    this.props.getUpcomingAppointments({
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      practitionerId,
+      showPastAppointments: checked,
+    });
+  }
+
+  cancelAppointment(logicalId) {
+    this.props.cancelAppointment(logicalId);
+  }
+
   render() {
+    const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
+    const showPastAppFilter = true;
     return (
       <div>
-        <Helmet>
-          <title>PractitionerAppointments</title>
-          <meta name="description" content="Description of PractitionerAppointments" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
+        <Card>
+          <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
+          {showPastAppFilter &&
+          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+            <FilterSection>
+              <CheckboxFilterGrid>
+                <Cell>
+                  <StatusCheckbox
+                    messages={messages.showPastAppointments}
+                    elementId="showPastAppointmentsCheckBox"
+                    checked={this.props.showPastAppointments}
+                    handleCheck={this.handleCheck}
+                  />
+                </Cell>
+              </CheckboxFilterGrid>
+            </FilterSection>
+          </SizedStickyDiv>
+          }
+          {loading &&
+          <RefreshIndicatorLoading />}
+          {!loading && isEmpty(data) &&
+          <NoPractitionerAppointmentsMessage>{
+            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPractitionerAppointmentsMessage>}
+          {!isEmpty(data) && !isEmpty(data.elements) &&
+          <CenterAlign>
+            <CareCoordinatorUpcomingAppointmentTable
+              elements={data.elements}
+              appointmentStatuses={appointmentStatuses}
+              appointmentTypes={appointmentTypes}
+              cancelAppointment={this.cancelAppointment}
+              communicationBaseUrl={communicationBaseUrl}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+            />
+            <CenterAlignedUltimatePagination
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              onChange={this.handlePageClick}
+            />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={data.totalElements}
+              currentPageSize={data.currentPageSize}
+            />
+          </CenterAlign>
+          }
+        </Card>
       </div>
     );
   }
 }
 
 PractitionerAppointments.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getUpcomingAppointments: PropTypes.func.isRequired,
+  getLookupData: PropTypes.func.isRequired,
+  appointmentTypes: PropTypes.array,
+  appointmentStatuses: PropTypes.array,
+  upcomingAppointments: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    data: PropTypes.shape({
+      elements: PropTypes.array,
+    }),
+  }),
+  cancelAppointment: PropTypes.func,
+  user: PropTypes.object,
+  showPastAppointments: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  practitionerappointments: makeSelectPractitionerAppointments(),
+  practitionerAppointments: makeSelectPractitionerAppointments(),
+  appointmentTypes: makeSelectAppointmentTypes(),
+  appointmentStatuses: makeSelectAppointmentStatuses(),
+  user: makeSelectUser(),
+  showPastAppointments: makeSelectShowPastAppointments(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getUpcomingAppointments: (query, showPastAppointments) => dispatch(getPractitionerAppointments(query, showPastAppointments)),
+    getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
+    cancelAppointment: (id) => dispatch(cancelPractitionerAppointment(id)),
   };
 }
 
