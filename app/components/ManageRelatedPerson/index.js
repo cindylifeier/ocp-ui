@@ -22,7 +22,6 @@ import { TEXT_MIN_LENGTH } from './constants';
 function ManageRelatedPerson(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const {
-    history,
     onSave,
     uspsStates,
     patientIdentifierSystems,
@@ -34,7 +33,6 @@ function ManageRelatedPerson(props) {
     selectedRelatedPerson,
   } = props;
   const manageRelatedPersonFormProps = {
-    history,
     onSave,
     uspsStates,
     patientIdentifierSystems,
@@ -93,9 +91,6 @@ function ManageRelatedPerson(props) {
 }
 
 ManageRelatedPerson.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   onSave: PropTypes.func.isRequired,
   uspsStates: PropTypes.array.isRequired,
   patientIdentifierSystems: PropTypes.array.isRequired,

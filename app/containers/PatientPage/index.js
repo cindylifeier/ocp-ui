@@ -4,7 +4,7 @@
  *
  */
 
-import renderToDosComponent from 'containers/ToDos/render';
+import renderPatientToDosComponent from 'containers/PatientToDos/render';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
@@ -184,7 +184,7 @@ export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
-  { name: 'toDos', text: 'MY TO DO', factoryMethod: renderToDosComponent },
+  { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
 ];
 

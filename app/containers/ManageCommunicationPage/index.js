@@ -114,7 +114,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     const editingCommunication = false;
     const {
       match,
-      history,
       communications,
       communicationStatus,
       communicationCategories,
@@ -150,7 +149,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     }
     const datePickerMode = DATE_PICKER_MODE;
     const manageCommunicationProps = {
-      history,
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
@@ -202,9 +200,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
 
 ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   location: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,

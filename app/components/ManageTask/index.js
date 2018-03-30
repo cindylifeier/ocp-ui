@@ -18,13 +18,12 @@ import ManageTaskForm from './ManageTaskForm';
 
 function ManageTask(props) {
   const {
-    history, onSave, taskStatus, requestIntent,
+    onSave, taskStatus, requestIntent,
     requestPriority, taskPerformerType, patient,
     organization, activityDefinitions, practitioners, requester, tasksByPatient, eventTypes,
     currentTask, editMode, isMainTask, parentTask, subTasks,
   } = props;
   const formData = {
-    history,
     taskStatus,
     requestIntent,
     requestPriority,
@@ -88,9 +87,6 @@ function ManageTask(props) {
 }
 
 ManageTask.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   onSave: PropTypes.func.isRequired,
   taskStatus: PropTypes.array.isRequired,
   subTasks: PropTypes.array,
