@@ -1,10 +1,8 @@
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
 import {
-  cancelPractitionerAppointment,
   cancelPractitionerAppointmentError,
   cancelPractitionerAppointmentSuccess,
-  getPractitionerAppointments,
   getPractitionerAppointmentsError,
   getPractitionerAppointmentsSuccess,
 } from 'containers/PractitionerAppointments/actions';
@@ -13,6 +11,7 @@ import {
   GET_PRACTITIONER_APPOINTMENTS,
 } from 'containers/PractitionerAppointments/constants';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import getPractitionerAppointmentsApi, { cancelAppointment } from './api';
 
 
 function getErrorMessage(err) {
@@ -45,7 +44,7 @@ export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments
         practitionerId,
       };
     }
-    const practitionerAppointmentsPage = yield call(getPractitionerAppointments, queryParams);
+    const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
     yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
@@ -56,7 +55,7 @@ export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments
 
 export function* cancelPractitionerAppointmentSaga({ id }) {
   try {
-    yield call(cancelPractitionerAppointment, id);
+    yield call(cancelAppointment, id);
     yield put(cancelPractitionerAppointmentSuccess(id));
     yield put(showNotification('Appointment is cancelled.'));
   } catch (err) {

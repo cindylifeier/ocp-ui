@@ -91,7 +91,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
-    const { upcomingAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
+    const { practitionerAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const showPastAppFilter = true;
     return (
       <div>
@@ -152,7 +152,7 @@ PractitionerAppointments.propTypes = {
   getLookupData: PropTypes.func.isRequired,
   appointmentTypes: PropTypes.array,
   appointmentStatuses: PropTypes.array,
-  upcomingAppointments: PropTypes.shape({
+  practitionerAppointments: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     data: PropTypes.shape({
       elements: PropTypes.array,

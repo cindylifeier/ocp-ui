@@ -32,7 +32,7 @@ function practitionerAppointmentsReducer(state = initialState, action) {
     case GET_PRACTITIONER_APPOINTMENTS_SUCCESS:
       return state
         .set(LOADING, false)
-        .set(DATA, fromJS(action.upcomingAppointmentsPage || {}));
+        .set(DATA, fromJS(action.practitionerAppointmentsPage || {}));
     case GET_PRACTITIONER_APPOINTMENTS_ERROR:
       return state.set(LOADING, false);
     case CANCEL_PRACTITIONER_APPOINTMENT_SUCCESS: {

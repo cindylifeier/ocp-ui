@@ -28,10 +28,10 @@ export function getPractitionerAppointments(query) {
   };
 }
 
-export function getPractitionerAppointmentsSuccess(upcomingAppointmentsPage) {
+export function getPractitionerAppointmentsSuccess(practitionerAppointmentsPage) {
   return {
     type: GET_PRACTITIONER_APPOINTMENTS_SUCCESS,
-    upcomingAppointmentsPage,
+    practitionerAppointmentsPage,
   };
 }
 
