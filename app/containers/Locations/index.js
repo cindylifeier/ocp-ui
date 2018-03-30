@@ -34,7 +34,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
-import { MANAGE_LOCATION_URL } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL } from 'containers/App/constants';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { clearLocation, setLocation } from 'containers/App/contextActions';
 import {
@@ -49,19 +49,33 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getActiveLocations, getFilteredLocations, initializeLocations } from './actions';
+import { getActiveLocations, getFilteredLocations, searchLocations, initializeLocations } from './actions';
 import SizedStickyDiv from '../../components/StickyDiv/SizedStickyDiv';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
-
+  static initalState = {
+    currentPage: 1,
+    panelHeight: 0,
+    filterHeight: 0,
+    isShowSearchResult: false,
+    listLocations: {
+      currentPage: 1,
+    },
+    searchLocations: {
+      currentPage: 1,
+      searchValue: '',
+      includeInactive: false,
+      searchType: 'name',
+    },
+  }
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
-      panelHeight: 0,
-      filterHeight: 0,
+      ...Locations.initalState,
     };
+    this.onSize = this.onSize.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
@@ -85,7 +99,20 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     const { organization: newOrganization } = nextProps;
     if (!isEqual(organization, newOrganization)) {
       this.props.getActiveLocations(1);
+      this.setState([...Locations.initalState]);
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
+  }
+
+  handleSearch(searchValue, includeInactive, searchType) {
+    this.setState({
+      searchLocations: { searchValue, includeInactive, searchType },
+      isShowSearchResult: true,
+    });
+    this.props.searchLocations(searchValue, includeInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
   handlePanelResize(size) {
@@ -254,6 +281,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
+          onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
           showFilter={false}
         />
@@ -279,6 +307,7 @@ Locations.propTypes = {
   currentPageSize: PropTypes.number,
   includeInactive: PropTypes.bool,
   includeSuspended: PropTypes.bool,
+  searchLocations: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -308,6 +337,8 @@ function mapDispatchToProps(dispatch) {
     getActiveLocations: (currentPage) => dispatch(getActiveLocations(currentPage)),
     setLocation: (location) => dispatch(setLocation(location)),
     clearLocation: () => dispatch(clearLocation()),
+    searchLocations: (searchValue, includeInactive, searchType, currentPage) =>
+      dispatch(searchLocations(searchValue, includeInactive, searchType, currentPage)),
   };
 }
 
