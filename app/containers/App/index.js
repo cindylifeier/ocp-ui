@@ -39,7 +39,7 @@ import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
-import { ManageConsentPage } from 'containers/ManageConsentPage';
+import ManageConsentPage from 'containers/ManageConsentPage';
 import saga from './saga';
 import './styles.css';
 
