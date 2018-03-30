@@ -19,16 +19,16 @@ import WideDialog from 'components/WideDialog';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_PARTICIPANT_REQUIRED,
+  APPOINTMENT_PARTICIPANT_TYPE,
   APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPATION_TYPE,
-  PARTICIPANTTYPE,
 } from 'containers/App/constants';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import {
+  makeSelectAppointmentParticipantTypes,
   makeSelectAppointmentParticipationRequired,
   makeSelectAppointmentParticipationStatuses,
   makeSelectAppointmentParticipationTypes,
-  makeSelectParticipantTypes,
 } from 'containers/App/lookupSelectors';
 import {
   addAppointmentParticipants,
@@ -99,8 +99,10 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
+          <TableHeaderColumn>{
+            <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+          <TableHeaderColumn>{
+            <FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
         </TableHeader>
       </Table>
@@ -206,8 +208,10 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     return (<Table>
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipationRequired} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
       </TableHeader>
       <TableRow key={uniqueId()}>
@@ -323,7 +327,7 @@ SearchAppointmentParticipant.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  participantTypes: makeSelectParticipantTypes(),
+  participantTypes: makeSelectAppointmentParticipantTypes(),
   participationTypes: makeSelectAppointmentParticipationTypes(),
   participationRequired: makeSelectAppointmentParticipationRequired(),
   participationStatus: makeSelectAppointmentParticipationStatuses(),
@@ -333,7 +337,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([PARTICIPANTTYPE,
+    getLookups: () => dispatch(getLookupsAction([
+      APPOINTMENT_PARTICIPANT_TYPE,
       APPOINTMENT_PARTICIPATION_STATUS,
       APPOINTMENT_PARTICIPATION_TYPE,
       APPOINTMENT_PARTICIPANT_REQUIRED])),
