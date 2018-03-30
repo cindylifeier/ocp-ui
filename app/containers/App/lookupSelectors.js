@@ -5,6 +5,7 @@ import {
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
   APPOINTMENT_PARTICIPANT_REQUIRED,
+  APPOINTMENT_PARTICIPANT_TYPE,
   APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPATION_TYPE,
   APPOINTMENT_STATUS,
@@ -270,6 +271,11 @@ const makeSelectAppointmentParticipationStatuses = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPATION_STATUS).toJS(),
 );
 
+const makeSelectAppointmentParticipantTypes = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPANT_TYPE).toJS(),
+);
+
 const makeSelectAppointmentParticipationTypes = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(APPOINTMENT_PARTICIPATION_TYPE).toJS(),
@@ -388,6 +394,7 @@ export {
   makeSelectAppointmentStatuses,
   makeSelectAppointmentTypes,
   makeSelectAppointmentParticipationStatuses,
+  makeSelectAppointmentParticipantTypes,
   makeSelectAppointmentParticipationTypes,
   makeSelectAppointmentParticipationRequired,
   makeSelectProviderRoles,
