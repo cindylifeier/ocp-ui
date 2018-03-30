@@ -8,6 +8,7 @@ import {
   ADMINISTRATIVEGENDER,
   APPOINTMENT_PARTICIPANT_REQUIRED,
   APPOINTMENT_PARTICIPATION_STATUS,
+  APPOINTMENT_PARTICIPANT_TYPE,
   APPOINTMENT_PARTICIPATION_TYPE,
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
@@ -107,6 +108,7 @@ const initialState = fromJS({
   APPOINTMENT_PARTICIPANT_REQUIRED: [],
   APPOINTMENT_PARTICIPATION_STATUS: [],
   APPOINTMENT_PARTICIPATION_TYPE: [],
+  APPOINTMENT_PARTICIPANT_TYPE: [],
   APPOINTMENT_STATUS: [],
   APPOINTMENT_TYPE: [],
   PROVIDER_ROLE: [],
@@ -173,6 +175,7 @@ function lookupReducer(state = initialState, action) {
         .set(APPOINTMENT_PARTICIPANT_REQUIRED, fromJS((action.lookups && action.lookups.appointmentParticipantRequired) || state.get(APPOINTMENT_PARTICIPANT_REQUIRED)))
         .set(APPOINTMENT_PARTICIPATION_STATUS, fromJS((action.lookups && action.lookups.appointmentParticipationStatus) || state.get(APPOINTMENT_PARTICIPATION_STATUS)))
         .set(APPOINTMENT_PARTICIPATION_TYPE, fromJS((action.lookups && action.lookups.appointmentParticipationType) || state.get(APPOINTMENT_PARTICIPATION_TYPE)))
+        .set(APPOINTMENT_PARTICIPANT_TYPE, fromJS((action.lookups && action.lookups.appointmentParticipantType) || state.get(APPOINTMENT_PARTICIPANT_TYPE)))
         .set(APPOINTMENT_STATUS, fromJS((action.lookups && action.lookups.appointmentStatus) || state.get(APPOINTMENT_STATUS)))
         .set(APPOINTMENT_TYPE, fromJS((action.lookups && action.lookups.appointmentType) || state.get(APPOINTMENT_TYPE)))
         // Appointment Lookups - End
