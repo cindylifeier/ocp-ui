@@ -13,7 +13,8 @@ import {
 } from './actions';
 import {
   getErrorDetail,
-  searchHealthcareServices,
+  searchHealthcareServicesForOrganization,
+  searchHealthcareServicesForOrganizationLocation,
   getHealthcareServicesByLocation,
   getHealthcareServicesByOrganization,
 } from './api';
@@ -46,7 +47,10 @@ export function* searchHealthcareServicesSaga({ searchValue, includeInactive, se
     const location = yield select(makeSelectLocation());
     let healthcareServices = null;
     if (!isEmpty(organization) && !isEmpty(organization.logicalId) && (isEmpty(location) || isEmpty(location.logicalId))) {
-      healthcareServices = yield call(searchHealthcareServices, organization.logicalId, searchValue, includeInactive, searchType, currentPage);
+      healthcareServices = yield call(searchHealthcareServicesForOrganization, organization.logicalId, searchValue, includeInactive, searchType, currentPage);
+    }
+    if (!isEmpty(organization) && !isEmpty(organization.logicalId) && !isEmpty(location) && !isEmpty(location.logicalId)) {
+      healthcareServices = yield call(searchHealthcareServicesForOrganizationLocation, organization.logicalId, location.logicalId, searchValue, includeInactive, searchType, currentPage);
     }
     yield put(searchHealthcareServicesSuccess(healthcareServices));
   } catch (error) {

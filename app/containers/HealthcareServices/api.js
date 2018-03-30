@@ -25,7 +25,7 @@ export function getHealthcareServicesByLocation(organizationId, locationId, stat
   return request(url);
 }
 
-export function searchHealthcareServices(organizationId, searchValue, includeInactive, searchType, currentPage) {
+export function searchHealthcareServicesForOrganization(organizationId, searchValue, includeInactive, searchType, currentPage) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const params = queryString({
     searchKey: searchType,
@@ -34,6 +34,18 @@ export function searchHealthcareServices(organizationId, searchValue, includeIna
     pageNumber: currentPage,
   });
   const url = `${baseEndpoint}/${organizationId}/healthcare-services${params}`;
+  return request(url);
+}
+
+export function searchHealthcareServicesForOrganizationLocation(organizationId, locationId, searchValue, includeInactive, searchType, currentPage) {
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
+  const params = queryString({
+    searchKey: searchType,
+    searchValue,
+    pageSize: DEFAULT_PAGE_SIZE,
+    pageNumber: currentPage,
+  });
+  const url = `${baseEndpoint}/${organizationId}/locations/${locationId}/healthcare-services${params}`;
   return request(url);
 }
 
