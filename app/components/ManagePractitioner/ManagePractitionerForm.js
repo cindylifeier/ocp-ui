@@ -12,7 +12,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import FormSubtitle from 'components/FormSubtitle';
@@ -25,7 +24,7 @@ import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import Section from 'components/Section';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-
+import GoBackButton from 'components/GoBackButton';
 import AddOrganizationsButton from './AddOrganizationsButton';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
@@ -56,7 +55,7 @@ class ManagePractitionerForm extends React.Component {
 
   render() {
     const {
-      history, isSubmitting, dirty, isValid, values, errors,
+      isSubmitting, dirty, isValid, values, errors,
       uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
       organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
     } = this.props;
@@ -265,13 +264,7 @@ class ManagePractitionerForm extends React.Component {
                   />
                 </Cell>
                 <Cell>
-                  <StyledFlatButton
-                    fullWidth
-                    label="Cancel"
-                    default
-                    disabled={isSubmitting}
-                    onClick={history.goBack}
-                  />
+                  <GoBackButton disabled={isSubmitting} />
                 </Cell>
               </Grid>
             </Cell>
@@ -283,9 +276,6 @@ class ManagePractitionerForm extends React.Component {
 }
 
 ManagePractitionerForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

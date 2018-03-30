@@ -4,7 +4,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import ManageAppointmentFormGrid from 'components/ManageAppointment/ManageAppointmentFormGrid';
 import SelectField from 'components/SelectField';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import TimePicker from 'components/TimePicker';
@@ -23,7 +23,6 @@ import SelectedParticipants from './SelectedParticipants';
 function ManageAppointmentForm(props) {
   const today = new Date();
   const {
-    history,
     isSubmitting,
     dirty,
     isValid,
@@ -137,13 +136,7 @@ function ManageAppointmentForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  onClick={history.goBack}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
@@ -154,9 +147,6 @@ function ManageAppointmentForm(props) {
 }
 
 ManageAppointmentForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,

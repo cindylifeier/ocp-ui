@@ -12,7 +12,7 @@ import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import messages from './messages';
 import ManageHealthcareServiceFormGrid from './ManageHealthcareServiceFormGrid';
 
@@ -26,7 +26,6 @@ function ManageHealthcareServiceForm(props) {
     healthcareServiceStatuses,
     telecomSystems,
     isSubmitting, dirty, isValid, editMode,
-    onCancel,
   } = props;
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   return (
@@ -149,13 +148,7 @@ function ManageHealthcareServiceForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  onClick={onCancel}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
@@ -167,7 +160,6 @@ function ManageHealthcareServiceForm(props) {
 
 ManageHealthcareServiceForm.propTypes = {
   organization: PropTypes.object.isRequired,
-  onCancel: PropTypes.func.isRequired,
   healthcareServiceCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,

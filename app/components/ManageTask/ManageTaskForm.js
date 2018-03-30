@@ -11,7 +11,7 @@ import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import SubTaskTable from 'components/SubTaskTable';
 import { MANAGE_TASK_URL } from './constants';
 import messages from './messages';
@@ -21,7 +21,6 @@ function ManageTaskForm(props) {
   const datePickerLandscapeMode = 'landscape';
 
   const {
-    history,
     taskStatus,
     requestIntent,
     requestPriority,
@@ -248,7 +247,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
         </Cell>
-        { isMainTask && <Cell area="subTasksSection">
+        {isMainTask && <Cell area="subTasksSection">
           <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
         </Cell>
         }
@@ -263,13 +262,7 @@ function ManageTaskForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                onClick={history.goBack}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -279,9 +272,6 @@ function ManageTaskForm(props) {
 }
 
 ManageTaskForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   activityDefinitions: PropTypes.array,
   subTasks: PropTypes.array,
   practitioners: PropTypes.array,

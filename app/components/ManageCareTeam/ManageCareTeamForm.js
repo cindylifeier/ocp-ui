@@ -14,7 +14,7 @@ import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
@@ -25,7 +25,6 @@ import ManageCareTeamFormGrid from './ManageCareTeamFormGrid';
 function ManageCareTeamForm(props) {
   const today = new Date();
   const {
-    history,
     isSubmitting,
     dirty,
     isValid,
@@ -168,13 +167,7 @@ function ManageCareTeamForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  onClick={history.goBack}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
@@ -185,9 +178,6 @@ function ManageCareTeamForm(props) {
 }
 
 ManageCareTeamForm.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
