@@ -1,3 +1,4 @@
+import { selectUpcomingAppointmentsDomain } from 'containers/UpcomingAppointments/selectors';
 import { createSelector } from 'reselect';
 
 /**
@@ -19,7 +20,13 @@ const makeSelectPractitionerAppointments = () => createSelector(
   (substate) => substate.toJS()
 );
 
-export default makeSelectPractitionerAppointments;
+const makeSelectShowPastAppointments = () => createSelector(
+  selectUpcomingAppointmentsDomain,
+  (substate) => substate.get('showPastAppointments'),
+);
+
 export {
   selectPractitionerAppointmentsDomain,
+  makeSelectPractitionerAppointments,
+  makeSelectShowPastAppointments,
 };
