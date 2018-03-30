@@ -9,8 +9,8 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
 import { initializeManageAppointment, saveAppointment } from 'containers/ManageAppointmentPage/actions';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
@@ -35,7 +35,7 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-export class ManageAppointmentPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
@@ -59,11 +59,19 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
   }
 
   handleSave(appointmentFormData, actions) {
-    const patientId = this.props.selectedPatient.id;
+    const patientId = this.props.patient.id;
+    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    if (practitionerId) {
+      merge(appointmentFormData, { practitionerId });
+    }
+    const practitionerName = mapToPatientName(this.props.user.resource);
+    if (practitionerName) {
+      merge(appointmentFormData, { practitionerName });
+    }
     if (patientId) {
       merge(appointmentFormData, { patientId });
     }
-    const patientName = mapToPatientName(this.props.selectedPatient);
+    const patientName = mapToPatientName(this.props.patient);
     if (patientName) {
       merge(appointmentFormData, { patientName });
     }
@@ -93,7 +101,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
   render() {
     const {
       match,
-      selectedPatient,
+      patient,
       appointmentStatuses,
       appointmentTypes,
       selectedParticipants,
@@ -102,7 +110,7 @@ export class ManageAppointmentPage extends React.PureComponent { // eslint-disab
     const appointment = null;
     const initialSelectedParticipants = [];
     const manageAppointmentProps = {
-      selectedPatient,
+      patient,
       appointment,
       editMode,
       appointmentStatuses,
@@ -148,7 +156,8 @@ ManageAppointmentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
+  user: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
   initializeSearchParticipantResult: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
@@ -167,7 +176,8 @@ ManageAppointmentPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   appointmentStatuses: makeSelectAppointmentStatuses(),
   appointmentTypes: makeSelectAppointmentTypes(),
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
+  user: makeSelectUser(),
   selectedParticipants: makeSelectSelectedParticipants(),
 });
 

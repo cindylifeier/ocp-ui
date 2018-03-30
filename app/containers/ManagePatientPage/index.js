@@ -20,6 +20,8 @@ import PageContent from 'components/PageContent';
 import ManagePatient from 'components/ManagePatient';
 import {
   makeSelectAdministrativeGenders,
+  makeSelectFlagCategories,
+  makeSelectFlagStatuses,
   makeSelectLanguages,
   makeSelectPatientIdentifierSystems,
   makeSelectTelecomSystems,
@@ -31,6 +33,8 @@ import {
 } from 'containers/App/lookupSelectors';
 import {
   ADMINISTRATIVEGENDER,
+  FLAG_CATEGORY,
+  FLAG_STATUS,
   LANGUAGE,
   PATIENTIDENTIFIERSYSTEM,
   TELECOMSYSTEM,
@@ -41,6 +45,7 @@ import {
   USPSSTATES,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
+import { getPatient } from 'containers/App/contextActions';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import { getPatientById } from 'containers/App/api';
 import reducer from './reducer';
@@ -49,11 +54,15 @@ import messages from './messages';
 import { savePatient } from './actions';
 import { mapToFrontendPatientForm } from './api';
 
-export class ManagePatientPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManagePatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+    this.practitioner = {
+      reference: 'Practitioner/1961',
+      display: 'Robert Johnson',
+    };
   }
 
   componentDidMount() {
@@ -61,11 +70,17 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
   }
 
   handleSave(patientFormData, actions) {
-    this.props.onSaveForm(patientFormData, () => actions.setSubmitting(false));
+    this.props.onSaveForm(patientFormData, () => {
+      actions.setSubmitting(false);
+      this.props.getPatient(patientFormData.id);
+    });
   }
 
   render() {
-    const { match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = this.props;
+    const {
+      match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
+      usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories,
+    } = this.props;
     const patientId = match.params.id;
     let patient = null;
     if (patientId) {
@@ -81,7 +96,10 @@ export class ManagePatientPage extends React.PureComponent { // eslint-disable-l
       languages,
       telecomSystems,
       telecomUses,
+      flagStatuses,
+      flagCategories,
       patient,
+      practitioner: this.practitioner,
     };
     return (
       <Page>
@@ -109,6 +127,7 @@ ManagePatientPage.propTypes = {
     }).isRequired,
   }).isRequired,
   onSaveForm: PropTypes.func,
+  getPatient: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
   patientIdentifierSystems: PropTypes.array,
@@ -128,6 +147,16 @@ ManagePatientPage.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })),
+  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  flagCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   patients: PropTypes.any,
 };
 
@@ -141,7 +170,10 @@ const mapStateToProps = createStructuredSelector({
   languages: makeSelectLanguages(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
+  flagStatuses: makeSelectFlagStatuses(),
+  flagCategories: makeSelectFlagCategories(),
   patients: makeSelectPatientSearchResult(),
+
 });
 
 function mapDispatchToProps(dispatch) {
@@ -150,7 +182,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(savePatient(patientFormData, handleSubmitting));
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE])),
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY])),
+    getPatient: (id) => dispatch(getPatient(id)),
   };
 }
 

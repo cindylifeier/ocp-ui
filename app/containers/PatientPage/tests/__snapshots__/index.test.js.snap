@@ -21,12 +21,17 @@ ShallowWrapper {
         },
       }
     }
-    selectedPatient={
+    patient={
       Object {
         "id": "1",
         "name": Array [
           "test",
         ],
+      }
+    }
+    user={
+      Object {
+        "role": "ocpAdminRole",
       }
     }
   />,
@@ -59,7 +64,9 @@ ShallowWrapper {
         >
           <styled.section>
             <PatientDetails
-              selectedPatient={
+              flattenPatientData={[Function]}
+              isPatientUser={false}
+              patient={
                 Object {
                   "id": "1",
                   "name": Array [
@@ -80,13 +87,23 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "communication",
-                    "text": "Communication",
+                    "name": "appointments",
+                    "text": "My Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
+                    "name": "communications",
+                    "text": "Communications",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "toDos",
+                    "text": "MY TO DO",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "calendar",
+                    "text": "CALENDAR",
                   },
                 ]
               }
@@ -99,6 +116,49 @@ ShallowWrapper {
                       "content": Array [
                         Object {
                           "content": Array [
+                            Object {
+                              "content": Array [
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "toDos",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "MY TO DO",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "calendar",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "CALENDAR",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                              ],
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "",
+                              "type": "row",
+                              "width": 100,
+                            },
                             Object {
                               "activeItemIndex": 0,
                               "content": Array [
@@ -121,10 +181,10 @@ ShallowWrapper {
                               "activeItemIndex": 0,
                               "content": Array [
                                 Object {
-                                  "componentName": "communication",
+                                  "componentName": "communications",
                                   "isClosable": true,
                                   "reorderEnabled": true,
-                                  "title": "Communication",
+                                  "title": "Communications",
                                   "type": "component",
                                 },
                               ],
@@ -172,7 +232,7 @@ ShallowWrapper {
                     "borderWidth": 5,
                     "dragProxyHeight": 200,
                     "dragProxyWidth": 300,
-                    "headerHeight": 20,
+                    "headerHeight": 30,
                     "minItemHeight": 10,
                     "minItemWidth": 10,
                   },
@@ -266,7 +326,9 @@ ShallowWrapper {
           "children": Array [
             <styled.section>
               <PatientDetails
-                selectedPatient={
+                flattenPatientData={[Function]}
+                isPatientUser={false}
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -287,13 +349,23 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "toDos",
+                      "text": "MY TO DO",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "calendar",
+                      "text": "CALENDAR",
                     },
                   ]
                 }
@@ -306,6 +378,49 @@ ShallowWrapper {
                         "content": Array [
                           Object {
                             "content": Array [
+                              Object {
+                                "content": Array [
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "toDos",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "MY TO DO",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "calendar",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "CALENDAR",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                ],
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "row",
+                                "width": 100,
+                              },
                               Object {
                                 "activeItemIndex": 0,
                                 "content": Array [
@@ -328,10 +443,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -379,7 +494,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },
@@ -427,7 +542,9 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <PatientDetails
-                selectedPatient={
+                flattenPatientData={[Function]}
+                isPatientUser={false}
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -443,7 +560,9 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "selectedPatient": Object {
+                "flattenPatientData": [Function],
+                "isPatientUser": false,
+                "patient": Object {
                   "id": "1",
                   "name": Array [
                     "test",
@@ -471,13 +590,23 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "toDos",
+                      "text": "MY TO DO",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "calendar",
+                      "text": "CALENDAR",
                     },
                   ]
                 }
@@ -490,6 +619,49 @@ ShallowWrapper {
                         "content": Array [
                           Object {
                             "content": Array [
+                              Object {
+                                "content": Array [
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "toDos",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "MY TO DO",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "calendar",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "CALENDAR",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                ],
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "row",
+                                "width": 100,
+                              },
                               Object {
                                 "activeItemIndex": 0,
                                 "content": Array [
@@ -512,10 +684,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -563,7 +735,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },
@@ -614,13 +786,23 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "communication",
-                    "text": "Communication",
+                    "name": "appointments",
+                    "text": "My Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
+                    "name": "communications",
+                    "text": "Communications",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "toDos",
+                    "text": "MY TO DO",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "calendar",
+                    "text": "CALENDAR",
                   },
                 ],
                 "containerHeight": "200vh",
@@ -631,6 +813,49 @@ ShallowWrapper {
                       "content": Array [
                         Object {
                           "content": Array [
+                            Object {
+                              "content": Array [
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "toDos",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "MY TO DO",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "calendar",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "CALENDAR",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                              ],
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "",
+                              "type": "row",
+                              "width": 100,
+                            },
                             Object {
                               "activeItemIndex": 0,
                               "content": Array [
@@ -653,10 +878,10 @@ ShallowWrapper {
                               "activeItemIndex": 0,
                               "content": Array [
                                 Object {
-                                  "componentName": "communication",
+                                  "componentName": "communications",
                                   "isClosable": true,
                                   "reorderEnabled": true,
-                                  "title": "Communication",
+                                  "title": "Communications",
                                   "type": "component",
                                 },
                               ],
@@ -704,7 +929,7 @@ ShallowWrapper {
                     "borderWidth": 5,
                     "dragProxyHeight": 200,
                     "dragProxyWidth": 300,
-                    "headerHeight": 20,
+                    "headerHeight": 30,
                     "minItemHeight": 10,
                     "minItemWidth": 10,
                   },
@@ -774,7 +999,9 @@ ShallowWrapper {
           >
             <styled.section>
               <PatientDetails
-                selectedPatient={
+                flattenPatientData={[Function]}
+                isPatientUser={false}
+                patient={
                   Object {
                     "id": "1",
                     "name": Array [
@@ -795,13 +1022,23 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "toDos",
+                      "text": "MY TO DO",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "calendar",
+                      "text": "CALENDAR",
                     },
                   ]
                 }
@@ -814,6 +1051,49 @@ ShallowWrapper {
                         "content": Array [
                           Object {
                             "content": Array [
+                              Object {
+                                "content": Array [
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "toDos",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "MY TO DO",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "calendar",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "CALENDAR",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                ],
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "row",
+                                "width": 100,
+                              },
                               Object {
                                 "activeItemIndex": 0,
                                 "content": Array [
@@ -836,10 +1116,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -887,7 +1167,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },
@@ -981,7 +1261,9 @@ ShallowWrapper {
             "children": Array [
               <styled.section>
                 <PatientDetails
-                  selectedPatient={
+                  flattenPatientData={[Function]}
+                  isPatientUser={false}
+                  patient={
                     Object {
                       "id": "1",
                       "name": Array [
@@ -1002,13 +1284,23 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "communication",
-                        "text": "Communication",
+                        "name": "appointments",
+                        "text": "My Appointments",
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
+                        "name": "communications",
+                        "text": "Communications",
+                      },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "toDos",
+                        "text": "MY TO DO",
+                      },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "calendar",
+                        "text": "CALENDAR",
                       },
                     ]
                   }
@@ -1021,6 +1313,49 @@ ShallowWrapper {
                           "content": Array [
                             Object {
                               "content": Array [
+                                Object {
+                                  "content": Array [
+                                    Object {
+                                      "activeItemIndex": 0,
+                                      "content": Array [
+                                        Object {
+                                          "componentName": "toDos",
+                                          "isClosable": true,
+                                          "reorderEnabled": true,
+                                          "title": "MY TO DO",
+                                          "type": "component",
+                                        },
+                                      ],
+                                      "header": Object {},
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "",
+                                      "type": "stack",
+                                    },
+                                    Object {
+                                      "activeItemIndex": 0,
+                                      "content": Array [
+                                        Object {
+                                          "componentName": "calendar",
+                                          "isClosable": true,
+                                          "reorderEnabled": true,
+                                          "title": "CALENDAR",
+                                          "type": "component",
+                                        },
+                                      ],
+                                      "header": Object {},
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "",
+                                      "type": "stack",
+                                    },
+                                  ],
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "row",
+                                  "width": 100,
+                                },
                                 Object {
                                   "activeItemIndex": 0,
                                   "content": Array [
@@ -1043,10 +1378,10 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "communication",
+                                      "componentName": "communications",
                                       "isClosable": true,
                                       "reorderEnabled": true,
-                                      "title": "Communication",
+                                      "title": "Communications",
                                       "type": "component",
                                     },
                                   ],
@@ -1094,7 +1429,7 @@ ShallowWrapper {
                         "borderWidth": 5,
                         "dragProxyHeight": 200,
                         "dragProxyWidth": 300,
-                        "headerHeight": 20,
+                        "headerHeight": 30,
                         "minItemHeight": 10,
                         "minItemWidth": 10,
                       },
@@ -1142,7 +1477,9 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <PatientDetails
-                  selectedPatient={
+                  flattenPatientData={[Function]}
+                  isPatientUser={false}
+                  patient={
                     Object {
                       "id": "1",
                       "name": Array [
@@ -1158,7 +1495,9 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "selectedPatient": Object {
+                  "flattenPatientData": [Function],
+                  "isPatientUser": false,
+                  "patient": Object {
                     "id": "1",
                     "name": Array [
                       "test",
@@ -1186,13 +1525,23 @@ ShallowWrapper {
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "communication",
-                        "text": "Communication",
+                        "name": "appointments",
+                        "text": "My Appointments",
                       },
                       Object {
                         "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
+                        "name": "communications",
+                        "text": "Communications",
+                      },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "toDos",
+                        "text": "MY TO DO",
+                      },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "calendar",
+                        "text": "CALENDAR",
                       },
                     ]
                   }
@@ -1205,6 +1554,49 @@ ShallowWrapper {
                           "content": Array [
                             Object {
                               "content": Array [
+                                Object {
+                                  "content": Array [
+                                    Object {
+                                      "activeItemIndex": 0,
+                                      "content": Array [
+                                        Object {
+                                          "componentName": "toDos",
+                                          "isClosable": true,
+                                          "reorderEnabled": true,
+                                          "title": "MY TO DO",
+                                          "type": "component",
+                                        },
+                                      ],
+                                      "header": Object {},
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "",
+                                      "type": "stack",
+                                    },
+                                    Object {
+                                      "activeItemIndex": 0,
+                                      "content": Array [
+                                        Object {
+                                          "componentName": "calendar",
+                                          "isClosable": true,
+                                          "reorderEnabled": true,
+                                          "title": "CALENDAR",
+                                          "type": "component",
+                                        },
+                                      ],
+                                      "header": Object {},
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "",
+                                      "type": "stack",
+                                    },
+                                  ],
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "row",
+                                  "width": 100,
+                                },
                                 Object {
                                   "activeItemIndex": 0,
                                   "content": Array [
@@ -1227,10 +1619,10 @@ ShallowWrapper {
                                   "activeItemIndex": 0,
                                   "content": Array [
                                     Object {
-                                      "componentName": "communication",
+                                      "componentName": "communications",
                                       "isClosable": true,
                                       "reorderEnabled": true,
-                                      "title": "Communication",
+                                      "title": "Communications",
                                       "type": "component",
                                     },
                                   ],
@@ -1278,7 +1670,7 @@ ShallowWrapper {
                         "borderWidth": 5,
                         "dragProxyHeight": 200,
                         "dragProxyWidth": 300,
-                        "headerHeight": 20,
+                        "headerHeight": 30,
                         "minItemHeight": 10,
                         "minItemWidth": 10,
                       },
@@ -1329,13 +1721,23 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "communication",
-                      "text": "Communication",
+                      "name": "appointments",
+                      "text": "My Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
+                      "name": "communications",
+                      "text": "Communications",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "toDos",
+                      "text": "MY TO DO",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "calendar",
+                      "text": "CALENDAR",
                     },
                   ],
                   "containerHeight": "200vh",
@@ -1346,6 +1748,49 @@ ShallowWrapper {
                         "content": Array [
                           Object {
                             "content": Array [
+                              Object {
+                                "content": Array [
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "toDos",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "MY TO DO",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                  Object {
+                                    "activeItemIndex": 0,
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "calendar",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "CALENDAR",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "header": Object {},
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "",
+                                    "type": "stack",
+                                  },
+                                ],
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "row",
+                                "width": 100,
+                              },
                               Object {
                                 "activeItemIndex": 0,
                                 "content": Array [
@@ -1368,10 +1813,10 @@ ShallowWrapper {
                                 "activeItemIndex": 0,
                                 "content": Array [
                                   Object {
-                                    "componentName": "communication",
+                                    "componentName": "communications",
                                     "isClosable": true,
                                     "reorderEnabled": true,
-                                    "title": "Communication",
+                                    "title": "Communications",
                                     "type": "component",
                                   },
                                 ],
@@ -1419,7 +1864,7 @@ ShallowWrapper {
                       "borderWidth": 5,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
-                      "headerHeight": 20,
+                      "headerHeight": 30,
                       "minItemHeight": 10,
                       "minItemWidth": 10,
                     },

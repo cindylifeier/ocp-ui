@@ -11,9 +11,10 @@ import {
   SEARCH_PATIENTS_SUCCESS,
 } from './constants';
 
-export function initializePatients() {
+export function initializePatients(patients) {
   return {
     type: INITIALIZE_PATIENTS,
+    patients,
   };
 }
 

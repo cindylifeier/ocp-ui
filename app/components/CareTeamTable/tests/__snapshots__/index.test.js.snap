@@ -84,7 +84,10 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": <Table__Table>
-        <TableHeader>
+        <TableHeader
+          relativeTop={0}
+          sticky={true}
+        >
           <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Name"
@@ -412,7 +415,10 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "children": Array [
-          <TableHeader>
+          <TableHeader
+            relativeTop={0}
+            sticky={true}
+          >
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
@@ -794,6 +800,8 @@ ShallowWrapper {
               </TableHeaderColumn__TableHeaderColumn>,
               <TableHeaderColumn__TableHeaderColumn />,
             ],
+            "relativeTop": 0,
+            "sticky": true,
           },
           "ref": null,
           "rendered": Array [
@@ -2491,7 +2499,10 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": <Table__Table>
-          <TableHeader>
+          <TableHeader
+            relativeTop={0}
+            sticky={true}
+          >
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
@@ -2819,7 +2830,10 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "children": Array [
-            <TableHeader>
+            <TableHeader
+              relativeTop={0}
+              sticky={true}
+            >
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Name"
@@ -3201,6 +3215,8 @@ ShallowWrapper {
                 </TableHeaderColumn__TableHeaderColumn>,
                 <TableHeaderColumn__TableHeaderColumn />,
               ],
+              "relativeTop": 0,
+              "sticky": true,
             },
             "ref": null,
             "rendered": Array [

@@ -17,28 +17,27 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { MANAGE_TASK_URL } from 'containers/App/constants';
 import messages from './messages';
 import { STATUS_CODE_CANCELLED, TASK_TABLE_COLUMNS } from './constants';
 
-function TaskTable({ elements, cancelTask, selectedPatientId }) {
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop }) {
   return (
     <Table>
-      <TableHeader columns={TASK_TABLE_COLUMNS}>
+      <TableHeader columns={TASK_TABLE_COLUMNS} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPriority} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
         <TableHeaderColumn />
       </TableHeader>
-      {!isEmpty(elements) && elements.map(({ logicalId, definition, status, priority, authoredOn, executionPeriod, agent, owner }) => (
+      {!isEmpty(elements) && elements.map(({ logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner }) => (
         <TableRow key={logicalId} columns={TASK_TABLE_COLUMNS}>
           <TableRowColumn>{definition && definition.display}</TableRowColumn>
           <TableRowColumn>{status && status.display}</TableRowColumn>
-          <TableRowColumn>{priority && priority.display}</TableRowColumn>
+          <TableRowColumn>{description}</TableRowColumn>
           <TableRowColumn>{authoredOn}</TableRowColumn>
           <TableRowColumn>{executionPeriod && executionPeriod.start} - {executionPeriod && executionPeriod.end} </TableRowColumn>
           <TableRowColumn>{agent && agent.display} </TableRowColumn>
@@ -49,8 +48,26 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
                 primaryText={<FormattedMessage {...messages.editTask} />}
                 containerElement={<Link
                   to={{
-                    pathname: `${MANAGE_TASK_URL}/${logicalId}`,
-                    search: `?patientId=${selectedPatientId}`,
+                    pathname: `${taskBaseUrl}/${logicalId}`,
+                    search: `?patientId=${patientId}&isMainTask=true`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.addSubTask} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${taskBaseUrl}`,
+                    search: `?patientId=${patientId}&isMainTask=false&mainTaskId=${logicalId}`,
+                  }}
+                />}
+              />
+              <MenuItem
+                primaryText={<FormattedMessage {...messages.addCommunication} />}
+                containerElement={<Link
+                  to={{
+                    pathname: `${communicationBaseUrl}`,
+                    search: `?patientId=${patientId}&taskId=${logicalId}`,
                   }}
                 />}
               />
@@ -68,8 +85,11 @@ function TaskTable({ elements, cancelTask, selectedPatientId }) {
 }
 
 TaskTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   cancelTask: PropTypes.func.isRequired,
-  selectedPatientId: PropTypes.string.isRequired,
+  patientId: PropTypes.string.isRequired,
+  communicationBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
@@ -21,14 +20,13 @@ import TableRowColumn from 'components/TableRowColumn';
 import InlineLabel from 'components/InlineLabel';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import { DATE_PICKER_MODE, HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
-class ManageActivityDefinitionForm extends React.PureComponent {
+class ManageActivityDefinitionForm extends React.Component {
 
   static initialState = {
     artifactsDialogOpen: false,
@@ -133,7 +131,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
             <DatePicker
               fullWidth
               name="effectiveStart"
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               minDate={today}
               hintText={<FormattedMessage {...messages.hintText.effectiveStart} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveStart} />}
@@ -144,7 +142,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
               fullWidth
               name="effectiveEnd"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.effectiveEnd} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveEnd} />}
             />
@@ -297,13 +295,7 @@ class ManageActivityDefinitionForm extends React.PureComponent {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  containerElement={<Link to={HOME_URL} />}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>

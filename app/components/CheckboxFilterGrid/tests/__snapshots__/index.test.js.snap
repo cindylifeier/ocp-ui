@@ -186,7 +186,7 @@ ShallowWrapper {
           child3
         </Cell__Cell>,
       ],
-      "columns": "70px repeat(2, 120px)",
+      "columns": "100px repeat(2, 110px)",
     },
     "ref": null,
     "rendered": Array [
@@ -243,7 +243,7 @@ ShallowWrapper {
             child3
           </Cell__Cell>,
         ],
-        "columns": "70px repeat(2, 120px)",
+        "columns": "100px repeat(2, 110px)",
       },
       "ref": null,
       "rendered": Array [

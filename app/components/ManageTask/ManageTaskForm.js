@@ -1,22 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
 
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
+import GoBackButton from 'components/GoBackButton';
+import SubTaskTable from 'components/SubTaskTable';
+import { MANAGE_TASK_URL } from './constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
 function ManageTaskForm(props) {
+  const datePickerLandscapeMode = 'landscape';
+
   const {
     taskStatus,
     requestIntent,
@@ -25,11 +28,11 @@ function ManageTaskForm(props) {
     activityDefinitions,
     practitioners,
     eventTypes,
-    organization,
     tasksByPatient,
-    isSubmitting, dirty, isValid,
+    subTasks,
+    patient,
+    isSubmitting, dirty, isValid, isMainTask,
   } = props;
-
   const today = new Date();
   return (
     <Form>
@@ -39,33 +42,33 @@ function ManageTaskForm(props) {
             <FormattedMessage {...messages.title} />
           </FormSubtitle>
         </Cell>
-        <Cell area="activityDefinitions">
+        <Cell area="activityDefinition">
           <SelectField
             fullWidth
             name="activityDefinition"
             hintText={<FormattedMessage {...messages.hintText.activityDefinitions} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
+            disabled={!isMainTask}
           >
             {activityDefinitions && activityDefinitions.map((activityDefinition) => (
               <MenuItem
-                key={activityDefinition.reference}
+                key={uniqueId()}
                 value={activityDefinition.reference}
                 primaryText={activityDefinition.display}
               />),
             )}
           </SelectField>
         </Cell>
-        <Cell area="organization">
-          <SelectField
+        <Cell area="selOrganization">
+          <TextField
             fullWidth
-            name="organization"
+            name="selOrganization"
             hintText={<FormattedMessage {...messages.hintText.organization} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
-          >
-            {organization && organization.map((org) =>
-              <MenuItem key={org.reference} value={org.reference} primaryText={org.display} />,
-            )}
-          </SelectField>
+            floatingLabelText={<FormattedMessage
+              {...messages.floatingLabelText.organization}
+            />}
+            disabled
+          />
         </Cell>
         <Cell area="patientName">
           <TextField
@@ -78,10 +81,10 @@ function ManageTaskForm(props) {
             disabled
           />
         </Cell>
-        <Cell area="requester">
+        <Cell area="selRequester">
           <TextField
             fullWidth
-            name="requester"
+            name="selRequester"
             hintText={<FormattedMessage {...messages.hintText.requester} />}
             floatingLabelText={<FormattedMessage
               {...messages.floatingLabelText.requester}
@@ -118,7 +121,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
           >
             {taskStatus && taskStatus.map((status) =>
-              <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
+              <MenuItem key={uniqueId()} value={status.code} primaryText={status.display} />,
             )}
           </SelectField>
         </Cell>
@@ -130,7 +133,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.priority} />}
           >
             {requestPriority && requestPriority.map((priority) =>
-              <MenuItem key={priority.code} value={priority.code} primaryText={priority.display} />,
+              <MenuItem key={uniqueId()} value={priority.code} primaryText={priority.display} />,
             )}
           </SelectField>
         </Cell>
@@ -142,7 +145,7 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.intent} />}
           >
             {requestIntent && requestIntent.map((intent) =>
-              <MenuItem key={intent.code} value={intent.code} primaryText={intent.display} />,
+              <MenuItem key={uniqueId()} value={intent.code} primaryText={intent.display} />,
             )}
           </SelectField>
         </Cell>
@@ -153,9 +156,10 @@ function ManageTaskForm(props) {
             name="context"
             hintText={<FormattedMessage {...messages.hintText.eventType} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
+            disabled={!isMainTask}
           >
             {eventTypes && eventTypes.map((eventType) =>
-              <MenuItem key={eventType.code} value={eventType.code} primaryText={eventType.display} />,
+              <MenuItem key={uniqueId()} value={eventType.reference} primaryText={eventType.display} />,
             )}
           </SelectField>
           }
@@ -169,7 +173,7 @@ function ManageTaskForm(props) {
           >
             {practitioners && practitioners.map((practitioner) => (
               <MenuItem
-                key={practitioner.reference}
+                key={uniqueId()}
                 value={practitioner.reference}
                 primaryText={practitioner.display}
               />),
@@ -184,20 +188,21 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.performerType} />}
           >
             {taskPerformerType && taskPerformerType.map((performerType) =>
-              <MenuItem key={performerType.code} value={performerType.code} primaryText={performerType.display} />,
+              <MenuItem key={uniqueId()} value={performerType.code} primaryText={performerType.display} />,
             )}
           </SelectField>
         </Cell>
         <Cell area="partOf">
-          {(tasksByPatient && tasksByPatient.length > 0) &&
+          {(tasksByPatient && tasksByPatient.length > 0) && !isMainTask &&
           <SelectField
             fullWidth
+            disabled
             name="partOf"
             hintText={<FormattedMessage {...messages.hintText.partOf} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
           >
             {tasksByPatient && tasksByPatient.map((partOf) =>
-              <MenuItem key={partOf.reference} value={partOf.reference} primaryText={partOf.display} />,
+              <MenuItem key={uniqueId()} value={partOf.reference} primaryText={partOf.display} />,
             )}
           </SelectField>
           }
@@ -206,7 +211,7 @@ function ManageTaskForm(props) {
           <DatePicker
             fullWidth
             name="taskStart"
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode={datePickerLandscapeMode}
             minDate={today}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
@@ -217,7 +222,7 @@ function ManageTaskForm(props) {
             fullWidth
             name="taskEnd"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskEnd} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskEnd} />}
           />
@@ -242,6 +247,10 @@ function ManageTaskForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
         </Cell>
+        {isMainTask && <Cell area="subTasksSection">
+          <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
+        </Cell>
+        }
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
@@ -253,13 +262,7 @@ function ManageTaskForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -270,7 +273,7 @@ function ManageTaskForm(props) {
 
 ManageTaskForm.propTypes = {
   activityDefinitions: PropTypes.array,
-  organization: PropTypes.array,
+  subTasks: PropTypes.array,
   practitioners: PropTypes.array,
   taskStatus: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -303,6 +306,11 @@ ManageTaskForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  isMainTask: PropTypes.bool.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+  }),
 };
 
 export default ManageTaskForm;

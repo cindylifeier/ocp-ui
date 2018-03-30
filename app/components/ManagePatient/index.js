@@ -15,7 +15,11 @@ import { TEXT_MIN_LENGTH } from './constants';
 
 function ManagePatient(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const { onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses } = props;
+  const {
+    onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
+    usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
+    flagCategories,
+  } = props;
   const managePatientFormProps = {
     uspsStates,
     patientIdentifierSystems,
@@ -26,6 +30,9 @@ function ManagePatient(props) {
     languages,
     telecomSystems,
     telecomUses,
+    flagStatuses,
+    flagCategories,
+    practitioner,
   };
   return (
     <div>
@@ -52,7 +59,8 @@ function ManagePatient(props) {
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
-        render={(formikProps) => <ManagePatientForm {...formikProps} {...managePatientFormProps} />}
+        render={(formikProps) => (
+          <ManagePatientForm {...formikProps} {...managePatientFormProps} />)}
       />
     </div>
   );
@@ -78,7 +86,19 @@ ManagePatient.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })).isRequired,
+  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  flagCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   patient: PropTypes.object,
+  practitioner: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
 };
 
 export default ManagePatient;

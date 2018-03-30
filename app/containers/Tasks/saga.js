@@ -1,8 +1,7 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+
+import { showNotification } from 'containers/Notification/actions';
 import getTasksApi, { cancelTask } from './api';
-import { showNotification } from '../Notification/actions';
 import { cancelTaskError, cancelTaskSuccess, getTasksError, getTasksSuccess } from './actions';
 import { CANCEL_TASK, GET_TASKS } from './constants';
 
@@ -20,14 +19,13 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getTasksSaga({ query }) {
+export function* getTasksSaga({ practitionerId, patientId }) {
   try {
-    const tasksPage = yield call(getTasksApi, query);
+    const tasksPage = yield call(getTasksApi, practitionerId, patientId);
     yield put(getTasksSuccess(tasksPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
-    yield put(getTasksError(err));
-    yield put(showNotification(errMsg));
+    yield put(getTasksError(errMsg));
   }
 }
 

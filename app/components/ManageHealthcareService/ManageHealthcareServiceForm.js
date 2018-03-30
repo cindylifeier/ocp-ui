@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
@@ -13,8 +12,7 @@ import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
-import { HOME_URL } from 'containers/App/constants';
+import GoBackButton from 'components/GoBackButton';
 import messages from './messages';
 import ManageHealthcareServiceFormGrid from './ManageHealthcareServiceFormGrid';
 
@@ -150,13 +148,7 @@ function ManageHealthcareServiceForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  containerElement={<Link to={HOME_URL} />}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>

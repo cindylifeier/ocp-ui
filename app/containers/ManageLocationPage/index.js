@@ -39,14 +39,15 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import { makeSelectLocations, makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectLocations } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import messages from './messages';
 import { createLocation, updateLocation } from './actions';
 import { makeSelectSaveLocationError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-export class ManageLocationPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageLocationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSaveLocation = this.handleSaveLocation.bind(this);
@@ -60,9 +61,9 @@ export class ManageLocationPage extends React.PureComponent { // eslint-disable-
     const logicalId = this.props.match.params.id;
     if (logicalId && location) {
       const mergedLocation = merge(location, { logicalId });
-      this.props.updateLocation(mergedLocation, this.props.organization.id);
+      this.props.updateLocation(mergedLocation, this.props.organization.logicalId);
     } else {
-      this.props.createLocation(location, this.props.organization.id);
+      this.props.createLocation(location, this.props.organization.logicalId);
     }
   }
 

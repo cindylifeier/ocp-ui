@@ -4,27 +4,27 @@
  *
  */
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import MenuItem from 'material-ui/MenuItem';
-import uniqueId from 'lodash/uniqueId';
-import find from 'lodash/find';
-
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import { STATUS_CODE_CANCELLED } from 'containers/UpcomingAppointments/constants';
+import find from 'lodash/find';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import messages from './messages';
 
-function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment }) { // eslint-disable-line react/prefer-stateless-function
+function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
-        <TableHeader>
+        <TableHeader relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
@@ -43,6 +43,17 @@ function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses
             <TableRowColumn>{appointment.description}</TableRowColumn>
             <TableRowColumn>
               <NavigationStyledIconMenu>
+                {patientId &&
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.addCommunication} />}
+                  containerElement={<Link
+                    to={{
+                      pathname: `${communicationBaseUrl}`,
+                      search: `?patientId=${patientId}&appointmentId=${appointment.logicalId}`,
+                    }}
+                  />}
+                />
+                }
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.menuItemCancel} />}
                   disabled={appointment.statusCode === STATUS_CODE_CANCELLED}
@@ -65,10 +76,13 @@ function mapDisplayFromCode(appointmentLookup, key) {
 }
 
 CareCoordinatorUpcomingAppointmentTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.array.isRequired,
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
+  communicationBaseUrl: PropTypes.string.isRequired,
+  patientId: PropTypes.string,
 };
 
 export default CareCoordinatorUpcomingAppointmentTable;

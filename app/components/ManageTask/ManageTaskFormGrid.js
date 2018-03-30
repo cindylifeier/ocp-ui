@@ -8,10 +8,10 @@ const ManageTaskFormGrid = Grid.extend`
   grid-template-columns: 1fr;
   grid-template-areas:
     "generalInformationSubtitle"
-    "activityDefinitions"
-    "organization"
+    "activityDefinition"
+    "selOrganization"
     "patientName"
-    "requester"
+    "selRequester"
     "authoredOn"
     "lastModifiedDate"
     "status"
@@ -25,16 +25,17 @@ const ManageTaskFormGrid = Grid.extend`
     "taskEnd"
     "description"
     "comments"
+    "subTasksSection"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
-      "activityDefinitions activityDefinitions"
-      "organization organization"
+      "activityDefinition activityDefinition"
+      "selOrganization selOrganization"
       "patientName patientName"
-      "requester requester"
+      "selRequester selRequester"
       "authoredOn lastModifiedDate"
       "status priority"
       "intent context"
@@ -44,6 +45,7 @@ const ManageTaskFormGrid = Grid.extend`
       "taskStart taskEnd"
       "description description"
       "comments comments"
+      "subTasksSection subTasksSection"
       "buttonGroup  .";
   }
 
@@ -51,14 +53,15 @@ const ManageTaskFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
-      "activityDefinitions activityDefinitions activityDefinitions activityDefinitions . . . . . . . ."
-      "organization organization organization organization patientName patientName patientName patientName requester requester requester requester"
+      "activityDefinition activityDefinition activityDefinition activityDefinition . . . . . . . ."
+      "selOrganization selOrganization selOrganization selOrganization patientName patientName patientName patientName selRequester selRequester selRequester selRequester"
       "authoredOn authoredOn lastModifiedDate lastModifiedDate . . . . . . . ."
       "status status status priority priority priority intent intent intent context context context"
       "taskOwner taskOwner taskOwner taskOwner performerType performerType performerType performerType partOf partOf partOf partOf"
       "taskStart taskStart taskEnd taskEnd . . . . . . . ."
       "description description description . . . . . . . . ."
       "comments comments comments . . . . . . . . ."
+      "subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection subTasksSection"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;

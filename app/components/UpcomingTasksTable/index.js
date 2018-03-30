@@ -8,25 +8,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
 import IconMenu from 'material-ui/IconMenu';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import MenuItem from 'material-ui/MenuItem';
 
+import Util from 'utils/Util';
 import StyledIconButton from 'components/StyledIconButton';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
 
 
 const tableColumns = 'repeat(6, 1fr) 50px';
 
-function UpcomingTaskTable({ elements }) {
+function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop }) {
   return (
     <div>
       <Table>
-        <TableHeader columns={tableColumns}>
+        <TableHeader columns={tableColumns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTask} /></TableHeaderColumn>
@@ -48,14 +51,19 @@ function UpcomingTaskTable({ elements }) {
             <TableRowColumn>
               <IconMenu
                 iconButtonElement={
-                (<StyledIconButton>
-                  <NavigationMenu />
-                </StyledIconButton>)
-              }
+                  (<StyledIconButton>
+                    <NavigationMenu />
+                  </StyledIconButton>)
+                }
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-              </IconMenu></TableRowColumn>
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.viewDetails} />}
+                  onClick={() => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary))}
+                />
+              </IconMenu>
+            </TableRowColumn>
           </TableRow>
         ))}
       </Table>
@@ -64,6 +72,7 @@ function UpcomingTaskTable({ elements }) {
 }
 
 UpcomingTaskTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     beneficiary: PropTypes.object.isRequired,
@@ -71,7 +80,16 @@ UpcomingTaskTable.propTypes = {
     description: PropTypes.string,
     executionPeriod: PropTypes.object,
   })),
+  onPatientViewDetailsClick: PropTypes.func.isRequired,
 };
 
 export default UpcomingTaskTable;
 
+function getPatientIdFromTask(beneficiary) {
+  const patientPattern = 'Patient/';
+  let patientId = null;
+  if (!isUndefined(beneficiary.reference)) {
+    patientId = Util.extractTrimmedStringByCharacters(beneficiary.reference, patientPattern);
+  }
+  return patientId;
+}

@@ -22,7 +22,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
-function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
+function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop }) {
   function getDisplayNameFromValueSetList(valueSets) {
     return valueSets && valueSets.map((entry) =>
       (
@@ -49,7 +49,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
     <div>
       {!showAssigned &&
       <Table>
-        <TableHeader>
+        <TableHeader relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
@@ -125,6 +125,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck }) {
 
 
 HealthcareServiceTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.array,
   showAssigned: PropTypes.bool,
   onCheck: PropTypes.func,

@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 
 import { makeSelectLocation } from 'containers/App/selectors';
 
-describe('makeSelectLocation', () => {
+xdescribe('makeSelectLocation', () => {
   it('should select the location', () => {
     const route = fromJS({
       location: { pathname: '/foo' },

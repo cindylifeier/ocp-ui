@@ -24,7 +24,7 @@ import PageContent from 'components/PageContent';
 import ManageHealthcareService from 'components/ManageHealthcareService';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
-import { makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
@@ -48,14 +48,14 @@ import { createHealthcareService, getHealthcareServiceById, updateHealthcareServ
 import reducer from './reducer';
 import saga from './saga';
 
-export class ManageHealthcareServicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageHealthcareServicePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
     const logicalId = this.props.match.params.id;
     if (logicalId) {

@@ -10,7 +10,11 @@ ShallowWrapper {
         "isAuthenticated": true,
       }
     }
-    location="/test-location"
+    user={
+      Object {
+        "role": "Patient",
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -22,37 +26,65 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "class",
+    "nodeType": "host",
     "props": Object {
-      "push": false,
-      "to": Object {
-        "pathname": "/ocp-ui/login",
-        "state": Object {
-          "from": "/test-location",
-        },
-      },
+      "children": Array [
+        undefined,
+        <Redirect
+          push={false}
+          to="/ocp-ui/login"
+        />,
+      ],
     },
     "ref": null,
-    "rendered": null,
-    "type": [Function],
+    "rendered": Array [
+      undefined,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "push": false,
+          "to": "/ocp-ui/login",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "host",
       "props": Object {
-        "push": false,
-        "to": Object {
-          "pathname": "/ocp-ui/login",
-          "state": Object {
-            "from": "/test-location",
-          },
-        },
+        "children": Array [
+          undefined,
+          <Redirect
+            push={false}
+            to="/ocp-ui/login"
+          />,
+        ],
       },
       "ref": null,
-      "rendered": null,
-      "type": [Function],
+      "rendered": Array [
+        undefined,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "push": false,
+            "to": "/ocp-ui/login",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
     },
   ],
   Symbol(enzyme.__options__): Object {

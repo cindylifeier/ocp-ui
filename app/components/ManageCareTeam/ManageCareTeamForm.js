@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
@@ -15,11 +14,10 @@ import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import SelectedParticipants from './SelectedParticipants';
 import messages from './messages';
 import ManageCareTeamFormGrid from './ManageCareTeamFormGrid';
@@ -37,7 +35,7 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
-    selectedPatient,
+    patient,
   } = props;
 
   const selectedParticipantsProps = {
@@ -62,7 +60,7 @@ function ManageCareTeamForm(props) {
             <InfoSection margin="2vh 0 0 0">
               <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.labelPatientName} />&nbsp;
               </InlineLabel>
-              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
             </InfoSection>
           </Cell>
           <Cell area="careTeamName">
@@ -123,7 +121,7 @@ function ManageCareTeamForm(props) {
               fullWidth
               name="startDate"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.startDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
             />
@@ -133,7 +131,7 @@ function ManageCareTeamForm(props) {
               fullWidth
               name="endDate"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.endDate} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
             />
@@ -169,13 +167,7 @@ function ManageCareTeamForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  containerElement={<Link to={PATIENTS_URL} />}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
@@ -191,7 +183,7 @@ ManageCareTeamForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),

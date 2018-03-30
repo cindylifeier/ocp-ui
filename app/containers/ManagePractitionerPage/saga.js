@@ -1,14 +1,18 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { goBack, push } from 'react-router-redux';
-import isEmpty from 'lodash/isEmpty';
-import getOrganizations from 'containers/Organizations/api';
+import { goBack } from 'react-router-redux';
+
+import { searchOrganizations } from 'containers/Organizations/api';
 import { makeSelectProviderRoles, makeSelectProviderSpecialties } from 'containers/App/lookupSelectors';
-import { getPractitionerError, getPractitionerSuccess, savePractitionerError, getOrganizationsError, getOrganizationsSuccess } from './actions';
-import { GET_PRACTITIONER, SAVE_PRACTITIONER, GET_ORGANIZATIONS } from './constants';
-import { getNotificationAction, getPractitioner, getPractitionerById, savePractitioner } from './api';
-import { showNotification } from '../Notification/actions';
-import { makeSelectPractitionerSearchResult } from '../Practitioners/selectors';
-import { HOME_URL } from '../App/constants';
+import { showNotification } from 'containers/Notification/actions';
+import {
+  getOrganizationsError,
+  getOrganizationsSuccess,
+  getPractitionerError,
+  getPractitionerSuccess,
+  savePractitionerError,
+} from './actions';
+import { GET_ORGANIZATIONS, GET_PRACTITIONER, SAVE_PRACTITIONER } from './constants';
+import { getNotificationAction, getPractitioner, savePractitioner } from './api';
 
 function* savePractitionerSaga(action) {
   try {
@@ -27,18 +31,11 @@ function* savePractitionerSaga(action) {
 
 function* getPractitionerSaga({ logicalId }) {
   try {
-    let practitioner;
-    // Load practitioners from store
-    const practitioners = yield select(makeSelectPractitionerSearchResult());
-    practitioner = getPractitionerById(practitioners, logicalId);
-    // fetch from backend if cannot find practitioner from store
-    if (isEmpty(practitioner)) {
-      practitioner = yield call(getPractitioner, logicalId);
-    }
+    const practitioner = yield call(getPractitioner, logicalId);
     yield put(getPractitionerSuccess(practitioner));
   } catch (error) {
     yield put(showNotification('No matching practitioner found.'));
-    yield put(push(HOME_URL));
+    yield put(goBack());
     yield put(getPractitionerError(error));
   }
 }
@@ -46,7 +43,7 @@ function* getPractitionerSaga({ logicalId }) {
 export function* getOrganizationsSaga({ searchValue, showInactive, searchType, currentPage }) {
   try {
     if (searchValue) {
-      const organizations = yield call(getOrganizations, searchValue, showInactive, searchType, currentPage);
+      const organizations = yield call(searchOrganizations, searchValue, showInactive, searchType, currentPage);
       yield put(getOrganizationsSuccess(organizations));
     }
   } catch (err) {

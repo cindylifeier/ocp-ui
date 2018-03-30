@@ -4,7 +4,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import ManageAppointmentFormGrid from 'components/ManageAppointment/ManageAppointmentFormGrid';
 import SelectField from 'components/SelectField';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import TimePicker from 'components/TimePicker';
@@ -14,10 +14,8 @@ import MenuItem from 'material-ui/MenuItem';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import messages from './messages';
 
 import SelectedParticipants from './SelectedParticipants';
@@ -32,7 +30,7 @@ function ManageAppointmentForm(props) {
     handleOpen,
     selectedParticipants,
     removeParticipant,
-    selectedPatient,
+    patient,
   } = props;
 
   const selectedParticipantsProps = {
@@ -55,7 +53,7 @@ function ManageAppointmentForm(props) {
             <InfoSection margin="2vh 0 0 0">
               <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.patientName} />&nbsp;
               </InlineLabel>
-              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+              <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
             </InfoSection>
           </Cell>
           <Cell area="description">
@@ -74,7 +72,11 @@ function ManageAppointmentForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentType} />}
             >
               {appointmentTypes && appointmentTypes.map((appointmentType) =>
-                <MenuItem key={appointmentType.code} value={appointmentType.code} primaryText={appointmentType.display} />,
+                (<MenuItem
+                  key={appointmentType.code}
+                  value={appointmentType.code}
+                  primaryText={appointmentType.display}
+                />),
               )}
             </SelectField>
           </Cell>
@@ -83,7 +85,7 @@ function ManageAppointmentForm(props) {
               fullWidth
               name="date"
               minDate={today}
-              mode={DATE_PICKER_MODE.LANDSCAPE}
+              mode="landscape"
               hintText={<FormattedMessage {...messages.hintText.date} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.date} />}
             />
@@ -134,13 +136,7 @@ function ManageAppointmentForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledFlatButton
-                  fullWidth
-                  label="Cancel"
-                  default
-                  disabled={isSubmitting}
-                  containerElement={<Link to={PATIENTS_URL} />}
-                />
+                <GoBackButton disabled={isSubmitting} />
               </Cell>
             </Grid>
           </Cell>
@@ -156,7 +152,7 @@ ManageAppointmentForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),

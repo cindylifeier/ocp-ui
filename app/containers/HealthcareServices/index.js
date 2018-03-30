@@ -12,12 +12,13 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
+import isEqual from 'lodash/isEqual';
 import { Cell } from 'styled-css-grid';
 
+import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -28,86 +29,98 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import PanelToolbar from 'components/PanelToolbar';
+import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import {
-  getHealthcareServicesByLocation,
-  getHealthcareServicesByOrganization,
-  initializeHealthcareServices,
-} from './actions';
+import { getHealthcareServices, initializeHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
   makeSelectHealthcareServices,
   makeSelectIncludeInactive,
-  makeSelectLocation,
-  makeSelectOrganization,
   makeSelectQueryError,
   makeSelectQueryLoading,
+  makeSelectTotalElements,
   makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class HealthcareServices extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class HealthcareServices extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
+      panelHeight: 0,
+      filterHeight: 0,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
     this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeHealthcareServices();
+    const { organization, location } = this.props;
+    if (organization || (organization && location)) {
+      this.props.getHealthcareServices(1);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { organization, location } = this.props;
+    const { organization: newOrganization, location: newLocation } = nextProps;
+    if (!isEqual(organization, newOrganization) || !isEqual(location, newLocation)) {
+      this.props.getHealthcareServices(1);
+    }
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
   }
 
   handlePageClick(currentPage) {
-    const { organization: { id: orgId, name: orgName }, location } = this.props;
-    if (!isEmpty(location)) {
-      const { id: locId, name: locName } = location;
-      this.props.getHealthcareServicesByLocation(orgId, orgName, locId, locName, currentPage, this.props.includeInactive);
-    } else {
-      this.props.getHealthcareServicesByOrganization(orgId, orgName, currentPage, this.props.includeInactive);
-    }
+    this.props.getHealthcareServices(currentPage, this.props.includeInactive);
   }
 
   handleCheck(event, checked) {
-    const { organization: { id: orgId, name: orgName }, location } = this.props;
-    if (!isEmpty(location)) {
-      const { id: locId, name: locName } = location;
-      this.props.getHealthcareServicesByLocation(orgId, orgName, locId, locName, DEFAULT_START_PAGE_NUMBER, checked);
-    } else {
-      this.props.getHealthcareServicesByOrganization(orgId, orgName, DEFAULT_START_PAGE_NUMBER, checked);
-    }
+    this.props.getHealthcareServices(DEFAULT_START_PAGE_NUMBER, checked);
   }
 
   render() {
     const { loading, healthcareServices, organization, location } = this.props;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
-        {!isEmpty(organization) &&
-        <InfoSection>
-          <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-            <FormattedMessage {...messages.labelOrganization} />&nbsp;
-          </InlineLabel>
-          <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>
-        </InfoSection>}
-        {!isEmpty(location) &&
-        <InfoSection>
-          <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
-            <FormattedMessage {...messages.labelLocation} />&nbsp;
-          </InlineLabel>
-          <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>
-        </InfoSection>}
-        {!isEmpty(organization) && isEmpty(location) &&
-        <div>
+        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+          {!isEmpty(organization) &&
+          <InfoSection margin="0px">
+            The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
+            </InlineLabel>
+            {!isEmpty(location) &&
+            <span>
+              at the&nbsp;
+              <InlineLabel htmlFor={this.LOCATION_NAME_HTML_ID}>
+                <span id={this.LOCATION_NAME_HTML_ID}>{location.name}</span>&nbsp;
+              </InlineLabel>
+            </span>}
+            are :
+          </InfoSection>}
+          {!isEmpty(organization) && isEmpty(location) &&
           <FilterSection>
             <CheckboxFilterGrid>
               <Cell>
@@ -123,8 +136,8 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
               </Cell>
             </CheckboxFilterGrid>
           </FilterSection>
-        </div>
-        }
+          }
+        </SizedStickyDiv>
 
         {loading &&
         <RefreshIndicatorLoading />}
@@ -138,12 +151,21 @@ export class HealthcareServices extends React.PureComponent { // eslint-disable-
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
         <div>
           <CenterAlign>
-            <HealthcareServiceTable elements={healthcareServices} />
+            <HealthcareServiceTable
+              elements={healthcareServices}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+            />
           </CenterAlign>
           <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
             onChange={this.handlePageClick}
+          />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.currentPageSize}
           />
         </div>
         }
@@ -158,9 +180,10 @@ HealthcareServices.propTypes = {
   healthcareServices: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
+  currentPageSize: PropTypes.number,
   initializeHealthcareServices: PropTypes.func,
-  getHealthcareServicesByOrganization: PropTypes.func.isRequired,
-  getHealthcareServicesByLocation: PropTypes.func.isRequired,
+  getHealthcareServices: PropTypes.func.isRequired,
   organization: PropTypes.object,
   location: PropTypes.object,
 };
@@ -172,6 +195,8 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectQueryError(),
   currentPage: makeSelectCurrentPage(),
   totalPages: makeSelectTotalNumberOfPages(),
+  totalElements: makeSelectTotalElements(),
+  currentPageSize: makeSelectCurrentPageSize(),
   includeInactive: makeSelectIncludeInactive(),
   healthcareServices: makeSelectHealthcareServices(),
 });
@@ -179,10 +204,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
-    getHealthcareServicesByOrganization: (organizationId, organizationName, currentPage, includeInactive) =>
-      dispatch(getHealthcareServicesByOrganization(organizationId, organizationName, currentPage, includeInactive)),
-    getHealthcareServicesByLocation: (organizationId, organizationName, locationId, locationName, currentPage, includeInactive) =>
-      dispatch(getHealthcareServicesByLocation(organizationId, organizationName, locationId, locationName, currentPage, includeInactive)),
+    getHealthcareServices: (currentPage, includeInactive) =>
+      dispatch(getHealthcareServices(currentPage, includeInactive)),
   };
 }
 

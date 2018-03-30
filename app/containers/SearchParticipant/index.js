@@ -37,7 +37,7 @@ import WideDialog from 'components/WideDialog';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-import makeSelectSelectedPatient from 'containers/App/sharedDataSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -48,7 +48,7 @@ import ParticipantName from './ParticipantName';
 import ParticipantSearchContainer from './ParticipantSearchContainer';
 import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
 
-export class SearchParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SearchParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -78,7 +78,7 @@ export class SearchParticipant extends React.PureComponent { // eslint-disable-l
 
   handleSearch(values) {
     const { name, member } = values;
-    this.props.searchParticipant(name, member, this.props.selectedPatient.id);
+    this.props.searchParticipant(name, member, this.props.patient.id);
   }
 
   createSearchResultHeader() {
@@ -309,7 +309,7 @@ SearchParticipant.propTypes = {
   getLookUpFormData: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
   participantRoles: PropTypes.array,
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -322,7 +322,7 @@ const mapStateToProps = createStructuredSelector({
   participantTypes: makeSelectParticipantTypes(),
   searchParticipantResult: makeSelectSearchParticipantResults(),
   participantRoles: makeSelectParticipantRoles(),
-  selectedPatient: makeSelectSelectedPatient(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {

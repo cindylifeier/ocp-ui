@@ -5,10 +5,10 @@
 /* eslint-disable redux-saga/yield-effects */
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { fromJS } from 'immutable';
-import rootSaga, { getOrganizationsSaga, watchGetOrganizationsSaga } from '../saga';
-import { GET_ORGANIZATIONS } from '../constants';
-import getOrganizations from '../api';
-import { getOrganizationsError, getOrganizationsSuccess } from '../actions';
+import rootSaga, { searchOrganizationsSaga, watchGetOrganizationsSaga, watchSearchOrganizationsSaga } from '../saga';
+import { SEARCH_ORGANIZATIONS } from '../constants';
+import { searchOrganizations } from '../api';
+import { searchOrganizationsError, searchOrganizationsSuccess } from '../actions';
 
 describe('Organizations.saga', () => {
   describe('rootSaga', () => {
@@ -20,24 +20,27 @@ describe('Organizations.saga', () => {
       const effect = generator.next().value;
 
       // Assert
-      expect(effect).toEqual(all([watchGetOrganizationsSaga()]));
+      expect(effect).toEqual(all([
+        watchGetOrganizationsSaga(),
+        watchSearchOrganizationsSaga(),
+      ]));
     });
   });
 
-  describe('watchGetOrganizationsSaga', () => {
-    it('it should takeLatest of GET_ORGANIZATIONS and delegate to getOrganizationsSaga ', () => {
+  describe('watchSearchOrganizationsSaga', () => {
+    it('it should takeLatest of SEARCH_ORGANIZATIONS and delegate to searchOrganizationsSaga ', () => {
       // Arrange
-      const generator = watchGetOrganizationsSaga();
+      const generator = watchSearchOrganizationsSaga();
 
       // Act
       const effect = generator.next().value;
 
       // Assert
-      expect(effect).toEqual(takeLatest(GET_ORGANIZATIONS, getOrganizationsSaga));
+      expect(effect).toEqual(takeLatest(SEARCH_ORGANIZATIONS, searchOrganizationsSaga));
     });
   });
 
-  describe('getOrganizationsSaga', () => {
+  describe('searchOrganizationsSaga', () => {
     const searchValue = 'searchValue';
     const showInactive = true;
     const searchType = 'searchType';
@@ -48,7 +51,7 @@ describe('Organizations.saga', () => {
     it('should handle successful api call when searchValue exists', () => {
       // Arrange
       const mockActionJS = mockAction.toJS();
-      const generator = getOrganizationsSaga(mockActionJS);
+      const generator = searchOrganizationsSaga(mockActionJS);
 
       // Act
       const { value: apiCallEffect, done: apiCallIsLast } = generator.next();
@@ -56,9 +59,9 @@ describe('Organizations.saga', () => {
       const { value: finalValue, done: finalDone } = generator.next();
 
       // Assert
-      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallEffect).toEqual(call(searchOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putOrganizationsEffect).toEqual(put(getOrganizationsSuccess(mockOrganizations)));
+      expect(putOrganizationsEffect).toEqual(put(searchOrganizationsSuccess(mockOrganizations)));
       expect(putOrganizationsIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);
@@ -69,7 +72,7 @@ describe('Organizations.saga', () => {
       const mockActionJS = mockAction
         .set('searchValue', '')
         .toJS();
-      const generator = getOrganizationsSaga(mockActionJS);
+      const generator = searchOrganizationsSaga(mockActionJS);
 
       // Act
       const { value: finalValue, done: finalDone } = generator.next();
@@ -83,7 +86,7 @@ describe('Organizations.saga', () => {
       // Arrange
       const mockActionJS = mockAction.toJS();
       const error = new Error('api call failed');
-      const generator = getOrganizationsSaga(mockActionJS);
+      const generator = searchOrganizationsSaga(mockActionJS);
 
       // Act
       const { value: apiCallEffect, done: apiCallIsLast } = generator.next();
@@ -91,9 +94,9 @@ describe('Organizations.saga', () => {
       const { value: finalValue, done: finalDone } = generator.next();
 
       // Assert
-      expect(apiCallEffect).toEqual(call(getOrganizations, searchValue, showInactive, searchType, currentPage));
+      expect(apiCallEffect).toEqual(call(searchOrganizations, searchValue, showInactive, searchType, currentPage));
       expect(apiCallIsLast).toEqual(false);
-      expect(putErrorEffect).toEqual(put(getOrganizationsError(error)));
+      expect(putErrorEffect).toEqual(put(searchOrganizationsError(error.message)));
       expect(putErrorEffectIsLast).toEqual(false);
       expect(finalValue).toEqual(undefined);
       expect(finalDone).toEqual(true);

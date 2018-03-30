@@ -1,21 +1,51 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { searchPractitionersError, searchPractitionersSuccess } from './actions';
-import { LOAD_PRACTITIONER_SEARCH_RESULT } from './constants';
-import searchPractitioners from './api';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import {
+  getPractitionersInOrganizationError,
+  getPractitionersInOrganizationSuccess,
+  searchPractitionersError,
+  searchPractitionersSuccess,
+} from './actions';
+import { getErrorDetail, getPractitionersInOrganization, searchPractitioners } from './api';
+import { GET_PRACTITIONERS_IN_ORGANIZATION, SEARCH_PRACTITIONERS } from './constants';
 
-export function* getPractitionerSearchResultSaga({ searchTerms, searchType, includeInactive, currentPage }) {
+
+export function* getPractitionersInOrganizationSaga({ currentPage }) {
   try {
-    const searchPractitionerResult = yield call(searchPractitioners, searchTerms, searchType, includeInactive, currentPage);
-    yield put(searchPractitionersSuccess(searchPractitionerResult, searchTerms, searchType, includeInactive));
-  } catch (error) {
-    yield put(searchPractitionersError(error));
+    const organization = yield select(makeSelectOrganization());
+    const practitioners = yield call(getPractitionersInOrganization, organization.logicalId, currentPage);
+    yield put(getPractitionersInOrganizationSuccess(practitioners));
+  } catch (err) {
+    yield put(getPractitionersInOrganizationError(getErrorDetail(err)));
   }
+}
+
+
+export function* searchPractitionersSaga({ searchType, searchValue, includeInactive, currentPage }) {
+  try {
+    const practitioners = yield call(searchPractitioners, searchType, searchValue, includeInactive, currentPage);
+    yield put(searchPractitionersSuccess(practitioners));
+  } catch (error) {
+    yield put(searchPractitionersError(getErrorDetail(error)));
+  }
+}
+
+export function* watchGetPractitionersInOrganizationSaga() {
+  yield takeLatest(GET_PRACTITIONERS_IN_ORGANIZATION, getPractitionersInOrganizationSaga);
+}
+
+
+export function* watchSearchPractitionersSaga() {
+  yield takeLatest(SEARCH_PRACTITIONERS, searchPractitionersSaga);
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* watchGetPractitionersSaga() {
-  yield takeLatest(LOAD_PRACTITIONER_SEARCH_RESULT, getPractitionerSearchResultSaga);
+export default function* rootSaga() {
+  yield all([
+    watchGetPractitionersInOrganizationSaga(),
+    watchSearchPractitionersSaga(),
+  ]);
 }

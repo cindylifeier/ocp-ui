@@ -1,14 +1,13 @@
 /**
-*
-* AddPractitionerRoleForOrgnaization
  *
-*/
+ * AddPractitionerRoleForOrgnaization
+ *
+ */
 
 import React from 'react';
 import Close from 'material-ui/svg-icons/navigation/close';
 import SearchBar from 'components/SearchBar';
-import { fromBackendToFrontendOrganization } from 'containers/Organizations/mappings';
-import { Organizations } from 'containers/Organizations';
+import { fromBackendToFrontendOrganization } from 'components/OrganizationTable/mappings';
 import { FormattedMessage } from 'react-intl';
 import PractitionerRoleForOrganizationTable from 'components/PractitionerRoleForOrganizationTable';
 import messages from 'components/AddPractitionerRoleForOrganization/messages';
@@ -26,10 +25,7 @@ function AddPractitionerRoleForOrgnaization(props) {
     <div>
       <CloseButton tooltip="Close" onClick={callback}><Close /></CloseButton>
       <H1>{<FormattedMessage {...messages.header} />}</H1>
-      <SearchBar
-        minimumLength={Organizations.SEARCH_BAR_TEXT_LENGTH}
-        onSearch={onSearch}
-      />
+      <SearchBar onSearch={onSearch} />
 
       {organizations.loading && <RefreshIndicatorLoading />}
 

@@ -12,39 +12,64 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
-
+import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { mapToPatientName } from 'utils/PatientUtils';
+import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import TaskTable from 'components/TaskTable';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
+import CenterAlign from 'components/Align/CenterAlign';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import TaskTable from 'components/TaskTable';
+import PanelToolbar from 'components/PanelToolbar';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { cancelTask, getTasks, initializeTasks } from './actions';
 
-export class Tasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.state = {
+      panelHeight: 0,
+      filterHeight: 0,
+      practitionerId: 1961,
+      isPatientModalOpen: false,
+    };
     this.cancelTask = this.cancelTask.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
     this.props.initializeTasks();
+    const { patient } = this.props;
+    if (patient) {
+      this.props.getTasks(this.state.practitionerId, patient.id);
+    }
   }
 
-  handlePageClick(page) {
-    const { query, patientName, patientId } = this.props.tasks;
-    this.props.getTasks({ ...query, pageNumber: page }, patientName, patientId);
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient)) {
+      this.props.getTasks(this.state.practitionerId, nextProps.patient.id);
+    }
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
   }
 
   cancelTask(logicalId) {
@@ -52,38 +77,52 @@ export class Tasks extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { tasks: { loading, data, patientName, patientId } } = this.props;
+    const { tasks: { loading, data }, patient, user } = this.props;
+    const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_TASK_URL,
+    };
+    const patientName = mapToPatientName(patient);
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          showSearchIcon={false}
+          onSize={this.handlePanelResize}
+        />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <InfoSection>
-            <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-              <FormattedMessage {...messages.labelPatientName} />&nbsp;
-            </InlineLabel>
-            <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>
-          </InfoSection>
+          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+            <InfoSection margin="0px">
+              The <FormattedMessage {...messages.tasks} /> for&nbsp;
+              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+              </InlineLabel>
+              are :
+            </InfoSection>
+          </SizedStickyDiv>
         }
 
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && !isEmpty(patientId) && isEmpty(data) &&
+        {!loading && !isEmpty(patientName) && !isEmpty(patient.id) && isEmpty(data) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noTasksFound} />
         </NoResultsFoundText>}
 
-        {!isEmpty(data) && !isEmpty(data.elements) &&
+        {!isEmpty(data) &&
         <div>
           <CenterAlign>
-            <TaskTable elements={data.elements} cancelTask={this.cancelTask} selectedPatientId={patientId} />
+            <TaskTable
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+              elements={data}
+              cancelTask={this.cancelTask}
+              patientId={patient.id}
+              communicationBaseUrl={MANAGE_COMMUNICATION_URL}
+              taskBaseUrl={MANAGE_TASK_URL}
+            />
           </CenterAlign>
-          <CenterAlignedUltimatePagination
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            onChange={this.handlePageClick}
-          />
         </div>
         }
       </Card>
@@ -97,19 +136,22 @@ Tasks.propTypes = {
   getTasks: PropTypes.func.isRequired,
   tasks: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-    query: PropTypes.object,
-    patientName: PropTypes.string,
-    patientId: PropTypes.string,
   }),
+  patient: PropTypes.object,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
+  patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
+    getTasks: (practitionerId, patientId) => dispatch(getTasks(practitionerId, patientId)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };

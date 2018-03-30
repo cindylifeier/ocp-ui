@@ -4,21 +4,21 @@
  *
  */
 
-import ManageAppointmentForm from 'components/ManageAppointment/ManageAppointmentForm';
+import React from 'react';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import React from 'react';
-
 import { FormattedMessage } from 'react-intl';
-import mapToPatientName from 'utils/PatientUtils';
-import Util from 'utils/Util';
 import yup from 'yup';
+
+import Util from 'utils/Util';
+import { mapToPatientName } from 'utils/PatientUtils';
+import ManageAppointmentForm from './ManageAppointmentForm';
 import messages from './messages';
 
 function ManageAppointment(props) {
   const {
-    selectedPatient,
+    patient,
     appointment,
     editMode,
     appointmentStatuses,
@@ -30,7 +30,7 @@ function ManageAppointment(props) {
     removeParticipant,
   } = props;
   const propsFromContainer = {
-    selectedPatient,
+    patient,
     appointmentStatuses,
     appointmentTypes,
     handleOpen,
@@ -40,7 +40,7 @@ function ManageAppointment(props) {
   };
   return (
     <div>
-      {selectedPatient &&
+      {patient &&
       <div>
         {((editMode && appointment) || !editMode) &&
         <Formik
@@ -75,7 +75,7 @@ ManageAppointment.propTypes = {
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
-  selectedPatient: PropTypes.shape({
+  patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
@@ -86,11 +86,11 @@ ManageAppointment.propTypes = {
   initialSelectedParticipants: PropTypes.array,
 };
 
-function setFormData(appointment, selectedPatient) {
+function setFormData(appointment, patient) {
   let formData = null;
   if (!isEmpty(appointment)) {
     formData = {
-      patientName: mapToPatientName(selectedPatient),
+      patientName: mapToPatientName(patient),
       description: appointment.description,
       status: appointment.statusCode,
       date: appointment.date,

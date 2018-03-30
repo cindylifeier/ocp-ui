@@ -8,29 +8,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import RecordsRange from 'components/RecordsRange';
 import PatientSearchResult from 'components/PatientSearchResult';
-import { MANAGE_PATIENT_URL } from 'containers/App/constants';
-import { getCareTeams } from 'containers/CareTeams/actions';
-import { getTasks } from 'containers/Tasks/actions';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
-import SearchBar from 'components/SearchBar';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import { getRelatedPersons } from 'containers/RelatedPersons/actions';
-import { getPatient } from 'containers/App/actions';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
+import PanelToolbar from 'components/PanelToolbar';
+import { CARE_MANAGER_ROLE_VALUE, MANAGE_PATIENT_URL } from 'containers/App/constants';
+import { setPatient } from 'containers/App/contextActions';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
   makeSelectPatientSearchResult,
+  makeSelectPatientTotalElements,
   makeSelectQueryIncludeInactive,
   makeSelectQuerySearchTerms,
   makeSelectQuerySearchType,
@@ -39,54 +36,57 @@ import {
   makeSelectTotalPages,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
-import { SEARCH_BAR_TEXT_LENGTH } from './constants';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class Patients extends React.PureComponent {
+export class Patients extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      relativeTop: 0,
       currentPage: 1,
-      selectedPatient: null,
+      patient: null,
       isPatientModalOpen: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handlePatientClick = this.handlePatientClick.bind(this);
-
-    // TODO: Will move handle ConfirmPatientModal to upcoming tasks component
     this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
-  componentWillMount() {
-    this.props.initializePatients();
+  componentDidMount() {
+    if (this.props.patient) {
+      this.props.initializePatients([this.props.patient]);
+    } else {
+      this.props.initializePatients();
+    }
   }
 
-  handlePatientClick({ id: searchValue, name: [{ firstName, lastName }] }) {
-    const searchType = 'patientId';
-    const query = { searchValue, searchType };
-    const currentPage = 1;
-    const showInactive = false;
-    this.props.getCareTeams(query, `${firstName} ${lastName}`);
-    this.props.getTasks(query, `${firstName} ${lastName}`, searchValue);
-    this.props.getPatient(searchValue);
-    this.props.getRelatedPersons(searchValue, showInactive, currentPage);
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.props;
+    const { patient: newPatient } = nextProps;
+    if (!isEqual(patient, newPatient) && !this.props.currentPage) {
+      this.props.initializePatients([newPatient]);
+    }
   }
 
-  // TODO: Will move handle ConfirmPatientModal to upcoming tasks component
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
+  }
+
+  handlePatientClick(patient) {
+    this.props.setPatient(patient);
+  }
+
   handlePatientViewDetailsClick(patient) {
     this.setState({
-      selectedPatient: patient,
+      patient,
       isPatientModalOpen: true,
     });
-  }
-
-  handlePatientModalOpen() {
-    this.setState({ isPatientModalOpen: true });
   }
 
   handlePatientModalClose() {
@@ -103,43 +103,46 @@ export class Patients extends React.PureComponent {
   }
 
   render() {
-    const { loading, error, searchResult } = this.props;
+    const { loading, error, searchResult, user: { role } } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
     };
-
+    const addNewItem = role === CARE_MANAGER_ROLE_VALUE ? {
+      addNewItem: {
+        labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+        linkUrl: MANAGE_PATIENT_URL,
+      },
+    } : undefined;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_PATIENT_URL} />}
-          />
-        </CardHeader>
-        <SearchBar
-          minimumLength={SEARCH_BAR_TEXT_LENGTH}
-          onSearch={this.handleSearch}
-        />
-        <br />
+        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} onSize={this.onSize} />
         <PatientSearchResult
           {...searchResultProps}
+          relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />
-        {this.props.searchResult &&
-        <CenterAlignedUltimatePagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={this.handleChangePage}
-        />
+        {!!this.props.searchResult && !!this.props.currentPage &&
+        <div>
+          <CenterAlignedUltimatePagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            onChange={this.handleChangePage}
+          />
+          <RecordsRange
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            totalElements={this.props.totalElements}
+            currentPageSize={this.props.searchResult.length}
+          />
+        </div>
         }
         {/* TODO: Will move ConfirmPatientModal to upcoming tasks component*/}
-        {this.state.selectedPatient &&
+        {this.state.patient &&
         <ConfirmPatientModal
-          selectedPatient={this.state.selectedPatient}
+          patient={this.state.patient}
           isPatientModalOpen={this.state.isPatientModalOpen}
           onPatientModalClose={this.handlePatientModalClose}
         />}
@@ -161,20 +164,23 @@ Patients.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  totalElements: PropTypes.number,
   onChangePage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
-  getCareTeams: PropTypes.func.isRequired,
-  getTasks: PropTypes.func.isRequired,
-  getRelatedPersons: PropTypes.func.isRequired,
-  getPatient: PropTypes.func.isRequired,
+  setPatient: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
+  patient: PropTypes.object,
 };
 
 
 const mapStateToProps = createStructuredSelector({
   searchResult: makeSelectPatientSearchResult(),
+  totalElements: makeSelectPatientTotalElements(),
   loading: makeSelectSearchLoading(),
   error: makeSelectSearchError(),
   currentPage: makeSelectCurrentPage(),
@@ -183,6 +189,8 @@ const mapStateToProps = createStructuredSelector({
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
+  user: makeSelectUser(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -192,11 +200,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
-    initializePatients: () => dispatch(initializePatients()),
-    getPatient: (patientId) => dispatch(getPatient(patientId)),
-    getCareTeams: (query, patientName) => dispatch(getCareTeams(query, patientName)),
-    getTasks: (query, patientName, patientId) => dispatch(getTasks(query, patientName, patientId)),
-    getRelatedPersons: (patientId, showInActive, currentPage) => dispatch(getRelatedPersons(patientId, showInActive, currentPage)),
+    initializePatients: (patients) => dispatch(initializePatients(patients)),
+    setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }
 

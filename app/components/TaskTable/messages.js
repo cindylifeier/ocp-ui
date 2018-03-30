@@ -14,9 +14,9 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
-  columnHeaderPriority: {
-    id: 'ocpui.components.TaskTable.columnHeaderPriority',
-    defaultMessage: 'Priority',
+  columnHeaderDescription: {
+    id: 'ocpui.components.TaskTable.columnHeaderDescription',
+    defaultMessage: 'Description',
   },
   columnHeaderCreatedBy: {
     id: 'ocpui.components.TaskTable.columnHeaderCreatedBy',
@@ -37,6 +37,14 @@ export default defineMessages({
   editTask: {
     id: 'ocpui.components.TaskTable.editTask',
     defaultMessage: 'Edit',
+  },
+  addSubTask: {
+    id: 'ocpui.components.TaskTable.addSubTask',
+    defaultMessage: 'Add SubTask',
+  },
+  addCommunication: {
+    id: 'ocpui.components.TaskTable.addCommunication',
+    defaultMessage: 'Add Communication',
   },
   cancelTask: {
     id: 'ocpui.components.TaskTable.cancelTask',

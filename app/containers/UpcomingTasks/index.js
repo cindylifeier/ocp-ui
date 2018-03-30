@@ -10,40 +10,64 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
-import isEmpty from 'lodash/isEmpty';
 import UpcomingTasksTable from 'components/UpcomingTasksTable';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import ConfirmPatientModal from 'components/ConfirmPatientModal';
+import PanelToolbar from 'components/PanelToolbar';
 import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectUpcomingTasks, makeSelectUpcomingTasksLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class UpcomingTasks extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class UpcomingTasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       practitionerId: 1961,
       /* practitionerId: 1377,*/
+      isPatientModalOpen: false,
+      panelHeight: 0,
     };
+    this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
+    this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
   }
-  componentWillMount() {
+
+  componentDidMount() {
     this.props.initializeUpcomingTasks();
     this.props.getUpcomingTasks(this.state.practitionerId);
+  }
+
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handlePatientViewDetailsClick() {
+    this.setState({ isPatientModalOpen: true });
+  }
+
+  handlePatientModalOpen() {
+    this.setState({ isPatientModalOpen: true });
+  }
+
+  handlePatientModalClose() {
+    this.setState({ isPatientModalOpen: false });
   }
 
   render() {
     const { loading, data, practitionerId } = this.props;
     return (
       <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />} />
+        <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
         {loading &&
         <RefreshIndicatorLoading />}
 
@@ -54,10 +78,21 @@ export class UpcomingTasks extends React.PureComponent { // eslint-disable-line 
         {!isEmpty(data) && !isEmpty(data) &&
         <div>
           <CenterAlign>
-            <UpcomingTasksTable elements={data} loginPractitonerId={practitionerId} />
+            <UpcomingTasksTable
+              elements={data}
+              loginPractitonerId={practitionerId}
+              onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+              relativeTop={this.state.panelHeight}
+            />
           </CenterAlign>
         </div>
         }
+        {this.props.patient &&
+        <ConfirmPatientModal
+          patient={this.props.patient}
+          isPatientModalOpen={this.state.isPatientModalOpen}
+          onPatientModalClose={this.handlePatientModalClose}
+        />}
       </Card>
     );
   }
@@ -69,11 +104,16 @@ UpcomingTasks.propTypes = {
   practitionerId: PropTypes.string,
   initializeUpcomingTasks: PropTypes.func.isRequired,
   getUpcomingTasks: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectUpcomingTasksLoading(),
   data: makeSelectUpcomingTasks(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {

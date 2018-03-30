@@ -55,7 +55,7 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-export class SearchAppointmentParticipant extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SearchAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -85,7 +85,7 @@ export class SearchAppointmentParticipant extends React.PureComponent { // eslin
 
   handleSearch(values) {
     const { name, member } = values;
-    this.props.searchParticipant(name, member, this.props.selectedPatient.id);
+    this.props.searchParticipant(name, member);
   }
 
   createSearchResultHeader() {
@@ -286,7 +286,6 @@ SearchAppointmentParticipant.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
-  selectedPatient: PropTypes.object,
   searchParticipantResult: PropTypes.array,
   participantRoles: PropTypes.array,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
@@ -309,7 +308,7 @@ function mapDispatchToProps(dispatch) {
       PARTICIPANTROLE, APPOINTMENT_PARTICIPATION_STATUS,
       APPOINTMENT_PARTICIPATION_TYPE,
       APPOINTMENT_PARTICIPANT_REQUIRED])),
-    searchParticipant: (name, member, patientId) => dispatch(getAppointmentSearchParticipant(name, member, patientId)),
+    searchParticipant: (name, member) => dispatch(getAppointmentSearchParticipant(name, member)),
     addParticipants: (participant) => dispatch(addAppointmentParticipants(participant)),
     initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchAppointmentParticipant(initialSelectedParticipants)),
   };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { FieldArray, Form } from 'formik';
@@ -13,7 +12,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import FormSubtitle from 'components/FormSubtitle';
@@ -24,17 +22,16 @@ import ErrorText from 'components/ErrorText';
 import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import { HOME_URL } from 'containers/App/constants';
 import Section from 'components/Section';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-
+import GoBackButton from 'components/GoBackButton';
 import AddOrganizationsButton from './AddOrganizationsButton';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';
 
 
-class ManagePractitionerForm extends React.PureComponent {
+class ManagePractitionerForm extends React.Component {
 
   static initialState = {
     searchOrganizationDialogOpen: false,
@@ -267,13 +264,7 @@ class ManagePractitionerForm extends React.PureComponent {
                   />
                 </Cell>
                 <Cell>
-                  <StyledFlatButton
-                    fullWidth
-                    label="Cancel"
-                    default
-                    disabled={isSubmitting}
-                    containerElement={<Link to={HOME_URL} />}
-                  />
+                  <GoBackButton disabled={isSubmitting} />
                 </Cell>
               </Grid>
             </Cell>

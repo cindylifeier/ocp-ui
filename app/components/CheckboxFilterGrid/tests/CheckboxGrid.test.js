@@ -46,17 +46,6 @@ describe('<CheckboxGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
     });
 
-    it('should have margin', () => {
-      // Arrange
-      const children = <div>test</div>;
-
-      // Act
-      const renderedComponent = shallow(<CheckboxGrid>{children}</CheckboxGrid>);
-
-      // Assert
-      expect(renderedComponent).toHaveStyleRule('margin', '2px 0');
-    });
-
     it('should have padding', () => {
       // Arrange
       const children = <div>test</div>;

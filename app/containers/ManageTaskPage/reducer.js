@@ -20,6 +20,8 @@ import {
   GET_EVENT_TYPES_ERROR,
   GET_TASK_SUCCESS,
   GET_TASK_ERROR,
+  GET_SUB_TASKS_SUCCESS,
+  GET_SUB_TASKS_ERROR,
   GET_TASKS_BY_PATIENT_SUCCESS,
   GET_TASKS_BY_PATIENT_ERROR,
 } from './constants';
@@ -48,6 +50,9 @@ function manageTaskPageReducer(state = initialState, action) {
     case GET_TASK_SUCCESS:
       return state
         .set('task', action.task);
+    case GET_SUB_TASKS_SUCCESS:
+      return state
+        .set('subTasks', action.subTasks);
     case GET_TASKS_BY_PATIENT_SUCCESS:
       return state
         .set('tasksByPatient', action.tasksByPatient);
@@ -59,6 +64,7 @@ function manageTaskPageReducer(state = initialState, action) {
     case CREATE_TASK_ERROR:
     case GET_TASK_ERROR:
     case GET_TASKS_BY_PATIENT_ERROR:
+    case GET_SUB_TASKS_ERROR:
       return state
         .set('loading', false)
         .set('data', fromJS([]));

@@ -5,146 +5,201 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import isEmpty from 'lodash/isEmpty';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import PractitionerSearchResult from 'components/PractitionerSearchResult';
-import Card from 'components/Card';
-import CardHeader from 'components/CardHeader';
-import StyledFlatButton from 'components/StyledFlatButton';
-import SearchBar from 'components/SearchBar';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
-import {
-  DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL,
-  PRACTITIONERIDENTIFIERSYSTEM,
-} from 'containers/App/constants';
-import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
-import {
-  makeSelectCurrentPage,
-  makeSelectCurrentPageSize,
-  makeSelectPractitionerSearchResult,
-  makeSelectQueryIncludeInactive,
-  makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType,
-  makeSelectSearchError,
-  makeSelectSearchLoading,
-  makeSelectTotalPages,
-} from './selectors';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import InfoSection from 'components/InfoSection';
+import PanelToolbar from 'components/PanelToolbar';
+import PractitionerTable from 'components/PractitionerTable';
+import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
+import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
 import saga from './saga';
+import makeSelectPractitioners from './selectors';
 import messages from './messages';
-import { initializePractitioners, loadPractitionerSearchResult } from './actions';
 
-export class Practitioners extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Practitioners extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.handleChangePage = this.handleChangePage.bind(this);
+    this.state = {
+      relativeTop: 0,
+      isShowSearchResult: false,
+      listPractitioners: {
+        currentPage: 1,
+      },
+      searchPractitioners: {
+        searchType: 'name',
+        searchValue: '',
+        includeInactive: false,
+        currentPage: 1,
+      },
+    };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
+    this.handleChangeListPage = this.handleChangeListPage.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
     this.props.initializePractitioners();
-    this.props.getLookUpFormData();
+    const { organization } = this.props;
+    if (organization) {
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+    }
   }
 
-  handleChangePage(newPage) {
-    const { searchTerms, searchType, includeInactive } = this.props;
-    this.props.onChangePage(searchTerms, searchType, includeInactive, newPage);
+  componentWillReceiveProps(nextProps) {
+    const { organization } = this.props;
+    const { organization: newOrganization } = nextProps;
+    if (!isEqual(organization, newOrganization)) {
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+    }
   }
 
-  handleSearch(searchTerms, includeInactive, searchType) {
-    this.props.onSubmitForm(searchTerms, searchType, includeInactive, DEFAULT_START_PAGE_NUMBER);
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
+  }
+
+  handleSearch(searchValue, includeInactive, searchType) {
+    this.setState({
+      isShowSearchResult: true,
+      searchPractitioners: { searchType, searchValue, includeInactive },
+    });
+    this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
+  }
+
+  handleChangeSearchPage(currentPage) {
+    this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
+  }
+
+  handleChangeListPage(currentPage) {
+    this.props.getPractitionersInOrganization(currentPage);
   }
 
   render() {
-    const { loading, error, searchResult, identifierSystems } = this.props;
-    const searchResultProps = {
-      loading,
-      error,
-      searchResult,
-      identifierSystems,
+    const { practitioners } = this.props;
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_PRACTITIONER_URL,
     };
+    // By initial to show listing practitioners data
+    let practitionersData = {
+      loading: practitioners.listPractitioners.loading,
+      data: flattenPractitionerData(practitioners.listPractitioners.data),
+      currentPage: practitioners.listPractitioners.currentPage,
+      totalNumberOfPages: practitioners.listPractitioners.totalNumberOfPages,
+      currentPageSize: practitioners.listPractitioners.currentPageSize,
+      totalElements: practitioners.listPractitioners.totalElements,
+      handleChangePage: this.handleChangeListPage,
+    };
+    if (this.state.isShowSearchResult) {
+      practitionersData = {
+        loading: practitioners.searchPractitioners.loading,
+        data: flattenPractitionerData(practitioners.searchPractitioners.result),
+        currentPage: practitioners.searchPractitioners.currentPage,
+        totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
+        currentPageSize: practitioners.searchPractitioners.currentPageSize,
+        totalElements: practitioners.searchPractitioners.totalElements,
+        handleChangePage: this.handleChangeSearchPage,
+      };
+    }
 
     return (
-      <Card>
-        <CardHeader title={<FormattedMessage {...messages.header} />}>
-          <StyledFlatButton
-            label={<FormattedMessage {...messages.buttonLabelCreateNew} />}
-            icon={<ContentAddCircle />}
-            containerElement={<Link to={MANAGE_PRACTITIONER_URL} />}
-          />
-        </CardHeader>
-        <SearchBar
+      <div>
+        <PanelToolbar
+          addNewItem={addNewItem}
           onSearch={this.handleSearch}
+          onSize={this.onSize}
         />
-        <CenterAlign>
-          <PractitionerSearchResult {...searchResultProps} />
-        </CenterAlign>
-        {!isEmpty(searchResult) &&
-        <CenterAlignedUltimatePagination
-          currentPage={this.props.currentPage}
-          totalPages={this.props.totalPages}
-          onChange={this.handleChangePage}
-        />}
-      </Card>
+        <InfoSection margin="0 0 10px 0">
+          <PractitionerTable
+            relativeTop={this.state.relativeTop}
+            practitionersData={practitionersData}
+          />
+        </InfoSection>
+      </div>
     );
   }
 }
 
 Practitioners.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  searchResult: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
-  searchTerms: PropTypes.string,
-  searchType: PropTypes.string,
-  includeInactive: PropTypes.bool,
-  currentPage: PropTypes.number,
-  totalPages: PropTypes.number,
-  onChangePage: PropTypes.func,
-  onSubmitForm: PropTypes.func,
+  organization: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+    active: PropTypes.bool,
+    name: PropTypes.string,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+  }),
+  practitioners: PropTypes.shape({
+    listPractitioners: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      currentPage: PropTypes.number.isRequired,
+      totalNumberOfPages: PropTypes.number.isRequired,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
+      result: PropTypes.array,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
+    }),
+    searchPractitioners: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      currentPage: PropTypes.number.isRequired,
+      totalNumberOfPages: PropTypes.number.isRequired,
+      currentPageSize: PropTypes.number,
+      totalElements: PropTypes.number,
+      result: PropTypes.array,
+      error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.bool,
+      ]),
+    }),
+  }),
+  getPractitionersInOrganization: PropTypes.func.isRequired,
+  searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
-  getLookUpFormData: PropTypes.func,
-  identifierSystems: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentPage: makeSelectCurrentPage(),
-  currentPageSize: makeSelectCurrentPageSize(),
-  totalPages: makeSelectTotalPages(),
-  searchTerms: makeSelectQuerySearchTerms(),
-  searchType: makeSelectQuerySearchType(),
-  identifierSystems: makeSelectPractitionerIdentifierSystems(),
-  includeInactive: makeSelectQueryIncludeInactive(),
-  searchResult: makeSelectPractitionerSearchResult(),
-  loading: makeSelectSearchLoading(),
-  error: makeSelectSearchError(),
+  organization: makeSelectOrganization(),
+  practitioners: makeSelectPractitioners(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitForm: (searchTerms, searchType, includeInactive) => {
-      const currentPage = 1;
-      dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage));
-    },
-    onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPractitionerSearchResult(searchTerms, searchType, includeInactive, currentPage)),
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getLookUpFormData: () => dispatch(getLookupsAction([PRACTITIONERIDENTIFIERSYSTEM])),
+    getPractitionersInOrganization: (currentPage) => dispatch(getPractitionersInOrganization(currentPage)),
+    searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
   };
 }
 

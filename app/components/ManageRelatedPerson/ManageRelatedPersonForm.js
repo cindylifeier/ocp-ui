@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
@@ -10,9 +9,9 @@ import uniqueId from 'lodash/uniqueId';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
-import Checkbox from 'components/Checkbox';
+import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import InlineLabel from 'components/InlineLabel';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
@@ -20,7 +19,6 @@ import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import { DATE_PICKER_MODE, PATIENTS_URL } from 'containers/App/constants';
 import { mapToPatientName } from 'utils/PatientUtils';
 import messages from './messages';
 import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
@@ -38,7 +36,7 @@ function ManageRelatedPersonForm(props) {
     telecomUses,
     telecomSystems,
     relationshipTypes,
-    selectedPatient,
+    patient,
   } = props;
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   const addAddressesProps = {
@@ -64,14 +62,13 @@ function ManageRelatedPersonForm(props) {
           <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}>
             <FormattedMessage {...messages.patientLabel} />&nbsp;
           </InlineLabel>
-          <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(selectedPatient)}</span>
+          <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
         </Cell>
         <Cell area="active">
-          <Checkbox
+          <StyledFormikCheckbox
             name="active"
             label={<FormattedMessage {...messages.active} />}
-          >
-          </Checkbox>
+          />
         </Cell>
         <Cell area="firstName">
           <TextField
@@ -131,7 +128,7 @@ function ManageRelatedPersonForm(props) {
             fullWidth
             name="startDate"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode="landscape"
             hintText={<FormattedMessage {...messages.hintText.startDate} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
           />
@@ -141,7 +138,7 @@ function ManageRelatedPersonForm(props) {
             fullWidth
             name="endDate"
             minDate={today}
-            mode={DATE_PICKER_MODE.LANDSCAPE}
+            mode="landscape"
             hintText={<FormattedMessage {...messages.hintText.endDate} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
           />
@@ -187,13 +184,7 @@ function ManageRelatedPersonForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -236,7 +227,7 @@ ManageRelatedPersonForm.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  selectedPatient: PropTypes.object,
+  patient: PropTypes.object,
 };
 
 export default ManageRelatedPersonForm;

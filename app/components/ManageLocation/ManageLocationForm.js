@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
@@ -12,13 +11,12 @@ import SelectField from 'components/SelectField';
 import FormSubtitle from 'components/FormSubtitle';
 import InlineLabel from 'components/InlineLabel';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import { HOME_URL } from 'containers/App/constants';
 import messages from './messages';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
 
@@ -196,14 +194,7 @@ function ManageLocationForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                type="button"
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                containerElement={<Link to={HOME_URL} />}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>

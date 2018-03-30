@@ -1,23 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-
-import { PATIENTS_URL } from 'containers/App/constants';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
+import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import AddFlags from 'components/AddFlags';
 import messages from './messages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 
@@ -25,6 +23,7 @@ function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
+    flagStatuses, flagCategories, practitioner,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -36,6 +35,14 @@ function ManagePatientForm(props) {
     telecomUses,
     errors,
     telecoms: values.telecoms,
+  };
+  const addFlagsProps = {
+    flagStatuses,
+    flagCategories,
+    errors,
+    flags: values.flags,
+    practitioner,
+    patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
 
   return (
@@ -161,6 +168,9 @@ function ManagePatientForm(props) {
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
         </Cell>
+        <Cell area="flags">
+          <AddFlags {...addFlagsProps} />
+        </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
@@ -172,13 +182,7 @@ function ManagePatientForm(props) {
               />
             </Cell>
             <Cell>
-              <StyledFlatButton
-                fullWidth
-                label="Cancel"
-                default
-                disabled={isSubmitting}
-                containerElement={<Link to={PATIENTS_URL} />}
-              />
+              <GoBackButton disabled={isSubmitting} />
             </Cell>
           </Grid>
         </Cell>
@@ -232,6 +236,18 @@ ManagePatientForm.propTypes = {
     display: PropTypes.string,
     definition: PropTypes.string,
   })).isRequired,
+  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  flagCategories: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  practitioner: PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  }),
 };
 
 export default ManagePatientForm;

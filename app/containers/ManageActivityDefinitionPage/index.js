@@ -27,7 +27,7 @@ import {
   RELATED_ARTIFACT_TYPE,
   RESOURCE_TYPE,
 } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/Locations/selectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { createActivityDefinition } from 'containers/ManageActivityDefinitionPage/actions';
 import {
   makeSelectActionParticipantRoles,
@@ -41,7 +41,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export class ManageActivityDefinitionPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ManageActivityDefinitionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
