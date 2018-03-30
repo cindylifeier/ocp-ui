@@ -246,6 +246,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     return (
       <div>
         <RoleSelectField
+          width="180px"
           floatingLabelText="Select Role"
           value={this.state.roleValue}
           onChange={this.handleRoleChange}
