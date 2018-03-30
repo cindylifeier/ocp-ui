@@ -22,12 +22,11 @@ function ManagePractitioner(props) {
   const minimumOrganization = '1';
 
   const {
-    history, onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
+    onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
     providerRoles, providerSpecialties, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages, organizations, initialSearchOrganizationResult,
   } = props;
   const formData = {
-    history,
     uspsStates,
     identifierSystems,
     telecomSystems,
@@ -91,9 +90,6 @@ function ManagePractitioner(props) {
 }
 
 ManagePractitioner.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   onSave: PropTypes.func.isRequired,
   uspsStates: PropTypes.array.isRequired,
   identifierSystems: PropTypes.array.isRequired,

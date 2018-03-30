@@ -37,7 +37,7 @@ function CommunicationsTable(props) {
         data.elements.length > 0 ?
           <div>
             <Table>
-              <TableHeader columns={tableColumns}>
+              <TableHeader columns={tableColumns} relativeTop={props.relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderRecipients} /></TableHeaderColumn>
@@ -101,6 +101,7 @@ function CommunicationsTable(props) {
 }
 
 CommunicationsTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   communicationsData: PropTypes.shape({
     manageCommunicationBaseUrl: PropTypes.string.isRequired,
     selectedPatientId: PropTypes.string.isRequired,

@@ -5,17 +5,26 @@
  */
 
 import {
+  INITIALIZE_SEARCH,
   GET_CARE_COORDINATORS,
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS,
   GET_CARE_MANAGERS_SUCCESS,
-  GET_ORGANIZATIONS,
-  GET_ORGANIZATIONS_SUCCESS,
-  GET_PATIENTS,
-  GET_PATIENTS_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
+  SEARCH_ORGANIZATIONS,
+  SEARCH_ORGANIZATIONS_ERROR,
+  SEARCH_ORGANIZATIONS_SUCCESS,
+  SEARCH_PATIENTS,
+  SEARCH_PATIENTS_ERROR,
+  SEARCH_PATIENTS_SUCCESS,
 } from './constants';
+
+export function initializeSearch() {
+  return {
+    type: INITIALIZE_SEARCH,
+  };
+}
 
 export function getWorkflowRoles() {
   return {
@@ -30,16 +39,27 @@ export function getWorkflowRolesSuccess(workflowRoles) {
   };
 }
 
-export function getOrganizations() {
+export function searchOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: GET_ORGANIZATIONS,
+    type: SEARCH_ORGANIZATIONS,
+    searchValue,
+    showInactive,
+    searchType,
+    currentPage,
   };
 }
 
-export function getOrganizationsSuccess(organizations) {
+export function searchOrganizationsSuccess(organizations) {
   return {
-    type: GET_ORGANIZATIONS_SUCCESS,
+    type: SEARCH_ORGANIZATIONS_SUCCESS,
     organizations,
+  };
+}
+
+export function searchOrganizationsError(error) {
+  return {
+    type: SEARCH_ORGANIZATIONS_ERROR,
+    error,
   };
 }
 
@@ -73,15 +93,26 @@ export function getCareCoordinatorsSuccess(careCoordinators) {
   };
 }
 
-export function getPatients() {
+export function searchPatients(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: GET_PATIENTS,
+    type: SEARCH_PATIENTS,
+    searchValue,
+    showInactive,
+    searchType,
+    currentPage,
   };
 }
 
-export function getPatientsSuccess(patients) {
+export function searchPatientsSuccess(patients) {
   return {
-    type: GET_PATIENTS_SUCCESS,
+    type: SEARCH_PATIENTS_SUCCESS,
     patients,
+  };
+}
+
+export function searchPatientsError(error) {
+  return {
+    type: SEARCH_PATIENTS_ERROR,
+    error,
   };
 }

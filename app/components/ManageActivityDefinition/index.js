@@ -16,9 +16,8 @@ import { TEXT_MIN_LENGTH } from './constants';
 
 function ManageActivityDefinition(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const { history, onSave, publicationStatuses, definitionTopics, resourceTypes, actionParticipantTypes, actionParticipantRoles, organization, relatedArtifactTypes } = props;
+  const { onSave, publicationStatuses, definitionTopics, resourceTypes, actionParticipantTypes, actionParticipantRoles, organization, relatedArtifactTypes } = props;
   const formData = {
-    history,
     organization,
     publicationStatuses,
     definitionTopics,
@@ -84,9 +83,6 @@ function ManageActivityDefinition(props) {
 }
 
 ManageActivityDefinition.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   onSave: PropTypes.func.isRequired,
   organization: PropTypes.object.isRequired,
   publicationStatuses: PropTypes.array.isRequired,

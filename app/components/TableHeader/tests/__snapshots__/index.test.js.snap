@@ -24,6 +24,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
+      "backgroundColor": "#fff",
       "children": <styled.div
         columns="repeat(1, 1fr)"
         gap="5px"
@@ -68,6 +69,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
+        "backgroundColor": "#fff",
         "children": <styled.div
           columns="repeat(1, 1fr)"
           gap="5px"

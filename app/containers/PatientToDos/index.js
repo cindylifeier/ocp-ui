@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -42,18 +42,18 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
   }
   componentDidMount() {
-    const { selectedPatient } = this.props;
+    const { selectedPatient, selectedOrganization } = this.props;
     const definition = TO_DO_DEFINITION;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const practitionerId = this.getPractitionerId();
-
-    if (patientId && !practitionerId) {
-      this.props.getPatientToDos(patientId, practitionerId, definition);
-      this.props.getPatientToDoMainTask(patientId, definition);
-    }
-    if (patientId && practitionerId) {
-      this.props.getPatientToDos(patientId, practitionerId, definition);
-      this.props.getPatientToDoMainTask(patientId, definition);
+    const organizationId = selectedOrganization && selectedOrganization.logicalId ? selectedOrganization.logicalId : null;
+    if (patientId) {
+      if (!organizationId && !practitionerId) {
+        this.props.getPatientToDos(patientId, practitionerId, definition);
+      } else if (organizationId && practitionerId) {
+        this.props.getPatientToDos(patientId, practitionerId, definition);
+        this.props.getPatientToDoMainTask(patientId, organizationId, definition);
+      }
     }
   }
 
@@ -150,6 +150,7 @@ PatientToDos.propTypes = {
   selectedPatient: PropTypes.object.isRequired,
   toDoMainTask: PropTypes.array.isRequired,
   user: PropTypes.object,
+  selectedOrganization: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };
 
@@ -159,13 +160,14 @@ const mapStateToProps = createStructuredSelector({
   toDoMainTask: makeSelectPatientToDoMainTask(),
   loading: makeSelectSearchLoading(),
   user: makeSelectUser(),
+  selectedOrganization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
+    getPatientToDoMainTask: (patientId, organizationId, definition) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition)),
     cancelToDos: (patientId, toDoLogicalId) => dispatch(cancelToDos(patientId, toDoLogicalId)),
-    getPatientToDoMainTask: (patientId, definition) => dispatch(getPatientToDoMainTask(patientId, definition)),
   };
 }
 
