@@ -69,10 +69,7 @@ function mapToBackendAppointmentDuringCreate(appointmentFormData) {
   }
   appointmentDataToSubmit.creatorReference = `Practitioner/${practitionerId}`;
   appointmentDataToSubmit.creatorName = practitionerName;
-  // Participant
-  if (!isUndefined(participants) && !isEmpty(participants)) {
-    // TODO: When adding Participants is implemented
-  }
+
   const patientParticipant = [];
   const patientReference = `Patient/${patientId}`;
   patientParticipant.push({
@@ -80,7 +77,27 @@ function mapToBackendAppointmentDuringCreate(appointmentFormData) {
     actorName: patientName,
   });
   appointmentDataToSubmit.participant = patientParticipant;
+
+  // Participants
+  if (!isUndefined(participants) && !isEmpty(participants)) {
+    const otherParticipants = mapToBffParticipants(participants);
+    otherParticipants.map((participant) => appointmentDataToSubmit.participant.push(participant));
+  }
   return appointmentDataToSubmit;
+}
+
+function mapToBffParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        participationTypeCode: participant.participationType.code,
+        participantRequiredCode: participant.required.code,
+        participationStatusCode: participant.status.code,
+        actorReference: `${participant.memberType}/${participant.memberId}`,
+        actorName: participant.name,
+      }));
+  }
+  return [];
 }
 
 function mapToBackendAppointmentDuringUpdate(appointmentFormData) {
