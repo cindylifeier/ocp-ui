@@ -19,7 +19,7 @@ const makeSelectSearchAppointmentParticipantResults = () => createSelector(
   (subState) => subState.get('searchParticipantResult').toJS()
 );
 
-const makeSelectSelectedParticipants = () => createSelector(
+const makeSelectSelectedAppointmentParticipants = () => createSelector(
   selectSearchAppointmentParticipantDomain,
   (subState) => subState && subState.get('selectedParticipants').toJS()
 );
@@ -27,5 +27,5 @@ const makeSelectSelectedParticipants = () => createSelector(
 export {
   selectSearchAppointmentParticipantDomain,
   makeSelectSearchAppointmentParticipantResults,
-  makeSelectSelectedParticipants,
+  makeSelectSelectedAppointmentParticipants,
 };

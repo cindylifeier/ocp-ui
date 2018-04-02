@@ -4,16 +4,16 @@
  *
  */
 
+import { fromJS } from 'immutable';
+import { filter, uniqBy } from 'lodash';
 import {
   ADD_APPOINTMENT_PARTICIPANT,
   INITIALIZE_SEARCH_APPOINTMENT_PARTICIPANT,
   INITIALIZE_SEARCH_APPOINTMENT_PARTICIPANT_RESULT,
+  REMOVE_APPOINTMENT_PARTICIPANT,
   SEARCH_APPOINTMENT_PARTICIPANT_ERROR,
   SEARCH_APPOINTMENT_PARTICIPANT_SUCCESS,
-} from 'containers/SearchAppointmentParticipant/constants';
-import { REMOVE_PARTICIPANT } from 'containers/SearchParticipant/constants';
-import { fromJS } from 'immutable';
-import { filter, uniqBy } from 'lodash';
+} from './constants';
 
 const initialState = fromJS({
   searchParticipantResult: [],
@@ -46,7 +46,7 @@ function searchAppointmentParticipantReducer(state = initialState, action) {
         .set('selectedParticipants', fromJS((selectedParticipants) || []))
         .set('searchParticipantResult', fromJS([]));
     }
-    case REMOVE_PARTICIPANT: {
+    case REMOVE_APPOINTMENT_PARTICIPANT: {
       const participants = state.get('selectedParticipants');
       const participantsAsArray = participants.toJS();
       const filteredParticipants = filter(participantsAsArray, (e) => (e.memberId !== action.participant.memberId));
