@@ -44,6 +44,14 @@ export default defineMessages({
     id: 'ocpui.components.SearchBar.searchById',
     defaultMessage: 'By ID',
   },
+  searchByDate: {
+    id: 'ocpui.components.SearchBar.searchByDate',
+    defaultMessage: 'By Date',
+  },
+  searchByDueDate: {
+    id: 'ocpui.components.SearchBar.searchByDueDate',
+    defaultMessage: 'By Due Date',
+  },
   searchHeader: {
     id: 'ocpui.containers.Patients.searchHeader',
     defaultMessage: 'Search',
@@ -51,5 +59,19 @@ export default defineMessages({
   filterLabel: {
     id: 'ocpui.containers.Patients.filterLabel',
     defaultMessage: 'Include:',
+  },
+  status: {
+    upcoming: {
+      id: 'ocpui.containers.Patients.upcoming',
+      defaultMessage: 'Upcoming',
+    },
+    dueToday: {
+      id: 'ocpui.containers.Patients.dueToday',
+      defaultMessage: 'Due Today',
+    },
+    overDue: {
+      id: 'ocpui.containers.Patients.overDue',
+      defaultMessage: 'Over Due',
+    },
   },
 });
