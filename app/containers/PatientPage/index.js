@@ -17,6 +17,7 @@ import PatientDetails from 'components/PatientDetails';
 import { flattenPatientData } from 'containers/PatientPage/helpers';
 import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
+import renderConsents from 'containers/Consents/render';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
@@ -161,6 +162,23 @@ export const initialStateMetadata =
                   reorderEnabled: true,
                 }],
               },
+              {
+                type: 'stack',
+                header: {},
+                isClosable: true,
+                reorderEnabled: true,
+                title: '',
+                activeItemIndex: 0,
+                height: 50,
+                content: [{
+                  title: 'Consents',
+                  type: 'component',
+                  componentName: 'consents',
+                  isClosable: true,
+                  reorderEnabled: true,
+                },
+                ],
+              },
             ],
           },
         ],
@@ -186,6 +204,7 @@ export const componentMetadata = [
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'toDos', text: 'MY TO DO', factoryMethod: renderToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
 ];
 
 export class PatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
