@@ -4,6 +4,8 @@
  *
  */
 
+import { fromJS } from 'immutable';
+import find from 'lodash/find';
 import {
   CANCEL_PRACTITIONER_APPOINTMENT_SUCCESS,
   DATA,
@@ -12,9 +14,7 @@ import {
   GET_PRACTITIONER_APPOINTMENTS_SUCCESS,
   LOADING,
   STATUS_CODE_CANCELLED,
-} from 'containers/PractitionerAppointments/constants';
-import { fromJS } from 'immutable';
-import find from 'lodash/find';
+} from './constants';
 
 const initialState = fromJS({
   loading: false,
