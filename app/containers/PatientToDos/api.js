@@ -23,10 +23,13 @@ export function getToDoMainTask(patientId, organizationId, definition) {
   return request(url);
 }
 
-export function cancelToDo(patientId, toDoLogicalId) {
-  const queryParams = { patient: patientId, logicalId: toDoLogicalId };
-  const stringifiedParams = queryString.stringify(queryParams);
-  console.log(stringifiedParams);
-  // const url = `${baseEndpoint}/task-references?${stringifiedParams}`;
-  // return request(url);
+export function cancelToDo(toDoLogicalId) {
+  const url = `${baseEndpoint}/${toDoLogicalId}/deactivate`;
+  return request(url,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 }
