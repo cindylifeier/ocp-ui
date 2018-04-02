@@ -10,7 +10,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import { STATUS_CODE_CANCELLED } from 'containers/UpcomingAppointments/constants';
+import { STATUS_CODE_CANCELLED } from 'containers/PatientAppointments/constants';
 import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
