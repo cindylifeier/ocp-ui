@@ -5,13 +5,15 @@
  */
 
 import {
-  INITIALIZE_SEARCH,
   GET_CARE_COORDINATORS,
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS,
   GET_CARE_MANAGERS_SUCCESS,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
+  INITIALIZE_SEARCH,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
   SEARCH_ORGANIZATIONS_SUCCESS,
@@ -60,6 +62,21 @@ export function searchOrganizationsError(error) {
   return {
     type: SEARCH_ORGANIZATIONS_ERROR,
     error,
+  };
+}
+
+export function getPractitionersOnRoleOrganization(role, organization) {
+  return {
+    type: GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
+    role,
+    organization,
+  };
+}
+
+export function getPractitionersOnRoleOrganizationSuccess(practitioners) {
+  return {
+    type: GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
+    practitioners,
   };
 }
 
