@@ -42,6 +42,17 @@ export function getWorkflowRoles() {
   };
 }
 
+export function getPractitionersOnRoleOrganization(role, organizationId, currentPage) {
+  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const params = queryString({
+    role,
+    page: currentPage,
+    size: DEFAULT_PAGE_SIZE,
+  });
+  const requestURL = `${baseEndpoint}/organization/${organizationId}${params}`;
+  return request(requestURL);
+}
+
 export function getCareManagers(role, organization) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const params = queryString({ role });

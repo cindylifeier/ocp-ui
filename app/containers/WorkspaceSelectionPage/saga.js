@@ -4,6 +4,7 @@ import { showNotification } from 'containers/Notification/actions';
 import {
   GET_CARE_COORDINATORS,
   GET_CARE_MANAGERS,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
   GET_WORKFLOW_ROLES,
   SEARCH_ORGANIZATIONS,
   SEARCH_PATIENTS,
@@ -11,13 +12,20 @@ import {
 import {
   getCareCoordinatorsSuccess,
   getCareManagersSuccess,
+  getPractitionersOnRoleOrganizationSuccess,
   getWorkflowRolesSuccess,
   searchOrganizationsError,
   searchOrganizationsSuccess,
   searchPatientsError,
   searchPatientsSuccess,
 } from './actions';
-import { getCareCoordinators, getCareManagers, getWorkflowRoles, searchPatients } from './api';
+import {
+  getCareCoordinators,
+  getCareManagers,
+  getPractitionersOnRoleOrganization,
+  getWorkflowRoles,
+  searchPatients,
+} from './api';
 
 export function* getWorkflowRolesSaga() {
   try {
@@ -25,6 +33,15 @@ export function* getWorkflowRolesSaga() {
     yield put(getWorkflowRolesSuccess(workflowRoles));
   } catch (err) {
     yield put(showNotification('Failed to get the workflow roles.'));
+  }
+}
+
+export function* getPractitionersOnRoleOrganizationSaga({ role, organization, currentPage }) {
+  try {
+    const practitioners = yield call(getPractitionersOnRoleOrganization, role, organization, currentPage);
+    yield put(getPractitionersOnRoleOrganizationSuccess(practitioners));
+  } catch (err) {
+    yield put(showNotification('Failed to get practitioners.'));
   }
 }
 
@@ -68,6 +85,10 @@ export function* watchGetWorkflowRolesSaga() {
   yield takeLatest(GET_WORKFLOW_ROLES, getWorkflowRolesSaga);
 }
 
+export function* watchGetPractitionersOnRoleOrganizationSaga() {
+  yield takeLatest(GET_PRACTITIONERS_ON_ROLE_ORGANIZATION, getPractitionersOnRoleOrganizationSaga);
+}
+
 export function* watchSearchOrganizationsSaga() {
   yield takeLatest(SEARCH_ORGANIZATIONS, searchOrganizationsSaga);
 }
@@ -90,6 +111,7 @@ export function* watchSearchPatientsSaga() {
 export default function* rootSaga() {
   yield all([
     watchGetWorkflowRolesSaga(),
+    watchGetPractitionersOnRoleOrganizationSaga(),
     watchSearchOrganizationsSaga(),
     watchGetCareManagersSaga(),
     watchGetCareCoordinatorsSaga(),
