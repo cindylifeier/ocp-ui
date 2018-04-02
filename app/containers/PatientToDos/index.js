@@ -79,10 +79,8 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   }
 
   handleCancelToDo() {
-    const { selectedPatient } = this.props;
     this.setState({ open: false });
-    const patientId = selectedPatient ? selectedPatient.id : null;
-    this.props.cancelToDos(patientId, this.state.toDoLogicalId);
+    this.props.cancelToDos(this.state.toDoLogicalId);
   }
   render() {
     const { toDos, selectedPatient, loading, toDoMainTask } = this.props;
@@ -167,7 +165,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
     getPatientToDoMainTask: (patientId, organizationId, definition) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition)),
-    cancelToDos: (patientId, toDoLogicalId) => dispatch(cancelToDos(patientId, toDoLogicalId)),
+    cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
   };
 }
 

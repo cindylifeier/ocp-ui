@@ -35,8 +35,8 @@ export function* getToDoMainTaskSaga(action) {
 
 export function* cancelToDoSaga(action) {
   try {
-    if (action.patientId) {
-      const toDos = yield call(cancelToDo, action.patientId, action.toDoLogicalId);
+    if (action.toDoLogicalId) {
+      const toDos = yield call(cancelToDo, action.toDoLogicalId);
       yield put(showNotification(<FormattedMessage {...messages.cancelToDoSuccess} />));
       yield put(cancelToDoSuccess(toDos));
     }

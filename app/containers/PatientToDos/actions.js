@@ -58,10 +58,9 @@ export function getPatientToDoMainTaskError(error) {
     error,
   };
 }
-export function cancelToDos(patientId, toDoLogicalId) {
+export function cancelToDos(toDoLogicalId) {
   return {
     type: CANCEL_TO_DO,
-    patientId,
     toDoLogicalId,
   };
 }
