@@ -50,7 +50,7 @@ export class PanelToolbar extends React.Component {
       addNewItem,
       onSearch,
       searchField,
-      showFilter,
+      showToDoSpecificFilters,
     } = this.props;
     return (
       <div>
@@ -102,7 +102,7 @@ export class PanelToolbar extends React.Component {
         <SearchBar
           onSearch={onSearch}
           searchField={searchField}
-          showFilter={showFilter}
+          showToDoSpecificFilters={showToDoSpecificFilters}
         />
         }
       </div>
@@ -128,11 +128,11 @@ export class PanelToolbar extends React.Component {
 
 PanelToolbar.propTypes = {
   sticky: PropTypes.bool,
+  showToDoSpecificFilters: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
   showSearchIcon: PropTypes.bool,
-  showFilter: PropTypes.bool,
   addNewItem: PropTypes.shape({
     labelName: PropTypes.node.isRequired,
     linkUrl: PropTypes.string.isRequired,
@@ -155,6 +155,7 @@ PanelToolbar.defaultProps = {
   showFilterIcon: true,
   showSearchIcon: true,
   showFilter: true,
+  showToDoSpecificFilters: false,
 };
 
 

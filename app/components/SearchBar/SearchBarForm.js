@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { teal500, white } from 'material-ui/styles/colors';
 import uniqueId from 'lodash/uniqueId';
-
+import { Cell } from 'styled-css-grid';
 import TextField from 'components/TextField';
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import SelectField from 'components/SelectField';
@@ -17,7 +17,7 @@ import SearchButtonContainerGrid from './SearchButtonContainerGrid';
 import messages from './messages';
 
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showFilter } = props;
+  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters } = props;
   return (
     <Form>
       <SearchSection>
@@ -40,17 +40,48 @@ function SearchBarForm(props) {
             hintText={searchValueHintText}
           />
         </SearchContainerGrid>
-        { showFilter &&
-          <SearchContainerGrid gap="5px" columns="100px 300px">
-            <div>
-              <FormattedMessage {...messages.filterLabel} />
-            </div>
+        <SearchContainerGrid gap="5px" columns="60px 140px 140px 140px">
+          {!showToDoSpecificFilters &&
+          <div>
+            <FormattedMessage {...messages.filterLabel} />
+          </div>
+          }
+          {!showToDoSpecificFilters &&
+          <StyledFormikCheckbox
+            name="showInactive"
+            label={<FormattedMessage {...messages.includeInactive} />}
+          />
+          }
+          { showToDoSpecificFilters &&
+          <Cell>
+            <FormattedMessage {...messages.filterLabel} />
+          </Cell>
+          }
+          {showToDoSpecificFilters &&
+          <Cell>
             <StyledFormikCheckbox
-              name="showInactive"
-              label={<FormattedMessage {...messages.includeInactive} />}
+              name="dueToday"
+              label={<FormattedMessage {...messages.status.dueToday} />}
             />
-          </SearchContainerGrid>
-        }
+          </Cell>
+          }
+          {showToDoSpecificFilters &&
+          <Cell>
+            <StyledFormikCheckbox
+              name="upcoming"
+              label={<FormattedMessage {...messages.status.upcoming} />}
+            />
+          </Cell>
+          }
+          {showToDoSpecificFilters &&
+          <Cell>
+            <StyledFormikCheckbox
+              name="overDue"
+              label={<FormattedMessage {...messages.status.overDue} />}
+            />
+          </Cell>
+          }
+        </SearchContainerGrid>
 
         <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
           <RaisedButton
@@ -70,7 +101,7 @@ function SearchBarForm(props) {
 SearchBarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
-  showFilter: PropTypes.bool,
+  showToDoSpecificFilters: PropTypes.bool,
   isValid: PropTypes.bool.isRequired,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
