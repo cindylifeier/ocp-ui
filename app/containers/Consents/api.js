@@ -6,8 +6,8 @@ import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
 export function getConsents(query) {
   const baseEndpoint = getEndpoint(BASE_CONSENTS_API_URL);
-  const params = queryString({ size: DEFAULT_PAGE_SIZE, ...query });
-  const requestURL = `${baseEndpoint}/all${params}`;
+  const params = queryString({ pageSize: DEFAULT_PAGE_SIZE, ...query });
+  const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
