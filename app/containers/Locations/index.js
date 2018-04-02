@@ -55,7 +55,6 @@ import SizedStickyDiv from '../../components/StickyDiv/SizedStickyDiv';
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
   static initalState = {
-    currentPage: 1,
     panelHeight: 0,
     filterHeight: 0,
     isShowSearchResult: false,
@@ -69,6 +68,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       searchType: 'name',
     },
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -196,7 +196,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
         <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
           <InfoSection margin="0px">
             <div>
-              The <FormattedMessage {...messages.locations} /> for &nbsp;
+              {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
+              <FormattedMessage {...messages.locations} /> for &nbsp;
               <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
                 <span id={this.ORGANIZATION_NAME_HTML_ID}>
                   {this.props.organization ? this.props.organization.name : ''}&nbsp;
@@ -214,6 +215,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
 
           </InfoSection>
           }
+          {!this.state.isShowSearchResult &&
           <FilterSection>
             <CheckboxFilterGrid>
               <Cell>
@@ -237,6 +239,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
               </Cell>
             </CheckboxFilterGrid>
           </FilterSection>
+          }
         </SizedStickyDiv>
         <Table>
           <TableHeader columns={Locations.TABLE_COLUMNS} relativeTop={this.state.panelHeight + this.state.filterHeight}>
