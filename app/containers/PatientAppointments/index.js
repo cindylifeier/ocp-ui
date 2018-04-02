@@ -26,6 +26,7 @@ import {
 } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import { STATUS_CODE_CANCELLED } from 'containers/PatientAppointments/constants';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
@@ -104,6 +105,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const cancelledStatus = STATUS_CODE_CANCELLED;
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
@@ -149,6 +151,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
               patientId={patientId}
               communicationBaseUrl={communicationBaseUrl}
               relativeTop={this.state.panelHeight + this.state.filterHeight}
+              cancelledStatus={cancelledStatus}
             />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}

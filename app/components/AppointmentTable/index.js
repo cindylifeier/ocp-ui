@@ -10,7 +10,6 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import { STATUS_CODE_CANCELLED } from 'containers/PatientAppointments/constants';
 import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
@@ -20,7 +19,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import messages from './messages';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -56,7 +55,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
                 }
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.menuItemCancel} />}
-                  disabled={appointment.statusCode === STATUS_CODE_CANCELLED}
+                  disabled={appointment.statusCode === cancelledStatus}
                   onClick={() => cancelAppointment(appointment.logicalId)}
                 />
               </NavigationStyledIconMenu>
@@ -83,6 +82,7 @@ AppointmentTable.propTypes = {
   cancelAppointment: PropTypes.func,
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
+  cancelledStatus: PropTypes.string,
 };
 
 export default AppointmentTable;
