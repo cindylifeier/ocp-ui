@@ -19,7 +19,13 @@ const makeSelectPatientAppointments = () => createSelector(
   (substate) => substate.toJS()
 );
 
-export default makeSelectPatientAppointments;
+const makeSelectShowPastAppointments = () => createSelector(
+  selectPatientAppointmentsDomain,
+  (substate) => substate.get('showPastAppointments'),
+);
+
 export {
   selectPatientAppointmentsDomain,
+  makeSelectPatientAppointments,
+  makeSelectShowPastAppointments,
 };
