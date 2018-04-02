@@ -1,17 +1,14 @@
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   cancelPractitionerAppointmentError,
   cancelPractitionerAppointmentSuccess,
   getPractitionerAppointmentsError,
   getPractitionerAppointmentsSuccess,
-} from 'containers/PractitionerAppointments/actions';
-import {
-  CANCEL_PRACTITIONER_APPOINTMENT,
-  GET_PRACTITIONER_APPOINTMENTS,
-} from 'containers/PractitionerAppointments/constants';
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+} from './actions';
 import getPractitionerAppointmentsApi, { cancelAppointment } from './api';
+import { CANCEL_PRACTITIONER_APPOINTMENT, GET_PRACTITIONER_APPOINTMENTS } from './constants';
 
 
 function getErrorMessage(err) {
