@@ -8,6 +8,7 @@ import { fromJS } from 'immutable';
 import {
   GET_CARE_COORDINATORS_SUCCESS,
   GET_CARE_MANAGERS_SUCCESS,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
   INITIALIZE_SEARCH,
   SEARCH_ORGANIZATIONS,
@@ -21,6 +22,11 @@ import {
 const initialState = fromJS({
   workflowRoles: {
     data: [],
+  },
+  practitioners: {
+    data: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
   },
   careManagers: {
     data: [],
@@ -57,6 +63,13 @@ function workspaceSelectionPageReducer(state = initialState, action) {
     case GET_WORKFLOW_ROLES_SUCCESS:
       return state
         .setIn(['workflowRoles', 'data'], fromJS(action.workflowRoles));
+    case GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS:
+      return state
+        .setIn(['practitioners', 'data'], fromJS(action.practitioners.elements))
+        .setIn(['practitioners', 'totalElements'], action.practitioners.totalElements)
+        .setIn(['practitioners', 'currentPageSize'], action.practitioners.currentPageSize)
+        .setIn(['practitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
+        .setIn(['practitioners', 'currentPage'], action.practitioners.currentPage);
     case GET_CARE_MANAGERS_SUCCESS:
       return state
         .setIn(['careManagers', 'data'], fromJS(action.careManagers.elements));
