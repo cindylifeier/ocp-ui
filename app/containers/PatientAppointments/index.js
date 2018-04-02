@@ -5,8 +5,8 @@
  */
 
 import CenterAlign from 'components/Align/CenterAlign';
-import Card from 'components/Card';
 import AppointmentTable from 'components/AppointmentTable';
+import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
@@ -26,7 +26,6 @@ import {
 } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
-import { STATUS_CODE_CANCELLED } from 'containers/PatientAppointments/constants';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
@@ -40,6 +39,7 @@ import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
 import { cancelPatientAppointment, getPatientAppointments } from './actions';
+import { STATUS_CODE_CANCELLED } from './constants';
 import messages from './messages';
 import NoPatientAppointmentsMessage from './NoPatientAppointmentsMessage';
 import reducer from './reducer';
