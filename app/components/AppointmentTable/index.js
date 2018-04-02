@@ -1,6 +1,6 @@
 /**
  *
- * CareCoordinatorUpcomingAppointmentTable
+ * AppointmentTable
  *
  */
 
@@ -20,7 +20,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import messages from './messages';
 
-function CareCoordinatorUpcomingAppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -75,7 +75,7 @@ function mapDisplayFromCode(appointmentLookup, key) {
   return key;
 }
 
-CareCoordinatorUpcomingAppointmentTable.propTypes = {
+AppointmentTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.array.isRequired,
   appointmentStatuses: PropTypes.array,
@@ -85,4 +85,4 @@ CareCoordinatorUpcomingAppointmentTable.propTypes = {
   patientId: PropTypes.string,
 };
 
-export default CareCoordinatorUpcomingAppointmentTable;
+export default AppointmentTable;

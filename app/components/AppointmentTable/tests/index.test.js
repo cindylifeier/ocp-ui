@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import CareCoordinatorUpcomingAppointmentTable from '../index';
+// import AppointmentTable from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<CareCoordinatorUpcomingAppointmentTable />', () => {
+describe('<AppointmentTable />', () => {
   it('Expect to have unit tests specified', () => {
    // expect(true).toEqual(false);
   });

@@ -7,35 +7,35 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   columnHeaderDescription: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderDescription',
+    id: 'ocpui.components.AppointmentTable.columnHeaderDescription',
     defaultMessage: 'Description',
   },
   columnHeaderAppointmentType: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderAppointmentType',
+    id: 'ocpui.components.AppointmentTable.columnHeaderAppointmentType',
     defaultMessage: 'Appointment Type',
   },
   columnHeaderStatus: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderStatus',
+    id: 'ocpui.components.AppointmentTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
   columnHeaderDate: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderDate',
+    id: 'ocpui.components.AppointmentTable.columnHeaderDate',
     defaultMessage: 'Date',
   },
   columnHeaderTime: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderTime',
+    id: 'ocpui.components.AppointmentTable.columnHeaderTime',
     defaultMessage: 'Time',
   },
   columnHeaderPatientName: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.PatientName',
+    id: 'ocpui.components.AppointmentTable.PatientName',
     defaultMessage: 'Patient',
   },
   columnHeaderAction: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.columnHeaderAction',
+    id: 'ocpui.components.AppointmentTable.columnHeaderAction',
     defaultMessage: 'Action',
   },
   menuItemCancel: {
-    id: 'ocpui.components.CareCoordinatorUpcomingAppointmentTable.menuItemCancel',
+    id: 'ocpui.components.AppointmentTable.menuItemCancel',
     defaultMessage: 'Cancel',
   },
   addCommunication: {

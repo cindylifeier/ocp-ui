@@ -6,7 +6,7 @@
 
 import CenterAlign from 'components/Align/CenterAlign';
 import Card from 'components/Card';
-import CareCoordinatorUpcomingAppointmentTable from 'components/CareCoordinatorUpcomingAppointmentTable';
+import AppointmentTable from 'components/AppointmentTable';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
@@ -120,7 +120,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
             <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPractitionerAppointmentsMessage>}
           {!isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
-            <CareCoordinatorUpcomingAppointmentTable
+            <AppointmentTable
               elements={data.elements}
               appointmentStatuses={appointmentStatuses}
               appointmentTypes={appointmentTypes}

@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for CareCoordinatorUpcomingAppointmentTable
+ * Asynchronously loads the component for AppointmentTable
  *
  */
 
