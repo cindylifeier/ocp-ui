@@ -35,6 +35,7 @@ import {
   makeCareManagersData,
   makeSelectOrganizationsData,
   makeSelectPatientsData,
+  makeSelectPractitionersData,
   makeSelectWorkflowRolesData,
 } from './selectors';
 import { flattenOrganizationData, flattenPatientData, mapToRoleObject } from './helpers';
@@ -123,11 +124,12 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
 
   render() {
     const {
-      history, searchOrganizationsData, careManagers, careCoordinators, searchPatientsData, workflowRoles,
+      history, searchOrganizationsData, practitioners, careManagers, careCoordinators, searchPatientsData, workflowRoles,
     } = this.props;
     const workspaceSelectionProps = {
       history,
       searchOrganizationsData,
+      practitioners,
       careManagers,
       careCoordinators,
       searchPatientsData,
@@ -168,6 +170,7 @@ WorkspaceSelectionPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
+  practitioners: PropTypes.any.isRequired,
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
   searchPatientsData: PropTypes.any.isRequired,
@@ -189,6 +192,7 @@ WorkspaceSelectionPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   workflowRoles: makeSelectWorkflowRolesData(),
   searchOrganizationsData: makeSelectOrganizationsData(),
+  practitioners: makeSelectPractitionersData(),
   careManagers: makeCareManagersData(),
   careCoordinators: makeCareCoordinatorsData(),
   searchPatientsData: makeSelectPatientsData(),

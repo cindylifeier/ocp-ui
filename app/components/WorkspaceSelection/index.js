@@ -30,6 +30,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       finished: false,
       stepIndex: 0,
       roleValue: props.defaultRole,
+      practitionerValue: null,
       careManagerValue: null,
       careCoordinatorValue: null,
       selectPatient: null,
@@ -69,7 +70,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       case patientWorkflowRole.value:
         return this.renderPatientStepContent();
       default:
-        return null;
+        return this.renderPractitionerStepContent();
     }
   }
 
@@ -164,6 +165,36 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     }
   }
 
+  definePractitionerStepContent() {
+    const { practitioners, mapToName } = this.props;
+    switch (this.state.stepIndex) {
+      case 0:
+        return this.renderSelectRoleContent();
+      case 1:
+        return this.renderSelectOrganizationContent();
+      case 2:
+        return (
+          <div>
+            <SelectField
+              floatingLabelText={`Select ${this.mapToRoleDisplay(this.state.roleValue)}`}
+              value={this.state.practitionerValue}
+              onChange={this.handlePractitionerValueChange}
+            >
+              {practitioners && practitioners.data.map((practitioner) =>
+                (<MenuItem
+                  key={practitioner.logicalId}
+                  value={practitioner.logicalId}
+                  primaryText={mapToName(practitioner.name)}
+                />),
+              )}
+            </SelectField>
+          </div>
+        );
+      default:
+        return null;
+    }
+  }
+
   mapToRoleDisplay(roleValue) {
     const roleObject = this.props.mapToRoleObject(this.props.workflowRoles, roleValue);
     return roleObject.display;
@@ -207,6 +238,10 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
         break;
       default:
     }
+  }
+
+  handlePractitionerValueChange(event, index, value) {
+    this.setState({ practitionerValue: value });
   }
 
   handleCareManagerChange(event, index, value) {
@@ -301,6 +336,76 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
                 onClick={this.handleNavigateTo}
               />
             </div>
+          </StepContent>
+        </StepperSection>
+      </div>
+    );
+  }
+
+  renderPractitionerStepContent() {
+    const { stepIndex, finished, roleValue, practitionerValue } = this.state;
+    const roleDisplay = this.mapToRoleDisplay(roleValue);
+    return (
+      <div>
+        <StepperSection>
+          <Stepper activeStep={stepIndex}>
+            <Step>
+              <StepLabel>Select Role</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Select Organization</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Select {roleDisplay}</StepLabel>
+            </Step>
+          </Stepper>
+          <StepContent>
+            {finished ? (
+              <div>
+                <p><strong>Role:</strong> {roleDisplay}</p>
+                <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
+                <p><strong>{roleDisplay} ID:</strong> {practitionerValue}</p>
+                <Grid columns={'90px 90px'} gap="12px">
+                  <Cell>
+                    <FlatButton
+                      label="Reset"
+                      secondary
+                      onClick={this.handleReset}
+                    />
+                  </Cell>
+                  <Cell>
+                    <RaisedButton
+                      label="Continue"
+                      primary
+                      onClick={this.handleNavigateTo}
+                    />
+                  </Cell>
+                </Grid>
+              </div>
+            ) : (
+              <div>
+                {this.definePractitionerStepContent()}
+                <Grid columns={'90px 90px'} gap="12px">
+                  <Cell>
+                    <FlatButton
+                      label="Back"
+                      disabled={stepIndex === 0}
+                      onClick={this.handlePrev}
+                    />
+                  </Cell>
+                  <Cell>
+                    <RaisedButton
+                      label={stepIndex === 2 ? 'Finish' : 'Next'}
+                      primary
+                      onClick={this.handleNext}
+                      disabled={(stepIndex > 0 && isEmpty(this.state.selectOrganization)) ||
+                      (stepIndex > 1 && isEmpty(practitionerValue))
+                      }
+                    />
+                  </Cell>
+                </Grid>
+              </div>
+            )}
           </StepContent>
         </StepperSection>
       </div>
@@ -544,6 +649,9 @@ WorkspaceSelection.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
+  practitioners: PropTypes.shape({
+    data: PropTypes.array.isRequired,
+  }).isRequired,
   careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
   searchOrganizationsData: PropTypes.any.isRequired,
