@@ -22,4 +22,30 @@ export default defineMessages({
     id: 'ocpui.containers.PatientToDos.noToDosFound',
     defaultMessage: 'No To Dos found.',
   },
+  cancelToDoSuccess: {
+    id: 'ocpui.containers.PatientToDos.cancelToDoSuccess',
+    defaultMessage: 'Success in cancelling To Do.',
+  },
+  cancelToDoError: {
+    id: 'ocpui.containers.PatientToDos.cancelToDoError',
+    defaultMessage: 'Error in cancelling To Do',
+  },
+  dialog: {
+    buttonLabelClose: {
+      id: 'ocpui.containers.PatientToDos.buttonLabelClose',
+      defaultMessage: 'Close',
+    },
+    buttonLabelCancelTodo: {
+      id: 'ocpui.containers.PatientToDos.buttonLabelCancelTodo',
+      defaultMessage: 'Cancel To Do',
+    },
+    title: {
+      id: 'ocpui.containers.PatientToDos.title',
+      defaultMessage: 'Cancel To Do',
+    },
+    confirmCancellationMessage: {
+      id: 'ocpui.containers.PatientToDos.confirmCancellationMessage',
+      defaultMessage: 'Are you sure you want to cancel this To Do?',
+    },
+  },
 });

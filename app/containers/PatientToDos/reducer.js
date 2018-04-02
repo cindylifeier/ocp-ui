@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  CANCEL_TO_DO_SUCCESS,
   GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
   GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS,
   GET_PATIENT_TO_DOS,
@@ -24,6 +25,11 @@ function patientToDosReducer(state = initialState, action) {
     case GET_PATIENT_TO_DOS:
       return state.set('loading', true);
     case GET_PATIENT_TO_DOS_SUCCESS:
+      return state
+        .set('error', false)
+        .set('loading', false)
+        .set('data', fromJS((action.toDos) || []));
+    case CANCEL_TO_DO_SUCCESS:
       return state
         .set('error', false)
         .set('loading', false)
