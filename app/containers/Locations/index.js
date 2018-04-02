@@ -76,7 +76,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     };
     this.onSize = this.onSize.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleListPageClick = this.handleListPageClick.bind(this);
+    this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.handleIncludeInactive = this.handleIncludeInactive.bind(this);
     this.handleIncludeSuspended = this.handleIncludeSuspended.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
@@ -135,8 +136,12 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.props.onCheckIncludeSuspended(event, checked, this.props.includeInactive);
   }
 
-  handlePageClick(currentPage) {
+  handleListPageClick(currentPage) {
     this.props.onChangePage(currentPage, this.props.includeInactive, this.props.includeSuspended);
+  }
+
+  handleSearchPageClick(currentPage) {
+    this.props.searchLocations(this.state.searchLocations.searchValue, this.state.searchLocations.includeInactive, this.state.searchLocations.searchType, currentPage);
   }
 
   renderTelecoms(telecoms) {
@@ -191,6 +196,14 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   }
 
   renderTable() {
+    let locationsDate = {
+      handlePageClick: this.handleListPageClick,
+    };
+    if (this.state.isShowSearchResult) {
+      locationsDate = {
+        handlePageClick: this.handleSearchPageClick,
+      };
+    }
     return (
       <div>
         <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
@@ -253,7 +266,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
             totalPages={this.props.totalNumberOfPages}
-            onChange={this.handlePageClick}
+            onChange={locationsDate.handlePageClick}
           />
           <RecordsRange
             currentPage={this.props.currentPage}
