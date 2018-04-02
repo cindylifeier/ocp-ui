@@ -29,6 +29,10 @@ import messages from './messages';
 
 
 export class PractitionerToDos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
   componentDidMount() {
     const definition = TO_DO_DEFINITION;
     const practitionerId = this.getPractitionerId();
@@ -41,12 +45,19 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
     const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_VALUE) ? user.resource.logicalId : null;
     return practitionerId;
   }
+  handleSearch(searchTerms, includeInactive, searchType) {
+    console.log(searchTerms);
+    console.log(includeInactive);
+    console.log(searchType);
+    // this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
+  }
   render() {
     const { toDos, loading } = this.props;
+    const showToDoSpecificFilters = !isEmpty(toDos) ? (toDos.length > 0) : false;
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
-        <PanelToolbar showFilter={false} />
+        <PanelToolbar showFilter={false} showToDoSpecificFilters={showToDoSpecificFilters} onSearch={this.handleSearch} />
         {!loading && isEmpty(toDos) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noToDosFound} />

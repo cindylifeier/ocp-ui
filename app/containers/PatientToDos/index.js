@@ -28,6 +28,10 @@ import saga from './saga';
 import messages from './messages';
 
 export class PatientToDos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
   componentDidMount() {
     const { selectedPatient, selectedOrganization } = this.props;
     const definition = TO_DO_DEFINITION;
@@ -43,7 +47,6 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
       }
     }
   }
-
   getPractitionerId() {
     const { user } = this.props;
     const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_VALUE) ? user.resource.logicalId : null;
@@ -56,6 +59,12 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     }
     return toDoMintaskId;
   }
+  handleSearch(searchTerms, includeInactive, searchType) {
+    console.log(searchTerms);
+    console.log(includeInactive);
+    console.log(searchType);
+    // this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
+  }
   render() {
     const { toDos, selectedPatient, loading, toDoMainTask } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
@@ -63,6 +72,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     const practitionerId = this.getPractitionerId();
     const CREATE_TO_DO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${toDoMainTaskId}`;
     const taskBaseUrl = MANAGE_TASK_URL;
+    const showToDoSpecificFilters = !isEmpty(toDos) ? (toDos.length > 0) : false;
     const addNewItem = (practitionerId && patientId) ? {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_TO_DO_URL,
@@ -70,7 +80,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
-        <PanelToolbar addNewItem={addNewItem} showFilter={false} />
+        <PanelToolbar addNewItem={addNewItem} showToDoSpecificFilters={showToDoSpecificFilters} onSearch={this.handleSearch} />
         {!loading && isEmpty(toDos) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noToDosFound} />
