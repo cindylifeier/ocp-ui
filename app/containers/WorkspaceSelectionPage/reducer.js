@@ -10,7 +10,7 @@ import {
   GET_CARE_MANAGERS_SUCCESS,
   GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
-  INITIALIZE_SEARCH,
+  INITIALIZE_SELECTION,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
   SEARCH_ORGANIZATIONS_SUCCESS,
@@ -51,7 +51,7 @@ const initialState = fromJS({
 
 function workspaceSelectionPageReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_SEARCH:
+    case INITIALIZE_SELECTION:
       return state
         .setIn(['practitioners', 'role'], null)
         .setIn(['practitioners', 'data'], fromJS([]))

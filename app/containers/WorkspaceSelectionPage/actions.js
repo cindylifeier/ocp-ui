@@ -13,7 +13,7 @@ import {
   GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
-  INITIALIZE_SEARCH,
+  INITIALIZE_SELECTION,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
   SEARCH_ORGANIZATIONS_SUCCESS,
@@ -22,9 +22,9 @@ import {
   SEARCH_PATIENTS_SUCCESS,
 } from './constants';
 
-export function initializeSearch() {
+export function initializeSelection() {
   return {
-    type: INITIALIZE_SEARCH,
+    type: INITIALIZE_SELECTION,
   };
 }
 

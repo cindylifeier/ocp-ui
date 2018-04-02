@@ -24,7 +24,7 @@ import {
   getCareManagers,
   getPractitionersOnRoleOrganization,
   getWorkflowRoles,
-  initializeSearch,
+  initializeSelection,
   searchOrganizations,
   searchPatients,
 } from './actions';
@@ -37,7 +37,7 @@ import {
   makeSelectPatientsData,
   makeSelectWorkflowRolesData,
 } from './selectors';
-import { flattenOrganizationData, flattenPatientData } from './helpers';
+import { flattenOrganizationData, flattenPatientData, mapToRoleObject } from './helpers';
 
 export class WorkspaceSelectionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -144,12 +144,13 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           {...workspaceSelectionProps}
           getLinkUrlByRole={getLinkUrlByRole}
           mapToName={mapToName}
+          mapToRoleObject={mapToRoleObject}
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
           onPractitionerSelection={this.handleGetPractitionersOnRoleOrganization}
           onCareCoordinatorSelection={this.props.getCareCoordinators}
-          initializeSearch={this.props.initializeSearch}
+          initializeSelection={this.props.initializeSelection}
           flattenPatientData={flattenPatientData}
           onPatientSearch={this.handlePatientSearch}
           onChangePatientSearchPage={this.handleChangePatientSearchPage}
@@ -173,7 +174,7 @@ WorkspaceSelectionPage.propTypes = {
   searchOrganizationsData: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
   user: PropTypes.object,
-  initializeSearch: PropTypes.func.isRequired,
+  initializeSelection: PropTypes.func.isRequired,
   getWorkflowRoles: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
@@ -196,7 +197,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    initializeSearch: () => dispatch(initializeSearch()),
+    initializeSelection: () => dispatch(initializeSelection()),
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
     getPractitionersOnRoleOrganization: (role, organization, currentPage) => dispatch(getPractitionersOnRoleOrganization(role, organization, currentPage)),
     getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),

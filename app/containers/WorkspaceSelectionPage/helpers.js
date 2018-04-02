@@ -1,3 +1,4 @@
+import find from 'lodash/find';
 import { mapToAddresses, mapToIdentifiers, mapToName, mapToTelecoms } from 'containers/App/helpers';
 
 export function flattenPatientData(patient) {
@@ -15,5 +16,10 @@ export function flattenOrganizationData(organization) {
     identifiers: mapToIdentifiers(organization.identifiers),
     addresses: mapToAddresses(organization.addresses),
   };
+}
+
+export function mapToRoleObject(userRoles, roleValue) {
+  const valueKey = 'value';
+  return find(userRoles, [valueKey, roleValue]);
 }
 

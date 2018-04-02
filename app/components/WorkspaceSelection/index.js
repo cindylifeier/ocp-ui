@@ -164,6 +164,11 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     }
   }
 
+  mapToRoleDisplay(roleValue) {
+    const roleObject = this.props.mapToRoleObject(this.props.workflowRoles, roleValue);
+    return roleObject.display;
+  }
+
   handleNext() {
     const { stepIndex } = this.state;
     this.setState({
@@ -227,7 +232,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   handleReset(event) {
     event.preventDefault();
-    this.props.initializeSearch();
+    this.props.initializeSelection();
     this.setState({
       finished: false,
       stepIndex: 0,
@@ -277,7 +282,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   renderOcpAdminStepContent() {
-    const { stepIndex } = this.state;
+    const { stepIndex, roleValue } = this.state;
     return (
       <div>
         <StepperSection>
@@ -289,7 +294,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
           <StepContent>
             <div>
               {this.getAdminStepContent()}
-              <p><strong>Role:</strong> {this.state.roleValue}</p>
+              <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
               <RaisedButton
                 label="Continue"
                 primary
@@ -303,7 +308,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   renderCareManagerStepContent() {
-    const { stepIndex, finished } = this.state;
+    const { stepIndex, finished, roleValue, careManagerValue } = this.state;
     return (
       <div>
         <StepperSection>
@@ -321,9 +326,9 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
           <StepContent>
             {finished ? (
               <div>
-                <p><strong>Role:</strong> {this.state.roleValue}</p>
+                <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
                 <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
-                <p><strong>Care Manager ID:</strong> {this.state.careManagerValue}</p>
+                <p><strong>Care Manager ID:</strong> {careManagerValue}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -358,7 +363,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
                       primary
                       onClick={this.handleNext}
                       disabled={(stepIndex > 0 && isEmpty(this.state.selectOrganization)) ||
-                      (stepIndex > 1 && isEmpty(this.state.careManagerValue))
+                      (stepIndex > 1 && isEmpty(careManagerValue))
                       }
                     />
                   </Cell>
@@ -372,7 +377,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   renderCareCoordinatorStepContent() {
-    const { stepIndex, finished } = this.state;
+    const { stepIndex, finished, careCoordinatorValue, roleValue } = this.state;
     return (
       <div>
         <StepperSection>
@@ -390,9 +395,9 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
           <StepContent>
             {finished ? (
               <div>
-                <p><strong>Role:</strong> {this.state.roleValue}</p>
+                <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
                 <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
-                <p><strong>Coordinator ID:</strong> {this.state.careCoordinatorValue}</p>
+                <p><strong>Coordinator ID:</strong> {careCoordinatorValue}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -427,7 +432,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
                       primary
                       onClick={this.handleNext}
                       disabled={(stepIndex > 0 && isEmpty(this.state.selectOrganization)) ||
-                      (stepIndex > 1 && isEmpty(this.state.careCoordinatorValue))
+                      (stepIndex > 1 && isEmpty(careCoordinatorValue))
                       }
                     />
                   </Cell>
@@ -441,7 +446,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   renderPatientStepContent() {
-    const { stepIndex, finished } = this.state;
+    const { stepIndex, finished, roleValue } = this.state;
     let patientName = null;
     if (!isEmpty(this.state.selectPatient) && this.state.selectPatient.name) {
       patientName = this.props.flattenPatientData(this.state.selectPatient).name;
@@ -460,7 +465,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
           <StepContent>
             {finished ? (
               <div>
-                <p><strong>Role:</strong> {this.state.roleValue}</p>
+                <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
                 <p><strong>Patient Name:</strong> {patientName}</p>
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
@@ -525,13 +530,14 @@ WorkspaceSelection.propTypes = {
   onPractitionerSelection: PropTypes.func.isRequired,
   onCareManagerSelection: PropTypes.func.isRequired,
   onCareCoordinatorSelection: PropTypes.func.isRequired,
-  initializeSearch: PropTypes.func.isRequired,
+  initializeSelection: PropTypes.func.isRequired,
   onPatientSearch: PropTypes.func.isRequired,
   onChangePatientSearchPage: PropTypes.func.isRequired,
   onOrganizationSearch: PropTypes.func.isRequired,
   onChangeOrganizationSearchPage: PropTypes.func.isRequired,
   getLinkUrlByRole: PropTypes.func.isRequired,
   mapToName: PropTypes.func.isRequired,
+  mapToRoleObject: PropTypes.func.isRequired,
   onSetWorkspaceContext: PropTypes.func.isRequired,
   flattenOrganizationData: PropTypes.func.isRequired,
   flattenPatientData: PropTypes.func.isRequired,

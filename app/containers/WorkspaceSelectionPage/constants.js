@@ -9,7 +9,7 @@
  *  @type {string}
  */
 export const DEFAULT_ACTION = 'ocpui/WorkspaceSelectionPage/DEFAULT_ACTION';
-export const INITIALIZE_SEARCH = 'ocpui/WorkspaceSelectionPage/INITIALIZE_SEARCH';
+export const INITIALIZE_SELECTION = 'ocpui/WorkspaceSelectionPage/INITIALIZE_SELECTION';
 export const GET_WORKFLOW_ROLES = 'ocpui/WorkspaceSelectionPage/GET_WORKFLOW_ROLES';
 export const GET_WORKFLOW_ROLES_SUCCESS = 'ocpui/WorkspaceSelectionPage/GET_WORKFLOW_ROLES_SUCCESS';
 export const GET_PRACTITIONERS_ON_ROLE_ORGANIZATION = 'ocpui/WorkspaceSelectionPage/GET_PRACTITIONERS_ON_ROLE_ORGANIZATION';
