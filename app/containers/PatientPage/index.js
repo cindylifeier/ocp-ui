@@ -15,7 +15,7 @@ import { createStructuredSelector } from 'reselect';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import { flattenPatientData } from 'containers/PatientPage/helpers';
-import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
+import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
@@ -182,7 +182,7 @@ function renderEmptyGoldenLayoutComponent() {
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
