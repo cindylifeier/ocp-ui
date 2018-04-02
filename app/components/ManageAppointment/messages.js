@@ -36,7 +36,7 @@ export default defineMessages({
   },
   participantTableHeaderType: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderType',
-    defaultMessage: 'Type',
+    defaultMessage: 'Participant Type',
   },
   participantTableHeaderActor: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderActor',

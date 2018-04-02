@@ -17,7 +17,9 @@ import {
   initializeSearchAppointmentParticipantResult,
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
-import { makeSelectSelectedParticipants } from 'containers/SearchAppointmentParticipant/selectors';
+import {
+  makeSelectSelectedAppointmentParticipants,
+} from 'containers/SearchAppointmentParticipant/selectors';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
@@ -50,7 +52,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
   }
 
@@ -178,7 +180,7 @@ const mapStateToProps = createStructuredSelector({
   appointmentTypes: makeSelectAppointmentTypes(),
   patient: makeSelectPatient(),
   user: makeSelectUser(),
-  selectedParticipants: makeSelectSelectedParticipants(),
+  selectedParticipants: makeSelectSelectedAppointmentParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {
