@@ -8,15 +8,15 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   tableColumnHeaderFromActor: {
     id: 'ocpui.components.ConsentTable.tableColumnHeader.FromActor',
-    defaultMessage: 'From',
+    defaultMessage: 'Authorized to Share',
   },
   tableColumnHeaderToActor: {
     id: 'ocpui.components.ConsentTable.TableColumnHeader.ToActor',
-    defaultMessage: 'To',
+    defaultMessage: 'Sharing with',
   },
   tableColumnHeaderPeriod: {
     id: 'ocpui.components.ConsentTable.tableColumnHeader.Period',
-    defaultMessage: 'Period',
+    defaultMessage: 'Effecitve Dates',
   },
   tableColumnHeaderStatus: {
     id: 'ocpui.components.ConsentTable.TableColumnHeader.Status',

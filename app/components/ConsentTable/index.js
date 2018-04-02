@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 
 import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -42,7 +43,7 @@ function ConsentTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(consentData.data) && consentData.data.map((consent) => {
-                const { logicalId, fromActor, toActor, status, period } = consent;
+                const { logicalId, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation } = consent;
                 return (
                   <TableRow
                     columns={tableColumns}
@@ -50,10 +51,24 @@ function ConsentTable(props) {
                     role="button"
                     tabIndex="0"
                   >
-                    <TableRowColumn>{fromActor}</TableRowColumn>
-                    <TableRowColumn>{toActor}</TableRowColumn>
-                    <TableRowColumn>{period.start}-{period.end} </TableRowColumn>
-                    <TableRowColumn>{status.display}</TableRowColumn>
+                    <TableRowColumn>{ fromGeneralDesignation || fromActor.map(({ display }) =>
+                      (
+                        <div key={uniqueId()}>
+                          {display}
+                          <br />
+                        </div>
+                      ),
+                    ) }</TableRowColumn>
+                    <TableRowColumn>{ toGeneralDesignation || toActor.map(({ reference, display }) =>
+                      (
+                        <div key={`${reference}`}>
+                          {display}
+                          <br />
+                        </div>
+                      ),
+                    ) }</TableRowColumn>
+                    <TableRowColumn>{period && period.start}-{period && period.end} </TableRowColumn>
+                    <TableRowColumn>{status && status.display}</TableRowColumn>
                     <TableRowColumn>
                       <NavigationStyledIconMenu>
                         <MenuItem
@@ -110,10 +125,10 @@ ConsentTable.propTypes = {
         priority: PropTypes.number,
         display: PropTypes.string,
       })),
-      status: PropTypes.arrayOf(PropTypes.shape({
+      status: PropTypes.shape({
         code: PropTypes.string,
         display: PropTypes.string,
-      })),
+      }),
       fromActor: PropTypes.array,
       toActor: PropTypes.array,
       period: PropTypes.shape({
