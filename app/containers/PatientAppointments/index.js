@@ -43,7 +43,7 @@ import messages from './messages';
 import NoPatientAppointmentsMessage from './NoPatientAppointmentsMessage';
 import reducer from './reducer';
 import saga from './saga';
-import makeSelectPatientAppointments, { makeSelectShowPastAppointments } from './selectors';
+import { makeSelectPatientAppointments, makeSelectShowPastAppointments } from './selectors';
 
 export class PatientAppointments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
