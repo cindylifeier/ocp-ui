@@ -8,6 +8,18 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.PatientAppointments.header',
-    defaultMessage: 'This is PatientAppointments container !',
+    defaultMessage: 'Upcoming Appointments',
+  },
+  noUpcomingAppointments: {
+    id: 'ocpui.containers.PatientAppointments.noUpcomingAppointments',
+    defaultMessage: 'No Appointments loaded.',
+  },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.PatientAppointments.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
+  },
+  showPastAppointments: {
+    id: 'ocpui.containers.PatientAppointments.checkbox.showPastAppointments',
+    defaultMessage: 'Show Past Appointments',
   },
 });
