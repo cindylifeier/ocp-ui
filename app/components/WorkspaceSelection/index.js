@@ -191,7 +191,8 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   handleOrganizationChange(selectOrganization) {
     this.setState({ selectOrganization });
-    const { workflowRoles: { careManagerWorkflowRole, careCoordinatorWorkflowRole }, onCareManagerSelection, onCareCoordinatorSelection } = this.props;
+    const { workflowRoles: { careManagerWorkflowRole, careCoordinatorWorkflowRole }, onPractitionerSelection, onCareManagerSelection, onCareCoordinatorSelection } = this.props;
+    onPractitionerSelection(this.state.roleValue, selectOrganization.logicalId);
     switch (this.state.roleValue) {
       case careManagerWorkflowRole.value:
         onCareManagerSelection(this.state.roleValue, selectOrganization.logicalId);
@@ -521,6 +522,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 }
 
 WorkspaceSelection.propTypes = {
+  onPractitionerSelection: PropTypes.func.isRequired,
   onCareManagerSelection: PropTypes.func.isRequired,
   onCareCoordinatorSelection: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,

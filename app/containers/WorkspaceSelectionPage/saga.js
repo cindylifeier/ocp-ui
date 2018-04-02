@@ -39,7 +39,7 @@ export function* getWorkflowRolesSaga() {
 export function* getPractitionersOnRoleOrganizationSaga({ role, organization, currentPage }) {
   try {
     const practitioners = yield call(getPractitionersOnRoleOrganization, role, organization, currentPage);
-    yield put(getPractitionersOnRoleOrganizationSuccess(practitioners));
+    yield put(getPractitionersOnRoleOrganizationSuccess(role, practitioners));
   } catch (err) {
     yield put(showNotification('Failed to get practitioners.'));
   }

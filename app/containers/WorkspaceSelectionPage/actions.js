@@ -73,9 +73,10 @@ export function getPractitionersOnRoleOrganization(role, organization) {
   };
 }
 
-export function getPractitionersOnRoleOrganizationSuccess(practitioners) {
+export function getPractitionersOnRoleOrganizationSuccess(role, practitioners) {
   return {
     type: GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
+    role,
     practitioners,
   };
 }

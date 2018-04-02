@@ -22,6 +22,7 @@ import WorkspaceSelection from 'components/WorkspaceSelection';
 import {
   getCareCoordinators,
   getCareManagers,
+  getPractitionersOnRoleOrganization,
   getWorkflowRoles,
   initializeSearch,
   searchOrganizations,
@@ -58,6 +59,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
       },
     };
     this.handleSetWorkspaceContext = this.handleSetWorkspaceContext.bind(this);
+    this.handleGetPractitionersOnRoleOrganization = this.handleGetPractitionersOnRoleOrganization.bind(this);
     this.handlePatientSearch = this.handlePatientSearch.bind(this);
     this.handleChangePatientSearchPage = this.handleChangePatientSearchPage.bind(this);
     this.handleOrganizationSearch = this.handleOrganizationSearch.bind(this);
@@ -90,6 +92,11 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     if (!isEmpty(patient)) {
       this.props.setPatient(patient);
     }
+  }
+
+  // Todo: handle page change when needed
+  handleGetPractitionersOnRoleOrganization(role, organization) {
+    this.props.getPractitionersOnRoleOrganization(role, organization, DEFAULT_START_PAGE_NUMBER);
   }
 
   handleOrganizationSearch(searchValue, showInactive, searchType) {
@@ -140,6 +147,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
           onSetWorkspaceContext={this.handleSetWorkspaceContext}
           defaultRole={this.state.defaultRole}
           onCareManagerSelection={this.props.getCareManagers}
+          onPractitionerSelection={this.handleGetPractitionersOnRoleOrganization}
           onCareCoordinatorSelection={this.props.getCareCoordinators}
           initializeSearch={this.props.initializeSearch}
           flattenPatientData={flattenPatientData}
@@ -169,6 +177,7 @@ WorkspaceSelectionPage.propTypes = {
   getWorkflowRoles: PropTypes.func.isRequired,
   getCareManagers: PropTypes.func.isRequired,
   getCareCoordinators: PropTypes.func.isRequired,
+  getPractitionersOnRoleOrganization: PropTypes.func.isRequired,
   searchPatients: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
@@ -189,6 +198,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeSearch: () => dispatch(initializeSearch()),
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
+    getPractitionersOnRoleOrganization: (role, organization, currentPage) => dispatch(getPractitionersOnRoleOrganization(role, organization, currentPage)),
     getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
     getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),

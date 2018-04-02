@@ -24,6 +24,7 @@ const initialState = fromJS({
     data: [],
   },
   practitioners: {
+    role: null,
     data: [],
     currentPage: 0,
     totalNumberOfPages: 0,
@@ -52,6 +53,11 @@ function workspaceSelectionPageReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_SEARCH:
       return state
+        .setIn(['practitioners', 'role'], null)
+        .setIn(['practitioners', 'data'], fromJS([]))
+        .setIn(['practitioners', 'totalElements'], 0)
+        .setIn(['practitioners', 'totalNumberOfPages'], 0)
+        .setIn(['practitioners', 'currentPage'], 0)
         .setIn(['searchOrganizations', 'result'], fromJS([]))
         .setIn(['searchOrganizations', 'totalElements'], 0)
         .setIn(['searchOrganizations', 'totalNumberOfPages'], 0)
@@ -65,6 +71,7 @@ function workspaceSelectionPageReducer(state = initialState, action) {
         .setIn(['workflowRoles', 'data'], fromJS(action.workflowRoles));
     case GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS:
       return state
+        .setIn(['practitioners', 'role'], action.role)
         .setIn(['practitioners', 'data'], fromJS(action.practitioners.elements))
         .setIn(['practitioners', 'totalElements'], action.practitioners.totalElements)
         .setIn(['practitioners', 'currentPageSize'], action.practitioners.currentPageSize)
