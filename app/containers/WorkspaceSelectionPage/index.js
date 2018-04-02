@@ -32,7 +32,6 @@ import reducer from './reducer';
 import saga from './saga';
 import {
   makeCareCoordinatorsData,
-  makeCareManagersData,
   makeSelectOrganizationsData,
   makeSelectPatientsData,
   makeSelectPractitionersData,
@@ -78,14 +77,14 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     }
   }
 
-  handleSetWorkspaceContext(role, organization, careManager, careCoordinator, patient) {
+  handleSetWorkspaceContext(role, organization, practitioner, careCoordinator, patient) {
     const { user } = this.props;
     this.props.setUser({ ...user, role });
     if (!isEmpty(organization)) {
       this.props.setOrganization(organization);
     }
-    if (!isEmpty(careManager)) {
-      this.props.setUser({ ...user, role, resource: careManager });
+    if (!isEmpty(practitioner)) {
+      this.props.setUser({ ...user, role, resource: practitioner });
     }
     if (!isEmpty(careCoordinator)) {
       this.props.setUser({ ...user, role, resource: careCoordinator });
@@ -124,13 +123,12 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
 
   render() {
     const {
-      history, searchOrganizationsData, practitioners, careManagers, careCoordinators, searchPatientsData, workflowRoles,
+      history, searchOrganizationsData, practitioners, careCoordinators, searchPatientsData, workflowRoles,
     } = this.props;
     const workspaceSelectionProps = {
       history,
       searchOrganizationsData,
       practitioners,
-      careManagers,
       careCoordinators,
       searchPatientsData,
       workflowRoles,
@@ -171,7 +169,6 @@ WorkspaceSelectionPage.propTypes = {
     push: PropTypes.func.isRequired,
   }),
   practitioners: PropTypes.any.isRequired,
-  careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
   searchPatientsData: PropTypes.any.isRequired,
   searchOrganizationsData: PropTypes.any.isRequired,
@@ -193,7 +190,6 @@ const mapStateToProps = createStructuredSelector({
   workflowRoles: makeSelectWorkflowRolesData(),
   searchOrganizationsData: makeSelectOrganizationsData(),
   practitioners: makeSelectPractitionersData(),
-  careManagers: makeCareManagersData(),
   careCoordinators: makeCareCoordinatorsData(),
   searchPatientsData: makeSelectPatientsData(),
   user: makeSelectUser(),

@@ -40,7 +40,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.handlePrev = this.handlePrev.bind(this);
     this.handleRoleChange = this.handleRoleChange.bind(this);
     this.handleOrganizationChange = this.handleOrganizationChange.bind(this);
-    this.handleCareManagerChange = this.handleCareManagerChange.bind(this);
+    this.handlePractitionerValueChange = this.handlePractitionerValueChange.bind(this);
     this.handleCareCoordinatorChange = this.handleCareCoordinatorChange.bind(this);
     this.handlePatientSelect = this.handlePatientSelect.bind(this);
     this.handleNavigateTo = this.handleNavigateTo.bind(this);
@@ -57,14 +57,12 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   getStepContentBasedOnRole() {
     const {
-      ocpAdminWorkflowRole, careManagerWorkflowRole, careCoordinatorWorkflowRole, patientWorkflowRole,
+      ocpAdminWorkflowRole, careCoordinatorWorkflowRole, patientWorkflowRole,
     } = this.props.workflowRoles;
 
     switch (this.state.roleValue) {
       case ocpAdminWorkflowRole.value:
         return this.renderOcpAdminStepContent();
-      case careManagerWorkflowRole.value:
-        return this.renderCareManagerStepContent();
       case careCoordinatorWorkflowRole.value:
         return this.renderCareCoordinatorStepContent();
       case patientWorkflowRole.value:
@@ -78,36 +76,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
-      default:
-        return null;
-    }
-  }
-
-  getManagerStepContent() {
-    const { careManagers, mapToName } = this.props;
-    switch (this.state.stepIndex) {
-      case 0:
-        return this.renderSelectRoleContent();
-      case 1:
-        return this.renderSelectOrganizationContent();
-      case 2:
-        return (
-          <div>
-            <SelectField
-              floatingLabelText="Select Care Manager"
-              value={this.state.careManagerValue}
-              onChange={this.handleCareManagerChange}
-            >
-              {careManagers && careManagers.map((careManager) =>
-                (<MenuItem
-                  key={careManager.logicalId}
-                  value={careManager.logicalId}
-                  primaryText={mapToName(careManager.name)}
-                />),
-              )}
-            </SelectField>
-          </div>
-        );
       default:
         return null;
     }
@@ -244,10 +212,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.setState({ practitionerValue: value });
   }
 
-  handleCareManagerChange(event, index, value) {
-    this.setState({ careManagerValue: value });
-  }
-
   handleCareCoordinatorChange(event, index, value) {
     this.setState({ careCoordinatorValue: value });
   }
@@ -257,10 +221,10 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   handleNavigateTo() {
-    const { careManagers, careCoordinators } = this.props;
-    const careManager = find(careManagers, { logicalId: this.state.careManagerValue });
+    const { practitioners, careCoordinators } = this.props;
+    const practitioner = find(practitioners.data, { logicalId: this.state.practitionerValue });
     const careCoordinator = find(careCoordinators, { logicalId: this.state.careCoordinatorValue });
-    this.props.onSetWorkspaceContext(this.state.roleValue, this.state.selectOrganization, careManager, careCoordinator, this.state.selectPatient);
+    this.props.onSetWorkspaceContext(this.state.roleValue, this.state.selectOrganization, practitioner, careCoordinator, this.state.selectPatient);
     const linkTo = this.props.getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
@@ -400,75 +364,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
                       onClick={this.handleNext}
                       disabled={(stepIndex > 0 && isEmpty(this.state.selectOrganization)) ||
                       (stepIndex > 1 && isEmpty(practitionerValue))
-                      }
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            )}
-          </StepContent>
-        </StepperSection>
-      </div>
-    );
-  }
-
-  renderCareManagerStepContent() {
-    const { stepIndex, finished, roleValue, careManagerValue } = this.state;
-    return (
-      <div>
-        <StepperSection>
-          <Stepper activeStep={stepIndex}>
-            <Step>
-              <StepLabel>Select Role</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Select Organization</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Select Care Manager</StepLabel>
-            </Step>
-          </Stepper>
-          <StepContent>
-            {finished ? (
-              <div>
-                <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
-                <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
-                <p><strong>Care Manager ID:</strong> {careManagerValue}</p>
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Reset"
-                      secondary
-                      onClick={this.handleReset}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label="Continue"
-                      primary
-                      onClick={this.handleNavigateTo}
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            ) : (
-              <div>
-                {this.getManagerStepContent()}
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Back"
-                      disabled={stepIndex === 0}
-                      onClick={this.handlePrev}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label={stepIndex === 2 ? 'Finish' : 'Next'}
-                      primary
-                      onClick={this.handleNext}
-                      disabled={(stepIndex > 0 && isEmpty(this.state.selectOrganization)) ||
-                      (stepIndex > 1 && isEmpty(careManagerValue))
                       }
                     />
                   </Cell>
@@ -652,7 +547,6 @@ WorkspaceSelection.propTypes = {
   practitioners: PropTypes.shape({
     data: PropTypes.array.isRequired,
   }).isRequired,
-  careManagers: PropTypes.any.isRequired,
   careCoordinators: PropTypes.any.isRequired,
   searchOrganizationsData: PropTypes.any.isRequired,
   searchPatientsData: PropTypes.any.isRequired,
