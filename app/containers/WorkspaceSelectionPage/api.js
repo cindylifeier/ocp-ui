@@ -1,27 +1,16 @@
 import request from 'utils/request';
-import {
-  BASE_ORGANIZATIONS_API_URL,
-  BASE_PATIENTS_API_URL,
-  BASE_PRACTITIONERS_API_URL,
-  getEndpoint,
-} from 'utils/endpointService';
+import { BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
 import {
   CARE_COORDINATOR_ROLE_VALUE,
   CARE_MANAGER_ROLE_VALUE,
   DEFAULT_PAGE_SIZE,
   OCP_ADMIN_ROLE_VALUE,
+  ORGANIZATION_ADMIN_ROLE_VALUE,
   PATIENT_ROLE_VALUE,
+  PCP_ROLE_VALUE,
 } from 'containers/App/constants';
 
-export function getActiveOrganizations() {
-  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-  // Todo: Change list organization endpoint
-  const showInactive = false;
-  const params = queryString({ showInactive });
-  const requestURL = `${baseEndpoint}/all${params}`;
-  return request(requestURL);
-}
 
 // Todo: will get data from backend
 export function getWorkflowRoles() {
@@ -32,30 +21,35 @@ export function getWorkflowRoles() {
     },
     careManagerWorkflowRole: {
       value: CARE_MANAGER_ROLE_VALUE,
-      display: 'Care Manager/Organization Admin',
+      display: 'Care Manager',
     },
     careCoordinatorWorkflowRole: {
       value: CARE_COORDINATOR_ROLE_VALUE,
-      display: 'Care Coordinator/PCP',
+      display: 'Care Coordinator',
+    },
+    orgAdminWorkflowRole: {
+      value: ORGANIZATION_ADMIN_ROLE_VALUE,
+      display: 'Organization Admin',
     },
     patientWorkflowRole: {
       value: PATIENT_ROLE_VALUE,
       display: 'Patient',
     },
+    pcpWorkflowRole: {
+      value: PCP_ROLE_VALUE,
+      display: 'Primary Care Provider',
+    },
   };
 }
 
-export function getCareManagers(role, organization) {
+export function getPractitionersOnRoleOrganization(role, organizationId, currentPage) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ role });
-  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
-  return request(requestURL);
-}
-
-export function getCareCoordinators(role, organization) {
-  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ role });
-  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
+  const params = queryString({
+    role,
+    page: currentPage,
+    size: DEFAULT_PAGE_SIZE,
+  });
+  const requestURL = `${baseEndpoint}/organization/${organizationId}${params}`;
   return request(requestURL);
 }
 
