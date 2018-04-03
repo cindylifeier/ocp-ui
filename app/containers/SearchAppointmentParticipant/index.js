@@ -15,30 +15,35 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import TextField from 'components/TextField';
+import WideDialog from 'components/WideDialog';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_PARTICIPANT_REQUIRED,
+  APPOINTMENT_PARTICIPANT_TYPE,
   APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPATION_TYPE,
-  PARTICIPANTROLE,
-  PARTICIPANTTYPE,
 } from 'containers/App/constants';
-import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
+import {
+  makeSelectAppointmentParticipantTypes,
+  makeSelectAppointmentParticipationRequired,
+  makeSelectAppointmentParticipationStatuses,
+  makeSelectAppointmentParticipationTypes,
+} from 'containers/App/lookupSelectors';
 import {
   addAppointmentParticipants,
   getAppointmentSearchParticipant,
   initializeSearchAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
-import AddParticipantDialog from 'containers/SearchAppointmentParticipant/AddParticipantDialog';
 import AddParticipantDialogIconButton from 'containers/SearchAppointmentParticipant/AddParticipantDialogIconButton';
 import { TEXT_MIN_LENGTH } from 'containers/SearchAppointmentParticipant/constants';
 import ParticipantName from 'containers/SearchAppointmentParticipant/ParticipantName';
 import ParticipantSearchContainer from 'containers/SearchAppointmentParticipant/ParticipantSearchContainer';
-import { makeSelectSearchAppointmentParticipantResults } from 'containers/SearchAppointmentParticipant/selectors';
 import { Form, Formik } from 'formik';
 import { uniqueId } from 'lodash';
+import find from 'lodash/find';
 import { MenuItem } from 'material-ui';
-import { ActionSearch } from 'material-ui/svg-icons/action/search';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -54,6 +59,7 @@ import * as yup from 'yup';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectSearchAppointmentParticipantResults } from './selectors';
 
 export class SearchAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -85,7 +91,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
   handleSearch(values) {
     const { name, member } = values;
-    this.props.searchParticipant(name, member);
+    this.props.searchParticipant(name, member, this.props.patient.id);
   }
 
   createSearchResultHeader() {
@@ -93,7 +99,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       <Table>
         <TableHeader>
           <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
           <TableHeaderColumn>{
             <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
           <TableHeaderColumn>{
@@ -105,26 +110,37 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
   }
 
   createSearchResultRows() {
-    const participantRoles = this.props.participantRoles;
+    const participationTypes = this.props.participationTypes;
+    const participationRequiredValues = this.props.participationRequired;
+    const participationStatusValues = this.props.participationStatus;
+    const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
     return this.props.searchParticipantResult.map((participant) => (
       <Formik
         key={uniqueId()}
         initialValues={{}}
         onSubmit={(values, actions) => {
-          const { roleCode } = values;
-          const role = find(this.props.participantRoles, { code: roleCode });
+          const participationTypeCode = values.participationType;
+          const smallParticipationType = find(participationTypes, { code: participationTypeCode });
+          const participationRequiredCode = values.participationRequired;
+          const smallParticipationRequired = find(participationRequiredValues, { code: participationRequiredCode });
+          // default
+          const participationStatusCode = 'needs-action';
+          const smallParticipationStatus = find(participationStatusValues, { code: participationStatusCode });
           const smallParticipant = {
-            roleCode,
-            roleDisplay: role.display,
             memberId: participant.member.id,
-            memberType: participant.member.type,
+            memberType: capitalizeFirstLetter(participant.member.type),
             name: mapSearchParticipantName(participant),
+            participationType: smallParticipationType,
+            required: smallParticipationRequired,
+            status: smallParticipationStatus,
           };
           this.addParticipant(smallParticipant);
           actions.setSubmitting(false);
         }}
         validationSchema={yup.object().shape({
-          roleCode: yup.string()
+          participationType: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          participationRequired: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })
         }
@@ -135,7 +151,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
               <Table>
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
-                    <Grid columns={5}>
+                    <Grid columns={4}>
                       <Cell middle>
                         <ParticipantName>
                           {mapSearchParticipantName(participant)}
@@ -143,20 +159,32 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
                       </Cell>
                       <Cell middle>
                         <SelectFieldWithoutOnClick
-                          name="roleCode"
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
+                          name="participationType"
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participationType} />}
                         >
-                          {participantRoles && participantRoles.map((participantRole) =>
+                          {participationTypes && participationTypes.map((participationType) =>
                             (<MenuItem
                               key={uniqueId()}
-                              value={participantRole.code}
-                              primaryText={participantRole.display}
+                              value={participationType.code}
+                              primaryText={participationType.display}
                             />),
                           )}
                         </SelectFieldWithoutOnClick>
                       </Cell>
-                      <Cell middle />
-                      <Cell middle />
+                      <Cell middle>
+                        <SelectFieldWithoutOnClick
+                          name="participationRequired"
+                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participationRequired} />}
+                        >
+                          {participationRequiredValues && participationRequiredValues.map((req) =>
+                            (<MenuItem
+                              key={uniqueId()}
+                              value={req.code}
+                              primaryText={req.display}
+                            />),
+                          )}
+                        </SelectFieldWithoutOnClick>
+                      </Cell>
                       <Cell middle>
                         <StyledRaisedButton
                           label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
@@ -180,7 +208,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     return (<Table>
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
         <TableHeaderColumn>{
           <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
         <TableHeaderColumn>{
@@ -206,7 +233,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       />,
     ];
     return (
-      <AddParticipantDialog
+      <WideDialog
         actions={actionsButtons}
         modal={false}
         open={isOpen}
@@ -272,7 +299,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultHeader()}
         {searchParticipantResult && searchParticipantResult.length > 0 && this.createSearchResultRows()}
         {searchParticipantResult && searchParticipantResult.length === 0 && this.createNoSearchResultTable()}
-      </AddParticipantDialog>
+      </WideDialog>
     );
   }
 }
@@ -287,25 +314,32 @@ SearchAppointmentParticipant.propTypes = {
   initialSelectedParticipants: PropTypes.array,
   searchParticipant: PropTypes.func.isRequired,
   searchParticipantResult: PropTypes.array,
-  participantRoles: PropTypes.array,
+  patient: PropTypes.object,
   participantTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
     definition: PropTypes.string,
     system: PropTypes.string,
   })),
+  participationTypes: PropTypes.array,
+  participationRequired: PropTypes.array,
+  participationStatus: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  participantTypes: makeSelectParticipantTypes(),
-  participantRoles: makeSelectParticipantRoles(),
+  participantTypes: makeSelectAppointmentParticipantTypes(),
+  participationTypes: makeSelectAppointmentParticipationTypes(),
+  participationRequired: makeSelectAppointmentParticipationRequired(),
+  participationStatus: makeSelectAppointmentParticipationStatuses(),
+  patient: makeSelectPatient(),
   searchParticipantResult: makeSelectSearchAppointmentParticipantResults(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([PARTICIPANTTYPE,
-      PARTICIPANTROLE, APPOINTMENT_PARTICIPATION_STATUS,
+    getLookups: () => dispatch(getLookupsAction([
+      APPOINTMENT_PARTICIPANT_TYPE,
+      APPOINTMENT_PARTICIPATION_STATUS,
       APPOINTMENT_PARTICIPATION_TYPE,
       APPOINTMENT_PARTICIPANT_REQUIRED])),
     searchParticipant: (name, member) => dispatch(getAppointmentSearchParticipant(name, member)),

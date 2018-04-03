@@ -5,13 +5,28 @@
  */
 
 import {
+  GET_APPOINTMENT, GET_APPOINTMENT_SUCCESS,
   INITIALIZE_MANAGE_APPOINTMENT,
   SAVE_APPOINTMENT,
-} from 'containers/ManageAppointmentPage/constants';
+} from './constants';
 
 export function initializeManageAppointment() {
   return {
     type: INITIALIZE_MANAGE_APPOINTMENT,
+  };
+}
+
+export function getAppointment(appointmentId) {
+  return {
+    type: GET_APPOINTMENT,
+    appointmentId,
+  };
+}
+
+export function getAppointmentSuccess(appointmentId) {
+  return {
+    type: GET_APPOINTMENT_SUCCESS,
+    appointmentId,
   };
 }
 

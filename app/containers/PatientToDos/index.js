@@ -15,12 +15,15 @@ import Card from 'components/Card';
 import { CARE_COORDINATOR_ROLE_VALUE, MANAGE_TASK_URL } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
-import { getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
+import { cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import { PanelToolbar } from 'components/PanelToolbar/index';
+import { PanelToolbar } from 'components/PanelToolbar';
 import { makeSelectSearchLoading, makeSelectPatientToDoMainTask, makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import ToDoList from 'components/ToDoList';
 import { TO_DO_DEFINITION } from 'containers/PatientToDos/constants';
+import H3 from 'components/H3';
+import StyledFlatButton from 'components/StyledFlatButton';
+import Dialog from 'material-ui/Dialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
@@ -30,7 +33,14 @@ import messages from './messages';
 export class PatientToDos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+      toDoLogicalId: '',
+    };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleCancelToDo = this.handleCancelToDo.bind(this);
+    this.handleOpenDialog = this.handleOpenDialog.bind(this);
   }
   componentDidMount() {
     const { selectedPatient, selectedOrganization } = this.props;
@@ -59,6 +69,19 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     }
     return toDoMintaskId;
   }
+
+  handleCloseDialog() {
+    this.setState({ open: false });
+  }
+  handleOpenDialog(toDoLogicalId) {
+    this.setState({ open: true });
+    this.setState({ toDoLogicalId });
+  }
+
+  handleCancelToDo() {
+    this.setState({ open: false });
+    this.props.cancelToDos(this.state.toDoLogicalId);
+  }
   handleSearch(searchTerms, includeInactive, searchType) {
     console.log(searchTerms);
     console.log(includeInactive);
@@ -77,6 +100,19 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_TO_DO_URL,
     } : undefined;
+    const actionsButtons = [
+      <StyledFlatButton
+        label={<FormattedMessage {...messages.dialog.buttonLabelClose} />}
+        primary
+        onClick={this.handleCloseDialog}
+      />,
+      <StyledFlatButton
+        label={<FormattedMessage {...messages.dialog.buttonLabelCancelTodo} />}
+        primary
+        keyboardFocused
+        onClick={this.handleCancelToDo}
+      />,
+    ];
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
@@ -93,9 +129,19 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
             toDos={toDos}
             patientId={patientId}
             taskBaseUrl={taskBaseUrl}
+            openDialog={this.handleOpenDialog}
           />
         </div>
         }
+        <Dialog
+          title={<H3><FormattedMessage {...messages.dialog.title} /></H3>}
+          actions={actionsButtons}
+          modal
+          open={this.state.open}
+          autoScrollBodyContent
+        >
+          <FormattedMessage {...messages.dialog.confirmCancellationMessage} />
+        </Dialog>
       </Card>
     );
   }
@@ -104,6 +150,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
 PatientToDos.propTypes = {
   toDos: PropTypes.array.isRequired,
   getPatientToDos: PropTypes.func.isRequired,
+  cancelToDos: PropTypes.func.isRequired,
   getPatientToDoMainTask: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   toDoMainTask: PropTypes.array.isRequired,
@@ -125,6 +172,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
     getPatientToDoMainTask: (patientId, organizationId, definition) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition)),
+    cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
   };
 }
 

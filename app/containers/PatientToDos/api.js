@@ -22,3 +22,14 @@ export function getToDoMainTask(patientId, organizationId, definition) {
   const url = `${baseEndpoint}/task-references?${stringifiedParams}`;
   return request(url);
 }
+
+export function cancelToDo(toDoLogicalId) {
+  const url = `${baseEndpoint}/${toDoLogicalId}/deactivate`;
+  return request(url,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+}
