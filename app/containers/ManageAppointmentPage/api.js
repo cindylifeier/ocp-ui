@@ -1,4 +1,5 @@
 import { isEmpty } from 'lodash';
+import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
 import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
@@ -13,6 +14,18 @@ export function saveAppointment(appointmentFormData) {
     return updateAppointment(appointmentFormData);
   }
   return createAppointment(appointmentFormData);
+}
+
+export function getAppointmentApi(appointmentId) {
+  const requestURL = `${baseEndpoint}/${appointmentId}`;
+  return request(requestURL);
+}
+
+export function getAppointmentById(appointments, appointmentId) {
+  if (!isEmpty(appointments)) {
+    return find(appointments, { logicalId: appointmentId });
+  }
+  return null;
 }
 
 export function createAppointment(appointmentFormData) {
@@ -99,6 +112,21 @@ function mapToBffParticipants(participants) {
   }
   return [];
 }
+
+export function mapToEditParticipants(participants) {
+  if (!isEmpty(participants)) {
+    return participants
+      .map((participant) => ({
+        participationTypeCode: participant.participationTypeCode,
+        participantRequiredCode: participant.participantRequiredCode,
+        participationStatusCode: participant.participationStatusCode,
+        actorReference: participant.actorReference,
+        actorName: participant.actorName,
+      }));
+  }
+  return [];
+}
+
 
 function mapToBackendAppointmentDuringUpdate(appointmentFormData) {
   // TODO: When edit appointment is implemented
