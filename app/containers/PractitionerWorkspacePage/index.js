@@ -21,7 +21,7 @@ import renderLocationsComponent from 'containers/Locations/render';
 import renderPractitionerToDosComponent from 'containers/PractitionerToDos/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
-import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
+import renderPractitionerUpcomingAppointments from 'containers/PractitionerAppointments/render';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectWorkflowRolesData } from 'containers/WorkspaceSelectionPage/selectors';
 import makeSelectPractitionerWorkspacePage from './selectors';
@@ -35,7 +35,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     { name: 'locations', text: 'LOCATIONS', factoryMethod: renderLocationsComponent },
     { name: 'healthcareServices', text: 'HEALTHCARE SERVICES', factoryMethod: renderHealthcareServicesComponent },
     { name: 'upcomingTasks', text: 'TASKS', factoryMethod: renderUpcomingTasksComponent },
-    { name: 'upcomingAppointments', text: 'APPOINTMENTS', factoryMethod: renderUpcomingAppointmentsComponent },
+    { name: 'upcomingAppointments', text: 'APPOINTMENTS', factoryMethod: renderPractitionerUpcomingAppointments },
     { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPractitionerToDosComponent },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderUnderConstruction },
   ];
