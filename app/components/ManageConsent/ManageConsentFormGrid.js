@@ -8,23 +8,33 @@ const ManageConsentFormGrid = Grid.extend`
   grid-template-columns: 1fr;
   grid-template-areas:
     "generalInformationSubtitle"
-    "consentStart"
-    "consentEnd"
+    "patientName"
+    "careTeamGroup"
+    "medicalInfoGroup"
+    "purposeOfUseGroup"
+    "consentTermGroup"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
-      "consentStart consentEnd"
+      "careTeamGroup ."
+      "medicalInfoGroup ."
+      "purposeOfUseGroup ."
+      "consentTermGroup ."
       "buttonGroup  .";
   }
 
   @media only screen and (min-width: 1200px) {
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
-      "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
-      "consentStart consentStart consentEnd consentEnd . . . . . . . ."
+      "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle . . . ."
+      "patientName patientName patientName patientName . . . . . . . ."
+      "careTeamGroup careTeamGroup careTeamGroup careTeamGroup careTeamGroup careTeamGroup careTeamGroup careTeamGroup . . . ."
+      "medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup medicalInfoGroup . . . ."
+      "purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup purposeOfUseGroup . . . ."
+      "consentTermGroup consentTermGroup consentTermGroup consentTermGroup consentTermGroup consentTermGroup consentTermGroup consentTermGroup . . . ."
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;
