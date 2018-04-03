@@ -14,6 +14,7 @@ import {
   EMPTY_STRING,
   NEW_LINE_CHARACTER,
   OCP_ADMIN_ROLE_VALUE,
+  ORGANIZATION_ADMIN_ROLE_VALUE,
   PATIENT_ROLE_VALUE,
   PATIENT_WORKSPACE,
   PRACTITIONER_WORKSPACE,
@@ -81,6 +82,9 @@ export function getLinkUrlByRole(role) {
   switch (role) {
     case OCP_ADMIN_ROLE_VALUE:
       linkUrl = ADMIN_WORKSPACE;
+      break;
+    case ORGANIZATION_ADMIN_ROLE_VALUE:
+      linkUrl = PRACTITIONER_WORKSPACE;
       break;
     case CARE_MANAGER_ROLE_VALUE:
       linkUrl = PRACTITIONER_WORKSPACE;
