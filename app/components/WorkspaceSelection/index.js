@@ -31,8 +31,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       stepIndex: 0,
       roleValue: props.defaultRole,
       practitionerValue: null,
-      careManagerValue: null,
-      careCoordinatorValue: null,
       selectPatient: null,
       selectOrganization: null,
     };
@@ -41,7 +39,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.handleRoleChange = this.handleRoleChange.bind(this);
     this.handleOrganizationChange = this.handleOrganizationChange.bind(this);
     this.handlePractitionerValueChange = this.handlePractitionerValueChange.bind(this);
-    this.handleCareCoordinatorChange = this.handleCareCoordinatorChange.bind(this);
     this.handlePatientSelect = this.handlePatientSelect.bind(this);
     this.handleNavigateTo = this.handleNavigateTo.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -55,16 +52,14 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     return organizationName;
   }
 
-  getStepContentBasedOnRole() {
+  defineStepContentBasedOnRole() {
     const {
-      ocpAdminWorkflowRole, careCoordinatorWorkflowRole, patientWorkflowRole,
+      ocpAdminWorkflowRole, patientWorkflowRole,
     } = this.props.workflowRoles;
 
     switch (this.state.roleValue) {
       case ocpAdminWorkflowRole.value:
         return this.renderOcpAdminStepContent();
-      case careCoordinatorWorkflowRole.value:
-        return this.renderCareCoordinatorStepContent();
       case patientWorkflowRole.value:
         return this.renderPatientStepContent();
       default:
@@ -72,7 +67,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     }
   }
 
-  getAdminStepContent() {
+  defineAdminStepContent() {
     switch (this.state.stepIndex) {
       case 0:
         return this.renderSelectRoleContent();
@@ -81,37 +76,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     }
   }
 
-  getCoordinatorStepContent() {
-    const { careCoordinators, mapToName } = this.props;
-    switch (this.state.stepIndex) {
-      case 0:
-        return this.renderSelectRoleContent();
-      case 1:
-        return this.renderSelectOrganizationContent();
-      case 2:
-        return (
-          <div>
-            <SelectField
-              floatingLabelText="Select Coordinator"
-              value={this.state.careCoordinatorValue}
-              onChange={this.handleCareCoordinatorChange}
-            >
-              {careCoordinators && careCoordinators.map((careCoordinator) =>
-                (<MenuItem
-                  key={careCoordinator.logicalId}
-                  value={careCoordinator.logicalId}
-                  primaryText={mapToName(careCoordinator.name)}
-                />),
-              )}
-            </SelectField>
-          </div>
-        );
-      default:
-        return null;
-    }
-  }
-
-  getPatientStepContent() {
+  definePatientStepContent() {
     const { onPatientSearch, searchPatientsData, onChangePatientSearchPage, flattenPatientData } = this.props;
     switch (this.state.stepIndex) {
       case 0:
@@ -184,36 +149,16 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   handleRoleChange(event, index, value) {
-    this.setState({
-      roleValue: value,
-      careManagerValue: null,
-      careCoordinatorValue: null,
-      selectOrganization: null,
-      selectPatient: null,
-    });
+    this.setState({ roleValue: value });
   }
 
   handleOrganizationChange(selectOrganization) {
     this.setState({ selectOrganization });
-    const { workflowRoles: { careManagerWorkflowRole, careCoordinatorWorkflowRole }, onPractitionerSelection, onCareManagerSelection, onCareCoordinatorSelection } = this.props;
-    onPractitionerSelection(this.state.roleValue, selectOrganization.logicalId);
-    switch (this.state.roleValue) {
-      case careManagerWorkflowRole.value:
-        onCareManagerSelection(this.state.roleValue, selectOrganization.logicalId);
-        break;
-      case careCoordinatorWorkflowRole.value:
-        onCareCoordinatorSelection(this.state.roleValue, selectOrganization.logicalId);
-        break;
-      default:
-    }
+    this.props.onPractitionerSelection(this.state.roleValue, selectOrganization.logicalId);
   }
 
   handlePractitionerValueChange(event, index, value) {
     this.setState({ practitionerValue: value });
-  }
-
-  handleCareCoordinatorChange(event, index, value) {
-    this.setState({ careCoordinatorValue: value });
   }
 
   handlePatientSelect(selectPatient) {
@@ -221,10 +166,9 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   handleNavigateTo() {
-    const { practitioners, careCoordinators } = this.props;
+    const { practitioners } = this.props;
     const practitioner = find(practitioners.data, { logicalId: this.state.practitionerValue });
-    const careCoordinator = find(careCoordinators, { logicalId: this.state.careCoordinatorValue });
-    this.props.onSetWorkspaceContext(this.state.roleValue, this.state.selectOrganization, practitioner, careCoordinator, this.state.selectPatient);
+    this.props.onSetWorkspaceContext(this.state.roleValue, this.state.selectOrganization, practitioner, this.state.selectPatient);
     const linkTo = this.props.getLinkUrlByRole(this.state.roleValue);
     this.props.history.push(linkTo);
   }
@@ -236,8 +180,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
       finished: false,
       stepIndex: 0,
       roleValue: this.props.workflowRoles.careManagerWorkflowRole.value,
-      careManagerValue: null,
-      careCoordinatorValue: null,
+      practitionerValue: null,
       selectOrganization: null,
       selectPatient: null,
     });
@@ -292,7 +235,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
           </Stepper>
           <StepContent>
             <div>
-              {this.getAdminStepContent()}
+              {this.defineAdminStepContent()}
               <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
               <RaisedButton
                 label="Continue"
@@ -376,75 +319,6 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     );
   }
 
-  renderCareCoordinatorStepContent() {
-    const { stepIndex, finished, careCoordinatorValue, roleValue } = this.state;
-    return (
-      <div>
-        <StepperSection>
-          <Stepper activeStep={stepIndex}>
-            <Step>
-              <StepLabel>Select Role</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Select Organization</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Select Coordinator</StepLabel>
-            </Step>
-          </Stepper>
-          <StepContent>
-            {finished ? (
-              <div>
-                <p><strong>Role:</strong> {this.mapToRoleDisplay(roleValue)}</p>
-                <p><strong>Organization Name:</strong> {this.getOrganizationName()}</p>
-                <p><strong>Coordinator ID:</strong> {careCoordinatorValue}</p>
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Reset"
-                      secondary
-                      onClick={this.handleReset}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label="Continue"
-                      primary
-                      onClick={this.handleNavigateTo}
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            ) : (
-              <div>
-                {this.getCoordinatorStepContent()}
-                <Grid columns={'90px 90px'} gap="12px">
-                  <Cell>
-                    <FlatButton
-                      label="Back"
-                      disabled={stepIndex === 0}
-                      onClick={this.handlePrev}
-                    />
-                  </Cell>
-                  <Cell>
-                    <RaisedButton
-                      label={stepIndex === 2 ? 'Finish' : 'Next'}
-                      primary
-                      onClick={this.handleNext}
-                      disabled={(stepIndex > 0 && isEmpty(this.state.selectOrganization)) ||
-                      (stepIndex > 1 && isEmpty(careCoordinatorValue))
-                      }
-                    />
-                  </Cell>
-                </Grid>
-              </div>
-            )}
-          </StepContent>
-        </StepperSection>
-      </div>
-    );
-  }
-
   renderPatientStepContent() {
     const { stepIndex, finished, roleValue } = this.state;
     let patientName = null;
@@ -486,7 +360,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
               </div>
             ) : (
               <div>
-                {this.getPatientStepContent()}
+                {this.definePatientStepContent()}
                 <Grid columns={'90px 90px'} gap="12px">
                   <Cell>
                     <FlatButton
@@ -520,38 +394,35 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   render() {
     return (
       <div>
-        {this.getStepContentBasedOnRole()}
+        {this.defineStepContentBasedOnRole()}
       </div>
     );
   }
 }
 
 WorkspaceSelection.propTypes = {
-  onPractitionerSelection: PropTypes.func.isRequired,
-  onCareManagerSelection: PropTypes.func.isRequired,
-  onCareCoordinatorSelection: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+  workflowRoles: PropTypes.any.isRequired,
+  searchOrganizationsData: PropTypes.any.isRequired,
+  searchPatientsData: PropTypes.any.isRequired,
+  practitioners: PropTypes.shape({
+    data: PropTypes.array.isRequired,
+  }).isRequired,
+  defaultRole: PropTypes.string,
   initializeSelection: PropTypes.func.isRequired,
+  mapToName: PropTypes.func.isRequired,
+  mapToRoleObject: PropTypes.func.isRequired,
+  flattenOrganizationData: PropTypes.func.isRequired,
+  flattenPatientData: PropTypes.func.isRequired,
+  getLinkUrlByRole: PropTypes.func.isRequired,
+  onSetWorkspaceContext: PropTypes.func.isRequired,
+  onPractitionerSelection: PropTypes.func.isRequired,
   onPatientSearch: PropTypes.func.isRequired,
   onChangePatientSearchPage: PropTypes.func.isRequired,
   onOrganizationSearch: PropTypes.func.isRequired,
   onChangeOrganizationSearchPage: PropTypes.func.isRequired,
-  getLinkUrlByRole: PropTypes.func.isRequired,
-  mapToName: PropTypes.func.isRequired,
-  mapToRoleObject: PropTypes.func.isRequired,
-  onSetWorkspaceContext: PropTypes.func.isRequired,
-  flattenOrganizationData: PropTypes.func.isRequired,
-  flattenPatientData: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }),
-  practitioners: PropTypes.shape({
-    data: PropTypes.array.isRequired,
-  }).isRequired,
-  careCoordinators: PropTypes.any.isRequired,
-  searchOrganizationsData: PropTypes.any.isRequired,
-  searchPatientsData: PropTypes.any.isRequired,
-  workflowRoles: PropTypes.any.isRequired,
-  defaultRole: PropTypes.string,
 };
 
 export default WorkspaceSelection;

@@ -20,8 +20,6 @@ import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
 import {
-  getCareCoordinators,
-  getCareManagers,
   getPractitionersOnRoleOrganization,
   getWorkflowRoles,
   initializeSelection,
@@ -31,7 +29,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import {
-  makeCareCoordinatorsData,
   makeSelectOrganizationsData,
   makeSelectPatientsData,
   makeSelectPractitionersData,
@@ -77,7 +74,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     }
   }
 
-  handleSetWorkspaceContext(role, organization, practitioner, careCoordinator, patient) {
+  handleSetWorkspaceContext(role, organization, practitioner, patient) {
     const { user } = this.props;
     this.props.setUser({ ...user, role });
     if (!isEmpty(organization)) {
@@ -85,9 +82,6 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     }
     if (!isEmpty(practitioner)) {
       this.props.setUser({ ...user, role, resource: practitioner });
-    }
-    if (!isEmpty(careCoordinator)) {
-      this.props.setUser({ ...user, role, resource: careCoordinator });
     }
     if (!isEmpty(patient)) {
       this.props.setPatient(patient);
@@ -123,13 +117,12 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
 
   render() {
     const {
-      history, searchOrganizationsData, practitioners, careCoordinators, searchPatientsData, workflowRoles,
+      history, searchOrganizationsData, practitioners, searchPatientsData, workflowRoles,
     } = this.props;
     const workspaceSelectionProps = {
       history,
       searchOrganizationsData,
       practitioners,
-      careCoordinators,
       searchPatientsData,
       workflowRoles,
     };
@@ -142,19 +135,17 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
         {!isEmpty(workflowRoles) &&
         <WorkspaceSelection
           {...workspaceSelectionProps}
-          getLinkUrlByRole={getLinkUrlByRole}
-          mapToName={mapToName}
-          mapToRoleObject={mapToRoleObject}
-          onSetWorkspaceContext={this.handleSetWorkspaceContext}
           defaultRole={this.state.defaultRole}
-          onCareManagerSelection={this.props.getCareManagers}
-          onPractitionerSelection={this.handleGetPractitionersOnRoleOrganization}
-          onCareCoordinatorSelection={this.props.getCareCoordinators}
           initializeSelection={this.props.initializeSelection}
+          mapToRoleObject={mapToRoleObject}
+          mapToName={mapToName}
           flattenPatientData={flattenPatientData}
+          flattenOrganizationData={flattenOrganizationData}
+          getLinkUrlByRole={getLinkUrlByRole}
+          onSetWorkspaceContext={this.handleSetWorkspaceContext}
+          onPractitionerSelection={this.handleGetPractitionersOnRoleOrganization}
           onPatientSearch={this.handlePatientSearch}
           onChangePatientSearchPage={this.handleChangePatientSearchPage}
-          flattenOrganizationData={flattenOrganizationData}
           onOrganizationSearch={this.handleOrganizationSearch}
           onChangeOrganizationSearchPage={this.handleChangeOrganizationSearchPage}
         />
@@ -169,15 +160,12 @@ WorkspaceSelectionPage.propTypes = {
     push: PropTypes.func.isRequired,
   }),
   practitioners: PropTypes.any.isRequired,
-  careCoordinators: PropTypes.any.isRequired,
   searchPatientsData: PropTypes.any.isRequired,
   searchOrganizationsData: PropTypes.any.isRequired,
   workflowRoles: PropTypes.any.isRequired,
   user: PropTypes.object,
   initializeSelection: PropTypes.func.isRequired,
   getWorkflowRoles: PropTypes.func.isRequired,
-  getCareManagers: PropTypes.func.isRequired,
-  getCareCoordinators: PropTypes.func.isRequired,
   getPractitionersOnRoleOrganization: PropTypes.func.isRequired,
   searchPatients: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
@@ -188,9 +176,8 @@ WorkspaceSelectionPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   workflowRoles: makeSelectWorkflowRolesData(),
-  searchOrganizationsData: makeSelectOrganizationsData(),
   practitioners: makeSelectPractitionersData(),
-  careCoordinators: makeCareCoordinatorsData(),
+  searchOrganizationsData: makeSelectOrganizationsData(),
   searchPatientsData: makeSelectPatientsData(),
   user: makeSelectUser(),
 });
@@ -200,8 +187,6 @@ function mapDispatchToProps(dispatch) {
     initializeSelection: () => dispatch(initializeSelection()),
     getWorkflowRoles: () => dispatch(getWorkflowRoles()),
     getPractitionersOnRoleOrganization: (role, organization, currentPage) => dispatch(getPractitionersOnRoleOrganization(role, organization, currentPage)),
-    getCareManagers: (role, organization) => dispatch(getCareManagers(role, organization)),
-    getCareCoordinators: (role, organization) => dispatch(getCareCoordinators(role, organization)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
     searchPatients: (searchValue, showInactive, searchType, currentPage) => dispatch(searchPatients(searchValue, showInactive, searchType, currentPage)),
     setUser: (user) => dispatch(setUser(user)),

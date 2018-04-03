@@ -53,20 +53,6 @@ export function getPractitionersOnRoleOrganization(role, organizationId, current
   return request(requestURL);
 }
 
-export function getCareManagers(role, organization) {
-  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ role });
-  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
-  return request(requestURL);
-}
-
-export function getCareCoordinators(role, organization) {
-  const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ role });
-  const requestURL = `${baseEndpoint}/organization/${organization}${params}`;
-  return request(requestURL);
-}
-
 export function searchPatients(searchValue, showInactive, searchType, currentPage) {
   const params = queryString({
     value: searchValue,

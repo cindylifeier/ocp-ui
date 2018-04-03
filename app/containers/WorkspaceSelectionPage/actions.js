@@ -5,10 +5,6 @@
  */
 
 import {
-  GET_CARE_COORDINATORS,
-  GET_CARE_COORDINATORS_SUCCESS,
-  GET_CARE_MANAGERS,
-  GET_CARE_MANAGERS_SUCCESS,
   GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
   GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES,
@@ -78,36 +74,6 @@ export function getPractitionersOnRoleOrganizationSuccess(role, practitioners) {
     type: GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
     role,
     practitioners,
-  };
-}
-
-export function getCareManagers(role, organization) {
-  return {
-    type: GET_CARE_MANAGERS,
-    role,
-    organization,
-  };
-}
-
-export function getCareManagersSuccess(careManagers) {
-  return {
-    type: GET_CARE_MANAGERS_SUCCESS,
-    careManagers,
-  };
-}
-
-export function getCareCoordinators(role, organization) {
-  return {
-    type: GET_CARE_COORDINATORS,
-    role,
-    organization,
-  };
-}
-
-export function getCareCoordinatorsSuccess(careCoordinators) {
-  return {
-    type: GET_CARE_COORDINATORS_SUCCESS,
-    careCoordinators,
   };
 }
 

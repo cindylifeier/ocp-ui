@@ -2,16 +2,12 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { searchOrganizations } from 'containers/Organizations/api';
 import { showNotification } from 'containers/Notification/actions';
 import {
-  GET_CARE_COORDINATORS,
-  GET_CARE_MANAGERS,
   GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
   GET_WORKFLOW_ROLES,
   SEARCH_ORGANIZATIONS,
   SEARCH_PATIENTS,
 } from './constants';
 import {
-  getCareCoordinatorsSuccess,
-  getCareManagersSuccess,
   getPractitionersOnRoleOrganizationSuccess,
   getWorkflowRolesSuccess,
   searchOrganizationsError,
@@ -19,13 +15,7 @@ import {
   searchPatientsError,
   searchPatientsSuccess,
 } from './actions';
-import {
-  getCareCoordinators,
-  getCareManagers,
-  getPractitionersOnRoleOrganization,
-  getWorkflowRoles,
-  searchPatients,
-} from './api';
+import { getPractitionersOnRoleOrganization, getWorkflowRoles, searchPatients } from './api';
 
 export function* getWorkflowRolesSaga() {
   try {
@@ -42,24 +32,6 @@ export function* getPractitionersOnRoleOrganizationSaga({ role, organization, cu
     yield put(getPractitionersOnRoleOrganizationSuccess(role, practitioners));
   } catch (err) {
     yield put(showNotification('Failed to get practitioners.'));
-  }
-}
-
-export function* getCareManagersSaga({ role, organization }) {
-  try {
-    const careManagers = yield call(getCareManagers, role, organization);
-    yield put(getCareManagersSuccess(careManagers));
-  } catch (err) {
-    yield put(showNotification('Failed to get the care managers.'));
-  }
-}
-
-export function* getCareCoordinatorsSaga({ role, organization }) {
-  try {
-    const careCoordinators = yield call(getCareCoordinators, role, organization);
-    yield put(getCareCoordinatorsSuccess(careCoordinators));
-  } catch (err) {
-    yield put(showNotification('Failed to get the care coordinators.'));
   }
 }
 
@@ -93,14 +65,6 @@ export function* watchSearchOrganizationsSaga() {
   yield takeLatest(SEARCH_ORGANIZATIONS, searchOrganizationsSaga);
 }
 
-export function* watchGetCareManagersSaga() {
-  yield takeLatest(GET_CARE_MANAGERS, getCareManagersSaga);
-}
-
-export function* watchGetCareCoordinatorsSaga() {
-  yield takeLatest(GET_CARE_COORDINATORS, getCareCoordinatorsSaga);
-}
-
 export function* watchSearchPatientsSaga() {
   yield takeLatest(SEARCH_PATIENTS, searchPatientsSaga);
 }
@@ -113,8 +77,6 @@ export default function* rootSaga() {
     watchGetWorkflowRolesSaga(),
     watchGetPractitionersOnRoleOrganizationSaga(),
     watchSearchOrganizationsSaga(),
-    watchGetCareManagersSaga(),
-    watchGetCareCoordinatorsSaga(),
     watchSearchPatientsSaga(),
   ]);
 }

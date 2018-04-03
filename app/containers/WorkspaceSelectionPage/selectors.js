@@ -23,16 +23,6 @@ const makeSelectOrganizationsData = () => createSelector(
   (substate) => substate && substate.get('searchOrganizations').toJS(),
 );
 
-const makeCareManagersData = () => createSelector(
-  selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['careManagers', 'data']).toJS(),
-);
-
-const makeCareCoordinatorsData = () => createSelector(
-  selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['careCoordinators', 'data']).toJS(),
-);
-
 const makeSelectPatientsData = () => createSelector(
   selectWorkspaceSelectionPageDomain,
   (substate) => substate && substate.get('searchPatients').toJS(),
@@ -53,7 +43,5 @@ export {
   makeSelectWorkflowRolesData,
   makeSelectPractitionersData,
   makeSelectOrganizationsData,
-  makeCareManagersData,
-  makeCareCoordinatorsData,
   makeSelectPatientsData,
 };
