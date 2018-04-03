@@ -18,7 +18,6 @@ import { Cell } from 'styled-css-grid';
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Card from 'components/Card';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
@@ -33,7 +32,7 @@ import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import PanelToolbar from 'components/PanelToolbar';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { getHealthcareServices, initializeHealthcareServices } from './actions';
+import { getHealthcareServices, initializeHealthcareServices, searchHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -49,14 +48,32 @@ import saga from './saga';
 import messages from './messages';
 
 export class HealthcareServices extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static initalState = {
+    reltaiveTop: 0,
+    panelHeight: 0,
+    filterHeight: 0,
+    currentPage: 1,
+    isShowSearchResult: false,
+    listHealthcareServices: {
+      currentPage: 1,
+    },
+    searchHealthcareServices: {
+      currentPage: 1,
+      searchValue: '',
+      includeInactive: false,
+      searchType: 'name',
+    },
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
-      panelHeight: 0,
-      filterHeight: 0,
+      ...HealthcareServices.initalState,
     };
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.onSize = this.onSize.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleListPageClick = this.handleListPageClick.bind(this);
+    this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
@@ -77,7 +94,20 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     const { organization: newOrganization, location: newLocation } = nextProps;
     if (!isEqual(organization, newOrganization) || !isEqual(location, newLocation)) {
       this.props.getHealthcareServices(1);
+      this.setState({ ...HealthcareServices.initalState });
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
+  }
+
+  handleSearch(searchValue, includeInactive, searchType) {
+    this.setState({
+      searchHealthcareServices: { searchValue, includeInactive, searchType },
+      isShowSearchResult: true,
+    });
+    this.props.searchHealthcareServices(searchValue, includeInactive, searchType, DEFAULT_START_PAGE_NUMBER);
   }
 
   handlePanelResize(size) {
@@ -88,8 +118,12 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     this.setState({ filterHeight: size.height });
   }
 
-  handlePageClick(currentPage) {
+  handleListPageClick(currentPage) {
     this.props.getHealthcareServices(currentPage, this.props.includeInactive);
+  }
+
+  handleSearchPageClick(currentPage) {
+    this.props.searchHealthcareServices(this.state.searchHealthcareServices.searchValue, this.state.searchHealthcareServices.includeInactive, this.state.searchHealthcareServices.searchType, currentPage);
   }
 
   handleCheck(event, checked) {
@@ -98,16 +132,29 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 
   render() {
     const { loading, healthcareServices, organization, location } = this.props;
+    let healthcareServicesData = {
+      handlePageClick: this.handleListPageClick,
+    };
+    if (this.state.isShowSearchResult) {
+      healthcareServicesData = {
+        handlePageClick: this.handleSearchPageClick,
+      };
+    }
     return (
-      <Card>
-        <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
+      <div>
+        <PanelToolbar
+          onSearch={this.handleSearch}
+          onSize={this.handlePanelResize}
+          showFilter={false}
+        />
         {isEmpty(organization) &&
         <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
 
         <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
           {!isEmpty(organization) &&
           <InfoSection margin="0px">
-            The <FormattedMessage {...messages.healthCareService} /> for &nbsp;
+            {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
+            <FormattedMessage {...messages.healthCareService} /> for &nbsp;
             <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
               <span id={this.ORGANIZATION_NAME_HTML_ID}>{organization.name}</span>&nbsp;
             </InlineLabel>
@@ -120,7 +167,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
             </span>}
             are :
           </InfoSection>}
-          {!isEmpty(organization) && isEmpty(location) &&
+          {!this.state.isShowSearchResult && !isEmpty(organization) && isEmpty(location) &&
           <FilterSection>
             <CheckboxFilterGrid>
               <Cell>
@@ -156,11 +203,13 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
               relativeTop={this.state.panelHeight + this.state.filterHeight}
             />
           </CenterAlign>
+
           <CenterAlignedUltimatePagination
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
-            onChange={this.handlePageClick}
+            onChange={healthcareServicesData.handlePageClick}
           />
+
           <RecordsRange
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
@@ -169,7 +218,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           />
         </div>
         }
-      </Card>
+      </div>
     );
   }
 }
@@ -186,6 +235,7 @@ HealthcareServices.propTypes = {
   getHealthcareServices: PropTypes.func.isRequired,
   organization: PropTypes.object,
   location: PropTypes.object,
+  searchHealthcareServices: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -206,6 +256,8 @@ function mapDispatchToProps(dispatch) {
     initializeHealthcareServices: () => dispatch(initializeHealthcareServices()),
     getHealthcareServices: (currentPage, includeInactive) =>
       dispatch(getHealthcareServices(currentPage, includeInactive)),
+    searchHealthcareServices: (searchValue, includeInactive, searchType, currentPage) =>
+      dispatch(searchHealthcareServices(searchValue, includeInactive, searchType, currentPage)),
   };
 }
 
