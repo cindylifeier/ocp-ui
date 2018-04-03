@@ -215,7 +215,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        height: 68.58710562414267,
+        height: 80,
         content: [{
           type: 'column',
           isClosable: true,
@@ -225,7 +225,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           content: [{
             type: 'stack',
             width: 50,
-            height: 50,
+            height: 80,
             isClosable: true,
             reorderEnabled: true,
             title: '',
@@ -245,7 +245,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             reorderEnabled: true,
             title: '',
             activeItemIndex: 0,
-            height: 50,
+            height: 80,
             content: [{
               title: 'Appointments',
               type: 'component',
@@ -270,7 +270,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             title: '',
             activeItemIndex: 0,
             width: 50,
-            height: 50,
+            height: 80,
             content: [{
               title: 'Healthcare Services',
               type: 'component',
@@ -286,7 +286,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             reorderEnabled: true,
             title: '',
             activeItemIndex: 0,
-            height: 50,
+            height: 80,
             content: [{
               title: 'Calendar',
               type: 'component',
@@ -306,7 +306,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 31.412894375857338,
+        height: 80,
         content: [{
           title: 'Patients',
           type: 'component',
@@ -496,7 +496,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         </Helmet>
         {stateMetadata &&
         <GoldenLayout
-          containerHeight="200vh"
+          containerHeight="250vh"
           containerId="golden-practitioner-workspace"
           componentMetadata={PractitionerWorkspacePage.componentMetadata}
           stateMetadata={stateMetadata}
