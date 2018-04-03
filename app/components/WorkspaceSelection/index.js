@@ -188,18 +188,19 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
 
   renderSelectRoleContent() {
     const {
-      ocpAdminWorkflowRole, careManagerWorkflowRole,
+      ocpAdminWorkflowRole, orgAdminWorkflowRole, careManagerWorkflowRole,
       careCoordinatorWorkflowRole, patientWorkflowRole,
     } = this.props.workflowRoles;
     return (
       <div>
         <RoleSelectField
-          width="180px"
+          width="200px"
           floatingLabelText="Select Role"
           value={this.state.roleValue}
           onChange={this.handleRoleChange}
         >
           <MenuItem value={ocpAdminWorkflowRole.value} primaryText={ocpAdminWorkflowRole.display} />
+          <MenuItem value={orgAdminWorkflowRole.value} primaryText={orgAdminWorkflowRole.display} />
           <MenuItem value={careManagerWorkflowRole.value} primaryText={careManagerWorkflowRole.display} />
           <MenuItem value={careCoordinatorWorkflowRole.value} primaryText={careCoordinatorWorkflowRole.display} />
           <MenuItem value={patientWorkflowRole.value} primaryText={patientWorkflowRole.display} />

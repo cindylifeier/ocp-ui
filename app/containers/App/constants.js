@@ -141,7 +141,7 @@ export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
 export const OCP_ADMIN_ROLE_VALUE = 'ocpAdminRole';
 export const CARE_MANAGER_ROLE_VALUE = 'CAREMNGR';
 export const CARE_COORDINATOR_ROLE_VALUE = '171M00000X';
-export const ORGANIZATION_ADMIN_ROLE_VALUE = 'orgAdminRole';
+export const ORGANIZATION_ADMIN_ROLE_VALUE = 'ORGADMIN';
 export const PATIENT_ROLE_VALUE = 'patientRole';
 export const PCP_ROLE_VALUE = 'pcpRole';
 
