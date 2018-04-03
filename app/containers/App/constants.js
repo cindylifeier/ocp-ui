@@ -143,7 +143,10 @@ export const CARE_MANAGER_ROLE_VALUE = 'CAREMNGR';
 export const CARE_COORDINATOR_ROLE_VALUE = '171M00000X';
 export const ORGANIZATION_ADMIN_ROLE_VALUE = 'ORGADMIN';
 export const PATIENT_ROLE_VALUE = 'patientRole';
-export const PCP_ROLE_VALUE = 'pcpRole';
+export const PCP_ROLE_VALUE = 'PCP';
+export const BENEFITS_SPECIALIST_ROLE_VALUE = 'BENETSPT';
+export const HEALTH_ASSISTANT_ROLE_VALUE = 'HASST';
+export const FRONT_OFFICE_ROLE_VALUE = 'FORECEPT';
 
 /**
  *  Constants to hold the default pagination page size and start page number
