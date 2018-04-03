@@ -18,7 +18,7 @@ import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderTasks from 'containers/Tasks/render';
 import renderPatientToDosComponent from 'containers/PatientToDos/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
+import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderConsents from 'containers/Consents/render';
 import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
@@ -191,7 +191,7 @@ export const componentMetadata = [
   { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstruction },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
 ];
 

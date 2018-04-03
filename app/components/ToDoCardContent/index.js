@@ -17,6 +17,8 @@ import ActionEvent from 'material-ui/svg-icons/action/event';
 import ContentFlag from 'material-ui/svg-icons/content/flag';
 import ToDoItemDescriptionBoxModel from 'components/ToDoCardContent/ToDoItemDescriptionBoxModel';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/ToDoCardContent/constants';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import ToDoCardHeader from 'components/ToDoCardHeader';
 import messages from './messages';
 
@@ -32,6 +34,7 @@ function ToDoCardContent(props) {
     patientId,
     isPatient,
     isPractitioner,
+    openDialog,
   } = props;
   const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
   const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
@@ -47,6 +50,7 @@ function ToDoCardContent(props) {
     }
     return statusElement;
   }
+
   return (
     <div>
       <ToDoCardHeader dueDateStr={dueDateStr} patientName={patientNameStr}></ToDoCardHeader>
@@ -64,7 +68,16 @@ function ToDoCardContent(props) {
             <Cell>
               { isPatient &&
                 <Align variant="right">
-                  <Link to={editTodoUrl}>Manage</Link>
+                  <NavigationStyledIconMenu>
+                    <MenuItem
+                      primaryText={<FormattedMessage {...messages.editToDo} />}
+                      containerElement={<Link to={editTodoUrl} />}
+                    />
+                    <MenuItem
+                      primaryText={<FormattedMessage {...messages.cancelToDo} />}
+                      onClick={() => openDialog(toDoLogicalId)}
+                    />
+                  </NavigationStyledIconMenu>
                 </Align>
               }
             </Cell>
@@ -86,6 +99,7 @@ ToDoCardContent.propTypes = {
   taskBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
   isPractitioner: PropTypes.bool,
+  openDialog: PropTypes.func,
 };
 
 export default ToDoCardContent;

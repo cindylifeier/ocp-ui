@@ -5,8 +5,9 @@
  */
 
 import {
-  GET_PATIENT_TO_DOS, GET_PATIENT_TO_DOS_ERROR, GET_PATIENT_TO_DOS_SUCCESS, GET_PATIENT_TO_DO_MAIN_TASK, GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
-  GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS,
+  GET_PATIENT_TO_DOS, GET_PATIENT_TO_DOS_ERROR, GET_PATIENT_TO_DOS_SUCCESS, GET_PATIENT_TO_DO_MAIN_TASK,
+  GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
+  GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS, CANCEL_TO_DO_SUCCESS, CANCEL_TO_DO, CANCEL_TO_DO_ERROR,
 } from 'containers/PatientToDos/constants';
 
 export function getPatientToDos(patientId, practitionerId, definition) {
@@ -54,6 +55,26 @@ export function getPatientToDoMainTaskSuccess(toDoMainTask) {
 export function getPatientToDoMainTaskError(error) {
   return {
     type: GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
+    error,
+  };
+}
+export function cancelToDos(toDoLogicalId) {
+  return {
+    type: CANCEL_TO_DO,
+    toDoLogicalId,
+  };
+}
+
+export function cancelToDoSuccess(toDos) {
+  return {
+    type: CANCEL_TO_DO_SUCCESS,
+    toDos,
+  };
+}
+
+export function cancelToDosError(error) {
+  return {
+    type: CANCEL_TO_DO_ERROR,
     error,
   };
 }
