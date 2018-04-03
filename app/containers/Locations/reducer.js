@@ -10,6 +10,9 @@ import {
   GET_ACTIVE_LOCATIONS,
   GET_FILTERED_LOCATIONS,
   GET_LOCATIONS_SUCCESS,
+  SEARCH_LOCATIONS,
+  SEARCH_LOCATIONS_ERROR,
+  SEARCH_LOCATIONS_SUCCESS,
   INITIALIZE_LOCATIONS,
 } from './constants';
 
@@ -41,6 +44,23 @@ function locationsReducer(state = initialState, action) {
       return state
         .setIn(['includeInactive'], false)
         .setIn(['includeSuspended'], false);
+    }
+    case SEARCH_LOCATIONS: {
+      return state
+        .setIn(['includeInactive'], true)
+        .setIn(['includeSuspended'], true);
+    }
+    case SEARCH_LOCATIONS_SUCCESS: {
+      return state
+        .set('data', fromJS((action.locations && action.locations.elements) || []))
+        .setIn(['totalNumberOfPages'], action.locations.totalNumberOfPages)
+        .setIn(['totalElements'], action.locations.totalElements)
+        .setIn(['currentPageSize'], action.locations.currentPageSize)
+        .setIn(['currentPage'], action.locations.currentPage);
+    }
+    case SEARCH_LOCATIONS_ERROR: {
+      return state
+        .setIn('error', action.error);
     }
     default:
       return state;
