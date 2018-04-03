@@ -21,18 +21,18 @@ export function* getConsentsSaga({ query: { pageNumber } }) {
     if (patientId && practitionerId) {
       queryParams = {
         pageNumber,
-        patientId,
-        practitionerId,
+        patient: patientId,
+        practitioner: practitionerId,
       };
     } else if (patientId) {
       queryParams = {
         pageNumber,
-        patientId,
+        patient: patientId,
       };
     } else if (practitionerId) {
       queryParams = {
         pageNumber,
-        practitionerId,
+        practitioner: practitionerId,
       };
     }
 
