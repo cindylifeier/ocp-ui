@@ -20,7 +20,7 @@ import renderPatientToDosComponent from 'containers/PatientToDos/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderConsents from 'containers/Consents/render';
-import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { PATIENT_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import GoldenLayout from 'components/GoldenLayout';
@@ -209,7 +209,7 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           <Cell>
             <PatientDetails
               patient={patient}
-              isPatientUser={user.role === PATIENT_ROLE_VALUE}
+              isPatientUser={user.role === PATIENT_ROLE_CODE}
               flattenPatientData={flattenPatientData}
             />
           </Cell>

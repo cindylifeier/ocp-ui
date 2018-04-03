@@ -18,7 +18,7 @@ import { flattenPatientData } from 'containers/PatientPage/helpers';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { PATIENT_ROLE_CODE } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasksComponent from 'containers/Tasks/render';
@@ -202,7 +202,7 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
 
   render() {
     const { patient, user } = this.props;
-    const isPatientUser = user.role === PATIENT_ROLE_VALUE;
+    const isPatientUser = user.role === PATIENT_ROLE_CODE;
     const patientDetailsProps = { patient, isPatientUser };
     return (
       <div>

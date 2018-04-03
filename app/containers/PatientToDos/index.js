@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
-import { CARE_COORDINATOR_ROLE_VALUE, MANAGE_TASK_URL } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_TASK_URL } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
 import { cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
@@ -59,7 +59,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
 
   getPractitionerId() {
     const { user } = this.props;
-    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_VALUE) ? user.resource.logicalId : null;
+    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
     return practitionerId;
   }
   getToDoMainTaskId(toDoMainTask) {

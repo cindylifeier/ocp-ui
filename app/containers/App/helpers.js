@@ -9,13 +9,13 @@ import identity from 'lodash/identity';
 import { PHONE_SYSTEM } from 'utils/constants';
 import {
   ADMIN_WORKSPACE,
-  CARE_COORDINATOR_ROLE_VALUE,
-  CARE_MANAGER_ROLE_VALUE,
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
   EMPTY_STRING,
   NEW_LINE_CHARACTER,
-  OCP_ADMIN_ROLE_VALUE,
-  ORGANIZATION_ADMIN_ROLE_VALUE,
-  PATIENT_ROLE_VALUE,
+  OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
   PATIENT_WORKSPACE,
   PRACTITIONER_WORKSPACE,
   WORKSPACE_SELECTION_URL,
@@ -80,19 +80,19 @@ function combineAddress(address) {
 export function getLinkUrlByRole(role) {
   let linkUrl;
   switch (role) {
-    case OCP_ADMIN_ROLE_VALUE:
+    case OCP_ADMIN_ROLE_CODE:
       linkUrl = ADMIN_WORKSPACE;
       break;
-    case ORGANIZATION_ADMIN_ROLE_VALUE:
+    case ORGANIZATION_ADMIN_ROLE_CODE:
       linkUrl = PRACTITIONER_WORKSPACE;
       break;
-    case CARE_MANAGER_ROLE_VALUE:
+    case CARE_MANAGER_ROLE_CODE:
       linkUrl = PRACTITIONER_WORKSPACE;
       break;
-    case CARE_COORDINATOR_ROLE_VALUE:
+    case CARE_COORDINATOR_ROLE_CODE:
       linkUrl = PRACTITIONER_WORKSPACE;
       break;
-    case PATIENT_ROLE_VALUE:
+    case PATIENT_ROLE_CODE:
       linkUrl = PATIENT_WORKSPACE;
       break;
     default:
