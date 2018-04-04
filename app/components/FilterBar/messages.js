@@ -6,8 +6,18 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
+  filterHeader: {
     id: 'ocpui.components.FilterBar.header',
-    defaultMessage: 'This is the FilterBar component !',
+    defaultMessage: 'Filter',
+  },
+  filterButtonLabel: {
+    id: 'ocpui.components.FilterBar.filterButtonLabel',
+    defaultMessage: 'Filter',
+  },
+  validation: {
+    required: {
+      id: 'ocpui.components.FilterBar.validation.required',
+      defaultMessage: 'Required',
+    },
   },
 });
