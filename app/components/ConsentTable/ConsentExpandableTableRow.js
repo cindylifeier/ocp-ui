@@ -12,7 +12,6 @@ import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledChip from 'components/StyledChip';
-import H3 from 'components/H3';
 import StyledIconButton from 'components/StyledIconButton';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import ConsentPurposeList from './ConsentPurposeList';
@@ -97,7 +96,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
         </TableRow>
         {this.state.isShowAccordion && <ConsentDetailsGrid columns={1}>
           <Cell>
-            <H3><FormattedMessage {...messages.purpose} /></H3>
+            <FormattedMessage {...messages.purpose} />
           </Cell>
           <Cell>
             <ConsentPurposeList>
