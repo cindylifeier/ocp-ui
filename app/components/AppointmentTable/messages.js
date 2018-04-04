@@ -35,7 +35,7 @@ export default defineMessages({
     defaultMessage: 'Action',
   },
   cancelAppointment: {
-    id: 'ocpui.components.AppointmentTable.menuItemCancel',
+    id: 'ocpui.components.AppointmentTable.cancelAppointment',
     defaultMessage: 'Cancel',
   },
   addCommunication: {
