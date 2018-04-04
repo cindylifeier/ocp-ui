@@ -11,11 +11,17 @@ import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
+import union from 'lodash/union';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLinkUrlByRole, mapToName } from 'containers/App/helpers';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import {
+  CARE_MANAGER_ROLE_CODE,
+  DEFAULT_START_PAGE_NUMBER,
+  OCP_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
+} from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import WorkspaceSelection from 'components/WorkspaceSelection';
@@ -34,14 +40,13 @@ import {
   makeSelectPractitionersData,
   makeSelectWorkflowRolesData,
 } from './selectors';
-import { flattenOrganizationData, flattenPatientData, mapToRoleObject } from './helpers';
+import { filteredFunctionalRoles, flattenOrganizationData, flattenPatientData, mapToRoleObject } from './helpers';
 
 export class WorkspaceSelectionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
     this.state = {
-      defaultRole: props.workflowRoles && props.workflowRoles.careManagerWorkflowRole && props.workflowRoles.careManagerWorkflowRole.value,
       searchPatients: {
         searchValue: '',
         searchType: 'name',
@@ -65,13 +70,6 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
 
   componentDidMount() {
     this.props.getWorkflowRoles();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const defaultRole = nextProps.workflowRoles && nextProps.workflowRoles.careManagerWorkflowRole && nextProps.workflowRoles.careManagerWorkflowRole.value;
-    if (defaultRole !== this.state.defaultRole) {
-      this.setState({ defaultRole });
-    }
   }
 
   handleSetWorkspaceContext(role, organization, practitioner, patient) {
@@ -119,12 +117,22 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     const {
       history, searchOrganizationsData, practitioners, searchPatientsData, workflowRoles,
     } = this.props;
+    const ocpAdminFunctionalRole = {
+      code: OCP_ADMIN_ROLE_CODE,
+      display: 'OCP Admin',
+    };
+    const patientFunctionalRole = {
+      code: PATIENT_ROLE_CODE,
+      display: 'Patient',
+    };
     const workspaceSelectionProps = {
       history,
       searchOrganizationsData,
       practitioners,
       searchPatientsData,
-      workflowRoles,
+      workflowRoles: union([ocpAdminFunctionalRole, patientFunctionalRole], filteredFunctionalRoles(workflowRoles)),
+      ocpAdminRoleCode: OCP_ADMIN_ROLE_CODE,
+      patientRoleCode: PATIENT_ROLE_CODE,
     };
     return (
       <div>
@@ -135,7 +143,7 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
         {!isEmpty(workflowRoles) &&
         <WorkspaceSelection
           {...workspaceSelectionProps}
-          defaultRole={this.state.defaultRole}
+          defaultRole={CARE_MANAGER_ROLE_CODE}
           initializeSelection={this.props.initializeSelection}
           mapToRoleObject={mapToRoleObject}
           mapToName={mapToName}
@@ -162,7 +170,12 @@ WorkspaceSelectionPage.propTypes = {
   practitioners: PropTypes.any.isRequired,
   searchPatientsData: PropTypes.any.isRequired,
   searchOrganizationsData: PropTypes.any.isRequired,
-  workflowRoles: PropTypes.any.isRequired,
+  workflowRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
   user: PropTypes.object,
   initializeSelection: PropTypes.func.isRequired,
   getWorkflowRoles: PropTypes.func.isRequired,

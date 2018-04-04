@@ -20,7 +20,7 @@ import { getPractitionersOnRoleOrganization, getWorkflowRoles, searchPatients } 
 export function* getWorkflowRolesSaga() {
   try {
     const workflowRoles = yield call(getWorkflowRoles);
-    yield put(getWorkflowRolesSuccess(workflowRoles));
+    yield put(getWorkflowRolesSuccess(workflowRoles.providerRoles));
   } catch (err) {
     yield put(showNotification('Failed to get the workflow roles.'));
   }

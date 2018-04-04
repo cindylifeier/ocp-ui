@@ -19,7 +19,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
-  CARE_COORDINATOR_ROLE_VALUE,
+  CARE_COORDINATOR_ROLE_CODE,
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
@@ -110,7 +110,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
     const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
-    const addNewItem = (patientId && role === CARE_COORDINATOR_ROLE_VALUE) ? {
+    const addNewItem = (patientId && role === CARE_COORDINATOR_ROLE_CODE) ? {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_APPOINTMENT_URL,
