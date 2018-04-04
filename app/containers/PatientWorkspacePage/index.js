@@ -16,8 +16,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderTasks from 'containers/Tasks/render';
-import renderPatientToDosComponent from 'containers/PatientToDos/render';
-import renderCommunicationsComponent from 'containers/Communications/render';
+import renderCareTeamsComponent from 'containers/CareTeams/render';
+import renderRelatedPersonsComponent from 'containers/RelatedPersons/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderConsents from 'containers/Consents/render';
 import { PATIENT_ROLE_CODE } from 'containers/App/constants';
@@ -65,17 +65,16 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'column',
+      type: 'row',
       isClosable: true,
       reorderEnabled: true,
       title: '',
-      width: 100,
       content: [{
-        type: 'row',
+        type: 'column',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        height: 60,
+        width: 50,
         content: [{
           type: 'stack',
           header: {},
@@ -84,15 +83,13 @@ export const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           height: 60,
-          width: 50,
           content: [{
-            title: 'My To Do',
+            title: 'Tasks',
             type: 'component',
-            componentName: 'toDo',
+            componentName: 'tasks',
             isClosable: true,
             reorderEnabled: true,
-          },
-          ],
+          }],
         }, {
           type: 'stack',
           header: {},
@@ -101,84 +98,84 @@ export const initialStateMetadata =
           title: '',
           activeItemIndex: 0,
           width: 50,
+          height: 60,
           content: [{
             title: 'Calendar',
             type: 'component',
             componentName: 'calendar',
             isClosable: true,
             reorderEnabled: true,
-          },
-          ],
-        },
-        ],
+          }],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 60,
+          content: [{
+            title: 'Care Teams',
+            type: 'component',
+            componentName: 'careTeams',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
       }, {
-        type: 'stack',
-        header: {},
+        type: 'column',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        activeItemIndex: 0,
-        height: 60,
+        width: 50,
         content: [{
-          title: 'Tasks',
-          type: 'component',
-          componentName: 'tasks',
+          type: 'stack',
+          header: {},
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 60,
-        content: [{
-          title: 'Communication',
-          type: 'component',
-          componentName: 'communication',
+          title: '',
+          activeItemIndex: 0,
+          height: 60,
+          content: [{
+            title: 'My Appointments',
+            type: 'component',
+            componentName: 'appointments',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          header: {},
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 60,
-        content: [{
-          title: 'My Appointments',
-          type: 'component',
-          componentName: 'appointments',
+          title: '',
+          activeItemIndex: 0,
+          height: 60,
+          content: [{
+            title: 'Consents',
+            type: 'component',
+            componentName: 'consents',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          width: 50,
+          height: 60,
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 60,
-        content: [{
-          title: 'Consents',
-          type: 'component',
-          componentName: 'consents',
-          isClosable: true,
-          reorderEnabled: true,
-        },
-        ],
-      },
-      ],
-    },
-    ],
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Related Persons',
+            type: 'component',
+            componentName: 'relatedPersons',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
+      }],
+    }],
     isClosable: true,
     reorderEnabled: true,
     title: '',
@@ -187,12 +184,12 @@ export const initialStateMetadata =
   };
 
 export const componentMetadata = [
-  { name: 'toDo', text: 'My to do', factoryMethod: renderPatientToDosComponent },
-  { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstruction },
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
-  { name: 'communication', text: 'Communication', factoryMethod: renderCommunicationsComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
+  { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstruction },
   { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
+  { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
+  { name: 'relatedPersons', text: 'Related Persons', factoryMethod: renderRelatedPersonsComponent },
 ];
 
 export class PatientWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -215,7 +212,7 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           </Cell>
           <Cell>
             <GoldenLayout
-              containerHeight="350vh"
+              containerHeight="200vh"
               containerId="golden-patient-workspace"
               componentMetadata={componentMetadata}
               stateMetadata={initialStateMetadata}
