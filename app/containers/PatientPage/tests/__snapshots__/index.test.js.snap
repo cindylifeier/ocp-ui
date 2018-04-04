@@ -105,6 +105,11 @@ ShallowWrapper {
                     "name": "calendar",
                     "text": "CALENDAR",
                   },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "consents",
+                    "text": "Consents",
+                  },
                 ]
               }
               containerHeight="200vh"
@@ -203,6 +208,24 @@ ShallowWrapper {
                                   "isClosable": true,
                                   "reorderEnabled": true,
                                   "title": "My Appointments",
+                                  "type": "component",
+                                },
+                              ],
+                              "header": Object {},
+                              "height": 50,
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "",
+                              "type": "stack",
+                            },
+                            Object {
+                              "activeItemIndex": 0,
+                              "content": Array [
+                                Object {
+                                  "componentName": "consents",
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "Consents",
                                   "type": "component",
                                 },
                               ],
@@ -367,6 +390,11 @@ ShallowWrapper {
                       "name": "calendar",
                       "text": "CALENDAR",
                     },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
+                    },
                   ]
                 }
                 containerHeight="200vh"
@@ -465,6 +493,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],
@@ -608,6 +654,11 @@ ShallowWrapper {
                       "name": "calendar",
                       "text": "CALENDAR",
                     },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
+                    },
                   ]
                 }
                 containerHeight="200vh"
@@ -716,6 +767,24 @@ ShallowWrapper {
                                 "title": "",
                                 "type": "stack",
                               },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
                             ],
                             "isClosable": true,
                             "reorderEnabled": true,
@@ -803,6 +872,11 @@ ShallowWrapper {
                     "factoryMethod": [Function],
                     "name": "calendar",
                     "text": "CALENDAR",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "consents",
+                    "text": "Consents",
                   },
                 ],
                 "containerHeight": "200vh",
@@ -900,6 +974,24 @@ ShallowWrapper {
                                   "isClosable": true,
                                   "reorderEnabled": true,
                                   "title": "My Appointments",
+                                  "type": "component",
+                                },
+                              ],
+                              "header": Object {},
+                              "height": 50,
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "",
+                              "type": "stack",
+                            },
+                            Object {
+                              "activeItemIndex": 0,
+                              "content": Array [
+                                Object {
+                                  "componentName": "consents",
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "Consents",
                                   "type": "component",
                                 },
                               ],
@@ -1040,6 +1132,11 @@ ShallowWrapper {
                       "name": "calendar",
                       "text": "CALENDAR",
                     },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
+                    },
                   ]
                 }
                 containerHeight="200vh"
@@ -1138,6 +1235,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],
@@ -1302,6 +1417,11 @@ ShallowWrapper {
                         "name": "calendar",
                         "text": "CALENDAR",
                       },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "consents",
+                        "text": "Consents",
+                      },
                     ]
                   }
                   containerHeight="200vh"
@@ -1400,6 +1520,24 @@ ShallowWrapper {
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "My Appointments",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "height": 50,
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "consents",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Consents",
                                       "type": "component",
                                     },
                                   ],
@@ -1543,6 +1681,11 @@ ShallowWrapper {
                         "name": "calendar",
                         "text": "CALENDAR",
                       },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "consents",
+                        "text": "Consents",
+                      },
                     ]
                   }
                   containerHeight="200vh"
@@ -1651,6 +1794,24 @@ ShallowWrapper {
                                   "title": "",
                                   "type": "stack",
                                 },
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "consents",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Consents",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "height": 50,
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
                               ],
                               "isClosable": true,
                               "reorderEnabled": true,
@@ -1738,6 +1899,11 @@ ShallowWrapper {
                       "factoryMethod": [Function],
                       "name": "calendar",
                       "text": "CALENDAR",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
                     },
                   ],
                   "containerHeight": "200vh",
@@ -1835,6 +2001,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],
