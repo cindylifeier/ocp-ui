@@ -60,9 +60,9 @@ class ConsentExpandableTableRow extends React.PureComponent {
               </div>
             ),
           )}</TableRowColumn>
-          <TableRowColumn>{toGeneralDesignation || toActor.map(({ reference, display }) =>
+          <TableRowColumn>{toGeneralDesignation || toActor.map(({ display }) =>
             (
-              <div key={`${reference}`}>
+              <div key={uniqueId()}>
                 {display}
                 <br />
               </div>
