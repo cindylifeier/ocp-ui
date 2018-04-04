@@ -117,7 +117,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
         linkUrl: MANAGE_APPOINTMENT_URL,
       },
     } : undefined;
-    const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_VALUE);
+    const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_CODE);
     return (
       <div>
         <Card>
