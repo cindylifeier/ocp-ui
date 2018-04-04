@@ -78,12 +78,11 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     const { tasks: { loading, data }, patient, user } = this.props;
-    const addNewItem = user.role === PATIENT_ROLE_CODE ? undefined : {
     let taskList = data;
     if (!isEmpty(data)) {
       taskList = data.filter((task) => task.description !== TO_DO_DEFINITION);
     }
-    const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
+    const addNewItem = user.role === PATIENT_ROLE_CODE ? undefined : {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_TASK_URL,
     };
