@@ -29,7 +29,7 @@ import messages from './messages';
 const tableColumns = 'repeat(6, 1fr) 50px';
 
 function CommunicationsTable(props) {
-  const { loading, data, selectedPatientId, manageCommunicationBaseUrl } = props.communicationsData;
+  const { loading, data, selectedPatient, manageCommunicationBaseUrl } = props.communicationsData;
   return (
     <div>
       {loading && <RefreshIndicatorLoading />}
@@ -70,7 +70,7 @@ function CommunicationsTable(props) {
                             containerElement={<Link
                               to={{
                                 pathname: `${manageCommunicationBaseUrl}/${communication.logicalId}`,
-                                search: `?patientId=${selectedPatientId}`,
+                                search: `?patientId=${selectedPatient.id}`,
                               }}
                             />}
                           />
@@ -104,7 +104,10 @@ CommunicationsTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   communicationsData: PropTypes.shape({
     manageCommunicationBaseUrl: PropTypes.string.isRequired,
-    selectedPatientId: PropTypes.string.isRequired,
+    selectedPatient: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.array,
+    }),
     loading: PropTypes.bool.isRequired,
     data: PropTypes.shape({
       currentPage: PropTypes.number,
