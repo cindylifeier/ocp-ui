@@ -15,6 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { CONSENT_ACTION, CONSENT_CATEGORY, CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_ROLE_TYPE } from 'containers/App/constants';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
@@ -32,6 +33,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
   }
   render() {
     const {
+      patient,
       consentStateCodes,
       consentCategory,
       securityRoleType,
@@ -39,6 +41,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       purposeOfUse,
     } = this.props;
     const consentProps = {
+      patient,
       consentStateCodes,
       consentCategory,
       securityRoleType,
@@ -64,6 +67,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
 
 ManageConsentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
+  patient: PropTypes.object,
   consentStateCodes: PropTypes.array,
   consentCategory: PropTypes.array,
   securityRoleType: PropTypes.array,
@@ -74,6 +78,7 @@ ManageConsentPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  patient: makeSelectPatient(),
   consentStateCodes: makeSelectConsentStateCodes(),
   consentCategory: makeSelectConsentCategory(),
   securityRoleType: makeSelectSecurityRoleType(),
