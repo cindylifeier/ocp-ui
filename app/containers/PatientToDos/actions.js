@@ -66,10 +66,10 @@ export function cancelToDos(toDoLogicalId) {
   };
 }
 
-export function cancelToDoSuccess(toDos) {
+export function cancelToDoSuccess(toDoLogicalId) {
   return {
     type: CANCEL_TO_DO_SUCCESS,
-    toDos,
+    toDoLogicalId,
   };
 }
 
