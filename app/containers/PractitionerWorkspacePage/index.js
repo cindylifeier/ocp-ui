@@ -13,6 +13,11 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import {
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+} from 'containers/App/constants';
 import GoldenLayout from 'components/GoldenLayout';
 import renderPractitioners from 'containers/Practitioners/render';
 import renderUnderConstruction from 'components/UnderConstruction/render';
@@ -23,7 +28,6 @@ import renderHealthcareServicesComponent from 'containers/HealthcareServices/ren
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
 import renderPractitionerUpcomingAppointments from 'containers/PractitionerAppointments/render';
 import { makeSelectUser } from 'containers/App/contextSelectors';
-import { makeSelectWorkflowRolesData } from 'containers/WorkspaceSelectionPage/selectors';
 import makeSelectPractitionerWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -421,16 +425,13 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
   }
 
   getStateMetadataForRole() {
-    const ORGANIZATION_ADMIN = this.props.workflowRoles.orgAdminWorkflowRole.value;
-    const CARE_MANAGER = this.props.workflowRoles.careManagerWorkflowRole.value;
-    const CARE_COORDINATOR = this.props.workflowRoles.careCoordinatorWorkflowRole.value;
     const { user: { role } } = this.props;
     switch (role) {
-      case ORGANIZATION_ADMIN:
+      case ORGANIZATION_ADMIN_ROLE_CODE:
         return PractitionerWorkspacePage.orgAdminLayout;
-      case CARE_MANAGER:
+      case CARE_MANAGER_ROLE_CODE:
         return PractitionerWorkspacePage.careManagerLayout;
-      case CARE_COORDINATOR:
+      case CARE_COORDINATOR_ROLE_CODE:
         return PractitionerWorkspacePage.careCoordinatorLayout;
       default:
         return null;
@@ -462,23 +463,11 @@ PractitionerWorkspacePage.propTypes = {
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,
   }).isRequired,
-  workflowRoles: PropTypes.shape({
-    orgAdminWorkflowRole: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    careManagerWorkflowRole: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    careCoordinatorWorkflowRole: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   practitionerworkspacepage: makeSelectPractitionerWorkspacePage(),
   user: makeSelectUser(),
-  workflowRoles: makeSelectWorkflowRolesData(),
 });
 
 function mapDispatchToProps(dispatch) {
