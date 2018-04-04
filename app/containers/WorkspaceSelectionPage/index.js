@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
+import union from 'lodash/union';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -116,12 +117,20 @@ export class WorkspaceSelectionPage extends React.Component { // eslint-disable-
     const {
       history, searchOrganizationsData, practitioners, searchPatientsData, workflowRoles,
     } = this.props;
+    const ocpAdminFunctionalRole = {
+      code: OCP_ADMIN_ROLE_CODE,
+      display: 'OCP Admin',
+    };
+    const patientFunctionalRole = {
+      code: PATIENT_ROLE_CODE,
+      display: 'Patient',
+    };
     const workspaceSelectionProps = {
       history,
       searchOrganizationsData,
       practitioners,
       searchPatientsData,
-      workflowRoles: filteredFunctionalRoles(workflowRoles),
+      workflowRoles: union([ocpAdminFunctionalRole, patientFunctionalRole], filteredFunctionalRoles(workflowRoles)),
       ocpAdminRoleCode: OCP_ADMIN_ROLE_CODE,
       patientRoleCode: PATIENT_ROLE_CODE,
     };
