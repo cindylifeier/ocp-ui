@@ -16,6 +16,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
+import Util from 'utils/Util';
 import messages from './messages';
 
 import SelectedParticipants from './SelectedParticipants';
@@ -29,6 +30,7 @@ function ManageAppointmentForm(props) {
     appointmentTypes,
     handleOpen,
     selectedParticipants,
+    initialSelectedParticipants,
     removeParticipant,
     patient,
   } = props;
@@ -131,7 +133,7 @@ function ManageAppointmentForm(props) {
                   fullWidth
                   type="submit"
                   label="Save"
-                  disabled={!dirty || isSubmitting || !isValid}
+                  disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid}
                 />
               </Cell>
               <Cell>
@@ -156,6 +158,7 @@ ManageAppointmentForm.propTypes = {
     name: PropTypes.array.isRequired,
   }),
   selectedParticipants: PropTypes.array,
+  initialSelectedParticipants: PropTypes.array,
   appointmentTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -163,3 +166,13 @@ ManageAppointmentForm.propTypes = {
 };
 
 export default ManageAppointmentForm;
+
+function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
+  let isDirty = dirty;
+  const identityOfArray = 'memberId';
+  if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
+    isDirty = true;
+  }
+
+  return isDirty;
+}
