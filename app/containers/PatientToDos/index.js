@@ -164,7 +164,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
-    getPatientToDoMainTask: (patientId, organizationId, definition) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition)),
+    getPatientToDoMainTask: (patientId, organizationId, definition, practitionerId) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition, practitionerId)),
     cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
   };
 }
