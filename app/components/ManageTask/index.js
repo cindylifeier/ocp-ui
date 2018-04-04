@@ -158,7 +158,7 @@ function mapMainTaskToCreateForm(organization, parentTask, selectedPatient, requ
   let selOrganization = {};
   if (organization && organization.length > 0 && organization[0] != null && organization[0].display != null) {
     selOrganization = {
-      selOrganization: organization[0].display,
+      selOrganization: organization[0].display ? organization[0].display : '',
     };
   }
   const patientName = {
