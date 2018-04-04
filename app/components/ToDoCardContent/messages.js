@@ -14,6 +14,14 @@ export default defineMessages({
     id: 'ocpui.components.ToDoCardContent.todoStatusOverdue',
     defaultMessage: 'Overdue',
   },
+  editToDo: {
+    id: 'ocpui.components.ToDoCardContent.editToDo',
+    defaultMessage: 'Edit',
+  },
+  cancelToDo: {
+    id: 'ocpui.components.ToDoCardContent.cancelToDo',
+    defaultMessage: 'Cancel',
+  },
   todoStatusUpcoming: {
     id: 'ocpui.components.ToDoCardContent.todoStatusUpcoming',
     defaultMessage: 'Upcoming',

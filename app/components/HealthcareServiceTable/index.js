@@ -22,6 +22,8 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
+const tableColumns = 'repeat(7, 1fr) 50px';
+
 function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop }) {
   function getDisplayNameFromValueSetList(valueSets) {
     return valueSets && valueSets.map((entry) =>
@@ -49,7 +51,7 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
     <div>
       {!showAssigned &&
       <Table>
-        <TableHeader relativeTop={relativeTop}>
+        <TableHeader columns={tableColumns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
@@ -57,10 +59,9 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
-          <TableHeaderColumn></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => (
-          <TableRow key={element.logicalId}>
+          <TableRow key={element.logicalId} columns={tableColumns}>
             <TableRowColumn>{element.name}</TableRowColumn>
             <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
             <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>

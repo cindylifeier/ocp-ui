@@ -17,6 +17,8 @@ import ActionEvent from 'material-ui/svg-icons/action/event';
 import ContentFlag from 'material-ui/svg-icons/content/flag';
 import ToDoItemDescriptionBoxModel from 'components/ToDoCardContent/ToDoItemDescriptionBoxModel';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/ToDoCardContent/constants';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import ToDoCardHeader from 'components/ToDoCardHeader';
 import messages from './messages';
 
@@ -31,21 +33,24 @@ function ToDoCardContent(props) {
     taskBaseUrl,
     patientId,
     isPatient,
+    isPractitioner,
+    openDialog,
   } = props;
-  const dueDateStr = 'Due '.concat(dueDate);
-  const patientNameStr = !isPatient ? patientName : '';
+  const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
+  const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
   const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
-      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
     } else if (statusStr === DUE_TODAY) {
       statusElement = (<div><ActionEvent /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
     return statusElement;
   }
+
   return (
     <div>
       <ToDoCardHeader dueDateStr={dueDateStr} patientName={patientNameStr}></ToDoCardHeader>
@@ -63,7 +68,16 @@ function ToDoCardContent(props) {
             <Cell>
               { isPatient &&
                 <Align variant="right">
-                  <Link to={editTodoUrl}>Manage</Link>
+                  <NavigationStyledIconMenu>
+                    <MenuItem
+                      primaryText={<FormattedMessage {...messages.editToDo} />}
+                      containerElement={<Link to={editTodoUrl} />}
+                    />
+                    <MenuItem
+                      primaryText={<FormattedMessage {...messages.cancelToDo} />}
+                      onClick={() => openDialog(toDoLogicalId)}
+                    />
+                  </NavigationStyledIconMenu>
                 </Align>
               }
             </Cell>
@@ -82,8 +96,10 @@ ToDoCardContent.propTypes = {
   status: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   toDoLogicalId: PropTypes.string.isRequired,
-  taskBaseUrl: PropTypes.string.isRequired,
+  taskBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
+  isPractitioner: PropTypes.bool,
+  openDialog: PropTypes.func,
 };
 
 export default ToDoCardContent;

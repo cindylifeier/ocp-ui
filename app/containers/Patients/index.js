@@ -20,7 +20,7 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
-import { CARE_MANAGER_ROLE_VALUE, MANAGE_PATIENT_URL } from 'containers/App/constants';
+import { CARE_MANAGER_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import {
@@ -109,7 +109,7 @@ export class Patients extends React.Component {
       error,
       searchResult,
     };
-    const addNewItem = role === CARE_MANAGER_ROLE_VALUE ? {
+    const addNewItem = role === CARE_MANAGER_ROLE_CODE ? {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_PATIENT_URL,

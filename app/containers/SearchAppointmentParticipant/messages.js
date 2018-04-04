@@ -46,6 +46,10 @@ export default defineMessages({
     id: 'ocpui.components.SearchAppointmentParticipant.participantTableHeaderEndTime',
     defaultMessage: 'End Time',
   },
+  participantTableHeaderParticipantType: {
+    id: 'ocpui.components.SearchAppointmentParticipant.participantTableHeaderParticipantType',
+    defaultMessage: 'Participant Type',
+  },
   participantTableHeaderParticipationType: {
     id: 'ocpui.components.SearchAppointmentParticipant.participantTableHeaderParticipationType',
     defaultMessage: 'Participation Type',
@@ -120,6 +124,10 @@ export default defineMessages({
     participantRole: {
       id: 'ocpui.components.SearchAppointmentParticipant.floatingLabelText.participantRole',
       defaultMessage: 'Role',
+    },
+    participantType: {
+      id: 'ocpui.components.SearchAppointmentParticipant.floatingLabelText.participantType',
+      defaultMessage: 'Type',
     },
     participationType: {
       id: 'ocpui.components.SearchAppointmentParticipant.floatingLabelText.participationType',
