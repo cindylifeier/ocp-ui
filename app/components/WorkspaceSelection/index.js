@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
 import { Step, StepLabel, Stepper } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -53,14 +54,11 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   defineStepContentBasedOnRole() {
-    const {
-      ocpAdminWorkflowRole, patientWorkflowRole,
-    } = this.props.workflowRoles;
-
+    const { ocpAdminRoleCode, patientRoleCode } = this.props;
     switch (this.state.roleValue) {
-      case ocpAdminWorkflowRole.value:
+      case ocpAdminRoleCode:
         return this.renderOcpAdminStepContent();
-      case patientWorkflowRole.value:
+      case patientRoleCode:
         return this.renderPatientStepContent();
       default:
         return this.renderPractitionerStepContent();
@@ -128,8 +126,8 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     }
   }
 
-  mapToRoleDisplay(roleValue) {
-    const roleObject = this.props.mapToRoleObject(this.props.workflowRoles, roleValue);
+  mapToRoleDisplay(roleCode) {
+    const roleObject = this.props.mapToRoleObject(this.props.workflowRoles, roleCode);
     return roleObject.display;
   }
 
@@ -179,7 +177,7 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
     this.setState({
       finished: false,
       stepIndex: 0,
-      roleValue: this.props.workflowRoles.careManagerWorkflowRole.value,
+      roleValue: this.props.defaultRole,
       practitionerValue: null,
       selectOrganization: null,
       selectPatient: null,
@@ -187,23 +185,22 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
   }
 
   renderSelectRoleContent() {
-    const {
-      ocpAdminWorkflowRole, orgAdminWorkflowRole, careManagerWorkflowRole,
-      careCoordinatorWorkflowRole, patientWorkflowRole,
-    } = this.props.workflowRoles;
+    const { workflowRoles } = this.props;
     return (
       <div>
         <RoleSelectField
-          width="200px"
+          width="215px"
           floatingLabelText="Select Role"
           value={this.state.roleValue}
           onChange={this.handleRoleChange}
         >
-          <MenuItem value={ocpAdminWorkflowRole.value} primaryText={ocpAdminWorkflowRole.display} />
-          <MenuItem value={orgAdminWorkflowRole.value} primaryText={orgAdminWorkflowRole.display} />
-          <MenuItem value={careManagerWorkflowRole.value} primaryText={careManagerWorkflowRole.display} />
-          <MenuItem value={careCoordinatorWorkflowRole.value} primaryText={careCoordinatorWorkflowRole.display} />
-          <MenuItem value={patientWorkflowRole.value} primaryText={patientWorkflowRole.display} />
+          {workflowRoles && workflowRoles.map((workflowRole) =>
+            (<MenuItem
+              key={uniqueId()}
+              value={workflowRole.code}
+              primaryText={workflowRole.display}
+            />),
+          )}
         </RoleSelectField>
       </div>
     );
@@ -405,7 +402,14 @@ WorkspaceSelection.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
-  workflowRoles: PropTypes.any.isRequired,
+  ocpAdminRoleCode: PropTypes.string.isRequired,
+  patientRoleCode: PropTypes.string.isRequired,
+  workflowRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })).isRequired,
   searchOrganizationsData: PropTypes.any.isRequired,
   searchPatientsData: PropTypes.any.isRequired,
   practitioners: PropTypes.shape({
