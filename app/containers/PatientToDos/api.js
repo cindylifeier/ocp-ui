@@ -23,6 +23,13 @@ export function getToDoMainTask(patientId, organizationId, definition) {
   return request(url);
 }
 
+export function getFilterToDos(patientId, definition, filterDate) {
+  const queryParams = { patientId, definition, filterDate };
+  const stringifiedParams = queryString.stringify(queryParams);
+  const url = `${baseEndpoint}?${stringifiedParams}`;
+  return request(url);
+}
+
 export function cancelToDo(toDoLogicalId) {
   const url = `${baseEndpoint}/${toDoLogicalId}/deactivate`;
   return request(url,
