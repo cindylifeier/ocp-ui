@@ -30,7 +30,7 @@ export function getAppointmentById(appointments, appointmentId) {
 
 export function createAppointment(appointmentFormData) {
   const requestUrl = `${baseEndpoint}`;
-  const body = JSON.stringify(mapToBackendAppointmentDuringCreate(appointmentFormData));
+  const body = JSON.stringify(mapToBackendAppointment(appointmentFormData, true));
   return request(requestUrl, {
     method: 'POST',
     headers,
@@ -43,15 +43,15 @@ function updateAppointment(appointmentFormData) {
   const requestURL = `${baseEndpoint}/${appointmentId}`;
   return request(requestURL, {
     method: 'PUT',
-    body: JSON.stringify(mapToBackendAppointmentDuringUpdate(appointmentFormData)),
+    body: JSON.stringify(mapToBackendAppointment(appointmentFormData, false)),
     headers: {
       'Content-Type': 'application/json',
     },
   });
 }
 
-function mapToBackendAppointmentDuringCreate(appointmentFormData) {
-  const { appointmentType, date, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
+function mapToBackendAppointment(appointmentFormData, isCreate) {
+  const { appointmentStatus, appointmentType, date, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
   const appointmentDataToSubmit = {};
   if (!isUndefined(description)) {
     appointmentDataToSubmit.description = description;
@@ -80,22 +80,31 @@ function mapToBackendAppointmentDuringCreate(appointmentFormData) {
     utcMinutes = toDoubleChars(new Date(endTime).getUTCMinutes());
     appointmentDataToSubmit.end = `${appointmentDateString}T${utcHours}:${utcMinutes}:00.00`;
   }
-  appointmentDataToSubmit.creatorReference = `Practitioner/${practitionerId}`;
-  appointmentDataToSubmit.creatorName = practitionerName;
-
-  const patientParticipant = [];
-  const patientReference = `Patient/${patientId}`;
-  patientParticipant.push({
-    actorReference: patientReference,
-    actorName: patientName,
-  });
-  appointmentDataToSubmit.participant = patientParticipant;
 
   // Participants
   if (!isUndefined(participants) && !isEmpty(participants)) {
-    const otherParticipants = mapToBffParticipants(participants);
-    otherParticipants.map((participant) => appointmentDataToSubmit.participant.push(participant));
+    appointmentDataToSubmit.participant = mapToBffParticipants(participants);
   }
+
+  if (isCreate) {
+    appointmentDataToSubmit.creatorReference = `Practitioner/${practitionerId}`;
+    appointmentDataToSubmit.creatorName = practitionerName;
+
+    const patientParticipant = [];
+    const patientReference = `Patient/${patientId}`;
+    patientParticipant.push({
+      actorReference: patientReference,
+      actorName: patientName,
+    });
+    if (!isUndefined(appointmentDataToSubmit.participant) && !isEmpty(appointmentDataToSubmit.participant)) {
+      patientParticipant.map((participant) => appointmentDataToSubmit.participant.push(participant));
+    } else {
+      appointmentDataToSubmit.participant = patientParticipant;
+    }
+  } else {
+    appointmentDataToSubmit.statusCode = appointmentStatus;
+  }
+
   return appointmentDataToSubmit;
 }
 
@@ -117,20 +126,15 @@ export function mapToEditParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        participationTypeCode: participant.participationTypeCode,
-        participantRequiredCode: participant.participantRequiredCode,
-        participationStatusCode: participant.participationStatusCode,
-        actorReference: participant.actorReference,
-        actorName: participant.actorName,
+        participationType: { code: participant.participationTypeCode },
+        required: { code: participant.participantRequiredCode },
+        status: { code: participant.participationStatusCode },
+        memberType: participant.actorReference.substr(0, participant.actorReference.indexOf('/')),
+        memberId: participant.actorReference.substr(participant.actorReference.indexOf('/') + 1),
+        name: participant.actorName,
       }));
   }
   return [];
-}
-
-
-function mapToBackendAppointmentDuringUpdate(appointmentFormData) {
-  // TODO: When edit appointment is implemented
-  return appointmentFormData;
 }
 
 function toDoubleChars(number) {
