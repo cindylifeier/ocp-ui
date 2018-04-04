@@ -101,7 +101,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
           <Cell>
             <ConsentPurposeList>
               {purpose.map(({ display }) =>
-                (<StyledChip>
+                (<StyledChip key={uniqueId()}>
                   <CheckCircle color="white" />
                   {display}
                 </StyledChip>),
