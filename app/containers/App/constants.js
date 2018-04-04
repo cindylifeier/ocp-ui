@@ -100,6 +100,8 @@ export const COMMUNICATION_MEDIUM = 'COMMUNICATION_MEDIUM';
 export const FLAG_STATUS = 'FLAG_STATUS';
 export const FLAG_CATEGORY = 'FLAG_CATEGORY';
 
+// To do filter date range
+export const DATE_RANGE = 'DATE_RANGE';
 // Consent Resource Lookups - Start
 export const CONSENT_STATE_CODES = 'CONSENT_STATE_CODES';
 export const CONSENT_CATEGORY = 'CONSENT_CATEGORY';
