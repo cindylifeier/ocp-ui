@@ -20,7 +20,7 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
-import { CARE_MANAGER_ROLE_VALUE, MANAGE_PATIENT_URL } from 'containers/App/constants';
+import { CARE_MANAGER_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import {
@@ -45,6 +45,7 @@ export class Patients extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      relativeTop: 0,
       currentPage: 1,
       patient: null,
       isPatientModalOpen: false,
@@ -52,9 +53,9 @@ export class Patients extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handlePatientClick = this.handlePatientClick.bind(this);
-
     this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
     this.handlePatientModalClose = this.handlePatientModalClose.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +72,10 @@ export class Patients extends React.Component {
     if (!isEqual(patient, newPatient) && !this.props.currentPage) {
       this.props.initializePatients([newPatient]);
     }
+  }
+
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
   }
 
   handlePatientClick(patient) {
@@ -104,7 +109,7 @@ export class Patients extends React.Component {
       error,
       searchResult,
     };
-    const addNewItem = role === CARE_MANAGER_ROLE_VALUE ? {
+    const addNewItem = role === CARE_MANAGER_ROLE_CODE ? {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_PATIENT_URL,
@@ -112,9 +117,10 @@ export class Patients extends React.Component {
     } : undefined;
     return (
       <Card>
-        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} />
+        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} onSize={this.onSize} />
         <PatientSearchResult
           {...searchResultProps}
+          relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
         />

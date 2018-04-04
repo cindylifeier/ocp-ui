@@ -4,7 +4,7 @@
  *
  */
 
-import renderToDosComponent from 'containers/ToDos/render';
+import renderPatientToDosComponent from 'containers/PatientToDos/render';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
@@ -15,11 +15,11 @@ import { createStructuredSelector } from 'reselect';
 import GoldenLayout from 'components/GoldenLayout';
 import PatientDetails from 'components/PatientDetails';
 import { flattenPatientData } from 'containers/PatientPage/helpers';
-import renderUpcomingAppointmentsComponent from 'containers/UpcomingAppointments/render';
+import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderConsents from 'containers/Consents/render';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { PATIENT_ROLE_CODE } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasksComponent from 'containers/Tasks/render';
@@ -200,9 +200,9 @@ function renderEmptyGoldenLayoutComponent() {
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderUpcomingAppointmentsComponent },
+  { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
-  { name: 'toDos', text: 'MY TO DO', factoryMethod: renderToDosComponent },
+  { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
   { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
 ];
@@ -221,7 +221,7 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
 
   render() {
     const { patient, user } = this.props;
-    const isPatientUser = user.role === PATIENT_ROLE_VALUE;
+    const isPatientUser = user.role === PATIENT_ROLE_CODE;
     const patientDetailsProps = { patient, isPatientUser };
     return (
       <div>

@@ -13,24 +13,19 @@ const makeSelectWorkflowRolesData = () => createSelector(
   (substate) => substate && substate.getIn(['workflowRoles', 'data']).toJS(),
 );
 
+const makeSelectPractitionersData = () => createSelector(
+  selectWorkspaceSelectionPageDomain,
+  (substate) => substate && substate.get('practitioners').toJS(),
+);
+
 const makeSelectOrganizationsData = () => createSelector(
   selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['organizations', 'data']).toJS(),
-);
-
-const makeCareManagersData = () => createSelector(
-  selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['careManagers', 'data']).toJS(),
-);
-
-const makeCareCoordinatorsData = () => createSelector(
-  selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['careCoordinators', 'data']).toJS(),
+  (substate) => substate && substate.get('searchOrganizations').toJS(),
 );
 
 const makeSelectPatientsData = () => createSelector(
   selectWorkspaceSelectionPageDomain,
-  (substate) => substate && substate.getIn(['patients', 'data']).toJS(),
+  (substate) => substate && substate.get('searchPatients').toJS(),
 );
 
 /**
@@ -46,8 +41,7 @@ export default makeSelectWorkspaceSelectionPage;
 export {
   selectWorkspaceSelectionPageDomain,
   makeSelectWorkflowRolesData,
+  makeSelectPractitionersData,
   makeSelectOrganizationsData,
-  makeCareManagersData,
-  makeCareCoordinatorsData,
   makeSelectPatientsData,
 };

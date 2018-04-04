@@ -1,6 +1,6 @@
 /*
  *
- * LocationCreateEdit actions
+ * Lookup actions
  *
  */
 

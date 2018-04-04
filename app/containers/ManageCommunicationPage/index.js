@@ -4,38 +4,12 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import queryString from 'query-string';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import merge from 'lodash/merge';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import find from 'lodash/find';
-import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
-import SearchRecipient from 'containers/SearchRecipient';
+import ManageCommunication from 'components/ManageCommunication';
 import Page from 'components/Page';
-import makeSelectCommunications from 'containers/Communications/selectors';
-import { makeSelectTasks } from 'containers/Tasks/selectors';
-import {
-  initializeListOfRecipients,
-  initializeSearchRecipients,
-  removeSelectedRecipient,
-  setInitialRecipients,
-} from 'containers/SearchRecipient/actions';
+import PageContent from 'components/PageContent';
+import PageHeader from 'components/PageHeader';
 
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import {
-  makeSelectCommunicationCategories,
-  makeSelectCommunicationMedia,
-  makeSelectCommunicationNotDoneReasons,
-  makeSelectCommunicationStatus,
-} from 'containers/App/lookupSelectors';
 import {
   COMMUNICATION_CATEGORY,
   COMMUNICATION_MEDIUM,
@@ -43,16 +17,42 @@ import {
   COMMUNICATION_STATUS,
   DATE_PICKER_MODE,
 } from 'containers/App/constants';
-import isUndefined from 'lodash/isUndefined';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
+import {
+  makeSelectCommunicationCategories,
+  makeSelectCommunicationMedia,
+  makeSelectCommunicationNotDoneReasons,
+  makeSelectCommunicationStatus,
+} from 'containers/App/lookupSelectors';
+import makeSelectCommunications from 'containers/Communications/selectors';
+import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
+import { makeSelectPatientAppointments } from 'containers/PatientAppointments/selectors';
+import SearchRecipient from 'containers/SearchRecipient';
+import {
+  initializeListOfRecipients,
+  initializeSearchRecipients,
+  removeSelectedRecipient,
+  setInitialRecipients,
+} from 'containers/SearchRecipient/actions';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
-import { makeSelectUpcomingAppointments } from 'containers/UpcomingAppointments/selectors';
-import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
-import ManageCommunication from 'components/ManageCommunication';
+import { makeSelectTasks } from 'containers/Tasks/selectors';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { createCommunication, getEpisodeOfCares, getPractitioner, updateCommunication } from './actions';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import { createCommunication, getEpisodeOfCares, getPractitioner, updateCommunication } from './actions';
 
 export class ManageCommunicationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -114,7 +114,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     const editingCommunication = false;
     const {
       match,
-      history,
       communications,
       communicationStatus,
       communicationCategories,
@@ -150,7 +149,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     }
     const datePickerMode = DATE_PICKER_MODE;
     const manageCommunicationProps = {
-      history,
       communicationStatus,
       communicationCategories,
       communicationNotDoneReasons,
@@ -202,9 +200,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
 
 ManageCommunicationPage.propTypes = {
   match: PropTypes.object.isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
   location: PropTypes.object.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   getLookups: PropTypes.func.isRequired,
@@ -238,7 +233,7 @@ const mapStateToProps = createStructuredSelector({
   practitioner: makeSelectPractitioner(),
   communications: makeSelectCommunications(),
   tasks: makeSelectTasks(),
-  appointments: makeSelectUpcomingAppointments(),
+  appointments: makeSelectPatientAppointments(),
 });
 
 function mapDispatchToProps(dispatch) {

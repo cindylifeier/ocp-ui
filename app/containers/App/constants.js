@@ -81,6 +81,7 @@ export const RELATED_ARTIFACT_TYPE = 'RELATED_ARTIFACT_TYPE';
 export const APPOINTMENT_STATUS = 'APPOINTMENT_STATUS';
 export const APPOINTMENT_TYPE = 'APPOINTMENT_TYPE';
 export const APPOINTMENT_PARTICIPATION_STATUS = 'APPOINTMENT_PARTICIPATION_STATUS';
+export const APPOINTMENT_PARTICIPANT_TYPE = 'APPOINTMENT_PARTICIPANT_TYPE';
 export const APPOINTMENT_PARTICIPATION_TYPE = 'APPOINTMENT_PARTICIPATION_TYPE';
 export const APPOINTMENT_PARTICIPANT_REQUIRED = 'APPOINTMENT_PARTICIPANT_REQUIRED';
 // Appointment Lookups - End
@@ -98,6 +99,14 @@ export const COMMUNICATION_MEDIUM = 'COMMUNICATION_MEDIUM';
 // flag lookups
 export const FLAG_STATUS = 'FLAG_STATUS';
 export const FLAG_CATEGORY = 'FLAG_CATEGORY';
+
+// Consent Resource Lookups - Start
+export const CONSENT_STATE_CODES = 'CONSENT_STATE_CODES';
+export const CONSENT_CATEGORY = 'CONSENT_CATEGORY';
+export const SECURITY_ROLE_TYPE = 'SECURITY_ROLE_TYPE';
+export const CONSENT_ACTION = 'CONSENT_ACTION';
+export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
+// Consent Resource Lookups - End
 
 /**
  *  Constants to hold the internal urls
@@ -126,13 +135,18 @@ export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
 export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
 
 /**
- *  Constants to hold the workflow role values
+ *  Constants to hold the business functional role codes
  * @type {string}
  */
-export const OCP_ADMIN_ROLE_VALUE = 'ocpAdminRole';
-export const CARE_MANAGER_ROLE_VALUE = 'CAREMNGR';
-export const CARE_COORDINATOR_ROLE_VALUE = '171M00000X';
-export const PATIENT_ROLE_VALUE = 'patientRole';
+export const OCP_ADMIN_ROLE_CODE = 'ocpAdminRole';
+export const PATIENT_ROLE_CODE = 'patientRole';
+export const CARE_COORDINATOR_ROLE_CODE = '171M00000X';
+export const CARE_MANAGER_ROLE_CODE = 'CAREMNGR';
+export const ORGANIZATION_ADMIN_ROLE_CODE = 'ORGADMIN';
+export const PCP_ROLE_CODE = 'PCP';
+export const BENEFITS_SPECIALIST_ROLE_CODE = 'BENETSPT';
+export const HEALTH_ASSISTANT_ROLE_CODE = 'HASST';
+export const FRONT_OFFICE_ROLE_CODE = 'FORECEPT';
 
 /**
  *  Constants to hold the default pagination page size and start page number

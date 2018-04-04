@@ -5,17 +5,24 @@
  */
 
 import {
-  GET_CARE_COORDINATORS,
-  GET_CARE_COORDINATORS_SUCCESS,
-  GET_CARE_MANAGERS,
-  GET_CARE_MANAGERS_SUCCESS,
-  GET_ORGANIZATIONS,
-  GET_ORGANIZATIONS_SUCCESS,
-  GET_PATIENTS,
-  GET_PATIENTS_SUCCESS,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES,
   GET_WORKFLOW_ROLES_SUCCESS,
+  INITIALIZE_SELECTION,
+  SEARCH_ORGANIZATIONS,
+  SEARCH_ORGANIZATIONS_ERROR,
+  SEARCH_ORGANIZATIONS_SUCCESS,
+  SEARCH_PATIENTS,
+  SEARCH_PATIENTS_ERROR,
+  SEARCH_PATIENTS_SUCCESS,
 } from './constants';
+
+export function initializeSelection() {
+  return {
+    type: INITIALIZE_SELECTION,
+  };
+}
 
 export function getWorkflowRoles() {
   return {
@@ -30,58 +37,66 @@ export function getWorkflowRolesSuccess(workflowRoles) {
   };
 }
 
-export function getOrganizations() {
+export function searchOrganizations(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: GET_ORGANIZATIONS,
+    type: SEARCH_ORGANIZATIONS,
+    searchValue,
+    showInactive,
+    searchType,
+    currentPage,
   };
 }
 
-export function getOrganizationsSuccess(organizations) {
+export function searchOrganizationsSuccess(organizations) {
   return {
-    type: GET_ORGANIZATIONS_SUCCESS,
+    type: SEARCH_ORGANIZATIONS_SUCCESS,
     organizations,
   };
 }
 
-export function getCareManagers(role, organization) {
+export function searchOrganizationsError(error) {
   return {
-    type: GET_CARE_MANAGERS,
+    type: SEARCH_ORGANIZATIONS_ERROR,
+    error,
+  };
+}
+
+export function getPractitionersOnRoleOrganization(role, organization) {
+  return {
+    type: GET_PRACTITIONERS_ON_ROLE_ORGANIZATION,
     role,
     organization,
   };
 }
 
-export function getCareManagersSuccess(careManagers) {
+export function getPractitionersOnRoleOrganizationSuccess(role, practitioners) {
   return {
-    type: GET_CARE_MANAGERS_SUCCESS,
-    careManagers,
-  };
-}
-
-export function getCareCoordinators(role, organization) {
-  return {
-    type: GET_CARE_COORDINATORS,
+    type: GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
     role,
-    organization,
+    practitioners,
   };
 }
 
-export function getCareCoordinatorsSuccess(careCoordinators) {
+export function searchPatients(searchValue, showInactive, searchType, currentPage) {
   return {
-    type: GET_CARE_COORDINATORS_SUCCESS,
-    careCoordinators,
+    type: SEARCH_PATIENTS,
+    searchValue,
+    showInactive,
+    searchType,
+    currentPage,
   };
 }
 
-export function getPatients() {
+export function searchPatientsSuccess(patients) {
   return {
-    type: GET_PATIENTS,
-  };
-}
-
-export function getPatientsSuccess(patients) {
-  return {
-    type: GET_PATIENTS_SUCCESS,
+    type: SEARCH_PATIENTS_SUCCESS,
     patients,
+  };
+}
+
+export function searchPatientsError(error) {
+  return {
+    type: SEARCH_PATIENTS_ERROR,
+    error,
   };
 }

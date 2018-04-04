@@ -14,7 +14,7 @@ import isEqual from 'lodash/isEqual';
 
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getCommunications } from 'containers/Communications/actions';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, PATIENT_ROLE_VALUE } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import Card from 'components/Card';
 import PanelToolbar from 'components/PanelToolbar';
 import CommunicationsTable from 'components/CommunicationsTable';
@@ -28,7 +28,11 @@ import messages from './messages';
 export class Communications extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      relativeTop: 0,
+    };
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -46,13 +50,17 @@ export class Communications extends React.Component { // eslint-disable-line rea
     }
   }
 
+  onSize(size) {
+    this.setState({ relativeTop: size.height });
+  }
+
   handlePageClick(pageNumber) {
     this.props.getCommunications(pageNumber);
   }
 
   render() {
     const { communications, selectedPatient, user } = this.props;
-    const addNewItem = user.role === PATIENT_ROLE_VALUE ? undefined : {
+    const addNewItem = user.role === PATIENT_ROLE_CODE ? undefined : {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_COMMUNICATION_URL,
     };
@@ -64,8 +72,13 @@ export class Communications extends React.Component { // eslint-disable-line rea
     };
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          showSearchIcon={false}
+          onSize={this.onSize}
+        />
         <CommunicationsTable
+          relativeTop={this.state.relativeTop}
           communicationsData={communicationsData}
           handleChangePage={this.handlePageClick}
         />

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const TableHeaderColumn = styled.div`
-  color: rgb(51, 51, 51);
+  color: #000;
   font-family: "Arial Bold", "Arial", sans-serif;
   font-style: normal;
   font-size: 15px;

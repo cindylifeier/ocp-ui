@@ -15,11 +15,12 @@ import isEqual from 'lodash/isEqual';
 import { DEFAULT_START_PAGE_NUMBER, MANAGE_CONSENT_URL } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { PanelToolbar } from 'components/PanelToolbar';
 import Card from 'components/Card';
+import { PanelToolbar } from 'components/PanelToolbar';
+import isEmpty from 'lodash/isEmpty';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
 import ConsentTable from 'components/ConsentTable';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectConsents from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -69,11 +70,17 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
-    const { consents } = this.props;
-    const addNewItem = {
+    const { selectedPatient, consents } = this.props;
+    const patientId = selectedPatient ? selectedPatient.id : null;
+    const isPatient = !isEmpty(selectedPatient);
+    let CREATE_CONSENT_URL = '';
+    if (patientId) {
+      CREATE_CONSENT_URL = `${MANAGE_CONSENT_URL}?patientId=${patientId}`;
+    }
+    const addNewItem = isPatient ? {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_CONSENT_URL,
-    };
+      linkUrl: CREATE_CONSENT_URL,
+    } : undefined;
     const consentData = {
       loading: consents.listConsents.loading,
       data: consents.listConsents.data,
@@ -83,6 +90,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
       totalElements: consents.listConsents.totalElements,
       handlePageClick: this.handleListPageClick,
     };
+
     return (
       <Card>
         <PanelToolbar
@@ -104,6 +112,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
 }
 
 Consents.propTypes = {
+  selectedPatient: PropTypes.object,
   initializeConsents: PropTypes.func.isRequired,
   consent: PropTypes.object,
   getConsents: PropTypes.func.isRequired,
@@ -126,7 +135,7 @@ Consents.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   consents: makeSelectConsents(),
-  patient: makeSelectPatient(),
+  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {

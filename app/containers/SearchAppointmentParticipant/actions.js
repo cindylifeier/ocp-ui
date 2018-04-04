@@ -13,7 +13,7 @@ import {
   SEARCH_APPOINTMENT_PARTICIPANT,
   SEARCH_APPOINTMENT_PARTICIPANT_ERROR,
   SEARCH_APPOINTMENT_PARTICIPANT_SUCCESS,
-} from 'containers/SearchAppointmentParticipant/constants';
+} from './constants';
 
 export function getAppointmentSearchParticipant(name, member) {
   return {
