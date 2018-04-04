@@ -8,10 +8,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
-import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
 
 import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -21,12 +18,10 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import ConsentExpandableTableRow from './ConsentExpandableTableRow';
 import messages from './messages';
 
-const tableColumns = 'repeat(4, 1fr) 50px';
+const tableColumns = '50px repeat(4, 1fr) 50px';
 
 function ConsentTable(props) {
   const { consentData, relativeTop } = props;
@@ -37,52 +32,19 @@ function ConsentTable(props) {
           ? <div>
             <Table>
               <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+                <TableHeaderColumn></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderFromActor} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderToActor} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPeriod} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
-              {!isEmpty(consentData.data) && consentData.data.map((consent) => {
-                const { logicalId, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation } = consent;
-                return (
-                  <TableRow
-                    columns={tableColumns}
-                    key={logicalId}
-                    role="button"
-                    tabIndex="0"
-                  >
-                    <TableRowColumn>{ fromGeneralDesignation || fromActor.map(({ display }) =>
-                      (
-                        <div key={uniqueId()}>
-                          {display}
-                          <br />
-                        </div>
-                      ),
-                    ) }</TableRowColumn>
-                    <TableRowColumn>{ toGeneralDesignation || toActor.map(({ reference, display }) =>
-                      (
-                        <div key={`${reference}`}>
-                          {display}
-                          <br />
-                        </div>
-                      ),
-                    ) }</TableRowColumn>
-                    <TableRowColumn>{period && period.start}-{period && period.end} </TableRowColumn>
-                    <TableRowColumn>{status && status.display}</TableRowColumn>
-                    <TableRowColumn>
-                      <NavigationStyledIconMenu>
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.edit} />}
-                          containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
-                        />
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.remove} />}
-                        />
-                      </NavigationStyledIconMenu>
-                    </TableRowColumn>
-                  </TableRow>
-                );
-              })}
+              {!isEmpty(consentData.data) && consentData.data.map((consent) => (
+                <ConsentExpandableTableRow
+                  key={consent.logicalId}
+                  consent={consent}
+                  tableColumns={tableColumns}
+                />
+                ))}
             </Table>
             {!!consentData && !!consentData.currentPage &&
             <div>

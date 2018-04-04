@@ -26,9 +26,25 @@ export default defineMessages({
     id: 'ocpui.components.ConsentTable.edit',
     defaultMessage: 'Edit',
   },
+  preview: {
+    id: 'ocpui.components.ConsentTable.preview',
+    defaultMessage: 'Preview',
+  },
+  view: {
+    id: 'ocpui.components.ConsentTable.view',
+    defaultMessage: 'View',
+  },
+  attest: {
+    id: 'ocpui.components.ConsentTable.attest',
+    defaultMessage: 'Provide Signature',
+  },
   remove: {
     id: 'ocpui.components.ConsentTable.remove',
     defaultMessage: 'Remove',
+  },
+  purpose: {
+    id: 'ocpui.components.ConsentTable.purpose',
+    defaultMessage: 'Share the following purposes:',
   },
   noResultFound: {
     id: 'ocpui.components.ConsentTable.noResultFound',
