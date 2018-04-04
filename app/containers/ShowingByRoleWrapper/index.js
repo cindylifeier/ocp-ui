@@ -11,13 +11,13 @@ import { compose } from 'redux';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { createStructuredSelector } from 'reselect';
 import {
-  CARE_COORDINATOR_ROLE_VALUE,
-  CARE_MANAGER_ROLE_VALUE,
-  OCP_ADMIN_ROLE_VALUE,
-  PATIENT_ROLE_VALUE,
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  OCP_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
 } from 'containers/App/constants';
 
-const roles = [OCP_ADMIN_ROLE_VALUE, CARE_MANAGER_ROLE_VALUE, CARE_COORDINATOR_ROLE_VALUE, PATIENT_ROLE_VALUE];
+const roles = [OCP_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, PATIENT_ROLE_CODE];
 
 export function ShowingByRoleWrapper(props) {
   const { showingForRoles, children, user: { role } } = props;

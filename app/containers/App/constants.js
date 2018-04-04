@@ -135,18 +135,18 @@ export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
 export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
 
 /**
- *  Constants to hold the workflow role values
+ *  Constants to hold the business functional role codes
  * @type {string}
  */
-export const OCP_ADMIN_ROLE_VALUE = 'ocpAdminRole';
-export const CARE_MANAGER_ROLE_VALUE = 'CAREMNGR';
-export const CARE_COORDINATOR_ROLE_VALUE = '171M00000X';
-export const ORGANIZATION_ADMIN_ROLE_VALUE = 'ORGADMIN';
-export const PATIENT_ROLE_VALUE = 'patientRole';
-export const PCP_ROLE_VALUE = 'PCP';
-export const BENEFITS_SPECIALIST_ROLE_VALUE = 'BENETSPT';
-export const HEALTH_ASSISTANT_ROLE_VALUE = 'HASST';
-export const FRONT_OFFICE_ROLE_VALUE = 'FORECEPT';
+export const OCP_ADMIN_ROLE_CODE = 'ocpAdminRole';
+export const PATIENT_ROLE_CODE = 'patientRole';
+export const CARE_COORDINATOR_ROLE_CODE = '171M00000X';
+export const CARE_MANAGER_ROLE_CODE = 'CAREMNGR';
+export const ORGANIZATION_ADMIN_ROLE_CODE = 'ORGADMIN';
+export const PCP_ROLE_CODE = 'PCP';
+export const BENEFITS_SPECIALIST_ROLE_CODE = 'BENETSPT';
+export const HEALTH_ASSISTANT_ROLE_CODE = 'HASST';
+export const FRONT_OFFICE_ROLE_CODE = 'FORECEPT';
 
 /**
  *  Constants to hold the default pagination page size and start page number
