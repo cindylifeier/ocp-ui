@@ -12,14 +12,16 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
-import { CARE_COORDINATOR_ROLE_VALUE, MANAGE_TASK_URL } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_VALUE, DATE_RANGE, MANAGE_TASK_URL } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
-import { cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
+import { getFilterToDos, cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
 import { makeSelectSearchLoading, makeSelectPatientToDoMainTask, makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import ToDoList from 'components/ToDoList';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectToDoFilterDateRanges } from 'containers/App/lookupSelectors';
 import { TO_DO_DEFINITION } from 'containers/PatientToDos/constants';
 import H3 from 'components/H3';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -30,6 +32,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+
 export class PatientToDos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -37,12 +40,13 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
       open: false,
       toDoLogicalId: '',
     };
-    this.handleSearch = this.handleSearch.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleCancelToDo = this.handleCancelToDo.bind(this);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
   componentDidMount() {
+    this.props.getLookups();
     const { selectedPatient, selectedOrganization } = this.props;
     const definition = TO_DO_DEFINITION;
     const patientId = selectedPatient ? selectedPatient.id : null;
@@ -69,6 +73,14 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     }
     return toDoMintaskId;
   }
+  handleFilter(dateRange) {
+    const definition = TO_DO_DEFINITION;
+    const { selectedPatient } = this.props;
+    const patientId = selectedPatient ? selectedPatient.id : null;
+    if (patientId && dateRange) {
+      this.props.getFilterToDos(patientId, definition, dateRange);
+    }
+  }
 
   handleCloseDialog() {
     this.setState({ open: false });
@@ -82,24 +94,21 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     this.setState({ open: false });
     this.props.cancelToDos(this.state.toDoLogicalId);
   }
-  handleSearch(searchTerms, includeInactive, searchType) {
-    console.log(searchTerms);
-    console.log(includeInactive);
-    console.log(searchType);
-    // this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
-  }
   render() {
-    const { toDos, selectedPatient, loading, toDoMainTask } = this.props;
+    const { toDos, selectedPatient, loading, toDoMainTask, dateRanges } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const toDoMainTaskId = this.getToDoMainTaskId(toDoMainTask);
     const practitionerId = this.getPractitionerId();
     const CREATE_TO_DO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${toDoMainTaskId}`;
     const taskBaseUrl = MANAGE_TASK_URL;
-    const showToDoSpecificFilters = !isEmpty(toDos) ? (toDos.length > 0) : false;
     const addNewItem = (practitionerId && patientId) ? {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_TO_DO_URL,
     } : undefined;
+    const filterField = {
+      filterTypes: dateRanges,
+      filterValueHintText: <FormattedMessage {...messages.selectLabelDateRange} />,
+    };
     const actionsButtons = [
       <StyledFlatButton
         label={<FormattedMessage {...messages.dialog.buttonLabelClose} />}
@@ -116,7 +125,12 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
-        <PanelToolbar addNewItem={addNewItem} showToDoSpecificFilters={showToDoSpecificFilters} onSearch={this.handleSearch} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          showToDoSpecificFilters
+          filterField={filterField}
+          onFilter={this.handleFilter}
+        />
         {!loading && isEmpty(toDos) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noToDosFound} />
@@ -150,10 +164,13 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
 PatientToDos.propTypes = {
   toDos: PropTypes.array.isRequired,
   getPatientToDos: PropTypes.func.isRequired,
+  getFilterToDos: PropTypes.func.isRequired,
+  getLookups: PropTypes.func.isRequired,
   cancelToDos: PropTypes.func.isRequired,
   getPatientToDoMainTask: PropTypes.func.isRequired,
   selectedPatient: PropTypes.object.isRequired,
   toDoMainTask: PropTypes.array.isRequired,
+  dateRanges: PropTypes.array.isRequired,
   user: PropTypes.object,
   selectedOrganization: PropTypes.object,
   loading: PropTypes.bool.isRequired,
@@ -166,12 +183,15 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectSearchLoading(),
   user: makeSelectUser(),
   selectedOrganization: makeSelectOrganization(),
+  dateRanges: makeSelectToDoFilterDateRanges(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
     getPatientToDoMainTask: (patientId, organizationId, definition) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition)),
+    getLookups: () => dispatch(getLookupsAction([DATE_RANGE])),
+    getFilterToDos: (patientId, definition, dateRange) => dispatch(getFilterToDos(patientId, definition, dateRange)),
     cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
   };
 }
