@@ -7,11 +7,9 @@
 import styled from 'styled-components';
 import SelectField from 'material-ui/SelectField';
 
-const RoleSelectField = styled(SelectField).attrs({
-  style: {
-    width: '280px',
-  },
-})('');
+const RoleSelectField = styled(SelectField)`
+  width: ${(props) => props.width || 'auto'} !important;
+`;
 
 RoleSelectField.propTypes = {};
 

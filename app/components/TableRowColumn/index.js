@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const TableRowColumn = styled.div`
-  color: rgb(51, 51, 51);
-  font-family: "Arial Bold", "Arial", sans-serif;
+  color: #000;
+  font-family: "Arial", sans-serif;
   font-style: normal;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 400;
   line-height: normal;
   text-align: left;
   margin: 0;
   word-break: break-word;
-  padding: 2px;
+  padding: 5px;
 `;
 
 TableRowColumn.propTypes = {

@@ -6,10 +6,9 @@
 
 import { fromJS } from 'immutable';
 import {
-  GET_CARE_COORDINATORS_SUCCESS,
-  GET_CARE_MANAGERS_SUCCESS,
+  GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS,
   GET_WORKFLOW_ROLES_SUCCESS,
-  INITIALIZE_SEARCH,
+  INITIALIZE_SELECTION,
   SEARCH_ORGANIZATIONS,
   SEARCH_ORGANIZATIONS_ERROR,
   SEARCH_ORGANIZATIONS_SUCCESS,
@@ -22,11 +21,11 @@ const initialState = fromJS({
   workflowRoles: {
     data: [],
   },
-  careManagers: {
+  practitioners: {
+    role: null,
     data: [],
-  },
-  careCoordinators: {
-    data: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
   },
   searchOrganizations: {
     loading: false,
@@ -44,8 +43,13 @@ const initialState = fromJS({
 
 function workspaceSelectionPageReducer(state = initialState, action) {
   switch (action.type) {
-    case INITIALIZE_SEARCH:
+    case INITIALIZE_SELECTION:
       return state
+        .setIn(['practitioners', 'role'], null)
+        .setIn(['practitioners', 'data'], fromJS([]))
+        .setIn(['practitioners', 'totalElements'], 0)
+        .setIn(['practitioners', 'totalNumberOfPages'], 0)
+        .setIn(['practitioners', 'currentPage'], 0)
         .setIn(['searchOrganizations', 'result'], fromJS([]))
         .setIn(['searchOrganizations', 'totalElements'], 0)
         .setIn(['searchOrganizations', 'totalNumberOfPages'], 0)
@@ -57,12 +61,14 @@ function workspaceSelectionPageReducer(state = initialState, action) {
     case GET_WORKFLOW_ROLES_SUCCESS:
       return state
         .setIn(['workflowRoles', 'data'], fromJS(action.workflowRoles));
-    case GET_CARE_MANAGERS_SUCCESS:
+    case GET_PRACTITIONERS_ON_ROLE_ORGANIZATION_SUCCESS:
       return state
-        .setIn(['careManagers', 'data'], fromJS(action.careManagers.elements));
-    case GET_CARE_COORDINATORS_SUCCESS:
-      return state
-        .setIn(['careCoordinators', 'data'], fromJS(action.careCoordinators.elements));
+        .setIn(['practitioners', 'role'], action.role)
+        .setIn(['practitioners', 'data'], fromJS(action.practitioners.elements))
+        .setIn(['practitioners', 'totalElements'], action.practitioners.totalElements)
+        .setIn(['practitioners', 'currentPageSize'], action.practitioners.currentPageSize)
+        .setIn(['practitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
+        .setIn(['practitioners', 'currentPage'], action.practitioners.currentPage);
     case SEARCH_ORGANIZATIONS:
       return state
         .setIn(['searchOrganizations', 'loading'], true);

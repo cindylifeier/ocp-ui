@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <HealthcareServiceTable
+    columns="repeat(7, 1fr) 50px"
     elements={
       Array [
         Object {
@@ -69,6 +70,7 @@ ShallowWrapper {
         },
       ]
     }
+    relativeTop={50}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -85,7 +87,8 @@ ShallowWrapper {
       "children": Array [
         <Table__Table>
           <TableHeader
-            relativeTop={0}
+            columns="repeat(7, 1fr) 50px"
+            relativeTop={50}
             sticky={true}
           >
             <TableHeaderColumn__TableHeaderColumn>
@@ -137,9 +140,10 @@ ShallowWrapper {
                 values={Object {}}
               />
             </TableHeaderColumn__TableHeaderColumn>
-            <TableHeaderColumn__TableHeaderColumn />
           </TableHeader>
-          <TableRow>
+          <TableRow
+            columns="repeat(7, 1fr) 50px"
+          >
             <TableRowColumn__TableRowColumn>
               name1
             </TableRowColumn__TableRowColumn>
@@ -212,7 +216,9 @@ ShallowWrapper {
               </Styled(IconMenu)>
             </TableRowColumn__TableRowColumn>
           </TableRow>
-          <TableRow>
+          <TableRow
+            columns="repeat(7, 1fr) 50px"
+          >
             <TableRowColumn__TableRowColumn>
               name2
             </TableRowColumn__TableRowColumn>
@@ -298,7 +304,8 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <TableHeader
-              relativeTop={0}
+              columns="repeat(7, 1fr) 50px"
+              relativeTop={50}
               sticky={true}
             >
               <TableHeaderColumn__TableHeaderColumn>
@@ -350,10 +357,11 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn />
             </TableHeader>,
             Array [
-              <TableRow>
+              <TableRow
+                columns="repeat(7, 1fr) 50px"
+              >
                 <TableRowColumn__TableRowColumn>
                   name1
                 </TableRowColumn__TableRowColumn>
@@ -426,7 +434,9 @@ ShallowWrapper {
                   </Styled(IconMenu)>
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
-              <TableRow>
+              <TableRow
+                columns="repeat(7, 1fr) 50px"
+              >
                 <TableRowColumn__TableRowColumn>
                   name2
                 </TableRowColumn__TableRowColumn>
@@ -559,9 +569,9 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </TableHeaderColumn__TableHeaderColumn>,
-                <TableHeaderColumn__TableHeaderColumn />,
               ],
-              "relativeTop": 0,
+              "columns": "repeat(7, 1fr) 50px",
+              "relativeTop": 50,
               "sticky": true,
             },
             "ref": null,
@@ -755,15 +765,6 @@ ShallowWrapper {
                 },
                 "type": [Function],
               },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {},
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
             ],
             "type": [Function],
           },
@@ -845,6 +846,7 @@ ShallowWrapper {
                   </Styled(IconMenu)>
                 </TableRowColumn__TableRowColumn>,
               ],
+              "columns": "repeat(7, 1fr) 50px",
             },
             "ref": null,
             "rendered": Array [
@@ -1258,6 +1260,7 @@ ShallowWrapper {
                   </Styled(IconMenu)>
                 </TableRowColumn__TableRowColumn>,
               ],
+              "columns": "repeat(7, 1fr) 50px",
             },
             "ref": null,
             "rendered": Array [
@@ -1609,7 +1612,8 @@ ShallowWrapper {
         "children": Array [
           <Table__Table>
             <TableHeader
-              relativeTop={0}
+              columns="repeat(7, 1fr) 50px"
+              relativeTop={50}
               sticky={true}
             >
               <TableHeaderColumn__TableHeaderColumn>
@@ -1661,9 +1665,10 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn />
             </TableHeader>
-            <TableRow>
+            <TableRow
+              columns="repeat(7, 1fr) 50px"
+            >
               <TableRowColumn__TableRowColumn>
                 name1
               </TableRowColumn__TableRowColumn>
@@ -1736,7 +1741,9 @@ ShallowWrapper {
                 </Styled(IconMenu)>
               </TableRowColumn__TableRowColumn>
             </TableRow>
-            <TableRow>
+            <TableRow
+              columns="repeat(7, 1fr) 50px"
+            >
               <TableRowColumn__TableRowColumn>
                 name2
               </TableRowColumn__TableRowColumn>
@@ -1822,7 +1829,8 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <TableHeader
-                relativeTop={0}
+                columns="repeat(7, 1fr) 50px"
+                relativeTop={50}
                 sticky={true}
               >
                 <TableHeaderColumn__TableHeaderColumn>
@@ -1874,10 +1882,11 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn />
               </TableHeader>,
               Array [
-                <TableRow>
+                <TableRow
+                  columns="repeat(7, 1fr) 50px"
+                >
                   <TableRowColumn__TableRowColumn>
                     name1
                   </TableRowColumn__TableRowColumn>
@@ -1950,7 +1959,9 @@ ShallowWrapper {
                     </Styled(IconMenu)>
                   </TableRowColumn__TableRowColumn>
                 </TableRow>,
-                <TableRow>
+                <TableRow
+                  columns="repeat(7, 1fr) 50px"
+                >
                   <TableRowColumn__TableRowColumn>
                     name2
                   </TableRowColumn__TableRowColumn>
@@ -2083,9 +2094,9 @@ ShallowWrapper {
                       values={Object {}}
                     />
                   </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn />,
                 ],
-                "relativeTop": 0,
+                "columns": "repeat(7, 1fr) 50px",
+                "relativeTop": 50,
                 "sticky": true,
               },
               "ref": null,
@@ -2279,15 +2290,6 @@ ShallowWrapper {
                   },
                   "type": [Function],
                 },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {},
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
               ],
               "type": [Function],
             },
@@ -2369,6 +2371,7 @@ ShallowWrapper {
                     </Styled(IconMenu)>
                   </TableRowColumn__TableRowColumn>,
                 ],
+                "columns": "repeat(7, 1fr) 50px",
               },
               "ref": null,
               "rendered": Array [
@@ -2782,6 +2785,7 @@ ShallowWrapper {
                     </Styled(IconMenu)>
                   </TableRowColumn__TableRowColumn>,
                 ],
+                "columns": "repeat(7, 1fr) 50px",
               },
               "ref": null,
               "rendered": Array [
@@ -3140,6 +3144,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <HealthcareServiceTable
+    columns="repeat(7, 1fr) 50px"
     elements={
       Array [
         Object {
@@ -3204,6 +3209,7 @@ ShallowWrapper {
         },
       ]
     }
+    relativeTop={50}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -3220,7 +3226,8 @@ ShallowWrapper {
       "children": Array [
         <Table__Table>
           <TableHeader
-            relativeTop={0}
+            columns="repeat(7, 1fr) 50px"
+            relativeTop={50}
             sticky={true}
           >
             <TableHeaderColumn__TableHeaderColumn>
@@ -3272,9 +3279,10 @@ ShallowWrapper {
                 values={Object {}}
               />
             </TableHeaderColumn__TableHeaderColumn>
-            <TableHeaderColumn__TableHeaderColumn />
           </TableHeader>
-          <TableRow>
+          <TableRow
+            columns="repeat(7, 1fr) 50px"
+          >
             <TableRowColumn__TableRowColumn>
               name1
             </TableRowColumn__TableRowColumn>
@@ -3347,7 +3355,9 @@ ShallowWrapper {
               </Styled(IconMenu)>
             </TableRowColumn__TableRowColumn>
           </TableRow>
-          <TableRow>
+          <TableRow
+            columns="repeat(7, 1fr) 50px"
+          >
             <TableRowColumn__TableRowColumn>
               name2
             </TableRowColumn__TableRowColumn>
@@ -3433,7 +3443,8 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <TableHeader
-              relativeTop={0}
+              columns="repeat(7, 1fr) 50px"
+              relativeTop={50}
               sticky={true}
             >
               <TableHeaderColumn__TableHeaderColumn>
@@ -3485,10 +3496,11 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn />
             </TableHeader>,
             Array [
-              <TableRow>
+              <TableRow
+                columns="repeat(7, 1fr) 50px"
+              >
                 <TableRowColumn__TableRowColumn>
                   name1
                 </TableRowColumn__TableRowColumn>
@@ -3561,7 +3573,9 @@ ShallowWrapper {
                   </Styled(IconMenu)>
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
-              <TableRow>
+              <TableRow
+                columns="repeat(7, 1fr) 50px"
+              >
                 <TableRowColumn__TableRowColumn>
                   name2
                 </TableRowColumn__TableRowColumn>
@@ -3694,9 +3708,9 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </TableHeaderColumn__TableHeaderColumn>,
-                <TableHeaderColumn__TableHeaderColumn />,
               ],
-              "relativeTop": 0,
+              "columns": "repeat(7, 1fr) 50px",
+              "relativeTop": 50,
               "sticky": true,
             },
             "ref": null,
@@ -3890,15 +3904,6 @@ ShallowWrapper {
                 },
                 "type": [Function],
               },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {},
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
             ],
             "type": [Function],
           },
@@ -3980,6 +3985,7 @@ ShallowWrapper {
                   </Styled(IconMenu)>
                 </TableRowColumn__TableRowColumn>,
               ],
+              "columns": "repeat(7, 1fr) 50px",
             },
             "ref": null,
             "rendered": Array [
@@ -4393,6 +4399,7 @@ ShallowWrapper {
                   </Styled(IconMenu)>
                 </TableRowColumn__TableRowColumn>,
               ],
+              "columns": "repeat(7, 1fr) 50px",
             },
             "ref": null,
             "rendered": Array [
@@ -4744,7 +4751,8 @@ ShallowWrapper {
         "children": Array [
           <Table__Table>
             <TableHeader
-              relativeTop={0}
+              columns="repeat(7, 1fr) 50px"
+              relativeTop={50}
               sticky={true}
             >
               <TableHeaderColumn__TableHeaderColumn>
@@ -4796,9 +4804,10 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn />
             </TableHeader>
-            <TableRow>
+            <TableRow
+              columns="repeat(7, 1fr) 50px"
+            >
               <TableRowColumn__TableRowColumn>
                 name1
               </TableRowColumn__TableRowColumn>
@@ -4871,7 +4880,9 @@ ShallowWrapper {
                 </Styled(IconMenu)>
               </TableRowColumn__TableRowColumn>
             </TableRow>
-            <TableRow>
+            <TableRow
+              columns="repeat(7, 1fr) 50px"
+            >
               <TableRowColumn__TableRowColumn>
                 name2
               </TableRowColumn__TableRowColumn>
@@ -4957,7 +4968,8 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <TableHeader
-                relativeTop={0}
+                columns="repeat(7, 1fr) 50px"
+                relativeTop={50}
                 sticky={true}
               >
                 <TableHeaderColumn__TableHeaderColumn>
@@ -5009,10 +5021,11 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn />
               </TableHeader>,
               Array [
-                <TableRow>
+                <TableRow
+                  columns="repeat(7, 1fr) 50px"
+                >
                   <TableRowColumn__TableRowColumn>
                     name1
                   </TableRowColumn__TableRowColumn>
@@ -5085,7 +5098,9 @@ ShallowWrapper {
                     </Styled(IconMenu)>
                   </TableRowColumn__TableRowColumn>
                 </TableRow>,
-                <TableRow>
+                <TableRow
+                  columns="repeat(7, 1fr) 50px"
+                >
                   <TableRowColumn__TableRowColumn>
                     name2
                   </TableRowColumn__TableRowColumn>
@@ -5218,9 +5233,9 @@ ShallowWrapper {
                       values={Object {}}
                     />
                   </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn />,
                 ],
-                "relativeTop": 0,
+                "columns": "repeat(7, 1fr) 50px",
+                "relativeTop": 50,
                 "sticky": true,
               },
               "ref": null,
@@ -5414,15 +5429,6 @@ ShallowWrapper {
                   },
                   "type": [Function],
                 },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {},
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
               ],
               "type": [Function],
             },
@@ -5504,6 +5510,7 @@ ShallowWrapper {
                     </Styled(IconMenu)>
                   </TableRowColumn__TableRowColumn>,
                 ],
+                "columns": "repeat(7, 1fr) 50px",
               },
               "ref": null,
               "rendered": Array [
@@ -5917,6 +5924,7 @@ ShallowWrapper {
                     </Styled(IconMenu)>
                   </TableRowColumn__TableRowColumn>,
                 ],
+                "columns": "repeat(7, 1fr) 50px",
               },
               "ref": null,
               "rendered": Array [

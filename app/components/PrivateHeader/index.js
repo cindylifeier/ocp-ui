@@ -49,7 +49,7 @@ class PrivateHeader extends React.Component {
   render() {
     return (
       <StyledToolbar
-        color="#fafafa"
+        color="#ffffff"
         height="60px"
       >
         <ToolbarGroup firstChild>

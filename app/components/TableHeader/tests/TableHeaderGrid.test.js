@@ -41,7 +41,7 @@ describe('<TableHeaderGrid />', () => {
       const renderedComponent = shallow(<TableHeaderGrid>{children}</TableHeaderGrid>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('border-bottom', '1px outset rgb(51, 51, 51)');
+      expect(renderedComponent).toHaveStyleRule('border-bottom', '2px outset #000');
     });
 
     it('should have first-child styles', () => {

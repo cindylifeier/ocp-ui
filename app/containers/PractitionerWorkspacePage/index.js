@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import GoldenLayout from 'components/GoldenLayout';
+import renderPractitioners from 'containers/Practitioners/render';
 import renderUnderConstruction from 'components/UnderConstruction/render';
 import renderPatientsComponent from 'containers/Patients/render';
 import renderLocationsComponent from 'containers/Locations/render';
@@ -29,21 +30,146 @@ import saga from './saga';
 
 export class PractitionerWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static componentMetadata = [
+    { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
     { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
     { name: 'locations', text: 'LOCATIONS', factoryMethod: renderLocationsComponent },
     { name: 'healthcareServices', text: 'HEALTHCARE SERVICES', factoryMethod: renderHealthcareServicesComponent },
     { name: 'upcomingTasks', text: 'TASKS', factoryMethod: renderUpcomingTasksComponent },
-    {
-      name: 'upcomingAppointments',
-      text: 'APPOINTMENTS',
-      factoryMethod: renderPractitionerUpcomingAppointments,
-    },
-    { name: 'toDos',
-      text: 'MY TO DO',
-      factoryMethod: renderPractitionerToDosComponent,
-    },
+    { name: 'upcomingAppointments', text: 'APPOINTMENTS', factoryMethod: renderPractitionerUpcomingAppointments },
+    { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPractitionerToDosComponent },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderUnderConstruction },
   ];
+
+  static orgAdminLayout = {
+    settings: {
+      hasHeaders: true,
+      constrainDragToContainer: false,
+      reorderEnabled: true,
+      selectionEnabled: false,
+      popoutWholeStack: false,
+      blockedPopoutsThrowError: true,
+      closePopoutsOnUnload: true,
+      showPopoutIcon: false,
+      showMaximiseIcon: true,
+      showCloseIcon: true,
+      responsiveMode: 'onload',
+      tabOverlapAllowance: 0,
+      reorderOnTabMenuClick: true,
+      tabControlOffset: 10,
+    },
+    dimensions: {
+      borderWidth: 5,
+      borderGrabWidth: 15,
+      minItemHeight: 10,
+      minItemWidth: 10,
+      headerHeight: 30,
+      dragProxyWidth: 300,
+      dragProxyHeight: 200,
+    },
+    labels: {
+      close: 'close',
+      maximise: 'maximise',
+      minimise: 'minimise',
+      popout: 'open in new window',
+      popin: 'pop in',
+      tabDropdown: 'additional tabs',
+    },
+    content: [{
+      type: 'row',
+      isClosable: true,
+      reorderEnabled: true,
+      title: '',
+      content: [{
+        type: 'column',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        width: 50,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 100,
+          content: [{
+            title: 'LOCATIONS',
+            type: 'component',
+            componentName: 'locations',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          height: 100,
+          content: [{
+            title: 'Practitioners',
+            type: 'component',
+            componentName: 'practitioners',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        },
+        ],
+      }, {
+        type: 'column',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        width: 50,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 100,
+          content: [{
+            title: 'Healthcare Services',
+            type: 'component',
+            componentName: 'healthcareServices',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'stack',
+          width: 50,
+          height: 100,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Patients',
+            type: 'component',
+            componentName: 'patients',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        },
+        ],
+      },
+      ],
+    },
+    ],
+    isClosable: true,
+    reorderEnabled: true,
+    title: '',
+    openPopouts: [],
+    maximisedItemId: null,
+  };
 
   static careManagerLayout = {
     settings: {
@@ -84,51 +210,58 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
       isClosable: true,
       reorderEnabled: true,
       title: '',
-      width: 100,
       content: [{
+        type: 'row',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        height: 80,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          height: 80,
+          content: [{
+            title: 'Appointments',
+            type: 'component',
+            componentName: 'upcomingAppointments',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        }, {
+          type: 'stack',
+          width: 50,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Calendar',
+            type: 'component',
+            componentName: 'calendar',
+            isClosable: true,
+            reorderEnabled: true,
+          },
+          ],
+        },
+        ],
+      }, {
         type: 'stack',
-        width: 100,
-        height: 33.3333333333333,
+        header: {},
         isClosable: true,
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
+        height: 80,
         content: [{
-          title: 'PATIENTS',
+          title: 'Patients',
           type: 'component',
           componentName: 'patients',
-          isClosable: true,
-          reorderEnabled: true,
-        },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 33.3333333333333,
-        content: [{
-          title: 'LOCATIONS',
-          type: 'component',
-          componentName: 'locations',
-          isClosable: true,
-          reorderEnabled: true,
-        },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 33.3333333333333,
-        content: [{
-          title: 'HEALTHCARE SERVICES',
-          type: 'component',
-          componentName: 'healthcareServices',
           isClosable: true,
           reorderEnabled: true,
         },
@@ -288,10 +421,13 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
   }
 
   getStateMetadataForRole() {
+    const ORGANIZATION_ADMIN = this.props.workflowRoles.orgAdminWorkflowRole.value;
     const CARE_MANAGER = this.props.workflowRoles.careManagerWorkflowRole.value;
     const CARE_COORDINATOR = this.props.workflowRoles.careCoordinatorWorkflowRole.value;
     const { user: { role } } = this.props;
     switch (role) {
+      case ORGANIZATION_ADMIN:
+        return PractitionerWorkspacePage.orgAdminLayout;
       case CARE_MANAGER:
         return PractitionerWorkspacePage.careManagerLayout;
       case CARE_COORDINATOR:
@@ -327,6 +463,9 @@ PractitionerWorkspacePage.propTypes = {
     role: PropTypes.string.isRequired,
   }).isRequired,
   workflowRoles: PropTypes.shape({
+    orgAdminWorkflowRole: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
     careManagerWorkflowRole: PropTypes.shape({
       value: PropTypes.string.isRequired,
     }),
