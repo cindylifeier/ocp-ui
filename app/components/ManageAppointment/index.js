@@ -30,6 +30,7 @@ function ManageAppointment(props) {
   } = props;
   const propsFromContainer = {
     patient,
+    editMode,
     appointmentStatuses,
     appointmentTypes,
     handleOpen,
@@ -96,6 +97,7 @@ function setFormData(appointment, patient) {
       status: appointment.statusCode,
       startTime: convertDateTimeArrayToDate(appointment.start),
       endTime: convertDateTimeArrayToDate(appointment.end),
+      appointmentStatus: appointment.statusCode,
     };
   }
   return Util.pickByIdentity(formData);

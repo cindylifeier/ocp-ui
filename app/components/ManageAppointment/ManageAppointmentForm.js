@@ -27,7 +27,9 @@ function ManageAppointmentForm(props) {
     isSubmitting,
     dirty,
     isValid,
+    editMode,
     appointmentTypes,
+    appointmentStatuses,
     handleOpen,
     selectedParticipants,
     initialSelectedParticipants,
@@ -110,6 +112,24 @@ function ManageAppointmentForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endTime} />}
             />
           </Cell>
+          {editMode &&
+          <Cell area="appointmentStatus">
+            <SelectField
+              fullWidth
+              name="appointmentStatus"
+              hintText={<FormattedMessage {...messages.hintText.status} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
+            >
+              {appointmentStatuses && appointmentStatuses.map((appointmentStatus) =>
+                (<MenuItem
+                  key={appointmentStatus.code}
+                  value={appointmentStatus.code}
+                  primaryText={appointmentStatus.display}
+                />),
+              )}
+            </SelectField>
+          </Cell>
+          }
 
           <Cell area="participantSubtitle">
             <FormSubtitle margin="0">
@@ -151,6 +171,7 @@ ManageAppointmentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
@@ -163,6 +184,7 @@ ManageAppointmentForm.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  appointmentStatuses: PropTypes.array,
 };
 
 export default ManageAppointmentForm;
