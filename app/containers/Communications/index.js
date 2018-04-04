@@ -44,8 +44,8 @@ export class Communications extends React.Component { // eslint-disable-line rea
 
   componentWillReceiveProps(nextProps) {
     const { selectedPatient } = this.props;
-    const { selectedPatient: newOrganization } = nextProps;
-    if (!isEqual(selectedPatient, newOrganization)) {
+    const { selectedPatient: newPatient } = nextProps;
+    if (!isEqual(selectedPatient, newPatient)) {
       this.props.getCommunications(DEFAULT_START_PAGE_NUMBER);
     }
   }
@@ -66,7 +66,7 @@ export class Communications extends React.Component { // eslint-disable-line rea
     };
     const communicationsData = {
       manageCommunicationBaseUrl: MANAGE_COMMUNICATION_URL,
-      selectedPatientId: selectedPatient.id,
+      selectedPatient,
       loading: communications.loading,
       data: communications.data,
     };
