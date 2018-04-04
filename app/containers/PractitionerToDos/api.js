@@ -7,6 +7,6 @@ const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
 export function getPractitionerToDos(practitionerId, definition) {
   const queryParams = { practitionerId, definition };
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/subtasks?${stringifiedParams}`;
+  const url = `${baseEndpoint}/tasks?${stringifiedParams}`;
   return request(url);
 }
