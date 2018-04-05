@@ -110,13 +110,13 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
+    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
     const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_APPOINTMENT_URL,
       },
     };
-    } : undefined;
     const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_CODE);
     return (
       <div>
