@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for ShowingByRoleWrapper
+ * Asynchronously loads the component for ConsentTable
  *
  */
 

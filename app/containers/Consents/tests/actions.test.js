@@ -1,18 +1,13 @@
-
-import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+import { INITIALIZE_CONSENTS } from 'containers/Consents/constants';
+import { initializeConsents } from 'containers/Consents/actions';
 
 describe('Consents actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('INITIALIZE_CONSENTS', () => {
+    it('has a type of INITIALIZE_CONSENTS', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: INITIALIZE_CONSENTS,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(initializeConsents()).toEqual(expected);
     });
   });
 });

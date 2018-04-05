@@ -29,11 +29,6 @@ ShallowWrapper {
         ],
       }
     }
-    user={
-      Object {
-        "role": "ocpAdminRole",
-      }
-    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -65,7 +60,6 @@ ShallowWrapper {
           <styled.section>
             <PatientDetails
               flattenPatientData={[Function]}
-              isPatientUser={false}
               patient={
                 Object {
                   "id": "1",
@@ -104,6 +98,11 @@ ShallowWrapper {
                     "factoryMethod": [Function],
                     "name": "calendar",
                     "text": "CALENDAR",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "consents",
+                    "text": "Consents",
                   },
                 ]
               }
@@ -203,6 +202,24 @@ ShallowWrapper {
                                   "isClosable": true,
                                   "reorderEnabled": true,
                                   "title": "My Appointments",
+                                  "type": "component",
+                                },
+                              ],
+                              "header": Object {},
+                              "height": 50,
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "",
+                              "type": "stack",
+                            },
+                            Object {
+                              "activeItemIndex": 0,
+                              "content": Array [
+                                Object {
+                                  "componentName": "consents",
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "Consents",
                                   "type": "component",
                                 },
                               ],
@@ -327,7 +344,6 @@ ShallowWrapper {
             <styled.section>
               <PatientDetails
                 flattenPatientData={[Function]}
-                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -366,6 +382,11 @@ ShallowWrapper {
                       "factoryMethod": [Function],
                       "name": "calendar",
                       "text": "CALENDAR",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
                     },
                   ]
                 }
@@ -465,6 +486,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],
@@ -543,7 +582,6 @@ ShallowWrapper {
             "props": Object {
               "children": <PatientDetails
                 flattenPatientData={[Function]}
-                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -561,7 +599,6 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "flattenPatientData": [Function],
-                "isPatientUser": false,
                 "patient": Object {
                   "id": "1",
                   "name": Array [
@@ -607,6 +644,11 @@ ShallowWrapper {
                       "factoryMethod": [Function],
                       "name": "calendar",
                       "text": "CALENDAR",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
                     },
                   ]
                 }
@@ -706,6 +748,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],
@@ -803,6 +863,11 @@ ShallowWrapper {
                     "factoryMethod": [Function],
                     "name": "calendar",
                     "text": "CALENDAR",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "consents",
+                    "text": "Consents",
                   },
                 ],
                 "containerHeight": "200vh",
@@ -910,6 +975,24 @@ ShallowWrapper {
                               "title": "",
                               "type": "stack",
                             },
+                            Object {
+                              "activeItemIndex": 0,
+                              "content": Array [
+                                Object {
+                                  "componentName": "consents",
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "Consents",
+                                  "type": "component",
+                                },
+                              ],
+                              "header": Object {},
+                              "height": 50,
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "",
+                              "type": "stack",
+                            },
                           ],
                           "isClosable": true,
                           "reorderEnabled": true,
@@ -1000,7 +1083,6 @@ ShallowWrapper {
             <styled.section>
               <PatientDetails
                 flattenPatientData={[Function]}
-                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -1039,6 +1121,11 @@ ShallowWrapper {
                       "factoryMethod": [Function],
                       "name": "calendar",
                       "text": "CALENDAR",
+                    },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
                     },
                   ]
                 }
@@ -1138,6 +1225,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],
@@ -1262,7 +1367,6 @@ ShallowWrapper {
               <styled.section>
                 <PatientDetails
                   flattenPatientData={[Function]}
-                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1301,6 +1405,11 @@ ShallowWrapper {
                         "factoryMethod": [Function],
                         "name": "calendar",
                         "text": "CALENDAR",
+                      },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "consents",
+                        "text": "Consents",
                       },
                     ]
                   }
@@ -1400,6 +1509,24 @@ ShallowWrapper {
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "My Appointments",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "height": 50,
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "consents",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Consents",
                                       "type": "component",
                                     },
                                   ],
@@ -1478,7 +1605,6 @@ ShallowWrapper {
               "props": Object {
                 "children": <PatientDetails
                   flattenPatientData={[Function]}
-                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1496,7 +1622,6 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "flattenPatientData": [Function],
-                  "isPatientUser": false,
                   "patient": Object {
                     "id": "1",
                     "name": Array [
@@ -1542,6 +1667,11 @@ ShallowWrapper {
                         "factoryMethod": [Function],
                         "name": "calendar",
                         "text": "CALENDAR",
+                      },
+                      Object {
+                        "factoryMethod": [Function],
+                        "name": "consents",
+                        "text": "Consents",
                       },
                     ]
                   }
@@ -1641,6 +1771,24 @@ ShallowWrapper {
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "My Appointments",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "header": Object {},
+                                  "height": 50,
+                                  "isClosable": true,
+                                  "reorderEnabled": true,
+                                  "title": "",
+                                  "type": "stack",
+                                },
+                                Object {
+                                  "activeItemIndex": 0,
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "consents",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Consents",
                                       "type": "component",
                                     },
                                   ],
@@ -1739,6 +1887,11 @@ ShallowWrapper {
                       "name": "calendar",
                       "text": "CALENDAR",
                     },
+                    Object {
+                      "factoryMethod": [Function],
+                      "name": "consents",
+                      "text": "Consents",
+                    },
                   ],
                   "containerHeight": "200vh",
                   "containerId": "golden-patient",
@@ -1835,6 +1988,24 @@ ShallowWrapper {
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "My Appointments",
+                                    "type": "component",
+                                  },
+                                ],
+                                "header": Object {},
+                                "height": 50,
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "",
+                                "type": "stack",
+                              },
+                              Object {
+                                "activeItemIndex": 0,
+                                "content": Array [
+                                  Object {
+                                    "componentName": "consents",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Consents",
                                     "type": "component",
                                   },
                                 ],

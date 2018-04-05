@@ -17,8 +17,8 @@ import PatientDetails from 'components/PatientDetails';
 import { flattenPatientData } from 'containers/PatientPage/helpers';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { PATIENT_ROLE_CODE } from 'containers/App/constants';
+import renderConsents from 'containers/Consents/render';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasksComponent from 'containers/Tasks/render';
@@ -161,6 +161,23 @@ export const initialStateMetadata =
                   reorderEnabled: true,
                 }],
               },
+              {
+                type: 'stack',
+                header: {},
+                isClosable: true,
+                reorderEnabled: true,
+                title: '',
+                activeItemIndex: 0,
+                height: 50,
+                content: [{
+                  title: 'Consents',
+                  type: 'component',
+                  componentName: 'consents',
+                  isClosable: true,
+                  reorderEnabled: true,
+                },
+                ],
+              },
             ],
           },
         ],
@@ -186,6 +203,7 @@ export const componentMetadata = [
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
 ];
 
 export class PatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -201,9 +219,8 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
   }
 
   render() {
-    const { patient, user } = this.props;
-    const isPatientUser = user.role === PATIENT_ROLE_CODE;
-    const patientDetailsProps = { patient, isPatientUser };
+    const { patient } = this.props;
+    const patientDetailsProps = { patient };
     return (
       <div>
         <Helmet>
@@ -245,16 +262,12 @@ PatientPage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  user: PropTypes.shape({
-    role: PropTypes.string,
-  }),
   refreshPatient: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
-  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -34,7 +34,7 @@ import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyled
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { clearLocation, setLocation } from 'containers/App/contextActions';
 import {
@@ -49,7 +49,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getActiveLocations, getFilteredLocations, searchLocations, initializeLocations } from './actions';
+import { getActiveLocations, getFilteredLocations, initializeLocations, searchLocations } from './actions';
 import SizedStickyDiv from '../../components/StickyDiv/SizedStickyDiv';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -67,7 +67,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       includeInactive: false,
       searchType: 'name',
     },
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -297,6 +297,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
+          allowedAddNewItemRoles={ORGANIZATION_ADMIN_ROLE_CODE}
           onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
           showFilter={false}

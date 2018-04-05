@@ -16,7 +16,7 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
@@ -77,16 +77,29 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { tasks: { loading, data }, patient, user } = this.props;
-    const addNewItem = user.role === PATIENT_ROLE_CODE ? undefined : {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_TASK_URL,
-    };
+    const { tasks: { loading, data }, patient } = this.props;
+    let taskList = data;
+    if (!isEmpty(data)) {
+      taskList = data.filter((task) => task.description !== TO_DO_DEFINITION);
+    }
     const patientName = mapToPatientName(patient);
+
+    let createTaskUrl;
+    let addNewItem;
+    if (this.state.practitionerId && !isEmpty(patient) && !isEmpty(patient.id)) {
+      createTaskUrl = `${MANAGE_TASK_URL}?patientId=${patient.id}&isMainTask=true`;
+      addNewItem = {
+        labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+        linkUrl: createTaskUrl,
+      };
+    }
+
+
     return (
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
+          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
           showSearchIcon={false}
           onSize={this.handlePanelResize}
         />
@@ -106,17 +119,17 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && !isEmpty(patient.id) && isEmpty(data) &&
+        {!loading && !isEmpty(patientName) && !isEmpty(patient.id) && isEmpty(taskList) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noTasksFound} />
         </NoResultsFoundText>}
 
-        {!isEmpty(data) &&
+        {!isEmpty(taskList) &&
         <div>
           <CenterAlign>
             <TaskTable
               relativeTop={this.state.panelHeight + this.state.filterHeight}
-              elements={data}
+              elements={taskList}
               cancelTask={this.cancelTask}
               patientId={patient.id}
               communicationBaseUrl={MANAGE_COMMUNICATION_URL}
@@ -138,9 +151,6 @@ Tasks.propTypes = {
     loading: PropTypes.bool.isRequired,
   }),
   patient: PropTypes.object,
-  user: PropTypes.shape({
-    role: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

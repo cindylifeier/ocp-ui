@@ -20,6 +20,7 @@ import { white } from 'material-ui/styles/colors';
 import isUndefined from 'lodash/isUndefined';
 import sizeMe from 'react-sizeme';
 
+import ShowHideWrapper, { functionalRoles } from 'containers/ShowHideWrapper';
 import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
@@ -43,6 +44,7 @@ export class PanelToolbar extends React.Component {
 
   renderPanelToolBar() {
     const {
+      allowedAddNewItemRoles,
       showUploadIcon,
       showSettingIcon,
       showFilterIcon,
@@ -60,11 +62,13 @@ export class PanelToolbar extends React.Component {
         >
           <ToolbarGroup firstChild>
             {!isUndefined(addNewItem) &&
-            <AddNewItemButton
-              label={addNewItem.labelName}
-              icon={<AddCircle color={white} />}
-              containerElement={<Link to={addNewItem.linkUrl} />}
-            />
+            <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
+              <AddNewItemButton
+                label={addNewItem.labelName}
+                icon={<AddCircle color={white} />}
+                containerElement={<Link to={addNewItem.linkUrl} />}
+              />
+            </ShowHideWrapper>
             }
           </ToolbarGroup>
           <ToolbarGroup lastChild>
@@ -128,6 +132,12 @@ export class PanelToolbar extends React.Component {
 
 PanelToolbar.propTypes = {
   sticky: PropTypes.bool,
+  allowedAddNewItemRoles: PropTypes.oneOfType([
+    PropTypes.oneOf(functionalRoles).isRequired,
+    PropTypes.arrayOf(
+      PropTypes.oneOf(functionalRoles).isRequired,
+    ),
+  ]),
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
