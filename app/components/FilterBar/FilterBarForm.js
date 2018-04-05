@@ -14,7 +14,7 @@ import SelectField from 'components/SelectField';
 import messages from './messages';
 
 function FilterBarForm(props) {
-  const { dirty, isSubmitting, isValid, filterField: { filterTypes, filterValueHintText }, showFilter } = props;
+  const { dirty, isSubmitting, isValid, filterTypes, filterValueHintText, showFilter } = props;
   return (
     <Form>
       <FilterSection>
@@ -57,13 +57,11 @@ FilterBarForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   showFilter: PropTypes.bool,
   isValid: PropTypes.bool.isRequired,
-  filterField: PropTypes.shape({
-    filterTypes: PropTypes.arrayOf(PropTypes.shape({
-      dateRangeCode: PropTypes.string.isRequired,
-      display: PropTypes.node.isRequired,
-    })).isRequired,
-    filterValueHintText: PropTypes.node.isRequired,
-  }).isRequired,
+  filterTypes: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string,
+    display: PropTypes.node,
+  })),
+  filterValueHintText: PropTypes.node,
 };
 
 export default FilterBarForm;

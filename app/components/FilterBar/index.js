@@ -17,7 +17,8 @@ import messages from './messages';
 function FilterBar(props) {
   const { onFilter, filterField, showFilter } = props;
   const filterFormProps = {
-    filterField,
+    filterTypes: filterField && filterField.filterTypes ? filterField.filterTypes : null,
+    filterValueHintText: filterField && filterField.filterValueHintText ? filterField.filterValueHintText : null,
     showFilter,
   };
   return (
@@ -43,11 +44,11 @@ FilterBar.propTypes = {
   showFilter: PropTypes.bool,
   onFilter: PropTypes.func,
   filterField: PropTypes.shape({
-    searchTypes: PropTypes.arrayOf(PropTypes.shape({
-      dateRangeCode: PropTypes.string.isRequired,
-      display: PropTypes.node.isRequired,
+    filterTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string,
+      display: PropTypes.node,
     })),
-    filterValueHintText: PropTypes.node.isRequired,
+    filterValueHintText: PropTypes.node,
   }),
 };
 
