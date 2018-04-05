@@ -20,8 +20,7 @@ import renderCareTeamsComponent from 'containers/CareTeams/render';
 import renderRelatedPersonsComponent from 'containers/RelatedPersons/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderConsents from 'containers/Consents/render';
-import { PATIENT_ROLE_CODE } from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
@@ -194,7 +193,7 @@ export const componentMetadata = [
 
 export class PatientWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { patient, user } = this.props;
+    const { patient } = this.props;
     return (
       <Page>
         <Helmet>
@@ -206,7 +205,6 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           <Cell>
             <PatientDetails
               patient={patient}
-              isPatientUser={user.role === PATIENT_ROLE_CODE}
               flattenPatientData={flattenPatientData}
             />
           </Cell>
@@ -229,14 +227,10 @@ PatientWorkspacePage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  user: PropTypes.shape({
-    role: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
-  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

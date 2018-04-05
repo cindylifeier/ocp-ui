@@ -29,11 +29,6 @@ ShallowWrapper {
         ],
       }
     }
-    user={
-      Object {
-        "role": "ocpAdminRole",
-      }
-    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -65,7 +60,6 @@ ShallowWrapper {
           <styled.section>
             <PatientDetails
               flattenPatientData={[Function]}
-              isPatientUser={false}
               patient={
                 Object {
                   "id": "1",
@@ -350,7 +344,6 @@ ShallowWrapper {
             <styled.section>
               <PatientDetails
                 flattenPatientData={[Function]}
-                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -589,7 +582,6 @@ ShallowWrapper {
             "props": Object {
               "children": <PatientDetails
                 flattenPatientData={[Function]}
-                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -607,7 +599,6 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "flattenPatientData": [Function],
-                "isPatientUser": false,
                 "patient": Object {
                   "id": "1",
                   "name": Array [
@@ -1092,7 +1083,6 @@ ShallowWrapper {
             <styled.section>
               <PatientDetails
                 flattenPatientData={[Function]}
-                isPatientUser={false}
                 patient={
                   Object {
                     "id": "1",
@@ -1377,7 +1367,6 @@ ShallowWrapper {
               <styled.section>
                 <PatientDetails
                   flattenPatientData={[Function]}
-                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1616,7 +1605,6 @@ ShallowWrapper {
               "props": Object {
                 "children": <PatientDetails
                   flattenPatientData={[Function]}
-                  isPatientUser={false}
                   patient={
                     Object {
                       "id": "1",
@@ -1634,7 +1622,6 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "flattenPatientData": [Function],
-                  "isPatientUser": false,
                   "patient": Object {
                     "id": "1",
                     "name": Array [

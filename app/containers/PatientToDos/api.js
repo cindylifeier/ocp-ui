@@ -7,12 +7,12 @@ const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
 export function getPatientToDos(patientId, practitionerId, definition) {
   let queryParams = '';
   if (patientId && !practitionerId) {
-    queryParams = { patientId, definition };
+    queryParams = { patient: patientId, definition };
   } else if (patientId && practitionerId) {
-    queryParams = { patientId, practitionerId, definition };
+    queryParams = { patient: patientId, practitioner: practitionerId, definition };
   }
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/tasks?${stringifiedParams}`;
+  const url = `${baseEndpoint}?${stringifiedParams}`;
   return request(url);
 }
 

@@ -12,12 +12,11 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
 
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_CONSENT_URL } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, CARE_COORDINATOR_ROLE_CODE, MANAGE_CONSENT_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
 import { PanelToolbar } from 'components/PanelToolbar';
-import isEmpty from 'lodash/isEmpty';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
 import ConsentTable from 'components/ConsentTable';
@@ -72,15 +71,14 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
   render() {
     const { selectedPatient, consents } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
-    const isPatient = !isEmpty(selectedPatient);
     let CREATE_CONSENT_URL = '';
     if (patientId) {
       CREATE_CONSENT_URL = `${MANAGE_CONSENT_URL}?patientId=${patientId}`;
     }
-    const addNewItem = isPatient ? {
+    const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_CONSENT_URL,
-    } : undefined;
+    };
     const consentData = {
       loading: consents.listConsents.loading,
       data: consents.listConsents.data,
@@ -95,6 +93,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
+          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
           showSearchIcon={false}
           showFilterIcon={false}
           showUploadIcon={false}

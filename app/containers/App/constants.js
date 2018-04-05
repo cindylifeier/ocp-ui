@@ -180,3 +180,8 @@ export const EMPTY_STRING = '';
 export const WHITE_SPACE = ' ';
 export const NEW_LINE_CHARACTER = '\n';
 
+/**
+ *  To Do definition
+ * @type {string}
+ */
+export const TO_DO_DEFINITION = 'To-Do';

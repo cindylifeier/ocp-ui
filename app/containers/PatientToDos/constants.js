@@ -26,4 +26,3 @@ export const CANCEL_TO_DO_ERROR = 'ocpui/PatientToDos/CANCEL_TO_DO_ERROR';
 *
 */
 
-export const TO_DO_DEFINITION = 'To-Do';
