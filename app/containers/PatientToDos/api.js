@@ -23,8 +23,13 @@ export function getToDoMainTask(patientId, organizationId, definition, practitio
   return request(url);
 }
 
-export function getFilterToDos(patientId, definition, filterDate) {
-  const queryParams = { patientId, definition, filterDate };
+export function getFilterToDos(patientId, practitionerId, definition, filterDate) {
+  let queryParams = '';
+  if (patientId && !practitionerId) {
+    queryParams = { patient: patientId, definition, filterDate };
+  } else if (patientId && practitionerId) {
+    queryParams = { patient: patientId, practitioner: practitionerId, definition, filterDate };
+  }
   const stringifiedParams = queryString.stringify(queryParams);
   const url = `${baseEndpoint}?${stringifiedParams}`;
   return request(url);

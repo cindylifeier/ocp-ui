@@ -76,8 +76,12 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     const definition = TO_DO_DEFINITION;
     const { selectedPatient } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
-    if (patientId && dateRange) {
-      this.props.getFilterToDos(patientId, definition, dateRange);
+    const practitionerId = this.getPractitionerId();
+
+    if (patientId && !practitionerId && dateRange) {
+      this.props.getFilterToDos(patientId, null, definition, dateRange);
+    } else if (patientId && practitionerId && dateRange) {
+      this.props.getFilterToDos(patientId, practitionerId, definition, dateRange);
     }
   }
 
@@ -189,7 +193,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
     getLookups: () => dispatch(getLookupsAction([DATE_RANGE])),
-    getFilterToDos: (patientId, definition, dateRange) => dispatch(getFilterToDos(patientId, definition, dateRange)),
+    getFilterToDos: (patientId, practitionerId, definition, dateRange) => dispatch(getFilterToDos(patientId, practitionerId, definition, dateRange)),
     getPatientToDoMainTask: (patientId, organizationId, definition, practitionerId) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition, practitionerId)),
     cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
   };

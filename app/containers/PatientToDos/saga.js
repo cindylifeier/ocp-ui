@@ -36,7 +36,7 @@ export function* getToDoMainTaskSaga(action) {
 
 export function* getFilterToDoSaga(action) {
   try {
-    const toDos = yield call(getFilterToDos, action.patientId, action.definition, action.dateRange);
+    const toDos = yield call(getFilterToDos, action.patientId, action.practitionerId, action.definition, action.dateRange);
     yield put(getFilterToDoSuccess(toDos));
   } catch (error) {
     yield put(showNotification(<FormattedMessage {...messages.noFilterToDoError} />));

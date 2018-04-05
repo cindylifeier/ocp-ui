@@ -82,10 +82,11 @@ export function cancelToDosError(error) {
 }
 
 
-export function getFilterToDos(patientId, definition, dateRange) {
+export function getFilterToDos(patientId, practitionerId, definition, dateRange) {
   return {
     type: GET_FILTER_TO_DO,
     patientId,
+    practitionerId,
     definition,
     dateRange,
   };
