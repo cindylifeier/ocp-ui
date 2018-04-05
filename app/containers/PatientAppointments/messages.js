@@ -16,7 +16,7 @@ export default defineMessages({
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.PatientAppointments.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
+    defaultMessage: 'New Appointment',
   },
   showPastAppointments: {
     id: 'ocpui.containers.PatientAppointments.checkbox.showPastAppointments',
