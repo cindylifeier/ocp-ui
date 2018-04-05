@@ -22,7 +22,6 @@ import { makeSelectSearchLoading, makeSelectPatientToDoMainTask, makeSelectPatie
 import ToDoList from 'components/ToDoList';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectToDoFilterDateRanges } from 'containers/App/lookupSelectors';
-import { TO_DO_DEFINITION } from 'containers/PatientToDos/constants';
 import H3 from 'components/H3';
 import StyledFlatButton from 'components/StyledFlatButton';
 import Dialog from 'material-ui/Dialog';

@@ -13,7 +13,7 @@ import {
   GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS,
   GET_PATIENT_TO_DOS,
   GET_PATIENT_TO_DOS_ERROR,
-  GET_PATIENT_TO_DOS_SUCCESS, GET_FILTER_TO_DO,
+  GET_PATIENT_TO_DOS_SUCCESS, GET_FILTER_TO_DO, GET_FILTER_TO_DO_ERROR,
 } from 'containers/PatientToDos/constants';
 import Utils from 'utils/Util';
 
@@ -58,6 +58,10 @@ function patientToDosReducer(state = initialState, action) {
         .set('error', false)
         .set('loading', false)
         .set('data', fromJS((action.toDos) || []));
+    case GET_FILTER_TO_DO_ERROR:
+      return state
+        .set('error', true)
+        .set('loading', false);
     case GET_PATIENT_TO_DO_MAIN_TASK_ERROR:
       return state
         .set('error', true)

@@ -31,7 +31,7 @@ function FilterBarForm(props) {
               floatingLabelText={filterValueHintText}
             >
               {filterTypes && filterTypes.map((filterType) =>
-                <MenuItem key={uniqueId()} value={filterType.dateRangeCode} primaryText={filterType.display} />,
+                <MenuItem key={uniqueId()} value={filterType.value} primaryText={filterType.display} />,
               )}
             </SelectField>
           }
