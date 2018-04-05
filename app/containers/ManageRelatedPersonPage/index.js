@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -36,11 +36,11 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import makeSelectRelatedPersons from 'containers/RelatedPersons/selectors';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
-import { createRelatedPerson, updateRelatedPerson } from './actions';
+import { createRelatedPerson, getRelatedPerson, updateRelatedPerson } from './actions';
+import { makeSelectRelatedPerson } from './selectors';
 import messages from './messages';
 
 export class ManageRelatedPersonPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -51,12 +51,10 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
 
   componentDidMount() {
     this.props.getLookups();
-    // TODO: refresh patient context?
-    // const queryObj = queryString.parse(this.props.location.search);
-    // const patientId = queryObj.patientId;
-    // if (patientId) {
-    //   this.props.getPatient(patientId);
-    // }
+    const relatedPersonId = this.props.match.params.id;
+    if (relatedPersonId) {
+      this.props.getRelatedPerson(relatedPersonId);
+    }
   }
 
   handleSave(relatedPerson, actions) {
@@ -71,6 +69,7 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
 
   render() {
     const {
+      match,
       uspsStates,
       patientIdentifierSystems,
       administrativeGenders,
@@ -78,9 +77,13 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
       telecomUses,
       relationshipTypes,
       patient,
+      relatedPerson,
     } = this.props;
-    const relatedPersonId = this.props.match.params.id;
-    const selectedRelatedPerson = find(this.props.relatedPeronsData.elements, { relatedPersonId });
+    const editMode = !isUndefined(match.params.id);
+    let selectedRelatedPerson = null;
+    if (editMode && relatedPerson) {
+      selectedRelatedPerson = relatedPerson;
+    }
     const manageRelatedPersonProps = {
       uspsStates,
       patientIdentifierSystems,
@@ -89,6 +92,7 @@ export class ManageRelatedPersonPage extends React.Component { // eslint-disable
       telecomUses,
       relationshipTypes,
       patient,
+      editMode,
       selectedRelatedPerson,
     };
     return (
@@ -112,6 +116,7 @@ ManageRelatedPersonPage.propTypes = {
   createRelatedPerson: PropTypes.func.isRequired,
   updateRelatedPerson: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
+  getRelatedPerson: PropTypes.func.isRequired,
   patientIdentifierSystems: PropTypes.array,
   administrativeGenders: PropTypes.array,
   telecomSystems: PropTypes.arrayOf(PropTypes.shape({
@@ -127,7 +132,7 @@ ManageRelatedPersonPage.propTypes = {
   })).isRequired,
   relationshipTypes: PropTypes.array,
   patient: PropTypes.object,
-  relatedPeronsData: PropTypes.object,
+  relatedPerson: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -138,12 +143,13 @@ const mapStateToProps = createStructuredSelector({
   telecomUses: makeSelectTelecomUses(),
   relationshipTypes: makeSelectRelatedPersonPatientRelationshipTypes(),
   patient: makeSelectPatient(),
-  relatedPeronsData: makeSelectRelatedPersons(),
+  relatedPerson: makeSelectRelatedPerson(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER, TELECOMUSE, TELECOMSYSTEM, RELATEDPERSONPATIENTRELATIONSHIPTYPES])),
+    getRelatedPerson: (relatedPersonId) => dispatch(getRelatedPerson(relatedPersonId)),
     createRelatedPerson: (relatedPerson, handleSubmitting) => dispatch(createRelatedPerson(relatedPerson, handleSubmitting)),
     updateRelatedPerson: (relatedPerson, handleSubmitting) => dispatch(updateRelatedPerson(relatedPerson, handleSubmitting)),
   };
