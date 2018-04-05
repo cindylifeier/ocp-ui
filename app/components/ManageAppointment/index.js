@@ -4,15 +4,14 @@
  *
  */
 
-import React from 'react';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import yup from 'yup';
 
 import Util from 'utils/Util';
-import { mapToPatientName } from 'utils/PatientUtils';
+import yup from 'yup';
 import ManageAppointmentForm from './ManageAppointmentForm';
 import messages from './messages';
 
@@ -31,6 +30,7 @@ function ManageAppointment(props) {
   } = props;
   const propsFromContainer = {
     patient,
+    editMode,
     appointmentStatuses,
     appointmentTypes,
     handleOpen,
@@ -90,17 +90,26 @@ function setFormData(appointment, patient) {
   let formData = null;
   if (!isEmpty(appointment)) {
     formData = {
-      patientName: mapToPatientName(patient),
+      selectedPatient: patient,
       description: appointment.description,
+      appointmentType: appointment.typeCode,
+      date: appointment.appointmentDate && new Date(appointment.appointmentDate),
       status: appointment.statusCode,
-      date: appointment.date,
-      startTime: appointment.startTime,
-      endDate: appointment.endTime,
-      appointmentType: appointment.appointmentType,
+      startTime: convertDateTimeArrayToDate(appointment.start),
+      endTime: convertDateTimeArrayToDate(appointment.end),
+      appointmentStatus: appointment.statusCode,
     };
   }
   return Util.pickByIdentity(formData);
 }
+
+function convertDateTimeArrayToDate(date) {
+  if (date) {
+    return new Date(date[0], date[1] - 1, date[2], date[3], date[4]);
+  }
+  return [];
+}
+
 
 export default ManageAppointment;
 

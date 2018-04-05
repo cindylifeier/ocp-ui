@@ -11,15 +11,12 @@ import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
-import { initializeManageAppointment, saveAppointment } from 'containers/ManageAppointmentPage/actions';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
   initializeSearchAppointmentParticipantResult,
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
-import {
-  makeSelectSelectedAppointmentParticipants,
-} from 'containers/SearchAppointmentParticipant/selectors';
+import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
@@ -33,9 +30,12 @@ import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
+import { getAppointment, initializeManageAppointment, saveAppointment } from './actions';
+import { mapToEditParticipants } from './api';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectAppointment } from './selectors';
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -54,6 +54,10 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
 
   componentDidMount() {
     this.props.getLookups();
+    const appointmentId = this.props.match.params.id;
+    if (appointmentId) {
+      this.props.getAppointment(appointmentId);
+    }
   }
 
   componentWillUnmount() {
@@ -107,10 +111,16 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       appointmentStatuses,
       appointmentTypes,
       selectedParticipants,
+      selectedAppointment,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
-    const appointment = null;
-    const initialSelectedParticipants = [];
+    let appointment = null;
+    let initialSelectedParticipants = [];
+    if (editMode && selectedAppointment) {
+      appointment = selectedAppointment;
+      initialSelectedParticipants = mapToEditParticipants(appointment.participant);
+    }
+
     const manageAppointmentProps = {
       patient,
       appointment,
@@ -173,6 +183,8 @@ ManageAppointmentPage.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  getAppointment: PropTypes.func.isRequired,
+  selectedAppointment: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -181,6 +193,7 @@ const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
   user: makeSelectUser(),
   selectedParticipants: makeSelectSelectedAppointmentParticipants(),
+  selectedAppointment: makeSelectAppointment(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -190,6 +203,7 @@ function mapDispatchToProps(dispatch) {
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     initializeSearchParticipantResult: () => dispatch(initializeSearchAppointmentParticipantResult()),
+    getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
   };
 }
 
