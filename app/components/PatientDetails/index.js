@@ -13,7 +13,7 @@ import Flag from 'material-ui/svg-icons/content/flag';
 import upperFirst from 'lodash/upperFirst';
 
 import patientAvatar from 'images/patient-avatar.png';
-import { ShowHideWrapper } from 'containers/ShowHideWrapper';
+import ShowHideWrapper from 'containers/ShowHideWrapper';
 import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL, WHITE_SPACE } from 'containers/App/constants';
 import PatientDetailsGrid from 'components/PatientDetails/PatientDetailsGrid';
 import PatientDetailsCell from 'components/PatientDetails/PatientDetailsCell';
