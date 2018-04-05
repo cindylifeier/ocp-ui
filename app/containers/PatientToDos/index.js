@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
-import { CARE_COORDINATOR_ROLE_CODE, MANAGE_TASK_URL } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
 import { cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
@@ -24,7 +24,6 @@ import {
   makeSelectSearchLoading,
 } from 'containers/PatientToDos/selectors';
 import ToDoList from 'components/ToDoList';
-import { TO_DO_DEFINITION } from 'containers/PatientToDos/constants';
 import H3 from 'components/H3';
 import StyledFlatButton from 'components/StyledFlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -57,7 +56,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
         this.props.getPatientToDos(patientId, practitionerId, definition);
       } else if (organizationId && practitionerId) {
         this.props.getPatientToDos(patientId, practitionerId, definition);
-        this.props.getPatientToDoMainTask(patientId, organizationId, definition);
+        this.props.getPatientToDoMainTask(patientId, organizationId, definition, practitionerId);
       }
     }
   }

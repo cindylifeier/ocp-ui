@@ -23,6 +23,7 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { TO_DO_DEFINITION } from 'containers/App/constants';
 import { makeSelectUpcomingTasks, makeSelectUpcomingTasksLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -33,7 +34,6 @@ export class UpcomingTasks extends React.Component { // eslint-disable-line reac
     super(props);
     this.state = {
       practitionerId: 1961,
-      /* practitionerId: 1377,*/
       isPatientModalOpen: false,
       panelHeight: 0,
     };
@@ -65,21 +65,25 @@ export class UpcomingTasks extends React.Component { // eslint-disable-line reac
 
   render() {
     const { loading, data, practitionerId } = this.props;
+    let taskList = data;
+    if (!isEmpty(data)) {
+      taskList = data.filter((task) => task.description !== TO_DO_DEFINITION);
+    }
     return (
       <Card>
         <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
         {loading &&
         <RefreshIndicatorLoading />}
 
-        {!loading && isEmpty(data) &&
+        {!loading && isEmpty(taskList) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noUpcomingTasksFound} />
         </NoResultsFoundText>}
-        {!isEmpty(data) && !isEmpty(data) &&
+        {!isEmpty(taskList) && !isEmpty(taskList) &&
         <div>
           <CenterAlign>
             <UpcomingTasksTable
-              elements={data}
+              elements={taskList}
               loginPractitonerId={practitionerId}
               onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
               relativeTop={this.state.panelHeight}

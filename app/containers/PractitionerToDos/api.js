@@ -5,8 +5,8 @@ import { BASE_TASKS_API_URL, getEndpoint } from 'utils/endpointService';
 const baseEndpoint = getEndpoint(BASE_TASKS_API_URL);
 
 export function getPractitionerToDos(practitionerId, definition) {
-  const queryParams = { practitionerId, definition };
+  const queryParams = { practitioner: practitionerId, definition };
   const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/tasks?${stringifiedParams}`;
+  const url = `${baseEndpoint}?${stringifiedParams}`;
   return request(url);
 }
