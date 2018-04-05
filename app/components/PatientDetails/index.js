@@ -13,7 +13,8 @@ import Flag from 'material-ui/svg-icons/content/flag';
 import upperFirst from 'lodash/upperFirst';
 
 import patientAvatar from 'images/patient-avatar.png';
-import { MANAGE_PATIENT_URL, WHITE_SPACE } from 'containers/App/constants';
+import { ShowHideWrapper } from 'containers/ShowHideWrapper';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL, WHITE_SPACE } from 'containers/App/constants';
 import PatientDetailsGrid from 'components/PatientDetails/PatientDetailsGrid';
 import PatientDetailsCell from 'components/PatientDetails/PatientDetailsCell';
 import DetailsPanelGrid from 'components/PatientDetails/DetailsPanelGrid';
@@ -21,7 +22,7 @@ import PatientBasicInfoCell from 'components/PatientDetails/PatientBasicInfoCell
 import H3 from 'components/H3';
 
 function PatientDetails(props) {
-  const { patient, isPatientUser } = props;
+  const { patient } = props;
   const flattenPatient = props.flattenPatientData(patient);
   const { id, name, addresses, phones, birthDate, genderCode, flags } = flattenPatient;
   return (
@@ -55,8 +56,15 @@ function PatientDetails(props) {
             <Cell>Contact{WHITE_SPACE}<strong>{phones}</strong></Cell>
             <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
             <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
-            {!isPatientUser && flags.length > 0 &&
-            <Cell><Link to={`${MANAGE_PATIENT_URL}/${id}`}><Flag /><strong>Advisory</strong></Link></Cell>
+            {flags.length > 0 &&
+            <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
+              <Cell>
+                <Link to={`${MANAGE_PATIENT_URL}/${id}`}>
+                  <Flag />
+                  <strong>Advisory</strong>
+                </Link>
+              </Cell>
+            </ShowHideWrapper>
             }
           </DetailsPanelGrid>
         </PatientDetailsCell>
@@ -70,7 +78,6 @@ PatientDetails.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  isPatientUser: PropTypes.bool.isRequired,
   flattenPatientData: PropTypes.func.isRequired,
 };
 
