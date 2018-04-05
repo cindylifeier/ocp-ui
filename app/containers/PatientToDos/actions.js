@@ -35,12 +35,13 @@ export function getPatientToDoError(error) {
 }
 
 
-export function getPatientToDoMainTask(patientId, organizationId, definition) {
+export function getPatientToDoMainTask(patientId, organizationId, definition, practitionerId) {
   return {
     type: GET_PATIENT_TO_DO_MAIN_TASK,
     patientId,
     organizationId,
     definition,
+    practitionerId,
   };
 }
 
@@ -65,10 +66,10 @@ export function cancelToDos(toDoLogicalId) {
   };
 }
 
-export function cancelToDoSuccess(toDos) {
+export function cancelToDoSuccess(toDoLogicalId) {
   return {
     type: CANCEL_TO_DO_SUCCESS,
-    toDos,
+    toDoLogicalId,
   };
 }
 
