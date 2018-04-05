@@ -13,15 +13,16 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import GoldenLayout from 'components/GoldenLayout';
-import PatientDetails from 'components/PatientDetails';
-import { flattenPatientData } from 'containers/PatientPage/helpers';
+import renderUnderConstructionComponent from 'components/UnderConstruction/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { PATIENT_ROLE_CODE } from 'containers/App/constants';
-import { getPatient, refreshPatient } from 'containers/App/contextActions';
-import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasksComponent from 'containers/Tasks/render';
+import renderConsentsComponent from 'containers/Consents/render';
+import renderCareTeamsComponent from 'containers/CareTeams/render';
+import PatientDetails from 'components/PatientDetails';
+import { flattenPatientData } from 'containers/PatientPage/helpers';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import PatientPageCell from './PatientPageCell';
 import PatientPageGrid from './PatientPageGrid';
 
@@ -61,111 +62,148 @@ export const initialStateMetadata =
       popin: 'pop in',
       tabDropdown: 'additional tabs',
     },
-    content: [
-      {
+    content: [{
+      type: 'column',
+      isClosable: true,
+      reorderEnabled: true,
+      title: '',
+      content: [{
         type: 'row',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        content: [
-          {
-            type: 'column',
+        height: 50,
+        content: [{
+          type: 'column',
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          width: 50,
+          content: [{
+            type: 'stack',
+            header: {},
             isClosable: true,
             reorderEnabled: true,
             title: '',
-            width: 100,
-            content: [
-              {
-                type: 'row',
-                isClosable: true,
-                reorderEnabled: true,
-                title: '',
-                width: 100,
-                content: [{
-                  type: 'stack',
-                  header: {},
-                  isClosable: true,
-                  reorderEnabled: true,
-                  title: '',
-                  activeItemIndex: 0,
-                  content: [{
-                    title: 'MY TO DO',
-                    type: 'component',
-                    componentName: 'toDos',
-                    isClosable: true,
-                    reorderEnabled: true,
-                  },
-                  ],
-                }, {
-                  type: 'stack',
-                  header: {},
-                  isClosable: true,
-                  reorderEnabled: true,
-                  title: '',
-                  activeItemIndex: 0,
-                  content: [{
-                    title: 'CALENDAR',
-                    type: 'component',
-                    componentName: 'calendar',
-                    isClosable: true,
-                    reorderEnabled: true,
-                  }],
-                }],
-              },
-              {
-                type: 'stack',
-                header: {},
-                isClosable: true,
-                reorderEnabled: true,
-                title: '',
-                activeItemIndex: 0,
-                height: 50,
-                content: [{
-                  title: 'Tasks',
-                  type: 'component',
-                  componentName: 'tasks',
-                  isClosable: true,
-                  reorderEnabled: true,
-                },
-                ],
-              },
-              {
-                type: 'stack',
-                header: {},
-                isClosable: true,
-                reorderEnabled: true,
-                title: '',
-                activeItemIndex: 0,
-                height: 50,
-                content: [{
-                  title: 'Communications',
-                  type: 'component',
-                  componentName: 'communications',
-                  isClosable: true,
-                  reorderEnabled: true,
-                }],
-              },
-              {
-                type: 'stack',
-                header: {},
-                isClosable: true,
-                reorderEnabled: true,
-                title: '',
-                activeItemIndex: 0,
-                height: 50,
-                content: [{
-                  title: 'My Appointments',
-                  type: 'component',
-                  componentName: 'appointments',
-                  isClosable: true,
-                  reorderEnabled: true,
-                }],
-              },
-            ],
-          },
-        ],
-      },
-    ],
+            activeItemIndex: 0,
+            width: 50,
+            height: 50,
+            content: [{
+              title: 'MY TO DO',
+              type: 'component',
+              componentName: 'toDos',
+              isClosable: true,
+              reorderEnabled: true,
+            }],
+          }, {
+            type: 'stack',
+            header: {},
+            isClosable: true,
+            reorderEnabled: true,
+            title: '',
+            activeItemIndex: 0,
+            height: 50,
+            content: [{
+              title: 'Tasks',
+              type: 'component',
+              componentName: 'tasks',
+              isClosable: true,
+              reorderEnabled: true,
+            }],
+          }],
+        }, {
+          type: 'column',
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          width: 50,
+          content: [{
+            type: 'stack',
+            width: 50,
+            height: 50,
+            isClosable: true,
+            reorderEnabled: true,
+            title: '',
+            activeItemIndex: 0,
+            content: [{
+              title: 'CALENDAR',
+              type: 'component',
+              componentName: 'calendar',
+              isClosable: true,
+              reorderEnabled: true,
+            }],
+          }, {
+            type: 'stack',
+            header: {},
+            isClosable: true,
+            reorderEnabled: true,
+            title: '',
+            activeItemIndex: 0,
+            height: 50,
+            content: [{
+              title: 'My Appointments',
+              type: 'component',
+              componentName: 'appointments',
+              isClosable: true,
+              reorderEnabled: true,
+            }],
+          }],
+        }],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 25,
+        content: [{
+          title: 'Communications',
+          type: 'component',
+          componentName: 'communications',
+          isClosable: true,
+          reorderEnabled: true,
+        }],
+      }, {
+        type: 'row',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        height: 25,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 25,
+          width: 50,
+          content: [{
+            title: 'Consents',
+            type: 'component',
+            componentName: 'consents',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          content: [{
+            title: 'Care teams',
+            type: 'component',
+            componentName: 'careTeams',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
+      }],
+    }],
     isClosable: true,
     reorderEnabled: true,
     title: '',
@@ -173,19 +211,14 @@ export const initialStateMetadata =
     maximisedItemId: null,
   };
 
-// TODO: will replace with particular render components
-function renderEmptyGoldenLayoutComponent() {
-  return (
-    <div></div>
-  );
-}
-
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
-  { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPatientToDosComponent },
-  { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'toDos', text: 'My To Do', factoryMethod: renderPatientToDosComponent },
+  { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstructionComponent },
+  { name: 'consents', text: 'Consents', factoryMethod: renderConsentsComponent },
+  { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
 ];
 
 export class PatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -201,9 +234,8 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
   }
 
   render() {
-    const { patient, user } = this.props;
-    const isPatientUser = user.role === PATIENT_ROLE_CODE;
-    const patientDetailsProps = { patient, isPatientUser };
+    const { patient } = this.props;
+    const patientDetailsProps = { patient };
     return (
       <div>
         <Helmet>
@@ -245,16 +277,12 @@ PatientPage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  user: PropTypes.shape({
-    role: PropTypes.string,
-  }),
   refreshPatient: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
-  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

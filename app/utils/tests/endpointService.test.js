@@ -22,7 +22,7 @@ import {
 describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
-    const numberOfEndpoints = 17;
+    const numberOfEndpoints = 18;
     const numberOfUnsecuredEndpoints = 2;
 
     // Act
