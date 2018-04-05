@@ -26,7 +26,7 @@ export function* getPatientToDosSaga(action) {
 
 export function* getToDoMainTaskSaga(action) {
   try {
-    const toDoMainTask = yield call(getToDoMainTask, action.patientId, action.organizationId, action.definition);
+    const toDoMainTask = yield call(getToDoMainTask, action.patientId, action.organizationId, action.definition, action.practitionerId);
     yield put(getPatientToDoMainTaskSuccess(toDoMainTask));
   } catch (error) {
     yield put(showNotification(<FormattedMessage {...messages.noTaskReferenceError} />));
@@ -47,9 +47,9 @@ export function* getFilterToDoSaga(action) {
 export function* cancelToDoSaga(action) {
   try {
     if (action.toDoLogicalId) {
-      const toDos = yield call(cancelToDo, action.toDoLogicalId);
+      yield call(cancelToDo, action.toDoLogicalId);
       yield put(showNotification(<FormattedMessage {...messages.cancelToDoSuccess} />));
-      yield put(cancelToDoSuccess(toDos));
+      yield put(cancelToDoSuccess(action.toDoLogicalId));
     }
   } catch (error) {
     yield put(showNotification(<FormattedMessage {...messages.cancelToDoError} />));

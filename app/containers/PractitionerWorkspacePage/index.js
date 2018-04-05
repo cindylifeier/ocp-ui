@@ -18,6 +18,7 @@ import {
   CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
   FRONT_OFFICE_ROLE_CODE,
+  HEALTH_ASSISTANT_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
@@ -91,6 +92,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     { name: 'patientAppointments', text: 'PATIENT APPOINTMENTS', factoryMethod: renderPatientAppointmentsComponent },
     { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPractitionerToDosComponent },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderUnderConstructionComponent },
+    { name: 'assessments', text: 'ASSESSMENTS', factoryMethod: renderUnderConstructionComponent },
     {
       name: 'upcomingAppointments',
       text: 'APPOINTMENTS',
@@ -580,6 +582,69 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     ],
   };
 
+  static healthAssistantLayout = {
+    ...baseLayout,
+    content: [{
+      type: 'column',
+      isClosable: true,
+      reorderEnabled: true,
+      title: '',
+      content: [{
+        type: 'row',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        height: 80,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          height: 80,
+          content: [{
+            title: 'Communications',
+            type: 'component',
+            componentName: 'communications',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          width: 50,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Assessments',
+            type: 'component',
+            componentName: 'assessments',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 80,
+        content: [{
+          title: 'Patients',
+          type: 'component',
+          componentName: 'patients',
+          isClosable: true,
+          reorderEnabled: true,
+        }],
+      }],
+    }],
+  };
+
   constructor(props) {
     super(props);
     this.getStateMetadataForRole = this.getStateMetadataForRole.bind(this);
@@ -598,6 +663,8 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         return PractitionerWorkspacePage.pcpLayout;
       case BENEFITS_SPECIALIST_ROLE_CODE:
         return PractitionerWorkspacePage.benefitsSpecialistLayout;
+      case HEALTH_ASSISTANT_ROLE_CODE:
+        return PractitionerWorkspacePage.healthAssistantLayout;
       case FRONT_OFFICE_ROLE_CODE:
         return PractitionerWorkspacePage.frontOfficeLayout;
       default:

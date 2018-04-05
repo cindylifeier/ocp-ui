@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  CANCEL_TO_DO,
   GET_FILTER_TO_DO_SUCCESS,
   CANCEL_TO_DO_SUCCESS,
   GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
@@ -14,6 +15,7 @@ import {
   GET_PATIENT_TO_DOS_ERROR,
   GET_PATIENT_TO_DOS_SUCCESS, GET_FILTER_TO_DO,
 } from 'containers/PatientToDos/constants';
+import Utils from 'utils/Util';
 
 const initialState = fromJS({
   data: [],
@@ -30,11 +32,18 @@ function patientToDosReducer(state = initialState, action) {
         .set('error', false)
         .set('loading', false)
         .set('data', fromJS((action.toDos) || []));
-    case CANCEL_TO_DO_SUCCESS:
+    case CANCEL_TO_DO:
+      return state
+        .set('error', false)
+        .set('loading', true);
+    case CANCEL_TO_DO_SUCCESS: {
+      const toDosAsArray = Utils.getFromState(state, 'data');
+      const filterToDos = toDosAsArray.filter((toDo) => toDo.logicalId !== action.toDoLogicalId);
       return state
         .set('error', false)
         .set('loading', false)
-        .set('data', fromJS((action.toDos) || []));
+        .set('data', fromJS((filterToDos) || []));
+    }
     case GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS:
       return state
         .set('error', false)

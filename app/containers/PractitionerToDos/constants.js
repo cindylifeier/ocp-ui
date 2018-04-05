@@ -16,4 +16,3 @@ export const GET_PRACTITIONER_TO_DOS_ERROR = 'ocpui/PractitionerToDos/GET_PRACTI
  *
  */
 
-export const TO_DO_DEFINITION = 'To-Do';
