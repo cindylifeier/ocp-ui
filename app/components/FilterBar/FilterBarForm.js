@@ -17,6 +17,7 @@ function FilterBarForm(props) {
   const { dirty, isSubmitting, isValid, filterTypes, filterValueHintText, showFilter } = props;
   return (
     <Form>
+      {showFilter &&
       <FilterSection>
         <FilterHeader>
           <FilterIcon color={'#336666'} />
@@ -48,6 +49,7 @@ function FilterBarForm(props) {
           }
         </FilterContainerGrid>
       </FilterSection>
+      }
     </Form>
   );
 }
