@@ -40,6 +40,7 @@ import Notification from 'containers/Notification';
 import injectSaga from 'utils/injectSaga';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageConsentPage from 'containers/ManageConsentPage';
+import AttestConsentPage from 'containers/AttestConsentPage';
 import saga from './saga';
 import './styles.css';
 
@@ -81,6 +82,7 @@ export function App() {
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
             <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
             <Route path="/ocp-ui/manage-consent/:id?" component={ManageConsentPage} />
+            <Route path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
