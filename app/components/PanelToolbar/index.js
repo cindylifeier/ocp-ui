@@ -132,9 +132,12 @@ export class PanelToolbar extends React.Component {
 
 PanelToolbar.propTypes = {
   sticky: PropTypes.bool,
-  allowedAddNewItemRoles: PropTypes.arrayOf(
+  allowedAddNewItemRoles: PropTypes.oneOfType([
     PropTypes.oneOf(functionalRoles).isRequired,
-  ),
+    PropTypes.arrayOf(
+      PropTypes.oneOf(functionalRoles).isRequired,
+    ),
+  ]),
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,

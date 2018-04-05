@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import includes from 'lodash/includes';
 
 import {
   BENEFITS_SPECIALIST_ROLE_CODE,
@@ -30,7 +31,7 @@ export const functionalRoles = [
 
 export function ShowHideWrapper(props) {
   const { allowedRoles, children, user: { role } } = props;
-  const isAllowedShow = allowedRoles.includes(role);
+  const isAllowedShow = includes(allowedRoles, role);
   return (
     <div>
       {isAllowedShow ?
@@ -42,9 +43,12 @@ export function ShowHideWrapper(props) {
 }
 
 ShowHideWrapper.propTypes = {
-  allowedRoles: PropTypes.arrayOf(
+  allowedRoles: PropTypes.oneOfType([
     PropTypes.oneOf(functionalRoles).isRequired,
-  ).isRequired,
+    PropTypes.arrayOf(
+      PropTypes.oneOf(functionalRoles).isRequired,
+    ),
+  ]).isRequired,
   children: PropTypes.node,
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,
