@@ -67,7 +67,8 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   }
   getPractitionerId() {
     const { user } = this.props;
-    return user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
+    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
+    return practitionerId;
   }
 
   getToDoMainTaskId(toDoMainTask) {
@@ -108,6 +109,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     const { toDos, selectedPatient, loading, toDoMainTask, dateRanges } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const toDoMainTaskId = this.getToDoMainTaskId(toDoMainTask);
+    const practitionerId = this.getPractitionerId();
     const CREATE_TO_DO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${toDoMainTaskId}`;
     const addNewItem = (practitionerId && patientId) ? {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
