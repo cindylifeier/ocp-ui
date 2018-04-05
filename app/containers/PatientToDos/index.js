@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
-import { CARE_COORDINATOR_ROLE_VALUE, DATE_RANGE, MANAGE_TASK_URL } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, DATE_RANGE,  MANAGE_TASK_URL } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
 import { getFilterToDos, cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
@@ -63,7 +63,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   }
   getPractitionerId() {
     const { user } = this.props;
-    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_VALUE) ? user.resource.logicalId : null;
+    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
     return practitionerId;
   }
   getToDoMainTaskId(toDoMainTask) {
@@ -189,9 +189,9 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getPatientToDos: (patientId, practitionerId, definition) => dispatch(getPatientToDos(patientId, practitionerId, definition)),
-    getPatientToDoMainTask: (patientId, organizationId, definition) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition)),
     getLookups: () => dispatch(getLookupsAction([DATE_RANGE])),
     getFilterToDos: (patientId, definition, dateRange) => dispatch(getFilterToDos(patientId, definition, dateRange)),
+    getPatientToDoMainTask: (patientId, organizationId, definition, practitionerId) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition, practitionerId)),
     cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
   };
 }

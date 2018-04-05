@@ -1,4 +1,5 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import isEmpty from 'lodash/isEmpty';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   GET_ACTIVE_LOCATIONS,
@@ -6,10 +7,11 @@ import {
   STATUS_ACTIVE,
   STATUS_INACTIVE,
   STATUS_SUSPENDED,
+  SEARCH_LOCATIONS,
 } from './constants';
-import { getLocationsError, getLocationsSuccess } from './actions';
+import { getLocationsError, getLocationsSuccess, searchLocationsSuccess, searchLocationsError } from './actions';
 import { makeSelectIncludeInactive, makeSelectIncludeSuspended } from './selectors';
-import searchLocationsByIdAndStatus from './api';
+import { getErrorDetail, searchLocationsByIdAndStatus, searchLocations } from './api';
 
 /**
  * Get locations by Organization id and status
@@ -31,6 +33,18 @@ export function* fetchLocationsByOrganizationIdAndStatus(action) {
   }
 }
 
+export function* searchLocationsSaga({ searchValue, includeInactive, searchType, currentPage }) {
+  try {
+    const organization = yield select(makeSelectOrganization());
+    let locations = null;
+    if (!isEmpty(organization) && !isEmpty(organization.logicalId)) {
+      locations = yield call(searchLocations, organization.logicalId, searchValue, includeInactive, searchType, currentPage);
+    }
+    yield put(searchLocationsSuccess(locations));
+  } catch (err) {
+    yield put(searchLocationsError(getErrorDetail(err)));
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -42,10 +56,14 @@ export function* watchFilterLocations() {
   yield takeLatest(GET_FILTERED_LOCATIONS, fetchLocationsByOrganizationIdAndStatus);
 }
 
+export function* watchSearchLocationsSaga() {
+  yield takeLatest(SEARCH_LOCATIONS, searchLocationsSaga);
+}
 
 export default function* rootSaga() {
   yield all([
     watchFetchLocations(),
     watchFilterLocations(),
+    watchSearchLocationsSaga(),
   ]);
 }

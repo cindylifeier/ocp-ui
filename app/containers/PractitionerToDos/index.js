@@ -18,7 +18,7 @@ import isEmpty from 'lodash/isEmpty';
 import { getPractitionerToDos } from 'containers/PractitionerToDos/actions';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectPractitionerToDos, makeSelectSearchLoading } from 'containers/PractitionerToDos/selectors';
-import { CARE_COORDINATOR_ROLE_VALUE } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
 import { PanelToolbar } from 'components/PanelToolbar';
 import ToDoList from 'components/ToDoList';
 import Card from 'components/Card';
@@ -39,7 +39,7 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
   }
   getPractitionerId() {
     const { user } = this.props;
-    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_VALUE) ? user.resource.logicalId : null;
+    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
     return practitionerId;
   }
   render() {
