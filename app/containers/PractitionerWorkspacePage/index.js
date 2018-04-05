@@ -219,7 +219,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 80,
           content: [{
-            title: 'Appointments',
+            title: 'Upcoming Appointments',
             type: 'component',
             componentName: 'upcomingAppointments',
             isClosable: true,
@@ -354,7 +354,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           activeItemIndex: 0,
           width: 40,
           content: [{
-            title: 'Appointments',
+            title: 'Upcoming Appointments',
             type: 'component',
             componentName: 'upcomingAppointments',
             isClosable: true,
@@ -552,7 +552,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 80,
           content: [{
-            title: 'Appointments',
+            title: 'Upcoming Appointments',
             type: 'component',
             componentName: 'upcomingAppointments',
             isClosable: true,
