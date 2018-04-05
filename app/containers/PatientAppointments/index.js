@@ -106,15 +106,18 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const cancelledStatus = STATUS_CODE_CANCELLED;
+    const manageAppointmentUrl = MANAGE_APPOINTMENT_URL;
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
+    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
     const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_APPOINTMENT_URL,
       },
     };
+    const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_CODE);
     return (
       <div>
         <Card>
@@ -156,6 +159,8 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
               communicationBaseUrl={communicationBaseUrl}
               relativeTop={this.state.panelHeight + this.state.filterHeight}
               cancelledStatus={cancelledStatus}
+              enableEditAppointment={enableEditAppointment}
+              manageAppointmentUrl={manageAppointmentUrl}
             />
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}

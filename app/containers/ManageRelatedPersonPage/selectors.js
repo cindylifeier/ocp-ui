@@ -8,7 +8,10 @@ const selectManageRelatedPersonPageDomain = (state) => state.get('manageRelatedP
 /**
  * Other specific selectors
  */
-
+const makeSelectRelatedPerson = () => createSelector(
+  selectManageRelatedPersonPageDomain,
+  (subState) => subState && subState.get('relatedPerson'),
+);
 
 /**
  * Default selector used by ManageRelatedPersonPage
@@ -16,10 +19,11 @@ const selectManageRelatedPersonPageDomain = (state) => state.get('manageRelatedP
 
 const makeSelectManageRelatedPersonPage = () => createSelector(
   selectManageRelatedPersonPageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectManageRelatedPersonPage;
 export {
   selectManageRelatedPersonPageDomain,
+  makeSelectRelatedPerson,
 };

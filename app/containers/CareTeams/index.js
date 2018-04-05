@@ -18,6 +18,17 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import {
+  CARETEAMSTATUS,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_CARE_TEAM_URL,
+  PATIENT_ROLE_CODE,
+} from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
+import { getLookupsAction } from 'containers/App/actions';
+import PanelToolbar from 'components/PanelToolbar';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -29,10 +40,6 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
-import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
-import { getLookupsAction } from 'containers/App/actions';
-import { CARETEAMSTATUS, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectCareTeams from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -43,8 +50,14 @@ import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
 export class CareTeams extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      panelHeight: 0,
+      filterHeight: 0,
+    };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
+    this.handleFilterResize = this.handleFilterResize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
@@ -81,6 +94,14 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.props.getCareTeams(DEFAULT_START_PAGE_NUMBER, newStatusList);
   }
 
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
+  handleFilterResize(size) {
+    this.setState({ filterHeight: size.height });
+  }
+
   renderFilter(careTeamStatuses, statusList) {
     const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
     return (
@@ -111,28 +132,40 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
       const { name: [{ firstName, lastName }] } = patient;
       patientName = [firstName, lastName].filter((n) => !isEmpty(n)).join(' ');
     }
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_CARE_TEAM_URL,
+    };
     return (
       <Card>
+        <PanelToolbar
+          addNewItem={addNewItem}
+          allowedAddNewItemRoles={PATIENT_ROLE_CODE}
+          showSearchIcon={false}
+          onSize={this.handlePanelResize}
+        />
         {isEmpty(patientName) ?
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <Grid columns={1} gap="">
-            <Cell>
-              <InfoSection>
-                <div>
-                  The <FormattedMessage {...messages.careTeams} /> for&nbsp;
-                  <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                    <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
-                  </InlineLabel>
-                  are :
-                </div>
-              </InfoSection>
-            </Cell>
-            <Cell>
-              {!isEmpty(careTeamStatuses) &&
-              this.renderFilter(careTeamStatuses, statusList)
-              }
-            </Cell>
-          </Grid>
+          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+            <Grid columns={1} gap="">
+              <Cell>
+                <InfoSection>
+                  <div>
+                    The <FormattedMessage {...messages.careTeams} /> for&nbsp;
+                    <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                      <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                    </InlineLabel>
+                    are :
+                  </div>
+                </InfoSection>
+              </Cell>
+              <Cell>
+                {!isEmpty(careTeamStatuses) &&
+                this.renderFilter(careTeamStatuses, statusList)
+                }
+              </Cell>
+            </Grid>
+          </SizedStickyDiv>
         }
 
         {loading &&
@@ -143,7 +176,11 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
 
         {!isEmpty(data) && !isEmpty(data.elements) &&
         <CenterAlign>
-          <CareTeamTable elements={data.elements} />
+          <CareTeamTable
+            relativeTop={this.state.panelHeight + this.state.filterHeight}
+            elements={data.elements}
+            manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
+          />
           <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
             totalPages={data.totalNumberOfPages}

@@ -9,25 +9,23 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
-import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import { Cell, Grid } from 'styled-css-grid';
 
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
-import Table from '../Table';
-import TableHeader from '../TableHeader';
-import TableHeaderColumn from '../TableHeaderColumn';
-import TableRow from '../TableRow';
-import TableRowColumn from '../TableRowColumn';
-import { MANAGE_CARE_TEAM_URL } from '../../containers/App/constants';
-import StyledIconButton from '../StyledIconButton';
 
-function CareTeamTable({ elements }) {
+const columns = 'repeat(7, 1fr) 50px';
+
+function CareTeamTable({ elements, relativeTop, manageCareTeamUrl }) {
   return (
     <div>
       <Table>
-        <TableHeader>
+        <TableHeader columns={columns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
@@ -35,10 +33,9 @@ function CareTeamTable({ elements }) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
-          <TableHeaderColumn />
         </TableHeader>
         {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => (
-          <TableRow key={id}>
+          <TableRow key={id} columns={columns}>
             <TableRowColumn>{name}</TableRowColumn>
             <TableRowColumn>{statusDisplay}</TableRowColumn>
             <TableRowColumn>{categoryDisplay}</TableRowColumn>
@@ -54,30 +51,18 @@ function CareTeamTable({ elements }) {
             <TableRowColumn>{endDate}</TableRowColumn>
             <TableRowColumn>{reasonDisplay}</TableRowColumn>
             <TableRowColumn>
-              <Grid columns="1fr 50px" gap="0px">
-                <Cell left="2">
-                  <IconMenu
-                    iconButtonElement={
-                      (<StyledIconButton>
-                        <NavigationMenu />
-                      </StyledIconButton>)
-                    }
-                    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                  >
-                    <MenuItem
-                      primaryText={<FormattedMessage {...messages.menuItemEdit} />}
-                      containerElement={<Link
-                        to={{
-                          pathname: `${MANAGE_CARE_TEAM_URL}/${id}`,
-                          search: `?patientId=${subjectId}`,
-                        }}
-                      />}
-                    />
-                    <MenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
-                  </IconMenu>
-                </Cell>
-              </Grid>
+              <NavigationStyledIconMenu>
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.menuItemEdit} />}
+                  containerElement={<Link
+                    to={{
+                      pathname: `${manageCareTeamUrl}/${id}`,
+                      search: `?patientId=${subjectId}`,
+                    }}
+                  />}
+                />
+                <MenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
+              </NavigationStyledIconMenu>
             </TableRowColumn>
           </TableRow>
         ))}
@@ -87,6 +72,8 @@ function CareTeamTable({ elements }) {
 }
 
 CareTeamTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
+  manageCareTeamUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

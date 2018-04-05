@@ -23,7 +23,12 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
-import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS } from 'containers/App/constants';
+import { REQUEST_INTENT,
+  REQUEST_PRIORITY,
+  TASK_PERFORMER_TYPE,
+  TASK_STATUS,
+  TO_DO_DEFINITION,
+} from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
@@ -34,7 +39,6 @@ import { createTask, getActivityDefinitions, getEventTypes, getOrganization, get
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { TO_DO_DEFINITION } from './constants';
 
 export class ManageTaskPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -173,15 +177,17 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     if (logicalId && tasks) {
       if (isMainTask) {
         currentTask = find(tasks.data, { logicalId });
-        filteredActivityDefinitions = activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
+        filteredActivityDefinitions = activityDefinitions && activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
       } else {
-        currentTask = find(subTasks, { logicalId });
+        currentTask = subTasks && find(subTasks, { logicalId });
         if (currentTask === undefined) {
-          currentTask = find(toDoSubTasks, { logicalId });
+          currentTask = toDoSubTasks && find(toDoSubTasks, { logicalId });
         } else {
-          filteredActivityDefinitions = activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
+          filteredActivityDefinitions = activityDefinitions && activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
         }
       }
+    } else if (isMainTask) {
+      filteredActivityDefinitions = activityDefinitions && activityDefinitions.filter((activityDefinition) => activityDefinition.display !== TO_DO_DEFINITION);
     }
     logicalId = queryObj.mainTaskId;
     const editMode = !isUndefined(match.params.id);
@@ -265,7 +271,7 @@ ManageTaskPage.propTypes = {
   subTasks: PropTypes.any,
   practitioners: PropTypes.any,
   requester: PropTypes.object,
-  activityDefinitions: PropTypes.any,
+  activityDefinitions: PropTypes.array,
   taskStatus: PropTypes.array,
   requestIntent: PropTypes.array,
   requestPriority: PropTypes.array,
