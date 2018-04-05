@@ -100,8 +100,14 @@ function mapToBffParticipants(participants) {
     return participants
       .map((participant) => ({
         participationTypeCode: participant.participationType.code,
+        participationTypeDisplay: participant.participationType.display,
+        participationTypeSystem: participant.participationType.system,
         participantRequiredCode: participant.required.code,
+        participantRequiredDisplay: participant.required.display,
+        participantRequiredSystem: participant.required.system,
         participationStatusCode: participant.status.code,
+        participationStatusDisplay: participant.status.display,
+        participationStatusSystem: participant.status.system,
         actorReference: `${participant.memberType}/${participant.memberId}`,
         actorName: participant.name,
       }));
@@ -113,9 +119,18 @@ export function mapToEditParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        participationType: { code: participant.participationTypeCode },
-        required: { code: participant.participantRequiredCode },
-        status: { code: participant.participationStatusCode },
+        participationType: {
+          code: participant.participationTypeCode,
+          display: participant.participationTypeDisplay,
+        },
+        required: {
+          code: participant.participantRequiredCode,
+          display: participant.participantRequiredCode,
+        },
+        status: {
+          code: participant.participationStatusCode,
+          display: participant.participationStatusCode,
+        },
         memberType: participant.actorReference.substr(0, participant.actorReference.indexOf('/')),
         memberId: participant.actorReference.substr(participant.actorReference.indexOf('/') + 1),
         name: participant.actorName,
