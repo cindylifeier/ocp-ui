@@ -56,7 +56,6 @@ class ConsentExpandableTableRow extends React.PureComponent {
             (
               <div key={uniqueId()}>
                 {display}
-                <br />
               </div>
             ),
           )}</TableRowColumn>
@@ -64,7 +63,6 @@ class ConsentExpandableTableRow extends React.PureComponent {
             (
               <div key={uniqueId()}>
                 {display}
-                <br />
               </div>
             ),
           )}</TableRowColumn>
