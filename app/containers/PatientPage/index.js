@@ -17,6 +17,7 @@ import PatientDetails from 'components/PatientDetails';
 import { flattenPatientData } from 'containers/PatientPage/helpers';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
+import renderConsents from 'containers/Consents/render';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import renderFactory from 'utils/goldenLayout/renderFactory';
@@ -160,6 +161,23 @@ export const initialStateMetadata =
                   reorderEnabled: true,
                 }],
               },
+              {
+                type: 'stack',
+                header: {},
+                isClosable: true,
+                reorderEnabled: true,
+                title: '',
+                activeItemIndex: 0,
+                height: 50,
+                content: [{
+                  title: 'Consents',
+                  type: 'component',
+                  componentName: 'consents',
+                  isClosable: true,
+                  reorderEnabled: true,
+                },
+                ],
+              },
             ],
           },
         ],
@@ -185,6 +203,7 @@ export const componentMetadata = [
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'CALENDAR', factoryMethod: renderFactory(renderEmptyGoldenLayoutComponent) },
+  { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
 ];
 
 export class PatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
