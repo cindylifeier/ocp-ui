@@ -109,17 +109,21 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
-    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
-    const addNewItem = (patientId && role === CARE_COORDINATOR_ROLE_CODE) ? {
+    const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_APPOINTMENT_URL,
       },
-    } : undefined;
+    };
     return (
       <div>
         <Card>
-          <PanelToolbar {...addNewItem} showSearchIcon={false} onSize={this.handlePanelResize} />
+          <PanelToolbar
+            {...addNewItem}
+            allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+            showSearchIcon={false}
+            onSize={this.handlePanelResize}
+          />
           {showPastAppFilter &&
           <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
             <FilterSection>

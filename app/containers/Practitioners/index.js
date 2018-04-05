@@ -14,7 +14,12 @@ import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import {
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_PRACTITIONER_URL,
+  OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+} from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
 import PanelToolbar from 'components/PanelToolbar';
@@ -116,6 +121,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
       <div>
         <PanelToolbar
           addNewItem={addNewItem}
+          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.onSize}
         />

@@ -16,8 +16,8 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -77,8 +77,8 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { tasks: { loading, data }, patient, user } = this.props;
-    const addNewItem = user.role === PATIENT_ROLE_CODE ? undefined : {
+    const { tasks: { loading, data }, patient } = this.props;
+    const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_TASK_URL,
     };
@@ -87,6 +87,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
+          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
           showSearchIcon={false}
           onSize={this.handlePanelResize}
         />
@@ -138,15 +139,11 @@ Tasks.propTypes = {
     loading: PropTypes.bool.isRequired,
   }),
   patient: PropTypes.object,
-  user: PropTypes.shape({
-    role: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
   patient: makeSelectPatient(),
-  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

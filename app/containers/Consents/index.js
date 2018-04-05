@@ -11,12 +11,11 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import { MANAGE_CONSENT_URL } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_CONSENT_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
 import { PanelToolbar } from 'components/PanelToolbar';
-import isEmpty from 'lodash/isEmpty';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import makeSelectConsents from './selectors';
 import reducer from './reducer';
@@ -27,19 +26,23 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
   render() {
     const { selectedPatient } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
-    const isPatient = !isEmpty(selectedPatient);
     let CREATE_CONSENT_URL = '';
     if (patientId) {
       CREATE_CONSENT_URL = `${MANAGE_CONSENT_URL}?patientId=${patientId}`;
     }
-    const addNewItem = isPatient ? {
+    const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_CONSENT_URL,
-    } : undefined;
+    };
 
     return (
       <Card>
-        <PanelToolbar addNewItem={addNewItem} onSearch={this.handleSearch} showFilter={false} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
+          onSearch={this.handleSearch}
+          showFilter={false}
+        />
       </Card>
     );
   }
