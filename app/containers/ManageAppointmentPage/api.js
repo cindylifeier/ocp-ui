@@ -56,29 +56,16 @@ function mapToBackendAppointment(appointmentFormData, isCreate) {
   if (!isUndefined(description)) {
     appointmentDataToSubmit.description = description;
   }
+
   if (!isUndefined(appointmentType)) {
     appointmentDataToSubmit.typeCode = appointmentType;
   }
-  let appointmentDateString;
-  let utcHours;
-  let utcMinutes;
-  if (!isUndefined(date)) {
-    const selectedDate = new Date(date);
-    const year = selectedDate.getFullYear();
-    // Note: 0=January, 1=February etc.
-    const month = toDoubleChars(selectedDate.getMonth() + 1);
-    const day = toDoubleChars(selectedDate.getDate());
-    appointmentDateString = `${year}-${month}-${day}`;
-  }
+
   if (!isUndefined(date) && !isUndefined(startTime)) {
-    utcHours = toDoubleChars(new Date(startTime).getUTCHours());
-    utcMinutes = toDoubleChars(new Date(startTime).getUTCMinutes());
-    appointmentDataToSubmit.start = `${appointmentDateString}T${utcHours}:${utcMinutes}:00.00`;
+    appointmentDataToSubmit.start = getDateTimeString(date, startTime);
   }
   if (!isUndefined(date) && !isUndefined(endTime)) {
-    utcHours = toDoubleChars(new Date(endTime).getUTCHours());
-    utcMinutes = toDoubleChars(new Date(endTime).getUTCMinutes());
-    appointmentDataToSubmit.end = `${appointmentDateString}T${utcHours}:${utcMinutes}:00.00`;
+    appointmentDataToSubmit.end = getDateTimeString(date, endTime);
   }
 
   // Participants
@@ -142,5 +129,24 @@ function toDoubleChars(number) {
     return `0${number}`;
   }
   return number;
+}
+
+function getDateString(date) {
+  if (!isUndefined(date)) {
+    const selectedDate = new Date(date);
+    const year = selectedDate.getFullYear();
+    // Note: 0=January, 1=February etc.
+    const month = toDoubleChars(selectedDate.getMonth() + 1);
+    const day = toDoubleChars(selectedDate.getDate());
+    return `${year}-${month}-${day}`;
+  }
+  return null;
+}
+
+function getDateTimeString(date, time) {
+  const appointmentDateString = getDateString(date);
+  const hours = toDoubleChars(new Date(time).getHours());
+  const minutes = toDoubleChars(new Date(time).getMinutes());
+  return `${appointmentDateString}T${hours}:${minutes}:00.00`;
 }
 
