@@ -34,6 +34,7 @@ function SubTaskTable({ elements, patientId, taskBaseUrl }) {
         <AddSubTaskButton
           onClick={<Link to={MANAGE_TASK_URL} />}
           label={<FormattedMessage {...messages.addSubTaskButton} />}
+          disabled
         />
         <Table>
           <TableHeader columns={TASK_TABLE_COLUMNS}>
