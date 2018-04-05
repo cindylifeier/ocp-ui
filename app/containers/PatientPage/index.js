@@ -17,8 +17,7 @@ import PatientDetails from 'components/PatientDetails';
 import { flattenPatientData } from 'containers/PatientPage/helpers';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { PATIENT_ROLE_CODE } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import renderFactory from 'utils/goldenLayout/renderFactory';
 import renderTasksComponent from 'containers/Tasks/render';
@@ -201,9 +200,8 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
   }
 
   render() {
-    const { patient, user } = this.props;
-    const isPatientUser = user.role === PATIENT_ROLE_CODE;
-    const patientDetailsProps = { patient, isPatientUser };
+    const { patient } = this.props;
+    const patientDetailsProps = { patient };
     return (
       <div>
         <Helmet>
@@ -245,16 +243,12 @@ PatientPage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  user: PropTypes.shape({
-    role: PropTypes.string,
-  }),
   refreshPatient: PropTypes.func.isRequired,
   getPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
-  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

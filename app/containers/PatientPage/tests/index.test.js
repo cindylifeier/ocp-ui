@@ -20,9 +20,7 @@ describe('<PatientPage />', () => {
       id: '1',
       name: ['test'],
     };
-    const role = 'ocpAdminRole';
-    const user = { role };
-    const props = { match, patient, user };
+    const props = { match, patient };
     // Act
     const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
 
@@ -41,9 +39,7 @@ describe('<PatientPage />', () => {
         id: '1',
         name: ['test'],
       };
-      const role = 'ocpAdminRole';
-      const user = { role };
-      const props = { match, patient, user };
+      const props = { match, patient };
 
       // Act
       shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -58,9 +54,7 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
-      const role = 'ocpAdminRole';
-      const user = { role };
-      const props = { match, user };
+      const props = { match };
 
       // Act
       shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -81,9 +75,7 @@ describe('<PatientPage />', () => {
         id: '1',
         name: ['test'],
       };
-      const role = 'ocpAdminRole';
-      const user = { role };
-      const props = { match, patient, user };
+      const props = { match, patient };
 
       // Act
       const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
