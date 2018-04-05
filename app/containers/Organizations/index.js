@@ -14,7 +14,7 @@ import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { MANAGE_ORGANIZATION_URL } from 'containers/App/constants';
+import { MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
@@ -129,6 +129,7 @@ export class Organizations extends React.Component {
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
+          allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
           onSearch={this.handleSearch}
           onSize={this.onSize}
         />

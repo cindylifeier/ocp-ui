@@ -20,9 +20,15 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
-import { CARE_MANAGER_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
+import {
+  CARE_MANAGER_ROLE_CODE,
+  FRONT_OFFICE_ROLE_CODE,
+  MANAGE_PATIENT_URL,
+  OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+} from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -103,21 +109,26 @@ export class Patients extends React.Component {
   }
 
   render() {
-    const { loading, error, searchResult, user: { role } } = this.props;
+    const { loading, error, searchResult } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
     };
-    const addNewItem = role === CARE_MANAGER_ROLE_CODE ? {
+    const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
         linkUrl: MANAGE_PATIENT_URL,
       },
-    } : undefined;
+    };
     return (
       <Card>
-        <PanelToolbar {...addNewItem} onSearch={this.handleSearch} onSize={this.onSize} />
+        <PanelToolbar
+          {...addNewItem}
+          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE]}
+          onSearch={this.handleSearch}
+          onSize={this.onSize}
+        />
         <PatientSearchResult
           {...searchResultProps}
           relativeTop={this.state.relativeTop}
@@ -171,9 +182,6 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    role: PropTypes.string.isRequired,
-  }).isRequired,
   patient: PropTypes.object,
 };
 
@@ -189,7 +197,6 @@ const mapStateToProps = createStructuredSelector({
   searchTerms: makeSelectQuerySearchTerms(),
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
-  user: makeSelectUser(),
   patient: makeSelectPatient(),
 });
 
