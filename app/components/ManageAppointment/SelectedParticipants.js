@@ -22,6 +22,14 @@ function SelectedParticipants(props) {
     removeParticipant(participant);
   };
 
+  function removeDashesAndCapitalizeEachWord(str) {
+    const words = str.match(/([^-]+)/g) || [];
+    words.forEach((word, i) => {
+      words[i] = word[0].toUpperCase() + word.slice(1);
+    });
+    return words.join(' ');
+  }
+
   const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
 
   return (
@@ -69,10 +77,3 @@ SelectedParticipants.propTypes = {
 
 export default SelectedParticipants;
 
-function removeDashesAndCapitalizeEachWord(str) {
-  const words = str.match(/([^-]+)/g) || [];
-  words.forEach((word, i) => {
-    words[i] = word[0].toUpperCase() + word.slice(1);
-  });
-  return words.join(' ');
-}
