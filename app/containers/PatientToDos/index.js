@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeSelectPatient, makeSelectUser, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -18,7 +18,11 @@ import { compose } from 'redux';
 import { cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
-import { makeSelectSearchLoading, makeSelectPatientToDoMainTask, makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
+import {
+  makeSelectPatientToDoMainTask,
+  makeSelectPatientToDos,
+  makeSelectSearchLoading,
+} from 'containers/PatientToDos/selectors';
 import ToDoList from 'components/ToDoList';
 import { TO_DO_DEFINITION } from 'containers/PatientToDos/constants';
 import H3 from 'components/H3';
@@ -41,6 +45,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     this.handleCancelToDo = this.handleCancelToDo.bind(this);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
   }
+
   componentDidMount() {
     const { selectedPatient, selectedOrganization } = this.props;
     const definition = TO_DO_DEFINITION;
@@ -59,9 +64,9 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
 
   getPractitionerId() {
     const { user } = this.props;
-    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
-    return practitionerId;
+    return user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
   }
+
   getToDoMainTaskId(toDoMainTask) {
     let toDoMintaskId = null;
     if (toDoMainTask && toDoMainTask.length > 0) {
@@ -73,6 +78,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   handleCloseDialog() {
     this.setState({ open: false });
   }
+
   handleOpenDialog(toDoLogicalId) {
     this.setState({ open: true });
     this.setState({ toDoLogicalId });
@@ -82,17 +88,16 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     this.setState({ open: false });
     this.props.cancelToDos(this.state.toDoLogicalId);
   }
+
   render() {
     const { toDos, selectedPatient, loading, toDoMainTask } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const toDoMainTaskId = this.getToDoMainTaskId(toDoMainTask);
-    const practitionerId = this.getPractitionerId();
     const CREATE_TO_DO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${toDoMainTaskId}`;
-    const taskBaseUrl = MANAGE_TASK_URL;
-    const addNewItem = (practitionerId && patientId) ? {
+    const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: CREATE_TO_DO_URL,
-    } : undefined;
+    };
     const actionsButtons = [
       <StyledFlatButton
         label={<FormattedMessage {...messages.dialog.buttonLabelClose} />}
@@ -109,7 +114,11 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     return (
       <Card>
         {loading && <RefreshIndicatorLoading />}
-        <PanelToolbar addNewItem={addNewItem} showFilter={false} />
+        <PanelToolbar
+          addNewItem={addNewItem}
+          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          showFilter={false}
+        />
         {!loading && isEmpty(toDos) &&
         <NoResultsFoundText>
           <FormattedMessage {...messages.noToDosFound} />
@@ -121,7 +130,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
             isPractitioner
             toDos={toDos}
             patientId={patientId}
-            taskBaseUrl={taskBaseUrl}
+            taskBaseUrl={MANAGE_TASK_URL}
             openDialog={this.handleOpenDialog}
           />
         </div>
