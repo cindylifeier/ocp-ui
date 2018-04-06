@@ -1,5 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { GET_FILTER_TO_DO, GET_PRACTITIONER_TO_DOS } from 'containers/PractitionerToDos/constants';
+import {
+  GET_FILTER_TO_DO,
+  GET_PRACTITIONER_TO_DOS } from 'containers/PractitionerToDos/constants';
 import { getPractitionerToDos, getFilterToDos } from 'containers/PractitionerToDos/api';
 import {
   getFilterToDoError,
