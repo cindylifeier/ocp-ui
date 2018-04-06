@@ -58,6 +58,7 @@ import {
   COMMUNICATION_MEDIUM,
   FLAG_STATUS,
   FLAG_CATEGORY,
+  DATE_RANGE,
   // Consent Resource Lookups - Start
   CONSENT_STATE_CODES,
   CONSENT_CATEGORY,
@@ -127,6 +128,7 @@ const initialState = fromJS({
   COMMUNICATION_CATEGORY: [],
   COMMUNICATION_NOT_DONE_REASON: [],
   COMMUNICATION_MEDIUM: [],
+  DATE_RANGE: [],
   // Consent Resource Lookups - Start
   CONSENT_STATE_CODES: [],
   CONSENT_CATEGORY: [],
@@ -210,6 +212,7 @@ function lookupReducer(state = initialState, action) {
         .set(CONSENT_ACTION, fromJS((action.lookups && action.lookups.consentAction) || state.get(CONSENT_ACTION)))
         .set(PURPOSE_OF_USE, fromJS((action.lookups && action.lookups.purposeOfUse) || state.get(PURPOSE_OF_USE)))
         // Consent Resource Lookups - End
+        .set(DATE_RANGE, fromJS((action.lookups && action.lookups.dateRanges) || state.get(DATE_RANGE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:
       return state

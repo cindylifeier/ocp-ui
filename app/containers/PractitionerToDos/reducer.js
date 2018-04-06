@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  GET_FILTER_TO_DO, GET_FILTER_TO_DO_ERROR, GET_FILTER_TO_DO_SUCCESS,
   GET_PRACTITIONER_TO_DOS,
   GET_PRACTITIONER_TO_DOS_ERROR,
   GET_PRACTITIONER_TO_DOS_SUCCESS,
@@ -27,6 +28,19 @@ function practitionerToDosReducer(state = initialState, action) {
         .set('loading', false)
         .set('data', fromJS((action.toDos) || []));
     case GET_PRACTITIONER_TO_DOS_ERROR:
+      return state
+        .set('error', true)
+        .set('loading', false);
+    case GET_FILTER_TO_DO:
+      return state
+        .set('error', false)
+        .set('loading', true);
+    case GET_FILTER_TO_DO_SUCCESS:
+      return state
+        .set('error', false)
+        .set('loading', false)
+        .set('data', fromJS((action.toDos) || []));
+    case GET_FILTER_TO_DO_ERROR:
       return state
         .set('error', true)
         .set('loading', false);
