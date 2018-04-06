@@ -58,7 +58,6 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
   }
   render() {
     const { toDos, loading, dateRanges } = this.props;
-    const showToDoSpecificFilters = !isEmpty(toDos) ? (toDos.length > 0) : false;
     const filterField = {
       filterTypes: dateRanges,
       filterValueHintText: <FormattedMessage {...messages.selectLabelDateRange} />,
@@ -68,7 +67,7 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
         {loading && <RefreshIndicatorLoading />}
         <PanelToolbar
           showFilter={false}
-          showToDoSpecificFilters={showToDoSpecificFilters}
+          showToDoSpecificFilters
           filterField={filterField}
           onFilter={this.handleFilter}
         />
