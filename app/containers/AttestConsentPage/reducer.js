@@ -6,15 +6,22 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  GET_CONSENT_ERROR, GET_CONSENT_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  error: false,
+  consent: null,
+});
 
 function attestConsentPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case GET_CONSENT_SUCCESS:
+      return state
+        .set('consent', action.consent);
+    case GET_CONSENT_ERROR:
+      return state
+        .set('error', action.error);
     default:
       return state;
   }

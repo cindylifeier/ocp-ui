@@ -5,21 +5,19 @@ import { createSelector } from 'reselect';
  */
 const selectAttestConsentPageDomain = (state) => state.get('attestConsentPage');
 
-/**
- * Other specific selectors
- */
 
-
-/**
- * Default selector used by AttestConsentPage
- */
-
-const makeSelectAttestConsentPage = () => createSelector(
+const makeSelectGetConsentError = () => createSelector(
   selectAttestConsentPageDomain,
-  (substate) => substate.toJS()
+  (subState) => subState.get('error'),
 );
 
-export default makeSelectAttestConsentPage;
+const makeSelectConsent = () => createSelector(
+  selectAttestConsentPageDomain,
+  (subState) => subState && subState.get('consent'),
+);
+
 export {
   selectAttestConsentPageDomain,
+  makeSelectGetConsentError,
+  makeSelectConsent,
 };
