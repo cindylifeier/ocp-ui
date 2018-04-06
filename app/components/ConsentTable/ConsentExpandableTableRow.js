@@ -84,7 +84,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
               />
               <MenuItem
                 primaryText={<FormattedMessage {...messages.attest} />}
-                containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
+                containerElement={<Link to={`/ocp-ui/sign-consent/${logicalId}`} />}
               />
               <MenuItem
                 primaryText={<FormattedMessage {...messages.remove} />}
