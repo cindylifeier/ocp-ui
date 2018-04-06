@@ -1,8 +1,11 @@
-import { saveAppointment } from 'containers/ManageAppointmentPage/api';
-import { SAVE_APPOINTMENT } from 'containers/ManageAppointmentPage/constants';
 import { showNotification } from 'containers/Notification/actions';
+import { makeSelectPatientAppointments } from 'containers/PatientAppointments/selectors';
+import isEmpty from 'lodash/isEmpty';
 import { goBack } from 'react-router-redux';
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { getAppointmentSuccess } from './actions';
+import { getAppointmentApi, getAppointmentById, saveAppointment } from './api';
+import { GET_APPOINTMENT, SAVE_APPOINTMENT } from './constants';
 
 function* saveAppointmentSaga(action) {
   try {
@@ -18,6 +21,28 @@ function* saveAppointmentSaga(action) {
 
 function* watchSaveAppointmentSaga() {
   yield takeLatest(SAVE_APPOINTMENT, saveAppointmentSaga);
+}
+
+function* getAppointmentSaga({ appointmentId }) {
+  try {
+    let appointment;
+    // Load appointments from store
+    const appointmentsSelector = yield select(makeSelectPatientAppointments());
+    const appointments = appointmentsSelector && appointmentsSelector.data && appointmentsSelector.data.elements;
+    appointment = getAppointmentById(appointments, appointmentId);
+    // Fetch from backend if Appointment is not found in the store
+    if (isEmpty(appointment)) {
+      appointment = yield call(getAppointmentApi, appointmentId);
+    }
+    yield put(getAppointmentSuccess(appointment));
+  } catch (error) {
+    yield put(showNotification('No matching appointment found.'));
+    yield put(goBack());
+  }
+}
+
+function* watchGetAppointmentSaga() {
+  yield takeLatest(GET_APPOINTMENT, getAppointmentSaga);
 }
 
 export function determineNotificationForAppointment(appointmentFormData) {
@@ -39,5 +64,6 @@ export function determineNotificationForAppointmentInPastTense(appointmentFormDa
 export default function* rootSaga() {
   yield all([
     watchSaveAppointmentSaga(),
+    watchGetAppointmentSaga(),
   ]);
 }

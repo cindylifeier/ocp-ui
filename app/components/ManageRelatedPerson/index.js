@@ -30,6 +30,7 @@ function ManageRelatedPerson(props) {
     telecomSystems,
     relationshipTypes,
     patient,
+    editMode,
     selectedRelatedPerson,
   } = props;
   const manageRelatedPersonFormProps = {
@@ -42,51 +43,54 @@ function ManageRelatedPerson(props) {
     relationshipTypes,
     patient,
   };
-
   return (
-    <Formik
-      initialValues={setInitialValues(selectedRelatedPerson)}
-      onSubmit={(values, actions) => {
-        const relatedPerson = mapToRelatedPerson(values, patient, administrativeGenders, relationshipTypes);
-        onSave(relatedPerson, actions);
-      }}
-      validationSchema={() =>
-        yup.lazy((values) => {
-          let startDate = new Date();
-          if (values.startDate) {
-            startDate = values.startDate;
-          }
-          return yup.object().shape({
-            firstName: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (
-                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-            lastName: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (
-                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-            relationshipCode: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            birthDate: yup.date()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            genderCode: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            startDate: yup.date()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
-            endDate: yup.date()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
-            identifierType: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-            identifierValue: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (
-                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          });
-        })}
-      render={(formikProps) => <ManageRelatedPersonForm {...formikProps} {...manageRelatedPersonFormProps} />}
-    />
+    <div>
+      {((editMode && selectedRelatedPerson) || !editMode) &&
+      <Formik
+        initialValues={setInitialValues(selectedRelatedPerson)}
+        onSubmit={(values, actions) => {
+          const relatedPerson = mapToRelatedPerson(values, patient, administrativeGenders, relationshipTypes);
+          onSave(relatedPerson, actions);
+        }}
+        validationSchema={() =>
+          yup.lazy((values) => {
+            let startDate = new Date();
+            if (values.startDate) {
+              startDate = values.startDate;
+            }
+            return yup.object().shape({
+              firstName: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(minimumLength, (
+                  <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+              lastName: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(minimumLength, (
+                  <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+              relationshipCode: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              birthDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              genderCode: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              startDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+              endDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+              identifierType: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              identifierValue: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(minimumLength, (
+                  <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            });
+          })}
+        render={(formikProps) => <ManageRelatedPersonForm {...formikProps} {...manageRelatedPersonFormProps} />}
+      />
+      }
+    </div>
   );
 }
 
@@ -108,6 +112,7 @@ ManageRelatedPerson.propTypes = {
   })).isRequired,
   relationshipTypes: PropTypes.array.isRequired,
   patient: PropTypes.object,
+  editMode: PropTypes.bool.isRequired,
   selectedRelatedPerson: PropTypes.object,
 };
 

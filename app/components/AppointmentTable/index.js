@@ -19,7 +19,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import messages from './messages';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl }) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
       <Table>
@@ -53,8 +53,18 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
                   />}
                 />
                 }
+                {enableEditAppointment &&
                 <MenuItem
-                  primaryText={<FormattedMessage {...messages.menuItemCancel} />}
+                  primaryText={<FormattedMessage {...messages.editAppointment} />}
+                  containerElement={<Link
+                    to={{
+                      pathname: `${manageAppointmentUrl}/${appointment.logicalId}`,
+                    }}
+                  />}
+                />
+                }
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.cancelAppointment} />}
                   disabled={appointment.statusCode === cancelledStatus}
                   onClick={() => cancelAppointment(appointment.logicalId)}
                 />
@@ -83,6 +93,8 @@ AppointmentTable.propTypes = {
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
   cancelledStatus: PropTypes.string,
+  enableEditAppointment: PropTypes.bool,
+  manageAppointmentUrl: PropTypes.string,
 };
 
 export default AppointmentTable;
