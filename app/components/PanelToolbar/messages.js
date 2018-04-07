@@ -26,4 +26,8 @@ export default defineMessages({
     id: 'ocpui.components.PanelToolbar.search',
     defaultMessage: 'Cancel Search',
   },
+  cancelFilter: {
+    id: 'ocpui.components.PanelToolbar.cancelFilter',
+    defaultMessage: 'Cancel Filter',
+  },
 });

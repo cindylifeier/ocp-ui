@@ -1,5 +1,53 @@
 import { createSelector } from 'reselect';
 import {
+  // ADMINISTRATIVEGENDER,
+  // APPOINTMENT_PARTICIPANT_REQUIRED,
+  // APPOINTMENT_PARTICIPATION_STATUS,
+  // APPOINTMENT_PARTICIPATION_TYPE,
+  // APPOINTMENT_STATUS,
+  // APPOINTMENT_TYPE,
+  // CARETEAMCATEGORY,
+  // CARETEAMREASON,
+  // CARETEAMSTATUS,
+  // DEFINITION_TOPIC, FLAG_CATEGORY, FLAG_STATUS,
+  // GLOBAL_LOOKUP_STATE_KEY,0
+  // HEALTHCARESERVICECATEGORY,
+  // HEALTHCARESERVICEREFERRALMETHOD,
+  // HEALTHCARESERVICESPECIALITY,
+  // HEALTHCARESERVICESTATUS,
+  // HEALTHCARESERVICETYPE,
+  // LANGUAGE,
+  // LOCATIONIDENTIFIERSYSTEM,
+  // LOCATIONPHYSICALTYPE,
+  // LOCATIONSTATUS,
+  // ORGANIZATIONIDENTIFIERSYSTEM,
+  // ORGANIZATIONSTATUS,
+  // PARTICIPANTROLE,
+  // PARTICIPANTTYPE,
+  // PATIENTIDENTIFIERSYSTEM,
+  // PRACTITIONERIDENTIFIERSYSTEM,
+  // PRACTITIONERROLES,
+  // PROVIDER_ROLE,
+  // PROVIDER_SPECIALTY,
+  // PUBLICATION_STATUS,
+  // RELATED_ARTIFACT_TYPE,
+  // RELATEDPERSONPATIENTRELATIONSHIPTYPES,
+  // REQUEST_INTENT,
+  // REQUEST_PRIORITY,
+  // RESOURCE_TYPE,
+  // TASK_PERFORMER_TYPE,
+  // TASK_STATUS,
+  // TELECOMSYSTEM,
+  // TELECOMUSE,
+  // USCOREBIRTHSEX,
+  // USCOREETHNICITY,
+  // USCORERACE,
+  // USPSSTATES,
+  // COMMUNICATION_STATUS,
+  // COMMUNICATION_CATEGORY,
+  // COMMUNICATION_NOT_DONE_REASON,
+  // COMMUNICATION_MEDIUM,
+  DATE_RANGE,
   ACTION_PARTICIPANT_ROLE,
   ACTION_PARTICIPANT_TYPE,
   ADDRESSUSE,
@@ -250,7 +298,7 @@ const makeSelectTaskPerformerTypes = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(TASK_PERFORMER_TYPE).toJS(),
 );
-// Task Resource Lookups - End
+
 const makeSelectRelatedArtifactTypes = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(RELATED_ARTIFACT_TYPE).toJS(),
@@ -331,6 +379,12 @@ const makeSelectConsentStateCodes = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(CONSENT_STATE_CODES).toJS(),
 );
 
+const makeSelectToDoFilterDateRanges = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(DATE_RANGE).toJS(),
+);
+
+// Task Resource Lookups - End
 const makeSelectConsentCategory = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(CONSENT_CATEGORY).toJS(),
@@ -405,6 +459,7 @@ export {
   makeSelectCommunicationCategories,
   makeSelectCommunicationNotDoneReasons,
   makeSelectCommunicationMedia,
+  makeSelectToDoFilterDateRanges,
   // Consent Resource Lookups - Start
   makeSelectConsentStateCodes,
   makeSelectConsentCategory,

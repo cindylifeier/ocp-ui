@@ -11,17 +11,32 @@ import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import head from 'lodash/head';
+import { SEARCH_BY_DATE, SEARCH_BY_DUE_DATE, SEARCH_BY_ID, SEARCH_BY_NAME } from 'components/SearchBar/constants';
 
 import SearchBarForm from './SearchBarForm';
 import messages from './messages';
 
-const SEARCH_BY_NAME = 'name';
-const SEARCH_BY_ID = 'identifier';
-
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField, showFilter } = props;
-  const searchFormProps = { searchField, showFilter };
+  const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
+  const composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
+  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
 
+  function getToDoSpecificSearchField(searchFieldObject, showAdditionalSearchFields) {
+    const newSearchTypes = !showAdditionalSearchFields ? searchFieldObject.searchTypes : [...searchFieldObject.searchTypes,
+      {
+        value: SEARCH_BY_DATE,
+        display: <FormattedMessage {...messages.searchByDate} />,
+      }, {
+        value: SEARCH_BY_DUE_DATE,
+        display: <FormattedMessage {...messages.searchByDueDate} />,
+      },
+    ];
+
+    return {
+      searchTypes: newSearchTypes,
+      searchValueHintText: searchFieldObject.searchValueHintText,
+    };
+  }
   function initialFormValues() {
     let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
     if (!isEmpty(searchField.searchTypes)) {
@@ -59,7 +74,7 @@ function SearchBar(props) {
 SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
-  showFilter: PropTypes.bool,
+  showToDoSpecificFilters: PropTypes.bool,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -71,6 +86,7 @@ SearchBar.propTypes = {
 
 SearchBar.defaultProps = {
   minimumLength: 3,
+  showToDoSpecificFilters: false,
   searchField: {
     searchTypes: [{
       value: SEARCH_BY_NAME,
