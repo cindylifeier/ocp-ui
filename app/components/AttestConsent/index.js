@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
+import uniqueId from 'lodash/uniqueId';
 
 import FormSubtitle from 'components/FormSubtitle';
 import Checkbox from 'components/Checkbox';
@@ -31,26 +32,30 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     };
     this.handleCheckPassword = this.handleCheckPassword.bind(this);
     this.handleDialogCallback = this.handleDialogCallback.bind(this);
+    this.checkPassword = this.checkPassword.bind(this);
   }
 
   handleCheckPassword() {
     this.setState({ authenticationDialogOpen: true });
   }
 
-  checkPassword(values) {
-    console.log(values.password);
-  }
-
   handleDialogCallback() {
     this.setState({ authenticationDialogOpen: false });
   }
 
+  checkPassword(password) {
+    this.props.checkPassword(password);
+    if (this.props.isAuthenticated) {
+      this.setState({ authenticationDialogOpen: false });
+    }
+  }
+
   render() {
-    const { onSubmit } = this.props;
+    const { onSubmit, consent, isAuthenticated, patient } = this.props;
     return (
       <div>
         <Dialog
-          open={this.state.authenticationDialogOpen}
+          open={!isAuthenticated && this.state.authenticationDialogOpen}
         >
           <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
         </Dialog>
@@ -64,21 +69,50 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                 </Cell>
                 <Cell area="patientName">
                   <FormattedMessage {...messages.label.patientName} />
-                  patient name
+                  <strong>{consent && consent.patient && consent.patient.display}</strong>
                 </Cell>
                 <Cell area="patientDob">
                   <FormattedMessage {...messages.label.patientDob} />
-                  patient dob
+                  <strong>{patient && patient.birthDate}</strong>
                 </Cell>
                 <Cell area="authorization">
                   <FormSubtitle margin="3vh 0 1vh 0">
                     <FormattedMessage {...messages.subtitle.authorization} />
                   </FormSubtitle>
+                  <FormattedMessage {...messages.label.authorizes} />
+                  <strong> {consent && consent.fromActor && consent.fromActor.map(({ display }) =>
+                    (
+                      <div key={uniqueId()}>
+                        {display}
+                      </div>
+                    ),
+                  )}
+                  </strong>
+                </Cell>
+                <Cell area="disclose">
+                  <FormattedMessage {...messages.label.discloses} />
+                  <strong>{consent && consent.toActor && consent.toActor.map(({ display }) =>
+                    (
+                      <div key={uniqueId()}>
+                        {display}
+                      </div>
+                    ),
+                  )}
+                  </strong>
                 </Cell>
                 <Cell area="healthInfo">
                   <FormSubtitle margin="3vh 0 1vh 0">
                     <FormattedMessage {...messages.subtitle.healthInfo} />
                   </FormSubtitle>
+                  <FormattedMessage {...messages.label.purposes} />
+                  <strong>{consent && consent.purpose && consent.purpose.map(({ display }) =>
+                    (
+                      <div key={uniqueId()}>
+                        {display}
+                      </div>
+                    ),
+                  )}
+                  </strong>
                 </Cell>
                 <Cell area="consentTerm">
                   <FormSubtitle margin="3vh 0 1vh 0">
@@ -86,10 +120,16 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                   </FormSubtitle>
                   <FormattedMessage {...messages.attestTerm} />
                 </Cell>
+                <Cell area="start">
+                  <FormattedMessage {...messages.label.effectiveDate} /><strong>{consent && consent.period && consent.period.start}</strong>
+                </Cell>
+                <Cell area="end">
+                  <FormattedMessage {...messages.label.expirationDate} /><strong>{consent && consent.period && consent.period.end}</strong>
+                </Cell>
                 <Cell area="agreement">
                   <Checkbox
-                    fullWidth
                     name="agreement"
+                    checked={isAuthenticated}
                     label={<FormattedMessage {...messages.agreementTerm} />}
                     onCheck={this.handleCheckPassword}
                   />
@@ -98,14 +138,13 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                   <Grid columns={2}>
                     <Cell>
                       <StyledRaisedButton
-                        fullWidth
                         type="submit"
                         label="Complete"
-                        disabled={!this.isAuthenticated}
+                        disabled={!isAuthenticated}
                       />
                     </Cell>
                     <Cell>
-                      <GoBackButton disabled={!isSubmitting} />
+                      <GoBackButton disabled={isSubmitting} />
                     </Cell>
                   </Grid>
                 </Cell>
@@ -120,6 +159,10 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
 
 AttestConsent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  checkPassword: PropTypes.func.isRequired,
+  consent: PropTypes.object,
+  patient: PropTypes.object,
+  isAuthenticated: PropTypes.bool,
 };
 
 export default AttestConsent;

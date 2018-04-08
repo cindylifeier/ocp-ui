@@ -8,3 +8,8 @@ export function getConsent(logicalId) {
   return request(requestURL);
 }
 
+export function attestConsent(logicalId) {
+  const requestURL = `${baseEndpoint}/${logicalId}/attest`;
+  return request(requestURL);
+}
+

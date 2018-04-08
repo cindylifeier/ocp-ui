@@ -11,8 +11,12 @@ const AttestConsentGrid = Grid.extend`
     "patientName"
     "patientDob"
     "authorization"
+    "disclose"
     "healthInfo"
     "consentTerm"
+    "start"
+    "end"
+    "agreement"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -21,8 +25,10 @@ const AttestConsentGrid = Grid.extend`
       "header header"
       "patientName patientDob"
       "authorization authorization"
+      "disclose disclose"
       "healthInfo healthInfo"
       "consentTerm consentTerm"
+      "start end"
       "agreement agreement"
       "buttonGroup  .";
   }
@@ -33,8 +39,10 @@ const AttestConsentGrid = Grid.extend`
       "header header header header header header header header header header header header"
       "patientName patientName patientName patientName patientName patientName patientDob patientDob patientDob patientDob patientDob patientDob"
       "authorization authorization authorization authorization authorization authorization authorization authorization authorization authorization authorization authorization"
+      "disclose disclose disclose disclose disclose disclose disclose disclose disclose disclose disclose disclose"
       "healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo healthInfo"
       "consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm consentTerm"
+      "start start start start start start end end end end end end"
       "agreement agreement agreement agreement agreement agreement agreement agreement agreement agreement agreement agreement"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }

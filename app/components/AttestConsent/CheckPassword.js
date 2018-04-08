@@ -17,7 +17,6 @@ import CloseButton from 'components/ConfirmPatientModal/CloseButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import messages from './messages';
 
-
 function CheckPassword(props) {
   const { callback, checkPassword } = props;
   return (
@@ -27,7 +26,7 @@ function CheckPassword(props) {
       <FormattedMessage {...messages.authentication.term} />
       <Formik
         onSubmit={(values) => {
-          checkPassword(values);
+          checkPassword(values.password);
         }}
         validationSchema={yup.object().shape({
           password: yup.string()
@@ -37,19 +36,21 @@ function CheckPassword(props) {
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
             <TextField
-              fullWidth="100%"
+              width="300px"
               name="password"
               type="password"
               hintText={<FormattedMessage {...messages.authentication.label} />}
               floatingLabelText={<FormattedMessage {...messages.authentication.label} />}
             />
-            <StyledRaisedButton
-              type="submit"
-              label="Continue"
-              disabled={!dirty || isSubmitting || !isValid}
-            />
+            <div>
+              <StyledRaisedButton
+                type="submit"
+                label="Continue"
+                disabled={!dirty || isSubmitting || !isValid}
+              />
+            </div>
           </Form>
-        )}
+          )}
       />
     </div>
   );

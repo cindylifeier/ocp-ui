@@ -13,11 +13,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import AttestConsent from 'components/AttestConsent';
 import reducer from './reducer';
 import saga from './saga';
-import { getConsent } from './actions';
-import { makeSelectConsent } from './selectors';
+import { getConsent, attestConsent, checkPassword, initializeAttestConsentPage } from './actions';
+import { makeSelectConsent, makeSelectIsAuthenticated } from './selectors';
 
 export class AttestConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -34,17 +35,20 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
     }
   }
 
+  componentWillUnmount() {
+    this.props.initializeAttestConsentPage();
+  }
+
   handleSubmit() {
-    console.log('submitted');
+    this.props.attestConsent(this.props.match.params.id);
   }
 
   checkPassword(password) {
-    console.log(password);
+    this.props.checkPassword(password);
   }
 
   render() {
-    const { consent } = this.props;
-    console.log(consent);
+    const { consent, isAuthenticated, patient } = this.props;
     return (
       <div>
         <Helmet>
@@ -54,6 +58,9 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
         <AttestConsent
           onSubmit={this.handleSubmit}
           checkPassword={this.checkPassword}
+          consent={consent}
+          patient={patient}
+          isAuthenticated={isAuthenticated}
         />
       </div>
     );
@@ -61,18 +68,28 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
 }
 
 AttestConsentPage.propTypes = {
-  match: PropTypes.object,
-  getConsent: PropTypes.func,
+  match: PropTypes.object.isRequired,
+  initializeAttestConsentPage: PropTypes.func.isRequired,
+  getConsent: PropTypes.func.isRequired,
+  attestConsent: PropTypes.func.isRequired,
+  checkPassword: PropTypes.func.isRequired,
   consent: PropTypes.object,
+  patient: PropTypes.object,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   consent: makeSelectConsent(),
+  isAuthenticated: makeSelectIsAuthenticated(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializeAttestConsentPage: () => dispatch(initializeAttestConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
+    attestConsent: (logicalId) => dispatch(attestConsent(logicalId)),
+    checkPassword: (password) => dispatch(checkPassword(password)),
   };
 }
 

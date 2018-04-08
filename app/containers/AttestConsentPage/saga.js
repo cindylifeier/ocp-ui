@@ -2,12 +2,15 @@
 
 
 import { goBack } from 'react-router-redux';
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import { call, put, takeLatest, all, select } from 'redux-saga/effects';
 
+import { getLoginErrorDetail, login } from 'containers/LoginPage/api';
 import { showNotification } from 'containers/Notification/actions';
-import { getConsent } from './api';
-import { getConsentError, getConsentSuccess } from './actions';
-import { GET_CONSENT } from './constants';
+import { makeSelectUser } from 'containers/App/contextSelectors';
+import { getConsent, attestConsent } from './api';
+import { getConsentError, getConsentSuccess, checkPasswordError, attestConsentError, checkPasswordSuccess } from './actions';
+import { GET_CONSENT, CHECK_PASSWORD, ATTEST_CONSENT } from './constants';
+
 
 function* getConsentSaga({ logicalId }) {
   try {
@@ -20,8 +23,41 @@ function* getConsentSaga({ logicalId }) {
   }
 }
 
+function* checkPasswordSaga(action) {
+  try {
+    const user = yield select(makeSelectUser());
+    const username = user.user_name;
+    const password = action.password;
+    yield call(login, { username, password });
+    yield put(checkPasswordSuccess(true));
+  } catch (error) {
+    yield put(checkPasswordError(getLoginErrorDetail(error)));
+    yield put(showNotification('Failed to login.'));
+  }
+}
+
+function* attestConsentSaga(action) {
+  try {
+    const consent = yield call(attestConsent, action.logicalId);
+    yield put(getConsentSuccess(consent));
+    yield put(showNotification('Successfully signed consent.'));
+    yield put(goBack());
+  } catch (error) {
+    yield put(showNotification('Failed to sign consent.'));
+    yield put(attestConsentError(error));
+  }
+}
+
 function* watchGetConsentSaga() {
   yield takeLatest(GET_CONSENT, getConsentSaga);
+}
+
+function* watchAttestConsentSaga() {
+  yield takeLatest(ATTEST_CONSENT, attestConsentSaga);
+}
+
+function* watchCheckPasswordSaga() {
+  yield takeLatest(CHECK_PASSWORD, checkPasswordSaga);
 }
 
 
@@ -31,5 +67,7 @@ function* watchGetConsentSaga() {
 export default function* rootSaga() {
   yield all([
     watchGetConsentSaga(),
+    watchAttestConsentSaga(),
+    watchCheckPasswordSaga(),
   ]);
 }
