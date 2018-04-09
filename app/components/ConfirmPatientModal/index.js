@@ -17,7 +17,7 @@ import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
 import StyledDialog from 'components/StyledDialog';
-import ContinueButton from './ContinueButton';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import CloseButton from './CloseButton';
 import PatientModalGrid from './PatientModalGrid';
 import PatientModalCell from './PatientModalCell';
@@ -52,11 +52,14 @@ function ConfirmPatientModal(props) {
             Phone{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong>
           </PatientModalCell>
           <Cell center>
-            <ContinueButton
-              label={<FormattedMessage {...messages.continueButton} />}
+            <StyledRaisedButton
+              width="140px"
               onClick={onPatientModalClose}
-              containerElement={<Link to={`${PATIENTS_URL}/${patient.id}`} />}
-            />
+              component={Link}
+              to={`${PATIENTS_URL}/${patient.id}`}
+            >
+              <FormattedMessage {...messages.continueButton} />
+            </StyledRaisedButton>
           </Cell>
         </PatientModalGrid>
       </StyledDialog>
