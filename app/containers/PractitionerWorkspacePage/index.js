@@ -309,21 +309,6 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           }],
         }],
       }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 50,
-        content: [{
-          title: 'PATIENTS',
-          type: 'component',
-          componentName: 'patients',
-          isClosable: true,
-          reorderEnabled: true,
-        }],
-      }, {
         type: 'row',
         isClosable: true,
         reorderEnabled: true,
@@ -360,6 +345,21 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             isClosable: true,
             reorderEnabled: true,
           }],
+        }],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 50,
+        content: [{
+          title: 'PATIENTS',
+          type: 'component',
+          componentName: 'patients',
+          isClosable: true,
+          reorderEnabled: true,
         }],
       }, {
         type: 'stack',
