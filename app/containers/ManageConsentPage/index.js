@@ -37,18 +37,36 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
   handleSave(consentFormData, actions) {
     const consentDataToSubmit = {};
     const {
-        consentType, pou, consentStart, consentEnd,
+        consentType, pou, consentCategory, consentStart, consentEnd,
     } = consentFormData;
     consentDataToSubmit.generalDesignation = consentType;
-    const code = pou;
-    consentDataToSubmit.purpose = find(this.props.purposeOfUse, { code });
+    let code = pou || 'TREAT';
+    const purposes = [];
+    purposes.push(find(this.props.purposeOfUse, { code }));
+    consentDataToSubmit.purpose = purposes;
+
+    consentDataToSubmit.status = 'draft';
+
     if (consentStart || consentEnd) {
       consentDataToSubmit.period = {
         start: Util.formatDate(consentStart),
         end: Util.formatDate(consentEnd),
       };
     }
-    this.props.createTask(consentDataToSubmit, () => actions.setSubmitting(false));
+    code = consentCategory || '59284-0';
+    const categories = [];
+    categories.push(find(this.props.consentCategory, { code }));
+    consentDataToSubmit.category = categories;
+
+    // patient
+    const patientId = this.props.patient.id;
+    const name = getResourceDisplayName(this.props.patient);
+    consentDataToSubmit.patient = {
+      reference: `Patient/${patientId}`,
+      display: name,
+    };
+
+    this.props.createConsent(consentDataToSubmit, () => actions.setSubmitting(false));
   }
   render() {
     const {
@@ -71,7 +89,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     return (
       <Page>
         <Helmet>
-          <title>Manage Consent</title>
+          <title> Manage Consent </title>
           <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
@@ -92,7 +110,7 @@ ManageConsentPage.propTypes = {
   securityRoleType: PropTypes.array,
   consentAction: PropTypes.array,
   purposeOfUse: PropTypes.array,
-  createTask: PropTypes.func,
+  createConsent: PropTypes.func,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,

@@ -4,11 +4,11 @@
  *
  */
 
-import { CREATE_TASK, CREATE_TASK_ERROR, CREATE_TASK_SUCCESS } from './constants';
+import { CREATE_CONSENT, CREATE_CONSENT_ERROR, CREATE_CONSENT_SUCCESS } from './constants';
 
 export function createConsent(consentFormData, handleSubmitting) {
   return {
-    type: CREATE_TASK,
+    type: CREATE_CONSENT,
     consentFormData,
     handleSubmitting,
   };
@@ -16,7 +16,7 @@ export function createConsent(consentFormData, handleSubmitting) {
 
 export function createConsentError(error) {
   return {
-    type: CREATE_TASK_ERROR,
+    type: CREATE_CONSENT_ERROR,
     error,
   };
 }
@@ -24,7 +24,7 @@ export function createConsentError(error) {
 
 export function createConsentSuccess(response) {
   return {
-    type: CREATE_TASK_SUCCESS,
+    type: CREATE_CONSENT_SUCCESS,
     response,
   };
 }

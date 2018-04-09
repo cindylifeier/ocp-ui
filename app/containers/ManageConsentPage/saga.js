@@ -1,8 +1,8 @@
-import { createConsent } from 'containers/ManageConsentPage/api';
-import { createConsentError, createConsentSuccess } from 'containers/ManageConsentPage/actions';
 import { call, all, put, takeLatest } from 'redux-saga/es/effects';
 import { showNotification } from 'containers/Notification/actions';
 import { goBack } from 'react-router-redux';
+import { createConsent } from './api';
+import { createConsentError, createConsentSuccess } from './actions';
 import { CREATE_CONSENT } from './constants';
 
 function* createConsentSaga(action) {
