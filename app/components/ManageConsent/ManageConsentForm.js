@@ -32,7 +32,6 @@ function ManageConsentForm(props) {
           </FormSubtitle>
           <Checkbox
             name="consentType"
-            checked
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
