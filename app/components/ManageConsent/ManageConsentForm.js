@@ -47,11 +47,13 @@ function ManageConsentForm(props) {
             <RadioButton
               name="shareAll"
               value="shareAll"
+              disabled
               label={<FormattedMessage {...messages.floatingLabelText.shareAll} />}
             />
             <RadioButton
               name="shareSpecific"
               value="shareSpecific"
+              disabled
               label={<FormattedMessage {...messages.floatingLabelText.shareSpecific} />}
             />
           </RadioButtonGroup>
@@ -67,6 +69,7 @@ function ManageConsentForm(props) {
             <RadioButton
               name="pou"
               value="pou"
+              disabled
               label={<FormattedMessage {...messages.floatingLabelText.purposeOfUseSubTitle} />}
             />
           </RadioButtonGroup>
