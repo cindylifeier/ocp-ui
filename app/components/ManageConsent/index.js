@@ -46,8 +46,6 @@ function ManageConsent(props) {
               consentStart = values.consentStart;
             }
             return yup.object().shape({
-              consentType: yup.boolean()
-                .required((<FormattedMessage {...messages.validation.required} />)),
               consentStart: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
