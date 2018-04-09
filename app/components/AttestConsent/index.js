@@ -7,7 +7,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 import { Cell, Grid } from 'styled-css-grid';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
@@ -52,6 +52,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
 
   render() {
     const { onSubmit, consent, isAuthenticated, patient } = this.props;
+    const patientName = consent && consent.patient && consent.patient.display;
     return (
       <div>
         <Dialog
@@ -118,7 +119,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                   <FormSubtitle margin="3vh 0 1vh 0">
                     <FormattedMessage {...messages.subtitle.consentTerm} />
                   </FormSubtitle>
-                  <FormattedMessage {...messages.attestTerm} />
+                  <FormattedHTMLMessage {...messages.attestTerm} values={{ patientName }} />
                 </Cell>
                 <Cell area="start">
                   <FormattedMessage {...messages.label.effectiveDate} /><strong>{consent && consent.period && consent.period.start}</strong>
@@ -130,7 +131,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                   <Checkbox
                     name="agreement"
                     checked={isAuthenticated}
-                    label={<FormattedMessage {...messages.agreementTerm} />}
+                    label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
                     onCheck={this.handleCheckPassword}
                   />
                 </Cell>

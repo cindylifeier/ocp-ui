@@ -56,11 +56,11 @@ export default defineMessages({
   },
   attestTerm: {
     id: 'ocpui.components.AttestConsent.attestTerm',
-    defaultMessage: 'I, understand that my records are protected under the federal regulations governing Confidentiality of Alcohol and Drug Abuse Patient Records, 42 CFR part 2, and cannot be disclosed without my written permission or as otherwise permitted by 42 CFR part 2. I also understand that I may revoke this consent at any time except to the extent that action has been taken in reliance on it, and that any event this consent expires automatically as follows:',
+    defaultMessage: 'I, <strong>{patientName}</strong>, understand that my records are protected under the federal regulations governing Confidentiality of Alcohol and Drug Abuse Patient Records, 42 CFR part 2, and cannot be disclosed without my written permission or as otherwise permitted by 42 CFR part 2. I also understand that I may revoke this consent at any time except to the extent that action has been taken in reliance on it, and that any event this consent expires automatically as follows:',
   },
   agreementTerm: {
     id: 'ocpui.components.AttestConsent.agreementTerm',
-    defaultMessage: 'I, hereby accept and understand the terms of this consent.',
+    defaultMessage: 'I, <strong>{patientName}</strong>, hereby accept and understand the terms of this consent.',
   },
   authentication: {
     header: {
