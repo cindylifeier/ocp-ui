@@ -8,10 +8,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
@@ -22,14 +20,35 @@ import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
 import PageContent from 'components/PageContent';
 import { makeSelectConsentStateCodes, makeSelectConsentCategory, makeSelectSecurityRoleType, makeSelectConsentAction, makeSelectPurposeOfUse } from 'containers/App/lookupSelectors';
+import Util from 'utils/Util';
+import find from 'lodash/find';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import { createConsent } from './actions';
 
 export class ManageConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
   componentDidMount() {
     this.props.getLookups();
+  }
+  handleSave(consentFormData, actions) {
+    const consentDataToSubmit = {};
+    const {
+        consentType, pou, consentStart, consentEnd,
+    } = consentFormData;
+    consentDataToSubmit.generalDesignation = consentType;
+    const code = pou;
+    consentDataToSubmit.purpose = find(this.props.purposeOfUse, { code });
+    if (consentStart || consentEnd) {
+      consentDataToSubmit.period = {
+        start: Util.formatDate(consentStart),
+        end: Util.formatDate(consentEnd),
+      };
+    }
+    this.props.createTask(consentDataToSubmit, () => actions.setSubmitting(false));
   }
   render() {
     const {
@@ -37,7 +56,8 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       consentStateCodes,
       consentCategory,
       securityRoleType,
-      consentAction,
+      consentAction
+      ,
       purposeOfUse,
     } = this.props;
     const consentProps = {
@@ -55,10 +75,10 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
           <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
         </Helmet>
         <PageHeader
-          title={<FormattedMessage {...messages.createHeader} />}
+          title={patient && `I,${getResourceDisplayName(patient)},here by authorize`}
         />
         <PageContent>
-          <ManageConsent {...consentProps} />
+          <ManageConsent {...consentProps} onSave={this.handleSave} />
         </PageContent>
       </Page>
     );
@@ -67,14 +87,16 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
 
 ManageConsentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
-  patient: PropTypes.object,
   consentStateCodes: PropTypes.array,
   consentCategory: PropTypes.array,
   securityRoleType: PropTypes.array,
   consentAction: PropTypes.array,
   purposeOfUse: PropTypes.array,
-
-
+  createTask: PropTypes.func,
+  patient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -89,7 +111,20 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([CONSENT_STATE_CODES, CONSENT_CATEGORY, SECURITY_ROLE_TYPE, CONSENT_ACTION, PURPOSE_OF_USE])),
+    createConsent: (consentFormData, handleSubmitting) => dispatch(createConsent(consentFormData, handleSubmitting)),
   };
+}
+
+
+function getResourceDisplayName(resource) {
+  let name = {};
+  if (resource.name.length > 0) {
+    const fName = resource.name[0];
+    const firstName = Util.setEmptyStringWhenUndefined(fName.firstName);
+    const lastName = Util.setEmptyStringWhenUndefined(fName.lastName);
+    name = `${firstName}-${lastName}`;
+  }
+  return name;
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
