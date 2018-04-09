@@ -50,6 +50,7 @@ function ManageConsent(props) {
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
               consentEnd: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
                 .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}
