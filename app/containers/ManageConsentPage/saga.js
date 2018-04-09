@@ -1,4 +1,4 @@
-import { call, all, put, takeLatest } from 'redux-saga/es/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
 import { goBack } from 'react-router-redux';
 import { createConsent } from './api';
@@ -19,6 +19,10 @@ function* createConsentSaga(action) {
   }
 }
 
+function* watchCreateConsentSaga() {
+  yield takeLatest(CREATE_CONSENT, createConsentSaga);
+}
+
 function getErrorDetail(err) {
   let errorDetail = '';
   if (err && err.message === 'Failed to fetch') {
@@ -31,11 +35,10 @@ function getErrorDetail(err) {
   return errorDetail;
 }
 
-function* watchCreateConsentSaga() {
-  yield takeLatest(CREATE_CONSENT, createConsentSaga);
-}
-// Individual exports for testing
-export default function* defaultSaga() {
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* rootSaga() {
   yield all([
     watchCreateConsentSaga(),
   ]);
