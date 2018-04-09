@@ -89,10 +89,7 @@ ConsentTable.propTypes = {
         priority: PropTypes.number,
         display: PropTypes.string,
       })),
-      status: PropTypes.shape({
-        code: PropTypes.string,
-        display: PropTypes.string,
-      }),
+      status: PropTypes.string,
       fromActor: PropTypes.array,
       toActor: PropTypes.array,
       period: PropTypes.shape({

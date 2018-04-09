@@ -4,12 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import { Cell } from 'styled-css-grid';
 import { Link } from 'react-router-dom';
 import uniqueId from 'lodash/uniqueId';
+import capitalize from 'lodash/capitalize';
+
 import MenuItem from 'material-ui/MenuItem';
 import Chevron from 'material-ui/svg-icons/navigation/chevron-right';
 import Expand from 'material-ui/svg-icons/navigation/expand-more';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 
 import ShowHideWrapper from 'containers/ShowHideWrapper';
+import Util from 'utils/Util';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledChip from 'components/StyledChip';
@@ -19,6 +22,7 @@ import ConsentPurposeList from './ConsentPurposeList';
 import messages from './messages';
 import ConsentDetailsGrid from './ConsentDetailsGrid';
 
+const CONSENT_STATUS_DRAFT = 'DRAFT';
 
 class ConsentExpandableTableRow extends React.PureComponent {
 
@@ -68,21 +72,23 @@ class ConsentExpandableTableRow extends React.PureComponent {
             ),
           )}</TableRowColumn>
           <TableRowColumn>{period && period.start}-{period && period.end} </TableRowColumn>
-          <TableRowColumn>{status && status.display}</TableRowColumn>
+          <TableRowColumn>{capitalize(status)}</TableRowColumn>
           <TableRowColumn>
             <NavigationStyledIconMenu>
               <MenuItem
                 primaryText={<FormattedMessage {...messages.edit} />}
                 containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
+                disabled
               />
-              <ShowHideWrapper allowedRoles={allowedAttestConsentRoles} >
+              {Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) && <ShowHideWrapper allowedRoles={allowedAttestConsentRoles} >
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.attest} />}
                   containerElement={<Link to={`/ocp-ui/sign-consent/${logicalId}`} />}
                 />
-              </ShowHideWrapper>
+              </ShowHideWrapper>}
               <MenuItem
                 primaryText={<FormattedMessage {...messages.remove} />}
+                disabled
               />
             </NavigationStyledIconMenu>
           </TableRowColumn>
