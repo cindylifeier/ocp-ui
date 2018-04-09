@@ -12,7 +12,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
 
-import { DEFAULT_START_PAGE_NUMBER, CARE_COORDINATOR_ROLE_CODE, MANAGE_CONSENT_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
+import {
+  CARE_COORDINATOR_ROLE_CODE,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_CONSENT_URL,
+  PATIENT_ROLE_CODE,
+} from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
@@ -103,6 +108,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
           <ConsentTable
             relativeTop={this.state.relativeTop}
             consentData={consentData}
+            allowedAttestConsentRoles={PATIENT_ROLE_CODE}
           />
         </InfoSection>
       </Card>

@@ -24,7 +24,7 @@ import messages from './messages';
 const tableColumns = '50px repeat(4, 1fr) 50px';
 
 function ConsentTable(props) {
-  const { consentData, relativeTop } = props;
+  const { consentData, relativeTop, allowedAttestConsentRoles } = props;
   return (
     <div>
       {consentData.loading && <RefreshIndicatorLoading />}
@@ -43,6 +43,7 @@ function ConsentTable(props) {
                   key={consent.logicalId}
                   consent={consent}
                   tableColumns={tableColumns}
+                  allowedAttestConsentRoles={allowedAttestConsentRoles}
                 />
                 ))}
             </Table>
@@ -71,6 +72,7 @@ function ConsentTable(props) {
 
 ConsentTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
+  allowedAttestConsentRoles: PropTypes.string,
   consentData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -87,10 +89,7 @@ ConsentTable.propTypes = {
         priority: PropTypes.number,
         display: PropTypes.string,
       })),
-      status: PropTypes.shape({
-        code: PropTypes.string,
-        display: PropTypes.string,
-      }),
+      status: PropTypes.string,
       fromActor: PropTypes.array,
       toActor: PropTypes.array,
       period: PropTypes.shape({
