@@ -21,25 +21,31 @@ import isUndefined from 'lodash/isUndefined';
 import sizeMe from 'react-sizeme';
 
 import ShowHideWrapper, { functionalRoles } from 'containers/ShowHideWrapper';
+import FilterBar from 'components/FilterBar';
 import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
 
-
 export class PanelToolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isShowSearchBar: false,
+      isShowFilter: false,
     };
-
     this.handleShowSearchBar = this.handleShowSearchBar.bind(this);
+    this.handleShowFilter = this.handleShowFilter.bind(this);
   }
 
+  handleShowFilter() {
+    this.setState({ isShowFilter: !this.state.isShowFilter });
+    this.setState({ isShowSearchBar: false });
+  }
   handleShowSearchBar() {
     this.setState({ isShowSearchBar: !this.state.isShowSearchBar });
+    this.setState({ isShowFilter: false });
   }
 
   renderPanelToolBar() {
@@ -52,7 +58,9 @@ export class PanelToolbar extends React.Component {
       addNewItem,
       onSearch,
       searchField,
-      showFilter,
+      showToDoSpecificFilters,
+      onFilter,
+      filterField,
     } = this.props;
     return (
       <div>
@@ -83,8 +91,13 @@ export class PanelToolbar extends React.Component {
             </IconButton>
             }
             {showFilterIcon &&
-            <IconButton tooltip={<FormattedMessage {...messages.filter} />}>
-              <FilterIcon color={white} />
+            <IconButton
+              tooltip={this.state.isShowFilter ?
+                <FormattedMessage {...messages.cancelFilter} /> :
+                <FormattedMessage {...messages.filter} />}
+              onClick={this.handleShowFilter}
+            >
+              {this.state.isShowFilter ? <CancelIcon color={white} /> : <FilterIcon color={white} />}
             </IconButton>
             }
             {showSearchIcon &&
@@ -106,7 +119,14 @@ export class PanelToolbar extends React.Component {
         <SearchBar
           onSearch={onSearch}
           searchField={searchField}
-          showFilter={showFilter}
+          showToDoSpecificFilters={showToDoSpecificFilters}
+        />
+        }
+        {this.state.isShowFilter &&
+        <FilterBar
+          onFilter={onFilter}
+          filterField={filterField}
+          showFilter={showToDoSpecificFilters}
         />
         }
       </div>
@@ -138,16 +158,24 @@ PanelToolbar.propTypes = {
       PropTypes.oneOf(functionalRoles).isRequired,
     ),
   ]),
+  showToDoSpecificFilters: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
   showSearchIcon: PropTypes.bool,
-  showFilter: PropTypes.bool,
   addNewItem: PropTypes.shape({
     labelName: PropTypes.node.isRequired,
     linkUrl: PropTypes.string.isRequired,
   }),
   onSearch: PropTypes.func,
+  onFilter: PropTypes.func,
+  filterField: PropTypes.shape({
+    searchTypes: PropTypes.arrayOf(PropTypes.shape({
+      dateRangeCode: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
+    filterValueHintText: PropTypes.node.isRequired,
+  }),
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -165,6 +193,7 @@ PanelToolbar.defaultProps = {
   showFilterIcon: true,
   showSearchIcon: true,
   showFilter: true,
+  showToDoSpecificFilters: false,
 };
 
 

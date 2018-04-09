@@ -22,6 +22,14 @@ function SelectedParticipants(props) {
     removeParticipant(participant);
   };
 
+  function removeDashesAndCapitalizeEachWord(str) {
+    const words = str.match(/([^-]+)/g) || [];
+    words.forEach((word, i) => {
+      words[i] = word[0].toUpperCase() + word.slice(1);
+    });
+    return words.join(' ');
+  }
+
   const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
 
   return (
@@ -42,8 +50,8 @@ function SelectedParticipants(props) {
             <TableRowColumn>{participant.name}</TableRowColumn>
             <TableRowColumn>{capitalizeFirstLetter(participant.memberType)}</TableRowColumn>
             <TableRowColumn>{capitalizeFirstLetter(participant.participationType.display)}</TableRowColumn>
-            <TableRowColumn>{capitalizeFirstLetter(participant.required.display)}</TableRowColumn>
-            <TableRowColumn>{capitalizeFirstLetter(participant.status.display)}</TableRowColumn>
+            <TableRowColumn>{removeDashesAndCapitalizeEachWord(participant.required.display)}</TableRowColumn>
+            <TableRowColumn>{removeDashesAndCapitalizeEachWord(participant.status.display)}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton
                 onClick={() => handleRemoveParticipant(participant)}
@@ -68,3 +76,4 @@ SelectedParticipants.propTypes = {
 };
 
 export default SelectedParticipants;
+

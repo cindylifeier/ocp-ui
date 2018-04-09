@@ -23,10 +23,10 @@ export function getAppointment(appointmentId) {
   };
 }
 
-export function getAppointmentSuccess(appointmentId) {
+export function getAppointmentSuccess(appointment) {
   return {
     type: GET_APPOINTMENT_SUCCESS,
-    appointmentId,
+    appointment,
   };
 }
 
