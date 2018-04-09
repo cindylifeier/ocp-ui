@@ -35,6 +35,7 @@ function ManageConsent(props) {
   return (
     <div>
       <Formik
+        initialValues={{ consentType: true }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
