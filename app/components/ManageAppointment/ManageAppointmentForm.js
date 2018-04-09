@@ -16,6 +16,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
+import Util from 'utils/Util';
 import messages from './messages';
 
 import SelectedParticipants from './SelectedParticipants';
@@ -26,9 +27,12 @@ function ManageAppointmentForm(props) {
     isSubmitting,
     dirty,
     isValid,
+    editMode,
     appointmentTypes,
+    appointmentStatuses,
     handleOpen,
     selectedParticipants,
+    initialSelectedParticipants,
     removeParticipant,
     patient,
   } = props;
@@ -108,6 +112,24 @@ function ManageAppointmentForm(props) {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endTime} />}
             />
           </Cell>
+          {editMode &&
+          <Cell area="appointmentStatus">
+            <SelectField
+              fullWidth
+              name="appointmentStatus"
+              hintText={<FormattedMessage {...messages.hintText.status} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
+            >
+              {appointmentStatuses && appointmentStatuses.map((appointmentStatus) =>
+                (<MenuItem
+                  key={appointmentStatus.code}
+                  value={appointmentStatus.code}
+                  primaryText={appointmentStatus.display}
+                />),
+              )}
+            </SelectField>
+          </Cell>
+          }
 
           <Cell area="participantSubtitle">
             <FormSubtitle margin="0">
@@ -131,7 +153,7 @@ function ManageAppointmentForm(props) {
                   fullWidth
                   type="submit"
                   label="Save"
-                  disabled={!dirty || isSubmitting || !isValid}
+                  disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid}
                 />
               </Cell>
               <Cell>
@@ -149,6 +171,7 @@ ManageAppointmentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
@@ -156,10 +179,22 @@ ManageAppointmentForm.propTypes = {
     name: PropTypes.array.isRequired,
   }),
   selectedParticipants: PropTypes.array,
+  initialSelectedParticipants: PropTypes.array,
   appointmentTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
+  appointmentStatuses: PropTypes.array,
 };
 
 export default ManageAppointmentForm;
+
+function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
+  let isDirty = dirty;
+  const identityOfArray = 'memberId';
+  if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
+    isDirty = true;
+  }
+
+  return isDirty;
+}

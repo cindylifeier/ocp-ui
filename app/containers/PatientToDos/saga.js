@@ -1,15 +1,16 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { GET_PATIENT_TO_DOS, GET_PATIENT_TO_DO_MAIN_TASK, CANCEL_TO_DO } from 'containers/PatientToDos/constants';
+import { GET_PATIENT_TO_DOS, GET_PATIENT_TO_DO_MAIN_TASK, GET_FILTER_TO_DO, CANCEL_TO_DO } from 'containers/PatientToDos/constants';
 import {
   getPatientToDoError,
   getPatientToDoSuccess,
   getPatientToDoMainTaskError,
-  getPatientToDoMainTaskSuccess, cancelToDosError, cancelToDoSuccess,
+  getPatientToDoMainTaskSuccess, getFilterToDoSuccess, getFilterToDoError,
+  cancelToDosError, cancelToDoSuccess,
 } from 'containers/PatientToDos/actions';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { showNotification } from 'containers/Notification/actions';
-import { getPatientToDos, getToDoMainTask, cancelToDo } from './api';
+import { getFilterToDos, getPatientToDos, getToDoMainTask, cancelToDo } from 'containers/PatientToDos/api';
 import messages from './messages';
 
 export function* getPatientToDosSaga(action) {
@@ -30,6 +31,16 @@ export function* getToDoMainTaskSaga(action) {
   } catch (error) {
     yield put(showNotification(<FormattedMessage {...messages.noTaskReferenceError} />));
     yield put(getPatientToDoMainTaskError(error));
+  }
+}
+
+export function* getFilterToDoSaga(action) {
+  try {
+    const toDos = yield call(getFilterToDos, action.patientId, action.practitionerId, action.definition, action.dateRange);
+    yield put(getFilterToDoSuccess(toDos));
+  } catch (error) {
+    yield put(showNotification(<FormattedMessage {...messages.noFilterToDoError} />));
+    yield put(getFilterToDoError(error));
   }
 }
 
@@ -55,6 +66,10 @@ export function* watchGetToDoMainTaskSaga() {
 }
 
 
+export function* watchGetFilterToDoSaga() {
+  yield takeLatest(GET_FILTER_TO_DO, getFilterToDoSaga);
+}
+
 export function* watchCancelToDoSaga() {
   yield takeLatest(CANCEL_TO_DO, cancelToDoSaga);
 }
@@ -63,6 +78,7 @@ export default function* rootSaga() {
   yield all([
     watchGetPatientToDosSaga(),
     watchGetToDoMainTaskSaga(),
+    watchGetFilterToDoSaga(),
     watchCancelToDoSaga(),
   ]);
 }

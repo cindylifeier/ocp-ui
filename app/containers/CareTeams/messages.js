@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.containers.CareTeams.header',
     defaultMessage: 'Care Teams',
   },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.CareTeams.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
+  },
   careTeams: {
     id: 'ocpui.containers.CareTeams.header',
     defaultMessage: 'care teams',

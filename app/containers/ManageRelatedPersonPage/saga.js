@@ -1,10 +1,21 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import { CREATE_RELATED_PERSON, UPDATE_RELATED_PERSON } from './constants';
+import { CREATE_RELATED_PERSON, GET_RELATED_PERSON, UPDATE_RELATED_PERSON } from './constants';
 import { showNotification } from '../Notification/actions';
-import { saveRelatedPersonError } from './actions';
-import { createRelatedPerson, updateRelatedPerson } from './api';
+import { getRelatedPersonError, getRelatedPersonSuccess, saveRelatedPersonError } from './actions';
+import { createRelatedPerson, getRelatedPerson, updateRelatedPerson } from './api';
 
+
+export function* getRelatedPersonSaga({ relatedPersonId }) {
+  try {
+    const relatedPerson = yield call(getRelatedPerson, relatedPersonId);
+    yield put(getRelatedPersonSuccess(relatedPerson));
+  } catch (error) {
+    yield put(showNotification('No related person found.'));
+    yield put(goBack());
+    yield put(getRelatedPersonError(error));
+  }
+}
 
 export function* createRelatedPersonSaga(action) {
   try {
@@ -33,6 +44,10 @@ export function* updateRelatedPersonSaga(action) {
 }
 
 
+export function* watchGetRelatedPersonSaga() {
+  yield takeLatest(GET_RELATED_PERSON, getRelatedPersonSaga);
+}
+
 export function* watchCreateRelatedPersonSaga() {
   yield takeLatest(CREATE_RELATED_PERSON, createRelatedPersonSaga);
 }
@@ -45,6 +60,7 @@ export function* watchUpdateRelatedPersonSaga() {
 
 export default function* rootSaga() {
   yield all([
+    watchGetRelatedPersonSaga(),
     watchCreateRelatedPersonSaga(),
     watchUpdateRelatedPersonSaga(),
   ]);

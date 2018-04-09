@@ -34,12 +34,16 @@ export default defineMessages({
     id: 'ocpui.components.AppointmentTable.columnHeaderAction',
     defaultMessage: 'Action',
   },
-  menuItemCancel: {
-    id: 'ocpui.components.AppointmentTable.menuItemCancel',
+  cancelAppointment: {
+    id: 'ocpui.components.AppointmentTable.cancelAppointment',
     defaultMessage: 'Cancel',
   },
   addCommunication: {
-    id: 'ocpui.components.TaskTable.addCommunication',
+    id: 'ocpui.components.AppointmentTable.addCommunication',
     defaultMessage: 'Add Communication',
+  },
+  editAppointment: {
+    id: 'ocpui.components.AppointmentTable.editAppointment',
+    defaultMessage: 'Edit',
   },
 });

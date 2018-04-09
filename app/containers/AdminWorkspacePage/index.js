@@ -13,8 +13,9 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import renderOrganizations from 'containers/Organizations/render';
-import renderPractitioners from 'containers/Practitioners/render';
+import renderOrganizationsComponent from 'containers/Organizations/render';
+import renderPractitionersComponent from 'containers/Practitioners/render';
+import renderPatientsComponent from 'containers/Patients/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import makeSelectAdminWorkspacePage from './selectors';
@@ -57,25 +58,47 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'row',
+      type: 'column',
       isClosable: true,
       reorderEnabled: true,
       title: '',
       content: [{
-        type: 'stack',
-        width: 50,
+        type: 'row',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        activeItemIndex: 0,
+        height: 80,
         content: [{
-          title: 'ORGANIZATIONS',
-          type: 'component',
-          componentName: 'organizations',
+          type: 'stack',
+          header: {},
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
+          title: '',
+          activeItemIndex: 0,
+          width: 50,
+          height: 80,
+          content: [{
+            title: 'Organizations',
+            type: 'component',
+            componentName: 'organizations',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          width: 50,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Practitioners',
+            type: 'component',
+            componentName: 'practitioners',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
       }, {
         type: 'stack',
         header: {},
@@ -83,19 +106,16 @@ export const initialStateMetadata =
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        width: 50,
+        height: 80,
         content: [{
-          title: 'PRACTITIONERS',
+          title: 'Patients',
           type: 'component',
-          componentName: 'practitioners',
+          componentName: 'patients',
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
-      },
-      ],
-    },
-    ],
+        }],
+      }],
+    }],
     isClosable: true,
     reorderEnabled: true,
     title: '',
@@ -104,8 +124,9 @@ export const initialStateMetadata =
   };
 
 export const componentMetadata = [
-  { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizations },
-  { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitioners },
+  { name: 'organizations', text: 'Organizations', factoryMethod: renderOrganizationsComponent },
+  { name: 'practitioners', text: 'Practitioners', factoryMethod: renderPractitionersComponent },
+  { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
 ];
 
 export class AdminWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -117,6 +138,7 @@ export class AdminWorkspacePage extends React.Component { // eslint-disable-line
           <meta name="description" content="Admin workspace page of Omnibus Care Plan application" />
         </Helmet>
         <GoldenLayout
+          containerHeight="170vh"
           containerId="golden-admin-workspace"
           componentMetadata={componentMetadata}
           stateMetadata={initialStateMetadata}

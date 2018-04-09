@@ -10,3 +10,10 @@ export function getPractitionerToDos(practitionerId, definition) {
   const url = `${baseEndpoint}?${stringifiedParams}`;
   return request(url);
 }
+
+export function getFilterToDos(practitionerId, definition, filterDate) {
+  const queryParams = { practitioner: practitionerId, definition, filterDate };
+  const stringifiedParams = queryString.stringify(queryParams);
+  const url = `${baseEndpoint}?${stringifiedParams}`;
+  return request(url);
+}

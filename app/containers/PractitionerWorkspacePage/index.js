@@ -23,6 +23,7 @@ import {
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
 import GoldenLayout from 'components/GoldenLayout';
+import renderConsentsComponent from 'containers/Consents/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderPractitionersComponent from 'containers/Practitioners/render';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';
@@ -82,6 +83,7 @@ const baseLayout = {
 
 export class PractitionerWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static componentMetadata = [
+    { name: 'consents', text: 'CONSENTS', factoryMethod: renderConsentsComponent },
     { name: 'communications', text: 'COMMUNICATIONS', factoryMethod: renderCommunicationsComponent },
     { name: 'practitioners', text: 'PRACTITIONERS', factoryMethod: renderPractitionersComponent },
     { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
@@ -217,7 +219,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 80,
           content: [{
-            title: 'Appointments',
+            title: 'Upcoming Appointments',
             type: 'component',
             componentName: 'upcomingAppointments',
             isClosable: true,
@@ -270,29 +272,13 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
       isClosable: true,
       reorderEnabled: true,
       title: '',
-      width: 100,
       content: [{
         type: 'row',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        height: 25,
+        height: 30,
         content: [{
-          type: 'stack',
-          width: 50,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'MY TO DO',
-            type: 'component',
-            componentName: 'toDos',
-            isClosable: true,
-            reorderEnabled: true,
-          },
-          ],
-        }, {
           type: 'stack',
           header: {},
           isClosable: true,
@@ -301,15 +287,27 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           activeItemIndex: 0,
           width: 50,
           content: [{
+            title: 'MY TO DO',
+            type: 'component',
+            componentName: 'toDos',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          width: 50,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
             title: 'CALENDAR',
             type: 'component',
             componentName: 'calendar',
             isClosable: true,
             reorderEnabled: true,
-          },
-          ],
-        },
-        ],
+          }],
+        }],
       }, {
         type: 'stack',
         header: {},
@@ -317,15 +315,52 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 25,
+        height: 50,
         content: [{
           title: 'PATIENTS',
           type: 'component',
           componentName: 'patients',
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
+        }],
+      }, {
+        type: 'row',
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        height: 40,
+        content: [{
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          height: 40,
+          width: 50,
+          content: [{
+            title: 'Upcoming tasks',
+            type: 'component',
+            componentName: 'upcomingTasks',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }, {
+          type: 'stack',
+          header: {},
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          width: 40,
+          content: [{
+            title: 'Upcoming Appointments',
+            type: 'component',
+            componentName: 'upcomingAppointments',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
       }, {
         type: 'stack',
         header: {},
@@ -333,35 +368,16 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         reorderEnabled: true,
         title: '',
         activeItemIndex: 0,
-        height: 25,
+        height: 40,
         content: [{
-          title: 'Upcoming tasks',
+          title: 'Consents',
           type: 'component',
-          componentName: 'upcomingTasks',
+          componentName: 'consents',
           isClosable: true,
           reorderEnabled: true,
-        },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 25,
-        content: [{
-          title: 'Appointments',
-          type: 'component',
-          componentName: 'upcomingAppointments',
-          isClosable: true,
-          reorderEnabled: true,
-        },
-        ],
-      },
-      ],
-    },
-    ],
+        }],
+      }],
+    }],
   };
 
   static pcpLayout = {
@@ -536,7 +552,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 80,
           content: [{
-            title: 'Appointments',
+            title: 'Upcoming Appointments',
             type: 'component',
             componentName: 'upcomingAppointments',
             isClosable: true,

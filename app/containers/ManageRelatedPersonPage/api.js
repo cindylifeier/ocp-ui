@@ -25,3 +25,8 @@ export function updateRelatedPerson(relatedPerson) {
     },
   });
 }
+
+export function getRelatedPerson(relatedPersonId) {
+  const requestURL = `${baseEndpoint}/${relatedPersonId}`;
+  return request(requestURL);
+}

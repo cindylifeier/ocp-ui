@@ -22,6 +22,14 @@ export default defineMessages({
     id: 'ocpui.containers.PatientToDos.noToDosFound',
     defaultMessage: 'No To Dos found.',
   },
+  noFilterToDoError: {
+    id: 'ocpui.containers.PatientToDos.noFilterToDoError',
+    defaultMessage: 'No filter To Dos found.',
+  },
+  selectLabelDateRange: {
+    id: 'ocpui.containers.PatientToDos.selectLabelDateRange',
+    defaultMessage: 'Select Date range to filter.',
+  },
   cancelToDoSuccess: {
     id: 'ocpui.containers.PatientToDos.cancelToDoSuccess',
     defaultMessage: 'Success in cancelling To Do.',
