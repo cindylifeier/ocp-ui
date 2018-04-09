@@ -9,6 +9,7 @@ import Chevron from 'material-ui/svg-icons/navigation/chevron-right';
 import Expand from 'material-ui/svg-icons/navigation/expand-more';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 
+import ShowHideWrapper from 'containers/ShowHideWrapper';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledChip from 'components/StyledChip';
@@ -37,7 +38,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
   }
 
   render() {
-    const { consent, tableColumns } = this.props;
+    const { consent, tableColumns, allowedAttestConsentRoles } = this.props;
     const { logicalId, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
     return (
       <div>
@@ -74,18 +75,12 @@ class ConsentExpandableTableRow extends React.PureComponent {
                 primaryText={<FormattedMessage {...messages.edit} />}
                 containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
               />
-              <MenuItem
-                primaryText={<FormattedMessage {...messages.preview} />}
-                containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
-              />
-              <MenuItem
-                primaryText={<FormattedMessage {...messages.view} />}
-                containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
-              />
-              <MenuItem
-                primaryText={<FormattedMessage {...messages.attest} />}
-                containerElement={<Link to={`/ocp-ui/sign-consent/${logicalId}`} />}
-              />
+              <ShowHideWrapper allowedRoles={allowedAttestConsentRoles} >
+                <MenuItem
+                  primaryText={<FormattedMessage {...messages.attest} />}
+                  containerElement={<Link to={`/ocp-ui/sign-consent/${logicalId}`} />}
+                />
+              </ShowHideWrapper>
               <MenuItem
                 primaryText={<FormattedMessage {...messages.remove} />}
               />
@@ -114,6 +109,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
 ConsentExpandableTableRow.propTypes = {
   consent: PropTypes.object,
   tableColumns: PropTypes.string,
+  allowedAttestConsentRoles: PropTypes.string,
 };
 
 export default ConsentExpandableTableRow;
