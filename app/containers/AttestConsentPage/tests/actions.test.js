@@ -1,18 +1,14 @@
 
-import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+import { INITIALIZE_ATTEST_CONSENT } from 'containers/AttestConsentPage/constants';
+import { initializeAttestConsentPage } from 'containers/AttestConsentPage/actions';
 
 describe('AttestConsentPage actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('INITIALIZE ATTEST CONSENT', () => {
+    it('has a type of INITIALIZE_ATTEST_CONSENT', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: INITIALIZE_ATTEST_CONSENT,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(initializeAttestConsentPage()).toEqual(expected);
     });
   });
 });
