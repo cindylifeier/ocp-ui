@@ -14,12 +14,12 @@ import { Cell, Grid } from 'styled-css-grid';
 import brandImg from 'images/omnibus-care-plan-logo.png';
 import CardHeader from 'components/CardHeader';
 import TextField from 'components/TextField';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDivider from 'components/StyledDivider';
 import StyledBrandImage from 'components/StyledBrandImage';
 import LoginStyledCard from './LoginStyledCard';
 import LoginFieldGrid from './LoginFieldGrid';
 import LoginButtonCell from './LoginButtonCell';
-import LoginButton from './LoginButton';
 import messages from './messages';
 
 function Login(props) {
@@ -90,15 +90,14 @@ function Login(props) {
                         <FormattedMessage {...messages.forgotLink} />
                       </Cell>
                       <LoginButtonCell>
-                        <LoginButton
-                          variant="raised"
+                        <StyledRaisedButton
                           type="submit"
-                          fullWidth
+                          width="100%"
                           disabled={!dirty || isSubmitting || !isValid}
                         >{isSubmitting ?
                           <FormattedMessage {...messages.authenticatingButton} /> :
                           <FormattedMessage {...messages.loginButton} />}
-                        </LoginButton>
+                        </StyledRaisedButton>
                       </LoginButtonCell>
                     </LoginFieldGrid>
                   </Form>
