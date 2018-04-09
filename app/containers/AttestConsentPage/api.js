@@ -10,6 +10,11 @@ export function getConsent(logicalId) {
 
 export function attestConsent(logicalId) {
   const requestURL = `${baseEndpoint}/${logicalId}/attest`;
-  return request(requestURL);
+  return request(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }
 
