@@ -30,9 +30,11 @@ function* checkPasswordSaga(action) {
     const password = action.password;
     yield call(login, { username, password });
     yield put(checkPasswordSuccess(true));
+    yield call(action.handleSubmitting);
   } catch (error) {
     yield put(checkPasswordError(getLoginErrorDetail(error)));
     yield put(showNotification('Failed to login.'));
+    yield call(action.handleSubmitting);
   }
 }
 
@@ -41,10 +43,12 @@ function* attestConsentSaga(action) {
     const consent = yield call(attestConsent, action.logicalId);
     yield put(getConsentSuccess(consent));
     yield put(showNotification('Successfully signed consent.'));
+    yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
     yield put(showNotification('Failed to sign consent.'));
     yield put(attestConsentError(error));
+    yield call(action.handleSubmitting);
   }
 }
 

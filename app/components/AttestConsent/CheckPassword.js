@@ -25,8 +25,8 @@ function CheckPassword(props) {
       <H2>{<FormattedMessage {...messages.authentication.header} />}</H2>
       <FormattedMessage {...messages.authentication.term} />
       <Formik
-        onSubmit={(values) => {
-          checkPassword(values.password);
+        onSubmit={(values, actions) => {
+          checkPassword(values.password, actions);
         }}
         validationSchema={yup.object().shape({
           password: yup.string()

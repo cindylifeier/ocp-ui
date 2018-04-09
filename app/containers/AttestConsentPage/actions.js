@@ -45,10 +45,11 @@ export function getConsentError(error) {
   };
 }
 
-export function checkPassword(password) {
+export function checkPassword(password, handleSubmitting) {
   return {
     type: CHECK_PASSWORD,
     password,
+    handleSubmitting,
   };
 }
 
@@ -66,10 +67,11 @@ export function checkPasswordError(error) {
   };
 }
 
-export function attestConsent(logicalId) {
+export function attestConsent(logicalId, handleSubmitting) {
   return {
     type: ATTEST_CONSENT,
     logicalId,
+    handleSubmitting,
   };
 }
 

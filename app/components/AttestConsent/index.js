@@ -7,7 +7,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 import { Cell, Grid } from 'styled-css-grid';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
@@ -43,8 +43,8 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
     this.setState({ authenticationDialogOpen: false });
   }
 
-  checkPassword(password) {
-    this.props.checkPassword(password);
+  checkPassword(password, actions) {
+    this.props.checkPassword(password, actions);
     if (this.props.isAuthenticated) {
       this.setState({ authenticationDialogOpen: false });
     }
@@ -61,7 +61,7 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
           <CheckPassword callback={this.handleDialogCallback} checkPassword={this.checkPassword} />
         </Dialog>
         <Formik
-          onSubmit={onSubmit}
+          onSubmit={(values, actions) => onSubmit(values, actions)}
           render={({ isSubmitting }) => (
             <Form>
               <AttestConsentGrid>

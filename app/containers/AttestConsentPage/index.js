@@ -17,7 +17,7 @@ import { makeSelectPatient } from 'containers/App/contextSelectors';
 import AttestConsent from 'components/AttestConsent';
 import reducer from './reducer';
 import saga from './saga';
-import { getConsent, attestConsent, checkPassword, initializeAttestConsentPage } from './actions';
+import { attestConsent, checkPassword, getConsent, initializeAttestConsentPage } from './actions';
 import { makeSelectConsent, makeSelectIsAuthenticated } from './selectors';
 
 export class AttestConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -39,12 +39,12 @@ export class AttestConsentPage extends React.Component { // eslint-disable-line 
     this.props.initializeAttestConsentPage();
   }
 
-  handleSubmit() {
-    this.props.attestConsent(this.props.match.params.id);
+  handleSubmit(values, actions) {
+    this.props.attestConsent(this.props.match.params.id, () => actions.setSubmitting(false));
   }
 
-  checkPassword(password) {
-    this.props.checkPassword(password);
+  checkPassword(password, actions) {
+    this.props.checkPassword(password, () => actions.setSubmitting(false));
   }
 
   render() {
@@ -88,8 +88,8 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeAttestConsentPage: () => dispatch(initializeAttestConsentPage()),
     getConsent: (logicalId) => dispatch(getConsent(logicalId)),
-    attestConsent: (logicalId) => dispatch(attestConsent(logicalId)),
-    checkPassword: (password) => dispatch(checkPassword(password)),
+    attestConsent: (logicalId, handleSubmitting) => dispatch(attestConsent(logicalId, handleSubmitting)),
+    checkPassword: (password, handleSubmitting) => dispatch(checkPassword(password, handleSubmitting)),
   };
 }
 
