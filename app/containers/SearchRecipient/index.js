@@ -15,11 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import DialogHeader from 'components/DialogHeader';
 import { makeSelectRecipients, makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
-import {
-  addSelectedRecipients,
-  getRecipients,
-  setSelectRecipientStatus,
-} from 'containers/SearchRecipient/actions';
+import { addSelectedRecipients, getRecipients, setSelectRecipientStatus } from 'containers/SearchRecipient/actions';
 import { getRoleName } from 'utils/CommunicationUtils';
 import StyledFlatButton from 'components/StyledFlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -86,10 +82,11 @@ export class SearchRecipient extends React.Component { // eslint-disable-line re
         onClick={this.handleDialogClose}
       />,
       <StyledRaisedButton
-        label={<FormattedMessage {...messages.dialogAddBtnLabel} />}
         primary
         onClick={this.addRecipients}
-      />,
+      >
+        <FormattedMessage {...messages.dialogAddBtnLabel} />
+      </StyledRaisedButton>,
     ];
     return (
       <Dialog
