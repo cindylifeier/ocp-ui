@@ -183,11 +183,12 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
                       </Cell>
                       <Cell middle>
                         <StyledRaisedButton
-                          label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                           type="submit"
                           value={participant}
                           disabled={!dirty || isSubmitting || !isValid}
-                        />
+                        >
+                          <FormattedMessage {...messages.addParticipantBtnLabel} />
+                        </StyledRaisedButton>
                       </Cell>
                     </Grid>
                   </TableRowColumn>
