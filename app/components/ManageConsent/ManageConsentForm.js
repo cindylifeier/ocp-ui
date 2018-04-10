@@ -18,8 +18,6 @@ function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
     isSubmitting,
-    dirty,
-    isValid,
   } = props;
   const today = new Date();
 
@@ -32,7 +30,6 @@ function ManageConsentForm(props) {
           </FormSubtitle>
           <Checkbox
             name="consentType"
-            checked
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
@@ -108,7 +105,6 @@ function ManageConsentForm(props) {
                 fullWidth
                 type="submit"
                 label="Save"
-                disabled={!dirty || isSubmitting || !isValid}
               />
             </Cell>
             <Cell>
@@ -123,8 +119,6 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
-  dirty: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
 };
 
 export default ManageConsentForm;

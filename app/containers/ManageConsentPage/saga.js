@@ -28,7 +28,9 @@ function getErrorDetail(err) {
   if (err && err.message === 'Failed to fetch') {
     errorDetail = ' Server is offline.';
   } else if (err && err.response && err.response.status === 409) {
-    errorDetail = ' Duplicate Entry:: Consent already exists for the patient.';
+    errorDetail = ' Duplicate Entry:: Consent already exists.';
+  } else if (err && err.response && err.response.status === 412) {
+    errorDetail = 'Precondition Failed:: No care team members.';
   } else if (err && err.response && err.response.status === 500) {
     errorDetail = ' Unknown server error.';
   }
