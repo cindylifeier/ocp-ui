@@ -45,12 +45,13 @@ function CheckPassword(props) {
             <div>
               <StyledRaisedButton
                 type="submit"
-                label="Continue"
                 disabled={!dirty || isSubmitting || !isValid}
-              />
+              >
+                Continue
+              </StyledRaisedButton>
             </div>
           </Form>
-          )}
+        )}
       />
     </div>
   );
