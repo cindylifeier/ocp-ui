@@ -53,7 +53,6 @@ function ConfirmPatientModal(props) {
           </PatientModalCell>
           <Cell center>
             <StyledRaisedButton
-              width="140px"
               onClick={onPatientModalClose}
               component={Link}
               to={`${PATIENTS_URL}/${patient.id}`}

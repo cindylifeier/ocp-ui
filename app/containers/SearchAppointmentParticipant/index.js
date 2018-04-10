@@ -187,11 +187,12 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
                       </Cell>
                       <Cell middle>
                         <StyledRaisedButton
-                          label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                           type="submit"
                           value={participant}
                           disabled={!dirty || isSubmitting || !isValid}
-                        />
+                        >
+                          <FormattedMessage {...messages.addParticipantBtnLabel} />
+                        </StyledRaisedButton>
                       </Cell>
                     </Grid>
                   </TableRowColumn>
