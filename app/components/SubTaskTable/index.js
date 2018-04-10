@@ -1,8 +1,8 @@
 /**
-*
-* SubTaskTable
-*
-*/
+ *
+ * SubTaskTable
+ *
+ */
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -20,7 +20,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
-import { TASK_TABLE_COLUMNS, MANAGE_TASK_URL } from './constants';
+import { MANAGE_TASK_URL, TASK_TABLE_COLUMNS } from './constants';
 import AddSubTaskButton from './AddSubTaskButton';
 
 
@@ -32,10 +32,12 @@ function SubTaskTable({ elements, patientId, taskBaseUrl }) {
           <FormattedMessage {...messages.header} />
         </FormSubtitle>
         <AddSubTaskButton
-          onClick={<Link to={MANAGE_TASK_URL} />}
-          label={<FormattedMessage {...messages.addSubTaskButton} />}
+          component={Link}
+          to={MANAGE_TASK_URL}
           disabled
-        />
+        >
+          <FormattedMessage {...messages.addSubTaskButton} />
+        </AddSubTaskButton>
         <Table>
           <TableHeader columns={TASK_TABLE_COLUMNS}>
             <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
