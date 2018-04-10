@@ -8,6 +8,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import yup from 'yup';
 import { Formik } from 'formik';
+import Util from 'utils/Util';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import messages from './messages';
 import ManageConsentForm from './ManageConsentForm';
@@ -35,7 +37,7 @@ function ManageConsent(props) {
   return (
     <div>
       <Formik
-        initialValues={{ consentType: true }}
+        initialValues={setFormData(props.consent)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -86,6 +88,22 @@ ManageConsent.propTypes = {
   }))),
   onSave: PropTypes.func,
   editMode: PropTypes.bool,
+  consent: PropTypes.object,
 };
 
 export default ManageConsent;
+
+function setFormData(consent) {
+  let formData = null;
+  if (isEmpty(consent)) {
+    const consentStart = new Date();
+    const consentEnd = new Date();
+    consentEnd.setFullYear(consentEnd.getFullYear() + 1);
+    formData = {
+      consentType: true,
+      consentStart,
+      consentEnd,
+    };
+  }
+  return Util.pickByIdentity(formData);
+}
