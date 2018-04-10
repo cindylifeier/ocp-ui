@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
-import { MenuItem, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import { teal500, white } from 'material-ui/styles/colors';
+import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
+
 import TextField from 'components/TextField';
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import SelectField from 'components/SelectField';
 import SearchSection from './SearchSection';
 import SearchHeader from './SearchHeader';
@@ -52,7 +53,7 @@ function SearchBarForm(props) {
             label={<FormattedMessage {...messages.includeInactive} />}
           />
           }
-          { showToDoSpecificFilters &&
+          {showToDoSpecificFilters &&
           <Cell>
             <FormattedMessage {...messages.filterLabel} />
           </Cell>
@@ -84,14 +85,13 @@ function SearchBarForm(props) {
         </SearchContainerGrid>
 
         <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
-          <RaisedButton
+          <StyledRaisedButton
             fullWidth
-            label="Search"
-            backgroundColor={teal500}
-            labelColor={white}
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
-          />
+          >
+            <FormattedMessage {...messages.searchButton} />
+          </StyledRaisedButton>
         </SearchButtonContainerGrid>
       </SearchSection>
     </Form>

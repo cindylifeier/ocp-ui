@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'ocpui.components.SearchBar.buttonTooltip',
     defaultMessage: 'Search',
   },
+  searchButton: {
+    id: 'ocpui.components.SearchBar.searchButton',
+    defaultMessage: 'Search',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.SearchBar.validation.minLength',

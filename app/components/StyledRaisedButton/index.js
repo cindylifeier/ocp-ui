@@ -17,7 +17,6 @@ const StyledRaisedButton = styled(Button).attrs({
     color: ${common.white};
     font-size: 13px;
     font-weight: bold;
-    width: ${(props) => props.width || '150px'};
   }
 
   &&:hover {
