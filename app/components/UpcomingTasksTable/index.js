@@ -4,22 +4,20 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import isUndefined from 'lodash/isUndefined';
-import IconMenu from 'material-ui/IconMenu';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import MenuItem from 'material-ui/MenuItem';
-
-import Util from 'utils/Util';
-import StyledIconButton from 'components/StyledIconButton';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
+import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import Util from 'utils/Util';
 import messages from './messages';
 
 
@@ -49,20 +47,12 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
             <TableRowColumn>{executionPeriod.start}</TableRowColumn>
             <TableRowColumn>{executionPeriod.end}</TableRowColumn>
             <TableRowColumn>
-              <IconMenu
-                iconButtonElement={
-                  (<StyledIconButton>
-                    <NavigationMenu />
-                  </StyledIconButton>)
-                }
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-              >
+              <NavigationStyledIconMenu>
                 <MenuItem
                   primaryText={<FormattedMessage {...messages.viewDetails} />}
                   onClick={() => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary))}
                 />
-              </IconMenu>
+              </NavigationStyledIconMenu>
             </TableRowColumn>
           </TableRow>
         ))}
