@@ -29,6 +29,8 @@ function getErrorDetail(err) {
     errorDetail = ' Server is offline.';
   } else if (err && err.response && err.response.status === 409) {
     errorDetail = ' Duplicate Entry:: Consent already exists for the patient.';
+  } else if (err && err.response && err.response.status === 412) {
+    errorDetail = `Precondition Failed:: ${err.message}`;
   } else if (err && err.response && err.response.status === 500) {
     errorDetail = ' Unknown server error.';
   }
