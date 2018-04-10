@@ -146,10 +146,9 @@ class ManagePractitionerForm extends React.Component {
                   </FormSubtitle>
                 </Cell>
                 <Cell>
-                  <AddOrganizationsButton
-                    onClick={this.handleAddOrganizations}
-                    label={<FormattedMessage {...messages.associateOrganizations.addButtonLabel} />}
-                  />
+                  <AddOrganizationsButton onClick={this.handleAddOrganizations}>
+                    <FormattedMessage {...messages.associateOrganizations.addButtonLabel} />
+                  </AddOrganizationsButton>
                 </Cell>
                 <Cell>
                   <FieldArray
@@ -259,9 +258,10 @@ class ManagePractitionerForm extends React.Component {
                   <StyledRaisedButton
                     fullWidth
                     type="submit"
-                    label="Save"
                     disabled={!dirty || isSubmitting || !isValid}
-                  />
+                  >
+                    Save
+                  </StyledRaisedButton>
                 </Cell>
                 <Cell>
                   <GoBackButton disabled={isSubmitting} />

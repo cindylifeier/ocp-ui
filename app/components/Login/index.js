@@ -92,7 +92,7 @@ function Login(props) {
                       <LoginButtonCell>
                         <StyledRaisedButton
                           type="submit"
-                          width="100%"
+                          fullWidth
                           disabled={!dirty || isSubmitting || !isValid}
                         >{isSubmitting ?
                           <FormattedMessage {...messages.authenticatingButton} /> :

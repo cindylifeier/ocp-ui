@@ -1,12 +1,10 @@
 /**
-*
-* PractitionerRoleForOrganizationTable
-*
-*/
+ *
+ * PractitionerRoleForOrganizationTable
+ *
+ */
 
 import React from 'react';
-// import styled from 'styled-components';
-
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
@@ -18,7 +16,6 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
-import { teal500, white } from 'material-ui/styles/colors';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import { Form, Formik } from 'formik';
 import SelectField from 'components/SelectField';
@@ -44,7 +41,12 @@ function createSearchResultRows(organizations, onAddAssociateOrganization, exist
       onSubmit={(values, actions) => {
         const { code, specialty } = values;
         actions.setSubmitting(false);
-        onAddAssociateOrganization({ organization: { reference: `Organization/${org.id}`, display: `${org.name}` }, code, specialty, active: true });
+        onAddAssociateOrganization({
+          organization: { reference: `Organization/${org.id}`, display: `${org.name}` },
+          code,
+          specialty,
+          active: true,
+        });
         callback();
       }}
       validationSchema={yup.object().shape({
@@ -102,13 +104,12 @@ function createSearchResultRows(organizations, onAddAssociateOrganization, exist
                   </TableRowColumn>
                   <TableRowColumn>
                     <StyledRaisedButton
-                      backgroundColor={teal500}
-                      labelColor={white}
-                      label="Add"
                       type="submit"
                       value={org}
                       disabled={!dirty || isSubmitting || !isValid || findExistingOrganization(`Organization/${org.id}`, existingOrganizations) !== undefined}
-                    />
+                    >
+                      Add
+                    </StyledRaisedButton>
                   </TableRowColumn>
                 </TableRow>
               </TableRow>
