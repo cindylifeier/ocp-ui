@@ -171,9 +171,10 @@ function AddFlagForm(props) {
               <Cell>
                 <StyledRaisedButton
                   type="submit"
-                  label={<FormattedMessage {...messages.saveFlagButton} />}
                   disabled={!dirty || isSubmitting || !isValid || isDuplicate(initialValues, flags, values.code, values.category)}
-                />
+                >
+                  <FormattedMessage {...messages.saveFlagButton} />
+                </StyledRaisedButton>
                 <StyledFlatButton
                   type="reset"
                   label={<FormattedMessage {...messages.cancelButton} />}
