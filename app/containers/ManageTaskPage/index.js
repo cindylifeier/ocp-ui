@@ -54,6 +54,7 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     this.props.getLookups();
     const logicalId = match.params.id;
     if (logicalId) {
+      // Edit of Main or Sub Tasks Scenario
       this.props.getTask(logicalId);
       // get sub tasks belonging to main task
       this.props.getSubTasks(logicalId);
@@ -192,8 +193,9 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     logicalId = queryObj.mainTaskId;
     const editMode = !isUndefined(match.params.id);
     let parentTask = null;
-    if (logicalId && this.props.tasks) {
-      parentTask = find(this.props.tasks.data, { logicalId });
+    //  sub task or todo sub task
+    if (logicalId) {
+      parentTask = tasks && find(tasks.data, { logicalId });
     }
     let titleHeader;
     if (editMode && isMainTask) {
