@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import ActionSearch from '@material-ui/icons/Search';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';

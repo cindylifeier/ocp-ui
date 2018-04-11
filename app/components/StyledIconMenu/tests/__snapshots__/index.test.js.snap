@@ -7,7 +7,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Styled(IconMenu)
     iconButtonElement={
       <StyledIconButton__StyledIconButton>
-        <NavigationMenu />
+        <pure(Menu) />
       </StyledIconButton__StyledIconButton>
     }
   >
@@ -71,7 +71,7 @@ ShallowWrapper {
       />,
       "className": "sc-bdVaJa bDWFJH",
       "iconButtonElement": <StyledIconButton__StyledIconButton>
-        <NavigationMenu />
+        <pure(Menu) />
       </StyledIconButton__StyledIconButton>,
       "multiple": false,
       "onClick": [Function],
@@ -150,7 +150,7 @@ ShallowWrapper {
         />,
         "className": "sc-bdVaJa bDWFJH",
         "iconButtonElement": <StyledIconButton__StyledIconButton>
-          <NavigationMenu />
+          <pure(Menu) />
         </StyledIconButton__StyledIconButton>,
         "multiple": false,
         "onClick": [Function],

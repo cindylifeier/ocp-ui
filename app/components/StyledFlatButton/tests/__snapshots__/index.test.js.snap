@@ -5,7 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <StyledFlatButton__StyledFlatButton
-    icon={<ContentAddCircle />}
+    icon={<pure(AddCircle) />}
     label="label"
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -23,7 +23,7 @@ ShallowWrapper {
       "className": "StyledFlatButton__StyledFlatButton-jENDUq hlOZwo",
       "disabled": false,
       "fullWidth": false,
-      "icon": <ContentAddCircle />,
+      "icon": <pure(AddCircle) />,
       "label": "label",
       "labelPosition": "after",
       "labelStyle": Object {},
@@ -47,7 +47,7 @@ ShallowWrapper {
         "className": "StyledFlatButton__StyledFlatButton-jENDUq hlOZwo",
         "disabled": false,
         "fullWidth": false,
-        "icon": <ContentAddCircle />,
+        "icon": <pure(AddCircle) />,
         "label": "label",
         "labelPosition": "after",
         "labelStyle": Object {},

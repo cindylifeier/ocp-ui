@@ -43,7 +43,7 @@ import { Form, Formik } from 'formik';
 import { uniqueId } from 'lodash';
 import find from 'lodash/find';
 import { MenuItem } from 'material-ui';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import ActionSearch from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
