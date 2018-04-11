@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { FormattedMessage } from 'react-intl';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import ActionSearch from '@material-ui/icons/Search';
 import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';

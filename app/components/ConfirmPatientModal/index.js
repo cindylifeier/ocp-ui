@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
-import Close from 'material-ui/svg-icons/navigation/close';
+import Close from '@material-ui/icons/Close';
 import Avatar from 'material-ui/Avatar';
 import { Cell } from 'styled-css-grid';
 

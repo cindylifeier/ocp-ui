@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import IconMenu from 'material-ui/IconMenu';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import NavigationMenu from '@material-ui/icons/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
 import Util from 'utils/Util';

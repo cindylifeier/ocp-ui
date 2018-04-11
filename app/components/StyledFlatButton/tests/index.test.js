@@ -3,7 +3,7 @@ import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 import { MuiThemeProvider } from 'material-ui';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import ContentAddCircle from '@material-ui/icons/AddCircle';
 
 import StyledFlatButton from '../index';
 

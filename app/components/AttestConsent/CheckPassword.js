@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Close from 'material-ui/svg-icons/navigation/close';
+import Close from '@material-ui/icons/Close';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';

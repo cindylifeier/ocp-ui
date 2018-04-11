@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
-import FilterIcon from 'material-ui/svg-icons/content/filter-list';
+import FilterIcon from '@material-ui/icons/FilterList';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
-import NavigationMenu from 'material-ui/svg-icons/navigation/more-horiz';
+import NavigationMenu from '@material-ui/icons/MoreHoriz';
 import MenuItem from 'material-ui/MenuItem';
 
 import StyledIconButton from 'components/StyledIconButton';

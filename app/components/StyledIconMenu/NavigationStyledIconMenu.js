@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationMenu from 'material-ui/svg-icons/navigation/more-horiz';
+import NavigationMenu from '@material-ui/icons/MoreHoriz';
 
 import StyledIconMenu from './index';
 import StyledIconButton from '../StyledIconButton';
