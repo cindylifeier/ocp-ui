@@ -110,11 +110,9 @@ function AddMultipleAddressesForm(props) {
                 >
                   <FormattedMessage {...messages.saveAddressButton} />
                 </StyledRaisedButton>
-                <StyledFlatButton
-                  type="reset"
-                  label={<FormattedMessage {...messages.cancelButton} />}
-                  onClick={handleCloseDialog}
-                />
+                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
+                  <FormattedMessage {...messages.cancelButton} />
+                </StyledFlatButton>
               </Cell>
             </Grid>
           </Form>
