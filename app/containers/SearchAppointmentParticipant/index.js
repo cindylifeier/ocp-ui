@@ -228,10 +228,9 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />}
-        onClick={this.handleDialogClose}
-      />,
+      <StyledFlatButton onClick={this.handleDialogClose}>
+        <FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />
+      </StyledFlatButton>,
     ];
     return (
       <WideDialog
