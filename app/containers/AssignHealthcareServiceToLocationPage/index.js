@@ -33,21 +33,21 @@ import { makeSelectLocations } from 'containers/Locations/selectors';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
-makeSelectCurrentPage,
-makeSelectHealthcareServices,
-makeSelectQueryError,
-makeSelectQueryLoading,
-makeSelectTotalNumberOfPages,
+  makeSelectCurrentPage,
+  makeSelectHealthcareServices,
+  makeSelectQueryError,
+  makeSelectQueryLoading,
+  makeSelectTotalNumberOfPages,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import {
-getHealthcareServicesLocationAssignment,
-initializeAssignHealthCareServiceToLocationPage,
-markHealthcareServiceAsAssigned,
-unassignHealthcareServicesLocationAssignment,
-updateHealthcareServicesLocationAssignment,
+  getHealthcareServicesLocationAssignment,
+  initializeAssignHealthCareServiceToLocationPage,
+  markHealthcareServiceAsAssigned,
+  unassignHealthcareServicesLocationAssignment,
+  updateHealthcareServicesLocationAssignment,
 } from './actions';
 
 export class AssignHealthCareServiceToLocationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -106,17 +106,12 @@ export class AssignHealthCareServiceToLocationPage extends React.Component { // 
     const selectedLocation = find(this.props.location, { logicalId });
     const { loading, healthcareServices, organization } = this.props;
     const actions = [
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.dialogButtonLabelCancel} />}
-        primary
-        onClick={this.handleCloseDialog}
-      />,
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.dialogButtonLabelSubmit} />}
-        primary
-        keyboardFocused
-        onClick={this.handleUnassignHealthcareService}
-      />,
+      <StyledFlatButton onClick={this.handleCloseDialog}>
+        <FormattedMessage {...messages.dialogButtonLabelCancel} />
+      </StyledFlatButton>,
+      <StyledFlatButton keyboardFocused onClick={this.handleUnassignHealthcareService}>
+        <FormattedMessage {...messages.dialogButtonLabelSubmit} />
+      </StyledFlatButton>,
     ];
     return (
       <Page>
