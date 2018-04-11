@@ -104,8 +104,9 @@ function ManageConsentForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                label="Save"
-              />
+              >
+                Save
+              </StyledRaisedButton>
             </Cell>
             <Cell>
               <GoBackButton disabled={isSubmitting} />
