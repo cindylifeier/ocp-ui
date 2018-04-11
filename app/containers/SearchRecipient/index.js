@@ -77,14 +77,10 @@ export class SearchRecipient extends React.Component { // eslint-disable-line re
       participantTypes,
     };
     const actionsButtons = [
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.dialogCancelBtnLabel} />}
-        onClick={this.handleDialogClose}
-      />,
-      <StyledRaisedButton
-        primary
-        onClick={this.addRecipients}
-      >
+      <StyledFlatButton onClick={this.handleDialogClose}>
+        <FormattedMessage {...messages.dialogCancelBtnLabel} />
+      </StyledFlatButton>,
+      <StyledRaisedButton onClick={this.addRecipients}>
         <FormattedMessage {...messages.dialogAddBtnLabel} />
       </StyledRaisedButton>,
     ];
