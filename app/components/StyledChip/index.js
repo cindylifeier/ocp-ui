@@ -6,7 +6,11 @@
 
 import Chip from 'material-ui/Chip';
 import styled from 'styled-components';
-import { teal500, white } from 'material-ui/styles/colors';
+import teal from 'material-ui-next/colors/teal';
+import common from 'material-ui-next/colors/common';
+
+const teal500 = teal['500'];
+const white = common.white;
 
 const StyledChip = styled(Chip).attrs({
   labelColor: white,

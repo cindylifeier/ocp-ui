@@ -16,7 +16,7 @@ import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
-import { white } from 'material-ui/styles/colors';
+import common from 'material-ui-next/colors/common';
 import isUndefined from 'lodash/isUndefined';
 import sizeMe from 'react-sizeme';
 
@@ -27,6 +27,8 @@ import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
+
+const white = common.white;
 
 export class PanelToolbar extends React.Component {
   constructor(props) {
@@ -43,6 +45,7 @@ export class PanelToolbar extends React.Component {
     this.setState({ isShowFilter: !this.state.isShowFilter });
     this.setState({ isShowSearchBar: false });
   }
+
   handleShowSearchBar() {
     this.setState({ isShowSearchBar: !this.state.isShowSearchBar });
     this.setState({ isShowFilter: false });
