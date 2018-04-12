@@ -250,11 +250,13 @@ function ManageCommunicationForm(props) {
         <FormCell top={12} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
-              <StyledRaisedButton type="submit">
+              <StyledRaisedButton
+                type="submit"
+                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
+              >
                 {isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
               </StyledRaisedButton>
             </Cell>
             <Cell>
