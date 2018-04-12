@@ -8,10 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import NavigationMenu from '@material-ui/icons/Menu';
-import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { Cell, Grid } from 'styled-css-grid';
 import isEmpty from 'lodash/isEmpty';
 
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -23,7 +20,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import Table from 'components/Table';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import StyledIconButton from 'components/StyledIconButton';
+import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import messages from './messages';
 
 const tableColumns = 'repeat(6, 1fr) 50px';
@@ -54,29 +51,17 @@ function CommunicationsTable(props) {
                   <TableRowColumn>{communication.sent}</TableRowColumn>
                   <TableRowColumn>{communication.statusValue}</TableRowColumn>
                   <TableRowColumn>
-                    <Grid columns="1fr 50px" gap="0px">
-                      <Cell left="2">
-                        <IconMenu
-                          iconButtonElement={
-                            (<StyledIconButton>
-                              <NavigationMenu />
-                            </StyledIconButton>)
-                          }
-                          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                        >
-                          <MenuItem
-                            primaryText="Edit"
-                            containerElement={<Link
-                              to={{
-                                pathname: `${manageCommunicationBaseUrl}/${communication.logicalId}`,
-                                search: `?patientId=${selectedPatient.id}`,
-                              }}
-                            />}
-                          />
-                        </IconMenu>
-                      </Cell>
-                    </Grid>
+                    <NavigationStyledIconMenu>
+                      <MenuItem
+                        primaryText="Edit"
+                        containerElement={<Link
+                          to={{
+                            pathname: `${manageCommunicationBaseUrl}/${communication.logicalId}`,
+                            search: `?patientId=${selectedPatient.id}`,
+                          }}
+                        />}
+                      />
+                    </NavigationStyledIconMenu>
                   </TableRowColumn>
                 </TableRow>
               ))}
