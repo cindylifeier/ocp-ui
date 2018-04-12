@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
-import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
@@ -38,6 +37,13 @@ function AddedAddressesTable(props) {
         }
         {addresses && addresses.map((address, index) => {
           const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+          const menuItems = [{
+            primaryText: <FormattedMessage {...messages.addedAddressesTable.tableActionEdit} />,
+            onClick: () => handleEditAddress(index, address),
+          }, {
+            primaryText: <FormattedMessage {...messages.addedAddressesTable.tableActionRemove} />,
+            onClick: () => arrayHelpers.remove(index),
+          }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{line1}</TableRowColumn>
@@ -47,16 +53,7 @@ function AddedAddressesTable(props) {
               <TableRowColumn>{postalCode}</TableRowColumn>
               <TableRowColumn>{countryCode}</TableRowColumn>
               <TableRowColumn>
-                <NavigationStyledIconMenu>
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedAddressesTable.tableActionEdit} />}
-                    onClick={() => handleEditAddress(index, address)}
-                  />
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedAddressesTable.tableActionRemove} />}
-                    onClick={() => arrayHelpers.remove(index)}
-                  />
-                </NavigationStyledIconMenu>
+                <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
             </TableRow>
           );
