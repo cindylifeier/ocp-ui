@@ -27,6 +27,7 @@ import renderConsentsComponent from 'containers/Consents/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderPractitionersComponent from 'containers/Practitioners/render';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';
+import renderCalendarComponent from 'components/Calendar/render';
 import renderPatientsComponent from 'containers/Patients/render';
 import renderLocationsComponent from 'containers/Locations/render';
 import renderPractitionerToDosComponent from 'containers/PractitionerToDos/render';
@@ -93,7 +94,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     { name: 'tasks', text: 'TASKS', factoryMethod: renderTasksComponent },
     { name: 'patientAppointments', text: 'PATIENT APPOINTMENTS', factoryMethod: renderPatientAppointmentsComponent },
     { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPractitionerToDosComponent },
-    { name: 'calendar', text: 'CALENDAR', factoryMethod: renderUnderConstructionComponent },
+    { name: 'calendar', text: 'CALENDAR', factoryMethod: renderCalendarComponent },
     { name: 'assessments', text: 'ASSESSMENTS', factoryMethod: renderUnderConstructionComponent },
     {
       name: 'upcomingAppointments',

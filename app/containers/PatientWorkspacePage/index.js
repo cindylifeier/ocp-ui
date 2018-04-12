@@ -14,7 +14,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import renderUnderConstruction from 'components/UnderConstruction/render';
+import renderCalendarComponent from 'components/Calendar/render';
 import renderTasks from 'containers/Tasks/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import renderRelatedPersonsComponent from 'containers/RelatedPersons/render';
@@ -185,7 +185,7 @@ export const initialStateMetadata =
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
-  { name: 'calendar', text: 'Calendar', factoryMethod: renderUnderConstruction },
+  { name: 'calendar', text: 'Calendar', factoryMethod: renderCalendarComponent },
   { name: 'consents', text: 'Consents', factoryMethod: renderConsents },
   { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
   { name: 'relatedPersons', text: 'Related Persons', factoryMethod: renderRelatedPersonsComponent },
