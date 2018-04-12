@@ -101,7 +101,6 @@ function AddFlagForm(props) {
                   fullWidth
                   name="authorName"
                   hintText={<FormattedMessage {...messages.hintText.author} />}
-                  defaultValue={practitioner && practitioner.display}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.author} />}
                   disabled
                 />
