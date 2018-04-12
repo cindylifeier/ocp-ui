@@ -18,7 +18,6 @@ import { MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/con
 import { setOrganization } from 'containers/App/contextActions';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
-import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import makeSelectOrganizations from './selectors';
@@ -126,7 +125,7 @@ export class Organizations extends React.Component {
       };
     }
     return (
-      <Card>
+      <div>
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
@@ -141,7 +140,7 @@ export class Organizations extends React.Component {
             flattenOrganizationData={flattenOrganizationData}
           />
         </InfoSection>
-      </Card>
+      </div>
     );
   }
 }

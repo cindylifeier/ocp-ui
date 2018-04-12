@@ -41,11 +41,11 @@ export const initialStateMetadata =
       tabControlOffset: 10,
     },
     dimensions: {
-      borderWidth: 5,
+      borderWidth: 20,
       borderGrabWidth: 15,
       minItemHeight: 10,
       minItemWidth: 10,
-      headerHeight: 30,
+      headerHeight: 40,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },
