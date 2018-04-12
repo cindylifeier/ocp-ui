@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,7 +13,6 @@ import { compose } from 'redux';
 import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-import MenuItem from 'material-ui/MenuItem';
 
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
@@ -30,7 +28,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
@@ -164,6 +162,13 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     if (this.props.data) {
       return this.props.data.map((location) => {
         const { logicalId, name, status, telecoms, address } = location;
+        const menuItems = [{
+          primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
+          linkTo: `/ocp-ui/manage-location/${logicalId}`,
+        }, {
+          primaryText: <FormattedMessage {...messages.actionLabelAssignHealthCareService} />,
+          linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
+        }];
         return (
           <TableRow
             role="button"
@@ -177,16 +182,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
             <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
             <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
             <TableRowColumn>
-              <NavigationStyledIconMenu>
-                <MenuItem
-                  primaryText={<FormattedMessage {...messages.actionLabelEdit} />}
-                  containerElement={<Link to={`/ocp-ui/manage-location/${logicalId}`} />}
-                />
-                <MenuItem
-                  primaryText={<FormattedMessage {...messages.actionLabelAssignHealthCareService} />}
-                  containerElement={<Link to={`/ocp-ui/assign-healthcareservice-location/${logicalId}`} />}
-                />
-              </NavigationStyledIconMenu>
+              <NavigationIconMenu menuItems={menuItems} />
             </TableRowColumn>
           </TableRow>
         );
