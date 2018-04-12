@@ -20,21 +20,7 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "children": <pure(Menu) />,
-      "className": "StyledIconButton__StyledIconButton-hHQfQP eubEyw",
-      "disableTouchRipple": false,
-      "disabled": false,
-      "iconStyle": Object {
-        "height": 26,
-        "position": "absolute",
-        "right": "0",
-        "top": "0",
-        "width": "100%",
-      },
-      "style": Object {
-        "position": "relative",
-      },
-      "tooltipPosition": "bottom-center",
-      "touch": false,
+      "className": "StyledIconButton__StyledIconButton-hHQfQP gWBCMI",
     },
     "ref": null,
     "rendered": Object {
@@ -55,21 +41,7 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "children": <pure(Menu) />,
-        "className": "StyledIconButton__StyledIconButton-hHQfQP eubEyw",
-        "disableTouchRipple": false,
-        "disabled": false,
-        "iconStyle": Object {
-          "height": 26,
-          "position": "absolute",
-          "right": "0",
-          "top": "0",
-          "width": "100%",
-        },
-        "style": Object {
-          "position": "relative",
-        },
-        "tooltipPosition": "bottom-center",
-        "touch": false,
+        "className": "StyledIconButton__StyledIconButton-hHQfQP gWBCMI",
       },
       "ref": null,
       "rendered": Object {
