@@ -3,7 +3,7 @@ import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
 import { MuiThemeProvider } from 'material-ui';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import NavigationMenu from '@material-ui/icons/Menu';
 
 import StyledIconButton from '../index';
 

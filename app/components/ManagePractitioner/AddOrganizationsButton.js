@@ -5,12 +5,11 @@
  */
 import StyledRaisedButton from 'components/StyledRaisedButton';
 
-const AddOrganizationsButton = StyledRaisedButton.extend.attrs({
-  style: {
-    minWidth: '10%',
-  },
-})`
-   margin-top: 2vh;
+const AddOrganizationsButton = StyledRaisedButton.extend`
+  && {
+    min-width: 10%;
+    margin-top: 2vh;
+  }
 `;
 
 AddOrganizationsButton.propTypes = {};

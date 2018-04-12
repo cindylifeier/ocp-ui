@@ -15,7 +15,7 @@ import Card from 'components/Card';
 import { CARE_COORDINATOR_ROLE_CODE, DATE_RANGE, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
-import { getFilterToDos, cancelToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
+import { cancelToDos, getFilterToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
 import {
@@ -65,6 +65,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
       }
     }
   }
+
   getPractitionerId() {
     const { user } = this.props;
     const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
@@ -78,6 +79,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     }
     return toDoMintaskId;
   }
+
   handleFilter(dateRange) {
     const definition = TO_DO_DEFINITION;
     const { selectedPatient } = this.props;
@@ -120,17 +122,12 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
       filterValueHintText: <FormattedMessage {...messages.selectLabelDateRange} />,
     };
     const actionsButtons = [
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.dialog.buttonLabelClose} />}
-        primary
-        onClick={this.handleCloseDialog}
-      />,
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.dialog.buttonLabelCancelTodo} />}
-        primary
-        keyboardFocused
-        onClick={this.handleCancelToDo}
-      />,
+      <StyledFlatButton onClick={this.handleCloseDialog}>
+        <FormattedMessage {...messages.dialog.buttonLabelClose} />
+      </StyledFlatButton>,
+      <StyledFlatButton keyboardFocused onClick={this.handleCancelToDo}>
+        <FormattedMessage {...messages.dialog.buttonLabelCancelTodo} />
+      </StyledFlatButton>,
     ];
     return (
       <Card>

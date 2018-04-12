@@ -188,10 +188,11 @@ function ManageLocationForm(props) {
             <Cell>
               <StyledRaisedButton
                 fullWidth
-                label="Save"
                 type="submit"
                 disabled={!dirty || isSubmitting || !isValid}
-              />
+              >
+                Save
+              </StyledRaisedButton>
             </Cell>
             <Cell>
               <GoBackButton disabled={isSubmitting} />

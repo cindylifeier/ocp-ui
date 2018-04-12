@@ -1,8 +1,8 @@
 /**
-*
-* AddFlags
-*
-*/
+ *
+ * AddFlags
+ *
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -69,10 +69,9 @@ class AddFlags extends React.Component {
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
-          <AddFlagsButton
-            onClick={this.handleOpenDialog}
-            label={<FormattedMessage {...messages.addFlagButton} />}
-          />
+          <AddFlagsButton onClick={this.handleOpenDialog}>
+            <FormattedMessage {...messages.addFlagButton} />
+          </AddFlagsButton>
           <FieldArray
             name="flags"
             render={(arrayHelpers) => (

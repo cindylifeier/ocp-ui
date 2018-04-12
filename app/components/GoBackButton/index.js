@@ -19,11 +19,11 @@ export function GoBackButton(props) {
     <div>
       <StyledFlatButton
         fullWidth
-        label={label}
-        default
         disabled={disabled}
         onClick={() => history.goBack()}
-      />
+      >
+        {label}
+      </StyledFlatButton>
     </div>
   );
 }

@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import StyledIconButton from 'components/StyledIconButton';
 import SelectField from 'components/SelectField';
 import TextField from 'components/TextField';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import ActionSearch from '@material-ui/icons/Search';
 import MenuItem from 'material-ui/MenuItem';
 import Padding from 'components/Padding';
 import { Form, Formik } from 'formik';

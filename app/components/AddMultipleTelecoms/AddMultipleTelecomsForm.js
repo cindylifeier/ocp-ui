@@ -105,14 +105,13 @@ function AddMultipleTelecomsForm(props) {
               <Cell width={4}>
                 <StyledRaisedButton
                   type="submit"
-                  label={<FormattedMessage {...messages.saveButton} />}
                   disabled={!dirty || isSubmitting || !isValid}
-                />
-                <StyledFlatButton
-                  type="reset"
-                  label={<FormattedMessage {...messages.cancelButton} />}
-                  onClick={handleCloseDialog}
-                />
+                >
+                  <FormattedMessage {...messages.saveButton} />
+                </StyledRaisedButton>
+                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
+                  <FormattedMessage {...messages.cancelButton} />
+                </StyledFlatButton>
               </Cell>
             </Grid>
           </Form>

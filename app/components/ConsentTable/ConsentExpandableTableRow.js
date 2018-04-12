@@ -7,9 +7,9 @@ import uniqueId from 'lodash/uniqueId';
 import capitalize from 'lodash/capitalize';
 
 import MenuItem from 'material-ui/MenuItem';
-import Chevron from 'material-ui/svg-icons/navigation/chevron-right';
-import Expand from 'material-ui/svg-icons/navigation/expand-more';
-import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import Chevron from '@material-ui/icons/ChevronRight';
+import Expand from '@material-ui/icons/ExpandMore';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import Util from 'utils/Util';

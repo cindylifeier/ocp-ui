@@ -229,10 +229,9 @@ class ManageActivityDefinitionForm extends React.Component {
             </FormSubtitle>
           </Cell>
           <Cell area="addArtifactsButton">
-            <StyledRaisedButton
-              onClick={this.handleAddArtifact}
-              label={<FormattedMessage {...messages.relatedArtifacts.addButtonLabel} />}
-            />
+            <StyledRaisedButton onClick={this.handleAddArtifact}>
+              <FormattedMessage {...messages.relatedArtifacts.addButtonLabel} />
+            </StyledRaisedButton>
           </Cell>
           <Cell area="relatedArtifactsSection">
             <FieldArray
@@ -290,9 +289,10 @@ class ManageActivityDefinitionForm extends React.Component {
                 <StyledRaisedButton
                   fullWidth
                   type="submit"
-                  label="Save"
                   disabled={!dirty || isSubmitting || !isValid}
-                />
+                >
+                  Save
+                </StyledRaisedButton>
               </Cell>
               <Cell>
                 <GoBackButton disabled={isSubmitting} />

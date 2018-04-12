@@ -221,11 +221,9 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           </InfoSection>
           {this.props.location &&
           <InfoSection margin="0px" width="fit-content" maxWidth="500px">
-            <StyledFlatButton
-              label="Clear"
-              onClick={this.props.clearLocation}
-            />
-
+            <StyledFlatButton onClick={this.props.clearLocation}>
+              Clear
+            </StyledFlatButton>
           </InfoSection>
           }
           {!this.state.isShowSearchResult &&

@@ -145,8 +145,9 @@ function ManageCareTeamForm(props) {
             <StyledRaisedButton
               fullWidth
               onClick={handleOpen}
-              label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
-            />
+            >
+              <FormattedMessage {...messages.addParticipantBtnLabel} />
+            </StyledRaisedButton>
           </Cell>
           <Cell area="selectedParticipants">
             <SelectedParticipants {...selectedParticipantsProps} />
@@ -162,9 +163,10 @@ function ManageCareTeamForm(props) {
                 <StyledRaisedButton
                   fullWidth
                   type="submit"
-                  label="Save"
                   disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || !hasParticipants}
-                />
+                >
+                  Save
+                </StyledRaisedButton>
               </Cell>
               <Cell>
                 <GoBackButton disabled={isSubmitting} />

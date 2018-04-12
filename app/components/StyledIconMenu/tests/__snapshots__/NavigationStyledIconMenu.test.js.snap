@@ -65,7 +65,7 @@ ShallowWrapper {
       />,
       "className": "sc-bwzfXH uTxCW",
       "iconButtonElement": <StyledIconButton__StyledIconButton>
-        <NavigationMoreHoriz />
+        <pure(MoreHoriz) />
       </StyledIconButton__StyledIconButton>,
       "multiple": false,
       "onClick": [Function],
@@ -144,7 +144,7 @@ ShallowWrapper {
         />,
         "className": "sc-bwzfXH uTxCW",
         "iconButtonElement": <StyledIconButton__StyledIconButton>
-          <NavigationMoreHoriz />
+          <pure(MoreHoriz) />
         </StyledIconButton__StyledIconButton>,
         "multiple": false,
         "onClick": [Function],
