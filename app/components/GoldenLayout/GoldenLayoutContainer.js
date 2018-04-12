@@ -3,6 +3,32 @@ import PropTypes from 'prop-types';
 
 const GoldenLayoutContainer = styled.div`
   /* Set height considering app bar height */
+  & .lm_header {
+    background: #fff;
+    border: 1px solid #099;
+    border-radius: 10px;
+    padding: 10px 10px 0 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+  }
+
+  & .lm_header + .lm_items {
+    background: #fff;
+    border: 1px solid #099;
+    border-radius: 10px;
+    padding: 0 10px 10px 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0;
+  }
+
+  & .lm_header + .lm_items,
+  .lm_item_container,
+  .lm_content {
+    width: auto !important;
+  }
+
   & .lm_root {
     height: ${(props) => props.containerHeight};
   }
@@ -27,8 +53,7 @@ const GoldenLayoutContainer = styled.div`
 
   & .lm_tab.lm_active:hover,
   .lm_tab:hover {
-    color: ${(props) => props.secondaryColor};
-    background: ${(props) => props.primaryColor};
+    color: #099;
     font-size: 18px;
     height: 20px;
   }
