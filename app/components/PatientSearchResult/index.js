@@ -5,10 +5,8 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import MenuItem from 'material-ui/MenuItem';
 
 import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import Table from 'components/Table';
@@ -16,77 +14,68 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
 
 const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
 function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick) {
-  return patients && patients.map((patient) => (
-    <TableRow
-      columns={columns}
-      key={`patient_${patient.id}`}
-      onClick={() => onPatientClick && onPatientClick(patient)}
-      role="button"
-      tabIndex="0"
-    >
-      <TableRowColumn>{patient.name[0] != null ? patient.name[0].firstName : null}</TableRowColumn>
-      <TableRowColumn>{patient.name[0] != null ? patient.name[0].lastName : null}</TableRowColumn>
-      <TableRowColumn>{patient.birthDate}</TableRowColumn>
-      <TableRowColumn>{patient.genderCode}</TableRowColumn>
-      <TableRowColumn>{getIdentifiers(patient.identifier)}</TableRowColumn>
-      <TableRowColumn>{patient.active ?
-        <FormattedMessage {...messages.active} /> :
-        <FormattedMessage {...messages.inactive} />}
-      </TableRowColumn>
-      <TableRowColumn>
-        <NavigationStyledIconMenu>
-          <MenuItem
-            primaryText={<FormattedMessage {...messages.edit} />}
-            containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
-          />
-          <MenuItem
-            primaryText={<FormattedMessage {...messages.viewDetails} />}
-            onClick={() => onPatientViewDetailsClick(patient)}
-          />
-          <MenuItem
-            primaryText={<FormattedMessage {...messages.addAdvisory} />}
-            containerElement={<Link to={`${MANAGE_PATIENT_URL}/${patient.id}`} />}
-          />
-          <MenuItem
-            primaryText={<FormattedMessage {...messages.addTask} />}
-            containerElement={<Link
-              to={{
-                pathname: MANAGE_TASK_URL,
-                search: `?patientId=${patient.id}&isMainTask=true`,
-              }}
-            />}
-          />
-          <MenuItem
-            primaryText={<FormattedMessage {...messages.addCareTeam} />}
-            containerElement={<Link
-              to={{
-                pathname: MANAGE_CARE_TEAM_URL,
-                search: `?patientId=${patient.id}`,
-              }}
-            />}
-          />
-          <MenuItem
-            primaryText={<FormattedMessage {...messages.addRelatedPerson} />}
-            containerElement={<Link
-              to={{
-                pathname: '/ocp-ui/manage-related-person',
-                search: `?patientId=${patient.id}`,
-              }}
-            />}
-          />
-
-          <MenuItem primaryText={<FormattedMessage {...messages.remove} />} disabled />
-        </NavigationStyledIconMenu>
-      </TableRowColumn>
-    </TableRow>
-  ));
+  return patients && patients.map((patient) => {
+    const menuItems = [{
+      primaryText: <FormattedMessage {...messages.edit} />,
+      linkTo: `${MANAGE_PATIENT_URL}/${patient.id}`,
+    }, {
+      primaryText: <FormattedMessage {...messages.viewDetails} />,
+      onClick: () => onPatientViewDetailsClick(patient),
+    }, {
+      primaryText: <FormattedMessage {...messages.addAdvisory} />,
+      linkTo: `${MANAGE_PATIENT_URL}/${patient.id}`,
+    }, {
+      primaryText: <FormattedMessage {...messages.addTask} />,
+      linkTo: {
+        pathname: MANAGE_TASK_URL,
+        search: `?patientId=${patient.id}&isMainTask=true`,
+      },
+    }, {
+      primaryText: <FormattedMessage {...messages.addCareTeam} />,
+      linkTo: {
+        pathname: MANAGE_CARE_TEAM_URL,
+        search: `?patientId=${patient.id}`,
+      },
+    }, {
+      primaryText: <FormattedMessage {...messages.addRelatedPerson} />,
+      linkTo: {
+        pathname: '/ocp-ui/manage-related-person',
+        search: `?patientId=${patient.id}`,
+      },
+    }, {
+      primaryText: <FormattedMessage {...messages.remove} />,
+      disabled: true,
+    }];
+    return (
+      <TableRow
+        columns={columns}
+        key={`patient_${patient.id}`}
+        onClick={() => onPatientClick && onPatientClick(patient)}
+        role="button"
+        tabIndex="0"
+      >
+        <TableRowColumn>{patient.name[0] != null ? patient.name[0].firstName : null}</TableRowColumn>
+        <TableRowColumn>{patient.name[0] != null ? patient.name[0].lastName : null}</TableRowColumn>
+        <TableRowColumn>{patient.birthDate}</TableRowColumn>
+        <TableRowColumn>{patient.genderCode}</TableRowColumn>
+        <TableRowColumn>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        <TableRowColumn>{patient.active ?
+          <FormattedMessage {...messages.active} /> :
+          <FormattedMessage {...messages.inactive} />}
+        </TableRowColumn>
+        <TableRowColumn>
+          <NavigationIconMenu menuItems={menuItems} />
+        </TableRowColumn>
+      </TableRow>
+    );
+  });
 }
 
 function getIdentifiers(identifier) {
