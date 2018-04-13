@@ -12,6 +12,11 @@ const GoldenLayoutContainer = styled.div`
     border-bottom: 0;
   }
 
+  & .lm_stack {
+    background: #fff;
+    border-bottom: 0;
+  }
+
   & .lm_header + .lm_items {
     background: #fff;
     border: 1px solid #099;
@@ -28,6 +33,7 @@ const GoldenLayoutContainer = styled.div`
   }
 
   & .lm_root {
+    background: #fff;
     height: ${(props) => props.containerHeight};
   }
 
