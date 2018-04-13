@@ -9,10 +9,9 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
-import MenuItem from 'material-ui/MenuItem';
 
 import Util from 'utils/Util';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -21,7 +20,9 @@ import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
 
-const tableColumns = 'repeat(6, 1fr) 50px';
+const tableColumns = 'repeat(5, 1fr) 50px';
+
+// Todo: Fix ViewDetail that is already not working
 
 function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop }) {
   return (
@@ -33,29 +34,28 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTask} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
-          <TableHeaderColumn />
         </TableHeader>
-        {!isEmpty(elements) && elements.map(({ logicalId, beneficiary, definition, description, executionPeriod }) => (
-          <TableRow
-            columns={tableColumns}
-            key={logicalId}
-          >
-            <TableRowColumn>{beneficiary.display}</TableRowColumn>
-            <TableRowColumn>{definition.display}</TableRowColumn>
-            <TableRowColumn>{description}</TableRowColumn>
-            <TableRowColumn>{executionPeriod.start}</TableRowColumn>
-            <TableRowColumn>{executionPeriod.end}</TableRowColumn>
-            <TableRowColumn>
-              <NavigationStyledIconMenu>
-                <MenuItem
-                  primaryText={<FormattedMessage {...messages.viewDetails} />}
-                  onClick={() => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary))}
-                />
-              </NavigationStyledIconMenu>
-            </TableRowColumn>
-          </TableRow>
-        ))}
+        {!isEmpty(elements) && elements.map(({ logicalId, beneficiary, definition, description, executionPeriod }) => {
+          const menuItems = [{
+            primaryText: <FormattedMessage {...messages.viewDetails} />,
+            onClick: () => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary)),
+          }];
+          return (
+            <TableRow
+              columns={tableColumns}
+              key={logicalId}
+            >
+              <TableRowColumn>{beneficiary.display}</TableRowColumn>
+              <TableRowColumn>{definition.display}</TableRowColumn>
+              <TableRowColumn>{description}</TableRowColumn>
+              <TableRowColumn>{executionPeriod.start}</TableRowColumn>
+              <TableRowColumn>{executionPeriod.end}</TableRowColumn>
+              <TableRowColumn>
+                <NavigationIconMenu menuItems={menuItems} />
+              </TableRowColumn>
+            </TableRow>
+          );
+        })}
       </Table>
     </div>
   );

@@ -1,24 +1,23 @@
 /**
-*
-* TodoCardContent
-*
-*/
+ *
+ * TodoCardContent
+ *
+ */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import ToDoCardGrid from 'components/ToDoCardGrid';
-import ToDoCardCell from 'components/ToDoCardCell';
-import Align from 'components/Align';
-import { Link } from 'react-router-dom';
-import { Cell, Grid } from 'styled-css-grid';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import Align from 'components/Align';
+import { Cell, Grid } from 'styled-css-grid';
 import NotificationPriorityHigh from '@material-ui/icons/PriorityHigh';
 import ActionEvent from '@material-ui/icons/Event';
 import ContentFlag from '@material-ui/icons/Flag';
+
+import ToDoCardCell from 'components/ToDoCardCell';
+import ToDoCardGrid from 'components/ToDoCardGrid';
 import ToDoItemDescriptionBoxModel from 'components/ToDoCardContent/ToDoItemDescriptionBoxModel';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/ToDoCardContent/constants';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import ToDoCardHeader from 'components/ToDoCardHeader';
 import messages from './messages';
 
@@ -39,6 +38,7 @@ function ToDoCardContent(props) {
   const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
   const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
   const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
+
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
@@ -51,9 +51,16 @@ function ToDoCardContent(props) {
     return statusElement;
   }
 
+  const menuItems = [{
+    primaryText: <FormattedMessage {...messages.editToDo} />,
+    linkTo: `${editTodoUrl}`,
+  }, {
+    primaryText: <FormattedMessage {...messages.cancelToDo} />,
+    onClick: () => openDialog(toDoLogicalId),
+  }];
   return (
     <div>
-      <ToDoCardHeader dueDateStr={dueDateStr} patientName={patientNameStr}></ToDoCardHeader>
+      <ToDoCardHeader dueDateStr={dueDateStr} patientName={patientNameStr} />
       <ToDoCardGrid column={12}>
         <ToDoCardCell top={1} left={1} width={12}>
           <ToDoItemDescriptionBoxModel>
@@ -66,19 +73,10 @@ function ToDoCardContent(props) {
               {getStatusWithIcon(status)}
             </Cell>
             <Cell>
-              { isPatient &&
-                <Align variant="right">
-                  <NavigationStyledIconMenu>
-                    <MenuItem
-                      primaryText={<FormattedMessage {...messages.editToDo} />}
-                      containerElement={<Link to={editTodoUrl} />}
-                    />
-                    <MenuItem
-                      primaryText={<FormattedMessage {...messages.cancelToDo} />}
-                      onClick={() => openDialog(toDoLogicalId)}
-                    />
-                  </NavigationStyledIconMenu>
-                </Align>
+              {isPatient &&
+              <Align variant="right">
+                <NavigationIconMenu menuItems={menuItems} />
+              </Align>
               }
             </Cell>
           </Grid>

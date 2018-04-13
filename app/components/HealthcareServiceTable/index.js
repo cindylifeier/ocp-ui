@@ -6,15 +6,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import Checkbox from 'material-ui/Checkbox';
-import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -60,28 +58,29 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
         </TableHeader>
-        {!isEmpty(elements) && elements.map((element) => (
-          <TableRow key={element.logicalId} columns={tableColumns}>
-            <TableRowColumn>{element.name}</TableRowColumn>
-            <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
-            <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
-            <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-            <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
-            <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
-            <TableRowColumn>{element.active ?
-              <FormattedMessage {...messages.labelActive} /> :
-              <FormattedMessage {...messages.labelInactive} />}
-            </TableRowColumn>
-            <TableRowColumn>
-              <NavigationStyledIconMenu>
-                <MenuItem
-                  primaryText={<FormattedMessage {...messages.edit} />}
-                  containerElement={<Link to={`/ocp-ui/manage-healthcare-service/${element.logicalId}`} />}
-                />
-              </NavigationStyledIconMenu>
-            </TableRowColumn>
-          </TableRow>
-        ))}
+        {!isEmpty(elements) && elements.map((element) => {
+          const menuItems = [{
+            primaryText: <FormattedMessage {...messages.edit} />,
+            linkTo: `/ocp-ui/manage-healthcare-service/${element.logicalId}`,
+          }];
+          return (
+            <TableRow key={element.logicalId} columns={tableColumns}>
+              <TableRowColumn>{element.name}</TableRowColumn>
+              <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
+              <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
+              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
+              <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
+              <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
+              <TableRowColumn>{element.active ?
+                <FormattedMessage {...messages.labelActive} /> :
+                <FormattedMessage {...messages.labelInactive} />}
+              </TableRowColumn>
+              <TableRowColumn>
+                <NavigationIconMenu menuItems={menuItems} />
+              </TableRowColumn>
+            </TableRow>
+          );
+        })}
       </Table>}
       {showAssigned &&
       <Table>

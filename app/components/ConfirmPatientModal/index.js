@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
 import Close from '@material-ui/icons/Close';
 import Avatar from 'material-ui/Avatar';
+import Tooltip from 'material-ui-next/Tooltip';
 import { Cell } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
@@ -18,7 +19,7 @@ import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import CloseButton from './CloseButton';
+import StyledIconButton from 'components/StyledIconButton';
 import PatientModalGrid from './PatientModalGrid';
 import PatientModalCell from './PatientModalCell';
 import messages from './messages';
@@ -30,7 +31,11 @@ function ConfirmPatientModal(props) {
       <StyledDialog
         open={isPatientModalOpen}
       >
-        <CloseButton tooltip="Close" onClick={onPatientModalClose}><Close /></CloseButton>
+        <Tooltip title="Close">
+          <StyledIconButton onClick={onPatientModalClose}>
+            <Close />
+          </StyledIconButton>
+        </Tooltip>
         <PatientModalGrid
           columns={1}
           alignContent="space-between"

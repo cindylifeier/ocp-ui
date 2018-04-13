@@ -5,10 +5,8 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
@@ -23,7 +21,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
 const tableColumns = 'repeat(4, 1fr) 50px';
@@ -45,6 +43,10 @@ function PractitionerTable(props) {
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
                 const { logicalId, name, active, identifiers } = practitioner;
+                const menuItems = [{
+                  primaryText: <FormattedMessage {...messages.edit} />,
+                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                }];
                 return (
                   <TableRow
                     columns={tableColumns}
@@ -60,12 +62,7 @@ function PractitionerTable(props) {
                     </TableRowColumn>
                     <TableRowColumn>{identifiers}</TableRowColumn>
                     <TableRowColumn>
-                      <NavigationStyledIconMenu>
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.edit} />}
-                          containerElement={<Link to={`${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`} />}
-                        />
-                      </NavigationStyledIconMenu>
+                      <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
                   </TableRow>
                 );

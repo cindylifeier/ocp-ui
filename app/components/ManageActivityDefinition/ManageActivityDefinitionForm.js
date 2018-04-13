@@ -22,7 +22,7 @@ import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 import ManageActivityDefinitionFormGrid from './ManageActivityDefinitionFormGrid';
 
@@ -251,30 +251,27 @@ class ManageActivityDefinitionForm extends React.Component {
                     />
                   </Dialog>
                   <Table>
-                    <TableHeader>
+                    <TableHeader columns="repeat(2, 1fr) 60px">
                       <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnName} /></TableHeaderColumn>
                       <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnType} /></TableHeaderColumn>
-                      <TableHeaderColumn><FormattedMessage {...messages.relatedArtifacts.tableColumnAction} /></TableHeaderColumn>
                     </TableHeader>
                     {errors && errors.relatedArtifact &&
                     <ErrorText>{errors.relatedArtifact}</ErrorText>}
                     {values.relatedArtifact.map((artifact, index) => {
                       const { display, type } = artifact;
+                      const menuItems = [{
+                        primaryText: <FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />,
+                        onClick: () => this.handleEditArtifact(index, artifact),
+                      }, {
+                        primaryText: <FormattedMessage {...messages.relatedArtifacts.actionLabelRemove} />,
+                        onClick: () => arrayHelpers.remove(index),
+                      }];
                       return (
-                        <TableRow key={`${display}-${type}`}>
+                        <TableRow key={`${display}-${type}`} columns="repeat(2, 1fr) 60px">
                           <TableRowColumn>{display}</TableRowColumn>
                           <TableRowColumn>{find(relatedArtifactTypes, { code: type }).display}</TableRowColumn>
                           <TableRowColumn>
-                            <NavigationStyledIconMenu>
-                              <MenuItem
-                                primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />}
-                                onClick={() => this.handleEditArtifact(index, artifact)}
-                              />
-                              <MenuItem
-                                primaryText={<FormattedMessage {...messages.relatedArtifacts.actionLabelRemove} />}
-                                onClick={() => arrayHelpers.remove(index)}
-                              />
-                            </NavigationStyledIconMenu>
+                            <NavigationIconMenu menuItems={menuItems} />
                           </TableRowColumn>
                         </TableRow>
                       );

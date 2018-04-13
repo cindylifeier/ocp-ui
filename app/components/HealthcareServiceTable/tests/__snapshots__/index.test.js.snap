@@ -180,40 +180,20 @@ ShallowWrapper {
               />
             </TableRowColumn__TableRowColumn>
             <TableRowColumn__TableRowColumn>
-              <Styled(IconMenu)>
-                <MenuItem
-                  anchorOrigin={
+              <NavigationIconMenu
+                menuItems={
+                  Array [
                     Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to="/ocp-ui/manage-healthcare-service/logicalId1"
-                    />
-                  }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Edit"
-                      id="ocpui.components.HealthcareServiceTable.edit"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-              </Styled(IconMenu)>
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ]
+                }
+              />
             </TableRowColumn__TableRowColumn>
           </TableRow>
           <TableRow
@@ -255,40 +235,20 @@ ShallowWrapper {
               />
             </TableRowColumn__TableRowColumn>
             <TableRowColumn__TableRowColumn>
-              <Styled(IconMenu)>
-                <MenuItem
-                  anchorOrigin={
+              <NavigationIconMenu
+                menuItems={
+                  Array [
                     Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to="/ocp-ui/manage-healthcare-service/logicalId2"
-                    />
-                  }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Edit"
-                      id="ocpui.components.HealthcareServiceTable.edit"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-              </Styled(IconMenu)>
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ]
+                }
+              />
             </TableRowColumn__TableRowColumn>
           </TableRow>
         </Table__Table>,
@@ -398,40 +358,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
               <TableRow
@@ -473,40 +413,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
             ],
@@ -810,40 +730,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>,
               ],
               "columns": "repeat(7, 1fr) 50px",
@@ -1068,40 +968,20 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  "children": <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>,
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -1109,72 +989,19 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
+                    "menuItems": Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
                           defaultMessage="Edit"
                           id="ocpui.components.HealthcareServiceTable.edit"
                           values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
+                        />,
+                      },
+                    ],
                   },
                   "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      },
-                      "checked": false,
-                      "containerElement": <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId1"
-                      />,
-                      "desktop": false,
-                      "disabled": false,
-                      "focusState": "none",
-                      "insetChildren": false,
-                      "primaryText": <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
+                  "rendered": null,
                   "type": [Function],
                 },
                 "type": [Function],
@@ -1224,40 +1051,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>,
               ],
               "columns": "repeat(7, 1fr) 50px",
@@ -1482,40 +1289,20 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  "children": <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>,
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -1523,72 +1310,19 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
+                    "menuItems": Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
                           defaultMessage="Edit"
                           id="ocpui.components.HealthcareServiceTable.edit"
                           values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
+                        />,
+                      },
+                    ],
                   },
                   "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      },
-                      "checked": false,
-                      "containerElement": <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId2"
-                      />,
-                      "desktop": false,
-                      "disabled": false,
-                      "focusState": "none",
-                      "insetChildren": false,
-                      "primaryText": <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
+                  "rendered": null,
                   "type": [Function],
                 },
                 "type": [Function],
@@ -1705,40 +1439,20 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId1"
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>
             </TableRow>
             <TableRow
@@ -1780,40 +1494,20 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId2"
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>
             </TableRow>
           </Table__Table>,
@@ -1923,40 +1617,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>
                 </TableRow>,
                 <TableRow
@@ -1998,40 +1672,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>
                 </TableRow>,
               ],
@@ -2335,40 +1989,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>,
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>,
                 ],
                 "columns": "repeat(7, 1fr) 50px",
@@ -2593,40 +2227,20 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    "children": <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>,
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />,
                   },
                   "ref": null,
                   "rendered": Object {
@@ -2634,72 +2248,19 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
-                      "children": <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
+                      "menuItems": Array [
+                        Object {
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
                             defaultMessage="Edit"
                             id="ocpui.components.HealthcareServiceTable.edit"
                             values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
+                          />,
+                        },
+                      ],
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        },
-                        "checked": false,
-                        "containerElement": <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />,
-                        "desktop": false,
-                        "disabled": false,
-                        "focusState": "none",
-                        "insetChildren": false,
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
+                    "rendered": null,
                     "type": [Function],
                   },
                   "type": [Function],
@@ -2749,40 +2310,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>,
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>,
                 ],
                 "columns": "repeat(7, 1fr) 50px",
@@ -3007,40 +2548,20 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    "children": <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>,
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />,
                   },
                   "ref": null,
                   "rendered": Object {
@@ -3048,72 +2569,19 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
-                      "children": <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
+                      "menuItems": Array [
+                        Object {
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
                             defaultMessage="Edit"
                             id="ocpui.components.HealthcareServiceTable.edit"
                             values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
+                          />,
+                        },
+                      ],
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        },
-                        "checked": false,
-                        "containerElement": <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />,
-                        "desktop": false,
-                        "disabled": false,
-                        "focusState": "none",
-                        "insetChildren": false,
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
+                    "rendered": null,
                     "type": [Function],
                   },
                   "type": [Function],
@@ -3319,40 +2787,20 @@ ShallowWrapper {
               />
             </TableRowColumn__TableRowColumn>
             <TableRowColumn__TableRowColumn>
-              <Styled(IconMenu)>
-                <MenuItem
-                  anchorOrigin={
+              <NavigationIconMenu
+                menuItems={
+                  Array [
                     Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to="/ocp-ui/manage-healthcare-service/logicalId1"
-                    />
-                  }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Edit"
-                      id="ocpui.components.HealthcareServiceTable.edit"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-              </Styled(IconMenu)>
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ]
+                }
+              />
             </TableRowColumn__TableRowColumn>
           </TableRow>
           <TableRow
@@ -3394,40 +2842,20 @@ ShallowWrapper {
               />
             </TableRowColumn__TableRowColumn>
             <TableRowColumn__TableRowColumn>
-              <Styled(IconMenu)>
-                <MenuItem
-                  anchorOrigin={
+              <NavigationIconMenu
+                menuItems={
+                  Array [
                     Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to="/ocp-ui/manage-healthcare-service/logicalId2"
-                    />
-                  }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Edit"
-                      id="ocpui.components.HealthcareServiceTable.edit"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-              </Styled(IconMenu)>
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ]
+                }
+              />
             </TableRowColumn__TableRowColumn>
           </TableRow>
         </Table__Table>,
@@ -3537,40 +2965,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
               <TableRow
@@ -3612,40 +3020,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
             ],
@@ -3949,40 +3337,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>,
               ],
               "columns": "repeat(7, 1fr) 50px",
@@ -4207,40 +3575,20 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  "children": <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>,
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -4248,72 +3596,19 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
+                    "menuItems": Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
                           defaultMessage="Edit"
                           id="ocpui.components.HealthcareServiceTable.edit"
                           values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
+                        />,
+                      },
+                    ],
                   },
                   "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      },
-                      "checked": false,
-                      "containerElement": <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId1"
-                      />,
-                      "desktop": false,
-                      "disabled": false,
-                      "focusState": "none",
-                      "insetChildren": false,
-                      "primaryText": <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
+                  "rendered": null,
                   "type": [Function],
                 },
                 "type": [Function],
@@ -4363,40 +3658,20 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>,
               ],
               "columns": "repeat(7, 1fr) 50px",
@@ -4621,40 +3896,20 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  "children": <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>,
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.HealthcareServiceTable.edit"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -4662,72 +3917,19 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
+                    "menuItems": Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
                           defaultMessage="Edit"
                           id="ocpui.components.HealthcareServiceTable.edit"
                           values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
+                        />,
+                      },
+                    ],
                   },
                   "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      },
-                      "checked": false,
-                      "containerElement": <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId2"
-                      />,
-                      "desktop": false,
-                      "disabled": false,
-                      "focusState": "none",
-                      "insetChildren": false,
-                      "primaryText": <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
+                  "rendered": null,
                   "type": [Function],
                 },
                 "type": [Function],
@@ -4844,40 +4046,20 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId1"
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>
             </TableRow>
             <TableRow
@@ -4919,40 +4101,20 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to="/ocp-ui/manage-healthcare-service/logicalId2"
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.HealthcareServiceTable.edit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>
             </TableRow>
           </Table__Table>,
@@ -5062,40 +4224,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>
                 </TableRow>,
                 <TableRow
@@ -5137,40 +4279,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>
                 </TableRow>,
               ],
@@ -5474,40 +4596,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>,
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>,
                 ],
                 "columns": "repeat(7, 1fr) 50px",
@@ -5732,40 +4834,20 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    "children": <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>,
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />,
                   },
                   "ref": null,
                   "rendered": Object {
@@ -5773,72 +4855,19 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
-                      "children": <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId1"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
+                      "menuItems": Array [
+                        Object {
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                          "primaryText": <FormattedMessage
                             defaultMessage="Edit"
                             id="ocpui.components.HealthcareServiceTable.edit"
                             values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
+                          />,
+                        },
+                      ],
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        },
-                        "checked": false,
-                        "containerElement": <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId1"
-                        />,
-                        "desktop": false,
-                        "disabled": false,
-                        "focusState": "none",
-                        "insetChildren": false,
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
+                    "rendered": null,
                     "type": [Function],
                   },
                   "type": [Function],
@@ -5888,40 +4917,20 @@ ShallowWrapper {
                     />
                   </TableRowColumn__TableRowColumn>,
                   <TableRowColumn__TableRowColumn>
-                    <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />
                   </TableRowColumn__TableRowColumn>,
                 ],
                 "columns": "repeat(7, 1fr) 50px",
@@ -6146,40 +5155,20 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": <Styled(IconMenu)>
-                      <MenuItem
-                        anchorOrigin={
+                    "children": <NavigationIconMenu
+                      menuItems={
+                        Array [
                           Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />
-                    </Styled(IconMenu)>,
+                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                            "primaryText": <FormattedMessage
+                              defaultMessage="Edit"
+                              id="ocpui.components.HealthcareServiceTable.edit"
+                              values={Object {}}
+                            />,
+                          },
+                        ]
+                      }
+                    />,
                   },
                   "ref": null,
                   "rendered": Object {
@@ -6187,72 +5176,19 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
-                      "children": <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to="/ocp-ui/manage-healthcare-service/logicalId2"
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
+                      "menuItems": Array [
+                        Object {
+                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                          "primaryText": <FormattedMessage
                             defaultMessage="Edit"
                             id="ocpui.components.HealthcareServiceTable.edit"
                             values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
+                          />,
+                        },
+                      ],
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        },
-                        "checked": false,
-                        "containerElement": <Link
-                          replace={false}
-                          to="/ocp-ui/manage-healthcare-service/logicalId2"
-                        />,
-                        "desktop": false,
-                        "disabled": false,
-                        "focusState": "none",
-                        "insetChildren": false,
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
+                    "rendered": null,
                     "type": [Function],
                   },
                   "type": [Function],

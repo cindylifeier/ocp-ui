@@ -5,13 +5,8 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import NavigationMenu from '@material-ui/icons/Menu';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import { Cell, Grid } from 'styled-css-grid';
 import isEmpty from 'lodash/isEmpty';
 
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -23,7 +18,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import Table from 'components/Table';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import StyledIconButton from 'components/StyledIconButton';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
 const tableColumns = 'repeat(6, 1fr) 50px';
@@ -45,41 +40,28 @@ function CommunicationsTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderSent} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
-              {!isEmpty(data.elements) && data.elements.map((communication) => (
-                <TableRow key={communication.logicalId} columns={tableColumns}>
-                  <TableRowColumn>{communication.categoryValue}</TableRowColumn>
-                  <TableRowColumn>{communication.mediumValue}</TableRowColumn>
-                  <TableRowColumn> {getRecipientsList(communication.recipient)}</TableRowColumn>
-                  <TableRowColumn>{communication.sender.display}</TableRowColumn>
-                  <TableRowColumn>{communication.sent}</TableRowColumn>
-                  <TableRowColumn>{communication.statusValue}</TableRowColumn>
-                  <TableRowColumn>
-                    <Grid columns="1fr 50px" gap="0px">
-                      <Cell left="2">
-                        <IconMenu
-                          iconButtonElement={
-                            (<StyledIconButton>
-                              <NavigationMenu />
-                            </StyledIconButton>)
-                          }
-                          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                        >
-                          <MenuItem
-                            primaryText="Edit"
-                            containerElement={<Link
-                              to={{
-                                pathname: `${manageCommunicationBaseUrl}/${communication.logicalId}`,
-                                search: `?patientId=${selectedPatient.id}`,
-                              }}
-                            />}
-                          />
-                        </IconMenu>
-                      </Cell>
-                    </Grid>
-                  </TableRowColumn>
-                </TableRow>
-              ))}
+              {!isEmpty(data.elements) && data.elements.map((communication) => {
+                const menuItems = [{
+                  primaryText: 'Edit',
+                  linkTo: {
+                    pathname: `${manageCommunicationBaseUrl}/${communication.logicalId}`,
+                    search: `?patientId=${selectedPatient.id}`,
+                  },
+                }];
+                return (
+                  <TableRow key={communication.logicalId} columns={tableColumns}>
+                    <TableRowColumn>{communication.categoryValue}</TableRowColumn>
+                    <TableRowColumn>{communication.mediumValue}</TableRowColumn>
+                    <TableRowColumn> {getRecipientsList(communication.recipient)}</TableRowColumn>
+                    <TableRowColumn>{communication.sender.display}</TableRowColumn>
+                    <TableRowColumn>{communication.sent}</TableRowColumn>
+                    <TableRowColumn>{communication.statusValue}</TableRowColumn>
+                    <TableRowColumn>
+                      <NavigationIconMenu menuItems={menuItems} />
+                    </TableRowColumn>
+                  </TableRow>
+                );
+              })}
             </Table>
             <CenterAlignedUltimatePagination
               currentPage={data.currentPage}

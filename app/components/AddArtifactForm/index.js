@@ -11,12 +11,12 @@ import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import Yup from 'yup';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledFlatButton from 'components/StyledFlatButton';
+import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
 import messages from './messages';
-import TextField from '../TextField';
-import SelectField from '../SelectField';
 
 const FormTitle = styled.div`
   font-size: 1.2rem;
@@ -52,16 +52,12 @@ function AddArtifactForm({ onAddArtifact, onRemoveArtifact, relatedArtifactTypes
                 <MenuItem key={`${system}|${code}`} value={code} primaryText={display} />
               ))}
             </SelectField>
-            <RaisedButton
-              type="submit"
-              label={<FormattedMessage {...messages.saveButtonLabel} />}
-              disabled={!dirty || isSubmitting || !isValid}
-            />
-            <FlatButton
-              type="reset"
-              label={<FormattedMessage {...messages.cancelButtonLabel} />}
-              onClick={callback}
-            />
+            <StyledRaisedButton type="submit" disabled={!dirty || isSubmitting || !isValid}>
+              <FormattedMessage {...messages.saveButtonLabel} />
+            </StyledRaisedButton>
+            <StyledFlatButton type="reset" onClick={callback}>
+              <FormattedMessage {...messages.cancelButtonLabel} />
+            </StyledFlatButton>
           </Form>
         )}
       />
