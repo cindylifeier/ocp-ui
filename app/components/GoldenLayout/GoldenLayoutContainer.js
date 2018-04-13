@@ -6,27 +6,25 @@ const GoldenLayoutContainer = styled.div`
   & .lm_header {
     background: #fff;
     border: 1px solid #099;
-    border-radius: 10px;
-    padding: 10px 10px 0 10px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    padding: 0 10px 0 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     border-bottom: 0;
   }
 
   & .lm_header + .lm_items {
     background: #fff;
     border: 1px solid #099;
-    border-radius: 10px;
-    padding: 0 10px 10px 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    padding: 0 10px 0 10px;
     border-top: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 
   & .lm_header + .lm_items,
-  .lm_item_container,
-  .lm_content {
+  .lm_item_container {
     width: auto !important;
+    height: ${(props) => props.contentHeight};
   }
 
   & .lm_root {
@@ -36,7 +34,12 @@ const GoldenLayoutContainer = styled.div`
   /* Enable scroll content */
   & .lm_content {
     overflow: auto;
+    border: 0;
     background: #fff;
+  }
+
+  & .lm_tabs {
+    margin-top: 10px;
   }
 
   & .lm_tab {
@@ -48,14 +51,12 @@ const GoldenLayoutContainer = styled.div`
     background: ${(props) => props.secondaryColor};
     font-size: 18px;
     font-family: Arial Bold, Arial, sans-serif;
-    height: 20px;
   }
 
   & .lm_tab.lm_active:hover,
   .lm_tab:hover {
     color: #099;
     font-size: 18px;
-    height: 20px;
   }
 
   & .lm_title {
@@ -65,6 +66,7 @@ const GoldenLayoutContainer = styled.div`
 
 GoldenLayoutContainer.propTypes = {
   containerHeight: PropTypes.string,
+  contentHeight: PropTypes.string,
   primaryColor: PropTypes.string,
   secondaryColor: PropTypes.string,
 };
@@ -73,6 +75,7 @@ GoldenLayoutContainer.defaultProps = {
   containerHeight: 'calc(100vh - 75px)',
   primaryColor: '#33666f',
   secondaryColor: '#ffffff',
+  contentHeight: 'auto',
 };
 
 export default GoldenLayoutContainer;
