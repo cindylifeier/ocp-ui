@@ -1,8 +1,8 @@
 /**
-*
-* SubTaskTable
-*
-*/
+ *
+ * SubTaskTable
+ *
+ */
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -11,16 +11,15 @@ import Section from 'components/Section';
 import FormSubtitle from 'components/FormSubtitle';
 import { Link } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
-import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
-import { TASK_TABLE_COLUMNS, MANAGE_TASK_URL } from './constants';
+import { MANAGE_TASK_URL, TASK_TABLE_COLUMNS } from './constants';
 import AddSubTaskButton from './AddSubTaskButton';
 
 
@@ -32,10 +31,12 @@ function SubTaskTable({ elements, patientId, taskBaseUrl }) {
           <FormattedMessage {...messages.header} />
         </FormSubtitle>
         <AddSubTaskButton
-          onClick={<Link to={MANAGE_TASK_URL} />}
-          label={<FormattedMessage {...messages.addSubTaskButton} />}
+          component={Link}
+          to={MANAGE_TASK_URL}
           disabled
-        />
+        >
+          <FormattedMessage {...messages.addSubTaskButton} />
+        </AddSubTaskButton>
         <Table>
           <TableHeader columns={TASK_TABLE_COLUMNS}>
             <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
@@ -47,30 +48,29 @@ function SubTaskTable({ elements, patientId, taskBaseUrl }) {
             <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
             <TableHeaderColumn />
           </TableHeader>
-          {!isEmpty(elements) && elements.map(({ logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner }) => (
-            <TableRow key={logicalId} columns={TASK_TABLE_COLUMNS}>
-              <TableRowColumn>{definition && definition.display}</TableRowColumn>
-              <TableRowColumn>{status && status.display}</TableRowColumn>
-              <TableRowColumn>{description}</TableRowColumn>
-              <TableRowColumn>{authoredOn}</TableRowColumn>
-              <TableRowColumn>{executionPeriod && executionPeriod.start} - {executionPeriod && executionPeriod.end} </TableRowColumn>
-              <TableRowColumn>{agent && agent.display} </TableRowColumn>
-              <TableRowColumn>{owner && owner.display} </TableRowColumn>
-              <TableRowColumn>
-                <NavigationStyledIconMenu>
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.editTask} />}
-                    containerElement={<Link
-                      to={{
-                        pathname: `${taskBaseUrl}/${logicalId}`,
-                        search: `?patientId=${patientId}&isMainTask=false`,
-                      }}
-                    />}
-                  />
-                </NavigationStyledIconMenu>
-              </TableRowColumn>
-            </TableRow>
-          ))}
+          {!isEmpty(elements) && elements.map(({ logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner }) => {
+            const menuItems = [{
+              primaryText: <FormattedMessage {...messages.editTask} />,
+              linkTo: {
+                pathname: `${taskBaseUrl}/${logicalId}`,
+                search: `?patientId=${patientId}&isMainTask=false`,
+              },
+            }];
+            return (
+              <TableRow key={logicalId} columns={TASK_TABLE_COLUMNS}>
+                <TableRowColumn>{definition && definition.display}</TableRowColumn>
+                <TableRowColumn>{status && status.display}</TableRowColumn>
+                <TableRowColumn>{description}</TableRowColumn>
+                <TableRowColumn>{authoredOn}</TableRowColumn>
+                <TableRowColumn>{executionPeriod && executionPeriod.start} - {executionPeriod && executionPeriod.end} </TableRowColumn>
+                <TableRowColumn>{agent && agent.display} </TableRowColumn>
+                <TableRowColumn>{owner && owner.display} </TableRowColumn>
+                <TableRowColumn>
+                  <NavigationIconMenu menuItems={menuItems} />
+                </TableRowColumn>
+              </TableRow>
+            );
+          })}
         </Table>
       </Section>
     </div>

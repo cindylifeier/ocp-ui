@@ -9,19 +9,18 @@ import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
-import { teal500, white } from 'material-ui/styles/colors';
 import { Cell, Grid } from 'styled-css-grid';
 
-import TextField from '../TextField';
-import messages from './messages';
-import brandImg from '../../images/omnibus-care-plan-logo.png';
-import StyledDivider from '../StyledDivider';
+import brandImg from 'images/omnibus-care-plan-logo.png';
+import CardHeader from 'components/CardHeader';
+import TextField from 'components/TextField';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledDivider from 'components/StyledDivider';
+import StyledBrandImage from 'components/StyledBrandImage';
 import LoginStyledCard from './LoginStyledCard';
-import CardHeader from '../CardHeader';
-import StyledBrandImage from '../StyledBrandImage';
 import LoginFieldGrid from './LoginFieldGrid';
 import LoginButtonCell from './LoginButtonCell';
+import messages from './messages';
 
 function Login(props) {
   const { onLogin } = props;
@@ -91,25 +90,20 @@ function Login(props) {
                         <FormattedMessage {...messages.forgotLink} />
                       </Cell>
                       <LoginButtonCell>
-                        <RaisedButton
+                        <StyledRaisedButton
                           type="submit"
-                          backgroundColor={teal500}
-                          labelColor={white}
                           fullWidth
-                          label={
-                            isSubmitting ?
-                              <FormattedMessage {...messages.authenticatingButton} /> :
-                              <FormattedMessage {...messages.loginButton} />
-                          }
                           disabled={!dirty || isSubmitting || !isValid}
-                        />
+                        >{isSubmitting ?
+                          <FormattedMessage {...messages.authenticatingButton} /> :
+                          <FormattedMessage {...messages.loginButton} />}
+                        </StyledRaisedButton>
                       </LoginButtonCell>
                     </LoginFieldGrid>
                   </Form>
                 );
               }}
-            >
-            </Formik>
+            />
           </LoginStyledCard>
         </Cell>
         <Cell area="footer" />

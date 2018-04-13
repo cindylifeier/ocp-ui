@@ -226,11 +226,12 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                             <StyledRaisedButton
                               fullWidth
                               type="submit"
-                              label={isSubmitting ?
+                              disabled={!dirty || isSubmitting || !isValid}
+                            >
+                              {isSubmitting ?
                                 <FormattedMessage {...messages.form.savingButton} /> :
                                 <FormattedMessage {...messages.form.saveButton} />}
-                              disabled={!dirty || isSubmitting || !isValid}
-                            />
+                            </StyledRaisedButton>
                           </Cell>
                           <Cell>
                             <GoBackButton

@@ -140,9 +140,10 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
                     <Cell>
                       <StyledRaisedButton
                         type="submit"
-                        label="Complete"
                         disabled={!isAuthenticated}
-                      />
+                      >
+                        Complete
+                      </StyledRaisedButton>
                     </Cell>
                     <Cell>
                       <GoBackButton disabled={isSubmitting} />

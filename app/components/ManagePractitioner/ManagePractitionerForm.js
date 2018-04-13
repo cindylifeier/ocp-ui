@@ -23,7 +23,7 @@ import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import Section from 'components/Section';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import GoBackButton from 'components/GoBackButton';
 import AddOrganizationsButton from './AddOrganizationsButton';
 import messages from './messages';
@@ -146,10 +146,9 @@ class ManagePractitionerForm extends React.Component {
                   </FormSubtitle>
                 </Cell>
                 <Cell>
-                  <AddOrganizationsButton
-                    onClick={this.handleAddOrganizations}
-                    label={<FormattedMessage {...messages.associateOrganizations.addButtonLabel} />}
-                  />
+                  <AddOrganizationsButton onClick={this.handleAddOrganizations}>
+                    <FormattedMessage {...messages.associateOrganizations.addButtonLabel} />
+                  </AddOrganizationsButton>
                 </Cell>
                 <Cell>
                   <FieldArray
@@ -186,6 +185,11 @@ class ManagePractitionerForm extends React.Component {
                           <ErrorText>{errors.practitionerRoles}</ErrorText>}
                           {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
                             const { organization, logicalId } = pr;
+                            const menuItems = [{
+                              primaryText: <FormattedMessage {...messages.associateOrganizations.tableActionRemove} />,
+                              disabled: logicalId !== undefined,
+                              onClick: () => arrayHelpers.remove(index),
+                            }];
                             return (
                               <TableRow key={organization && organization.reference} columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
                                 <TableRowColumn>{organization.display}</TableRowColumn>
@@ -236,13 +240,7 @@ class ManagePractitionerForm extends React.Component {
                                   </SelectField>
                                 </TableRowColumn>
                                 <TableRowColumn>
-                                  <NavigationStyledIconMenu>
-                                    <MenuItem
-                                      primaryText={<FormattedMessage {...messages.associateOrganizations.tableActionRemove} />}
-                                      disabled={logicalId !== undefined}
-                                      onClick={() => arrayHelpers.remove(index)}
-                                    />
-                                  </NavigationStyledIconMenu>
+                                  <NavigationIconMenu menuItems={menuItems} />
                                 </TableRowColumn>
                               </TableRow>
                             );
@@ -259,9 +257,10 @@ class ManagePractitionerForm extends React.Component {
                   <StyledRaisedButton
                     fullWidth
                     type="submit"
-                    label="Save"
                     disabled={!dirty || isSubmitting || !isValid}
-                  />
+                  >
+                    Save
+                  </StyledRaisedButton>
                 </Cell>
                 <Cell>
                   <GoBackButton disabled={isSubmitting} />

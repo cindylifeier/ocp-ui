@@ -5,25 +5,31 @@
  */
 
 import React from 'react';
-import Close from 'material-ui/svg-icons/navigation/close';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import Tooltip from 'material-ui-next/Tooltip';
+import Close from '@material-ui/icons/Close';
+
 import SearchBar from 'components/SearchBar';
 import { fromBackendToFrontendOrganization } from 'components/OrganizationTable/mappings';
-import { FormattedMessage } from 'react-intl';
 import PractitionerRoleForOrganizationTable from 'components/PractitionerRoleForOrganizationTable';
-import messages from 'components/AddPractitionerRoleForOrganization/messages';
+import StyledIconButton from 'components/StyledIconButton';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
-import PropTypes from 'prop-types';
 import H1 from 'components/H1';
-import CloseButton from 'components/ConfirmPatientModal/CloseButton';
+import messages from './messages';
 
 
 function AddPractitionerRoleForOrgnaization(props) {
   const { organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
-      <CloseButton tooltip="Close" onClick={callback}><Close /></CloseButton>
+      <Tooltip title="Close">
+        <StyledIconButton onClick={callback}>
+          <Close />
+        </StyledIconButton>
+      </Tooltip>
       <H1>{<FormattedMessage {...messages.header} />}</H1>
       <SearchBar onSearch={onSearch} />
 

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import Avatar from 'material-ui/Avatar';
-import Flag from 'material-ui/svg-icons/content/flag';
+import Flag from '@material-ui/icons/Flag';
 import upperFirst from 'lodash/upperFirst';
 
 import patientAvatar from 'images/patient-avatar.png';

@@ -9,16 +9,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
-import Close from 'material-ui/svg-icons/navigation/close';
+import Close from '@material-ui/icons/Close';
 import Avatar from 'material-ui/Avatar';
+import Tooltip from 'material-ui-next/Tooltip';
 import { Cell } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
 import StyledDialog from 'components/StyledDialog';
-import ContinueButton from './ContinueButton';
-import CloseButton from './CloseButton';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledIconButton from 'components/StyledIconButton';
 import PatientModalGrid from './PatientModalGrid';
 import PatientModalCell from './PatientModalCell';
 import messages from './messages';
@@ -30,7 +31,11 @@ function ConfirmPatientModal(props) {
       <StyledDialog
         open={isPatientModalOpen}
       >
-        <CloseButton tooltip="Close" onClick={onPatientModalClose}><Close /></CloseButton>
+        <Tooltip title="Close">
+          <StyledIconButton onClick={onPatientModalClose}>
+            <Close />
+          </StyledIconButton>
+        </Tooltip>
         <PatientModalGrid
           columns={1}
           alignContent="space-between"
@@ -52,11 +57,13 @@ function ConfirmPatientModal(props) {
             Phone{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong>
           </PatientModalCell>
           <Cell center>
-            <ContinueButton
-              label={<FormattedMessage {...messages.continueButton} />}
+            <StyledRaisedButton
               onClick={onPatientModalClose}
-              containerElement={<Link to={`${PATIENTS_URL}/${patient.id}`} />}
-            />
+              component={Link}
+              to={`${PATIENTS_URL}/${patient.id}`}
+            >
+              <FormattedMessage {...messages.continueButton} />
+            </StyledRaisedButton>
           </Cell>
         </PatientModalGrid>
       </StyledDialog>

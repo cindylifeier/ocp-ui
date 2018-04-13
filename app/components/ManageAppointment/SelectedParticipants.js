@@ -53,10 +53,9 @@ function SelectedParticipants(props) {
             <TableRowColumn>{removeDashesAndCapitalizeEachWord(participant.required.display)}</TableRowColumn>
             <TableRowColumn>{removeDashesAndCapitalizeEachWord(participant.status.display)}</TableRowColumn>
             <TableRowColumn>
-              <StyledRaisedButton
-                onClick={() => handleRemoveParticipant(participant)}
-                label={<FormattedMessage {...messages.removeParticipantBtnLabel} />}
-              />
+              <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
+                <FormattedMessage {...messages.removeParticipantBtnLabel} />
+              </StyledRaisedButton>
             </TableRowColumn>
           </TableRow>
         )) :

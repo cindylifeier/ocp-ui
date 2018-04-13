@@ -5,15 +5,16 @@
  */
 
 import React from 'react';
-import Close from 'material-ui/svg-icons/navigation/close';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
+import Tooltip from 'material-ui-next/Tooltip';
+import Close from '@material-ui/icons/Close';
 
 import H2 from 'components/H1';
 import TextField from 'components/TextField';
-import CloseButton from 'components/ConfirmPatientModal/CloseButton';
+import StyledIconButton from 'components/StyledIconButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import messages from './messages';
 
@@ -21,7 +22,11 @@ function CheckPassword(props) {
   const { callback, checkPassword } = props;
   return (
     <div>
-      <CloseButton tooltip="Close" onClick={callback}><Close /></CloseButton>
+      <Tooltip title="Close">
+        <StyledIconButton onClick={callback}>
+          <Close />
+        </StyledIconButton>
+      </Tooltip>
       <H2>{<FormattedMessage {...messages.authentication.header} />}</H2>
       <FormattedMessage {...messages.authentication.term} />
       <Formik
@@ -45,12 +50,13 @@ function CheckPassword(props) {
             <div>
               <StyledRaisedButton
                 type="submit"
-                label="Continue"
                 disabled={!dirty || isSubmitting || !isValid}
-              />
+              >
+                Continue
+              </StyledRaisedButton>
             </div>
           </Form>
-          )}
+        )}
       />
     </div>
   );

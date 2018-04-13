@@ -5,9 +5,10 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <StyledFlatButton__StyledFlatButton
-    icon={<ContentAddCircle />}
-    label="label"
-  />,
+    icon={<pure(AddCircle) />}
+  >
+    label
+  </StyledFlatButton__StyledFlatButton>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -20,22 +21,12 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
-      "className": "StyledFlatButton__StyledFlatButton-jENDUq hlOZwo",
-      "disabled": false,
-      "fullWidth": false,
-      "icon": <ContentAddCircle />,
-      "label": "label",
-      "labelPosition": "after",
-      "labelStyle": Object {},
-      "onKeyboardFocus": [Function],
-      "onMouseEnter": [Function],
-      "onMouseLeave": [Function],
-      "onTouchStart": [Function],
-      "primary": false,
-      "secondary": false,
+      "children": "label",
+      "className": "StyledFlatButton__StyledFlatButton-jENDUq bywsy",
+      "icon": <pure(AddCircle) />,
     },
     "ref": null,
-    "rendered": null,
+    "rendered": "label",
     "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
@@ -44,22 +35,12 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
-        "className": "StyledFlatButton__StyledFlatButton-jENDUq hlOZwo",
-        "disabled": false,
-        "fullWidth": false,
-        "icon": <ContentAddCircle />,
-        "label": "label",
-        "labelPosition": "after",
-        "labelStyle": Object {},
-        "onKeyboardFocus": [Function],
-        "onMouseEnter": [Function],
-        "onMouseLeave": [Function],
-        "onTouchStart": [Function],
-        "primary": false,
-        "secondary": false,
+        "children": "label",
+        "className": "StyledFlatButton__StyledFlatButton-jENDUq bywsy",
+        "icon": <pure(AddCircle) />,
       },
       "ref": null,
-      "rendered": null,
+      "rendered": "label",
       "type": [Function],
     },
   ],

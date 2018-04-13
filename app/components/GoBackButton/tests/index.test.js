@@ -14,12 +14,11 @@ describe('<GoBackButton />', () => {
       const label = 'goBackButton';
       const disabled = false;
       const props = {
-        label,
         disabled,
       };
 
       // Act
-      const renderedComponent = shallow(<GoBackButton {...props} />);
+      const renderedComponent = shallow(<GoBackButton {...props} >{label}</GoBackButton>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();

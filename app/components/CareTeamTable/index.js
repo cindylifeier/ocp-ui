@@ -5,18 +5,16 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
-import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
 const columns = 'repeat(7, 1fr) 50px';
@@ -34,38 +32,39 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl }) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
         </TableHeader>
-        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => (
-          <TableRow key={id} columns={columns}>
-            <TableRowColumn>{name}</TableRowColumn>
-            <TableRowColumn>{statusDisplay}</TableRowColumn>
-            <TableRowColumn>{categoryDisplay}</TableRowColumn>
-            <TableRowColumn>
-              {!isEmpty(participants) && participants
-                .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
-                  <div key={memberId}>
-                    {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
-                  </div>))
-              }
-            </TableRowColumn>
-            <TableRowColumn>{startDate}</TableRowColumn>
-            <TableRowColumn>{endDate}</TableRowColumn>
-            <TableRowColumn>{reasonDisplay}</TableRowColumn>
-            <TableRowColumn>
-              <NavigationStyledIconMenu>
-                <MenuItem
-                  primaryText={<FormattedMessage {...messages.menuItemEdit} />}
-                  containerElement={<Link
-                    to={{
-                      pathname: `${manageCareTeamUrl}/${id}`,
-                      search: `?patientId=${subjectId}`,
-                    }}
-                  />}
-                />
-                <MenuItem primaryText={<FormattedMessage {...messages.menuItemRemove} />} disabled />
-              </NavigationStyledIconMenu>
-            </TableRowColumn>
-          </TableRow>
-        ))}
+        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => {
+          const menuItems = [{
+            primaryText: <FormattedMessage {...messages.menuItemEdit} />,
+            linkTo: {
+              pathname: `${manageCareTeamUrl}/${id}`,
+              search: `?patientId=${subjectId}`,
+            },
+          }, {
+            primaryText: <FormattedMessage {...messages.menuItemRemove} />,
+            disabled: true,
+          }];
+          return (
+            <TableRow key={id} columns={columns}>
+              <TableRowColumn>{name}</TableRowColumn>
+              <TableRowColumn>{statusDisplay}</TableRowColumn>
+              <TableRowColumn>{categoryDisplay}</TableRowColumn>
+              <TableRowColumn>
+                {!isEmpty(participants) && participants
+                  .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
+                    <div key={memberId}>
+                      {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
+                    </div>))
+                }
+              </TableRowColumn>
+              <TableRowColumn>{startDate}</TableRowColumn>
+              <TableRowColumn>{endDate}</TableRowColumn>
+              <TableRowColumn>{reasonDisplay}</TableRowColumn>
+              <TableRowColumn>
+                <NavigationIconMenu menuItems={menuItems} />
+              </TableRowColumn>
+            </TableRow>
+          );
+        })}
       </Table>
     </div>
   );

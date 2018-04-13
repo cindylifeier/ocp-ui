@@ -5,7 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <StyledIconButton__StyledIconButton>
-    <NavigationMenu />
+    <pure(Menu) />
   </StyledIconButton__StyledIconButton>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -19,22 +19,8 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
-      "children": <NavigationMenu />,
-      "className": "StyledIconButton__StyledIconButton-hHQfQP eubEyw",
-      "disableTouchRipple": false,
-      "disabled": false,
-      "iconStyle": Object {
-        "height": 26,
-        "position": "absolute",
-        "right": "0",
-        "top": "0",
-        "width": "100%",
-      },
-      "style": Object {
-        "position": "relative",
-      },
-      "tooltipPosition": "bottom-center",
-      "touch": false,
+      "children": <pure(Menu) />,
+      "className": "StyledIconButton__StyledIconButton-hHQfQP jTYrrs",
     },
     "ref": null,
     "rendered": Object {
@@ -54,22 +40,8 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
-        "children": <NavigationMenu />,
-        "className": "StyledIconButton__StyledIconButton-hHQfQP eubEyw",
-        "disableTouchRipple": false,
-        "disabled": false,
-        "iconStyle": Object {
-          "height": 26,
-          "position": "absolute",
-          "right": "0",
-          "top": "0",
-          "width": "100%",
-        },
-        "style": Object {
-          "position": "relative",
-        },
-        "tooltipPosition": "bottom-center",
-        "touch": false,
+        "children": <pure(Menu) />,
+        "className": "StyledIconButton__StyledIconButton-hHQfQP jTYrrs",
       },
       "ref": null,
       "rendered": Object {

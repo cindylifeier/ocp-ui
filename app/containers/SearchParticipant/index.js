@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import ActionSearch from '@material-ui/icons/Search';
 import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
@@ -183,11 +183,12 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
                       </Cell>
                       <Cell middle>
                         <StyledRaisedButton
-                          label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                           type="submit"
                           value={participant}
                           disabled={!dirty || isSubmitting || !isValid}
-                        />
+                        >
+                          <FormattedMessage {...messages.addParticipantBtnLabel} />
+                        </StyledRaisedButton>
                       </Cell>
                     </Grid>
                   </TableRowColumn>
@@ -222,10 +223,9 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
     const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />}
-        onClick={this.handleDialogClose}
-      />,
+      <StyledFlatButton onClick={this.handleDialogClose}>
+        <FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />
+      </StyledFlatButton>,
     ];
     return (
       <WideDialog

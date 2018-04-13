@@ -257,9 +257,10 @@ function ManageTaskForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                label="Save"
                 disabled={!dirty || isSubmitting || !isValid}
-              />
+              >
+                Save
+              </StyledRaisedButton>
             </Cell>
             <Cell>
               <GoBackButton disabled={isSubmitting} />

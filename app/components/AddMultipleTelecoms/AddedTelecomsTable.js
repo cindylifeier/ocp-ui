@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 import upperFirst from 'lodash/upperFirst';
-import MenuItem from 'material-ui/MenuItem';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
@@ -37,22 +36,20 @@ function AddedTelecomsTable(props) {
         }
         {telecoms && telecoms.map((telecom, index) => {
           const { system, value, use } = telecom;
+          const menuItems = [{
+            primaryText: <FormattedMessage {...messages.addedTelecomsTable.tableActionEdit} />,
+            onClick: () => handleEditTelecom(index, telecom),
+          }, {
+            primaryText: <FormattedMessage {...messages.addedTelecomsTable.tableActionRemove} />,
+            onClick: () => arrayHelpers.remove(index),
+          }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{upperFirst(system)}</TableRowColumn>
               <TableRowColumn>{value}</TableRowColumn>
               <TableRowColumn>{upperFirst(use)}</TableRowColumn>
               <TableRowColumn>
-                <NavigationStyledIconMenu>
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedTelecomsTable.tableActionEdit} />}
-                    onClick={() => handleEditTelecom(index, telecom)}
-                  />
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedTelecomsTable.tableActionRemove} />}
-                    onClick={() => arrayHelpers.remove(index)}
-                  />
-                </NavigationStyledIconMenu>
+                <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
             </TableRow>
           );
