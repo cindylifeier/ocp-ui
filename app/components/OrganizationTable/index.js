@@ -20,99 +20,123 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import OrganizationSlider from 'components/OrganizationSlider';
 import messages from './messages';
 
 const tableColumns = 'repeat(5, 1fr) 50px';
 const ENTER_KEY = 'Enter';
 
-function OrganizationTable(props) {
-  const { organizationData, onRowClick, relativeTop } = props;
-  return (
-    <div>
-      {organizationData.loading && <RefreshIndicatorLoading />}
-      {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
-          ? <div>
-            <Table>
-              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
-              </TableHeader>
-              {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
-                const flattenOrganization = props.flattenOrganizationData(organization);
-                const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
-                const menuItems = [{
-                  primaryText: <FormattedMessage {...messages.edit} />,
-                  linkTo: `/ocp-ui/manage-organization/${logicalId}`,
-                }, {
-                  primaryText: <FormattedMessage {...messages.addLocation} />,
-                  linkTo: '/ocp-ui/manage-location',
-                }, {
-                  primaryText: <FormattedMessage {...messages.addHealthCareService} />,
-                  linkTo: '/ocp-ui/manage-healthcare-service',
-                }, {
-                  primaryText: <FormattedMessage {...messages.addActivityDefinition} />,
-                  linkTo: '/ocp-ui/manage-activity-definition',
-                }, {
-                  primaryText: <FormattedMessage {...messages.remove} />,
-                  disabled: true,
-                }];
-                return (
-                  <TableRow
-                    columns={tableColumns}
-                    key={logicalId}
-                    onClick={() => onRowClick && onRowClick(organization)}
-                    onKeyPress={(e) => {
-                      if (e.key === ENTER_KEY) {
-                        if (onRowClick) {
-                          onRowClick(organization);
+class OrganizationTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openSlider: false,
+    };
+    this.handleSliderOpen = this.handleSliderOpen.bind(this);
+    this.handleSliderClose = this.handleSliderClose.bind(this);
+  }
+
+  handleSliderOpen() {
+    this.setState({ openSlider: true });
+  }
+
+  handleSliderClose() {
+    this.setState({ openSlider: false });
+  }
+
+  render() {
+    const { organizationData, flattenOrganizationData, onRowClick, relativeTop } = this.props;
+    return (
+      <div>
+        {organizationData.loading && <RefreshIndicatorLoading />}
+        {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
+            ? <div>
+              <Table>
+                <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
+                </TableHeader>
+                {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
+                  const flattenOrganization = flattenOrganizationData(organization);
+                  const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
+                  const menuItems = [{
+                    primaryText: <FormattedMessage {...messages.edit} />,
+                    linkTo: `/ocp-ui/manage-organization/${logicalId}`,
+                  }, {
+                    primaryText: <FormattedMessage {...messages.viewDetails} />,
+                    onClick: () => this.handleSliderOpen(),
+                  }, {
+                    primaryText: <FormattedMessage {...messages.addLocation} />,
+                    linkTo: '/ocp-ui/manage-location',
+                  }, {
+                    primaryText: <FormattedMessage {...messages.addHealthCareService} />,
+                    linkTo: '/ocp-ui/manage-healthcare-service',
+                  }, {
+                    primaryText: <FormattedMessage {...messages.addActivityDefinition} />,
+                    linkTo: '/ocp-ui/manage-activity-definition',
+                  }, {
+                    primaryText: <FormattedMessage {...messages.remove} />,
+                    disabled: true,
+                  }];
+                  return (
+                    <TableRow
+                      columns={tableColumns}
+                      key={logicalId}
+                      onClick={() => onRowClick && onRowClick(organization)}
+                      onKeyPress={(e) => {
+                        if (e.key === ENTER_KEY) {
+                          if (onRowClick) {
+                            onRowClick(organization);
+                          }
                         }
-                      }
-                      e.preventDefault();
-                    }}
-                    role="button"
-                    tabIndex="0"
-                  >
-                    <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{addresses}</TableRowColumn>
-                    <TableRowColumn>{telecoms}</TableRowColumn>
-                    <TableRowColumn>{identifiers}</TableRowColumn>
-                    <TableRowColumn>
-                      {active ?
-                        <FormattedMessage {...messages.active} /> :
-                        <FormattedMessage {...messages.inactive} />
-                      }
-                    </TableRowColumn>
-                    <TableRowColumn>
-                      <NavigationIconMenu menuItems={menuItems} />
-                    </TableRowColumn>
-                  </TableRow>
-                );
-              })}
-            </Table>
-            {!!organizationData && !!organizationData.currentPage &&
-            <div>
-              <CenterAlignedUltimatePagination
-                currentPage={organizationData.currentPage}
-                totalPages={organizationData.totalNumberOfPages}
-                onChange={organizationData.handlePageClick}
-              />
-              <RecordsRange
-                currentPage={organizationData.currentPage}
-                totalPages={organizationData.totalNumberOfPages}
-                totalElements={organizationData.totalElements}
-                currentPageSize={organizationData.currentPageSize}
-              />
-            </div>}
-          </div> :
-          (<CenterAlign>
-            <NoResultsFoundText>No organizations found</NoResultsFoundText>
-          </CenterAlign>)
-      )}
-    </div>
-  );
+                        e.preventDefault();
+                      }}
+                      role="button"
+                      tabIndex="0"
+                    >
+                      <TableRowColumn>{name}</TableRowColumn>
+                      <TableRowColumn>{addresses}</TableRowColumn>
+                      <TableRowColumn>{telecoms}</TableRowColumn>
+                      <TableRowColumn>{identifiers}</TableRowColumn>
+                      <TableRowColumn>
+                        {active ?
+                          <FormattedMessage {...messages.active} /> :
+                          <FormattedMessage {...messages.inactive} />
+                        }
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        <NavigationIconMenu menuItems={menuItems} />
+                      </TableRowColumn>
+                    </TableRow>
+                  );
+                })}
+              </Table>
+              {!!organizationData && !!organizationData.currentPage &&
+              <div>
+                <CenterAlignedUltimatePagination
+                  currentPage={organizationData.currentPage}
+                  totalPages={organizationData.totalNumberOfPages}
+                  onChange={organizationData.handlePageClick}
+                />
+                <RecordsRange
+                  currentPage={organizationData.currentPage}
+                  totalPages={organizationData.totalNumberOfPages}
+                  totalElements={organizationData.totalElements}
+                  currentPageSize={organizationData.currentPageSize}
+                />
+              </div>}
+            </div> :
+            (<CenterAlign>
+              <NoResultsFoundText>No organizations found</NoResultsFoundText>
+            </CenterAlign>)
+        )}
+        <OrganizationSlider open={this.state.openSlider} onClose={this.handleSliderClose} />
+      </div>
+    );
+  }
 }
 
 OrganizationTable.propTypes = {

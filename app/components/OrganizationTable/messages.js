@@ -30,6 +30,10 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.edit',
     defaultMessage: 'Edit',
   },
+  viewDetails: {
+    id: 'ocpui.components.OrganizationTable.viewDetails',
+    defaultMessage: 'View Details',
+  },
   addLocation: {
     id: 'ocpui.components.OrganizationTable.addLocation',
     defaultMessage: 'Add Location',
