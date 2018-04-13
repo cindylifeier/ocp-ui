@@ -169,71 +169,31 @@ ShallowWrapper {
             Anxiety disorder of childhood OR adolescence
           </TableRowColumn__TableRowColumn>
           <TableRowColumn__TableRowColumn>
-            <Styled(IconMenu)>
-              <MenuItem
-                anchorOrigin={
+            <NavigationIconMenu
+              menuItems={
+                Array [
                   Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                checked={false}
-                containerElement={
-                  <Link
-                    replace={false}
-                    to={
-                      Object {
-                        "pathname": "undefined/111111",
-                        "search": "?patientId=11111",
-                      }
-                    }
-                  />
-                }
-                desktop={false}
-                disabled={false}
-                focusState="none"
-                insetChildren={false}
-                primaryText={
-                  <FormattedMessage
-                    defaultMessage="Edit"
-                    id="ocpui.components.CareTeamTable.menuItemEdit"
-                    values={Object {}}
-                  />
-                }
-                targetOrigin={
+                    "linkTo": Object {
+                      "pathname": "undefined/111111",
+                      "search": "?patientId=11111",
+                    },
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Edit"
+                      id="ocpui.components.CareTeamTable.menuItemEdit"
+                      values={Object {}}
+                    />,
+                  },
                   Object {
-                    "horizontal": "left",
-                    "vertical": "top",
-                  }
-                }
-              />
-              <MenuItem
-                anchorOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                checked={false}
-                desktop={false}
-                disabled={true}
-                focusState="none"
-                insetChildren={false}
-                primaryText={
-                  <FormattedMessage
-                    defaultMessage="Remove"
-                    id="ocpui.components.CareTeamTable.menuItemRemove"
-                    values={Object {}}
-                  />
-                }
-                targetOrigin={
-                  Object {
-                    "horizontal": "left",
-                    "vertical": "top",
-                  }
-                }
-              />
-            </Styled(IconMenu)>
+                    "disabled": true,
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Remove"
+                      id="ocpui.components.CareTeamTable.menuItemRemove"
+                      values={Object {}}
+                    />,
+                  },
+                ]
+              }
+            />
           </TableRowColumn__TableRowColumn>
         </TableRow>
         <TableRow
@@ -263,71 +223,31 @@ ShallowWrapper {
             Decreased hair growth
           </TableRowColumn__TableRowColumn>
           <TableRowColumn__TableRowColumn>
-            <Styled(IconMenu)>
-              <MenuItem
-                anchorOrigin={
+            <NavigationIconMenu
+              menuItems={
+                Array [
                   Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                checked={false}
-                containerElement={
-                  <Link
-                    replace={false}
-                    to={
-                      Object {
-                        "pathname": "undefined/222222",
-                        "search": "?patientId=11111",
-                      }
-                    }
-                  />
-                }
-                desktop={false}
-                disabled={false}
-                focusState="none"
-                insetChildren={false}
-                primaryText={
-                  <FormattedMessage
-                    defaultMessage="Edit"
-                    id="ocpui.components.CareTeamTable.menuItemEdit"
-                    values={Object {}}
-                  />
-                }
-                targetOrigin={
+                    "linkTo": Object {
+                      "pathname": "undefined/222222",
+                      "search": "?patientId=11111",
+                    },
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Edit"
+                      id="ocpui.components.CareTeamTable.menuItemEdit"
+                      values={Object {}}
+                    />,
+                  },
                   Object {
-                    "horizontal": "left",
-                    "vertical": "top",
-                  }
-                }
-              />
-              <MenuItem
-                anchorOrigin={
-                  Object {
-                    "horizontal": "right",
-                    "vertical": "top",
-                  }
-                }
-                checked={false}
-                desktop={false}
-                disabled={true}
-                focusState="none"
-                insetChildren={false}
-                primaryText={
-                  <FormattedMessage
-                    defaultMessage="Remove"
-                    id="ocpui.components.CareTeamTable.menuItemRemove"
-                    values={Object {}}
-                  />
-                }
-                targetOrigin={
-                  Object {
-                    "horizontal": "left",
-                    "vertical": "top",
-                  }
-                }
-              />
-            </Styled(IconMenu)>
+                    "disabled": true,
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Remove"
+                      id="ocpui.components.CareTeamTable.menuItemRemove"
+                      values={Object {}}
+                    />,
+                  },
+                ]
+              }
+            />
           </TableRowColumn__TableRowColumn>
         </TableRow>
       </Table__Table>,
@@ -425,71 +345,31 @@ ShallowWrapper {
                 Anxiety disorder of childhood OR adolescence
               </TableRowColumn__TableRowColumn>
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/111111",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.CareTeamTable.menuItemEdit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
+                        "linkTo": Object {
+                          "pathname": "undefined/111111",
+                          "search": "?patientId=11111",
+                        },
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />,
+                      },
                       Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    desktop={false}
-                    disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Remove"
-                        id="ocpui.components.CareTeamTable.menuItemRemove"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "disabled": true,
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>
             </TableRow>,
             <TableRow
@@ -519,71 +399,31 @@ ShallowWrapper {
                 Decreased hair growth
               </TableRowColumn__TableRowColumn>
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/222222",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.CareTeamTable.menuItemEdit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
+                        "linkTo": Object {
+                          "pathname": "undefined/222222",
+                          "search": "?patientId=11111",
+                        },
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />,
+                      },
                       Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    desktop={false}
-                    disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Remove"
-                        id="ocpui.components.CareTeamTable.menuItemRemove"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "disabled": true,
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>
             </TableRow>,
           ],
@@ -878,71 +718,31 @@ ShallowWrapper {
                 Anxiety disorder of childhood OR adolescence
               </TableRowColumn__TableRowColumn>,
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/111111",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.CareTeamTable.menuItemEdit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
+                        "linkTo": Object {
+                          "pathname": "undefined/111111",
+                          "search": "?patientId=11111",
+                        },
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />,
+                      },
                       Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    desktop={false}
-                    disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Remove"
-                        id="ocpui.components.CareTeamTable.menuItemRemove"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "disabled": true,
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>,
             ],
             "columns": "repeat(7, 1fr) 50px",
@@ -1061,71 +861,31 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                "children": <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/111111",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.CareTeamTable.menuItemEdit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
+                        "linkTo": Object {
+                          "pathname": "undefined/111111",
+                          "search": "?patientId=11111",
+                        },
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />,
+                      },
                       Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    desktop={false}
-                    disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Remove"
-                        id="ocpui.components.CareTeamTable.menuItemRemove"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>,
+                        "disabled": true,
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />,
               },
               "ref": null,
               "rendered": Object {
@@ -1133,140 +893,30 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": Array [
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/111111",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
+                  "menuItems": Array [
+                    Object {
+                      "linkTo": Object {
+                        "pathname": "undefined/111111",
+                        "search": "?patientId=11111",
                       },
-                      "checked": false,
-                      "containerElement": <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/111111",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />,
-                      "desktop": false,
-                      "disabled": false,
-                      "focusState": "none",
-                      "insetChildren": false,
                       "primaryText": <FormattedMessage
                         defaultMessage="Edit"
                         id="ocpui.components.CareTeamTable.menuItemEdit"
                         values={Object {}}
                       />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
                     },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      },
-                      "checked": false,
-                      "desktop": false,
+                    Object {
                       "disabled": true,
-                      "focusState": "none",
-                      "insetChildren": false,
                       "primaryText": <FormattedMessage
                         defaultMessage="Remove"
                         id="ocpui.components.CareTeamTable.menuItemRemove"
                         values={Object {}}
                       />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
                     },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                ],
+                  ],
+                },
+                "ref": null,
+                "rendered": null,
                 "type": [Function],
               },
               "type": [Function],
@@ -1304,71 +954,31 @@ ShallowWrapper {
                 Decreased hair growth
               </TableRowColumn__TableRowColumn>,
               <TableRowColumn__TableRowColumn>
-                <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/222222",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.CareTeamTable.menuItemEdit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
+                        "linkTo": Object {
+                          "pathname": "undefined/222222",
+                          "search": "?patientId=11111",
+                        },
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />,
+                      },
                       Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    desktop={false}
-                    disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Remove"
-                        id="ocpui.components.CareTeamTable.menuItemRemove"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>
+                        "disabled": true,
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
               </TableRowColumn__TableRowColumn>,
             ],
             "columns": "repeat(7, 1fr) 50px",
@@ -1473,71 +1083,31 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": <Styled(IconMenu)>
-                  <MenuItem
-                    anchorOrigin={
+                "children": <NavigationIconMenu
+                  menuItems={
+                    Array [
                       Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    containerElement={
-                      <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/222222",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />
-                    }
-                    desktop={false}
-                    disabled={false}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Edit"
-                        id="ocpui.components.CareTeamTable.menuItemEdit"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
+                        "linkTo": Object {
+                          "pathname": "undefined/222222",
+                          "search": "?patientId=11111",
+                        },
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.CareTeamTable.menuItemEdit"
+                          values={Object {}}
+                        />,
+                      },
                       Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                  <MenuItem
-                    anchorOrigin={
-                      Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      }
-                    }
-                    checked={false}
-                    desktop={false}
-                    disabled={true}
-                    focusState="none"
-                    insetChildren={false}
-                    primaryText={
-                      <FormattedMessage
-                        defaultMessage="Remove"
-                        id="ocpui.components.CareTeamTable.menuItemRemove"
-                        values={Object {}}
-                      />
-                    }
-                    targetOrigin={
-                      Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      }
-                    }
-                  />
-                </Styled(IconMenu)>,
+                        "disabled": true,
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Remove"
+                          id="ocpui.components.CareTeamTable.menuItemRemove"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />,
               },
               "ref": null,
               "rendered": Object {
@@ -1545,140 +1115,30 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": Array [
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/222222",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
+                  "menuItems": Array [
+                    Object {
+                      "linkTo": Object {
+                        "pathname": "undefined/222222",
+                        "search": "?patientId=11111",
                       },
-                      "checked": false,
-                      "containerElement": <Link
-                        replace={false}
-                        to={
-                          Object {
-                            "pathname": "undefined/222222",
-                            "search": "?patientId=11111",
-                          }
-                        }
-                      />,
-                      "desktop": false,
-                      "disabled": false,
-                      "focusState": "none",
-                      "insetChildren": false,
                       "primaryText": <FormattedMessage
                         defaultMessage="Edit"
                         id="ocpui.components.CareTeamTable.menuItemEdit"
                         values={Object {}}
                       />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
                     },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "anchorOrigin": Object {
-                        "horizontal": "right",
-                        "vertical": "top",
-                      },
-                      "checked": false,
-                      "desktop": false,
+                    Object {
                       "disabled": true,
-                      "focusState": "none",
-                      "insetChildren": false,
                       "primaryText": <FormattedMessage
                         defaultMessage="Remove"
                         id="ocpui.components.CareTeamTable.menuItemRemove"
                         values={Object {}}
                       />,
-                      "targetOrigin": Object {
-                        "horizontal": "left",
-                        "vertical": "top",
-                      },
                     },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                ],
+                  ],
+                },
+                "ref": null,
+                "rendered": null,
                 "type": [Function],
               },
               "type": [Function],
@@ -1783,71 +1243,31 @@ ShallowWrapper {
               Anxiety disorder of childhood OR adolescence
             </TableRowColumn__TableRowColumn>
             <TableRowColumn__TableRowColumn>
-              <Styled(IconMenu)>
-                <MenuItem
-                  anchorOrigin={
+              <NavigationIconMenu
+                menuItems={
+                  Array [
                     Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to={
-                        Object {
-                          "pathname": "undefined/111111",
-                          "search": "?patientId=11111",
-                        }
-                      }
-                    />
-                  }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Edit"
-                      id="ocpui.components.CareTeamTable.menuItemEdit"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
+                      "linkTo": Object {
+                        "pathname": "undefined/111111",
+                        "search": "?patientId=11111",
+                      },
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.CareTeamTable.menuItemEdit"
+                        values={Object {}}
+                      />,
+                    },
                     Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-                <MenuItem
-                  anchorOrigin={
-                    Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  desktop={false}
-                  disabled={true}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Remove"
-                      id="ocpui.components.CareTeamTable.menuItemRemove"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-              </Styled(IconMenu)>
+                      "disabled": true,
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Remove"
+                        id="ocpui.components.CareTeamTable.menuItemRemove"
+                        values={Object {}}
+                      />,
+                    },
+                  ]
+                }
+              />
             </TableRowColumn__TableRowColumn>
           </TableRow>
           <TableRow
@@ -1877,71 +1297,31 @@ ShallowWrapper {
               Decreased hair growth
             </TableRowColumn__TableRowColumn>
             <TableRowColumn__TableRowColumn>
-              <Styled(IconMenu)>
-                <MenuItem
-                  anchorOrigin={
+              <NavigationIconMenu
+                menuItems={
+                  Array [
                     Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  containerElement={
-                    <Link
-                      replace={false}
-                      to={
-                        Object {
-                          "pathname": "undefined/222222",
-                          "search": "?patientId=11111",
-                        }
-                      }
-                    />
-                  }
-                  desktop={false}
-                  disabled={false}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Edit"
-                      id="ocpui.components.CareTeamTable.menuItemEdit"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
+                      "linkTo": Object {
+                        "pathname": "undefined/222222",
+                        "search": "?patientId=11111",
+                      },
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.CareTeamTable.menuItemEdit"
+                        values={Object {}}
+                      />,
+                    },
                     Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-                <MenuItem
-                  anchorOrigin={
-                    Object {
-                      "horizontal": "right",
-                      "vertical": "top",
-                    }
-                  }
-                  checked={false}
-                  desktop={false}
-                  disabled={true}
-                  focusState="none"
-                  insetChildren={false}
-                  primaryText={
-                    <FormattedMessage
-                      defaultMessage="Remove"
-                      id="ocpui.components.CareTeamTable.menuItemRemove"
-                      values={Object {}}
-                    />
-                  }
-                  targetOrigin={
-                    Object {
-                      "horizontal": "left",
-                      "vertical": "top",
-                    }
-                  }
-                />
-              </Styled(IconMenu)>
+                      "disabled": true,
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Remove"
+                        id="ocpui.components.CareTeamTable.menuItemRemove"
+                        values={Object {}}
+                      />,
+                    },
+                  ]
+                }
+              />
             </TableRowColumn__TableRowColumn>
           </TableRow>
         </Table__Table>,
@@ -2039,71 +1419,31 @@ ShallowWrapper {
                   Anxiety disorder of childhood OR adolescence
                 </TableRowColumn__TableRowColumn>
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/111111",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
+                          "linkTo": Object {
+                            "pathname": "undefined/111111",
+                            "search": "?patientId=11111",
+                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
+                        },
                         Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "disabled": true,
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
               <TableRow
@@ -2133,71 +1473,31 @@ ShallowWrapper {
                   Decreased hair growth
                 </TableRowColumn__TableRowColumn>
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/222222",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
+                          "linkTo": Object {
+                            "pathname": "undefined/222222",
+                            "search": "?patientId=11111",
+                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
+                        },
                         Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "disabled": true,
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
             ],
@@ -2492,71 +1792,31 @@ ShallowWrapper {
                   Anxiety disorder of childhood OR adolescence
                 </TableRowColumn__TableRowColumn>,
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/111111",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
+                          "linkTo": Object {
+                            "pathname": "undefined/111111",
+                            "search": "?patientId=11111",
+                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
+                        },
                         Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "disabled": true,
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>,
               ],
               "columns": "repeat(7, 1fr) 50px",
@@ -2675,71 +1935,31 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  "children": <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/111111",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
+                          "linkTo": Object {
+                            "pathname": "undefined/111111",
+                            "search": "?patientId=11111",
+                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
+                        },
                         Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>,
+                          "disabled": true,
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -2747,140 +1967,30 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": Array [
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to={
-                              Object {
-                                "pathname": "undefined/111111",
-                                "search": "?patientId=11111",
-                              }
-                            }
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.CareTeamTable.menuItemEdit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        desktop={false}
-                        disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Remove"
-                            id="ocpui.components.CareTeamTable.menuItemRemove"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
+                    "menuItems": Array [
+                      Object {
+                        "linkTo": Object {
+                          "pathname": "undefined/111111",
+                          "search": "?patientId=11111",
                         },
-                        "checked": false,
-                        "containerElement": <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/111111",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />,
-                        "desktop": false,
-                        "disabled": false,
-                        "focusState": "none",
-                        "insetChildren": false,
                         "primaryText": <FormattedMessage
                           defaultMessage="Edit"
                           id="ocpui.components.CareTeamTable.menuItemEdit"
                           values={Object {}}
                         />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
                       },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        },
-                        "checked": false,
-                        "desktop": false,
+                      Object {
                         "disabled": true,
-                        "focusState": "none",
-                        "insetChildren": false,
                         "primaryText": <FormattedMessage
                           defaultMessage="Remove"
                           id="ocpui.components.CareTeamTable.menuItemRemove"
                           values={Object {}}
                         />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
                       },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                  ],
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": null,
                   "type": [Function],
                 },
                 "type": [Function],
@@ -2918,71 +2028,31 @@ ShallowWrapper {
                   Decreased hair growth
                 </TableRowColumn__TableRowColumn>,
                 <TableRowColumn__TableRowColumn>
-                  <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/222222",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
+                          "linkTo": Object {
+                            "pathname": "undefined/222222",
+                            "search": "?patientId=11111",
+                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
+                        },
                         Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>
+                          "disabled": true,
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />
                 </TableRowColumn__TableRowColumn>,
               ],
               "columns": "repeat(7, 1fr) 50px",
@@ -3087,71 +2157,31 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": <Styled(IconMenu)>
-                    <MenuItem
-                      anchorOrigin={
+                  "children": <NavigationIconMenu
+                    menuItems={
+                      Array [
                         Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      containerElement={
-                        <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/222222",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />
-                      }
-                      desktop={false}
-                      disabled={false}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.CareTeamTable.menuItemEdit"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
+                          "linkTo": Object {
+                            "pathname": "undefined/222222",
+                            "search": "?patientId=11111",
+                          },
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Edit"
+                            id="ocpui.components.CareTeamTable.menuItemEdit"
+                            values={Object {}}
+                          />,
+                        },
                         Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                    <MenuItem
-                      anchorOrigin={
-                        Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        }
-                      }
-                      checked={false}
-                      desktop={false}
-                      disabled={true}
-                      focusState="none"
-                      insetChildren={false}
-                      primaryText={
-                        <FormattedMessage
-                          defaultMessage="Remove"
-                          id="ocpui.components.CareTeamTable.menuItemRemove"
-                          values={Object {}}
-                        />
-                      }
-                      targetOrigin={
-                        Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        }
-                      }
-                    />
-                  </Styled(IconMenu)>,
+                          "disabled": true,
+                          "primaryText": <FormattedMessage
+                            defaultMessage="Remove"
+                            id="ocpui.components.CareTeamTable.menuItemRemove"
+                            values={Object {}}
+                          />,
+                        },
+                      ]
+                    }
+                  />,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -3159,140 +2189,30 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "children": Array [
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        containerElement={
-                          <Link
-                            replace={false}
-                            to={
-                              Object {
-                                "pathname": "undefined/222222",
-                                "search": "?patientId=11111",
-                              }
-                            }
-                          />
-                        }
-                        desktop={false}
-                        disabled={false}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.CareTeamTable.menuItemEdit"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
-                      <MenuItem
-                        anchorOrigin={
-                          Object {
-                            "horizontal": "right",
-                            "vertical": "top",
-                          }
-                        }
-                        checked={false}
-                        desktop={false}
-                        disabled={true}
-                        focusState="none"
-                        insetChildren={false}
-                        primaryText={
-                          <FormattedMessage
-                            defaultMessage="Remove"
-                            id="ocpui.components.CareTeamTable.menuItemRemove"
-                            values={Object {}}
-                          />
-                        }
-                        targetOrigin={
-                          Object {
-                            "horizontal": "left",
-                            "vertical": "top",
-                          }
-                        }
-                      />,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
+                    "menuItems": Array [
+                      Object {
+                        "linkTo": Object {
+                          "pathname": "undefined/222222",
+                          "search": "?patientId=11111",
                         },
-                        "checked": false,
-                        "containerElement": <Link
-                          replace={false}
-                          to={
-                            Object {
-                              "pathname": "undefined/222222",
-                              "search": "?patientId=11111",
-                            }
-                          }
-                        />,
-                        "desktop": false,
-                        "disabled": false,
-                        "focusState": "none",
-                        "insetChildren": false,
                         "primaryText": <FormattedMessage
                           defaultMessage="Edit"
                           id="ocpui.components.CareTeamTable.menuItemEdit"
                           values={Object {}}
                         />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
                       },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "anchorOrigin": Object {
-                          "horizontal": "right",
-                          "vertical": "top",
-                        },
-                        "checked": false,
-                        "desktop": false,
+                      Object {
                         "disabled": true,
-                        "focusState": "none",
-                        "insetChildren": false,
                         "primaryText": <FormattedMessage
                           defaultMessage="Remove"
                           id="ocpui.components.CareTeamTable.menuItemRemove"
                           values={Object {}}
                         />,
-                        "targetOrigin": Object {
-                          "horizontal": "left",
-                          "vertical": "top",
-                        },
                       },
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                  ],
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": null,
                   "type": [Function],
                 },
                 "type": [Function],
