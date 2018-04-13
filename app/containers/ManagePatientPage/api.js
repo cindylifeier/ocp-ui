@@ -1,5 +1,5 @@
 import request from 'utils/request';
-import { BASE_PATIENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import Util from 'utils/Util';
 
 const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
@@ -31,10 +31,16 @@ export function getPatient(patientId) {
   return request(requestURL);
 }
 
+export function getPractitioners({ organizationId }) {
+  const practitionerEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const requestURL = `${practitionerEndpoint}/practitioner-references?organization=${organizationId}`;
+  return request(requestURL);
+}
+
 function mapToBackendPatient(patientFormData) {
   const {
     id, firstName, lastName, birthDate, genderCode, identifierType, identifierValue, language, race,
-    ethnicity, birthSex, addresses, telecoms, flags,
+    ethnicity, birthSex, addresses, telecoms, flags, organizationId, careManager,
   } = patientFormData;
 
 
@@ -47,6 +53,8 @@ function mapToBackendPatient(patientFormData) {
     lastName,
   }];
   const mappedFlags = flags !== undefined ? mapToBackendFlags(flags) : undefined;
+  const practitionerId = (careManager && careManager.indexOf('/') > 0) ? careManager.substring(careManager.indexOf('/') + 1) : '';
+
   return {
     id,
     identifier,
@@ -61,6 +69,8 @@ function mapToBackendPatient(patientFormData) {
     birthSex,
     flags: mappedFlags,
     active: true,
+    organizationId,
+    practitionerId,
   };
 }
 

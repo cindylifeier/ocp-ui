@@ -15,7 +15,10 @@ import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
+import uniqueId from 'lodash/uniqueId';
 import AddFlags from 'components/AddFlags';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
 import messages from './messages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 
@@ -23,7 +26,7 @@ function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
-    flagStatuses, flagCategories, practitioner,
+    flagStatuses, flagCategories, practitioner, practitioners, organization,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -44,6 +47,7 @@ function ManagePatientForm(props) {
     practitioner,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
+  const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
 
   return (
     <Form>
@@ -52,6 +56,29 @@ function ManagePatientForm(props) {
           <FormSubtitle margin="0">
             <FormattedMessage {...messages.title} />
           </FormSubtitle>
+        </Cell>
+        <Cell area="contextGroup">
+          <Grid columns={4} gap="30px">
+            <InfoSection margin="4vh 0 0 0">
+              <InlineLabel htmlFor={ORGANIZATION_NAME_HTML_ID}><FormattedMessage {...messages.floatingLabelText.organization} />&nbsp;
+              </InlineLabel>
+              <span id={ORGANIZATION_NAME_HTML_ID}>{organization && organization.name}</span>
+            </InfoSection>
+            <SelectField
+              fullWidth
+              name="careManager"
+              hintText={<FormattedMessage {...messages.hintText.careManager} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.careManager} />}
+            >
+              {practitioners && practitioners.map((aPractitioner) =>
+                (<MenuItem
+                  key={uniqueId()}
+                  value={aPractitioner.reference}
+                  primaryText={aPractitioner.display}
+                />),
+              )}
+            </SelectField>
+          </Grid>
         </Cell>
         <Cell area="firstName">
           <TextField
@@ -248,6 +275,11 @@ ManagePatientForm.propTypes = {
     reference: PropTypes.string,
     display: PropTypes.string,
   }),
+  practitioners: PropTypes.arrayOf(PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  organization: PropTypes.object,
 };
 
 export default ManagePatientForm;

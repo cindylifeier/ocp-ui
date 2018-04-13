@@ -69,6 +69,14 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.hintText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
+    careManager: {
+      id: 'ocpui.components.ManagePatient.manageForm.hintText.careManager',
+      defaultMessage: 'Care Manager',
+    },
+    organization: {
+      id: 'ocpui.components.ManagePatient.manageForm.hintText.organization',
+      defaultMessage: 'Organization',
+    },
   },
   floatingLabelText: {
     firstName: {
@@ -114,6 +122,14 @@ export default defineMessages({
     identifierValue: {
       id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
+    },
+    careManager: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.careManager',
+      defaultMessage: 'Care Manager',
+    },
+    organization: {
+      id: 'ocpui.components.ManagePatient.manageForm.floatingLabelText.organization',
+      defaultMessage: 'Organization',
     },
   },
 });

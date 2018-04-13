@@ -6,7 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
-  SAVE_PATIENT, SAVE_PATIENT_ERROR,
+  SAVE_PATIENT, SAVE_PATIENT_ERROR, GET_PRACTITIONERS_ERROR, GET_PRACTITIONERS_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -20,7 +20,11 @@ function managePatientPageReducer(state = initialState, action) {
       return state
         .set('error', false)
         .set('patientFormData', action.patientFormData);
+    case GET_PRACTITIONERS_SUCCESS:
+      return state
+        .set('practitioners', action.practitioners);
     case SAVE_PATIENT_ERROR:
+    case GET_PRACTITIONERS_ERROR:
       return state
         .set('error', action.error);
     default:
