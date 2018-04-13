@@ -5,7 +5,6 @@ import {
   createTask,
   getActivityDefinitions,
   getEventTypes,
-  getOrganization,
   getPractitioners,
   getRequester,
   getSubTasksByParentId,
@@ -18,7 +17,6 @@ import {
   CREATE_TASK,
   GET_ACTIVITY_DEFINITIONS,
   GET_EVENT_TYPES,
-  GET_ORGANIZATION,
   GET_PRACTITIONER,
   GET_PRACTITIONERS,
   GET_SUB_TASKS,
@@ -35,8 +33,6 @@ import {
   getActivityDefinitionsSuccess,
   getEventTypesError,
   getEventTypesSuccess,
-  getOrganizationError,
-  getOrganizationSuccess,
   getPractitionersError,
   getPractitionersSuccess,
   getRequesterError,
@@ -50,22 +46,6 @@ import {
   updateTaskError,
   updateTaskSuccess,
 } from './actions';
-
-export function* getOrganizationSaga(practitionerId) {
-  try {
-    const organization = yield call(getOrganization, practitionerId);
-    yield put(getOrganizationSuccess(organization));
-  } catch (err) {
-    yield put(getOrganizationError(err));
-  }
-}
-
-/**
- * Root saga manages watcher lifecycle
- */
-export function* watchGetOrganizationSaga() {
-  yield takeLatest(GET_ORGANIZATION, getOrganizationSaga);
-}
 
 export function* getRequesterSaga(practitionerId) {
   try {
@@ -131,9 +111,9 @@ export function* watchGetTasksByPatientSaga() {
   yield takeLatest(GET_TASKS_BY_PATIENT, getTasksByPatientSaga);
 }
 
-export function* getPractitionersSaga(practitionerId) {
+export function* getPractitionersSaga(organizationId) {
   try {
-    const practitioners = yield call(getPractitioners, practitionerId);
+    const practitioners = yield call(getPractitioners, organizationId);
     yield put(getPractitionersSuccess(practitioners));
   } catch (err) {
     yield put(getPractitionersError(err));
@@ -236,7 +216,6 @@ function getErrorDetail(err) {
  */
 export default function* rootSaga() {
   yield all([
-    watchGetOrganizationSaga(),
     watchGetRequesterSaga(),
     watchGetActivityDefinitionsSaga(),
     watchGetPractitionersSaga(),

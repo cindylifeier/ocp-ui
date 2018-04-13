@@ -33,8 +33,8 @@ import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
 import makeSelectTasks from 'containers/Tasks/selectors';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectOrganization, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
+import { makeSelectPatient, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
 import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -50,7 +50,7 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
-    const { match, location } = this.props;
+    const { match, location, organization } = this.props;
     this.props.getLookups();
     const logicalId = match.params.id;
     if (logicalId) {
@@ -61,14 +61,14 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     }
     const queryObj = queryString.parse(location.search);
     const patientId = queryObj.patientId;
-    // get organization for the given practitioner
-    this.props.getOrganization(this.state.practitionerId);
     // get practitioner details for the given practitioner
     this.props.getRequester(this.state.practitionerId);
     // get Activity Definitions-for for the given practitioner
     this.props.getActivityDefinitions(this.state.practitionerId);
-    // get practitioners belonging to requester organization
-    this.props.getPractitioners(this.state.practitionerId);
+    if (organization) {
+      // get practitioners belonging to requester organization
+      this.props.getPractitioners(organization.logicalId);
+    }
 
     // get episode of cares for the given patient
     this.props.getEventTypes(patientId);
@@ -255,16 +255,12 @@ ManageTaskPage.propTypes = {
     url: PropTypes.string,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
-  getOrganization: PropTypes.func.isRequired,
   getRequester: PropTypes.func,
   getPractitioners: PropTypes.func.isRequired,
   getEventTypes: PropTypes.func.isRequired,
   getActivityDefinitions: PropTypes.func.isRequired,
   getTasksByPatient: PropTypes.func.isRequired,
-  organization: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  }))),
+  organization: PropTypes.object,
   tasksByPatient: PropTypes.arrayOf((PropTypes.shape({
     reference: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -313,7 +309,7 @@ function mapDispatchToProps(dispatch) {
     getActivityDefinitions: (practitionerId) => dispatch(getActivityDefinitions(practitionerId)),
     getTasksByPatient: (patientId) => dispatch(getTasksByPatient(patientId)),
     getEventTypes: (patientId) => dispatch(getEventTypes(patientId)),
-    getPractitioners: (practitionerId) => dispatch(getPractitioners(practitionerId)),
+    getPractitioners: (organizationId) => dispatch(getPractitioners(organizationId)),
     createTask: (taskFormData, handleSubmitting) => dispatch(createTask(taskFormData, handleSubmitting)),
     getTask: (logicalId) => dispatch(getTaskById(logicalId)),
     getSubTasks: (logicalId) => dispatch(getSubTasks(logicalId)),

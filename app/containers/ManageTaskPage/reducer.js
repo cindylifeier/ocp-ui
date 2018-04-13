@@ -10,8 +10,6 @@ import {
   CREATE_TASK_SUCCESS,
   GET_ACTIVITY_DEFINITIONS_ERROR,
   GET_ACTIVITY_DEFINITIONS_SUCCESS,
-  GET_ORGANIZATION_ERROR,
-  GET_ORGANIZATION_SUCCESS,
   GET_PRACTITIONER_ERROR,
   GET_PRACTITIONER_SUCCESS,
   GET_PRACTITIONERS_ERROR,
@@ -30,9 +28,6 @@ const initialState = fromJS({});
 
 function manageTaskPageReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_ORGANIZATION_SUCCESS:
-      return state
-        .set('organization', action.organization);
     case GET_ACTIVITY_DEFINITIONS_SUCCESS:
       return state
         .set('activityDefinitions', action.activityDefinitions);
@@ -56,7 +51,6 @@ function manageTaskPageReducer(state = initialState, action) {
     case GET_TASKS_BY_PATIENT_SUCCESS:
       return state
         .set('tasksByPatient', action.tasksByPatient);
-    case GET_ORGANIZATION_ERROR:
     case GET_ACTIVITY_DEFINITIONS_ERROR:
     case GET_EVENT_TYPES_ERROR:
     case GET_PRACTITIONER_ERROR:
