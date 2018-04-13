@@ -94,24 +94,29 @@ class ConsentExpandableTableRow extends React.PureComponent {
               onClose={this.handleCloseIconMenu}
             >
               <MenuItem
-                primaryText={<FormattedMessage {...messages.edit} />}
-                containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
                 onClick={this.handleCloseIconMenu}
+                component={Link}
+                to={`/ocp-ui/manage-consent/${logicalId}`}
                 disabled
-              />
+              >
+                <FormattedMessage {...messages.edit} />
+              </MenuItem>
               {Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
               <ShowHideWrapper allowedRoles={allowedAttestConsentRoles}>
                 <MenuItem
-                  primaryText={<FormattedMessage {...messages.attest} />}
-                  containerElement={<Link to={`/ocp-ui/sign-consent/${logicalId}`} />}
+                  component={Link}
+                  to={`/ocp-ui/sign-consent/${logicalId}`}
                   onClick={this.handleCloseIconMenu}
-                />
+                >
+                  <FormattedMessage {...messages.attest} />
+                </MenuItem>
               </ShowHideWrapper>}
               <MenuItem
-                primaryText={<FormattedMessage {...messages.remove} />}
                 onClick={this.handleCloseIconMenu}
                 disabled
-              />
+              >
+                <FormattedMessage {...messages.remove} />
+              </MenuItem>
             </Menu>
           </TableRowColumn>
         </TableRow>

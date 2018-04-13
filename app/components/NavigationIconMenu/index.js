@@ -46,6 +46,7 @@ class NavigationIconMenu extends React.Component { // eslint-disable-line react/
           onClose={this.handleClose}
         >
           {menuItems.map((menuItem) => (
+            menuItem &&
             <MenuItem
               key={uniqueId()}
               disabled={menuItem.disabled || false}
