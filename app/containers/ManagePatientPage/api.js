@@ -1,6 +1,8 @@
 import request from 'utils/request';
 import { BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import Util from 'utils/Util';
+import queryString from 'utils/queryString';
+import { CARE_MANAGER_ROLE } from 'containers/App/constants';
 
 const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
@@ -33,7 +35,8 @@ export function getPatient(patientId) {
 
 export function getPractitioners({ organizationId }) {
   const practitionerEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const requestURL = `${practitionerEndpoint}/practitioner-references?organization=${organizationId}`;
+  const params = queryString({ organization: organizationId, role: CARE_MANAGER_ROLE });
+  const requestURL = `${practitionerEndpoint}/practitioner-references${params}`;
   return request(requestURL);
 }
 
