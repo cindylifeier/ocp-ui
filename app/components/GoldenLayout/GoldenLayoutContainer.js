@@ -35,6 +35,7 @@ const GoldenLayoutContainer = styled.div`
   & .lm_root {
     background: #fff;
     height: ${(props) => props.containerHeight};
+    width: ${(props) => props.containerWidth};
   }
 
   /* Enable scroll content */
@@ -55,14 +56,14 @@ const GoldenLayoutContainer = styled.div`
   & .lm_tab.lm_active {
     color: ${(props) => props.primaryColor};
     background: ${(props) => props.secondaryColor};
-    font-size: 18px;
+    font-size: 13px;
     font-family: Arial Bold, Arial, sans-serif;
   }
 
   & .lm_tab.lm_active:hover,
   .lm_tab:hover {
     color: #099;
-    font-size: 18px;
+    font-size: 13px;
   }
 
   & .lm_title {
@@ -72,6 +73,7 @@ const GoldenLayoutContainer = styled.div`
 
 GoldenLayoutContainer.propTypes = {
   containerHeight: PropTypes.string,
+  containerWidth: PropTypes.string,
   contentHeight: PropTypes.string,
   primaryColor: PropTypes.string,
   secondaryColor: PropTypes.string,
@@ -79,6 +81,7 @@ GoldenLayoutContainer.propTypes = {
 
 GoldenLayoutContainer.defaultProps = {
   containerHeight: 'calc(100vh - 75px)',
+  containerWidth: '100vw',
   primaryColor: '#33666f',
   secondaryColor: '#ffffff',
   contentHeight: 'auto',
