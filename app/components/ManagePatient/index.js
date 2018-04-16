@@ -60,6 +60,8 @@ function ManagePatient(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
+          careManager: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={(formikProps) => (
           <ManagePatientForm {...formikProps} {...managePatientFormProps} />)}
