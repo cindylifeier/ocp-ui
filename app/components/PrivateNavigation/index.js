@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { ToolbarGroup } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionHome from '@material-ui/icons/Home';
 import StyledToolbar from 'components/StyledToolbar';
 import messages from './messages';
 

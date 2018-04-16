@@ -7,8 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
-import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
 
 import RecordsRange from 'components/RecordsRange';
@@ -21,7 +19,7 @@ import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
 const tableColumns = 'repeat(5, 1fr) 50px';
@@ -45,6 +43,22 @@ function OrganizationTable(props) {
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
                 const flattenOrganization = props.flattenOrganizationData(organization);
                 const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
+                const menuItems = [{
+                  primaryText: <FormattedMessage {...messages.edit} />,
+                  linkTo: `/ocp-ui/manage-organization/${logicalId}`,
+                }, {
+                  primaryText: <FormattedMessage {...messages.addLocation} />,
+                  linkTo: '/ocp-ui/manage-location',
+                }, {
+                  primaryText: <FormattedMessage {...messages.addHealthCareService} />,
+                  linkTo: '/ocp-ui/manage-healthcare-service',
+                }, {
+                  primaryText: <FormattedMessage {...messages.addActivityDefinition} />,
+                  linkTo: '/ocp-ui/manage-activity-definition',
+                }, {
+                  primaryText: <FormattedMessage {...messages.remove} />,
+                  disabled: true,
+                }];
                 return (
                   <TableRow
                     columns={tableColumns}
@@ -72,27 +86,7 @@ function OrganizationTable(props) {
                       }
                     </TableRowColumn>
                     <TableRowColumn>
-                      <NavigationStyledIconMenu>
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.edit} />}
-                          containerElement={<Link to={`/ocp-ui/manage-organization/${logicalId}`} />}
-                        />
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.addLocation} />}
-                          containerElement={<Link to={'/ocp-ui/manage-location'} />}
-                        />
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.addHealthCareService} />}
-                          containerElement={<Link to={'/ocp-ui/manage-healthcare-service'} />}
-                        />
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.addActivityDefinition} />}
-                          containerElement={<Link to={'/ocp-ui/manage-activity-definition'} />}
-                        />
-                        <MenuItem
-                          primaryText={<FormattedMessage {...messages.remove} />}
-                        />
-                      </NavigationStyledIconMenu>
+                      <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
                   </TableRow>
                 );

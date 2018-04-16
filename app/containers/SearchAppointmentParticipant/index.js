@@ -43,7 +43,7 @@ import { Form, Formik } from 'formik';
 import { uniqueId } from 'lodash';
 import find from 'lodash/find';
 import { MenuItem } from 'material-ui';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import ActionSearch from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -187,11 +187,12 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
                       </Cell>
                       <Cell middle>
                         <StyledRaisedButton
-                          label={<FormattedMessage {...messages.addParticipantBtnLabel} />}
                           type="submit"
                           value={participant}
                           disabled={!dirty || isSubmitting || !isValid}
-                        />
+                        >
+                          <FormattedMessage {...messages.addParticipantBtnLabel} />
+                        </StyledRaisedButton>
                       </Cell>
                     </Grid>
                   </TableRowColumn>
@@ -227,10 +228,9 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
-      <StyledFlatButton
-        label={<FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />}
-        onClick={this.handleDialogClose}
-      />,
+      <StyledFlatButton onClick={this.handleDialogClose}>
+        <FormattedMessage {...messages.addParticipantDialogCancelBtnLabel} />
+      </StyledFlatButton>,
     ];
     return (
       <WideDialog

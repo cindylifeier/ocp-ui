@@ -5,11 +5,11 @@ import { Cell } from 'styled-css-grid';
 import { Link } from 'react-router-dom';
 import uniqueId from 'lodash/uniqueId';
 import capitalize from 'lodash/capitalize';
-
-import MenuItem from 'material-ui/MenuItem';
-import Chevron from 'material-ui/svg-icons/navigation/chevron-right';
-import Expand from 'material-ui/svg-icons/navigation/expand-more';
-import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import Menu, { MenuItem } from 'material-ui-next/Menu';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Chevron from '@material-ui/icons/ChevronRight';
+import Expand from '@material-ui/icons/ExpandMore';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import Util from 'utils/Util';
@@ -17,7 +17,6 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import StyledChip from 'components/StyledChip';
 import StyledIconButton from 'components/StyledIconButton';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
 import ConsentPurposeList from './ConsentPurposeList';
 import messages from './messages';
 import ConsentDetailsGrid from './ConsentDetailsGrid';
@@ -30,8 +29,11 @@ class ConsentExpandableTableRow extends React.PureComponent {
     super(props);
     this.state = {
       isShowAccordion: false,
+      anchorEl: null,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickIconMenu = this.handleClickIconMenu.bind(this);
+    this.handleCloseIconMenu = this.handleCloseIconMenu.bind(this);
   }
 
   handleClick() {
@@ -41,9 +43,18 @@ class ConsentExpandableTableRow extends React.PureComponent {
     });
   }
 
+  handleClickIconMenu(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleCloseIconMenu() {
+    this.setState({ anchorEl: null });
+  }
+
   render() {
     const { consent, tableColumns, allowedAttestConsentRoles } = this.props;
     const { logicalId, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
+    const { anchorEl } = this.state;
     return (
       <div>
         <TableRow
@@ -74,23 +85,39 @@ class ConsentExpandableTableRow extends React.PureComponent {
           <TableRowColumn>{period && period.start}-{period && period.end} </TableRowColumn>
           <TableRowColumn>{capitalize(status)}</TableRowColumn>
           <TableRowColumn>
-            <NavigationStyledIconMenu>
+            <StyledIconButton onClick={this.handleClickIconMenu}>
+              <MoreHorizIcon />
+            </StyledIconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleCloseIconMenu}
+            >
               <MenuItem
-                primaryText={<FormattedMessage {...messages.edit} />}
-                containerElement={<Link to={`/ocp-ui/manage-consent/${logicalId}`} />}
+                onClick={this.handleCloseIconMenu}
+                component={Link}
+                to={`/ocp-ui/manage-consent/${logicalId}`}
                 disabled
-              />
-              {Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) && <ShowHideWrapper allowedRoles={allowedAttestConsentRoles} >
+              >
+                <FormattedMessage {...messages.edit} />
+              </MenuItem>
+              {Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+              <ShowHideWrapper allowedRoles={allowedAttestConsentRoles}>
                 <MenuItem
-                  primaryText={<FormattedMessage {...messages.attest} />}
-                  containerElement={<Link to={`/ocp-ui/sign-consent/${logicalId}`} />}
-                />
+                  component={Link}
+                  to={`/ocp-ui/sign-consent/${logicalId}`}
+                  onClick={this.handleCloseIconMenu}
+                >
+                  <FormattedMessage {...messages.attest} />
+                </MenuItem>
               </ShowHideWrapper>}
               <MenuItem
-                primaryText={<FormattedMessage {...messages.remove} />}
+                onClick={this.handleCloseIconMenu}
                 disabled
-              />
-            </NavigationStyledIconMenu>
+              >
+                <FormattedMessage {...messages.remove} />
+              </MenuItem>
+            </Menu>
           </TableRowColumn>
         </TableRow>
         {this.state.isShowAccordion && <ConsentDetailsGrid columns={1}>

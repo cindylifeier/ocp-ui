@@ -1,24 +1,25 @@
 /**
-*
-* SearchRecipientDialogContent
-*
-*/
+ *
+ * SearchRecipientDialogContent
+ *
+ */
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import { Form, Formik } from 'formik';
+import Tooltip from 'material-ui-next/Tooltip';
+import ActionSearch from '@material-ui/icons/Search';
+import MenuItem from 'material-ui/MenuItem';
+import { Cell, Grid } from 'styled-css-grid';
+
 import FormGrid from 'components/FormGrid';
 import FormCell from 'components/FormCell';
-import { Cell, Grid } from 'styled-css-grid';
 import RecipientsTable from 'components/RecipientsTable';
-import PropTypes from 'prop-types';
 import StyledIconButton from 'components/StyledIconButton';
 import SelectField from 'components/SelectField';
 import TextField from 'components/TextField';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import MenuItem from 'material-ui/MenuItem';
 import Padding from 'components/Padding';
-import { Form, Formik } from 'formik';
-import yup from 'yup';
 import messages from './messages';
 
 
@@ -44,8 +45,6 @@ function SearchRecipientDialogContent(props) {
           handleSearch(values);
           actions.setSubmitting(false);
         }}
-        validationSchema={yup.object().shape({
-        })}
         render={(formikProps) => {
           const { isSubmitting } = formikProps;
           return (
@@ -74,13 +73,11 @@ function SearchRecipientDialogContent(props) {
                     </Cell>
                     <Cell>
                       <Padding top={'40px'}>
-                        <StyledIconButton
-                          tooltip={<FormattedMessage {...messages.searchButtonTooltip} />}
-                          type="submit"
-                          disabled={isSubmitting}
-                        >
-                          <ActionSearch />
-                        </StyledIconButton>
+                        <Tooltip title={<FormattedMessage {...messages.searchButtonTooltip} />}>
+                          <StyledIconButton type="submit" disabled={isSubmitting}>
+                            <ActionSearch />
+                          </StyledIconButton>
+                        </Tooltip>
                       </Padding>
                     </Cell>
                   </Grid>

@@ -63,10 +63,9 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
-          <AddTelecomsButton
-            onClick={this.handleOpenDialog}
-            label={<FormattedMessage {...messages.addTelecomsButton} />}
-          />
+          <AddTelecomsButton onClick={this.handleOpenDialog}>
+            <FormattedMessage {...messages.addTelecomsButton} />
+          </AddTelecomsButton>
           <FieldArray
             name="telecoms"
             render={(arrayHelpers) => (

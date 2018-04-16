@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import Util from 'utils/Util';
 import ErrorText from 'components/ErrorText';
-import { teal500, white } from 'material-ui/styles/colors';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { uniqueId } from 'lodash';
@@ -24,6 +23,7 @@ import TextField from 'components/TextField';
 import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
 import messages from './messages';
+
 
 function ManageCommunicationForm(props) {
   const today = new Date();
@@ -58,12 +58,9 @@ function ManageCommunicationForm(props) {
           {getRoleName(recipient.reference)}
         </TableRowColumn>
         <TableRowColumn>
-          <StyledRaisedButton
-            backgroundColor={teal500}
-            labelColor={white}
-            onClick={() => handleRemoveSelectedRecipient(false, recipient.reference)}
-            label={<FormattedMessage {...messages.form.removeRecipient} />}
-          />
+          <StyledRaisedButton onClick={() => handleRemoveSelectedRecipient(false, recipient.reference)}>
+            <FormattedMessage {...messages.form.removeRecipient} />
+          </StyledRaisedButton>
         </TableRowColumn>
       </TableRow>
     ));
@@ -227,11 +224,10 @@ function ManageCommunicationForm(props) {
         <FormCell top={10} left={1} width={2}>
           <StyledRaisedButton
             fullWidth
-            backgroundColor={teal500}
-            labelColor={white}
             onClick={handleOpen}
-            label={<FormattedMessage {...messages.form.addRecipient} />}
-          />
+          >
+            <FormattedMessage {...messages.form.addRecipient} />
+          </StyledRaisedButton>
         </FormCell>
         <FormCell top={11} left={1} width={10}>
           {selectedRecipients && selectedRecipients.length > 0 &&
@@ -256,13 +252,12 @@ function ManageCommunicationForm(props) {
             <Cell>
               <StyledRaisedButton
                 type="submit"
-                backgroundColor={teal500}
-                labelColor={white}
-                label={isSubmitting ?
+                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
+              >
+                {isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
                   <FormattedMessage {...messages.form.saveButton} />}
-                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid || !hasRecipients}
-              />
+              </StyledRaisedButton>
             </Cell>
             <Cell>
               <GoBackButton

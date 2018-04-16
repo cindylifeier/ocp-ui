@@ -9,17 +9,18 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
-import Close from 'material-ui/svg-icons/navigation/close';
+import Close from '@material-ui/icons/Close';
 import Avatar from 'material-ui/Avatar';
-import { Cell } from 'styled-css-grid';
+import Tooltip from 'material-ui-next/Tooltip';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { Cell, Grid } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
 import StyledDialog from 'components/StyledDialog';
-import ContinueButton from './ContinueButton';
-import CloseButton from './CloseButton';
-import PatientModalGrid from './PatientModalGrid';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledIconButton from 'components/StyledIconButton';
 import PatientModalCell from './PatientModalCell';
 import messages from './messages';
 
@@ -29,36 +30,44 @@ function ConfirmPatientModal(props) {
     <div>
       <StyledDialog
         open={isPatientModalOpen}
+        fullWidth
       >
-        <CloseButton tooltip="Close" onClick={onPatientModalClose}><Close /></CloseButton>
-        <PatientModalGrid
-          columns={1}
-          alignContent="space-between"
-        >
-          <Cell center><Avatar size={80} src={defaultPatientAvatarImage} /></Cell>
-          <PatientModalCell center>
-            Name{WHITE_SPACE}<strong>{mapToPatientName(patient)}</strong>
-          </PatientModalCell>
-          <PatientModalCell center>
-            DOB{WHITE_SPACE}<strong>{patient.birthDate}</strong>
-          </PatientModalCell>
-          <PatientModalCell center>
-            Gender{WHITE_SPACE}<strong>{upperFirst(patient.genderCode)}</strong>
-          </PatientModalCell>
-          <PatientModalCell center>
-            ID{WHITE_SPACE}<strong>{patient.id}</strong>
-          </PatientModalCell>
-          <PatientModalCell center>
-            Phone{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong>
-          </PatientModalCell>
-          <Cell center>
-            <ContinueButton
-              label={<FormattedMessage {...messages.continueButton} />}
-              onClick={onPatientModalClose}
-              containerElement={<Link to={`${PATIENTS_URL}/${patient.id}`} />}
-            />
-          </Cell>
-        </PatientModalGrid>
+        <DialogTitle>
+          <Tooltip title="Close">
+            <StyledIconButton onClick={onPatientModalClose}>
+              <Close />
+            </StyledIconButton>
+          </Tooltip>
+        </DialogTitle>
+        <DialogContent>
+          <Grid columns={1} alignContent="space-between">
+            <Cell center><Avatar size={80} src={defaultPatientAvatarImage} /></Cell>
+            <PatientModalCell center>
+              Name{WHITE_SPACE}<strong>{mapToPatientName(patient)}</strong>
+            </PatientModalCell>
+            <PatientModalCell center>
+              DOB{WHITE_SPACE}<strong>{patient.birthDate}</strong>
+            </PatientModalCell>
+            <PatientModalCell center>
+              Gender{WHITE_SPACE}<strong>{upperFirst(patient.genderCode)}</strong>
+            </PatientModalCell>
+            <PatientModalCell center>
+              ID{WHITE_SPACE}<strong>{patient.id}</strong>
+            </PatientModalCell>
+            <PatientModalCell center>
+              Phone{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong>
+            </PatientModalCell>
+            <Cell center>
+              <StyledRaisedButton
+                onClick={onPatientModalClose}
+                component={Link}
+                to={`${PATIENTS_URL}/${patient.id}`}
+              >
+                <FormattedMessage {...messages.continueButton} />
+              </StyledRaisedButton>
+            </Cell>
+          </Grid>
+        </DialogContent>
       </StyledDialog>
     </div>
   );

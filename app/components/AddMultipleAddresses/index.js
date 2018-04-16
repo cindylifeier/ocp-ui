@@ -59,10 +59,9 @@ class AddMultipleAddresses extends React.Component {
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
-          <AddAddressesButton
-            onClick={this.handleOpenDialog}
-            label={<FormattedMessage {...messages.addAddressesButton} />}
-          />
+          <AddAddressesButton onClick={this.handleOpenDialog}>
+            <FormattedMessage {...messages.addAddressesButton} />
+          </AddAddressesButton>
           <FieldArray
             name="addresses"
             render={(arrayHelpers) => (

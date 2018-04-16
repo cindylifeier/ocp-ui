@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 import find from 'lodash/find';
-import MenuItem from 'material-ui/MenuItem';
 
 import Util from 'utils/Util';
 import Table from 'components/Table';
@@ -11,7 +10,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationStyledIconMenu from 'components/StyledIconMenu/NavigationStyledIconMenu';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
@@ -42,26 +41,24 @@ function AddedFlagsTable(props) {
         }
         {flags && flags.map((flag, index) => {
           const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
+          const menuItems = [{
+            primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionEdit} />,
+            onClick: () => handleEditFlag(index, flag),
+          }, {
+            primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionRemove} />,
+            disabled: logicalId !== undefined,
+            onClick: () => arrayHelpers.remove(index),
+          }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{find(flagCategories, { code: category }) && (find(flagCategories, { code: category })).display}</TableRowColumn>
               <TableRowColumn>{find(flagStatuses, { code: status }) && (find(flagStatuses, { code: status })).display}</TableRowColumn>
               <TableRowColumn>{code}</TableRowColumn>
-              <TableRowColumn>{author && author.display }</TableRowColumn>
+              <TableRowColumn>{author && author.display}</TableRowColumn>
               <TableRowColumn>{flagStart && Util.formatDate(flagStart)}</TableRowColumn>
               <TableRowColumn>{flagEnd && Util.formatDate(flagEnd)}</TableRowColumn>
               <TableRowColumn>
-                <NavigationStyledIconMenu>
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedFlagsTable.tableActionEdit} />}
-                    onClick={() => handleEditFlag(index, flag)}
-                  />
-                  <MenuItem
-                    primaryText={<FormattedMessage {...messages.addedFlagsTable.tableActionRemove} />}
-                    disabled={logicalId !== undefined}
-                    onClick={() => arrayHelpers.remove(index)}
-                  />
-                </NavigationStyledIconMenu>
+                <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
             </TableRow>
           );
