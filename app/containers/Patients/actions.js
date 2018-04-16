@@ -18,13 +18,14 @@ export function initializePatients(patients) {
   };
 }
 
-export function loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage) {
+export function loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage, organization) {
   return {
     type: LOAD_PATIENT_SEARCH_RESULT,
     searchTerms,
     searchType,
     includeInactive,
     currentPage,
+    organization,
   };
 }
 
