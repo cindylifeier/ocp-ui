@@ -5,8 +5,8 @@ import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
 export function getPractitionersInOrganization(organizationId, page) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ page, size: DEFAULT_PAGE_SIZE });
-  const requestURL = `${baseEndpoint}/organization/${organizationId}${params}`;
+  const params = queryString({ page, size: DEFAULT_PAGE_SIZE, organization: organizationId });
+  const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
