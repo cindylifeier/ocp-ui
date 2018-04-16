@@ -59,7 +59,7 @@ export function* getEpisodeOfCaresSaga(action) {
   }
 }
 
-// TODO Refactore when Practitioner profile is establish.
+// TODO Refactor when Practitioner profile is establish.
 export function* getPractitionerSaga(action) {
   try {
     const practitioner = yield call(getRequester, action.practitionerId);
