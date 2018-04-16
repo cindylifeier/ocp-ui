@@ -19,7 +19,6 @@ export default function searchPatients(searchTerms, searchType, includeInactive,
       page: currentPage,
       size: DEFAULT_PAGE_SIZE,
       organization,
-      showAll: true,
     });
   }
 
