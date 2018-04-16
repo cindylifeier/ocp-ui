@@ -48,10 +48,9 @@ export const initialStateMetadata =
     },
     dimensions: {
       borderWidth: 5,
-      borderGrabWidth: 15,
-      minItemHeight: 10,
-      minItemWidth: 10,
       headerHeight: 30,
+      minItemWidth: 400,
+      minItemHeight: 200,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },
@@ -64,116 +63,63 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'row',
-      isClosable: true,
-      reorderEnabled: true,
-      title: '',
-      content: [{
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
+      type: 'column',
+      content: [
+        {
+          type: 'row',
+          height: 40,
+          content: [
+            {
+              title: 'Tasks',
+              type: 'component',
+              componentName: 'tasks',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Consents',
+              type: 'component',
+              componentName: 'consents',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Care Teams',
+              type: 'component',
+              componentName: 'careTeams',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Related Persons',
+              type: 'component',
+              componentName: 'relatedPersons',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+          ],
+        },
+        {
+          type: 'row',
           height: 60,
-          content: [{
-            title: 'Tasks',
-            type: 'component',
-            componentName: 'tasks',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          width: 50,
-          height: 60,
-          content: [{
-            title: 'Calendar',
-            type: 'component',
-            componentName: 'calendar',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 60,
-          content: [{
-            title: 'Care Teams',
-            type: 'component',
-            componentName: 'careTeams',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }],
-      }, {
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 60,
-          content: [{
-            title: 'My Appointments',
-            type: 'component',
-            componentName: 'appointments',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 60,
-          content: [{
-            title: 'Consents',
-            type: 'component',
-            componentName: 'consents',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          width: 50,
-          height: 60,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Related Persons',
-            type: 'component',
-            componentName: 'relatedPersons',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }],
-      }],
+          content: [
+            {
+              title: 'My Appointments',
+              type: 'component',
+              componentName: 'appointments',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Calendar',
+              type: 'component',
+              componentName: 'calendar',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+          ],
+        },
+      ],
     }],
     isClosable: true,
     reorderEnabled: true,
@@ -210,7 +156,8 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           </Cell>
           <Cell>
             <GoldenLayout
-              containerHeight="200vh"
+              containerHeight="80vh"
+              containerWidth="200vw"
               containerId="golden-patient-workspace"
               componentMetadata={componentMetadata}
               stateMetadata={initialStateMetadata}

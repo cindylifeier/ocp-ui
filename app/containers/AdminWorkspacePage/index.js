@@ -43,8 +43,8 @@ export const initialStateMetadata =
     dimensions: {
       borderWidth: 15,
       borderGrabWidth: 15,
-      minItemHeight: 10,
-      minItemWidth: 10,
+      minItemHeight: 200,
+      minItemWidth: 400,
       headerHeight: 40,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
