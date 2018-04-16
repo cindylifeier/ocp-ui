@@ -31,13 +31,17 @@ class OrganizationTable extends React.Component {
     super(props);
     this.state = {
       openSlider: false,
+      selectedOrganization: null,
     };
     this.handleSliderOpen = this.handleSliderOpen.bind(this);
     this.handleSliderClose = this.handleSliderClose.bind(this);
   }
 
-  handleSliderOpen() {
-    this.setState({ openSlider: true });
+  handleSliderOpen(selectedOrganization) {
+    this.setState({
+      selectedOrganization,
+      openSlider: true,
+    });
   }
 
   handleSliderClose() {
@@ -67,7 +71,7 @@ class OrganizationTable extends React.Component {
                     linkTo: `/ocp-ui/manage-organization/${logicalId}`,
                   }, {
                     primaryText: <FormattedMessage {...messages.viewDetails} />,
-                    onClick: () => this.handleSliderOpen(),
+                    onClick: () => this.handleSliderOpen(flattenOrganization),
                   }, {
                     primaryText: <FormattedMessage {...messages.addLocation} />,
                     linkTo: '/ocp-ui/manage-location',
@@ -133,7 +137,13 @@ class OrganizationTable extends React.Component {
               <NoResultsFoundText>No organizations found</NoResultsFoundText>
             </CenterAlign>)
         )}
-        <OrganizationSlider open={this.state.openSlider} onClose={this.handleSliderClose} />
+        {this.state.selectedOrganization &&
+        <OrganizationSlider
+          open={this.state.openSlider}
+          onClose={this.handleSliderClose}
+          organization={this.state.selectedOrganization}
+        />
+        }
       </div>
     );
   }

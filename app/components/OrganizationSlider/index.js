@@ -10,18 +10,22 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import StyledDrawer from 'components/StyledDrawer';
 import StyledIconButton from 'components/StyledIconButton';
+import InfoSection from 'components/InfoSection';
+import OrganizationSliderHeader from 'components/OrganizationSlider/OrganizationSliderHeader';
 
 const anchors = ['left', 'top', 'right', 'bottom'];
 
 function OrganizationSlider(props) {
-  const { anchor, open, onClose } = props;
+  const { anchor, open, onClose, organization } = props;
   return (
     <div>
       <StyledDrawer margin="0 100px 0 0" anchor={anchor} open={open} transitionDuration={{ enter: 500, exit: 20 }}>
         <StyledIconButton onClick={onClose}>
           <Cancel />
         </StyledIconButton>
-        Drawer content
+        <InfoSection margin="0 10px">
+          <OrganizationSliderHeader organization={organization} />
+        </InfoSection>
       </StyledDrawer>
     </div>
   );
@@ -31,6 +35,26 @@ OrganizationSlider.propTypes = {
   anchor: PropTypes.oneOf(anchors),
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  organization: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.string,
+    active: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+  }).isRequired,
 };
 
 OrganizationSlider.defaultProps = {
