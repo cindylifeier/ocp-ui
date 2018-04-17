@@ -35,10 +35,10 @@ import {
 } from './constants';
 
 
-export function getRequester(organizationId) {
+export function getRequester(practitionerId) {
   return {
     type: GET_PRACTITIONER,
-    organizationId,
+    practitionerId,
   };
 }
 export function getRequesterSuccess(practitioner) {
@@ -55,10 +55,10 @@ export function getRequesterError(err) {
   };
 }
 
-export function getActivityDefinitions(organizationId) {
+export function getActivityDefinitions(practitionerId) {
   return {
     type: GET_ACTIVITY_DEFINITIONS,
-    organizationId,
+    practitionerId,
   };
 }
 

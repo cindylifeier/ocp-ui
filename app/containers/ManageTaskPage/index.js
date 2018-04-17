@@ -23,17 +23,13 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
-import { REQUEST_INTENT,
-  REQUEST_PRIORITY,
-  TASK_PERFORMER_TYPE,
-  TASK_STATUS,
-  TO_DO_DEFINITION,
-} from 'containers/App/constants';
+import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS, TO_DO_DEFINITION } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
 import makeSelectTasks from 'containers/Tasks/selectors';
-import { makeSelectPatient, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
 import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
 import reducer from './reducer';
@@ -44,13 +40,10 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
-    this.state = {
-      practitionerId: 1961,
-    };
   }
 
   componentDidMount() {
-    const { match, location, organization } = this.props;
+    const { match, location, organization, user } = this.props;
     this.props.getLookups();
     const logicalId = match.params.id;
     if (logicalId) {
@@ -61,13 +54,16 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     }
     const queryObj = queryString.parse(location.search);
     const patientId = queryObj.patientId;
-    // get practitioner details for the given practitioner
-    this.props.getRequester(this.state.practitionerId);
-    // get Activity Definitions-for for the given practitioner
-    this.props.getActivityDefinitions(this.state.practitionerId);
     if (organization) {
       // get practitioners belonging to requester organization
       this.props.getPractitioners(organization.logicalId);
+      const practitionerId = getPractitionerIdByRole(user);
+      if (practitionerId) {
+        // get practitioner details for the given practitioner
+        this.props.getRequester(practitionerId);
+        // get Activity Definitions-for for the given practitioner
+        this.props.getActivityDefinitions(practitionerId);
+      }
     }
 
     // get episode of cares for the given patient
@@ -118,7 +114,11 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     };
 
     // creator organization -- assumption only one org per application context
-    taskDataToSubmit.organization = this.props.organization[0];
+    const selOrg = this.props.organization;
+    taskDataToSubmit.organization = {
+      reference: `Organization/${selOrg.logicalId}`,
+      display: selOrg.name,
+    };
 
     // Optional Fields
     if (eventTypes) {
@@ -282,6 +282,7 @@ ManageTaskPage.propTypes = {
   getTask: PropTypes.func,
   updateTask: PropTypes.func,
   getSubTasks: PropTypes.func,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -299,6 +300,7 @@ const mapStateToProps = createStructuredSelector({
   subTasks: makeSelectSubTasks(),
   tasksByPatient: makeSelectTasksByPatient(),
   toDoSubTasks: makeSelectPatientToDos(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
