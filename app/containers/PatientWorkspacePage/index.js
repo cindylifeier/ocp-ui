@@ -47,7 +47,7 @@ export const initialStateMetadata =
       tabControlOffset: 10,
     },
     dimensions: {
-      borderWidth: 5,
+      borderWidth: 10,
       headerHeight: 30,
       minItemWidth: 400,
       minItemHeight: 200,
@@ -156,8 +156,8 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           </Cell>
           <Cell>
             <GoldenLayout
-              containerHeight="80vh"
-              containerWidth="200vw"
+              containerHeight="75vh"
+              containerWidth="100vw"
               containerId="golden-patient-workspace"
               componentMetadata={componentMetadata}
               stateMetadata={initialStateMetadata}
