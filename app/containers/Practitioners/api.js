@@ -12,7 +12,7 @@ export function getPractitionersInOrganization(organizationId, page) {
 
 export function searchPractitioners(searchType, searchValue, showInactive, organization, page) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ searchType, searchValue, showInactive, size: DEFAULT_PAGE_SIZE, organization, page });
+  const params = queryString({ searchType, searchValue, showInactive, size: DEFAULT_PAGE_SIZE, organization, page, showAll: true });
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }
