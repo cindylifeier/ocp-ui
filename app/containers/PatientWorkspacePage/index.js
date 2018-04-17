@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -147,23 +146,19 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           <meta name="description" content="Patient workspace page of Omnibus Care Plan application" />
         </Helmet>
         {patient &&
-        <Grid columns={1}>
-          <Cell>
-            <PatientDetails
-              patient={patient}
-              flattenPatientData={flattenPatientData}
-            />
-          </Cell>
-          <Cell>
-            <GoldenLayout
-              containerHeight="75vh"
-              containerWidth="100vw"
-              containerId="golden-patient-workspace"
-              componentMetadata={componentMetadata}
-              stateMetadata={initialStateMetadata}
-            />
-          </Cell>
-        </Grid>}
+        <div>
+          <PatientDetails
+            patient={patient}
+            flattenPatientData={flattenPatientData}
+          />
+          <GoldenLayout
+            containerHeight="75vh"
+            containerWidth="95vw"
+            containerId="golden-patient-workspace"
+            componentMetadata={componentMetadata}
+            stateMetadata={initialStateMetadata}
+          />
+        </div>}
       </Page>
     );
   }
