@@ -9,11 +9,18 @@ import identity from 'lodash/identity';
 import { PHONE_SYSTEM } from 'utils/constants';
 import {
   ADMIN_WORKSPACE,
+  BENEFITS_SPECIALIST_ROLE_CODE,
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
   EMPTY_STRING,
+  FRONT_OFFICE_ROLE_CODE,
+  HEALTH_ASSISTANT_ROLE_CODE,
   NEW_LINE_CHARACTER,
   OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
   PATIENT_ROLE_CODE,
   PATIENT_WORKSPACE,
+  PCP_ROLE_CODE,
   PRACTITIONER_WORKSPACE,
 } from 'containers/App/constants';
 
@@ -86,4 +93,40 @@ export function getLinkUrlByRole(role) {
       linkUrl = PRACTITIONER_WORKSPACE;
   }
   return linkUrl;
+}
+
+export function getRoleByScope(scope) {
+  let role;
+  switch (scope.split('.').pop(-1)) {
+    case 'admin':
+      role = OCP_ADMIN_ROLE_CODE;
+      break;
+    case 'patient':
+      role = PATIENT_ROLE_CODE;
+      break;
+    case 'careCoordinator':
+      role = CARE_COORDINATOR_ROLE_CODE;
+      break;
+    case 'careManager':
+      role = CARE_MANAGER_ROLE_CODE;
+      break;
+    case 'orgAdmin':
+      role = ORGANIZATION_ADMIN_ROLE_CODE;
+      break;
+    case 'pcp':
+      role = PCP_ROLE_CODE;
+      break;
+    case 'benetspt':
+      role = BENEFITS_SPECIALIST_ROLE_CODE;
+      break;
+    case 'hasst':
+      role = HEALTH_ASSISTANT_ROLE_CODE;
+      break;
+    case 'forecept':
+      role = FRONT_OFFICE_ROLE_CODE;
+      break;
+    default:
+      role = null;
+  }
+  return role;
 }
