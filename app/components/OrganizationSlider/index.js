@@ -11,7 +11,8 @@ import Cancel from '@material-ui/icons/Cancel';
 import StyledDrawer from 'components/StyledDrawer';
 import StyledIconButton from 'components/StyledIconButton';
 import InfoSection from 'components/InfoSection';
-import OrganizationSliderHeader from 'components/OrganizationSlider/OrganizationSliderHeader';
+import OrganizationSliderHeader from './OrganizationSliderHeader';
+import OrganizationSliderServices from './OrganizationSliderServices';
 
 const anchors = ['left', 'top', 'right', 'bottom'];
 
@@ -19,12 +20,15 @@ function OrganizationSlider(props) {
   const { anchor, open, onClose, organization } = props;
   return (
     <div>
-      <StyledDrawer margin="0 100px 0 0" anchor={anchor} open={open} transitionDuration={{ enter: 500, exit: 20 }}>
+      <StyledDrawer anchor={anchor} open={open} transitionDuration={{ enter: 500, exit: 20 }}>
         <StyledIconButton onClick={onClose}>
           <Cancel />
         </StyledIconButton>
-        <InfoSection margin="0 10px">
+        <InfoSection>
           <OrganizationSliderHeader organization={organization} />
+        </InfoSection>
+        <InfoSection>
+          <OrganizationSliderServices organization={organization} />
         </InfoSection>
       </StyledDrawer>
     </div>

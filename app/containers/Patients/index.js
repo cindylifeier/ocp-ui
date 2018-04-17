@@ -150,7 +150,6 @@ export class Patients extends React.Component {
           />
         </div>
         }
-        {/* TODO: Will move ConfirmPatientModal to upcoming tasks component*/}
         {this.state.patient &&
         <ConfirmPatientModal
           patient={this.state.patient}

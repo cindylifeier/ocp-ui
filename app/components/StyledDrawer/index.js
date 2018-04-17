@@ -15,7 +15,6 @@ const StyledDrawer = styled(({ width, margin, ...other }) => (
     width: ${(props) => props.width};
     margin: ${(props) => props.margin};
     border: 1px solid rgba(121, 121, 121, 1);
-    border-radius: 8px;
     background-color: rgba(242, 242, 242, 1);
   }
 `;

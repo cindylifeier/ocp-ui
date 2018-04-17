@@ -6,6 +6,32 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  servicesPanel: {
+    panelSummary: {
+      id: 'ocpui.components.OrganizationSlider.servicesPanel.panelSummary',
+      defaultMessage: 'Services',
+    },
+    tableHeaderColumnName: {
+      id: 'ocpui.components.OrganizationSlider.servicesPanel.tableHeaderColumnName',
+      defaultMessage: 'Services',
+    },
+    tableHeaderColumnDescription: {
+      id: 'ocpui.components.OrganizationSlider.servicesPanel.tableHeaderColumnDescription',
+      defaultMessage: 'Description',
+    },
+  },
+  locationsPanel: {
+    panelSummary: {
+      id: 'ocpui.components.OrganizationSlider.locationsPanel.panelSummary',
+      defaultMessage: 'Locations',
+    },
+  },
+  activityDefinitionsPanel: {
+    panelSummary: {
+      id: 'ocpui.components.OrganizationSlider.activityDefinitionsPanel.panelSummary',
+      defaultMessage: 'Activity Definitions',
+    },
+  },
   orgImg: {
     id: 'ocpui.components.OrganizationSlider.orgImg',
     defaultMessage: 'Organization Image',
