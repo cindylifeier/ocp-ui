@@ -9,27 +9,32 @@ import InfoSection from 'components/InfoSection';
 import StyledText from 'components/StyledText';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledImage from 'components/StyledImage';
-import brandImg from 'images/omnibus-care-plan-logo.png';
+import imgPlaceholder from 'images/image-placeholder.png';
 import SliderHeaderSection from './SliderHeaderSection';
 import messages from './messages';
 
 function OrganizationSliderHeader(props) {
   const { organization: { logicalId, name, identifiers, active, addresses } } = props;
   return (
-    <SliderHeaderSection padding="15px 20px">
+    <SliderHeaderSection>
       <Grid columns={'20% 1fr 10%'}>
         <Cell>
-          <StyledImage height="120px" width="110px" src={brandImg} alt={<FormattedMessage {...messages.orgImg} />} />
+          <StyledImage
+            height="130px"
+            width="110px"
+            src={imgPlaceholder}
+            alt={<FormattedMessage {...messages.orgImg} />}
+          />
         </Cell>
         <Cell>
           <InfoSection margin="0 0 20px 0">
-            <StyledText fontSize="16px" fontWeight="700" color="primary">
+            <StyledText fontSize="20px" fontWeight="700" color="primary">
               {name}
             </StyledText>
           </InfoSection>
           <Grid columns={'60% 40%'} justifyContent="space-between">
-            <Cell>ID
-              <StyledText whiteSpace fontWeight="700">
+            <Cell>
+              <StyledText fontWeight="700">
                 {identifiers}
               </StyledText>
             </Cell>

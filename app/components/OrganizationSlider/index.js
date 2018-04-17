@@ -25,9 +25,7 @@ function OrganizationSlider(props) {
         <StyledIconButton onClick={onClose}>
           <Cancel />
         </StyledIconButton>
-        <InfoSection>
-          <OrganizationSliderHeader organization={flattenedOrganization} />
-        </InfoSection>
+        <OrganizationSliderHeader organization={flattenedOrganization} />
         <InfoSection>
           <OrganizationSliderServices organization={flattenedOrganization} />
         </InfoSection>
