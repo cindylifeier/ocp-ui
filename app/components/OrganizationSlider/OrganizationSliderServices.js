@@ -13,24 +13,39 @@ import messages from './messages';
 
 const tableColumns = 'repeat(2, 1fr) 50px';
 
-function OrganizationSliderServices() {
-  return (
-    <div>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography><FormattedMessage {...messages.servicesPanel.panelSummary} /></Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Table>
-            <TableHeader columns={tableColumns}>
-              <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnName} /></TableHeaderColumn>
-              <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
-            </TableHeader>
-          </Table>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </div>
-  );
+class OrganizationSliderServices extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      expansionPanelOpen: false,
+    };
+    this.handlePanelOpen = this.handlePanelOpen.bind(this);
+  }
+
+  handlePanelOpen() {
+    this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen });
+  }
+
+  render() {
+    return (
+      <div>
+        <ExpansionPanel expanded={this.state.expansionPanelOpen}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon onClick={this.handlePanelOpen} />}>
+            <Typography><FormattedMessage {...messages.servicesPanel.panelSummary} /></Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Table>
+              <TableHeader columns={tableColumns}>
+                <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnName} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
+              </TableHeader>
+            </Table>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
+    );
+  }
 }
 
 OrganizationSliderServices.propTypes = {
