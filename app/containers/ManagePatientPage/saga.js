@@ -1,11 +1,8 @@
-// import { take, call, put, select } from 'redux-saga/effects'
-
-// Individual exports for testing
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, all, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import { SAVE_PATIENT } from './constants';
-import { savePatientError } from './actions';
-import { postPatient, putPatient } from './api';
+import { SAVE_PATIENT, GET_PRACTITIONERS } from './constants';
+import { savePatientError, getPractitionersError, getPractitionersSuccess } from './actions';
+import { postPatient, putPatient, getPractitioners } from './api';
 import { showNotification } from '../Notification/actions';
 
 
@@ -26,7 +23,7 @@ export function* savePatientWorker(action) {
   }
 }
 
-export default function* watchManagePatient() {
+export function* watchManagePatientSaga() {
   yield [
     takeLatest(SAVE_PATIENT, savePatientWorker),
   ];
@@ -38,4 +35,30 @@ function getNotificationAction(patientFormData) {
     action = 'edit';
   }
   return action;
+}
+
+export function* getPractitionersSaga(practitionerId) {
+  try {
+    const practitioners = yield call(getPractitioners, practitionerId);
+    yield put(getPractitionersSuccess(practitioners));
+  } catch (err) {
+    yield put(getPractitionersError(err));
+  }
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export function* watchGetPractitionersSaga() {
+  yield takeLatest(GET_PRACTITIONERS, getPractitionersSaga);
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* rootSaga() {
+  yield all([
+    watchManagePatientSaga(),
+    watchGetPractitionersSaga(),
+  ]);
 }

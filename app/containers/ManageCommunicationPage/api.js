@@ -39,7 +39,7 @@ export function getEpisodeOfCares(patientId) {
   return request(requestURL);
 }
 
-// TODO Refactore when Practitioner profile is establish.
+// TODO Refactor when Practitioner profile is establish.
 export function getRequester(practitionerId) {
   const practitionerBaseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const requestURL = `${practitionerBaseEndpoint}/${practitionerId}`;

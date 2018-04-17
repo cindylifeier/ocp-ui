@@ -1,7 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import {
-  BASE_ORGANIZATIONS_API_URL,
   BASE_PRACTITIONERS_API_URL,
   BASE_TASKS_API_URL,
   BASE_EPISODE_OF_CARES_API_URL,
@@ -9,13 +8,6 @@ import {
   getEndpoint,
 } from 'utils/endpointService';
 import request from 'utils/request';
-
-
-export function getOrganization({ practitionerId }) {
-  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-  const requestURL = `${baseEndpoint}?practitioner=${practitionerId}`;
-  return request(requestURL);
-}
 
 export function getRequester({ practitionerId }) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
@@ -42,9 +34,9 @@ export function getTasksByPatient({ patientId }) {
 }
 
 
-export function getPractitioners({ practitionerId }) {
+export function getPractitioners({ organizationId }) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const requestURL = `${baseEndpoint}?practitioner=${practitionerId}`;
+  const requestURL = `${baseEndpoint}/practitioner-references?organization=${organizationId}`;
   return request(requestURL);
 }
 

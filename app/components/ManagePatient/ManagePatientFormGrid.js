@@ -8,6 +8,7 @@ const ManagePatientFormGrid = Grid.extend`
   grid-template-columns: 1fr;
   grid-template-areas:
     "generalInformationSubtitle"
+    "contextGroup"
     "firstName"
     "lastName"
     "birthDate"
@@ -26,6 +27,7 @@ const ManagePatientFormGrid = Grid.extend`
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
+      "contextGroup contextGroup"
       "firstName lastName"
       "birthDate genderCode"
       "birthSex race"
@@ -41,6 +43,7 @@ const ManagePatientFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
+      "contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup contextGroup"
       "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."
       "birthDate birthDate birthDate birthDate genderCode genderCode birthSex birthSex . . . ."
       "race race ethnicity ethnicity ethnicity language language . . . . ."

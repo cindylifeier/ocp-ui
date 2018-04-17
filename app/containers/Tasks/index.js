@@ -23,6 +23,7 @@ import Card from 'components/Card';
 import CenterAlign from 'components/Align/CenterAlign';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import TaskTable from 'components/TaskTable';
@@ -39,7 +40,6 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
-      practitionerId: 1961,
       isPatientModalOpen: false,
     };
     this.cancelTask = this.cancelTask.bind(this);
@@ -50,17 +50,19 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
 
   componentDidMount() {
     this.props.initializeTasks();
-    const { patient } = this.props;
+    const { patient, user } = this.props;
+    const practitionerId = getPractitionerIdByRole(user);
     if (patient) {
-      this.props.getTasks(this.state.practitionerId, patient.id);
+      this.props.getTasks(practitionerId, patient.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { patient } = this.props;
+    const { patient, user } = this.props;
     const { patient: newPatient } = nextProps;
+    const practitionerId = getPractitionerIdByRole(user);
     if (!isEqual(patient, newPatient)) {
-      this.props.getTasks(this.state.practitionerId, nextProps.patient.id);
+      this.props.getTasks(practitionerId, nextProps.patient.id);
     }
   }
 
@@ -77,16 +79,16 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { tasks: { loading, data }, patient } = this.props;
+    const { tasks: { loading, data }, patient, user } = this.props;
     let taskList = data;
     if (!isEmpty(data)) {
       taskList = data.filter((task) => task.description !== TO_DO_DEFINITION);
     }
     const patientName = mapToPatientName(patient);
-
+    const practitionerId = getPractitionerIdByRole(user);
     let createTaskUrl;
     let addNewItem;
-    if (this.state.practitionerId && !isEmpty(patient) && !isEmpty(patient.id)) {
+    if (practitionerId && !isEmpty(patient) && !isEmpty(patient.id)) {
       createTaskUrl = `${MANAGE_TASK_URL}?patientId=${patient.id}&isMainTask=true`;
       addNewItem = {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
@@ -151,6 +153,7 @@ Tasks.propTypes = {
     loading: PropTypes.bool.isRequired,
   }),
   patient: PropTypes.object,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
