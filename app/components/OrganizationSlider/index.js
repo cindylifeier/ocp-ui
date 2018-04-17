@@ -21,7 +21,12 @@ function OrganizationSlider(props) {
   const flattenedOrganization = flattenOrganizationData(organization);
   return (
     <div>
-      <StyledDrawer anchor={anchor} open={open} transitionDuration={{ enter: 500, exit: 20 }}>
+      <StyledDrawer
+        anchor={anchor}
+        open={open}
+        transitionDuration={{ enter: 500, exit: 20 }}
+        hideBackdrop
+      >
         <StyledIconButton onClick={onClose}>
           <Cancel />
         </StyledIconButton>
