@@ -58,11 +58,10 @@ function PatientDetails(props) {
           </Grid>
         </PatientDetailsCell>
         <PatientDetailsCell>
-          <DetailsPanelGrid columns={'repeat(4, 1fr) 100px '}>
+          <DetailsPanelGrid columns={'55px repeat(2, 1fr) 100px'}>
+            <Cell></Cell>
             <Cell>Address{WHITE_SPACE}<strong>{addresses}</strong></Cell>
             <Cell>Contact{WHITE_SPACE}<strong>{phones}</strong></Cell>
-            <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
-            <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
             {flags.length > 0 &&
             <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
               <Cell>
