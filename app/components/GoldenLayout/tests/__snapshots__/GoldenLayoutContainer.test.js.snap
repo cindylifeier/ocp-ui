@@ -6,6 +6,8 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GoldenLayoutContainer__GoldenLayoutContainer
     containerHeight="calc(100vh - 75px)"
+    containerWidth="100vw"
+    contentHeight="auto"
     primaryColor="#33666f"
     secondaryColor="#ffffff"
   />,
@@ -21,7 +23,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL jcfsAx",
+      "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL cvKVTT",
     },
     "ref": null,
     "rendered": null,
@@ -33,7 +35,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL jcfsAx",
+        "className": "GoldenLayoutContainer__GoldenLayoutContainer-dUxNlL cvKVTT",
       },
       "ref": null,
       "rendered": null,

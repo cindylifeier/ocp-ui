@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -47,11 +46,10 @@ export const initialStateMetadata =
       tabControlOffset: 10,
     },
     dimensions: {
-      borderWidth: 5,
-      borderGrabWidth: 15,
-      minItemHeight: 10,
-      minItemWidth: 10,
+      borderWidth: 10,
       headerHeight: 30,
+      minItemWidth: 400,
+      minItemHeight: 200,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },
@@ -64,116 +62,63 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'row',
-      isClosable: true,
-      reorderEnabled: true,
-      title: '',
-      content: [{
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
+      type: 'column',
+      content: [
+        {
+          type: 'row',
+          height: 40,
+          content: [
+            {
+              title: 'Tasks',
+              type: 'component',
+              componentName: 'tasks',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Consents',
+              type: 'component',
+              componentName: 'consents',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Care Teams',
+              type: 'component',
+              componentName: 'careTeams',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Related Persons',
+              type: 'component',
+              componentName: 'relatedPersons',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+          ],
+        },
+        {
+          type: 'row',
           height: 60,
-          content: [{
-            title: 'Tasks',
-            type: 'component',
-            componentName: 'tasks',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          width: 50,
-          height: 60,
-          content: [{
-            title: 'Calendar',
-            type: 'component',
-            componentName: 'calendar',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 60,
-          content: [{
-            title: 'Care Teams',
-            type: 'component',
-            componentName: 'careTeams',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }],
-      }, {
-        type: 'column',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        width: 50,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 60,
-          content: [{
-            title: 'My Appointments',
-            type: 'component',
-            componentName: 'appointments',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 60,
-          content: [{
-            title: 'Consents',
-            type: 'component',
-            componentName: 'consents',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          width: 50,
-          height: 60,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Related Persons',
-            type: 'component',
-            componentName: 'relatedPersons',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }],
-      }],
+          content: [
+            {
+              title: 'My Appointments',
+              type: 'component',
+              componentName: 'appointments',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Calendar',
+              type: 'component',
+              componentName: 'calendar',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+          ],
+        },
+      ],
     }],
     isClosable: true,
     reorderEnabled: true,
@@ -201,22 +146,19 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
           <meta name="description" content="Patient workspace page of Omnibus Care Plan application" />
         </Helmet>
         {patient &&
-        <Grid columns={1}>
-          <Cell>
-            <PatientDetails
-              patient={patient}
-              flattenPatientData={flattenPatientData}
-            />
-          </Cell>
-          <Cell>
-            <GoldenLayout
-              containerHeight="200vh"
-              containerId="golden-patient-workspace"
-              componentMetadata={componentMetadata}
-              stateMetadata={initialStateMetadata}
-            />
-          </Cell>
-        </Grid>}
+        <div>
+          <PatientDetails
+            patient={patient}
+            flattenPatientData={flattenPatientData}
+          />
+          <GoldenLayout
+            containerHeight="75vh"
+            containerWidth="95vw"
+            containerId="golden-patient-workspace"
+            componentMetadata={componentMetadata}
+            stateMetadata={initialStateMetadata}
+          />
+        </div>}
       </Page>
     );
   }

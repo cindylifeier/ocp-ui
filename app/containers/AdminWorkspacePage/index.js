@@ -41,11 +41,11 @@ export const initialStateMetadata =
       tabControlOffset: 10,
     },
     dimensions: {
-      borderWidth: 5,
+      borderWidth: 15,
       borderGrabWidth: 15,
-      minItemHeight: 10,
-      minItemWidth: 10,
-      headerHeight: 30,
+      minItemHeight: 200,
+      minItemWidth: 400,
+      headerHeight: 40,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
     },
@@ -58,25 +58,18 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'column',
+      type: 'row',
       isClosable: true,
       reorderEnabled: true,
       title: '',
-      content: [{
-        type: 'row',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        height: 80,
-        content: [{
+      content: [
+        {
           type: 'stack',
           header: {},
           isClosable: true,
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
-          width: 50,
-          height: 80,
           content: [{
             title: 'Organizations',
             type: 'component',
@@ -86,7 +79,6 @@ export const initialStateMetadata =
           }],
         }, {
           type: 'stack',
-          width: 50,
           isClosable: true,
           reorderEnabled: true,
           title: '',
@@ -98,23 +90,22 @@ export const initialStateMetadata =
             isClosable: true,
             reorderEnabled: true,
           }],
-        }],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 80,
-        content: [{
-          title: 'Patients',
-          type: 'component',
-          componentName: 'patients',
+        }, {
+          type: 'stack',
+          header: {},
           isClosable: true,
           reorderEnabled: true,
-        }],
-      }],
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Patients',
+            type: 'component',
+            componentName: 'patients',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        },
+      ],
     }],
     isClosable: true,
     reorderEnabled: true,
@@ -138,7 +129,7 @@ export class AdminWorkspacePage extends React.Component { // eslint-disable-line
           <meta name="description" content="Admin workspace page of Omnibus Care Plan application" />
         </Helmet>
         <GoldenLayout
-          containerHeight="170vh"
+          containerHeight="85vh"
           containerId="golden-admin-workspace"
           componentMetadata={componentMetadata}
           stateMetadata={initialStateMetadata}
