@@ -17,7 +17,8 @@ import OrganizationSliderServices from './OrganizationSliderServices';
 const anchors = ['left', 'top', 'right', 'bottom'];
 
 function OrganizationSlider(props) {
-  const { anchor, open, onClose, organization } = props;
+  const { anchor, open, onClose, organization, flattenOrganizationData } = props;
+  const flattenedOrganization = flattenOrganizationData(organization);
   return (
     <div>
       <StyledDrawer anchor={anchor} open={open} transitionDuration={{ enter: 500, exit: 20 }}>
@@ -25,10 +26,10 @@ function OrganizationSlider(props) {
           <Cancel />
         </StyledIconButton>
         <InfoSection>
-          <OrganizationSliderHeader organization={organization} />
+          <OrganizationSliderHeader organization={flattenedOrganization} />
         </InfoSection>
         <InfoSection>
-          <OrganizationSliderServices organization={organization} />
+          <OrganizationSliderServices organization={flattenedOrganization} />
         </InfoSection>
       </StyledDrawer>
     </div>
@@ -39,9 +40,16 @@ OrganizationSlider.propTypes = {
   anchor: PropTypes.oneOf(anchors),
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  flattenOrganizationData: PropTypes.func.isRequired,
   organization: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
-    identifiers: PropTypes.string,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
     active: PropTypes.bool,
     name: PropTypes.string.isRequired,
     addresses: PropTypes.arrayOf(PropTypes.shape({
