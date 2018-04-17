@@ -24,7 +24,7 @@ ShallowWrapper {
       "children": <div>
         test
       </div>,
-      "className": "Page__Page-gtWHnP dQfVR",
+      "className": "Page__Page-gtWHnP hOasLl",
     },
     "ref": null,
     "rendered": Object {
@@ -49,7 +49,7 @@ ShallowWrapper {
         "children": <div>
           test
         </div>,
-        "className": "Page__Page-gtWHnP dQfVR",
+        "className": "Page__Page-gtWHnP hOasLl",
       },
       "ref": null,
       "rendered": Object {
