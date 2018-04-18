@@ -18,7 +18,7 @@ function ManagePatient(props) {
   const {
     onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
     usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
-    flagCategories,
+    flagCategories, practitioners, organization,
   } = props;
   const managePatientFormProps = {
     uspsStates,
@@ -33,6 +33,8 @@ function ManagePatient(props) {
     flagStatuses,
     flagCategories,
     practitioner,
+    practitioners,
+    organization,
   };
   return (
     <div>
@@ -57,6 +59,8 @@ function ManagePatient(props) {
           identifierType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          careManager: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={(formikProps) => (
@@ -99,6 +103,11 @@ ManagePatient.propTypes = {
     reference: PropTypes.string,
     display: PropTypes.string,
   }),
+  practitioners: PropTypes.arrayOf(PropTypes.shape({
+    reference: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  organization: PropTypes.object,
 };
 
 export default ManagePatient;

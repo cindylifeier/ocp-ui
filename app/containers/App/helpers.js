@@ -95,6 +95,14 @@ export function getLinkUrlByRole(role) {
   return linkUrl;
 }
 
+export function getPractitionerIdByRole(user) {
+  let practitionerId;
+  if (user && user.role && user.role !== OCP_ADMIN_ROLE_CODE) {
+    practitionerId = user ? user.resource.logicalId : null;
+  }
+  return practitionerId;
+}
+
 export function getRoleByScope(scope) {
   let role;
   switch (scope.split('.').pop(-1)) {

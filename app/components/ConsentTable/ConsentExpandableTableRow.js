@@ -53,7 +53,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
 
   render() {
     const { consent, tableColumns, allowedAttestConsentRoles } = this.props;
-    const { logicalId, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
+    const { logicalId, patient, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
     const { anchorEl } = this.state;
     return (
       <div>
@@ -68,6 +68,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
             {this.state.isShowAccordion &&
             <StyledIconButton onClick={() => this.handleClick()}><Expand /></StyledIconButton>}
           </TableRowColumn>
+          <TableRowColumn>{patient && patient.display}</TableRowColumn>
           <TableRowColumn>{fromGeneralDesignation || fromActor.map(({ display }) =>
             (
               <div key={uniqueId()}>

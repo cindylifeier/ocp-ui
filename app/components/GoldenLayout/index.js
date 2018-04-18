@@ -93,7 +93,7 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     return (
-      <GoldenLayoutContainer id={this.state.containerId} containerHeight={this.props.containerHeight} />
+      <GoldenLayoutContainer id={this.state.containerId} containerHeight={this.props.containerHeight} containerWidth={this.props.containerWidth} />
     );
   }
 }
@@ -101,6 +101,7 @@ class GoldenLayout extends React.PureComponent { // eslint-disable-line react/pr
 GoldenLayout.propTypes = {
   containerId: PropTypes.string,
   containerHeight: PropTypes.string,
+  containerWidth: PropTypes.string,
   stateMetadata: PropTypes.shape({
     content: PropTypes.arrayOf(PropTypes.shape({
       type: PropTypes.string.isRequired,

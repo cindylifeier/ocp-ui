@@ -5,14 +5,14 @@ import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
 export function getPractitionersInOrganization(organizationId, page) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ page, size: DEFAULT_PAGE_SIZE });
-  const requestURL = `${baseEndpoint}/organization/${organizationId}${params}`;
+  const params = queryString({ page, size: DEFAULT_PAGE_SIZE, organization: organizationId });
+  const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
-export function searchPractitioners(searchType, searchValue, showInactive, page) {
+export function searchPractitioners(searchType, searchValue, showInactive, organization, page) {
   const baseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const params = queryString({ searchType, searchValue, showInactive, size: DEFAULT_PAGE_SIZE, page });
+  const params = queryString({ searchType, searchValue, showInactive, size: DEFAULT_PAGE_SIZE, organization, page, showAll: true });
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }

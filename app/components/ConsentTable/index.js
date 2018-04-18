@@ -21,7 +21,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import ConsentExpandableTableRow from './ConsentExpandableTableRow';
 import messages from './messages';
 
-const tableColumns = '50px repeat(4, 1fr) 50px';
+const tableColumns = '50px repeat(5, 1fr) 50px';
 
 function ConsentTable(props) {
   const { consentData, relativeTop, allowedAttestConsentRoles } = props;
@@ -33,6 +33,7 @@ function ConsentTable(props) {
             <Table>
               <TableHeader columns={tableColumns} relativeTop={relativeTop}>
                 <TableHeaderColumn></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPatientName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderFromActor} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderToActor} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPeriod} /></TableHeaderColumn>

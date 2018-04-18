@@ -41,12 +41,13 @@ export function getPractitionersInOrganizationError(error) {
   };
 }
 
-export function searchPractitioners(searchType, searchValue, includeInactive, currentPage) {
+export function searchPractitioners(searchType, searchValue, includeInactive, organization, currentPage) {
   return {
     type: SEARCH_PRACTITIONERS,
     searchType,
     searchValue,
     includeInactive,
+    organization,
     currentPage,
   };
 }

@@ -18,8 +18,9 @@ export function getPractitionersOnRoleOrganization(role, organizationId, current
     role,
     page: currentPage,
     size: DEFAULT_PAGE_SIZE,
+    organization: organizationId,
   });
-  const requestURL = `${baseEndpoint}/organization/${organizationId}${params}`;
+  const requestURL = `${baseEndpoint}${params}`;
   return request(requestURL);
 }
 
