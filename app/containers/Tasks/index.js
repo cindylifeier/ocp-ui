@@ -96,7 +96,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
 
 
     return (
-      <Card>
+      <Card minWidth={'auto'}>
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
