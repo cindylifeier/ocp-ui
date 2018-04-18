@@ -25,10 +25,9 @@ function OrganizationSlider(props) {
         anchor={anchor}
         open={open}
         transitionDuration={{ enter: 500, exit: 20 }}
-        hideBackdrop
       >
-        <StyledIconButton onClick={onClose}>
-          <Cancel />
+        <StyledIconButton disableIconHover onClick={onClose}>
+          <Cancel color="#b2b2b2" />
         </StyledIconButton>
         <OrganizationSliderHeader organization={flattenedOrganization} />
         <InfoSection>

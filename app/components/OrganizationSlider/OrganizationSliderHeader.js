@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import teal from 'material-ui-next/colors/teal';
 import ModeEdit from '@material-ui/icons/ModeEdit';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -61,7 +62,7 @@ function OrganizationSliderHeader(props) {
             component={Link}
             to={`/ocp-ui/manage-organization/${logicalId}`}
           >
-            <ModeEdit />
+            <ModeEdit color={teal['500']} />
             <FormattedMessage {...messages.edit} />
           </StyledFlatButton>
         </Cell>
