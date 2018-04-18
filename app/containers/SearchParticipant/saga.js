@@ -8,8 +8,8 @@ import { showNotification } from '../Notification/actions';
 
 export function* searchParticipantWorker(action) {
   try {
-    if (!isEmpty(action.name) && !isEmpty(action.member)) {
-      const participants = yield call(searchParticipant, action.name, action.member, action.patientId);
+    if (!isEmpty(action.member)) {
+      const participants = yield call(searchParticipant, action.name, action.member, action.patientId, action.organizationId);
       yield put(getSearchParticipantSuccess(participants));
     }
   } catch (error) {
