@@ -19,7 +19,7 @@ import messages from './messages';
 
 const tableColumns = 'repeat(2, 1fr) 50px';
 
-class OrganizationSliderServices extends React.Component {
+class OrganizationSliderLocations extends React.Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +40,7 @@ class OrganizationSliderServices extends React.Component {
           <ExpansionPanelSummary
             expandIcon={
               <Tooltip title={<FormattedMessage {...messages.addNew} />}>
-                <StyledIconButton component={Link} to={'/ocp-ui/manage-healthcare-service'} disableIconHover>
+                <StyledIconButton component={Link} to={'/ocp-ui/manage-location'} disableIconHover>
                   <AddCircleIcon color={teal['500']} />
                 </StyledIconButton>
               </Tooltip>
@@ -50,14 +50,14 @@ class OrganizationSliderServices extends React.Component {
               <ExpandLessIcon onClick={this.handlePanelOpen} /> :
               <ExpandMoreIcon onClick={this.handlePanelOpen} />
             }
-            <FormattedMessage {...messages.servicesPanel.panelSummary} />
+            <FormattedMessage {...messages.locationsPanel.panelSummary} />
           </ExpansionPanelSummary>
           <Divider light />
           <ExpansionPanelDetails>
             <Table>
               <TableHeader columns={tableColumns}>
-                <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.locationsPanel.tableHeaderColumnName} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.locationsPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
               </TableHeader>
             </Table>
           </ExpansionPanelDetails>
@@ -67,7 +67,7 @@ class OrganizationSliderServices extends React.Component {
   }
 }
 
-OrganizationSliderServices.propTypes = {
+OrganizationSliderLocations.propTypes = {
   organization: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     identifiers: PropTypes.string,
@@ -78,4 +78,4 @@ OrganizationSliderServices.propTypes = {
   }).isRequired,
 };
 
-export default OrganizationSliderServices;
+export default OrganizationSliderLocations;

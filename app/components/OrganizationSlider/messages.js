@@ -25,6 +25,14 @@ export default defineMessages({
       id: 'ocpui.components.OrganizationSlider.locationsPanel.panelSummary',
       defaultMessage: 'Locations',
     },
+    tableHeaderColumnName: {
+      id: 'ocpui.components.OrganizationSlider.locationsPanel.tableHeaderColumnName',
+      defaultMessage: 'Locations',
+    },
+    tableHeaderColumnDescription: {
+      id: 'ocpui.components.OrganizationSlider.locationsPanel.tableHeaderColumnDescription',
+      defaultMessage: 'Description',
+    },
   },
   activityDefinitionsPanel: {
     panelSummary: {
@@ -47,5 +55,9 @@ export default defineMessages({
   inactive: {
     id: 'ocpui.components.OrganizationSlider.inactive',
     defaultMessage: 'Inactive',
+  },
+  addNew: {
+    id: 'ocpui.components.OrganizationSlider.addNew',
+    defaultMessage: 'New',
   },
 });
