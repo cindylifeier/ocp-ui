@@ -16,8 +16,8 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
-  EXPANDED_TASK_TABLE_COLUMNS,
-  SUMMARISED_TASK_TABLE_COLUMNS,
+  EXPANDED_TABLE_COLUMNS,
+  SUMMARISED_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
 } from 'components/TaskTable/constants';
 import messages from './messages';
@@ -26,7 +26,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   function createTableHeaders() {
     return isExpanded ?
       (
-        <TableHeader columns={EXPANDED_TASK_TABLE_COLUMNS} relativeTop={relativeTop}>
+        <TableHeader columns={EXPANDED_TABLE_COLUMNS} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
           <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
@@ -39,7 +39,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
       )
       :
       (
-        <TableHeader columns={SUMMARISED_TASK_TABLE_COLUMNS} relativeTop={relativeTop}>
+        <TableHeader columns={SUMMARISED_TABLE_COLUMNS} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
@@ -51,7 +51,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems) {
     return isExpanded ?
       (
-        <TableRow key={logicalId} columns={EXPANDED_TASK_TABLE_COLUMNS}>
+        <TableRow key={logicalId} columns={EXPANDED_TABLE_COLUMNS}>
           <TableRowColumn>{definition && definition.display}</TableRowColumn>
           <TableRowColumn>{status && status.display}</TableRowColumn>
           <TableRowColumn>{description}</TableRowColumn>
@@ -67,7 +67,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
       )
       :
       (
-        <TableRow key={logicalId} columns={SUMMARISED_TASK_TABLE_COLUMNS}>
+        <TableRow key={logicalId} columns={SUMMARISED_TABLE_COLUMNS}>
           <TableRowColumn>{definition && definition.display}</TableRowColumn>
           <TableRowColumn>{agent && agent.display} </TableRowColumn>
           <TableRowColumn>{owner && owner.display} </TableRowColumn>
