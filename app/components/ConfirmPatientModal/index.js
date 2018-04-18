@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
 import Close from '@material-ui/icons/Close';
 import Avatar from 'material-ui/Avatar';
-import Tooltip from 'material-ui-next/Tooltip';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -21,6 +20,7 @@ import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledIconButton from 'components/StyledIconButton';
+import StyledTooltip from 'components/StyledTooltip';
 import PatientModalCell from './PatientModalCell';
 import messages from './messages';
 
@@ -33,11 +33,11 @@ function ConfirmPatientModal(props) {
         fullWidth
       >
         <DialogTitle>
-          <Tooltip title="Close">
+          <StyledTooltip title="Close">
             <StyledIconButton onClick={onPatientModalClose}>
               <Close />
             </StyledIconButton>
-          </Tooltip>
+          </StyledTooltip>
         </DialogTitle>
         <DialogContent>
           <Grid columns={1} alignContent="space-between">

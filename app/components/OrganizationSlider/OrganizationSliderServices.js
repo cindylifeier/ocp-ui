@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ExpansionPanel, { ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui-next/ExpansionPanel';
-import Tooltip from 'material-ui-next/Tooltip';
 import Divider from 'material-ui-next/Divider';
 import teal from 'material-ui-next/colors/teal';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -14,6 +13,7 @@ import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import StyledIconButton from 'components/StyledIconButton';
+import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
 
@@ -39,11 +39,11 @@ class OrganizationSliderServices extends React.Component {
         <ExpansionPanel expanded={this.state.expansionPanelOpen}>
           <ExpansionPanelSummary
             expandIcon={
-              <Tooltip title={<FormattedMessage {...messages.addNew} />}>
+              <StyledTooltip title={<FormattedMessage {...messages.addNew} />}>
                 <StyledIconButton component={Link} to={'/ocp-ui/manage-healthcare-service'} disableIconHover>
                   <AddCircleIcon color={teal['500']} />
                 </StyledIconButton>
-              </Tooltip>
+              </StyledTooltip>
             }
           >
             {this.state.expansionPanelOpen ?
