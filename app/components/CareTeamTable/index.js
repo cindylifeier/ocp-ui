@@ -8,22 +8,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
-
+import sizeMeHOC from 'utils/SizeMeUtils';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
+import {
+  EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS,
+} from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
-const columns = 'repeat(7, 1fr) 50px';
-
-function CareTeamTable({ elements, relativeTop, manageCareTeamUrl }) {
-  return (
-    <div>
-      <Table>
-        <TableHeader columns={columns} relativeTop={relativeTop}>
+function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded }) {
+  function createTableHeaders() {
+    return isExpanded ?
+      (
+        <TableHeader columns={EXPANDED_TABLE_COLUMNS} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
@@ -31,7 +32,59 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl }) {
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
+          <TableHeaderColumn></TableHeaderColumn>
         </TableHeader>
+      )
+      :
+      (
+        <TableHeader columns={SUMMARISED_TABLE_COLUMNS} relativeTop={relativeTop}>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn></TableHeaderColumn>
+        </TableHeader>
+      );
+  }
+
+  function createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems) {
+    return isExpanded ?
+      (
+        <TableRow key={id} columns={EXPANDED_TABLE_COLUMNS}>
+          <TableRowColumn>{name}</TableRowColumn>
+          <TableRowColumn>{statusDisplay}</TableRowColumn>
+          <TableRowColumn>{categoryDisplay}</TableRowColumn>
+          <TableRowColumn>
+            {!isEmpty(participants) && participants
+              .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
+                <div key={memberId}>
+                  {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
+                </div>))
+            }
+          </TableRowColumn>
+          <TableRowColumn>{startDate}</TableRowColumn>
+          <TableRowColumn>{endDate}</TableRowColumn>
+          <TableRowColumn>{reasonDisplay}</TableRowColumn>
+          <TableRowColumn>
+            <NavigationIconMenu menuItems={menuItems} />
+          </TableRowColumn>
+        </TableRow>
+      )
+      :
+      (
+        <TableRow key={id} columns={SUMMARISED_TABLE_COLUMNS}>
+          <TableRowColumn>{name}</TableRowColumn>
+          <TableRowColumn>{statusDisplay}</TableRowColumn>
+          <TableRowColumn>{endDate}</TableRowColumn>
+          <TableRowColumn>
+            <NavigationIconMenu menuItems={menuItems} />
+          </TableRowColumn>
+        </TableRow>
+      );
+  }
+  return (
+    <div>
+      <Table>
+        {createTableHeaders()}
         {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => {
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.menuItemEdit} />,
@@ -43,27 +96,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl }) {
             primaryText: <FormattedMessage {...messages.menuItemRemove} />,
             disabled: true,
           }];
-          return (
-            <TableRow key={id} columns={columns}>
-              <TableRowColumn>{name}</TableRowColumn>
-              <TableRowColumn>{statusDisplay}</TableRowColumn>
-              <TableRowColumn>{categoryDisplay}</TableRowColumn>
-              <TableRowColumn>
-                {!isEmpty(participants) && participants
-                  .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
-                    <div key={memberId}>
-                      {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
-                    </div>))
-                }
-              </TableRowColumn>
-              <TableRowColumn>{startDate}</TableRowColumn>
-              <TableRowColumn>{endDate}</TableRowColumn>
-              <TableRowColumn>{reasonDisplay}</TableRowColumn>
-              <TableRowColumn>
-                <NavigationIconMenu menuItems={menuItems} />
-              </TableRowColumn>
-            </TableRow>
-          );
+          return createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems);
         })}
       </Table>
     </div>
@@ -73,6 +106,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl }) {
 CareTeamTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -101,5 +135,4 @@ CareTeamTable.propTypes = {
   })),
 };
 
-export default CareTeamTable;
-
+export default sizeMeHOC(CareTeamTable);
