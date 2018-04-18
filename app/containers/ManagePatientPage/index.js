@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Page from 'components/Page';
@@ -46,30 +45,40 @@ import {
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { getPatient } from 'containers/App/contextActions';
+import { makeSelectUser, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import { getPatientById } from 'containers/App/api';
+import merge from 'lodash/merge';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { savePatient } from './actions';
+import { savePatient, getPractitioners } from './actions';
 import { mapToFrontendPatientForm } from './api';
+import { makeSelectPractitioners } from './selectors';
 
 export class ManagePatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
-    this.practitioner = {
-      reference: 'Practitioner/1961',
-      display: 'Robert Johnson',
-    };
   }
 
   componentDidMount() {
     this.props.getLookUpFormData();
+    const { organization } = this.props;
+    if (organization) {
+      // get practitioners belonging to requester organization
+      this.props.getPractitioners(organization.logicalId);
+    }
   }
-
+  getPractitionerId() {
+    const { user } = this.props;
+    return (user && user.resource) ? user.resource.logicalId : null;
+  }
   handleSave(patientFormData, actions) {
+    if (this.props.organization) {
+      merge(patientFormData, { organizationId: this.props.organization.logicalId });
+    }
     this.props.onSaveForm(patientFormData, () => {
       actions.setSubmitting(false);
       this.props.getPatient(patientFormData.id);
@@ -80,6 +89,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
     const {
       match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
       usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories,
+      practitioners, organization,
     } = this.props;
     const patientId = match.params.id;
     let patient = null;
@@ -100,6 +110,8 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
       flagCategories,
       patient,
       practitioner: this.practitioner,
+      practitioners,
+      organization,
     };
     return (
       <Page>
@@ -158,6 +170,13 @@ ManagePatientPage.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   patients: PropTypes.any,
+  practitioners: PropTypes.arrayOf((PropTypes.shape({
+    reference: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  }))),
+  getPractitioners: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -173,7 +192,9 @@ const mapStateToProps = createStructuredSelector({
   flagStatuses: makeSelectFlagStatuses(),
   flagCategories: makeSelectFlagCategories(),
   patients: makeSelectPatientSearchResult(),
-
+  practitioners: makeSelectPractitioners(),
+  user: makeSelectUser(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -184,6 +205,8 @@ function mapDispatchToProps(dispatch) {
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
       USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY])),
     getPatient: (id) => dispatch(getPatient(id)),
+    getPractitioners: (organizationId) => dispatch(getPractitioners(organizationId)),
+
   };
 }
 

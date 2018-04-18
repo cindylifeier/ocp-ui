@@ -28,7 +28,7 @@ import {
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -100,20 +100,31 @@ export class Patients extends React.Component {
   }
 
   handleSearch(searchTerms, includeInactive, searchType) {
-    this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
+    const { organization } = this.props;
+    if (organization) {
+      this.props.onSubmitForm(searchTerms, searchType, includeInactive, organization.logicalId, this.state.currentPage);
+    } else {
+      this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
+    }
   }
 
   handleChangePage(newPage) {
     this.setState({ currentPage: newPage });
-    this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
+    const { organization } = this.props;
+    if (organization) {
+      this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage, organization.logicalId);
+    } else {
+      this.props.onChangePage(this.props.searchTerms, this.props.searchType, this.props.includeInactive, newPage);
+    }
   }
 
   render() {
-    const { loading, error, searchResult } = this.props;
+    const { loading, error, searchResult, organization } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
+      organization,
     };
     const addNewItem = {
       addNewItem: {
@@ -182,6 +193,7 @@ Patients.propTypes = {
   initializePatients: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
   patient: PropTypes.object,
+  organization: PropTypes.object,
 };
 
 
@@ -197,16 +209,18 @@ const mapStateToProps = createStructuredSelector({
   searchType: makeSelectQuerySearchType(),
   includeInactive: makeSelectQueryIncludeInactive(),
   patient: makeSelectPatient(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitForm: (searchTerms, searchType, includeInactive) => {
+    onSubmitForm: (searchTerms, searchType, includeInactive, organization) => {
       const currentPage = 1;
-      dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage));
+      dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage, organization));
     },
-    onChangePage: (searchTerms, searchType, includeInactive, currentPage) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage)),
+    onChangePage: (searchTerms, searchType, includeInactive, currentPage, organization) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage, organization)),
     initializePatients: (patients) => dispatch(initializePatients(patients)),
+
     setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }

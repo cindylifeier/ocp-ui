@@ -21,20 +21,18 @@ export function* getPractitionersInOrganizationSaga({ currentPage }) {
   }
 }
 
+export function* watchGetPractitionersInOrganizationSaga() {
+  yield takeLatest(GET_PRACTITIONERS_IN_ORGANIZATION, getPractitionersInOrganizationSaga);
+}
 
-export function* searchPractitionersSaga({ searchType, searchValue, includeInactive, currentPage }) {
+export function* searchPractitionersSaga({ searchType, searchValue, includeInactive, organization, currentPage }) {
   try {
-    const practitioners = yield call(searchPractitioners, searchType, searchValue, includeInactive, currentPage);
+    const practitioners = yield call(searchPractitioners, searchType, searchValue, includeInactive, organization, currentPage);
     yield put(searchPractitionersSuccess(practitioners));
   } catch (error) {
     yield put(searchPractitionersError(getErrorDetail(error)));
   }
 }
-
-export function* watchGetPractitionersInOrganizationSaga() {
-  yield takeLatest(GET_PRACTITIONERS_IN_ORGANIZATION, getPractitionersInOrganizationSaga);
-}
-
 
 export function* watchSearchPractitionersSaga() {
   yield takeLatest(SEARCH_PRACTITIONERS, searchPractitionersSaga);

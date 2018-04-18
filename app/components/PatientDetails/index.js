@@ -20,6 +20,7 @@ import PatientDetailsCell from 'components/PatientDetails/PatientDetailsCell';
 import DetailsPanelGrid from 'components/PatientDetails/DetailsPanelGrid';
 import PatientBasicInfoCell from 'components/PatientDetails/PatientBasicInfoCell';
 import H3 from 'components/H3';
+import PatientBasicInfoGrid from 'components/PatientDetails/PatientBasicInfoGrid';
 
 function PatientDetails(props) {
   const { patient } = props;
@@ -30,32 +31,37 @@ function PatientDetails(props) {
       <PatientDetailsGrid columns={1}>
         <PatientDetailsCell>
           <Grid
-            columns={'55px repeat(4, 1fr)'}
+            columns={'55px 1fr'}
             flow="column"
           >
             <PatientBasicInfoCell height={2}><Avatar size={55} src={patientAvatar} /></PatientBasicInfoCell>
-            <PatientBasicInfoCell width={4} height={1}>
-              <H3>{name}</H3>
-            </PatientBasicInfoCell>
-            <PatientBasicInfoCell height={1}>
-              ID{WHITE_SPACE}<strong>{id}</strong>
-            </PatientBasicInfoCell>
-            <PatientBasicInfoCell height={1}>
-              Gender{WHITE_SPACE}<strong>{upperFirst(genderCode)}</strong>
-            </PatientBasicInfoCell>
-            <PatientBasicInfoCell height={1}>
-              DOB{WHITE_SPACE}<strong>{birthDate}</strong></PatientBasicInfoCell>
-            <PatientBasicInfoCell height={1}>
-              Care Coordinator{WHITE_SPACE}<strong>Lee Coordinator(hard-coded)</strong>
-            </PatientBasicInfoCell>
+            <PatientBasicInfoGrid
+              columns={'repeat(4, 1fr)'}
+              flow="row"
+              alignContent="start"
+            >
+              <PatientBasicInfoCell width={4}>
+                <H3>{name}</H3>
+              </PatientBasicInfoCell>
+              <PatientBasicInfoCell>
+                ID{WHITE_SPACE}<strong>{id}</strong>
+              </PatientBasicInfoCell>
+              <PatientBasicInfoCell>
+                Gender{WHITE_SPACE}<strong>{upperFirst(genderCode)}</strong>
+              </PatientBasicInfoCell>
+              <PatientBasicInfoCell>
+                DOB{WHITE_SPACE}<strong>{birthDate}</strong></PatientBasicInfoCell>
+              <PatientBasicInfoCell>
+                Care Coordinator{WHITE_SPACE}<strong>Lee Coordinator(hard-coded)</strong>
+              </PatientBasicInfoCell>
+            </PatientBasicInfoGrid>
           </Grid>
         </PatientDetailsCell>
         <PatientDetailsCell>
-          <DetailsPanelGrid columns={'repeat(4, 1fr) 100px '}>
+          <DetailsPanelGrid columns={'55px repeat(2, 1fr) 100px'}>
+            <Cell></Cell>
             <Cell>Address{WHITE_SPACE}<strong>{addresses}</strong></Cell>
             <Cell>Contact{WHITE_SPACE}<strong>{phones}</strong></Cell>
-            <Cell>Diagnosis{WHITE_SPACE}<strong>Severe Depression(hard-coded)</strong></Cell>
-            <Cell><strong>Known Allergies(hard-coded)</strong></Cell>
             {flags.length > 0 &&
             <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
               <Cell>

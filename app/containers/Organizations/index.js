@@ -19,7 +19,6 @@ import { setOrganization } from 'containers/App/contextActions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
-import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import OrganizationSlider from 'components/OrganizationSlider';
 import makeSelectOrganizations from './selectors';
@@ -139,23 +138,21 @@ export class Organizations extends React.Component {
     }
     return (
       <div>
-        <Card>
-          <PanelToolbar
-            addNewItem={addNewItem}
-            allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
-            onSearch={this.handleSearch}
-            onSize={this.onSize}
+        <PanelToolbar
+          addNewItem={addNewItem}
+          allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
+          onSearch={this.handleSearch}
+          onSize={this.onSize}
+        />
+        <InfoSection margin="0 0 10px 0">
+          <OrganizationTable
+            relativeTop={this.state.relativeTop}
+            organizationData={organizationData}
+            onRowClick={this.handleRowClick}
+            flattenOrganizationData={flattenOrganizationData}
+            onOrganizationViewDetails={this.handleSliderOpen}
           />
-          <InfoSection margin="0 0 10px 0">
-            <OrganizationTable
-              relativeTop={this.state.relativeTop}
-              organizationData={organizationData}
-              onRowClick={this.handleRowClick}
-              flattenOrganizationData={flattenOrganizationData}
-              onOrganizationViewDetails={this.handleSliderOpen}
-            />
-          </InfoSection>
-        </Card>
+        </InfoSection>
         {this.props.organization &&
         <OrganizationSlider
           open={this.state.openSlider}
