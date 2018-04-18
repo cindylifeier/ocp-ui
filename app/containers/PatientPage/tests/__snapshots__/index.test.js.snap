@@ -40,7 +40,7 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "class",
     "props": Object {
       "children": Array [
         <HelmetWrapper
@@ -54,284 +54,172 @@ ShallowWrapper {
             name="description"
           />
         </HelmetWrapper>,
-        <styled.div
-          columns={1}
-        >
-          <styled.section>
-            <PatientDetails
-              flattenPatientData={[Function]}
-              patient={
-                Object {
-                  "id": "1",
-                  "name": Array [
-                    "test",
-                  ],
-                }
+        <div>
+          <PatientDetails
+            flattenPatientData={[Function]}
+            patient={
+              Object {
+                "id": "1",
+                "name": Array [
+                  "test",
+                ],
               }
-            />
-          </styled.section>
-          <styled.section>
-            <GoldenLayout
-              componentMetadata={
-                Array [
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "tasks",
-                    "text": "Tasks",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "appointments",
-                    "text": "My Appointments",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "communications",
-                    "text": "Communications",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "toDos",
-                    "text": "My To Do",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "calendar",
-                    "text": "Calendar",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "consents",
-                    "text": "Consents",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
-                    "name": "careTeams",
-                    "text": "Care teams",
-                  },
-                ]
-              }
-              containerHeight="200vh"
-              containerId="golden-patient"
-              stateMetadata={
+            }
+          />
+          <GoldenLayout
+            componentMetadata={
+              Array [
                 Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "content": Array [
-                            Object {
-                              "content": Array [
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "toDos",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "MY TO DO",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "tasks",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Tasks",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                },
-                              ],
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "column",
-                              "width": 50,
-                            },
-                            Object {
-                              "content": Array [
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "calendar",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "CALENDAR",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "appointments",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "My Appointments",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                },
-                              ],
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "column",
-                              "width": 50,
-                            },
-                          ],
-                          "height": 50,
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
-                          "type": "row",
-                        },
-                        Object {
-                          "activeItemIndex": 0,
-                          "content": Array [
-                            Object {
-                              "componentName": "communications",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Communications",
-                              "type": "component",
-                            },
-                          ],
-                          "header": Object {},
-                          "height": 25,
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
-                          "type": "stack",
-                        },
-                        Object {
-                          "content": Array [
-                            Object {
-                              "activeItemIndex": 0,
-                              "content": Array [
-                                Object {
-                                  "componentName": "consents",
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "Consents",
-                                  "type": "component",
-                                },
-                              ],
-                              "header": Object {},
-                              "height": 25,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "stack",
-                              "width": 50,
-                            },
-                            Object {
-                              "activeItemIndex": 0,
-                              "content": Array [
-                                Object {
-                                  "componentName": "careTeams",
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "Care teams",
-                                  "type": "component",
-                                },
-                              ],
-                              "header": Object {},
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "stack",
-                              "width": 50,
-                            },
-                          ],
-                          "height": 25,
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
-                          "type": "row",
-                        },
-                      ],
-                      "isClosable": true,
-                      "reorderEnabled": true,
-                      "title": "",
-                      "type": "column",
-                    },
-                  ],
-                  "dimensions": Object {
-                    "borderGrabWidth": 15,
-                    "borderWidth": 5,
-                    "dragProxyHeight": 200,
-                    "dragProxyWidth": 300,
-                    "headerHeight": 30,
-                    "minItemHeight": 10,
-                    "minItemWidth": 10,
+                  "factoryMethod": [Function],
+                  "name": "tasks",
+                  "text": "Tasks",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "appointments",
+                  "text": "My Appointments",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "communications",
+                  "text": "Communications",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "toDos",
+                  "text": "My To Do",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "calendar",
+                  "text": "Calendar",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "consents",
+                  "text": "Consents",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "careTeams",
+                  "text": "Care teams",
+                },
+              ]
+            }
+            containerHeight="75vh"
+            containerId="golden-patient"
+            containerWidth="95vw"
+            stateMetadata={
+              Object {
+                "content": Array [
+                  Object {
+                    "content": Array [
+                      Object {
+                        "content": Array [
+                          Object {
+                            "componentName": "tasks",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Tasks",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "consents",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Consents",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "careTeams",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Care teams",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "toDos",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "MY TO DO",
+                            "type": "component",
+                          },
+                        ],
+                        "height": 40,
+                        "type": "row",
+                      },
+                      Object {
+                        "content": Array [
+                          Object {
+                            "componentName": "appointments",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "My Appointments",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "calendar",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "CALENDAR",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "communications",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Communications",
+                            "type": "component",
+                          },
+                        ],
+                        "height": 60,
+                        "type": "row",
+                      },
+                    ],
+                    "type": "column",
                   },
-                  "isClosable": true,
-                  "labels": Object {
-                    "close": "close",
-                    "maximise": "maximise",
-                    "minimise": "minimise",
-                    "popin": "pop in",
-                    "popout": "open in new window",
-                    "tabDropdown": "additional tabs",
-                  },
-                  "maximisedItemId": null,
-                  "openPopouts": Array [],
+                ],
+                "dimensions": Object {
+                  "borderWidth": 10,
+                  "dragProxyHeight": 200,
+                  "dragProxyWidth": 300,
+                  "headerHeight": 30,
+                  "minItemHeight": 400,
+                  "minItemWidth": 200,
+                },
+                "isClosable": true,
+                "labels": Object {
+                  "close": "close",
+                  "maximise": "maximise",
+                  "minimise": "minimise",
+                  "popin": "pop in",
+                  "popout": "open in new window",
+                  "tabDropdown": "additional tabs",
+                },
+                "maximisedItemId": null,
+                "openPopouts": Array [],
+                "reorderEnabled": true,
+                "settings": Object {
+                  "blockedPopoutsThrowError": true,
+                  "closePopoutsOnUnload": true,
+                  "constrainDragToContainer": false,
+                  "hasHeaders": true,
+                  "popoutWholeStack": false,
                   "reorderEnabled": true,
-                  "settings": Object {
-                    "blockedPopoutsThrowError": true,
-                    "closePopoutsOnUnload": true,
-                    "constrainDragToContainer": false,
-                    "hasHeaders": true,
-                    "popoutWholeStack": false,
-                    "reorderEnabled": true,
-                    "reorderOnTabMenuClick": true,
-                    "responsiveMode": "onload",
-                    "selectionEnabled": false,
-                    "showCloseIcon": true,
-                    "showMaximiseIcon": true,
-                    "showPopoutIcon": false,
-                    "tabControlOffset": 10,
-                    "tabOverlapAllowance": 0,
-                  },
-                  "title": "",
-                }
+                  "reorderOnTabMenuClick": true,
+                  "responsiveMode": "onload",
+                  "selectionEnabled": false,
+                  "showCloseIcon": true,
+                  "showMaximiseIcon": true,
+                  "showPopoutIcon": false,
+                  "tabControlOffset": 10,
+                  "tabOverlapAllowance": 0,
+                },
+                "title": "",
               }
-            />
-          </styled.section>
-        </styled.div>,
+            }
+          />
+        </div>,
       ],
     },
     "ref": null,
@@ -383,597 +271,23 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "class",
+        "nodeType": "host",
         "props": Object {
           "children": Array [
-            <styled.section>
-              <PatientDetails
-                flattenPatientData={[Function]}
-                patient={
-                  Object {
-                    "id": "1",
-                    "name": Array [
-                      "test",
-                    ],
-                  }
-                }
-              />
-            </styled.section>,
-            <styled.section>
-              <GoldenLayout
-                componentMetadata={
-                  Array [
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "tasks",
-                      "text": "Tasks",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "communications",
-                      "text": "Communications",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "toDos",
-                      "text": "My To Do",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "calendar",
-                      "text": "Calendar",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "consents",
-                      "text": "Consents",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "careTeams",
-                      "text": "Care teams",
-                    },
-                  ]
-                }
-                containerHeight="200vh"
-                containerId="golden-patient"
-                stateMetadata={
-                  Object {
-                    "content": Array [
-                      Object {
-                        "content": Array [
-                          Object {
-                            "content": Array [
-                              Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "toDos",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "MY TO DO",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "tasks",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "Tasks",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
-                              },
-                              Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "calendar",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "CALENDAR",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "appointments",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "My Appointments",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 50,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "row",
-                          },
-                          Object {
-                            "activeItemIndex": 0,
-                            "content": Array [
-                              Object {
-                                "componentName": "communications",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Communications",
-                                "type": "component",
-                              },
-                            ],
-                            "header": Object {},
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "stack",
-                          },
-                          Object {
-                            "content": Array [
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "consents",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Consents",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "height": 25,
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "careTeams",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Care teams",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "row",
-                          },
-                        ],
-                        "isClosable": true,
-                        "reorderEnabled": true,
-                        "title": "",
-                        "type": "column",
-                      },
-                    ],
-                    "dimensions": Object {
-                      "borderGrabWidth": 15,
-                      "borderWidth": 5,
-                      "dragProxyHeight": 200,
-                      "dragProxyWidth": 300,
-                      "headerHeight": 30,
-                      "minItemHeight": 10,
-                      "minItemWidth": 10,
-                    },
-                    "isClosable": true,
-                    "labels": Object {
-                      "close": "close",
-                      "maximise": "maximise",
-                      "minimise": "minimise",
-                      "popin": "pop in",
-                      "popout": "open in new window",
-                      "tabDropdown": "additional tabs",
-                    },
-                    "maximisedItemId": null,
-                    "openPopouts": Array [],
-                    "reorderEnabled": true,
-                    "settings": Object {
-                      "blockedPopoutsThrowError": true,
-                      "closePopoutsOnUnload": true,
-                      "constrainDragToContainer": false,
-                      "hasHeaders": true,
-                      "popoutWholeStack": false,
-                      "reorderEnabled": true,
-                      "reorderOnTabMenuClick": true,
-                      "responsiveMode": "onload",
-                      "selectionEnabled": false,
-                      "showCloseIcon": true,
-                      "showMaximiseIcon": true,
-                      "showPopoutIcon": false,
-                      "tabControlOffset": 10,
-                      "tabOverlapAllowance": 0,
-                    },
-                    "title": "",
-                  }
-                }
-              />
-            </styled.section>,
-          ],
-          "columns": 1,
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <PatientDetails
-                flattenPatientData={[Function]}
-                patient={
-                  Object {
-                    "id": "1",
-                    "name": Array [
-                      "test",
-                    ],
-                  }
-                }
-              />,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "flattenPatientData": [Function],
-                "patient": Object {
+            <PatientDetails
+              flattenPatientData={[Function]}
+              patient={
+                Object {
                   "id": "1",
                   "name": Array [
                     "test",
                   ],
-                },
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <GoldenLayout
-                componentMetadata={
-                  Array [
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "tasks",
-                      "text": "Tasks",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "communications",
-                      "text": "Communications",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "toDos",
-                      "text": "My To Do",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "calendar",
-                      "text": "Calendar",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "consents",
-                      "text": "Consents",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "careTeams",
-                      "text": "Care teams",
-                    },
-                  ]
                 }
-                containerHeight="200vh"
-                containerId="golden-patient"
-                stateMetadata={
-                  Object {
-                    "content": Array [
-                      Object {
-                        "content": Array [
-                          Object {
-                            "content": Array [
-                              Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "toDos",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "MY TO DO",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "tasks",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "Tasks",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
-                              },
-                              Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "calendar",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "CALENDAR",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "appointments",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "My Appointments",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 50,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "row",
-                          },
-                          Object {
-                            "activeItemIndex": 0,
-                            "content": Array [
-                              Object {
-                                "componentName": "communications",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Communications",
-                                "type": "component",
-                              },
-                            ],
-                            "header": Object {},
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "stack",
-                          },
-                          Object {
-                            "content": Array [
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "consents",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Consents",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "height": 25,
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "careTeams",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Care teams",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "row",
-                          },
-                        ],
-                        "isClosable": true,
-                        "reorderEnabled": true,
-                        "title": "",
-                        "type": "column",
-                      },
-                    ],
-                    "dimensions": Object {
-                      "borderGrabWidth": 15,
-                      "borderWidth": 5,
-                      "dragProxyHeight": 200,
-                      "dragProxyWidth": 300,
-                      "headerHeight": 30,
-                      "minItemHeight": 10,
-                      "minItemWidth": 10,
-                    },
-                    "isClosable": true,
-                    "labels": Object {
-                      "close": "close",
-                      "maximise": "maximise",
-                      "minimise": "minimise",
-                      "popin": "pop in",
-                      "popout": "open in new window",
-                      "tabDropdown": "additional tabs",
-                    },
-                    "maximisedItemId": null,
-                    "openPopouts": Array [],
-                    "reorderEnabled": true,
-                    "settings": Object {
-                      "blockedPopoutsThrowError": true,
-                      "closePopoutsOnUnload": true,
-                      "constrainDragToContainer": false,
-                      "hasHeaders": true,
-                      "popoutWholeStack": false,
-                      "reorderEnabled": true,
-                      "reorderOnTabMenuClick": true,
-                      "responsiveMode": "onload",
-                      "selectionEnabled": false,
-                      "showCloseIcon": true,
-                      "showMaximiseIcon": true,
-                      "showPopoutIcon": false,
-                      "tabControlOffset": 10,
-                      "tabOverlapAllowance": 0,
-                    },
-                    "title": "",
-                  }
-                }
-              />,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "componentMetadata": Array [
+              }
+            />,
+            <GoldenLayout
+              componentMetadata={
+                Array [
                   Object {
                     "factoryMethod": [Function],
                     "name": "tasks",
@@ -1009,116 +323,66 @@ ShallowWrapper {
                     "name": "careTeams",
                     "text": "Care teams",
                   },
-                ],
-                "containerHeight": "200vh",
-                "containerId": "golden-patient",
-                "stateMetadata": Object {
+                ]
+              }
+              containerHeight="75vh"
+              containerId="golden-patient"
+              containerWidth="95vw"
+              stateMetadata={
+                Object {
                   "content": Array [
                     Object {
                       "content": Array [
                         Object {
                           "content": Array [
                             Object {
-                              "content": Array [
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "toDos",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "MY TO DO",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "tasks",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Tasks",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                },
-                              ],
+                              "componentName": "tasks",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "",
-                              "type": "column",
-                              "width": 50,
+                              "title": "Tasks",
+                              "type": "component",
                             },
                             Object {
-                              "content": Array [
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "calendar",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "CALENDAR",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "appointments",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "My Appointments",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 50,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                },
-                              ],
+                              "componentName": "consents",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "",
-                              "type": "column",
-                              "width": 50,
+                              "title": "Consents",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "careTeams",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Care teams",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "toDos",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "MY TO DO",
+                              "type": "component",
                             },
                           ],
-                          "height": 50,
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
+                          "height": 40,
                           "type": "row",
                         },
                         Object {
-                          "activeItemIndex": 0,
                           "content": Array [
+                            Object {
+                              "componentName": "appointments",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "My Appointments",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "calendar",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "CALENDAR",
+                              "type": "component",
+                            },
                             Object {
                               "componentName": "communications",
                               "isClosable": true,
@@ -1127,74 +391,20 @@ ShallowWrapper {
                               "type": "component",
                             },
                           ],
-                          "header": Object {},
-                          "height": 25,
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
-                          "type": "stack",
-                        },
-                        Object {
-                          "content": Array [
-                            Object {
-                              "activeItemIndex": 0,
-                              "content": Array [
-                                Object {
-                                  "componentName": "consents",
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "Consents",
-                                  "type": "component",
-                                },
-                              ],
-                              "header": Object {},
-                              "height": 25,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "stack",
-                              "width": 50,
-                            },
-                            Object {
-                              "activeItemIndex": 0,
-                              "content": Array [
-                                Object {
-                                  "componentName": "careTeams",
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "Care teams",
-                                  "type": "component",
-                                },
-                              ],
-                              "header": Object {},
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "stack",
-                              "width": 50,
-                            },
-                          ],
-                          "height": 25,
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
+                          "height": 60,
                           "type": "row",
                         },
                       ],
-                      "isClosable": true,
-                      "reorderEnabled": true,
-                      "title": "",
                       "type": "column",
                     },
                   ],
                   "dimensions": Object {
-                    "borderGrabWidth": 15,
-                    "borderWidth": 5,
+                    "borderWidth": 10,
                     "dragProxyHeight": 200,
                     "dragProxyWidth": 300,
                     "headerHeight": 30,
-                    "minItemHeight": 10,
-                    "minItemWidth": 10,
+                    "minItemHeight": 400,
+                    "minItemWidth": 200,
                   },
                   "isClosable": true,
                   "labels": Object {
@@ -1225,25 +435,198 @@ ShallowWrapper {
                     "tabOverlapAllowance": 0,
                   },
                   "title": "",
-                },
+                }
+              }
+            />,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "flattenPatientData": [Function],
+              "patient": Object {
+                "id": "1",
+                "name": Array [
+                  "test",
+                ],
               },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
             },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "componentMetadata": Array [
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "tasks",
+                  "text": "Tasks",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "appointments",
+                  "text": "My Appointments",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "communications",
+                  "text": "Communications",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "toDos",
+                  "text": "My To Do",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "calendar",
+                  "text": "Calendar",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "consents",
+                  "text": "Consents",
+                },
+                Object {
+                  "factoryMethod": [Function],
+                  "name": "careTeams",
+                  "text": "Care teams",
+                },
+              ],
+              "containerHeight": "75vh",
+              "containerId": "golden-patient",
+              "containerWidth": "95vw",
+              "stateMetadata": Object {
+                "content": Array [
+                  Object {
+                    "content": Array [
+                      Object {
+                        "content": Array [
+                          Object {
+                            "componentName": "tasks",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Tasks",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "consents",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Consents",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "careTeams",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Care teams",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "toDos",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "MY TO DO",
+                            "type": "component",
+                          },
+                        ],
+                        "height": 40,
+                        "type": "row",
+                      },
+                      Object {
+                        "content": Array [
+                          Object {
+                            "componentName": "appointments",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "My Appointments",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "calendar",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "CALENDAR",
+                            "type": "component",
+                          },
+                          Object {
+                            "componentName": "communications",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Communications",
+                            "type": "component",
+                          },
+                        ],
+                        "height": 60,
+                        "type": "row",
+                      },
+                    ],
+                    "type": "column",
+                  },
+                ],
+                "dimensions": Object {
+                  "borderWidth": 10,
+                  "dragProxyHeight": 200,
+                  "dragProxyWidth": 300,
+                  "headerHeight": 30,
+                  "minItemHeight": 400,
+                  "minItemWidth": 200,
+                },
+                "isClosable": true,
+                "labels": Object {
+                  "close": "close",
+                  "maximise": "maximise",
+                  "minimise": "minimise",
+                  "popin": "pop in",
+                  "popout": "open in new window",
+                  "tabDropdown": "additional tabs",
+                },
+                "maximisedItemId": null,
+                "openPopouts": Array [],
+                "reorderEnabled": true,
+                "settings": Object {
+                  "blockedPopoutsThrowError": true,
+                  "closePopoutsOnUnload": true,
+                  "constrainDragToContainer": false,
+                  "hasHeaders": true,
+                  "popoutWholeStack": false,
+                  "reorderEnabled": true,
+                  "reorderOnTabMenuClick": true,
+                  "responsiveMode": "onload",
+                  "selectionEnabled": false,
+                  "showCloseIcon": true,
+                  "showMaximiseIcon": true,
+                  "showPopoutIcon": false,
+                  "tabControlOffset": 10,
+                  "tabOverlapAllowance": 0,
+                },
+                "title": "",
+              },
+            },
+            "ref": null,
+            "rendered": null,
             "type": [Function],
           },
         ],
-        "type": [Function],
+        "type": "div",
       },
     ],
-    "type": "div",
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
         "children": Array [
           <HelmetWrapper
@@ -1257,284 +640,172 @@ ShallowWrapper {
               name="description"
             />
           </HelmetWrapper>,
-          <styled.div
-            columns={1}
-          >
-            <styled.section>
-              <PatientDetails
-                flattenPatientData={[Function]}
-                patient={
-                  Object {
-                    "id": "1",
-                    "name": Array [
-                      "test",
-                    ],
-                  }
+          <div>
+            <PatientDetails
+              flattenPatientData={[Function]}
+              patient={
+                Object {
+                  "id": "1",
+                  "name": Array [
+                    "test",
+                  ],
                 }
-              />
-            </styled.section>
-            <styled.section>
-              <GoldenLayout
-                componentMetadata={
-                  Array [
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "tasks",
-                      "text": "Tasks",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "appointments",
-                      "text": "My Appointments",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "communications",
-                      "text": "Communications",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "toDos",
-                      "text": "My To Do",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "calendar",
-                      "text": "Calendar",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "consents",
-                      "text": "Consents",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
-                      "name": "careTeams",
-                      "text": "Care teams",
-                    },
-                  ]
-                }
-                containerHeight="200vh"
-                containerId="golden-patient"
-                stateMetadata={
+              }
+            />
+            <GoldenLayout
+              componentMetadata={
+                Array [
                   Object {
-                    "content": Array [
-                      Object {
-                        "content": Array [
-                          Object {
-                            "content": Array [
-                              Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "toDos",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "MY TO DO",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "tasks",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "Tasks",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
-                              },
-                              Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "calendar",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "CALENDAR",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "appointments",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "My Appointments",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 50,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "row",
-                          },
-                          Object {
-                            "activeItemIndex": 0,
-                            "content": Array [
-                              Object {
-                                "componentName": "communications",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Communications",
-                                "type": "component",
-                              },
-                            ],
-                            "header": Object {},
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "stack",
-                          },
-                          Object {
-                            "content": Array [
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "consents",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Consents",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "height": 25,
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "careTeams",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Care teams",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "row",
-                          },
-                        ],
-                        "isClosable": true,
-                        "reorderEnabled": true,
-                        "title": "",
-                        "type": "column",
-                      },
-                    ],
-                    "dimensions": Object {
-                      "borderGrabWidth": 15,
-                      "borderWidth": 5,
-                      "dragProxyHeight": 200,
-                      "dragProxyWidth": 300,
-                      "headerHeight": 30,
-                      "minItemHeight": 10,
-                      "minItemWidth": 10,
+                    "factoryMethod": [Function],
+                    "name": "tasks",
+                    "text": "Tasks",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "appointments",
+                    "text": "My Appointments",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "communications",
+                    "text": "Communications",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "toDos",
+                    "text": "My To Do",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "calendar",
+                    "text": "Calendar",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "consents",
+                    "text": "Consents",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "careTeams",
+                    "text": "Care teams",
+                  },
+                ]
+              }
+              containerHeight="75vh"
+              containerId="golden-patient"
+              containerWidth="95vw"
+              stateMetadata={
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "tasks",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Tasks",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "consents",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Consents",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "careTeams",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Care teams",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "toDos",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "MY TO DO",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 40,
+                          "type": "row",
+                        },
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "appointments",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "My Appointments",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "calendar",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "CALENDAR",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "communications",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Communications",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 60,
+                          "type": "row",
+                        },
+                      ],
+                      "type": "column",
                     },
-                    "isClosable": true,
-                    "labels": Object {
-                      "close": "close",
-                      "maximise": "maximise",
-                      "minimise": "minimise",
-                      "popin": "pop in",
-                      "popout": "open in new window",
-                      "tabDropdown": "additional tabs",
-                    },
-                    "maximisedItemId": null,
-                    "openPopouts": Array [],
+                  ],
+                  "dimensions": Object {
+                    "borderWidth": 10,
+                    "dragProxyHeight": 200,
+                    "dragProxyWidth": 300,
+                    "headerHeight": 30,
+                    "minItemHeight": 400,
+                    "minItemWidth": 200,
+                  },
+                  "isClosable": true,
+                  "labels": Object {
+                    "close": "close",
+                    "maximise": "maximise",
+                    "minimise": "minimise",
+                    "popin": "pop in",
+                    "popout": "open in new window",
+                    "tabDropdown": "additional tabs",
+                  },
+                  "maximisedItemId": null,
+                  "openPopouts": Array [],
+                  "reorderEnabled": true,
+                  "settings": Object {
+                    "blockedPopoutsThrowError": true,
+                    "closePopoutsOnUnload": true,
+                    "constrainDragToContainer": false,
+                    "hasHeaders": true,
+                    "popoutWholeStack": false,
                     "reorderEnabled": true,
-                    "settings": Object {
-                      "blockedPopoutsThrowError": true,
-                      "closePopoutsOnUnload": true,
-                      "constrainDragToContainer": false,
-                      "hasHeaders": true,
-                      "popoutWholeStack": false,
-                      "reorderEnabled": true,
-                      "reorderOnTabMenuClick": true,
-                      "responsiveMode": "onload",
-                      "selectionEnabled": false,
-                      "showCloseIcon": true,
-                      "showMaximiseIcon": true,
-                      "showPopoutIcon": false,
-                      "tabControlOffset": 10,
-                      "tabOverlapAllowance": 0,
-                    },
-                    "title": "",
-                  }
+                    "reorderOnTabMenuClick": true,
+                    "responsiveMode": "onload",
+                    "selectionEnabled": false,
+                    "showCloseIcon": true,
+                    "showMaximiseIcon": true,
+                    "showPopoutIcon": false,
+                    "tabControlOffset": 10,
+                    "tabOverlapAllowance": 0,
+                  },
+                  "title": "",
                 }
-              />
-            </styled.section>
-          </styled.div>,
+              }
+            />
+          </div>,
         ],
       },
       "ref": null,
@@ -1586,597 +857,23 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "class",
+          "nodeType": "host",
           "props": Object {
             "children": Array [
-              <styled.section>
-                <PatientDetails
-                  flattenPatientData={[Function]}
-                  patient={
-                    Object {
-                      "id": "1",
-                      "name": Array [
-                        "test",
-                      ],
-                    }
-                  }
-                />
-              </styled.section>,
-              <styled.section>
-                <GoldenLayout
-                  componentMetadata={
-                    Array [
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "tasks",
-                        "text": "Tasks",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "communications",
-                        "text": "Communications",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "toDos",
-                        "text": "My To Do",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "calendar",
-                        "text": "Calendar",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "consents",
-                        "text": "Consents",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "careTeams",
-                        "text": "Care teams",
-                      },
-                    ]
-                  }
-                  containerHeight="200vh"
-                  containerId="golden-patient"
-                  stateMetadata={
-                    Object {
-                      "content": Array [
-                        Object {
-                          "content": Array [
-                            Object {
-                              "content": Array [
-                                Object {
-                                  "content": Array [
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "toDos",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "MY TO DO",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "header": Object {},
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                      "width": 50,
-                                    },
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "tasks",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "Tasks",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "header": Object {},
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                    },
-                                  ],
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "column",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "content": Array [
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "calendar",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "CALENDAR",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                      "width": 50,
-                                    },
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "appointments",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "My Appointments",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "header": Object {},
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                    },
-                                  ],
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "column",
-                                  "width": 50,
-                                },
-                              ],
-                              "height": 50,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "row",
-                            },
-                            Object {
-                              "activeItemIndex": 0,
-                              "content": Array [
-                                Object {
-                                  "componentName": "communications",
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "Communications",
-                                  "type": "component",
-                                },
-                              ],
-                              "header": Object {},
-                              "height": 25,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "stack",
-                            },
-                            Object {
-                              "content": Array [
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "consents",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Consents",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 25,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "careTeams",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Care teams",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                              ],
-                              "height": 25,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "row",
-                            },
-                          ],
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
-                          "type": "column",
-                        },
-                      ],
-                      "dimensions": Object {
-                        "borderGrabWidth": 15,
-                        "borderWidth": 5,
-                        "dragProxyHeight": 200,
-                        "dragProxyWidth": 300,
-                        "headerHeight": 30,
-                        "minItemHeight": 10,
-                        "minItemWidth": 10,
-                      },
-                      "isClosable": true,
-                      "labels": Object {
-                        "close": "close",
-                        "maximise": "maximise",
-                        "minimise": "minimise",
-                        "popin": "pop in",
-                        "popout": "open in new window",
-                        "tabDropdown": "additional tabs",
-                      },
-                      "maximisedItemId": null,
-                      "openPopouts": Array [],
-                      "reorderEnabled": true,
-                      "settings": Object {
-                        "blockedPopoutsThrowError": true,
-                        "closePopoutsOnUnload": true,
-                        "constrainDragToContainer": false,
-                        "hasHeaders": true,
-                        "popoutWholeStack": false,
-                        "reorderEnabled": true,
-                        "reorderOnTabMenuClick": true,
-                        "responsiveMode": "onload",
-                        "selectionEnabled": false,
-                        "showCloseIcon": true,
-                        "showMaximiseIcon": true,
-                        "showPopoutIcon": false,
-                        "tabControlOffset": 10,
-                        "tabOverlapAllowance": 0,
-                      },
-                      "title": "",
-                    }
-                  }
-                />
-              </styled.section>,
-            ],
-            "columns": 1,
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": <PatientDetails
-                  flattenPatientData={[Function]}
-                  patient={
-                    Object {
-                      "id": "1",
-                      "name": Array [
-                        "test",
-                      ],
-                    }
-                  }
-                />,
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "flattenPatientData": [Function],
-                  "patient": Object {
+              <PatientDetails
+                flattenPatientData={[Function]}
+                patient={
+                  Object {
                     "id": "1",
                     "name": Array [
                       "test",
                     ],
-                  },
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": <GoldenLayout
-                  componentMetadata={
-                    Array [
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "tasks",
-                        "text": "Tasks",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "appointments",
-                        "text": "My Appointments",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "communications",
-                        "text": "Communications",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "toDos",
-                        "text": "My To Do",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "calendar",
-                        "text": "Calendar",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "consents",
-                        "text": "Consents",
-                      },
-                      Object {
-                        "factoryMethod": [Function],
-                        "name": "careTeams",
-                        "text": "Care teams",
-                      },
-                    ]
                   }
-                  containerHeight="200vh"
-                  containerId="golden-patient"
-                  stateMetadata={
-                    Object {
-                      "content": Array [
-                        Object {
-                          "content": Array [
-                            Object {
-                              "content": Array [
-                                Object {
-                                  "content": Array [
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "toDos",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "MY TO DO",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "header": Object {},
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                      "width": 50,
-                                    },
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "tasks",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "Tasks",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "header": Object {},
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                    },
-                                  ],
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "column",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "content": Array [
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "calendar",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "CALENDAR",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                      "width": 50,
-                                    },
-                                    Object {
-                                      "activeItemIndex": 0,
-                                      "content": Array [
-                                        Object {
-                                          "componentName": "appointments",
-                                          "isClosable": true,
-                                          "reorderEnabled": true,
-                                          "title": "My Appointments",
-                                          "type": "component",
-                                        },
-                                      ],
-                                      "header": Object {},
-                                      "height": 50,
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "",
-                                      "type": "stack",
-                                    },
-                                  ],
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "column",
-                                  "width": 50,
-                                },
-                              ],
-                              "height": 50,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "row",
-                            },
-                            Object {
-                              "activeItemIndex": 0,
-                              "content": Array [
-                                Object {
-                                  "componentName": "communications",
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "Communications",
-                                  "type": "component",
-                                },
-                              ],
-                              "header": Object {},
-                              "height": 25,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "stack",
-                            },
-                            Object {
-                              "content": Array [
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "consents",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Consents",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "height": 25,
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                                Object {
-                                  "activeItemIndex": 0,
-                                  "content": Array [
-                                    Object {
-                                      "componentName": "careTeams",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Care teams",
-                                      "type": "component",
-                                    },
-                                  ],
-                                  "header": Object {},
-                                  "isClosable": true,
-                                  "reorderEnabled": true,
-                                  "title": "",
-                                  "type": "stack",
-                                  "width": 50,
-                                },
-                              ],
-                              "height": 25,
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "",
-                              "type": "row",
-                            },
-                          ],
-                          "isClosable": true,
-                          "reorderEnabled": true,
-                          "title": "",
-                          "type": "column",
-                        },
-                      ],
-                      "dimensions": Object {
-                        "borderGrabWidth": 15,
-                        "borderWidth": 5,
-                        "dragProxyHeight": 200,
-                        "dragProxyWidth": 300,
-                        "headerHeight": 30,
-                        "minItemHeight": 10,
-                        "minItemWidth": 10,
-                      },
-                      "isClosable": true,
-                      "labels": Object {
-                        "close": "close",
-                        "maximise": "maximise",
-                        "minimise": "minimise",
-                        "popin": "pop in",
-                        "popout": "open in new window",
-                        "tabDropdown": "additional tabs",
-                      },
-                      "maximisedItemId": null,
-                      "openPopouts": Array [],
-                      "reorderEnabled": true,
-                      "settings": Object {
-                        "blockedPopoutsThrowError": true,
-                        "closePopoutsOnUnload": true,
-                        "constrainDragToContainer": false,
-                        "hasHeaders": true,
-                        "popoutWholeStack": false,
-                        "reorderEnabled": true,
-                        "reorderOnTabMenuClick": true,
-                        "responsiveMode": "onload",
-                        "selectionEnabled": false,
-                        "showCloseIcon": true,
-                        "showMaximiseIcon": true,
-                        "showPopoutIcon": false,
-                        "tabControlOffset": 10,
-                        "tabOverlapAllowance": 0,
-                      },
-                      "title": "",
-                    }
-                  }
-                />,
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "componentMetadata": Array [
+                }
+              />,
+              <GoldenLayout
+                componentMetadata={
+                  Array [
                     Object {
                       "factoryMethod": [Function],
                       "name": "tasks",
@@ -2212,116 +909,66 @@ ShallowWrapper {
                       "name": "careTeams",
                       "text": "Care teams",
                     },
-                  ],
-                  "containerHeight": "200vh",
-                  "containerId": "golden-patient",
-                  "stateMetadata": Object {
+                  ]
+                }
+                containerHeight="75vh"
+                containerId="golden-patient"
+                containerWidth="95vw"
+                stateMetadata={
+                  Object {
                     "content": Array [
                       Object {
                         "content": Array [
                           Object {
                             "content": Array [
                               Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "toDos",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "MY TO DO",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "tasks",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "Tasks",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
+                                "componentName": "tasks",
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
+                                "title": "Tasks",
+                                "type": "component",
                               },
                               Object {
-                                "content": Array [
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "calendar",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "CALENDAR",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                    "width": 50,
-                                  },
-                                  Object {
-                                    "activeItemIndex": 0,
-                                    "content": Array [
-                                      Object {
-                                        "componentName": "appointments",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "My Appointments",
-                                        "type": "component",
-                                      },
-                                    ],
-                                    "header": Object {},
-                                    "height": 50,
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "",
-                                    "type": "stack",
-                                  },
-                                ],
+                                "componentName": "consents",
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "",
-                                "type": "column",
-                                "width": 50,
+                                "title": "Consents",
+                                "type": "component",
+                              },
+                              Object {
+                                "componentName": "careTeams",
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "Care teams",
+                                "type": "component",
+                              },
+                              Object {
+                                "componentName": "toDos",
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "MY TO DO",
+                                "type": "component",
                               },
                             ],
-                            "height": 50,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
+                            "height": 40,
                             "type": "row",
                           },
                           Object {
-                            "activeItemIndex": 0,
                             "content": Array [
+                              Object {
+                                "componentName": "appointments",
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "My Appointments",
+                                "type": "component",
+                              },
+                              Object {
+                                "componentName": "calendar",
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "CALENDAR",
+                                "type": "component",
+                              },
                               Object {
                                 "componentName": "communications",
                                 "isClosable": true,
@@ -2330,74 +977,20 @@ ShallowWrapper {
                                 "type": "component",
                               },
                             ],
-                            "header": Object {},
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
-                            "type": "stack",
-                          },
-                          Object {
-                            "content": Array [
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "consents",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Consents",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "height": 25,
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                              Object {
-                                "activeItemIndex": 0,
-                                "content": Array [
-                                  Object {
-                                    "componentName": "careTeams",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Care teams",
-                                    "type": "component",
-                                  },
-                                ],
-                                "header": Object {},
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "",
-                                "type": "stack",
-                                "width": 50,
-                              },
-                            ],
-                            "height": 25,
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "",
+                            "height": 60,
                             "type": "row",
                           },
                         ],
-                        "isClosable": true,
-                        "reorderEnabled": true,
-                        "title": "",
                         "type": "column",
                       },
                     ],
                     "dimensions": Object {
-                      "borderGrabWidth": 15,
-                      "borderWidth": 5,
+                      "borderWidth": 10,
                       "dragProxyHeight": 200,
                       "dragProxyWidth": 300,
                       "headerHeight": 30,
-                      "minItemHeight": 10,
-                      "minItemWidth": 10,
+                      "minItemHeight": 400,
+                      "minItemWidth": 200,
                     },
                     "isClosable": true,
                     "labels": Object {
@@ -2428,19 +1021,192 @@ ShallowWrapper {
                       "tabOverlapAllowance": 0,
                     },
                     "title": "",
-                  },
+                  }
+                }
+              />,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "flattenPatientData": [Function],
+                "patient": Object {
+                  "id": "1",
+                  "name": Array [
+                    "test",
+                  ],
                 },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
               },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "componentMetadata": Array [
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "tasks",
+                    "text": "Tasks",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "appointments",
+                    "text": "My Appointments",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "communications",
+                    "text": "Communications",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "toDos",
+                    "text": "My To Do",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "calendar",
+                    "text": "Calendar",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "consents",
+                    "text": "Consents",
+                  },
+                  Object {
+                    "factoryMethod": [Function],
+                    "name": "careTeams",
+                    "text": "Care teams",
+                  },
+                ],
+                "containerHeight": "75vh",
+                "containerId": "golden-patient",
+                "containerWidth": "95vw",
+                "stateMetadata": Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "tasks",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Tasks",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "consents",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Consents",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "careTeams",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Care teams",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "toDos",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "MY TO DO",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 40,
+                          "type": "row",
+                        },
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "appointments",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "My Appointments",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "calendar",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "CALENDAR",
+                              "type": "component",
+                            },
+                            Object {
+                              "componentName": "communications",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Communications",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 60,
+                          "type": "row",
+                        },
+                      ],
+                      "type": "column",
+                    },
+                  ],
+                  "dimensions": Object {
+                    "borderWidth": 10,
+                    "dragProxyHeight": 200,
+                    "dragProxyWidth": 300,
+                    "headerHeight": 30,
+                    "minItemHeight": 400,
+                    "minItemWidth": 200,
+                  },
+                  "isClosable": true,
+                  "labels": Object {
+                    "close": "close",
+                    "maximise": "maximise",
+                    "minimise": "minimise",
+                    "popin": "pop in",
+                    "popout": "open in new window",
+                    "tabDropdown": "additional tabs",
+                  },
+                  "maximisedItemId": null,
+                  "openPopouts": Array [],
+                  "reorderEnabled": true,
+                  "settings": Object {
+                    "blockedPopoutsThrowError": true,
+                    "closePopoutsOnUnload": true,
+                    "constrainDragToContainer": false,
+                    "hasHeaders": true,
+                    "popoutWholeStack": false,
+                    "reorderEnabled": true,
+                    "reorderOnTabMenuClick": true,
+                    "responsiveMode": "onload",
+                    "selectionEnabled": false,
+                    "showCloseIcon": true,
+                    "showMaximiseIcon": true,
+                    "showPopoutIcon": false,
+                    "tabControlOffset": 10,
+                    "tabOverlapAllowance": 0,
+                  },
+                  "title": "",
+                },
+              },
+              "ref": null,
+              "rendered": null,
               "type": [Function],
             },
           ],
-          "type": [Function],
+          "type": "div",
         },
       ],
-      "type": "div",
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {
