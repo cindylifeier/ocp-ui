@@ -14,6 +14,7 @@ import InfoSection from 'components/InfoSection';
 import OrganizationSliderHeader from './OrganizationSliderHeader';
 import OrganizationSliderServices from './OrganizationSliderServices';
 import OrganizationSliderLocations from './OrganizationSliderLocations';
+import OrganizationSliderActivityDefinitions from './OrganizationSliderActivityDefinitions';
 
 const anchors = ['left', 'top', 'right', 'bottom'];
 
@@ -36,6 +37,9 @@ function OrganizationSlider(props) {
         </InfoSection>
         <InfoSection>
           <OrganizationSliderLocations organization={flattenedOrganization} />
+        </InfoSection>
+        <InfoSection>
+          <OrganizationSliderActivityDefinitions organization={flattenedOrganization} />
         </InfoSection>
       </StyledDrawer>
     </div>
