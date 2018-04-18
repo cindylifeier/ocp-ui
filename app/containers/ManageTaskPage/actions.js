@@ -11,9 +11,6 @@ import {
   GET_ACTIVITY_DEFINITIONS,
   GET_ACTIVITY_DEFINITIONS_ERROR,
   GET_ACTIVITY_DEFINITIONS_SUCCESS,
-  GET_ORGANIZATION,
-  GET_ORGANIZATION_ERROR,
-  GET_ORGANIZATION_SUCCESS,
   GET_PRACTITIONERS,
   GET_PRACTITIONERS_ERROR,
   GET_PRACTITIONERS_SUCCESS,
@@ -38,25 +35,6 @@ import {
 } from './constants';
 
 
-export function getOrganization(practitionerId) {
-  return {
-    type: GET_ORGANIZATION,
-    practitionerId,
-  };
-}
-export function getOrganizationSuccess(organization) {
-  return {
-    type: GET_ORGANIZATION_SUCCESS,
-    organization,
-  };
-}
-
-export function getOrganizationError(err) {
-  return {
-    type: GET_ORGANIZATION_ERROR,
-    err,
-  };
-}
 export function getRequester(practitionerId) {
   return {
     type: GET_PRACTITIONER,
@@ -98,10 +76,10 @@ export function getActivityDefinitionsError(err) {
   };
 }
 
-export function getPractitioners(practitionerId) {
+export function getPractitioners(organizationId) {
   return {
     type: GET_PRACTITIONERS,
-    practitionerId,
+    organizationId,
   };
 }
 

@@ -187,3 +187,5 @@ export const NEW_LINE_CHARACTER = '\n';
  * @type {string}
  */
 export const TO_DO_DEFINITION = 'To-Do';
+
+export const CARE_MANAGER_ROLE = 'CAREMNGR';

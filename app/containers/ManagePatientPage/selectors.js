@@ -19,7 +19,13 @@ const makeSelecSavePatientError = () => createSelector(
   (substate) => substate.get('error'),
 );
 
+const makeSelectPractitioners = () => createSelector(
+  selectManagePatientPageDomain,
+  (substate) => substate && substate.get('practitioners'),
+);
+
 export {
   selectManagePatientPageDomain,
   makeSelecSavePatientError,
+  makeSelectPractitioners,
 };

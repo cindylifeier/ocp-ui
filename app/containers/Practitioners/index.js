@@ -74,15 +74,25 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
+    const { organization } = this.props;
     this.setState({
       isShowSearchResult: true,
       searchPractitioners: { searchType, searchValue, includeInactive },
     });
-    this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
+    if (organization) {
+      this.props.searchPractitioners(searchType, searchValue, includeInactive, organization.logicalId, this.state.searchPractitioners.currentPage);
+    } else {
+      this.props.searchPractitioners(searchType, searchValue, includeInactive, this.state.searchPractitioners.currentPage);
+    }
   }
 
   handleChangeSearchPage(currentPage) {
-    this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
+    const { organization } = this.props;
+    if (organization) {
+      this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage, organization.logicalId);
+    } else {
+      this.props.searchPractitioners(this.state.searchPractitioners.searchType, this.state.searchPractitioners.searchValue, this.state.searchPractitioners.includeInactive, currentPage);
+    }
   }
 
   handleChangeListPage(currentPage) {
@@ -205,7 +215,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
     getPractitionersInOrganization: (currentPage) => dispatch(getPractitionersInOrganization(currentPage)),
-    searchPractitioners: (searchType, searchValue, includeInactive, currentPage) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage)),
+    searchPractitioners: (searchType, searchValue, includeInactive, currentPage, organization) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage, organization)),
   };
 }
 
