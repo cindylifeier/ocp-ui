@@ -25,14 +25,6 @@ export default defineMessages({
       id: 'ocpui.components.OrganizationSlider.locationsPanel.panelSummary',
       defaultMessage: 'Locations',
     },
-    tableHeaderColumnName: {
-      id: 'ocpui.components.OrganizationSlider.locationsPanel.tableHeaderColumnName',
-      defaultMessage: 'Locations',
-    },
-    tableHeaderColumnDescription: {
-      id: 'ocpui.components.OrganizationSlider.locationsPanel.tableHeaderColumnDescription',
-      defaultMessage: 'Description',
-    },
   },
   activityDefinitionsPanel: {
     panelSummary: {

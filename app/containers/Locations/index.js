@@ -17,8 +17,10 @@ import isEqual from 'lodash/isEqual';
 import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { clearLocation, setLocation } from 'containers/App/contextActions';
 import StatusCheckbox from 'components/StatusCheckbox';
-import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
@@ -32,9 +34,7 @@ import NavigationIconMenu from 'components/NavigationIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
-import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
-import { clearLocation, setLocation } from 'containers/App/contextActions';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -48,7 +48,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getActiveLocations, getFilteredLocations, initializeLocations, searchLocations } from './actions';
-import SizedStickyDiv from '../../components/StickyDiv/SizedStickyDiv';
+
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
@@ -288,7 +288,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       linkUrl: MANAGE_LOCATION_URL,
     };
     return (
-      <Card>
+      <div>
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={ORGANIZATION_ADMIN_ROLE_CODE}
@@ -297,7 +297,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           showFilter={false}
         />
         {this.renderLocationTable()}
-      </Card>);
+      </div>);
   }
 }
 

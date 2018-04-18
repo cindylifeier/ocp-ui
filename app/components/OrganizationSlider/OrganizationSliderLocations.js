@@ -9,15 +9,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
+import Locations from 'containers/Locations';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
-
-const tableColumns = 'repeat(2, 1fr) 50px';
 
 class OrganizationSliderLocations extends React.Component {
 
@@ -54,12 +50,7 @@ class OrganizationSliderLocations extends React.Component {
           </ExpansionPanelSummary>
           <Divider light />
           <ExpansionPanelDetails>
-            <Table>
-              <TableHeader columns={tableColumns}>
-                <TableHeaderColumn><FormattedMessage {...messages.locationsPanel.tableHeaderColumnName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.locationsPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
-              </TableHeader>
-            </Table>
+            <Locations />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
