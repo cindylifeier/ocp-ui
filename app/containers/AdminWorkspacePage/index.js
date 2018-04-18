@@ -41,7 +41,7 @@ export const initialStateMetadata =
       tabControlOffset: 10,
     },
     dimensions: {
-      borderWidth: 15,
+      borderWidth: 10,
       borderGrabWidth: 15,
       minItemHeight: 200,
       minItemWidth: 400,
@@ -130,6 +130,7 @@ export class AdminWorkspacePage extends React.Component { // eslint-disable-line
         </Helmet>
         <GoldenLayout
           containerHeight="85vh"
+          containerWidth="95vw"
           containerId="golden-admin-workspace"
           componentMetadata={componentMetadata}
           stateMetadata={initialStateMetadata}

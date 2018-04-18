@@ -22,6 +22,7 @@ import {
   ORGANIZATION_ADMIN_ROLE_CODE,
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
+import Page from 'components/Page';
 import GoldenLayout from 'components/GoldenLayout';
 import renderConsentsComponent from 'containers/Consents/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
@@ -41,6 +42,7 @@ import makeSelectPractitionerWorkspacePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+
 const baseLayout = {
   settings: {
     hasHeaders: true,
@@ -59,10 +61,10 @@ const baseLayout = {
     tabControlOffset: 10,
   },
   dimensions: {
-    borderWidth: 5,
+    borderWidth: 10,
     borderGrabWidth: 15,
-    minItemHeight: 10,
-    minItemWidth: 10,
+    minItemHeight: 200,
+    minItemWidth: 400,
     headerHeight: 30,
     dragProxyWidth: 300,
     dragProxyHeight: 200,
@@ -201,187 +203,107 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     ...baseLayout,
     content: [{
       type: 'column',
-      isClosable: true,
-      reorderEnabled: true,
-      title: '',
-      content: [{
-        type: 'row',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        height: 80,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          width: 50,
-          height: 80,
-          content: [{
-            title: 'Upcoming Appointments',
-            type: 'component',
-            componentName: 'upcomingAppointments',
-            isClosable: true,
-            reorderEnabled: true,
-          },
+      content: [
+        {
+          type: 'row',
+          content: [
+            {
+              title: 'Upcoming Appointments',
+              type: 'component',
+              componentName: 'upcomingAppointments',
+              isClosable: true,
+              reorderEnabled: true,
+            }, {
+              title: 'Patients',
+              type: 'component',
+              componentName: 'patients',
+              isClosable: true,
+              reorderEnabled: true,
+            },
           ],
         }, {
-          type: 'stack',
-          width: 50,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Calendar',
-            type: 'component',
-            componentName: 'calendar',
-            isClosable: true,
-            reorderEnabled: true,
-          },
+          type: 'row',
+          height: 60,
+          content: [
+            {
+              title: 'Calendar',
+              type: 'component',
+              componentName: 'calendar',
+              isClosable: true,
+              reorderEnabled: true,
+            },
           ],
         },
-        ],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 80,
-        content: [{
-          title: 'Patients',
-          type: 'component',
-          componentName: 'patients',
-          isClosable: true,
-          reorderEnabled: true,
-        },
-        ],
-      },
       ],
-    },
-    ],
+    }],
   };
 
   static careCoordinatorLayout = {
     ...baseLayout,
-    content: [{
-      type: 'column',
-      isClosable: true,
-      reorderEnabled: true,
-      title: '',
-      content: [{
-        type: 'row',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        height: 30,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          width: 50,
-          content: [{
-            title: 'MY TO DO',
-            type: 'component',
-            componentName: 'toDos',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          width: 50,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'CALENDAR',
-            type: 'component',
-            componentName: 'calendar',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }],
-      }, {
-        type: 'row',
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        height: 40,
-        content: [{
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          height: 40,
-          width: 50,
-          content: [{
-            title: 'Upcoming tasks',
-            type: 'component',
-            componentName: 'upcomingTasks',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          width: 40,
-          content: [{
-            title: 'Upcoming Appointments',
-            type: 'component',
-            componentName: 'upcomingAppointments',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 50,
-        content: [{
-          title: 'PATIENTS',
-          type: 'component',
-          componentName: 'patients',
-          isClosable: true,
-          reorderEnabled: true,
-        }],
-      }, {
-        type: 'stack',
-        header: {},
-        isClosable: true,
-        reorderEnabled: true,
-        title: '',
-        activeItemIndex: 0,
-        height: 40,
-        content: [{
-          title: 'Consents',
-          type: 'component',
-          componentName: 'consents',
-          isClosable: true,
-          reorderEnabled: true,
-        }],
-      }],
-    }],
+    content: [
+      {
+        type: 'column',
+        content: [
+          {
+            type: 'row',
+            content: [
+              {
+                title: 'MY TO DO',
+                type: 'component',
+                componentName: 'toDos',
+                isClosable: true,
+                reorderEnabled: true,
+              }, {
+                title: 'Upcoming Appointments',
+                type: 'component',
+                componentName: 'upcomingAppointments',
+                isClosable: true,
+                reorderEnabled: true,
+              }, {
+                title: 'Upcoming tasks',
+                type: 'component',
+                componentName: 'upcomingTasks',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            height: 50,
+            content: [
+              {
+                title: 'CALENDAR',
+                type: 'component',
+                componentName: 'calendar',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                title: 'PATIENTS',
+                type: 'component',
+                componentName: 'patients',
+                isClosable: true,
+                reorderEnabled: true,
+              }, {
+                title: 'Consents',
+                type: 'component',
+                componentName: 'consents',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 
-  static pcpLayout = {
+  static
+  pcpLayout = {
     ...baseLayout,
     content: [{
       type: 'column',
@@ -482,7 +404,8 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     ],
   };
 
-  static benefitsSpecialistLayout = {
+  static
+  benefitsSpecialistLayout = {
     ...baseLayout,
     content: [{
       type: 'row',
@@ -530,7 +453,8 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     }],
   };
 
-  static frontOfficeLayout = {
+  static
+  frontOfficeLayout = {
     ...baseLayout,
     content: [{
       type: 'column',
@@ -599,7 +523,8 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     ],
   };
 
-  static healthAssistantLayout = {
+  static
+  healthAssistantLayout = {
     ...baseLayout,
     content: [{
       type: 'column',
@@ -698,12 +623,15 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           <meta name="description" content="Practitioner workspace page of Omnibus Care Plan application" />
         </Helmet>
         {stateMetadata &&
-        <GoldenLayout
-          containerHeight="200vh"
-          containerId="golden-practitioner-workspace"
-          componentMetadata={PractitionerWorkspacePage.componentMetadata}
-          stateMetadata={stateMetadata}
-        />
+        <Page>
+          <GoldenLayout
+            containerHeight="85vh"
+            containerWidth="95vw"
+            containerId="golden-practitioner-workspace"
+            componentMetadata={PractitionerWorkspacePage.componentMetadata}
+            stateMetadata={stateMetadata}
+          />
+        </Page>
         }
       </div>
     );
