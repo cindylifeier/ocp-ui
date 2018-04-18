@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.CareTeamTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
+  columnHeaderAction: {
+    id: 'ocpui.components.CareTeamTable.columnHeaderAction',
+    defaultMessage: 'Action',
+  },
   columnHeaderCategories: {
     id: 'ocpui.components.CareTeamTable.columnHeaderCategories',
     defaultMessage: 'Categories',

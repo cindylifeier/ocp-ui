@@ -26,7 +26,7 @@ function RelatedPersonTable({ relatedPersons, patientId }) {
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderRelationship} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-        <TableHeaderColumn />
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
       </TableHeader>
       {relatedPersons && relatedPersons.map((relatedPerson) => {
         const menuItems = [{

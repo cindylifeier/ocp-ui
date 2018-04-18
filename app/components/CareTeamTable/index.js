@@ -22,36 +22,35 @@ import messages from './messages';
 
 function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded }) {
   function createTableHeaders() {
-    return isExpanded ?
-      (
-        <TableHeader columns={EXPANDED_TABLE_COLUMNS} relativeTop={relativeTop}>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    return (
+      <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        { isExpanded &&
+        <div>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
-          <TableHeaderColumn></TableHeaderColumn>
-        </TableHeader>
-      )
-      :
-      (
-        <TableHeader columns={SUMMARISED_TABLE_COLUMNS} relativeTop={relativeTop}>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
-          <TableHeaderColumn></TableHeaderColumn>
-        </TableHeader>
-      );
+        </div>
+        }
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
+        }
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
+      </TableHeader>
+    );
   }
 
   function createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems) {
-    return isExpanded ?
-      (
-        <TableRow key={id} columns={EXPANDED_TABLE_COLUMNS}>
-          <TableRowColumn>{name}</TableRowColumn>
-          <TableRowColumn>{statusDisplay}</TableRowColumn>
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    return (
+      <TableRow key={id} columns={columns}>
+        <TableRowColumn>{name}</TableRowColumn>
+        <TableRowColumn>{statusDisplay}</TableRowColumn>
+        { isExpanded &&
+        <div>
           <TableRowColumn>{categoryDisplay}</TableRowColumn>
           <TableRowColumn>
             {!isEmpty(participants) && participants
@@ -62,24 +61,17 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
             }
           </TableRowColumn>
           <TableRowColumn>{startDate}</TableRowColumn>
-          <TableRowColumn>{endDate}</TableRowColumn>
-          <TableRowColumn>{reasonDisplay}</TableRowColumn>
-          <TableRowColumn>
-            <NavigationIconMenu menuItems={menuItems} />
-          </TableRowColumn>
-        </TableRow>
-      )
-      :
-      (
-        <TableRow key={id} columns={SUMMARISED_TABLE_COLUMNS}>
-          <TableRowColumn>{name}</TableRowColumn>
-          <TableRowColumn>{statusDisplay}</TableRowColumn>
-          <TableRowColumn>{endDate}</TableRowColumn>
-          <TableRowColumn>
-            <NavigationIconMenu menuItems={menuItems} />
-          </TableRowColumn>
-        </TableRow>
-      );
+        </div>
+        }
+        <TableRowColumn>{endDate}</TableRowColumn>
+        {isExpanded &&
+        <TableRowColumn>{reasonDisplay}</TableRowColumn>
+        }
+        <TableRowColumn>
+          <NavigationIconMenu menuItems={menuItems} />
+        </TableRowColumn>
+      </TableRow>
+    );
   }
   return (
     <div>

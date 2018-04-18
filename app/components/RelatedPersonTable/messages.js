@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.RelatedPersonTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
+  columnHeaderAction: {
+    id: 'ocpui.components.RelatedPersonTable.columnHeaderAction',
+    defaultMessage: 'Action',
+  },
   columnHeaderRelationship: {
     id: 'ocpui.components.RelatedPersonTable.columnHeaderRelationship',
     defaultMessage: 'Relationship',
