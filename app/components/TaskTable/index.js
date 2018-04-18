@@ -24,58 +24,54 @@ import messages from './messages';
 
 function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded }) {
   function createTableHeaders() {
-    return isExpanded ?
-      (
-        <TableHeader columns={EXPANDED_TABLE_COLUMNS} relativeTop={relativeTop}>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    return (
+      <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        {isExpanded &&
+          <div>
+            <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
+            <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
+          </div>
+        }
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
+        {isExpanded &&
+        <div>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
-          <TableHeaderColumn></TableHeaderColumn>
-        </TableHeader>
-      )
-      :
-      (
-        <TableHeader columns={SUMMARISED_TABLE_COLUMNS} relativeTop={relativeTop}>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
-          <TableHeaderColumn></TableHeaderColumn>
-        </TableHeader>
-      );
+          <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
+        </div>
+        }
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
+      </TableHeader>
+    );
   }
 
   function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems) {
-    return isExpanded ?
-      (
-        <TableRow key={logicalId} columns={EXPANDED_TABLE_COLUMNS}>
-          <TableRowColumn>{definition && definition.display}</TableRowColumn>
-          <TableRowColumn>{status && status.display}</TableRowColumn>
-          <TableRowColumn>{description}</TableRowColumn>
-          <TableRowColumn>{authoredOn}</TableRowColumn>
-          <TableRowColumn>{executionPeriod && executionPeriod.start}
-            - {executionPeriod && executionPeriod.end} </TableRowColumn>
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    return (
+      <TableRow key={logicalId} columns={columns}>
+        <TableRowColumn>{definition && definition.display}</TableRowColumn>
+        <TableRowColumn>{status && status.display}</TableRowColumn>
+        {isExpanded &&
+          <div>
+            <TableRowColumn>{description}</TableRowColumn>
+            <TableRowColumn>{authoredOn}</TableRowColumn>
+          </div>
+        }
+        <TableRowColumn>{executionPeriod && executionPeriod.start}
+          - {executionPeriod && executionPeriod.end} </TableRowColumn>
+        {isExpanded &&
+        <div>
           <TableRowColumn>{agent && agent.display} </TableRowColumn>
           <TableRowColumn>{owner && owner.display} </TableRowColumn>
-          <TableRowColumn>
-            <NavigationIconMenu menuItems={menuItems} />
-          </TableRowColumn>
-        </TableRow>
-      )
-      :
-      (
-        <TableRow key={logicalId} columns={SUMMARISED_TABLE_COLUMNS}>
-          <TableRowColumn>{definition && definition.display}</TableRowColumn>
-          <TableRowColumn>{agent && agent.display} </TableRowColumn>
-          <TableRowColumn>{owner && owner.display} </TableRowColumn>
-          <TableRowColumn>
-            <NavigationIconMenu menuItems={menuItems} />
-          </TableRowColumn>
-        </TableRow>
-      );
+        </div>
+        }
+        <TableRowColumn>
+          <NavigationIconMenu menuItems={menuItems} />
+        </TableRowColumn>
+      </TableRow>
+    );
   }
 
   return (
