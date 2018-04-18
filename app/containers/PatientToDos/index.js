@@ -31,6 +31,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import Dialog from 'material-ui/Dialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -51,10 +52,10 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
 
   componentDidMount() {
     this.props.getLookups();
-    const { selectedPatient, selectedOrganization } = this.props;
+    const { selectedPatient, selectedOrganization, user } = this.props;
     const definition = TO_DO_DEFINITION;
     const patientId = selectedPatient ? selectedPatient.id : null;
-    const practitionerId = this.getPractitionerId();
+    const practitionerId = getPractitionerIdByRole(user);
     const organizationId = selectedOrganization && selectedOrganization.logicalId ? selectedOrganization.logicalId : null;
     if (patientId) {
       if (!organizationId && !practitionerId) {
@@ -64,12 +65,6 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
         this.props.getPatientToDoMainTask(patientId, organizationId, definition, practitionerId);
       }
     }
-  }
-
-  getPractitionerId() {
-    const { user } = this.props;
-    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
-    return practitionerId;
   }
 
   getToDoMainTaskId(toDoMainTask) {
@@ -108,10 +103,10 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   }
 
   render() {
-    const { toDos, selectedPatient, loading, toDoMainTask, dateRanges } = this.props;
+    const { toDos, selectedPatient, loading, toDoMainTask, dateRanges, user } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const toDoMainTaskId = this.getToDoMainTaskId(toDoMainTask);
-    const practitionerId = this.getPractitionerId();
+    const practitionerId = getPractitionerIdByRole(user);
     const CREATE_TO_DO_URL = `${MANAGE_TASK_URL}?patientId=${patientId}&isMainTask=false&mainTaskId=${toDoMainTaskId}`;
     const addNewItem = (practitionerId && patientId) ? {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,

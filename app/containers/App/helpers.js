@@ -90,7 +90,7 @@ export function getLinkUrlByRole(role) {
 
 export function getPractitionerIdByRole(user) {
   let practitionerId;
-  if (user && user.role && user.role !== OCP_ADMIN_ROLE_CODE) {
+  if (user && user.role && user.role !== OCP_ADMIN_ROLE_CODE && user.resource) {
     practitionerId = user ? user.resource.logicalId : null;
   }
   return practitionerId;
