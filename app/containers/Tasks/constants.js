@@ -22,3 +22,4 @@ export const CANCEL_TASK_ERROR = 'ocpui/Tasks/CANCEL_TASK_ERROR';
  *  Other constants
  *
  */
+export const SUMMARY_PANEL_WIDTH = 700;

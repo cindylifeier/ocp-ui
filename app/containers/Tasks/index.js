@@ -30,11 +30,13 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import TaskTable from 'components/TaskTable';
 import PanelToolbar from 'components/PanelToolbar';
+import { SUMMARY_PANEL_WIDTH } from 'containers/Tasks/constants';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { cancelTask, getTasks, initializeTasks } from './actions';
+
 
 export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -44,11 +46,13 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       filterHeight: 0,
       practitionerId: 1961,
       isPatientModalOpen: false,
+      isExpanded: false,
     };
     this.cancelTask = this.cancelTask.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +71,11 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     }
   }
 
+  onSize(size) {
+    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+    this.setState({ isExpanded });
+  }
+
   handlePanelResize(size) {
     this.setState({ panelHeight: size.height });
   }
@@ -78,6 +87,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   cancelTask(logicalId) {
     this.props.cancelTask(logicalId);
   }
+
 
   render() {
     const { tasks: { loading, data }, patient } = this.props;
@@ -96,7 +106,6 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
         linkUrl: createTaskUrl,
       };
     }
-
 
     return (
       <Card minWidth={'auto'}>
@@ -138,6 +147,8 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
               patientId={patient.id}
               communicationBaseUrl={MANAGE_COMMUNICATION_URL}
               taskBaseUrl={MANAGE_TASK_URL}
+              isExpanded={this.state.isExpanded}
+              onSize={this.onSize}
             />
           </CenterAlign>
         </div>
