@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import find from 'lodash/find';
 import uniqueId from 'lodash/uniqueId';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -17,20 +18,52 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
+import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS } from './constants';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl, isExpanded }) { // eslint-disable-line react/prefer-stateless-function
+  function createTableHeaders() {
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    return (
+      <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
+        }
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDate} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTime} /></TableHeaderColumn>
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
+        }
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
+      </TableHeader>
+    );
+  }
+
+  function createTableRows(appointment, menuItems) {
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    return (
+      <TableRow key={uniqueId()} columns={columns}>
+        <TableRowColumn>{appointment.patientName}</TableRowColumn>
+        {isExpanded &&
+        <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
+        }
+        <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
+        <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
+        <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
+        {isExpanded &&
+        <TableRowColumn>{appointment.description}</TableRowColumn>
+        }
+        <TableRowColumn>
+          <NavigationIconMenu menuItems={menuItems} />
+        </TableRowColumn>
+      </TableRow>
+    );
+  }
   return (
     <div>
       <Table>
-        <TableHeader relativeTop={relativeTop}>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTime} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
-        </TableHeader>
+        { createTableHeaders()}
         {elements && elements.map((appointment) => {
           const addCommunicationMenuItem = patientId && {
             primaryText: <FormattedMessage {...messages.addCommunication} />,
@@ -50,19 +83,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               disabled: appointment.statusCode === cancelledStatus,
               onClick: () => cancelAppointment(appointment.logicalId),
             }];
-          return (
-            <TableRow key={uniqueId()}>
-              <TableRowColumn>{appointment.patientName}</TableRowColumn>
-              <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
-              <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
-              <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
-              <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
-              <TableRowColumn>{appointment.description}</TableRowColumn>
-              <TableRowColumn>
-                <NavigationIconMenu menuItems={menuItems} />
-              </TableRowColumn>
-            </TableRow>
-          );
+          return createTableRows(appointment, menuItems);
         })}
       </Table>
     </div>
@@ -87,6 +108,7 @@ AppointmentTable.propTypes = {
   cancelledStatus: PropTypes.string,
   enableEditAppointment: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
+  isExpanded: PropTypes.bool,
 };
 
-export default AppointmentTable;
+export default sizeMeHOC(AppointmentTable);
