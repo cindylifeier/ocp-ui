@@ -14,12 +14,13 @@ import {
   SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
-export function getSearchParticipant(name, member, patientId) {
+export function getSearchParticipant(name, member, patientId, organizationId) {
   return {
     type: SEARCH_PARTICIPANT,
     name,
     member,
     patientId,
+    organizationId,
   };
 }
 
