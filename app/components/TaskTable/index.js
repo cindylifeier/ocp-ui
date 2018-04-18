@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
-import sizeMe from 'react-sizeme';
+import sizeMeHOC from 'utils/SizeMeUtils';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -16,16 +16,13 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
-  EXPANDED_TASK_TABLE_COLUMNS, minPanelSize,
+  EXPANDED_TASK_TABLE_COLUMNS,
   SUMMARISED_TASK_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
 } from 'components/TaskTable/constants';
 import messages from './messages';
 
-
-function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, size }) {
-  const isExpanded = size && size.width && (Math.floor(size.width) > minPanelSize);
-
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded }) {
   function createTableHeaders() {
     return isExpanded ?
       (
@@ -120,7 +117,6 @@ TaskTable.propTypes = {
   patientId: PropTypes.string.isRequired,
   communicationBaseUrl: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,
-  size: PropTypes.object.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     definition: PropTypes.shape({
@@ -149,17 +145,7 @@ TaskTable.propTypes = {
       display: PropTypes.string,
     }),
   })),
+  isExpanded: PropTypes.bool.isRequired,
 };
-
-// Create the config for SizeMe
-const config = {
-  monitorWidth: true,
-  monitorHeight: false,
-  refreshRate: 250,
-};
-
-// Call SizeMe with the config to get back the HOC.
-const sizeMeHOC = sizeMe(config);
-
 
 export default sizeMeHOC(TaskTable);
