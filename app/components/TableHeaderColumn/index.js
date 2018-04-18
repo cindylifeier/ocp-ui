@@ -12,7 +12,7 @@ const TableHeaderColumn = styled.div`
   color: #000;
   font-family: "Arial Bold", "Arial", sans-serif;
   font-style: normal;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 700;
   line-height: normal;
   text-align: left;
