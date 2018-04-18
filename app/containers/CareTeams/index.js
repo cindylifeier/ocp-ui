@@ -45,7 +45,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getCareTeams, initializeCareTeams } from './actions';
-import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
+import { DEFAULT_CARE_TEAM_STATUS_CODE, SUMMARY_PANEL_WIDTH } from './constants';
 
 export class CareTeams extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -53,11 +53,13 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
+      isExpanded: false,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
+    this.onSize = this.onSize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
@@ -78,8 +80,9 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     }
   }
 
-  calculateCheckboxColumns({ length }) {
-    return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
+  onSize(size) {
+    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+    this.setState({ isExpanded });
   }
 
   handlePageClick(pageNumber) {
@@ -102,6 +105,10 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.setState({ filterHeight: size.height });
   }
 
+
+  calculateCheckboxColumns({ length }) {
+    return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
+  }
   renderFilter(careTeamStatuses, statusList) {
     const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
     return (
@@ -159,11 +166,11 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
                   </div>
                 </InfoSection>
               </Cell>
+              {!isEmpty(careTeamStatuses) && this.state.isExpanded &&
               <Cell>
-                {!isEmpty(careTeamStatuses) &&
-                this.renderFilter(careTeamStatuses, statusList)
-                }
+                {this.renderFilter(careTeamStatuses, statusList)}
               </Cell>
+              }
             </Grid>
           </SizedStickyDiv>
         }
@@ -180,6 +187,8 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
             relativeTop={this.state.panelHeight + this.state.filterHeight}
             elements={data.elements}
             manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
+            isExpanded={this.state.isExpanded}
+            onSize={this.onSize}
           />
           <CenterAlignedUltimatePagination
             currentPage={data.currentPage}
