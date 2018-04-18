@@ -22,7 +22,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
-const tableColumns = 'repeat(5, 1fr) 100px';
+const tableColumns = '100px 1fr 60px 120px';
 const ENTER_KEY = 'Enter';
 
 function OrganizationTable(props) {
@@ -35,14 +35,12 @@ function OrganizationTable(props) {
             <Table>
               <TableHeader columns={tableColumns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
                 const flattenOrganization = flattenOrganizationData(organization);
-                const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
+                const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <TableRow
                     columns={tableColumns}
@@ -60,8 +58,6 @@ function OrganizationTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{addresses}</TableRowColumn>
-                    <TableRowColumn>{telecoms}</TableRowColumn>
                     <TableRowColumn>{identifiers}</TableRowColumn>
                     <TableRowColumn>
                       {active ?
@@ -70,7 +66,7 @@ function OrganizationTable(props) {
                       }
                     </TableRowColumn>
                     <TableRowColumn>
-                      <StyledFlatButton color="primary" fullWidth onClick={() => onOrganizationViewDetails()}>
+                      <StyledFlatButton color="primary" size="small" onClick={() => onOrganizationViewDetails()}>
                         <FormattedMessage {...messages.viewDetails} />
                       </StyledFlatButton>
                     </TableRowColumn>
