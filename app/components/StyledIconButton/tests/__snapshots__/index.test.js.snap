@@ -4,7 +4,9 @@ exports[`<StyledIconButton /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <StyledIconButton__StyledIconButton>
+  Symbol(enzyme.__unrendered__): <StyledIconButton__StyledIconButton
+    disableIconHover={false}
+  >
     <pure(Menu) />
   </StyledIconButton__StyledIconButton>,
   Symbol(enzyme.__renderer__): Object {
@@ -17,10 +19,11 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "class",
+    "nodeType": "function",
     "props": Object {
       "children": <pure(Menu) />,
       "className": "StyledIconButton__StyledIconButton-hHQfQP jTYrrs",
+      "disableIconHover": false,
     },
     "ref": null,
     "rendered": Object {
@@ -38,10 +41,11 @@ ShallowWrapper {
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "function",
       "props": Object {
         "children": <pure(Menu) />,
         "className": "StyledIconButton__StyledIconButton-hHQfQP jTYrrs",
+        "disableIconHover": false,
       },
       "ref": null,
       "rendered": Object {
