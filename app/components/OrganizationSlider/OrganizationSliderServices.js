@@ -8,16 +8,12 @@ import teal from 'material-ui-next/colors/teal';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
+import HealthcareServices from 'containers/HealthcareServices';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
+import StyledText from 'components/StyledText';
 import messages from './messages';
 
-
-const tableColumns = 'repeat(2, 1fr) 50px';
 
 class OrganizationSliderServices extends React.Component {
 
@@ -50,16 +46,13 @@ class OrganizationSliderServices extends React.Component {
               <ExpandLessIcon onClick={this.handlePanelOpen} /> :
               <ExpandMoreIcon onClick={this.handlePanelOpen} />
             }
-            <FormattedMessage {...messages.servicesPanel.panelSummary} />
+            <StyledText whiteSpace>
+              <FormattedMessage {...messages.servicesPanel.panelSummary} />
+            </StyledText>
           </ExpansionPanelSummary>
           <Divider light />
           <ExpansionPanelDetails>
-            <Table>
-              <TableHeader columns={tableColumns}>
-                <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.servicesPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
-              </TableHeader>
-            </Table>
+            <HealthcareServices />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

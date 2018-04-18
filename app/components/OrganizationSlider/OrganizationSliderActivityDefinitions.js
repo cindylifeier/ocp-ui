@@ -14,6 +14,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
+import StyledText from 'components/StyledText';
 import messages from './messages';
 
 
@@ -50,7 +51,9 @@ class OrganizationSliderActivityDefinitions extends React.Component {
               <ExpandLessIcon onClick={this.handlePanelOpen} /> :
               <ExpandMoreIcon onClick={this.handlePanelOpen} />
             }
-            <FormattedMessage {...messages.activityDefinitionsPanel.panelSummary} />
+            <StyledText whiteSpace>
+              <FormattedMessage {...messages.activityDefinitionsPanel.panelSummary} />
+            </StyledText>
           </ExpansionPanelSummary>
           <Divider light />
           <ExpansionPanelDetails>

@@ -11,14 +11,6 @@ export default defineMessages({
       id: 'ocpui.components.OrganizationSlider.servicesPanel.panelSummary',
       defaultMessage: 'Services',
     },
-    tableHeaderColumnName: {
-      id: 'ocpui.components.OrganizationSlider.servicesPanel.tableHeaderColumnName',
-      defaultMessage: 'Services',
-    },
-    tableHeaderColumnDescription: {
-      id: 'ocpui.components.OrganizationSlider.servicesPanel.tableHeaderColumnDescription',
-      defaultMessage: 'Description',
-    },
   },
   locationsPanel: {
     panelSummary: {

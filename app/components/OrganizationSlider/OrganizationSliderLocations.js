@@ -12,6 +12,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Locations from 'containers/Locations';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
+import StyledText from 'components/StyledText';
 import messages from './messages';
 
 
@@ -46,7 +47,9 @@ class OrganizationSliderLocations extends React.Component {
               <ExpandLessIcon onClick={this.handlePanelOpen} /> :
               <ExpandMoreIcon onClick={this.handlePanelOpen} />
             }
-            <FormattedMessage {...messages.locationsPanel.panelSummary} />
+            <StyledText whiteSpace>
+              <FormattedMessage {...messages.locationsPanel.panelSummary} />
+            </StyledText>
           </ExpansionPanelSummary>
           <Divider light />
           <ExpansionPanelDetails>
