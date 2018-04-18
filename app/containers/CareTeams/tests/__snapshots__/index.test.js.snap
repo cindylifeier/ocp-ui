@@ -238,6 +238,7 @@ ShallowWrapper {
           />
         </styled.div>,
       ],
+      "minWidth": "auto",
     },
     "ref": null,
     "rendered": Array [
@@ -1128,6 +1129,7 @@ ShallowWrapper {
             />
           </styled.div>,
         ],
+        "minWidth": "auto",
       },
       "ref": null,
       "rendered": Array [

@@ -277,7 +277,7 @@ PatientPage.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
-  refreshPatient: PropTypes.func.isRequired,
+  refreshPatient: PropTypes.func,
   getPatient: PropTypes.func.isRequired,
 };
 
