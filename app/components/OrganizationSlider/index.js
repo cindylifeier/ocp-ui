@@ -10,6 +10,7 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import StyledDrawer from 'components/StyledDrawer';
 import StyledIconButton from 'components/StyledIconButton';
+import HorizontalAlignment from 'components/HorizontalAlignment';
 import InfoSection from 'components/InfoSection';
 import OrganizationSliderHeader from './OrganizationSliderHeader';
 import OrganizationSliderServices from './OrganizationSliderServices';
@@ -28,9 +29,11 @@ function OrganizationSlider(props) {
         open={open}
         transitionDuration={{ enter: 500, exit: 20 }}
       >
-        <StyledIconButton disableIconHover onClick={onClose}>
-          <Cancel color="#b2b2b2" />
-        </StyledIconButton>
+        <HorizontalAlignment position="end">
+          <StyledIconButton size="small" svgIconSize="small" disableIconHover onClick={onClose}>
+            <Cancel color="#b2b2b2" />
+          </StyledIconButton>
+        </HorizontalAlignment>
         <OrganizationSliderHeader organization={flattenedOrganization} />
         <InfoSection>
           <OrganizationSliderServices organization={flattenedOrganization} />
