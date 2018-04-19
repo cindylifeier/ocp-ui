@@ -72,7 +72,6 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const logicalId = this.props.match.params.id;
     const {
       match,
       error,
@@ -86,7 +85,8 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
       organization,
       location,
     } = this.props;
-    const editMode = !isUndefined(match.params.id);
+    const logicalId = match.params.id;
+    const editMode = !isUndefined(logicalId);
     let selectedLocation = null;
     if (editMode && location) {
       selectedLocation = location;
