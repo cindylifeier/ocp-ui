@@ -5,7 +5,7 @@ describe('manageLocationPageReducer', () => {
   it('returns the initial state', () => {
     expect(manageLocationPageReducer(undefined, {})).toEqual(fromJS({
       error: false,
-      location: {},
+      location: null,
     }));
   });
 });
