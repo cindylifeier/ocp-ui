@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ExpansionPanel, { ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui-next/ExpansionPanel';
+import ExpansionPanel, { ExpansionPanelSummary } from 'material-ui-next/ExpansionPanel';
 import Divider from 'material-ui-next/Divider';
 import teal from 'material-ui-next/colors/teal';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -15,6 +15,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
+import FullWidthPanelDetails from './FullWidthPanelDetails';
 import messages from './messages';
 
 
@@ -56,14 +57,14 @@ class OrganizationSliderActivityDefinitions extends React.Component {
             </StyledText>
           </ExpansionPanelSummary>
           <Divider light />
-          <ExpansionPanelDetails>
+          <FullWidthPanelDetails>
             <Table>
               <TableHeader columns={tableColumns}>
                 <TableHeaderColumn><FormattedMessage {...messages.activityDefinitionsPanel.tableHeaderColumnName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.activityDefinitionsPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
               </TableHeader>
             </Table>
-          </ExpansionPanelDetails>
+          </FullWidthPanelDetails>
         </ExpansionPanel>
       </div>
     );

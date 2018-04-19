@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ExpansionPanel, { ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui-next/ExpansionPanel';
+import ExpansionPanel, { ExpansionPanelSummary } from 'material-ui-next/ExpansionPanel';
 import Divider from 'material-ui-next/Divider';
 import teal from 'material-ui-next/colors/teal';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -13,6 +13,7 @@ import Locations from 'containers/Locations';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
+import FullWidthPanelDetails from './FullWidthPanelDetails';
 import messages from './messages';
 
 
@@ -52,9 +53,9 @@ class OrganizationSliderLocations extends React.Component {
             </StyledText>
           </ExpansionPanelSummary>
           <Divider light />
-          <ExpansionPanelDetails>
+          <FullWidthPanelDetails>
             <Locations />
-          </ExpansionPanelDetails>
+          </FullWidthPanelDetails>
         </ExpansionPanel>
       </div>
     );
