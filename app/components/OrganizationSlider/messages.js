@@ -23,14 +23,6 @@ export default defineMessages({
       id: 'ocpui.components.OrganizationSlider.activityDefinitionsPanel.panelSummary',
       defaultMessage: 'Activity Definitions',
     },
-    tableHeaderColumnName: {
-      id: 'ocpui.components.OrganizationSlider.activityDefinitionsPanel.tableHeaderColumnName',
-      defaultMessage: 'Activity Definitions',
-    },
-    tableHeaderColumnDescription: {
-      id: 'ocpui.components.OrganizationSlider.activityDefinitionsPanel.tableHeaderColumnDescription',
-      defaultMessage: 'Description',
-    },
   },
   orgImg: {
     id: 'ocpui.components.OrganizationSlider.orgImg',

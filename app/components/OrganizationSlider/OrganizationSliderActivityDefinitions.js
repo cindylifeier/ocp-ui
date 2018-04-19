@@ -9,17 +9,13 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
+import ActivityDefinitions from 'containers/ActivityDefinitions';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
 import FullWidthPanelDetails from './FullWidthPanelDetails';
 import messages from './messages';
 
-
-const tableColumns = 'repeat(2, 1fr) 50px';
 
 class OrganizationSliderActivityDefinitions extends React.Component {
 
@@ -58,12 +54,7 @@ class OrganizationSliderActivityDefinitions extends React.Component {
           </ExpansionPanelSummary>
           <Divider light />
           <FullWidthPanelDetails>
-            <Table>
-              <TableHeader columns={tableColumns}>
-                <TableHeaderColumn><FormattedMessage {...messages.activityDefinitionsPanel.tableHeaderColumnName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.activityDefinitionsPanel.tableHeaderColumnDescription} /></TableHeaderColumn>
-              </TableHeader>
-            </Table>
+            <ActivityDefinitions />
           </FullWidthPanelDetails>
         </ExpansionPanel>
       </div>

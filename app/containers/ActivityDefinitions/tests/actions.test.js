@@ -1,13 +1,13 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { getActivityDefinitionsInOrganization } from '../actions';
+import { GET_ACTIVITY_DEFINITIONS_IN_ORGANIZATION } from '../constants';
 
 describe('ActivityDefinitions actions', () => {
   describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+    it('has a type of GET_ACTIVITY_DEFINITIONS_IN_ORGANIZATION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_ACTIVITY_DEFINITIONS_IN_ORGANIZATION,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getActivityDefinitionsInOrganization()).toEqual(expected);
     });
   });
 });

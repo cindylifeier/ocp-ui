@@ -45,6 +45,7 @@ function ActivityDefinitionsTable(props) {
                 const { title, topic, effectivePeriod, description, status } = activityDefinition;
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
+                  disabled: true,
                 }];
                 return (
                   <TableRow
