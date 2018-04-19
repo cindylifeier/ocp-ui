@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  tableColumnHeaderPatientName: {
+    id: 'ocpui.components.ConsentTable.tableColumnHeader.PatientName',
+    defaultMessage: 'Patient Name',
+  },
   tableColumnHeaderFromActor: {
     id: 'ocpui.components.ConsentTable.tableColumnHeader.FromActor',
     defaultMessage: 'Authorized to Share',
