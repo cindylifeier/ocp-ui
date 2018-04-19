@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -20,21 +21,24 @@ import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import ConsentExpandableTableRow from './ConsentExpandableTableRow';
 import messages from './messages';
-
-const tableColumns = '50px repeat(4, 1fr) 50px';
+import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function ConsentTable(props) {
-  const { consentData, relativeTop, allowedAttestConsentRoles } = props;
+  const { consentData, relativeTop, allowedAttestConsentRoles, size } = props;
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
   return (
     <div>
       {consentData.loading && <RefreshIndicatorLoading />}
       {(!consentData.loading && consentData.data && consentData.data.length > 0
           ? <div>
             <Table>
-              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+              <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderFromActor} /></TableHeaderColumn>
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderToActor} /></TableHeaderColumn>
+                }
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPeriod} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
@@ -42,8 +46,9 @@ function ConsentTable(props) {
                 <ConsentExpandableTableRow
                   key={consent.logicalId}
                   consent={consent}
-                  tableColumns={tableColumns}
+                  tableColumns={columns}
                   allowedAttestConsentRoles={allowedAttestConsentRoles}
+                  isExpanded={isExpanded}
                 />
                 ))}
             </Table>
@@ -98,7 +103,7 @@ ConsentTable.propTypes = {
       }),
     })).isRequired,
   }),
-
+  size: PropTypes.object.isRequired,
 };
 
-export default ConsentTable;
+export default sizeMeHOC(ConsentTable);

@@ -52,7 +52,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
   }
 
   render() {
-    const { consent, tableColumns, allowedAttestConsentRoles } = this.props;
+    const { consent, tableColumns, allowedAttestConsentRoles, isExpanded } = this.props;
     const { logicalId, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
     const { anchorEl } = this.state;
     return (
@@ -75,6 +75,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
               </div>
             ),
           )}</TableRowColumn>
+          {isExpanded &&
           <TableRowColumn>{toGeneralDesignation || toActor.map(({ display }) =>
             (
               <div key={uniqueId()}>
@@ -82,6 +83,7 @@ class ConsentExpandableTableRow extends React.PureComponent {
               </div>
             ),
           )}</TableRowColumn>
+          }
           <TableRowColumn>{period && period.start}-{period && period.end} </TableRowColumn>
           <TableRowColumn>{capitalize(status)}</TableRowColumn>
           <TableRowColumn>
@@ -143,6 +145,7 @@ ConsentExpandableTableRow.propTypes = {
   consent: PropTypes.object,
   tableColumns: PropTypes.string,
   allowedAttestConsentRoles: PropTypes.string,
+  isExpanded: PropTypes.bool.isRequired,
 };
 
 export default ConsentExpandableTableRow;
