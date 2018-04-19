@@ -13,9 +13,10 @@ import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
 
 import {
-  CARE_COORDINATOR_ROLE_CODE,
+  CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE,
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_CONSENT_URL,
+  PCP_ROLE_CODE,
   PATIENT_ROLE_CODE,
 } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
@@ -98,7 +99,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
+          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PCP_ROLE_CODE]}
           showSearchIcon={false}
           showFilterIcon={false}
           showUploadIcon={false}
