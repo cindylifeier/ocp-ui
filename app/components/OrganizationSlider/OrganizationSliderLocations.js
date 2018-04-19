@@ -32,7 +32,7 @@ function OrganizationSliderLocations() {
         }
       >
         <FullWidthPanelDetails>
-          <Locations />
+          <Locations showActionSection={false} />
         </FullWidthPanelDetails>
       </ControlledAccordion>
     </div>

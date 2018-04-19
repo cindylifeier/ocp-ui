@@ -14,13 +14,13 @@ import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 
-import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { clearLocation, setLocation } from 'containers/App/contextActions';
 import StatusCheckbox from 'components/StatusCheckbox';
+import RecordsRange from 'components/RecordsRange';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
@@ -35,6 +35,8 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import CenterAlign from 'components/Align/CenterAlign';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -48,10 +50,11 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getActiveLocations, getFilteredLocations, initializeLocations, searchLocations } from './actions';
+import { flattenLocationData } from './helpers';
 
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
+  static TABLE_COLUMNS = 'repeat(4, 1fr) 50px';
   static initalState = {
     panelHeight: 0,
     filterHeight: 0,
@@ -82,7 +85,6 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
-    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentDidMount() {
@@ -142,26 +144,11 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.props.searchLocations(this.state.searchLocations.searchValue, this.state.searchLocations.includeInactive, this.state.searchLocations.searchType, currentPage);
   }
 
-  renderTelecoms(telecoms) {
-    return telecoms.map((entry) =>
-      (
-        <div key={entry.value}>
-          {entry.system}: {entry.value},
-        </div>
-      ),
-    );
-  }
-
-  renderAddress(address) {
-    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
-    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
-    return addressStr ? (<div>{addressStr}</div>) : '';
-  }
-
   renderRows() {
     if (this.props.data) {
       return this.props.data.map((location) => {
-        const { logicalId, name, status, telecoms, address } = location;
+        const flattenedLocation = flattenLocationData(location);
+        const { logicalId, name, status, telecoms, address } = flattenedLocation;
         const menuItems = [{
           primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
           linkTo: `/ocp-ui/manage-location/${logicalId}`,
@@ -179,8 +166,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           >
             <TableRowColumn>{name}</TableRowColumn>
             <TableRowColumn>{status}</TableRowColumn>
-            <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
-            <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
+            <TableRowColumn>{telecoms}</TableRowColumn>
+            <TableRowColumn>{address}</TableRowColumn>
             <TableRowColumn>
               <NavigationIconMenu menuItems={menuItems} />
             </TableRowColumn>
@@ -192,96 +179,96 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   }
 
   renderTable() {
-    let locationsDate = {
-      handlePageClick: this.handleListPageClick,
-    };
-    if (this.state.isShowSearchResult) {
-      locationsDate = {
-        handlePageClick: this.handleSearchPageClick,
-      };
-    }
+    const { data } = this.props;
     return (
       <div>
-        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-          <InfoSection margin="0px">
-            <div>
-              {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
-              <FormattedMessage {...messages.locations} /> for &nbsp;
-              <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-                <span id={this.ORGANIZATION_NAME_HTML_ID}>
-                  {this.props.organization ? this.props.organization.name : ''}&nbsp;
-                </span>
-              </InlineLabel>
-              are :
-            </div>
-          </InfoSection>
-          {this.props.location &&
-          <InfoSection margin="0px" width="fit-content" maxWidth="500px">
-            <StyledFlatButton onClick={this.props.clearLocation}>
-              Clear
-            </StyledFlatButton>
-          </InfoSection>
-          }
-          {!this.state.isShowSearchResult &&
-          <FilterSection>
-            <CheckboxFilterGrid>
-              <Cell>
-                <FormattedMessage {...messages.filterLabel} />
-              </Cell>
-              <Cell>
-                <StatusCheckbox
-                  messages={messages.inactive}
-                  elementId="inactiveCheckBox"
-                  checked={this.props.includeInactive}
-                  handleCheck={this.handleIncludeInactive}
-                />
-              </Cell>
-              <Cell>
-                <StatusCheckbox
-                  messages={messages.suspended}
-                  elementId="suspendedCheckBox"
-                  checked={this.props.includeSuspended}
-                  handleCheck={this.handleIncludeSuspended}
-                />
-              </Cell>
-            </CheckboxFilterGrid>
-          </FilterSection>
-          }
-        </SizedStickyDiv>
-        <Table>
-          <TableHeader columns={Locations.TABLE_COLUMNS} relativeTop={this.state.panelHeight + this.state.filterHeight}>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
-            <TableHeaderColumn />
-          </TableHeader>
-          {this.renderRows()}
-          <CenterAlignedUltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalNumberOfPages}
-            onChange={locationsDate.handlePageClick}
-          />
-          <RecordsRange
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalNumberOfPages}
-            totalElements={this.props.totalElements}
-            currentPageSize={this.props.currentPageSize}
-          />
-        </Table>
+        {data && data.length > 0 ?
+          <div>
+            <Table>
+              <TableHeader
+                columns={Locations.TABLE_COLUMNS}
+                relativeTop={this.state.panelHeight + this.state.filterHeight}
+              >
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
+              </TableHeader>
+              {this.renderRows()}
+            </Table>
+            <CenterAlignedUltimatePagination
+              currentPage={this.props.currentPage}
+              totalPages={this.props.totalNumberOfPages}
+              onChange={this.state.isShowSearchResult ? this.handleSearchPageClick : this.handleListPageClick}
+            />
+            <RecordsRange
+              currentPage={this.props.currentPage}
+              totalPages={this.props.totalNumberOfPages}
+              totalElements={this.props.totalElements}
+              currentPageSize={this.props.currentPageSize}
+            />
+          </div> :
+          <CenterAlign>
+            <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
+          </CenterAlign>
+        }
       </div>
     )
       ;
   }
 
-  renderLocationTable() {
-    const { data } = this.props;
-    if (data && data.length > 0) {
-      return this.renderTable();
-    }
-    return (<h4><FormattedMessage {...messages.noLocationsFound} /></h4>);
+  renderActionSection() {
+    return (
+      <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+        <InfoSection margin="0px">
+          <div>
+            {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
+            <FormattedMessage {...messages.locations} /> for &nbsp;
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>
+                {this.props.organization ? this.props.organization.name : ''}&nbsp;
+              </span>
+            </InlineLabel>
+            are :
+          </div>
+        </InfoSection>
+        {this.props.location &&
+        <InfoSection margin="0px" width="fit-content" maxWidth="500px">
+          <StyledFlatButton onClick={this.props.clearLocation}>
+            Clear
+          </StyledFlatButton>
+        </InfoSection>
+        }
+        {!this.state.isShowSearchResult &&
+        <FilterSection>
+          <CheckboxFilterGrid>
+            <Cell>
+              <FormattedMessage {...messages.filterLabel} />
+            </Cell>
+            <Cell>
+              <StatusCheckbox
+                messages={messages.inactive}
+                elementId="inactiveCheckBox"
+                checked={this.props.includeInactive}
+                handleCheck={this.handleIncludeInactive}
+              />
+            </Cell>
+            <Cell>
+              <StatusCheckbox
+                messages={messages.suspended}
+                elementId="suspendedCheckBox"
+                checked={this.props.includeSuspended}
+                handleCheck={this.handleIncludeSuspended}
+              />
+            </Cell>
+          </CheckboxFilterGrid>
+        </FilterSection>
+        }
+      </SizedStickyDiv>
+    );
   }
 
+  // Todo: Refactor to create presentational location table component
   render() {
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
@@ -289,6 +276,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     };
     return (
       <div>
+        {this.props.showActionSection &&
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={ORGANIZATION_ADMIN_ROLE_CODE}
@@ -296,7 +284,9 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           onSize={this.handlePanelResize}
           showFilter={false}
         />
-        {this.renderLocationTable()}
+        }
+        {this.props.showActionSection && this.renderActionSection()}
+        {this.renderTable()}
       </div>);
   }
 }
@@ -309,6 +299,7 @@ Locations.propTypes = {
   getActiveLocations: PropTypes.func.isRequired,
   setLocation: PropTypes.func.isRequired,
   clearLocation: PropTypes.func.isRequired,
+  showActionSection: PropTypes.bool,
   data: PropTypes.array,
   organization: PropTypes.object,
   location: PropTypes.object,
@@ -319,6 +310,10 @@ Locations.propTypes = {
   includeInactive: PropTypes.bool,
   includeSuspended: PropTypes.bool,
   searchLocations: PropTypes.func,
+};
+
+Locations.defaultProps = {
+  showActionSection: true,
 };
 
 const mapStateToProps = createStructuredSelector({
