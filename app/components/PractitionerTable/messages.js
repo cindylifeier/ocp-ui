@@ -22,6 +22,10 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.tableHeaderColumnIdentifier',
     defaultMessage: 'Identifier',
   },
+  tableHeaderColumnAction: {
+    id: 'ocpui.components.PractitionerTable.tableHeaderColumnAction',
+    defaultMessage: 'Action',
+  },
   active: {
     id: 'ocpui.components.PractitionerTable.active',
     defaultMessage: 'Active',

@@ -23,11 +23,11 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
-
-const tableColumns = 'repeat(4, 1fr) 50px';
+import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData } = props;
+  const { relativeTop, practitionersData, isExpanded } = props;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
   return (
     <div>
       {practitionersData.loading && <RefreshIndicatorLoading />}
@@ -35,11 +35,14 @@ function PractitionerTable(props) {
         practitionersData.data.length > 0 ?
           <div>
             <Table>
-              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+              <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+                { isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+                }
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
                 const { logicalId, name, active, identifiers } = practitioner;
@@ -49,7 +52,7 @@ function PractitionerTable(props) {
                 }];
                 return (
                   <TableRow
-                    columns={tableColumns}
+                    columns={columns}
                     key={logicalId}
                   >
                     <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
@@ -60,7 +63,9 @@ function PractitionerTable(props) {
                         <FormattedMessage {...messages.inactive} />
                       }
                     </TableRowColumn>
+                    {isExpanded &&
                     <TableRowColumn>{identifiers}</TableRowColumn>
+                    }
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
@@ -98,6 +103,7 @@ function renderLastName(names) {
 
 PractitionerTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -127,6 +133,7 @@ PractitionerTable.propTypes = {
       practitionerRoles: PropTypes.array,
     })).isRequired,
   }),
+
 };
 
 export default PractitionerTable;
