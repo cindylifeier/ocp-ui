@@ -8,7 +8,10 @@ const selectManageHealthcareServicePageDomain = (state) => state.get('manageHeal
 /**
  * Other specific selectors
  */
-
+const makeSelectHealthcareService = () => createSelector(
+  selectManageHealthcareServicePageDomain,
+  (substate) => substate.get('healthcareService'),
+);
 
 /**
  * Default selector used by ManageHealthcareServicePage
@@ -16,10 +19,11 @@ const selectManageHealthcareServicePageDomain = (state) => state.get('manageHeal
 
 const makeSelectManageHealthcareServicePage = () => createSelector(
   selectManageHealthcareServicePageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectManageHealthcareServicePage;
 export {
   selectManageHealthcareServicePageDomain,
+  makeSelectHealthcareService,
 };

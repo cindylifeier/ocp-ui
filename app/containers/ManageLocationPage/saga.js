@@ -1,15 +1,20 @@
 import { goBack } from 'react-router-redux';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+
+import { showNotification } from 'containers/Notification/actions';
 import { GET_LOCATION, POST_CREATE_LOCATION, PUT_LOCATION } from './constants';
 import {
-  createLocationError, createLocationSuccess, getLocationError, getLocationSuccess, putLocationError,
+  createLocationError,
+  createLocationSuccess,
+  getLocationError,
+  getLocationSuccess,
+  putLocationError,
   putLocationSuccess,
 } from './actions';
 import createLocation, { fetchLocation, updateLocation } from './api';
-import { showNotification } from '../Notification/actions';
 
 
-export function* handleCreateLocation(action) {
+export function* createLocationSaga(action) {
   try {
     const createLocationResponse = yield call(createLocation, action.location, action.organizationId);
     yield put(createLocationSuccess(createLocationResponse));
@@ -21,7 +26,7 @@ export function* handleCreateLocation(action) {
   }
 }
 
-export function* handleUpdateLocation(action) {
+export function* updateLocationSaga(action) {
   try {
     const response = yield call(updateLocation, action.location, action.organizationId);
     yield put(putLocationSuccess(response));
@@ -33,34 +38,36 @@ export function* handleUpdateLocation(action) {
   }
 }
 
-export function* handleGetLocation(action) {
+export function* getLocationSaga(action) {
   try {
     const location = yield call(fetchLocation, action.locationId);
     yield put(getLocationSuccess(location));
   } catch (error) {
+    yield put(showNotification('No related location found.'));
+    yield put(goBack());
     yield put(getLocationError(error));
   }
+}
+
+export function* watchCreateLocationSaga() {
+  yield takeLatest(POST_CREATE_LOCATION, createLocationSaga);
+}
+
+export function* watchUpdateLocationSaga() {
+  yield takeLatest(PUT_LOCATION, updateLocationSaga);
+}
+
+export function* watchGetLocationSaga() {
+  yield takeLatest(GET_LOCATION, getLocationSaga);
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export function* watchCreateLocation() {
-  yield takeLatest(POST_CREATE_LOCATION, handleCreateLocation);
-}
-
-export function* watchUpdateLocation() {
-  yield takeLatest(PUT_LOCATION, handleUpdateLocation);
-}
-export function* watchGetLocation() {
-  yield takeLatest(GET_LOCATION, handleGetLocation);
-}
-
-
 export default function* rootSaga() {
   yield all([
-    watchCreateLocation(),
-    watchUpdateLocation(),
-    watchGetLocation(),
+    watchCreateLocationSaga(),
+    watchUpdateLocationSaga(),
+    watchGetLocationSaga(),
   ]);
 }

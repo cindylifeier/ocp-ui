@@ -6,8 +6,14 @@
 
 import {
   CREATE_LOCATION_ERROR,
-  CREATE_LOCATION_SUCCESS, GET_LOCATION, GET_LOCATION_ERROR, GET_LOCATION_SUCCESS,
-  POST_CREATE_LOCATION, PUT_LOCATION, PUT_LOCATION_ERROR, PUT_LOCATION_SUCCESS,
+  CREATE_LOCATION_SUCCESS,
+  GET_LOCATION,
+  GET_LOCATION_ERROR,
+  GET_LOCATION_SUCCESS,
+  POST_CREATE_LOCATION,
+  PUT_LOCATION,
+  PUT_LOCATION_ERROR,
+  PUT_LOCATION_SUCCESS,
 } from './constants';
 
 
@@ -43,13 +49,6 @@ export function putLocationError(error) {
   };
 }
 
-export function getLocation(locationId) {
-  return {
-    type: GET_LOCATION,
-    locationId,
-  };
-}
-
 export function createLocationSuccess(respone) {
   return {
     type: CREATE_LOCATION_SUCCESS,
@@ -64,10 +63,10 @@ export function createLocationError(error) {
   };
 }
 
-export function getLocationError(error) {
+export function getLocation(locationId) {
   return {
-    type: GET_LOCATION_ERROR,
-    error,
+    type: GET_LOCATION,
+    locationId,
   };
 }
 
@@ -75,5 +74,12 @@ export function getLocationSuccess(location) {
   return {
     type: GET_LOCATION_SUCCESS,
     location,
+  };
+}
+
+export function getLocationError(error) {
+  return {
+    type: GET_LOCATION_ERROR,
+    error,
   };
 }

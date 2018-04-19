@@ -23,7 +23,6 @@ import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageHealthcareService from 'components/ManageHealthcareService';
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   HEALTHCARESERVICECATEGORY,
@@ -47,6 +46,7 @@ import messages from './messages';
 import { createHealthcareService, getHealthcareServiceById, updateHealthcareService } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectHealthcareService } from './selectors';
 
 export class ManageHealthcareServicePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -137,12 +137,13 @@ export class ManageHealthcareServicePage extends React.Component { // eslint-dis
       telecomSystems,
       telecomUses,
       organization,
+      healthcareService,
     } = this.props;
-    const logicalId = this.props.match.params.id;
-    const editMode = !isUndefined(match.params.id);
+    const logicalId = match.params.id;
+    const editMode = !isUndefined(logicalId);
     let currentHealthcareService = null;
-    if (editMode) {
-      currentHealthcareService = find(this.props.healthcareServices, { logicalId });
+    if (editMode && healthcareService) {
+      currentHealthcareService = healthcareService;
     }
     const formProps = {
       healthcareServiceCategories,
@@ -187,7 +188,50 @@ ManageHealthcareServicePage.propTypes = {
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
   organization: PropTypes.object,
-  healthcareServices: PropTypes.any,
+  healthcareService: PropTypes.shape({
+    organizationId: PropTypes.string,
+    organizationName: PropTypes.string,
+    locationId: PropTypes.string,
+    locationName: PropTypes.string,
+    active: PropTypes.bool,
+    logicalId: PropTypes.string.isRequired,
+    category: PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    }),
+    programName: PropTypes.array,
+    specialty: PropTypes.array,
+    referralMethod: PropTypes.array,
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    type: PropTypes.arrayOf(PropTypes.shape({
+      code: PropTypes.string,
+      system: PropTypes.string,
+      definition: PropTypes.string,
+      display: PropTypes.string,
+    })),
+    name: PropTypes.string,
+    address: PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    }),
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+  }),
   createHealthcareService: PropTypes.func,
   updateHealthcareService: PropTypes.func,
 };
@@ -201,7 +245,7 @@ const mapStateToProps = createStructuredSelector({
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
   organization: makeSelectOrganization(),
-  healthcareServices: makeSelectHealthcareServices(),
+  healthcareService: makeSelectHealthcareService(),
 });
 
 function mapDispatchToProps(dispatch) {
