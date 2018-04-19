@@ -12,8 +12,8 @@ const StyledDialog = styled(({ ...other }) => (
   <Dialog {...other} classes={{ paper: 'paper' }} />
 ))`
   & .paper {
-    border: 2px solid rgba(0, 51, 102, 1);
-    border-radius: 4px;
+    border: 3px solid #099;
+    border-radius: 15px;
   }
 `;
 

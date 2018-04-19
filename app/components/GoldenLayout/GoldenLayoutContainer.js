@@ -12,6 +12,10 @@ const GoldenLayoutContainer = styled.div`
     border-bottom: 0;
   }
 
+  & .lm_controls {
+    margin-top: 10px;
+  }
+
   & .lm_stack {
     background: #fff;
     border-bottom: 0;
