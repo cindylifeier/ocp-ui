@@ -103,24 +103,27 @@ class WorkspaceSelection extends React.Component { // eslint-disable-line react/
         return this.renderSelectRoleContent();
       case 1:
         return this.renderSelectOrganizationContent();
-      case 2:
+      case 2: {
         return (
           <div>
-            <SelectField
-              floatingLabelText={`Select ${this.mapToRoleDisplay(this.state.roleValue)}`}
-              value={this.state.practitionerValue}
-              onChange={this.handlePractitionerValueChange}
-            >
-              {practitioners && practitioners.data.map((practitioner) =>
-                (<MenuItem
-                  key={practitioner.logicalId}
-                  value={practitioner.logicalId}
-                  primaryText={mapToName(practitioner.name)}
-                />),
-              )}
-            </SelectField>
+            {practitioners && practitioners.data && practitioners.data.length === 0 ? `No ${this.mapToRoleDisplay(this.state.roleValue)}s Found`
+              : <SelectField
+                floatingLabelText={`Select ${this.mapToRoleDisplay(this.state.roleValue)}`}
+                value={this.state.practitionerValue}
+                onChange={this.handlePractitionerValueChange}
+              >
+                {practitioners && practitioners.data.map((practitioner) =>
+                  (<MenuItem
+                    key={practitioner.logicalId}
+                    value={practitioner.logicalId}
+                    primaryText={mapToName(practitioner.name)}
+                  />),
+                )}
+              </SelectField>
+            }
           </div>
         );
+      }
       default:
         return null;
     }

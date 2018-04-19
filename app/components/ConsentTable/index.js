@@ -21,6 +21,8 @@ import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import ConsentExpandableTableRow from './ConsentExpandableTableRow';
 import messages from './messages';
+
+// const tableColumns = '50px repeat(5, 1fr) 50px';
 import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function ConsentTable(props) {
@@ -35,6 +37,7 @@ function ConsentTable(props) {
             <Table>
               <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPatientName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderFromActor} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderToActor} /></TableHeaderColumn>

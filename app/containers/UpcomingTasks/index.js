@@ -22,8 +22,9 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import { getUpcomingTasks, initializeUpcomingTasks } from 'containers/UpcomingTasks/actions';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { TO_DO_DEFINITION } from 'containers/App/constants';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
 import { makeSelectUpcomingTasks, makeSelectUpcomingTasksLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -33,7 +34,6 @@ export class UpcomingTasks extends React.Component { // eslint-disable-line reac
   constructor(props) {
     super(props);
     this.state = {
-      practitionerId: 1961,
       isPatientModalOpen: false,
       panelHeight: 0,
     };
@@ -44,7 +44,11 @@ export class UpcomingTasks extends React.Component { // eslint-disable-line reac
 
   componentDidMount() {
     this.props.initializeUpcomingTasks();
-    this.props.getUpcomingTasks(this.state.practitionerId);
+    const { user } = this.props;
+    const practitionerId = getPractitionerIdByRole(user);
+    if (practitionerId) {
+      this.props.getUpcomingTasks(practitionerId);
+    }
   }
 
   handlePanelResize(size) {
@@ -112,12 +116,14 @@ UpcomingTasks.propTypes = {
     id: PropTypes.string,
     name: PropTypes.array,
   }),
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectUpcomingTasksLoading(),
   data: makeSelectUpcomingTasks(),
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

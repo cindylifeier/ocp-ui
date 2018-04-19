@@ -13,7 +13,10 @@ import FormSubtitle from 'components/FormSubtitle';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import SubTaskTable from 'components/SubTaskTable';
-import { MANAGE_TASK_URL } from './constants';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import { mapToPatientName } from 'utils/PatientUtils';
+import { MANAGE_TASK_URL, EMPTY_STRING } from './constants';
 import messages from './messages';
 import ManageTaskFormGrid from './ManageTaskFormGrid';
 
@@ -31,9 +34,12 @@ function ManageTaskForm(props) {
     tasksByPatient,
     subTasks,
     patient,
-    isSubmitting, dirty, isValid, isMainTask,
+    isSubmitting, dirty, isValid, isMainTask, organization, requester,
   } = props;
   const today = new Date();
+  const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
+  const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+
   return (
     <Form>
       <ManageTaskFormGrid>
@@ -60,37 +66,25 @@ function ManageTaskForm(props) {
           </SelectField>
         </Cell>
         <Cell area="selOrganization">
-          <TextField
-            fullWidth
-            name="selOrganization"
-            hintText={<FormattedMessage {...messages.hintText.organization} />}
-            floatingLabelText={<FormattedMessage
-              {...messages.floatingLabelText.organization}
-            />}
-            disabled
-          />
+          <InfoSection margin="4vh 0 0 0">
+            <InlineLabel htmlFor={ORGANIZATION_NAME_HTML_ID}><FormattedMessage {...messages.floatingLabelText.organization} />&nbsp;
+            </InlineLabel>
+            <span id={ORGANIZATION_NAME_HTML_ID}>{organization && organization.name}</span>
+          </InfoSection>
         </Cell>
         <Cell area="patientName">
-          <TextField
-            fullWidth
-            name="patientName"
-            hintText={<FormattedMessage {...messages.hintText.patientName} />}
-            floatingLabelText={<FormattedMessage
-              {...messages.floatingLabelText.patientName}
-            />}
-            disabled
-          />
+          <InfoSection margin="2vh 0 0 0">
+            <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.hintText.patientName} />&nbsp;
+            </InlineLabel>
+            <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
+          </InfoSection>
         </Cell>
         <Cell area="selRequester">
-          <TextField
-            fullWidth
-            name="selRequester"
-            hintText={<FormattedMessage {...messages.hintText.requester} />}
-            floatingLabelText={<FormattedMessage
-              {...messages.floatingLabelText.requester}
-            />}
-            disabled
-          />
+          <InfoSection margin="2vh 0 0 0">
+            <InlineLabel htmlFor={PATIENT_NAME_HTML_ID}><FormattedMessage {...messages.hintText.requester} />&nbsp;
+            </InlineLabel>
+            <span id={PATIENT_NAME_HTML_ID}>{getResourceName(requester)}</span>
+          </InfoSection>
         </Cell>
         <Cell area="authoredOn">
           <DatePicker
@@ -312,6 +306,22 @@ ManageTaskForm.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
+  organization: PropTypes.object,
+  requester: PropTypes.object,
 };
 
 export default ManageTaskForm;
+
+function getResourceName(resource) {
+  if (resource === undefined || resource === null) {
+    return EMPTY_STRING;
+  }
+  const names = resource.name;
+  return names && names
+    .map((name) => {
+      const firstName = name.firstName !== EMPTY_STRING ? name.firstName : EMPTY_STRING;
+      const lastName = name.lastName !== EMPTY_STRING ? name.lastName : EMPTY_STRING;
+      return `${firstName} ${lastName}`;
+    })
+    .join(', ');
+}

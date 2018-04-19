@@ -23,19 +23,15 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import ManageTask from 'components/ManageTask';
-import { REQUEST_INTENT,
-  REQUEST_PRIORITY,
-  TASK_PERFORMER_TYPE,
-  TASK_STATUS,
-  TO_DO_DEFINITION,
-} from 'containers/App/constants';
+import { REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE, TASK_STATUS, TO_DO_DEFINITION } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import { makeSelectRequestIntents, makeSelectRequestPriorities, makeSelectTaskPerformerTypes, makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
 import makeSelectTasks from 'containers/Tasks/selectors';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectOrganization, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
-import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
+import { createTask, getActivityDefinitions, getEventTypes, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -44,13 +40,10 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
-    this.state = {
-      practitionerId: 1961,
-    };
   }
 
   componentDidMount() {
-    const { match, location } = this.props;
+    const { match, location, organization, user } = this.props;
     this.props.getLookups();
     const logicalId = match.params.id;
     if (logicalId) {
@@ -61,14 +54,17 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     }
     const queryObj = queryString.parse(location.search);
     const patientId = queryObj.patientId;
-    // get organization for the given practitioner
-    this.props.getOrganization(this.state.practitionerId);
-    // get practitioner details for the given practitioner
-    this.props.getRequester(this.state.practitionerId);
-    // get Activity Definitions-for for the given practitioner
-    this.props.getActivityDefinitions(this.state.practitionerId);
-    // get practitioners belonging to requester organization
-    this.props.getPractitioners(this.state.practitionerId);
+    if (organization) {
+      // get practitioners belonging to requester organization
+      this.props.getPractitioners(organization.logicalId);
+      const practitionerId = getPractitionerIdByRole(user);
+      if (practitionerId) {
+        // get practitioner details for the given practitioner
+        this.props.getRequester(practitionerId);
+        // get Activity Definitions-for for the given practitioner
+        this.props.getActivityDefinitions(practitionerId);
+      }
+    }
 
     // get episode of cares for the given patient
     this.props.getEventTypes(patientId);
@@ -118,7 +114,11 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     };
 
     // creator organization -- assumption only one org per application context
-    taskDataToSubmit.organization = this.props.organization[0];
+    const selOrg = this.props.organization;
+    taskDataToSubmit.organization = {
+      reference: `Organization/${selOrg.logicalId}`,
+      display: selOrg.name,
+    };
 
     // Optional Fields
     if (eventTypes) {
@@ -255,16 +255,12 @@ ManageTaskPage.propTypes = {
     url: PropTypes.string,
   }).isRequired,
   getLookups: PropTypes.func.isRequired,
-  getOrganization: PropTypes.func.isRequired,
   getRequester: PropTypes.func,
   getPractitioners: PropTypes.func.isRequired,
   getEventTypes: PropTypes.func.isRequired,
   getActivityDefinitions: PropTypes.func.isRequired,
   getTasksByPatient: PropTypes.func.isRequired,
-  organization: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  }))),
+  organization: PropTypes.object,
   tasksByPatient: PropTypes.arrayOf((PropTypes.shape({
     reference: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -286,6 +282,7 @@ ManageTaskPage.propTypes = {
   getTask: PropTypes.func,
   updateTask: PropTypes.func,
   getSubTasks: PropTypes.func,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -303,17 +300,17 @@ const mapStateToProps = createStructuredSelector({
   subTasks: makeSelectSubTasks(),
   tasksByPatient: makeSelectTasksByPatient(),
   toDoSubTasks: makeSelectPatientToDos(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE])),
-    getOrganization: (practitionerId) => dispatch(getOrganization(practitionerId)),
     getRequester: (practitionerId) => dispatch(getRequester(practitionerId)),
     getActivityDefinitions: (practitionerId) => dispatch(getActivityDefinitions(practitionerId)),
     getTasksByPatient: (patientId) => dispatch(getTasksByPatient(patientId)),
     getEventTypes: (patientId) => dispatch(getEventTypes(patientId)),
-    getPractitioners: (practitionerId) => dispatch(getPractitioners(practitionerId)),
+    getPractitioners: (organizationId) => dispatch(getPractitioners(organizationId)),
     createTask: (taskFormData, handleSubmitting) => dispatch(createTask(taskFormData, handleSubmitting)),
     getTask: (logicalId) => dispatch(getTaskById(logicalId)),
     getSubTasks: (logicalId) => dispatch(getSubTasks(logicalId)),

@@ -21,6 +21,7 @@ import isUndefined from 'lodash/isUndefined';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import ShowHideWrapper, { functionalRoles } from 'containers/ShowHideWrapper';
+import StyledIcon from 'components/StyledIcon';
 import FilterBar from 'components/FilterBar';
 import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
@@ -29,7 +30,6 @@ import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
 
 const white = common.white;
-
 export class PanelToolbar extends React.Component {
   constructor(props) {
     super(props);
@@ -69,14 +69,18 @@ export class PanelToolbar extends React.Component {
       <div>
         <StyledToolbar
           color="#91AAB3"
-          height="30px"
+          height="20px"
         >
           <ToolbarGroup firstChild>
             {!isUndefined(addNewItem) &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton
                 label={addNewItem.labelName}
-                icon={<AddCircle color={white} />}
+                icon={
+                  <StyledIcon>
+                    <AddCircle color={white} />
+                  </StyledIcon>
+                }
                 containerElement={<Link to={addNewItem.linkUrl} />}
               />
             </ShowHideWrapper>
@@ -85,12 +89,16 @@ export class PanelToolbar extends React.Component {
           <ToolbarGroup lastChild>
             {showUploadIcon &&
             <IconButton tooltip={<FormattedMessage {...messages.uploadFiles} />}>
-              <FileUploadIcon color={white} />
+              <StyledIcon>
+                <FileUploadIcon color={white} />
+              </StyledIcon>
             </IconButton>
             }
             {showSettingIcon &&
             <IconButton tooltip={<FormattedMessage {...messages.settings} />}>
-              <SettingsIcon color={white} />
+              <StyledIcon>
+                <SettingsIcon color={white} />
+              </StyledIcon>
             </IconButton>
             }
             {showFilterIcon &&
@@ -100,7 +108,13 @@ export class PanelToolbar extends React.Component {
                 <FormattedMessage {...messages.filter} />}
               onClick={this.handleShowFilter}
             >
-              {this.state.isShowFilter ? <CancelIcon color={white} /> : <FilterIcon color={white} />}
+              {this.state.isShowFilter ?
+                <StyledIcon>
+                  <CancelIcon color={white} />
+                </StyledIcon> :
+                <StyledIcon>
+                  <FilterIcon color={white} />
+                </StyledIcon>}
             </IconButton>
             }
             {showSearchIcon &&
@@ -112,7 +126,12 @@ export class PanelToolbar extends React.Component {
               onClick={this.handleShowSearchBar}
             >
               {this.state.isShowSearchBar ?
-                <CancelIcon color={white} /> : <SearchIcon color={white} />
+                <StyledIcon>
+                  <CancelIcon color={white} />
+                </StyledIcon> :
+                <StyledIcon>
+                  <SearchIcon color={white} />
+                </StyledIcon>
               }
             </IconButton>
             }

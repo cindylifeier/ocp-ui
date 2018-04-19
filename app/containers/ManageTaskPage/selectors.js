@@ -7,12 +7,6 @@ const selectManageTaskPageDomain = (state) => state.get('manageTaskPage');
 /**
  * Other specific selectors
  */
-
-const makeSelectOrganization = () => createSelector(
-  selectManageTaskPageDomain,
-  (substate) => substate && substate.get('organization'),
-);
-
 const makeSelectActivityDefinitions = () => createSelector(
   selectManageTaskPageDomain,
   (substate) => substate && substate.get('activityDefinitions'),
@@ -46,7 +40,6 @@ const makeSelectSubTasks = () => createSelector(
 
 export {
   selectManageTaskPageDomain,
-  makeSelectOrganization,
   makeSelectActivityDefinitions,
   makeSelectPractitioners,
   makeSelectPractitioner,
