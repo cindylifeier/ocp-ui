@@ -31,7 +31,7 @@ import { getPractitionerIdByRole } from 'containers/App/helpers';
 import makeSelectTasks from 'containers/Tasks/selectors';
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectActivityDefinitions, makeSelectEventTypes, makeSelectPractitioner, makeSelectPractitioners, makeSelectSubTasks, makeSelectTasksByPatient } from './selectors';
-import { createTask, getActivityDefinitions, getEventTypes, getOrganization, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
+import { createTask, getActivityDefinitions, getEventTypes, getPractitioners, getRequester, getSubTasks, getTaskById, getTasksByPatient, updateTask } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -306,7 +306,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([TASK_STATUS, REQUEST_INTENT, REQUEST_PRIORITY, TASK_PERFORMER_TYPE])),
-    getOrganization: (practitionerId) => dispatch(getOrganization(practitionerId)),
     getRequester: (practitionerId) => dispatch(getRequester(practitionerId)),
     getActivityDefinitions: (practitionerId) => dispatch(getActivityDefinitions(practitionerId)),
     getTasksByPatient: (patientId) => dispatch(getTasksByPatient(patientId)),

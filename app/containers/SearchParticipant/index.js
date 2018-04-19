@@ -37,11 +37,10 @@ import WideDialog from 'components/WideDialog';
 import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
 import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { TEXT_MIN_LENGTH } from './constants';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
 import { makeSelectSearchParticipantResults } from './selectors';
 import ParticipantName from './ParticipantName';
@@ -78,7 +77,8 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
 
   handleSearch(values) {
     const { name, member } = values;
-    this.props.searchParticipant(name, member, this.props.patient.id);
+    const orgId = (this.props.organization) ? this.props.organization.logicalId : undefined;
+    this.props.searchParticipant(name, member, this.props.patient.id, orgId);
   }
 
   createSearchResultHeader() {
@@ -220,7 +220,6 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
       <StyledFlatButton onClick={this.handleDialogClose}>
@@ -243,10 +242,6 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
             actions.setSubmitting(false);
           }}
           validationSchema={yup.object().shape({
-            name: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (
-                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
             member: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
           })}
@@ -316,6 +311,7 @@ SearchParticipant.propTypes = {
     definition: PropTypes.string,
     system: PropTypes.string,
   })),
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -323,12 +319,13 @@ const mapStateToProps = createStructuredSelector({
   searchParticipantResult: makeSelectSearchParticipantResults(),
   participantRoles: makeSelectParticipantRoles(),
   patient: makeSelectPatient(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
-    searchParticipant: (name, member, patientId) => dispatch(getSearchParticipant(name, member, patientId)),
+    searchParticipant: (name, member, patientId, organizationId) => dispatch(getSearchParticipant(name, member, patientId, organizationId)),
     addParticipants: (participant) => dispatch(addParticipants(participant)),
     initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchParticipant(initialSelectedParticipants)),
   };
