@@ -76,7 +76,7 @@ export class PanelToolbar extends React.Component {
             {!isUndefined(addNewItem) &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
-                <StyledIconButton size="small" disableIconHover>
+                <StyledIconButton svgIconSize="small" disableIconHover>
                   <AddCircle color={white} />
                 </StyledIconButton>
                 {addNewItem.labelName}
@@ -87,14 +87,14 @@ export class PanelToolbar extends React.Component {
           <ToolbarGroup lastChild>
             {showUploadIcon &&
             <Tooltip title={<FormattedMessage {...messages.uploadFiles} />} placement="top">
-              <StyledIconButton size="small">
+              <StyledIconButton svgIconSize="small">
                 <FileUploadIcon color={white} />
               </StyledIconButton>
             </Tooltip>
             }
             {showSettingIcon &&
             <Tooltip title={<FormattedMessage {...messages.settings} />} placement="top">
-              <StyledIconButton size="small">
+              <StyledIconButton svgIconSize="small">
                 <SettingsIcon color={white} />
               </StyledIconButton>
             </Tooltip>
@@ -120,7 +120,7 @@ export class PanelToolbar extends React.Component {
                 <FormattedMessage {...messages.search} />}
               placement="top"
             >
-              <StyledIconButton size="small" onClick={this.handleShowSearchBar}>
+              <StyledIconButton svgIconSize="small" onClick={this.handleShowSearchBar}>
                 {this.state.isShowSearchBar ?
                   <CancelIcon color={white} /> : <SearchIcon color={white} />
                 }
