@@ -19,7 +19,6 @@ import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
@@ -131,7 +130,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const { loading, healthcareServices, organization, location } = this.props;
+    const { loading, healthcareServices, organization, location, showActionSection } = this.props;
     let healthcareServicesData = {
       handlePageClick: this.handleListPageClick,
     };
@@ -142,14 +141,14 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     }
     return (
       <div>
+        {showActionSection &&
         <PanelToolbar
           onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
           showFilter={false}
         />
-        {isEmpty(organization) &&
-        <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
-
+        }
+        {showActionSection &&
         <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
           {!isEmpty(organization) &&
           <InfoSection margin="0px">
@@ -185,9 +184,11 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           </FilterSection>
           }
         </SizedStickyDiv>
+        }
 
-        {loading &&
-        <RefreshIndicatorLoading />}
+        {isEmpty(organization) &&
+        <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>
+        }
 
         {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
         <NoResultsFoundText>
@@ -226,6 +227,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 HealthcareServices.propTypes = {
   loading: PropTypes.bool,
   includeInactive: PropTypes.bool,
+  showActionSection: PropTypes.bool,
   healthcareServices: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
@@ -236,6 +238,10 @@ HealthcareServices.propTypes = {
   organization: PropTypes.object,
   location: PropTypes.object,
   searchHealthcareServices: PropTypes.func,
+};
+
+HealthcareServices.defaultProps = {
+  showActionSection: true,
 };
 
 const mapStateToProps = createStructuredSelector({

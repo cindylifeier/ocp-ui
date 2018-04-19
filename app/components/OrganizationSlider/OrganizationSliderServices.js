@@ -32,7 +32,7 @@ function OrganizationSliderServices() {
         }
       >
         <FullWidthPanelDetails>
-          <HealthcareServices />
+          <HealthcareServices showActionSection={false} />
         </FullWidthPanelDetails>
       </ControlledAccordion>
     </div>
