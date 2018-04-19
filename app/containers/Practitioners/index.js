@@ -72,7 +72,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   onSize(size) {
-    console.log(size);
     const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
     this.setState({
       relativeTop: size.height,
