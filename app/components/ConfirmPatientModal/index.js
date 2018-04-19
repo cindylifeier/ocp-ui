@@ -21,6 +21,7 @@ import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
+import HorizontalAlignment from 'components/HorizontalAlignment';
 import PatientModalCell from './PatientModalCell';
 import messages from './messages';
 
@@ -33,11 +34,13 @@ function ConfirmPatientModal(props) {
         fullWidth
       >
         <DialogTitle>
-          <StyledTooltip title="Close">
-            <StyledIconButton onClick={onPatientModalClose}>
-              <Close />
-            </StyledIconButton>
-          </StyledTooltip>
+          <HorizontalAlignment position={'end'}>
+            <StyledTooltip title="Close">
+              <StyledIconButton onClick={onPatientModalClose}>
+                <Close />
+              </StyledIconButton>
+            </StyledTooltip>
+          </HorizontalAlignment>
         </DialogTitle>
         <DialogContent>
           <Grid columns={1} alignContent="space-between">

@@ -22,11 +22,12 @@ import ManageLocationForm from './ManageLocationForm';
 function ManageLocation(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const postalCodePattern = new RegExp(POSTAL_CODE_PATTERN);
-  const { onSave } = props;
+  const { onSave, editMode, selectedLocation } = props;
   return (
     <div>
+      {((editMode && selectedLocation) || !editMode) &&
       <Formik
-        initialValues={setFormData(props.location)}
+        initialValues={setFormData(selectedLocation)}
         onSubmit={(values, actions) => {
           onSave(values);
           actions.setSubmitting(false);
@@ -56,13 +57,42 @@ function ManageLocation(props) {
         })}
         render={(formikProps) => <ManageLocationForm {...formikProps} {...props} />}
       />
+      }
     </div>
   );
 }
 
 ManageLocation.propTypes = {
   onSave: PropTypes.func.isRequired,
-  location: PropTypes.object,
+  selectedLocation: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    managingLocationLogicalId: PropTypes.string,
+    status: PropTypes.string,
+    physicalType: PropTypes.string,
+    name: PropTypes.string,
+    address: PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    }),
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+  }),
+  editMode: PropTypes.bool.isRequired,
 };
 
 export default ManageLocation;

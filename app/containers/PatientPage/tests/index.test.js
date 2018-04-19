@@ -85,7 +85,8 @@ describe('<PatientPage />', () => {
       expect(renderedComponent.contains(
         <GoldenLayout
           containerId="golden-patient"
-          containerHeight="200vh"
+          containerHeight="75vh"
+          containerWidth="95vw"
           componentMetadata={componentMetadata}
           stateMetadata={initialStateMetadata}
         />)).toEqual(true);
