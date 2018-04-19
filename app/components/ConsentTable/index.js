@@ -37,7 +37,9 @@ function ConsentTable(props) {
             <Table>
               <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn></TableHeaderColumn>
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPatientName} /></TableHeaderColumn>
+                }
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderFromActor} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderToActor} /></TableHeaderColumn>
