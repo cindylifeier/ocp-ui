@@ -35,6 +35,7 @@ import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
+import InfoSection from 'components/InfoSection';
 import { cancelPractitionerAppointment, getPractitionerAppointments } from './actions';
 import { STATUS_CODE_CANCELLED } from './constants';
 import messages from './messages';
@@ -121,29 +122,31 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
           <NoPractitionerAppointmentsMessage>{
             <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPractitionerAppointmentsMessage>}
           {!isEmpty(data) && !isEmpty(data.elements) &&
-          <CenterAlign>
-            <AppointmentTable
-              elements={data.elements}
-              appointmentStatuses={appointmentStatuses}
-              appointmentTypes={appointmentTypes}
-              cancelAppointment={this.cancelAppointment}
-              communicationBaseUrl={communicationBaseUrl}
-              relativeTop={this.state.panelHeight + this.state.filterHeight}
-              cancelledStatus={cancelledStatus}
-            />
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              onChange={this.handlePageClick}
-            />
-            <RecordsRange
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              totalElements={data.totalElements}
-              currentPageSize={data.currentPageSize}
-            />
-          </CenterAlign>
-          }
+            <InfoSection margin="0 0 10px 0">
+              <CenterAlign>
+                <AppointmentTable
+                  elements={data.elements}
+                  appointmentStatuses={appointmentStatuses}
+                  appointmentTypes={appointmentTypes}
+                  cancelAppointment={this.cancelAppointment}
+                  communicationBaseUrl={communicationBaseUrl}
+                  relativeTop={this.state.panelHeight + this.state.filterHeight}
+                  cancelledStatus={cancelledStatus}
+                />
+                <CenterAlignedUltimatePagination
+                  currentPage={data.currentPage}
+                  totalPages={data.totalNumberOfPages}
+                  onChange={this.handlePageClick}
+                />
+                <RecordsRange
+                  currentPage={data.currentPage}
+                  totalPages={data.totalNumberOfPages}
+                  totalElements={data.totalElements}
+                  currentPageSize={data.currentPageSize}
+                />
+              </CenterAlign>
+            </InfoSection>
+        }
         </Card>
       </div>
     );

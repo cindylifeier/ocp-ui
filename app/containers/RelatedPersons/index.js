@@ -20,6 +20,7 @@ import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
+import ContentSection from 'components/ContentSection';
 import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -76,29 +77,31 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
             </InlineLabel>
             are :
           </InfoSection>)}
-        {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
-          <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
-        }
-        {!isEmpty(patient) && !isEmpty(data.elements) && (
-          <div>
-            {loading && <RefreshIndicatorLoading />}
-            <RelatedPersonTable
-              relatedPersons={data.elements}
-              patientId={patient.id}
-            />
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              onChange={this.handlePageClick}
-            />
-            <RecordsRange
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              totalElements={data.totalElements}
-              currentPageSize={data.currentPageSize}
-            />
-          </div>)
-        }
+        <ContentSection>
+          {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
+            <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
+          }
+          {!isEmpty(patient) && !isEmpty(data.elements) && (
+            <div>
+              {loading && <RefreshIndicatorLoading />}
+              <RelatedPersonTable
+                relatedPersons={data.elements}
+                patientId={patient.id}
+              />
+              <CenterAlignedUltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                onChange={this.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                totalElements={data.totalElements}
+                currentPageSize={data.currentPageSize}
+              />
+            </div>)
+          }
+        </ContentSection>
       </Card>
     );
   }

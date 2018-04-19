@@ -38,6 +38,7 @@ import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
+import ContentSection from 'components/ContentSection';
 import { cancelPatientAppointment, getPatientAppointments } from './actions';
 import { STATUS_CODE_CANCELLED, SUMMARY_PANEL_WIDTH } from './constants';
 import messages from './messages';
@@ -134,56 +135,58 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             showSearchIcon={false}
             onSize={this.handlePanelResize}
           />
-          {showPastAppFilter &&
-          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-            <FilterSection>
-              <CheckboxFilterGrid>
-                <Cell>
-                  <StatusCheckbox
-                    messages={messages.showPastAppointments}
-                    elementId="showPastAppointmentsCheckBox"
-                    checked={this.props.showPastAppointments}
-                    handleCheck={this.handleCheck}
-                  />
-                </Cell>
-              </CheckboxFilterGrid>
-            </FilterSection>
-          </SizedStickyDiv>
-          }
-          {loading &&
-          <RefreshIndicatorLoading />}
-          {!loading && isEmpty(data) &&
-          <NoPatientAppointmentsMessage>{
-            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
-          {!isEmpty(data) && !isEmpty(data.elements) &&
-          <CenterAlign>
-            <AppointmentTable
-              elements={data.elements}
-              appointmentStatuses={appointmentStatuses}
-              appointmentTypes={appointmentTypes}
-              cancelAppointment={this.cancelAppointment}
-              patientId={patientId}
-              communicationBaseUrl={communicationBaseUrl}
-              relativeTop={this.state.panelHeight + this.state.filterHeight}
-              cancelledStatus={cancelledStatus}
-              enableEditAppointment={enableEditAppointment}
-              manageAppointmentUrl={manageAppointmentUrl}
-              isExpanded={this.state.isExpanded}
-              onSize={this.onSize}
-            />
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              onChange={this.handlePageClick}
-            />
-            <RecordsRange
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              totalElements={data.totalElements}
-              currentPageSize={data.currentPageSize}
-            />
-          </CenterAlign>
-          }
+          <ContentSection>
+            {showPastAppFilter &&
+            <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+              <FilterSection>
+                <CheckboxFilterGrid>
+                  <Cell>
+                    <StatusCheckbox
+                      messages={messages.showPastAppointments}
+                      elementId="showPastAppointmentsCheckBox"
+                      checked={this.props.showPastAppointments}
+                      handleCheck={this.handleCheck}
+                    />
+                  </Cell>
+                </CheckboxFilterGrid>
+              </FilterSection>
+            </SizedStickyDiv>
+            }
+            {loading &&
+            <RefreshIndicatorLoading />}
+            {!loading && isEmpty(data) &&
+            <NoPatientAppointmentsMessage>{
+              <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
+            {!isEmpty(data) && !isEmpty(data.elements) &&
+            <CenterAlign>
+              <AppointmentTable
+                elements={data.elements}
+                appointmentStatuses={appointmentStatuses}
+                appointmentTypes={appointmentTypes}
+                cancelAppointment={this.cancelAppointment}
+                patientId={patientId}
+                communicationBaseUrl={communicationBaseUrl}
+                relativeTop={this.state.panelHeight + this.state.filterHeight}
+                cancelledStatus={cancelledStatus}
+                enableEditAppointment={enableEditAppointment}
+                manageAppointmentUrl={manageAppointmentUrl}
+                isExpanded={this.state.isExpanded}
+                onSize={this.onSize}
+              />
+              <CenterAlignedUltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                onChange={this.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                totalElements={data.totalElements}
+                currentPageSize={data.currentPageSize}
+              />
+            </CenterAlign>
+            }
+          </ContentSection>
         </Card>
       </div>
     );
