@@ -54,8 +54,8 @@ function ActivityDefinitionsTable(props) {
                   >
                     <TableRowColumn>{title}</TableRowColumn>
                     <TableRowColumn>{topic}</TableRowColumn>
-                    <TableRowColumn>{effectivePeriod.start}</TableRowColumn>
-                    <TableRowColumn>{effectivePeriod.end}</TableRowColumn>
+                    <TableRowColumn>{effectivePeriod && effectivePeriod.start}</TableRowColumn>
+                    <TableRowColumn>{effectivePeriod && effectivePeriod.end}</TableRowColumn>
                     <TableRowColumn>{description}</TableRowColumn>
                     <TableRowColumn>{status}</TableRowColumn>
                     <TableRowColumn>
@@ -97,12 +97,7 @@ ActivityDefinitionsTable.propTypes = {
       version: PropTypes.string,
       name: PropTypes.string,
       title: PropTypes.string,
-      status: PropTypes.shape({
-        code: PropTypes.string,
-        system: PropTypes.string,
-        definition: PropTypes.string,
-        display: PropTypes.string,
-      }),
+      status: PropTypes.string,
       date: PropTypes.string,
       publisher: PropTypes.string,
       description: PropTypes.string,
@@ -110,12 +105,7 @@ ActivityDefinitionsTable.propTypes = {
         start: PropTypes.string,
         end: PropTypes.string,
       }),
-      topic: PropTypes.shape({
-        code: PropTypes.string,
-        system: PropTypes.string,
-        definition: PropTypes.string,
-        display: PropTypes.string,
-      }),
+      topic: PropTypes.string,
       relatedArtifact: PropTypes.arrayOf(PropTypes.shape({
         code: PropTypes.string,
         system: PropTypes.string,
