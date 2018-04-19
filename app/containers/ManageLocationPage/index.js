@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -16,10 +16,6 @@ import { FormattedMessage } from 'react-intl';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
-import ManageLocation from 'components/ManageLocation';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   ADDRESSUSE,
@@ -39,13 +35,17 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import { makeSelectLocations } from 'containers/Locations/selectors';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import messages from './messages';
-import { createLocation, updateLocation } from './actions';
-import { makeSelectSaveLocationError } from './selectors';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import ManageLocation from 'components/ManageLocation';
+import { createLocation, getLocation, updateLocation } from './actions';
+import { makeSelectLocation, makeSelectSaveLocationError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import messages from './messages';
+
 
 export class ManageLocationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -53,8 +53,12 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
     this.handleSaveLocation = this.handleSaveLocation.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getLookups();
+    const locationId = this.props.match.params.id;
+    if (locationId) {
+      this.props.getLocation(locationId);
+    }
   }
 
   handleSaveLocation(location) {
@@ -68,9 +72,8 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const logicalId = this.props.match.params.id;
-    const location = find(this.props.locations, { logicalId });
     const {
+      match,
       error,
       uspsStates,
       locationPhysicalTypes,
@@ -80,7 +83,14 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
       addressUses,
       identifierSystems,
       organization,
+      location,
     } = this.props;
+    const logicalId = match.params.id;
+    const editMode = !isUndefined(logicalId);
+    let selectedLocation = null;
+    if (editMode && location) {
+      selectedLocation = location;
+    }
     const localProps = {
       error,
       uspsStates,
@@ -90,7 +100,8 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
       telecomUses,
       addressUses,
       identifierSystems,
-      location,
+      selectedLocation,
+      editMode,
       organization,
     };
 
@@ -119,6 +130,7 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
 ManageLocationPage.propTypes = {
   match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
+  getLocation: PropTypes.func.isRequired,
   createLocation: PropTypes.func.isRequired,
   updateLocation: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
@@ -126,7 +138,34 @@ ManageLocationPage.propTypes = {
   locationStatuses: PropTypes.array,
   telecomSystems: PropTypes.array,
   telecomUses: PropTypes.array,
-  locations: PropTypes.array,
+  location: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    managingLocationLogicalId: PropTypes.string,
+    status: PropTypes.string,
+    physicalType: PropTypes.string,
+    name: PropTypes.string,
+    address: PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      city: PropTypes.string,
+      stateCode: PropTypes.string,
+      postalCode: PropTypes.string,
+      countryCode: PropTypes.string,
+      use: PropTypes.string,
+    }),
+    telecoms: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      value: PropTypes.string,
+      use: PropTypes.string,
+    })),
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+  }),
   addressUses: PropTypes.array,
   organization: PropTypes.object,
   identifierSystems: PropTypes.array,
@@ -146,7 +185,7 @@ const mapStateToProps = createStructuredSelector({
   addressUses: makeSelectAddressUses(),
   identifierSystems: makeSelectLocationIdentifierSystems(),
   error: makeSelectSaveLocationError(),
-  locations: makeSelectLocations(),
+  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -154,6 +193,7 @@ function mapDispatchToProps(dispatch) {
     getLookups: () => dispatch(getLookupsAction([USPSSTATES, LOCATIONSTATUS, LOCATIONPHYSICALTYPE, ADDRESSUSE, TELECOMSYSTEM, TELECOMUSE, LOCATIONIDENTIFIERSYSTEM])),
     createLocation: (location, organizationId) => dispatch(createLocation(location, organizationId)),
     updateLocation: (location, organizationId) => dispatch(updateLocation(location, organizationId)),
+    getLocation: (locationId) => dispatch(getLocation(locationId)),
   };
 }
 

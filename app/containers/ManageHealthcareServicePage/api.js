@@ -1,7 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
-import find from 'lodash/find';
-import request from '../../utils/request';
-import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from 'utils/endpointService';
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
@@ -25,13 +23,6 @@ export function updateHealthcareService(healthcareServiceFormData, organizationI
       'Content-Type': 'application/json',
     },
   });
-}
-
-export function getHealthcareServiceByIdFromStore(healthcareServices, logicalId) {
-  if (!isEmpty(healthcareServices)) {
-    return find(healthcareServices, { logicalId });
-  }
-  return null;
 }
 
 export function getHealthcareServiceById(logicalId) {

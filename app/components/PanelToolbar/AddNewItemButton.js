@@ -5,17 +5,18 @@
  */
 
 import styled from 'styled-components';
-import FlatButton from 'material-ui/FlatButton';
+import StyledFlatButton from 'components/StyledFlatButton';
 
-const AddNewItemButton = styled(FlatButton).attrs({
-  labelStyle: {
-    color: '#ffffff',
-    fontSize: '12px',
-    paddingLeft: '0',
-  },
-})`
+const AddNewItemButton = styled(StyledFlatButton)`
   && {
+    color: #fff;
+    font-size: 12px;
+    padding-left: 0;
     max-height: 32px;
+  }
+
+  &&:hover {
+    background-color: inherit;
   }
 `;
 

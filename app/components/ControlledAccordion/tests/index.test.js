@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import StyledIcon from '../index';
+// import ControlledAccordion from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<StyledIcon />', () => {
+describe('<ControlledAccordion />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });

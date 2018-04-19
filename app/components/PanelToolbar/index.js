@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { ToolbarGroup } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui-next/Tooltip';
 import AddCircle from '@material-ui/icons/AddCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FileUploadIcon from '@material-ui/icons/FileUpload';
@@ -21,7 +21,7 @@ import isUndefined from 'lodash/isUndefined';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import ShowHideWrapper, { functionalRoles } from 'containers/ShowHideWrapper';
-import StyledIcon from 'components/StyledIcon';
+import StyledIconButton from 'components/StyledIconButton';
 import FilterBar from 'components/FilterBar';
 import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
@@ -30,6 +30,7 @@ import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
 
 const white = common.white;
+
 export class PanelToolbar extends React.Component {
   constructor(props) {
     super(props);
@@ -74,66 +75,57 @@ export class PanelToolbar extends React.Component {
           <ToolbarGroup firstChild>
             {!isUndefined(addNewItem) &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
-              <AddNewItemButton
-                label={addNewItem.labelName}
-                icon={
-                  <StyledIcon>
-                    <AddCircle color={white} />
-                  </StyledIcon>
-                }
-                containerElement={<Link to={addNewItem.linkUrl} />}
-              />
+              <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
+                <StyledIconButton size="small" disableIconHover>
+                  <AddCircle color={white} />
+                </StyledIconButton>
+                {addNewItem.labelName}
+              </AddNewItemButton>
             </ShowHideWrapper>
             }
           </ToolbarGroup>
           <ToolbarGroup lastChild>
             {showUploadIcon &&
-            <IconButton tooltip={<FormattedMessage {...messages.uploadFiles} />}>
-              <StyledIcon>
+            <Tooltip title={<FormattedMessage {...messages.uploadFiles} />} placement="top">
+              <StyledIconButton size="small">
                 <FileUploadIcon color={white} />
-              </StyledIcon>
-            </IconButton>
+              </StyledIconButton>
+            </Tooltip>
             }
             {showSettingIcon &&
-            <IconButton tooltip={<FormattedMessage {...messages.settings} />}>
-              <StyledIcon>
+            <Tooltip title={<FormattedMessage {...messages.settings} />} placement="top">
+              <StyledIconButton size="small">
                 <SettingsIcon color={white} />
-              </StyledIcon>
-            </IconButton>
+              </StyledIconButton>
+            </Tooltip>
             }
             {showFilterIcon &&
-            <IconButton
-              tooltip={this.state.isShowFilter ?
+            <Tooltip
+              title={this.state.isShowFilter ?
                 <FormattedMessage {...messages.cancelFilter} /> :
                 <FormattedMessage {...messages.filter} />}
-              onClick={this.handleShowFilter}
+              placement="top"
             >
-              {this.state.isShowFilter ?
-                <StyledIcon>
-                  <CancelIcon color={white} />
-                </StyledIcon> :
-                <StyledIcon>
-                  <FilterIcon color={white} />
-                </StyledIcon>}
-            </IconButton>
+              <StyledIconButton onClick={this.handleShowFilter}>
+                {this.state.isShowFilter ?
+                  <CancelIcon color={white} /> : <FilterIcon color={white} />
+                }
+              </StyledIconButton>
+            </Tooltip>
             }
             {showSearchIcon &&
-            <IconButton
-              tooltip={this.state.isShowSearchBar ?
+            <Tooltip
+              title={this.state.isShowSearchBar ?
                 <FormattedMessage {...messages.cancelSearch} /> :
-                <FormattedMessage {...messages.search} />
-              }
-              onClick={this.handleShowSearchBar}
+                <FormattedMessage {...messages.search} />}
+              placement="top"
             >
-              {this.state.isShowSearchBar ?
-                <StyledIcon>
-                  <CancelIcon color={white} />
-                </StyledIcon> :
-                <StyledIcon>
-                  <SearchIcon color={white} />
-                </StyledIcon>
-              }
-            </IconButton>
+              <StyledIconButton size="small" onClick={this.handleShowSearchBar}>
+                {this.state.isShowSearchBar ?
+                  <CancelIcon color={white} /> : <SearchIcon color={white} />
+                }
+              </StyledIconButton>
+            </Tooltip>
             }
           </ToolbarGroup>
         </StyledToolbar>

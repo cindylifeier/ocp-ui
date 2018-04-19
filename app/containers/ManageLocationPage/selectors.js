@@ -8,7 +8,15 @@ const selectManageLocationPageDomain = (state) => state.get('manageLocationPage'
 /**
  * Other specific selectors
  */
+const makeSelectLocation = () => createSelector(
+  selectManageLocationPageDomain,
+  (substate) => substate.get('location'),
+);
 
+const makeSelectSaveLocationError = () => createSelector(
+  selectManageLocationPageDomain,
+  (substate) => substate.get('error'),
+);
 
 /**
  * Default selector used by ManageLocationPage
@@ -16,18 +24,7 @@ const selectManageLocationPageDomain = (state) => state.get('manageLocationPage'
 
 const makeSelectManageLocationPage = () => createSelector(
   selectManageLocationPageDomain,
-  (substate) => substate.toJS()
-);
-
-
-const makeSelectLocation = () => createSelector(
-  selectManageLocationPageDomain,
-  (substate) => substate.get('location').toJS(),
-);
-
-const makeSelectSaveLocationError = () => createSelector(
-  selectManageLocationPageDomain,
-  (substate) => substate.get('error'),
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectManageLocationPage;
