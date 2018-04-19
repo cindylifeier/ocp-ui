@@ -16,6 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
+import { SUMMARY_PANEL_WIDTH } from 'containers/Tasks/constants';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
@@ -26,6 +27,7 @@ import saga from './saga';
 import messages from './messages';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
 import { flattenOrganizationData } from './helpers';
+
 
 export class Organizations extends React.Component {
   static initalState = {
@@ -46,6 +48,7 @@ export class Organizations extends React.Component {
     super(props);
     this.state = {
       ...Organizations.initalState,
+      isExpanded: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
@@ -74,7 +77,11 @@ export class Organizations extends React.Component {
   }
 
   onSize(size) {
-    this.setState({ relativeTop: size.height });
+    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+    this.setState({
+      relativeTop: size.height,
+      isExpanded,
+    });
   }
 
   handleSearch(searchValue, showInactive, searchType) {
@@ -138,6 +145,8 @@ export class Organizations extends React.Component {
             organizationData={organizationData}
             onRowClick={this.handleRowClick}
             flattenOrganizationData={flattenOrganizationData}
+            isExpanded={this.state.isExpanded}
+            onSize={this.onSize}
           />
         </InfoSection>
       </div>
