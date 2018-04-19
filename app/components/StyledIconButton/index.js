@@ -9,10 +9,10 @@ import styled from 'styled-components';
 import IconButton from 'material-ui-next/IconButton';
 
 
-const sizes = ['small', 'medium', 'large'];
+const sizes = ['x-small', 'small', 'medium', 'large'];
 
-function defineSvgIconSize(sizeProp) {
-  switch (sizeProp) {
+function defineSvgIconSize(svgIconSizeProp) {
+  switch (svgIconSizeProp) {
     case 'small':
       return '18px';
     case 'medium':
@@ -24,11 +24,31 @@ function defineSvgIconSize(sizeProp) {
   }
 }
 
-const StyledIconButton = styled(({ size, disableIconHover, ...other }) => (
+function defineIconButtonSize(iconButtonSize) {
+  switch (iconButtonSize) {
+    case 'x-small':
+      return '24px';
+    case 'small':
+      return '36px';
+    case 'medium':
+      return '48px';
+    case 'large':
+      return '60px';
+    default:
+      return 'default';
+  }
+}
+
+const StyledIconButton = styled(({ size, svgIconSize, disableIconHover, ...other }) => (
   <IconButton {...other} />
 ))`
+  && {
+    width: ${({ size }) => size && defineIconButtonSize(size)};
+    height: ${({ size }) => size && defineIconButtonSize(size)};
+  }
+
   && svg {
-    max-height: ${({ size }) => size && defineSvgIconSize(size)};
+    max-height: ${({ svgIconSize }) => svgIconSize && defineSvgIconSize(svgIconSize)};
   }
 
   &&:hover {
@@ -42,6 +62,7 @@ const StyledIconButton = styled(({ size, disableIconHover, ...other }) => (
 `;
 
 StyledIconButton.propTypes = {
+  svgIconSize: PropTypes.oneOf(sizes),
   size: PropTypes.oneOf(sizes),
   disableIconHover: PropTypes.bool,
 };
