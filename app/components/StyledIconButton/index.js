@@ -9,9 +9,28 @@ import styled from 'styled-components';
 import IconButton from 'material-ui-next/IconButton';
 
 
-const StyledIconButton = styled(({ disableIconHover, ...other }) => (
+const sizes = ['small', 'medium', 'large'];
+
+function defineSvgIconSize(sizeProp) {
+  switch (sizeProp) {
+    case 'small':
+      return '18px';
+    case 'medium':
+      return '20px';
+    case 'large':
+      return '24px';
+    default:
+      return 'default';
+  }
+}
+
+const StyledIconButton = styled(({ size, disableIconHover, ...other }) => (
   <IconButton {...other} />
 ))`
+  && svg {
+    max-height: ${({ size }) => size && defineSvgIconSize(size)};
+  }
+
   &&:hover {
     background-color: inherit;
   }
@@ -23,6 +42,7 @@ const StyledIconButton = styled(({ disableIconHover, ...other }) => (
 `;
 
 StyledIconButton.propTypes = {
+  size: PropTypes.oneOf(sizes),
   disableIconHover: PropTypes.bool,
 };
 
