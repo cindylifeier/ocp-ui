@@ -22,12 +22,13 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS } from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH, SUMMARISED_TABLE_COLUMNS } from './constants';
 
 const ENTER_KEY = 'Enter';
 
 function OrganizationTable(props) {
-  const { organizationData, onRowClick, relativeTop, isExpanded } = props;
+  const { organizationData, onRowClick, relativeTop, size } = props;
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
   return (
     <div>
@@ -164,7 +165,7 @@ OrganizationTable.propTypes = {
   }),
   onRowClick: PropTypes.func,
   flattenOrganizationData: PropTypes.func,
-  isExpanded: PropTypes.bool.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
 export default sizeMeHOC(OrganizationTable);
