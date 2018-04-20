@@ -19,7 +19,6 @@ import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
@@ -31,7 +30,12 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import PanelToolbar from 'components/PanelToolbar';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_HEALTHCARE_SERVICE_URL, OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import {
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_HEALTHCARE_SERVICE_URL,
+  OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+} from 'containers/App/constants';
 import { getHealthcareServices, initializeHealthcareServices, searchHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
@@ -131,7 +135,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const { loading, healthcareServices, organization, location } = this.props;
+    const { loading, healthcareServices, organization, location, showActionSection } = this.props;
     let CREATE_HEALTHCARE_SERVICE_URL = '';
     if (organization) {
       CREATE_HEALTHCARE_SERVICE_URL = `${MANAGE_HEALTHCARE_SERVICE_URL}`;
@@ -150,6 +154,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
     }
     return (
       <div>
+        {showActionSection &&
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, OCP_ADMIN_ROLE_CODE]}
@@ -157,9 +162,8 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           onSize={this.handlePanelResize}
           showFilter={false}
         />
-        {isEmpty(organization) &&
-        <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>}
-
+        }
+        {showActionSection &&
         <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
           {!isEmpty(organization) &&
           <InfoSection margin="0px">
@@ -195,14 +199,22 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           </FilterSection>
           }
         </SizedStickyDiv>
+        }
 
-        {loading &&
-        <RefreshIndicatorLoading />}
+        {isEmpty(organization) &&
+        <CenterAlign>
+          <NoResultsFoundText>
+            <FormattedMessage {...messages.organizationNotSelected} />
+          </NoResultsFoundText>
+        </CenterAlign>
+        }
 
         {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-        <NoResultsFoundText>
-          <FormattedMessage {...messages.noHealthcareServicesFound} />
-        </NoResultsFoundText>
+        <CenterAlign>
+          <NoResultsFoundText>
+            <FormattedMessage {...messages.noHealthcareServicesFound} />
+          </NoResultsFoundText>
+        </CenterAlign>
         }
 
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&
@@ -236,6 +248,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 HealthcareServices.propTypes = {
   loading: PropTypes.bool,
   includeInactive: PropTypes.bool,
+  showActionSection: PropTypes.bool,
   healthcareServices: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
@@ -246,6 +259,10 @@ HealthcareServices.propTypes = {
   organization: PropTypes.object,
   location: PropTypes.object,
   searchHealthcareServices: PropTypes.func,
+};
+
+HealthcareServices.defaultProps = {
+  showActionSection: true,
 };
 
 const mapStateToProps = createStructuredSelector({

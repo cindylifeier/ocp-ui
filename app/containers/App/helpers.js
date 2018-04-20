@@ -60,7 +60,7 @@ export function mapToAddresses(addresses) {
     .join(NEW_LINE_CHARACTER);
 }
 
-function combineAddress(address) {
+export function combineAddress(address) {
   const addressStr = [];
   addressStr.push(address.line1 || '');
   addressStr.push(address.line2 || '');

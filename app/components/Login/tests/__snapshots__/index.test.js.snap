@@ -33,7 +33,7 @@ ShallowWrapper {
         <Cell__Cell
           area="header"
         >
-          <StyledBrandImage__StyledBrandImage
+          <StyledImage__StyledImage
             alt={
               <FormattedMessage
                 defaultMessage="OCP brand image"
@@ -41,7 +41,11 @@ ShallowWrapper {
                 values={Object {}}
               />
             }
+            borderWidth="0px"
+            height="56px"
+            margin="10px"
             src="IMAGE_MOCK"
+            width="85px"
           />
           <Styled(Divider) />
         </Cell__Cell>
@@ -169,7 +173,7 @@ ShallowWrapper {
           <Cell__Cell
             area="header"
           >
-            <StyledBrandImage__StyledBrandImage
+            <StyledImage__StyledImage
               alt={
                 <FormattedMessage
                   defaultMessage="OCP brand image"
@@ -177,7 +181,11 @@ ShallowWrapper {
                   values={Object {}}
                 />
               }
+              borderWidth="0px"
+              height="56px"
+              margin="10px"
               src="IMAGE_MOCK"
+              width="85px"
             />
             <Styled(Divider) />
           </Cell__Cell>,
@@ -301,7 +309,7 @@ ShallowWrapper {
           "props": Object {
             "area": "header",
             "children": Array [
-              <StyledBrandImage__StyledBrandImage
+              <StyledImage__StyledImage
                 alt={
                   <FormattedMessage
                     defaultMessage="OCP brand image"
@@ -309,7 +317,11 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 }
+                borderWidth="0px"
+                height="56px"
+                margin="10px"
                 src="IMAGE_MOCK"
+                width="85px"
               />,
               <Styled(Divider) />,
             ],
@@ -326,7 +338,11 @@ ShallowWrapper {
                   id="ocpui.components.Login.brandImg"
                   values={Object {}}
                 />,
+                "borderWidth": "0px",
+                "height": "56px",
+                "margin": "10px",
                 "src": "IMAGE_MOCK",
+                "width": "85px",
               },
               "ref": null,
               "rendered": null,
@@ -713,7 +729,7 @@ ShallowWrapper {
           <Cell__Cell
             area="header"
           >
-            <StyledBrandImage__StyledBrandImage
+            <StyledImage__StyledImage
               alt={
                 <FormattedMessage
                   defaultMessage="OCP brand image"
@@ -721,7 +737,11 @@ ShallowWrapper {
                   values={Object {}}
                 />
               }
+              borderWidth="0px"
+              height="56px"
+              margin="10px"
               src="IMAGE_MOCK"
+              width="85px"
             />
             <Styled(Divider) />
           </Cell__Cell>
@@ -849,7 +869,7 @@ ShallowWrapper {
             <Cell__Cell
               area="header"
             >
-              <StyledBrandImage__StyledBrandImage
+              <StyledImage__StyledImage
                 alt={
                   <FormattedMessage
                     defaultMessage="OCP brand image"
@@ -857,7 +877,11 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 }
+                borderWidth="0px"
+                height="56px"
+                margin="10px"
                 src="IMAGE_MOCK"
+                width="85px"
               />
               <Styled(Divider) />
             </Cell__Cell>,
@@ -981,7 +1005,7 @@ ShallowWrapper {
             "props": Object {
               "area": "header",
               "children": Array [
-                <StyledBrandImage__StyledBrandImage
+                <StyledImage__StyledImage
                   alt={
                     <FormattedMessage
                       defaultMessage="OCP brand image"
@@ -989,7 +1013,11 @@ ShallowWrapper {
                       values={Object {}}
                     />
                   }
+                  borderWidth="0px"
+                  height="56px"
+                  margin="10px"
                   src="IMAGE_MOCK"
+                  width="85px"
                 />,
                 <Styled(Divider) />,
               ],
@@ -1006,7 +1034,11 @@ ShallowWrapper {
                     id="ocpui.components.Login.brandImg"
                     values={Object {}}
                   />,
+                  "borderWidth": "0px",
+                  "height": "56px",
+                  "margin": "10px",
                   "src": "IMAGE_MOCK",
+                  "width": "85px",
                 },
                 "ref": null,
                 "rendered": null,

@@ -42,7 +42,7 @@ function PractitionerTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
-                const { logicalId, name, active, identifiers } = practitioner;
+                const { name, active, identifiers } = practitioner;
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
@@ -50,7 +50,7 @@ function PractitionerTable(props) {
                 return (
                   <TableRow
                     columns={tableColumns}
-                    key={logicalId}
+                    key={uniqueId()}
                   >
                     <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
                     <TableRowColumn>{renderLastName(name)}</TableRowColumn>

@@ -8,7 +8,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
-import Tooltip from 'material-ui-next/Tooltip';
 import ActionSearch from '@material-ui/icons/Search';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
@@ -20,6 +19,7 @@ import StyledIconButton from 'components/StyledIconButton';
 import SelectField from 'components/SelectField';
 import TextField from 'components/TextField';
 import Padding from 'components/Padding';
+import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
 
@@ -73,11 +73,11 @@ function SearchRecipientDialogContent(props) {
                     </Cell>
                     <Cell>
                       <Padding top={'40px'}>
-                        <Tooltip title={<FormattedMessage {...messages.searchButtonTooltip} />}>
+                        <StyledTooltip title={<FormattedMessage {...messages.searchButtonTooltip} />}>
                           <StyledIconButton type="submit" disabled={isSubmitting}>
                             <ActionSearch />
                           </StyledIconButton>
-                        </Tooltip>
+                        </StyledTooltip>
                       </Padding>
                     </Cell>
                   </Grid>

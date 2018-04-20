@@ -16,16 +16,17 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import OrganizationSlider from 'components/OrganizationSlider';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
 import { flattenOrganizationData } from './helpers';
+import messages from './messages';
 
 export class Organizations extends React.Component {
   static initalState = {
@@ -46,12 +47,15 @@ export class Organizations extends React.Component {
     super(props);
     this.state = {
       ...Organizations.initalState,
+      openSlider: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.onSize = this.onSize.bind(this);
+    this.handleSliderOpen = this.handleSliderOpen.bind(this);
+    this.handleSliderClose = this.handleSliderClose.bind(this);
   }
 
   componentDidMount() {
@@ -97,6 +101,14 @@ export class Organizations extends React.Component {
     this.props.searchOrganizations(this.state.searchOrganizations.searchValue, this.state.searchOrganizations.showInactive, this.state.searchOrganizations.searchType, currentPage);
   }
 
+  handleSliderOpen() {
+    this.setState({ openSlider: true });
+  }
+
+  handleSliderClose() {
+    this.setState({ openSlider: false });
+  }
+
   render() {
     const { organizations } = this.props;
     const addNewItem = {
@@ -138,8 +150,17 @@ export class Organizations extends React.Component {
             organizationData={organizationData}
             onRowClick={this.handleRowClick}
             flattenOrganizationData={flattenOrganizationData}
+            onOrganizationViewDetails={this.handleSliderOpen}
           />
         </InfoSection>
+        {this.props.organization &&
+        <OrganizationSlider
+          open={this.state.openSlider}
+          onClose={this.handleSliderClose}
+          organization={this.props.organization}
+          flattenOrganizationData={flattenOrganizationData}
+        />
+        }
       </div>
     );
   }

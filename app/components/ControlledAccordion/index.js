@@ -15,6 +15,8 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
 } from 'material-ui-next/ExpansionPanel';
 
+import FullWidthPanelDetails from 'components/OrganizationSlider/FullWidthPanelDetails';
+
 
 class ControlledAccordion extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -53,7 +55,7 @@ ControlledAccordion.propTypes = {
   expandIcon: PropTypes.node,
   accordionTitle: PropTypes.node.isRequired,
   children: PropTypes.shape({
-    type: PropTypes.oneOf([ExpansionPanelDetails, ExpansionPanelActions]),
+    type: PropTypes.oneOf([ExpansionPanelDetails, FullWidthPanelDetails, ExpansionPanelActions]),
   }),
 };
 

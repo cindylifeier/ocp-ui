@@ -22,34 +22,6 @@ export default defineMessages({
     id: 'ocpui.containers.Locations.checkbox.suspended',
     defaultMessage: 'Suspended',
   },
-  tableHeaderColumnName: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnName',
-    defaultMessage: 'Name',
-  },
-  tableHeaderColumnStatus: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnStatus',
-    defaultMessage: 'Status',
-  },
-  tableHeaderColumnTelecoms: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnTelecoms',
-    defaultMessage: 'Telecoms',
-  },
-  tableHeaderColumnAddress: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnAddress',
-    defaultMessage: 'Address',
-  },
-  actionLabelEdit: {
-    id: 'ocpui.containers.Locations.actionLabelEdit',
-    defaultMessage: 'Edit',
-  },
-  actionLabelAssignHealthCareService: {
-    id: 'ocpui.containers.Locations.actionLabelAssignHealthCareService',
-    defaultMessage: 'Assign HealthCareService',
-  },
-  noLocationsFound: {
-    id: 'ocpui.containers.Locations.noLocationsFound',
-    defaultMessage: 'No locations loaded. Please select an organization to view its locations.',
-  },
   labelOrganization: {
     id: 'ocpui.containers.Locations.labelOrganization',
     defaultMessage: 'Organization:',
