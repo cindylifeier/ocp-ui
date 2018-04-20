@@ -30,7 +30,12 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import PanelToolbar from 'components/PanelToolbar';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import {
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_HEALTHCARE_SERVICE_URL,
+  OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+} from 'containers/App/constants';
 import { getHealthcareServices, initializeHealthcareServices, searchHealthcareServices } from './actions';
 import {
   makeSelectCurrentPage,
@@ -131,6 +136,14 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
 
   render() {
     const { loading, healthcareServices, organization, location, showActionSection } = this.props;
+    let CREATE_HEALTHCARE_SERVICE_URL = '';
+    if (organization) {
+      CREATE_HEALTHCARE_SERVICE_URL = `${MANAGE_HEALTHCARE_SERVICE_URL}`;
+    }
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: CREATE_HEALTHCARE_SERVICE_URL,
+    };
     let healthcareServicesData = {
       handlePageClick: this.handleListPageClick,
     };
@@ -143,6 +156,8 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
       <div>
         {showActionSection &&
         <PanelToolbar
+          addNewItem={addNewItem}
+          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, OCP_ADMIN_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
           showFilter={false}
