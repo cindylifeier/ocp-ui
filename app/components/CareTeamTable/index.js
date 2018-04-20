@@ -14,13 +14,16 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import {
-  EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS,
+  EXPANDED_TABLE_COLUMNS,
+  SUMMARISED_TABLE_COLUMNS,
+  SUMMARY_VIEW_WIDTH,
 } from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
-function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded }) {
+function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
+  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
     return (
@@ -96,9 +99,9 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
 }
 
 CareTeamTable.propTypes = {
+  size: PropTypes.object.isRequired,
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,
-  isExpanded: PropTypes.bool.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

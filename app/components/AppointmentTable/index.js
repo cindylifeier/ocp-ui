@@ -18,9 +18,13 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS } from './constants';
+import { EXPANDED_TABLE_COLUMNS,
+  SUMMARISED_TABLE_COLUMNS,
+  SUMMARY_VIEW_WIDTH,
+} from './constants';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl, isExpanded }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl, size }) { // eslint-disable-line react/prefer-stateless-function
+  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
     return (
@@ -65,17 +69,17 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
       <Table>
         { createTableHeaders()}
         {elements && elements.map((appointment) => {
-          const addCommunicationMenuItem = patientId && {
+          const addCommunicationMenuItem = patientId ? {
             primaryText: <FormattedMessage {...messages.addCommunication} />,
             linkTo: {
               pathname: `${communicationBaseUrl}`,
               search: `?patientId=${patientId}&appointmentId=${appointment.logicalId}`,
             },
-          };
-          const editAppointmentMenuItem = enableEditAppointment && {
+          } : null;
+          const editAppointmentMenuItem = enableEditAppointment ? {
             primaryText: <FormattedMessage {...messages.editAppointment} />,
             linkTo: `${manageAppointmentUrl}/${appointment.logicalId}`,
-          };
+          } : null;
           const menuItems = [
             addCommunicationMenuItem,
             editAppointmentMenuItem, {
@@ -100,6 +104,7 @@ function mapDisplayFromCode(appointmentLookup, key) {
 AppointmentTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   elements: PropTypes.array.isRequired,
+  size: PropTypes.object.isRequired,
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
@@ -108,7 +113,6 @@ AppointmentTable.propTypes = {
   cancelledStatus: PropTypes.string,
   enableEditAppointment: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
-  isExpanded: PropTypes.bool,
 };
 
 export default sizeMeHOC(AppointmentTable);
