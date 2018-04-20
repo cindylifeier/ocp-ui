@@ -24,7 +24,6 @@ import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
 import PanelToolbar from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
-import { SUMMARY_PANEL_WIDTH } from 'containers/Practitioners/constants';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
@@ -47,7 +46,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
         includeInactive: false,
         currentPage: 1,
       },
-      isExpanded: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
@@ -72,11 +70,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   onSize(size) {
-    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
-    this.setState({
-      relativeTop: size.height,
-      isExpanded,
-    });
+    this.setState({ relativeTop: size.height });
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
@@ -145,8 +139,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
           <PractitionerTable
             relativeTop={this.state.relativeTop}
             practitionersData={practitionersData}
-            isExpanded={this.state.isExpanded}
-            onSize={this.onSize}
           />
         </InfoSection>
       </div>
