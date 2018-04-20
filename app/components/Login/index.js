@@ -16,7 +16,7 @@ import CardHeader from 'components/CardHeader';
 import TextField from 'components/TextField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDivider from 'components/StyledDivider';
-import StyledBrandImage from 'components/StyledBrandImage';
+import StyledImage from 'components/StyledImage';
 import LoginStyledCard from './LoginStyledCard';
 import LoginFieldGrid from './LoginFieldGrid';
 import LoginButtonCell from './LoginButtonCell';
@@ -37,7 +37,7 @@ function Login(props) {
         ]}
       >
         <Cell area="header">
-          <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
+          <StyledImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
           <StyledDivider />
         </Cell>
         <Cell area="leftSide" />

@@ -14,27 +14,20 @@ import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
 
-import RecordsRange from 'components/RecordsRange';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { clearLocation, setLocation } from 'containers/App/contextActions';
+import LocationTable from 'components/LocationTable';
 import StatusCheckbox from 'components/StatusCheckbox';
-import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
-import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
-import { clearLocation, setLocation } from 'containers/App/contextActions';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -48,10 +41,10 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getActiveLocations, getFilteredLocations, initializeLocations, searchLocations } from './actions';
-import SizedStickyDiv from '../../components/StickyDiv/SizedStickyDiv';
+import { flattenLocationData } from './helpers';
+
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static TABLE_COLUMNS = '3fr 1fr 3fr 3fr 50px';
   static initalState = {
     panelHeight: 0,
     filterHeight: 0,
@@ -82,7 +75,6 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
-    this.LOCATION_NAME_HTML_ID = uniqueId('location_name_');
   }
 
   componentDidMount() {
@@ -142,144 +134,55 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.props.searchLocations(this.state.searchLocations.searchValue, this.state.searchLocations.includeInactive, this.state.searchLocations.searchType, currentPage);
   }
 
-  renderTelecoms(telecoms) {
-    return telecoms.map((entry) =>
-      (
-        <div key={entry.value}>
-          {entry.system}: {entry.value},
-        </div>
-      ),
-    );
-  }
-
-  renderAddress(address) {
-    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
-    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
-    return addressStr ? (<div>{addressStr}</div>) : '';
-  }
-
-  renderRows() {
-    if (this.props.data) {
-      return this.props.data.map((location) => {
-        const { logicalId, name, status, telecoms, address } = location;
-        const menuItems = [{
-          primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
-          linkTo: `/ocp-ui/manage-location/${logicalId}`,
-        }, {
-          primaryText: <FormattedMessage {...messages.actionLabelAssignHealthCareService} />,
-          linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
-        }];
-        return (
-          <TableRow
-            role="button"
-            tabIndex="0"
-            key={logicalId}
-            onClick={() => this.handleRowClick(location)}
-            columns={Locations.TABLE_COLUMNS}
-          >
-            <TableRowColumn>{name}</TableRowColumn>
-            <TableRowColumn>{status}</TableRowColumn>
-            <TableRowColumn>{this.renderTelecoms(telecoms)}</TableRowColumn>
-            <TableRowColumn>{this.renderAddress(address)}</TableRowColumn>
-            <TableRowColumn>
-              <NavigationIconMenu menuItems={menuItems} />
-            </TableRowColumn>
-          </TableRow>
-        );
-      });
-    }
-    return '<TableRow />';
-  }
-
-  renderTable() {
-    let locationsDate = {
-      handlePageClick: this.handleListPageClick,
-    };
-    if (this.state.isShowSearchResult) {
-      locationsDate = {
-        handlePageClick: this.handleSearchPageClick,
-      };
-    }
+  renderActionSection() {
     return (
-      <div>
-        <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-          <InfoSection margin="0px">
-            <div>
-              {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
-              <FormattedMessage {...messages.locations} /> for &nbsp;
-              <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
-                <span id={this.ORGANIZATION_NAME_HTML_ID}>
-                  {this.props.organization ? this.props.organization.name : ''}&nbsp;
-                </span>
-              </InlineLabel>
-              are :
-            </div>
-          </InfoSection>
-          {this.props.location &&
-          <InfoSection margin="0px" width="fit-content" maxWidth="500px">
-            <StyledFlatButton onClick={this.props.clearLocation}>
-              Clear
-            </StyledFlatButton>
-          </InfoSection>
-          }
-          {!this.state.isShowSearchResult &&
-          <FilterSection>
-            <CheckboxFilterGrid>
-              <Cell>
-                <FormattedMessage {...messages.filterLabel} />
-              </Cell>
-              <Cell>
-                <StatusCheckbox
-                  messages={messages.inactive}
-                  elementId="inactiveCheckBox"
-                  checked={this.props.includeInactive}
-                  handleCheck={this.handleIncludeInactive}
-                />
-              </Cell>
-              <Cell>
-                <StatusCheckbox
-                  messages={messages.suspended}
-                  elementId="suspendedCheckBox"
-                  checked={this.props.includeSuspended}
-                  handleCheck={this.handleIncludeSuspended}
-                />
-              </Cell>
-            </CheckboxFilterGrid>
-          </FilterSection>
-          }
-        </SizedStickyDiv>
-        <Table>
-          <TableHeader columns={Locations.TABLE_COLUMNS} relativeTop={this.state.panelHeight + this.state.filterHeight}>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
-            <TableHeaderColumn />
-          </TableHeader>
-          {this.renderRows()}
-          <CenterAlignedUltimatePagination
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalNumberOfPages}
-            onChange={locationsDate.handlePageClick}
-          />
-          <RecordsRange
-            currentPage={this.props.currentPage}
-            totalPages={this.props.totalNumberOfPages}
-            totalElements={this.props.totalElements}
-            currentPageSize={this.props.currentPageSize}
-          />
-        </Table>
-      </div>
-    )
-      ;
-  }
-
-  renderLocationTable() {
-    const { data } = this.props;
-    if (data && data.length > 0) {
-      return this.renderTable();
-    }
-    return (<h4><FormattedMessage {...messages.noLocationsFound} /></h4>);
+      <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+        <InfoSection margin="0px">
+          <div>
+            {this.state.isShowSearchResult ? 'Search' : 'The'}&nbsp;
+            <FormattedMessage {...messages.locations} /> for &nbsp;
+            <InlineLabel htmlFor={this.ORGANIZATION_NAME_HTML_ID}>
+              <span id={this.ORGANIZATION_NAME_HTML_ID}>
+                {this.props.organization ? this.props.organization.name : ''}&nbsp;
+              </span>
+            </InlineLabel>
+            are :
+          </div>
+        </InfoSection>
+        {this.props.location &&
+        <InfoSection margin="0px" width="fit-content" maxWidth="500px">
+          <StyledFlatButton onClick={this.props.clearLocation}>
+            Clear
+          </StyledFlatButton>
+        </InfoSection>
+        }
+        {!this.state.isShowSearchResult &&
+        <FilterSection>
+          <CheckboxFilterGrid>
+            <Cell>
+              <FormattedMessage {...messages.filterLabel} />
+            </Cell>
+            <Cell>
+              <StatusCheckbox
+                messages={messages.inactive}
+                elementId="inactiveCheckBox"
+                checked={this.props.includeInactive}
+                handleCheck={this.handleIncludeInactive}
+              />
+            </Cell>
+            <Cell>
+              <StatusCheckbox
+                messages={messages.suspended}
+                elementId="suspendedCheckBox"
+                checked={this.props.includeSuspended}
+                handleCheck={this.handleIncludeSuspended}
+              />
+            </Cell>
+          </CheckboxFilterGrid>
+        </FilterSection>
+        }
+      </SizedStickyDiv>
+    );
   }
 
   render() {
@@ -287,8 +190,18 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_LOCATION_URL,
     };
+    const { data, currentPage, totalNumberOfPages, totalElements, currentPageSize } = this.props;
+    const locationTableData = {
+      data,
+      currentPage,
+      totalNumberOfPages,
+      totalElements,
+      currentPageSize,
+      handlePageChange: this.state.isShowSearchResult ? this.handleSearchPageClick : this.handleListPageClick,
+    };
     return (
-      <Card>
+      <div>
+        {this.props.showActionSection &&
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={ORGANIZATION_ADMIN_ROLE_CODE}
@@ -296,8 +209,15 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           onSize={this.handlePanelResize}
           showFilter={false}
         />
-        {this.renderLocationTable()}
-      </Card>);
+        }
+        {this.props.showActionSection && this.renderActionSection()}
+        <LocationTable
+          relativeTop={this.state.panelHeight + this.state.filterHeight}
+          locationTableData={locationTableData}
+          handleRowClick={() => this.handleRowClick}
+          flattenLocationData={flattenLocationData}
+        />
+      </div>);
   }
 }
 
@@ -309,6 +229,7 @@ Locations.propTypes = {
   getActiveLocations: PropTypes.func.isRequired,
   setLocation: PropTypes.func.isRequired,
   clearLocation: PropTypes.func.isRequired,
+  showActionSection: PropTypes.bool,
   data: PropTypes.array,
   organization: PropTypes.object,
   location: PropTypes.object,
@@ -319,6 +240,10 @@ Locations.propTypes = {
   includeInactive: PropTypes.bool,
   includeSuspended: PropTypes.bool,
   searchLocations: PropTypes.func,
+};
+
+Locations.defaultProps = {
+  showActionSection: true,
 };
 
 const mapStateToProps = createStructuredSelector({

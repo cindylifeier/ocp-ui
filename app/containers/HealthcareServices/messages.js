@@ -38,4 +38,8 @@ export default defineMessages({
     id: 'ocpui.containers.HealthcareServices.labelLocation',
     defaultMessage: 'Location:',
   },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.HealthcareServices.buttonLabelCreateNew',
+    defaultMessage: 'Create New',
+  },
 });

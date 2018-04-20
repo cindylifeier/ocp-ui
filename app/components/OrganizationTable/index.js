@@ -14,19 +14,19 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import StyledFlatButton from 'components/StyledFlatButton';
 import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
-const tableColumns = 'repeat(5, 1fr) 50px';
+const tableColumns = '100px 1fr 60px 120px';
 const ENTER_KEY = 'Enter';
 
 function OrganizationTable(props) {
-  const { organizationData, onRowClick, relativeTop } = props;
+  const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
   return (
     <div>
       {organizationData.loading && <RefreshIndicatorLoading />}
@@ -35,30 +35,12 @@ function OrganizationTable(props) {
             <Table>
               <TableHeader columns={tableColumns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
-                const flattenOrganization = props.flattenOrganizationData(organization);
-                const { logicalId, name, addresses, telecoms, identifiers, active } = flattenOrganization;
-                const menuItems = [{
-                  primaryText: <FormattedMessage {...messages.edit} />,
-                  linkTo: `/ocp-ui/manage-organization/${logicalId}`,
-                }, {
-                  primaryText: <FormattedMessage {...messages.addLocation} />,
-                  linkTo: '/ocp-ui/manage-location',
-                }, {
-                  primaryText: <FormattedMessage {...messages.addHealthCareService} />,
-                  linkTo: '/ocp-ui/manage-healthcare-service',
-                }, {
-                  primaryText: <FormattedMessage {...messages.addActivityDefinition} />,
-                  linkTo: '/ocp-ui/manage-activity-definition',
-                }, {
-                  primaryText: <FormattedMessage {...messages.remove} />,
-                  disabled: true,
-                }];
+                const flattenOrganization = flattenOrganizationData(organization);
+                const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <TableRow
                     columns={tableColumns}
@@ -76,8 +58,6 @@ function OrganizationTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{addresses}</TableRowColumn>
-                    <TableRowColumn>{telecoms}</TableRowColumn>
                     <TableRowColumn>{identifiers}</TableRowColumn>
                     <TableRowColumn>
                       {active ?
@@ -86,7 +66,9 @@ function OrganizationTable(props) {
                       }
                     </TableRowColumn>
                     <TableRowColumn>
-                      <NavigationIconMenu menuItems={menuItems} />
+                      <StyledFlatButton color="primary" size="small" onClick={() => onOrganizationViewDetails()}>
+                        <FormattedMessage {...messages.viewDetails} />
+                      </StyledFlatButton>
                     </TableRowColumn>
                   </TableRow>
                 );
@@ -152,7 +134,8 @@ OrganizationTable.propTypes = {
     })).isRequired,
   }),
   onRowClick: PropTypes.func,
-  flattenOrganizationData: PropTypes.func,
+  flattenOrganizationData: PropTypes.func.isRequired,
+  onOrganizationViewDetails: PropTypes.func.isRequired,
 };
 
 export default OrganizationTable;

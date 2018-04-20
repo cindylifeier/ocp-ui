@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Tooltip from 'material-ui-next/Tooltip';
 import Close from '@material-ui/icons/Close';
 
 import SearchBar from 'components/SearchBar';
@@ -18,6 +17,7 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import H1 from 'components/H1';
+import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
 
@@ -25,11 +25,11 @@ function AddPractitionerRoleForOrgnaization(props) {
   const { organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
-      <Tooltip title="Close">
+      <StyledTooltip title="Close">
         <StyledIconButton onClick={callback}>
           <Close />
         </StyledIconButton>
-      </Tooltip>
+      </StyledTooltip>
       <H1>{<FormattedMessage {...messages.header} />}</H1>
       <SearchBar onSearch={onSearch} />
 
