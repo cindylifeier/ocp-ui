@@ -11,12 +11,13 @@ import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
 import FullWidthPanelDetails from './FullWidthPanelDetails';
+import SliderContentSection from './SliderContentSection';
 import messages from './messages';
 
 
 function OrganizationSliderLocations() {
   return (
-    <div>
+    <SliderContentSection>
       <ControlledAccordion
         accordionTitle={
           <StyledText whiteSpace>
@@ -35,7 +36,7 @@ function OrganizationSliderLocations() {
           <Locations showActionSection={false} />
         </FullWidthPanelDetails>
       </ControlledAccordion>
-    </div>
+    </SliderContentSection>
   );
 }
 

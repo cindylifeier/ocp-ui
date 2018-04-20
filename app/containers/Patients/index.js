@@ -16,7 +16,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import RecordsRange from 'components/RecordsRange';
 import PatientSearchResult from 'components/PatientSearchResult';
-import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
@@ -133,7 +132,7 @@ export class Patients extends React.Component {
       },
     };
     return (
-      <Card>
+      <div>
         <PanelToolbar
           {...addNewItem}
           allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE]}
@@ -167,7 +166,7 @@ export class Patients extends React.Component {
           isPatientModalOpen={this.state.isPatientModalOpen}
           onPatientModalClose={this.handlePatientModalClose}
         />}
-      </Card>
+      </div>
     );
   }
 }

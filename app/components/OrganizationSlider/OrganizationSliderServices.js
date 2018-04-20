@@ -11,12 +11,13 @@ import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
 import FullWidthPanelDetails from './FullWidthPanelDetails';
+import SliderContentSection from './SliderContentSection';
 import messages from './messages';
 
 
 function OrganizationSliderServices() {
   return (
-    <div>
+    <SliderContentSection>
       <ControlledAccordion
         accordionTitle={
           <StyledText whiteSpace>
@@ -35,7 +36,7 @@ function OrganizationSliderServices() {
           <HealthcareServices showActionSection={false} />
         </FullWidthPanelDetails>
       </ControlledAccordion>
-    </div>
+    </SliderContentSection>
   );
 }
 

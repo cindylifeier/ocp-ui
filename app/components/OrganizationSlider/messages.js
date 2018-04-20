@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  closeButton: {
+    id: 'ocpui.components.OrganizationSlider.closeButton',
+    defaultMessage: 'Close Slider',
+  },
   servicesPanel: {
     panelSummary: {
       id: 'ocpui.components.OrganizationSlider.servicesPanel.panelSummary',

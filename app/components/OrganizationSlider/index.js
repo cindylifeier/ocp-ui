@@ -6,16 +6,18 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Cancel from '@material-ui/icons/Cancel';
 
 import StyledDrawer from 'components/StyledDrawer';
 import StyledIconButton from 'components/StyledIconButton';
+import StyledTooltip from 'components/StyledTooltip';
 import HorizontalAlignment from 'components/HorizontalAlignment';
-import InfoSection from 'components/InfoSection';
 import OrganizationSliderHeader from './OrganizationSliderHeader';
 import OrganizationSliderServices from './OrganizationSliderServices';
 import OrganizationSliderLocations from './OrganizationSliderLocations';
 import OrganizationSliderActivityDefinitions from './OrganizationSliderActivityDefinitions';
+import messages from './messages';
 
 const anchors = ['left', 'top', 'right', 'bottom'];
 
@@ -30,20 +32,16 @@ function OrganizationSlider(props) {
         transitionDuration={{ enter: 500, exit: 20 }}
       >
         <HorizontalAlignment position="end">
-          <StyledIconButton size="small" svgIconSize="small" disableIconHover onClick={onClose}>
-            <Cancel color="#b2b2b2" />
-          </StyledIconButton>
+          <StyledTooltip title={<FormattedMessage {...messages.closeButton} />} placement="left">
+            <StyledIconButton size="small" disableIconHover onClick={onClose}>
+              <Cancel color="#b2b2b2" />
+            </StyledIconButton>
+          </StyledTooltip>
         </HorizontalAlignment>
         <OrganizationSliderHeader organization={flattenedOrganization} />
-        <InfoSection>
-          <OrganizationSliderServices organization={flattenedOrganization} />
-        </InfoSection>
-        <InfoSection>
-          <OrganizationSliderLocations organization={flattenedOrganization} />
-        </InfoSection>
-        <InfoSection>
-          <OrganizationSliderActivityDefinitions organization={flattenedOrganization} />
-        </InfoSection>
+        <OrganizationSliderServices organization={flattenedOrganization} />
+        <OrganizationSliderLocations organization={flattenedOrganization} />
+        <OrganizationSliderActivityDefinitions organization={flattenedOrganization} />
       </StyledDrawer>
     </div>
   );
