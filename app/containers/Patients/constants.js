@@ -13,6 +13,3 @@ export const SEARCH_PATIENTS_SUCCESS = 'ocpui/Patients/GET_PATIENTS_SUCCESS';
 export const SEARCH_PATIENTS_ERROR = 'ocpui/Patients/SEARCH_PATIENTS_ERROR';
 export const LOAD_PATIENT_SEARCH_RESULT = 'ocpui/Patients/LOAD_PATIENT_SEARCH_RESULT';
 
-export const SEARCH_BAR_TEXT_LENGTH = 3;
-
-export const SUMMARY_PANEL_WIDTH = 465;

@@ -45,7 +45,6 @@ import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { SUMMARY_PANEL_WIDTH } from './constants';
 
 export class Patients extends React.Component {
 
@@ -56,7 +55,6 @@ export class Patients extends React.Component {
       currentPage: 1,
       patient: null,
       isPatientModalOpen: false,
-      isExpanded: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
@@ -83,11 +81,7 @@ export class Patients extends React.Component {
   }
 
   onSize(size) {
-    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
-    this.setState({
-      relativeTop: size.height,
-      isExpanded,
-    });
+    this.setState({ relativeTop: size.height });
   }
 
   handlePatientClick(patient) {
@@ -151,8 +145,6 @@ export class Patients extends React.Component {
           relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
-          isExpanded={this.state.isExpanded}
-          onSize={this.onSize}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
