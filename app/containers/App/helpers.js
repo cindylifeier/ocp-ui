@@ -106,7 +106,7 @@ export function getPractitionerIdByRole(user) {
 export function getRoleByScope(scope) {
   let role;
   switch (scope.split('.').pop(-1)) {
-    case 'admin':
+    case 'ocpAdmin':
       role = OCP_ADMIN_ROLE_CODE;
       break;
     case 'patient':
@@ -118,7 +118,7 @@ export function getRoleByScope(scope) {
     case 'careManager':
       role = CARE_MANAGER_ROLE_CODE;
       break;
-    case 'orgAdmin':
+    case 'organizationAdministrator':
       role = ORGANIZATION_ADMIN_ROLE_CODE;
       break;
     case 'pcp':
