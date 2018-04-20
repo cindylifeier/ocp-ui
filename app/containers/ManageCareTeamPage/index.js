@@ -29,7 +29,7 @@ import {
   makeSelectCareTeamReasons,
   makeSelectCareTeamStatuses,
 } from 'containers/App/lookupSelectors';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getCareTeam, initializeManageCareTeam, saveCareTeam } from './actions';
 import { makeSelectCareTeam } from './selectors';
 import reducer from './reducer';
@@ -74,7 +74,9 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
     if (patientId) {
       merge(careTeamFormData, { patientId });
     }
-
+    if (this.props.organization) {
+      merge(careTeamFormData, { managingOrganization: this.props.organization.logicalId });
+    }
     const careTeamId = this.props.match.params.id;
     if (careTeamId) {
       merge(careTeamFormData, { careTeamId });
@@ -102,6 +104,7 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
     const {
       match,
       patient,
+      organization,
       selectedCareTeam,
       careTeamCategories,
       careTeamStatuses,
@@ -118,6 +121,7 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
     }
     const manageCareTeamProps = {
       patient,
+      organization,
       careTeam,
       editMode,
       careTeamCategories,
@@ -172,6 +176,7 @@ ManageCareTeamPage.propTypes = {
   careTeamStatuses: PropTypes.array,
   careTeamReasons: PropTypes.array,
   selectedParticipants: PropTypes.array,
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -181,6 +186,7 @@ const mapStateToProps = createStructuredSelector({
   careTeamStatuses: makeSelectCareTeamStatuses(),
   careTeamReasons: makeSelectCareTeamReasons(),
   selectedParticipants: makeSelectSelectedParticipants(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
