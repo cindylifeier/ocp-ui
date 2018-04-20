@@ -7,9 +7,9 @@ import { removeToken, storeAuthStatus, storeToken } from 'utils/tokenService';
 import { checkAuthenticated } from 'utils/auth';
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectLocation } from 'containers/App/selectors';
-import { setOrganization, setUser } from 'containers/App/contextActions';
+import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import { getLinkUrlByRole, getRoleByScope } from 'containers/App/helpers';
-import { OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { OCP_ADMIN_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import { getLoginErrorDetail, getUserContext, login } from './api';
 import { loginError, loginSuccess } from './actions';
 import { LOGIN } from './constants';
@@ -38,8 +38,10 @@ function* loginSaga(loginAction) {
       const { resource, organization } = userContext;
       yield put(setUser({ user_id, user_name, email, scope, ext_attr, resource, role: userRole }));
       yield put(setOrganization(organization));
+      if (userRole === PATIENT_ROLE_CODE) {
+        yield put(setPatient(resource));
+      }
     }
-
     // Redirect to referrer address
     const location = yield select(makeSelectLocation());
     const linkUrl = yield call(getLinkUrlByRole, userRole);
