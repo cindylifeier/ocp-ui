@@ -4,7 +4,7 @@ import sizeMe from 'react-sizeme';
 // Create config for SizeMe
 const config = {
   monitorWidth: true,
-  monitorHeight: false,
+  monitorHeight: true,
   refreshRate: 250,
 };
 
