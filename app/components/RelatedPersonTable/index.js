@@ -19,10 +19,10 @@ import { MANAGE_RELATED_PERSON_URL } from 'containers/App/constants';
 import messages from './messages';
 import { RELATED_PERSON_TABLE_COLUMNS } from './constants';
 
-function RelatedPersonTable({ relatedPersons, patientId }) {
+function RelatedPersonTable({ relativeTop, relatedPersons, patientId }) {
   return (
     <Table>
-      <TableHeader columns={RELATED_PERSON_TABLE_COLUMNS}>
+      <TableHeader columns={RELATED_PERSON_TABLE_COLUMNS} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderRelationship} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
@@ -55,6 +55,7 @@ function RelatedPersonTable({ relatedPersons, patientId }) {
 }
 
 RelatedPersonTable.propTypes = {
+  relativeTop: PropTypes.number.isRequired,
   relatedPersons: PropTypes.array.isRequired,
   patientId: PropTypes.string.isRequired,
 };
