@@ -40,7 +40,7 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import ContentSection from 'components/ContentSection';
 import { cancelPatientAppointment, getPatientAppointments } from './actions';
-import { STATUS_CODE_CANCELLED, SUMMARY_PANEL_WIDTH } from './constants';
+import { STATUS_CODE_CANCELLED } from './constants';
 import messages from './messages';
 import NoPatientAppointmentsMessage from './NoPatientAppointmentsMessage';
 import reducer from './reducer';
@@ -53,14 +53,12 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
-      isExpanded: false,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
-    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -69,11 +67,6 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
       showPastAppointments: false,
     });
     this.props.getLookupData();
-  }
-
-  onSize(size) {
-    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
-    this.setState({ isExpanded });
   }
 
   handlePanelResize(size) {
@@ -170,8 +163,6 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 cancelledStatus={cancelledStatus}
                 enableEditAppointment={enableEditAppointment}
                 manageAppointmentUrl={manageAppointmentUrl}
-                isExpanded={this.state.isExpanded}
-                onSize={this.onSize}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}

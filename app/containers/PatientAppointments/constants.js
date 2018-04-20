@@ -23,5 +23,3 @@ export const CANCEL_PATIENT_APPOINTMENT_ERROR = 'ocpui/PatientAppointments/CANCE
 export const LOADING = 'loading';
 export const DATA = 'data';
 export const STATUS_CODE_CANCELLED = 'cancelled';
-
-export const SUMMARY_PANEL_WIDTH = 695;
