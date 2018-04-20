@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
+import { Cell } from 'styled-css-grid';
 
 import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -20,21 +21,57 @@ import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
+import TextLabelGroup from 'components/TextLabelGroup';
+import OrganizationRowDetails from './OrganizationRowDetails';
 import messages from './messages';
 
 const tableColumns = '50px 100px 1fr 60px 120px';
 const ENTER_KEY = 'Enter';
 
-function renderExpansionRowDetails() {
-  return (<div>Test</div>);
+// Todo: make to dynamically get expansion row height
+function renderExpansionRowDetails(organization) {
+  const { addresses, name, identifiers, telecoms, active } = organization;
+  return (
+    <OrganizationRowDetails columns={'60% 40%'} justifyContent="space-between">
+      <Cell>
+        <TextLabelGroup
+          label={<FormattedMessage {...messages.tableColumnHeaderOrganization} />}
+          text={name}
+        />
+      </Cell>
+      <Cell>
+        <TextLabelGroup
+          label={<FormattedMessage {...messages.tableColumnHeaderId} />}
+          text={identifiers}
+        />
+      </Cell>
+      <Cell>
+        <TextLabelGroup
+          label={<FormattedMessage {...messages.tableColumnHeaderAddress} />}
+          text={addresses}
+        />
+      </Cell>
+      <Cell>
+        <TextLabelGroup
+          label={<FormattedMessage {...messages.tableColumnHeaderTelecom} />}
+          text={telecoms}
+        />
+      </Cell>
+      <Cell>
+        <TextLabelGroup
+          label={<FormattedMessage {...messages.tableColumnHeaderStatus} />}
+          text={active ?
+            <FormattedMessage {...messages.active} /> :
+            <FormattedMessage {...messages.inactive} />
+          }
+        />
+      </Cell>
+    </OrganizationRowDetails>
+  );
 }
 
 function OrganizationTable(props) {
   const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
-  const expansionTableRowDetails = {
-    expansionRowContent: renderExpansionRowDetails(),
-    expansionRowHeight: 100,
-  };
   return (
     <div>
       {organizationData.loading && <RefreshIndicatorLoading />}
@@ -52,7 +89,10 @@ function OrganizationTable(props) {
                 const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <ExpansionTableRow
-                    expansionTableRowDetails={expansionTableRowDetails}
+                    expansionTableRowDetails={{
+                      expansionRowContent: renderExpansionRowDetails(flattenOrganization),
+                      expansionRowHeight: 350,
+                    }}
                     columns={tableColumns}
                     key={logicalId}
                     onClick={() => onRowClick && onRowClick(organization)}
