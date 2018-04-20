@@ -13,18 +13,25 @@ import TableRowColumn from 'components/TableRowColumn';
 import TableRow from 'components/TableRow';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTableRowDetails from './StyledTableRowDetails';
+import ExpansionTableRowDetails from './ExpansionTableRowDetails';
 
 class ExpansionTableRow extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       expansionRowOpen: false,
+      expansionRowHeight: 0,
     };
     this.handleRowOpen = this.handleRowOpen.bind(this);
+    this.handleOnSize = this.handleOnSize.bind(this);
   }
 
   handleRowOpen() {
     this.setState({ expansionRowOpen: !this.state.expansionRowOpen });
+  }
+
+  handleOnSize(size) {
+    this.setState({ expansionRowHeight: size.height });
   }
 
   render() {
@@ -35,7 +42,7 @@ class ExpansionTableRow extends React.Component { // eslint-disable-line react/p
       onKeyPress,
       role,
       tabIndex,
-      expansionTableRowDetails: { expansionRowContent, expansionRowHeight },
+      expansionTableRowDetails,
       ...other
     } = this.props;
     return (
@@ -55,8 +62,13 @@ class ExpansionTableRow extends React.Component { // eslint-disable-line react/p
           </TableRowColumn>
           {children}
         </TableRow>
-        <StyledTableRowDetails expanded={this.state.expansionRowOpen} height={`${expansionRowHeight}px`}>
-          {expansionRowContent}
+        <StyledTableRowDetails
+          expanded={this.state.expansionRowOpen}
+          height={`${this.state.expansionRowHeight + 20}px`}
+        >
+          <ExpansionTableRowDetails onSize={this.handleOnSize}>
+            {expansionTableRowDetails}
+          </ExpansionTableRowDetails>
         </StyledTableRowDetails>
       </div>
     );
@@ -72,10 +84,7 @@ ExpansionTableRow.propTypes = {
   onKeyPress: PropTypes.func,
   role: PropTypes.string,
   tabIndex: PropTypes.string,
-  expansionTableRowDetails: PropTypes.shape({
-    expansionRowContent: PropTypes.node.isRequired,
-    expansionRowHeight: PropTypes.number.isRequired,
-  }).isRequired,
+  expansionTableRowDetails: PropTypes.node.isRequired,
 };
 
 export default ExpansionTableRow;
