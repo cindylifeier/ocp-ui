@@ -152,3 +152,4 @@ ConsentExpandableTableRow.propTypes = {
 };
 
 export default ConsentExpandableTableRow;
+
