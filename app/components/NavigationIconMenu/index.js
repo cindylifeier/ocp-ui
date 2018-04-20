@@ -37,7 +37,7 @@ class NavigationIconMenu extends React.Component { // eslint-disable-line react/
     const { menuItems } = this.props;
     return (
       <div>
-        <StyledIconButton onClick={this.handleClick}>
+        <StyledIconButton size="x-small" onClick={this.handleClick}>
           <MoreHorizIcon />
         </StyledIconButton>
         <Menu

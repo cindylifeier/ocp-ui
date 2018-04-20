@@ -30,7 +30,9 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <StyledIconButton__StyledIconButton
+          disableIconHover={false}
           onClick={[Function]}
+          size="x-small"
         >
           <pure(MoreHoriz) />
         </StyledIconButton__StyledIconButton>,
@@ -58,7 +60,9 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "children": <pure(MoreHoriz) />,
+          "disableIconHover": false,
           "onClick": [Function],
+          "size": "x-small",
         },
         "ref": null,
         "rendered": Object {
@@ -122,7 +126,9 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <StyledIconButton__StyledIconButton
+            disableIconHover={false}
             onClick={[Function]}
+            size="x-small"
           >
             <pure(MoreHoriz) />
           </StyledIconButton__StyledIconButton>,
@@ -150,7 +156,9 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "children": <pure(MoreHoriz) />,
+            "disableIconHover": false,
             "onClick": [Function],
+            "size": "x-small",
           },
           "ref": null,
           "rendered": Object {

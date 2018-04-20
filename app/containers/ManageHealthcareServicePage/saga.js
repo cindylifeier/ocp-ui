@@ -1,16 +1,9 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { makeSelectHealthcareServices } from 'containers/HealthcareServices/selectors';
-import {
-  createHealthcareService,
-  getHealthcareServiceById,
-  getHealthcareServiceByIdFromStore,
-  updateHealthcareService,
-} from './api';
+import { createHealthcareService, getHealthcareServiceById, updateHealthcareService } from './api';
 import {
   createHealthcareServiceError,
   createHealthcareServiceSuccess,
@@ -62,14 +55,7 @@ function* watchUpdateHealthcareServiceSaga() {
 
 function* getHealthcareServiceByIdSaga({ logicalId }) {
   try {
-    let selectedHealthcareService;
-    // Load HealthcareServices from store
-    const healthcareServices = yield select(makeSelectHealthcareServices());
-    selectedHealthcareService = getHealthcareServiceByIdFromStore(healthcareServices, logicalId);
-    // fetch from backend if cannot find HealthcareService from store
-    if (isEmpty(selectedHealthcareService)) {
-      selectedHealthcareService = yield call(getHealthcareServiceById, logicalId);
-    }
+    const selectedHealthcareService = yield call(getHealthcareServiceById, logicalId);
     yield put(getHealthcareServiceByIdSuccess(selectedHealthcareService));
   } catch (error) {
     yield put(showNotification('No matching healthcare service found.'));

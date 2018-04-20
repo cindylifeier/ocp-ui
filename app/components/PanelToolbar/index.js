@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { ToolbarGroup } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui-next/Tooltip';
 import AddCircle from '@material-ui/icons/AddCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FileUploadIcon from '@material-ui/icons/FileUpload';
@@ -21,6 +21,7 @@ import isUndefined from 'lodash/isUndefined';
 import sizeMe from 'react-sizeme';
 
 import ShowHideWrapper, { functionalRoles } from 'containers/ShowHideWrapper';
+import StyledIconButton from 'components/StyledIconButton';
 import FilterBar from 'components/FilterBar';
 import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
@@ -69,52 +70,62 @@ export class PanelToolbar extends React.Component {
       <div>
         <StyledToolbar
           color="#91AAB3"
-          height="30px"
+          height="20px"
         >
           <ToolbarGroup firstChild>
             {!isUndefined(addNewItem) &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
-              <AddNewItemButton
-                label={addNewItem.labelName}
-                icon={<AddCircle color={white} />}
-                containerElement={<Link to={addNewItem.linkUrl} />}
-              />
+              <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
+                <StyledIconButton svgIconSize="small" disableIconHover>
+                  <AddCircle color={white} />
+                </StyledIconButton>
+                {addNewItem.labelName}
+              </AddNewItemButton>
             </ShowHideWrapper>
             }
           </ToolbarGroup>
           <ToolbarGroup lastChild>
             {showUploadIcon &&
-            <IconButton tooltip={<FormattedMessage {...messages.uploadFiles} />}>
-              <FileUploadIcon color={white} />
-            </IconButton>
+            <Tooltip title={<FormattedMessage {...messages.uploadFiles} />} placement="top">
+              <StyledIconButton svgIconSize="small">
+                <FileUploadIcon color={white} />
+              </StyledIconButton>
+            </Tooltip>
             }
             {showSettingIcon &&
-            <IconButton tooltip={<FormattedMessage {...messages.settings} />}>
-              <SettingsIcon color={white} />
-            </IconButton>
+            <Tooltip title={<FormattedMessage {...messages.settings} />} placement="top">
+              <StyledIconButton svgIconSize="small">
+                <SettingsIcon color={white} />
+              </StyledIconButton>
+            </Tooltip>
             }
             {showFilterIcon &&
-            <IconButton
-              tooltip={this.state.isShowFilter ?
+            <Tooltip
+              title={this.state.isShowFilter ?
                 <FormattedMessage {...messages.cancelFilter} /> :
                 <FormattedMessage {...messages.filter} />}
-              onClick={this.handleShowFilter}
+              placement="top"
             >
-              {this.state.isShowFilter ? <CancelIcon color={white} /> : <FilterIcon color={white} />}
-            </IconButton>
+              <StyledIconButton onClick={this.handleShowFilter}>
+                {this.state.isShowFilter ?
+                  <CancelIcon color={white} /> : <FilterIcon color={white} />
+                }
+              </StyledIconButton>
+            </Tooltip>
             }
             {showSearchIcon &&
-            <IconButton
-              tooltip={this.state.isShowSearchBar ?
+            <Tooltip
+              title={this.state.isShowSearchBar ?
                 <FormattedMessage {...messages.cancelSearch} /> :
-                <FormattedMessage {...messages.search} />
-              }
-              onClick={this.handleShowSearchBar}
+                <FormattedMessage {...messages.search} />}
+              placement="top"
             >
-              {this.state.isShowSearchBar ?
-                <CancelIcon color={white} /> : <SearchIcon color={white} />
-              }
-            </IconButton>
+              <StyledIconButton svgIconSize="small" onClick={this.handleShowSearchBar}>
+                {this.state.isShowSearchBar ?
+                  <CancelIcon color={white} /> : <SearchIcon color={white} />
+                }
+              </StyledIconButton>
+            </Tooltip>
             }
           </ToolbarGroup>
         </StyledToolbar>

@@ -1,11 +1,13 @@
-import * as queryString from 'query-string';
-import request from '../../utils/request';
+import queryString from 'utils/queryString';
+import request from 'utils/request';
 import { BASE_PARTICIPANTS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-export function searchParticipant(value, member, patientId) {
+export function searchParticipant(value, member, patientId, organizationId) {
   const baseEndpoint = getEndpoint(BASE_PARTICIPANTS_API_URL);
-  const queryParams = { value, member, patientId };
-  const stringifiedParams = queryString.stringify(queryParams);
-  const url = `${baseEndpoint}/search?${stringifiedParams}`;
+  let queryParams = queryString({ value, member, patientId, showAll: true });
+  if (organizationId) {
+    queryParams = queryString({ value, member, patientId, showAll: true, organization: organizationId });
+  }
+  const url = `${baseEndpoint}/search?${queryParams}`;
   return request(url);
 }
