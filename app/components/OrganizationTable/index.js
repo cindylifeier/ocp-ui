@@ -15,18 +15,26 @@ import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StyledFlatButton from 'components/StyledFlatButton';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
-const tableColumns = '100px 1fr 60px 120px';
+const tableColumns = '50px 100px 1fr 60px 120px';
 const ENTER_KEY = 'Enter';
+
+function renderExpansionRowDetails() {
+  return (<div>Test</div>);
+}
 
 function OrganizationTable(props) {
   const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
+  const expansionTableRowDetails = {
+    expansionRowContent: renderExpansionRowDetails(),
+    expansionRowHeight: 100,
+  };
   return (
     <div>
       {organizationData.loading && <RefreshIndicatorLoading />}
@@ -34,6 +42,7 @@ function OrganizationTable(props) {
           ? <div>
             <Table>
               <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+                <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
@@ -42,7 +51,8 @@ function OrganizationTable(props) {
                 const flattenOrganization = flattenOrganizationData(organization);
                 const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
-                  <TableRow
+                  <ExpansionTableRow
+                    expansionTableRowDetails={expansionTableRowDetails}
                     columns={tableColumns}
                     key={logicalId}
                     onClick={() => onRowClick && onRowClick(organization)}
@@ -70,7 +80,7 @@ function OrganizationTable(props) {
                         <FormattedMessage {...messages.viewDetails} />
                       </StyledFlatButton>
                     </TableRowColumn>
-                  </TableRow>
+                  </ExpansionTableRow>
                 );
               })}
             </Table>
