@@ -187,13 +187,19 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
         }
 
         {isEmpty(organization) &&
-        <h4><FormattedMessage {...messages.organizationNotSelected} /></h4>
+        <CenterAlign>
+          <NoResultsFoundText>
+            <FormattedMessage {...messages.organizationNotSelected} />
+          </NoResultsFoundText>
+        </CenterAlign>
         }
 
         {!loading && !isEmpty(organization) && isEmpty(healthcareServices) &&
-        <NoResultsFoundText>
-          <FormattedMessage {...messages.noHealthcareServicesFound} />
-        </NoResultsFoundText>
+        <CenterAlign>
+          <NoResultsFoundText>
+            <FormattedMessage {...messages.noHealthcareServicesFound} />
+          </NoResultsFoundText>
+        </CenterAlign>
         }
 
         {!isEmpty(organization) && !isEmpty(healthcareServices) && healthcareServices.length > 0 &&

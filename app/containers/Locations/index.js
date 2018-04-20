@@ -19,24 +19,15 @@ import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectLocation, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { clearLocation, setLocation } from 'containers/App/contextActions';
+import LocationTable from 'components/LocationTable';
 import StatusCheckbox from 'components/StatusCheckbox';
-import RecordsRange from 'components/RecordsRange';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import FilterSection from 'components/FilterSection';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import CenterAlign from 'components/Align/CenterAlign';
-import NoResultsFoundText from 'components/NoResultsFoundText';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -54,7 +45,6 @@ import { flattenLocationData } from './helpers';
 
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static TABLE_COLUMNS = 'repeat(4, 1fr) 50px';
   static initalState = {
     panelHeight: 0,
     filterHeight: 0,
@@ -144,79 +134,6 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     this.props.searchLocations(this.state.searchLocations.searchValue, this.state.searchLocations.includeInactive, this.state.searchLocations.searchType, currentPage);
   }
 
-  renderRows() {
-    if (this.props.data) {
-      return this.props.data.map((location) => {
-        const flattenedLocation = flattenLocationData(location);
-        const { logicalId, name, status, telecoms, address } = flattenedLocation;
-        const menuItems = [{
-          primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
-          linkTo: `/ocp-ui/manage-location/${logicalId}`,
-        }, {
-          primaryText: <FormattedMessage {...messages.actionLabelAssignHealthCareService} />,
-          linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
-        }];
-        return (
-          <TableRow
-            role="button"
-            tabIndex="0"
-            key={logicalId}
-            onClick={() => this.handleRowClick(location)}
-            columns={Locations.TABLE_COLUMNS}
-          >
-            <TableRowColumn>{name}</TableRowColumn>
-            <TableRowColumn>{status}</TableRowColumn>
-            <TableRowColumn>{telecoms}</TableRowColumn>
-            <TableRowColumn>{address}</TableRowColumn>
-            <TableRowColumn>
-              <NavigationIconMenu menuItems={menuItems} />
-            </TableRowColumn>
-          </TableRow>
-        );
-      });
-    }
-    return '<TableRow />';
-  }
-
-  renderTable() {
-    const { data } = this.props;
-    return (
-      <div>
-        {data && data.length > 0 ?
-          <div>
-            <Table>
-              <TableHeader
-                columns={Locations.TABLE_COLUMNS}
-                relativeTop={this.state.panelHeight + this.state.filterHeight}
-              >
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
-              </TableHeader>
-              {this.renderRows()}
-            </Table>
-            <CenterAlignedUltimatePagination
-              currentPage={this.props.currentPage}
-              totalPages={this.props.totalNumberOfPages}
-              onChange={this.state.isShowSearchResult ? this.handleSearchPageClick : this.handleListPageClick}
-            />
-            <RecordsRange
-              currentPage={this.props.currentPage}
-              totalPages={this.props.totalNumberOfPages}
-              totalElements={this.props.totalElements}
-              currentPageSize={this.props.currentPageSize}
-            />
-          </div> :
-          <CenterAlign>
-            <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
-          </CenterAlign>
-        }
-      </div>
-    )
-      ;
-  }
-
   renderActionSection() {
     return (
       <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
@@ -274,6 +191,15 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_LOCATION_URL,
     };
+    const { data, currentPage, totalNumberOfPages, totalElements, currentPageSize } = this.props;
+    const locationTableData = {
+      data,
+      currentPage,
+      totalNumberOfPages,
+      totalElements,
+      currentPageSize,
+      handlePageChange: this.state.isShowSearchResult ? this.handleSearchPageClick : this.handleListPageClick,
+    };
     return (
       <div>
         {this.props.showActionSection &&
@@ -286,7 +212,12 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
         />
         }
         {this.props.showActionSection && this.renderActionSection()}
-        {this.renderTable()}
+        <LocationTable
+          relativeTop={this.state.panelHeight + this.state.filterHeight}
+          locationTableData={locationTableData}
+          handleRowClick={() => this.handleRowClick}
+          flattenLocationData={flattenLocationData}
+        />
       </div>);
   }
 }
