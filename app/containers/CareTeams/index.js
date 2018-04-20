@@ -54,7 +54,6 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
-      isExpanded: false,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
@@ -189,8 +188,6 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
                 relativeTop={this.state.panelHeight + this.state.filterHeight}
                 elements={data.elements}
                 manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
-                isExpanded={this.state.isExpanded}
-                onSize={this.onSize}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
