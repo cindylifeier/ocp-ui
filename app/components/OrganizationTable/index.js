@@ -28,7 +28,6 @@ import messages from './messages';
 const tableColumns = '50px 100px 1fr 60px 120px';
 const ENTER_KEY = 'Enter';
 
-// Todo: make to dynamically get expansion row height
 function renderExpansionRowDetails(organization) {
   const { addresses, name, identifiers, telecoms, active } = organization;
   return (
@@ -89,10 +88,7 @@ function OrganizationTable(props) {
                 const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <ExpansionTableRow
-                    expansionTableRowDetails={{
-                      expansionRowContent: renderExpansionRowDetails(flattenOrganization),
-                      expansionRowHeight: 350,
-                    }}
+                    expansionTableRowDetails={renderExpansionRowDetails(flattenOrganization)}
                     columns={tableColumns}
                     key={logicalId}
                     onClick={() => onRowClick && onRowClick(organization)}
