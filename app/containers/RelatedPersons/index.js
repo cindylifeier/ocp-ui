@@ -13,18 +13,23 @@ import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-import RecordsRange from 'components/RecordsRange';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { MANAGE_RELATED_PERSON_URL, PATIENT_ROLE_CODE } from 'containers/App/constants';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
+import RecordsRange from 'components/RecordsRange';
 import RelatedPersonTable from 'components/RelatedPersonTable';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import Card from 'components/Card';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import makeSelectRelatedPersons, { makeSelectRelatedPersonsSearchLoading, makeSelectRelatedPersonsTotalElements } from './selectors';
+import PanelToolbar from 'components/PanelToolbar';
+import makeSelectRelatedPersons, {
+  makeSelectRelatedPersonsSearchLoading,
+  makeSelectRelatedPersonsTotalElements,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -33,7 +38,11 @@ import { getRelatedPersons, initializeRelatedPersons } from './actions';
 export class RelatedPersons extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      panelHeight: 0,
+    };
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handlePanelResize = this.handlePanelResize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
@@ -57,6 +66,10 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
     this.props.getRelatedPersons(true, pageNumber);
   }
 
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
   render() {
     const { data, patient, loading } = this.props;
     let patientName = null;
@@ -64,8 +77,21 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
       const { name: [{ firstName, lastName }] } = patient;
       patientName = [firstName, lastName].filter((n) => !isEmpty(n)).join(' ');
     }
+    const addNewItem = {
+      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
+      linkUrl: MANAGE_RELATED_PERSON_URL,
+    };
     return (
-      <Card>
+      <div>
+        <PanelToolbar
+          addNewItem={addNewItem}
+          allowedAddNewItemRoles={PATIENT_ROLE_CODE}
+          showSearchIcon={false}
+          showFilterIcon={false}
+          showSettingIcon={false}
+          showUploadIcon={false}
+          onSize={this.handlePanelResize}
+        />
         {isEmpty(patient) && (
           <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4>)}
         {!isEmpty(patient) && (
@@ -83,6 +109,7 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
           <div>
             {loading && <RefreshIndicatorLoading />}
             <RelatedPersonTable
+              relativeTop={this.state.panelHeight}
               relatedPersons={data.elements}
               patientId={patient.id}
             />
@@ -99,7 +126,7 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
             />
           </div>)
         }
-      </Card>
+      </div>
     );
   }
 }

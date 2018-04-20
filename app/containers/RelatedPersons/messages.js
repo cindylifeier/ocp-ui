@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.containers.RelatedPersons.header',
     defaultMessage: 'Related Persons',
   },
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.RelatedPersons.buttonLabelCreateNew',
+    defaultMessage: 'Create new',
+  },
   relatedPersons: {
     id: 'ocpui.containers.RelatedPersons.relatedPersons',
     defaultMessage: 'related persons',
