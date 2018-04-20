@@ -8,6 +8,6 @@ export function searchParticipant(value, member, patientId, organizationId) {
   if (organizationId) {
     queryParams = queryString({ value, member, patientId, showAll: true, organization: organizationId });
   }
-  const url = `${baseEndpoint}/search?${queryParams}`;
+  const url = `${baseEndpoint}/search${queryParams}`;
   return request(url);
 }

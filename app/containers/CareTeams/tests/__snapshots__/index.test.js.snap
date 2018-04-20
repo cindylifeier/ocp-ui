@@ -112,7 +112,12 @@ ShallowWrapper {
               "linkUrl": "/ocp-ui/manage-care-team",
             }
           }
-          allowedAddNewItemRoles="patientRole"
+          allowedAddNewItemRoles={
+            Array [
+              "ORGADMIN",
+              "CAREMNGR",
+            ]
+          }
           onSize={[Function]}
           showSearchIcon={false}
         />,
@@ -254,7 +259,10 @@ ShallowWrapper {
             />,
             "linkUrl": "/ocp-ui/manage-care-team",
           },
-          "allowedAddNewItemRoles": "patientRole",
+          "allowedAddNewItemRoles": Array [
+            "ORGADMIN",
+            "CAREMNGR",
+          ],
           "onSize": [Function],
           "showSearchIcon": false,
         },
@@ -1002,7 +1010,12 @@ ShallowWrapper {
                 "linkUrl": "/ocp-ui/manage-care-team",
               }
             }
-            allowedAddNewItemRoles="patientRole"
+            allowedAddNewItemRoles={
+              Array [
+                "ORGADMIN",
+                "CAREMNGR",
+              ]
+            }
             onSize={[Function]}
             showSearchIcon={false}
           />,
@@ -1144,7 +1157,10 @@ ShallowWrapper {
               />,
               "linkUrl": "/ocp-ui/manage-care-team",
             },
-            "allowedAddNewItemRoles": "patientRole",
+            "allowedAddNewItemRoles": Array [
+              "ORGADMIN",
+              "CAREMNGR",
+            ],
             "onSize": [Function],
             "showSearchIcon": false,
           },
