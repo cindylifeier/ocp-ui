@@ -8,6 +8,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -17,7 +18,8 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS } from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+
 
 function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, isExpanded, columns) {
   return patients && patients.map((patient) => {
@@ -92,7 +94,8 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, isExpanded }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, size }) {
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
 
   if (loading) {
@@ -141,7 +144,7 @@ PatientSearchResult.propTypes = {
   searchResult: PropTypes.any,
   onPatientClick: PropTypes.func,
   onPatientViewDetailsClick: PropTypes.func,
-  isExpanded: PropTypes.bool.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
-export default PatientSearchResult;
+export default sizeMeHOC(PatientSearchResult);
