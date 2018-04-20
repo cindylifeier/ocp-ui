@@ -185,7 +185,6 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
     );
   }
 
-  // Todo: Refactor to create presentational location table component
   render() {
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
