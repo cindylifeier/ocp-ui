@@ -26,6 +26,9 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Status',
     defaultMessage: 'Status',
   },
+  viewDetails: {
+    id: 'ocpui.components.OrganizationTable.viewDetails',
+    defaultMessage: 'View Details',
   tableColumnHeaderAction: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.tableColumnHeaderAction',
     defaultMessage: 'Action',

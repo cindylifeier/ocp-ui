@@ -9,24 +9,24 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
-import Tooltip from 'material-ui-next/Tooltip';
 import Close from '@material-ui/icons/Close';
 
 import H2 from 'components/H1';
 import TextField from 'components/TextField';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
 function CheckPassword(props) {
   const { callback, checkPassword } = props;
   return (
     <div>
-      <Tooltip title="Close">
+      <StyledTooltip title="Close">
         <StyledIconButton onClick={callback}>
           <Close />
         </StyledIconButton>
-      </Tooltip>
+      </StyledTooltip>
       <H2>{<FormattedMessage {...messages.authentication.header} />}</H2>
       <FormattedMessage {...messages.authentication.term} />
       <Formik

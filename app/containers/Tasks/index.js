@@ -65,7 +65,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     const { patient, user } = this.props;
     const { patient: newPatient } = nextProps;
     const practitionerId = getPractitionerIdByRole(user);
-    if (!isEqual(patient, newPatient)) {
+    if (!isEqual(patient, newPatient) && nextProps && nextProps.patient) {
       this.props.getTasks(practitionerId, nextProps.patient.id);
     }
   }

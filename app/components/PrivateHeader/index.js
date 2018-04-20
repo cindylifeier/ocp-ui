@@ -14,7 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import Logout from 'containers/Logout';
-import StyledBrandImage from 'components/StyledBrandImage';
+import StyledImage from 'components/StyledImage';
 import StyledToolbar from 'components/StyledToolbar';
 import brandImg from 'images/omnibus-care-plan-logo.png';
 import messages from './messages';
@@ -53,7 +53,7 @@ class PrivateHeader extends React.Component {
         height="60px"
       >
         <ToolbarGroup firstChild>
-          <StyledBrandImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
+          <StyledImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
           <Notifications viewBox="-2 -2 25 25" />

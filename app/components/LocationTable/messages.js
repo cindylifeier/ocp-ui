@@ -3,48 +3,39 @@
  *
  * This contains all the text for the LocationTable component.
  */
-
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  locations: {
-    id: 'ocpui.containers.Locations.locations',
-    defaultMessage: 'locations',
-  },
-  filterLabel: {
-    id: 'ocpui.containers.Locations.filterLabel',
-    defaultMessage: 'Include:',
-  },
-  inactive: {
-    id: 'ocpui.containers.Locations.checkbox.inactive',
-    defaultMessage: 'Inactive',
-  },
-  suspended: {
-    id: 'ocpui.containers.Locations.checkbox.suspended',
-    defaultMessage: 'Suspended',
+  header: {
+    id: 'ocpui.components.LocationTable.header',
+    defaultMessage: 'This is the LocationTable component !',
   },
   tableHeaderColumnName: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnName',
+    id: 'ocpui.components.LocationTable.tableHeaderColumnName',
     defaultMessage: 'Name',
   },
   tableHeaderColumnStatus: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnStatus',
+    id: 'ocpui.components.LocationTable.tableHeaderColumnStatus',
     defaultMessage: 'Status',
   },
   tableHeaderColumnTelecoms: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnTelecoms',
+    id: 'ocpui.components.LocationTable.tableHeaderColumnTelecoms',
     defaultMessage: 'Telecoms',
   },
   tableHeaderColumnAddress: {
-    id: 'ocpui.containers.Locations.tableHeaderColumnAddress',
+    id: 'ocpui.components.LocationTable.tableHeaderColumnAddress',
     defaultMessage: 'Address',
   },
   actionLabelEdit: {
-    id: 'ocpui.containers.Locations.actionLabelEdit',
+    id: 'ocpui.components.LocationTable.actionLabelEdit',
     defaultMessage: 'Edit',
   },
   actionLabelAssignHealthCareService: {
-    id: 'ocpui.containers.Locations.actionLabelAssignHealthCareService',
+    id: 'ocpui.components.LocationTable.actionLabelAssignHealthCareService',
     defaultMessage: 'Assign HealthCareService',
+  },
+  noLocationsFound: {
+    id: 'ocpui.containers.Locations.noLocationsFound',
+    defaultMessage: 'No locations loaded. Please select an organization to view its locations.',
   },
 });

@@ -1,9 +1,9 @@
-import request from '../../../utils/request';
-import * as endpointService from '../../../utils/endpointService';
-import getCareTeams from '../api';
+import request from 'utils/request';
+import { BASE_CARE_TEAMS_API_URL, getEndpoint } from 'utils/endpointService';
+import { getCareTeams } from 'containers/CareTeams/api';
 
-jest.mock('../../../utils/request');
-jest.mock('../../../utils/endpointService');
+jest.mock('utils/request');
+jest.mock('utils/endpointService');
 
 describe('CareTeams api.js', () => {
   const mockRequest = jest.fn();
@@ -11,8 +11,8 @@ describe('CareTeams api.js', () => {
 
   beforeEach(() => {
     mockGetEndpoint.mockReturnValue('/base-url/care-teams');
-    endpointService.getEndpoint = mockGetEndpoint;
     request.mockImplementation(mockRequest);
+    getEndpoint.mockImplementation(mockGetEndpoint);
   });
 
   afterEach(() => {
@@ -22,18 +22,18 @@ describe('CareTeams api.js', () => {
 
   it('should call request with correct request url', () => {
     // Arrange
-    const statusList = ['active', 'inactive'];
+    const status = ['active', 'inactive'];
     const patientId = 'patientId';
-    const searchType = 'patientId';
+    const organizationId = 'organizationId';
     const pageNumber = 2;
-    const pageSize = 20;
-    const expected = `/base-url/care-teams/search?searchValue=${patientId}&searchType=${searchType}&pageNumber=${pageNumber}&pageSize=${pageSize}&statusList=active%2Cinactive`;
+    const pageSize = 10;
+    const expected = `/base-url/care-teams?organization=${organizationId}&patient=${patientId}&pageNumber=${pageNumber}&pageSize=${pageSize}&status=active%2Cinactive`;
 
     // Act
-    getCareTeams(patientId, pageNumber, statusList, pageSize);
+    getCareTeams(organizationId, patientId, pageNumber, pageSize, status);
 
     // Assert
-    expect(mockGetEndpoint).toBeCalledWith(endpointService.BASE_CARE_TEAMS_API_URL);
+    expect(mockGetEndpoint).toBeCalledWith(BASE_CARE_TEAMS_API_URL);
     expect(mockRequest).toBeCalledWith(expected);
   });
 });

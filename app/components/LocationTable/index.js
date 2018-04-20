@@ -1,207 +1,135 @@
 /**
-*
-* LocationTable
-*
-*/
+ *
+ * LocationTable
+ *
+ */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Cell } from 'styled-css-grid';
-import uniqueId from 'lodash/uniqueId';
-
 import PropTypes from 'prop-types';
-import sizeMeHOC from 'utils/SizeMeUtils';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import TableRowColumn from 'components/TableRowColumn';
-import TableRow from 'components/TableRow';
-import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import InfoSection from 'components/InfoSection';
-import InlineLabel from 'components/InlineLabel';
-import StyledFlatButton from 'components/StyledFlatButton';
-import FilterSection from 'components/FilterBar/FilterSection';
-import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
-import StatusCheckbox from 'components/StatusCheckbox';
-import TableHeader from 'components/TableHeader';
-import Table from 'components/Table';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import { FormattedMessage } from 'react-intl';
 import RecordsRange from 'components/RecordsRange';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from 'components/LocationTable/constants';
+import Table from 'components/Table';
+import sizeMeHOC from 'utils/SizeMeUtils';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRow from 'components/TableRow';
+import TableRowColumn from 'components/TableRowColumn';
+import NavigationIconMenu from 'components/NavigationIconMenu';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import CenterAlign from 'components/Align/CenterAlign';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import messages from './messages';
+
+
+const tableColumns = 'repeat(4, 1fr) 50px';
 
 function LocationTable(props) {
   const {
-    data,
-    panelHeight,
-    handleFilterResize,
-    handlePageClick,
-    isShowSearchResult,
+    relativeTop,
     handleRowClick,
-    handleIncludeInactive,
-    includeSuspended,
-    handleIncludeSuspended,
-    orgNameHtmlId,
-    organization,
-    location,
-    clearLocation,
-    includeInactive,
-    filterHeight,
-    currentPage,
-    totalNumberOfPages,
-    currentPageSize,
-    totalElements,
-    size,
+    flattenLocationData,
+    locationTableData: { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, handlePageChange },
   } = props;
-  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
-
-  function renderTelecoms(telecoms) {
-    return telecoms.map((entry) =>
-      (
-        <div key={entry.value}>
-          {entry.system}: {entry.value},
-        </div>
-      ),
-    );
-  }
-
-  function renderAddress(address) {
-    const { line1, line2, city, stateCode, postalCode, countryCode } = address;
-    const addressStr = [line1, line2, city, stateCode, postalCode, countryCode].filter((i) => i && i !== '').join(', ');
-    return addressStr ? (<div>{addressStr}</div>) : '';
-  }
-
-  function renderRows() {
-    if (data) {
-      return data.map((entry) => {
-        const { logicalId, name, status, telecoms, address } = entry;
-        const menuItems = [{
-          primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
-          linkTo: `/ocp-ui/manage-location/${logicalId}`,
-        }, {
-          primaryText: <FormattedMessage {...messages.actionLabelAssignHealthCareService} />,
-          linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
-        }];
-        return (
-          <TableRow
-            role="button"
-            tabIndex="0"
-            key={uniqueId()}
-            onClick={() => handleRowClick(entry)}
-            columns={columns}
-          >
-            <TableRowColumn>{name}</TableRowColumn>
-            <TableRowColumn>{renderTelecoms(telecoms)}</TableRowColumn>
-            {isExpanded &&
-            <TableRowColumn>{renderAddress(address)}</TableRowColumn>
-            }
-            <TableRowColumn>{status}</TableRowColumn>
-            <TableRowColumn>
-              <NavigationIconMenu menuItems={menuItems} />
-            </TableRowColumn>
-          </TableRow>
-        );
-      });
-    }
-    return '<TableRow />';
-  }
-
   return (
     <div>
-      <SizedStickyDiv onSize={handleFilterResize} top={`${panelHeight}px`}>
-        <InfoSection margin="0px">
-          <div>
-            {isShowSearchResult ? 'Search' : 'The'}&nbsp;
-            <FormattedMessage {...messages.locations} /> for &nbsp;
-            <InlineLabel htmlFor={orgNameHtmlId}>
-              <span id={orgNameHtmlId}>
-                {organization ? organization.name : ''}&nbsp;
-              </span>
-            </InlineLabel>
-            are :
-          </div>
-        </InfoSection>
-        {location &&
-        <InfoSection margin="0px" width="fit-content" maxWidth="500px">
-          <StyledFlatButton onClick={clearLocation}>
-            Clear
-          </StyledFlatButton>
-        </InfoSection>
-        }
-        {!isShowSearchResult &&
-        <FilterSection>
-          <CheckboxFilterGrid>
-            <Cell>
-              <FormattedMessage {...messages.filterLabel} />
-            </Cell>
-            <Cell>
-              <StatusCheckbox
-                messages={messages.inactive}
-                elementId="inactiveCheckBox"
-                checked={includeInactive}
-                handleCheck={handleIncludeInactive}
-              />
-            </Cell>
-            <Cell>
-              <StatusCheckbox
-                messages={messages.suspended}
-                elementId="suspendedCheckBox"
-                checked={includeSuspended}
-                handleCheck={handleIncludeSuspended}
-              />
-            </Cell>
-          </CheckboxFilterGrid>
-        </FilterSection>
-        }
-      </SizedStickyDiv>
-      <Table>
-        <TableHeader columns={columns} relativeTop={panelHeight + filterHeight}>
-          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
-          {isExpanded &&
-          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
-          }
-          <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-          <TableHeaderColumn />
-        </TableHeader>
-        {renderRows(columns)}
-        <CenterAlignedUltimatePagination
-          currentPage={currentPage}
-          totalPages={totalNumberOfPages}
-          onChange={handlePageClick}
-        />
-        <RecordsRange
-          currentPage={currentPage}
-          totalPages={totalNumberOfPages}
-          totalElements={totalElements}
-          currentPageSize={currentPageSize}
-        />
-      </Table>
+      {data && data.length > 0 ?
+        <div>
+          <Table>
+            <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
+            </TableHeader>
+            {data.map((location) => {
+              const flattenedLocation = flattenLocationData(location);
+              const { logicalId, name, status, telecoms, address } = flattenedLocation;
+              const menuItems = [{
+                primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
+                linkTo: `/ocp-ui/manage-location/${logicalId}`,
+              }, {
+                primaryText: <FormattedMessage {...messages.actionLabelAssignHealthCareService} />,
+                linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
+              }];
+              return (
+                <TableRow
+                  role="button"
+                  tabIndex="0"
+                  key={logicalId}
+                  onClick={() => handleRowClick(location)}
+                  columns={tableColumns}
+                >
+                  <TableRowColumn>{name}</TableRowColumn>
+                  <TableRowColumn>{status}</TableRowColumn>
+                  <TableRowColumn>{telecoms}</TableRowColumn>
+                  <TableRowColumn>{address}</TableRowColumn>
+                  <TableRowColumn>
+                    <NavigationIconMenu menuItems={menuItems} />
+                  </TableRowColumn>
+                </TableRow>
+              );
+            })
+            }
+          </Table>
+          <CenterAlignedUltimatePagination
+            currentPage={currentPage}
+            totalPages={totalNumberOfPages}
+            onChange={handlePageChange}
+          />
+          <RecordsRange
+            currentPage={currentPage}
+            totalPages={totalNumberOfPages}
+            totalElements={totalElements}
+            currentPageSize={currentPageSize}
+          />
+        </div> :
+        <CenterAlign>
+          <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
+        </CenterAlign>
+      }
     </div>
   );
 }
 
 LocationTable.propTypes = {
-  data: PropTypes.array.isRequired,
-  organization: PropTypes.object,
-  location: PropTypes.object,
-  includeInactive: PropTypes.bool,
-  includeSuspended: PropTypes.bool,
-  clearLocation: PropTypes.func.isRequired,
-  handleFilterResize: PropTypes.func.isRequired,
-  handleIncludeInactive: PropTypes.func.isRequired,
+  relativeTop: PropTypes.number.isRequired,
+  locationTableData: PropTypes.PropTypes.shape({
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    totalElements: PropTypes.number,
+    currentPageSize: PropTypes.number,
+    handlePageChange: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({
+      managingLocationLogicalId: PropTypes.string,
+      logicalId: PropTypes.string.isRequired,
+      status: PropTypes.string,
+      physicalType: PropTypes.string,
+      address: PropTypes.shape({
+        line1: PropTypes.string,
+        line2: PropTypes.string,
+        city: PropTypes.string,
+        stateCode: PropTypes.string,
+        postalCode: PropTypes.string,
+        countryCode: PropTypes.string,
+        use: PropTypes.string,
+      }),
+      telecoms: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        value: PropTypes.string,
+        use: PropTypes.string,
+      })),
+      name: PropTypes.string,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
+    })).isRequired,
+  }).isRequired,
   handleRowClick: PropTypes.func.isRequired,
-  handleIncludeSuspended: PropTypes.func.isRequired,
-  currentPage: PropTypes.number,
-  totalNumberOfPages: PropTypes.number,
-  currentPageSize: PropTypes.number,
-  totalElements: PropTypes.number,
-  panelHeight: PropTypes.number,
-  filterHeight: PropTypes.number,
-  isShowSearchResult: PropTypes.bool,
-  orgNameHtmlId: PropTypes.string,
-  size: PropTypes.object.isRequired,
-  handlePageClick: PropTypes.func.isRequired,
+  flattenLocationData: PropTypes.func.isRequired,
 };
 
 export default sizeMeHOC(LocationTable);

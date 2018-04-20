@@ -6,9 +6,21 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  noLocationsFound: {
-    id: 'ocpui.containers.Locations.noLocationsFound',
-    defaultMessage: 'No locations loaded. Please select an organization to view its locations.',
+  locations: {
+    id: 'ocpui.containers.Locations.locations',
+    defaultMessage: 'locations',
+  },
+  filterLabel: {
+    id: 'ocpui.containers.Locations.filterLabel',
+    defaultMessage: 'Include:',
+  },
+  inactive: {
+    id: 'ocpui.containers.Locations.checkbox.inactive',
+    defaultMessage: 'Inactive',
+  },
+  suspended: {
+    id: 'ocpui.containers.Locations.checkbox.suspended',
+    defaultMessage: 'Suspended',
   },
   labelOrganization: {
     id: 'ocpui.containers.Locations.labelOrganization',

@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import StyledBrandImage from '../index';
+// import StyledImage from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<StyledBrandImage />', () => {
+describe('<StyledImage />', () => {
   it('Expect to have unit tests specified', () => {
     // FIXME: add unit tests
     // expect(true).toEqual(false);

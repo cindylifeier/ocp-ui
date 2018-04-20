@@ -112,13 +112,913 @@ ShallowWrapper {
               "linkUrl": "/ocp-ui/manage-care-team",
             }
           }
-          allowedAddNewItemRoles="patientRole"
+          allowedAddNewItemRoles={
+            Array [
+              "ORGADMIN",
+              "CAREMNGR",
+            ]
+          }
           onSize={[Function]}
           showSearchIcon={false}
         />,
-        <ContentSection__ContentSection
-          fontSize="12px"
+        <SizeMe(StickyDiv__StickyDiv)
+          onSize={[Function]}
+          top="0px"
         >
+          <Grid__Grid
+            columns={1}
+            gap=""
+          >
+            <Cell__Cell>
+              <InfoSection__InfoSection
+                margin="10px 10px"
+                maxWidth="none"
+                width="auto"
+              >
+                <div>
+                  The
+                  <FormattedMessage
+                    defaultMessage="care teams"
+                    id="ocpui.containers.CareTeams.header"
+                    values={Object {}}
+                  />
+                   for 
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
+                    <span
+                      id="patient_name_1"
+                    >
+                      firstName lastName
+                    </span>
+                     
+                  </InlineLabel__InlineLabel>
+                  are :
+                </div>
+              </InfoSection__InfoSection>
+            </Cell__Cell>
+            <Cell__Cell>
+              <FilterSection__FilterSection>
+                <CheckboxFilterGrid
+                  columns="100px repeat(1,110px) 180px 1fr"
+                >
+                  <Cell__Cell>
+                    <styled.div>
+                      <FormattedMessage
+                        defaultMessage="Include: "
+                        id="ocpui.containers.CareTeams.includeLabel"
+                        values={Object {}}
+                      />
+                    </styled.div>
+                  </Cell__Cell>
+                  <Cell__Cell>
+                    <styled.div>
+                      <Checkbox
+                        checked={true}
+                        disabled={false}
+                        label="Inactive"
+                        labelPosition="right"
+                        name="inactive"
+                        onCheck={[Function]}
+                      />
+                    </styled.div>
+                  </Cell__Cell>
+                  <Cell__Cell>
+                    <styled.div>
+                      <Checkbox
+                        checked={false}
+                        disabled={false}
+                        label="suspended"
+                        labelPosition="right"
+                        name="suspended"
+                        onCheck={[Function]}
+                      />
+                    </styled.div>
+                  </Cell__Cell>
+                </CheckboxFilterGrid>
+              </FilterSection__FilterSection>
+            </Cell__Cell>
+          </Grid__Grid>
+        </SizeMe(StickyDiv__StickyDiv)>,
+        false,
+        false,
+        <styled.div>
+          <CareTeamTable
+            elements={
+              Array [
+                Object {
+                  "id": "1",
+                  "name": "a",
+                  "subjectFirstName": "subjectFirstName1",
+                  "subjectId": "subjectId1",
+                  "subjectLastName": "subjectLastName1",
+                },
+                Object {
+                  "id": "2",
+                  "name": "b",
+                  "subjectFirstName": "subjectFirstName2",
+                  "subjectId": "subjectId2",
+                  "subjectLastName": "subjectLastName2",
+                },
+              ]
+            }
+            manageCareTeamUrl="/ocp-ui/manage-care-team"
+            relativeTop={0}
+          />
+          <CenterAlignedUltimatePagination
+            boundaryPagesRange={1}
+            currentPage={10}
+            hideEllipsis={false}
+            hideFirstAndLastPageLinks={false}
+            hidePreviousAndNextPageLinks={false}
+            onChange={[Function]}
+            siblingPagesRange={1}
+            totalPages={100}
+          />
+          <RecordsRange
+            currentPage={10}
+            currentPageSize={undefined}
+            totalElements={undefined}
+            totalPages={100}
+          />
+        </styled.div>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "addNewItem": Object {
+            "labelName": <FormattedMessage
+              defaultMessage="Create New"
+              id="ocpui.containers.CareTeams.buttonLabelCreateNew"
+              values={Object {}}
+            />,
+            "linkUrl": "/ocp-ui/manage-care-team",
+          },
+          "allowedAddNewItemRoles": Array [
+            "ORGADMIN",
+            "CAREMNGR",
+          ],
+          "onSize": [Function],
+          "showSearchIcon": false,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <Grid__Grid
+            columns={1}
+            gap=""
+          >
+            <Cell__Cell>
+              <InfoSection__InfoSection
+                margin="10px 10px"
+                maxWidth="none"
+                width="auto"
+              >
+                <div>
+                  The
+                  <FormattedMessage
+                    defaultMessage="care teams"
+                    id="ocpui.containers.CareTeams.header"
+                    values={Object {}}
+                  />
+                   for 
+                  <InlineLabel__InlineLabel
+                    htmlFor="patient_name_1"
+                  >
+                    <span
+                      id="patient_name_1"
+                    >
+                      firstName lastName
+                    </span>
+                     
+                  </InlineLabel__InlineLabel>
+                  are :
+                </div>
+              </InfoSection__InfoSection>
+            </Cell__Cell>
+            <Cell__Cell>
+              <FilterSection__FilterSection>
+                <CheckboxFilterGrid
+                  columns="100px repeat(1,110px) 180px 1fr"
+                >
+                  <Cell__Cell>
+                    <styled.div>
+                      <FormattedMessage
+                        defaultMessage="Include: "
+                        id="ocpui.containers.CareTeams.includeLabel"
+                        values={Object {}}
+                      />
+                    </styled.div>
+                  </Cell__Cell>
+                  <Cell__Cell>
+                    <styled.div>
+                      <Checkbox
+                        checked={true}
+                        disabled={false}
+                        label="Inactive"
+                        labelPosition="right"
+                        name="inactive"
+                        onCheck={[Function]}
+                      />
+                    </styled.div>
+                  </Cell__Cell>
+                  <Cell__Cell>
+                    <styled.div>
+                      <Checkbox
+                        checked={false}
+                        disabled={false}
+                        label="suspended"
+                        labelPosition="right"
+                        name="suspended"
+                        onCheck={[Function]}
+                      />
+                    </styled.div>
+                  </Cell__Cell>
+                </CheckboxFilterGrid>
+              </FilterSection__FilterSection>
+            </Cell__Cell>
+          </Grid__Grid>,
+          "onSize": [Function],
+          "top": "0px",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Cell__Cell>
+                <InfoSection__InfoSection
+                  margin="10px 10px"
+                  maxWidth="none"
+                  width="auto"
+                >
+                  <div>
+                    The
+                    <FormattedMessage
+                      defaultMessage="care teams"
+                      id="ocpui.containers.CareTeams.header"
+                      values={Object {}}
+                    />
+                     for 
+                    <InlineLabel__InlineLabel
+                      htmlFor="patient_name_1"
+                    >
+                      <span
+                        id="patient_name_1"
+                      >
+                        firstName lastName
+                      </span>
+                       
+                    </InlineLabel__InlineLabel>
+                    are :
+                  </div>
+                </InfoSection__InfoSection>
+              </Cell__Cell>,
+              <Cell__Cell>
+                <FilterSection__FilterSection>
+                  <CheckboxFilterGrid
+                    columns="100px repeat(1,110px) 180px 1fr"
+                  >
+                    <Cell__Cell>
+                      <styled.div>
+                        <FormattedMessage
+                          defaultMessage="Include: "
+                          id="ocpui.containers.CareTeams.includeLabel"
+                          values={Object {}}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={true}
+                          disabled={false}
+                          label="Inactive"
+                          labelPosition="right"
+                          name="inactive"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={false}
+                          disabled={false}
+                          label="suspended"
+                          labelPosition="right"
+                          name="suspended"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                  </CheckboxFilterGrid>
+                </FilterSection__FilterSection>
+              </Cell__Cell>,
+            ],
+            "columns": 1,
+            "gap": "",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <InfoSection__InfoSection
+                  margin="10px 10px"
+                  maxWidth="none"
+                  width="auto"
+                >
+                  <div>
+                    The
+                    <FormattedMessage
+                      defaultMessage="care teams"
+                      id="ocpui.containers.CareTeams.header"
+                      values={Object {}}
+                    />
+                     for 
+                    <InlineLabel__InlineLabel
+                      htmlFor="patient_name_1"
+                    >
+                      <span
+                        id="patient_name_1"
+                      >
+                        firstName lastName
+                      </span>
+                       
+                    </InlineLabel__InlineLabel>
+                    are :
+                  </div>
+                </InfoSection__InfoSection>,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": <div>
+                    The
+                    <FormattedMessage
+                      defaultMessage="care teams"
+                      id="ocpui.containers.CareTeams.header"
+                      values={Object {}}
+                    />
+                     for 
+                    <InlineLabel__InlineLabel
+                      htmlFor="patient_name_1"
+                    >
+                      <span
+                        id="patient_name_1"
+                      >
+                        firstName lastName
+                      </span>
+                       
+                    </InlineLabel__InlineLabel>
+                    are :
+                  </div>,
+                  "margin": "10px 10px",
+                  "maxWidth": "none",
+                  "width": "auto",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "The ",
+                      <FormattedMessage
+                        defaultMessage="care teams"
+                        id="ocpui.containers.CareTeams.header"
+                        values={Object {}}
+                      />,
+                      " for ",
+                      <InlineLabel__InlineLabel
+                        htmlFor="patient_name_1"
+                      >
+                        <span
+                          id="patient_name_1"
+                        >
+                          firstName lastName
+                        </span>
+                         
+                      </InlineLabel__InlineLabel>,
+                      "are :",
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "The ",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "defaultMessage": "care teams",
+                        "id": "ocpui.containers.CareTeams.header",
+                        "values": Object {},
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    " for ",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": Array [
+                          <span
+                            id="patient_name_1"
+                          >
+                            firstName lastName
+                          </span>,
+                          " ",
+                        ],
+                        "htmlFor": "patient_name_1",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "firstName lastName",
+                            "id": "patient_name_1",
+                          },
+                          "ref": null,
+                          "rendered": "firstName lastName",
+                          "type": "span",
+                        },
+                        " ",
+                      ],
+                      "type": [Function],
+                    },
+                    "are :",
+                  ],
+                  "type": "div",
+                },
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FilterSection__FilterSection>
+                  <CheckboxFilterGrid
+                    columns="100px repeat(1,110px) 180px 1fr"
+                  >
+                    <Cell__Cell>
+                      <styled.div>
+                        <FormattedMessage
+                          defaultMessage="Include: "
+                          id="ocpui.containers.CareTeams.includeLabel"
+                          values={Object {}}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={true}
+                          disabled={false}
+                          label="Inactive"
+                          labelPosition="right"
+                          name="inactive"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={false}
+                          disabled={false}
+                          label="suspended"
+                          labelPosition="right"
+                          name="suspended"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                  </CheckboxFilterGrid>
+                </FilterSection__FilterSection>,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": <CheckboxFilterGrid
+                    columns="100px repeat(1,110px) 180px 1fr"
+                  >
+                    <Cell__Cell>
+                      <styled.div>
+                        <FormattedMessage
+                          defaultMessage="Include: "
+                          id="ocpui.containers.CareTeams.includeLabel"
+                          values={Object {}}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={true}
+                          disabled={false}
+                          label="Inactive"
+                          labelPosition="right"
+                          name="inactive"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={false}
+                          disabled={false}
+                          label="suspended"
+                          labelPosition="right"
+                          name="suspended"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                  </CheckboxFilterGrid>,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": Array [
+                      <Cell__Cell>
+                        <styled.div>
+                          <FormattedMessage
+                            defaultMessage="Include: "
+                            id="ocpui.containers.CareTeams.includeLabel"
+                            values={Object {}}
+                          />
+                        </styled.div>
+                      </Cell__Cell>,
+                      Array [
+                        <Cell__Cell>
+                          <styled.div>
+                            <Checkbox
+                              checked={true}
+                              disabled={false}
+                              label="Inactive"
+                              labelPosition="right"
+                              name="inactive"
+                              onCheck={[Function]}
+                            />
+                          </styled.div>
+                        </Cell__Cell>,
+                        <Cell__Cell>
+                          <styled.div>
+                            <Checkbox
+                              checked={false}
+                              disabled={false}
+                              label="suspended"
+                              labelPosition="right"
+                              name="suspended"
+                              onCheck={[Function]}
+                            />
+                          </styled.div>
+                        </Cell__Cell>,
+                      ],
+                    ],
+                    "columns": "100px repeat(1,110px) 180px 1fr",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <styled.div>
+                          <FormattedMessage
+                            defaultMessage="Include: "
+                            id="ocpui.containers.CareTeams.includeLabel"
+                            values={Object {}}
+                          />
+                        </styled.div>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": <FormattedMessage
+                            defaultMessage="Include: "
+                            id="ocpui.containers.CareTeams.includeLabel"
+                            values={Object {}}
+                          />,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "defaultMessage": "Include: ",
+                            "id": "ocpui.containers.CareTeams.includeLabel",
+                            "values": Object {},
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "inactive",
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <styled.div>
+                          <Checkbox
+                            checked={true}
+                            disabled={false}
+                            label="Inactive"
+                            labelPosition="right"
+                            name="inactive"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": <Checkbox
+                            checked={true}
+                            disabled={false}
+                            label="Inactive"
+                            labelPosition="right"
+                            name="inactive"
+                            onCheck={[Function]}
+                          />,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "checked": true,
+                            "disabled": false,
+                            "label": "Inactive",
+                            "labelPosition": "right",
+                            "name": "inactive",
+                            "onCheck": [Function],
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "suspended",
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <styled.div>
+                          <Checkbox
+                            checked={false}
+                            disabled={false}
+                            label="suspended"
+                            labelPosition="right"
+                            name="suspended"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": <Checkbox
+                            checked={false}
+                            disabled={false}
+                            label="suspended"
+                            labelPosition="right"
+                            name="suspended"
+                            onCheck={[Function]}
+                          />,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "checked": false,
+                            "disabled": false,
+                            "label": "suspended",
+                            "labelPosition": "right",
+                            "name": "suspended",
+                            "onCheck": [Function],
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      false,
+      false,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <CareTeamTable
+              elements={
+                Array [
+                  Object {
+                    "id": "1",
+                    "name": "a",
+                    "subjectFirstName": "subjectFirstName1",
+                    "subjectId": "subjectId1",
+                    "subjectLastName": "subjectLastName1",
+                  },
+                  Object {
+                    "id": "2",
+                    "name": "b",
+                    "subjectFirstName": "subjectFirstName2",
+                    "subjectId": "subjectId2",
+                    "subjectLastName": "subjectLastName2",
+                  },
+                ]
+              }
+              manageCareTeamUrl="/ocp-ui/manage-care-team"
+              relativeTop={0}
+            />,
+            <CenterAlignedUltimatePagination
+              boundaryPagesRange={1}
+              currentPage={10}
+              hideEllipsis={false}
+              hideFirstAndLastPageLinks={false}
+              hidePreviousAndNextPageLinks={false}
+              onChange={[Function]}
+              siblingPagesRange={1}
+              totalPages={100}
+            />,
+            <RecordsRange
+              currentPage={10}
+              currentPageSize={undefined}
+              totalElements={undefined}
+              totalPages={100}
+            />,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "elements": Array [
+                Object {
+                  "id": "1",
+                  "name": "a",
+                  "subjectFirstName": "subjectFirstName1",
+                  "subjectId": "subjectId1",
+                  "subjectLastName": "subjectLastName1",
+                },
+                Object {
+                  "id": "2",
+                  "name": "b",
+                  "subjectFirstName": "subjectFirstName2",
+                  "subjectId": "subjectId2",
+                  "subjectLastName": "subjectLastName2",
+                },
+              ],
+              "manageCareTeamUrl": "/ocp-ui/manage-care-team",
+              "relativeTop": 0,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "boundaryPagesRange": 1,
+              "currentPage": 10,
+              "hideEllipsis": false,
+              "hideFirstAndLastPageLinks": false,
+              "hidePreviousAndNextPageLinks": false,
+              "onChange": [Function],
+              "siblingPagesRange": 1,
+              "totalPages": 100,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "currentPage": 10,
+              "currentPageSize": undefined,
+              "totalElements": undefined,
+              "totalPages": 100,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <SizeMe(PanelToolbar)
+            addNewItem={
+              Object {
+                "labelName": <FormattedMessage
+                  defaultMessage="Create New"
+                  id="ocpui.containers.CareTeams.buttonLabelCreateNew"
+                  values={Object {}}
+                />,
+                "linkUrl": "/ocp-ui/manage-care-team",
+              }
+            }
+            allowedAddNewItemRoles={
+              Array [
+                "ORGADMIN",
+                "CAREMNGR",
+              ]
+            }
+            onSize={[Function]}
+            showSearchIcon={false}
+          />,
           <SizeMe(StickyDiv__StickyDiv)
             onSize={[Function]}
             top="0px"
@@ -129,13 +1029,12 @@ ShallowWrapper {
             >
               <Cell__Cell>
                 <InfoSection__InfoSection
-                  fontSize="12px"
                   margin="10px 10px"
                   maxWidth="none"
                   width="auto"
                 >
                   <div>
-                    The 
+                    The
                     <FormattedMessage
                       defaultMessage="care teams"
                       id="ocpui.containers.CareTeams.header"
@@ -156,10 +1055,53 @@ ShallowWrapper {
                   </div>
                 </InfoSection__InfoSection>
               </Cell__Cell>
+              <Cell__Cell>
+                <FilterSection__FilterSection>
+                  <CheckboxFilterGrid
+                    columns="100px repeat(1,110px) 180px 1fr"
+                  >
+                    <Cell__Cell>
+                      <styled.div>
+                        <FormattedMessage
+                          defaultMessage="Include: "
+                          id="ocpui.containers.CareTeams.includeLabel"
+                          values={Object {}}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={true}
+                          disabled={false}
+                          label="Inactive"
+                          labelPosition="right"
+                          name="inactive"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={false}
+                          disabled={false}
+                          label="suspended"
+                          labelPosition="right"
+                          name="suspended"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                  </CheckboxFilterGrid>
+                </FilterSection__FilterSection>
+              </Cell__Cell>
             </Grid__Grid>
-          </SizeMe(StickyDiv__StickyDiv)>
+          </SizeMe(StickyDiv__StickyDiv)>,
+          false,
+          false,
           <styled.div>
-            <SizeMe(CareTeamTable)
+            <CareTeamTable
               elements={
                 Array [
                   Object {
@@ -197,592 +1139,8 @@ ShallowWrapper {
               totalElements={undefined}
               totalPages={100}
             />
-          </styled.div>
-        </ContentSection__ContentSection>,
-      ],
-      "minWidth": "auto",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "addNewItem": Object {
-            "labelName": <FormattedMessage
-              defaultMessage="Create New"
-              id="ocpui.containers.CareTeams.buttonLabelCreateNew"
-              values={Object {}}
-            />,
-            "linkUrl": "/ocp-ui/manage-care-team",
-          },
-          "allowedAddNewItemRoles": "patientRole",
-          "onSize": [Function],
-          "showSearchIcon": false,
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": Array [
-            <SizeMe(StickyDiv__StickyDiv)
-              onSize={[Function]}
-              top="0px"
-            >
-              <Grid__Grid
-                columns={1}
-                gap=""
-              >
-                <Cell__Cell>
-                  <InfoSection__InfoSection
-                    fontSize="12px"
-                    margin="10px 10px"
-                    maxWidth="none"
-                    width="auto"
-                  >
-                    <div>
-                      The 
-                      <FormattedMessage
-                        defaultMessage="care teams"
-                        id="ocpui.containers.CareTeams.header"
-                        values={Object {}}
-                      />
-                       for 
-                      <InlineLabel__InlineLabel
-                        htmlFor="patient_name_1"
-                      >
-                        <span
-                          id="patient_name_1"
-                        >
-                          firstName lastName
-                        </span>
-                         
-                      </InlineLabel__InlineLabel>
-                      are :
-                    </div>
-                  </InfoSection__InfoSection>
-                </Cell__Cell>
-              </Grid__Grid>
-            </SizeMe(StickyDiv__StickyDiv)>,
-            false,
-            false,
-            <styled.div>
-              <SizeMe(CareTeamTable)
-                elements={
-                  Array [
-                    Object {
-                      "id": "1",
-                      "name": "a",
-                      "subjectFirstName": "subjectFirstName1",
-                      "subjectId": "subjectId1",
-                      "subjectLastName": "subjectLastName1",
-                    },
-                    Object {
-                      "id": "2",
-                      "name": "b",
-                      "subjectFirstName": "subjectFirstName2",
-                      "subjectId": "subjectId2",
-                      "subjectLastName": "subjectLastName2",
-                    },
-                  ]
-                }
-                manageCareTeamUrl="/ocp-ui/manage-care-team"
-                relativeTop={0}
-              />
-              <CenterAlignedUltimatePagination
-                boundaryPagesRange={1}
-                currentPage={10}
-                hideEllipsis={false}
-                hideFirstAndLastPageLinks={false}
-                hidePreviousAndNextPageLinks={false}
-                onChange={[Function]}
-                siblingPagesRange={1}
-                totalPages={100}
-              />
-              <RecordsRange
-                currentPage={10}
-                currentPageSize={undefined}
-                totalElements={undefined}
-                totalPages={100}
-              />
-            </styled.div>,
-          ],
-          "fontSize": "12px",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <Grid__Grid
-                columns={1}
-                gap=""
-              >
-                <Cell__Cell>
-                  <InfoSection__InfoSection
-                    fontSize="12px"
-                    margin="10px 10px"
-                    maxWidth="none"
-                    width="auto"
-                  >
-                    <div>
-                      The 
-                      <FormattedMessage
-                        defaultMessage="care teams"
-                        id="ocpui.containers.CareTeams.header"
-                        values={Object {}}
-                      />
-                       for 
-                      <InlineLabel__InlineLabel
-                        htmlFor="patient_name_1"
-                      >
-                        <span
-                          id="patient_name_1"
-                        >
-                          firstName lastName
-                        </span>
-                         
-                      </InlineLabel__InlineLabel>
-                      are :
-                    </div>
-                  </InfoSection__InfoSection>
-                </Cell__Cell>
-              </Grid__Grid>,
-              "onSize": [Function],
-              "top": "0px",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": Array [
-                  <Cell__Cell>
-                    <InfoSection__InfoSection
-                      fontSize="12px"
-                      margin="10px 10px"
-                      maxWidth="none"
-                      width="auto"
-                    >
-                      <div>
-                        The 
-                        <FormattedMessage
-                          defaultMessage="care teams"
-                          id="ocpui.containers.CareTeams.header"
-                          values={Object {}}
-                        />
-                         for 
-                        <InlineLabel__InlineLabel
-                          htmlFor="patient_name_1"
-                        >
-                          <span
-                            id="patient_name_1"
-                          >
-                            firstName lastName
-                          </span>
-                           
-                        </InlineLabel__InlineLabel>
-                        are :
-                      </div>
-                    </InfoSection__InfoSection>
-                  </Cell__Cell>,
-                  undefined,
-                ],
-                "columns": 1,
-                "gap": "",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <InfoSection__InfoSection
-                      fontSize="12px"
-                      margin="10px 10px"
-                      maxWidth="none"
-                      width="auto"
-                    >
-                      <div>
-                        The 
-                        <FormattedMessage
-                          defaultMessage="care teams"
-                          id="ocpui.containers.CareTeams.header"
-                          values={Object {}}
-                        />
-                         for 
-                        <InlineLabel__InlineLabel
-                          htmlFor="patient_name_1"
-                        >
-                          <span
-                            id="patient_name_1"
-                          >
-                            firstName lastName
-                          </span>
-                           
-                        </InlineLabel__InlineLabel>
-                        are :
-                      </div>
-                    </InfoSection__InfoSection>,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <div>
-                        The 
-                        <FormattedMessage
-                          defaultMessage="care teams"
-                          id="ocpui.containers.CareTeams.header"
-                          values={Object {}}
-                        />
-                         for 
-                        <InlineLabel__InlineLabel
-                          htmlFor="patient_name_1"
-                        >
-                          <span
-                            id="patient_name_1"
-                          >
-                            firstName lastName
-                          </span>
-                           
-                        </InlineLabel__InlineLabel>
-                        are :
-                      </div>,
-                      "fontSize": "12px",
-                      "margin": "10px 10px",
-                      "maxWidth": "none",
-                      "width": "auto",
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "The ",
-                          <FormattedMessage
-                            defaultMessage="care teams"
-                            id="ocpui.containers.CareTeams.header"
-                            values={Object {}}
-                          />,
-                          " for ",
-                          <InlineLabel__InlineLabel
-                            htmlFor="patient_name_1"
-                          >
-                            <span
-                              id="patient_name_1"
-                            >
-                              firstName lastName
-                            </span>
-                             
-                          </InlineLabel__InlineLabel>,
-                          "are :",
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "The ",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "defaultMessage": "care teams",
-                            "id": "ocpui.containers.CareTeams.header",
-                            "values": Object {},
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
-                        },
-                        " for ",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "children": Array [
-                              <span
-                                id="patient_name_1"
-                              >
-                                firstName lastName
-                              </span>,
-                              " ",
-                            ],
-                            "htmlFor": "patient_name_1",
-                          },
-                          "ref": null,
-                          "rendered": Array [
-                            Object {
-                              "instance": null,
-                              "key": undefined,
-                              "nodeType": "host",
-                              "props": Object {
-                                "children": "firstName lastName",
-                                "id": "patient_name_1",
-                              },
-                              "ref": null,
-                              "rendered": "firstName lastName",
-                              "type": "span",
-                            },
-                            " ",
-                          ],
-                          "type": [Function],
-                        },
-                        "are :",
-                      ],
-                      "type": "div",
-                    },
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                undefined,
-              ],
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          false,
-          false,
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": Array [
-                <SizeMe(CareTeamTable)
-                  elements={
-                    Array [
-                      Object {
-                        "id": "1",
-                        "name": "a",
-                        "subjectFirstName": "subjectFirstName1",
-                        "subjectId": "subjectId1",
-                        "subjectLastName": "subjectLastName1",
-                      },
-                      Object {
-                        "id": "2",
-                        "name": "b",
-                        "subjectFirstName": "subjectFirstName2",
-                        "subjectId": "subjectId2",
-                        "subjectLastName": "subjectLastName2",
-                      },
-                    ]
-                  }
-                  manageCareTeamUrl="/ocp-ui/manage-care-team"
-                  relativeTop={0}
-                />,
-                <CenterAlignedUltimatePagination
-                  boundaryPagesRange={1}
-                  currentPage={10}
-                  hideEllipsis={false}
-                  hideFirstAndLastPageLinks={false}
-                  hidePreviousAndNextPageLinks={false}
-                  onChange={[Function]}
-                  siblingPagesRange={1}
-                  totalPages={100}
-                />,
-                <RecordsRange
-                  currentPage={10}
-                  currentPageSize={undefined}
-                  totalElements={undefined}
-                  totalPages={100}
-                />,
-              ],
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "elements": Array [
-                    Object {
-                      "id": "1",
-                      "name": "a",
-                      "subjectFirstName": "subjectFirstName1",
-                      "subjectId": "subjectId1",
-                      "subjectLastName": "subjectLastName1",
-                    },
-                    Object {
-                      "id": "2",
-                      "name": "b",
-                      "subjectFirstName": "subjectFirstName2",
-                      "subjectId": "subjectId2",
-                      "subjectLastName": "subjectLastName2",
-                    },
-                  ],
-                  "manageCareTeamUrl": "/ocp-ui/manage-care-team",
-                  "relativeTop": 0,
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "boundaryPagesRange": 1,
-                  "currentPage": 10,
-                  "hideEllipsis": false,
-                  "hideFirstAndLastPageLinks": false,
-                  "hidePreviousAndNextPageLinks": false,
-                  "onChange": [Function],
-                  "siblingPagesRange": 1,
-                  "totalPages": 100,
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "currentPage": 10,
-                  "currentPageSize": undefined,
-                  "totalElements": undefined,
-                  "totalPages": 100,
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-            ],
-            "type": [Function],
-          },
+          </styled.div>,
         ],
-        "type": [Function],
-      },
-    ],
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": Array [
-          <SizeMe(PanelToolbar)
-            addNewItem={
-              Object {
-                "labelName": <FormattedMessage
-                  defaultMessage="Create New"
-                  id="ocpui.containers.CareTeams.buttonLabelCreateNew"
-                  values={Object {}}
-                />,
-                "linkUrl": "/ocp-ui/manage-care-team",
-              }
-            }
-            allowedAddNewItemRoles="patientRole"
-            onSize={[Function]}
-            showSearchIcon={false}
-          />,
-          <ContentSection__ContentSection
-            fontSize="12px"
-          >
-            <SizeMe(StickyDiv__StickyDiv)
-              onSize={[Function]}
-              top="0px"
-            >
-              <Grid__Grid
-                columns={1}
-                gap=""
-              >
-                <Cell__Cell>
-                  <InfoSection__InfoSection
-                    fontSize="12px"
-                    margin="10px 10px"
-                    maxWidth="none"
-                    width="auto"
-                  >
-                    <div>
-                      The 
-                      <FormattedMessage
-                        defaultMessage="care teams"
-                        id="ocpui.containers.CareTeams.header"
-                        values={Object {}}
-                      />
-                       for 
-                      <InlineLabel__InlineLabel
-                        htmlFor="patient_name_1"
-                      >
-                        <span
-                          id="patient_name_1"
-                        >
-                          firstName lastName
-                        </span>
-                         
-                      </InlineLabel__InlineLabel>
-                      are :
-                    </div>
-                  </InfoSection__InfoSection>
-                </Cell__Cell>
-              </Grid__Grid>
-            </SizeMe(StickyDiv__StickyDiv)>
-            <styled.div>
-              <SizeMe(CareTeamTable)
-                elements={
-                  Array [
-                    Object {
-                      "id": "1",
-                      "name": "a",
-                      "subjectFirstName": "subjectFirstName1",
-                      "subjectId": "subjectId1",
-                      "subjectLastName": "subjectLastName1",
-                    },
-                    Object {
-                      "id": "2",
-                      "name": "b",
-                      "subjectFirstName": "subjectFirstName2",
-                      "subjectId": "subjectId2",
-                      "subjectLastName": "subjectLastName2",
-                    },
-                  ]
-                }
-                manageCareTeamUrl="/ocp-ui/manage-care-team"
-                relativeTop={0}
-              />
-              <CenterAlignedUltimatePagination
-                boundaryPagesRange={1}
-                currentPage={10}
-                hideEllipsis={false}
-                hideFirstAndLastPageLinks={false}
-                hidePreviousAndNextPageLinks={false}
-                onChange={[Function]}
-                siblingPagesRange={1}
-                totalPages={100}
-              />
-              <RecordsRange
-                currentPage={10}
-                currentPageSize={undefined}
-                totalElements={undefined}
-                totalPages={100}
-              />
-            </styled.div>
-          </ContentSection__ContentSection>,
-        ],
-        "minWidth": "auto",
       },
       "ref": null,
       "rendered": Array [
@@ -799,7 +1157,10 @@ ShallowWrapper {
               />,
               "linkUrl": "/ocp-ui/manage-care-team",
             },
-            "allowedAddNewItemRoles": "patientRole",
+            "allowedAddNewItemRoles": Array [
+              "ORGADMIN",
+              "CAREMNGR",
+            ],
             "onSize": [Function],
             "showSearchIcon": false,
           },
@@ -812,444 +1173,715 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": Array [
-              <SizeMe(StickyDiv__StickyDiv)
-                onSize={[Function]}
-                top="0px"
-              >
-                <Grid__Grid
-                  columns={1}
-                  gap=""
+            "children": <Grid__Grid
+              columns={1}
+              gap=""
+            >
+              <Cell__Cell>
+                <InfoSection__InfoSection
+                  margin="10px 10px"
+                  maxWidth="none"
+                  width="auto"
                 >
-                  <Cell__Cell>
-                    <InfoSection__InfoSection
-                      fontSize="12px"
-                      margin="10px 10px"
-                      maxWidth="none"
-                      width="auto"
+                  <div>
+                    The
+                    <FormattedMessage
+                      defaultMessage="care teams"
+                      id="ocpui.containers.CareTeams.header"
+                      values={Object {}}
+                    />
+                     for 
+                    <InlineLabel__InlineLabel
+                      htmlFor="patient_name_1"
                     >
-                      <div>
-                        The 
+                      <span
+                        id="patient_name_1"
+                      >
+                        firstName lastName
+                      </span>
+                       
+                    </InlineLabel__InlineLabel>
+                    are :
+                  </div>
+                </InfoSection__InfoSection>
+              </Cell__Cell>
+              <Cell__Cell>
+                <FilterSection__FilterSection>
+                  <CheckboxFilterGrid
+                    columns="100px repeat(1,110px) 180px 1fr"
+                  >
+                    <Cell__Cell>
+                      <styled.div>
                         <FormattedMessage
-                          defaultMessage="care teams"
-                          id="ocpui.containers.CareTeams.header"
+                          defaultMessage="Include: "
+                          id="ocpui.containers.CareTeams.includeLabel"
                           values={Object {}}
                         />
-                         for 
-                        <InlineLabel__InlineLabel
-                          htmlFor="patient_name_1"
-                        >
-                          <span
-                            id="patient_name_1"
-                          >
-                            firstName lastName
-                          </span>
-                           
-                        </InlineLabel__InlineLabel>
-                        are :
-                      </div>
-                    </InfoSection__InfoSection>
-                  </Cell__Cell>
-                </Grid__Grid>
-              </SizeMe(StickyDiv__StickyDiv)>,
-              false,
-              false,
-              <styled.div>
-                <SizeMe(CareTeamTable)
-                  elements={
-                    Array [
-                      Object {
-                        "id": "1",
-                        "name": "a",
-                        "subjectFirstName": "subjectFirstName1",
-                        "subjectId": "subjectId1",
-                        "subjectLastName": "subjectLastName1",
-                      },
-                      Object {
-                        "id": "2",
-                        "name": "b",
-                        "subjectFirstName": "subjectFirstName2",
-                        "subjectId": "subjectId2",
-                        "subjectLastName": "subjectLastName2",
-                      },
-                    ]
-                  }
-                  manageCareTeamUrl="/ocp-ui/manage-care-team"
-                  relativeTop={0}
-                />
-                <CenterAlignedUltimatePagination
-                  boundaryPagesRange={1}
-                  currentPage={10}
-                  hideEllipsis={false}
-                  hideFirstAndLastPageLinks={false}
-                  hidePreviousAndNextPageLinks={false}
-                  onChange={[Function]}
-                  siblingPagesRange={1}
-                  totalPages={100}
-                />
-                <RecordsRange
-                  currentPage={10}
-                  currentPageSize={undefined}
-                  totalElements={undefined}
-                  totalPages={100}
-                />
-              </styled.div>,
-            ],
-            "fontSize": "12px",
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={true}
+                          disabled={false}
+                          label="Inactive"
+                          labelPosition="right"
+                          name="inactive"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                    <Cell__Cell>
+                      <styled.div>
+                        <Checkbox
+                          checked={false}
+                          disabled={false}
+                          label="suspended"
+                          labelPosition="right"
+                          name="suspended"
+                          onCheck={[Function]}
+                        />
+                      </styled.div>
+                    </Cell__Cell>
+                  </CheckboxFilterGrid>
+                </FilterSection__FilterSection>
+              </Cell__Cell>
+            </Grid__Grid>,
+            "onSize": [Function],
+            "top": "0px",
           },
           "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": <Grid__Grid
-                  columns={1}
-                  gap=""
-                >
-                  <Cell__Cell>
-                    <InfoSection__InfoSection
-                      fontSize="12px"
-                      margin="10px 10px"
-                      maxWidth="none"
-                      width="auto"
-                    >
-                      <div>
-                        The 
-                        <FormattedMessage
-                          defaultMessage="care teams"
-                          id="ocpui.containers.CareTeams.header"
-                          values={Object {}}
-                        />
-                         for 
-                        <InlineLabel__InlineLabel
-                          htmlFor="patient_name_1"
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <Cell__Cell>
+                  <InfoSection__InfoSection
+                    margin="10px 10px"
+                    maxWidth="none"
+                    width="auto"
+                  >
+                    <div>
+                      The
+                      <FormattedMessage
+                        defaultMessage="care teams"
+                        id="ocpui.containers.CareTeams.header"
+                        values={Object {}}
+                      />
+                       for 
+                      <InlineLabel__InlineLabel
+                        htmlFor="patient_name_1"
+                      >
+                        <span
+                          id="patient_name_1"
                         >
-                          <span
-                            id="patient_name_1"
-                          >
-                            firstName lastName
-                          </span>
-                           
-                        </InlineLabel__InlineLabel>
-                        are :
-                      </div>
-                    </InfoSection__InfoSection>
-                  </Cell__Cell>
-                </Grid__Grid>,
-                "onSize": [Function],
-                "top": "0px",
-              },
-              "ref": null,
-              "rendered": Object {
+                          firstName lastName
+                        </span>
+                         
+                      </InlineLabel__InlineLabel>
+                      are :
+                    </div>
+                  </InfoSection__InfoSection>
+                </Cell__Cell>,
+                <Cell__Cell>
+                  <FilterSection__FilterSection>
+                    <CheckboxFilterGrid
+                      columns="100px repeat(1,110px) 180px 1fr"
+                    >
+                      <Cell__Cell>
+                        <styled.div>
+                          <FormattedMessage
+                            defaultMessage="Include: "
+                            id="ocpui.containers.CareTeams.includeLabel"
+                            values={Object {}}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                      <Cell__Cell>
+                        <styled.div>
+                          <Checkbox
+                            checked={true}
+                            disabled={false}
+                            label="Inactive"
+                            labelPosition="right"
+                            name="inactive"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                      <Cell__Cell>
+                        <styled.div>
+                          <Checkbox
+                            checked={false}
+                            disabled={false}
+                            label="suspended"
+                            labelPosition="right"
+                            name="suspended"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                    </CheckboxFilterGrid>
+                  </FilterSection__FilterSection>
+                </Cell__Cell>,
+              ],
+              "columns": 1,
+              "gap": "",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
                 "instance": null,
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "children": Array [
-                    <Cell__Cell>
-                      <InfoSection__InfoSection
-                        fontSize="12px"
-                        margin="10px 10px"
-                        maxWidth="none"
-                        width="auto"
+                  "children": <InfoSection__InfoSection
+                    margin="10px 10px"
+                    maxWidth="none"
+                    width="auto"
+                  >
+                    <div>
+                      The
+                      <FormattedMessage
+                        defaultMessage="care teams"
+                        id="ocpui.containers.CareTeams.header"
+                        values={Object {}}
+                      />
+                       for 
+                      <InlineLabel__InlineLabel
+                        htmlFor="patient_name_1"
                       >
-                        <div>
-                          The 
-                          <FormattedMessage
-                            defaultMessage="care teams"
-                            id="ocpui.containers.CareTeams.header"
-                            values={Object {}}
-                          />
-                           for 
-                          <InlineLabel__InlineLabel
-                            htmlFor="patient_name_1"
-                          >
-                            <span
-                              id="patient_name_1"
-                            >
-                              firstName lastName
-                            </span>
-                             
-                          </InlineLabel__InlineLabel>
-                          are :
-                        </div>
-                      </InfoSection__InfoSection>
-                    </Cell__Cell>,
-                    undefined,
-                  ],
-                  "columns": 1,
-                  "gap": "",
+                        <span
+                          id="patient_name_1"
+                        >
+                          firstName lastName
+                        </span>
+                         
+                      </InlineLabel__InlineLabel>
+                      are :
+                    </div>
+                  </InfoSection__InfoSection>,
                 },
                 "ref": null,
-                "rendered": Array [
-                  Object {
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <div>
+                      The
+                      <FormattedMessage
+                        defaultMessage="care teams"
+                        id="ocpui.containers.CareTeams.header"
+                        values={Object {}}
+                      />
+                       for 
+                      <InlineLabel__InlineLabel
+                        htmlFor="patient_name_1"
+                      >
+                        <span
+                          id="patient_name_1"
+                        >
+                          firstName lastName
+                        </span>
+                         
+                      </InlineLabel__InlineLabel>
+                      are :
+                    </div>,
+                    "margin": "10px 10px",
+                    "maxWidth": "none",
+                    "width": "auto",
+                  },
+                  "ref": null,
+                  "rendered": Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "class",
+                    "nodeType": "host",
                     "props": Object {
-                      "children": <InfoSection__InfoSection
-                        fontSize="12px"
-                        margin="10px 10px"
-                        maxWidth="none"
-                        width="auto"
-                      >
-                        <div>
-                          The 
-                          <FormattedMessage
-                            defaultMessage="care teams"
-                            id="ocpui.containers.CareTeams.header"
-                            values={Object {}}
-                          />
-                           for 
-                          <InlineLabel__InlineLabel
-                            htmlFor="patient_name_1"
+                      "children": Array [
+                        "The ",
+                        <FormattedMessage
+                          defaultMessage="care teams"
+                          id="ocpui.containers.CareTeams.header"
+                          values={Object {}}
+                        />,
+                        " for ",
+                        <InlineLabel__InlineLabel
+                          htmlFor="patient_name_1"
+                        >
+                          <span
+                            id="patient_name_1"
                           >
-                            <span
-                              id="patient_name_1"
-                            >
-                              firstName lastName
-                            </span>
-                             
-                          </InlineLabel__InlineLabel>
-                          are :
-                        </div>
-                      </InfoSection__InfoSection>,
+                            firstName lastName
+                          </span>
+                           
+                        </InlineLabel__InlineLabel>,
+                        "are :",
+                      ],
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <div>
-                          The 
-                          <FormattedMessage
-                            defaultMessage="care teams"
-                            id="ocpui.containers.CareTeams.header"
-                            values={Object {}}
-                          />
-                           for 
-                          <InlineLabel__InlineLabel
-                            htmlFor="patient_name_1"
-                          >
+                    "rendered": Array [
+                      "The ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "defaultMessage": "care teams",
+                          "id": "ocpui.containers.CareTeams.header",
+                          "values": Object {},
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      " for ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": Array [
                             <span
                               id="patient_name_1"
                             >
                               firstName lastName
-                            </span>
-                             
-                          </InlineLabel__InlineLabel>
-                          are :
-                        </div>,
-                        "fontSize": "12px",
-                        "margin": "10px 10px",
-                        "maxWidth": "none",
-                        "width": "auto",
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": Array [
-                            "The ",
-                            <FormattedMessage
-                              defaultMessage="care teams"
-                              id="ocpui.containers.CareTeams.header"
-                              values={Object {}}
-                            />,
-                            " for ",
-                            <InlineLabel__InlineLabel
-                              htmlFor="patient_name_1"
-                            >
-                              <span
-                                id="patient_name_1"
-                              >
-                                firstName lastName
-                              </span>
-                               
-                            </InlineLabel__InlineLabel>,
-                            "are :",
+                            </span>,
+                            " ",
                           ],
+                          "htmlFor": "patient_name_1",
                         },
                         "ref": null,
                         "rendered": Array [
-                          "The ",
                           Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "firstName lastName",
+                              "id": "patient_name_1",
+                            },
+                            "ref": null,
+                            "rendered": "firstName lastName",
+                            "type": "span",
+                          },
+                          " ",
+                        ],
+                        "type": [Function],
+                      },
+                      "are :",
+                    ],
+                    "type": "div",
+                  },
+                  "type": [Function],
+                },
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": <FilterSection__FilterSection>
+                    <CheckboxFilterGrid
+                      columns="100px repeat(1,110px) 180px 1fr"
+                    >
+                      <Cell__Cell>
+                        <styled.div>
+                          <FormattedMessage
+                            defaultMessage="Include: "
+                            id="ocpui.containers.CareTeams.includeLabel"
+                            values={Object {}}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                      <Cell__Cell>
+                        <styled.div>
+                          <Checkbox
+                            checked={true}
+                            disabled={false}
+                            label="Inactive"
+                            labelPosition="right"
+                            name="inactive"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                      <Cell__Cell>
+                        <styled.div>
+                          <Checkbox
+                            checked={false}
+                            disabled={false}
+                            label="suspended"
+                            labelPosition="right"
+                            name="suspended"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                    </CheckboxFilterGrid>
+                  </FilterSection__FilterSection>,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <CheckboxFilterGrid
+                      columns="100px repeat(1,110px) 180px 1fr"
+                    >
+                      <Cell__Cell>
+                        <styled.div>
+                          <FormattedMessage
+                            defaultMessage="Include: "
+                            id="ocpui.containers.CareTeams.includeLabel"
+                            values={Object {}}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                      <Cell__Cell>
+                        <styled.div>
+                          <Checkbox
+                            checked={true}
+                            disabled={false}
+                            label="Inactive"
+                            labelPosition="right"
+                            name="inactive"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                      <Cell__Cell>
+                        <styled.div>
+                          <Checkbox
+                            checked={false}
+                            disabled={false}
+                            label="suspended"
+                            labelPosition="right"
+                            name="suspended"
+                            onCheck={[Function]}
+                          />
+                        </styled.div>
+                      </Cell__Cell>
+                    </CheckboxFilterGrid>,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "children": Array [
+                        <Cell__Cell>
+                          <styled.div>
+                            <FormattedMessage
+                              defaultMessage="Include: "
+                              id="ocpui.containers.CareTeams.includeLabel"
+                              values={Object {}}
+                            />
+                          </styled.div>
+                        </Cell__Cell>,
+                        Array [
+                          <Cell__Cell>
+                            <styled.div>
+                              <Checkbox
+                                checked={true}
+                                disabled={false}
+                                label="Inactive"
+                                labelPosition="right"
+                                name="inactive"
+                                onCheck={[Function]}
+                              />
+                            </styled.div>
+                          </Cell__Cell>,
+                          <Cell__Cell>
+                            <styled.div>
+                              <Checkbox
+                                checked={false}
+                                disabled={false}
+                                label="suspended"
+                                labelPosition="right"
+                                name="suspended"
+                                onCheck={[Function]}
+                              />
+                            </styled.div>
+                          </Cell__Cell>,
+                        ],
+                      ],
+                      "columns": "100px repeat(1,110px) 180px 1fr",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": <styled.div>
+                            <FormattedMessage
+                              defaultMessage="Include: "
+                              id="ocpui.containers.CareTeams.includeLabel"
+                              values={Object {}}
+                            />
+                          </styled.div>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "children": <FormattedMessage
+                              defaultMessage="Include: "
+                              id="ocpui.containers.CareTeams.includeLabel"
+                              values={Object {}}
+                            />,
+                          },
+                          "ref": null,
+                          "rendered": Object {
                             "instance": null,
                             "key": undefined,
                             "nodeType": "class",
                             "props": Object {
-                              "defaultMessage": "care teams",
-                              "id": "ocpui.containers.CareTeams.header",
+                              "defaultMessage": "Include: ",
+                              "id": "ocpui.containers.CareTeams.includeLabel",
                               "values": Object {},
                             },
                             "ref": null,
                             "rendered": null,
                             "type": [Function],
                           },
-                          " for ",
-                          Object {
+                          "type": [Function],
+                        },
+                        "type": [Function],
+                      },
+                      Object {
+                        "instance": null,
+                        "key": "inactive",
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": <styled.div>
+                            <Checkbox
+                              checked={true}
+                              disabled={false}
+                              label="Inactive"
+                              labelPosition="right"
+                              name="inactive"
+                              onCheck={[Function]}
+                            />
+                          </styled.div>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "children": <Checkbox
+                              checked={true}
+                              disabled={false}
+                              label="Inactive"
+                              labelPosition="right"
+                              name="inactive"
+                              onCheck={[Function]}
+                            />,
+                          },
+                          "ref": null,
+                          "rendered": Object {
                             "instance": null,
                             "key": undefined,
                             "nodeType": "class",
                             "props": Object {
-                              "children": Array [
-                                <span
-                                  id="patient_name_1"
-                                >
-                                  firstName lastName
-                                </span>,
-                                " ",
-                              ],
-                              "htmlFor": "patient_name_1",
+                              "checked": true,
+                              "disabled": false,
+                              "label": "Inactive",
+                              "labelPosition": "right",
+                              "name": "inactive",
+                              "onCheck": [Function],
                             },
                             "ref": null,
-                            "rendered": Array [
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "children": "firstName lastName",
-                                  "id": "patient_name_1",
-                                },
-                                "ref": null,
-                                "rendered": "firstName lastName",
-                                "type": "span",
-                              },
-                              " ",
-                            ],
+                            "rendered": null,
                             "type": [Function],
                           },
-                          "are :",
-                        ],
-                        "type": "div",
+                          "type": [Function],
+                        },
+                        "type": [Function],
                       },
-                      "type": [Function],
-                    },
+                      Object {
+                        "instance": null,
+                        "key": "suspended",
+                        "nodeType": "class",
+                        "props": Object {
+                          "children": <styled.div>
+                            <Checkbox
+                              checked={false}
+                              disabled={false}
+                              label="suspended"
+                              labelPosition="right"
+                              name="suspended"
+                              onCheck={[Function]}
+                            />
+                          </styled.div>,
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "children": <Checkbox
+                              checked={false}
+                              disabled={false}
+                              label="suspended"
+                              labelPosition="right"
+                              name="suspended"
+                              onCheck={[Function]}
+                            />,
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "class",
+                            "props": Object {
+                              "checked": false,
+                              "disabled": false,
+                              "label": "suspended",
+                              "labelPosition": "right",
+                              "name": "suspended",
+                              "onCheck": [Function],
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": [Function],
+                          },
+                          "type": [Function],
+                        },
+                        "type": [Function],
+                      },
+                    ],
                     "type": [Function],
                   },
-                  undefined,
-                ],
+                  "type": [Function],
+                },
                 "type": [Function],
               },
-              "type": [Function],
-            },
-            false,
-            false,
+            ],
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        false,
+        false,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <CareTeamTable
+                elements={
+                  Array [
+                    Object {
+                      "id": "1",
+                      "name": "a",
+                      "subjectFirstName": "subjectFirstName1",
+                      "subjectId": "subjectId1",
+                      "subjectLastName": "subjectLastName1",
+                    },
+                    Object {
+                      "id": "2",
+                      "name": "b",
+                      "subjectFirstName": "subjectFirstName2",
+                      "subjectId": "subjectId2",
+                      "subjectLastName": "subjectLastName2",
+                    },
+                  ]
+                }
+                manageCareTeamUrl="/ocp-ui/manage-care-team"
+                relativeTop={0}
+              />,
+              <CenterAlignedUltimatePagination
+                boundaryPagesRange={1}
+                currentPage={10}
+                hideEllipsis={false}
+                hideFirstAndLastPageLinks={false}
+                hidePreviousAndNextPageLinks={false}
+                onChange={[Function]}
+                siblingPagesRange={1}
+                totalPages={100}
+              />,
+              <RecordsRange
+                currentPage={10}
+                currentPageSize={undefined}
+                totalElements={undefined}
+                totalPages={100}
+              />,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "function",
               "props": Object {
-                "children": Array [
-                  <SizeMe(CareTeamTable)
-                    elements={
-                      Array [
-                        Object {
-                          "id": "1",
-                          "name": "a",
-                          "subjectFirstName": "subjectFirstName1",
-                          "subjectId": "subjectId1",
-                          "subjectLastName": "subjectLastName1",
-                        },
-                        Object {
-                          "id": "2",
-                          "name": "b",
-                          "subjectFirstName": "subjectFirstName2",
-                          "subjectId": "subjectId2",
-                          "subjectLastName": "subjectLastName2",
-                        },
-                      ]
-                    }
-                    manageCareTeamUrl="/ocp-ui/manage-care-team"
-                    relativeTop={0}
-                  />,
-                  <CenterAlignedUltimatePagination
-                    boundaryPagesRange={1}
-                    currentPage={10}
-                    hideEllipsis={false}
-                    hideFirstAndLastPageLinks={false}
-                    hidePreviousAndNextPageLinks={false}
-                    onChange={[Function]}
-                    siblingPagesRange={1}
-                    totalPages={100}
-                  />,
-                  <RecordsRange
-                    currentPage={10}
-                    currentPageSize={undefined}
-                    totalElements={undefined}
-                    totalPages={100}
-                  />,
+                "elements": Array [
+                  Object {
+                    "id": "1",
+                    "name": "a",
+                    "subjectFirstName": "subjectFirstName1",
+                    "subjectId": "subjectId1",
+                    "subjectLastName": "subjectLastName1",
+                  },
+                  Object {
+                    "id": "2",
+                    "name": "b",
+                    "subjectFirstName": "subjectFirstName2",
+                    "subjectId": "subjectId2",
+                    "subjectLastName": "subjectLastName2",
+                  },
                 ],
+                "manageCareTeamUrl": "/ocp-ui/manage-care-team",
+                "relativeTop": 0,
               },
               "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "elements": Array [
-                      Object {
-                        "id": "1",
-                        "name": "a",
-                        "subjectFirstName": "subjectFirstName1",
-                        "subjectId": "subjectId1",
-                        "subjectLastName": "subjectLastName1",
-                      },
-                      Object {
-                        "id": "2",
-                        "name": "b",
-                        "subjectFirstName": "subjectFirstName2",
-                        "subjectId": "subjectId2",
-                        "subjectLastName": "subjectLastName2",
-                      },
-                    ],
-                    "manageCareTeamUrl": "/ocp-ui/manage-care-team",
-                    "relativeTop": 0,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "boundaryPagesRange": 1,
-                    "currentPage": 10,
-                    "hideEllipsis": false,
-                    "hideFirstAndLastPageLinks": false,
-                    "hidePreviousAndNextPageLinks": false,
-                    "onChange": [Function],
-                    "siblingPagesRange": 1,
-                    "totalPages": 100,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "currentPage": 10,
-                    "currentPageSize": undefined,
-                    "totalElements": undefined,
-                    "totalPages": 100,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-              ],
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "boundaryPagesRange": 1,
+                "currentPage": 10,
+                "hideEllipsis": false,
+                "hideFirstAndLastPageLinks": false,
+                "hidePreviousAndNextPageLinks": false,
+                "onChange": [Function],
+                "siblingPagesRange": 1,
+                "totalPages": 100,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "currentPage": 10,
+                "currentPageSize": undefined,
+                "totalElements": undefined,
+                "totalPages": 100,
+              },
+              "ref": null,
+              "rendered": null,
               "type": [Function],
             },
           ],
