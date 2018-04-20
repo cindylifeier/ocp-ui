@@ -15,31 +15,38 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import {
+  EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS,
+  SUMMARY_VIEW_WIDTH,
+} from 'components/LocationTable/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import messages from './messages';
 
 
-const tableColumns = 'repeat(4, 1fr) 50px';
-
 function LocationTable(props) {
   const {
+    size,
     relativeTop,
     handleRowClick,
     flattenLocationData,
     locationTableData: { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, handlePageChange },
   } = props;
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
   return (
     <div>
       {data && data.length > 0 ?
         <div>
           <Table>
-            <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+            <TableHeader columns={columns} relativeTop={relativeTop}>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+              { isExpanded &&
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
+              }
             </TableHeader>
             {data.map((location) => {
               const flattenedLocation = flattenLocationData(location);
@@ -57,12 +64,14 @@ function LocationTable(props) {
                   tabIndex="0"
                   key={logicalId}
                   onClick={() => handleRowClick(location)}
-                  columns={tableColumns}
+                  columns={columns}
                 >
                   <TableRowColumn>{name}</TableRowColumn>
-                  <TableRowColumn>{status}</TableRowColumn>
                   <TableRowColumn>{telecoms}</TableRowColumn>
+                  <TableRowColumn>{status}</TableRowColumn>
+                  {isExpanded &&
                   <TableRowColumn>{address}</TableRowColumn>
+                  }
                   <TableRowColumn>
                     <NavigationIconMenu menuItems={menuItems} />
                   </TableRowColumn>
@@ -130,6 +139,7 @@ LocationTable.propTypes = {
   }).isRequired,
   handleRowClick: PropTypes.func.isRequired,
   flattenLocationData: PropTypes.func.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
 export default sizeMeHOC(LocationTable);

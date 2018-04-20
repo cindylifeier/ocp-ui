@@ -22,14 +22,11 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH, SUMMARISED_TABLE_COLUMNS } from './constants';
-
-const ENTER_KEY = 'Enter';
+import { EXPANDED_TABLE_COLUMNS, ENTER_KEY } from './constants';
 
 function OrganizationTable(props) {
-  const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails, size } = props;
-  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+  const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
+  const columns = EXPANDED_TABLE_COLUMNS;
 
   return (
     <div>
@@ -37,7 +34,7 @@ function OrganizationTable(props) {
       {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
           ? <div>
             <Table>
-              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+              <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
@@ -47,7 +44,7 @@ function OrganizationTable(props) {
                 const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <TableRow
-                    columns={tableColumns}
+                    columns={columns}
                     key={logicalId}
                     onClick={() => onRowClick && onRowClick(organization)}
                     onKeyPress={(e) => {
@@ -140,7 +137,6 @@ OrganizationTable.propTypes = {
   onRowClick: PropTypes.func,
   flattenOrganizationData: PropTypes.func.isRequired,
   onOrganizationViewDetails: PropTypes.func.isRequired,
-  size: PropTypes.object.isRequired,
 };
 
 export default sizeMeHOC(OrganizationTable);
