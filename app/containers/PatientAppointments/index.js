@@ -82,7 +82,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
   handleCheck(event, checked) {
     const patientId = this.props.patient ? this.props.patient.id : null;
-    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    const practitionerId = (this.props.user && this.props.user.fhirResource) ? this.props.user.fhirResource.logicalId : null;
     if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
@@ -110,7 +110,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
-    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
+    const role = (this.props.user && this.props.user.fhirResource) ? this.props.user.role : '';
     const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,

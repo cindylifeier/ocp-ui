@@ -32,14 +32,14 @@ function* loginSaga(loginAction) {
     yield put(loginSuccess(isAuthenticated));
     yield call(loginAction.handleSubmitting);
 
-    // Retreving user resource and organization details
+    // Retreving user fhirResource and organization details
     if (userRole !== OCP_ADMIN_ROLE_CODE) {
       const userContext = yield call(getUserContext);
-      const { resource, organization } = userContext;
-      yield put(setUser({ user_id, user_name, email, scope, ext_attr, resource, role: userRole }));
+      const { fhirResource, organization } = userContext;
+      yield put(setUser({ user_id, user_name, email, scope, ext_attr, fhirResource, role: userRole }));
       yield put(setOrganization(organization));
       if (userRole === PATIENT_ROLE_CODE) {
-        yield put(setPatient(resource));
+        yield put(setPatient(fhirResource));
       }
     }
     // Redirect to referrer address

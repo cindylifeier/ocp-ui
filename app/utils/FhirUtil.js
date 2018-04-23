@@ -3,13 +3,13 @@ import { EMAIL_SYSTEM, maritalStatusSystem, maskedSsnPrefix, mrnSystem, PHONE_SY
 class FhirUtil {
   static getFhirPatientBirthDate(patient) {
     const birthDate = (FhirUtil.isPatient(patient) && patient.birthDate) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.birthDate);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.birthDate);
     return birthDate || 'No Record Found';
   }
 
   static getFhirPatientGender(patient) {
     const gender = (FhirUtil.isPatient(patient) && patient.gender) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.gender);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.gender);
     return gender || 'No Record Found';
   }
 
@@ -18,8 +18,8 @@ class FhirUtil {
     if (FhirUtil.isPatient(patient) && patient.name) {
       const name = patient.name;
       nameStr = name[0].given ? `${name[0].given} ${name[0].family}` : name[0].family;
-    } else if (FhirUtil.isPatient(patient.resource) && patient.resource.name) {
-      const name = patient.resource.name;
+    } else if (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.name) {
+      const name = patient.fhirResource.name;
       nameStr = name && name[0] && name[0].given ? `${name[0].given} ${name[0].family}` : name[0].family;
     }
     return nameStr || 'No Record Found';
@@ -38,7 +38,7 @@ class FhirUtil {
 
   static getFhirPatientMaritalStatus(patient) {
     const maritalStatus = (FhirUtil.isPatient(patient) && patient.maritalStatus) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.maritalStatus);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.maritalStatus);
     const maritalStatusDisplay = this.getMaritalStatusDisplay(maritalStatus);
     return maritalStatusDisplay || 'No Record Found';
   }
@@ -157,7 +157,7 @@ class FhirUtil {
 
   static getIdentifierValueBySystem(patient, system) {
     const identifiers = (FhirUtil.isPatient(patient) && patient.identifier) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.identifier);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.identifier);
     return identifiers && identifiers
       .filter((id) => id.system === system)
       .map((id) => id.value)
@@ -222,7 +222,7 @@ class FhirUtil {
 
   static getPhoneByUse(patient, use) {
     const telecom = (FhirUtil.isPatient(patient) && patient.telecom) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.telecom);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.telecom);
     const phone = telecom && telecom
       .filter((t) => t.system === PHONE_SYSTEM)
       .filter((t) => t.use === use)
@@ -234,7 +234,7 @@ class FhirUtil {
 
   static getEmail(patient) {
     const telecom = (FhirUtil.isPatient(patient) && patient.telecom) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.telecom);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.telecom);
     const phone = telecom && telecom
       .filter((t) => t.system === EMAIL_SYSTEM)
       .map((t) => t.value)
@@ -245,7 +245,7 @@ class FhirUtil {
 
   static getAddressByUse(patient, use) {
     const addresses = (FhirUtil.isPatient(patient) && patient.address) ||
-      (FhirUtil.isPatient(patient.resource) && patient.resource.address);
+      (FhirUtil.isPatient(patient.fhirResource) && patient.fhirResource.address);
     const address = addresses && addresses
       .filter((a) => a.use === use)
       .map((a) => this.combineAddress(a))
