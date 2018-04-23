@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 
 const FilterSection = styled.div`
-  font-size: 1rem;
+  font-size: 12px;
   background-color: #f9f9f9;
 `;
 

@@ -30,6 +30,30 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.viewDetails',
     defaultMessage: 'View Details',
   },
+  tableColumnHeaderAction: {
+    id: 'ocpui.components.OrganizationTable.TableColumnHeader.tableColumnHeaderAction',
+    defaultMessage: 'Action',
+  },
+  edit: {
+    id: 'ocpui.components.OrganizationTable.edit',
+    defaultMessage: 'Edit',
+  },
+  addLocation: {
+    id: 'ocpui.components.OrganizationTable.addLocation',
+    defaultMessage: 'Add Location',
+  },
+  addHealthCareService: {
+    id: 'ocpui.components.OrganizationTable.addHealthCareService',
+    defaultMessage: 'Add Health Care Service',
+  },
+  addActivityDefinition: {
+    id: 'ocpui.components.OrganizationTable.addActivityDefinition',
+    defaultMessage: 'Add Activity Definition',
+  },
+  remove: {
+    id: 'ocpui.components.OrganizationTable.remove',
+    defaultMessage: 'Remove',
+  },
   active: {
     id: 'ocpui.components.OrganizationTable.active',
     defaultMessage: 'Active',

@@ -21,3 +21,5 @@ export const SEARCH_PRACTITIONERS_ERROR = 'ocpui/Practitioners/SEARCH_PRACTITION
  *  Other constants
  *
  */
+
+export const SUMMARY_PANEL_WIDTH = 465;

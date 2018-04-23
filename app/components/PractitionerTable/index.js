@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -22,12 +23,15 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import { SUMMARY_PANEL_WIDTH } from 'containers/Practitioners/constants';
 import messages from './messages';
-
-const tableColumns = 'repeat(4, 1fr) 50px';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData } = props;
+  const { relativeTop, practitionersData, size } = props;
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+
   return (
     <div>
       {practitionersData.loading && <RefreshIndicatorLoading />}
@@ -35,11 +39,14 @@ function PractitionerTable(props) {
         practitionersData.data.length > 0 ?
           <div>
             <Table>
-              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+              <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+                { isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+                }
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
                 const { name, active, identifiers } = practitioner;
@@ -49,7 +56,7 @@ function PractitionerTable(props) {
                 }];
                 return (
                   <TableRow
-                    columns={tableColumns}
+                    columns={columns}
                     key={uniqueId()}
                   >
                     <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
@@ -60,7 +67,9 @@ function PractitionerTable(props) {
                         <FormattedMessage {...messages.inactive} />
                       }
                     </TableRowColumn>
+                    {isExpanded &&
                     <TableRowColumn>{identifiers}</TableRowColumn>
+                    }
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
@@ -98,6 +107,7 @@ function renderLastName(names) {
 
 PractitionerTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
+  size: PropTypes.object.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -129,4 +139,4 @@ PractitionerTable.propTypes = {
   }),
 };
 
-export default PractitionerTable;
+export default sizeMeHOC(PractitionerTable);

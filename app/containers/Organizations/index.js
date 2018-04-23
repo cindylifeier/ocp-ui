@@ -28,6 +28,7 @@ import { getOrganizations, initializeOrganizations, searchOrganizations } from '
 import { flattenOrganizationData } from './helpers';
 import messages from './messages';
 
+
 export class Organizations extends React.Component {
   static initalState = {
     relativeTop: 0,

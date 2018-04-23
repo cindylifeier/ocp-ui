@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
@@ -22,19 +23,19 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import OrganizationExpansionRowDetails from './OrganizationExpansionRowDetails';
 import messages from './messages';
-
-const tableColumns = '50px 100px 1fr 60px 120px';
-const ENTER_KEY = 'Enter';
+import { EXPANDED_TABLE_COLUMNS, ENTER_KEY } from './constants';
 
 function OrganizationTable(props) {
   const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
+  const columns = EXPANDED_TABLE_COLUMNS;
+
   return (
     <div>
       {organizationData.loading && <RefreshIndicatorLoading />}
       {(!organizationData.loading && organizationData.data && organizationData.data.length > 0
           ? <div>
             <Table>
-              <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+              <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
@@ -46,7 +47,7 @@ function OrganizationTable(props) {
                 return (
                   <ExpansionTableRow
                     expansionTableRowDetails={<OrganizationExpansionRowDetails organization={flattenOrganization} />}
-                    columns={tableColumns}
+                    columns={columns}
                     key={logicalId}
                     onClick={() => onRowClick && onRowClick(organization)}
                     onKeyPress={(e) => {
@@ -141,4 +142,4 @@ OrganizationTable.propTypes = {
   onOrganizationViewDetails: PropTypes.func.isRequired,
 };
 
-export default OrganizationTable;
+export default sizeMeHOC(OrganizationTable);

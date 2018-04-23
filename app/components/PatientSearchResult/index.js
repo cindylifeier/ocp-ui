@@ -8,6 +8,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -17,10 +18,10 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
-const columns = '1fr 1fr 1fr 1fr 30% 1fr 50px';
 
-function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick) {
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, isExpanded, columns) {
   return patients && patients.map((patient) => {
     const menuItems = [{
       primaryText: <FormattedMessage {...messages.edit} />,
@@ -63,9 +64,13 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
       >
         <TableRowColumn>{patient.name[0] != null ? patient.name[0].firstName : null}</TableRowColumn>
         <TableRowColumn>{patient.name[0] != null ? patient.name[0].lastName : null}</TableRowColumn>
+        { isExpanded &&
         <TableRowColumn>{patient.birthDate}</TableRowColumn>
+        }
         <TableRowColumn>{patient.genderCode}</TableRowColumn>
+        {isExpanded &&
         <TableRowColumn>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        }
         <TableRowColumn>{patient.active ?
           <FormattedMessage {...messages.active} /> :
           <FormattedMessage {...messages.inactive} />}
@@ -89,7 +94,10 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, size }) {
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+
   if (loading) {
     return <RefreshIndicatorLoading />;
   }
@@ -112,13 +120,17 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
         <TableHeader columns={columns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.firstName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.lastName} /></TableHeaderColumn>
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.dob} /></TableHeaderColumn>
+          }
           <TableHeaderColumn><FormattedMessage {...messages.gender} /></TableHeaderColumn>
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
+          }
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, isExpanded, columns)}
       </Table>
     );
   }
@@ -132,6 +144,7 @@ PatientSearchResult.propTypes = {
   searchResult: PropTypes.any,
   onPatientClick: PropTypes.func,
   onPatientViewDetailsClick: PropTypes.func,
+  size: PropTypes.object.isRequired,
 };
 
-export default PatientSearchResult;
+export default sizeMeHOC(PatientSearchResult);
