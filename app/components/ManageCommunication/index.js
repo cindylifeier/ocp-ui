@@ -60,6 +60,7 @@ function ManageCommunication(props) {
     <Formik
       isInitialValid={editMode}
       initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment)}
+      enableReinitialize
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
         const communicationToBeSubmitted = mapToCommunication(
