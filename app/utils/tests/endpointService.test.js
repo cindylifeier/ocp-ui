@@ -1,7 +1,6 @@
 import {
   BASE_CARE_TEAMS_API_URL,
   BASE_HEALTHCARE_SERVICES_API_URL,
-  BASE_LOCATION_API_URL,
   BASE_LOCATIONS_API_URL,
   BASE_ORGANIZATION_API_URL,
   BASE_ORGANIZATIONS_API_URL,
@@ -43,7 +42,6 @@ describe('endpointService.js', () => {
     const TEST_ORGANIZATION_API_URL = '/ocp-ui-api/ocp-fis/organization';
     const TEST_ORGANIZATIONS_API_URL = '/ocp-ui-api/ocp-fis/organizations';
     const TEST_HEALTHCARE_SERVICES_API_URL = '/ocp-ui-api/ocp-fis/healthcare-services';
-    const TEST_LOCATION_API_URL = '/ocp-ui-api/ocp-fis/location';
     const TEST_LOCATIONS_API_URL = '/ocp-ui-api/ocp-fis/locations';
     const TEST_PARTICIPANTS_API_URL = '/ocp-ui-api/ocp-fis/participants';
     const TEST_PATIENTS_API_URL = '/ocp-ui-api/ocp-fis/patients';
@@ -60,7 +58,6 @@ describe('endpointService.js', () => {
     const organizationUrl = getEndpoint(BASE_ORGANIZATION_API_URL);
     const organizationsUrl = getEndpoint(BASE_ORGANIZATIONS_API_URL);
     const healthcareServicesUrl = getEndpoint(BASE_HEALTHCARE_SERVICES_API_URL);
-    const locationUrl = getEndpoint(BASE_LOCATION_API_URL);
     const locationsUrl = getEndpoint(BASE_LOCATIONS_API_URL);
     const participantsUrl = getEndpoint(BASE_PARTICIPANTS_API_URL);
     const patientsUrl = getEndpoint(BASE_PATIENTS_API_URL);
@@ -77,7 +74,6 @@ describe('endpointService.js', () => {
     expect(organizationUrl).toEqual(TEST_ORGANIZATION_API_URL);
     expect(organizationsUrl).toEqual(TEST_ORGANIZATIONS_API_URL);
     expect(healthcareServicesUrl).toEqual(TEST_HEALTHCARE_SERVICES_API_URL);
-    expect(locationUrl).toEqual(TEST_LOCATION_API_URL);
     expect(locationsUrl).toEqual(TEST_LOCATIONS_API_URL);
     expect(participantsUrl).toEqual(TEST_PARTICIPANTS_API_URL);
     expect(patientsUrl).toEqual(TEST_PATIENTS_API_URL);

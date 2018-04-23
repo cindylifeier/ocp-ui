@@ -33,7 +33,7 @@ export function* getPatientAppointmentsSaga({ query: { showPastAppointments, pag
     const patient = yield select(makeSelectPatient());
     const practitioner = yield select(makeSelectUser());
     const patientId = patient ? patient.id : null;
-    const practitionerId = (practitioner && practitioner.resource) ? practitioner.resource.logicalId : null;
+    const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
 
     if (patientId && practitionerId) {
       queryParams = {

@@ -44,7 +44,7 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
 
   getPractitionerId() {
     const { user } = this.props;
-    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.resource.logicalId : null;
+    const practitionerId = user && (user.role === CARE_COORDINATOR_ROLE_CODE) ? user.fhirResource.logicalId : null;
     return practitionerId;
   }
 
