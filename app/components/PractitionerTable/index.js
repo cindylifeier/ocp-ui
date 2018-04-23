@@ -25,12 +25,12 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import { SUMMARY_PANEL_WIDTH } from 'containers/Practitioners/constants';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS } from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 
 function PractitionerTable(props) {
   const { relativeTop, practitionersData, size } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   return (
     <div>

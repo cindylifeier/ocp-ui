@@ -16,7 +16,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
-  EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS,
+  EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from 'components/LocationTable/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -34,7 +34,7 @@ function LocationTable(props) {
     locationTableData: { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, handlePageChange },
   } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   return (
     <div>
       {data && data.length > 0 ?

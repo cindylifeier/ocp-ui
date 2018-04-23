@@ -19,14 +19,14 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS,
-  SUMMARISED_TABLE_COLUMNS,
+  SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from './constants';
 
 function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl, size }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   function createTableHeaders() {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
@@ -45,7 +45,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
   }
 
   function createTableRows(appointment, menuItems) {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableRow key={uniqueId()} columns={columns}>
         <TableRowColumn>{appointment.patientName}</TableRowColumn>

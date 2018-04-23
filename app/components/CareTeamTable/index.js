@@ -15,7 +15,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import {
   EXPANDED_TABLE_COLUMNS,
-  SUMMARISED_TABLE_COLUMNS,
+  SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
@@ -25,7 +25,7 @@ import messages from './messages';
 function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   function createTableHeaders() {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
@@ -47,7 +47,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
   }
 
   function createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems) {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableRow key={id} columns={columns}>
         <TableRowColumn>{name}</TableRowColumn>

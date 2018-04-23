@@ -18,7 +18,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
 
 function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, isExpanded, columns) {
@@ -96,7 +96,7 @@ function getIdentifiers(identifier) {
 
 function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, size }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   if (loading) {
     return <RefreshIndicatorLoading />;

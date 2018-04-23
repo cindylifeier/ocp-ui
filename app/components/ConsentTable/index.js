@@ -23,12 +23,12 @@ import ConsentExpandableTableRow from './ConsentExpandableTableRow';
 import messages from './messages';
 
 // const tableColumns = '50px repeat(5, 1fr) 50px';
-import { EXPANDED_TABLE_COLUMNS, SUMMARISED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
 function ConsentTable(props) {
   const { consentData, relativeTop, allowedAttestConsentRoles, size } = props;
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   return (
     <div>
       {consentData.loading && <RefreshIndicatorLoading />}

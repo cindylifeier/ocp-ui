@@ -17,7 +17,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
   EXPANDED_TABLE_COLUMNS,
-  SUMMARISED_TABLE_COLUMNS,
+  SUMMARIZED_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
   SUMMARY_VIEW_WIDTH,
 } from 'components/TaskTable/constants';
@@ -26,7 +26,7 @@ import messages from './messages';
 function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, size }) {
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   function createTableHeaders() {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
@@ -50,7 +50,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   }
 
   function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems) {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARISED_TABLE_COLUMNS;
+    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableRow key={logicalId} columns={columns}>
         <TableRowColumn>{definition && definition.display}</TableRowColumn>
