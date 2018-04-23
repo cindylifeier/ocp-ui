@@ -74,7 +74,7 @@ function updateCareTeam(careTeamFormData) {
 
 function mapToBffCareTeam(careTeamData) {
   const {
-    careTeamName, category, patientId, status, startDate, endDate, reason, participants,
+    careTeamName, category, patientId, status, startDate, endDate, reason, participants, managingOrganization,
   } = careTeamData;
 
   return {
@@ -85,6 +85,7 @@ function mapToBffCareTeam(careTeamData) {
     startDate: startDate.toLocaleDateString(),
     endDate: endDate.toLocaleDateString(),
     reasonCode: reason,
+    managingOrganization,
     participants: mapToBffParticipants(participants),
   };
 }
