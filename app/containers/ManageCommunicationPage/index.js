@@ -17,7 +17,7 @@ import {
   COMMUNICATION_STATUS,
   DATE_PICKER_MODE,
 } from 'containers/App/constants';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import {
   makeSelectCommunicationCategories,
   makeSelectCommunicationMedia,
@@ -49,6 +49,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
 import { createCommunication, getEpisodeOfCares, getPractitioner, updateCommunication } from './actions';
 import messages from './messages';
 import reducer from './reducer';
@@ -59,11 +60,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     super(props);
     this.state = {
       open: false,
-      practitionerId: 1377,
-      selectedPractitioner: {
-        logicalId: '1377',
-        name: [{ firstName: 'Deepshikha', lastName: 'A' }],
-      },
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -72,7 +68,11 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
   }
 
   componentWillMount() {
-    this.props.getPractitioner(this.state.practitionerId);
+    const { user } = this.props;
+    const practitionerId = getPractitionerIdByRole(user);
+    if (practitionerId) {
+      this.props.getPractitioner(practitionerId);
+    }
     this.props.getLookups();
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
     this.props.initializeSearchRecipients();
@@ -125,6 +125,7 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
       location,
       tasks,
       appointments,
+      practitioner,
     } = this.props;
     const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
@@ -133,7 +134,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     if (communication && communication.recipient) {
       initialSelectedRecipients = communication.recipient;
     }
-    const practitioner = this.state.selectedPractitioner;
     let selectedTask = null;
     if (location && location.search && tasks && tasks.data && tasks.data.elements) {
       const queryObj = queryString.parse(location.search);
@@ -220,6 +220,8 @@ ManageCommunicationPage.propTypes = {
   initializeSearchRecipients: PropTypes.func.isRequired,
   initializeListOfRecipients: PropTypes.func.isRequired,
   setInitialRecipients: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  practitioner: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -234,6 +236,7 @@ const mapStateToProps = createStructuredSelector({
   communications: makeSelectCommunications(),
   tasks: makeSelectTasks(),
   appointments: makeSelectPatientAppointments(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
