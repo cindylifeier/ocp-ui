@@ -16,7 +16,10 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { CARE_COORDINATOR_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE,
+  MANAGE_COMMUNICATION_URL,
+  MANAGE_TASK_URL,
+  TO_DO_DEFINITION } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
@@ -33,6 +36,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { cancelTask, getTasks, initializeTasks } from './actions';
+
 
 export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -78,6 +82,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     this.props.cancelTask(logicalId);
   }
 
+
   render() {
     const { tasks: { loading, data }, patient, user } = this.props;
     let taskList = data;
@@ -96,9 +101,8 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       };
     }
 
-
     return (
-      <Card>
+      <Card minWidth={'auto'}>
         <PanelToolbar
           addNewItem={addNewItem}
           allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
@@ -106,14 +110,15 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
           onSize={this.handlePanelResize}
         />
         {isEmpty(patientName) ?
-          <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
+          <h4><FormattedMessage {...messages.patientNotSelected} /></h4>
+          :
           <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
             <InfoSection margin="0px">
-              The <FormattedMessage {...messages.tasks} /> for&nbsp;
-              <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
-              </InlineLabel>
-              are :
+                The <FormattedMessage {...messages.tasks} /> for&nbsp;
+                <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                  <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                </InlineLabel>
+                are :
             </InfoSection>
           </SizedStickyDiv>
         }

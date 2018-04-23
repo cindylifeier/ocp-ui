@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InfoSection__InfoSection
+    fontSize="12px"
     margin="10px 10px"
     maxWidth="none"
     width="auto"
@@ -28,7 +29,8 @@ ShallowWrapper {
       "children": <span>
         test
       </span>,
-      "className": "InfoSection__InfoSection-fOCaVR eUsrGJ",
+      "className": "InfoSection__InfoSection-fOCaVR jtSICb",
+      "fontSize": "12px",
       "width": "auto",
     },
     "ref": null,
@@ -54,7 +56,8 @@ ShallowWrapper {
         "children": <span>
           test
         </span>,
-        "className": "InfoSection__InfoSection-fOCaVR eUsrGJ",
+        "className": "InfoSection__InfoSection-fOCaVR jtSICb",
+        "fontSize": "12px",
         "width": "auto",
       },
       "ref": null,

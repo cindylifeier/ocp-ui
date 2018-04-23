@@ -12,7 +12,7 @@ export default defineMessages({
   },
   tableColumnHeaderFromActor: {
     id: 'ocpui.components.ConsentTable.tableColumnHeader.FromActor',
-    defaultMessage: 'Authorized to Share',
+    defaultMessage: 'Authorized to',
   },
   tableColumnHeaderToActor: {
     id: 'ocpui.components.ConsentTable.TableColumnHeader.ToActor',

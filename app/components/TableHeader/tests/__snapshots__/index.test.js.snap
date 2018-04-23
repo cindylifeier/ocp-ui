@@ -33,6 +33,7 @@ ShallowWrapper {
           Col
         </TableHeaderColumn__TableHeaderColumn>
       </styled.div>,
+      "fontSize": "12px",
       "top": "0px",
     },
     "ref": null,
@@ -78,6 +79,7 @@ ShallowWrapper {
             Col
           </TableHeaderColumn__TableHeaderColumn>
         </styled.div>,
+        "fontSize": "12px",
         "top": "0px",
       },
       "ref": null,
