@@ -11,7 +11,7 @@ const AddNewItemButton = styled(StyledFlatButton)`
   && {
     color: #fff;
     font-size: 12px;
-    padding-left: 0;
+    padding-left: 5px;
     max-height: 32px;
   }
 
