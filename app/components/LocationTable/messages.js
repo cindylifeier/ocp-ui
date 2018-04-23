@@ -20,7 +20,7 @@ export default defineMessages({
   },
   tableHeaderColumnTelecoms: {
     id: 'ocpui.components.LocationTable.tableHeaderColumnTelecoms',
-    defaultMessage: 'Telecoms',
+    defaultMessage: 'Contacts',
   },
   tableHeaderColumnAddress: {
     id: 'ocpui.components.LocationTable.tableHeaderColumnAddress',
