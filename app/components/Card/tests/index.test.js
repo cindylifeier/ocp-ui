@@ -29,7 +29,7 @@ describe('<Card />', () => {
     // Assert
     expect(renderedComponent).toHaveStyleRule('padding', '0 1px 10px 1px');
     expect(renderedComponent).toHaveStyleRule('background-color', 'white');
-    expect(renderedComponent).toHaveStyleRule('min-width', '650px');
+    expect(renderedComponent).toHaveStyleRule('min-width', 'auto');
     expect(renderedComponent).toHaveStyleRule('min-height', '430px');
     expect(renderedComponent).toHaveStyleRule('height', '100%');
     expect(renderedComponent).toHaveStyleRule('border-radius', '2px');

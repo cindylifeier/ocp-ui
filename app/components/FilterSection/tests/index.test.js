@@ -43,7 +43,7 @@ describe('<FilterSection />', () => {
       const renderedComponent = shallow(<FilterSection>{children}</FilterSection>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('font-size', '1rem');
+      expect(renderedComponent).toHaveStyleRule('font-size', '12px');
       expect(renderedComponent).toHaveStyleRule('background-color', '#f9f9f9');
     });
   });

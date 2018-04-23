@@ -43,7 +43,7 @@ describe('<NoResultsFoundText />', () => {
       const renderedComponent = shallow(<NoResultsFoundText>{children}</NoResultsFoundText>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('font-size', '1rem');
+      expect(renderedComponent).toHaveStyleRule('font-size', '12px');
       expect(renderedComponent).toHaveStyleRule('font-weight', 'bold');
       expect(renderedComponent).toHaveStyleRule('color', 'black');
       expect(renderedComponent).toHaveStyleRule('margin', '10px');
