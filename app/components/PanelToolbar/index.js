@@ -105,7 +105,7 @@ export class PanelToolbar extends React.Component {
                 <FormattedMessage {...messages.cancelFilter} /> :
                 <FormattedMessage {...messages.filter} />}
             >
-              <StyledIconButton onClick={this.handleShowFilter}>
+              <StyledIconButton svgIconSize="small" onClick={this.handleShowFilter}>
                 {this.state.isShowFilter ?
                   <CancelIcon color={white} /> : <FilterIcon color={white} />
                 }
