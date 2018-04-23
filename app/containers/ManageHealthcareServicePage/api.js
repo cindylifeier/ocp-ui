@@ -3,7 +3,7 @@ import { BASE_HEALTHCARE_SERVICES_API_URL, BASE_ORGANIZATION_API_URL, getEndpoin
 
 export function createHealthcareService(healthcareServiceFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint}/${organizationId}/healthcare-service`;
+  const url = `${baseEndpoint}/${organizationId}/healthcare-services`;
   return request(url, {
     method: 'POST',
     body: JSON.stringify(healthcareServiceFormData),
@@ -15,7 +15,7 @@ export function createHealthcareService(healthcareServiceFormData, organizationI
 
 export function updateHealthcareService(healthcareServiceFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint}/${organizationId}/healthcare-service/${healthcareServiceFormData.logicalId}`;
+  const url = `${baseEndpoint}/${organizationId}/healthcare-services/${healthcareServiceFormData.logicalId}`;
   return request(url, {
     method: 'PUT',
     body: JSON.stringify(healthcareServiceFormData),

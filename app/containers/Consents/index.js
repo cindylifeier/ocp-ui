@@ -24,7 +24,7 @@ import injectReducer from 'utils/injectReducer';
 import Card from 'components/Card';
 import { PanelToolbar } from 'components/PanelToolbar';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import InfoSection from 'components/InfoSection';
+import ContentSection from 'components/ContentSection';
 import ConsentTable from 'components/ConsentTable';
 import makeSelectConsents from './selectors';
 import reducer from './reducer';
@@ -105,13 +105,13 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
           showUploadIcon={false}
           showSettingIcon={false}
         />
-        <InfoSection margin="0 0 10px 0">
+        <ContentSection>
           <ConsentTable
             relativeTop={this.state.relativeTop}
             consentData={consentData}
             allowedAttestConsentRoles={PATIENT_ROLE_CODE}
           />
-        </InfoSection>
+        </ContentSection>
       </Card>
     );
   }

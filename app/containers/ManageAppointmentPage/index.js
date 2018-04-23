@@ -66,11 +66,11 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
 
   handleSave(appointmentFormData, actions) {
     const patientId = this.props.patient.id;
-    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    const practitionerId = (this.props.user && this.props.user.fhirResource) ? this.props.user.fhirResource.logicalId : null;
     if (practitionerId) {
       merge(appointmentFormData, { practitionerId });
     }
-    const practitionerName = mapToPatientName(this.props.user.resource);
+    const practitionerName = mapToPatientName(this.props.user.fhirResource);
     if (practitionerName) {
       merge(appointmentFormData, { practitionerName });
     }

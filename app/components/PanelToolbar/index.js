@@ -17,8 +17,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import FilterIcon from '@material-ui/icons/FilterList';
 import common from 'material-ui-next/colors/common';
 import isUndefined from 'lodash/isUndefined';
-import sizeMe from 'react-sizeme';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import ShowHideWrapper, { functionalRoles } from 'containers/ShowHideWrapper';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
@@ -105,7 +105,7 @@ export class PanelToolbar extends React.Component {
                 <FormattedMessage {...messages.cancelFilter} /> :
                 <FormattedMessage {...messages.filter} />}
             >
-              <StyledIconButton onClick={this.handleShowFilter}>
+              <StyledIconButton svgIconSize="small" onClick={this.handleShowFilter}>
                 {this.state.isShowFilter ?
                   <CancelIcon color={white} /> : <FilterIcon color={white} />
                 }
@@ -207,16 +207,5 @@ PanelToolbar.defaultProps = {
   showFilter: true,
   showToDoSpecificFilters: false,
 };
-
-
-// Create the config for SizeMe
-const config = {
-  monitorWidth: false,
-  monitorHeight: true,
-  refreshRate: 250,
-};
-
-// Call SizeMe with the config to get back the HOC.
-const sizeMeHOC = sizeMe(config);
 
 export default sizeMeHOC(PanelToolbar);

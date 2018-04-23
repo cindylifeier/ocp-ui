@@ -30,6 +30,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import PanelToolbar from 'components/PanelToolbar';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import InfoSection from 'components/InfoSection';
+import ContentSection from 'components/ContentSection';
 import InlineLabel from 'components/InlineLabel';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import CareTeamTable from 'components/CareTeamTable';
@@ -45,7 +46,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getCareTeams, initializeCareTeams } from './actions';
-import { DEFAULT_CARE_TEAM_STATUS_CODE } from './constants';
+import { DEFAULT_CARE_TEAM_STATUS_CODE, SUMMARY_PANEL_WIDTH } from './constants';
 
 export class CareTeams extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -58,6 +59,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
+    this.onSize = this.onSize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
@@ -78,8 +80,9 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     }
   }
 
-  calculateCheckboxColumns({ length }) {
-    return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
+  onSize(size) {
+    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+    this.setState({ isExpanded });
   }
 
   handlePageClick(pageNumber) {
@@ -102,6 +105,10 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.setState({ filterHeight: size.height });
   }
 
+
+  calculateCheckboxColumns({ length }) {
+    return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
+  }
   renderFilter(careTeamStatuses, statusList) {
     const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
     return (
@@ -144,56 +151,58 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           showSearchIcon={false}
           onSize={this.handlePanelResize}
         />
-        {isEmpty(patientName) ?
-          <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
-          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-            <Grid columns={1} gap="">
-              <Cell>
-                <InfoSection>
-                  <div>
-                    The <FormattedMessage {...messages.careTeams} /> for&nbsp;
-                    <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                      <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
-                    </InlineLabel>
-                    are :
-                  </div>
-                </InfoSection>
-              </Cell>
-              <Cell>
-                {!isEmpty(careTeamStatuses) &&
-                this.renderFilter(careTeamStatuses, statusList)
+        <ContentSection>
+          {isEmpty(patientName) ?
+            <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
+            <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+              <Grid columns={1} gap="">
+                <Cell>
+                  <InfoSection>
+                    <div>
+                      The <FormattedMessage {...messages.careTeams} /> for&nbsp;
+                      <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                        <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                      </InlineLabel>
+                      are :
+                    </div>
+                  </InfoSection>
+                </Cell>
+                {!isEmpty(careTeamStatuses) && this.state.isExpanded &&
+                <Cell>
+                  {this.renderFilter(careTeamStatuses, statusList)}
+                </Cell>
                 }
-              </Cell>
-            </Grid>
-          </SizedStickyDiv>
-        }
+              </Grid>
+            </SizedStickyDiv>
+          }
 
-        {loading &&
-        <RefreshIndicatorLoading />}
+          {loading &&
+          <RefreshIndicatorLoading />}
 
-        {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
-        <NoResultsFoundText>No care teams found.</NoResultsFoundText>}
+          {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
+          <NoResultsFoundText>No care teams found.</NoResultsFoundText>}
 
-        {!isEmpty(data) && !isEmpty(data.elements) &&
-        <CenterAlign>
-          <CareTeamTable
-            relativeTop={this.state.panelHeight + this.state.filterHeight}
-            elements={data.elements}
-            manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
-          />
-          <CenterAlignedUltimatePagination
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            onChange={this.handlePageClick}
-          />
-          <RecordsRange
-            currentPage={data.currentPage}
-            totalPages={data.totalNumberOfPages}
-            totalElements={data.totalElements}
-            currentPageSize={data.currentPageSize}
-          />
-        </CenterAlign>
-        }
+          {!isEmpty(data) && !isEmpty(data.elements) &&
+            <CenterAlign>
+              <CareTeamTable
+                relativeTop={this.state.panelHeight + this.state.filterHeight}
+                elements={data.elements}
+                manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
+              />
+              <CenterAlignedUltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                onChange={this.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                totalElements={data.totalElements}
+                currentPageSize={data.currentPageSize}
+              />
+            </CenterAlign>
+          }
+        </ContentSection>
       </Card>
     );
   }

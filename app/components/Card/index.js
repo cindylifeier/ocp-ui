@@ -4,12 +4,12 @@
  *
  */
 import styled from 'styled-components';
-
+import PropTypes from 'prop-types';
 
 const Card = styled.div`
   padding: 0 1px 10px 1px;
   background-color: white;
-  min-width: 650px;
+  min-width: ${({ minWidth }) => minWidth};
   min-height: 430px;
   height: 100%;
   border-radius: 2px;
@@ -22,6 +22,12 @@ const Card = styled.div`
   }
 `;
 
-Card.propTypes = {};
+Card.propTypes = {
+  minWidth: PropTypes.string,
+};
+
+Card.defaultProps = {
+  minWidth: 'auto',
+};
 
 export default Card;

@@ -38,6 +38,7 @@ import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
+import ContentSection from 'components/ContentSection';
 import { cancelPatientAppointment, getPatientAppointments } from './actions';
 import { STATUS_CODE_CANCELLED } from './constants';
 import messages from './messages';
@@ -82,7 +83,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
   handleCheck(event, checked) {
     const patientId = this.props.patient ? this.props.patient.id : null;
-    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    const practitionerId = (this.props.user && this.props.user.fhirResource) ? this.props.user.fhirResource.logicalId : null;
     if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
@@ -110,7 +111,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
-    const role = (this.props.user && this.props.user.resource) ? this.props.user.role : '';
+    const role = (this.props.user && this.props.user.fhirResource) ? this.props.user.role : '';
     const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
@@ -127,54 +128,56 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             showSearchIcon={false}
             onSize={this.handlePanelResize}
           />
-          {showPastAppFilter &&
-          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-            <FilterSection>
-              <CheckboxFilterGrid>
-                <Cell>
-                  <StatusCheckbox
-                    messages={messages.showPastAppointments}
-                    elementId="showPastAppointmentsCheckBox"
-                    checked={this.props.showPastAppointments}
-                    handleCheck={this.handleCheck}
-                  />
-                </Cell>
-              </CheckboxFilterGrid>
-            </FilterSection>
-          </SizedStickyDiv>
-          }
-          {loading &&
-          <RefreshIndicatorLoading />}
-          {!loading && isEmpty(data) &&
-          <NoPatientAppointmentsMessage>{
-            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
-          {!isEmpty(data) && !isEmpty(data.elements) &&
-          <CenterAlign>
-            <AppointmentTable
-              elements={data.elements}
-              appointmentStatuses={appointmentStatuses}
-              appointmentTypes={appointmentTypes}
-              cancelAppointment={this.cancelAppointment}
-              patientId={patientId}
-              communicationBaseUrl={communicationBaseUrl}
-              relativeTop={this.state.panelHeight + this.state.filterHeight}
-              cancelledStatus={cancelledStatus}
-              enableEditAppointment={enableEditAppointment}
-              manageAppointmentUrl={manageAppointmentUrl}
-            />
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              onChange={this.handlePageClick}
-            />
-            <RecordsRange
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              totalElements={data.totalElements}
-              currentPageSize={data.currentPageSize}
-            />
-          </CenterAlign>
-          }
+          <ContentSection>
+            {showPastAppFilter &&
+            <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+              <FilterSection>
+                <CheckboxFilterGrid>
+                  <Cell>
+                    <StatusCheckbox
+                      messages={messages.showPastAppointments}
+                      elementId="showPastAppointmentsCheckBox"
+                      checked={this.props.showPastAppointments}
+                      handleCheck={this.handleCheck}
+                    />
+                  </Cell>
+                </CheckboxFilterGrid>
+              </FilterSection>
+            </SizedStickyDiv>
+            }
+            {loading &&
+            <RefreshIndicatorLoading />}
+            {!loading && isEmpty(data) &&
+            <NoPatientAppointmentsMessage>{
+              <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
+            {!isEmpty(data) && !isEmpty(data.elements) &&
+            <CenterAlign>
+              <AppointmentTable
+                elements={data.elements}
+                appointmentStatuses={appointmentStatuses}
+                appointmentTypes={appointmentTypes}
+                cancelAppointment={this.cancelAppointment}
+                patientId={patientId}
+                communicationBaseUrl={communicationBaseUrl}
+                relativeTop={this.state.panelHeight + this.state.filterHeight}
+                cancelledStatus={cancelledStatus}
+                enableEditAppointment={enableEditAppointment}
+                manageAppointmentUrl={manageAppointmentUrl}
+              />
+              <CenterAlignedUltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                onChange={this.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                totalElements={data.totalElements}
+                currentPageSize={data.currentPageSize}
+              />
+            </CenterAlign>
+            }
+          </ContentSection>
         </Card>
       </div>
     );

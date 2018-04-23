@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.columnHeaderStatus',
     defaultMessage: 'Status',
   },
+  columnHeaderAction: {
+    id: 'ocpui.components.TaskTable.columnHeaderAction',
+    defaultMessage: 'Action',
+  },
   columnHeaderDescription: {
     id: 'ocpui.components.TaskTable.columnHeaderDescription',
     defaultMessage: 'Description',

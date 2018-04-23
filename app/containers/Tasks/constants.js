@@ -18,7 +18,6 @@ export const CANCEL_TASK = 'ocpui/Tasks/CANCEL_TASK';
 export const CANCEL_TASK_SUCCESS = 'ocpui/Tasks/CANCEL_TASK_SUCCESS';
 export const CANCEL_TASK_ERROR = 'ocpui/Tasks/CANCEL_TASK_ERROR';
 
-
 /**
  *  Other constants
  *

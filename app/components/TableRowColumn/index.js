@@ -11,7 +11,7 @@ const TableRowColumn = styled.div`
   color: #000;
   font-family: "Arial", sans-serif;
   font-style: normal;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 400;
   line-height: normal;
   text-align: left;
