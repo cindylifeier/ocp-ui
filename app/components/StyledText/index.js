@@ -39,7 +39,7 @@ StyledText.propTypes = {
 };
 
 StyledText.defaultProps = {
-  fontSize: 'medium',
+  fontSize: '13px',
   fontWeight: 'normal',
   color: 'default',
   whiteSpace: false,

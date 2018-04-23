@@ -79,7 +79,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
   }
 
   handleCheck(event, checked) {
-    const practitionerId = (this.props.user && this.props.user.resource) ? this.props.user.resource.logicalId : null;
+    const practitionerId = (this.props.user && this.props.user.fhirResource) ? this.props.user.fhirResource.logicalId : null;
     this.props.getUpcomingAppointments({
       pageNumber: DEFAULT_START_PAGE_NUMBER,
       practitionerId,

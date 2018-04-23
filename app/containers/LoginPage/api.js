@@ -1,5 +1,5 @@
-import request from '../../utils/request';
-import { getEndpoint, LOGIN_API_URL } from '../../utils/endpointService';
+import request from 'utils/request';
+import { getEndpoint, LOGIN_API_URL, BASE_USER_CONTEXT_API_URL } from 'utils/endpointService';
 
 export function login(loginCredentials) {
   const requestEndpoint = getEndpoint(LOGIN_API_URL);
@@ -10,6 +10,11 @@ export function login(loginCredentials) {
       'Content-Type': 'application/json',
     },
   });
+}
+
+export function getUserContext() {
+  const requestEndpoint = getEndpoint(BASE_USER_CONTEXT_API_URL);
+  return request(requestEndpoint);
 }
 
 function mapToBffCredential(loginCredentials) {

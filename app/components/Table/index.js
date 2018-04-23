@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Table = styled.div`
-  margin: 10px;
+  margin: 0 10px;
   background-color: white;
 `;
 
