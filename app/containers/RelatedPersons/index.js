@@ -104,30 +104,30 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
             are :
           </InfoSection>)}
         <ContentSection>
-        {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
-          <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
-        }
-        {!isEmpty(patient) && !isEmpty(data.elements) && (
-          <div>
-            {loading && <RefreshIndicatorLoading />}
-            <RelatedPersonTable
-              relativeTop={this.state.panelHeight}
-              relatedPersons={data.elements}
-              patientId={patient.id}
-            />
-            <CenterAlignedUltimatePagination
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              onChange={this.handlePageClick}
-            />
-            <RecordsRange
-              currentPage={data.currentPage}
-              totalPages={data.totalNumberOfPages}
-              totalElements={data.totalElements}
-              currentPageSize={data.currentPageSize}
-            />
-          </div>)
-        }
+          {!isEmpty(patient) && (isEmpty(data) || isEmpty(data.elements)) && (
+            <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonFound} /></NoResultsFoundText>)
+          }
+          {!isEmpty(patient) && !isEmpty(data.elements) && (
+            <div>
+              {loading && <RefreshIndicatorLoading />}
+              <RelatedPersonTable
+                relativeTop={this.state.panelHeight}
+                relatedPersons={data.elements}
+                patientId={patient.id}
+              />
+              <CenterAlignedUltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                onChange={this.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                totalElements={data.totalElements}
+                currentPageSize={data.currentPageSize}
+              />
+            </div>)
+          }
         </ContentSection>
       </div>
     );

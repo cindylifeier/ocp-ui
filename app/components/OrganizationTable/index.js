@@ -26,8 +26,6 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import OrganizationRowDetails from './OrganizationRowDetails';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, ENTER_KEY } from './constants';
-// const tableColumns = '50px 100px 1fr 60px 120px';
-// const ENTER_KEY = 'Enter';
 
 function renderExpansionRowDetails(organization) {
   const { addresses, name, identifiers, telecoms, active } = organization;
