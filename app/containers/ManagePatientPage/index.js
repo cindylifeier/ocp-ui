@@ -73,7 +73,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
   }
   getPractitionerId() {
     const { user } = this.props;
-    return (user && user.resource) ? user.resource.logicalId : null;
+    return (user && user.fhirResource) ? user.fhirResource.logicalId : null;
   }
   handleSave(patientFormData, actions) {
     if (this.props.organization) {

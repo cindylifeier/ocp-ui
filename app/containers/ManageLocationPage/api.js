@@ -3,7 +3,7 @@ import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from '
 
 export default function createLocation(location, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint}/${organizationId}/location`;
+  const url = `${baseEndpoint}/${organizationId}/locations`;
   return request(url, {
     method: 'POST',
     body: JSON.stringify(mapToBffLocation(location)),
@@ -15,7 +15,7 @@ export default function createLocation(location, organizationId) {
 
 export function updateLocation(location, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
-  const url = `${baseEndpoint}/${organizationId}/location/${location.logicalId}`;
+  const url = `${baseEndpoint}/${organizationId}/locations/${location.logicalId}`;
   return request(url, {
     method: 'PUT',
     body: JSON.stringify(mapToBffLocation(location)),
