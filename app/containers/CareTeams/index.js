@@ -46,7 +46,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getCareTeams, initializeCareTeams } from './actions';
-import { DEFAULT_CARE_TEAM_STATUS_CODE, SUMMARY_PANEL_WIDTH } from './constants';
+import { DEFAULT_CARE_TEAM_STATUS_CODE, SUMMARY_VIEW_WIDTH } from './constants';
 
 export class CareTeams extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -81,7 +81,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
   }
 
   onSize(size) {
-    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
+    const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
     this.setState({ isExpanded });
   }
 
@@ -188,6 +188,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
                 relativeTop={this.state.panelHeight + this.state.filterHeight}
                 elements={data.elements}
                 manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
+                onSize={this.onSize}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
