@@ -121,16 +121,16 @@ export function getRoleByScope(scope) {
     case 'organizationAdministrator':
       role = ORGANIZATION_ADMIN_ROLE_CODE;
       break;
-    case 'pcp':
+    case 'primaryCareProvider':
       role = PCP_ROLE_CODE;
       break;
-    case 'benetspt':
+    case 'benefitsSpecialist':
       role = BENEFITS_SPECIALIST_ROLE_CODE;
       break;
-    case 'hasst':
+    case 'healthAssistant':
       role = HEALTH_ASSISTANT_ROLE_CODE;
       break;
-    case 'forecept':
+    case 'frontOfficeReceptionist':
       role = FRONT_OFFICE_ROLE_CODE;
       break;
     default:
