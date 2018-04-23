@@ -10,30 +10,14 @@ import PageContent from 'components/PageContent';
 import PageHeader from 'components/PageHeader';
 
 import { getLookupsAction } from 'containers/App/actions';
-import {
-  COMMUNICATION_CATEGORY,
-  COMMUNICATION_MEDIUM,
-  COMMUNICATION_NOT_DONE_REASON,
-  COMMUNICATION_STATUS,
-  DATE_PICKER_MODE,
-} from 'containers/App/constants';
+import { COMMUNICATION_CATEGORY, COMMUNICATION_MEDIUM, COMMUNICATION_NOT_DONE_REASON, COMMUNICATION_STATUS, DATE_PICKER_MODE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import {
-  makeSelectCommunicationCategories,
-  makeSelectCommunicationMedia,
-  makeSelectCommunicationNotDoneReasons,
-  makeSelectCommunicationStatus,
-} from 'containers/App/lookupSelectors';
+import { makeSelectCommunicationCategories, makeSelectCommunicationMedia, makeSelectCommunicationNotDoneReasons, makeSelectCommunicationStatus } from 'containers/App/lookupSelectors';
 import makeSelectCommunications from 'containers/Communications/selectors';
 import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
 import { makeSelectPatientAppointments } from 'containers/PatientAppointments/selectors';
 import SearchRecipient from 'containers/SearchRecipient';
-import {
-  initializeListOfRecipients,
-  initializeSearchRecipients,
-  removeSelectedRecipient,
-  setInitialRecipients,
-} from 'containers/SearchRecipient/actions';
+import { initializeListOfRecipients, initializeSearchRecipients, removeSelectedRecipient, setInitialRecipients } from 'containers/SearchRecipient/actions';
 import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
 import { makeSelectTasks } from 'containers/Tasks/selectors';
 import find from 'lodash/find';
@@ -67,7 +51,7 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     this.handleRemoveRecipient = this.handleRemoveRecipient.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { user } = this.props;
     const practitionerId = getPractitionerIdByRole(user);
     if (practitionerId) {
@@ -76,9 +60,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     this.props.getLookups();
     this.props.getEpisodeOfCares(this.props.selectedPatient.id);
     this.props.initializeSearchRecipients();
-  }
-
-  componentDidMount() {
     const logicalId = this.props.match.params.id;
     const communication = find(this.props.communications.data.elements, { logicalId });
     if (communication && communication.recipient) {
