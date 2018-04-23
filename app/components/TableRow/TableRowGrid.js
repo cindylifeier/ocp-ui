@@ -4,11 +4,11 @@ const TableRowGrid = Grid.extend`
   border-bottom: 1px outset rgb(51, 51, 51);
 
   &:nth-child(odd) {
-    background-color: white;
+    background-color: #fff;
   }
 
   &:first-child {
-    background-color: white;
+    background-color: #fff;
     font-size: 20px;
   }
 

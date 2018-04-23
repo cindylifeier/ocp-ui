@@ -65,7 +65,7 @@ describe('<TableRowGrid />', () => {
       const renderedComponent = shallow(<TableRowGrid>{children}</TableRowGrid>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('background-color', 'white', {
+      expect(renderedComponent).toHaveStyleRule('background-color', '#fff', {
         modifier: ':first-child',
       });
       expect(renderedComponent).toHaveStyleRule('font-size', '20px', {
@@ -81,7 +81,7 @@ describe('<TableRowGrid />', () => {
       const renderedComponent = shallow(<TableRowGrid>{children}</TableRowGrid>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('background-color', 'white', {
+      expect(renderedComponent).toHaveStyleRule('background-color', '#fff', {
         modifier: ':nth-child(odd)',
       });
     });

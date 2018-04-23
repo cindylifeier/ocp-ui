@@ -4,12 +4,12 @@ const TableHeaderGrid = Grid.extend`
   border-bottom: 2px outset #000;
 
   &:first-child {
-    background-color: white;
+    background-color: #fff;
     font-size: 20px;
   }
 
   &:nth-child(odd) {
-    background-color: white;
+    background-color: #fff;
   }
 `;
 
