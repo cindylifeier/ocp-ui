@@ -18,3 +18,5 @@ export const INITIALIZE_CARE_TEAMS = 'ocpui/CareTeams/INITIALIZE_CARE_TEAMS';
 *
 */
 export const DEFAULT_CARE_TEAM_STATUS_CODE = 'active';
+
+export const SUMMARY_VIEW_WIDTH = 700; // The width of the panel in pixels

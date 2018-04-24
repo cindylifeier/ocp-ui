@@ -184,6 +184,7 @@ ShallowWrapper {
                 ]
               }
               manageCareTeamUrl="/ocp-ui/manage-care-team"
+              onSize={[Function]}
               relativeTop={0}
             />
             <CenterAlignedUltimatePagination
@@ -301,6 +302,7 @@ ShallowWrapper {
                   ]
                 }
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
+                onSize={[Function]}
                 relativeTop={0}
               />
               <CenterAlignedUltimatePagination
@@ -593,6 +595,7 @@ ShallowWrapper {
                     ]
                   }
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
+                  onSize={[Function]}
                   relativeTop={0}
                 />,
                 <CenterAlignedUltimatePagination
@@ -637,6 +640,7 @@ ShallowWrapper {
                     },
                   ],
                   "manageCareTeamUrl": "/ocp-ui/manage-care-team",
+                  "onSize": [Function],
                   "relativeTop": 0,
                 },
                 "ref": null,
@@ -774,6 +778,7 @@ ShallowWrapper {
                   ]
                 }
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
+                onSize={[Function]}
                 relativeTop={0}
               />
               <CenterAlignedUltimatePagination
@@ -891,6 +896,7 @@ ShallowWrapper {
                     ]
                   }
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
+                  onSize={[Function]}
                   relativeTop={0}
                 />
                 <CenterAlignedUltimatePagination
@@ -1183,6 +1189,7 @@ ShallowWrapper {
                       ]
                     }
                     manageCareTeamUrl="/ocp-ui/manage-care-team"
+                    onSize={[Function]}
                     relativeTop={0}
                   />,
                   <CenterAlignedUltimatePagination
@@ -1227,6 +1234,7 @@ ShallowWrapper {
                       },
                     ],
                     "manageCareTeamUrl": "/ocp-ui/manage-care-team",
+                    "onSize": [Function],
                     "relativeTop": 0,
                   },
                   "ref": null,
