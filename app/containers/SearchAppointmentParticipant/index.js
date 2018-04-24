@@ -36,7 +36,6 @@ import {
   initializeSearchAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
 import AddParticipantDialogIconButton from 'containers/SearchAppointmentParticipant/AddParticipantDialogIconButton';
-import { TEXT_MIN_LENGTH } from 'containers/SearchAppointmentParticipant/constants';
 import ParticipantName from 'containers/SearchAppointmentParticipant/ParticipantName';
 import ParticipantSearchContainer from 'containers/SearchAppointmentParticipant/ParticipantSearchContainer';
 import { Form, Formik } from 'formik';
@@ -225,7 +224,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
   }
 
   render() {
-    const minimumLength = TEXT_MIN_LENGTH;
     const { participantTypes, isOpen, searchParticipantResult } = this.props;
     const actionsButtons = [
       <StyledFlatButton onClick={this.handleDialogClose}>
@@ -248,10 +246,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
             actions.setSubmitting(false);
           }}
           validationSchema={yup.object().shape({
-            name: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />))
-              .min(minimumLength, (
-                <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
             member: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
           })}

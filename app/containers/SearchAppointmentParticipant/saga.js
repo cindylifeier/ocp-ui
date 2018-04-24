@@ -13,7 +13,7 @@ import { makeSelectPatient } from 'containers/App/contextSelectors';
 export function* searchAppointmentParticipantSaga(action) {
   const patient = yield select(makeSelectPatient());
   try {
-    if (!isEmpty(action.name) && !isEmpty(action.member) && !isEmpty(patient) && !isEmpty(patient.id)) {
+    if (!isEmpty(action.member) && !isEmpty(patient) && !isEmpty(patient.id)) {
       const participants = yield call(searchAppointmentParticipant, action.name, action.member, patient.id);
       yield put(getSearchAppointmentParticipantSuccess(participants));
     }
