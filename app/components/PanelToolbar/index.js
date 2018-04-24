@@ -76,7 +76,7 @@ export class PanelToolbar extends React.Component {
             {!isUndefined(addNewItem) &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
-                <StyledIconButton svgIconSize="small" disableIconHover>
+                <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
                   <AddCircle color={white} />
                 </StyledIconButton>
                 {addNewItem.labelName}

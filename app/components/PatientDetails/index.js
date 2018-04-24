@@ -51,15 +51,12 @@ function PatientDetails(props) {
               </PatientBasicInfoCell>
               <PatientBasicInfoCell>
                 DOB{WHITE_SPACE}<strong>{birthDate}</strong></PatientBasicInfoCell>
-              <PatientBasicInfoCell>
-                Care Coordinator{WHITE_SPACE}<strong>Lee Coordinator(hard-coded)</strong>
-              </PatientBasicInfoCell>
             </PatientBasicInfoGrid>
           </Grid>
         </PatientDetailsCell>
         <PatientDetailsCell>
           <DetailsPanelGrid columns={'55px repeat(2, 1fr) 100px'}>
-            <Cell></Cell>
+            <Cell />
             <Cell>Address{WHITE_SPACE}<strong>{addresses}</strong></Cell>
             <Cell>Contact{WHITE_SPACE}<strong>{phones}</strong></Cell>
             {flags.length > 0 &&

@@ -40,7 +40,7 @@ function OrganizationSliderHeader(props) {
               </StyledText>
             </Cell>
             <Cell>
-              Status
+              <StyledText>Status</StyledText>
               <StyledText whiteSpace fontWeight="700">
                 {active ?
                   <FormattedMessage {...messages.active} /> :
@@ -50,11 +50,10 @@ function OrganizationSliderHeader(props) {
             </Cell>
           </Grid>
           <InfoSection margin="20px 0 0 0">
-            <div>Address
-              <StyledText whiteSpace fontWeight="700">
-                {addresses}
-              </StyledText>
-            </div>
+            <StyledText>Address</StyledText>
+            <StyledText whiteSpace fontWeight="700">
+              {addresses}
+            </StyledText>
           </InfoSection>
         </Cell>
         <Cell>
