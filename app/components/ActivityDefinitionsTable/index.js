@@ -42,10 +42,10 @@ function ActivityDefinitionsTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(activityDefinitionsData.data) && activityDefinitionsData.data.map((activityDefinition) => {
-                const { title, topic, effectivePeriod, description, status } = activityDefinition;
+                const { logicalId, title, topic, effectivePeriod, description, status } = activityDefinition;
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
-                  disabled: true,
+                  linkTo: `/ocp-ui/manage-activity-definition/${logicalId}`,
                 }];
                 return (
                   <TableRow

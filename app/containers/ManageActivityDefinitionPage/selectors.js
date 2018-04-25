@@ -9,6 +9,10 @@ const selectManageActivityDefinitionPageDomain = (state) => state.get('manageAct
  * Other specific selectors
  */
 
+const makeSelectActivityDefinition = () => createSelector(
+  selectManageActivityDefinitionPageDomain,
+  (substate) => substate.get('activityDefinition'),
+);
 
 /**
  * Default selector used by ManageActivityDefinitionPage
@@ -16,10 +20,11 @@ const selectManageActivityDefinitionPageDomain = (state) => state.get('manageAct
 
 const makeSelectManageActivityDefinitionPage = () => createSelector(
   selectManageActivityDefinitionPageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectManageActivityDefinitionPage;
 export {
   selectManageActivityDefinitionPageDomain,
+  makeSelectActivityDefinition,
 };
