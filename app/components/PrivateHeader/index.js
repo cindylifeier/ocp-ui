@@ -50,10 +50,10 @@ class PrivateHeader extends React.Component {
     return (
       <StyledToolbar
         color="#ffffff"
-        height="60px"
+        height="35px"
       >
         <ToolbarGroup firstChild>
-          <StyledImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
+          <StyledImage height="30px" width="40px" src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
           <Notifications viewBox="-2 -2 25 25" />
