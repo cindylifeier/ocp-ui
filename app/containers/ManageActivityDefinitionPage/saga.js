@@ -3,9 +3,22 @@ import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { SAVE_ACTIVITY_DEFINITION } from './constants';
-import { createActivityDefinition } from './api';
-import { saveActivityDefinitionError } from './actions';
+import { GET_ACTIVITY_DEFINITION, SAVE_ACTIVITY_DEFINITION } from './constants';
+import { createActivityDefinition, getActivityDefinition, getErrorDetail } from './api';
+import { getActivityDefinitionError, getActivityDefinitionSuccess, saveActivityDefinitionError } from './actions';
+
+
+function* getActivityDefinitionSaga({ activityDefinitionId }) {
+  try {
+    const organization = yield select(makeSelectOrganization());
+    const activityDefinition = yield call(getActivityDefinition, organization.logicalId, activityDefinitionId);
+    yield put(getActivityDefinitionSuccess(activityDefinition));
+  } catch (error) {
+    yield put(getActivityDefinitionError(getErrorDetail(error)));
+    yield put(showNotification('No match activity definition found.'));
+    yield put(goBack());
+  }
+}
 
 function* createActivityDefinitionSaga(action) {
   try {
@@ -15,30 +28,26 @@ function* createActivityDefinitionSaga(action) {
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification(`Failed to create the Activity Definition.${getErrorDetail(error)}`));
+    yield put(showNotification('Failed to create the Activity Definition.'));
     yield call(action.handleSubmitting);
-    yield put(saveActivityDefinitionError(error));
+    yield put(saveActivityDefinitionError(getErrorDetail(error)));
   }
+}
+
+function* watchGetActivityDefinitionSaga() {
+  yield takeLatest(GET_ACTIVITY_DEFINITION, getActivityDefinitionSaga);
 }
 
 function* watchCreateActivityDefinitionSaga() {
   yield takeLatest(SAVE_ACTIVITY_DEFINITION, createActivityDefinitionSaga);
 }
 
-function getErrorDetail(err) {
-  let errorDetail = '';
-  if (err && err.message === 'Failed to fetch') {
-    errorDetail = ' Server is offline.';
-  } else if (err && err.response && err.response.status === 409) {
-    errorDetail = ' Duplicate Entry:: Same Category and Type already exists.';
-  } else if (err && err.response && err.response.status === 500) {
-    errorDetail = ' Unknown server error.';
-  }
-  return errorDetail;
-}
-
+/**
+ * Root saga manages watcher lifecycle
+ */
 export default function* rootSaga() {
   yield all([
+    watchGetActivityDefinitionSaga(),
     watchCreateActivityDefinitionSaga(),
   ]);
 }
