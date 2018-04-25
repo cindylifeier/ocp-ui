@@ -42,6 +42,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { makeSelectActivityDefinition } from './selectors';
+import { initialActivityDefinitionFormValues } from './helpers';
 
 export class ManageActivityDefinitionPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -103,7 +104,11 @@ export class ManageActivityDefinitionPage extends React.Component { // eslint-di
           }
         />
         <PageContent>
-          <ManageActivityDefinition {...activityDefinitionProps} onSave={this.handleSave} />
+          <ManageActivityDefinition
+            {...activityDefinitionProps}
+            onSave={this.handleSave}
+            initialActivityDefinitionFormValues={initialActivityDefinitionFormValues}
+          />
         </PageContent>
       </Page>
     );

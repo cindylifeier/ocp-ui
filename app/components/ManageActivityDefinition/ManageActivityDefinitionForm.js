@@ -257,7 +257,7 @@ class ManageActivityDefinitionForm extends React.Component {
                     </TableHeader>
                     {errors && errors.relatedArtifact &&
                     <ErrorText>{errors.relatedArtifact}</ErrorText>}
-                    {values.relatedArtifact.map((artifact, index) => {
+                    {values.relatedArtifact && values.relatedArtifact.map((artifact, index) => {
                       const { display, type } = artifact;
                       const menuItems = [{
                         primaryText: <FormattedMessage {...messages.relatedArtifacts.actionLabelEdit} />,
