@@ -2,28 +2,27 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
-import { CREATE_ACTIVITY_DEFINITION } from 'containers/ManageActivityDefinitionPage/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { SAVE_ACTIVITY_DEFINITION } from './constants';
 import { createActivityDefinition } from './api';
-import { createActivityDefinitionError, createActivityDefinitionSuccess } from './actions';
+import { saveActivityDefinitionError } from './actions';
 
 function* createActivityDefinitionSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const createActivityDefinitionResponse = yield call(createActivityDefinition, action.activityDefinitionFormData, organization.logicalId);
-    yield put(createActivityDefinitionSuccess(createActivityDefinitionResponse));
+    yield call(createActivityDefinition, action.activityDefinitionFormData, organization.logicalId);
     yield put(showNotification('Successfully create the activity definition.'));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
     yield put(showNotification(`Failed to create the Activity Definition.${getErrorDetail(error)}`));
     yield call(action.handleSubmitting);
-    yield put(createActivityDefinitionError(error));
+    yield put(saveActivityDefinitionError(error));
   }
 }
 
 function* watchCreateActivityDefinitionSaga() {
-  yield takeLatest(CREATE_ACTIVITY_DEFINITION, createActivityDefinitionSaga);
+  yield takeLatest(SAVE_ACTIVITY_DEFINITION, createActivityDefinitionSaga);
 }
 
 function getErrorDetail(err) {

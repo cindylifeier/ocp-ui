@@ -1,6 +1,6 @@
-import request from '../../utils/request';
-import Util from '../../utils/Util';
-import { BASE_ORGANIZATION_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from 'utils/request';
+import Util from 'utils/Util';
+import { BASE_ORGANIZATION_API_URL, getEndpoint } from 'utils/endpointService';
 
 export function createActivityDefinition(activityDefinitionFormData, organizationId) {
   const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);

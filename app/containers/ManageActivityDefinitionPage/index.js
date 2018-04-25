@@ -14,10 +14,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ManageActivityDefinition from 'components/ManageActivityDefinition';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   ACTION_PARTICIPANT_ROLE,
@@ -28,7 +24,6 @@ import {
   RESOURCE_TYPE,
 } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { createActivityDefinition } from 'containers/ManageActivityDefinitionPage/actions';
 import {
   makeSelectActionParticipantRoles,
   makeSelectActionParticipantTypes,
@@ -37,6 +32,11 @@ import {
   makeSelectRelatedArtifactTypes,
   makeSelectResourceTypes,
 } from 'containers/App/lookupSelectors';
+import ManageActivityDefinition from 'components/ManageActivityDefinition';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import { saveActivityDefinition } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -115,7 +115,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([PUBLICATION_STATUS, DEFINITION_TOPIC, RESOURCE_TYPE, ACTION_PARTICIPANT_TYPE, ACTION_PARTICIPANT_ROLE, RELATED_ARTIFACT_TYPE])),
-    onSaveForm: (activityDefinitionFormData, handleSubmitting) => dispatch(createActivityDefinition(activityDefinitionFormData, handleSubmitting)),
+    onSaveForm: (activityDefinitionFormData, handleSubmitting) => dispatch(saveActivityDefinition(activityDefinitionFormData, handleSubmitting)),
   };
 }
 
