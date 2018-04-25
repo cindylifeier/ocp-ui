@@ -10,7 +10,22 @@ export function getActivityDefinition(organizationId, activityDefinitionId) {
   return request(requestURL);
 }
 
-export function createActivityDefinition(activityDefinitionFormData, organizationId) {
+export function saveActivityDefinition(activityDefinitionFormData, organizationId) {
+  if (activityDefinitionFormData.activityDefinitionId) {
+    return updateActivityDefinition(activityDefinitionFormData, organizationId);
+  }
+  return createActivityDefinition(activityDefinitionFormData, organizationId);
+}
+
+export function determineNotificationForSavingActivityDefinition(activityDefinitionFormData) {
+  let action = 'create';
+  if (activityDefinitionFormData.activityDefinitionId) {
+    action = 'edit';
+  }
+  return action;
+}
+
+function createActivityDefinition(activityDefinitionFormData, organizationId) {
   const url = `${baseEndpoint}/${organizationId}/activity-definitions`;
   return request(url, {
     method: 'POST',
@@ -19,6 +34,18 @@ export function createActivityDefinition(activityDefinitionFormData, organizatio
       'Content-Type': 'application/json',
     },
 
+  });
+}
+
+function updateActivityDefinition(activityDefinitionFormData, organizationId) {
+  const activityDefinitionId = activityDefinitionFormData.activityDefinitionId;
+  const url = `${baseEndpoint}/${organizationId}/activity-definitions/${activityDefinitionId}`;
+  return request(url, {
+    method: 'PUT',
+    body: JSON.stringify(mapToBffActivityDefinition(activityDefinitionFormData)),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
 
