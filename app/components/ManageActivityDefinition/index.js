@@ -20,9 +20,10 @@ function ManageActivityDefinition(props) {
     onSave, initialActivityDefinitionFormValues, publicationStatuses, definitionTopics, resourceTypes, actionParticipantTypes,
     actionParticipantRoles, organization, editMode, selectedActivityDefinition, relatedArtifactTypes,
   } = props;
+  const lastChangeDate = (selectedActivityDefinition && selectedActivityDefinition.date) && selectedActivityDefinition.date;
   const formData = {
     organizationName: organization.name,
-    lastPublishDate: selectedActivityDefinition && new Date(selectedActivityDefinition.date).toLocaleDateString(),
+    lastPublishDate: lastChangeDate,
     publicationStatuses,
     definitionTopics,
     resourceTypes,
