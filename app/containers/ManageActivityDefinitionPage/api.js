@@ -1,9 +1,9 @@
 import request from 'utils/request';
 import Util from 'utils/Util';
-import { BASE_ACTIVITY_DEFINITIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_ACTIVITY_DEFINITIONS_API_URL, BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 
 
-const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 
 export function getActivityDefinition(activityDefinitionId) {
   const requestURL = `${getEndpoint(BASE_ACTIVITY_DEFINITIONS_API_URL)}/${activityDefinitionId}`;

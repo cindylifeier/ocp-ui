@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -60,6 +61,10 @@ export class ManageActivityDefinitionPage extends React.Component { // eslint-di
   }
 
   handleSave(activityDefinitionFormData, actions) {
+    const activityDefinitionId = this.props.match.params.id;
+    if (activityDefinitionId) {
+      merge(activityDefinitionFormData, { activityDefinitionId });
+    }
     this.props.saveActivityDefinition(activityDefinitionFormData, () => actions.setSubmitting(false));
   }
 
