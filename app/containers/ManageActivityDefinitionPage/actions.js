@@ -5,29 +5,46 @@
  */
 
 import {
-  CREATE_ACTIVITY_DEFINITION, CREATE_ACTIVITY_DEFINITION_ERROR, CREATE_ACTIVITY_DEFINITION_SUCCESS,
+  GET_ACTIVITY_DEFINITION,
+  GET_ACTIVITY_DEFINITION_ERROR,
+  GET_ACTIVITY_DEFINITION_SUCCESS,
+  SAVE_ACTIVITY_DEFINITION,
+  SAVE_ACTIVITY_DEFINITION_ERROR,
 } from './constants';
 
 
-export function createActivityDefinition(activityDefinitionFormData, handleSubmitting) {
+export function getActivityDefinition(activityDefinitionId) {
   return {
-    type: CREATE_ACTIVITY_DEFINITION,
+    type: GET_ACTIVITY_DEFINITION,
+    activityDefinitionId,
+  };
+}
+
+export function getActivityDefinitionSuccess(activityDefinition) {
+  return {
+    type: GET_ACTIVITY_DEFINITION_SUCCESS,
+    activityDefinition,
+  };
+}
+
+export function getActivityDefinitionError(error) {
+  return {
+    type: GET_ACTIVITY_DEFINITION_ERROR,
+    error,
+  };
+}
+
+export function saveActivityDefinition(activityDefinitionFormData, handleSubmitting) {
+  return {
+    type: SAVE_ACTIVITY_DEFINITION,
     activityDefinitionFormData,
     handleSubmitting,
   };
 }
 
-export function createActivityDefinitionError(error) {
+export function saveActivityDefinitionError(error) {
   return {
-    type: CREATE_ACTIVITY_DEFINITION_ERROR,
+    type: SAVE_ACTIVITY_DEFINITION_ERROR,
     error,
-  };
-}
-
-
-export function createActivityDefinitionSuccess(respone) {
-  return {
-    type: CREATE_ACTIVITY_DEFINITION_SUCCESS,
-    respone,
   };
 }

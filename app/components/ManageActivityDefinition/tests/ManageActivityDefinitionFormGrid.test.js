@@ -14,7 +14,8 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
+      const renderedComponent = shallow(
+        <ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -27,7 +28,8 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
+      const renderedComponent = shallow(
+        <ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
 
       // Assert
       expect(renderedComponent.contains(children)).toEqual(true);
@@ -40,7 +42,8 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
+      const renderedComponent = shallow(
+        <ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('display', 'grid');
@@ -51,7 +54,8 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       const children = <div>test</div>;
 
       // Act
-      const renderedComponent = shallow(<ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
+      const renderedComponent = shallow(
+        <ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('padding-left', '0.5vw');
@@ -59,7 +63,7 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('grid-column-gap', '2vw');
       expect(renderedComponent).toHaveStyleRule('grid-row-gap', '2vh');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "selectedOrganization"    "version"    "systemName"    "displayName"    "description"    "lastPublishDate"    "effectivePeriodStart"    "effectivePeriodEnd"    "duration"    "frequency"    "status"    "topic"    "kind"    "participantType"    "participantRole"    "relatedArtifactSubtitle"    "addArtifactsButton"    "relatedArtifactsSection"    "buttonGroup"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "version"    "selectedOrganization"    "systemName"    "displayName"    "status"    "lastPublishDate"    "description"    "effectivePeriodStart"    "effectivePeriodEnd"    "topic"    "kind"    "activityParticipantSubtitle"    "participantType"    "participantRole"    "setOccurrenceSubtitle"    "duration"    "frequency"    "relatedArtifactsSection"    "buttonGroup"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -68,11 +72,12 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       const media = 'only screen and (min-width: 768px)';
 
       // Act
-      const renderedComponent = shallow(<ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
+      const renderedComponent = shallow(
+        <ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "selectedOrganization selectedOrganization"      "version version"      "systemName systemName"      "displayName displayName"      "description description"      "lastPublishDate lastPublishDate"      "effectivePeriodStart effectivePeriodEnd"      "duration frequency"      "status status"      "topic topic"      "kind kind"      "participantType participantRole"      "relatedArtifactSubtitle relatedArtifactSubtitle"      "addArtifactsButton addArtifactsButton"      "relatedArtifactsSection relatedArtifactsSection"      "buttonGroup  ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "version version"      "selectedOrganization lastPublishDate"      "systemName displayName"      "status description"      "effectivePeriodStart effectivePeriodEnd"      "topic kind"      "activityParticipantSubtitle activityParticipantSubtitle"      "participantType participantRole"      "setOccurrenceSubtitle setOccurrenceSubtitle"      "duration frequency"      "relatedArtifactsSection relatedArtifactsSection"      "buttonGroup  ."', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -81,11 +86,12 @@ describe('<ManageActivityDefinitionFormGrid />', () => {
       const media = 'only screen and (min-width: 1200px)';
 
       // Act
-      const renderedComponent = shallow(<ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
+      const renderedComponent = shallow(
+        <ManageActivityDefinitionFormGrid>{children}</ManageActivityDefinitionFormGrid>);
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "selectedOrganization selectedOrganization selectedOrganization . . . . . . . . ."      "version version version systemName systemName systemName displayName displayName displayName description description description"      "effectivePeriodStart effectivePeriodStart effectivePeriodStart effectivePeriodEnd effectivePeriodEnd effectivePeriodEnd duration duration duration frequency frequency frequency"      "lastPublishDate lastPublishDate lastPublishDate lastPublishDate lastPublishDate lastPublishDate . . . . . ."      "status status status status topic topic topic topic kind kind kind kind"      "participantType participantType participantType participantRole participantRole participantRole . . . . . ."      "relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle"      "addArtifactsButton addArtifactsButton . . . . . . . . . ."      "relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection"      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "version version version version . . . . . . . ."      "selectedOrganization selectedOrganization selectedOrganization selectedOrganization lastPublishDate lastPublishDate lastPublishDate lastPublishDate . . . ."      "systemName systemName systemName systemName displayName displayName displayName displayName . . . ."      "status status status status description description description description . . . ."      "effectivePeriodStart effectivePeriodStart effectivePeriodStart effectivePeriodStart effectivePeriodEnd effectivePeriodEnd effectivePeriodEnd effectivePeriodEnd . . . ."      "topic topic topic topic kind kind kind kind . . . ."      "activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle activityParticipantSubtitle"      "participantType participantType participantType participantType participantRole participantRole participantRole participantRole . . . ."      "setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle setOccurrenceSubtitle"      "duration duration duration duration frequency frequency frequency frequency . . . ."      "relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection"      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."', { media });
     });
   });
 });
