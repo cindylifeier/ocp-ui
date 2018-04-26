@@ -68,15 +68,15 @@ function ManageActivityDefinition(props) {
                 .required((<FormattedMessage {...messages.validation.required} />)),
               frequency: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              status: yup.string()
+              statusCode: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              topic: yup.string()
+              topicCode: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              kind: yup.string()
+              kindCode: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              participantType: yup.string()
+              participantTypeCode: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              participantRole: yup.string()
+              participantRoleCode: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               relatedArtifact: yup.array()
                 .required((<FormattedMessage {...messages.validation.requiredRelatedArtifacts} />))

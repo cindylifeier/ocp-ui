@@ -63,7 +63,8 @@ export function getErrorDetail(err) {
 
 function mapToBffActivityDefinition(activityDefinitionFormData) {
   const {
-    version, name, title, description, effectiveStart, effectiveEnd, duration, frequency, status, topic, kind, participantType, participantRole, relatedArtifact,
+    version, name, title, description, effectiveStart, effectiveEnd, duration, frequency,
+    statusCode, topicCode, kindCode, participantTypeCode, participantRoleCode, relatedArtifact,
   } = activityDefinitionFormData;
   const effectivePeriod = {
     start: Util.formatDate(effectiveStart),
@@ -80,11 +81,21 @@ function mapToBffActivityDefinition(activityDefinitionFormData) {
     description,
     effectivePeriod,
     timing,
-    status,
-    topic,
-    kind,
-    actionParticipantType: participantType,
-    actionParticipantRole: participantRole,
+    status: {
+      code: statusCode,
+    },
+    topic: {
+      code: topicCode,
+    },
+    kind: {
+      code: kindCode,
+    },
+    actionParticipantType: {
+      code: participantTypeCode,
+    },
+    actionParticipantRole: {
+      code: participantRoleCode,
+    },
     relatedArtifact,
   };
 }

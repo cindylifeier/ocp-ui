@@ -79,7 +79,7 @@ function ManageActivityDefinitionForm(props) {
         <Cell area="status">
           <SelectField
             fullWidth
-            name="status"
+            name="statusCode"
             hintText={<FormattedMessage {...messages.hintText.status} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
           >
@@ -127,7 +127,7 @@ function ManageActivityDefinitionForm(props) {
         <Cell area="topic">
           <SelectField
             fullWidth
-            name="topic"
+            name="topicCode"
             hintText={<FormattedMessage {...messages.hintText.topic} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.topic} />}
           >
@@ -139,7 +139,7 @@ function ManageActivityDefinitionForm(props) {
         <Cell area="kind">
           <SelectField
             fullWidth
-            name="kind"
+            name="kindCode"
             hintText={<FormattedMessage {...messages.hintText.resourceType} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.resourceType} />}
           >
@@ -156,7 +156,7 @@ function ManageActivityDefinitionForm(props) {
         <Cell area="participantType">
           <SelectField
             fullWidth
-            name="participantType"
+            name="participantTypeCode"
             hintText={<FormattedMessage {...messages.hintText.participantType} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantType} />}
           >
@@ -168,7 +168,7 @@ function ManageActivityDefinitionForm(props) {
         <Cell area="participantRole">
           <SelectField
             fullWidth
-            name="participantRole"
+            name="participantRoleCode"
             hintText={<FormattedMessage {...messages.hintText.participantRole} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
           >
