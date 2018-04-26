@@ -77,7 +77,7 @@ function ManageActivityDefinition(props) {
                 .required((<FormattedMessage {...messages.validation.required} />)),
               participantRole: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              relatedArtifacts: yup.array()
+              relatedArtifact: yup.array()
                 .required((<FormattedMessage {...messages.validation.requiredRelatedArtifacts} />))
                 .min(1, (<FormattedMessage {...messages.validation.minLengthdRelatedArtifacts} />)),
             });

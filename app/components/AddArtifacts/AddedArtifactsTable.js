@@ -16,7 +16,7 @@ function AddedArtifactsTable(props) {
   const tableColumns = 'repeat(2, 1fr) 80px';
   const {
     errors,
-    relatedArtifacts,
+    relatedArtifact,
     arrayHelpers,
     handleEditArtifact,
   } = props;
@@ -27,10 +27,10 @@ function AddedArtifactsTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.addedArtifactsTable.tableHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedArtifactsTable.tableHeaderArtifactType} /></TableHeaderColumn>
         </TableHeader>
-        {errors && errors.relatedArtifacts &&
-        <CustomErrorText>{errors.relatedArtifacts}</CustomErrorText>
+        {errors && errors.relatedArtifact &&
+        <CustomErrorText>{errors.relatedArtifact}</CustomErrorText>
         }
-        {relatedArtifacts && relatedArtifacts.map((artifact, index) => {
+        {relatedArtifact && relatedArtifact.map((artifact, index) => {
           const { display, type } = artifact;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedArtifactsTable.tableActionEdit} />,
@@ -58,7 +58,7 @@ AddedArtifactsTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
   handleEditArtifact: PropTypes.func.isRequired,
-  relatedArtifacts: PropTypes.arrayOf(PropTypes.shape({
+  relatedArtifact: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string,
     type: PropTypes.string,
   })),

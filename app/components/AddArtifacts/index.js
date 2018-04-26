@@ -50,10 +50,10 @@ class AddArtifacts extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { relatedArtifactTypes, errors, relatedArtifacts } = this.props;
+    const { relatedArtifactTypes, errors, relatedArtifact } = this.props;
     const addedArtifactsTableProps = {
       errors,
-      relatedArtifacts,
+      relatedArtifact,
     };
     return (
       <div>
@@ -67,7 +67,7 @@ class AddArtifacts extends React.Component { // eslint-disable-line react/prefer
             </AddArtifactsButton>
           </InfoSection>
           <FieldArray
-            name="relatedArtifacts"
+            name="relatedArtifact"
             render={(arrayHelpers) => (
               <div>
                 <Dialog
@@ -104,7 +104,7 @@ AddArtifacts.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   errors: PropTypes.object,
-  relatedArtifacts: PropTypes.arrayOf(PropTypes.shape({
+  relatedArtifact: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string,
     type: PropTypes.string,
   })),

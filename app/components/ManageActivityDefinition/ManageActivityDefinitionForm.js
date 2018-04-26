@@ -40,7 +40,7 @@ class ManageActivityDefinitionForm extends React.Component {
     const addArtifactsProps = {
       relatedArtifactTypes,
       errors,
-      relatedArtifacts: values.relatedArtifacts,
+      relatedArtifact: values.relatedArtifact,
     };
 
     const today = new Date();
