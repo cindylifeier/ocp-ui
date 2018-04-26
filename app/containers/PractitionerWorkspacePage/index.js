@@ -269,7 +269,6 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             ],
           }, {
             type: 'row',
-            height: 50,
             content: [
               {
                 title: 'CALENDAR',
@@ -541,7 +540,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         {stateMetadata &&
         <Page>
           <GoldenLayout
-            containerHeight="85vh"
+            containerHeight="88vh"
             containerWidth="95vw"
             containerId="golden-practitioner-workspace"
             componentMetadata={PractitionerWorkspacePage.componentMetadata}
