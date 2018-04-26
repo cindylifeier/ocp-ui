@@ -18,7 +18,8 @@ import messages from './messages';
 
 function ManageActivityDefinitionForm(props) {
   const {
-    organization,
+    organizationName,
+    lastPublishDate,
     publicationStatuses,
     definitionTopics,
     resourceTypes,
@@ -56,7 +57,7 @@ function ManageActivityDefinitionForm(props) {
         <Cell area="selectedOrganization">
           <TextLabelGroup
             label={<FormattedMessage {...messages.organizationNameLabel} />}
-            text={organization.name}
+            text={organizationName}
           />
         </Cell>
         <Cell area="systemName">
@@ -95,12 +96,14 @@ function ManageActivityDefinitionForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
           />
         </Cell>
+        {lastPublishDate &&
         <Cell area="lastPublishDate">
           <TextLabelGroup
             label={<FormattedMessage {...messages.lastPublishDateLabel} />}
-            text={organization.name}
+            text={lastPublishDate || ''}
           />
         </Cell>
+        }
         <Cell area="effectivePeriodStart">
           <DatePicker
             fullWidth
@@ -220,7 +223,8 @@ function ManageActivityDefinitionForm(props) {
 }
 
 ManageActivityDefinitionForm.propTypes = {
-  organization: PropTypes.object.isRequired,
+  organizationName: PropTypes.string.isRequired,
+  lastPublishDate: PropTypes.string,
   publicationStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,

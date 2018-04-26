@@ -21,7 +21,8 @@ function ManageActivityDefinition(props) {
     actionParticipantRoles, organization, editMode, selectedActivityDefinition, relatedArtifactTypes,
   } = props;
   const formData = {
-    organization,
+    organizationName: organization.name,
+    lastPublishDate: selectedActivityDefinition && new Date(selectedActivityDefinition.date).toLocaleDateString(),
     publicationStatuses,
     definitionTopics,
     resourceTypes,
