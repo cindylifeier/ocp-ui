@@ -15,8 +15,7 @@ import { getActivityDefinitionError, getActivityDefinitionSuccess, saveActivityD
 
 function* getActivityDefinitionSaga({ activityDefinitionId }) {
   try {
-    const organization = yield select(makeSelectOrganization());
-    const activityDefinition = yield call(getActivityDefinition, organization.logicalId, activityDefinitionId);
+    const activityDefinition = yield call(getActivityDefinition, activityDefinitionId);
     yield put(getActivityDefinitionSuccess(activityDefinition));
   } catch (error) {
     yield put(getActivityDefinitionError(getErrorDetail(error)));

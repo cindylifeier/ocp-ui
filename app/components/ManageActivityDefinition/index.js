@@ -63,19 +63,19 @@ function ManageActivityDefinition(props) {
               effectiveEnd: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(effectiveStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
-              duration: yup.number()
+              duration: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              frequency: yup.number()
+              frequency: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              status: yup.object()
+              status: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              topic: yup.object()
+              topic: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              kind: yup.object()
+              kind: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              participantType: yup.object()
+              participantType: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              participantRole: yup.object()
+              participantRole: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               relatedArtifacts: yup.array()
                 .required((<FormattedMessage {...messages.validation.requiredRelatedArtifacts} />))

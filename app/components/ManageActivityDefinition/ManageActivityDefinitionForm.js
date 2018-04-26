@@ -143,7 +143,7 @@ class ManageActivityDefinitionForm extends React.Component {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
             >
               {publicationStatuses && publicationStatuses.map((status) =>
-                <MenuItem key={status.code} value={status} primaryText={status.display} />,
+                <MenuItem key={status.code} value={status.code} primaryText={status.display} />,
               )}
             </SelectField>
           </Cell>
@@ -155,7 +155,7 @@ class ManageActivityDefinitionForm extends React.Component {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.topic} />}
             >
               {definitionTopics && definitionTopics.map((topic) =>
-                <MenuItem key={topic.code} value={topic} primaryText={topic.display} />,
+                <MenuItem key={topic.code} value={topic.code} primaryText={topic.display} />,
               )}
             </SelectField>
           </Cell>
@@ -167,7 +167,7 @@ class ManageActivityDefinitionForm extends React.Component {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.resourceType} />}
             >
               {resourceTypes && resourceTypes.map((kind) =>
-                <MenuItem key={kind.code} value={kind} primaryText={kind.display} />,
+                <MenuItem key={kind.code} value={kind.code} primaryText={kind.display} />,
               )}
             </SelectField>
           </Cell>
@@ -179,7 +179,7 @@ class ManageActivityDefinitionForm extends React.Component {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantType} />}
             >
               {actionParticipantTypes && actionParticipantTypes.map((type) =>
-                <MenuItem key={type.code} value={type} primaryText={type.display} />,
+                <MenuItem key={type.code} value={type.code} primaryText={type.display} />,
               )}
             </SelectField>
           </Cell>
@@ -191,7 +191,7 @@ class ManageActivityDefinitionForm extends React.Component {
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
             >
               {actionParticipantRoles && actionParticipantRoles.map((role) =>
-                <MenuItem key={role.code} value={role} primaryText={role.display} />,
+                <MenuItem key={role.code} value={role.code} primaryText={role.display} />,
               )}
             </SelectField>
           </Cell>
