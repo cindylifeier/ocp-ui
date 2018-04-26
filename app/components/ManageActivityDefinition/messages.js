@@ -1,7 +1,7 @@
 /*
- * ManageHealthcareService Messages
+ * ManageActivityDefinition Messages
  *
- * This contains all the text for the ManageHealthcareService component.
+ * This contains all the text for the ManageActivityDefinition component.
  */
 import { defineMessages } from 'react-intl';
 
@@ -17,6 +17,14 @@ export default defineMessages({
   lastPublishDateLabel: {
     id: 'ocpui.components.ManageActivityDefinition.lastPublishDateLabel',
     defaultMessage: 'Last Publish Date:',
+  },
+  activityParticipantSubtitle: {
+    id: 'ocpui.components.ManageActivityDefinition.activityParticipantSubtitle',
+    defaultMessage: 'Activity Participant',
+  },
+  setOccurrenceSubtitle: {
+    id: 'ocpui.components.ManageActivityDefinition.setOccurrenceSubtitle',
+    defaultMessage: 'Set Occurrence',
   },
   validation: {
     minLength: {
@@ -75,11 +83,11 @@ export default defineMessages({
     },
     effectiveStart: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.effectiveStart',
-      defaultMessage: 'Effective Period: Start ',
+      defaultMessage: 'Effective Period Start Date',
     },
     effectiveEnd: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.effectiveEnd',
-      defaultMessage: 'Effective Period: End ',
+      defaultMessage: 'Effective Period End Date',
     },
     status: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.status',
@@ -95,11 +103,11 @@ export default defineMessages({
     },
     participantType: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.participantType',
-      defaultMessage: 'Participant Type',
+      defaultMessage: 'Type',
     },
     participantRole: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.participantRole',
-      defaultMessage: 'Participant Role',
+      defaultMessage: 'Role',
     },
   },
   floatingLabelText: {
@@ -129,11 +137,11 @@ export default defineMessages({
     },
     effectiveStart: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.effectiveStart',
-      defaultMessage: 'Effective Period: Start ',
+      defaultMessage: 'Effective Period Start Date',
     },
     effectiveEnd: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.effectiveEnd',
-      defaultMessage: 'Effective Period: End ',
+      defaultMessage: 'Effective Period End Date',
     },
     status: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.status',
@@ -149,11 +157,11 @@ export default defineMessages({
     },
     participantType: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.participantType',
-      defaultMessage: 'Participant Type',
+      defaultMessage: 'Type',
     },
     participantRole: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.participantRole',
-      defaultMessage: 'Participant Role',
+      defaultMessage: 'Role',
     },
   },
 });

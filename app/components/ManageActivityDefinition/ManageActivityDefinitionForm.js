@@ -121,22 +121,6 @@ function ManageActivityDefinitionForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.effectiveEnd} />}
           />
         </Cell>
-        <Cell area="duration">
-          <TextField
-            fullWidth
-            name="duration"
-            hintText={<FormattedMessage {...messages.hintText.duration} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.duration} />}
-          />
-        </Cell>
-        <Cell area="frequency">
-          <TextField
-            fullWidth
-            name="frequency"
-            hintText={<FormattedMessage {...messages.hintText.frequency} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.frequency} />}
-          />
-        </Cell>
         <Cell area="topic">
           <SelectField
             fullWidth
@@ -161,6 +145,11 @@ function ManageActivityDefinitionForm(props) {
             )}
           </SelectField>
         </Cell>
+        <Cell area="activityParticipantSubtitle">
+          <FormSubtitle margin="0">
+            <FormattedMessage {...messages.activityParticipantSubtitle} />
+          </FormSubtitle>
+        </Cell>
         <Cell area="participantType">
           <SelectField
             fullWidth
@@ -184,6 +173,27 @@ function ManageActivityDefinitionForm(props) {
               <MenuItem key={role.code} value={role.code} primaryText={role.display} />,
             )}
           </SelectField>
+        </Cell>
+        <Cell area="setOccurrenceSubtitle">
+          <FormSubtitle margin="0">
+            <FormattedMessage {...messages.setOccurrenceSubtitle} />
+          </FormSubtitle>
+        </Cell>
+        <Cell area="duration">
+          <TextField
+            fullWidth
+            name="duration"
+            hintText={<FormattedMessage {...messages.hintText.duration} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.duration} />}
+          />
+        </Cell>
+        <Cell area="frequency">
+          <TextField
+            fullWidth
+            name="frequency"
+            hintText={<FormattedMessage {...messages.hintText.frequency} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.frequency} />}
+          />
         </Cell>
         <Cell area="relatedArtifactsSection">
           <AddArtifacts {...addArtifactsProps} />
