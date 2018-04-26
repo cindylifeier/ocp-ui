@@ -10,7 +10,6 @@ import { FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
 import Dialog from 'material-ui/Dialog';
 
-import Section from 'components/Section';
 import InfoSection from 'components/InfoSection';
 import FormSubtitle from 'components/FormSubtitle';
 import AddArtifactsForm from './AddArtifactsForm';
@@ -57,42 +56,40 @@ class AddArtifacts extends React.Component { // eslint-disable-line react/prefer
     };
     return (
       <div>
-        <Section padding="0 2px 5px 2px">
-          <FormSubtitle margin="1vh 0 0 0">
-            <FormattedMessage {...messages.title} />
-          </FormSubtitle>
-          <InfoSection margin="0 10px 10px 10px">
-            <AddArtifactsButton onClick={this.handleOpenDialog}>
-              <FormattedMessage {...messages.addArtifactsButton} />
-            </AddArtifactsButton>
-          </InfoSection>
-          <FieldArray
-            name="relatedArtifact"
-            render={(arrayHelpers) => (
-              <div>
-                <Dialog
-                  title="Add Artifacts"
-                  modal={false}
-                  open={this.state.isArtifactsDialogOpen}
-                  onRequestClose={this.handleCloseDialog}
-                >
-                  <AddArtifactsForm
-                    initialValues={this.state.editingArtifact}
-                    onAddArtifact={arrayHelpers.push}
-                    onRemoveArtifact={arrayHelpers.remove}
-                    relatedArtifactTypes={relatedArtifactTypes}
-                    handleCloseDialog={this.handleCloseDialog}
-                  />
-                </Dialog>
-                <AddedArtifactsTable
-                  handleEditArtifact={this.handleEditArtifact}
-                  arrayHelpers={arrayHelpers}
-                  {...addedArtifactsTableProps}
+        <FormSubtitle margin="1vh 0 0 0">
+          <FormattedMessage {...messages.title} />
+        </FormSubtitle>
+        <InfoSection margin="0 10px 10px 10px">
+          <AddArtifactsButton onClick={this.handleOpenDialog}>
+            <FormattedMessage {...messages.addArtifactsButton} />
+          </AddArtifactsButton>
+        </InfoSection>
+        <FieldArray
+          name="relatedArtifact"
+          render={(arrayHelpers) => (
+            <div>
+              <Dialog
+                title="Add Artifacts"
+                modal={false}
+                open={this.state.isArtifactsDialogOpen}
+                onRequestClose={this.handleCloseDialog}
+              >
+                <AddArtifactsForm
+                  initialValues={this.state.editingArtifact}
+                  onAddArtifact={arrayHelpers.push}
+                  onRemoveArtifact={arrayHelpers.remove}
+                  relatedArtifactTypes={relatedArtifactTypes}
+                  handleCloseDialog={this.handleCloseDialog}
                 />
-              </div>
-            )}
-          />
-        </Section>
+              </Dialog>
+              <AddedArtifactsTable
+                handleEditArtifact={this.handleEditArtifact}
+                arrayHelpers={arrayHelpers}
+                {...addedArtifactsTableProps}
+              />
+            </div>
+          )}
+        />
       </div>
     );
   }

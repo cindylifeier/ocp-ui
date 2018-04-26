@@ -10,6 +10,14 @@ export default defineMessages({
     id: 'ocpui.components.ManageActivityDefinition.title',
     defaultMessage: 'General Information',
   },
+  organizationNameLabel: {
+    id: 'app.containers.ManageActivityDefinition.organizationNameLabel',
+    defaultMessage: 'Organization Name',
+  },
+  lastPublishDateLabel: {
+    id: 'ocpui.components.ManageActivityDefinition.lastPublishDateLabel',
+    defaultMessage: 'Last Publish Date:',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.validation.minLength',
@@ -41,10 +49,6 @@ export default defineMessages({
     },
   },
   hintText: {
-    organizationNameLabel: {
-      id: 'app.containers.ManageActivityDefinition.manageForm.organizationNameLabel',
-      defaultMessage: 'Organization:  ',
-    },
     version: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.version',
       defaultMessage: 'Version',
@@ -60,10 +64,6 @@ export default defineMessages({
     description: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.description',
       defaultMessage: 'Description',
-    },
-    lastPublishDateLabel: {
-      id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.lastPublishDateLabel',
-      defaultMessage: 'Last Publish Date:',
     },
     duration: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.hintText.duration',
@@ -118,10 +118,6 @@ export default defineMessages({
     description: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.description',
       defaultMessage: 'Description',
-    },
-    lastPublishDateLabel: {
-      id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.lastPublishDateLabel',
-      defaultMessage: 'Last Publish Date',
     },
     duration: {
       id: 'ocpui.components.ManageActivityDefinition.manageForm.floatingLabelText.duration',

@@ -8,23 +8,21 @@ const ManageActivityDefinitionFormGrid = Grid.extend`
   grid-template-columns: 1fr;
   grid-template-areas:
     "generalInformationSubtitle"
-    "selectedOrganization"
     "version"
+    "selectedOrganization"
     "systemName"
     "displayName"
-    "description"
+    "status"
     "lastPublishDate"
+    "description"
     "effectivePeriodStart"
     "effectivePeriodEnd"
-    "duration"
-    "frequency"
-    "status"
     "topic"
     "kind"
     "participantType"
     "participantRole"
-    "relatedArtifactSubtitle"
-    "addArtifactsButton"
+    "duration"
+    "frequency"
     "relatedArtifactsSection"
     "buttonGroup";
 
@@ -32,20 +30,18 @@ const ManageActivityDefinitionFormGrid = Grid.extend`
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
-      "selectedOrganization selectedOrganization"
       "version version"
+      "selectedOrganization selectedOrganization"
       "systemName systemName"
       "displayName displayName"
+      "status status"
       "description description"
       "lastPublishDate lastPublishDate"
       "effectivePeriodStart effectivePeriodEnd"
       "duration frequency"
-      "status status"
       "topic topic"
       "kind kind"
       "participantType participantRole"
-      "relatedArtifactSubtitle relatedArtifactSubtitle"
-      "addArtifactsButton addArtifactsButton"
       "relatedArtifactsSection relatedArtifactsSection"
       "buttonGroup  .";
   }
@@ -54,14 +50,14 @@ const ManageActivityDefinitionFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
-      "selectedOrganization selectedOrganization selectedOrganization . . . . . . . . ."
-      "version version version systemName systemName systemName displayName displayName displayName description description description"
+      "version version version version . . . . . . . ."
+      "selectedOrganization selectedOrganization selectedOrganization selectedOrganization . . . . . . . ."
+      "systemName systemName systemName systemName displayName displayName displayName displayName . . . ."
+      "status status status status description description description description . . . ."
+      "lastPublishDate lastPublishDate lastPublishDate lastPublishDate . . . . . . . ."
       "effectivePeriodStart effectivePeriodStart effectivePeriodStart effectivePeriodEnd effectivePeriodEnd effectivePeriodEnd duration duration duration frequency frequency frequency"
-      "lastPublishDate lastPublishDate lastPublishDate lastPublishDate lastPublishDate lastPublishDate . . . . . ."
-      "status status status status topic topic topic topic kind kind kind kind"
+      "topic topic topic topic kind kind kind kind . . . ."
       "participantType participantType participantType participantRole participantRole participantRole . . . . . ."
-      "relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle relatedArtifactSubtitle"
-      "addArtifactsButton addArtifactsButton . . . . . . . . . ."
       "relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection relatedArtifactsSection"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
