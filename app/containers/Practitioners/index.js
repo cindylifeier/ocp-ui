@@ -24,6 +24,7 @@ import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
 import PanelToolbar from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
+import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
@@ -139,6 +140,8 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
           <PractitionerTable
             relativeTop={this.state.relativeTop}
             practitionersData={practitionersData}
+            combineAddress={combineAddress}
+            mapToTelecoms={mapToTelecoms}
           />
         </InfoSection>
       </div>
