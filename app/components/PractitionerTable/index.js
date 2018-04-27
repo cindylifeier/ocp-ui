@@ -23,12 +23,11 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
-import { SUMMARY_PANEL_WIDTH } from 'containers/Practitioners/constants';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData, size } = props;
+  const { relativeTop, practitionersData, size, combineAddress, mapToTelecoms } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -42,6 +41,12 @@ function PractitionerTable(props) {
               <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
+                {isExpanded &&
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                  <TableHeaderColumn > <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+                }
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
                 { isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
@@ -49,7 +54,9 @@ function PractitionerTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
-                const { name, active, identifiers } = practitioner;
+                const { name, active, identifiers, addresses, telecoms } = practitioner;
+                const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
+                const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
@@ -61,6 +68,11 @@ function PractitionerTable(props) {
                   >
                     <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
                     <TableRowColumn>{renderLastName(name)}</TableRowColumn>
+                    {isExpanded ?
+                      <TableRowColumn>{address}</TableRowColumn> : null
+                    }
+                    {isExpanded ? <TableRowColumn>{contact}</TableRowColumn> : null
+                    }
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
@@ -137,6 +149,8 @@ PractitionerTable.propTypes = {
       practitionerRoles: PropTypes.array,
     })).isRequired,
   }),
+  combineAddress: PropTypes.func.isRequired,
+  mapToTelecoms: PropTypes.func.isRequired,
 };
 
 export default sizeMeHOC(PractitionerTable);

@@ -18,6 +18,14 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.tableHeaderColumnStatus',
     defaultMessage: 'Status',
   },
+  tableColumnHeaderAddress: {
+    id: 'ocpui.components.PractitionerTable.TableColumnHeader.Address',
+    defaultMessage: 'Address',
+  },
+  tableColumnHeaderTelecom: {
+    id: 'ocpui.components.PractitionerTable.TableColumnHeader.Telecom',
+    defaultMessage: 'Contact',
+  },
   tableHeaderColumnIdentifier: {
     id: 'ocpui.components.PractitionerTable.tableHeaderColumnIdentifier',
     defaultMessage: 'Identifier',
