@@ -27,6 +27,7 @@ import {
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
+import { combineAddress } from 'containers/App/helpers';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
@@ -144,6 +145,7 @@ export class Patients extends React.Component {
           relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+          combineAddress={combineAddress}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
