@@ -23,11 +23,13 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import OrganizationExpansionRowDetails from './OrganizationExpansionRowDetails';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, ENTER_KEY } from './constants';
+import { EXPANDED_TABLE_COLUMNS, ENTER_KEY, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+
 
 function OrganizationTable(props) {
-  const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
-  const columns = EXPANDED_TABLE_COLUMNS;
+  const { organizationData, flattenOrganizationData, combineAddress, mapToTelecoms, onRowClick, relativeTop, onOrganizationViewDetails, size } = props;
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   return (
     <div>
@@ -39,10 +41,21 @@ function OrganizationTable(props) {
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
+                { isExpanded &&
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                }
+                { isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+                }
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
                 const flattenOrganization = flattenOrganizationData(organization);
+
+                const { addresses, telecoms } = organization;
+                const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
+                const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
+
                 const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <ExpansionTableRow
@@ -63,6 +76,12 @@ function OrganizationTable(props) {
                   >
                     <TableRowColumn>{name}</TableRowColumn>
                     <TableRowColumn>{identifiers}</TableRowColumn>
+                    {isExpanded &&
+                      <TableRowColumn>{ address}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{ contact}</TableRowColumn>
+                      }
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
@@ -139,7 +158,10 @@ OrganizationTable.propTypes = {
   }),
   onRowClick: PropTypes.func,
   flattenOrganizationData: PropTypes.func.isRequired,
+  combineAddress: PropTypes.func.isRequired,
+  mapToTelecoms: PropTypes.func.isRequired,
   onOrganizationViewDetails: PropTypes.func.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
 export default sizeMeHOC(OrganizationTable);
