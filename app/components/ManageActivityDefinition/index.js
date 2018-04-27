@@ -36,6 +36,7 @@ function ManageActivityDefinition(props) {
     <div>
       {((editMode && selectedActivityDefinition) || !editMode) &&
       <Formik
+        enableReinitialize
         initialValues={initialActivityDefinitionFormValues(selectedActivityDefinition)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
