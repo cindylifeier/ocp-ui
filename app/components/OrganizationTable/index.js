@@ -28,7 +28,7 @@ import { EXPANDED_TABLE_COLUMNS, ENTER_KEY, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VI
 
 function OrganizationTable(props) {
   const { organizationData, flattenOrganizationData, combineAddress, mapToTelecoms, onRowClick, relativeTop, onOrganizationViewDetails, size } = props;
-  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
+  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   return (
@@ -76,12 +76,12 @@ function OrganizationTable(props) {
                   >
                     <TableRowColumn>{name}</TableRowColumn>
                     <TableRowColumn>{identifiers}</TableRowColumn>
-                    {isExpanded &&
-                      <TableRowColumn>{ address}</TableRowColumn>
+                    {isExpanded ?
+                      <TableRowColumn>{ address}</TableRowColumn> : null
                     }
-                    {isExpanded &&
-                    <TableRowColumn>{ contact}</TableRowColumn>
-                      }
+                    {isExpanded ?
+                      <TableRowColumn>{ contact}</TableRowColumn> : null
+                    }
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
