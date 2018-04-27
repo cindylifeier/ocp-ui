@@ -21,7 +21,7 @@ import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
 
-function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, isExpanded, columns) {
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, isExpanded, columns, combineAddress) {
   return patients && patients.map((patient) => {
     const menuItems = [{
       primaryText: <FormattedMessage {...messages.edit} />,
@@ -65,6 +65,9 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         <TableRowColumn>{patient.name[0] != null ? patient.name[0].firstName : null}</TableRowColumn>
         <TableRowColumn>{patient.name[0] != null ? patient.name[0].lastName : null}</TableRowColumn>
         { isExpanded &&
+        <TableRowColumn>{ patient.addresses && patient.addresses.length > 0 ? combineAddress(patient.addresses[0]) : ''}</TableRowColumn>
+        }
+        { isExpanded &&
         <TableRowColumn>{patient.birthDate}</TableRowColumn>
         }
         <TableRowColumn>{patient.genderCode}</TableRowColumn>
@@ -94,7 +97,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, size }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, size, combineAddress }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -121,6 +124,9 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.firstName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.lastName} /></TableHeaderColumn>
           {isExpanded &&
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+          }
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.dob} /></TableHeaderColumn>
           }
           <TableHeaderColumn><FormattedMessage {...messages.gender} /></TableHeaderColumn>
@@ -130,7 +136,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, isExpanded, columns)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, isExpanded, columns, combineAddress)}
       </Table>
     );
   }
@@ -144,6 +150,7 @@ PatientSearchResult.propTypes = {
   searchResult: PropTypes.any,
   onPatientClick: PropTypes.func,
   onPatientViewDetailsClick: PropTypes.func,
+  combineAddress: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,
 };
 
