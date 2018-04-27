@@ -16,7 +16,7 @@ import {
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { combineAddress } from 'containers/App/helpers';
+import { mapToTelecoms } from 'containers/App/helpers';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
@@ -144,7 +144,7 @@ export class Patients extends React.Component {
           relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
-          combineAddress={combineAddress}
+          mapToTelecoms={mapToTelecoms}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
