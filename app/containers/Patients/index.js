@@ -4,30 +4,33 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import isEqual from 'lodash/isEqual';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import RecordsRange from 'components/RecordsRange';
-import PatientSearchResult from 'components/PatientSearchResult';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
+import PatientSearchResult from 'components/PatientSearchResult';
+import RecordsRange from 'components/RecordsRange';
 import {
   CARE_MANAGER_ROLE_CODE,
-  FRONT_OFFICE_ROLE_CODE,
   MANAGE_PATIENT_URL,
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
+import isEqual from 'lodash/isEqual';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+
+import injectSaga from 'utils/injectSaga';
+import { initializePatients, loadPatientSearchResult } from './actions';
+import messages from './messages';
+import reducer from './reducer';
+import saga from './saga';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -40,10 +43,6 @@ import {
   makeSelectSearchLoading,
   makeSelectTotalPages,
 } from './selectors';
-import { initializePatients, loadPatientSearchResult } from './actions';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
 
 export class Patients extends React.Component {
 
@@ -135,7 +134,7 @@ export class Patients extends React.Component {
       <div>
         <PanelToolbar
           {...addNewItem}
-          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE]}
+          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.onSize}
         />
