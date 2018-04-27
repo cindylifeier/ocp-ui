@@ -46,9 +46,17 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.lastName',
     defaultMessage: 'Last Name',
   },
-  tableColumnHeaderAddress: {
-    id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Address',
-    defaultMessage: 'Address',
+  tableColumnHeaderTelecom: {
+    id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Telecom',
+    defaultMessage: 'Contact',
+  },
+  race: {
+    id: 'ocpui.components.PatientSearchResult.race',
+    defaultMessage: 'Race',
+  },
+  ethnicity: {
+    id: 'ocpui.components.PatientSearchResult.ethnicity',
+    defaultMessage: 'Ethnicity',
   },
   dob: {
     id: 'ocpui.components.PatientSearchResult.dob',
