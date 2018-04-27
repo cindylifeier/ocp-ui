@@ -43,6 +43,7 @@ import {
 import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { flattenPatientData } from './helpers';
 import messages from './messages';
 
 export class Patients extends React.Component {
@@ -144,6 +145,7 @@ export class Patients extends React.Component {
           relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+          flattenPatientData={flattenPatientData}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>

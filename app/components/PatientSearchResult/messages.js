@@ -70,4 +70,38 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.addAdvisory',
     defaultMessage: 'Add Advisory',
   },
+  expansionRowDetails: {
+    name: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.name',
+      defaultMessage: 'Name',
+    },
+    identifiers: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.identifiers',
+      defaultMessage: 'Identifier',
+    },
+    addresses: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.addresses',
+      defaultMessage: 'Address',
+    },
+    telecoms: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
+      defaultMessage: 'Contact',
+    },
+    status: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
+      defaultMessage: 'Status',
+    },
+    dob: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.dob',
+      defaultMessage: 'DOB',
+    },
+    gender: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.gender',
+      defaultMessage: 'Gender',
+    },
+    birthSex: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.birthSex',
+      defaultMessage: 'Birth Gender',
+    },
+  },
 });
