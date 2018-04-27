@@ -2,44 +2,56 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
-import { CREATE_ACTIVITY_DEFINITION } from 'containers/ManageActivityDefinitionPage/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { createActivityDefinition } from './api';
-import { createActivityDefinitionError, createActivityDefinitionSuccess } from './actions';
+import { GET_ACTIVITY_DEFINITION, SAVE_ACTIVITY_DEFINITION } from './constants';
+import {
+  determineNotificationForSavingActivityDefinition,
+  getActivityDefinition,
+  getErrorDetail,
+  saveActivityDefinition,
+} from './api';
+import { getActivityDefinitionError, getActivityDefinitionSuccess, saveActivityDefinitionError } from './actions';
 
-function* createActivityDefinitionSaga(action) {
+
+function* getActivityDefinitionSaga({ activityDefinitionId }) {
+  try {
+    const activityDefinition = yield call(getActivityDefinition, activityDefinitionId);
+    yield put(getActivityDefinitionSuccess(activityDefinition));
+  } catch (error) {
+    yield put(getActivityDefinitionError(getErrorDetail(error)));
+    yield put(showNotification('No match activity definition found.'));
+    yield put(goBack());
+  }
+}
+
+function* saveActivityDefinitionSaga(action) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const createActivityDefinitionResponse = yield call(createActivityDefinition, action.activityDefinitionFormData, organization.logicalId);
-    yield put(createActivityDefinitionSuccess(createActivityDefinitionResponse));
-    yield put(showNotification('Successfully create the activity definition.'));
+    yield call(saveActivityDefinition, action.activityDefinitionFormData, organization.logicalId);
+    yield put(showNotification(`Successfully ${determineNotificationForSavingActivityDefinition(action.activityDefinitionFormData)} the activity definition.`));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification(`Failed to create the Activity Definition.${getErrorDetail(error)}`));
+    yield put(showNotification(`Failed to ${determineNotificationForSavingActivityDefinition(action.activityDefinitionFormData)} the Activity Definition.`));
     yield call(action.handleSubmitting);
-    yield put(createActivityDefinitionError(error));
+    yield put(saveActivityDefinitionError(getErrorDetail(error)));
   }
 }
 
-function* watchCreateActivityDefinitionSaga() {
-  yield takeLatest(CREATE_ACTIVITY_DEFINITION, createActivityDefinitionSaga);
+function* watchGetActivityDefinitionSaga() {
+  yield takeLatest(GET_ACTIVITY_DEFINITION, getActivityDefinitionSaga);
 }
 
-function getErrorDetail(err) {
-  let errorDetail = '';
-  if (err && err.message === 'Failed to fetch') {
-    errorDetail = ' Server is offline.';
-  } else if (err && err.response && err.response.status === 409) {
-    errorDetail = ' Duplicate Entry:: Same Category and Type already exists.';
-  } else if (err && err.response && err.response.status === 500) {
-    errorDetail = ' Unknown server error.';
-  }
-  return errorDetail;
+function* watchSaveActivityDefinitionSaga() {
+  yield takeLatest(SAVE_ACTIVITY_DEFINITION, saveActivityDefinitionSaga);
 }
 
+/**
+ * Root saga manages watcher lifecycle
+ */
 export default function* rootSaga() {
   yield all([
-    watchCreateActivityDefinitionSaga(),
+    watchGetActivityDefinitionSaga(),
+    watchSaveActivityDefinitionSaga(),
   ]);
 }

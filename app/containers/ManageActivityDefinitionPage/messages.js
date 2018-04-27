@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ManageActivityDefinitionPage.createHeader',
     defaultMessage: 'Create Activity Definition',
   },
+  editHeader: {
+    id: 'ocpui.containers.ManageActivityDefinitionPage.editHeader',
+    defaultMessage: 'Edit Activity Definition',
+  },
 });

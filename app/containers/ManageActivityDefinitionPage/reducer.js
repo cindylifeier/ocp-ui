@@ -5,15 +5,23 @@
  */
 
 import { fromJS } from 'immutable';
-import { CREATE_ACTIVITY_DEFINITION_ERROR, CREATE_ACTIVITY_DEFINITION_SUCCESS } from '../ManageActivityDefinitionPage/constants';
+import {
+  GET_ACTIVITY_DEFINITION_ERROR,
+  GET_ACTIVITY_DEFINITION_SUCCESS,
+  SAVE_ACTIVITY_DEFINITION_ERROR,
+} from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  activityDefinition: null,
+});
 
 function manageActivityDefinitionPageReducer(state = initialState, action) {
   switch (action.type) {
-    case CREATE_ACTIVITY_DEFINITION_SUCCESS:
-      return state.set('error', false);
-    case CREATE_ACTIVITY_DEFINITION_ERROR:
+    case GET_ACTIVITY_DEFINITION_SUCCESS:
+      return state.set('activityDefinition', action.activityDefinition);
+    case GET_ACTIVITY_DEFINITION_ERROR:
+      return state.set('error', action.error);
+    case SAVE_ACTIVITY_DEFINITION_ERROR:
       return state.set('error', action.error);
     default:
       return state;
