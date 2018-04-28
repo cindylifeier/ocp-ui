@@ -21,7 +21,6 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import {
   CARE_MANAGER_ROLE_CODE,
-  FRONT_OFFICE_ROLE_CODE,
   MANAGE_PATIENT_URL,
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
@@ -136,7 +135,7 @@ export class Patients extends React.Component {
       <div>
         <PanelToolbar
           {...addNewItem}
-          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE]}
+          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.onSize}
         />
