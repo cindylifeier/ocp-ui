@@ -31,6 +31,11 @@ function PractitionerTable(props) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
+
+  function renderFullName(names) {
+    return names && names.map((name) => (<div key={uniqueId()}>{name.firstName} {name.lastName} </div>));
+  }
+
   return (
     <div>
       {practitionersData.loading && <RefreshIndicatorLoading />}
@@ -39,14 +44,11 @@ function PractitionerTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={relativeTop}>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
                 {isExpanded &&
                   <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 }
-                {isExpanded &&
-                  <TableHeaderColumn > <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
-                }
+                <TableHeaderColumn > <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
                 { isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
@@ -66,13 +68,11 @@ function PractitionerTable(props) {
                     columns={columns}
                     key={uniqueId()}
                   >
-                    <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
-                    <TableRowColumn>{renderLastName(name)}</TableRowColumn>
+                    <TableRowColumn>{renderFullName(name)}</TableRowColumn>
                     {isExpanded ?
                       <TableRowColumn>{address}</TableRowColumn> : null
                     }
-                    {isExpanded ? <TableRowColumn>{contact}</TableRowColumn> : null
-                    }
+                    <TableRowColumn>{contact}</TableRowColumn>
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
@@ -107,14 +107,6 @@ function PractitionerTable(props) {
       )}
     </div>
   );
-}
-
-function renderFirstName(names) {
-  return names && names.map((name) => (<div key={uniqueId()}>{name.firstName}</div>));
-}
-
-function renderLastName(names) {
-  return names && names.map((name) => (<div key={uniqueId()}>{name.lastName}</div>));
 }
 
 PractitionerTable.propTypes = {

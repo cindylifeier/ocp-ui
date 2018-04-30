@@ -6,13 +6,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  tableHeaderColumnFirstName: {
-    id: 'ocpui.components.PractitionerTable.tableHeaderColumnFirstName',
-    defaultMessage: 'First Name',
-  },
-  tableHeaderColumnLastName: {
-    id: 'ocpui.components.PractitionerTable.tableHeaderColumnLastName',
-    defaultMessage: 'Last Name',
+  tableHeaderColumnFullName: {
+    id: 'ocpui.components.PractitionerTable.tableHeaderColumnFullName',
+    defaultMessage: 'Name',
   },
   tableHeaderColumnStatus: {
     id: 'ocpui.components.PractitionerTable.tableHeaderColumnStatus',
