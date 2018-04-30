@@ -38,26 +38,16 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.edit',
     defaultMessage: 'Edit',
   },
-  expansionRowDetails: {
-    name: {
-      id: 'ocpui.components.PractitionerTable.expansionRowDetails.name',
-      defaultMessage: 'Name',
-    },
-    identifiers: {
-      id: 'ocpui.components.PractitionerTable.expansionRowDetails.identifiers',
-      defaultMessage: 'Identifier',
-    },
-    addresses: {
-      id: 'ocpui.components.PractitionerTable.expansionRowDetails.addresses',
-      defaultMessage: 'Address',
-    },
-    telecoms: {
-      id: 'ocpui.components.PractitionerTable.expansionRowDetails.telecoms',
-      defaultMessage: 'Contact',
-    },
-    status: {
-      id: 'ocpui.components.PractitionerTable.expansionRowDetails.status',
-      defaultMessage: 'Status',
-    },
+  expansionRowDetailsName: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsName',
+    defaultMessage: 'Name',
+  },
+  expansionRowDetailsAddresses: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsAddresses',
+    defaultMessage: 'Address',
+  },
+  expansionRowDetailsTelecoms: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsTelecoms',
+    defaultMessage: 'Contact',
   },
 });
