@@ -14,31 +14,31 @@ function PractitionerExpansionRowDetails({ practitioner }) {
       <Grid columns={'60% 40%'} justifyContent="space-between">
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.name} />}
+            label={<FormattedMessage {...messages.expansionRowDetailsName} />}
             text={name}
           />
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.identifiers} />}
+            label={<FormattedMessage {...messages.tableHeaderColumnIdentifier} />}
             text={identifiers}
           />
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.addresses} />}
+            label={<FormattedMessage {...messages.expansionRowDetailsAddresses} />}
             text={addresses}
           />
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.telecoms} />}
+            label={<FormattedMessage {...messages.expansionRowDetailsTelecoms} />}
             text={telecoms}
           />
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.status} />}
+            label={<FormattedMessage {...messages.tableHeaderColumnStatus} />}
             text={active ?
               <FormattedMessage {...messages.active} /> :
               <FormattedMessage {...messages.inactive} />
