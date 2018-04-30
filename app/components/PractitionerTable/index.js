@@ -24,7 +24,6 @@ import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
@@ -59,7 +58,7 @@ function PractitionerTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
-                const { logicalId, name, active, identifiers, addresses, telecoms } = practitioner;
+                const { logicalId, name, active, addresses, telecoms } = practitioner;
                 const flattenedPractitioner = flattenPractitionerData(practitioner);
                 const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
                 const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';

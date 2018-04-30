@@ -23,7 +23,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import OrganizationExpansionRowDetails from './OrganizationExpansionRowDetails';
 import messages from './messages';
-import { ENTER_KEY, EXPANDED_TABLE_COLUMNS } from './constants';
 import { EXPANDED_TABLE_COLUMNS, ENTER_KEY, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
 

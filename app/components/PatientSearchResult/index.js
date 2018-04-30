@@ -74,6 +74,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
       >
         {isExpanded &&
         <TableRowColumn>{getFullName(patient)}</TableRowColumn>
+        }
         <TableRowColumn>{ contact }</TableRowColumn>
         {isExpanded &&
         <TableRowColumn>{ address }</TableRowColumn>
