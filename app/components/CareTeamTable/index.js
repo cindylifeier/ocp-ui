@@ -99,7 +99,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
 }
 
 CareTeamTable.propTypes = {
-  size: PropTypes.object.isRequired,
+  size: PropTypes.object,
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
