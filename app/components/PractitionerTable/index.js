@@ -20,15 +20,15 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
-import { SUMMARY_PANEL_WIDTH } from 'containers/Practitioners/constants';
+import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData, size } = props;
+  const { relativeTop, practitionersData, size, flattenPractitionerData } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -40,24 +40,27 @@ function PractitionerTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={relativeTop}>
+                <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-                { isExpanded &&
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
                 }
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
-                const { name, active, identifiers } = practitioner;
+                const { logicalId, name, active } = practitioner;
+                const flattenedPractitioner = flattenPractitionerData(practitioner);
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
                 }];
                 return (
-                  <TableRow
+                  <ExpansionTableRow
+                    expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
                     columns={columns}
-                    key={uniqueId()}
+                    key={logicalId}
                   >
                     <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
                     <TableRowColumn>{renderLastName(name)}</TableRowColumn>
@@ -68,12 +71,12 @@ function PractitionerTable(props) {
                       }
                     </TableRowColumn>
                     {isExpanded &&
-                    <TableRowColumn>{identifiers}</TableRowColumn>
+                    <TableRowColumn>{flattenedPractitioner.identifiers}</TableRowColumn>
                     }
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
-                  </TableRow>
+                  </ExpansionTableRow>
                 );
               })}
             </Table>
@@ -108,6 +111,7 @@ function renderLastName(names) {
 PractitionerTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   size: PropTypes.object.isRequired,
+  flattenPractitionerData: PropTypes.func.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -117,7 +121,13 @@ PractitionerTable.propTypes = {
     handleChangePage: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
       logicalId: PropTypes.string.isRequired,
-      identifiers: PropTypes.string,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
       active: PropTypes.bool,
       name: PropTypes.array,
       addresses: PropTypes.arrayOf(PropTypes.shape({

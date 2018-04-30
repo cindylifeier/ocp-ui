@@ -21,7 +21,6 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import {
   CARE_MANAGER_ROLE_CODE,
-  FRONT_OFFICE_ROLE_CODE,
   MANAGE_PATIENT_URL,
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
@@ -43,6 +42,7 @@ import {
 import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { flattenPatientData } from './helpers';
 import messages from './messages';
 
 export class Patients extends React.Component {
@@ -135,7 +135,7 @@ export class Patients extends React.Component {
       <div>
         <PanelToolbar
           {...addNewItem}
-          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE]}
+          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.onSize}
         />
@@ -144,6 +144,7 @@ export class Patients extends React.Component {
           relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+          flattenPatientData={flattenPatientData}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>

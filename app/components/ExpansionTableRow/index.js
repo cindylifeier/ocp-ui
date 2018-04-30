@@ -56,7 +56,7 @@ class ExpansionTableRow extends React.Component { // eslint-disable-line react/p
           {...other}
         >
           <TableRowColumn>
-            <StyledIconButton size="small" onClick={this.handleRowOpen}>
+            <StyledIconButton svgIconSize="small" size="x-small" onClick={this.handleRowOpen}>
               {this.state.expansionRowOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </StyledIconButton>
           </TableRowColumn>
@@ -76,9 +76,12 @@ class ExpansionTableRow extends React.Component { // eslint-disable-line react/p
 }
 
 ExpansionTableRow.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf([TableRowColumn]),
-  })),
+  children: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.shape({
+      type: PropTypes.oneOf([TableRowColumn]),
+    }),
+    PropTypes.bool,
+  ])),
   columns: PropTypes.string,
   onClick: PropTypes.func,
   onKeyPress: PropTypes.func,
