@@ -389,7 +389,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Appointments',
+            title: 'Upcoming Appointments',
             type: 'component',
             componentName: 'upcomingAppointments',
             isClosable: true,
