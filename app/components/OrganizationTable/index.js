@@ -40,10 +40,10 @@ function OrganizationTable(props) {
               <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
-                { isExpanded &&
-                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 }
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 { isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 }
@@ -75,10 +75,10 @@ function OrganizationTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{identifiers}</TableRowColumn>
                     {isExpanded ?
-                      <TableRowColumn>{ address}</TableRowColumn> : null
+                      <TableRowColumn>{identifiers}</TableRowColumn> : null
                     }
+                    <TableRowColumn>{ address}</TableRowColumn>
                     {isExpanded ?
                       <TableRowColumn>{ contact}</TableRowColumn> : null
                     }
