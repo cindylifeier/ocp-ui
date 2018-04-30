@@ -96,7 +96,11 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPractitionerToDosComponent },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderCalendarComponent },
     { name: 'assessments', text: 'ASSESSMENTS', factoryMethod: renderUnderConstructionComponent },
-    { name: 'upcomingAppointments', text: 'APPOINTMENTS', factoryMethod: renderPractitionerUpcomingAppointmentsComponent },
+    {
+      name: 'upcomingAppointments',
+      text: 'APPOINTMENTS',
+      factoryMethod: renderPractitionerUpcomingAppointmentsComponent,
+    },
   ];
 
   static orgAdminLayout = {
@@ -351,39 +355,25 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
   benefitsSpecialistLayout = {
     ...baseLayout,
     content: [{
-      type: 'row',
+      type: 'column',
       isClosable: true,
       reorderEnabled: true,
       title: '',
       content: [{
-        type: 'column',
+        type: 'row',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        width: 100,
+        height: 80,
         content: [{
-          type: 'stack',
-          width: 100,
-          height: 50,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Patients',
-            type: 'component',
-            componentName: 'patients',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
           type: 'stack',
           header: {},
           isClosable: true,
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
-          height: 50,
+          width: 50,
+          height: 80,
           content: [{
             title: 'Communications',
             type: 'component',
@@ -391,6 +381,35 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             isClosable: true,
             reorderEnabled: true,
           }],
+        }, {
+          type: 'stack',
+          width: 50,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Appointments',
+            type: 'component',
+            componentName: 'upcomingAppointments',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 80,
+        content: [{
+          title: 'Patients',
+          type: 'component',
+          componentName: 'patients',
+          isClosable: true,
+          reorderEnabled: true,
         }],
       }],
     }],
