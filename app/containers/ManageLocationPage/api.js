@@ -1,8 +1,8 @@
 import request from 'utils/request';
-import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATION_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_LOCATIONS_API_URL, BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 
 export default function createLocation(location, organizationId) {
-  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const url = `${baseEndpoint}/${organizationId}/locations`;
   return request(url, {
     method: 'POST',
@@ -14,7 +14,7 @@ export default function createLocation(location, organizationId) {
 }
 
 export function updateLocation(location, organizationId) {
-  const baseEndpoint = getEndpoint(BASE_ORGANIZATION_API_URL);
+  const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
   const url = `${baseEndpoint}/${organizationId}/locations/${location.logicalId}`;
   return request(url, {
     method: 'PUT',
