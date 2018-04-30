@@ -38,13 +38,13 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.inactive',
     defaultMessage: 'Inactive',
   },
-  firstName: {
-    id: 'ocpui.components.PatientSearchResult.firstName',
-    defaultMessage: 'First Name',
+  fullName: {
+    id: 'ocpui.components.PatientSearchResult.fullName',
+    defaultMessage: 'Name',
   },
-  lastName: {
-    id: 'ocpui.components.PatientSearchResult.lastName',
-    defaultMessage: 'Last Name',
+  address: {
+    id: 'ocpui.components.PatientSearchResult.address',
+    defaultMessage: 'Address',
   },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Telecom',
