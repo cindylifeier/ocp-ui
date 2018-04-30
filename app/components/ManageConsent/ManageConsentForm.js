@@ -9,8 +9,8 @@ import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
-import RadioButton from 'components/RadioButton';
-import { RadioButtonGroup } from 'material-ui';
+import RadioButtonGroup from 'components/RadioButtonGroup';
+import { RadioButton } from 'material-ui';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
 
@@ -43,15 +43,11 @@ function ManageConsentForm(props) {
           </InfoSection>
           <RadioButtonGroup name="medInfo" defaultSelected="shareAll">
             <RadioButton
-              name="shareAll"
               value="shareAll"
-              disabled
               label={<FormattedMessage {...messages.floatingLabelText.shareAll} />}
             />
             <RadioButton
-              name="shareSpecific"
               value="shareSpecific"
-              disabled
               label={<FormattedMessage {...messages.floatingLabelText.shareSpecific} />}
             />
           </RadioButtonGroup>
