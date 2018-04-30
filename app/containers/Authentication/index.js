@@ -17,6 +17,7 @@ import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
 import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectRehydrated } from 'containers/App/selectors';
 
 export function Authentication(props) {
   let isAuthenticated = props.auth.isAuthenticated;
@@ -24,7 +25,11 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
-  const user = props.user;
+  const { user, rehydrated } = props;
+  if (!rehydrated) {
+    // do not render until rehydration is complete
+    return null;
+  }
   return (
     isAuthenticated && user ?
       // child component will be rendered here
@@ -50,11 +55,13 @@ Authentication.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
   }),
   user: PropTypes.object,
+  rehydrated: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   auth: makeSelectAuth(),
   user: makeSelectUser(),
+  rehydrated: makeSelectRehydrated(),
 });
 
 const withConnect = connect(mapStateToProps);
