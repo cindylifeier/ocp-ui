@@ -28,6 +28,8 @@ const StyledText = styled.span`
   color: ${({ color }) => defineTextColor(color)};
   margin: ${({ whiteSpace }) => whiteSpace ? '0 0 0 10px' : '0px'};
   text-align: ${({ textAlign }) => textAlign};
+  white-space: pre-line;
+  word-break: break-all;
 `;
 
 StyledText.propTypes = {
