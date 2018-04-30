@@ -26,6 +26,10 @@ export default defineMessages({
     id: 'ocpui.components.LocationTable.tableHeaderColumnAddress',
     defaultMessage: 'Address',
   },
+  tableHeaderColumnAction: {
+    id: 'ocpui.components.LocationTable.tableHeaderColumnAction',
+    defaultMessage: 'Action',
+  },
   actionLabelEdit: {
     id: 'ocpui.components.LocationTable.actionLabelEdit',
     defaultMessage: 'Edit',

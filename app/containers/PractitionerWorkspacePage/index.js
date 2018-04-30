@@ -4,15 +4,10 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import renderCalendarComponent from 'components/Calendar/render';
+import GoldenLayout from 'components/GoldenLayout';
+import Page from 'components/Page';
+import renderUnderConstructionComponent from 'components/UnderConstruction/render';
 import {
   BENEFITS_SPECIALIST_ROLE_CODE,
   CARE_COORDINATOR_ROLE_CODE,
@@ -22,25 +17,29 @@ import {
   ORGANIZATION_ADMIN_ROLE_CODE,
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
-import Page from 'components/Page';
-import GoldenLayout from 'components/GoldenLayout';
-import renderConsentsComponent from 'containers/Consents/render';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import renderPractitionersComponent from 'containers/Practitioners/render';
-import renderUnderConstructionComponent from 'components/UnderConstruction/render';
-import renderCalendarComponent from 'components/Calendar/render';
-import renderPatientsComponent from 'containers/Patients/render';
-import renderLocationsComponent from 'containers/Locations/render';
-import renderPractitionerToDosComponent from 'containers/PractitionerToDos/render';
+import renderConsentsComponent from 'containers/Consents/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
+import renderLocationsComponent from 'containers/Locations/render';
+import renderPatientsComponent from 'containers/Patients/render';
+import renderPractitionerUpcomingAppointmentsComponent from 'containers/PractitionerAppointments/render';
+import renderPractitionersComponent from 'containers/Practitioners/render';
+import renderPractitionerToDosComponent from 'containers/PractitionerToDos/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import renderUpcomingTasksComponent from 'containers/UpcomingTasks/render';
-import renderPractitionerUpcomingAppointmentsComponent from 'containers/PractitionerAppointments/render';
-import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
-import { makeSelectUser } from 'containers/App/contextSelectors';
-import makeSelectPractitionerWorkspacePage from './selectors';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+
+import injectSaga from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
+import makeSelectPractitionerWorkspacePage from './selectors';
 
 
 const baseLayout = {
@@ -94,7 +93,6 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
     { name: 'healthcareServices', text: 'HEALTHCARE SERVICES', factoryMethod: renderHealthcareServicesComponent },
     { name: 'upcomingTasks', text: 'TASKS', factoryMethod: renderUpcomingTasksComponent },
     { name: 'tasks', text: 'TASKS', factoryMethod: renderTasksComponent },
-    { name: 'patientAppointments', text: 'PATIENT APPOINTMENTS', factoryMethod: renderPatientAppointmentsComponent },
     { name: 'toDos', text: 'MY TO DO', factoryMethod: renderPractitionerToDosComponent },
     { name: 'calendar', text: 'CALENDAR', factoryMethod: renderCalendarComponent },
     { name: 'assessments', text: 'ASSESSMENTS', factoryMethod: renderUnderConstructionComponent },
@@ -323,9 +321,9 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'Patient\'S appointments',
+              title: 'Upcoming Appointments',
               type: 'component',
-              componentName: 'patientAppointments',
+              componentName: 'upcomingAppointments',
               isClosable: true,
               reorderEnabled: true,
             },
@@ -357,39 +355,25 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
   benefitsSpecialistLayout = {
     ...baseLayout,
     content: [{
-      type: 'row',
+      type: 'column',
       isClosable: true,
       reorderEnabled: true,
       title: '',
       content: [{
-        type: 'column',
+        type: 'row',
         isClosable: true,
         reorderEnabled: true,
         title: '',
-        width: 100,
+        height: 80,
         content: [{
-          type: 'stack',
-          width: 100,
-          height: 50,
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Patients',
-            type: 'component',
-            componentName: 'patients',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
           type: 'stack',
           header: {},
           isClosable: true,
           reorderEnabled: true,
           title: '',
           activeItemIndex: 0,
-          height: 50,
+          width: 50,
+          height: 80,
           content: [{
             title: 'Communications',
             type: 'component',
@@ -397,6 +381,35 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             isClosable: true,
             reorderEnabled: true,
           }],
+        }, {
+          type: 'stack',
+          width: 50,
+          isClosable: true,
+          reorderEnabled: true,
+          title: '',
+          activeItemIndex: 0,
+          content: [{
+            title: 'Upcoming Appointments',
+            type: 'component',
+            componentName: 'upcomingAppointments',
+            isClosable: true,
+            reorderEnabled: true,
+          }],
+        }],
+      }, {
+        type: 'stack',
+        header: {},
+        isClosable: true,
+        reorderEnabled: true,
+        title: '',
+        activeItemIndex: 0,
+        height: 80,
+        content: [{
+          title: 'Patients',
+          type: 'component',
+          componentName: 'patients',
+          isClosable: true,
+          reorderEnabled: true,
         }],
       }],
     }],
