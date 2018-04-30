@@ -22,7 +22,7 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "children": "label",
-      "className": "StyledFlatButton__StyledFlatButton-jENDUq bywsy",
+      "className": "StyledFlatButton__StyledFlatButton-jENDUq kYKpys",
       "icon": <pure(AddCircle) />,
     },
     "ref": null,
@@ -36,7 +36,7 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "children": "label",
-        "className": "StyledFlatButton__StyledFlatButton-jENDUq bywsy",
+        "className": "StyledFlatButton__StyledFlatButton-jENDUq kYKpys",
         "icon": <pure(AddCircle) />,
       },
       "ref": null,
