@@ -15,6 +15,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import uniqueId from 'lodash/uniqueId';
 import {
   EXPANDED_TABLE_COLUMNS,
   SUMMARIZED_TABLE_COLUMNS,
@@ -52,7 +53,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
-      <TableRow key={logicalId} columns={columns}>
+      <TableRow key={uniqueId()} columns={columns}>
         <TableRowColumn>{definition && definition.display}</TableRowColumn>
         <TableRowColumn>{status && status.display}</TableRowColumn>
         {isExpanded &&
