@@ -42,4 +42,16 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.edit',
     defaultMessage: 'Edit',
   },
+  expansionRowDetailsName: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsName',
+    defaultMessage: 'Name',
+  },
+  expansionRowDetailsAddresses: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsAddresses',
+    defaultMessage: 'Address',
+  },
+  expansionRowDetailsTelecoms: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsTelecoms',
+    defaultMessage: 'Contact',
+  },
 });

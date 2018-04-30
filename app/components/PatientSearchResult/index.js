@@ -13,15 +13,16 @@ import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'conta
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import messages from './messages';
+import PatientExpansionRowDetails from './PatientExpansionRowDetails';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+import messages from './messages';
 
 
-function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, isExpanded, columns, mapToTelecoms, combineAddress) {
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress) {
   return patients && patients.map((patient) => {
     const menuItems = [{
       primaryText: <FormattedMessage {...messages.edit} />,
@@ -63,13 +64,15 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
       return name != null ? (name.firstName.concat(' ').concat(name.lastName)) : null;
     }
     return (
-      <TableRow
+      <ExpansionTableRow
+        expansionTableRowDetails={<PatientExpansionRowDetails patient={flattenPatientData(patient)} />}
         columns={columns}
         key={`patient_${patient.id}`}
         onClick={() => onPatientClick && onPatientClick(patient)}
         role="button"
         tabIndex="0"
       >
+        {isExpanded &&
         <TableRowColumn>{getFullName(patient)}</TableRowColumn>
         <TableRowColumn>{ contact }</TableRowColumn>
         {isExpanded &&
@@ -97,7 +100,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         <TableRowColumn>
           <NavigationIconMenu menuItems={menuItems} />
         </TableRowColumn>
-      </TableRow>
+      </ExpansionTableRow>
     );
   });
 }
@@ -113,7 +116,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, relativeTop, size, mapToTelecoms, combineAddress }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -137,6 +140,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
     return (
       <Table>
         <TableHeader columns={columns} relativeTop={relativeTop}>
+          <TableHeaderColumn />
           <TableHeaderColumn><FormattedMessage {...messages.fullName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
           {isExpanded &&
@@ -160,7 +164,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, isExpanded, columns, mapToTelecoms, combineAddress)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress)}
       </Table>
     );
   }
@@ -174,6 +178,7 @@ PatientSearchResult.propTypes = {
   searchResult: PropTypes.any,
   onPatientClick: PropTypes.func,
   onPatientViewDetailsClick: PropTypes.func,
+  flattenPatientData: PropTypes.func.isRequired,
   mapToTelecoms: PropTypes.func.isRequired,
   combineAddress: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,

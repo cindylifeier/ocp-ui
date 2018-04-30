@@ -4,11 +4,21 @@
  *
  */
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+import isEqual from 'lodash/isEqual';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import RecordsRange from 'components/RecordsRange';
+import PatientSearchResult from 'components/PatientSearchResult';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
-import PatientSearchResult from 'components/PatientSearchResult';
-import RecordsRange from 'components/RecordsRange';
 import {
   CARE_MANAGER_ROLE_CODE,
   MANAGE_PATIENT_URL,
@@ -19,20 +29,6 @@ import { setPatient } from 'containers/App/contextActions';
 import { mapToTelecoms } from 'containers/App/helpers';
 import FhirUtil from 'utils/FhirUtil';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
-import isEqual from 'lodash/isEqual';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import injectReducer from 'utils/injectReducer';
-
-import injectSaga from 'utils/injectSaga';
-import { initializePatients, loadPatientSearchResult } from './actions';
-import messages from './messages';
-import reducer from './reducer';
-import saga from './saga';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -45,6 +41,11 @@ import {
   makeSelectSearchLoading,
   makeSelectTotalPages,
 } from './selectors';
+import { initializePatients, loadPatientSearchResult } from './actions';
+import reducer from './reducer';
+import saga from './saga';
+import { flattenPatientData } from './helpers';
+import messages from './messages';
 
 export class Patients extends React.Component {
 
@@ -145,6 +146,7 @@ export class Patients extends React.Component {
           relativeTop={this.state.relativeTop}
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
+          flattenPatientData={flattenPatientData}
           mapToTelecoms={mapToTelecoms}
           combineAddress={FhirUtil.combineAddress}
         />

@@ -16,7 +16,8 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
-  EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS,
+  EXPANDED_TABLE_COLUMNS,
+  SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from 'components/LocationTable/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
@@ -44,9 +45,10 @@ function LocationTable(props) {
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-              { isExpanded &&
+              {isExpanded &&
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
               }
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
             </TableHeader>
             {data.map((location) => {
               const flattenedLocation = flattenLocationData(location);

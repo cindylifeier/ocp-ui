@@ -10,6 +10,7 @@ import Button from 'material-ui-next/Button/index';
 const StyledFlatButton = styled(Button)`
   && {
     color: #366;
+    text-transform: capitalize;
   }
 
   && svg {
