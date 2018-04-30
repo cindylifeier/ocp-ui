@@ -17,6 +17,7 @@ import {
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
 import { mapToTelecoms } from 'containers/App/helpers';
+import FhirUtil from 'utils/FhirUtil';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
@@ -145,6 +146,7 @@ export class Patients extends React.Component {
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
           mapToTelecoms={mapToTelecoms}
+          combineAddress={FhirUtil.combineAddress}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
