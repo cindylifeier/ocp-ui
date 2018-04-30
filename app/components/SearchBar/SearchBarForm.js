@@ -7,14 +7,13 @@ import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
 
-import TextField from 'components/TextField';
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import SelectField from 'components/SelectField';
 import SearchSection from './SearchSection';
-import SearchHeader from './SearchHeader';
 import SearchContainerGrid from './SearchContainerGrid';
 import SearchButtonContainerGrid from './SearchButtonContainerGrid';
+import StyledSearchField from './StyledSearchField';
+import StyledTextField from './StyledTextField';
 import messages from './messages';
 
 function SearchBarForm(props) {
@@ -22,20 +21,19 @@ function SearchBarForm(props) {
   return (
     <Form>
       <SearchSection>
-        <SearchHeader>
+        <div>
+        </div>
+        <SearchContainerGrid gap="5px" columns={'30px 130px 150px 100px'}>
           <ActionSearch color={'#336666'} />
-          <FormattedMessage {...messages.searchHeader} />
-        </SearchHeader>
-        <SearchContainerGrid gap="5px" columns="250px 300px">
-          <SelectField
+          <StyledSearchField
             fullWidth
             name="searchType"
           >
             {searchTypes && searchTypes.map((searchType) =>
               <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
             )}
-          </SelectField>
-          <TextField
+          </StyledSearchField>
+          <StyledTextField
             fullWidth
             name="searchValue"
             hintText={searchValueHintText}

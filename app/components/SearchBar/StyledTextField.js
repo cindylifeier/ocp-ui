@@ -4,15 +4,14 @@ import TextField from 'components/TextField';
 const StyledTextField = styled(TextField).attrs({
   // we can define static props
   hintStyle: {
-    fontSize: '13px',
+    fontSize: '12px',
     bottom: '7px',
   },
   inputStyle: {
-    fontSize: '13px',
+    fontSize: '12px',
     bottom: '4px',
   },
   style: {
-    width: '150px',
     height: '30px',
   },
 })('');

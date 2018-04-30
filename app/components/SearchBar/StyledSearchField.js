@@ -4,7 +4,7 @@ import SelectField from 'components/SelectField';
 const StyledSearchField = styled(SelectField).attrs({
   // we can define static props
   labelStyle: {
-    fontSize: '13px',
+    fontSize: '12px',
     lineHeight: '30px',
     height: '30px',
   },
@@ -13,13 +13,12 @@ const StyledSearchField = styled(SelectField).attrs({
   },
   menuItemStyle: {
     height: '12px',
-    fontSize: '13px',
+    fontSize: '12px',
   },
   iconStyle: {
     top: '-12px',
   },
   style: {
-    width: '130px',
     height: '30px',
   },
 })('');

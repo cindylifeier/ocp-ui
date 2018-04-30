@@ -1,8 +1,8 @@
 import { Grid } from 'styled-css-grid';
 
 const SearchContainerGrid = Grid.extend`
-  padding: 5px 20px;
-  margin: 2px 0;
+  padding: 0 2px;
+  margin: 2px;
 `;
 
 SearchContainerGrid.propTypes = {};
