@@ -10,6 +10,7 @@ configure({ adapter: new Adapter() });
 describe('<Authentication />', () => {
   it('should match snapshot', () => {
     // Arrange
+    const rehydrated = true;
     const isAuthenticated = true;
     const auth = {
       isAuthenticated,
@@ -20,6 +21,7 @@ describe('<Authentication />', () => {
     const props = {
       auth,
       user,
+      rehydrated,
     };
 
     // Act

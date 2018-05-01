@@ -10,6 +10,7 @@ ShallowWrapper {
         "isAuthenticated": true,
       }
     }
+    rehydrated={true}
     user={
       Object {
         "role": "Patient",
