@@ -77,7 +77,7 @@ export class Organizations extends React.Component {
     const { organization: newOrganization } = nextProps;
     if (!isEqual(organization, newOrganization)) {
       this.props.initializeOrganizations([newOrganization]);
-      this.setState({ ...Organizations.initalState });
+      this.setState({ ...Organizations.initialState });
       this.setState({ showViewAllButton: true });
     }
   }
