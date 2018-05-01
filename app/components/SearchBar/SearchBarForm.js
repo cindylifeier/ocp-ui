@@ -8,22 +8,19 @@ import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
 
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
-import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledText from 'components/StyledText';
 import SearchSection from './SearchSection';
 import SearchContainerGrid from './SearchContainerGrid';
-import SearchButtonContainerGrid from './SearchButtonContainerGrid';
 import StyledSearchField from './StyledSearchField';
 import StyledTextField from './StyledTextField';
+import StyledSearchButton from './StyledSearchButton';
 import messages from './messages';
-
 function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters } = props;
   return (
     <Form>
       <SearchSection>
-        <div>
-        </div>
-        <SearchContainerGrid gap="5px" columns={'30px 130px 150px 100px'}>
+        <SearchContainerGrid gap="5px" columns={'30px 130px 150px 80px'}>
           <ActionSearch color={'#336666'} />
           <StyledSearchField
             fullWidth
@@ -38,12 +35,19 @@ function SearchBarForm(props) {
             name="searchValue"
             hintText={searchValueHintText}
           />
+          <StyledSearchButton
+            fullWidth
+            type="submit"
+            disabled={!dirty || isSubmitting || !isValid}
+          >
+            <FormattedMessage {...messages.searchButton} />
+          </StyledSearchButton>
         </SearchContainerGrid>
-        <SearchContainerGrid gap="5px" columns="60px 140px 140px 140px">
+        <SearchContainerGrid gap="1px" columns="60px repeat(3,120px)" justifyContent="start">
           {!showToDoSpecificFilters &&
-          <div>
+          <StyledText fontWeight="bold">
             <FormattedMessage {...messages.filterLabel} />
-          </div>
+          </StyledText>
           }
           {!showToDoSpecificFilters &&
           <StyledFormikCheckbox
@@ -52,9 +56,9 @@ function SearchBarForm(props) {
           />
           }
           {showToDoSpecificFilters &&
-          <Cell>
+          <StyledText fontWeight="bold">
             <FormattedMessage {...messages.filterLabel} />
-          </Cell>
+          </StyledText>
           }
           {showToDoSpecificFilters &&
           <Cell>
@@ -81,16 +85,6 @@ function SearchBarForm(props) {
           </Cell>
           }
         </SearchContainerGrid>
-
-        <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
-          <StyledRaisedButton
-            fullWidth
-            type="submit"
-            disabled={!dirty || isSubmitting || !isValid}
-          >
-            <FormattedMessage {...messages.searchButton} />
-          </StyledRaisedButton>
-        </SearchButtonContainerGrid>
       </SearchSection>
     </Form>
   );
