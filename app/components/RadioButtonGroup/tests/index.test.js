@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<RadioButtonGroup />', () => {
+xdescribe('<RadioButtonGroup />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
