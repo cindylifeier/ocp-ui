@@ -26,6 +26,8 @@ import {
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
+import { mapToTelecoms } from 'containers/App/helpers';
+import FhirUtil from 'utils/FhirUtil';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import {
   makeSelectCurrentPage,
@@ -145,6 +147,8 @@ export class Patients extends React.Component {
           onPatientClick={this.handlePatientClick}
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
           flattenPatientData={flattenPatientData}
+          mapToTelecoms={mapToTelecoms}
+          combineAddress={FhirUtil.combineAddress}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>

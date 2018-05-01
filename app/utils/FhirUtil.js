@@ -256,12 +256,15 @@ class FhirUtil {
 
   static combineAddress(address) {
     const addressStr = [];
-    addressStr.push(address.text || '');
+    addressStr.push(address.line1 || '');
+    addressStr.push(address.line2 || '');
     addressStr.push(address.city || '');
-    addressStr.push(address.state || '');
     addressStr.push(address.postalCode || '');
-    addressStr.push(address.country || '');
-    return addressStr.filter((field) => field !== '').join(', ');
+    addressStr.push(address.stateCode || '');
+    addressStr.push(address.countryCode || '');
+    return addressStr
+      .filter((field) => field !== '')
+      .join(', ');
   }
 }
 

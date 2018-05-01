@@ -23,6 +23,7 @@ import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import OrganizationSlider from 'components/OrganizationSlider';
+import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -30,9 +31,8 @@ import { getOrganizations, initializeOrganizations, searchOrganizations } from '
 import { flattenOrganizationData } from './helpers';
 import messages from './messages';
 
-
 export class Organizations extends React.Component {
-  static initalState = {
+  static initialState = {
     relativeTop: 0,
     isShowSearchResult: false,
     listOrganizations: {
@@ -49,7 +49,7 @@ export class Organizations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...Organizations.initalState,
+      ...Organizations.initialState,
       openSlider: false,
       showViewAllButton: false,
     };
@@ -77,7 +77,7 @@ export class Organizations extends React.Component {
     const { organization: newOrganization } = nextProps;
     if (!isEqual(organization, newOrganization)) {
       this.props.initializeOrganizations([newOrganization]);
-      this.setState({ ...Organizations.initalState });
+      this.setState({ ...Organizations.initialState });
       this.setState({ showViewAllButton: true });
     }
   }
@@ -170,6 +170,8 @@ export class Organizations extends React.Component {
             onRowClick={this.handleRowClick}
             flattenOrganizationData={flattenOrganizationData}
             onOrganizationViewDetails={this.handleSliderOpen}
+            combineAddress={combineAddress}
+            mapToTelecoms={mapToTelecoms}
           />
         </InfoSection>
         {this.props.organization &&
