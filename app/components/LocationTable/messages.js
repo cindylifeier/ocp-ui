@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.LocationTable.tableHeaderColumnName',
     defaultMessage: 'Name',
   },
+  tableHeaderColumnIdentifier: {
+    id: 'ocpui.components.LocationTable.tableHeaderColumnIdentifier',
+    defaultMessage: 'Identifier',
+  },
   tableHeaderColumnStatus: {
     id: 'ocpui.components.LocationTable.tableHeaderColumnStatus',
     defaultMessage: 'Status',
