@@ -3,4 +3,4 @@ export const EXPANDED_TABLE_COLUMNS = '50px 1.5fr 2fr 4fr 1fr 2fr 1fr 1fr 20% 1f
 export const SUMMARIZED_TABLE_COLUMNS = '50px 2fr 2fr 1fr 1fr 50px';
 
 
-export const SUMMARY_VIEW_WIDTH = 710; // The width of the panel in pixels
+export const SUMMARY_VIEW_WIDTH = 750; // The width of the panel in pixels
