@@ -17,7 +17,7 @@ const TableHeaderColumn = styled.div`
   line-height: normal;
   text-align: left;
   margin: 0;
-  word-break: break-word;
+  word-break: break-all;
   padding: 2px;
 `;
 
