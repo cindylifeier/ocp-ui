@@ -20,7 +20,6 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
-const tableColumns = 'repeat(7, 1fr) 50px';
 
 function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop }) {
   function getDisplayNameFromValueSetList(valueSets) {
@@ -45,11 +44,17 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
     );
   }
 
+  let tableColumns = 'repeat(6, 1fr) 70px 50px';
+  if (showAssigned) {
+    tableColumns = '80px repeat(6, 1fr) 70px';
+  }
   return (
     <div>
-      {!showAssigned &&
       <Table>
         <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+          {showAssigned &&
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAssignedToLocation} /></TableHeaderColumn>
+          }
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
@@ -65,6 +70,18 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
           }];
           return (
             <TableRow key={element.logicalId} columns={tableColumns}>
+              {showAssigned &&
+              <TableRowColumn>
+                <Grid columns={12}>
+                  <Cell left={2} width={1}>
+                    <Checkbox
+                      checked={element.assignedToCurrentLocation}
+                      onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
+                    />
+                  </Cell>
+                </Grid>
+              </TableRowColumn>
+              }
               <TableRowColumn>{element.name}</TableRowColumn>
               <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
               <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
@@ -75,57 +92,22 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
                 <FormattedMessage {...messages.labelActive} /> :
                 <FormattedMessage {...messages.labelInactive} />}
               </TableRowColumn>
+              {!showAssigned &&
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
+              }
             </TableRow>
           );
         })}
-      </Table>}
-      {showAssigned &&
-      <Table>
-        <TableHeader>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAssignedToLocation} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
-        </TableHeader>
-        {!isEmpty(elements) && elements.map((element) => (
-          <TableRow key={element.logicalId}>
-            <TableRowColumn>
-              <Grid columns={12}>
-                <Cell left={2} width={1}>
-                  <Checkbox
-                    checked={element.assignedToCurrentLocation}
-                    onCheck={(evt, checked) => onCheck(evt, checked, element.logicalId)}
-                  />
-                </Cell>
-              </Grid>
-            </TableRowColumn>
-            <TableRowColumn>{element.name}</TableRowColumn>
-            <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
-            <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
-            <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-            <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
-            <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
-            <TableRowColumn>{element.active ?
-              <FormattedMessage {...messages.labelActive} /> :
-              <FormattedMessage {...messages.labelInactive} />}
-            </TableRowColumn>
-          </TableRow>
-        ))}
-      </Table>}
+      </Table>
     </div>
   );
 }
 
 
 HealthcareServiceTable.propTypes = {
-  relativeTop: PropTypes.number.isRequired,
+  relativeTop: PropTypes.number,
   elements: PropTypes.array,
   showAssigned: PropTypes.bool,
   onCheck: PropTypes.func,

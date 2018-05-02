@@ -84,10 +84,1268 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [
-        <Table__Table>
+      "children": <Table__Table>
+        <TableHeader
+          columns="repeat(6, 1fr) 70px 50px"
+          relativeTop={50}
+          sticky={true}
+        >
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Name"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Category"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Type"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Program Name"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Referral Method"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Specialty"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Active"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+        </TableHeader>
+        <TableRow
+          columns="repeat(6, 1fr) 70px 50px"
+        >
+          <TableRowColumn__TableRowColumn>
+            name1
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            categoryDisplay1
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              typeDisplay1
+              <br />
+            </div>
+            <div>
+              typeDisplay2
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              programName1
+              <br />
+            </div>
+            <div>
+              programName2
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn>
+            <FormattedMessage
+              defaultMessage="Active"
+              id="ocpui.components.HealthcareServiceTable.labelActive"
+              values={Object {}}
+            />
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <NavigationIconMenu
+              menuItems={
+                Array [
+                  Object {
+                    "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Edit"
+                      id="ocpui.components.HealthcareServiceTable.edit"
+                      values={Object {}}
+                    />,
+                  },
+                ]
+              }
+            />
+          </TableRowColumn__TableRowColumn>
+        </TableRow>
+        <TableRow
+          columns="repeat(6, 1fr) 70px 50px"
+        >
+          <TableRowColumn__TableRowColumn>
+            name2
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            categoryDisplay2
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              typeDisplay3
+              <br />
+            </div>
+            <div>
+              typeDisplay4
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              programName3
+              <br />
+            </div>
+            <div>
+              programName4
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn>
+            <FormattedMessage
+              defaultMessage="Active"
+              id="ocpui.components.HealthcareServiceTable.labelActive"
+              values={Object {}}
+            />
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <NavigationIconMenu
+              menuItems={
+                Array [
+                  Object {
+                    "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Edit"
+                      id="ocpui.components.HealthcareServiceTable.edit"
+                      values={Object {}}
+                    />,
+                  },
+                ]
+              }
+            />
+          </TableRowColumn__TableRowColumn>
+        </TableRow>
+      </Table__Table>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
           <TableHeader
-            columns="repeat(7, 1fr) 50px"
+            columns="repeat(6, 1fr) 70px 50px"
+            relativeTop={50}
+            sticky={true}
+          >
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Name"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Category"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Type"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Program Name"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Referral Method"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Specialty"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Active"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+          </TableHeader>,
+          Array [
+            <TableRow
+              columns="repeat(6, 1fr) 70px 50px"
+            >
+              <TableRowColumn__TableRowColumn>
+                name1
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay1
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay1
+                  <br />
+                </div>
+                <div>
+                  typeDisplay2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName1
+                  <br />
+                </div>
+                <div>
+                  programName2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>
+            </TableRow>,
+            <TableRow
+              columns="repeat(6, 1fr) 70px 50px"
+            >
+              <TableRowColumn__TableRowColumn>
+                name2
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay2
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay3
+                  <br />
+                </div>
+                <div>
+                  typeDisplay4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName3
+                  <br />
+                </div>
+                <div>
+                  programName4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>
+            </TableRow>,
+          ],
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              false,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Category"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Type"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Program Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Referral Method"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Specialty"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+            ],
+            "columns": "repeat(6, 1fr) 70px 50px",
+            "relativeTop": 50,
+            "sticky": true,
+          },
+          "ref": null,
+          "rendered": Array [
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Name",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderName",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Category"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Category",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Type"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Type",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderType",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Program Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Program Name",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Referral Method"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Referral Method",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Specialty"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Specialty",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Active",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "logicalId1",
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              false,
+              <TableRowColumn__TableRowColumn>
+                name1
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay1
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay1
+                  <br />
+                </div>
+                <div>
+                  typeDisplay2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName1
+                  <br />
+                </div>
+                <div>
+                  programName2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>,
+            ],
+            "columns": "repeat(6, 1fr) 70px 50px",
+          },
+          "ref": null,
+          "rendered": Array [
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "name1",
+              },
+              "ref": null,
+              "rendered": "name1",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "categoryDisplay1",
+              },
+              "ref": null,
+              "rendered": "categoryDisplay1",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    typeDisplay1
+                    <br />
+                  </div>,
+                  <div>
+                    typeDisplay2
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-1",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay1",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay1",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-2",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay2",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay2",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    programName1
+                    <br />
+                  </div>,
+                  <div>
+                    programName2
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-3",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName1",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName1",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-4",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName2",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName2",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Active",
+                  "id": "ocpui.components.HealthcareServiceTable.labelActive",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "menuItems": Array [
+                    Object {
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "logicalId2",
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              false,
+              <TableRowColumn__TableRowColumn>
+                name2
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay2
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay3
+                  <br />
+                </div>
+                <div>
+                  typeDisplay4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName3
+                  <br />
+                </div>
+                <div>
+                  programName4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>,
+            ],
+            "columns": "repeat(6, 1fr) 70px 50px",
+          },
+          "ref": null,
+          "rendered": Array [
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "name2",
+              },
+              "ref": null,
+              "rendered": "name2",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "categoryDisplay2",
+              },
+              "ref": null,
+              "rendered": "categoryDisplay2",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    typeDisplay3
+                    <br />
+                  </div>,
+                  <div>
+                    typeDisplay4
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-5",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay3",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay3",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-6",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay4",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay4",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    programName3
+                    <br />
+                  </div>,
+                  <div>
+                    programName4
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-7",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName3",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName3",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-8",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName4",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName4",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Active",
+                  "id": "ocpui.components.HealthcareServiceTable.labelActive",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "menuItems": Array [
+                    Object {
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <Table__Table>
+          <TableHeader
+            columns="repeat(6, 1fr) 70px 50px"
             relativeTop={50}
             sticky={true}
           >
@@ -142,7 +1400,7 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>
           <TableRow
-            columns="repeat(7, 1fr) 50px"
+            columns="repeat(6, 1fr) 70px 50px"
           >
             <TableRowColumn__TableRowColumn>
               name1
@@ -197,7 +1455,7 @@ ShallowWrapper {
             </TableRowColumn__TableRowColumn>
           </TableRow>
           <TableRow
-            columns="repeat(7, 1fr) 50px"
+            columns="repeat(6, 1fr) 70px 50px"
           >
             <TableRowColumn__TableRowColumn>
               name2
@@ -252,19 +1510,16 @@ ShallowWrapper {
             </TableRowColumn__TableRowColumn>
           </TableRow>
         </Table__Table>,
-        false,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
+      },
+      "ref": null,
+      "rendered": Object {
         "instance": null,
         "key": undefined,
         "nodeType": "class",
         "props": Object {
           "children": Array [
             <TableHeader
-              columns="repeat(7, 1fr) 50px"
+              columns="repeat(6, 1fr) 70px 50px"
               relativeTop={50}
               sticky={true}
             >
@@ -320,7 +1575,7 @@ ShallowWrapper {
             </TableHeader>,
             Array [
               <TableRow
-                columns="repeat(7, 1fr) 50px"
+                columns="repeat(6, 1fr) 70px 50px"
               >
                 <TableRowColumn__TableRowColumn>
                   name1
@@ -375,7 +1630,7 @@ ShallowWrapper {
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
               <TableRow
-                columns="repeat(7, 1fr) 50px"
+                columns="repeat(6, 1fr) 70px 50px"
               >
                 <TableRowColumn__TableRowColumn>
                   name2
@@ -440,6 +1695,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                false,
                 <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Name"
@@ -490,12 +1746,13 @@ ShallowWrapper {
                   />
                 </TableHeaderColumn__TableHeaderColumn>,
               ],
-              "columns": "repeat(7, 1fr) 50px",
+              "columns": "repeat(6, 1fr) 70px 50px",
               "relativeTop": 50,
               "sticky": true,
             },
             "ref": null,
             "rendered": Array [
+              false,
               Object {
                 "instance": null,
                 "key": undefined,
@@ -694,6 +1951,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                false,
                 <TableRowColumn__TableRowColumn>
                   name1
                 </TableRowColumn__TableRowColumn>,
@@ -746,10 +2004,11 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(7, 1fr) 50px",
+              "columns": "repeat(6, 1fr) 70px 50px",
             },
             "ref": null,
             "rendered": Array [
+              false,
               Object {
                 "instance": null,
                 "key": undefined,
@@ -1015,6 +2274,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                false,
                 <TableRowColumn__TableRowColumn>
                   name2
                 </TableRowColumn__TableRowColumn>,
@@ -1067,10 +2327,11 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(7, 1fr) 50px",
+              "columns": "repeat(6, 1fr) 70px 50px",
             },
             "ref": null,
             "rendered": Array [
+              false,
               Object {
                 "instance": null,
                 "key": undefined,
@@ -1333,1267 +2594,6 @@ ShallowWrapper {
         ],
         "type": [Function],
       },
-      false,
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <Table__Table>
-            <TableHeader
-              columns="repeat(7, 1fr) 50px"
-              relativeTop={50}
-              sticky={true}
-            >
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Name"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Category"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Type"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Program Name"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Referral Method"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Specialty"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-            </TableHeader>
-            <TableRow
-              columns="repeat(7, 1fr) 50px"
-            >
-              <TableRowColumn__TableRowColumn>
-                name1
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                categoryDisplay1
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  typeDisplay1
-                  <br />
-                </div>
-                <div>
-                  typeDisplay2
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  programName1
-                  <br />
-                </div>
-                <div>
-                  programName2
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn>
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.labelActive"
-                  values={Object {}}
-                />
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <NavigationIconMenu
-                  menuItems={
-                    Array [
-                      Object {
-                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                      },
-                    ]
-                  }
-                />
-              </TableRowColumn__TableRowColumn>
-            </TableRow>
-            <TableRow
-              columns="repeat(7, 1fr) 50px"
-            >
-              <TableRowColumn__TableRowColumn>
-                name2
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                categoryDisplay2
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  typeDisplay3
-                  <br />
-                </div>
-                <div>
-                  typeDisplay4
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  programName3
-                  <br />
-                </div>
-                <div>
-                  programName4
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn>
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.labelActive"
-                  values={Object {}}
-                />
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <NavigationIconMenu
-                  menuItems={
-                    Array [
-                      Object {
-                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                      },
-                    ]
-                  }
-                />
-              </TableRowColumn__TableRowColumn>
-            </TableRow>
-          </Table__Table>,
-          false,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": Array [
-              <TableHeader
-                columns="repeat(7, 1fr) 50px"
-                relativeTop={50}
-                sticky={true}
-              >
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Name"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Category"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Type"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Program Name"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Referral Method"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Specialty"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-              </TableHeader>,
-              Array [
-                <TableRow
-                  columns="repeat(7, 1fr) 50px"
-                >
-                  <TableRowColumn__TableRowColumn>
-                    name1
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay1
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay1
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName1
-                      <br />
-                    </div>
-                    <div>
-                      programName2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>
-                </TableRow>,
-                <TableRow
-                  columns="repeat(7, 1fr) 50px"
-                >
-                  <TableRowColumn__TableRowColumn>
-                    name2
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay2
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay3
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName3
-                      <br />
-                    </div>
-                    <div>
-                      programName4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>
-                </TableRow>,
-              ],
-            ],
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Category"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Type"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Program Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Referral Method"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Specialty"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                ],
-                "columns": "repeat(7, 1fr) 50px",
-                "relativeTop": 50,
-                "sticky": true,
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Name",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderName",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Category"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Category",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Type"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Type",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderType",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Program Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Program Name",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Referral Method"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Referral Method",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Specialty"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Specialty",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Active",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": "logicalId1",
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <TableRowColumn__TableRowColumn>
-                    name1
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay1
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay1
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName1
-                      <br />
-                    </div>
-                    <div>
-                      programName2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                ],
-                "columns": "repeat(7, 1fr) 50px",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "name1",
-                  },
-                  "ref": null,
-                  "rendered": "name1",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "categoryDisplay1",
-                  },
-                  "ref": null,
-                  "rendered": "categoryDisplay1",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        typeDisplay1
-                        <br />
-                      </div>,
-                      <div>
-                        typeDisplay2
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-1",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay1",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay1",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-2",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay2",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay2",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        programName1
-                        <br />
-                      </div>,
-                      <div>
-                        programName2
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-3",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName1",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName1",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-4",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName2",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName2",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Active",
-                      "id": "ocpui.components.HealthcareServiceTable.labelActive",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "menuItems": Array [
-                        Object {
-                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                          "primaryText": <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />,
-                        },
-                      ],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": "logicalId2",
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <TableRowColumn__TableRowColumn>
-                    name2
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay2
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay3
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName3
-                      <br />
-                    </div>
-                    <div>
-                      programName4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                ],
-                "columns": "repeat(7, 1fr) 50px",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "name2",
-                  },
-                  "ref": null,
-                  "rendered": "name2",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "categoryDisplay2",
-                  },
-                  "ref": null,
-                  "rendered": "categoryDisplay2",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        typeDisplay3
-                        <br />
-                      </div>,
-                      <div>
-                        typeDisplay4
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-5",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay3",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay3",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-6",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay4",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay4",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        programName3
-                        <br />
-                      </div>,
-                      <div>
-                        programName4
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-7",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName3",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName3",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-8",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName4",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName4",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Active",
-                      "id": "ocpui.components.HealthcareServiceTable.labelActive",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "menuItems": Array [
-                        Object {
-                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                          "primaryText": <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />,
-                        },
-                      ],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-        false,
-      ],
       "type": "div",
     },
   ],
@@ -2691,10 +2691,1268 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [
-        <Table__Table>
+      "children": <Table__Table>
+        <TableHeader
+          columns="repeat(6, 1fr) 70px 50px"
+          relativeTop={50}
+          sticky={true}
+        >
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Name"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Category"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Type"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Program Name"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Referral Method"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Specialty"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+          <TableHeaderColumn__TableHeaderColumn>
+            <FormattedMessage
+              defaultMessage="Active"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+              values={Object {}}
+            />
+          </TableHeaderColumn__TableHeaderColumn>
+        </TableHeader>
+        <TableRow
+          columns="repeat(6, 1fr) 70px 50px"
+        >
+          <TableRowColumn__TableRowColumn>
+            name1
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            categoryDisplay1
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              typeDisplay1
+              <br />
+            </div>
+            <div>
+              typeDisplay2
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              programName1
+              <br />
+            </div>
+            <div>
+              programName2
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn>
+            <FormattedMessage
+              defaultMessage="Inactive"
+              id="ocpui.components.HealthcareServiceTable.labelInactive"
+              values={Object {}}
+            />
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <NavigationIconMenu
+              menuItems={
+                Array [
+                  Object {
+                    "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Edit"
+                      id="ocpui.components.HealthcareServiceTable.edit"
+                      values={Object {}}
+                    />,
+                  },
+                ]
+              }
+            />
+          </TableRowColumn__TableRowColumn>
+        </TableRow>
+        <TableRow
+          columns="repeat(6, 1fr) 70px 50px"
+        >
+          <TableRowColumn__TableRowColumn>
+            name2
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            categoryDisplay2
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              typeDisplay3
+              <br />
+            </div>
+            <div>
+              typeDisplay4
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <div>
+              programName3
+              <br />
+            </div>
+            <div>
+              programName4
+              <br />
+            </div>
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn />
+          <TableRowColumn__TableRowColumn>
+            <FormattedMessage
+              defaultMessage="Active"
+              id="ocpui.components.HealthcareServiceTable.labelActive"
+              values={Object {}}
+            />
+          </TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn>
+            <NavigationIconMenu
+              menuItems={
+                Array [
+                  Object {
+                    "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                    "primaryText": <FormattedMessage
+                      defaultMessage="Edit"
+                      id="ocpui.components.HealthcareServiceTable.edit"
+                      values={Object {}}
+                    />,
+                  },
+                ]
+              }
+            />
+          </TableRowColumn__TableRowColumn>
+        </TableRow>
+      </Table__Table>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
           <TableHeader
-            columns="repeat(7, 1fr) 50px"
+            columns="repeat(6, 1fr) 70px 50px"
+            relativeTop={50}
+            sticky={true}
+          >
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Name"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Category"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Type"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Program Name"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Referral Method"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Specialty"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+            <TableHeaderColumn__TableHeaderColumn>
+              <FormattedMessage
+                defaultMessage="Active"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                values={Object {}}
+              />
+            </TableHeaderColumn__TableHeaderColumn>
+          </TableHeader>,
+          Array [
+            <TableRow
+              columns="repeat(6, 1fr) 70px 50px"
+            >
+              <TableRowColumn__TableRowColumn>
+                name1
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay1
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay1
+                  <br />
+                </div>
+                <div>
+                  typeDisplay2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName1
+                  <br />
+                </div>
+                <div>
+                  programName2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Inactive"
+                  id="ocpui.components.HealthcareServiceTable.labelInactive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>
+            </TableRow>,
+            <TableRow
+              columns="repeat(6, 1fr) 70px 50px"
+            >
+              <TableRowColumn__TableRowColumn>
+                name2
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay2
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay3
+                  <br />
+                </div>
+                <div>
+                  typeDisplay4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName3
+                  <br />
+                </div>
+                <div>
+                  programName4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn />
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>
+            </TableRow>,
+          ],
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              false,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Category"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Type"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Program Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Referral Method"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Specialty"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+              <TableHeaderColumn__TableHeaderColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  values={Object {}}
+                />
+              </TableHeaderColumn__TableHeaderColumn>,
+            ],
+            "columns": "repeat(6, 1fr) 70px 50px",
+            "relativeTop": 50,
+            "sticky": true,
+          },
+          "ref": null,
+          "rendered": Array [
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Name",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderName",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Category"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Category",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Type"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Type",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderType",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Program Name"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Program Name",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Referral Method"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Referral Method",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Specialty"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Specialty",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Active",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "logicalId1",
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              false,
+              <TableRowColumn__TableRowColumn>
+                name1
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay1
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay1
+                  <br />
+                </div>
+                <div>
+                  typeDisplay2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName1
+                  <br />
+                </div>
+                <div>
+                  programName2
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Inactive"
+                  id="ocpui.components.HealthcareServiceTable.labelInactive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>,
+            ],
+            "columns": "repeat(6, 1fr) 70px 50px",
+          },
+          "ref": null,
+          "rendered": Array [
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "name1",
+              },
+              "ref": null,
+              "rendered": "name1",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "categoryDisplay1",
+              },
+              "ref": null,
+              "rendered": "categoryDisplay1",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    typeDisplay1
+                    <br />
+                  </div>,
+                  <div>
+                    typeDisplay2
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-9",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay1",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay1",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-10",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay2",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay2",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    programName1
+                    <br />
+                  </div>,
+                  <div>
+                    programName2
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-11",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName1",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName1",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-12",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName2",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName2",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Inactive"
+                  id="ocpui.components.HealthcareServiceTable.labelInactive"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Inactive",
+                  "id": "ocpui.components.HealthcareServiceTable.labelInactive",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "menuItems": Array [
+                    Object {
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "logicalId2",
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              false,
+              <TableRowColumn__TableRowColumn>
+                name2
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                categoryDisplay2
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  typeDisplay3
+                  <br />
+                </div>
+                <div>
+                  typeDisplay4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <div>
+                  programName3
+                  <br />
+                </div>
+                <div>
+                  programName4
+                  <br />
+                </div>
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn />,
+              <TableRowColumn__TableRowColumn>
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />
+              </TableRowColumn__TableRowColumn>,
+              <TableRowColumn__TableRowColumn>
+                <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />
+              </TableRowColumn__TableRowColumn>,
+            ],
+            "columns": "repeat(6, 1fr) 70px 50px",
+          },
+          "ref": null,
+          "rendered": Array [
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "name2",
+              },
+              "ref": null,
+              "rendered": "name2",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "categoryDisplay2",
+              },
+              "ref": null,
+              "rendered": "categoryDisplay2",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    typeDisplay3
+                    <br />
+                  </div>,
+                  <div>
+                    typeDisplay4
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-13",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay3",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay3",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-valueSet-14",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "typeDisplay4",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "typeDisplay4",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <div>
+                    programName3
+                    <br />
+                  </div>,
+                  <div>
+                    programName4
+                    <br />
+                  </div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-15",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName3",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName3",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": "healthCareService-programNames-16",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "programName4",
+                      <br />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "programName4",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "br",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <FormattedMessage
+                  defaultMessage="Active"
+                  id="ocpui.components.HealthcareServiceTable.labelActive"
+                  values={Object {}}
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Active",
+                  "id": "ocpui.components.HealthcareServiceTable.labelActive",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <NavigationIconMenu
+                  menuItems={
+                    Array [
+                      Object {
+                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                        "primaryText": <FormattedMessage
+                          defaultMessage="Edit"
+                          id="ocpui.components.HealthcareServiceTable.edit"
+                          values={Object {}}
+                        />,
+                      },
+                    ]
+                  }
+                />,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "menuItems": Array [
+                    Object {
+                      "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
+                      "primaryText": <FormattedMessage
+                        defaultMessage="Edit"
+                        id="ocpui.components.HealthcareServiceTable.edit"
+                        values={Object {}}
+                      />,
+                    },
+                  ],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <Table__Table>
+          <TableHeader
+            columns="repeat(6, 1fr) 70px 50px"
             relativeTop={50}
             sticky={true}
           >
@@ -2749,7 +4007,7 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>
           <TableRow
-            columns="repeat(7, 1fr) 50px"
+            columns="repeat(6, 1fr) 70px 50px"
           >
             <TableRowColumn__TableRowColumn>
               name1
@@ -2804,7 +4062,7 @@ ShallowWrapper {
             </TableRowColumn__TableRowColumn>
           </TableRow>
           <TableRow
-            columns="repeat(7, 1fr) 50px"
+            columns="repeat(6, 1fr) 70px 50px"
           >
             <TableRowColumn__TableRowColumn>
               name2
@@ -2859,19 +4117,16 @@ ShallowWrapper {
             </TableRowColumn__TableRowColumn>
           </TableRow>
         </Table__Table>,
-        false,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
+      },
+      "ref": null,
+      "rendered": Object {
         "instance": null,
         "key": undefined,
         "nodeType": "class",
         "props": Object {
           "children": Array [
             <TableHeader
-              columns="repeat(7, 1fr) 50px"
+              columns="repeat(6, 1fr) 70px 50px"
               relativeTop={50}
               sticky={true}
             >
@@ -2927,7 +4182,7 @@ ShallowWrapper {
             </TableHeader>,
             Array [
               <TableRow
-                columns="repeat(7, 1fr) 50px"
+                columns="repeat(6, 1fr) 70px 50px"
               >
                 <TableRowColumn__TableRowColumn>
                   name1
@@ -2982,7 +4237,7 @@ ShallowWrapper {
                 </TableRowColumn__TableRowColumn>
               </TableRow>,
               <TableRow
-                columns="repeat(7, 1fr) 50px"
+                columns="repeat(6, 1fr) 70px 50px"
               >
                 <TableRowColumn__TableRowColumn>
                   name2
@@ -3047,6 +4302,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                false,
                 <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
                     defaultMessage="Name"
@@ -3097,12 +4353,13 @@ ShallowWrapper {
                   />
                 </TableHeaderColumn__TableHeaderColumn>,
               ],
-              "columns": "repeat(7, 1fr) 50px",
+              "columns": "repeat(6, 1fr) 70px 50px",
               "relativeTop": 50,
               "sticky": true,
             },
             "ref": null,
             "rendered": Array [
+              false,
               Object {
                 "instance": null,
                 "key": undefined,
@@ -3301,6 +4558,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                false,
                 <TableRowColumn__TableRowColumn>
                   name1
                 </TableRowColumn__TableRowColumn>,
@@ -3353,10 +4611,11 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(7, 1fr) 50px",
+              "columns": "repeat(6, 1fr) 70px 50px",
             },
             "ref": null,
             "rendered": Array [
+              false,
               Object {
                 "instance": null,
                 "key": undefined,
@@ -3622,6 +4881,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                false,
                 <TableRowColumn__TableRowColumn>
                   name2
                 </TableRowColumn__TableRowColumn>,
@@ -3674,10 +4934,11 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(7, 1fr) 50px",
+              "columns": "repeat(6, 1fr) 70px 50px",
             },
             "ref": null,
             "rendered": Array [
+              false,
               Object {
                 "instance": null,
                 "key": undefined,
@@ -3940,1267 +5201,6 @@ ShallowWrapper {
         ],
         "type": [Function],
       },
-      false,
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <Table__Table>
-            <TableHeader
-              columns="repeat(7, 1fr) 50px"
-              relativeTop={50}
-              sticky={true}
-            >
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Name"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Category"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Type"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Program Name"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Referral Method"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Specialty"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-              <TableHeaderColumn__TableHeaderColumn>
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                  values={Object {}}
-                />
-              </TableHeaderColumn__TableHeaderColumn>
-            </TableHeader>
-            <TableRow
-              columns="repeat(7, 1fr) 50px"
-            >
-              <TableRowColumn__TableRowColumn>
-                name1
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                categoryDisplay1
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  typeDisplay1
-                  <br />
-                </div>
-                <div>
-                  typeDisplay2
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  programName1
-                  <br />
-                </div>
-                <div>
-                  programName2
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn>
-                <FormattedMessage
-                  defaultMessage="Inactive"
-                  id="ocpui.components.HealthcareServiceTable.labelInactive"
-                  values={Object {}}
-                />
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <NavigationIconMenu
-                  menuItems={
-                    Array [
-                      Object {
-                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                      },
-                    ]
-                  }
-                />
-              </TableRowColumn__TableRowColumn>
-            </TableRow>
-            <TableRow
-              columns="repeat(7, 1fr) 50px"
-            >
-              <TableRowColumn__TableRowColumn>
-                name2
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                categoryDisplay2
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  typeDisplay3
-                  <br />
-                </div>
-                <div>
-                  typeDisplay4
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <div>
-                  programName3
-                  <br />
-                </div>
-                <div>
-                  programName4
-                  <br />
-                </div>
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn />
-              <TableRowColumn__TableRowColumn>
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.labelActive"
-                  values={Object {}}
-                />
-              </TableRowColumn__TableRowColumn>
-              <TableRowColumn__TableRowColumn>
-                <NavigationIconMenu
-                  menuItems={
-                    Array [
-                      Object {
-                        "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                        "primaryText": <FormattedMessage
-                          defaultMessage="Edit"
-                          id="ocpui.components.HealthcareServiceTable.edit"
-                          values={Object {}}
-                        />,
-                      },
-                    ]
-                  }
-                />
-              </TableRowColumn__TableRowColumn>
-            </TableRow>
-          </Table__Table>,
-          false,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": Array [
-              <TableHeader
-                columns="repeat(7, 1fr) 50px"
-                relativeTop={50}
-                sticky={true}
-              >
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Name"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Category"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Type"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Program Name"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Referral Method"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Specialty"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-                <TableHeaderColumn__TableHeaderColumn>
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                    values={Object {}}
-                  />
-                </TableHeaderColumn__TableHeaderColumn>
-              </TableHeader>,
-              Array [
-                <TableRow
-                  columns="repeat(7, 1fr) 50px"
-                >
-                  <TableRowColumn__TableRowColumn>
-                    name1
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay1
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay1
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName1
-                      <br />
-                    </div>
-                    <div>
-                      programName2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Inactive"
-                      id="ocpui.components.HealthcareServiceTable.labelInactive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>
-                </TableRow>,
-                <TableRow
-                  columns="repeat(7, 1fr) 50px"
-                >
-                  <TableRowColumn__TableRowColumn>
-                    name2
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay2
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay3
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName3
-                      <br />
-                    </div>
-                    <div>
-                      programName4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn />
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>
-                </TableRow>,
-              ],
-            ],
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Category"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Type"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Program Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Referral Method"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Specialty"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                  <TableHeaderColumn__TableHeaderColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                      values={Object {}}
-                    />
-                  </TableHeaderColumn__TableHeaderColumn>,
-                ],
-                "columns": "repeat(7, 1fr) 50px",
-                "relativeTop": 50,
-                "sticky": true,
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderName"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Name",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderName",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Category"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Category",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderCategory",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Type"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderType"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Type",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderType",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Program Name"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Program Name",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderProgramName",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Referral Method"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Referral Method",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Specialty"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Specialty",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderSpecialty",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Active",
-                      "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": "logicalId1",
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <TableRowColumn__TableRowColumn>
-                    name1
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay1
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay1
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName1
-                      <br />
-                    </div>
-                    <div>
-                      programName2
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Inactive"
-                      id="ocpui.components.HealthcareServiceTable.labelInactive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                ],
-                "columns": "repeat(7, 1fr) 50px",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "name1",
-                  },
-                  "ref": null,
-                  "rendered": "name1",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "categoryDisplay1",
-                  },
-                  "ref": null,
-                  "rendered": "categoryDisplay1",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        typeDisplay1
-                        <br />
-                      </div>,
-                      <div>
-                        typeDisplay2
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-9",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay1",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay1",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-10",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay2",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay2",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        programName1
-                        <br />
-                      </div>,
-                      <div>
-                        programName2
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-11",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName1",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName1",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-12",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName2",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName2",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Inactive"
-                      id="ocpui.components.HealthcareServiceTable.labelInactive"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Inactive",
-                      "id": "ocpui.components.HealthcareServiceTable.labelInactive",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "menuItems": Array [
-                        Object {
-                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId1",
-                          "primaryText": <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />,
-                        },
-                      ],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": "logicalId2",
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <TableRowColumn__TableRowColumn>
-                    name2
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    categoryDisplay2
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      typeDisplay3
-                      <br />
-                    </div>
-                    <div>
-                      typeDisplay4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <div>
-                      programName3
-                      <br />
-                    </div>
-                    <div>
-                      programName4
-                      <br />
-                    </div>
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn />,
-                  <TableRowColumn__TableRowColumn>
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                  <TableRowColumn__TableRowColumn>
-                    <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />
-                  </TableRowColumn__TableRowColumn>,
-                ],
-                "columns": "repeat(7, 1fr) 50px",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "name2",
-                  },
-                  "ref": null,
-                  "rendered": "name2",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "categoryDisplay2",
-                  },
-                  "ref": null,
-                  "rendered": "categoryDisplay2",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        typeDisplay3
-                        <br />
-                      </div>,
-                      <div>
-                        typeDisplay4
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-13",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay3",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay3",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-valueSet-14",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "typeDisplay4",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "typeDisplay4",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <div>
-                        programName3
-                        <br />
-                      </div>,
-                      <div>
-                        programName4
-                        <br />
-                      </div>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-15",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName3",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName3",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": "healthCareService-programNames-16",
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          "programName4",
-                          <br />,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        "programName4",
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {},
-                          "ref": null,
-                          "rendered": null,
-                          "type": "br",
-                        },
-                      ],
-                      "type": "div",
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": undefined,
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <FormattedMessage
-                      defaultMessage="Active"
-                      id="ocpui.components.HealthcareServiceTable.labelActive"
-                      values={Object {}}
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Active",
-                      "id": "ocpui.components.HealthcareServiceTable.labelActive",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": <NavigationIconMenu
-                      menuItems={
-                        Array [
-                          Object {
-                            "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                            "primaryText": <FormattedMessage
-                              defaultMessage="Edit"
-                              id="ocpui.components.HealthcareServiceTable.edit"
-                              values={Object {}}
-                            />,
-                          },
-                        ]
-                      }
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "menuItems": Array [
-                        Object {
-                          "linkTo": "/ocp-ui/manage-healthcare-service/logicalId2",
-                          "primaryText": <FormattedMessage
-                            defaultMessage="Edit"
-                            id="ocpui.components.HealthcareServiceTable.edit"
-                            values={Object {}}
-                          />,
-                        },
-                      ],
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-        false,
-      ],
       "type": "div",
     },
   ],
