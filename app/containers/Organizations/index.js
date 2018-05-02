@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -51,7 +52,7 @@ export class Organizations extends React.Component {
     this.state = {
       ...Organizations.initialState,
       openSlider: false,
-      showViewAllButton: false,
+      showViewAllButton: !isEmpty(this.props.organization),
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
