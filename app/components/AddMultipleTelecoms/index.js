@@ -11,7 +11,6 @@ import { FieldArray } from 'formik';
 import Dialog from 'material-ui/Dialog';
 
 import FormSubtitle from 'components/FormSubtitle';
-import Section from 'components/Section';
 import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledIconButton from 'components/StyledIconButton';
@@ -62,7 +61,7 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
     };
     return (
       <div>
-        <Section>
+        <div>
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
@@ -98,7 +97,7 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
               </div>
             )}
           />
-        </Section>
+        </div>
       </div>
     );
   }

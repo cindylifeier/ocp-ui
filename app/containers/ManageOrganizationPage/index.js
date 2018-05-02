@@ -143,9 +143,6 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
               <FormattedMessage {...messages.updateModeTitle} /> :
               <FormattedMessage {...messages.createModeTitle} />}
           />
-          <FormSubtitle>
-            <FormattedMessage {...messages.subtitle} />
-          </FormSubtitle>
           <PageContent>
             <Formik
               validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
@@ -167,14 +164,19 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                 return (
                   <Form>
                     <ManageOrganizationFormGrid columns={12}>
-                      <ManageOrganizationFormCell top={1} left={1} width={4}>
+                      <ManageOrganizationFormCell width={12}>
+                        <FormSubtitle margin="1vh 0 0 0">
+                          <FormattedMessage {...messages.subtitle} />
+                        </FormSubtitle>
+                      </ManageOrganizationFormCell>
+                      <ManageOrganizationFormCell left={1} width={4}>
                         <TextField
                           name="name"
                           floatingLabelText={<FormattedMessage {...messages.form.name} />}
                           fullWidth
                         />
                       </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell top={1} left={5} width={3}>
+                      <ManageOrganizationFormCell left={5} width={3}>
                         <Grid columns="1fr 2fr" gap="">
                           <Cell>
                             <SelectField
@@ -200,7 +202,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                         </Grid>
                       </ManageOrganizationFormCell>
                       {id &&
-                      <ManageOrganizationFormCell top={1} left={8} width={2}>
+                      <ManageOrganizationFormCell left={8} width={2}>
                         <SelectField
                           floatingLabelText={<FormattedMessage {...messages.form.status} />}
                           fullWidth

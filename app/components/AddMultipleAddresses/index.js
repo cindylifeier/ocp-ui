@@ -15,7 +15,6 @@ import StyledIconButton from 'components/StyledIconButton';
 import AddCircle from '@material-ui/icons/es/AddCircle';
 import teal from 'material-ui-next/colors/teal';
 import FormSubtitle from 'components/FormSubtitle';
-import Section from 'components/Section';
 import AddMultipleAddressesForm from './AddMultipleAddressesForm';
 import AddedAddressesTable from './AddedAddressesTable';
 import messages from './messages';
@@ -58,7 +57,7 @@ class AddMultipleAddresses extends React.Component {
     };
     return (
       <div>
-        <Section>
+        <div>
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
@@ -94,7 +93,7 @@ class AddMultipleAddresses extends React.Component {
               </div>
             )}
           />
-        </Section>
+        </div>
       </div>
     );
   }
