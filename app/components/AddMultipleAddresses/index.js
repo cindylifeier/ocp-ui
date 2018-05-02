@@ -12,7 +12,7 @@ import { FieldArray } from 'formik';
 
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledIconButton from 'components/StyledIconButton';
-import AddCircle from '@material-ui/icons/es/AddCircle';
+import AddCircle from '@material-ui/icons/AddCircle';
 import teal from 'material-ui-next/colors/teal';
 import FormSubtitle from 'components/FormSubtitle';
 import AddMultipleAddressesForm from './AddMultipleAddressesForm';

@@ -14,7 +14,7 @@ import FormSubtitle from 'components/FormSubtitle';
 import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledIconButton from 'components/StyledIconButton';
-import AddCircle from '@material-ui/icons/es/AddCircle';
+import AddCircle from '@material-ui/icons/AddCircle';
 import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
 import AddedTelecomsTable from './AddedTelecomsTable';
 import messages from './messages';

@@ -27,7 +27,7 @@ import GoBackButton from 'components/GoBackButton';
 import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledIconButton from 'components/StyledIconButton';
-import AddCircle from '@material-ui/icons/es/AddCircle';
+import AddCircle from '@material-ui/icons/AddCircle';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';

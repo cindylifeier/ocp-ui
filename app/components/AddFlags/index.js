@@ -15,7 +15,7 @@ import H1 from 'components/H1';
 import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledIconButton from 'components/StyledIconButton';
-import AddCircle from '@material-ui/icons/es/AddCircle';
+import AddCircle from '@material-ui/icons/AddCircle';
 import messages from './messages';
 import AddFlagForm from './AddFlagForm';
 import AddedFlagsTable from './AddedFlagsTable';
