@@ -50,7 +50,7 @@ export function mapToTelecoms(telecoms) {
   return telecoms && telecoms.map((telecom) => {
     const system = telecom.system !== EMPTY_STRING ? upperFirst(telecom.system) : EMPTY_STRING;
     const value = telecom.value !== EMPTY_STRING ? telecom.value : EMPTY_STRING;
-    return `${system} ${value}`;
+    return `${system}: ${value}`;
   }).join(NEW_LINE_CHARACTER);
 }
 

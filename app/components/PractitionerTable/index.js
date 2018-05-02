@@ -24,13 +24,18 @@ import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 import messages from './messages';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData, size, flattenPractitionerData } = props;
+  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+
+
+  function renderFullName(names) {
+    return names && names.map((name) => (<div key={uniqueId()}>{name.firstName} {name.lastName} </div>));
+  }
 
   return (
     <div>
@@ -41,8 +46,11 @@ function PractitionerTable(props) {
             <Table>
               <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn />
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFirstName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnLastName} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
+                {isExpanded &&
+                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                }
+                <TableHeaderColumn > <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
@@ -50,8 +58,10 @@ function PractitionerTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
-                const { logicalId, name, active } = practitioner;
+                const { logicalId, name, active, addresses, telecoms } = practitioner;
                 const flattenedPractitioner = flattenPractitionerData(practitioner);
+                const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
+                const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
@@ -62,8 +72,11 @@ function PractitionerTable(props) {
                     columns={columns}
                     key={logicalId}
                   >
-                    <TableRowColumn>{renderFirstName(name)}</TableRowColumn>
-                    <TableRowColumn>{renderLastName(name)}</TableRowColumn>
+                    <TableRowColumn>{renderFullName(name)}</TableRowColumn>
+                    {isExpanded ?
+                      <TableRowColumn>{address}</TableRowColumn> : null
+                    }
+                    <TableRowColumn>{contact}</TableRowColumn>
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
@@ -98,14 +111,6 @@ function PractitionerTable(props) {
       )}
     </div>
   );
-}
-
-function renderFirstName(names) {
-  return names && names.map((name) => (<div key={uniqueId()}>{name.firstName}</div>));
-}
-
-function renderLastName(names) {
-  return names && names.map((name) => (<div key={uniqueId()}>{name.lastName}</div>));
 }
 
 PractitionerTable.propTypes = {
@@ -147,6 +152,8 @@ PractitionerTable.propTypes = {
       practitionerRoles: PropTypes.array,
     })).isRequired,
   }),
+  combineAddress: PropTypes.func.isRequired,
+  mapToTelecoms: PropTypes.func.isRequired,
 };
 
 export default sizeMeHOC(PractitionerTable);

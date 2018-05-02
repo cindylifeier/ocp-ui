@@ -22,8 +22,10 @@ import {
 } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
+import FhirUtil from 'utils/FhirUtil';
 import PanelToolbar from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
+import { mapToTelecoms } from 'containers/App/helpers';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
@@ -140,6 +142,8 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
             relativeTop={this.state.relativeTop}
             practitionersData={practitionersData}
             flattenPractitionerData={flattenPractitionerData}
+            combineAddress={FhirUtil.combineAddress}
+            mapToTelecoms={mapToTelecoms}
           />
         </InfoSection>
       </div>
