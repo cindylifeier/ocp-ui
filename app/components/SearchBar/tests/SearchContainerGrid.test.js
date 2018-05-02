@@ -54,8 +54,8 @@ describe('<SearchContainerGrid />', () => {
       const renderedComponent = shallow(<SearchContainerGrid>{children}</SearchContainerGrid>);
 
       // Arrange
-      expect(renderedComponent).toHaveStyleRule('padding', '5px 20px');
-      expect(renderedComponent).toHaveStyleRule('margin', '2px 0');
+      expect(renderedComponent).toHaveStyleRule('padding', '4px 2px');
+      expect(renderedComponent).toHaveStyleRule('margin', '2px 5px');
     });
   });
 });

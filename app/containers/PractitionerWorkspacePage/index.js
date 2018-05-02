@@ -63,7 +63,7 @@ const baseLayout = {
     borderWidth: 10,
     borderGrabWidth: 15,
     minItemHeight: 200,
-    minItemWidth: 400,
+    minItemWidth: 500,
     headerHeight: 30,
     dragProxyWidth: 300,
     dragProxyHeight: 200,

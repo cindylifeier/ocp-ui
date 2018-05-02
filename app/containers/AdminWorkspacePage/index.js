@@ -44,7 +44,7 @@ export const initialStateMetadata =
       borderWidth: 10,
       borderGrabWidth: 15,
       minItemHeight: 200,
-      minItemWidth: 400,
+      minItemWidth: 450,
       headerHeight: 40,
       dragProxyWidth: 300,
       dragProxyHeight: 200,
