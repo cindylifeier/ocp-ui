@@ -11,44 +11,44 @@ function HealthcareServiceExpansionRowDetails({ healthcareService }) {
   const { name, category, type, specialty, programName, referralMethod, telecom, active } = healthcareService;
   return (
     <InfoSection>
-      <Grid columns={'repeat(4, 1fr)'}>
-        <Cell start>
+      <Grid columns={'repeat(2, 1fr)'}>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderName} />}
             text={name}
           />
         </Cell>
-        <Cell start>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderType} />}
             text={type}
           />
         </Cell>
-        <Cell start>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderCategory} />}
             text={category}
           />
         </Cell>
-        <Cell start>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderSpecialty} />}
             text={specialty}
           />
         </Cell>
-        <Cell start>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderProgramName} />}
             text={programName}
           />
         </Cell>
-        <Cell start>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderReferralMethod} />}
             text={referralMethod}
           />
         </Cell>
-        <Cell start>
+        <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderStatus} />}
             text={active ?
@@ -57,11 +57,13 @@ function HealthcareServiceExpansionRowDetails({ healthcareService }) {
             }
           />
         </Cell>
-        <Cell start>
+        <Cell>
+          {telecom &&
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetailsTelecoms} />}
             text={telecom}
           />
+          }
         </Cell>
       </Grid>
     </InfoSection>
