@@ -34,9 +34,9 @@ export default defineMessages({
     id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderReferralMethod',
     defaultMessage: 'Referral Method',
   },
-  tableColumnHeaderActive: {
-    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderActive',
-    defaultMessage: 'Active',
+  tableColumnHeaderStatus: {
+    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus',
+    defaultMessage: 'Status',
   },
   labelActive: {
     id: 'ocpui.components.HealthcareServiceTable.labelActive',
