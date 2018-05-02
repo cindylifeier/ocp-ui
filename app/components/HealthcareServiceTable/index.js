@@ -13,6 +13,13 @@ import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import sizeMeHOC from 'utils/SizeMeUtils';
+
+import {
+  SUMMARIZED_TABLE_COLUMNS,
+  SUMMARY_VIEW_WIDTH,
+  EXPANDED_TABLE_COLUMNS,
+} from 'components/HealthcareServiceTable/constants';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -20,9 +27,11 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
-const tableColumns = 'repeat(7, 1fr) 50px';
 
-function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop }) {
+function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop, size }) {
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+
   function getDisplayNameFromValueSetList(valueSets) {
     return valueSets && valueSets.map((entry) =>
       (
@@ -49,14 +58,17 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
     <div>
       {!showAssigned &&
       <Table>
-        <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+        <TableHeader columns={columns} relativeTop={relativeTop}>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
+          }
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderActive} /></TableHeaderColumn>
+          }
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => {
           const menuItems = [{
@@ -64,13 +76,16 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
             linkTo: `/ocp-ui/manage-healthcare-service/${element.logicalId}`,
           }];
           return (
-            <TableRow key={element.logicalId} columns={tableColumns}>
+            <TableRow key={element.logicalId} columns={columns}>
               <TableRowColumn>{element.name}</TableRowColumn>
               <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
+              {isExpanded &&
               <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
-              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-              <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
+              }
+              {isExpanded &&
               <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
+              }
+              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
               <TableRowColumn>{element.active ?
                 <FormattedMessage {...messages.labelActive} /> :
                 <FormattedMessage {...messages.labelInactive} />}
@@ -129,6 +144,7 @@ HealthcareServiceTable.propTypes = {
   elements: PropTypes.array,
   showAssigned: PropTypes.bool,
   onCheck: PropTypes.func,
+  size: PropTypes.object.isRequired,
 };
 
-export default HealthcareServiceTable;
+export default sizeMeHOC(HealthcareServiceTable);
