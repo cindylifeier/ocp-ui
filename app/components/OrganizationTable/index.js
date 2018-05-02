@@ -15,7 +15,7 @@ import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import StyledFlatButton from 'components/StyledFlatButton';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
@@ -23,11 +23,17 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import OrganizationExpansionRowDetails from './OrganizationExpansionRowDetails';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS, ENTER_KEY } from './constants';
+import { EXPANDED_TABLE_COLUMNS, ENTER_KEY, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+
 
 function OrganizationTable(props) {
-  const { organizationData, flattenOrganizationData, onRowClick, relativeTop, onOrganizationViewDetails } = props;
-  const columns = EXPANDED_TABLE_COLUMNS;
+  const { organizationData, flattenOrganizationData, combineAddress, mapToTelecoms, onRowClick, relativeTop, onOrganizationViewDetails, size } = props;
+  const menuItems = [{
+    primaryText: <FormattedMessage {...messages.viewDetails} />,
+    onClick: () => onOrganizationViewDetails(),
+  }];
+  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   return (
     <div>
@@ -38,11 +44,23 @@ function OrganizationTable(props) {
               <TableHeader columns={columns} relativeTop={relativeTop}>
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderOrganization} /></TableHeaderColumn>
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
+                }
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                { isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+                }
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(organizationData.data) && organizationData.data.map((organization) => {
                 const flattenOrganization = flattenOrganizationData(organization);
+
+                const { addresses, telecoms } = organization;
+                const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
+                const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
+
                 const { logicalId, name, identifiers, active } = flattenOrganization;
                 return (
                   <ExpansionTableRow
@@ -62,7 +80,13 @@ function OrganizationTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{name}</TableRowColumn>
-                    <TableRowColumn>{identifiers}</TableRowColumn>
+                    {isExpanded ?
+                      <TableRowColumn>{identifiers}</TableRowColumn> : null
+                    }
+                    <TableRowColumn>{ address}</TableRowColumn>
+                    {isExpanded ?
+                      <TableRowColumn>{ contact}</TableRowColumn> : null
+                    }
                     <TableRowColumn>
                       {active ?
                         <FormattedMessage {...messages.active} /> :
@@ -70,9 +94,7 @@ function OrganizationTable(props) {
                       }
                     </TableRowColumn>
                     <TableRowColumn>
-                      <StyledFlatButton color="primary" size="small" onClick={() => onOrganizationViewDetails()}>
-                        <FormattedMessage {...messages.viewDetails} />
-                      </StyledFlatButton>
+                      <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
                   </ExpansionTableRow>
                 );
@@ -139,7 +161,10 @@ OrganizationTable.propTypes = {
   }),
   onRowClick: PropTypes.func,
   flattenOrganizationData: PropTypes.func.isRequired,
+  combineAddress: PropTypes.func.isRequired,
+  mapToTelecoms: PropTypes.func.isRequired,
   onOrganizationViewDetails: PropTypes.func.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
 export default sizeMeHOC(OrganizationTable);

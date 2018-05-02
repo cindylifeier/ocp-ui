@@ -214,7 +214,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
         <LocationTable
           relativeTop={this.state.panelHeight + this.state.filterHeight}
           locationTableData={locationTableData}
-          handleRowClick={() => this.handleRowClick}
+          handleRowClick={this.handleRowClick}
           flattenLocationData={flattenLocationData}
         />
       </div>);

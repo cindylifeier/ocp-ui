@@ -38,13 +38,25 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.inactive',
     defaultMessage: 'Inactive',
   },
-  firstName: {
-    id: 'ocpui.components.PatientSearchResult.firstName',
-    defaultMessage: 'First Name',
+  fullName: {
+    id: 'ocpui.components.PatientSearchResult.fullName',
+    defaultMessage: 'Name',
   },
-  lastName: {
-    id: 'ocpui.components.PatientSearchResult.lastName',
-    defaultMessage: 'Last Name',
+  address: {
+    id: 'ocpui.components.PatientSearchResult.address',
+    defaultMessage: 'Address',
+  },
+  tableColumnHeaderTelecom: {
+    id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Telecom',
+    defaultMessage: 'Contact',
+  },
+  race: {
+    id: 'ocpui.components.PatientSearchResult.race',
+    defaultMessage: 'Race',
+  },
+  ethnicity: {
+    id: 'ocpui.components.PatientSearchResult.ethnicity',
+    defaultMessage: 'Ethnicity',
   },
   dob: {
     id: 'ocpui.components.PatientSearchResult.dob',
@@ -69,5 +81,39 @@ export default defineMessages({
   addAdvisory: {
     id: 'ocpui.components.PatientSearchResult.addAdvisory',
     defaultMessage: 'Add Advisory',
+  },
+  expansionRowDetails: {
+    name: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.name',
+      defaultMessage: 'Name',
+    },
+    identifiers: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.identifiers',
+      defaultMessage: 'Identifier',
+    },
+    addresses: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.addresses',
+      defaultMessage: 'Address',
+    },
+    telecoms: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
+      defaultMessage: 'Contact',
+    },
+    status: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
+      defaultMessage: 'Status',
+    },
+    dob: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.dob',
+      defaultMessage: 'DOB',
+    },
+    gender: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.gender',
+      defaultMessage: 'Gender',
+    },
+    birthSex: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.birthSex',
+      defaultMessage: 'Birth Gender',
+    },
   },
 });

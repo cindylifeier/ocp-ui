@@ -11,16 +11,20 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import HorizontalAlignment from 'components/HorizontalAlignment';
+import StyledFlatButton from 'components/StyledFlatButton';
 import OrganizationTable from 'components/OrganizationTable/Loadable';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import OrganizationSlider from 'components/OrganizationSlider';
+import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -28,9 +32,8 @@ import { getOrganizations, initializeOrganizations, searchOrganizations } from '
 import { flattenOrganizationData } from './helpers';
 import messages from './messages';
 
-
 export class Organizations extends React.Component {
-  static initalState = {
+  static initialState = {
     relativeTop: 0,
     isShowSearchResult: false,
     listOrganizations: {
@@ -47,13 +50,15 @@ export class Organizations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...Organizations.initalState,
+      ...Organizations.initialState,
       openSlider: false,
+      showViewAllButton: !isEmpty(this.props.organization),
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
+    this.handleViewAll = this.handleViewAll.bind(this);
     this.onSize = this.onSize.bind(this);
     this.handleSliderOpen = this.handleSliderOpen.bind(this);
     this.handleSliderClose = this.handleSliderClose.bind(this);
@@ -64,8 +69,7 @@ export class Organizations extends React.Component {
       this.props.initializeOrganizations([this.props.organization]);
     } else {
       this.props.initializeOrganizations();
-      const initialCurrentPage = 1;
-      this.props.getOrganizations(initialCurrentPage);
+      this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER);
     }
   }
 
@@ -74,7 +78,8 @@ export class Organizations extends React.Component {
     const { organization: newOrganization } = nextProps;
     if (!isEqual(organization, newOrganization)) {
       this.props.initializeOrganizations([newOrganization]);
-      this.setState({ ...Organizations.initalState });
+      this.setState({ ...Organizations.initialState });
+      this.setState({ showViewAllButton: true });
     }
   }
 
@@ -100,6 +105,11 @@ export class Organizations extends React.Component {
 
   handleSearchPageClick(currentPage) {
     this.props.searchOrganizations(this.state.searchOrganizations.searchValue, this.state.searchOrganizations.showInactive, this.state.searchOrganizations.searchType, currentPage);
+  }
+
+  handleViewAll() {
+    this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER);
+    this.setState({ showViewAllButton: false });
   }
 
   handleSliderOpen() {
@@ -145,6 +155,15 @@ export class Organizations extends React.Component {
           onSearch={this.handleSearch}
           onSize={this.onSize}
         />
+        {this.state.showViewAllButton &&
+        <InfoSection margin="10px 0">
+          <HorizontalAlignment position="end">
+            <StyledFlatButton color="primary" onClick={this.handleViewAll}>
+              <FormattedMessage {...messages.viewAllButton} />
+            </StyledFlatButton>
+          </HorizontalAlignment>
+        </InfoSection>
+        }
         <InfoSection margin="0 0 10px 0">
           <OrganizationTable
             relativeTop={this.state.relativeTop}
@@ -152,6 +171,8 @@ export class Organizations extends React.Component {
             onRowClick={this.handleRowClick}
             flattenOrganizationData={flattenOrganizationData}
             onOrganizationViewDetails={this.handleSliderOpen}
+            combineAddress={combineAddress}
+            mapToTelecoms={mapToTelecoms}
           />
         </InfoSection>
         {this.props.organization &&

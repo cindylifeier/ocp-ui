@@ -22,8 +22,10 @@ import {
 } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
+import FhirUtil from 'utils/FhirUtil';
 import PanelToolbar from 'components/PanelToolbar';
 import PractitionerTable from 'components/PractitionerTable';
+import { mapToTelecoms } from 'containers/App/helpers';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
@@ -108,7 +110,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     // By initial to show listing practitioners data
     let practitionersData = {
       loading: practitioners.listPractitioners.loading,
-      data: flattenPractitionerData(practitioners.listPractitioners.data),
+      data: practitioners.listPractitioners.data,
       currentPage: practitioners.listPractitioners.currentPage,
       totalNumberOfPages: practitioners.listPractitioners.totalNumberOfPages,
       currentPageSize: practitioners.listPractitioners.currentPageSize,
@@ -118,7 +120,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     if (this.state.isShowSearchResult) {
       practitionersData = {
         loading: practitioners.searchPractitioners.loading,
-        data: flattenPractitionerData(practitioners.searchPractitioners.result),
+        data: practitioners.searchPractitioners.result,
         currentPage: practitioners.searchPractitioners.currentPage,
         totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
         currentPageSize: practitioners.searchPractitioners.currentPageSize,
@@ -139,6 +141,9 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
           <PractitionerTable
             relativeTop={this.state.relativeTop}
             practitionersData={practitionersData}
+            flattenPractitionerData={flattenPractitionerData}
+            combineAddress={FhirUtil.combineAddress}
+            mapToTelecoms={mapToTelecoms}
           />
         </InfoSection>
       </div>
