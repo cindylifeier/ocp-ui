@@ -70,6 +70,76 @@ ShallowWrapper {
         },
       ]
     }
+    flattenHealthcareServiceData={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay1",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem1",
+                  "value": "identifierValue1",
+                },
+                Object {
+                  "system": "identifierSystem2",
+                  "value": "identifierValue2",
+                },
+              ],
+              "logicalId": "logicalId1",
+              "name": "name1",
+              "programName": Array [
+                "programName1",
+                "programName2",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay1",
+                },
+                Object {
+                  "display": "typeDisplay2",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay2",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem3",
+                  "value": "identifierValue3",
+                },
+                Object {
+                  "system": "identifierSystem4",
+                  "value": "identifierValue4",
+                },
+              ],
+              "logicalId": "logicalId2",
+              "name": "name2",
+              "programName": Array [
+                "programName3",
+                "programName4",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay3",
+                },
+                Object {
+                  "display": "typeDisplay4",
+                },
+              ],
+            },
+          ],
+        ],
+      }
+    }
     relativeTop={50}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -86,10 +156,11 @@ ShallowWrapper {
     "props": Object {
       "children": <Table__Table>
         <TableHeader
-          columns="repeat(6, 1fr) 70px 50px"
+          columns="50px repeat(6, 1fr) 70px 50px"
           relativeTop={50}
           sticky={true}
         >
+          <TableHeaderColumn__TableHeaderColumn />
           <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Name"
@@ -134,14 +205,19 @@ ShallowWrapper {
           </TableHeaderColumn__TableHeaderColumn>
           <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
-              defaultMessage="Active"
-              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+              defaultMessage="Status"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
               values={Object {}}
             />
           </TableHeaderColumn__TableHeaderColumn>
         </TableHeader>
-        <TableRow
-          columns="repeat(6, 1fr) 70px 50px"
+        <ExpansionTableRow
+          columns="50px repeat(6, 1fr) 70px 50px"
+          expansionTableRowDetails={
+            <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />
+          }
         >
           <TableRowColumn__TableRowColumn>
             name1
@@ -194,9 +270,14 @@ ShallowWrapper {
               }
             />
           </TableRowColumn__TableRowColumn>
-        </TableRow>
-        <TableRow
-          columns="repeat(6, 1fr) 70px 50px"
+        </ExpansionTableRow>
+        <ExpansionTableRow
+          columns="50px repeat(6, 1fr) 70px 50px"
+          expansionTableRowDetails={
+            <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />
+          }
         >
           <TableRowColumn__TableRowColumn>
             name2
@@ -249,7 +330,7 @@ ShallowWrapper {
               }
             />
           </TableRowColumn__TableRowColumn>
-        </TableRow>
+        </ExpansionTableRow>
       </Table__Table>,
     },
     "ref": null,
@@ -260,10 +341,11 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <TableHeader
-            columns="repeat(6, 1fr) 70px 50px"
+            columns="50px repeat(6, 1fr) 70px 50px"
             relativeTop={50}
             sticky={true}
           >
+            <TableHeaderColumn__TableHeaderColumn />
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
@@ -308,15 +390,20 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
-                defaultMessage="Active"
-                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                defaultMessage="Status"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                 values={Object {}}
               />
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>,
           Array [
-            <TableRow
-              columns="repeat(6, 1fr) 70px 50px"
+            <ExpansionTableRow
+              columns="50px repeat(6, 1fr) 70px 50px"
+              expansionTableRowDetails={
+                <HealthcareServiceExpansionRowDetails
+                  healthcareService={undefined}
+                />
+              }
             >
               <TableRowColumn__TableRowColumn>
                 name1
@@ -369,9 +456,14 @@ ShallowWrapper {
                   }
                 />
               </TableRowColumn__TableRowColumn>
-            </TableRow>,
-            <TableRow
-              columns="repeat(6, 1fr) 70px 50px"
+            </ExpansionTableRow>,
+            <ExpansionTableRow
+              columns="50px repeat(6, 1fr) 70px 50px"
+              expansionTableRowDetails={
+                <HealthcareServiceExpansionRowDetails
+                  healthcareService={undefined}
+                />
+              }
             >
               <TableRowColumn__TableRowColumn>
                 name2
@@ -424,7 +516,7 @@ ShallowWrapper {
                   }
                 />
               </TableRowColumn__TableRowColumn>
-            </TableRow>,
+            </ExpansionTableRow>,
           ],
         ],
       },
@@ -436,6 +528,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": Array [
+              <TableHeaderColumn__TableHeaderColumn />,
               false,
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
@@ -481,18 +574,27 @@ ShallowWrapper {
               </TableHeaderColumn__TableHeaderColumn>,
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  defaultMessage="Status"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>,
             ],
-            "columns": "repeat(6, 1fr) 70px 50px",
+            "columns": "50px repeat(6, 1fr) 70px 50px",
             "relativeTop": 50,
             "sticky": true,
           },
           "ref": null,
           "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
             false,
             Object {
               "instance": null,
@@ -662,8 +764,8 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  defaultMessage="Status"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                   values={Object {}}
                 />,
               },
@@ -673,8 +775,8 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "defaultMessage": "Active",
-                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
+                  "defaultMessage": "Status",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus",
                   "values": Object {},
                 },
                 "ref": null,
@@ -689,7 +791,7 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": "logicalId1",
-          "nodeType": "function",
+          "nodeType": "class",
           "props": Object {
             "children": Array [
               false,
@@ -745,7 +847,10 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>,
             ],
-            "columns": "repeat(6, 1fr) 70px 50px",
+            "columns": "50px repeat(6, 1fr) 70px 50px",
+            "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />,
           },
           "ref": null,
           "rendered": Array [
@@ -1012,7 +1117,7 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": "logicalId2",
-          "nodeType": "function",
+          "nodeType": "class",
           "props": Object {
             "children": Array [
               false,
@@ -1068,7 +1173,10 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>,
             ],
-            "columns": "repeat(6, 1fr) 70px 50px",
+            "columns": "50px repeat(6, 1fr) 70px 50px",
+            "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />,
           },
           "ref": null,
           "rendered": Array [
@@ -1345,10 +1453,11 @@ ShallowWrapper {
       "props": Object {
         "children": <Table__Table>
           <TableHeader
-            columns="repeat(6, 1fr) 70px 50px"
+            columns="50px repeat(6, 1fr) 70px 50px"
             relativeTop={50}
             sticky={true}
           >
+            <TableHeaderColumn__TableHeaderColumn />
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
@@ -1393,14 +1502,19 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
-                defaultMessage="Active"
-                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                defaultMessage="Status"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                 values={Object {}}
               />
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>
-          <TableRow
-            columns="repeat(6, 1fr) 70px 50px"
+          <ExpansionTableRow
+            columns="50px repeat(6, 1fr) 70px 50px"
+            expansionTableRowDetails={
+              <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />
+            }
           >
             <TableRowColumn__TableRowColumn>
               name1
@@ -1453,9 +1567,14 @@ ShallowWrapper {
                 }
               />
             </TableRowColumn__TableRowColumn>
-          </TableRow>
-          <TableRow
-            columns="repeat(6, 1fr) 70px 50px"
+          </ExpansionTableRow>
+          <ExpansionTableRow
+            columns="50px repeat(6, 1fr) 70px 50px"
+            expansionTableRowDetails={
+              <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />
+            }
           >
             <TableRowColumn__TableRowColumn>
               name2
@@ -1508,7 +1627,7 @@ ShallowWrapper {
                 }
               />
             </TableRowColumn__TableRowColumn>
-          </TableRow>
+          </ExpansionTableRow>
         </Table__Table>,
       },
       "ref": null,
@@ -1519,10 +1638,11 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <TableHeader
-              columns="repeat(6, 1fr) 70px 50px"
+              columns="50px repeat(6, 1fr) 70px 50px"
               relativeTop={50}
               sticky={true}
             >
+              <TableHeaderColumn__TableHeaderColumn />
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Name"
@@ -1567,15 +1687,20 @@ ShallowWrapper {
               </TableHeaderColumn__TableHeaderColumn>
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  defaultMessage="Status"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>
             </TableHeader>,
             Array [
-              <TableRow
-                columns="repeat(6, 1fr) 70px 50px"
+              <ExpansionTableRow
+                columns="50px repeat(6, 1fr) 70px 50px"
+                expansionTableRowDetails={
+                  <HealthcareServiceExpansionRowDetails
+                    healthcareService={undefined}
+                  />
+                }
               >
                 <TableRowColumn__TableRowColumn>
                   name1
@@ -1628,9 +1753,14 @@ ShallowWrapper {
                     }
                   />
                 </TableRowColumn__TableRowColumn>
-              </TableRow>,
-              <TableRow
-                columns="repeat(6, 1fr) 70px 50px"
+              </ExpansionTableRow>,
+              <ExpansionTableRow
+                columns="50px repeat(6, 1fr) 70px 50px"
+                expansionTableRowDetails={
+                  <HealthcareServiceExpansionRowDetails
+                    healthcareService={undefined}
+                  />
+                }
               >
                 <TableRowColumn__TableRowColumn>
                   name2
@@ -1683,7 +1813,7 @@ ShallowWrapper {
                     }
                   />
                 </TableRowColumn__TableRowColumn>
-              </TableRow>,
+              </ExpansionTableRow>,
             ],
           ],
         },
@@ -1695,6 +1825,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                <TableHeaderColumn__TableHeaderColumn />,
                 false,
                 <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
@@ -1740,18 +1871,27 @@ ShallowWrapper {
                 </TableHeaderColumn__TableHeaderColumn>,
                 <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
-                    defaultMessage="Active"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                    defaultMessage="Status"
+                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                     values={Object {}}
                   />
                 </TableHeaderColumn__TableHeaderColumn>,
               ],
-              "columns": "repeat(6, 1fr) 70px 50px",
+              "columns": "50px repeat(6, 1fr) 70px 50px",
               "relativeTop": 50,
               "sticky": true,
             },
             "ref": null,
             "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
               false,
               Object {
                 "instance": null,
@@ -1921,8 +2061,8 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
-                    defaultMessage="Active"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                    defaultMessage="Status"
+                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                     values={Object {}}
                   />,
                 },
@@ -1932,8 +2072,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "defaultMessage": "Active",
-                    "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
+                    "defaultMessage": "Status",
+                    "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus",
                     "values": Object {},
                   },
                   "ref": null,
@@ -1948,7 +2088,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": "logicalId1",
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": Array [
                 false,
@@ -2004,7 +2144,10 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(6, 1fr) 70px 50px",
+              "columns": "50px repeat(6, 1fr) 70px 50px",
+              "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />,
             },
             "ref": null,
             "rendered": Array [
@@ -2271,7 +2414,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": "logicalId2",
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": Array [
                 false,
@@ -2327,7 +2470,10 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(6, 1fr) 70px 50px",
+              "columns": "50px repeat(6, 1fr) 70px 50px",
+              "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />,
             },
             "ref": null,
             "rendered": Array [
@@ -2677,6 +2823,140 @@ ShallowWrapper {
         },
       ]
     }
+    flattenHealthcareServiceData={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay1",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem1",
+                  "value": "identifierValue1",
+                },
+                Object {
+                  "system": "identifierSystem2",
+                  "value": "identifierValue2",
+                },
+              ],
+              "logicalId": "logicalId1",
+              "name": "name1",
+              "programName": Array [
+                "programName1",
+                "programName2",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay1",
+                },
+                Object {
+                  "display": "typeDisplay2",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay2",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem3",
+                  "value": "identifierValue3",
+                },
+                Object {
+                  "system": "identifierSystem4",
+                  "value": "identifierValue4",
+                },
+              ],
+              "logicalId": "logicalId2",
+              "name": "name2",
+              "programName": Array [
+                "programName3",
+                "programName4",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay3",
+                },
+                Object {
+                  "display": "typeDisplay4",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": false,
+              "category": Object {
+                "display": "categoryDisplay1",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem1",
+                  "value": "identifierValue1",
+                },
+                Object {
+                  "system": "identifierSystem2",
+                  "value": "identifierValue2",
+                },
+              ],
+              "logicalId": "logicalId1",
+              "name": "name1",
+              "programName": Array [
+                "programName1",
+                "programName2",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay1",
+                },
+                Object {
+                  "display": "typeDisplay2",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay2",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem3",
+                  "value": "identifierValue3",
+                },
+                Object {
+                  "system": "identifierSystem4",
+                  "value": "identifierValue4",
+                },
+              ],
+              "logicalId": "logicalId2",
+              "name": "name2",
+              "programName": Array [
+                "programName3",
+                "programName4",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay3",
+                },
+                Object {
+                  "display": "typeDisplay4",
+                },
+              ],
+            },
+          ],
+        ],
+      }
+    }
     relativeTop={50}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -2693,10 +2973,11 @@ ShallowWrapper {
     "props": Object {
       "children": <Table__Table>
         <TableHeader
-          columns="repeat(6, 1fr) 70px 50px"
+          columns="50px repeat(6, 1fr) 70px 50px"
           relativeTop={50}
           sticky={true}
         >
+          <TableHeaderColumn__TableHeaderColumn />
           <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
               defaultMessage="Name"
@@ -2741,14 +3022,19 @@ ShallowWrapper {
           </TableHeaderColumn__TableHeaderColumn>
           <TableHeaderColumn__TableHeaderColumn>
             <FormattedMessage
-              defaultMessage="Active"
-              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+              defaultMessage="Status"
+              id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
               values={Object {}}
             />
           </TableHeaderColumn__TableHeaderColumn>
         </TableHeader>
-        <TableRow
-          columns="repeat(6, 1fr) 70px 50px"
+        <ExpansionTableRow
+          columns="50px repeat(6, 1fr) 70px 50px"
+          expansionTableRowDetails={
+            <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />
+          }
         >
           <TableRowColumn__TableRowColumn>
             name1
@@ -2801,9 +3087,14 @@ ShallowWrapper {
               }
             />
           </TableRowColumn__TableRowColumn>
-        </TableRow>
-        <TableRow
-          columns="repeat(6, 1fr) 70px 50px"
+        </ExpansionTableRow>
+        <ExpansionTableRow
+          columns="50px repeat(6, 1fr) 70px 50px"
+          expansionTableRowDetails={
+            <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />
+          }
         >
           <TableRowColumn__TableRowColumn>
             name2
@@ -2856,7 +3147,7 @@ ShallowWrapper {
               }
             />
           </TableRowColumn__TableRowColumn>
-        </TableRow>
+        </ExpansionTableRow>
       </Table__Table>,
     },
     "ref": null,
@@ -2867,10 +3158,11 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <TableHeader
-            columns="repeat(6, 1fr) 70px 50px"
+            columns="50px repeat(6, 1fr) 70px 50px"
             relativeTop={50}
             sticky={true}
           >
+            <TableHeaderColumn__TableHeaderColumn />
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
@@ -2915,15 +3207,20 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
-                defaultMessage="Active"
-                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                defaultMessage="Status"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                 values={Object {}}
               />
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>,
           Array [
-            <TableRow
-              columns="repeat(6, 1fr) 70px 50px"
+            <ExpansionTableRow
+              columns="50px repeat(6, 1fr) 70px 50px"
+              expansionTableRowDetails={
+                <HealthcareServiceExpansionRowDetails
+                  healthcareService={undefined}
+                />
+              }
             >
               <TableRowColumn__TableRowColumn>
                 name1
@@ -2976,9 +3273,14 @@ ShallowWrapper {
                   }
                 />
               </TableRowColumn__TableRowColumn>
-            </TableRow>,
-            <TableRow
-              columns="repeat(6, 1fr) 70px 50px"
+            </ExpansionTableRow>,
+            <ExpansionTableRow
+              columns="50px repeat(6, 1fr) 70px 50px"
+              expansionTableRowDetails={
+                <HealthcareServiceExpansionRowDetails
+                  healthcareService={undefined}
+                />
+              }
             >
               <TableRowColumn__TableRowColumn>
                 name2
@@ -3031,7 +3333,7 @@ ShallowWrapper {
                   }
                 />
               </TableRowColumn__TableRowColumn>
-            </TableRow>,
+            </ExpansionTableRow>,
           ],
         ],
       },
@@ -3043,6 +3345,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": Array [
+              <TableHeaderColumn__TableHeaderColumn />,
               false,
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
@@ -3088,18 +3391,27 @@ ShallowWrapper {
               </TableHeaderColumn__TableHeaderColumn>,
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  defaultMessage="Status"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>,
             ],
-            "columns": "repeat(6, 1fr) 70px 50px",
+            "columns": "50px repeat(6, 1fr) 70px 50px",
             "relativeTop": 50,
             "sticky": true,
           },
           "ref": null,
           "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
             false,
             Object {
               "instance": null,
@@ -3269,8 +3581,8 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  defaultMessage="Status"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                   values={Object {}}
                 />,
               },
@@ -3280,8 +3592,8 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "defaultMessage": "Active",
-                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
+                  "defaultMessage": "Status",
+                  "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus",
                   "values": Object {},
                 },
                 "ref": null,
@@ -3296,7 +3608,7 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": "logicalId1",
-          "nodeType": "function",
+          "nodeType": "class",
           "props": Object {
             "children": Array [
               false,
@@ -3352,7 +3664,10 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>,
             ],
-            "columns": "repeat(6, 1fr) 70px 50px",
+            "columns": "50px repeat(6, 1fr) 70px 50px",
+            "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />,
           },
           "ref": null,
           "rendered": Array [
@@ -3619,7 +3934,7 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": "logicalId2",
-          "nodeType": "function",
+          "nodeType": "class",
           "props": Object {
             "children": Array [
               false,
@@ -3675,7 +3990,10 @@ ShallowWrapper {
                 />
               </TableRowColumn__TableRowColumn>,
             ],
-            "columns": "repeat(6, 1fr) 70px 50px",
+            "columns": "50px repeat(6, 1fr) 70px 50px",
+            "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+              healthcareService={undefined}
+            />,
           },
           "ref": null,
           "rendered": Array [
@@ -3952,10 +4270,11 @@ ShallowWrapper {
       "props": Object {
         "children": <Table__Table>
           <TableHeader
-            columns="repeat(6, 1fr) 70px 50px"
+            columns="50px repeat(6, 1fr) 70px 50px"
             relativeTop={50}
             sticky={true}
           >
+            <TableHeaderColumn__TableHeaderColumn />
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
                 defaultMessage="Name"
@@ -4000,14 +4319,19 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
             <TableHeaderColumn__TableHeaderColumn>
               <FormattedMessage
-                defaultMessage="Active"
-                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                defaultMessage="Status"
+                id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                 values={Object {}}
               />
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>
-          <TableRow
-            columns="repeat(6, 1fr) 70px 50px"
+          <ExpansionTableRow
+            columns="50px repeat(6, 1fr) 70px 50px"
+            expansionTableRowDetails={
+              <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />
+            }
           >
             <TableRowColumn__TableRowColumn>
               name1
@@ -4060,9 +4384,14 @@ ShallowWrapper {
                 }
               />
             </TableRowColumn__TableRowColumn>
-          </TableRow>
-          <TableRow
-            columns="repeat(6, 1fr) 70px 50px"
+          </ExpansionTableRow>
+          <ExpansionTableRow
+            columns="50px repeat(6, 1fr) 70px 50px"
+            expansionTableRowDetails={
+              <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />
+            }
           >
             <TableRowColumn__TableRowColumn>
               name2
@@ -4115,7 +4444,7 @@ ShallowWrapper {
                 }
               />
             </TableRowColumn__TableRowColumn>
-          </TableRow>
+          </ExpansionTableRow>
         </Table__Table>,
       },
       "ref": null,
@@ -4126,10 +4455,11 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <TableHeader
-              columns="repeat(6, 1fr) 70px 50px"
+              columns="50px repeat(6, 1fr) 70px 50px"
               relativeTop={50}
               sticky={true}
             >
+              <TableHeaderColumn__TableHeaderColumn />
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
                   defaultMessage="Name"
@@ -4174,15 +4504,20 @@ ShallowWrapper {
               </TableHeaderColumn__TableHeaderColumn>
               <TableHeaderColumn__TableHeaderColumn>
                 <FormattedMessage
-                  defaultMessage="Active"
-                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                  defaultMessage="Status"
+                  id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                   values={Object {}}
                 />
               </TableHeaderColumn__TableHeaderColumn>
             </TableHeader>,
             Array [
-              <TableRow
-                columns="repeat(6, 1fr) 70px 50px"
+              <ExpansionTableRow
+                columns="50px repeat(6, 1fr) 70px 50px"
+                expansionTableRowDetails={
+                  <HealthcareServiceExpansionRowDetails
+                    healthcareService={undefined}
+                  />
+                }
               >
                 <TableRowColumn__TableRowColumn>
                   name1
@@ -4235,9 +4570,14 @@ ShallowWrapper {
                     }
                   />
                 </TableRowColumn__TableRowColumn>
-              </TableRow>,
-              <TableRow
-                columns="repeat(6, 1fr) 70px 50px"
+              </ExpansionTableRow>,
+              <ExpansionTableRow
+                columns="50px repeat(6, 1fr) 70px 50px"
+                expansionTableRowDetails={
+                  <HealthcareServiceExpansionRowDetails
+                    healthcareService={undefined}
+                  />
+                }
               >
                 <TableRowColumn__TableRowColumn>
                   name2
@@ -4290,7 +4630,7 @@ ShallowWrapper {
                     }
                   />
                 </TableRowColumn__TableRowColumn>
-              </TableRow>,
+              </ExpansionTableRow>,
             ],
           ],
         },
@@ -4302,6 +4642,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": Array [
+                <TableHeaderColumn__TableHeaderColumn />,
                 false,
                 <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
@@ -4347,18 +4688,27 @@ ShallowWrapper {
                 </TableHeaderColumn__TableHeaderColumn>,
                 <TableHeaderColumn__TableHeaderColumn>
                   <FormattedMessage
-                    defaultMessage="Active"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                    defaultMessage="Status"
+                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                     values={Object {}}
                   />
                 </TableHeaderColumn__TableHeaderColumn>,
               ],
-              "columns": "repeat(6, 1fr) 70px 50px",
+              "columns": "50px repeat(6, 1fr) 70px 50px",
               "relativeTop": 50,
               "sticky": true,
             },
             "ref": null,
             "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
               false,
               Object {
                 "instance": null,
@@ -4528,8 +4878,8 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": <FormattedMessage
-                    defaultMessage="Active"
-                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderActive"
+                    defaultMessage="Status"
+                    id="ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus"
                     values={Object {}}
                   />,
                 },
@@ -4539,8 +4889,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "defaultMessage": "Active",
-                    "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderActive",
+                    "defaultMessage": "Status",
+                    "id": "ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus",
                     "values": Object {},
                   },
                   "ref": null,
@@ -4555,7 +4905,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": "logicalId1",
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": Array [
                 false,
@@ -4611,7 +4961,10 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(6, 1fr) 70px 50px",
+              "columns": "50px repeat(6, 1fr) 70px 50px",
+              "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />,
             },
             "ref": null,
             "rendered": Array [
@@ -4878,7 +5231,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": "logicalId2",
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": Array [
                 false,
@@ -4934,7 +5287,10 @@ ShallowWrapper {
                   />
                 </TableRowColumn__TableRowColumn>,
               ],
-              "columns": "repeat(6, 1fr) 70px 50px",
+              "columns": "50px repeat(6, 1fr) 70px 50px",
+              "expansionTableRowDetails": <HealthcareServiceExpansionRowDetails
+                healthcareService={undefined}
+              />,
             },
             "ref": null,
             "rendered": Array [

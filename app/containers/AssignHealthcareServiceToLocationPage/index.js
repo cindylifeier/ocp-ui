@@ -17,6 +17,8 @@ import uniqueId from 'lodash/uniqueId';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Dialog from 'material-ui/Dialog';
+
+import { flattenHealthcareServiceData } from 'containers/HealthcareServices/helpers';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import HealthcareServiceTable from 'components/HealthcareServiceTable';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -155,6 +157,7 @@ export class AssignHealthCareServiceToLocationPage extends React.Component { // 
                 elements={healthcareServices}
                 showAssigned
                 onCheck={this.onCheckAssignedCheckbox}
+                flattenHealthcareServiceData={flattenHealthcareServiceData}
               />
             </CenterAlign>
             <CenterAlignedUltimatePagination

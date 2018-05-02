@@ -28,7 +28,7 @@ function TextLabelGroup({ label, text, boldLabel, boldText }) {
 
 TextLabelGroup.propTypes = {
   label: PropTypes.node.isRequired,
-  text: PropTypes.node.isRequired,
+  text: PropTypes.node,
   boldLabel: PropTypes.bool,
   boldText: PropTypes.bool,
 };
