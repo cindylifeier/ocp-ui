@@ -34,6 +34,7 @@ function LocationTable(props) {
     handleRowClick,
     flattenLocationData,
     locationTableData: { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, handlePageChange },
+    mapToIdentifiers,
   } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
@@ -45,16 +46,21 @@ function LocationTable(props) {
             <TableHeader columns={columns} relativeTop={relativeTop}>
               <TableHeaderColumn />
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
-              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               {isExpanded &&
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
               }
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+              }
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
             </TableHeader>
             {data.map((location) => {
               const flattenedLocation = flattenLocationData(location);
               const { logicalId, name, status, telecoms, address } = flattenedLocation;
+              const identifiers = mapToIdentifiers(location.identifiers);
               const menuItems = [{
                 primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
                 linkTo: `/ocp-ui/manage-location/${logicalId}`,
@@ -72,11 +78,14 @@ function LocationTable(props) {
                   columns={columns}
                 >
                   <TableRowColumn>{name}</TableRowColumn>
-                  <TableRowColumn>{telecoms}</TableRowColumn>
-                  <TableRowColumn>{status}</TableRowColumn>
                   {isExpanded &&
                   <TableRowColumn>{address}</TableRowColumn>
                   }
+                  <TableRowColumn>{telecoms}</TableRowColumn>
+                  {isExpanded &&
+                  <TableRowColumn>{identifiers}</TableRowColumn>
+                  }
+                  <TableRowColumn>{status}</TableRowColumn>
                   <TableRowColumn>
                     <NavigationIconMenu menuItems={menuItems} />
                   </TableRowColumn>
@@ -144,6 +153,7 @@ LocationTable.propTypes = {
   }).isRequired,
   handleRowClick: PropTypes.func.isRequired,
   flattenLocationData: PropTypes.func.isRequired,
+  mapToIdentifiers: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,
 };
 
