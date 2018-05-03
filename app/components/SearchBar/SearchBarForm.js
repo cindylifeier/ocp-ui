@@ -8,12 +8,12 @@ import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
 
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
+import StyledSelectField from 'components/StyledSelectField';
+import StyledBarActionButton from 'components/StyledBarActionButton';
 import StyledText from 'components/StyledText';
 import SearchSection from './SearchSection';
 import SearchContainerGrid from './SearchContainerGrid';
-import StyledSelectField from './StyledSelectField';
 import StyledTextField from './StyledTextField';
-import StyledSearchButton from './StyledSearchButton';
 import messages from './messages';
 function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters } = props;
@@ -35,13 +35,13 @@ function SearchBarForm(props) {
             name="searchValue"
             hintText={searchValueHintText}
           />
-          <StyledSearchButton
+          <StyledBarActionButton
             fullWidth
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           >
             <FormattedMessage {...messages.searchButton} />
-          </StyledSearchButton>
+          </StyledBarActionButton>
         </SearchContainerGrid>
         <SearchContainerGrid gap="1px" columns="60px repeat(3,120px)" justifyContent="start">
           {!showToDoSpecificFilters &&
