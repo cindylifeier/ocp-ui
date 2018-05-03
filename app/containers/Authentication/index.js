@@ -63,7 +63,7 @@ Authentication.propTypes = {
   }),
   user: PropTypes.object,
   rehydrated: PropTypes.bool,
-  location: PropTypes.string,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
