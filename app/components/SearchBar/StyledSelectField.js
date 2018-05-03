@@ -8,9 +8,6 @@ const StyledSelectField = styled(SelectField).attrs({
     lineHeight: '30px',
     height: '30px',
   },
-  menuStyle: {
-    backgroundColor: 'light-blue',
-  },
   menuItemStyle: {
     height: '12px',
     fontSize: '12px',
