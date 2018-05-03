@@ -1,7 +1,13 @@
+/**
+*
+* StyledBarActionButton
+*
+*/
+
 import styled from 'styled-components';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 
-const StyledSearchButton = styled(StyledRaisedButton).attrs({
+const StyledBarActionButton = styled(StyledRaisedButton).attrs({
   variant: 'raised',
 })`
   && {
@@ -14,4 +20,8 @@ const StyledSearchButton = styled(StyledRaisedButton).attrs({
   }
 `;
 
-export default StyledSearchButton;
+StyledBarActionButton.propTypes = {
+
+};
+
+export default StyledBarActionButton;
