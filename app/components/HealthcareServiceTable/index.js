@@ -18,7 +18,7 @@ import sizeMeHOC from 'utils/SizeMeUtils';
 import {
   SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
-  EXPANDED_TABLE_COLUMNS,
+  EXPANDED_TABLE_COLUMNS, ASSIGNED_TABLE_COLUMNS,
 } from 'components/HealthcareServiceTable/constants';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -31,7 +31,6 @@ import messages from './messages';
 
 export function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop, size, flattenHealthcareServiceData }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   function getDisplayNameFromValueSetList(valueSets) {
     return valueSets && valueSets.map((entry) =>
@@ -55,14 +54,15 @@ export function HealthcareServiceTable({ elements, showAssigned = false, onCheck
     );
   }
 
-  let tableColumns = '50px repeat(6, 1fr) 70px 50px';
+  let tableColumns = EXPANDED_TABLE_COLUMNS;
   if (showAssigned) {
-    tableColumns = '50px 80px repeat(6, 1fr) 70px';
+    tableColumns = ASSIGNED_TABLE_COLUMNS;
+  } else {
+    tableColumns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   }
   return (
     <div>
       <Table>
-        {/*<TableHeader columns={columns} relativeTop={relativeTop}>*/}
         <TableHeader columns={tableColumns} relativeTop={relativeTop}>
           <TableHeaderColumn />
           {showAssigned &&
@@ -112,13 +112,11 @@ export function HealthcareServiceTable({ elements, showAssigned = false, onCheck
               {isExpanded &&
               <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
               }
-              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-              {isExpanded &&
-              <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
-              }
               {isExpanded &&
               <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
               }
+              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
+
               <TableRowColumn>{element.active ?
                 <FormattedMessage {...messages.labelActive} /> :
                 <FormattedMessage {...messages.labelInactive} />}
