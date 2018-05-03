@@ -2,13 +2,30 @@ import { makeSelectUser } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
+  acceptPractitionerAppointmentError,
+  acceptPractitionerAppointmentSuccess,
   cancelPractitionerAppointmentError,
   cancelPractitionerAppointmentSuccess,
+  declinePractitionerAppointmentError,
+  declinePractitionerAppointmentSuccess,
   getPractitionerAppointmentsError,
   getPractitionerAppointmentsSuccess,
+  tentativePractitionerAppointmentError,
+  tentativePractitionerAppointmentSuccess,
 } from './actions';
-import getPractitionerAppointmentsApi, { cancelAppointment } from './api';
-import { CANCEL_PRACTITIONER_APPOINTMENT, GET_PRACTITIONER_APPOINTMENTS } from './constants';
+import getPractitionerAppointmentsApi, {
+  acceptAppointment,
+  cancelAppointment,
+  declineAppointment,
+  tentativelyAcceptAppointment,
+} from './api';
+import {
+  ACCEPT_PRACTITIONER_APPOINTMENT,
+  CANCEL_PRACTITIONER_APPOINTMENT,
+  DECLINE_PRACTITIONER_APPOINTMENT,
+  GET_PRACTITIONER_APPOINTMENTS,
+  TENTATIVE_PRACTITIONER_APPOINTMENT,
+} from './constants';
 
 
 function getErrorMessage(err) {
@@ -62,6 +79,63 @@ export function* cancelPractitionerAppointmentSaga({ id }) {
   }
 }
 
+export function* acceptPractitionerAppointmentSaga({ id }) {
+  try {
+    const practitioner = yield select(makeSelectUser());
+    const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
+    let queryParams = {};
+    if (practitionerId) {
+      queryParams = {
+        actorReference: `Practitioner/${practitionerId}`,
+      };
+    }
+    yield call(acceptAppointment, id, queryParams);
+    yield put(acceptPractitionerAppointmentSuccess(id));
+    yield put(showNotification('Appointment is accepted.'));
+  } catch (err) {
+    yield put(acceptPractitionerAppointmentError(err));
+    yield put(showNotification('Failed to accept the  appointment.'));
+  }
+}
+
+export function* declinePractitionerAppointmentSaga({ id }) {
+  try {
+    const practitioner = yield select(makeSelectUser());
+    const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
+    let queryParams = {};
+    if (practitionerId) {
+      queryParams = {
+        actorReference: `Practitioner/${practitionerId}`,
+      };
+    }
+    yield call(declineAppointment, id, queryParams);
+    yield put(declinePractitionerAppointmentSuccess(id));
+    yield put(showNotification('Appointment is declined.'));
+  } catch (err) {
+    yield put(declinePractitionerAppointmentError(err));
+    yield put(showNotification('Failed to decline the  appointment.'));
+  }
+}
+
+export function* tentativelyAcceptPractitionerAppointmentSaga({ id }) {
+  try {
+    const practitioner = yield select(makeSelectUser());
+    const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
+    let queryParams = {};
+    if (practitionerId) {
+      queryParams = {
+        actorReference: `Practitioner/${practitionerId}`,
+      };
+    }
+    yield call(tentativelyAcceptAppointment, id, queryParams);
+    yield put(tentativePractitionerAppointmentSuccess(id));
+    yield put(showNotification('Appointment is tentatively accepted.'));
+  } catch (err) {
+    yield put(tentativePractitionerAppointmentError(err));
+    yield put(showNotification('Failed to tentatively accept the  appointment.'));
+  }
+}
+
 export function* watchGetPractitionerAppointmentsSaga() {
   yield takeLatest(GET_PRACTITIONER_APPOINTMENTS, getPractitionerAppointmentsSaga);
 }
@@ -70,10 +144,25 @@ export function* watchCancelPractitionerAppointmentSaga() {
   yield takeLatest(CANCEL_PRACTITIONER_APPOINTMENT, cancelPractitionerAppointmentSaga);
 }
 
+export function* watchAcceptPractitionerAppointmentSaga() {
+  yield takeLatest(ACCEPT_PRACTITIONER_APPOINTMENT, acceptPractitionerAppointmentSaga);
+}
+
+export function* watchDeclinePractitionerAppointmentSaga() {
+  yield takeLatest(DECLINE_PRACTITIONER_APPOINTMENT, declinePractitionerAppointmentSaga);
+}
+
+export function* watchTentativelyAcceptPractitionerAppointmentSagaSaga() {
+  yield takeLatest(TENTATIVE_PRACTITIONER_APPOINTMENT, tentativelyAcceptPractitionerAppointmentSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetPractitionerAppointmentsSaga(),
     watchCancelPractitionerAppointmentSaga(),
+    watchAcceptPractitionerAppointmentSaga(),
+    watchDeclinePractitionerAppointmentSaga(),
+    watchTentativelyAcceptPractitionerAppointmentSagaSaga(),
   ]);
 }
 
