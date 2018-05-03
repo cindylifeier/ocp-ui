@@ -12,6 +12,22 @@ export default defineMessages({
   },
   viewDetails: {
     id: 'ocpui.components.PatientDetails.viewDetails',
-    defaultMessage: 'Details',
+    defaultMessage: 'View Details',
+  },
+  name: {
+    id: 'ocpui.components.PatientDetails.name',
+    defaultMessage: 'Name',
+  },
+  gender: {
+    id: 'ocpui.components.PatientDetails.gender',
+    defaultMessage: 'Gender',
+  },
+  contacts: {
+    id: 'ocpui.components.PatientDetails.contacts',
+    defaultMessage: 'Contacts',
+  },
+  advisory: {
+    id: 'ocpui.components.PatientDetails.advisory',
+    defaultMessage: 'Advisory',
   },
 });

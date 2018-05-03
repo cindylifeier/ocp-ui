@@ -18,6 +18,7 @@ import ShowHideWrapper from 'containers/ShowHideWrapper';
 import PatientAvatar from 'components/PatientAvatar';
 import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import StyledText from 'components/StyledText';
+import StyledFlatButton from 'components/StyledFlatButton';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import PatientBanner from './PatientBanner';
@@ -43,7 +44,7 @@ class PatientDetails extends React.Component {
     const { id, name, phones, genderCode, flags } = flattenPatient;
     return (
       <PatientBanner>
-        <Grid columns="0.1fr 0.15fr repeat(4, 1fr)">
+        <Grid columns="0.1fr 0.15fr repeat(3, 1fr) 0.4fr">
           <Cell middle center>
             <StyledTooltip title={<FormattedMessage {...messages.viewDetails} />} placement="bottom">
               <StyledIconButton svgIconSize="large" size="x-small" onClick={this.handlePanelOpen}>
@@ -52,33 +53,39 @@ class PatientDetails extends React.Component {
             </StyledTooltip>
           </Cell>
           <Cell><PatientAvatar genderCode={genderCode} /></Cell>
-          <Cell>
-            <StyledText>Name</StyledText>
-            <StyledText whiteSpace fontWeight="700">
-              {name}
+          <Cell middle>
+            <StyledText>
+              <FormattedMessage {...messages.name} />
+              <StyledText whiteSpace fontWeight="700">{name}</StyledText>
             </StyledText>
           </Cell>
-          <Cell>
-            <StyledText>Gender</StyledText>
-            <StyledText whiteSpace fontWeight="700">
-              {upperFirst(genderCode)}
+          <Cell middle>
+            <StyledText>
+              <FormattedMessage {...messages.gender} />
+              <StyledText whiteSpace fontWeight="700">
+                {upperFirst(genderCode)}
+              </StyledText>
             </StyledText>
           </Cell>
-          <Cell>
-            <StyledText>Contacts</StyledText>
-            <StyledText whiteSpace fontWeight="700">
-              {phones}
+          <Cell middle>
+            <StyledText>
+              <FormattedMessage {...messages.contacts} />
+              <StyledText whiteSpace fontWeight="700">
+                {phones}
+              </StyledText>
             </StyledText>
           </Cell>
           {flags.length > 0 &&
-          <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
-            <Cell>
-              <Link to={`${MANAGE_PATIENT_URL}/${id}`}>
-                <Flag />
-                <strong>Advisory</strong>
-              </Link>
-            </Cell>
-          </ShowHideWrapper>
+          <Cell middle>
+            <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
+              <StyledFlatButton color="primary" component={Link} to={`${MANAGE_PATIENT_URL}/${id}`}>
+                <StyledIconButton size="small" svgIconSize="large" disableIconHover>
+                  <Flag />
+                </StyledIconButton>
+                <FormattedMessage {...messages.advisory} />
+              </StyledFlatButton>
+            </ShowHideWrapper>
+          </Cell>
           }
         </Grid>
         <ExpansionDetails expanded={this.state.expansionPanelOpen}>
