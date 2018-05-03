@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import SelectField from 'components/SelectField';
 
-const StyledSearchField = styled(SelectField).attrs({
+const StyledSelectField = styled(SelectField).attrs({
   // we can define static props
   labelStyle: {
     fontSize: '12px',
@@ -23,6 +23,6 @@ const StyledSearchField = styled(SelectField).attrs({
   },
 })('');
 
-StyledSearchField.propTypes = {};
+StyledSelectField.propTypes = {};
 
-export default StyledSearchField;
+export default StyledSelectField;

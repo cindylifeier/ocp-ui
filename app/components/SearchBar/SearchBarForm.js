@@ -11,7 +11,7 @@ import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
 import StyledText from 'components/StyledText';
 import SearchSection from './SearchSection';
 import SearchContainerGrid from './SearchContainerGrid';
-import StyledSearchField from './StyledSearchField';
+import StyledSelectField from './StyledSelectField';
 import StyledTextField from './StyledTextField';
 import StyledSearchButton from './StyledSearchButton';
 import messages from './messages';
@@ -22,14 +22,14 @@ function SearchBarForm(props) {
       <SearchSection>
         <SearchContainerGrid gap="5px" columns={'30px 130px 150px 80px'}>
           <ActionSearch color={'#336666'} />
-          <StyledSearchField
+          <StyledSelectField
             fullWidth
             name="searchType"
           >
             {searchTypes && searchTypes.map((searchType) =>
               <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
             )}
-          </StyledSearchField>
+          </StyledSelectField>
           <StyledTextField
             fullWidth
             name="searchValue"
