@@ -27,7 +27,7 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
-  const { user, rehydrated } = props;
+  const { user, rehydrated, location } = props;
   if (!rehydrated) {
     // do not render until rehydration is complete
     return null;
@@ -43,7 +43,12 @@ export function Authentication(props) {
       </PrivateLayout> :
       <div>
         {removeToken()}
-        <Redirect to={LOGIN_URL} />
+        <Redirect
+          to={{
+            pathname: LOGIN_URL,
+            state: { from: location },
+          }}
+        />
       </div>
   );
 }
@@ -58,6 +63,7 @@ Authentication.propTypes = {
   }),
   user: PropTypes.object,
   rehydrated: PropTypes.bool,
+  location: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
