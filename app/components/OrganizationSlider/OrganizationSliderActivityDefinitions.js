@@ -7,10 +7,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import ActivityDefinitions from 'containers/ActivityDefinitions';
 import ControlledAccordion from 'components/ControlledAccordion';
+import FullWidthPanelDetails from 'components/ControlledAccordion/FullWidthPanelDetails';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
-import FullWidthPanelDetails from './FullWidthPanelDetails';
 import SliderContentSection from './SliderContentSection';
 import messages from './messages';
 

@@ -15,7 +15,7 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
 } from 'material-ui-next/ExpansionPanel';
 
-import FullWidthPanelDetails from 'components/OrganizationSlider/FullWidthPanelDetails';
+import FullWidthPanelDetails from './FullWidthPanelDetails';
 
 
 class ControlledAccordion extends React.Component { // eslint-disable-line react/prefer-stateless-function
