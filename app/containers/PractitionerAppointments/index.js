@@ -43,7 +43,6 @@ import {
   getPractitionerAppointments,
   tentativePractitionerAppointment,
 } from './actions';
-import { STATUS_CODE_CANCELLED } from './constants';
 import messages from './messages';
 import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
 import reducer from './reducer';
@@ -114,7 +113,6 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
-    const cancelledStatus = STATUS_CODE_CANCELLED;
     const { practitionerAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const showPastAppFilter = true;
     return (
@@ -155,7 +153,6 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
                 tentativeAppointment={this.tentativeAppointment}
                 communicationBaseUrl={communicationBaseUrl}
                 relativeTop={this.state.panelHeight + this.state.filterHeight}
-                cancelledStatus={cancelledStatus}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}

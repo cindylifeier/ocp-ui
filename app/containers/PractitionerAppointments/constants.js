@@ -36,5 +36,4 @@ export const TENTATIVE_PRACTITIONER_APPOINTMENT_ERROR = 'ocpui/PractitionerAppoi
  */
 export const LOADING = 'loading';
 export const DATA = 'data';
-export const STATUS_CODE_CANCELLED = 'cancelled';
 
