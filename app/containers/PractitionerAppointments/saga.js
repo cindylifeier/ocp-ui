@@ -39,6 +39,7 @@ export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments
         showPastAppointments,
         pageNumber,
         practitionerId,
+        requesterReference: `Practitioner/${practitionerId}`,
       };
     }
     const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
