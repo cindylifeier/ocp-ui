@@ -22,8 +22,8 @@ const StyledSelectField = styled(SelectField).attrs({
     top: '-12px',
   },
   hintStyle: {
-    fontSize: '12px',
-    top: '2px',
+    fontSize: '14px',
+    top: '1px',
   },
   style: {
     height: '30px',
