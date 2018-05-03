@@ -25,8 +25,8 @@ const AddNewItemButton = styled(StyledFlatButton)`
     color: ${({ color }) => defineTextColor(color)};
     font-size: ${({ fontSize }) => fontSize};
     font-weight: ${({ fontWeight }) => fontWeight};
-    padding-left: ${({ paddingLeft }) => paddingLeft};
-    max-height: ${({ maxHeight }) => maxHeight};
+    padding-left: 5px;
+    max-height: 32px;
   }
 
   &&:hover {
@@ -40,7 +40,5 @@ AddNewItemButton.defaultProps = {
   color: 'secondary',
   fontSize: '12px',
   fontWeight: 'normal',
-  paddingLeft: '5px',
-  maxHeight: '32px',
 };
 export default AddNewItemButton;

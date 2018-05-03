@@ -34,6 +34,14 @@ export default defineMessages({
     id: 'ocpui.components.LocationTable.tableHeaderColumnAction',
     defaultMessage: 'Action',
   },
+  expansionRowDetailsIdentifiers: {
+    id: 'ocpui.components.LocationTable.expansionRowDetailsIdentifiers',
+    defaultMessage: 'Identifier',
+  },
+  expansionRowDetailsLocationType: {
+    id: 'ocpui.components.LocationTable.expansionRowDetailsLocationType',
+    defaultMessage: 'Location Type',
+  },
   actionLabelEdit: {
     id: 'ocpui.components.LocationTable.actionLabelEdit',
     defaultMessage: 'Edit',

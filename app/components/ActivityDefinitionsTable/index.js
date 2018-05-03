@@ -23,7 +23,7 @@ import RecordsRange from 'components/RecordsRange';
 import messages from './messages';
 
 
-const tableColumns = 'repeat(6, 1fr) 50px';
+const tableColumns = 'repeat(2, 1fr) 70px 110px 70px 50px';
 
 function ActivityDefinitionsTable(props) {
   const { activityDefinitionsData } = props;
@@ -35,11 +35,11 @@ function ActivityDefinitionsTable(props) {
             <Table>
               <TableHeader columns={tableColumns}>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnDisplayName} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTopic} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnEffectiveStart} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnEffectiveEnd} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnDescription} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTopic} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnEffectiveDate} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(activityDefinitionsData.data) && activityDefinitionsData.data.map((activityDefinition) => {
                 const { logicalId, title, topic, effectivePeriod, description, status } = activityDefinition;
@@ -53,10 +53,9 @@ function ActivityDefinitionsTable(props) {
                     key={uniqueId()}
                   >
                     <TableRowColumn>{title}</TableRowColumn>
-                    <TableRowColumn>{topic}</TableRowColumn>
-                    <TableRowColumn>{effectivePeriod && effectivePeriod.start}</TableRowColumn>
-                    <TableRowColumn>{effectivePeriod && effectivePeriod.end}</TableRowColumn>
                     <TableRowColumn>{description}</TableRowColumn>
+                    <TableRowColumn>{topic}</TableRowColumn>
+                    <TableRowColumn>Start: {effectivePeriod && effectivePeriod.start} End:{effectivePeriod && effectivePeriod.end}</TableRowColumn>
                     <TableRowColumn>{status}</TableRowColumn>
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />

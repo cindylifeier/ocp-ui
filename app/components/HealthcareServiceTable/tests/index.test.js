@@ -10,6 +10,7 @@ configure({ adapter: new Adapter() });
 
 const tableColumns = 'repeat(7, 1fr) 50px';
 const relativeTop = 50;
+const flattenHealthcareServiceData = jest.fn();
 
 describe('<HealthcareServiceTable />', () => {
   describe('snapshot tests', () => {
@@ -80,7 +81,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -153,7 +159,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent).toMatchSnapshot();
@@ -227,7 +238,13 @@ describe('<HealthcareServiceTable />', () => {
       };
       const mockElements = [element1, element2];
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
+
       // Assert
       expect(renderedComponent.contains(name1)).toBe(true);
       expect(renderedComponent.contains(name2)).toBe(true);
@@ -302,7 +319,15 @@ describe('<HealthcareServiceTable />', () => {
       const showAssigned = false;
       const onCheck = jest.fn();
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable showAssigned={showAssigned} size={size} onCheck={onCheck} columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        showAssigned={showAssigned}
+        size={size}
+        onCheck={onCheck}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains(categoryDisplay1)).toBe(true);
@@ -376,7 +401,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains(typeDisplay1)).toBe(false);
@@ -452,7 +482,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains(programName1)).toBe(true);
@@ -528,7 +563,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains(identifierSystem1)).toBe(false);
@@ -608,7 +648,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains((<div>{`${identifierSystem1}: ${identifierValue1}`}<br /></div>))).toBe(false);
@@ -684,7 +729,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains(<FormattedMessage {...messages.labelActive} />)).toBe(true);
@@ -758,7 +808,12 @@ describe('<HealthcareServiceTable />', () => {
       const mockElements = [element1, element2];
 
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable
+        columns={tableColumns}
+        relativeTop={relativeTop}
+        elements={mockElements}
+        flattenHealthcareServiceData={flattenHealthcareServiceData}
+      />);
 
       // Assert
       expect(renderedComponent.contains(<FormattedMessage {...messages.labelActive} />)).toBe(false);
