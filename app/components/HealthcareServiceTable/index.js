@@ -28,7 +28,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import messages from './messages';
 
 
-function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop, size }) {
+export function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop, size }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 

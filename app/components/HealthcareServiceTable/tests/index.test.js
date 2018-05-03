@@ -3,7 +3,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { FormattedMessage } from 'react-intl';
 
-import HealthcareServiceTable from '../index';
+import { HealthcareServiceTable } from '../index';
 import messages from '../messages';
 
 configure({ adapter: new Adapter() });
@@ -226,10 +226,8 @@ describe('<HealthcareServiceTable />', () => {
         active: active2,
       };
       const mockElements = [element1, element2];
-
       // Act
       const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
-
       // Assert
       expect(renderedComponent.contains(name1)).toBe(true);
       expect(renderedComponent.contains(name2)).toBe(true);
@@ -300,16 +298,18 @@ describe('<HealthcareServiceTable />', () => {
         active: active2,
       };
       const mockElements = [element1, element2];
-
+      const size = { width: 400 };
+      const showAssigned = false;
+      const onCheck = jest.fn();
       // Act
-      const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
+      const renderedComponent = shallow(<HealthcareServiceTable showAssigned={showAssigned} size={size} onCheck={onCheck} columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
 
       // Assert
       expect(renderedComponent.contains(categoryDisplay1)).toBe(true);
       expect(renderedComponent.contains(categoryDisplay2)).toBe(true);
     });
 
-    it('should contain type displays', () => {
+    it('should hide type displays', () => {
       // Arrange
       // element1
       const logicalId1 = 'logicalId1';
@@ -379,10 +379,10 @@ describe('<HealthcareServiceTable />', () => {
       const renderedComponent = shallow(<HealthcareServiceTable columns={tableColumns} relativeTop={relativeTop} elements={mockElements} />);
 
       // Assert
-      expect(renderedComponent.contains(typeDisplay1)).toBe(true);
-      expect(renderedComponent.contains(typeDisplay2)).toBe(true);
-      expect(renderedComponent.contains(typeDisplay3)).toBe(true);
-      expect(renderedComponent.contains(typeDisplay4)).toBe(true);
+      expect(renderedComponent.contains(typeDisplay1)).toBe(false);
+      expect(renderedComponent.contains(typeDisplay2)).toBe(false);
+      expect(renderedComponent.contains(typeDisplay3)).toBe(false);
+      expect(renderedComponent.contains(typeDisplay4)).toBe(false);
     });
 
     it('should contain program names', () => {
