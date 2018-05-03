@@ -11,12 +11,11 @@ import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import Avatar from 'material-ui/Avatar';
 import Flag from '@material-ui/icons/Flag';
 import upperFirst from 'lodash/upperFirst';
 
-import patientAvatar from 'images/patient-avatar.png';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
+import PatientAvatar from 'components/PatientAvatar';
 import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import StyledText from 'components/StyledText';
 import StyledIconButton from 'components/StyledIconButton';
@@ -52,7 +51,7 @@ class PatientDetails extends React.Component {
               </StyledIconButton>
             </StyledTooltip>
           </Cell>
-          <Cell><Avatar size={40} src={patientAvatar} /></Cell>
+          <Cell><PatientAvatar genderCode={genderCode} /></Cell>
           <Cell>
             <StyledText>Name</StyledText>
             <StyledText whiteSpace fontWeight="700">

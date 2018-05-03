@@ -10,13 +10,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import upperFirst from 'lodash/upperFirst';
 import Close from '@material-ui/icons/Close';
-import Avatar from 'material-ui/Avatar';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
-import defaultPatientAvatarImage from 'images/patient-avatar.png';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
+import PatientAvatar from 'components/PatientAvatar';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledIconButton from 'components/StyledIconButton';
@@ -44,7 +43,7 @@ function ConfirmPatientModal(props) {
         </DialogTitle>
         <DialogContent>
           <Grid columns={1} alignContent="space-between">
-            <Cell center><Avatar size={80} src={defaultPatientAvatarImage} /></Cell>
+            <Cell center><PatientAvatar size={80} genderCode={patient.genderCode} /></Cell>
             <PatientModalCell center>
               Name{WHITE_SPACE}<strong>{mapToPatientName(patient)}</strong>
             </PatientModalCell>
