@@ -50,6 +50,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { flattenHealthcareServiceData } from './helpers';
 
 export class HealthcareServices extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static initalState = {
@@ -223,6 +224,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
             <HealthcareServiceTable
               elements={healthcareServices}
               relativeTop={this.state.panelHeight + this.state.filterHeight}
+              flattenHealthcareServiceData={flattenHealthcareServiceData}
             />
           </CenterAlign>
 

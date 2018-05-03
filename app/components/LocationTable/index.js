@@ -12,7 +12,7 @@ import Table from 'components/Table';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
@@ -23,6 +23,7 @@ import {
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import LocationExpansionRowDetails from './LocationExpansionRowDetails';
 import messages from './messages';
 
 
@@ -42,6 +43,7 @@ function LocationTable(props) {
         <div>
           <Table>
             <TableHeader columns={columns} relativeTop={relativeTop}>
+              <TableHeaderColumn />
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
@@ -61,7 +63,8 @@ function LocationTable(props) {
                 linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
               }];
               return (
-                <TableRow
+                <ExpansionTableRow
+                  expansionTableRowDetails={<LocationExpansionRowDetails location={flattenedLocation} />}
                   role="button"
                   tabIndex="0"
                   key={logicalId}
@@ -77,7 +80,7 @@ function LocationTable(props) {
                   <TableRowColumn>
                     <NavigationIconMenu menuItems={menuItems} />
                   </TableRowColumn>
-                </TableRow>
+                </ExpansionTableRow>
               );
             })
             }
