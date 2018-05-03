@@ -13,8 +13,7 @@ import Dialog from 'material-ui/Dialog';
 import FormSubtitle from 'components/FormSubtitle';
 import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
-import StyledIconButton from 'components/StyledIconButton';
-import AddCircle from '@material-ui/icons/AddCircle';
+import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
 import AddedTelecomsTable from './AddedTelecomsTable';
 import messages from './messages';
@@ -66,9 +65,7 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
           <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
-            <StyledIconButton size="x-small" svgIconSize="medium" disableIconHover>
-              <AddCircle color={teal['500']} />
-            </StyledIconButton>
+            <StyledAddCircleIcon color={teal['500']} />
             <FormattedMessage {...messages.addTelecomsButton} />
           </AddNewItemButton>
           <FieldArray
