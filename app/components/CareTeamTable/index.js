@@ -16,26 +16,26 @@ import TableRow from 'components/TableRow';
 import {
   EXPANDED_TABLE_COLUMNS,
   SUMMARIZED_TABLE_COLUMNS,
-  SUMMARY_VIEW_WIDTH,
 } from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
-function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
-  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded }) {
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
+        }
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
+        }
         { isExpanded &&
-        <div>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategories} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
-        </div>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
         }
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
         {isExpanded &&
@@ -52,19 +52,21 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
       <TableRow key={id} columns={columns}>
         <TableRowColumn>{name}</TableRowColumn>
         <TableRowColumn>{statusDisplay}</TableRowColumn>
+        {isExpanded &&
+        <TableRowColumn>{categoryDisplay}</TableRowColumn>
+        }
+        {isExpanded &&
+        <TableRowColumn>
+          {!isEmpty(participants) && participants
+            .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
+              <div key={memberId}>
+                {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
+              </div>))
+          }
+        </TableRowColumn>
+        }
         { isExpanded &&
-        <div>
-          <TableRowColumn>{categoryDisplay}</TableRowColumn>
-          <TableRowColumn>
-            {!isEmpty(participants) && participants
-              .map(({ memberId, memberFirstName, memberLastName, memberName, roleDisplay }) => (
-                <div key={memberId}>
-                  {`${[memberFirstName, memberLastName, memberName].filter((value) => !isEmpty(value)).join(' ')}${isEmpty(roleDisplay) ? '' : ` / ${roleDisplay}`}`}
-                </div>))
-            }
-          </TableRowColumn>
-          <TableRowColumn>{startDate}</TableRowColumn>
-        </div>
+        <TableRowColumn>{startDate}</TableRowColumn>
         }
         <TableRowColumn>{endDate}</TableRowColumn>
         {isExpanded &&
@@ -99,7 +101,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, size }) {
 }
 
 CareTeamTable.propTypes = {
-  size: PropTypes.object.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({

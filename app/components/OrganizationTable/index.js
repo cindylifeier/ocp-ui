@@ -47,7 +47,9 @@ function OrganizationTable(props) {
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderId} /></TableHeaderColumn>
                 }
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                }
                 { isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 }
@@ -83,7 +85,9 @@ function OrganizationTable(props) {
                     {isExpanded ?
                       <TableRowColumn>{identifiers}</TableRowColumn> : null
                     }
-                    <TableRowColumn>{ address}</TableRowColumn>
+                    {isExpanded &&
+                    <TableRowColumn>{address}</TableRowColumn>
+                    }
                     {isExpanded ?
                       <TableRowColumn>{ contact}</TableRowColumn> : null
                     }

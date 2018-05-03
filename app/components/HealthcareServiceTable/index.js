@@ -13,6 +13,13 @@ import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import sizeMeHOC from 'utils/SizeMeUtils';
+
+import {
+  SUMMARIZED_TABLE_COLUMNS,
+  SUMMARY_VIEW_WIDTH,
+  EXPANDED_TABLE_COLUMNS, ASSIGNED_TABLE_COLUMNS,
+} from 'components/HealthcareServiceTable/constants';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -22,7 +29,9 @@ import HealthcareServiceExpansionRowDetails from './HealthcareServiceExpansionRo
 import messages from './messages';
 
 
-function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop, flattenHealthcareServiceData }) {
+export function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relativeTop, size, flattenHealthcareServiceData }) {
+  const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
+
   function getDisplayNameFromValueSetList(valueSets) {
     return valueSets && valueSets.map((entry) =>
       (
@@ -45,9 +54,11 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
     );
   }
 
-  let tableColumns = '50px repeat(6, 1fr) 70px 50px';
+  let tableColumns = EXPANDED_TABLE_COLUMNS;
   if (showAssigned) {
-    tableColumns = '50px 80px repeat(6, 1fr) 70px';
+    tableColumns = ASSIGNED_TABLE_COLUMNS;
+  } else {
+    tableColumns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   }
   return (
     <div>
@@ -59,10 +70,13 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
           }
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderCategory} /></TableHeaderColumn>
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderReferralMethod} /></TableHeaderColumn>
+          }
+          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderSpecialty} /></TableHeaderColumn>
+          }
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => {
@@ -95,10 +109,14 @@ function HealthcareServiceTable({ elements, showAssigned = false, onCheck, relat
               }
               <TableRowColumn>{element.name}</TableRowColumn>
               <TableRowColumn>{element.category && element.category.display}</TableRowColumn>
+              {isExpanded &&
               <TableRowColumn>{getDisplayNameFromValueSetList(element.type)}</TableRowColumn>
-              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
-              <TableRowColumn>{getDisplayNameFromValueSetList(element.referralMethod)}</TableRowColumn>
+              }
+              {isExpanded &&
               <TableRowColumn>{getDisplayNameFromValueSetList(element.specialty)}</TableRowColumn>
+              }
+              <TableRowColumn>{getProgramNames(element.programName)}</TableRowColumn>
+
               <TableRowColumn>{element.active ?
                 <FormattedMessage {...messages.labelActive} /> :
                 <FormattedMessage {...messages.labelInactive} />}
@@ -123,6 +141,7 @@ HealthcareServiceTable.propTypes = {
   elements: PropTypes.array,
   showAssigned: PropTypes.bool,
   onCheck: PropTypes.func,
+  size: PropTypes.object.isRequired,
 };
 
-export default HealthcareServiceTable;
+export default sizeMeHOC(HealthcareServiceTable);
