@@ -10,6 +10,7 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
+import InfoSection from 'components/InfoSection';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -35,8 +36,13 @@ import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
-import InfoSection from 'components/InfoSection';
-import { cancelPractitionerAppointment, getPractitionerAppointments } from './actions';
+import {
+  acceptPractitionerAppointment,
+  cancelPractitionerAppointment,
+  declinePractitionerAppointment,
+  getPractitionerAppointments,
+  tentativePractitionerAppointment,
+} from './actions';
 import { STATUS_CODE_CANCELLED } from './constants';
 import messages from './messages';
 import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
@@ -54,6 +60,9 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
+    this.acceptAppointment = this.acceptAppointment.bind(this);
+    this.declineAppointment = this.declineAppointment.bind(this);
+    this.tentativeAppointment = this.tentativeAppointment.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
   }
@@ -91,6 +100,18 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.props.cancelAppointment(logicalId);
   }
 
+  acceptAppointment(logicalId) {
+    this.props.acceptAppointment(logicalId);
+  }
+
+  declineAppointment(logicalId) {
+    this.props.declineAppointment(logicalId);
+  }
+
+  tentativeAppointment(logicalId) {
+    this.props.tentativeAppointment(logicalId);
+  }
+
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const cancelledStatus = STATUS_CODE_CANCELLED;
@@ -122,31 +143,34 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
           <NoPractitionerAppointmentsMessage>{
             <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPractitionerAppointmentsMessage>}
           {!isEmpty(data) && !isEmpty(data.elements) &&
-            <InfoSection margin="0 0 10px 0">
-              <CenterAlign>
-                <AppointmentTable
-                  elements={data.elements}
-                  appointmentStatuses={appointmentStatuses}
-                  appointmentTypes={appointmentTypes}
-                  cancelAppointment={this.cancelAppointment}
-                  communicationBaseUrl={communicationBaseUrl}
-                  relativeTop={this.state.panelHeight + this.state.filterHeight}
-                  cancelledStatus={cancelledStatus}
-                />
-                <CenterAlignedUltimatePagination
-                  currentPage={data.currentPage}
-                  totalPages={data.totalNumberOfPages}
-                  onChange={this.handlePageClick}
-                />
-                <RecordsRange
-                  currentPage={data.currentPage}
-                  totalPages={data.totalNumberOfPages}
-                  totalElements={data.totalElements}
-                  currentPageSize={data.currentPageSize}
-                />
-              </CenterAlign>
-            </InfoSection>
-        }
+          <InfoSection margin="0 0 10px 0">
+            <CenterAlign>
+              <AppointmentTable
+                elements={data.elements}
+                appointmentStatuses={appointmentStatuses}
+                appointmentTypes={appointmentTypes}
+                cancelAppointment={this.cancelAppointment}
+                acceptAppointment={this.acceptAppointment}
+                declineAppointment={this.declineAppointment}
+                tentativeAppointment={this.tentativeAppointment}
+                communicationBaseUrl={communicationBaseUrl}
+                relativeTop={this.state.panelHeight + this.state.filterHeight}
+                cancelledStatus={cancelledStatus}
+              />
+              <CenterAlignedUltimatePagination
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                onChange={this.handlePageClick}
+              />
+              <RecordsRange
+                currentPage={data.currentPage}
+                totalPages={data.totalNumberOfPages}
+                totalElements={data.totalElements}
+                currentPageSize={data.currentPageSize}
+              />
+            </CenterAlign>
+          </InfoSection>
+          }
         </Card>
       </div>
     );
@@ -165,6 +189,9 @@ PractitionerAppointments.propTypes = {
     }),
   }),
   cancelAppointment: PropTypes.func,
+  acceptAppointment: PropTypes.func,
+  declineAppointment: PropTypes.func,
+  tentativeAppointment: PropTypes.func,
   user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
 };
@@ -182,6 +209,9 @@ function mapDispatchToProps(dispatch) {
     getUpcomingAppointments: (query, showPastAppointments) => dispatch(getPractitionerAppointments(query, showPastAppointments)),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     cancelAppointment: (id) => dispatch(cancelPractitionerAppointment(id)),
+    acceptAppointment: (id) => dispatch(acceptPractitionerAppointment(id)),
+    declineAppointment: (id) => dispatch(declinePractitionerAppointment(id)),
+    tentativeAppointment: (id) => dispatch(tentativePractitionerAppointment(id)),
   };
 }
 
