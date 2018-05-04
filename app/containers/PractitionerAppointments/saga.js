@@ -79,57 +79,96 @@ export function* cancelPractitionerAppointmentSaga({ id }) {
   }
 }
 
-export function* acceptPractitionerAppointmentSaga({ id }) {
+export function* acceptPractitionerAppointmentSaga({ id, query: { showPastAppointments, pageNumber } }) {
   try {
     const practitioner = yield select(makeSelectUser());
     const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
-    let queryParams = {};
+    let queryParams = {
+      showPastAppointments,
+      pageNumber,
+    };
+    let actionQueryParams = {};
     if (practitionerId) {
-      queryParams = {
+      actionQueryParams = {
         actorReference: `Practitioner/${practitionerId}`,
       };
+      queryParams = {
+        showPastAppointments,
+        pageNumber,
+        practitionerId,
+        requesterReference: `Practitioner/${practitionerId}`,
+      };
     }
-    yield call(acceptAppointment, id, queryParams);
+    yield call(acceptAppointment, id, actionQueryParams);
     yield put(acceptPractitionerAppointmentSuccess());
     yield put(showNotification('Appointment is accepted.'));
+
+    const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
+    yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     yield put(acceptPractitionerAppointmentError(err));
     yield put(showNotification('Failed to accept the  appointment.'));
   }
 }
 
-export function* declinePractitionerAppointmentSaga({ id }) {
+export function* declinePractitionerAppointmentSaga({ id, query: { showPastAppointments, pageNumber } }) {
   try {
     const practitioner = yield select(makeSelectUser());
     const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
-    let queryParams = {};
+    let queryParams = {
+      showPastAppointments,
+      pageNumber,
+    };
+    let actionQueryParams = {};
     if (practitionerId) {
-      queryParams = {
+      actionQueryParams = {
         actorReference: `Practitioner/${practitionerId}`,
       };
+      queryParams = {
+        showPastAppointments,
+        pageNumber,
+        practitionerId,
+        requesterReference: `Practitioner/${practitionerId}`,
+      };
     }
-    yield call(declineAppointment, id, queryParams);
+    yield call(declineAppointment, id, actionQueryParams);
     yield put(declinePractitionerAppointmentSuccess());
     yield put(showNotification('Appointment is declined.'));
+
+    const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
+    yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     yield put(declinePractitionerAppointmentError(err));
     yield put(showNotification('Failed to decline the  appointment.'));
   }
 }
 
-export function* tentativelyAcceptPractitionerAppointmentSaga({ id }) {
+export function* tentativelyAcceptPractitionerAppointmentSaga({ id, query: { showPastAppointments, pageNumber } }) {
   try {
     const practitioner = yield select(makeSelectUser());
     const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
-    let queryParams = {};
+    let queryParams = {
+      showPastAppointments,
+      pageNumber,
+    };
+    let actionQueryParams = {};
     if (practitionerId) {
-      queryParams = {
+      actionQueryParams = {
         actorReference: `Practitioner/${practitionerId}`,
       };
+      queryParams = {
+        showPastAppointments,
+        pageNumber,
+        practitionerId,
+        requesterReference: `Practitioner/${practitionerId}`,
+      };
     }
-    yield call(tentativelyAcceptAppointment, id, queryParams);
+    yield call(tentativelyAcceptAppointment, id, actionQueryParams);
     yield put(tentativePractitionerAppointmentSuccess());
     yield put(showNotification('Appointment is tentatively accepted.'));
+
+    const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
+    yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     yield put(tentativePractitionerAppointmentError(err));
     yield put(showNotification('Failed to tentatively accept the  appointment.'));

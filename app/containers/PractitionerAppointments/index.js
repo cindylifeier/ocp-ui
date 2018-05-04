@@ -100,15 +100,24 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
   }
 
   acceptAppointment(logicalId) {
-    this.props.acceptAppointment(logicalId);
+    this.props.acceptAppointment(logicalId, {
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
   }
 
   declineAppointment(logicalId) {
-    this.props.declineAppointment(logicalId);
+    this.props.declineAppointment(logicalId, {
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
   }
 
   tentativeAppointment(logicalId) {
-    this.props.tentativeAppointment(logicalId);
+    this.props.tentativeAppointment(logicalId, {
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
   }
 
   render() {
@@ -185,10 +194,10 @@ PractitionerAppointments.propTypes = {
       elements: PropTypes.array,
     }),
   }),
-  cancelAppointment: PropTypes.func,
-  acceptAppointment: PropTypes.func,
-  declineAppointment: PropTypes.func,
-  tentativeAppointment: PropTypes.func,
+  cancelAppointment: PropTypes.func.isRequired,
+  acceptAppointment: PropTypes.func.isRequired,
+  declineAppointment: PropTypes.func.isRequired,
+  tentativeAppointment: PropTypes.func.isRequired,
   user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
 };
@@ -206,9 +215,9 @@ function mapDispatchToProps(dispatch) {
     getUpcomingAppointments: (query, showPastAppointments) => dispatch(getPractitionerAppointments(query, showPastAppointments)),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     cancelAppointment: (id) => dispatch(cancelPractitionerAppointment(id)),
-    acceptAppointment: (id) => dispatch(acceptPractitionerAppointment(id)),
-    declineAppointment: (id) => dispatch(declinePractitionerAppointment(id)),
-    tentativeAppointment: (id) => dispatch(tentativePractitionerAppointment(id)),
+    acceptAppointment: (id, query) => dispatch(acceptPractitionerAppointment(id, query)),
+    declineAppointment: (id, query) => dispatch(declinePractitionerAppointment(id, query)),
+    tentativeAppointment: (id, query) => dispatch(tentativePractitionerAppointment(id, query)),
   };
 }
 

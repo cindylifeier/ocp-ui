@@ -75,10 +75,11 @@ export function cancelPractitionerAppointmentError(error) {
 }
 
 // Accept
-export function acceptPractitionerAppointment(id) {
+export function acceptPractitionerAppointment(id, query) {
   return {
     type: ACCEPT_PRACTITIONER_APPOINTMENT,
     id,
+    query,
   };
 }
 
@@ -96,10 +97,11 @@ export function acceptPractitionerAppointmentError(error) {
 }
 
 // Decline
-export function declinePractitionerAppointment(id) {
+export function declinePractitionerAppointment(id, query) {
   return {
     type: DECLINE_PRACTITIONER_APPOINTMENT,
     id,
+    query,
   };
 }
 
@@ -117,10 +119,11 @@ export function declinePractitionerAppointmentError(error) {
 }
 
 // Tentative
-export function tentativePractitionerAppointment(id) {
+export function tentativePractitionerAppointment(id, query) {
   return {
     type: TENTATIVE_PRACTITIONER_APPOINTMENT,
     id,
+    query,
   };
 }
 
