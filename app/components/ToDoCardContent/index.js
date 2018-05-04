@@ -15,6 +15,7 @@ import ContentFlag from '@material-ui/icons/Flag';
 
 import ToDoCardCell from 'components/ToDoCardCell';
 import ToDoCardGrid from 'components/ToDoCardGrid';
+import StyledText from 'components/StyledText';
 import ToDoItemDescriptionBoxModel from 'components/ToDoCardContent/ToDoItemDescriptionBoxModel';
 import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/ToDoCardContent/constants';
 import NavigationIconMenu from 'components/NavigationIconMenu';
@@ -42,11 +43,11 @@ function ToDoCardContent(props) {
   function getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
-      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+      statusElement = (<div><ContentFlag /><StyledText fontWeight="bold"><FormattedMessage {...messages.todoStatusUpcoming} /></StyledText></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+      statusElement = (<div><NotificationPriorityHigh /><StyledText fontWeight="bold"><FormattedMessage {...messages.todoStatusOverdue} /></StyledText></div>);
     } else if (statusStr === DUE_TODAY) {
-      statusElement = (<div><ActionEvent /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
+      statusElement = (<div><ActionEvent /><StyledText fontWeight="bold"><FormattedMessage {...messages.todoStatusDueToday} /></StyledText></div>);
     }
     return statusElement;
   }
@@ -64,11 +65,13 @@ function ToDoCardContent(props) {
       <ToDoCardGrid column={12}>
         <ToDoCardCell top={1} left={1} width={12}>
           <ToDoItemDescriptionBoxModel>
-            {description}
+            <StyledText>
+              {description}
+            </StyledText>
           </ToDoItemDescriptionBoxModel>
         </ToDoCardCell>
         <ToDoCardCell top={2} left={1} width={12}>
-          <Grid columns="6fr 6fr" gap="">
+          <Grid columns="6fr 5fr 1fr" gap="">
             <Cell>
               {getStatusWithIcon(status)}
             </Cell>
@@ -79,6 +82,7 @@ function ToDoCardContent(props) {
               </Align>
               }
             </Cell>
+            <Cell />
           </Grid>
         </ToDoCardCell>
       </ToDoCardGrid>

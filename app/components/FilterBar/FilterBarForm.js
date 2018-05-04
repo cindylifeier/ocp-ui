@@ -8,9 +8,8 @@ import uniqueId from 'lodash/uniqueId';
 
 import FilterSection from 'components/FilterBar/FilterSection';
 import FilterContainerGrid from 'components/FilterBar/FilterContainerGrid';
-import FilterHeader from 'components/FilterBar/FilterHeader';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import SelectField from 'components/SelectField';
+import StyledSelectField from 'components/StyledSelectField';
+import StyledBarActionButton from 'components/StyledBarActionButton';
 import messages from './messages';
 
 function FilterBarForm(props) {
@@ -19,33 +18,27 @@ function FilterBarForm(props) {
     <Form>
       {showFilter &&
       <FilterSection>
-        <FilterHeader>
+        <FilterContainerGrid gap="5px" columns="30px 200px 80px">
           <FilterIcon color={'#336666'} />
-          <FormattedMessage {...messages.filterHeader} />
-        </FilterHeader>
-        <FilterContainerGrid gap="5px" columns="250px 300px">
           {showFilter &&
-          <SelectField
+          <StyledSelectField
             fullWidth
             name="dateRangeCode"
             hintText={filterValueHintText}
-            floatingLabelText={filterValueHintText}
           >
             {filterTypes && filterTypes.map((filterType) =>
               <MenuItem key={uniqueId()} value={filterType.value} primaryText={filterType.display} />,
             )}
-          </SelectField>
+          </StyledSelectField>
           }
-        </FilterContainerGrid>
-        <FilterContainerGrid gap="5px" columns="120px 1fr">
           {showFilter &&
-          <StyledRaisedButton
+          <StyledBarActionButton
             fullWidth
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           >
             <FormattedMessage {...messages.filterButtonLabel} />
-          </StyledRaisedButton>
+          </StyledBarActionButton>
           }
         </FilterContainerGrid>
       </FilterSection>
