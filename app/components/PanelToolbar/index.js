@@ -35,7 +35,7 @@ export class PanelToolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowSearchBar: false,
+      isShowSearchBar: props.showSearchBarByDefault,
       isShowFilter: false,
     };
     this.handleShowSearchBar = this.handleShowSearchBar.bind(this);
@@ -175,6 +175,7 @@ PanelToolbar.propTypes = {
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
   showSearchIcon: PropTypes.bool,
+  showSearchBarByDefault: PropTypes.bool,
   addNewItem: PropTypes.shape({
     labelName: PropTypes.node.isRequired,
     linkUrl: PropTypes.string.isRequired,
@@ -204,6 +205,7 @@ PanelToolbar.defaultProps = {
   showSettingIcon: true,
   showFilterIcon: true,
   showSearchIcon: true,
+  showSearchBarByDefault: false,
   showFilter: true,
   showToDoSpecificFilters: false,
 };
