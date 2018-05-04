@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.SmartContextInitializerPage.header',
-    defaultMessage: 'This is SmartContextInitializerPage container !',
+    defaultMessage: 'SMART Context Initializer',
   },
 });
