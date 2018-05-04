@@ -46,9 +46,9 @@ export default defineMessages({
     id: 'ocpui.components.PatientDetails.expansionDetailsDOB',
     defaultMessage: 'DOB',
   },
-  expansionDetailsSSN: {
-    id: 'ocpui.components.PatientDetails.expansionDetailsSSN',
-    defaultMessage: 'SSN',
+  expansionDetailsIdentifiers: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsIdentifiers',
+    defaultMessage: 'Identifiers',
   },
   tableColumnHeaderAuthor: {
     id: 'ocpui.components.PatientDetails.tableColumnHeaderAuthor',

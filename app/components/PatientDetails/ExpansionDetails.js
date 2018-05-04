@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
+import upperFirst from 'lodash/upperFirst';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
@@ -30,12 +31,12 @@ function ExpansionDetails({ patient }) {
             <Cell>
               <TextLabelGroup
                 label={<FormattedMessage {...messages.gender} />}
-                text={genderCode}
+                text={upperFirst(genderCode)}
               />
             </Cell>
             <Cell>
               <TextLabelGroup
-                label={<FormattedMessage {...messages.expansionDetailsSSN} />}
+                label={<FormattedMessage {...messages.expansionDetailsIdentifiers} />}
                 text={identifier}
               />
             </Cell>
