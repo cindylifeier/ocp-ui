@@ -90,7 +90,7 @@ export function* acceptPractitionerAppointmentSaga({ id }) {
       };
     }
     yield call(acceptAppointment, id, queryParams);
-    yield put(acceptPractitionerAppointmentSuccess(id));
+    yield put(acceptPractitionerAppointmentSuccess());
     yield put(showNotification('Appointment is accepted.'));
   } catch (err) {
     yield put(acceptPractitionerAppointmentError(err));
@@ -109,7 +109,7 @@ export function* declinePractitionerAppointmentSaga({ id }) {
       };
     }
     yield call(declineAppointment, id, queryParams);
-    yield put(declinePractitionerAppointmentSuccess(id));
+    yield put(declinePractitionerAppointmentSuccess());
     yield put(showNotification('Appointment is declined.'));
   } catch (err) {
     yield put(declinePractitionerAppointmentError(err));
@@ -128,7 +128,7 @@ export function* tentativelyAcceptPractitionerAppointmentSaga({ id }) {
       };
     }
     yield call(tentativelyAcceptAppointment, id, queryParams);
-    yield put(tentativePractitionerAppointmentSuccess(id));
+    yield put(tentativePractitionerAppointmentSuccess());
     yield put(showNotification('Appointment is tentatively accepted.'));
   } catch (err) {
     yield put(tentativePractitionerAppointmentError(err));

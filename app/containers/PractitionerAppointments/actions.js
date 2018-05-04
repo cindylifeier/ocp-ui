@@ -82,10 +82,9 @@ export function acceptPractitionerAppointment(id) {
   };
 }
 
-export function acceptPractitionerAppointmentSuccess(id) {
+export function acceptPractitionerAppointmentSuccess() {
   return {
     type: ACCEPT_PRACTITIONER_APPOINTMENT_SUCCESS,
-    id,
   };
 }
 
@@ -104,10 +103,9 @@ export function declinePractitionerAppointment(id) {
   };
 }
 
-export function declinePractitionerAppointmentSuccess(id) {
+export function declinePractitionerAppointmentSuccess() {
   return {
     type: DECLINE_PRACTITIONER_APPOINTMENT_SUCCESS,
-    id,
   };
 }
 
@@ -126,10 +124,9 @@ export function tentativePractitionerAppointment(id) {
   };
 }
 
-export function tentativePractitionerAppointmentSuccess(id) {
+export function tentativePractitionerAppointmentSuccess() {
   return {
     type: TENTATIVE_PRACTITIONER_APPOINTMENT_SUCCESS,
-    id,
   };
 }
 
