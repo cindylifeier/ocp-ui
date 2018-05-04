@@ -86,7 +86,12 @@ export class Patients extends React.Component {
   }
 
   handlePatientClick(patient) {
-    this.props.setPatient(patient);
+    const { onPatientClick } = this.props;
+    if (onPatientClick) {
+      onPatientClick(patient);
+    } else {
+      this.props.setPatient(patient);
+    }
   }
 
   handlePatientViewDetailsClick(patient) {
@@ -120,7 +125,7 @@ export class Patients extends React.Component {
   }
 
   render() {
-    const { loading, error, searchResult, organization } = this.props;
+    const { loading, error, searchResult, organization, showSearchBarByDefault } = this.props;
     const searchResultProps = {
       loading,
       error,
@@ -140,6 +145,7 @@ export class Patients extends React.Component {
           allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.onSize}
+          showSearchBarByDefault={showSearchBarByDefault}
         />
         <PatientSearchResult
           {...searchResultProps}
@@ -198,8 +204,13 @@ Patients.propTypes = {
   setPatient: PropTypes.func.isRequired,
   patient: PropTypes.object,
   organization: PropTypes.object,
+  onPatientClick: PropTypes.func,
+  showSearchBarByDefault: PropTypes.bool,
 };
 
+Patients.defaultProps = {
+  showSearchBarByDefault: false,
+};
 
 const mapStateToProps = createStructuredSelector({
   searchResult: makeSelectPatientSearchResult(),
