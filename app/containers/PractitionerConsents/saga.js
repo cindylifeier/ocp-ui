@@ -1,6 +1,3 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
-// Individual exports for testing
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getConsentsSuccess, getConsentsError } from './actions';
