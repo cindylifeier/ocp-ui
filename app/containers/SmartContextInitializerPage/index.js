@@ -26,6 +26,8 @@ import PageContent from 'components/PageContent';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledStepper from 'components/StyledStepper';
+import Organizations from 'containers/Organizations';
+import Patients from 'containers/Patients';
 import makeSelectSmartContextInitializerPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -35,28 +37,6 @@ const InlineBlock = styled.span`
   display: inline-block;
 `;
 
-function getSteps() {
-  return {
-    patient: 'Select Patient',
-    organization: 'Select Organization',
-    location: 'Select Location',
-    encounter: 'Select Encounter',
-    resource: 'Select Resource',
-  };
-}
-
-function getStepContent(step, keys) {
-  const stepContents = {
-    patient: 'Patient Selector Content',
-    organization: 'Organization Selector Content',
-    location: 'Location Selector Content',
-    encounter: 'Encounter Selector Content',
-    resource: 'Resource Selector Content',
-  };
-  const requiredStepContents = Object.values(pick(stepContents, keys));
-  return requiredStepContents[step];
-}
-
 export class SmartContextInitializerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -64,6 +44,8 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
       activeStep: 0,
       completed: {},
     };
+    this.getSteps = this.getSteps.bind(this);
+    this.getStepContent = this.getStepContent.bind(this);
     this.completedSteps = this.completedSteps.bind(this);
     this.totalSteps = this.totalSteps.bind(this);
     this.isLastStep = this.isLastStep.bind(this);
@@ -73,6 +55,30 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.handleStep = this.handleStep.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.renderPatientSelector = this.renderPatientSelector.bind(this);
+    this.renderOrganizationSelector = this.renderOrganizationSelector.bind(this);
+  }
+
+  getSteps() {
+    return {
+      patient: 'Select Patient',
+      organization: 'Select Organization',
+      location: 'Select Location',
+      encounter: 'Select Encounter',
+      resource: 'Select Resource',
+    };
+  }
+
+  getStepContent(step, keys) {
+    const stepContents = {
+      patient: this.renderPatientSelector,
+      organization: this.renderOrganizationSelector,
+      location: () => 'Location Selector Content',
+      encounter: () => 'Encounter Selector Content',
+      resource: () => 'Resource Selector Content',
+    };
+    const requiredStepContents = Object.values(pick(stepContents, keys));
+    return requiredStepContents[step]();
   }
 
   completedSteps() {
@@ -82,7 +88,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
   totalSteps() {
     const params = queryString.parse(this.props.location.search);
     const requiredContexts = params.required_context.split(',').filter(identity);
-    const steps = requiredContexts.map((c) => getSteps()[c]);
+    const steps = requiredContexts.map((c) => this.getSteps()[c]);
     return steps.length;
   }
 
@@ -102,7 +108,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
       // find the first step that has been completed
       const params = queryString.parse(this.props.location.search);
       const requiredContexts = params.required_context.split(',').filter(identity);
-      const steps = requiredContexts.map((c) => getSteps()[c]);
+      const steps = requiredContexts.map((c) => this.getSteps()[c]);
       activeStep = steps.findIndex((step, i) => !(i in this.state.completed));
     } else {
       activeStep = this.state.activeStep + 1;
@@ -143,11 +149,19 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     });
   }
 
+  renderPatientSelector() {
+    return (<Patients showSearchBarByDefault onPatientClick={console.log} />);
+  }
+
+  renderOrganizationSelector() {
+    return (<Organizations showSearchBarByDefault onOrganizationClick={console.log} />);
+  }
+
   render() {
     const params = queryString.parse(this.props.location.search);
     const requiredContexts = params.required_context.split(',').filter(identity);
 
-    const steps = requiredContexts.map((c) => getSteps()[c]);
+    const steps = requiredContexts.map((c) => this.getSteps()[c]);
     const { activeStep } = this.state;
 
     return (
@@ -181,7 +195,9 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
                 </div>
               ) : (
                 <div>
-                  <Typography>{getStepContent(activeStep, requiredContexts)}</Typography>
+                  <Typography component="div">
+                    {this.getStepContent(activeStep, requiredContexts)}
+                  </Typography>
                   <div>
                     <StyledRaisedButton
                       disabled={activeStep === 0}
