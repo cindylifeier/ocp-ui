@@ -183,6 +183,7 @@ ShallowWrapper {
                   },
                 ]
               }
+              isExpanded={undefined}
               manageCareTeamUrl="/ocp-ui/manage-care-team"
               onSize={[Function]}
               relativeTop={0}
@@ -301,6 +302,7 @@ ShallowWrapper {
                     },
                   ]
                 }
+                isExpanded={undefined}
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
                 onSize={[Function]}
                 relativeTop={0}
@@ -594,6 +596,7 @@ ShallowWrapper {
                       },
                     ]
                   }
+                  isExpanded={undefined}
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
                   onSize={[Function]}
                   relativeTop={0}
@@ -639,6 +642,7 @@ ShallowWrapper {
                       "subjectLastName": "subjectLastName2",
                     },
                   ],
+                  "isExpanded": undefined,
                   "manageCareTeamUrl": "/ocp-ui/manage-care-team",
                   "onSize": [Function],
                   "relativeTop": 0,
@@ -777,6 +781,7 @@ ShallowWrapper {
                     },
                   ]
                 }
+                isExpanded={undefined}
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
                 onSize={[Function]}
                 relativeTop={0}
@@ -895,6 +900,7 @@ ShallowWrapper {
                       },
                     ]
                   }
+                  isExpanded={undefined}
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
                   onSize={[Function]}
                   relativeTop={0}
@@ -1188,6 +1194,7 @@ ShallowWrapper {
                         },
                       ]
                     }
+                    isExpanded={undefined}
                     manageCareTeamUrl="/ocp-ui/manage-care-team"
                     onSize={[Function]}
                     relativeTop={0}
@@ -1233,6 +1240,7 @@ ShallowWrapper {
                         "subjectLastName": "subjectLastName2",
                       },
                     ],
+                    "isExpanded": undefined,
                     "manageCareTeamUrl": "/ocp-ui/manage-care-team",
                     "onSize": [Function],
                     "relativeTop": 0,

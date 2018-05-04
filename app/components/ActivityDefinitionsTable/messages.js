@@ -14,13 +14,9 @@ export default defineMessages({
     id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnTopic',
     defaultMessage: 'Topic',
   },
-  tableHeaderColumnEffectiveStart: {
-    id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnEffectiveStart',
-    defaultMessage: 'Effective Start',
-  },
-  tableHeaderColumnEffectiveEnd: {
-    id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnEffectiveEnd',
-    defaultMessage: 'Effective End',
+  tableHeaderColumnEffectiveDate: {
+    id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnEffectiveDate',
+    defaultMessage: 'Effective Date',
   },
   tableHeaderColumnDescription: {
     id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnDescription',
@@ -29,6 +25,10 @@ export default defineMessages({
   tableHeaderColumnStatus: {
     id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnStatus',
     defaultMessage: 'Status',
+  },
+  tableHeaderColumnAction: {
+    id: 'ocpui.components.ActivityDefinitionsTable.tableHeaderColumnAction',
+    defaultMessage: 'Action',
   },
   edit: {
     id: 'ocpui.components.ActivityDefinitionsTable.edit',

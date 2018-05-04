@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledToDoCardHeader from 'components/ToDoCardHeader/StyledToDoCardHeader';
+import StyledText from 'components/StyledText';
 import ToDoCardGrid from 'components/ToDoCardGrid';
 import ToDoCardCell from 'components/ToDoCardCell';
 import { Cell, Grid } from 'styled-css-grid';
@@ -19,17 +20,20 @@ function ToDoCardHeader(props) {
     <StyledToDoCardHeader>
       <ToDoCardGrid column={12}>
         <ToDoCardCell top={1} left={1} width={12}>
-          <Grid columns="6fr 6fr" gap="">
+          <Grid columns="6fr 5fr 1fr" gap="">
             <Cell>
-              <strong>
+              <StyledText fontSize="14px" fontWeight="bold">
                 {dueDateStr}
-              </strong>
+              </StyledText>
             </Cell>
             <Cell>
               <Align variant="right">
-                <strong>{patientName}</strong>
+                <StyledText fontSize="14px" fontWeight="bold">
+                  {patientName}
+                </StyledText>
               </Align>
             </Cell>
+            <Cell />
           </Grid>
         </ToDoCardCell>
       </ToDoCardGrid>

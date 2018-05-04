@@ -10,7 +10,14 @@ import Checkbox from 'components/Checkbox';
 
 const StyledFormikCheckbox = styled(Checkbox).attrs({
   labelStyle: {
-    left: '-10px',
+    left: '-12px',
+    top: '-3px',
+    fontSize: '12px',
+    wordBreak: 'none',
+  },
+  iconStyle: {
+    height: '18px',
+    width: '18px',
   },
 })('');
 

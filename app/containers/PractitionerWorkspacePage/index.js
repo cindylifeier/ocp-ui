@@ -19,7 +19,7 @@ import {
 } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import renderConsentsComponent from 'containers/Consents/render';
+import renderPractitionerConsentsComponent from 'containers/PractitionerConsents/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderLocationsComponent from 'containers/Locations/render';
 import renderPatientsComponent from 'containers/Patients/render';
@@ -63,7 +63,7 @@ const baseLayout = {
     borderWidth: 10,
     borderGrabWidth: 15,
     minItemHeight: 200,
-    minItemWidth: 400,
+    minItemWidth: 500,
     headerHeight: 30,
     dragProxyWidth: 300,
     dragProxyHeight: 200,
@@ -85,7 +85,7 @@ const baseLayout = {
 
 export class PractitionerWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static componentMetadata = [
-    { name: 'consents', text: 'CONSENTS', factoryMethod: renderConsentsComponent },
+    { name: 'practitionerConsents', text: 'CONSENTS', factoryMethod: renderPractitionerConsentsComponent },
     { name: 'communications', text: 'COMMUNICATIONS', factoryMethod: renderCommunicationsComponent },
     { name: 'practitioners', text: 'PRACTITIONERS', factoryMethod: renderPractitionersComponent },
     { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
@@ -288,7 +288,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
               }, {
                 title: 'Consents',
                 type: 'component',
-                componentName: 'consents',
+                componentName: 'practitionerConsents',
                 isClosable: true,
                 reorderEnabled: true,
               },

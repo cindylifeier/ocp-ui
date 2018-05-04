@@ -11,8 +11,9 @@ import { FieldArray } from 'formik';
 import Dialog from 'material-ui/Dialog';
 
 import FormSubtitle from 'components/FormSubtitle';
-import Section from 'components/Section';
-import AddTelecomsButton from './AddTelecomsButton';
+import teal from 'material-ui-next/colors/teal';
+import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
+import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
 import AddedTelecomsTable from './AddedTelecomsTable';
 import messages from './messages';
@@ -59,13 +60,14 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
     };
     return (
       <div>
-        <Section>
+        <div>
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
-          <AddTelecomsButton onClick={this.handleOpenDialog}>
+          <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
+            <StyledAddCircleIcon color={teal['500']} />
             <FormattedMessage {...messages.addTelecomsButton} />
-          </AddTelecomsButton>
+          </AddNewItemButton>
           <FieldArray
             name="telecoms"
             render={(arrayHelpers) => (
@@ -92,7 +94,7 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
               </div>
             )}
           />
-        </Section>
+        </div>
       </div>
     );
   }

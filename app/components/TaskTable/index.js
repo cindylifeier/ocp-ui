@@ -30,44 +30,52 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
         {isExpanded &&
-          <div>
-            <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
-            <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
-          </div>
+        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
         }
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
         {isExpanded &&
-        <div>
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreatedBy} /></TableHeaderColumn>
-          <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
-        </div>
+        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
+        }
+        {!isExpanded ?
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
+          :
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
+        }
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastModified} /></TableHeaderColumn>
+        }
+        {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
         }
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
       </TableHeader>
     );
   }
 
-  function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems) {
+  function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems, lastModified) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableRow key={logicalId} columns={columns}>
         <TableRowColumn>{definition && definition.display}</TableRowColumn>
-        <TableRowColumn>{status && status.display}</TableRowColumn>
+        <TableRowColumn>{owner && owner.display} </TableRowColumn>
         {isExpanded &&
-          <div>
-            <TableRowColumn>{description}</TableRowColumn>
-            <TableRowColumn>{authoredOn}</TableRowColumn>
-          </div>
+        <TableRowColumn>{description}</TableRowColumn>
         }
-        <TableRowColumn>{executionPeriod && executionPeriod.start}
-          - {executionPeriod && executionPeriod.end} </TableRowColumn>
         {isExpanded &&
-        <div>
-          <TableRowColumn>{agent && agent.display} </TableRowColumn>
-          <TableRowColumn>{owner && owner.display} </TableRowColumn>
-        </div>
+        <TableRowColumn>{authoredOn}</TableRowColumn>
+        }
+        {!isExpanded ?
+          <TableRowColumn>{executionPeriod && executionPeriod.end} </TableRowColumn>
+          :
+          <TableRowColumn>{executionPeriod && executionPeriod.start}
+            - {executionPeriod && executionPeriod.end} </TableRowColumn>
+        }
+        {isExpanded &&
+        <TableRowColumn>{lastModified} </TableRowColumn>
+        }
+        {isExpanded &&
+        <TableRowColumn>{status && status.display}</TableRowColumn>
         }
         <TableRowColumn>
           <NavigationIconMenu menuItems={menuItems} />
@@ -79,7 +87,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   return (
     <Table>
       {createTableHeaders()}
-      {!isEmpty(elements) && elements.map(({ logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner }) => {
+      {!isEmpty(elements) && elements.map(({ logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, lastModified }) => {
         const menuItems = [{
           primaryText: <FormattedMessage {...messages.editTask} />,
           linkTo: {
@@ -103,7 +111,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
           disabled: status.code === STATUS_CODE_CANCELLED,
           onClick: () => cancelTask(logicalId),
         }];
-        return createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems);
+        return createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems, lastModified);
       })}
     </Table>
   );

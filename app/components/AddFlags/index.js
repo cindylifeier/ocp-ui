@@ -10,10 +10,11 @@ import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
 
-import Section from 'components/Section';
 import FormSubtitle from 'components/FormSubtitle';
 import H1 from 'components/H1';
-import AddFlagsButton from './AddFlagsButton';
+import teal from 'material-ui-next/colors/teal';
+import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
+import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import messages from './messages';
 import AddFlagForm from './AddFlagForm';
 import AddedFlagsTable from './AddedFlagsTable';
@@ -65,13 +66,14 @@ class AddFlags extends React.Component {
     };
     return (
       <div>
-        <Section>
+        <div>
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
-          <AddFlagsButton onClick={this.handleOpenDialog}>
+          <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
+            <StyledAddCircleIcon color={teal['500']} />
             <FormattedMessage {...messages.addFlagButton} />
-          </AddFlagsButton>
+          </AddNewItemButton>
           <FieldArray
             name="flags"
             render={(arrayHelpers) => (
@@ -99,7 +101,7 @@ class AddFlags extends React.Component {
               </div>
             )}
           />
-        </Section>
+        </div>
       </div>
     );
   }

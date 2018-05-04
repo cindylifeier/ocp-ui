@@ -9,10 +9,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
+import teal from 'material-ui-next/colors/teal';
 
+import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import FormSubtitle from 'components/FormSubtitle';
-import Section from 'components/Section';
-import AddAddressesButton from './AddAddressesButton';
+import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddMultipleAddressesForm from './AddMultipleAddressesForm';
 import AddedAddressesTable from './AddedAddressesTable';
 import messages from './messages';
@@ -55,13 +56,14 @@ class AddMultipleAddresses extends React.Component {
     };
     return (
       <div>
-        <Section>
+        <div>
           <FormSubtitle margin="1vh 0 0 0">
             <FormattedMessage {...messages.header} />
           </FormSubtitle>
-          <AddAddressesButton onClick={this.handleOpenDialog}>
+          <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
+            <StyledAddCircleIcon color={teal['500']} />
             <FormattedMessage {...messages.addAddressesButton} />
-          </AddAddressesButton>
+          </AddNewItemButton>
           <FieldArray
             name="addresses"
             render={(arrayHelpers) => (
@@ -88,7 +90,7 @@ class AddMultipleAddresses extends React.Component {
               </div>
             )}
           />
-        </Section>
+        </div>
       </div>
     );
   }
