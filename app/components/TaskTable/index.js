@@ -12,23 +12,25 @@ import sizeMeHOC from 'utils/SizeMeUtils';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
   EXPANDED_TABLE_COLUMNS,
-  SUMMARIZED_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
+  SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from 'components/TaskTable/constants';
 import messages from './messages';
 
 function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, size }) {
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn />
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
         <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
         {isExpanded &&
@@ -56,7 +58,11 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   function createTableRows(logicalId, definition, status, description, authoredOn, executionPeriod, agent, owner, menuItems, lastModified) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
-      <TableRow key={logicalId} columns={columns}>
+      <ExpansionTableRow
+        key={logicalId}
+        columns={columns}
+        expansionTableRowDetails={<h1>Test</h1>}
+      >
         <TableRowColumn>{definition && definition.display}</TableRowColumn>
         <TableRowColumn>{owner && owner.display} </TableRowColumn>
         {isExpanded &&
@@ -80,7 +86,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
         <TableRowColumn>
           <NavigationIconMenu menuItems={menuItems} />
         </TableRowColumn>
-      </TableRow>
+      </ExpansionTableRow>
     );
   }
 
