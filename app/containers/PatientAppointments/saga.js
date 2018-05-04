@@ -91,7 +91,7 @@ export function* cancelPatientAppointmentSaga({ id }) {
     yield put(showNotification('Appointment is cancelled.'));
   } catch (err) {
     yield put(cancelPatientAppointmentError(err));
-    yield put(showNotification('Failed to cancel appointment.'));
+    yield put(showNotification('Failed to cancel the appointment.'));
   }
 }
 

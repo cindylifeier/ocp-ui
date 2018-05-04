@@ -75,7 +75,7 @@ export function* cancelPractitionerAppointmentSaga({ id }) {
     yield put(showNotification('Appointment is cancelled.'));
   } catch (err) {
     yield put(cancelPractitionerAppointmentError(err));
-    yield put(showNotification('Failed to cancel appointment.'));
+    yield put(showNotification('Failed to cancel the appointment.'));
   }
 }
 
@@ -107,7 +107,7 @@ export function* acceptPractitionerAppointmentSaga({ id, query: { showPastAppoin
     yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     yield put(acceptPractitionerAppointmentError(err));
-    yield put(showNotification('Failed to accept the  appointment.'));
+    yield put(showNotification('Failed to accept the appointment.'));
   }
 }
 
@@ -139,7 +139,7 @@ export function* declinePractitionerAppointmentSaga({ id, query: { showPastAppoi
     yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     yield put(declinePractitionerAppointmentError(err));
-    yield put(showNotification('Failed to decline the  appointment.'));
+    yield put(showNotification('Failed to decline the appointment.'));
   }
 }
 
@@ -171,7 +171,7 @@ export function* tentativelyAcceptPractitionerAppointmentSaga({ id, query: { sho
     yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
     yield put(tentativePractitionerAppointmentError(err));
-    yield put(showNotification('Failed to tentatively accept the  appointment.'));
+    yield put(showNotification('Failed to tentatively accept the appointment.'));
   }
 }
 
