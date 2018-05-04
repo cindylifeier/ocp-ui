@@ -30,4 +30,24 @@ export default defineMessages({
     id: 'ocpui.components.PatientDetails.advisory',
     defaultMessage: 'Advisory',
   },
+  expansionDetailsFirstName: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsFirstName',
+    defaultMessage: 'First Name',
+  },
+  expansionDetailsLastName: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsLastName',
+    defaultMessage: 'Last Name',
+  },
+  expansionDetailsAddresses: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsAddresses',
+    defaultMessage: 'Addresses',
+  },
+  expansionDetailsDOB: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsDOB',
+    defaultMessage: 'DOB',
+  },
+  expansionDetailsSSN: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsSSN',
+    defaultMessage: 'SSN',
+  },
 });

@@ -21,9 +21,9 @@ import renderTasksComponent from 'containers/Tasks/render';
 import renderConsentsComponent from 'containers/Consents/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import PatientDetails from 'components/PatientDetails';
-import { flattenPatientData } from 'containers/PatientPage/helpers';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
+import { flattenPatientData } from 'containers/PatientWorkspacePage/helpers';
 
 export const initialStateMetadata =
   {

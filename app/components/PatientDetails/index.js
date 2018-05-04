@@ -22,6 +22,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import PatientBanner from './PatientBanner';
+import StyledExpansionDetails from './StyledExpansionDetails';
 import ExpansionDetails from './ExpansionDetails';
 import messages from './messages';
 
@@ -88,9 +89,9 @@ class PatientDetails extends React.Component {
           </Cell>
           }
         </Grid>
-        <ExpansionDetails expanded={this.state.expansionPanelOpen}>
-          Test
-        </ExpansionDetails>
+        <StyledExpansionDetails expanded={this.state.expansionPanelOpen}>
+          <ExpansionDetails patient={flattenPatient} />
+        </StyledExpansionDetails>
       </PatientBanner>
     );
   }
