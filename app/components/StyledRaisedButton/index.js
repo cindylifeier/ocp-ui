@@ -4,6 +4,7 @@
  *
  */
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from 'material-ui-next/Button';
 import common from 'material-ui-next/colors/common';
@@ -18,6 +19,7 @@ const StyledRaisedButton = styled(Button).attrs({
     font-size: 13px;
     font-weight: bold;
     text-transform: capitalize;
+    margin-right: ${({ marginRight }) => marginRight || '0'}px;
   }
 
   &&:hover {
@@ -28,5 +30,9 @@ const StyledRaisedButton = styled(Button).attrs({
     color: rgba(0, 0, 0, 0.3);
   }
 `;
+
+StyledRaisedButton.propTypes = {
+  marginRight: PropTypes.number,
+};
 
 export default StyledRaisedButton;
