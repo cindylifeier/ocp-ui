@@ -96,7 +96,12 @@ export class Organizations extends React.Component {
   }
 
   handleRowClick(organization) {
-    this.props.setOrganization(organization);
+    const { onOrganizationClick } = this.props;
+    if (onOrganizationClick) {
+      onOrganizationClick(organization);
+    } else {
+      this.props.setOrganization(organization);
+    }
   }
 
   handleListPageClick(currentPage) {
@@ -121,7 +126,7 @@ export class Organizations extends React.Component {
   }
 
   render() {
-    const { organizations } = this.props;
+    const { organizations, showSearchBarByDefault } = this.props;
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
@@ -154,6 +159,7 @@ export class Organizations extends React.Component {
           allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
           onSearch={this.handleSearch}
           onSize={this.onSize}
+          showSearchBarByDefault={showSearchBarByDefault}
         />
         {this.state.showViewAllButton &&
         <InfoSection margin="10px 0">
@@ -220,6 +226,12 @@ Organizations.propTypes = {
       ]),
     }),
   }),
+  onOrganizationClick: PropTypes.func,
+  showSearchBarByDefault: PropTypes.bool,
+};
+
+Organizations.defaultProps = {
+  showSearchBarByDefault: false,
 };
 
 const mapStateToProps = createStructuredSelector({
