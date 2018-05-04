@@ -40,7 +40,7 @@ PatientAvatar.propTypes = {
 
 PatientAvatar.defaultProps = {
   genderCode: 'unknown',
-  size: 40,
+  size: 45,
 };
 
 export default PatientAvatar;

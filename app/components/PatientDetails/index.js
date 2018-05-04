@@ -45,7 +45,7 @@ class PatientDetails extends React.Component {
     const { id, name, phones, genderCode, flags } = flattenPatient;
     return (
       <PatientBanner>
-        <Grid columns="0.1fr 0.15fr repeat(3, 1fr) 0.4fr">
+        <Grid columns="0.1fr 0.1fr repeat(3, 0.7fr) 1fr">
           <Cell middle center>
             <StyledTooltip title={<FormattedMessage {...messages.viewDetails} />} placement="bottom">
               <StyledIconButton svgIconSize="large" size="x-small" onClick={this.handlePanelOpen}>

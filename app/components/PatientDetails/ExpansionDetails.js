@@ -5,14 +5,15 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import AdvisoryDetails from './AdvisoryDetails';
 import messages from './messages';
 
 function ExpansionDetails({ patient }) {
-  const { addresses, name, genderCode, identifier, telecoms, birthDate } = patient;
+  const { addresses, name, genderCode, identifier, telecoms, birthDate, flags } = patient;
   return (
-    <InfoSection>
-      <Grid columns={'80% 20%'} justifyContent="space-between">
-        <Cell>
+    <Grid columns={'70% 30%'} justifyContent="space-between">
+      <Cell>
+        <InfoSection>
           <Grid columns={'repeat(4, 1fr)'} justifyContent="space-between">
             <Cell>
               <TextLabelGroup
@@ -57,10 +58,12 @@ function ExpansionDetails({ patient }) {
               />
             </Cell>
           </Grid>
-        </Cell>
-        <Cell />
-      </Grid>
-    </InfoSection>
+        </InfoSection>
+      </Cell>
+      {flags.length > 0 &&
+      <AdvisoryDetails flags={flags} />
+      }
+    </Grid>
   );
 }
 
@@ -72,6 +75,7 @@ ExpansionDetails.propTypes = {
     addresses: PropTypes.string,
     telecoms: PropTypes.string,
     birthDate: PropTypes.string,
+    flags: PropTypes.array,
   }).isRequired,
 };
 

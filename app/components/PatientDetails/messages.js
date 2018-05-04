@@ -50,4 +50,24 @@ export default defineMessages({
     id: 'ocpui.components.PatientDetails.expansionDetailsSSN',
     defaultMessage: 'SSN',
   },
+  tableColumnHeaderAuthor: {
+    id: 'ocpui.components.PatientDetails.tableColumnHeaderAuthor',
+    defaultMessage: 'Author',
+  },
+  tableColumnHeaderCategory: {
+    id: 'ocpui.components.PatientDetails.tableColumnHeaderCategory',
+    defaultMessage: 'Category',
+  },
+  tableColumnHeaderStatus: {
+    id: 'ocpui.components.PatientDetails.tableColumnHeaderStatus',
+    defaultMessage: 'Status',
+  },
+  tableColumnHeaderPeriodStart: {
+    id: 'ocpui.components.PatientDetails.tableColumnHeaderPeriodStart',
+    defaultMessage: 'Period Start',
+  },
+  tableColumnHeaderPeriodEnd: {
+    id: 'ocpui.components.PatientDetails.tableColumnHeaderPeriodEnd',
+    defaultMessage: 'Period End',
+  },
 });
