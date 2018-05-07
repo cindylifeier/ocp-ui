@@ -9,6 +9,7 @@ import AppointmentTable from 'components/AppointmentTable';
 import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import ContentSection from 'components/ContentSection';
 import FilterSection from 'components/FilterSection';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
@@ -38,9 +39,13 @@ import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
-import ContentSection from 'components/ContentSection';
-import { cancelPatientAppointment, getPatientAppointments } from './actions';
-import { STATUS_CODE_CANCELLED } from './constants';
+import {
+  acceptPatientAppointment,
+  cancelPatientAppointment,
+  declinePatientAppointment,
+  getPatientAppointments,
+  tentativePatientAppointment,
+} from './actions';
 import messages from './messages';
 import NoPatientAppointmentsMessage from './NoPatientAppointmentsMessage';
 import reducer from './reducer';
@@ -57,6 +62,9 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
+    this.acceptAppointment = this.acceptAppointment.bind(this);
+    this.declineAppointment = this.declineAppointment.bind(this);
+    this.tentativeAppointment = this.tentativeAppointment.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
   }
@@ -104,9 +112,29 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.props.cancelAppointment(logicalId);
   }
 
+  acceptAppointment(logicalId) {
+    this.props.acceptAppointment(logicalId, {
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
+  }
+
+  declineAppointment(logicalId) {
+    this.props.declineAppointment(logicalId, {
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
+  }
+
+  tentativeAppointment(logicalId) {
+    this.props.tentativeAppointment(logicalId, {
+      pageNumber: DEFAULT_START_PAGE_NUMBER,
+      showPastAppointments: false,
+    });
+  }
+
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
-    const cancelledStatus = STATUS_CODE_CANCELLED;
     const manageAppointmentUrl = MANAGE_APPOINTMENT_URL;
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const patientId = this.props.patient ? this.props.patient.id : null;
@@ -157,10 +185,12 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 appointmentStatuses={appointmentStatuses}
                 appointmentTypes={appointmentTypes}
                 cancelAppointment={this.cancelAppointment}
+                acceptAppointment={this.acceptAppointment}
+                declineAppointment={this.declineAppointment}
+                tentativeAppointment={this.tentativeAppointment}
                 patientId={patientId}
                 communicationBaseUrl={communicationBaseUrl}
                 relativeTop={this.state.panelHeight + this.state.filterHeight}
-                cancelledStatus={cancelledStatus}
                 enableEditAppointment={enableEditAppointment}
                 manageAppointmentUrl={manageAppointmentUrl}
               />
@@ -195,7 +225,10 @@ PatientAppointments.propTypes = {
       elements: PropTypes.array,
     }),
   }),
-  cancelAppointment: PropTypes.func,
+  cancelAppointment: PropTypes.func.isRequired,
+  acceptAppointment: PropTypes.func.isRequired,
+  declineAppointment: PropTypes.func.isRequired,
+  tentativeAppointment: PropTypes.func.isRequired,
   patient: PropTypes.object,
   user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
@@ -215,6 +248,9 @@ function mapDispatchToProps(dispatch) {
     getUpcomingAppointments: (query, showPastAppointments) => dispatch(getPatientAppointments(query, showPastAppointments)),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     cancelAppointment: (id) => dispatch(cancelPatientAppointment(id)),
+    acceptAppointment: (id, query) => dispatch(acceptPatientAppointment(id, query)),
+    declineAppointment: (id, query) => dispatch(declinePatientAppointment(id, query)),
+    tentativeAppointment: (id, query) => dispatch(tentativePatientAppointment(id, query)),
   };
 }
 
