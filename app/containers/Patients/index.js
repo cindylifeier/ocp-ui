@@ -125,7 +125,7 @@ export class Patients extends React.Component {
   }
 
   render() {
-    const { loading, error, searchResult, organization, showSearchBarByDefault } = this.props;
+    const { loading, error, searchResult, organization, showSearchBarByDefault, hideToolbar } = this.props;
     const searchResultProps = {
       loading,
       error,
@@ -146,6 +146,7 @@ export class Patients extends React.Component {
           onSearch={this.handleSearch}
           onSize={this.onSize}
           showSearchBarByDefault={showSearchBarByDefault}
+          hideToolbar={hideToolbar}
         />
         <PatientSearchResult
           {...searchResultProps}
@@ -206,10 +207,12 @@ Patients.propTypes = {
   organization: PropTypes.object,
   onPatientClick: PropTypes.func,
   showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 Patients.defaultProps = {
   showSearchBarByDefault: false,
+  hideToolbar: false,
 };
 
 const mapStateToProps = createStructuredSelector({
