@@ -18,7 +18,7 @@ const StyledRaisedButton = styled(({ marginRight, ...rest }) => (<Button variant
     font-size: 13px;
     font-weight: bold;
     text-transform: capitalize;
-    margin-right: ${({ marginRight }) => marginRight || '0'}px;
+    margin-right: ${({ marginRight }) => marginRight}px;
   }
 
   &&:hover {
@@ -32,6 +32,10 @@ const StyledRaisedButton = styled(({ marginRight, ...rest }) => (<Button variant
 
 StyledRaisedButton.propTypes = {
   marginRight: PropTypes.number,
+};
+
+StyledRaisedButton.defaultProps = {
+  marginRight: 0,
 };
 
 export default StyledRaisedButton;
