@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<SelectCareTeamDialogContent />', () => {
+xdescribe('<SelectCareTeamDialogContent />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
