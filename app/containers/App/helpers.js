@@ -24,6 +24,10 @@ import {
   PRACTITIONER_WORKSPACE,
 } from 'containers/App/constants';
 
+
+const SSN_SYSTEM = '2.16.840.1.113883.4.1';
+const SSN_SYSTEM_DISPLAY = 'SSN';
+
 /**
  * Mapping Fhir resources
  * @returns {*}
@@ -42,6 +46,10 @@ export function mapToIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => {
     const system = identifier.systemDisplay !== EMPTY_STRING ? identifier.systemDisplay : EMPTY_STRING;
     const value = identifier.value !== EMPTY_STRING ? identifier.value : EMPTY_STRING;
+    if (identifier.system === SSN_SYSTEM || identifier.systemDisplay === SSN_SYSTEM_DISPLAY) {
+      const maskSsnValue = maskSsn(value);
+      return `${system}: ${maskSsnValue}`;
+    }
     return `${system}: ${value}`;
   }).join(NEW_LINE_CHARACTER);
 }
@@ -137,4 +145,12 @@ export function getRoleByScope(scope) {
       role = null;
   }
   return role;
+}
+
+function maskSsn(value) {
+  let maskSsnValue = value;
+  if (!isEmpty(value)) {
+    maskSsnValue = new Array(value.length - 3).join('X') + value.substr(value.length - 4, 4);
+  }
+  return maskSsnValue;
 }
