@@ -46,6 +46,8 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
+    this.getRequiredSteps = this.getRequiredSteps.bind(this);
+    this.getRequiredContexts = this.getRequiredContexts.bind(this);
     this.completedSteps = this.completedSteps.bind(this);
     this.totalSteps = this.totalSteps.bind(this);
     this.isLastStep = this.isLastStep.bind(this);
@@ -81,14 +83,24 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     return requiredStepContents[step]();
   }
 
+  getRequiredContexts() {
+    const params = queryString.parse(this.props.location.search);
+    const requiredContexts = params.required_context.split(',').filter(identity);
+    return requiredContexts;
+  }
+
+  getRequiredSteps(requiredContexts) {
+    const reqContexts = requiredContexts || this.getRequiredContexts();
+    const steps = reqContexts.map((c) => this.getSteps()[c]);
+    return steps;
+  }
+
   completedSteps() {
     return Object.keys(this.state.completed).length;
   }
 
   totalSteps() {
-    const params = queryString.parse(this.props.location.search);
-    const requiredContexts = params.required_context.split(',').filter(identity);
-    const steps = requiredContexts.map((c) => this.getSteps()[c]);
+    const steps = this.getRequiredSteps();
     return steps.length;
   }
 
@@ -106,9 +118,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     if (this.isLastStep() && !this.allStepsCompleted()) {
       // It's the last step, but not all steps have been completed,
       // find the first step that has been completed
-      const params = queryString.parse(this.props.location.search);
-      const requiredContexts = params.required_context.split(',').filter(identity);
-      const steps = requiredContexts.map((c) => this.getSteps()[c]);
+      const steps = this.getRequiredSteps();
       activeStep = steps.findIndex((step, i) => !(i in this.state.completed));
     } else {
       activeStep = this.state.activeStep + 1;
@@ -158,10 +168,8 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
   }
 
   render() {
-    const params = queryString.parse(this.props.location.search);
-    const requiredContexts = params.required_context.split(',').filter(identity);
-
-    const steps = requiredContexts.map((c) => this.getSteps()[c]);
+    const requiredContexts = this.getRequiredContexts();
+    const steps = this.getRequiredSteps(requiredContexts);
     const { activeStep } = this.state;
 
     return (
