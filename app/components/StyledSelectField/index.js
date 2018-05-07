@@ -1,15 +1,18 @@
+/**
+*
+* StyledSelectField
+*
+*/
+
 import styled from 'styled-components';
 import SelectField from 'components/SelectField';
 
-const StyledSearchField = styled(SelectField).attrs({
+const StyledSelectField = styled(SelectField).attrs({
   // we can define static props
   labelStyle: {
     fontSize: '12px',
     lineHeight: '30px',
     height: '30px',
-  },
-  menuStyle: {
-    backgroundColor: 'light-blue',
   },
   menuItemStyle: {
     height: '12px',
@@ -18,11 +21,15 @@ const StyledSearchField = styled(SelectField).attrs({
   iconStyle: {
     top: '-12px',
   },
+  hintStyle: {
+    fontSize: '14px',
+    top: '1px',
+  },
   style: {
     height: '30px',
   },
 })('');
 
-StyledSearchField.propTypes = {};
+StyledSelectField.propTypes = {};
 
-export default StyledSearchField;
+export default StyledSelectField;

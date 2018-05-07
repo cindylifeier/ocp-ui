@@ -22,7 +22,6 @@ import { makeSelectPractitionerToDos, makeSelectSearchLoading } from 'containers
 import { CARE_COORDINATOR_ROLE_CODE, DATE_RANGE, TO_DO_DEFINITION } from 'containers/App/constants';
 import { PanelToolbar } from 'components/PanelToolbar';
 import ToDoList from 'components/ToDoList';
-import Card from 'components/Card';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import reducer from './reducer';
 import saga from './saga';
@@ -63,7 +62,7 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
       filterValueHintText: <FormattedMessage {...messages.selectLabelDateRange} />,
     };
     return (
-      <Card>
+      <div>
         {loading && <RefreshIndicatorLoading />}
         <PanelToolbar
           showFilter={false}
@@ -83,7 +82,7 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
           />
         </div>
         }
-      </Card>
+      </div>
     );
   }
 }

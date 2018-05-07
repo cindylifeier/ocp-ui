@@ -8,12 +8,12 @@ import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
 
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
+import StyledSelectField from 'components/StyledSelectField';
+import StyledBarActionButton from 'components/StyledBarActionButton';
 import StyledText from 'components/StyledText';
 import SearchSection from './SearchSection';
 import SearchContainerGrid from './SearchContainerGrid';
-import StyledSearchField from './StyledSearchField';
 import StyledTextField from './StyledTextField';
-import StyledSearchButton from './StyledSearchButton';
 import messages from './messages';
 function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters } = props;
@@ -22,26 +22,26 @@ function SearchBarForm(props) {
       <SearchSection>
         <SearchContainerGrid gap="5px" columns={'30px 130px 150px 80px'}>
           <ActionSearch color={'#336666'} />
-          <StyledSearchField
+          <StyledSelectField
             fullWidth
             name="searchType"
           >
             {searchTypes && searchTypes.map((searchType) =>
               <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
             )}
-          </StyledSearchField>
+          </StyledSelectField>
           <StyledTextField
             fullWidth
             name="searchValue"
             hintText={searchValueHintText}
           />
-          <StyledSearchButton
+          <StyledBarActionButton
             fullWidth
             type="submit"
             disabled={!dirty || isSubmitting || !isValid}
           >
             <FormattedMessage {...messages.searchButton} />
-          </StyledSearchButton>
+          </StyledBarActionButton>
         </SearchContainerGrid>
         <SearchContainerGrid gap="1px" columns="60px repeat(3,120px)" justifyContent="start">
           {!showToDoSpecificFilters &&
