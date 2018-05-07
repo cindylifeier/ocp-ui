@@ -15,12 +15,13 @@ import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
+import UpcomingTasksExpansionRowDetails from './UpcomingTasksExpansionRowDetails';
 import messages from './messages';
 
 
-const tableColumns = 'repeat(5, 1fr) 50px';
+const tableColumns = '50px repeat(5, 1fr) 50px';
 
 // Todo: Fix ViewDetail that is already not working
 
@@ -29,21 +30,24 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
     <div>
       <Table>
         <TableHeader columns={tableColumns} relativeTop={relativeTop}>
+          <TableHeaderColumn />
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTask} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
         </TableHeader>
-        {!isEmpty(elements) && elements.map(({ logicalId, beneficiary, definition, description, executionPeriod }) => {
+        {!isEmpty(elements) && elements.map((upcomingTask) => {
+          const { logicalId, definition, description, executionPeriod, beneficiary } = upcomingTask;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.viewDetails} />,
             onClick: () => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary)),
           }];
           return (
-            <TableRow
+            <ExpansionTableRow
               columns={tableColumns}
               key={logicalId}
+              expansionTableRowDetails={<UpcomingTasksExpansionRowDetails task={upcomingTask} />}
             >
               <TableRowColumn>{beneficiary.display}</TableRowColumn>
               <TableRowColumn>{definition.display}</TableRowColumn>
@@ -53,7 +57,7 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
-            </TableRow>
+            </ExpansionTableRow>
           );
         })}
       </Table>
