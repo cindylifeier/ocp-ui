@@ -46,6 +46,14 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.editTask',
     defaultMessage: 'Edit',
   },
+  expansionDetailsPriority: {
+    id: 'ocpui.components.TaskTable.expansionDetailsPriority',
+    defaultMessage: 'Priority',
+  },
+  expansionDetailsPurpose: {
+    id: 'ocpui.components.TaskTable.expansionDetailsPurpose',
+    defaultMessage: 'Purpose',
+  },
   addSubTask: {
     id: 'ocpui.components.TaskTable.addSubTask',
     defaultMessage: 'Add SubTask',
