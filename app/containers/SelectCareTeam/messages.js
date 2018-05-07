@@ -6,8 +6,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
+  selectCareTeamDialogTitle: {
     id: 'ocpui.containers.SelectCareTeam.selectCareTeamDialogTitle',
     defaultMessage: 'Select Care Team',
+  },
+  dialogCancelBtnLabel: {
+    id: 'ocpui.containers.SelectCareTeam.dialogCancelBtnLabel',
+    defaultMessage: 'Cancel',
+  },
+  dialogAddBtnLabel: {
+    id: 'ocpui.containers.SelectCareTeam.dialogAddBtnLabel',
+    defaultMessage: 'Add',
   },
 });
