@@ -27,6 +27,8 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledStepper from 'components/StyledStepper';
 import Organizations from 'containers/Organizations';
+import FormSubtitle from 'components/FormSubtitle';
+import InfoSection from 'components/InfoSection';
 import Patients from 'containers/Patients';
 import makeSelectSmartContextInitializerPage from './selectors';
 import reducer from './reducer';
@@ -43,6 +45,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.state = {
       activeStep: 0,
       completed: {},
+      selected: {},
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
@@ -52,11 +55,14 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.totalSteps = this.totalSteps.bind(this);
     this.isLastStep = this.isLastStep.bind(this);
     this.allStepsCompleted = this.allStepsCompleted.bind(this);
+    this.activeStepCompleted = this.activeStepCompleted.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
     this.handleStep = this.handleStep.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handleOrganizationClick = this.handleOrganizationClick.bind(this);
+    this.handlePatientClick = this.handlePatientClick.bind(this);
     this.renderPatientSelector = this.renderPatientSelector.bind(this);
     this.renderOrganizationSelector = this.renderOrganizationSelector.bind(this);
   }
@@ -106,6 +112,10 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
 
   isLastStep() {
     return this.state.activeStep === this.totalSteps() - 1;
+  }
+
+  activeStepCompleted() {
+    return this.state.completed[this.state.activeStep];
   }
 
   allStepsCompleted() {
@@ -159,12 +169,54 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     });
   }
 
+  handleOrganizationClick(organization) {
+    this.setState((prevState) => ({
+      selected: {
+        ...prevState.selected,
+        organization: `Organization/${organization.logicalId}`,
+      },
+    }));
+  }
+
+  handlePatientClick(patient) {
+    this.setState((prevState) => ({
+      selected: {
+        ...prevState.selected,
+        patient: `Patient/${patient.id}`,
+      },
+    }));
+  }
+
   renderPatientSelector() {
-    return (<Patients showSearchBarByDefault onPatientClick={console.log} />);
+    return (
+      <div>
+        <InfoSection margin="20px 0px">
+          <FormSubtitle margin="0">Select Patient</FormSubtitle>
+        </InfoSection>
+        <InfoSection margin="20px 0px">
+          <span><strong>Selected: </strong>{this.state.selected.patient}</span>
+        </InfoSection>
+        {!this.activeStepCompleted() &&
+        <InfoSection margin="20px 0px">
+          <Patients showSearchBarByDefault onPatientClick={this.handlePatientClick} />
+        </InfoSection>}
+      </div>);
   }
 
   renderOrganizationSelector() {
-    return (<Organizations showSearchBarByDefault onOrganizationClick={console.log} />);
+    return (
+      <div>
+        <InfoSection margin="20px 0px">
+          <FormSubtitle margin="0">Select Organization</FormSubtitle>
+        </InfoSection>
+        <InfoSection margin="20px 0px">
+          <span><strong>Selected: </strong>{this.state.selected.organization}</span>
+        </InfoSection>
+        {!this.activeStepCompleted() &&
+        <InfoSection margin="20px 0px">
+          <Organizations showSearchBarByDefault onOrganizationClick={this.handleOrganizationClick} />
+        </InfoSection>}
+      </div>);
   }
 
   render() {
@@ -202,11 +254,11 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
                   <StyledFlatButton onClick={this.handleReset}>Reset</StyledFlatButton>
                 </div>
               ) : (
-                <div>
-                  <Typography component="div">
+                <InfoSection margin="20px 20px">
+                  <Typography component={InfoSection}>
                     {this.getStepContent(activeStep, requiredContexts)}
                   </Typography>
-                  <div>
+                  <InfoSection margin="20px 0px">
                     <StyledRaisedButton
                       disabled={activeStep === 0}
                       onClick={this.handleBack}
@@ -221,21 +273,22 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
                       Next
                     </StyledRaisedButton>
                     {activeStep !== steps.length &&
-                    (this.state.completed[this.state.activeStep] ? (
+                    (this.activeStepCompleted() ? (
                       <InlineBlock>
                         <Typography variant="caption">
                           Step {activeStep + 1} already completed
                         </Typography></InlineBlock>
                     ) : (
                       <StyledRaisedButton
+                        disabled={!this.state.selected[requiredContexts[activeStep]]}
                         onClick={this.handleComplete}
                         marginRight={8}
                       >
                         {this.completedSteps() === this.totalSteps() - 1 ? 'Finish' : 'Complete Step'}
                       </StyledRaisedButton>
                     ))}
-                  </div>
-                </div>
+                  </InfoSection>
+                </InfoSection>
               )}
             </div>
           </div>
