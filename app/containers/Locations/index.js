@@ -195,7 +195,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_LOCATION_URL,
     };
-    const { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, showSearchBarByDefault } = this.props;
+    const { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, showSearchBarByDefault, hideToolbar } = this.props;
     const locationTableData = {
       data,
       currentPage,
@@ -214,6 +214,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           onSize={this.handlePanelResize}
           showFilter={false}
           showSearchBarByDefault={showSearchBarByDefault}
+          hideToolbar={hideToolbar}
         />
         }
         {this.props.showActionSection && this.renderActionSection()}
@@ -249,11 +250,13 @@ Locations.propTypes = {
   searchLocations: PropTypes.func,
   onLocationClick: PropTypes.func,
   showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 Locations.defaultProps = {
   showActionSection: true,
   showSearchBarByDefault: false,
+  hideToolbar: false,
 };
 
 const mapStateToProps = createStructuredSelector({
