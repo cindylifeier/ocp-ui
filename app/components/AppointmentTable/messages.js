@@ -38,6 +38,18 @@ export default defineMessages({
     id: 'ocpui.components.AppointmentTable.cancelAppointment',
     defaultMessage: 'Cancel',
   },
+  acceptAppointment: {
+    id: 'ocpui.components.AppointmentTable.acceptAppointment',
+    defaultMessage: 'Accept',
+  },
+  declineAppointment: {
+    id: 'ocpui.components.AppointmentTable.declineAppointment',
+    defaultMessage: 'Decline',
+  },
+  tentativeAppointment: {
+    id: 'ocpui.components.AppointmentTable.tentativeAppointment',
+    defaultMessage: 'Tentative',
+  },
   addCommunication: {
     id: 'ocpui.components.AppointmentTable.addCommunication',
     defaultMessage: 'Add Communication',

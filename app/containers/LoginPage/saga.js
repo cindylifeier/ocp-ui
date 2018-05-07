@@ -31,7 +31,7 @@ function* loginSaga(loginAction) {
     }
     yield put(loginSuccess(isAuthenticated));
 
-    // Retreving user fhirResource and organization details
+    // Retrieving user fhirResource and organization details
     if (userRole !== OCP_ADMIN_ROLE_CODE) {
       const userContext = yield call(getUserContext);
       const { fhirResource, organization } = userContext;
@@ -41,7 +41,9 @@ function* loginSaga(loginAction) {
         yield put(setPatient(fhirResource));
       }
     }
+    // Handle submitting event until finishing all backend call
     yield call(loginAction.handleSubmitting);
+
     // Redirect to referrer address
     const location = yield select(makeSelectLocation());
     const linkUrl = yield call(getLinkUrlByRole, userRole);

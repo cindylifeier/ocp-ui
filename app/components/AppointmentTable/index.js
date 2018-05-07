@@ -23,7 +23,7 @@ import { EXPANDED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from './constants';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, patientId, communicationBaseUrl, relativeTop, cancelledStatus, enableEditAppointment, manageAppointmentUrl, size }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
@@ -82,11 +82,28 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
           } : null;
           const menuItems = [
             addCommunicationMenuItem,
-            editAppointmentMenuItem, {
+            editAppointmentMenuItem,
+            {
               primaryText: <FormattedMessage {...messages.cancelAppointment} />,
-              disabled: appointment.statusCode === cancelledStatus,
+              disabled: !appointment.canCancel,
               onClick: () => cancelAppointment(appointment.logicalId),
-            }];
+            },
+            {
+              primaryText: <FormattedMessage {...messages.acceptAppointment} />,
+              disabled: !appointment.canAccept,
+              onClick: () => acceptAppointment(appointment.logicalId),
+            },
+            {
+              primaryText: <FormattedMessage {...messages.declineAppointment} />,
+              disabled: !appointment.canDecline,
+              onClick: () => declineAppointment(appointment.logicalId),
+            },
+            {
+              primaryText: <FormattedMessage {...messages.tentativeAppointment} />,
+              disabled: !appointment.canTentativelyAccept,
+              onClick: () => tentativeAppointment(appointment.logicalId),
+            },
+          ];
           return createTableRows(appointment, menuItems);
         })}
       </Table>
@@ -108,9 +125,11 @@ AppointmentTable.propTypes = {
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
+  acceptAppointment: PropTypes.func,
+  declineAppointment: PropTypes.func,
+  tentativeAppointment: PropTypes.func,
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
-  cancelledStatus: PropTypes.string,
   enableEditAppointment: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
 };
