@@ -135,5 +135,13 @@ export default defineMessages({
       id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.consentEnd',
       defaultMessage: 'Consent End Date',
     },
+    addFromActors: {
+      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.addFromActors',
+      defaultMessage: 'To Authorize my information To',
+    },
+    addToActors: {
+      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.addToActors',
+      defaultMessage: 'To Disclose my information To',
+    },
   },
 });

@@ -22,6 +22,8 @@ import PageContent from 'components/PageContent';
 import { makeSelectConsentStateCodes, makeSelectConsentCategory, makeSelectSecurityRoleType, makeSelectConsentAction, makeSelectPurposeOfUse } from 'containers/App/lookupSelectors';
 import Util from 'utils/Util';
 import find from 'lodash/find';
+import { SelectCareTeam } from 'containers/SelectCareTeam';
+import isUndefined from 'lodash/isUndefined';
 import reducer from './reducer';
 import saga from './saga';
 import { createConsent } from './actions';
@@ -29,10 +31,18 @@ import { createConsent } from './actions';
 export class ManageConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+    };
     this.handleSave = this.handleSave.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
   componentDidMount() {
     this.props.getLookups();
+  }
+  handleOpen() {
+    this.setState({ open: true });
   }
   handleSave(consentFormData, actions) {
     const consentDataToSubmit = {};
@@ -68,16 +78,27 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
 
     this.props.createConsent(consentDataToSubmit, () => actions.setSubmitting(false));
   }
+  handleClose() {
+    this.setState({ open: false });
+  }
   render() {
     const {
       patient,
       consentStateCodes,
       consentCategory,
       securityRoleType,
-      consentAction
-      ,
+      consentAction,
       purposeOfUse,
+      match,
+      consents,
     } = this.props;
+    const logicalId = match.params.id;
+    const editMode = !isUndefined(match.params.id);
+    let initialSelectedFromActors = [];
+    const consent = consents && consents.listConsents && find(consents.listConsents.data.elements, { logicalId });
+    if (consent && consent.recipient) {
+      initialSelectedFromActors = consent.fromActor;
+    }
     const consentProps = {
       patient,
       consentStateCodes,
@@ -85,6 +106,8 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       securityRoleType,
       consentAction,
       purposeOfUse,
+      initialSelectedFromActors,
+      editMode,
     };
     return (
       <Page>
@@ -97,6 +120,14 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
         />
         <PageContent>
           <ManageConsent {...consentProps} onSave={this.handleSave} />
+          <SelectCareTeam
+            initialSelectedActors={initialSelectedFromActors}
+            consentId={logicalId}
+            isOpen={this.state.open}
+            handleOpen={this.handleOpen}
+            handleClose={this.handleClose}
+          >
+          </SelectCareTeam>
         </PageContent>
       </Page>
     );
@@ -109,6 +140,8 @@ ManageConsentPage.propTypes = {
   consentCategory: PropTypes.array,
   securityRoleType: PropTypes.array,
   consentAction: PropTypes.array,
+  match: PropTypes.object.isRequired,
+  consents: PropTypes.object,
   purposeOfUse: PropTypes.array,
   createConsent: PropTypes.func,
   patient: PropTypes.shape({
