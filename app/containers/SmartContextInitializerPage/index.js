@@ -26,10 +26,13 @@ import PageContent from 'components/PageContent';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledStepper from 'components/StyledStepper';
-import Organizations from 'containers/Organizations';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
-import Patients from 'containers/Patients';
+import ErrorText from 'components/ErrorText';
+import Patients from 'containers/Patients/Loadable';
+import Organizations from 'containers/Organizations/Loadable';
+import Locations from 'containers/Locations/Loadable';
+import { setOrganization } from 'containers/App/contextActions';
 import makeSelectSmartContextInitializerPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -40,6 +43,8 @@ const InlineBlock = styled.span`
 `;
 
 export class SmartContextInitializerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static BUTTON_MARGIN_RIGHT = 8;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -61,10 +66,13 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.handleStep = this.handleStep.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOrganizationClick = this.handleOrganizationClick.bind(this);
+    this.handleLocationClick = this.handleLocationClick.bind(this);
     this.handlePatientClick = this.handlePatientClick.bind(this);
     this.renderPatientSelector = this.renderPatientSelector.bind(this);
     this.renderOrganizationSelector = this.renderOrganizationSelector.bind(this);
+    this.renderLocationSelector = this.renderLocationSelector.bind(this);
   }
 
   getSteps() {
@@ -81,7 +89,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     const stepContents = {
       patient: this.renderPatientSelector,
       organization: this.renderOrganizationSelector,
-      location: () => 'Location Selector Content',
+      location: this.renderLocationSelector,
       encounter: () => 'Encounter Selector Content',
       resource: () => 'Resource Selector Content',
     };
@@ -166,7 +174,12 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.setState({
       activeStep: 0,
       completed: {},
+      selected: {},
     });
+  }
+
+  handleSubmit() {
+    console.log(this.state.selected);
   }
 
   handleOrganizationClick(organization) {
@@ -174,6 +187,15 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
       selected: {
         ...prevState.selected,
         organization: `Organization/${organization.logicalId}`,
+      },
+    }), () => this.props.setOrganization(organization));
+  }
+
+  handleLocationClick(location) {
+    this.setState((prevState) => ({
+      selected: {
+        ...prevState.selected,
+        location: `Location/${location.logicalId}`,
       },
     }));
   }
@@ -194,7 +216,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
           <FormSubtitle margin="0">Select Patient</FormSubtitle>
         </InfoSection>
         <InfoSection margin="20px 0px">
-          <span><strong>Selected: </strong>{this.state.selected.patient}</span>
+          <span><strong>Selected: </strong>{this.activeStepCompleted() && this.state.selected.patient}</span>
         </InfoSection>
         {!this.activeStepCompleted() &&
         <InfoSection margin="20px 0px">
@@ -210,12 +232,37 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
           <FormSubtitle margin="0">Select Organization</FormSubtitle>
         </InfoSection>
         <InfoSection margin="20px 0px">
-          <span><strong>Selected: </strong>{this.state.selected.organization}</span>
+          <span><strong>Selected: </strong>{this.activeStepCompleted() && this.state.selected.organization}</span>
         </InfoSection>
         {!this.activeStepCompleted() &&
         <InfoSection margin="20px 0px">
           <Organizations showSearchBarByDefault onOrganizationClick={this.handleOrganizationClick} />
         </InfoSection>}
+      </div>);
+  }
+
+  renderLocationSelector() {
+    return (
+      <div>
+        {!(this.state.selected.organization && this.state.completed[this.getRequiredContexts().indexOf('organization')]) ?
+          <InfoSection margin="20px 0px">
+            <FormSubtitle margin="0">
+              <ErrorText marginLeft="0px" paddingLeft="0px">Organization must be selected before Location</ErrorText>
+            </FormSubtitle>
+          </InfoSection> :
+          <div>
+            <InfoSection margin="20px 0px">
+              <FormSubtitle margin="0">Select Location</FormSubtitle>
+            </InfoSection>
+            <InfoSection margin="20px 0px">
+              <span><strong>Selected: </strong>{this.activeStepCompleted() && this.state.selected.location}</span>
+            </InfoSection>
+            {!this.activeStepCompleted() &&
+            <InfoSection margin="20px 0px">
+              <Locations showSearchBarByDefault onLocationClick={this.handleLocationClick} />
+            </InfoSection>}
+          </div>
+        }
       </div>);
   }
 
@@ -251,7 +298,12 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
                   <Typography>
                     All steps completed - you&quot;re finished
                   </Typography>
-                  <StyledFlatButton onClick={this.handleReset}>Reset</StyledFlatButton>
+                  <StyledFlatButton
+                    marginRight={SmartContextInitializerPage.BUTTON_MARGIN_RIGHT}
+                    onClick={this.handleReset}
+                  >Reset
+                  </StyledFlatButton>
+                  <StyledRaisedButton onClick={this.handleSubmit}>Submit</StyledRaisedButton>
                 </div>
               ) : (
                 <InfoSection margin="20px 20px">
@@ -262,13 +314,13 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
                     <StyledRaisedButton
                       disabled={activeStep === 0}
                       onClick={this.handleBack}
-                      marginRight={8}
+                      marginRight={SmartContextInitializerPage.BUTTON_MARGIN_RIGHT}
                     >
                       Back
                     </StyledRaisedButton>
                     <StyledRaisedButton
                       onClick={this.handleNext}
-                      marginRight={8}
+                      marginRight={SmartContextInitializerPage.BUTTON_MARGIN_RIGHT}
                     >
                       Next
                     </StyledRaisedButton>
@@ -282,9 +334,9 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
                       <StyledRaisedButton
                         disabled={!this.state.selected[requiredContexts[activeStep]]}
                         onClick={this.handleComplete}
-                        marginRight={8}
+                        marginRight={SmartContextInitializerPage.BUTTON_MARGIN_RIGHT}
                       >
-                        {this.completedSteps() === this.totalSteps() - 1 ? 'Finish' : 'Complete Step'}
+                        {this.completedSteps() === this.totalSteps() - 1 ? 'Finish' : 'Confirm Selection'}
                       </StyledRaisedButton>
                     ))}
                   </InfoSection>
@@ -299,7 +351,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
 }
 
 SmartContextInitializerPage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  setOrganization: PropTypes.func.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
@@ -311,7 +363,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    setOrganization: (organization) => dispatch(setOrganization(organization)),
   };
 }
 
