@@ -7,13 +7,16 @@
 import { fromJS } from 'immutable';
 import find from 'lodash/find';
 import {
+  ACCEPT_PRACTITIONER_APPOINTMENT_SUCCESS,
   CANCEL_PRACTITIONER_APPOINTMENT_SUCCESS,
   DATA,
+  DECLINE_PRACTITIONER_APPOINTMENT_SUCCESS,
   GET_PRACTITIONER_APPOINTMENTS,
   GET_PRACTITIONER_APPOINTMENTS_ERROR,
   GET_PRACTITIONER_APPOINTMENTS_SUCCESS,
   LOADING,
   STATUS_CODE_CANCELLED,
+  TENTATIVE_PRACTITIONER_APPOINTMENT_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -38,6 +41,18 @@ function practitionerAppointmentsReducer(state = initialState, action) {
     case CANCEL_PRACTITIONER_APPOINTMENT_SUCCESS: {
       const data = state.get(DATA).toJS();
       find(data.elements, { logicalId: action.id }).statusCode = STATUS_CODE_CANCELLED;
+      return state.set(DATA, fromJS(data));
+    }
+    case ACCEPT_PRACTITIONER_APPOINTMENT_SUCCESS: {
+      const data = state.get(DATA).toJS();
+      return state.set(DATA, fromJS(data));
+    }
+    case DECLINE_PRACTITIONER_APPOINTMENT_SUCCESS: {
+      const data = state.get(DATA).toJS();
+      return state.set(DATA, fromJS(data));
+    }
+    case TENTATIVE_PRACTITIONER_APPOINTMENT_SUCCESS: {
+      const data = state.get(DATA).toJS();
       return state.set(DATA, fromJS(data));
     }
     default:
