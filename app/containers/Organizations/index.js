@@ -126,7 +126,7 @@ export class Organizations extends React.Component {
   }
 
   render() {
-    const { organizations, showSearchBarByDefault } = this.props;
+    const { organizations, showSearchBarByDefault, hideToolbar } = this.props;
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
@@ -160,6 +160,7 @@ export class Organizations extends React.Component {
           onSearch={this.handleSearch}
           onSize={this.onSize}
           showSearchBarByDefault={showSearchBarByDefault}
+          hideToolbar={hideToolbar}
         />
         {this.state.showViewAllButton &&
         <InfoSection margin="10px 0">
@@ -228,10 +229,12 @@ Organizations.propTypes = {
   }),
   onOrganizationClick: PropTypes.func,
   showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 Organizations.defaultProps = {
   showSearchBarByDefault: false,
+  hideToolbar: false,
 };
 
 const mapStateToProps = createStructuredSelector({
