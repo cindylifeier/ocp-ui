@@ -220,7 +220,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
         </InfoSection>
         {!this.activeStepCompleted() &&
         <InfoSection margin="20px 0px">
-          <Patients showSearchBarByDefault onPatientClick={this.handlePatientClick} />
+          <Patients showSearchBarByDefault hideToolbar onPatientClick={this.handlePatientClick} />
         </InfoSection>}
       </div>);
   }
@@ -236,7 +236,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
         </InfoSection>
         {!this.activeStepCompleted() &&
         <InfoSection margin="20px 0px">
-          <Organizations showSearchBarByDefault onOrganizationClick={this.handleOrganizationClick} />
+          <Organizations showSearchBarByDefault hideToolbar onOrganizationClick={this.handleOrganizationClick} />
         </InfoSection>}
       </div>);
   }
@@ -259,7 +259,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
             </InfoSection>
             {!this.activeStepCompleted() &&
             <InfoSection margin="20px 0px">
-              <Locations showSearchBarByDefault onLocationClick={this.handleLocationClick} />
+              <Locations showSearchBarByDefault hideToolbar onLocationClick={this.handleLocationClick} />
             </InfoSection>}
           </div>
         }
