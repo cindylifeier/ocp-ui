@@ -29,6 +29,7 @@ import StyledStepper from 'components/StyledStepper';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import ErrorText from 'components/ErrorText';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import Patients from 'containers/Patients/Loadable';
 import Organizations from 'containers/Organizations/Loadable';
 import Locations from 'containers/Locations/Loadable';
@@ -75,6 +76,8 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.renderPatientSelector = this.renderPatientSelector.bind(this);
     this.renderOrganizationSelector = this.renderOrganizationSelector.bind(this);
     this.renderLocationSelector = this.renderLocationSelector.bind(this);
+    this.renderEncounterSelector = this.renderEncounterSelector.bind(this);
+    this.renderResourceSelector = this.renderResourceSelector.bind(this);
   }
 
   getSteps() {
@@ -92,8 +95,8 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
       patient: this.renderPatientSelector,
       organization: this.renderOrganizationSelector,
       location: this.renderLocationSelector,
-      encounter: () => 'Encounter Selector Content',
-      resource: () => 'Resource Selector Content',
+      encounter: this.renderEncounterSelector,
+      resource: this.renderResourceSelector,
     };
     const requiredStepContents = Object.values(pick(stepContents, keys));
     return requiredStepContents[step]();
@@ -275,6 +278,38 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
             </InfoSection>}
           </div>
         }
+      </div>);
+  }
+
+  renderEncounterSelector() {
+    return (
+      <div>
+        <InfoSection margin="20px 0px">
+          <FormSubtitle margin="0">Select Encounter</FormSubtitle>
+        </InfoSection>
+        <InfoSection margin="20px 0px">
+          <span><strong>Selected: </strong>{this.activeStepCompleted() && this.state.selected.encounter}</span>
+        </InfoSection>
+        {!this.activeStepCompleted() &&
+        <InfoSection margin="20px 0px">
+          <NoResultsFoundText>Under Construction</NoResultsFoundText>
+        </InfoSection>}
+      </div>);
+  }
+
+  renderResourceSelector() {
+    return (
+      <div>
+        <InfoSection margin="20px 0px">
+          <FormSubtitle margin="0">Select Resource</FormSubtitle>
+        </InfoSection>
+        <InfoSection margin="20px 0px">
+          <span><strong>Selected: </strong>{this.activeStepCompleted() && this.state.selected.resource}</span>
+        </InfoSection>
+        {!this.activeStepCompleted() &&
+        <InfoSection margin="20px 0px">
+          <NoResultsFoundText>Under Construction</NoResultsFoundText>
+        </InfoSection>}
       </div>);
   }
 
