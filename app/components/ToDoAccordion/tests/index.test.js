@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import ToDoCardContent from '../index';
+// import ToDoAccordion from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<ToDoCardContent />', () => {
+describe('<ToDoAccordion />', () => {
   xit('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+    expect(true).toEqual(false);
   });
 });

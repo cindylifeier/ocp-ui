@@ -6,74 +6,95 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
-import Avatar from 'material-ui/Avatar';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Flag from '@material-ui/icons/Flag';
 import upperFirst from 'lodash/upperFirst';
 
-import patientAvatar from 'images/patient-avatar.png';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
-import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL, WHITE_SPACE } from 'containers/App/constants';
-import PatientDetailsGrid from 'components/PatientDetails/PatientDetailsGrid';
-import PatientDetailsCell from 'components/PatientDetails/PatientDetailsCell';
-import DetailsPanelGrid from 'components/PatientDetails/DetailsPanelGrid';
-import PatientBasicInfoCell from 'components/PatientDetails/PatientBasicInfoCell';
-import H3 from 'components/H3';
-import PatientBasicInfoGrid from 'components/PatientDetails/PatientBasicInfoGrid';
+import PatientAvatar from 'components/PatientAvatar';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
+import StyledText from 'components/StyledText';
+import StyledFlatButton from 'components/StyledFlatButton';
+import StyledIconButton from 'components/StyledIconButton';
+import StyledTooltip from 'components/StyledTooltip';
+import PatientBanner from './PatientBanner';
+import StyledExpansionDetails from './StyledExpansionDetails';
+import ExpansionDetails from './ExpansionDetails';
+import messages from './messages';
 
-function PatientDetails(props) {
-  const { patient } = props;
-  const flattenPatient = props.flattenPatientData(patient);
-  const { id, name, addresses, phones, birthDate, genderCode, flags } = flattenPatient;
-  return (
-    <div>
-      <PatientDetailsGrid columns={1}>
-        <PatientDetailsCell>
-          <Grid
-            columns={'55px 1fr'}
-            flow="column"
-          >
-            <PatientBasicInfoCell height={2}><Avatar size={55} src={patientAvatar} /></PatientBasicInfoCell>
-            <PatientBasicInfoGrid
-              columns={'repeat(4, 1fr)'}
-              flow="row"
-              alignContent="start"
-            >
-              <PatientBasicInfoCell width={4}>
-                <H3>{name}</H3>
-              </PatientBasicInfoCell>
-              <PatientBasicInfoCell>
-                ID{WHITE_SPACE}<strong>{id}</strong>
-              </PatientBasicInfoCell>
-              <PatientBasicInfoCell>
-                Gender{WHITE_SPACE}<strong>{upperFirst(genderCode)}</strong>
-              </PatientBasicInfoCell>
-              <PatientBasicInfoCell>
-                DOB{WHITE_SPACE}<strong>{birthDate}</strong></PatientBasicInfoCell>
-            </PatientBasicInfoGrid>
-          </Grid>
-        </PatientDetailsCell>
-        <PatientDetailsCell>
-          <DetailsPanelGrid columns={'55px repeat(2, 1fr) 100px'}>
-            <Cell />
-            <Cell>Address{WHITE_SPACE}<strong>{addresses}</strong></Cell>
-            <Cell>Contact{WHITE_SPACE}<strong>{phones}</strong></Cell>
-            {flags.length > 0 &&
+class PatientDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expansionPanelOpen: false,
+    };
+    this.handlePanelOpen = this.handlePanelOpen.bind(this);
+  }
+
+  handlePanelOpen() {
+    this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen });
+  }
+
+  render() {
+    const { patient, flattenPatientData } = this.props;
+    const flattenPatient = flattenPatientData(patient);
+    const { id, name, phones, genderCode, flags } = flattenPatient;
+    return (
+      <PatientBanner>
+        <Grid columns="0.1fr 0.1fr repeat(3, 0.7fr) 1fr">
+          <Cell middle center>
+            <StyledTooltip title={<FormattedMessage {...messages.viewDetails} />} placement="bottom">
+              <StyledIconButton svgIconSize="large" size="x-small" onClick={this.handlePanelOpen}>
+                {this.state.expansionPanelOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </StyledIconButton>
+            </StyledTooltip>
+          </Cell>
+          <Cell><PatientAvatar genderCode={genderCode} /></Cell>
+          <Cell middle>
+            <StyledText>
+              <FormattedMessage {...messages.name} />
+              <StyledText whiteSpace fontWeight="700">{name}</StyledText>
+            </StyledText>
+          </Cell>
+          <Cell middle>
+            <StyledText>
+              <FormattedMessage {...messages.gender} />
+              <StyledText whiteSpace fontWeight="700">
+                {upperFirst(genderCode)}
+              </StyledText>
+            </StyledText>
+          </Cell>
+          <Cell middle>
+            <StyledText>
+              <FormattedMessage {...messages.contacts} />
+              <StyledText whiteSpace fontWeight="700">
+                {phones}
+              </StyledText>
+            </StyledText>
+          </Cell>
+          {flags.length > 0 &&
+          <Cell middle>
             <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
-              <Cell>
-                <Link to={`${MANAGE_PATIENT_URL}/${id}`}>
+              <StyledFlatButton color="primary" component={Link} to={`${MANAGE_PATIENT_URL}/${id}`}>
+                <StyledIconButton size="small" svgIconSize="large" disableIconHover>
                   <Flag />
-                  <strong>Advisory</strong>
-                </Link>
-              </Cell>
+                </StyledIconButton>
+                <FormattedMessage {...messages.advisory} />
+              </StyledFlatButton>
             </ShowHideWrapper>
-            }
-          </DetailsPanelGrid>
-        </PatientDetailsCell>
-      </PatientDetailsGrid>
-    </div>
-  );
+          </Cell>
+          }
+        </Grid>
+        <StyledExpansionDetails expanded={this.state.expansionPanelOpen}>
+          <ExpansionDetails patient={flattenPatient} />
+        </StyledExpansionDetails>
+      </PatientBanner>
+    );
+  }
 }
 
 PatientDetails.propTypes = {

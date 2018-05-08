@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for TodoCardContent
+ * Asynchronously loads the component for ToDoAccordion
  *
  */
 
