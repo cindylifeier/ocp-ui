@@ -36,7 +36,7 @@ function ToDoList(props) {
                 patientId={patientId}
                 openDialog={openDialog}
                 patientName={toDo.beneficiary.display}
-                dueDate={toDo.executionPeriod && toDo.executionPeriod.end ? toDo.executionPeriod.end : ''}
+                dueDate={toDo.executionPeriod && toDo.executionPeriod.end}
               >
               </ToDoAccordion>)
             )
