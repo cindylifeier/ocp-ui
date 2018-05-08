@@ -1,7 +1,7 @@
 
 /*
  *
- * ToDoCard constants
+ * ToDoAccordion constants
  *
  */
 
