@@ -6,34 +6,39 @@
 
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import ToDoCard from 'components/ToDoCard';
-import ToDoCardContent from 'components/ToDoCardContent';
+import sizeMeHOC from 'utils/SizeMeUtils';
 import PropTypes from 'prop-types';
 import Padding from 'components/Padding';
+import ToDoAccordion from 'components/ToDoAccordion';
+import {
+  SUMMARY_VIEW_WIDTH, SUMMARIZED_TABLE_COLUMNS, EXPANDED_TABLE_COLUMNS,
+} from 'components/ToDoList/constants';
 
 function ToDoList(props) {
-  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner, openDialog } = props;
+  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner, openDialog, size } = props;
+  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   return (
     <div>
       <Padding top={'10px'} right={'10px'} bottom={'10px'} left={'10px'}>
         {toDos && toDos.length > 0 &&
         <div>
           {!isEmpty(toDos) && toDos.map((toDo) =>
-
-              (<ToDoCard key={toDo.logicalId}>
-                <ToDoCardContent
-                  description={toDo.description}
-                  toDoLogicalId={toDo.logicalId}
-                  patientId={patientId}
-                  isPatient={isPatient}
-                  isPractitioner={isPractitioner}
-                  status={toDo.taskDue}
-                  dueDate={toDo.executionPeriod && toDo.executionPeriod.end ? toDo.executionPeriod.end : ''}
-                  patientName={toDo.beneficiary.display}
-                  taskBaseUrl={taskBaseUrl}
-                  openDialog={openDialog}
-                />
-              </ToDoCard>)
+              (<ToDoAccordion
+                key={toDo.logicalId}
+                columns={columns}
+                toDoLogicalId={toDo.logicalId}
+                description={toDo.description}
+                status={toDo.taskDue}
+                taskBaseUrl={taskBaseUrl}
+                isPractitioner={isPractitioner}
+                isPatient={isPatient}
+                patientId={patientId}
+                openDialog={openDialog}
+                patientName={toDo.beneficiary.display}
+                dueDate={toDo.executionPeriod && toDo.executionPeriod.end ? toDo.executionPeriod.end : ''}
+              >
+              </ToDoAccordion>)
             )
           }
         </div>
@@ -50,6 +55,7 @@ ToDoList.propTypes = {
   isPatient: PropTypes.bool,
   isPractitioner: PropTypes.bool,
   openDialog: PropTypes.func,
+  size: PropTypes.object,
 };
 
-export default ToDoList;
+export default sizeMeHOC(ToDoList);
