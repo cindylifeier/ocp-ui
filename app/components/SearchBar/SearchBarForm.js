@@ -7,45 +7,47 @@ import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 import { Cell } from 'styled-css-grid';
 
-import TextField from 'components/TextField';
 import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import SelectField from 'components/SelectField';
+import StyledSelectField from 'components/StyledSelectField';
+import StyledBarActionButton from 'components/StyledBarActionButton';
+import StyledText from 'components/StyledText';
 import SearchSection from './SearchSection';
-import SearchHeader from './SearchHeader';
 import SearchContainerGrid from './SearchContainerGrid';
-import SearchButtonContainerGrid from './SearchButtonContainerGrid';
+import StyledTextField from './StyledTextField';
 import messages from './messages';
-
 function SearchBarForm(props) {
   const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters } = props;
   return (
     <Form>
       <SearchSection>
-        <SearchHeader>
+        <SearchContainerGrid gap="5px" columns={'30px 130px 150px 80px'}>
           <ActionSearch color={'#336666'} />
-          <FormattedMessage {...messages.searchHeader} />
-        </SearchHeader>
-        <SearchContainerGrid gap="5px" columns="250px 300px">
-          <SelectField
+          <StyledSelectField
             fullWidth
             name="searchType"
           >
             {searchTypes && searchTypes.map((searchType) =>
               <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
             )}
-          </SelectField>
-          <TextField
+          </StyledSelectField>
+          <StyledTextField
             fullWidth
             name="searchValue"
             hintText={searchValueHintText}
           />
+          <StyledBarActionButton
+            fullWidth
+            type="submit"
+            disabled={!dirty || isSubmitting || !isValid}
+          >
+            <FormattedMessage {...messages.searchButton} />
+          </StyledBarActionButton>
         </SearchContainerGrid>
-        <SearchContainerGrid gap="5px" columns="60px 140px 140px 140px">
+        <SearchContainerGrid gap="1px" columns="60px repeat(3,120px)" justifyContent="start">
           {!showToDoSpecificFilters &&
-          <div>
+          <StyledText fontWeight="bold">
             <FormattedMessage {...messages.filterLabel} />
-          </div>
+          </StyledText>
           }
           {!showToDoSpecificFilters &&
           <StyledFormikCheckbox
@@ -54,9 +56,9 @@ function SearchBarForm(props) {
           />
           }
           {showToDoSpecificFilters &&
-          <Cell>
+          <StyledText fontWeight="bold">
             <FormattedMessage {...messages.filterLabel} />
-          </Cell>
+          </StyledText>
           }
           {showToDoSpecificFilters &&
           <Cell>
@@ -83,16 +85,6 @@ function SearchBarForm(props) {
           </Cell>
           }
         </SearchContainerGrid>
-
-        <SearchButtonContainerGrid gap="5px" columns="120px 1fr">
-          <StyledRaisedButton
-            fullWidth
-            type="submit"
-            disabled={!dirty || isSubmitting || !isValid}
-          >
-            <FormattedMessage {...messages.searchButton} />
-          </StyledRaisedButton>
-        </SearchButtonContainerGrid>
       </SearchSection>
     </Form>
   );

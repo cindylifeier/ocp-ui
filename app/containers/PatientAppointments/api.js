@@ -27,3 +27,39 @@ export function cancelAppointment(id) {
     },
   });
 }
+
+
+export function acceptAppointment(id, query) {
+  const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const params = queryString(query);
+  const requestURL = `${baseEndpoint}/${id}/accept${params}`;
+  return request(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+export function declineAppointment(id, query) {
+  const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const params = queryString(query);
+  const requestURL = `${baseEndpoint}/${id}/decline${params}`;
+  return request(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+export function tentativelyAcceptAppointment(id, query) {
+  const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const params = queryString(query);
+  const requestURL = `${baseEndpoint}/${id}/tentative${params}`;
+  return request(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}

@@ -12,7 +12,7 @@ import Table from 'components/Table';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
@@ -23,6 +23,7 @@ import {
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import LocationExpansionRowDetails from './LocationExpansionRowDetails';
 import messages from './messages';
 
 
@@ -33,6 +34,7 @@ function LocationTable(props) {
     handleRowClick,
     flattenLocationData,
     locationTableData: { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, handlePageChange },
+    mapToIdentifiers,
   } = props;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
@@ -42,17 +44,23 @@ function LocationTable(props) {
         <div>
           <Table>
             <TableHeader columns={columns} relativeTop={relativeTop}>
+              <TableHeaderColumn />
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
-              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               {isExpanded &&
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAddress} /></TableHeaderColumn>
               }
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnTelecoms} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+              }
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
             </TableHeader>
             {data.map((location) => {
               const flattenedLocation = flattenLocationData(location);
               const { logicalId, name, status, telecoms, address } = flattenedLocation;
+              const identifiers = mapToIdentifiers(location.identifiers);
               const menuItems = [{
                 primaryText: <FormattedMessage {...messages.actionLabelEdit} />,
                 linkTo: `/ocp-ui/manage-location/${logicalId}`,
@@ -61,7 +69,8 @@ function LocationTable(props) {
                 linkTo: `/ocp-ui/assign-healthcareservice-location/${logicalId}`,
               }];
               return (
-                <TableRow
+                <ExpansionTableRow
+                  expansionTableRowDetails={<LocationExpansionRowDetails location={flattenedLocation} />}
                   role="button"
                   tabIndex="0"
                   key={logicalId}
@@ -69,15 +78,18 @@ function LocationTable(props) {
                   columns={columns}
                 >
                   <TableRowColumn>{name}</TableRowColumn>
-                  <TableRowColumn>{telecoms}</TableRowColumn>
-                  <TableRowColumn>{status}</TableRowColumn>
                   {isExpanded &&
                   <TableRowColumn>{address}</TableRowColumn>
                   }
+                  <TableRowColumn>{telecoms}</TableRowColumn>
+                  {isExpanded &&
+                  <TableRowColumn>{identifiers}</TableRowColumn>
+                  }
+                  <TableRowColumn>{status}</TableRowColumn>
                   <TableRowColumn>
                     <NavigationIconMenu menuItems={menuItems} />
                   </TableRowColumn>
-                </TableRow>
+                </ExpansionTableRow>
               );
             })
             }
@@ -141,6 +153,7 @@ LocationTable.propTypes = {
   }).isRequired,
   handleRowClick: PropTypes.func.isRequired,
   flattenLocationData: PropTypes.func.isRequired,
+  mapToIdentifiers: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,
 };
 

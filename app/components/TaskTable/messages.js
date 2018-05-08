@@ -22,13 +22,17 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.columnHeaderDescription',
     defaultMessage: 'Description',
   },
-  columnHeaderCreatedBy: {
-    id: 'ocpui.components.TaskTable.columnHeaderCreatedBy',
-    defaultMessage: 'Created By',
+  columnHeaderLastModified: {
+    id: 'ocpui.components.TaskTable.columnHeaderLastModified',
+    defaultMessage: 'Last Modified',
   },
   columnHeaderTaskOwner: {
     id: 'ocpui.components.TaskTable.columnHeaderTaskOwner',
-    defaultMessage: 'Task owner',
+    defaultMessage: 'Owner',
+  },
+  columnHeaderTaskEndDate: {
+    id: 'ocpui.components.TaskTable.columnHeaderTaskEndDate',
+    defaultMessage: 'End Date ',
   },
   columnHeaderTaskPeriod: {
     id: 'ocpui.components.TaskTable.columnHeaderTaskPeriod',
@@ -41,6 +45,14 @@ export default defineMessages({
   editTask: {
     id: 'ocpui.components.TaskTable.editTask',
     defaultMessage: 'Edit',
+  },
+  expansionDetailsPriority: {
+    id: 'ocpui.components.TaskTable.expansionDetailsPriority',
+    defaultMessage: 'Priority',
+  },
+  expansionDetailsPurpose: {
+    id: 'ocpui.components.TaskTable.expansionDetailsPurpose',
+    defaultMessage: 'Purpose',
   },
   addSubTask: {
     id: 'ocpui.components.TaskTable.addSubTask',

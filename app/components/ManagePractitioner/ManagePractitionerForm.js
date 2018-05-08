@@ -22,10 +22,11 @@ import ErrorText from 'components/ErrorText';
 import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import Section from 'components/Section';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import GoBackButton from 'components/GoBackButton';
-import AddOrganizationsButton from './AddOrganizationsButton';
+import teal from 'material-ui-next/colors/teal';
+import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
+import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';
@@ -139,16 +140,17 @@ class ManagePractitionerForm extends React.Component {
               <AddMultipleTelecoms {...addTelecomsProps} />
             </Cell>
             <Cell area="associateOrganizationSection">
-              <Section>
+              <div>
                 <Cell>
                   <FormSubtitle margin="1vh 0 0 0">
                     <FormattedMessage {...messages.associateOrganizations.subtitle} />
                   </FormSubtitle>
                 </Cell>
                 <Cell>
-                  <AddOrganizationsButton onClick={this.handleAddOrganizations}>
+                  <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleAddOrganizations}>
+                    <StyledAddCircleIcon color={teal['500']} />
                     <FormattedMessage {...messages.associateOrganizations.addButtonLabel} />
-                  </AddOrganizationsButton>
+                  </AddNewItemButton>
                 </Cell>
                 <Cell>
                   <FieldArray
@@ -249,7 +251,7 @@ class ManagePractitionerForm extends React.Component {
                       </div>)}
                   />
                 </Cell>
-              </Section>
+              </div>
             </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>

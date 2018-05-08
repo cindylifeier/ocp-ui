@@ -12,7 +12,7 @@ export default defineMessages({
   },
   addTelecomsButton: {
     id: 'ocpui.components.AddMultipleTelecoms.addTelecomsButton',
-    defaultMessage: 'Add Contacts',
+    defaultMessage: 'Add Contact',
   },
   saveButton: {
     id: 'ocpui.components.AddMultipleTelecoms.saveButton',

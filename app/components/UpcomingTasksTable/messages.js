@@ -34,4 +34,36 @@ export default defineMessages({
     id: 'ocpui.components.UpcomingTaskTable.columnHeaderAction',
     defaultMessage: 'Action',
   },
+  expansionDetailsCreatedOn: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsCreatedOn',
+    defaultMessage: 'Created On',
+  },
+  expansionDetailsOwner: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsOwner',
+    defaultMessage: 'Owner',
+  },
+  expansionDetailsLastModified: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsLastModified',
+    defaultMessage: 'Last Modified',
+  },
+  expansionDetailsStatus: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsStatus',
+    defaultMessage: 'Status',
+  },
+  expansionDetailsTaskPeriod: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsTaskPeriod',
+    defaultMessage: 'Task Period',
+  },
+  expansionDetailsPriority: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsPriority',
+    defaultMessage: 'Priority',
+  },
+  expansionDetailsPurpose: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsPurpose',
+    defaultMessage: 'Purpose',
+  },
+  expansionDetailsDescription: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsDescription',
+    defaultMessage: 'Description',
+  },
 });

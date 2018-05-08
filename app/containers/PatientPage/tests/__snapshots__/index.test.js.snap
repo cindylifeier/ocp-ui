@@ -445,7 +445,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "flattenPatientData": [Function],
               "patient": Object {
@@ -1031,7 +1031,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "flattenPatientData": [Function],
                 "patient": Object {
