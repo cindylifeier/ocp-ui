@@ -37,6 +37,7 @@ import makeSelectSmartContextInitializerPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { postContext } from './actions';
 
 const InlineBlock = styled.span`
   display: inline-block;
@@ -56,6 +57,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.getStepContent = this.getStepContent.bind(this);
     this.getRequiredSteps = this.getRequiredSteps.bind(this);
     this.getRequiredContexts = this.getRequiredContexts.bind(this);
+    this.getLaunchId = this.getLaunchId.bind(this);
     this.completedSteps = this.completedSteps.bind(this);
     this.totalSteps = this.totalSteps.bind(this);
     this.isLastStep = this.isLastStep.bind(this);
@@ -95,6 +97,12 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     };
     const requiredStepContents = Object.values(pick(stepContents, keys));
     return requiredStepContents[step]();
+  }
+
+  getLaunchId() {
+    const params = queryString.parse(this.props.location.search);
+    const launchId = params.launch;
+    return launchId;
   }
 
   getRequiredContexts() {
@@ -179,7 +187,11 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
   }
 
   handleSubmit() {
-    console.log(this.state.selected);
+    if (this.allStepsCompleted()) {
+      const launchId = this.getLaunchId();
+      const context = this.state.selected;
+      this.props.postContext(launchId, context);
+    }
   }
 
   handleOrganizationClick(organization) {
@@ -352,6 +364,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
 
 SmartContextInitializerPage.propTypes = {
   setOrganization: PropTypes.func.isRequired,
+  postContext: PropTypes.func.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
@@ -364,6 +377,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     setOrganization: (organization) => dispatch(setOrganization(organization)),
+    postContext: (launchId, context) => dispatch(postContext(launchId, context)),
   };
 }
 

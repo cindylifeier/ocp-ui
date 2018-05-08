@@ -4,12 +4,26 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { POST_CONTEXT, POST_CONTEXT_ERROR, POST_CONTEXT_SUCCESS } from './constants';
 
-export function defaultAction() {
+export function postContext(launchId, context) {
   return {
-    type: DEFAULT_ACTION,
+    type: POST_CONTEXT,
+    launchId,
+    context,
+  };
+}
+
+export function postContextSuccess(response) {
+  return {
+    type: POST_CONTEXT_SUCCESS,
+    response,
+  };
+}
+
+export function postContextError(error) {
+  return {
+    type: POST_CONTEXT_ERROR,
+    error,
   };
 }
