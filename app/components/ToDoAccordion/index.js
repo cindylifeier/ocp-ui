@@ -92,22 +92,25 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                     {dueDateStr}
                   </strong>
                 </Cell>
+                {!isPatient &&
+                  <Align variant="right">
+                    <strong>{patientNameStr}</strong>
+                  </Align>
+                }
                 <Cell>
-                  {isPatient ?
+                  <Align variant="right">
+                    <strong>
+                      {this.getStatusWithIcon(status)}
+                    </strong>
+                  </Align>
+                </Cell>
+                { isPatient &&
+                  <Cell>
                     <Align variant="right">
                       <NavigationIconMenu menuItems={menuItems} />
                     </Align>
-                    :
-                    <Align variant="right">
-                      <strong>{patientNameStr}</strong>
-                    </Align>
-                  }
-                </Cell>
-                <Cell>
-                  <strong>
-                    {this.getStatusWithIcon(status)}
-                  </strong>
-                </Cell>
+                  </Cell>
+                 }
               </Grid>
             </ToDoCardCell>
           </ExpansionPanelSummary>
