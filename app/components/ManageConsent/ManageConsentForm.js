@@ -26,7 +26,7 @@ function ManageConsentForm(props) {
     <Form>
       <ManageConsentFormGrid gap="1vw">
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.selectCareTeams} />
           </FormSubtitle>
           <Checkbox
@@ -34,14 +34,9 @@ function ManageConsentForm(props) {
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
-          <Grid
-            columns={'20px 1fr 1fr 20px'}
-            gap={'20px'}
-          >
+          <Grid columns={'20px 1fr 1fr 20px'} gap={'20px'}>
             <Cell />
-            <StyledRaisedButton
-              onClick={handleOpen}
-            >
+            <StyledRaisedButton onClick={handleOpen}>
               <FormattedMessage {...messages.floatingLabelText.addFromActors} />
             </StyledRaisedButton>
             <StyledRaisedButton
@@ -52,7 +47,7 @@ function ManageConsentForm(props) {
           </Grid>
         </Cell>
         <Cell area="medicalInfoGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.medicalInformation} />
           </FormSubtitle>
           <InfoSection>
@@ -70,7 +65,7 @@ function ManageConsentForm(props) {
           </RadioButtonGroup>
         </Cell>
         <Cell area="purposeOfUseGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.purposeOfUseInformation} />
           </FormSubtitle>
           <InfoSection>
@@ -86,7 +81,7 @@ function ManageConsentForm(props) {
           </RadioButtonGroup>
         </Cell>
         <Cell area="consentTermGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.consentTermInformation} />
           </FormSubtitle>
           <InfoSection>
