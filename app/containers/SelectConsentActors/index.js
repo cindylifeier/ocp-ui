@@ -14,6 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import InfoSection from 'components/InfoSection';
 import ConsentFromActors from 'components/ConsentFromActors';
+import ConsentToActors from 'components/ConsentToActors';
 import makeSelectSelectConsentActors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -26,7 +27,9 @@ export class SelectConsentActors extends React.Component { // eslint-disable-lin
           <Cell>
             <ConsentFromActors />
           </Cell>
-          <Cell></Cell>
+          <Cell>
+            <ConsentToActors />
+          </Cell>
         </Grid>
       </InfoSection>
     );

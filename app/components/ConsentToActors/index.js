@@ -1,6 +1,6 @@
 /**
  *
- * ConsentFromActors
+ * ConsentToActors
  *
  */
 
@@ -14,23 +14,23 @@ import StyledDialog from 'components/StyledDialog';
 import messages from './messages';
 
 
-class ConsentFromActors extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class ConsentToActors extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      isFromActorsDialogOpen: false,
+      isToActorsDialogOpen: false,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
 
   handleOpenDialog() {
-    this.setState({ isFromActorsDialogOpen: true });
+    this.setState({ isToActorsDialogOpen: true });
   }
 
   handleCloseDialog() {
     this.setState({
-      isFromActorsDialogOpen: false,
+      isToActorsDialogOpen: false,
     });
   }
 
@@ -38,15 +38,15 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
     return (
       <div>
         <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
-          <FormattedMessage {...messages.consentFromActorsButton} />
+          <FormattedMessage {...messages.consentToActorsButton} />
         </StyledRaisedButton>
         <FieldArray
-          name="consentFromActors"
+          name="consentToActors"
           render={() => (
             <div>
-              <StyledDialog open={this.state.isFromActorsDialogOpen} onClose={this.handleCloseDialog} fullWidth>
+              <StyledDialog open={this.state.isToActorsDialogOpen} onClose={this.handleCloseDialog} fullWidth>
                 <DialogTitle>
-                  <FormattedMessage {...messages.consentFromActorsDialogTitle} />
+                  <FormattedMessage {...messages.consentToActorsDialogTitle} />
                 </DialogTitle>
                 <DialogContent>
                   <p>Test</p>
@@ -60,6 +60,6 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 }
 
-ConsentFromActors.propTypes = {};
+ConsentToActors.propTypes = {};
 
-export default ConsentFromActors;
+export default ConsentToActors;
