@@ -11,6 +11,7 @@ import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
 import RadioButtonGroup from 'components/RadioButtonGroup';
 import { RadioButton } from 'material-ui';
+import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
 
@@ -19,7 +20,11 @@ function ManageConsentForm(props) {
   const {
     isSubmitting,
     handleOpen,
+    purposeOfUse,
   } = props;
+  const pouProps = {
+    purposeOfUse,
+  };
   const today = new Date();
 
   return (
@@ -76,6 +81,9 @@ function ManageConsentForm(props) {
           <InfoSection>
             {<FormattedMessage {...messages.floatingLabelText.purposeOfUseTitle} />}
           </InfoSection>
+          <cell area="pou">
+            <PurposeOfUse {...pouProps} />
+          </cell>
           <RadioButtonGroup name="pouInfo" defaultSelected="pou">
             <RadioButton
               name="pou"
@@ -134,6 +142,7 @@ function ManageConsentForm(props) {
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,
+  purposeOfUse: PropTypes.array,
 
 };
 
