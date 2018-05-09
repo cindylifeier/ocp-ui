@@ -101,7 +101,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
 }
 
 CareTeamTable.propTypes = {
-  isExpanded: PropTypes.bool.isRequired,
+  isExpanded: PropTypes.bool,
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,
   elements: PropTypes.arrayOf(PropTypes.shape({
