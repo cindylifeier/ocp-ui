@@ -1,20 +1,31 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import queryString from 'utils/queryString';
+
 import { showNotification } from 'containers/Notification/actions';
 import { POST_CONTEXT } from './constants';
 import { postContext } from './api';
 import { postContextError, postContextSuccess } from './actions';
 
-export function* postContextSaga({ launchId, context }) {
+export function* postContextSaga({ launchId, context, params }) {
   try {
     const response = yield call(postContext, launchId, context);
     yield put(postContextSuccess(response));
-    yield put(showNotification('SMART context has been submitted successfully.'));
+    const paramsQueryString = yield call(queryString, params);
+    // FIXME: refactor the authorize endpoint configuration properly
+    const endpoint = `http://localhost:8445/authorize${paramsQueryString}`;
+    window.location = endpoint;
   } catch (error) {
     yield put(postContextError(error));
     yield put(showNotification('Unable to submit SMART context.'));
   }
 }
 
-export default function* rootSaga() {
+export function* watchPostContextSaga() {
   yield takeLatest(POST_CONTEXT, postContextSaga);
+}
+
+export default function* rootSaga() {
+  yield all([
+    watchPostContextSaga(),
+  ]);
 }

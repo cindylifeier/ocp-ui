@@ -8,7 +8,7 @@ function* autologinSaga({ code }) {
     const currentLocation = window.location;
     /* eslint-disable camelcase */
     if (code) {
-      // TODO: retrieve the UAA endpoint config from backend
+      // FIXME: retrieve the UAA endpoint config from backend
       const endpoint = 'http://localhost:8080/uaa/autologin';
       const client_id = 'ocp-ui';
       const autologin_redirect_uri = currentLocation;

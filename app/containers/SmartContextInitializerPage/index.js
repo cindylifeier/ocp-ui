@@ -56,6 +56,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
+    this.getSearchParams = this.getSearchParams.bind(this);
     this.getRequiredSteps = this.getRequiredSteps.bind(this);
     this.getRequiredContexts = this.getRequiredContexts.bind(this);
     this.getLaunchId = this.getLaunchId.bind(this);
@@ -102,14 +103,19 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     return requiredStepContents[step]();
   }
 
-  getLaunchId() {
+  getSearchParams() {
     const params = queryString.parse(this.props.location.search);
+    return params;
+  }
+
+  getLaunchId() {
+    const params = this.getSearchParams();
     const launchId = params.launch;
     return launchId;
   }
 
   getRequiredContexts() {
-    const params = queryString.parse(this.props.location.search);
+    const params = this.getSearchParams();
     const requiredContexts = params.required_context.split(',').filter(identity);
     return requiredContexts;
   }
@@ -193,7 +199,8 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     if (this.allStepsCompleted()) {
       const launchId = this.getLaunchId();
       const context = this.state.selected;
-      this.props.postContext(launchId, context);
+      const { required_context, ...params } = this.getSearchParams();
+      this.props.postContext(launchId, context, params);
     }
   }
 
@@ -412,7 +419,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     setOrganization: (organization) => dispatch(setOrganization(organization)),
-    postContext: (launchId, context) => dispatch(postContext(launchId, context)),
+    postContext: (launchId, context, params) => dispatch(postContext(launchId, context, params)),
   };
 }
 
