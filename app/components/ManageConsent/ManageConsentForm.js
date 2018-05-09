@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
+
+import SelectConsentActors from 'containers/SelectConsentActors';
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
@@ -18,7 +20,6 @@ function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
     isSubmitting,
-    handleOpen,
   } = props;
   const today = new Date();
 
@@ -27,24 +28,14 @@ function ManageConsentForm(props) {
       <ManageConsentFormGrid gap="1vw">
         <Cell area="careTeamGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.selectCareTeams} />
+            <FormattedMessage {...messages.selectActors} />
           </FormSubtitle>
           <Checkbox
             name="consentType"
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
-          <Grid columns={'20px 1fr 1fr 20px'} gap={'20px'}>
-            <Cell />
-            <StyledRaisedButton onClick={handleOpen}>
-              <FormattedMessage {...messages.floatingLabelText.addFromActors} />
-            </StyledRaisedButton>
-            <StyledRaisedButton
-              onClick={handleOpen}
-            >
-              <FormattedMessage {...messages.floatingLabelText.addToActors} />
-            </StyledRaisedButton>
-          </Grid>
+          <SelectConsentActors />
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
@@ -128,8 +119,6 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
-
 };
 
 export default ManageConsentForm;

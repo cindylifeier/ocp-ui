@@ -14,7 +14,6 @@ import PropTypes from 'prop-types';
 import messages from './messages';
 import ManageConsentForm from './ManageConsentForm';
 
-// import styled from 'styled-components';
 
 function ManageConsent(props) {
   const {
@@ -57,7 +56,6 @@ function ManageConsent(props) {
                 .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}
-
         render={(formikProps) => <ManageConsentForm {...formikProps} {...formData} />}
       />
 

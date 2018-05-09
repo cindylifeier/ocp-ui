@@ -5,37 +5,35 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import InfoSection from 'components/InfoSection';
+import ConsentFromActors from 'components/ConsentFromActors';
 import makeSelectSelectConsentActors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 export class SelectConsentActors extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
-        <Helmet>
-          <title>SelectConsentActors</title>
-          <meta name="description" content="Description of SelectConsentActors" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
-      </div>
+      <InfoSection>
+        <Grid columns={2} gap={'20px'}>
+          <Cell>
+            <ConsentFromActors />
+          </Cell>
+          <Cell></Cell>
+        </Grid>
+      </InfoSection>
     );
   }
 }
 
-SelectConsentActors.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+SelectConsentActors.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
   selectconsentactors: makeSelectSelectConsentActors(),
