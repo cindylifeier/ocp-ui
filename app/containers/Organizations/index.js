@@ -108,18 +108,13 @@ export class Organizations extends React.Component {
     };
     const Component = this.props.component;
     return (
-      <div>
-        {this.props.component ?
-          <Component {...viewComponentProps} /> :
-          <DefaultViewComponent {...viewComponentProps} />
-        }
-      </div>
+      <Component {...viewComponentProps} />
     );
   }
 }
 
 Organizations.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.func]),
+  component: PropTypes.oneOfType([PropTypes.func]).isRequired,
   initializeOrganizations: PropTypes.func.isRequired,
   organization: PropTypes.object,
   setOrganization: PropTypes.func.isRequired,
@@ -138,6 +133,10 @@ Organizations.propTypes = {
       PropTypes.bool,
     ]),
   }),
+};
+
+Organizations.defaultProps = {
+  component: DefaultViewComponent,
 };
 
 const mapStateToProps = createStructuredSelector({
