@@ -67,17 +67,9 @@ function ManageConsentForm(props) {
           <InfoSection>
             {<FormattedMessage {...messages.floatingLabelText.purposeOfUseTitle} />}
           </InfoSection>
-          <cell area="pou">
+          <cell >
             <PurposeOfUse {...pouProps} />
           </cell>
-          <RadioButtonGroup name="pouInfo" defaultSelected="pou">
-            <RadioButton
-              name="pou"
-              value="pou"
-              disabled
-              label={<FormattedMessage {...messages.floatingLabelText.purposeOfUseSubTitle} />}
-            />
-          </RadioButtonGroup>
         </Cell>
         <Cell area="consentTermGroup">
           <FormSubtitle margin="2vh 0 0 0">

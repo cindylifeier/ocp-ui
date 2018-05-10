@@ -133,13 +133,13 @@ PurposeOfUseForm.propTypes = {
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-  })).isRequired,
+  })),
   telecomUses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     display: PropTypes.string,
     definition: PropTypes.string,
-  })).isRequired,
+  })),
 };
 
 export default PurposeOfUseForm;
