@@ -147,8 +147,6 @@ Organizations.defaultProps = {
   hideToolbar: false,
 };
 
-Organizations.defaultProps = {};
-
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
   organization: makeSelectOrganization(),

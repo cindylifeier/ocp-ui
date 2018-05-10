@@ -31,7 +31,12 @@ class DefaultViewComponent extends React.Component {
   }
 
   handleRowClick(organization) {
-    this.props.onSetOrganization(organization);
+    const { onOrganizationClick } = this.props;
+    if (onOrganizationClick) {
+      onOrganizationClick(organization);
+    } else {
+      this.props.onSetOrganization(organization);
+    }
   }
 
   handleSliderOpen() {
@@ -47,7 +52,7 @@ class DefaultViewComponent extends React.Component {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
     };
-    const { onSearch, onViewAll, isShowViewAllButton, organizationData } = this.props;
+    const { onSearch, onViewAll, isShowViewAllButton, organizationData, showSearchBarByDefault, hideToolbar } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -55,6 +60,8 @@ class DefaultViewComponent extends React.Component {
           allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
           onSearch={onSearch}
           onSize={this.onSize}
+          showSearchBarByDefault={showSearchBarByDefault}
+          hideToolbar={hideToolbar}
         />
         {isShowViewAllButton &&
         <InfoSection margin="10px 0">
@@ -129,6 +136,9 @@ DefaultViewComponent.propTypes = {
       })),
     })).isRequired,
   }),
+  onOrganizationClick: PropTypes.func.isRequired,
+  showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 export default DefaultViewComponent;
