@@ -17,18 +17,10 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  listOrganizations: {
-    loading: false,
-    data: [],
-    currentPage: 0,
-    totalNumberOfPages: 0,
-  },
-  searchOrganizations: {
-    loading: false,
-    result: [],
-    currentPage: 0,
-    totalNumberOfPages: 0,
-  },
+  loading: false,
+  data: [],
+  currentPage: 0,
+  totalNumberOfPages: 0,
 });
 
 function organizationsReducer(state = initialState, action) {
@@ -36,42 +28,42 @@ function organizationsReducer(state = initialState, action) {
     case INITIALIZE_ORGANIZATIONS: {
       if (!isEmpty(action.organizations)) {
         return initialState
-          .setIn(['listOrganizations', 'data'], fromJS(action.organizations));
+          .set('data', fromJS(action.organizations));
       }
       return initialState;
     }
     case GET_ORGANIZATIONS:
       return state
-        .setIn(['listOrganizations', 'loading'], true);
+        .set('loading', true);
     case GET_ORGANIZATIONS_SUCCESS:
       return state
-        .setIn(['listOrganizations', 'loading'], false)
-        .setIn(['listOrganizations', 'data'], fromJS(action.organizations.elements))
-        .setIn(['listOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
-        .setIn(['listOrganizations', 'totalElements'], action.organizations.totalElements)
-        .setIn(['listOrganizations', 'currentPageSize'], action.organizations.currentPageSize)
-        .setIn(['listOrganizations', 'currentPage'], action.organizations.currentPage);
+        .set('loading', false)
+        .set('data', fromJS(action.organizations.elements))
+        .set('totalNumberOfPages', action.organizations.totalNumberOfPages)
+        .set('totalElements', action.organizations.totalElements)
+        .set('currentPageSize', action.organizations.currentPageSize)
+        .set('currentPage', action.organizations.currentPage);
     case GET_ORGANIZATIONS_ERROR:
       return state
-        .setIn(['listOrganizations', 'loading'], false)
-        .setIn(['listOrganizations', 'data'], fromJS([]))
-        .setIn(['listOrganizations', 'error'], action.error);
+        .set('loading', false)
+        .set('data', fromJS([]))
+        .set('error', action.error);
     case SEARCH_ORGANIZATIONS:
       return state
-        .setIn(['searchOrganizations', 'loading'], true);
+        .set('loading', true);
     case SEARCH_ORGANIZATIONS_SUCCESS:
       return state
-        .setIn(['searchOrganizations', 'loading'], false)
-        .setIn(['searchOrganizations', 'result'], fromJS(action.organizations.elements))
-        .setIn(['searchOrganizations', 'totalNumberOfPages'], action.organizations.totalNumberOfPages)
-        .setIn(['searchOrganizations', 'totalElements'], action.organizations.totalElements)
-        .setIn(['searchOrganizations', 'currentPageSize'], action.organizations.currentPageSize)
-        .setIn(['searchOrganizations', 'currentPage'], action.organizations.currentPage);
+        .set('loading', false)
+        .set('data', fromJS(action.organizations.elements))
+        .set('totalNumberOfPages', action.organizations.totalNumberOfPages)
+        .set('totalElements', action.organizations.totalElements)
+        .set('currentPageSize', action.organizations.currentPageSize)
+        .set('currentPage', action.organizations.currentPage);
     case SEARCH_ORGANIZATIONS_ERROR:
       return state
-        .setIn(['searchOrganizations', 'loading'], false)
-        .setIn(['searchOrganizations', 'result'], fromJS([]))
-        .setIn(['searchOrganizations', 'error'], action.error);
+        .set('loading', false)
+        .set('data', fromJS([]))
+        .set('error', action.error);
     default:
       return state;
   }

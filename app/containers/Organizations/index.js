@@ -26,9 +26,6 @@ import DefaultViewComponent from './DefaultViewComponent';
 export class Organizations extends React.Component {
   static initialState = {
     isShowSearchResult: false,
-    listOrganizations: {
-      currentPage: 1,
-    },
     searchOrganizations: {
       currentPage: 1,
       searchValue: '',
@@ -91,27 +88,15 @@ export class Organizations extends React.Component {
 
   render() {
     const { organizations } = this.props;
-    // By initial to show listing organizations data
-    let organizationData = {
-      loading: organizations.listOrganizations.loading,
-      data: organizations.listOrganizations.data,
-      currentPage: organizations.listOrganizations.currentPage,
-      totalNumberOfPages: organizations.listOrganizations.totalNumberOfPages,
-      currentPageSize: organizations.listOrganizations.currentPageSize,
-      totalElements: organizations.listOrganizations.totalElements,
-      handlePageClick: this.handleListPageClick,
+    const organizationData = {
+      loading: organizations.loading,
+      data: organizations.data,
+      currentPage: organizations.currentPage,
+      totalNumberOfPages: organizations.totalNumberOfPages,
+      currentPageSize: organizations.currentPageSize,
+      totalElements: organizations.totalElements,
+      handlePageClick: this.state.isShowSearchResult ? this.handleSearchPageClick : this.handleListPageClick,
     };
-    if (this.state.isShowSearchResult) {
-      organizationData = {
-        loading: organizations.searchOrganizations.loading,
-        data: organizations.searchOrganizations.result,
-        currentPage: organizations.searchOrganizations.currentPage,
-        totalNumberOfPages: organizations.searchOrganizations.totalNumberOfPages,
-        currentPageSize: organizations.searchOrganizations.currentPageSize,
-        totalElements: organizations.searchOrganizations.totalElements,
-        handlePageClick: this.handleSearchPageClick,
-      };
-    }
 
     const viewComponentProps = {
       onSearch: this.handleSearch,
@@ -141,30 +126,17 @@ Organizations.propTypes = {
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
-    listOrganizations: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number,
-      totalElements: PropTypes.number,
-      data: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
-    searchOrganizations: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      result: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
+    data: PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
   }),
 };
 
