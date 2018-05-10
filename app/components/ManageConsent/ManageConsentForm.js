@@ -20,6 +20,7 @@ function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
     isSubmitting,
+    values,
   } = props;
   const today = new Date();
 
@@ -27,7 +28,7 @@ function ManageConsentForm(props) {
     <Form>
       <ManageConsentFormGrid gap="1vw">
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="2vh 0 0 0">
+          <FormSubtitle margin="2vh 0 1vh 0">
             <FormattedMessage {...messages.selectActors} />
           </FormSubtitle>
           <Checkbox
@@ -35,7 +36,9 @@ function ManageConsentForm(props) {
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
+          {!values.consentType &&
           <SelectConsentActors />
+          }
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
@@ -119,6 +122,9 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  values: PropTypes.shape({
+    consentType: PropTypes.bool.isRequired,
+  }),
 };
 
 export default ManageConsentForm;
