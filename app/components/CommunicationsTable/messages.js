@@ -6,21 +6,25 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  columnHeaderTimeSent: {
+    id: 'ocpui.components.communicationTable.columnHeaderTimeSent',
+    defaultMessage: 'Time Sent',
+  },
   columnHeaderCategory: {
     id: 'ocpui.components.communicationTable.columnHeaderCategory',
     defaultMessage: 'Category',
   },
   columnHeaderContactMethod: {
     id: 'ocpui.components.communicationTable.columnHeaderContactMethod',
-    defaultMessage: 'Contact Method',
+    defaultMessage: 'Contact Type',
   },
-  columnHeaderRecipients: {
-    id: 'ocpui.components.communicationTable.columnHeaderRecipients',
-    defaultMessage: 'Recipients',
+  columnHeaderTopic: {
+    id: 'ocpui.components.communicationTable.columnHeaderTopic',
+    defaultMessage: 'Topic',
   },
-  columnHeaderSender: {
-    id: 'ocpui.components.communicationTable.columnHeaderSender',
-    defaultMessage: 'Sender',
+  columnHeaderReason: {
+    id: 'ocpui.components.communicationTable.columnHeaderReason',
+    defaultMessage: 'Reason',
   },
   columnHeaderSent: {
     id: 'ocpui.components.communicationTable.columnHeaderSent',
