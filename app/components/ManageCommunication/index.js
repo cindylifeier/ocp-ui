@@ -56,10 +56,210 @@ function ManageCommunication(props) {
   };
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
+
+
+  function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories) {
+    let formData = null;
+    let subjectData = null;
+    let senderData = null;
+    let communicationData = null;
+    let topicData = null;
+    if (!isEmpty(patient)) {
+      subjectData = merge(
+        mapToParticipantName(patient, 'subject'),
+      );
+    }
+    if (!isEmpty(currentPractitioner)) {
+      senderData = merge(
+        mapToParticipantName(currentPractitioner, 'sender'),
+      );
+    }
+
+    if (!isEmpty(currentCommunication)) {
+      communicationData = merge(
+        mapToFormField(currentCommunication, 'notDone'),
+        mapToFormField(currentCommunication, 'notDoneReasonCode'),
+        mapToFormField(currentCommunication, 'payloadContent'),
+        mapToFormField(currentCommunication, 'note'),
+        mapToDefaultCategoryToInstruction(categories, 'categoryCode'),
+        mapToFormField(currentCommunication, 'mediumCode'),
+        getEpisodeOfCareCodeReference(currentCommunication, 'context'),
+        mapToTopicFromCommunication(currentCommunication),
+        mapToFormField(currentCommunication, 'statusCode'),
+      );
+    }
+
+    if (isEmpty(currentCommunication) && !isEmpty(task)) {
+      topicData = merge(
+        mapToTopicFromTask(task),
+      );
+    }
+    if (isEmpty(currentCommunication) && !isEmpty(appointment)) {
+      topicData = merge(
+        mapToTopicFromAppointment(appointment),
+      );
+    }
+
+    formData = merge(subjectData, senderData, communicationData, topicData);
+    return Util.pickByIdentity(formData);
+  }
+
+  function mapToParticipantName(participant, fieldName) {
+    const fieldObject = {};
+    if (!isUndefined(fieldName) && participant && participant.name && participant.name.length > 0) {
+      fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(participant.name[0]));
+    }
+    return fieldObject;
+  }
+
+  function mapToDefaultCategoryToInstruction(categories, fieldName) {
+    const category = find(categories, { code: 'instruction' });
+    const fieldObject = {};
+    if (category && category.display) {
+      fieldObject[fieldName] = category.display;
+    }
+    return fieldObject;
+  }
+
+
+  function mapToTopicFromCommunication(currentCommunication) {
+    const fieldObject = { topic: '' };
+    if (currentCommunication && currentCommunication.topic && currentCommunication.topic.display) {
+      fieldObject.topic = Util.setEmptyStringWhenUndefined(currentCommunication.topic.display);
+    }
+    return fieldObject;
+  }
+
+  function mapToTopicFromTask(task) {
+    const fieldObject = { topic: '' };
+    if (task && task.description) {
+      fieldObject.topic = Util.setEmptyStringWhenUndefined(task.description);
+    }
+    return fieldObject;
+  }
+
+  function mapToTopicFromAppointment(appointment) {
+    const fieldObject = { topic: '' };
+    if (appointment && appointment.description) {
+      fieldObject.topic = Util.setEmptyStringWhenUndefined(appointment.description);
+    }
+    return fieldObject;
+  }
+
+  function mapToCommunication(values,
+                              statusList,
+                              categories,
+                              notDoneReasons,
+                              media,
+                              episodeOfCareList,
+                              patient,
+                              currentPractitioner,
+                              recipients,
+                              task,
+                              appointment) {
+    const {
+      statusCode,
+      categoryCode,
+      notDoneReasonCode,
+      mediumCode,
+      notDone,
+      payloadContent,
+      note,
+      episodeOfCareCode,
+    } = values;
+    const status = find(statusList, { code: statusCode });
+    const category = find(categories, { code: 'instruction' });
+    const notDoneReason = find(notDoneReasons, { code: notDoneReasonCode });
+    const medium = find(media, { code: mediumCode });
+    const episodeOfCare = find(episodeOfCareList, { reference: episodeOfCareCode });
+
+    const currentCommunication = {
+      note,
+      payloadContent,
+      notDone,
+      // sent: sent.toLocaleDateString(),
+      statusCode,
+      statusValue: status.display,
+      categoryCode,
+      categoryValue: category.display,
+      notDoneReasonCode,
+      notDoneReasonValue: notDoneReason ? notDoneReason.display : '',
+      mediumCode,
+      mediumValue: medium.display, // TODO fix tipo in key
+      subject: createReferenceObject(patient, PATIENT),
+      sender: createReferenceObject(currentPractitioner, PRACTITIONER), // TODO get this dynamically
+      context: episodeOfCare,
+      definition: createEmptyReference(),
+      recipient: recipients, // TODO change to recipients
+    };
+
+    if (task) {
+      currentCommunication.topic = getTopicReference(task, TASK);
+    } else if (appointment) {
+      currentCommunication.topic = getTopicReference(appointment, APPOINTMENT);
+    }
+    return currentCommunication;
+  }
+
+  function createReferenceObject(object, referenceName) {
+    return {
+      reference: getReference(object, referenceName),
+      display: getDisplay(object),
+    };
+  }
+
+  function getEpisodeOfCareCodeReference(referenceObject, referenceName) {
+    const episodeOfCareObject = { episodeOfCareCode: '' };
+    if (referenceObject && referenceObject[referenceName] && referenceObject[referenceName].reference) {
+      episodeOfCareObject.episodeOfCareCode = referenceObject[referenceName].reference;
+    }
+    return episodeOfCareObject;
+  }
+
+  function getTopicReference(referenceObject, referenceName) {
+    return {
+      reference: getReference(referenceObject, referenceName),
+      display: referenceObject && referenceObject.description ? referenceObject.description : '',
+    };
+  }
+
+  function getReference(object, referenceName) {
+    let referenceObject = '';
+    if (object.id && referenceName) {
+      referenceObject = referenceName.concat('/').concat(object.id);
+    } else if (object.logicalId && referenceName) {
+      referenceObject = referenceName.concat('/').concat(object.logicalId);
+    }
+    return referenceObject;
+  }
+
+  function getDisplay(object) {
+    if (object.name && object.name.length > 0) {
+      const name = object.name[0];
+      return (name.firstName && name.lastName) ? name.firstName.concat(' ').concat(name.lastName) : '';
+    }
+    return '';
+  }
+
+  function createEmptyReference() {
+    return {
+      reference: '',
+      display: '',
+    };
+  }
+
+  function mapToFormField(entity, fieldName) {
+    const fieldObject = {};
+    if (!isUndefined(entity[fieldName])) {
+      fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(entity[fieldName]);
+    }
+    return fieldObject;
+  }
+
   return (
     <Formik
       isInitialValid={editMode}
-      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment)}
+      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment, communicationCategories)}
       enableReinitialize
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
@@ -83,13 +283,9 @@ function ManageCommunication(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           notDone: yup.boolean()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          categoryCode: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
+          categoryCode: yup.string(),
           mediumCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          sent: yup.date()
-            .required((<FormattedMessage {...messages.validation.required} />))
-            .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
           payloadContent: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .max(textAreaMaxLength, (
@@ -122,206 +318,6 @@ ManageCommunication.propTypes = {
   selectedAppointment: PropTypes.object,
   datePickerMode: PropTypes.object.isRequired,
 };
-
-
-function setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment) {
-  let formData = null;
-  let subjectData = null;
-  let senderData = null;
-  let communicationData = null;
-  let topicData = null;
-  if (!isEmpty(selectedPatient)) {
-    subjectData = merge(
-      mapToParticipantName(selectedPatient, 'subject'),
-    );
-  }
-  if (!isEmpty(practitioner)) {
-    senderData = merge(
-      mapToParticipantName(practitioner, 'sender'),
-    );
-  }
-
-  if (!isEmpty(communication)) {
-    communicationData = merge(
-      mapToFormDateField(communication, 'sent'),
-      mapToFormField(communication, 'notDone'),
-      mapToFormField(communication, 'notDoneReasonCode'),
-      mapToFormField(communication, 'payloadContent'),
-      mapToFormField(communication, 'note'),
-      mapToFormField(communication, 'categoryCode'),
-      mapToFormField(communication, 'mediumCode'),
-      getEpisodeOfCareCodeReference(communication, 'context'),
-      mapToTopicFromCommunication(communication),
-      mapToFormField(communication, 'statusCode'),
-    );
-  }
-
-  if (isEmpty(communication) && !isEmpty(selectedTask)) {
-    topicData = merge(
-      mapToTopicFromTask(selectedTask),
-    );
-  }
-  if (isEmpty(communication) && !isEmpty(selectedAppointment)) {
-    topicData = merge(
-      mapToTopicFromAppointment(selectedAppointment),
-    );
-  }
-
-  formData = merge(subjectData, senderData, communicationData, topicData);
-  return Util.pickByIdentity(formData);
-}
-
-function mapToParticipantName(participant, fieldName) {
-  const fieldObject = {};
-  if (!isUndefined(fieldName) && participant && participant.name && participant.name.length > 0) {
-    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(participant.name[0]));
-  }
-  return fieldObject;
-}
-
-
-function mapToTopicFromCommunication(communication) {
-  const fieldObject = { topic: '' };
-  if (communication && communication.topic && communication.topic.display) {
-    fieldObject.topic = Util.setEmptyStringWhenUndefined(communication.topic.display);
-  }
-  return fieldObject;
-}
-
-function mapToTopicFromTask(selectedTask) {
-  const fieldObject = { topic: '' };
-  if (selectedTask && selectedTask.description) {
-    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedTask.description);
-  }
-  return fieldObject;
-}
-
-function mapToTopicFromAppointment(selectedAppointment) {
-  const fieldObject = { topic: '' };
-  if (selectedAppointment && selectedAppointment.description) {
-    fieldObject.topic = Util.setEmptyStringWhenUndefined(selectedAppointment.description);
-  }
-  return fieldObject;
-}
-
-function mapToCommunication(values,
-                            communicationStatus,
-                            communicationCategories,
-                            communicationNotDoneReasons,
-                            communicationMedia,
-                            episodeOfCares,
-                            selectedPatient,
-                            practitioner,
-                            selectedRecipients,
-                            selectedTask,
-                            selectedAppointment) {
-  const {
-    statusCode,
-    categoryCode,
-    notDoneReasonCode,
-    mediumCode,
-    notDone,
-    payloadContent,
-    note,
-    sent,
-    episodeOfCareCode,
-  } = values;
-  const status = find(communicationStatus, { code: statusCode });
-  const category = find(communicationCategories, { code: categoryCode });
-  const notDoneReason = find(communicationNotDoneReasons, { code: notDoneReasonCode });
-  const medium = find(communicationMedia, { code: mediumCode });
-  const episodeOfCare = find(episodeOfCares, { reference: episodeOfCareCode });
-
-  const communication = {
-    note,
-    payloadContent,
-    notDone,
-    sent: sent.toLocaleDateString(),
-    statusCode,
-    statusValue: status.display,
-    categoryCode,
-    categoryValue: category.display,
-    notDoneReasonCode,
-    notDoneReasonValue: notDoneReason ? notDoneReason.display : '',
-    mediumCode,
-    mediumValue: medium.display, // TODO fix tipo in key
-    subject: createReferenceObject(selectedPatient, PATIENT),
-    sender: createReferenceObject(practitioner, PRACTITIONER), // TODO get this dynamically
-    context: episodeOfCare,
-    definition: createEmptyReference(),
-    recipient: selectedRecipients, // TODO change to recipients
-  };
-
-  if (selectedTask) {
-    communication.topic = getTopicReference(selectedTask, TASK);
-  } else if (selectedAppointment) {
-    communication.topic = getTopicReference(selectedAppointment, APPOINTMENT);
-  }
-  return communication;
-}
-
-function createReferenceObject(object, referenceName) {
-  return {
-    reference: getReference(object, referenceName),
-    display: getDisplay(object),
-  };
-}
-
-function getEpisodeOfCareCodeReference(referenceObject, referenceName) {
-  const episodeOfCareObject = { episodeOfCareCode: '' };
-  if (referenceObject && referenceObject[referenceName] && referenceObject[referenceName].reference) {
-    episodeOfCareObject.episodeOfCareCode = referenceObject[referenceName].reference;
-  }
-  return episodeOfCareObject;
-}
-
-function getTopicReference(referenceObject, referenceName) {
-  return {
-    reference: getReference(referenceObject, referenceName),
-    display: referenceObject && referenceObject.description ? referenceObject.description : '',
-  };
-}
-
-function getReference(object, referenceName) {
-  let referenceObject = '';
-  if (object.id && referenceName) {
-    referenceObject = referenceName.concat('/').concat(object.id);
-  } else if (object.logicalId && referenceName) {
-    referenceObject = referenceName.concat('/').concat(object.logicalId);
-  }
-  return referenceObject;
-}
-
-function getDisplay(object) {
-  if (object.name && object.name.length > 0) {
-    const name = object.name[0];
-    return (name.firstName && name.lastName) ? name.firstName.concat(' ').concat(name.lastName) : '';
-  }
-  return '';
-}
-
-function createEmptyReference() {
-  return {
-    reference: '',
-    display: '',
-  };
-}
-
-function mapToFormField(entity, fieldName) {
-  const fieldObject = {};
-  if (!isUndefined(entity[fieldName])) {
-    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(entity[fieldName]);
-  }
-  return fieldObject;
-}
-
-function mapToFormDateField(entity, fieldName) {
-  const fieldObject = {};
-  if (!isUndefined(entity[fieldName])) {
-    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(entity[fieldName]) && new Date(entity[fieldName]);
-  }
-  return fieldObject;
-}
 
 export default ManageCommunication;
 

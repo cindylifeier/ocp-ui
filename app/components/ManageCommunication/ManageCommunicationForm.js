@@ -20,28 +20,23 @@ import Checkbox from 'components/Checkbox';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import TextField from 'components/TextField';
-import DatePicker from 'components/DatePicker';
+import Padding from 'components/Padding/index';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
-
 function ManageCommunicationForm(props) {
-  const today = new Date();
   const {
     isSubmitting,
     dirty,
     isValid,
     communicationStatus,
-    communicationCategories,
     communicationNotDoneReasons,
     communicationMedia,
-    episodeOfCares,
     handleOpen,
     selectedRecipients,
     handleRemoveRecipient,
     selectedPatient,
     initialSelectedRecipients,
-    datePickerMode,
   } = props;
   const hasRecipients = !isEmpty(selectedRecipients);
   const handleRemoveSelectedRecipient = (check, reference) => {
@@ -93,15 +88,6 @@ function ManageCommunicationForm(props) {
         <FormCell top={2} left={1} width={4}>
           <Grid columns="2fr 2fr" gap="">
             <Cell>
-              <DatePicker
-                fullWidth
-                name="sent"
-                minDate={today}
-                mode={datePickerMode.LANDSCAPE}
-                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.sent} />}
-              />
-            </Cell>
-            <Cell>
               <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.sender} />}
                 fullWidth
@@ -133,48 +119,46 @@ function ManageCommunicationForm(props) {
               />
             </Cell>
             <Cell>
-              <SelectField
+              <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.context} />}
-                name="episodeOfCareCode"
                 fullWidth
-              >
-                {episodeOfCares && episodeOfCares.map((episodeOfCare) => (
-                  <MenuItem key={uniqueId()} value={episodeOfCare.reference} primaryText={episodeOfCare.display} />
-                ))}
-              </SelectField>
+                name="episodeOfCareCode"
+                disabled
+              />
             </Cell>
           </Grid>
         </FormCell>
-        <FormCell top={4} left={1} width={3}>
-          <Checkbox
-            name="notDone"
-            label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
-          >
-          </Checkbox>
-        </FormCell>
-        <FormCell top={5} left={1} width={2}>
-          <SelectField
-            floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
-            name="notDoneReasonCode"
-            fullWidth
-          >
-            {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
-              <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
-            ))}
-          </SelectField>
-        </FormCell>
-        <FormCell top={6} left={1} width={6}>
+        <FormCell top={4} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
-              <SelectField
+              <Padding top={'35px'}>
+                <Checkbox
+                  name="notDone"
+                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
+                >
+                </Checkbox>
+              </Padding>
+            </Cell>
+            <SelectField
+              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
+              name="notDoneReasonCode"
+              fullWidth
+            >
+              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
+                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
+              ))}
+            </SelectField>
+          </Grid>
+        </FormCell>
+        <FormCell top={5} left={1} width={6}>
+          <Grid columns="3fr 3fr" gap="">
+            <Cell>
+              <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.category} />}
-                name="categoryCode"
                 fullWidth
-              >
-                {communicationCategories && communicationCategories.map((category) => (
-                  <MenuItem key={uniqueId()} value={category.code} primaryText={category.display} />
-                ))}
-              </SelectField>
+                name="categoryCode"
+                disabled
+              />
             </Cell>
             <Cell>
               <SelectField
@@ -189,7 +173,7 @@ function ManageCommunicationForm(props) {
             </Cell>
           </Grid>
         </FormCell>
-        <FormCell top={7} left={1} width={2}>
+        <FormCell top={6} left={1} width={2}>
           <Grid columns="2fr" gap="">
             <Cell>
               <TextField
@@ -201,7 +185,7 @@ function ManageCommunicationForm(props) {
             </Cell>
           </Grid>
         </FormCell>
-        <FormCell top={8} left={1} width={6}>
+        <FormCell top={7} left={1} width={6}>
           <TextField
             floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.payloadContent} />}
             fullWidth
@@ -211,7 +195,7 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-        <FormCell top={9} left={1} width={6}>
+        <FormCell top={8} left={1} width={6}>
           <TextField
             floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.note} />}
             fullWidth
@@ -221,7 +205,7 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-        <FormCell top={10} left={1} width={2}>
+        <FormCell top={9} left={1} width={2}>
           <StyledRaisedButton
             fullWidth
             onClick={handleOpen}
@@ -277,16 +261,13 @@ ManageCommunicationForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   communicationStatus: PropTypes.array.isRequired,
-  communicationCategories: PropTypes.array.isRequired,
   initialSelectedRecipients: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
-  episodeOfCares: PropTypes.array.isRequired,
   handleOpen: PropTypes.func.isRequired,
   selectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
   handleRemoveRecipient: PropTypes.func.isRequired,
-  datePickerMode: PropTypes.object.isRequired,
 };
 
 export default ManageCommunicationForm;
