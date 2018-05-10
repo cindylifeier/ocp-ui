@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
+import sizeMeHOC from 'utils/SizeMeUtils';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -19,12 +20,18 @@ import TableRowColumn from 'components/TableRowColumn';
 import Table from 'components/Table';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import {
+  EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS,
+  SUMMARY_VIEW_WIDTH,
+} from 'components/CommunicationsTable/constants';
 import messages from './messages';
-
-const tableColumns = 'repeat(6, 1fr) 50px';
 
 function CommunicationsTable(props) {
   const { loading, data, selectedPatient, manageCommunicationBaseUrl } = props.communicationsData;
+  const { size } = props;
+  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+
   return (
     <div>
       {loading && <RefreshIndicatorLoading />}
@@ -32,13 +39,19 @@ function CommunicationsTable(props) {
         data.elements.length > 0 ?
           <div>
             <Table>
-              <TableHeader columns={tableColumns} relativeTop={props.relativeTop}>
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderRecipients} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderSender} /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderSent} /></TableHeaderColumn>
+              <TableHeader columns={columns} relativeTop={props.relativeTop}>
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTopic} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
+                }
               </TableHeader>
               {!isEmpty(data.elements) && data.elements.map((communication) => {
                 const menuItems = [{
@@ -48,14 +61,21 @@ function CommunicationsTable(props) {
                     search: `?patientId=${selectedPatient.id}`,
                   },
                 }];
+                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue } = communication;
                 return (
-                  <TableRow key={communication.logicalId} columns={tableColumns}>
-                    <TableRowColumn>{communication.categoryValue}</TableRowColumn>
-                    <TableRowColumn>{communication.mediumValue}</TableRowColumn>
-                    <TableRowColumn> {getRecipientsList(communication.recipient)}</TableRowColumn>
-                    <TableRowColumn>{communication.sender.display}</TableRowColumn>
-                    <TableRowColumn>{communication.sent}</TableRowColumn>
-                    <TableRowColumn>{communication.statusValue}</TableRowColumn>
+                  <TableRow key={communication.logicalId} columns={columns}>
+                    <TableRowColumn></TableRowColumn>
+                    <TableRowColumn>{statusValue}</TableRowColumn>
+                    <TableRowColumn>{categoryValue}</TableRowColumn>
+                    {isExpanded &&
+                    <TableRowColumn> {context && context.display}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{mediumValue}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{notDoneReasonValue}</TableRowColumn>
+                    }
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
@@ -100,18 +120,7 @@ CommunicationsTable.propTypes = {
     }).isRequired,
   }).isRequired,
   handleChangePage: PropTypes.func.isRequired,
+  size: PropTypes.object.isRequired,
 };
 
-export default CommunicationsTable;
-
-function getRecipientsList(recipients) {
-  const names = [];
-  if (recipients) {
-    recipients.forEach((entry) => {
-      if (entry.display) {
-        names.push(entry.display);
-      }
-    });
-  }
-  return names.join(',');
-}
+export default sizeMeHOC(CommunicationsTable);
