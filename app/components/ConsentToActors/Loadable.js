@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for SelectCareTeam
+ * Asynchronously loads the component for ConsentToActors
  *
  */
 

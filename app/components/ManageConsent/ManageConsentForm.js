@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
+
+import SelectConsentActors from 'containers/SelectConsentActors';
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
@@ -19,7 +21,6 @@ function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
     isSubmitting,
-    handleOpen,
     purposeOfUse,
   } = props;
   const pouProps = {
@@ -31,33 +32,18 @@ function ManageConsentForm(props) {
     <Form>
       <ManageConsentFormGrid gap="1vw">
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
-            <FormattedMessage {...messages.floatingLabelText.selectCareTeams} />
+          <FormSubtitle margin="2vh 0 0 0">
+            <FormattedMessage {...messages.selectActors} />
           </FormSubtitle>
           <Checkbox
             name="consentType"
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
-          <Grid
-            columns={'20px 1fr 1fr 20px'}
-            gap={'20px'}
-          >
-            <Cell />
-            <StyledRaisedButton
-              onClick={handleOpen}
-            >
-              <FormattedMessage {...messages.floatingLabelText.addFromActors} />
-            </StyledRaisedButton>
-            <StyledRaisedButton
-              onClick={handleOpen}
-            >
-              <FormattedMessage {...messages.floatingLabelText.addToActors} />
-            </StyledRaisedButton>
-          </Grid>
+          <SelectConsentActors />
         </Cell>
         <Cell area="medicalInfoGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.medicalInformation} />
           </FormSubtitle>
           <InfoSection>
@@ -75,7 +61,7 @@ function ManageConsentForm(props) {
           </RadioButtonGroup>
         </Cell>
         <Cell area="purposeOfUseGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.purposeOfUseInformation} />
           </FormSubtitle>
           <InfoSection>
@@ -94,7 +80,7 @@ function ManageConsentForm(props) {
           </RadioButtonGroup>
         </Cell>
         <Cell area="consentTermGroup">
-          <FormSubtitle margin="3vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.floatingLabelText.consentTermInformation} />
           </FormSubtitle>
           <InfoSection>
@@ -141,9 +127,7 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
   purposeOfUse: PropTypes.array,
-
 };
 
 export default ManageConsentForm;

@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  selectActors: {
+    id: 'ocpui.components.ManageConsent.selectActors',
+    defaultMessage: 'Selected Actors',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minLength',
@@ -29,10 +33,6 @@ export default defineMessages({
     },
   },
   hintText: {
-    selectCareTeams: {
-      id: 'ocpui.components.ManageConsent.manageForm.hintText.selectCareTeams',
-      defaultMessage: 'Selected Care Teams',
-    },
     consentType: {
       id: 'ocpui.components.ManageConsent.manageForm.hintText.consentType',
       defaultMessage: 'Make available to my entire care team',
@@ -83,10 +83,6 @@ export default defineMessages({
     },
   },
   floatingLabelText: {
-    selectCareTeams: {
-      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.selectCareTeams',
-      defaultMessage: 'Selected Care Teams',
-    },
     consentType: {
       id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.consentType',
       defaultMessage: 'Make available to my entire care team',

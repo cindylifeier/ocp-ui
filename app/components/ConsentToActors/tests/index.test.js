@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import { SelectCareTeam } from '../index';
+// import ConsentToActors from '../index';
 
 // configure({ adapter: new Adapter() });
 
-xdescribe('<SelectCareTeam />', () => {
+describe('<ConsentToActors />', () => {
   it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+    // expect(true).toEqual(false);
   });
 });
