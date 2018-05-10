@@ -21,15 +21,29 @@ import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS,
   SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
+  PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS,
+  PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS,
 } from './constants';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+
+  function getColumns() {
+    let columns = '';
+    if (!isPatientWorkspace) {
+      columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    } else {
+      columns = isExpanded ? PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS : PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS;
+    }
+    return columns;
+  }
   function createTableHeaders() {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    const columns = getColumns();
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
+        {!isPatientWorkspace &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
+        }
         {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
         }
@@ -45,10 +59,12 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
   }
 
   function createTableRows(appointment, menuItems) {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    const columns = getColumns();
     return (
       <TableRow key={uniqueId()} columns={columns}>
+        {!isPatientWorkspace &&
         <TableRowColumn>{appointment.patientName}</TableRowColumn>
+        }
         {isExpanded &&
         <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
         }
@@ -131,6 +147,7 @@ AppointmentTable.propTypes = {
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
   enableEditAppointment: PropTypes.bool,
+  isPatientWorkspace: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
 };
 

@@ -38,6 +38,7 @@ import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 
+import { makeSelectLocation } from 'containers/App/selectors';
 import injectSaga from 'utils/injectSaga';
 import {
   acceptPatientAppointment,
@@ -147,6 +148,8 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
       },
     };
     const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_CODE);
+    const { pathname } = this.props.location;
+    const isPatientWorkspace = pathname && pathname.indexOf('/patients/') > 0;
     return (
       <div>
         <Card>
@@ -193,6 +196,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 relativeTop={this.state.panelHeight + this.state.filterHeight}
                 enableEditAppointment={enableEditAppointment}
                 manageAppointmentUrl={manageAppointmentUrl}
+                isPatientWorkspace={isPatientWorkspace}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
@@ -230,6 +234,7 @@ PatientAppointments.propTypes = {
   declineAppointment: PropTypes.func.isRequired,
   tentativeAppointment: PropTypes.func.isRequired,
   patient: PropTypes.object,
+  location: PropTypes.object.isRequired,
   user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
 };
@@ -241,6 +246,7 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   showPastAppointments: makeSelectShowPastAppointments(),
   patient: makeSelectPatient(),
+  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
