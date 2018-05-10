@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 
@@ -25,17 +24,18 @@ import saga from './saga';
 export class AppointmentsCalendar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     this.props.getAppointments();
-    this.props.getLookupData();
   }
 
   render() {
+    const { appointmentsCalendar: { data } } = this.props;
+    console.log(data);
     return (
       <div>
         <Helmet>
           <title>AppointmentsCalendar</title>
           <meta name="description" content="Description of AppointmentsCalendar" />
         </Helmet>
-        AppointmentsCalendar
+
       </div>
     );
   }
@@ -43,13 +43,11 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
 AppointmentsCalendar.propTypes = {
   getAppointments: PropTypes.func.isRequired,
-  getLookupData: PropTypes.func.isRequired,
+  appointmentsCalendar: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   appointmentsCalendar: makeSelectAppointmentsCalendar(),
-  appointmentTypes: makeSelectAppointmentTypes(),
-  appointmentStatuses: makeSelectAppointmentStatuses(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -13,7 +13,10 @@ import {
   GET_APPOINTMENTS_ERROR,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  loading: false,
+  query: null,
+});
 
 function appointmentsCalendarReducer(state = initialState, action) {
   switch (action.type) {
