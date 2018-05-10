@@ -11,13 +11,23 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAppointmentsCalendar from './selectors';
+import { getAppointments } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 export class AppointmentsCalendar extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    this.props.getAppointments();
+    this.props.getLookupData();
+  }
+
   render() {
     return (
       <div>
@@ -25,22 +35,27 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           <title>AppointmentsCalendar</title>
           <meta name="description" content="Description of AppointmentsCalendar" />
         </Helmet>
+        AppointmentsCalendar
       </div>
     );
   }
 }
 
 AppointmentsCalendar.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getAppointments: PropTypes.func.isRequired,
+  getLookupData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  appointmentscalendar: makeSelectAppointmentsCalendar(),
+  appointmentsCalendar: makeSelectAppointmentsCalendar(),
+  appointmentTypes: makeSelectAppointmentTypes(),
+  appointmentStatuses: makeSelectAppointmentStatuses(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getAppointments: (query) => dispatch(getAppointments(query)),
+    getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
   };
 }
 

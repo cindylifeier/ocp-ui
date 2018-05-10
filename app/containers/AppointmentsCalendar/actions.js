@@ -5,11 +5,29 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  GET_APPOINTMENTS,
+  GET_APPOINTMENTS_SUCCESS,
+  GET_APPOINTMENTS_ERROR,
 } from './constants';
 
-export function defaultAction() {
+// Get
+export function getAppointments(query) {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_APPOINTMENTS,
+    query,
+  };
+}
+
+export function getAppointmentsSuccess(appointments) {
+  return {
+    type: GET_APPOINTMENTS_SUCCESS,
+    appointments,
+  };
+}
+
+export function getAppointmentsError(error) {
+  return {
+    type: GET_APPOINTMENTS_ERROR,
+    error,
   };
 }

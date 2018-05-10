@@ -6,15 +6,27 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  DATA,
+  LOADING,
+  GET_APPOINTMENTS,
+  GET_APPOINTMENTS_SUCCESS,
+  GET_APPOINTMENTS_ERROR,
 } from './constants';
 
 const initialState = fromJS({});
 
 function appointmentsCalendarReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case GET_APPOINTMENTS:
+      return state
+        .set(LOADING, true)
+        .set(DATA, null);
+    case GET_APPOINTMENTS_SUCCESS:
+      return state
+        .set(LOADING, false)
+        .set(DATA, fromJS(action.appointments || {}));
+    case GET_APPOINTMENTS_ERROR:
+      return state.set(LOADING, false);
     default:
       return state;
   }
