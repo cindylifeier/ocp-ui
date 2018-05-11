@@ -40,7 +40,7 @@ function ConsentActorBanner({ actor, flattenActorData, onSelectActor }) {
                   size="x-small"
                   svgIconSize="small"
                   disableIconHover
-                  onClick={() => onSelectActor(actor)}
+                  onClick={() => onSelectActor && onSelectActor(actor)}
                 >
                   <AddCircleIcon color={teal['500']} />
                 </StyledIconButton>
@@ -65,10 +65,10 @@ ConsentActorBanner.propTypes = {
   onSelectActor: PropTypes.func.isRequired,
   flattenActorData: PropTypes.func.isRequired,
   actor: PropTypes.shape({
-    name: PropTypes.oneOfType(
+    name: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.array,
-    ).isRequired,
+    ]).isRequired,
     identifiers: PropTypes.arrayOf(PropTypes.shape({
       system: PropTypes.string,
       oid: PropTypes.string,
