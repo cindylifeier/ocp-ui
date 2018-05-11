@@ -59,7 +59,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                       <Organizations component={FromOrganizationActors} pageSize={3} />
                     </Cell>
                     <Cell>
-                      <Practitioners component={FromPractitionerActors} />
+                      <Practitioners component={FromPractitionerActors} pageSize={3} />
                     </Cell>
                   </Grid>
                 </DialogContent>

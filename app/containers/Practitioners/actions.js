@@ -20,10 +20,11 @@ export function initializePractitioners() {
   };
 }
 
-export function getPractitionersInOrganization(currentPage) {
+export function getPractitionersInOrganization(currentPage, pageSize) {
   return {
     type: GET_PRACTITIONERS_IN_ORGANIZATION,
     currentPage,
+    pageSize,
   };
 }
 

@@ -43,7 +43,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     this.props.initializePractitioners();
     const { organization } = this.props;
     if (organization) {
-      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
     }
   }
 
@@ -51,7 +51,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     const { organization } = this.props;
     const { organization: newOrganization } = nextProps;
     if (!isEqual(organization, newOrganization)) {
-      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
     }
   }
 
@@ -78,7 +78,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   handleChangeListPage(currentPage) {
-    this.props.getPractitionersInOrganization(currentPage);
+    this.props.getPractitionersInOrganization(currentPage, this.props.pageSize);
   }
 
   render() {
@@ -107,6 +107,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
 Practitioners.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func]).isRequired,
+  pageSize: PropTypes.number,
   organization: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     identifiers: PropTypes.arrayOf(PropTypes.shape({
@@ -163,7 +164,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getPractitionersInOrganization: (currentPage) => dispatch(getPractitionersInOrganization(currentPage)),
+    getPractitionersInOrganization: (currentPage, pageSize) => dispatch(getPractitionersInOrganization(currentPage, pageSize)),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage, organization) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage, organization)),
   };
 }
