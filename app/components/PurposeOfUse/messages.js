@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.PurposeOfUse.header',
-    defaultMessage: 'Purpose Of Use',
+  dialogPurposeOfUseTitle: {
+    id: 'ocpui.components.PurposeOfUse.dialogPurposeOfUseTitle',
+    defaultMessage: 'Share for selected purpose only',
+  },
+  addPurposeOfUseButton: {
+    id: 'ocpui.components.PurposeOfUse.addPurposeOfUseButton',
+    defaultMessage: 'Edit',
   },
 });
