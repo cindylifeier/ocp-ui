@@ -39,9 +39,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     this.state = {
       relativeTop: 0,
       isShowSearchResult: false,
-      listPractitioners: {
-        currentPage: 1,
-      },
       searchPractitioners: {
         searchType: 'name',
         searchValue: '',
@@ -107,27 +104,15 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_PRACTITIONER_URL,
     };
-    // By initial to show listing practitioners data
-    let practitionersData = {
-      loading: practitioners.listPractitioners.loading,
-      data: practitioners.listPractitioners.data,
-      currentPage: practitioners.listPractitioners.currentPage,
-      totalNumberOfPages: practitioners.listPractitioners.totalNumberOfPages,
-      currentPageSize: practitioners.listPractitioners.currentPageSize,
-      totalElements: practitioners.listPractitioners.totalElements,
-      handleChangePage: this.handleChangeListPage,
+    const practitionersData = {
+      loading: practitioners.loading,
+      data: practitioners.data,
+      currentPage: practitioners.currentPage,
+      totalNumberOfPages: practitioners.totalNumberOfPages,
+      currentPageSize: practitioners.currentPageSize,
+      totalElements: practitioners.totalElements,
+      handleChangePage: this.state.isShowSearchResult ? this.handleChangeSearchPage : this.handleChangeListPage,
     };
-    if (this.state.isShowSearchResult) {
-      practitionersData = {
-        loading: practitioners.searchPractitioners.loading,
-        data: practitioners.searchPractitioners.result,
-        currentPage: practitioners.searchPractitioners.currentPage,
-        totalNumberOfPages: practitioners.searchPractitioners.totalNumberOfPages,
-        currentPageSize: practitioners.searchPractitioners.currentPageSize,
-        totalElements: practitioners.searchPractitioners.totalElements,
-        handleChangePage: this.handleChangeSearchPage,
-      };
-    }
 
     return (
       <div>
@@ -179,32 +164,17 @@ Practitioners.propTypes = {
     })),
   }),
   practitioners: PropTypes.shape({
-    listPractitioners: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number,
-      totalElements: PropTypes.number,
-      result: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
-    searchPractitioners: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number,
-      totalElements: PropTypes.number,
-      result: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
+    result: PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
   }),
   getPractitionersInOrganization: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
