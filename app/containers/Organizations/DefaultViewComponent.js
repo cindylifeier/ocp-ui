@@ -10,7 +10,6 @@ import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledFlatButton from 'components/StyledFlatButton';
 import OrganizationTable from 'components/OrganizationTable';
 import OrganizationSlider from 'components/OrganizationSlider';
-import { flattenOrganizationData } from './helpers';
 import messages from './messages';
 
 class DefaultViewComponent extends React.Component {
@@ -21,17 +20,12 @@ class DefaultViewComponent extends React.Component {
       openSlider: false,
     };
     this.onSize = this.onSize.bind(this);
-    this.handleRowClick = this.handleRowClick.bind(this);
     this.handleSliderOpen = this.handleSliderOpen.bind(this);
     this.handleSliderClose = this.handleSliderClose.bind(this);
   }
 
   onSize(size) {
     this.setState({ relativeTop: size.height });
-  }
-
-  handleRowClick(organization) {
-    this.props.onSetOrganization(organization);
   }
 
   handleSliderOpen() {
@@ -47,7 +41,7 @@ class DefaultViewComponent extends React.Component {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
     };
-    const { onSearch, onViewAll, isShowViewAllButton, organizationData } = this.props;
+    const { onSearch, onViewAll, onOrganizationClick, isShowViewAllButton, flattenOrganizationData, organizationData } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -69,18 +63,18 @@ class DefaultViewComponent extends React.Component {
           <OrganizationTable
             relativeTop={this.state.relativeTop}
             organizationData={organizationData}
-            onRowClick={this.handleRowClick}
+            onRowClick={onOrganizationClick}
             flattenOrganizationData={flattenOrganizationData}
             onOrganizationViewDetails={this.handleSliderOpen}
             combineAddress={combineAddress}
             mapToTelecoms={mapToTelecoms}
           />
         </InfoSection>
-        {this.props.organization &&
+        {this.props.organizationInContext &&
         <OrganizationSlider
           open={this.state.openSlider}
           onClose={this.handleSliderClose}
-          organization={this.props.organization}
+          organization={this.props.organizationInContext}
           flattenOrganizationData={flattenOrganizationData}
         />
         }
@@ -91,10 +85,11 @@ class DefaultViewComponent extends React.Component {
 
 DefaultViewComponent.propTypes = {
   onSearch: PropTypes.func.isRequired,
-  onSetOrganization: PropTypes.func.isRequired,
+  onOrganizationClick: PropTypes.func.isRequired,
   onViewAll: PropTypes.func.isRequired,
   isShowViewAllButton: PropTypes.bool.isRequired,
-  organization: PropTypes.object,
+  flattenOrganizationData: PropTypes.func.isRequired,
+  organizationInContext: PropTypes.object,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
