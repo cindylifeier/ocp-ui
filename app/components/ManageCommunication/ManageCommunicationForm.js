@@ -156,7 +156,7 @@ function ManageCommunicationForm(props) {
               <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.category} />}
                 fullWidth
-                name="categoryCode"
+                name="categoryDisplay"
                 disabled
               />
             </Cell>

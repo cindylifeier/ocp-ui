@@ -64,6 +64,7 @@ function ManageCommunication(props) {
     let senderData = null;
     let communicationData = null;
     let topicData = null;
+    let categoryData = null;
     if (!isEmpty(patient)) {
       subjectData = merge(
         mapToParticipantName(patient, 'subject'),
@@ -75,13 +76,17 @@ function ManageCommunication(props) {
       );
     }
 
+    categoryData = merge(
+      mapToDefaultCategoryToInstruction(categories, 'categoryDisplay'),
+    );
+
+
     if (!isEmpty(currentCommunication)) {
       communicationData = merge(
         mapToFormField(currentCommunication, 'notDone'),
         mapToFormField(currentCommunication, 'notDoneReasonCode'),
         mapToFormField(currentCommunication, 'payloadContent'),
         mapToFormField(currentCommunication, 'note'),
-        mapToDefaultCategoryToInstruction(categories, 'categoryCode'),
         mapToFormField(currentCommunication, 'mediumCode'),
         getEpisodeOfCareCodeReference(currentCommunication, 'context'),
         mapToTopicFromCommunication(currentCommunication),
@@ -100,7 +105,7 @@ function ManageCommunication(props) {
       );
     }
 
-    formData = merge(subjectData, senderData, communicationData, topicData);
+    formData = merge(subjectData, senderData, communicationData, topicData, categoryData);
     return Util.pickByIdentity(formData);
   }
 
@@ -115,8 +120,9 @@ function ManageCommunication(props) {
   function mapToDefaultCategoryToInstruction(categories, fieldName) {
     const category = find(categories, { code: 'instruction' });
     const fieldObject = {};
+    fieldObject[fieldName] = '';
     if (category && category.display) {
-      fieldObject[fieldName] = category.display;
+      fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(category.display);
     }
     return fieldObject;
   }
@@ -159,7 +165,7 @@ function ManageCommunication(props) {
                               appointment) {
     const {
       statusCode,
-      categoryCode,
+      categoryDisplay,
       notDoneReasonCode,
       mediumCode,
       notDone,
@@ -180,8 +186,8 @@ function ManageCommunication(props) {
       // sent: sent.toLocaleDateString(),
       statusCode,
       statusValue: status.display,
-      categoryCode,
-      categoryValue: category.display,
+      categoryCode: category.code,
+      categoryValue: categoryDisplay,
       notDoneReasonCode,
       notDoneReasonValue: notDoneReason ? notDoneReason.display : '',
       mediumCode,
@@ -283,7 +289,6 @@ function ManageCommunication(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           notDone: yup.boolean()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          categoryCode: yup.string(),
           mediumCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           payloadContent: yup.string()
