@@ -32,6 +32,17 @@ function CommunicationsTable(props) {
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
+  function createDateTime(dataArray) {
+    const year = dataArray[0];
+    const month = dataArray[1];
+    const day = dataArray[2];
+    const hours = dataArray[3];
+    const minutes = dataArray[4];
+    const seconds = dataArray[5];
+    const milliSeconds = dataArray[6];
+
+    return new Date(year, month, day, hours, minutes, seconds, milliSeconds);
+  }
   return (
     <div>
       {loading && <RefreshIndicatorLoading />}
@@ -41,6 +52,9 @@ function CommunicationsTable(props) {
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
+                }
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
                 {isExpanded &&
@@ -62,9 +76,15 @@ function CommunicationsTable(props) {
                   },
                 }];
                 const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue } = communication;
+                const lastUpdated = communication && communication.lastUpdated ? (createDateTime(communication.lastUpdated)).toString() : '';
+                const sent = communication && communication.sent ? (createDateTime(communication.sent)).toString() : '';
+
                 return (
                   <TableRow key={communication.logicalId} columns={columns}>
-                    <TableRowColumn></TableRowColumn>
+                    <TableRowColumn>{ sent }</TableRowColumn>
+                    {isExpanded &&
+                    <TableRowColumn>{ lastUpdated }</TableRowColumn>
+                    }
                     <TableRowColumn>{statusValue}</TableRowColumn>
                     <TableRowColumn>{categoryValue}</TableRowColumn>
                     {isExpanded &&

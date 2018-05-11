@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.communicationTable.columnHeaderTimeSent',
     defaultMessage: 'Time Sent',
   },
+  columnHeaderLastUpdated: {
+    id: 'ocpui.components.communicationTable.columnHeaderLastUpdated',
+    defaultMessage: 'Last Updated',
+  },
   columnHeaderCategory: {
     id: 'ocpui.components.communicationTable.columnHeaderCategory',
     defaultMessage: 'Category',
