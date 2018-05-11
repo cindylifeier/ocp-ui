@@ -8,9 +8,12 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { Cell, Grid } from 'styled-css-grid';
 
+import Organizations from 'containers/Organizations';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
+import FromOrganizationActors from './FromOrganizationActors';
 import messages from './messages';
 
 
@@ -49,7 +52,13 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                   <FormattedMessage {...messages.consentFromActorsDialogTitle} />
                 </DialogTitle>
                 <DialogContent>
-                  <p>Test</p>
+                  <Grid columns={1}>
+                    <Cell>
+                      <Organizations component={FromOrganizationActors} />
+                    </Cell>
+                    <Cell>
+                    </Cell>
+                  </Grid>
                 </DialogContent>
               </StyledDialog>
             </div>

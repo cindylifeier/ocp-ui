@@ -14,9 +14,9 @@ import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectUser } from 'containers/App/contextSelectors';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -47,7 +47,7 @@ export class Organizations extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.organization) {
+    if (this.props.organization && isEqual(this.props.user.role, OCP_ADMIN_ROLE_CODE)) {
       this.props.initializeOrganizations([this.props.organization]);
     } else {
       this.props.initializeOrganizations();
@@ -115,6 +115,9 @@ export class Organizations extends React.Component {
 
 Organizations.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func]).isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
   initializeOrganizations: PropTypes.func.isRequired,
   organization: PropTypes.object,
   setOrganization: PropTypes.func.isRequired,
@@ -142,6 +145,7 @@ Organizations.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
   organization: makeSelectOrganization(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
