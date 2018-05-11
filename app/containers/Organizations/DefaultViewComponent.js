@@ -10,7 +10,6 @@ import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledFlatButton from 'components/StyledFlatButton';
 import OrganizationTable from 'components/OrganizationTable';
 import OrganizationSlider from 'components/OrganizationSlider';
-import { flattenOrganizationData } from './helpers';
 import messages from './messages';
 
 class DefaultViewComponent extends React.Component {
@@ -47,7 +46,7 @@ class DefaultViewComponent extends React.Component {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
     };
-    const { onSearch, onViewAll, isShowViewAllButton, organizationData } = this.props;
+    const { onSearch, onViewAll, isShowViewAllButton, flattenOrganizationData, organizationData } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -94,6 +93,7 @@ DefaultViewComponent.propTypes = {
   onSetOrganization: PropTypes.func.isRequired,
   onViewAll: PropTypes.func.isRequired,
   isShowViewAllButton: PropTypes.bool.isRequired,
+  flattenOrganizationData: PropTypes.bool.isRequired,
   organization: PropTypes.object,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,

@@ -22,6 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
 import DefaultViewComponent from './DefaultViewComponent';
+import { flattenOrganizationData } from './helpers';
 
 export class Organizations extends React.Component {
   static initialState = {
@@ -104,6 +105,7 @@ export class Organizations extends React.Component {
       onViewAll: this.handleViewAll,
       isShowViewAllButton: this.state.showViewAllButton,
       organization: this.props.organization,
+      flattenOrganizationData,
       organizationData,
     };
     const Component = this.props.component;

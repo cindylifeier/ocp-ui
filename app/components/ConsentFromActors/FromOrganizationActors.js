@@ -5,6 +5,7 @@ import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import StyledText from 'components/StyledText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import ConsentActorBanner from 'components/ConsentActorBanner';
 
 class FromOrganizationActors extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class FromOrganizationActors extends React.Component {
   }
 
   render() {
-    const { onSearch, organizationData } = this.props;
+    const { onSearch, flattenOrganizationData, organizationData } = this.props;
     return (
       <div>
         <StyledText fontWeight="700">Organizations</StyledText>
@@ -27,11 +28,14 @@ class FromOrganizationActors extends React.Component {
           onSearch={onSearch}
         />
         <InfoSection margin="0 0 10px 0">
-          {organizationData.data && organizationData.data.map((organization) => (
-            <div key={organization.logicalId}>
-              {organization.name}
-            </div>
-          ))}
+          {organizationData.data && organizationData.data.map((organization) => {
+            const flattenOrganization = flattenOrganizationData(organization);
+            const { name, identifiers, addresses, telecoms } = flattenOrganization;
+            const bannerProps = { name, identifiers, addresses, telecoms };
+            return (
+              <ConsentActorBanner key={organization.logicalId} {...bannerProps} />
+            );
+          })}
           <CenterAlignedUltimatePagination
             currentPage={organizationData.currentPage}
             totalPages={organizationData.totalNumberOfPages}
@@ -45,6 +49,7 @@ class FromOrganizationActors extends React.Component {
 
 FromOrganizationActors.propTypes = {
   onSearch: PropTypes.func.isRequired,
+  flattenOrganizationData: PropTypes.func.isRequired,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
