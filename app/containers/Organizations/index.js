@@ -52,7 +52,7 @@ export class Organizations extends React.Component {
       this.props.initializeOrganizations([this.props.organization]);
     } else {
       this.props.initializeOrganizations();
-      this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER);
+      this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
     }
   }
 
@@ -75,7 +75,7 @@ export class Organizations extends React.Component {
   }
 
   handleListPageClick(currentPage) {
-    this.props.getOrganizations(currentPage);
+    this.props.getOrganizations(currentPage, this.props.pageSize);
   }
 
   handleSearchPageClick(currentPage) {
@@ -83,7 +83,7 @@ export class Organizations extends React.Component {
   }
 
   handleViewAll() {
-    this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER);
+    this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
     this.setState({ showViewAllButton: false });
   }
 
@@ -125,6 +125,7 @@ Organizations.propTypes = {
   setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
+  pageSize: PropTypes.number,
   organizations: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -153,7 +154,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: (organizations) => dispatch(initializeOrganizations(organizations)),
-    getOrganizations: (currentPage) => dispatch(getOrganizations(currentPage)),
+    getOrganizations: (currentPage, pageSize) => dispatch(getOrganizations(currentPage, pageSize)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),
   };

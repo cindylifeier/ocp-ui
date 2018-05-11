@@ -93,7 +93,7 @@ DefaultViewComponent.propTypes = {
   onSetOrganization: PropTypes.func.isRequired,
   onViewAll: PropTypes.func.isRequired,
   isShowViewAllButton: PropTypes.bool.isRequired,
-  flattenOrganizationData: PropTypes.bool.isRequired,
+  flattenOrganizationData: PropTypes.func.isRequired,
   organization: PropTypes.object,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
