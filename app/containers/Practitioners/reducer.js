@@ -16,20 +16,11 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  listPractitioners: {
-    loading: false,
-    data: [],
-    currentPage: 0,
-    totalNumberOfPages: 0,
-    error: false,
-  },
-  searchPractitioners: {
-    loading: false,
-    result: [],
-    currentPage: 0,
-    totalNumberOfPages: 0,
-    error: false,
-  },
+  loading: false,
+  data: [],
+  currentPage: 0,
+  totalNumberOfPages: 0,
+  error: false,
 });
 
 function practitionersReducer(state = initialState, action) {
@@ -38,34 +29,34 @@ function practitionersReducer(state = initialState, action) {
       return initialState;
     case GET_PRACTITIONERS_IN_ORGANIZATION:
       return state
-        .setIn(['listPractitioners', 'loading'], true);
+        .set('loading', true);
     case GET_PRACTITIONERS_IN_ORGANIZATION_SUCCESS:
       return state
-        .setIn(['listPractitioners', 'loading'], false)
-        .setIn(['listPractitioners', 'data'], fromJS(action.practitioners.elements))
-        .setIn(['listPractitioners', 'totalElements'], action.practitioners.totalElements)
-        .setIn(['listPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
-        .setIn(['listPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
-        .setIn(['listPractitioners', 'currentPage'], action.practitioners.currentPage);
+        .set('loading', false)
+        .set('data', fromJS(action.practitioners.elements))
+        .set('totalElements', action.practitioners.totalElements)
+        .set('currentPageSize', action.practitioners.currentPageSize)
+        .set('totalNumberOfPages', action.practitioners.totalNumberOfPages)
+        .set('currentPage', action.practitioners.currentPage);
     case GET_PRACTITIONERS_IN_ORGANIZATION_ERROR:
       return state
-        .setIn(['listPractitioners', 'loading'], false)
-        .setIn(['listPractitioners', 'error'], action.error);
+        .set('loading', false)
+        .set('error', action.error);
     case SEARCH_PRACTITIONERS:
       return state
-        .setIn(['searchPractitioners', 'loading'], true);
+        .set('loading', true);
     case SEARCH_PRACTITIONERS_SUCCESS:
       return state
-        .setIn(['searchPractitioners', 'loading'], false)
-        .setIn(['searchPractitioners', 'result'], fromJS(action.practitioners.elements))
-        .setIn(['searchPractitioners', 'totalElements'], action.practitioners.totalElements)
-        .setIn(['searchPractitioners', 'currentPageSize'], action.practitioners.currentPageSize)
-        .setIn(['searchPractitioners', 'totalNumberOfPages'], action.practitioners.totalNumberOfPages)
-        .setIn(['searchPractitioners', 'currentPage'], action.practitioners.currentPage);
+        .set('loading', false)
+        .set('data', fromJS(action.practitioners.elements))
+        .set('totalElements', action.practitioners.totalElements)
+        .set('currentPageSize', action.practitioners.currentPageSize)
+        .set('totalNumberOfPages', action.practitioners.totalNumberOfPages)
+        .set('currentPage', action.practitioners.currentPage);
     case SEARCH_PRACTITIONERS_ERROR:
       return state
-        .setIn(['searchPractitioners', 'loading'], false)
-        .setIn(['searchPractitioners', 'error'], action.error);
+        .set('loading', false)
+        .set('error', action.error);
     default: {
       return state;
     }
