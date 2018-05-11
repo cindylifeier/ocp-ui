@@ -89,7 +89,7 @@ export class Organizations extends React.Component {
   }
 
   render() {
-    const { organizations, showSearchBarByDefault, hideToolbar, onOrganizationClick } = this.props;
+    const { organizations, showSearchBarByDefault, hideToolbar } = this.props;
     const organizationData = {
       loading: organizations.loading,
       data: organizations.data,
@@ -110,7 +110,6 @@ export class Organizations extends React.Component {
       organizationData,
       showSearchBarByDefault,
       hideToolbar,
-      onOrganizationClick,
     };
     const Component = this.props.component;
     return (
@@ -140,7 +139,6 @@ Organizations.propTypes = {
       PropTypes.bool,
     ]),
   }),
-  onOrganizationClick: PropTypes.func,
   showSearchBarByDefault: PropTypes.bool,
   hideToolbar: PropTypes.bool,
 };
