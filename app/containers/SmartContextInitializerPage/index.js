@@ -46,6 +46,7 @@ const InlineBlock = styled.span`
 
 export class SmartContextInitializerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static BUTTON_MARGIN_RIGHT = 8;
+  static USER_CONTEXT_PARAM = 'user';
 
   constructor(props) {
     super(props);
@@ -116,7 +117,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
 
   getRequiredContexts() {
     const params = this.getSearchParams();
-    const requiredContexts = params.required_context.split(',').filter(identity);
+    const requiredContexts = params.required_context.split(',').filter(identity).filter((value) => value !== SmartContextInitializerPage.USER_CONTEXT_PARAM);
     return requiredContexts;
   }
 
