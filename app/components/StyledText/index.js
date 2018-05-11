@@ -34,7 +34,10 @@ const StyledText = styled.span`
 
 StyledText.propTypes = {
   fontSize: PropTypes.string,
-  fontWeight: PropTypes.string,
+  fontWeight: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   color: PropTypes.oneOf(colors),
   whiteSpace: PropTypes.bool,
   textAlign: PropTypes.oneOf(alignments),

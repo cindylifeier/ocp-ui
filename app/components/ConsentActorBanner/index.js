@@ -6,16 +6,33 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Cell, Grid } from 'styled-css-grid';
+
+import StyledText from 'components/StyledText';
+import Padding from 'components/Padding';
 import Banner from './Banner';
+import BannerHeaderCell from './BannerHeaderCell';
 
 
 function ConsentActorBanner({ name, identifiers, addresses, telecoms }) {
   return (
     <Banner>
-      {name}
-      {identifiers}
-      {addresses}
-      {telecoms}
+      <Grid columns={1}>
+        <BannerHeaderCell>
+          <StyledText fontWeight={600}>
+            {name}
+            <StyledText whiteSpace fontWeight={600}>[ {identifiers} ]</StyledText>
+          </StyledText>
+        </BannerHeaderCell>
+        <Padding left="2px" right="2px">
+          <Cell>
+            {addresses}
+          </Cell>
+          <Cell>
+            {telecoms}
+          </Cell>
+        </Padding>
+      </Grid>
     </Banner>
   );
 }
