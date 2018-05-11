@@ -7,37 +7,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {
-  DEFAULT_START_PAGE_NUMBER,
-  MANAGE_PRACTITIONER_URL,
-  OCP_ADMIN_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE,
-} from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import InfoSection from 'components/InfoSection';
-import FhirUtil from 'utils/FhirUtil';
-import PanelToolbar from 'components/PanelToolbar';
-import PractitionerTable from 'components/PractitionerTable';
-import { mapToTelecoms } from 'containers/App/helpers';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
-import { flattenPractitionerData } from './helpers';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectPractitioners from './selectors';
-import messages from './messages';
+import DefaultViewComponent from './DefaultViewComponent';
 
 export class Practitioners extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      relativeTop: 0,
       isShowSearchResult: false,
       searchPractitioners: {
         searchType: 'name',
@@ -49,7 +36,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
     this.handleChangeListPage = this.handleChangeListPage.bind(this);
-    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
@@ -66,10 +52,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     if (!isEqual(organization, newOrganization)) {
       this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
     }
-  }
-
-  onSize(size) {
-    this.setState({ relativeTop: size.height });
   }
 
   handleSearch(searchValue, includeInactive, searchType) {
@@ -100,10 +82,6 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
   render() {
     const { practitioners } = this.props;
-    const addNewItem = {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_PRACTITIONER_URL,
-    };
     const practitionersData = {
       loading: practitioners.loading,
       data: practitioners.data,
@@ -114,29 +92,19 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
       handleChangePage: this.state.isShowSearchResult ? this.handleChangeSearchPage : this.handleChangeListPage,
     };
 
+    const viewComponentProps = {
+      onSearch: this.handleSearch,
+      practitionersData,
+    };
+    const Component = this.props.component;
     return (
-      <div>
-        <PanelToolbar
-          addNewItem={addNewItem}
-          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
-          onSearch={this.handleSearch}
-          onSize={this.onSize}
-        />
-        <InfoSection margin="0 0 10px 0">
-          <PractitionerTable
-            relativeTop={this.state.relativeTop}
-            practitionersData={practitionersData}
-            flattenPractitionerData={flattenPractitionerData}
-            combineAddress={FhirUtil.combineAddress}
-            mapToTelecoms={mapToTelecoms}
-          />
-        </InfoSection>
-      </div>
+      <Component {...viewComponentProps} />
     );
   }
 }
 
 Practitioners.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.func]).isRequired,
   organization: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     identifiers: PropTypes.arrayOf(PropTypes.shape({
@@ -179,6 +147,10 @@ Practitioners.propTypes = {
   getPractitionersInOrganization: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
+};
+
+Practitioners.defaultProps = {
+  component: DefaultViewComponent,
 };
 
 const mapStateToProps = createStructuredSelector({
