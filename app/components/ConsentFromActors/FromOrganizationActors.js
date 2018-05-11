@@ -14,7 +14,7 @@ class FromOrganizationActors extends React.Component {
   }
 
   render() {
-    const { onSearch, flattenOrganizationData, organizationData } = this.props;
+    const { onSearch, flattenOrganizationData, organizationData, onOrganizationClick } = this.props;
     return (
       <div>
         <StyledText fontWeight="700">Organizations</StyledText>
@@ -28,14 +28,14 @@ class FromOrganizationActors extends React.Component {
           onSearch={onSearch}
         />
         <InfoSection margin="0 0 10px 0">
-          {organizationData.data && organizationData.data.map((organization) => {
-            const flattenOrganization = flattenOrganizationData(organization);
-            const { name, identifiers, addresses, telecoms } = flattenOrganization;
-            const bannerProps = { name, identifiers, addresses, telecoms };
-            return (
-              <ConsentActorBanner key={organization.logicalId} {...bannerProps} />
-            );
-          })}
+          {organizationData.data && organizationData.data.map((organization) => (
+            <ConsentActorBanner
+              key={organization.logicalId}
+              onSelectActor={onOrganizationClick}
+              flattenActorData={flattenOrganizationData}
+              actor={organization}
+            />
+          ))}
           <CenterAlignedUltimatePagination
             currentPage={organizationData.currentPage}
             totalPages={organizationData.totalNumberOfPages}
@@ -49,6 +49,7 @@ class FromOrganizationActors extends React.Component {
 
 FromOrganizationActors.propTypes = {
   onSearch: PropTypes.func.isRequired,
+  onOrganizationClick: PropTypes.func,
   flattenOrganizationData: PropTypes.func.isRequired,
   organizationData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
