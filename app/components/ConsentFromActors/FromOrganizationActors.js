@@ -9,9 +9,7 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 class FromOrganizationActors extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      relativeTop: 0,
-    };
+    this.state = {};
   }
 
   render() {

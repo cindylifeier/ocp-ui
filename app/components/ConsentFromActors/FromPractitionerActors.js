@@ -1,48 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
-import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
-import { MANAGE_PRACTITIONER_URL, OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
-import PractitionerTable from 'components/PractitionerTable';
-import messages from './messages';
+import StyledText from 'components/StyledText';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 
-class DefaultViewComponent extends React.Component {
+class FromPractitionerActors extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      relativeTop: 0,
-    };
-    this.onSize = this.onSize.bind(this);
-  }
-
-  onSize(size) {
-    this.setState({ relativeTop: size.height });
+    this.state = {};
   }
 
   render() {
-    const addNewItem = {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_PRACTITIONER_URL,
-    };
     const { onSearch, flattenPractitionerData, practitionersData } = this.props;
     return (
       <div>
+        <StyledText fontWeight="700">Practitioners</StyledText>
         <PanelToolbar
-          addNewItem={addNewItem}
-          allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
+          showToDoSpecificFilters={false}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
+          sticky={false}
+          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
           onSearch={onSearch}
-          onSize={this.onSize}
         />
         <InfoSection margin="0 0 10px 0">
-          <PractitionerTable
-            relativeTop={this.state.relativeTop}
-            practitionersData={practitionersData}
-            flattenPractitionerData={flattenPractitionerData}
-            combineAddress={combineAddress}
-            mapToTelecoms={mapToTelecoms}
+          {practitionersData.data && practitionersData.data.map((practitioner) => {
+            const flattenedPractitioner = flattenPractitionerData(practitioner);
+            const { logicalId, name } = flattenedPractitioner;
+            return (
+              <div key={logicalId}>
+                {name}
+              </div>
+            );
+          })}
+          <CenterAlignedUltimatePagination
+            currentPage={practitionersData.currentPage}
+            totalPages={practitionersData.totalNumberOfPages}
+            onChange={practitionersData.handleChangePage}
           />
         </InfoSection>
       </div>
@@ -50,7 +47,7 @@ class DefaultViewComponent extends React.Component {
   }
 }
 
-DefaultViewComponent.propTypes = {
+FromPractitionerActors.propTypes = {
   onSearch: PropTypes.func.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
   practitionersData: PropTypes.shape({
@@ -90,4 +87,4 @@ DefaultViewComponent.propTypes = {
   }),
 };
 
-export default DefaultViewComponent;
+export default FromPractitionerActors;

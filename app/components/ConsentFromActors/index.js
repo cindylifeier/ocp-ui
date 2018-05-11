@@ -11,9 +11,11 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
 
 import Organizations from 'containers/Organizations';
+import Practitioners from 'containers/Practitioners';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import FromOrganizationActors from './FromOrganizationActors';
+import FromPractitionerActors from './FromPractitionerActors';
 import messages from './messages';
 
 
@@ -57,6 +59,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                       <Organizations component={FromOrganizationActors} />
                     </Cell>
                     <Cell>
+                      <Practitioners component={FromPractitionerActors} />
                     </Cell>
                   </Grid>
                 </DialogContent>

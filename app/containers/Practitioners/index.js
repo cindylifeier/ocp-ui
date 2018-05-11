@@ -20,6 +20,7 @@ import reducer from './reducer';
 import saga from './saga';
 import makeSelectPractitioners from './selectors';
 import DefaultViewComponent from './DefaultViewComponent';
+import { flattenPractitionerData } from './helpers';
 
 export class Practitioners extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -94,6 +95,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
     const viewComponentProps = {
       onSearch: this.handleSearch,
+      flattenPractitionerData,
       practitionersData,
     };
     const Component = this.props.component;
