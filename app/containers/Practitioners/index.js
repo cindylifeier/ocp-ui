@@ -95,6 +95,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
     const viewComponentProps = {
       onSearch: this.handleSearch,
+      onPractitionerSelect: this.props.onPractitionerSelect,
       flattenPractitionerData,
       practitionersData,
     };
@@ -108,6 +109,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 Practitioners.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func]).isRequired,
   pageSize: PropTypes.number,
+  onPractitionerSelect: PropTypes.func,
   organization: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     identifiers: PropTypes.arrayOf(PropTypes.shape({

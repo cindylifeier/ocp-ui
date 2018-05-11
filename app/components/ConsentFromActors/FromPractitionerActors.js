@@ -14,7 +14,7 @@ class FromPractitionerActors extends React.Component {
   }
 
   render() {
-    const { onSearch, flattenPractitionerData, practitionersData } = this.props;
+    const { onSearch, onPractitionerSelect, flattenPractitionerData, practitionersData } = this.props;
     return (
       <div>
         <StyledText fontWeight="700">Practitioners</StyledText>
@@ -28,14 +28,14 @@ class FromPractitionerActors extends React.Component {
           onSearch={onSearch}
         />
         <InfoSection margin="0 0 10px 0">
-          {practitionersData.data && practitionersData.data.map((practitioner) => {
-            const flattenedPractitioner = flattenPractitionerData(practitioner);
-            const { logicalId, name, identifiers, addresses, telecoms } = flattenedPractitioner;
-            const bannerProps = { name, identifiers, addresses, telecoms };
-            return (
-              <ConsentActorBanner key={logicalId} {...bannerProps} />
-            );
-          })}
+          {practitionersData.data && practitionersData.data.map((practitioner) => (
+            <ConsentActorBanner
+              key={practitioner.logicalId}
+              onSelectActor={onPractitionerSelect}
+              flattenActorData={flattenPractitionerData}
+              actor={practitioner}
+            />
+          ))}
           <CenterAlignedUltimatePagination
             currentPage={practitionersData.currentPage}
             totalPages={practitionersData.totalNumberOfPages}
@@ -50,6 +50,7 @@ class FromPractitionerActors extends React.Component {
 FromPractitionerActors.propTypes = {
   onSearch: PropTypes.func.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
+  onPractitionerSelect: PropTypes.func,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
