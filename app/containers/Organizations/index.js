@@ -21,7 +21,9 @@ import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
+import { flattenOrganizationData } from './helpers';
 import DefaultViewComponent from './DefaultViewComponent';
+
 
 export class Organizations extends React.Component {
   static initialState = {
@@ -100,10 +102,11 @@ export class Organizations extends React.Component {
 
     const viewComponentProps = {
       onSearch: this.handleSearch,
-      onSetOrganization: this.props.setOrganization,
+      onOrganizationClick: this.props.onOrganizationClick || this.props.setOrganization,
       onViewAll: this.handleViewAll,
       isShowViewAllButton: this.state.showViewAllButton,
-      organization: this.props.organization,
+      organizationInContext: this.props.organization,
+      flattenOrganizationData,
       organizationData,
       showSearchBarByDefault,
       hideToolbar,
@@ -121,6 +124,7 @@ Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
   organization: PropTypes.object,
   setOrganization: PropTypes.func.isRequired,
+  onOrganizationClick: PropTypes.func,
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
