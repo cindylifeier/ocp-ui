@@ -5,6 +5,7 @@ import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import StyledText from 'components/StyledText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import ConsentActorBanner from 'components/ConsentActorBanner';
 
 class FromPractitionerActors extends React.Component {
   constructor(props) {
@@ -29,11 +30,10 @@ class FromPractitionerActors extends React.Component {
         <InfoSection margin="0 0 10px 0">
           {practitionersData.data && practitionersData.data.map((practitioner) => {
             const flattenedPractitioner = flattenPractitionerData(practitioner);
-            const { logicalId, name } = flattenedPractitioner;
+            const { logicalId, name, identifiers, addresses, telecoms } = flattenedPractitioner;
+            const bannerProps = { name, identifiers, addresses, telecoms };
             return (
-              <div key={logicalId}>
-                {name}
-              </div>
+              <ConsentActorBanner key={logicalId} {...bannerProps} />
             );
           })}
           <CenterAlignedUltimatePagination
