@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
@@ -15,30 +14,18 @@ import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DEFAULT_START_PAGE_NUMBER, MANAGE_ORGANIZATION_URL, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import HorizontalAlignment from 'components/HorizontalAlignment';
-import StyledFlatButton from 'components/StyledFlatButton';
-import OrganizationTable from 'components/OrganizationTable/Loadable';
-import PanelToolbar from 'components/PanelToolbar';
-import InfoSection from 'components/InfoSection';
-import OrganizationSlider from 'components/OrganizationSlider';
-import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
-import { flattenOrganizationData } from './helpers';
-import messages from './messages';
+import DefaultViewComponent from './DefaultViewComponent';
 
 export class Organizations extends React.Component {
   static initialState = {
-    relativeTop: 0,
     isShowSearchResult: false,
-    listOrganizations: {
-      currentPage: 1,
-    },
     searchOrganizations: {
       currentPage: 1,
       searchValue: '',
@@ -51,17 +38,12 @@ export class Organizations extends React.Component {
     super(props);
     this.state = {
       ...Organizations.initialState,
-      openSlider: false,
       showViewAllButton: !isEmpty(this.props.organization),
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleRowClick = this.handleRowClick.bind(this);
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.handleSearchPageClick = this.handleSearchPageClick.bind(this);
     this.handleViewAll = this.handleViewAll.bind(this);
-    this.onSize = this.onSize.bind(this);
-    this.handleSliderOpen = this.handleSliderOpen.bind(this);
-    this.handleSliderClose = this.handleSliderClose.bind(this);
   }
 
   componentDidMount() {
@@ -83,20 +65,12 @@ export class Organizations extends React.Component {
     }
   }
 
-  onSize(size) {
-    this.setState({ relativeTop: size.height });
-  }
-
   handleSearch(searchValue, showInactive, searchType) {
     this.setState({
       isShowSearchResult: true,
       searchOrganizations: { searchValue, showInactive, searchType },
     });
     this.props.searchOrganizations(searchValue, showInactive, searchType, this.state.searchOrganizations.currentPage);
-  }
-
-  handleRowClick(organization) {
-    this.props.setOrganization(organization);
   }
 
   handleListPageClick(currentPage) {
@@ -112,114 +86,57 @@ export class Organizations extends React.Component {
     this.setState({ showViewAllButton: false });
   }
 
-  handleSliderOpen() {
-    this.setState({ openSlider: true });
-  }
-
-  handleSliderClose() {
-    this.setState({ openSlider: false });
-  }
-
   render() {
     const { organizations } = this.props;
-    const addNewItem = {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_ORGANIZATION_URL,
+    const organizationData = {
+      loading: organizations.loading,
+      data: organizations.data,
+      currentPage: organizations.currentPage,
+      totalNumberOfPages: organizations.totalNumberOfPages,
+      currentPageSize: organizations.currentPageSize,
+      totalElements: organizations.totalElements,
+      handlePageClick: this.state.isShowSearchResult ? this.handleSearchPageClick : this.handleListPageClick,
     };
-    // By initial to show listing organizations data
-    let organizationData = {
-      loading: organizations.listOrganizations.loading,
-      data: organizations.listOrganizations.data,
-      currentPage: organizations.listOrganizations.currentPage,
-      totalNumberOfPages: organizations.listOrganizations.totalNumberOfPages,
-      currentPageSize: organizations.listOrganizations.currentPageSize,
-      totalElements: organizations.listOrganizations.totalElements,
-      handlePageClick: this.handleListPageClick,
+
+    const viewComponentProps = {
+      onSearch: this.handleSearch,
+      onSetOrganization: this.props.setOrganization,
+      onViewAll: this.handleViewAll,
+      isShowViewAllButton: this.state.showViewAllButton,
+      organization: this.props.organization,
+      organizationData,
     };
-    if (this.state.isShowSearchResult) {
-      organizationData = {
-        loading: organizations.searchOrganizations.loading,
-        data: organizations.searchOrganizations.result,
-        currentPage: organizations.searchOrganizations.currentPage,
-        totalNumberOfPages: organizations.searchOrganizations.totalNumberOfPages,
-        currentPageSize: organizations.searchOrganizations.currentPageSize,
-        totalElements: organizations.searchOrganizations.totalElements,
-        handlePageClick: this.handleSearchPageClick,
-      };
-    }
+    const Component = this.props.component;
     return (
-      <div>
-        <PanelToolbar
-          addNewItem={addNewItem}
-          allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
-          onSearch={this.handleSearch}
-          onSize={this.onSize}
-        />
-        {this.state.showViewAllButton &&
-        <InfoSection margin="10px 0">
-          <HorizontalAlignment position="end">
-            <StyledFlatButton color="primary" onClick={this.handleViewAll}>
-              <FormattedMessage {...messages.viewAllButton} />
-            </StyledFlatButton>
-          </HorizontalAlignment>
-        </InfoSection>
-        }
-        <InfoSection margin="0 0 10px 0">
-          <OrganizationTable
-            relativeTop={this.state.relativeTop}
-            organizationData={organizationData}
-            onRowClick={this.handleRowClick}
-            flattenOrganizationData={flattenOrganizationData}
-            onOrganizationViewDetails={this.handleSliderOpen}
-            combineAddress={combineAddress}
-            mapToTelecoms={mapToTelecoms}
-          />
-        </InfoSection>
-        {this.props.organization &&
-        <OrganizationSlider
-          open={this.state.openSlider}
-          onClose={this.handleSliderClose}
-          organization={this.props.organization}
-          flattenOrganizationData={flattenOrganizationData}
-        />
-        }
-      </div>
+      <Component {...viewComponentProps} />
     );
   }
 }
 
 Organizations.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.func]).isRequired,
   initializeOrganizations: PropTypes.func.isRequired,
   organization: PropTypes.object,
   setOrganization: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
-    listOrganizations: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number,
-      totalElements: PropTypes.number,
-      data: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
-    searchOrganizations: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      result: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
+    data: PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
   }),
+};
+
+Organizations.defaultProps = {
+  component: DefaultViewComponent,
 };
 
 const mapStateToProps = createStructuredSelector({
