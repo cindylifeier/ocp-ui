@@ -7,6 +7,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import find from 'lodash/find';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import { MANAGE_CARE_TEAM_URL, MANAGE_PATIENT_URL, MANAGE_TASK_URL } from 'containers/App/constants';
@@ -22,7 +23,7 @@ import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } 
 import messages from './messages';
 
 
-function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress) {
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities) {
   return patients && patients.map((patient) => {
     const menuItems = [{
       primaryText: <FormattedMessage {...messages.edit} />,
@@ -78,10 +79,10 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         <TableRowColumn>{ address }</TableRowColumn>
         }
         { isExpanded &&
-        <TableRowColumn>{patient.race}</TableRowColumn>
+        <TableRowColumn>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
         }
         { isExpanded &&
-        <TableRowColumn>{patient.ethnicity}</TableRowColumn>
+        <TableRowColumn>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
         }
         { isExpanded &&
         <TableRowColumn>{patient.birthDate}</TableRowColumn>
@@ -115,7 +116,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -163,7 +164,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           <TableHeaderColumn />
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities)}
       </Table>
     );
   }
@@ -181,6 +182,14 @@ PatientSearchResult.propTypes = {
   mapToTelecoms: PropTypes.func.isRequired,
   combineAddress: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,
+  usCoreRaces: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  usCoreEthnicities: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
 };
 
 export default sizeMeHOC(PatientSearchResult);
