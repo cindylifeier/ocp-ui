@@ -16,8 +16,8 @@ class AddFromActors extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPractitioner: null,
-      selectedOrganization: null,
+      selectedPractitioners: [],
+      selectedOrganizations: [],
     };
     this.handleOrganizationSelect = this.handleOrganizationSelect.bind(this);
     this.handlePractitionerSelect = this.handlePractitionerSelect.bind(this);
@@ -26,18 +26,20 @@ class AddFromActors extends React.Component {
 
   handleOrganizationSelect(selectedOrganization) {
     this.setState({
-      selectedOrganization,
+      selectedOrganizations: [...this.state.selectedOrganizations, selectedOrganization],
     });
   }
 
   handlePractitionerSelect(selectedPractitioner) {
-    this.setState({ selectedPractitioner });
+    this.setState({
+      selectedPractitioners: [...this.state.selectedPractitioners, selectedPractitioner],
+    });
   }
 
   handleAddSelectedActors() {
     const selectedActors = {
-      practitioner: this.state.selectedPractitioner,
-      organization: this.state.selectedOrganization,
+      practitioners: this.state.selectedPractitioners,
+      organizations: this.state.selectedOrganizations,
     };
     this.props.onAddFromActors(selectedActors);
     this.props.onCloseDialog();
@@ -69,7 +71,7 @@ class AddFromActors extends React.Component {
               <Grid columns={2}>
                 <Cell>
                   <StyledRaisedButton fullWidth onClick={this.handleAddSelectedActors}>
-                    <FormattedMessage {...messages.saveButton} />
+                    <FormattedMessage {...messages.confirmButton} />
                   </StyledRaisedButton>
                 </Cell>
                 <Cell>

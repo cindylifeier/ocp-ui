@@ -20,45 +20,59 @@ import BannerHeaderCell from './BannerHeaderCell';
 import messages from './messages';
 
 
-function ConsentActorBanner({ actor, flattenActorData, onSelectActor }) {
-  const flattenedActor = flattenActorData(actor);
-  const { name, identifiers, addresses, telecoms } = flattenedActor;
-  return (
-    <Banner>
-      <Grid columns={1}>
-        <BannerHeaderCell>
-          <Grid columns="93% 7%">
+class ConsentActorBanner extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowAddActor: true,
+    };
+  }
+
+  render() {
+    const { actor, flattenActorData, onSelectActor } = this.props;
+    const flattenedActor = flattenActorData(actor);
+    const { name, identifiers, addresses, telecoms } = flattenedActor;
+    return (
+      <Banner>
+        <Grid columns={1}>
+          <BannerHeaderCell>
+            <Grid columns="93% 7%">
+              <Cell>
+                <StyledText fontWeight={600}>
+                  {name}
+                  <StyledText whiteSpace fontWeight={600}>[ {identifiers} ]</StyledText>
+                </StyledText>
+              </Cell>
+              <Cell>
+                <StyledTooltip title={<FormattedMessage {...messages.selectButton} />}>
+                  <StyledIconButton
+                    size="x-small"
+                    svgIconSize="small"
+                    disableIconHover
+                    onClick={() => {
+                      onSelectActor(actor);
+                      this.setState({ isShowAddActor: !this.state.isShowAddActor });
+                    }}
+                    disabled={!this.state.isShowAddActor}
+                  >
+                    <AddCircleIcon color={this.state.isShowAddActor ? teal['500'] : 'rgba(0, 0, 0, 0.3)'} />
+                  </StyledIconButton>
+                </StyledTooltip>
+              </Cell>
+            </Grid>
+          </BannerHeaderCell>
+          <Padding left="2px" right="2px">
             <Cell>
-              <StyledText fontWeight={600}>
-                {name}
-                <StyledText whiteSpace fontWeight={600}>[ {identifiers} ]</StyledText>
-              </StyledText>
+              {addresses}
             </Cell>
             <Cell>
-              <StyledTooltip title={<FormattedMessage {...messages.selectButton} />}>
-                <StyledIconButton
-                  size="x-small"
-                  svgIconSize="small"
-                  disableIconHover
-                  onClick={() => onSelectActor && onSelectActor(actor)}
-                >
-                  <AddCircleIcon color={teal['500']} />
-                </StyledIconButton>
-              </StyledTooltip>
+              {telecoms}
             </Cell>
-          </Grid>
-        </BannerHeaderCell>
-        <Padding left="2px" right="2px">
-          <Cell>
-            {addresses}
-          </Cell>
-          <Cell>
-            {telecoms}
-          </Cell>
-        </Padding>
-      </Grid>
-    </Banner>
-  );
+          </Padding>
+        </Grid>
+      </Banner>
+    );
+  }
 }
 
 ConsentActorBanner.propTypes = {
