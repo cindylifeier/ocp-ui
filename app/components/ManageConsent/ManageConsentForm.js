@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
+import { RadioButton } from 'material-ui';
 
-import SelectConsentActors from 'containers/SelectConsentActors';
+
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
@@ -12,7 +13,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
 import RadioButtonGroup from 'components/RadioButtonGroup';
-import { RadioButton } from 'material-ui';
+import ConsentFromActors from 'components/ConsentFromActors';
+import ConsentToActors from 'components/ConsentToActors';
 import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
@@ -42,7 +44,16 @@ function ManageConsentForm(props) {
           >
           </Checkbox>
           {!values.consentType &&
-          <SelectConsentActors />
+          <InfoSection>
+            <Grid columns={2} gap={'20px'}>
+              <Cell>
+                <ConsentFromActors />
+              </Cell>
+              <Cell>
+                <ConsentToActors />
+              </Cell>
+            </Grid>
+          </InfoSection>
           }
         </Cell>
         <Cell area="medicalInfoGroup">
