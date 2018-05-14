@@ -209,7 +209,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.setState((prevState) => ({
       selected: {
         ...prevState.selected,
-        organization: `Organization/${organization.logicalId}`,
+        organization: `${organization.logicalId}`,
       },
     }), () => this.props.setOrganization(organization));
   }
@@ -218,7 +218,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.setState((prevState) => ({
       selected: {
         ...prevState.selected,
-        location: `Location/${location.logicalId}`,
+        location: `${location.logicalId}`,
       },
     }));
   }
@@ -227,7 +227,7 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
     this.setState((prevState) => ({
       selected: {
         ...prevState.selected,
-        patient: `Patient/${patient.id}`,
+        patient: `${patient.id}`,
       },
     }));
   }
