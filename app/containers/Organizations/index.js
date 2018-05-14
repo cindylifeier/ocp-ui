@@ -89,7 +89,7 @@ export class Organizations extends React.Component {
   }
 
   render() {
-    const { organizations } = this.props;
+    const { organizations, ...rest } = this.props;
     const organizationData = {
       loading: organizations.loading,
       data: organizations.data,
@@ -108,6 +108,7 @@ export class Organizations extends React.Component {
       organizationInContext: this.props.organization,
       flattenOrganizationData,
       organizationData,
+      ...rest,
     };
     const Component = this.props.component;
     return (

@@ -82,7 +82,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const { practitioners } = this.props;
+    const { practitioners, ...rest } = this.props;
     const practitionersData = {
       loading: practitioners.loading,
       data: practitioners.data,
@@ -98,6 +98,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
       onPractitionerSelect: this.props.onPractitionerSelect,
       flattenPractitionerData,
       practitionersData,
+      ...rest,
     };
     const Component = this.props.component;
     return (
