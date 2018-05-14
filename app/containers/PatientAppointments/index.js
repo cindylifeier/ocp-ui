@@ -6,7 +6,6 @@
 
 import CenterAlign from 'components/Align/CenterAlign';
 import AppointmentTable from 'components/AppointmentTable';
-import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import ContentSection from 'components/ContentSection';
@@ -149,66 +148,64 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_CODE);
     return (
       <div>
-        <Card>
-          <PanelToolbar
-            {...addNewItem}
-            allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
-            showSearchIcon={false}
-            onSize={this.handlePanelResize}
-          />
-          <ContentSection>
-            {showPastAppFilter &&
-            <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-              <FilterSection>
-                <CheckboxFilterGrid>
-                  <Cell>
-                    <StatusCheckbox
-                      messages={messages.showPastAppointments}
-                      elementId="showPastAppointmentsCheckBox"
-                      checked={this.props.showPastAppointments}
-                      handleCheck={this.handleCheck}
-                    />
-                  </Cell>
-                </CheckboxFilterGrid>
-              </FilterSection>
-            </SizedStickyDiv>
-            }
-            {loading &&
-            <RefreshIndicatorLoading />}
-            {!loading && isEmpty(data) &&
-            <NoPatientAppointmentsMessage>{
-              <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
-            {!isEmpty(data) && !isEmpty(data.elements) &&
-            <CenterAlign>
-              <AppointmentTable
-                elements={data.elements}
-                appointmentStatuses={appointmentStatuses}
-                appointmentTypes={appointmentTypes}
-                cancelAppointment={this.cancelAppointment}
-                acceptAppointment={this.acceptAppointment}
-                declineAppointment={this.declineAppointment}
-                tentativeAppointment={this.tentativeAppointment}
-                patientId={patientId}
-                communicationBaseUrl={communicationBaseUrl}
-                relativeTop={this.state.panelHeight + this.state.filterHeight}
-                enableEditAppointment={enableEditAppointment}
-                manageAppointmentUrl={manageAppointmentUrl}
-              />
-              <CenterAlignedUltimatePagination
-                currentPage={data.currentPage}
-                totalPages={data.totalNumberOfPages}
-                onChange={this.handlePageClick}
-              />
-              <RecordsRange
-                currentPage={data.currentPage}
-                totalPages={data.totalNumberOfPages}
-                totalElements={data.totalElements}
-                currentPageSize={data.currentPageSize}
-              />
-            </CenterAlign>
-            }
-          </ContentSection>
-        </Card>
+        <PanelToolbar
+          {...addNewItem}
+          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          showSearchIcon={false}
+          onSize={this.handlePanelResize}
+        />
+        <ContentSection>
+          {showPastAppFilter &&
+          <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
+            <FilterSection>
+              <CheckboxFilterGrid>
+                <Cell>
+                  <StatusCheckbox
+                    messages={messages.showPastAppointments}
+                    elementId="showPastAppointmentsCheckBox"
+                    checked={this.props.showPastAppointments}
+                    handleCheck={this.handleCheck}
+                  />
+                </Cell>
+              </CheckboxFilterGrid>
+            </FilterSection>
+          </SizedStickyDiv>
+          }
+          {loading &&
+          <RefreshIndicatorLoading />}
+          {!loading && isEmpty(data) &&
+          <NoPatientAppointmentsMessage>{
+            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
+          {!isEmpty(data) && !isEmpty(data.elements) &&
+          <CenterAlign>
+            <AppointmentTable
+              elements={data.elements}
+              appointmentStatuses={appointmentStatuses}
+              appointmentTypes={appointmentTypes}
+              cancelAppointment={this.cancelAppointment}
+              acceptAppointment={this.acceptAppointment}
+              declineAppointment={this.declineAppointment}
+              tentativeAppointment={this.tentativeAppointment}
+              patientId={patientId}
+              communicationBaseUrl={communicationBaseUrl}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+              enableEditAppointment={enableEditAppointment}
+              manageAppointmentUrl={manageAppointmentUrl}
+            />
+            <CenterAlignedUltimatePagination
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              onChange={this.handlePageClick}
+            />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={data.totalElements}
+              currentPageSize={data.currentPageSize}
+            />
+          </CenterAlign>
+          }
+        </ContentSection>
       </div>
     );
   }
