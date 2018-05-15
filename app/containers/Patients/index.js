@@ -23,23 +23,26 @@ import {
   CARE_MANAGER_ROLE_CODE,
   MANAGE_PATIENT_URL,
   OCP_ADMIN_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE, USCOREETHNICITY,
+  USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
 import { mapToTelecoms } from 'containers/App/helpers';
 import FhirUtil from 'utils/FhirUtil';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
 import {
-  makeSelectCurrentPage,
-  makeSelectCurrentPageSize,
-  makeSelectPatientSearchResult,
-  makeSelectPatientTotalElements,
-  makeSelectQueryIncludeInactive,
-  makeSelectQuerySearchTerms,
-  makeSelectQuerySearchType,
-  makeSelectSearchError,
-  makeSelectSearchLoading,
-  makeSelectTotalPages,
+makeSelectCurrentPage,
+makeSelectCurrentPageSize,
+makeSelectPatientSearchResult,
+makeSelectPatientTotalElements,
+makeSelectQueryIncludeInactive,
+makeSelectQuerySearchTerms,
+makeSelectQuerySearchType,
+makeSelectSearchError,
+makeSelectSearchLoading,
+makeSelectTotalPages,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
@@ -71,6 +74,7 @@ export class Patients extends React.Component {
     } else {
       this.props.initializePatients();
     }
+    this.props.getLookUpData();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,12 +129,14 @@ export class Patients extends React.Component {
   }
 
   render() {
-    const { loading, error, searchResult, organization, showSearchBarByDefault, hideToolbar } = this.props;
+    const { loading, error, searchResult, organization, usCoreRaces, usCoreEthnicities, showSearchBarByDefault, hideToolbar } = this.props;
     const searchResultProps = {
       loading,
       error,
       searchResult,
       organization,
+      usCoreRaces,
+      usCoreEthnicities,
     };
     const addNewItem = {
       addNewItem: {
@@ -193,6 +199,14 @@ Patients.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
+  usCoreRaces: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  usCoreEthnicities: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
   onSubmitForm: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
@@ -203,6 +217,7 @@ Patients.propTypes = {
   includeInactive: PropTypes.bool,
   initializePatients: PropTypes.func.isRequired,
   setPatient: PropTypes.func.isRequired,
+  getLookUpData: PropTypes.func.isRequired,
   patient: PropTypes.object,
   organization: PropTypes.object,
   onPatientClick: PropTypes.func,
@@ -228,6 +243,8 @@ const mapStateToProps = createStructuredSelector({
   includeInactive: makeSelectQueryIncludeInactive(),
   patient: makeSelectPatient(),
   organization: makeSelectOrganization(),
+  usCoreRaces: makeSelectUsCoreRaces(),
+  usCoreEthnicities: makeSelectUsCoreEthnicities(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -238,7 +255,7 @@ function mapDispatchToProps(dispatch) {
     },
     onChangePage: (searchTerms, searchType, includeInactive, currentPage, organization) => dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage, organization)),
     initializePatients: (patients) => dispatch(initializePatients(patients)),
-
+    getLookUpData: () => dispatch(getLookupsAction([USCORERACE, USCOREETHNICITY])),
     setPatient: (patient) => dispatch(setPatient(patient)),
   };
 }

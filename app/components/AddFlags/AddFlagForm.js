@@ -63,7 +63,7 @@ function AddFlagForm(props) {
           }
           handleCloseDialog();
         }}
-        initialValues={{ ...(initialValueFlag || { flag: { flagStart: new Date() } }).flag }}
+        initialValues={{ ...(initialValueFlag || { flag: { flagStart: new Date(), authorName: practitioner.display } }).flag }}
         validationSchema={() =>
           yup.lazy((values) => {
             let DefaultflagStart = new Date();

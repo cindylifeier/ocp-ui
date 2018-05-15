@@ -61,6 +61,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+    this.getPractitioner = this.getPractitioner.bind(this);
   }
 
   componentDidMount() {
@@ -71,10 +72,13 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
       this.props.getPractitioners(organization.logicalId);
     }
   }
-  getPractitionerId() {
+  getPractitioner() {
     const { user } = this.props;
-    return (user && user.fhirResource) ? user.fhirResource.logicalId : null;
+    const id = (user && user.fhirResource) ? user.fhirResource.logicalId : null;
+    const display = `${(user && user.fhirResource) ? `${user.fhirResource.name[0].firstName} ${user.fhirResource.name[0].lastName}` : null}`;
+    return { id, display };
   }
+
   handleSave(patientFormData, actions) {
     if (this.props.organization) {
       merge(patientFormData, { organizationId: this.props.organization.logicalId });
@@ -109,7 +113,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
       flagStatuses,
       flagCategories,
       patient,
-      practitioner: this.practitioner,
+      practitioner: this.getPractitioner(),
       practitioners,
       organization,
     };
