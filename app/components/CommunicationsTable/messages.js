@@ -42,4 +42,30 @@ export default defineMessages({
     id: 'ocpui.containers.communicationsTable.noCommunications',
     defaultMessage: 'No Communications for selected patient. Please create communication.',
   },
+  expansionRowDetails: {
+    message: {
+      id: 'ocpui.components.communicationTable.message',
+      defaultMessage: 'Message Content',
+    },
+    note: {
+      id: 'ocpui.components.communicationTable.note',
+      defaultMessage: 'Note',
+    },
+    noCommunicatonReason: {
+      id: 'ocpui.components.communicationTable.noCommunicatonReason',
+      defaultMessage: 'Communication Did not occur Reason',
+    },
+    columnHeaderName: {
+      id: 'ocpui.components.communicationTable.columnHeaderName',
+      defaultMessage: 'Name',
+    },
+    columnHeaderRole: {
+      id: 'ocpui.components.communicationTable.columnHeaderRole',
+      defaultMessage: 'Role',
+    },
+    recipients: {
+      id: 'ocpui.components.communicationTable.recipients',
+      defaultMessage: 'Recipients: ',
+    },
+  },
 });
