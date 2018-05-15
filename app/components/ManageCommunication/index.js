@@ -58,13 +58,14 @@ function ManageCommunication(props) {
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
 
 
-  function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories) {
+  function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories, episodeOfCareList) {
     let formData = null;
     let subjectData = null;
     let senderData = null;
     let communicationData = null;
     let topicData = null;
     let categoryData = null;
+    let episodeOfCareData = null;
     if (!isEmpty(patient)) {
       subjectData = merge(
         mapToParticipantName(patient, 'subject'),
@@ -76,10 +77,9 @@ function ManageCommunication(props) {
       );
     }
 
-    categoryData = merge(
-      mapToDefaultCategoryToInstruction(categories, 'categoryDisplay'),
-    );
+    categoryData = mapToDefaultCategoryToInstruction(categories, 'categoryDisplay');
 
+    episodeOfCareData = mapToDefaultEpisodeOfCare(episodeOfCareList, 'episodeOfCareCode');
 
     if (!isEmpty(currentCommunication)) {
       communicationData = merge(
@@ -105,7 +105,7 @@ function ManageCommunication(props) {
       );
     }
 
-    formData = merge(subjectData, senderData, communicationData, topicData, categoryData);
+    formData = merge(subjectData, senderData, communicationData, topicData, categoryData, episodeOfCareData);
     return Util.pickByIdentity(formData);
   }
 
@@ -113,6 +113,14 @@ function ManageCommunication(props) {
     const fieldObject = {};
     if (!isUndefined(fieldName) && participant && participant.name && participant.name.length > 0) {
       fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(getPatientName(participant.name[0]));
+    }
+    return fieldObject;
+  }
+
+  function mapToDefaultEpisodeOfCare(episodeOfCareList, fieldName) {
+    const fieldObject = {};
+    if (!isEmpty(episodeOfCareList) && episodeOfCareList.length > 0) {
+      fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(episodeOfCareList[0].display);
     }
     return fieldObject;
   }
@@ -177,7 +185,7 @@ function ManageCommunication(props) {
     const category = find(categories, { code: 'instruction' });
     const notDoneReason = find(notDoneReasons, { code: notDoneReasonCode });
     const medium = find(media, { code: mediumCode });
-    const episodeOfCare = find(episodeOfCareList, { reference: episodeOfCareCode });
+    const episodeOfCare = find(episodeOfCareList, { display: episodeOfCareCode });
 
     const currentCommunication = {
       note,
@@ -265,7 +273,7 @@ function ManageCommunication(props) {
   return (
     <Formik
       isInitialValid={editMode}
-      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment, communicationCategories)}
+      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment, communicationCategories, episodeOfCares)}
       enableReinitialize
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
