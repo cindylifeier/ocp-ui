@@ -15,7 +15,6 @@ import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import Table from 'components/Table';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -24,7 +23,10 @@ import {
   EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from 'components/CommunicationsTable/constants';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import CommunicationExpansionRowDetails from 'components/CommunicationsTable/CommunicationExpansionRowDetails';
 import messages from './messages';
+
 
 function CommunicationsTable(props) {
   const { loading, data, selectedPatient, manageCommunicationBaseUrl } = props.communicationsData;
@@ -33,13 +35,13 @@ function CommunicationsTable(props) {
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
   function createDateTime(dataArray) {
-    const year = dataArray[0];
-    const month = dataArray[1];
-    const day = dataArray[2];
-    const hours = dataArray[3];
-    const minutes = dataArray[4];
-    const seconds = dataArray[5];
-    const milliSeconds = dataArray[6];
+    const year = dataArray[0] || 0;
+    const month = dataArray[1] || 0;
+    const day = dataArray[2] || 0;
+    const hours = dataArray[3] || 0;
+    const minutes = dataArray[4] || 0;
+    const seconds = dataArray[5] || 0;
+    const milliSeconds = dataArray[6] || 0;
 
     return new Date(year, month, day, hours, minutes, seconds, milliSeconds);
   }
@@ -51,6 +53,7 @@ function CommunicationsTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
+                <TableHeaderColumn></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
@@ -80,7 +83,13 @@ function CommunicationsTable(props) {
                 const sent = communication && communication.sent ? (createDateTime(communication.sent)).toString() : '';
 
                 return (
-                  <TableRow key={communication.logicalId} columns={columns}>
+                  <ExpansionTableRow
+                    expansionTableRowDetails={<CommunicationExpansionRowDetails communication={communication} />}
+                    columns={columns}
+                    key={communication.logicalId}
+                    role="button"
+                    tabIndex="0"
+                  >
                     <TableRowColumn>{ sent }</TableRowColumn>
                     {isExpanded &&
                     <TableRowColumn>{ lastUpdated }</TableRowColumn>
@@ -99,7 +108,7 @@ function CommunicationsTable(props) {
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
                     </TableRowColumn>
-                  </TableRow>
+                  </ExpansionTableRow>
                 );
               })}
             </Table>
