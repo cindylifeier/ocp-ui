@@ -13,8 +13,8 @@ import isEmpty from 'lodash/isEmpty';
 
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
+import AddedConsentActorsTable from 'components/AddedConsentActorsTable';
 import AddFromActors from './AddFromActors';
-import AddedFromActorsTable from './AddedFromActorsTable';
 import messages from './messages';
 
 
@@ -61,7 +61,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                 </DialogContent>
               </StyledDialog>
               {!isEmpty(consentFromActors) &&
-              <AddedFromActorsTable actors={consentFromActors} />
+              <AddedConsentActorsTable actors={consentFromActors} />
               }
             </div>
           )}

@@ -10,7 +10,7 @@ import { SAVE_CONSENT } from './constants';
 
 function* saveConsentSaga(action) {
   try {
-    const patient = yield select(makeSelectPatient);
+    const patient = yield select(makeSelectPatient());
     yield call(saveConsent, action.consentFormData, patient);
     yield put(showNotification(`Successfully ${action.consentFormData.logicalId ? 'edit' : 'create'} the Consent Resource.`));
     yield call(action.handleSubmitting);
