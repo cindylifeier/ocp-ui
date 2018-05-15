@@ -4,28 +4,20 @@
  *
  */
 
-import { CREATE_CONSENT, CREATE_CONSENT_ERROR, CREATE_CONSENT_SUCCESS } from './constants';
+import { SAVE_CONSENT, SAVE_CONSENT_ERROR } from './constants';
 
-export function createConsent(consentFormData, handleSubmitting) {
+
+export function saveConsent(consentFormData, handleSubmitting) {
   return {
-    type: CREATE_CONSENT,
+    type: SAVE_CONSENT,
     consentFormData,
     handleSubmitting,
   };
 }
 
-export function createConsentError(error) {
+export function saveConsentError(error) {
   return {
-    type: CREATE_CONSENT_ERROR,
+    type: SAVE_CONSENT_ERROR,
     error,
   };
 }
-
-
-export function createConsentSuccess(response) {
-  return {
-    type: CREATE_CONSENT_SUCCESS,
-    response,
-  };
-}
-
