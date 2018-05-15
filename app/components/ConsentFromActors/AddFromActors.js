@@ -2,6 +2,9 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
+import identity from 'lodash/identity';
+import isEmpty from 'lodash/isEmpty';
+import union from 'lodash/union';
 
 import Organizations from 'containers/Organizations';
 import Practitioners from 'containers/Practitioners';
@@ -25,23 +28,28 @@ class AddFromActors extends React.Component {
   }
 
   handleOrganizationSelect(selectedOrganization) {
+    const orgReference = {
+      reference: `Organization/${selectedOrganization.logicalId}`,
+      display: selectedOrganization.name,
+    };
     this.setState({
-      selectedOrganizations: [...this.state.selectedOrganizations, selectedOrganization],
+      selectedOrganizations: [...this.state.selectedOrganizations, orgReference],
     });
   }
 
   handlePractitionerSelect(selectedPractitioner) {
+    const practitionerReference = {
+      reference: `Practitioner/${selectedPractitioner.logicalId}`,
+      display: mapToName(selectedPractitioner.name),
+    };
     this.setState({
-      selectedPractitioners: [...this.state.selectedPractitioners, selectedPractitioner],
+      selectedPractitioners: [...this.state.selectedPractitioners, practitionerReference],
     });
   }
 
   handleAddSelectedActors() {
-    const selectedActors = {
-      practitioners: this.state.selectedPractitioners,
-      organizations: this.state.selectedOrganizations,
-    };
-    this.props.onAddFromActors(selectedActors);
+    const fromActors = union(this.state.selectedPractitioners, this.state.selectedOrganizations);
+    this.props.onAddFromActors(fromActors);
     this.props.onCloseDialog();
   }
 
@@ -86,6 +94,15 @@ class AddFromActors extends React.Component {
       </div>
     );
   }
+}
+
+function mapToName(nameArray) {
+  let name;
+  if (!isEmpty(nameArray)) {
+    const [{ firstName, lastName }] = nameArray;
+    name = [firstName, lastName].filter(identity).join(' ');
+  }
+  return name;
 }
 
 AddFromActors.propTypes = {

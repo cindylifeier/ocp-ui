@@ -4,7 +4,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
 import { RadioButton } from 'material-ui';
-
+import flattenDeep from 'lodash/flattenDeep';
 
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
@@ -31,6 +31,10 @@ function ManageConsentForm(props) {
   };
   const today = new Date();
 
+  const fromActorsProps = {
+    consentFromActors: flattenDeep(values.consentFromActors),
+  };
+
   return (
     <Form>
       <ManageConsentFormGrid gap="1vw">
@@ -47,7 +51,7 @@ function ManageConsentForm(props) {
           <InfoSection>
             <Grid columns={2} gap={'20px'}>
               <Cell>
-                <ConsentFromActors />
+                <ConsentFromActors {...fromActorsProps} />
               </Cell>
               <Cell>
                 <ConsentToActors />

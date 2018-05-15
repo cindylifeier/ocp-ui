@@ -27,9 +27,9 @@ export default defineMessages({
       id: 'ocpui.components.ConsentFromActors.name',
       defaultMessage: 'Name',
     },
-    identifiers: {
+    reference: {
       id: 'ocpui.components.ConsentFromActors.identifiers',
-      defaultMessage: 'Identifier',
+      defaultMessage: 'Reference',
     },
   },
 });

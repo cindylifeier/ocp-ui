@@ -6,11 +6,15 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import isEmpty from 'lodash/isEmpty';
+
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import AddFromActors from './AddFromActors';
+import AddedFromActorsTable from './AddedFromActorsTable';
 import messages from './messages';
 
 
@@ -35,6 +39,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 
   render() {
+    const { consentFromActors } = this.props;
     return (
       <div>
         <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
@@ -55,6 +60,9 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                   />
                 </DialogContent>
               </StyledDialog>
+              {!isEmpty(consentFromActors) &&
+              <AddedFromActorsTable actors={consentFromActors} />
+              }
             </div>
           )}
         />
@@ -63,6 +71,11 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 }
 
-ConsentFromActors.propTypes = {};
+ConsentFromActors.propTypes = {
+  consentFromActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.string.isRequired,
+  })),
+};
 
 export default ConsentFromActors;
