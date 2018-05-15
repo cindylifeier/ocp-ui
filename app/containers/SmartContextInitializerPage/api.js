@@ -6,7 +6,7 @@ export function postContext(launchId, context) {
     'Content-Type': 'application/json',
   };
   const baseEndpoint = getEndpoint(BASE_SMART_URL);
-  const requestUrl = `${baseEndpoint}/launches/${launchId}`;
+  const requestUrl = `${baseEndpoint}/launch/${launchId}`;
   const body = JSON.stringify(context);
   return request(requestUrl, {
     method: 'POST',
