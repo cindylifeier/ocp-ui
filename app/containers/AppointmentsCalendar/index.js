@@ -7,13 +7,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-
+import Calendar from 'components/Calendar';
+import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAppointmentsCalendar from './selectors';
@@ -28,14 +28,13 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
   render() {
     const { appointmentsCalendar: { data } } = this.props;
-    console.log(data);
     return (
       <div>
-        <Helmet>
-          <title>AppointmentsCalendar</title>
-          <meta name="description" content="Description of AppointmentsCalendar" />
-        </Helmet>
-
+        {!isEmpty(data) &&
+          <Calendar
+            elements={data}
+          />
+        }
       </div>
     );
   }
@@ -43,7 +42,9 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
 AppointmentsCalendar.propTypes = {
   getAppointments: PropTypes.func.isRequired,
-  appointmentsCalendar: PropTypes.object,
+  appointmentsCalendar: PropTypes.shape({
+    data: PropTypes.array,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
