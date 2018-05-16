@@ -8,9 +8,8 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import { capitalizeFirstLetter, removeDashesAndCapitalizeEachWord } from 'utils/AppointmentUtils';
 import messages from './messages';
-
 
 function SelectedParticipants(props) {
   const {
@@ -21,16 +20,6 @@ function SelectedParticipants(props) {
   const handleRemoveParticipant = (participant) => {
     removeParticipant(participant);
   };
-
-  function removeDashesAndCapitalizeEachWord(str) {
-    const words = str.match(/([^-]+)/g) || [];
-    words.forEach((word, i) => {
-      words[i] = word[0].toUpperCase() + word.slice(1);
-    });
-    return words.join(' ');
-  }
-
-  const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
 
   return (
     <Table>
