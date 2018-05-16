@@ -22,14 +22,4 @@ export default defineMessages({
     id: 'ocpui.components.ConsentFromActors.cancelButton',
     defaultMessage: 'Cancel',
   },
-  addedFromActorsTable: {
-    name: {
-      id: 'ocpui.components.ConsentFromActors.name',
-      defaultMessage: 'Name',
-    },
-    reference: {
-      id: 'ocpui.components.ConsentFromActors.identifiers',
-      defaultMessage: 'Reference',
-    },
-  },
 });

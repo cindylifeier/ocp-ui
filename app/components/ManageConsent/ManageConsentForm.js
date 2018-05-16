@@ -34,6 +34,9 @@ function ManageConsentForm(props) {
   const fromActorsProps = {
     consentFromActors: flattenDeep(values.consentFromActors),
   };
+  const toActorsProps = {
+    consentToActors: flattenDeep(values.consentToActors),
+  };
 
   return (
     <Form>
@@ -54,7 +57,7 @@ function ManageConsentForm(props) {
                 <ConsentFromActors {...fromActorsProps} />
               </Cell>
               <Cell>
-                <ConsentToActors />
+                <ConsentToActors {...toActorsProps} />
               </Cell>
             </Grid>
           </InfoSection>

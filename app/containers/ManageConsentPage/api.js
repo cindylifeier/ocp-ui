@@ -38,7 +38,7 @@ function createConsent(consentFormData, patient) {
 
 function mapToBffConsentDto(consentFormData, patient) {
   const {
-    consentFromActors, consentStart, consentEnd, consentType,
+    consentFromActors, consentToActors, consentStart, consentEnd, consentType,
   } = consentFormData;
 
   const patientReference = {
@@ -55,6 +55,7 @@ function mapToBffConsentDto(consentFormData, patient) {
     period,
     patient: patientReference,
     fromActor: flattenDeep(consentFromActors),
+    toActor: flattenDeep(consentToActors),
     generalDesignation: consentType,
   };
 }
