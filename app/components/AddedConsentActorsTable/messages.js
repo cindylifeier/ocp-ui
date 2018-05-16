@@ -14,8 +14,12 @@ export default defineMessages({
     id: 'ocpui.components.AddedConsentActorsTable.name',
     defaultMessage: 'Name',
   },
-  reference: {
-    id: 'ocpui.components.AddedConsentActorsTable.reference',
-    defaultMessage: 'Reference',
+  type: {
+    id: 'ocpui.components.AddedConsentActorsTable.type',
+    defaultMessage: 'Type',
+  },
+  identifier: {
+    id: 'ocpui.components.AddedConsentActorsTable.identifier',
+    defaultMessage: 'Identifier',
   },
 });

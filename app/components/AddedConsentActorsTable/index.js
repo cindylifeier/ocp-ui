@@ -19,7 +19,7 @@ import messages from './messages';
 
 
 function AddedConsentActorsTable(props) {
-  const tableColumns = 'repeat(2, 1fr) 50px';
+  const tableColumns = '30% 15% 1fr 50px';
   const { actors } = props;
   return (
     <div>
@@ -27,14 +27,16 @@ function AddedConsentActorsTable(props) {
         <Table>
           <TableHeader columns={tableColumns}>
             <TableHeaderColumn><FormattedMessage {...messages.name} /></TableHeaderColumn>
-            <TableHeaderColumn><FormattedMessage {...messages.reference} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.type} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
           </TableHeader>
           {actors && actors.map((actor) => {
-            const { display, reference } = actor;
+            const { display, reference, identifiers } = actor;
             return (
               <TableRow key={uniqueId()} columns={tableColumns}>
                 <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>{`${reference.type}/${reference.logicalId}`}</TableRowColumn>
+                <TableRowColumn>{reference.type}</TableRowColumn>
+                <TableRowColumn>{mapToIdentifiers(identifiers)}</TableRowColumn>
               </TableRow>
             );
           })}
@@ -42,6 +44,16 @@ function AddedConsentActorsTable(props) {
       </InfoSection>
     </div>
   );
+}
+
+function mapToIdentifiers(identifiers) {
+  const EMPTY_STRING = '';
+  const NEW_LINE_CHARACTER = '\n';
+  return identifiers && identifiers.map((identifier) => {
+    const system = identifier.systemDisplay !== EMPTY_STRING ? identifier.systemDisplay : EMPTY_STRING;
+    const value = identifier.value !== EMPTY_STRING ? identifier.value : EMPTY_STRING;
+    return `${system}: ${value}`;
+  }).join(NEW_LINE_CHARACTER);
 }
 
 AddedConsentActorsTable.propTypes = {

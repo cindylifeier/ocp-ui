@@ -34,6 +34,7 @@ class AddFromActors extends React.Component {
         type: 'Organization',
       },
       display: selectedOrganization.name,
+      identifiers: selectedOrganization.identifiers,
     };
     this.setState({
       selectedOrganizations: [...this.state.selectedOrganizations, orgReference],
@@ -47,6 +48,7 @@ class AddFromActors extends React.Component {
         type: 'Practitioner',
       },
       display: mapToName(selectedPractitioner.name),
+      identifiers: selectedPractitioner.identifiers,
     };
     this.setState({
       selectedPractitioners: [...this.state.selectedPractitioners, practitionerReference],
