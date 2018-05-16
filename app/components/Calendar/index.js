@@ -14,7 +14,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 BigCalendar.momentLocalizer(moment);
-const allViews = ['month', 'day', 'week', 'agenda'];
+const allViews = ['month', 'day', 'week'];
 function Calendar(props) { // eslint-disable-line react/prefer-stateless-function
   console.log(props.elements);
   const appointments = props.elements.map((element) => {
@@ -32,6 +32,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       <BigCalendar
         popup
         events={appointments}
+        defaultView="week"
         views={allViews}
         step={60}
         showMultiDayTimes
