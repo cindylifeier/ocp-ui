@@ -7,7 +7,7 @@ import StyledText from 'components/StyledText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConsentActorBanner from 'components/ConsentActorBanner';
 
-class ToPractitionerActors extends React.Component {
+class PractitionerActors extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -47,7 +47,7 @@ class ToPractitionerActors extends React.Component {
   }
 }
 
-ToPractitionerActors.propTypes = {
+PractitionerActors.propTypes = {
   onSearch: PropTypes.func.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
   onPractitionerSelect: PropTypes.func,
@@ -88,4 +88,4 @@ ToPractitionerActors.propTypes = {
   }),
 };
 
-export default ToPractitionerActors;
+export default PractitionerActors;

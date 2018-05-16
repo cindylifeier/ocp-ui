@@ -7,7 +7,7 @@ import StyledText from 'components/StyledText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConsentActorBanner from 'components/ConsentActorBanner';
 
-class ToOrganizationActors extends React.Component {
+class OrganizationActors extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -47,7 +47,7 @@ class ToOrganizationActors extends React.Component {
   }
 }
 
-ToOrganizationActors.propTypes = {
+OrganizationActors.propTypes = {
   onSearch: PropTypes.func.isRequired,
   onOrganizationClick: PropTypes.func,
   flattenOrganizationData: PropTypes.func.isRequired,
@@ -87,4 +87,4 @@ ToOrganizationActors.propTypes = {
   }),
 };
 
-export default ToOrganizationActors;
+export default OrganizationActors;

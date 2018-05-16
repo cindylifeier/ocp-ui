@@ -11,8 +11,8 @@ import Practitioners from 'containers/Practitioners';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
-import ToOrganizationActors from './ToOrganizationActors';
-import ToPractitionerActors from './ToPractitionerActors';
+import OrganizationActors from 'components/SelectConsentActors/OrganizationActors';
+import PractitionerActors from 'components/SelectConsentActors/PractitionerActors';
 import messages from './messages';
 
 class AddToActors extends React.Component {
@@ -62,14 +62,14 @@ class AddToActors extends React.Component {
         <Grid columns={1}>
           <Cell>
             <Organizations
-              component={ToOrganizationActors}
+              component={OrganizationActors}
               pageSize={3}
               onOrganizationClick={this.handleOrganizationSelect}
             />
           </Cell>
           <Cell>
             <Practitioners
-              component={ToPractitionerActors}
+              component={PractitionerActors}
               pageSize={3}
               onPractitionerSelect={this.handlePractitionerSelect}
             />
