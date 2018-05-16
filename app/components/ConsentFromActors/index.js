@@ -39,7 +39,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 
   render() {
-    const { consentFromActors } = this.props;
+    const { consentFromActors, addedActors } = this.props;
     return (
       <div>
         <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
@@ -55,6 +55,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                 </DialogTitle>
                 <DialogContent>
                   <AddFromActors
+                    addedActors={addedActors}
                     onAddFromActors={arrayHelpers.push}
                     onCloseDialog={this.handleCloseDialog}
                   />
@@ -74,7 +75,17 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
 ConsentFromActors.propTypes = {
   consentFromActors: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string.isRequired,
-    reference: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
+  addedActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
   })),
 };
 

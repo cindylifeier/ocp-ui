@@ -29,7 +29,10 @@ class AddToActors extends React.Component {
 
   handleOrganizationSelect(selectedOrganization) {
     const orgReference = {
-      reference: `Organization/${selectedOrganization.logicalId}`,
+      reference: {
+        logicalId: selectedOrganization.logicalId,
+        type: 'Organization',
+      },
       display: selectedOrganization.name,
     };
     this.setState({
@@ -39,7 +42,10 @@ class AddToActors extends React.Component {
 
   handlePractitionerSelect(selectedPractitioner) {
     const practitionerReference = {
-      reference: `Practitioner/${selectedPractitioner.logicalId}`,
+      reference: {
+        logicalId: selectedPractitioner.logicalId,
+        type: 'Practitioner',
+      },
       display: mapToName(selectedPractitioner.name),
     };
     this.setState({
@@ -56,12 +62,14 @@ class AddToActors extends React.Component {
   render() {
     const {
       onCloseDialog,
+      addedActors,
     } = this.props;
     return (
       <div>
         <Grid columns={1}>
           <Cell>
             <Organizations
+              addedActors={addedActors}
               component={OrganizationActors}
               pageSize={3}
               onOrganizationClick={this.handleOrganizationSelect}
@@ -69,6 +77,7 @@ class AddToActors extends React.Component {
           </Cell>
           <Cell>
             <Practitioners
+              addedActors={addedActors}
               component={PractitionerActors}
               pageSize={3}
               onPractitionerSelect={this.handlePractitionerSelect}
@@ -108,6 +117,13 @@ function mapToName(nameArray) {
 AddToActors.propTypes = {
   onCloseDialog: PropTypes.func.isRequired,
   onAddToActors: PropTypes.func.isRequired,
+  addedActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
 };
 
 export default AddToActors;

@@ -6,18 +6,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import teal from 'material-ui-next/colors/teal';
 
 import Padding from 'components/Padding';
-import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledText from 'components/StyledText';
 import Banner from './Banner';
 import BannerHeaderCell from './BannerHeaderCell';
-import messages from './messages';
 
 
 class ConsentActorBanner extends React.Component {
@@ -29,7 +26,7 @@ class ConsentActorBanner extends React.Component {
   }
 
   render() {
-    const { actor, flattenActorData, onSelectActor } = this.props;
+    const { actor, flattenActorData, onSelectActor, isActorSelected } = this.props;
     const flattenedActor = flattenActorData(actor);
     const { name, identifiers, addresses, telecoms } = flattenedActor;
     return (
@@ -44,20 +41,20 @@ class ConsentActorBanner extends React.Component {
                 </StyledText>
               </Cell>
               <Cell>
-                <StyledTooltip title={<FormattedMessage {...messages.selectButton} />}>
-                  <StyledIconButton
-                    size="x-small"
-                    svgIconSize="small"
-                    disableIconHover
-                    onClick={() => {
-                      onSelectActor(actor);
-                      this.setState({ isShowAddActor: !this.state.isShowAddActor });
-                    }}
-                    disabled={!this.state.isShowAddActor}
-                  >
-                    <AddCircleIcon color={this.state.isShowAddActor ? teal['500'] : 'rgba(0, 0, 0, 0.3)'} />
-                  </StyledIconButton>
-                </StyledTooltip>
+                <StyledIconButton
+                  size="x-small"
+                  svgIconSize="small"
+                  disableIconHover
+                  onClick={() => {
+                    onSelectActor(actor);
+                    this.setState({ isShowAddActor: !this.state.isShowAddActor });
+                  }}
+                  disabled={isActorSelected || !this.state.isShowAddActor}
+                >
+                  <AddCircleIcon
+                    color={(isActorSelected || !this.state.isShowAddActor) ? 'rgba(0, 0, 0, 0.3)' : teal['500']}
+                  />
+                </StyledIconButton>
               </Cell>
             </Grid>
           </BannerHeaderCell>
@@ -77,6 +74,7 @@ class ConsentActorBanner extends React.Component {
 
 ConsentActorBanner.propTypes = {
   onSelectActor: PropTypes.func.isRequired,
+  isActorSelected: PropTypes.bool.isRequired,
   flattenActorData: PropTypes.func.isRequired,
   actor: PropTypes.shape({
     name: PropTypes.oneOfType([

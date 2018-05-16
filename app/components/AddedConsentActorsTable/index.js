@@ -34,7 +34,7 @@ function AddedConsentActorsTable(props) {
             return (
               <TableRow key={uniqueId()} columns={tableColumns}>
                 <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>{reference}</TableRowColumn>
+                <TableRowColumn>{`${reference.type}/${reference.logicalId}`}</TableRowColumn>
               </TableRow>
             );
           })}
@@ -47,7 +47,10 @@ function AddedConsentActorsTable(props) {
 AddedConsentActorsTable.propTypes = {
   actors: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string.isRequired,
-    reference: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
   })),
 };
 

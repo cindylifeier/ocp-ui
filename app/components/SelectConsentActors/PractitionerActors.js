@@ -14,7 +14,8 @@ class PractitionerActors extends React.Component {
   }
 
   render() {
-    const { onSearch, onPractitionerSelect, flattenPractitionerData, practitionersData } = this.props;
+    const { onSearch, onPractitionerSelect, flattenPractitionerData, practitionersData, addedActors } = this.props;
+    const addedActorLogicalIds = addedActors.map((actor) => actor.reference.logicalId);
     return (
       <div>
         <StyledText fontWeight="700">Practitioners</StyledText>
@@ -34,6 +35,7 @@ class PractitionerActors extends React.Component {
               onSelectActor={onPractitionerSelect}
               flattenActorData={flattenPractitionerData}
               actor={practitioner}
+              isActorSelected={addedActorLogicalIds.includes(practitioner.logicalId)}
             />
           ))}
           <CenterAlignedUltimatePagination
@@ -86,6 +88,13 @@ PractitionerActors.propTypes = {
       practitionerRoles: PropTypes.array,
     })).isRequired,
   }),
+  addedActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
 };
 
 export default PractitionerActors;

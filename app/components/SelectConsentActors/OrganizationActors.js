@@ -14,7 +14,8 @@ class OrganizationActors extends React.Component {
   }
 
   render() {
-    const { onSearch, flattenOrganizationData, organizationData, onOrganizationClick } = this.props;
+    const { onSearch, flattenOrganizationData, organizationData, onOrganizationClick, addedActors } = this.props;
+    const addedActorLogicalIds = addedActors.map((actor) => actor.reference.logicalId);
     return (
       <div>
         <StyledText fontWeight="700">Organizations</StyledText>
@@ -34,6 +35,7 @@ class OrganizationActors extends React.Component {
               onSelectActor={onOrganizationClick}
               flattenActorData={flattenOrganizationData}
               actor={organization}
+              isActorSelected={addedActorLogicalIds.includes(organization.logicalId)}
             />
           ))}
           <CenterAlignedUltimatePagination
@@ -85,6 +87,13 @@ OrganizationActors.propTypes = {
       })),
     })).isRequired,
   }),
+  addedActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
 };
 
 export default OrganizationActors;

@@ -39,7 +39,7 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
-    const { consentToActors } = this.props;
+    const { consentToActors, addedActors } = this.props;
     return (
       <div>
         <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
@@ -55,6 +55,7 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
                 </DialogTitle>
                 <DialogContent>
                   <AddToActors
+                    addedActors={addedActors}
                     onAddToActors={arrayHelpers.push}
                     onCloseDialog={this.handleCloseDialog}
                   />
@@ -74,7 +75,17 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
 ConsentToActors.propTypes = {
   consentToActors: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string.isRequired,
-    reference: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
+  addedActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
   })),
 };
 

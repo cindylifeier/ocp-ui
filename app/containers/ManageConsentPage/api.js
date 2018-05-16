@@ -41,6 +41,18 @@ function mapToBffConsentDto(consentFormData, patient) {
     consentFromActors, consentToActors, consentStart, consentEnd, consentType,
   } = consentFormData;
 
+  const fromActor = flattenDeep(consentFromActors)
+    .map((actor) => ({
+      reference: `${actor.reference.type}/${actor.reference.logicalId}`,
+      display: actor.display,
+    }));
+
+  const toActor = flattenDeep(consentToActors)
+    .map((actor) => ({
+      reference: `${actor.reference.type}/${actor.reference.logicalId}`,
+      display: actor.display,
+    }));
+
   const patientReference = {
     reference: `Patient/${patient.id}`,
     display: mapToName(patient.name),
@@ -54,8 +66,8 @@ function mapToBffConsentDto(consentFormData, patient) {
   return {
     period,
     patient: patientReference,
-    fromActor: flattenDeep(consentFromActors),
-    toActor: flattenDeep(consentToActors),
+    fromActor,
+    toActor,
     generalDesignation: consentType,
   };
 }
