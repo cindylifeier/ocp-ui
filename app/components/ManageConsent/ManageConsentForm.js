@@ -21,10 +21,12 @@ function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
     isSubmitting,
+    values,
     purposeOfUse,
   } = props;
   const pouProps = {
     purposeOfUse,
+    values,
   };
   const today = new Date();
 
@@ -67,9 +69,14 @@ function ManageConsentForm(props) {
           <InfoSection>
             {<FormattedMessage {...messages.floatingLabelText.purposeOfUseTitle} />}
           </InfoSection>
-          <cell >
-            <PurposeOfUse {...pouProps} />
-          </cell>
+          <Grid columns={3} gap={'20px'}>
+            <InfoSection>
+              {<FormattedMessage {...messages.floatingLabelText.purposeOfUseSubTitle} />}
+            </InfoSection>
+            <cell >
+              <PurposeOfUse {...pouProps} />
+            </cell>
+          </Grid>
         </Cell>
         <Cell area="consentTermGroup">
           <FormSubtitle margin="2vh 0 0 0">
@@ -120,6 +127,7 @@ function ManageConsentForm(props) {
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   purposeOfUse: PropTypes.array,
+  values: PropTypes.object,
 };
 
 export default ManageConsentForm;
