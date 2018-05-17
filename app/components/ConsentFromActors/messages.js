@@ -14,4 +14,12 @@ export default defineMessages({
     id: 'ocpui.components.ConsentFromActors.consentFromActorsDialogTitle',
     defaultMessage: 'Select from actors',
   },
+  confirmButton: {
+    id: 'ocpui.components.ConsentFromActors.confirmButton',
+    defaultMessage: 'Confirm',
+  },
+  cancelButton: {
+    id: 'ocpui.components.ConsentFromActors.cancelButton',
+    defaultMessage: 'Cancel',
+  },
 });

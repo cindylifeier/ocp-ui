@@ -44,10 +44,11 @@ export function updateCommunication(communication, patientId, handleSubmitting) 
   };
 }
 
-export function getEpisodeOfCares(patientId) {
+export function getEpisodeOfCares(patientId, organizationId) {
   return {
     type: GET_EPISODE_OF_CARES,
     patientId,
+    organizationId,
   };
 }
 

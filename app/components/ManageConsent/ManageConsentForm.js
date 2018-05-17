@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
+import { RadioButton } from 'material-ui';
 
-import SelectConsentActors from 'containers/SelectConsentActors';
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
@@ -12,7 +12,7 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
 import RadioButtonGroup from 'components/RadioButtonGroup';
-import { RadioButton } from 'material-ui';
+import SelectConsentActors from 'components/SelectConsentActors';
 import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
@@ -30,11 +30,16 @@ function ManageConsentForm(props) {
   };
   const today = new Date();
 
+  const selectActorsProps = {
+    consentFromActors: values.consentFromActors,
+    consentToActors: values.consentToActors,
+  };
+
   return (
     <Form>
       <ManageConsentFormGrid gap="1vw">
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="2vh 0 0 0">
+          <FormSubtitle margin="2vh 0 1vh 0">
             <FormattedMessage {...messages.selectActors} />
           </FormSubtitle>
           <Checkbox
@@ -42,7 +47,9 @@ function ManageConsentForm(props) {
             label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
           >
           </Checkbox>
-          <SelectConsentActors />
+          {!values.consentType &&
+          <SelectConsentActors {...selectActorsProps} />
+          }
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
@@ -73,7 +80,7 @@ function ManageConsentForm(props) {
             <InfoSection>
               {<FormattedMessage {...messages.floatingLabelText.purposeOfUseSubTitle} />}
             </InfoSection>
-            <cell >
+            <cell>
               <PurposeOfUse {...pouProps} />
             </cell>
           </Grid>
@@ -126,8 +133,10 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  values: PropTypes.shape({
+    consentType: PropTypes.bool.isRequired,
+  }),
   purposeOfUse: PropTypes.array,
-  values: PropTypes.object,
 };
 
 export default ManageConsentForm;

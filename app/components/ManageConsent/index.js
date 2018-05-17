@@ -8,11 +8,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import yup from 'yup';
 import { Formik } from 'formik';
-import Util from 'utils/Util';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import messages from './messages';
+
 import ManageConsentForm from './ManageConsentForm';
+import messages from './messages';
 
 
 function ManageConsent(props) {
@@ -98,11 +98,11 @@ function setFormData(consent) {
     const consentEnd = new Date();
     consentEnd.setFullYear(consentEnd.getFullYear() + 1);
     formData = {
-      consentType: true,
+      consentType: false,
       consentStart,
       consentEnd,
       purposeOfUseCodes: ['TREAT'],
     };
   }
-  return Util.pickByIdentity(formData);
+  return formData;
 }

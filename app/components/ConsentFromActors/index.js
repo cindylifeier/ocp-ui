@@ -6,11 +6,15 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import isEmpty from 'lodash/isEmpty';
 
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
+import AddedConsentActorsTable from 'components/AddedConsentActorsTable';
+import AddFromActors from './AddFromActors';
 import messages from './messages';
 
 
@@ -35,6 +39,7 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 
   render() {
+    const { consentFromActors, addedActors } = this.props;
     return (
       <div>
         <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
@@ -42,16 +47,24 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
         </StyledRaisedButton>
         <FieldArray
           name="consentFromActors"
-          render={() => (
+          render={(arrayHelpers) => (
             <div>
-              <StyledDialog open={this.state.isFromActorsDialogOpen} onClose={this.handleCloseDialog} fullWidth>
+              <StyledDialog open={this.state.isFromActorsDialogOpen} fullWidth>
                 <DialogTitle>
                   <FormattedMessage {...messages.consentFromActorsDialogTitle} />
                 </DialogTitle>
                 <DialogContent>
-                  <p>Test</p>
+                  <AddFromActors
+                    addedActors={addedActors}
+                    addedFromActors={consentFromActors}
+                    arrayHelpers={arrayHelpers}
+                    onCloseDialog={this.handleCloseDialog}
+                  />
                 </DialogContent>
               </StyledDialog>
+              {!isEmpty(consentFromActors) &&
+              <AddedConsentActorsTable arrayHelpers={arrayHelpers} actors={consentFromActors} />
+              }
             </div>
           )}
         />
@@ -60,6 +73,21 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 }
 
-ConsentFromActors.propTypes = {};
+ConsentFromActors.propTypes = {
+  consentFromActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
+  addedActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
+};
 
 export default ConsentFromActors;

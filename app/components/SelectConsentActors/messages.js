@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'ocpui.containers.SelectConsentActors.header',
-    defaultMessage: 'This is SelectConsentActors container !',
+    id: 'ocpui.components.SelectConsentActors.header',
+    defaultMessage: 'This is the SelectConsentActors component !',
   },
 });

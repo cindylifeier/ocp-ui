@@ -11,10 +11,10 @@ import { getErrorDetail, getPractitionersInOrganization, searchPractitioners } f
 import { GET_PRACTITIONERS_IN_ORGANIZATION, SEARCH_PRACTITIONERS } from './constants';
 
 
-export function* getPractitionersInOrganizationSaga({ currentPage }) {
+export function* getPractitionersInOrganizationSaga({ currentPage, pageSize }) {
   try {
     const organization = yield select(makeSelectOrganization());
-    const practitioners = yield call(getPractitionersInOrganization, organization.logicalId, currentPage);
+    const practitioners = yield call(getPractitionersInOrganization, organization.logicalId, currentPage, pageSize);
     yield put(getPractitionersInOrganizationSuccess(practitioners));
   } catch (err) {
     yield put(getPractitionersInOrganizationError(getErrorDetail(err)));

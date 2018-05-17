@@ -8,28 +8,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import find from 'lodash/find';
-import uniqueId from 'lodash/uniqueId';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import AppointmentExpansionRowDetails from 'components/AppointmentTable/AppointmentExpansionRowDetails';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS,
   SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
+  PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS,
+  PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS,
 } from './constants';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+
+  function getColumns() {
+    let columns = '';
+    if (!isPatientWorkspace) {
+      columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    } else {
+      columns = isExpanded ? PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS : PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS;
+    }
+    return columns;
+  }
   function createTableHeaders() {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    const columns = getColumns();
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn></TableHeaderColumn>
+        {!isPatientWorkspace &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
+        }
         {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
         }
@@ -44,26 +59,6 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
     );
   }
 
-  function createTableRows(appointment, menuItems) {
-    const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
-    return (
-      <TableRow key={uniqueId()} columns={columns}>
-        <TableRowColumn>{appointment.patientName}</TableRowColumn>
-        {isExpanded &&
-        <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
-        }
-        <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
-        <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
-        <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
-        {isExpanded &&
-        <TableRowColumn>{appointment.description}</TableRowColumn>
-        }
-        <TableRowColumn>
-          <NavigationIconMenu menuItems={menuItems} />
-        </TableRowColumn>
-      </TableRow>
-    );
-  }
   return (
     <div>
       <Table>
@@ -104,7 +99,32 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               onClick: () => tentativeAppointment(appointment.logicalId),
             },
           ];
-          return createTableRows(appointment, menuItems);
+          const appointmentType = find(appointmentTypes, { code: appointment.typeCode });
+          return (
+            <ExpansionTableRow
+              key={appointment.logicalId}
+              columns={getColumns()}
+              role="button"
+              tabIndex="0"
+              expansionTableRowDetails={<AppointmentExpansionRowDetails participants={appointment.participant} appointmentType={appointmentType.display} />}
+            >
+              {!isPatientWorkspace &&
+              <TableRowColumn>{appointment.patientName}</TableRowColumn>
+              }
+              {isExpanded &&
+              <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
+              }
+              <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
+              <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
+              <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
+              {isExpanded &&
+              <TableRowColumn>{appointment.description}</TableRowColumn>
+              }
+              <TableRowColumn>
+                <NavigationIconMenu menuItems={menuItems} />
+              </TableRowColumn>
+            </ExpansionTableRow>
+          );
         })}
       </Table>
     </div>
@@ -131,6 +151,7 @@ AppointmentTable.propTypes = {
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
   enableEditAppointment: PropTypes.bool,
+  isPatientWorkspace: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
 };
 

@@ -6,21 +6,29 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  columnHeaderTimeSent: {
+    id: 'ocpui.components.communicationTable.columnHeaderTimeSent',
+    defaultMessage: 'Time Sent',
+  },
+  columnHeaderLastUpdated: {
+    id: 'ocpui.components.communicationTable.columnHeaderLastUpdated',
+    defaultMessage: 'Last Updated',
+  },
   columnHeaderCategory: {
     id: 'ocpui.components.communicationTable.columnHeaderCategory',
     defaultMessage: 'Category',
   },
   columnHeaderContactMethod: {
     id: 'ocpui.components.communicationTable.columnHeaderContactMethod',
-    defaultMessage: 'Contact Method',
+    defaultMessage: 'Contact Type',
   },
-  columnHeaderRecipients: {
-    id: 'ocpui.components.communicationTable.columnHeaderRecipients',
-    defaultMessage: 'Recipients',
+  columnHeaderTopic: {
+    id: 'ocpui.components.communicationTable.columnHeaderTopic',
+    defaultMessage: 'Topic',
   },
-  columnHeaderSender: {
-    id: 'ocpui.components.communicationTable.columnHeaderSender',
-    defaultMessage: 'Sender',
+  columnHeaderReason: {
+    id: 'ocpui.components.communicationTable.columnHeaderReason',
+    defaultMessage: 'Reason',
   },
   columnHeaderSent: {
     id: 'ocpui.components.communicationTable.columnHeaderSent',
@@ -33,5 +41,31 @@ export default defineMessages({
   noCommunications: {
     id: 'ocpui.containers.communicationsTable.noCommunications',
     defaultMessage: 'No Communications for selected patient. Please create communication.',
+  },
+  expansionRowDetails: {
+    message: {
+      id: 'ocpui.components.communicationTable.message',
+      defaultMessage: 'Message Content',
+    },
+    note: {
+      id: 'ocpui.components.communicationTable.note',
+      defaultMessage: 'Note',
+    },
+    noCommunicatonReason: {
+      id: 'ocpui.components.communicationTable.noCommunicatonReason',
+      defaultMessage: 'Communication Did not occur Reason',
+    },
+    columnHeaderName: {
+      id: 'ocpui.components.communicationTable.columnHeaderName',
+      defaultMessage: 'Name',
+    },
+    columnHeaderRole: {
+      id: 'ocpui.components.communicationTable.columnHeaderRole',
+      defaultMessage: 'Role',
+    },
+    recipients: {
+      id: 'ocpui.components.communicationTable.recipients',
+      defaultMessage: 'Recipients: ',
+    },
   },
 });
