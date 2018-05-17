@@ -4,10 +4,10 @@ import { GET_COMMUNICATIONS } from './constants';
 import { getCommunicationsError, getCommunicationsSuccess } from './actions';
 import { getCommunications } from './api';
 
-export function* getCommunicationsSaga({ pageNumber }) {
+export function* getCommunicationsSaga({ pageNumber, organizationId }) {
   try {
     const patient = yield select(makeSelectPatient());
-    const communications = yield call(getCommunications, patient.id, pageNumber);
+    const communications = yield call(getCommunications, patient.id, pageNumber, organizationId);
     yield put(getCommunicationsSuccess(communications));
   } catch (error) {
     yield put(getCommunicationsError(error));
