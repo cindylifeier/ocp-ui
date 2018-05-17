@@ -11,7 +11,7 @@ import PageHeader from 'components/PageHeader';
 
 import { getLookupsAction } from 'containers/App/actions';
 import { COMMUNICATION_CATEGORY, COMMUNICATION_MEDIUM, COMMUNICATION_NOT_DONE_REASON, COMMUNICATION_STATUS, DATE_PICKER_MODE } from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectCommunicationCategories, makeSelectCommunicationMedia, makeSelectCommunicationNotDoneReasons, makeSelectCommunicationStatus } from 'containers/App/lookupSelectors';
 import makeSelectCommunications from 'containers/Communications/selectors';
 import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
@@ -52,16 +52,16 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
   }
 
   componentDidMount() {
-    const { user } = this.props;
+    const { user, selectedPatient, organization, communications } = this.props;
     const practitionerId = getPractitionerIdByRole(user);
     if (practitionerId) {
       this.props.getPractitioner(practitionerId);
     }
     this.props.getLookups();
-    this.props.getEpisodeOfCares(this.props.selectedPatient.id);
+    this.props.getEpisodeOfCares(selectedPatient.id, organization.logicalId);
     this.props.initializeSearchRecipients();
     const logicalId = this.props.match.params.id;
-    const communication = find(this.props.communications.data.elements, { logicalId });
+    const communication = find(communications.data.elements, { logicalId });
     if (communication && communication.recipient) {
       const recipients = communication.recipient;
       this.props.setInitialRecipients(recipients);
@@ -202,7 +202,8 @@ ManageCommunicationPage.propTypes = {
   initializeListOfRecipients: PropTypes.func.isRequired,
   setInitialRecipients: PropTypes.func.isRequired,
   user: PropTypes.object,
-  practitioner: PropTypes.object,
+  practitioner: PropTypes.object.isRequired,
+  organization: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -218,6 +219,7 @@ const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
   appointments: makeSelectPatientAppointments(),
   user: makeSelectUser(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -225,7 +227,7 @@ function mapDispatchToProps(dispatch) {
     getLookups: () => dispatch(getLookupsAction([COMMUNICATION_STATUS, COMMUNICATION_CATEGORY, COMMUNICATION_NOT_DONE_REASON, COMMUNICATION_MEDIUM])),
     createCommunication: (communication, patientId, handleSubmitting) => dispatch(createCommunication(communication, patientId, handleSubmitting)),
     updateCommunication: (communication, patientId, handleSubmitting) => dispatch(updateCommunication(communication, patientId, handleSubmitting)),
-    getEpisodeOfCares: (patientId) => dispatch(getEpisodeOfCares(patientId)),
+    getEpisodeOfCares: (patientId, organizationId) => dispatch(getEpisodeOfCares(patientId, organizationId)),
     removeSelectedRecipient: (checked, recipientReference) => dispatch(removeSelectedRecipient(checked, recipientReference)),
     getPractitioner: (practitionerId) => dispatch(getPractitioner(practitionerId)),
     initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
