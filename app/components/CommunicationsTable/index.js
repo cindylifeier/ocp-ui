@@ -34,17 +34,6 @@ function CommunicationsTable(props) {
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
-  function createDateTime(dataArray) {
-    const year = dataArray[0] || 0;
-    const month = dataArray[1] || 0;
-    const day = dataArray[2] || 0;
-    const hours = dataArray[3] || 0;
-    const minutes = dataArray[4] || 0;
-    const seconds = dataArray[5] || 0;
-    const milliSeconds = dataArray[6] || 0;
-
-    return new Date(year, month, day, hours, minutes, seconds, milliSeconds);
-  }
   return (
     <div>
       {loading && <RefreshIndicatorLoading />}
@@ -59,7 +48,9 @@ function CommunicationsTable(props) {
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
                 }
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
+                }
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTopic} /></TableHeaderColumn>
                 }
@@ -78,9 +69,7 @@ function CommunicationsTable(props) {
                     search: `?patientId=${selectedPatient.id}`,
                   },
                 }];
-                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue } = communication;
-                const lastUpdated = communication && communication.lastUpdated ? (createDateTime(communication.lastUpdated)).toString() : '';
-                const sent = communication && communication.sent ? (createDateTime(communication.sent)).toString() : '';
+                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue, sent, lastUpdated } = communication;
 
                 return (
                   <ExpansionTableRow
@@ -95,7 +84,9 @@ function CommunicationsTable(props) {
                     <TableRowColumn>{ lastUpdated }</TableRowColumn>
                     }
                     <TableRowColumn>{statusValue}</TableRowColumn>
+                    {isExpanded &&
                     <TableRowColumn>{categoryValue}</TableRowColumn>
+                    }
                     {isExpanded &&
                     <TableRowColumn> {context && context.display}</TableRowColumn>
                     }
