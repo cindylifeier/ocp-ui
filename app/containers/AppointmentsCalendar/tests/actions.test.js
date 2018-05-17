@@ -1,18 +1,18 @@
 
 import {
-  defaultAction,
+  getAppointments,
 } from '../actions';
 import {
-  DEFAULT_ACTION,
+  GET_APPOINTMENTS,
 } from '../constants';
 
 describe('AppointmentsCalendar actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('GET_APPOINTMENTS', () => {
+    it('has a type of GET_APPOINTMENTS', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_APPOINTMENTS,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getAppointments()).toEqual(expected);
     });
   });
 });
