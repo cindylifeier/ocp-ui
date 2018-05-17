@@ -11,8 +11,9 @@ import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
 import StyledText from 'components/StyledText/index';
 import Align from 'components/Align/index';
-import { removeDashesAndCapitalizeEachWord } from 'utils/AppointmentUtils';
 import { getRoleName } from 'utils/CommunicationUtils';
+import startCase from 'lodash/startCase';
+import camelCase from 'lodash/camelCase';
 import messages from './messages';
 
 function AppointmentExpansionRowDetails({ participants, appointmentType }) {
@@ -52,8 +53,8 @@ function AppointmentExpansionRowDetails({ participants, appointmentType }) {
               <TableRow key={actorReference} columns={column}>
                 <TableRowColumn>{actorName}</TableRowColumn>
                 <TableRowColumn>{getRoleName(actorReference)}</TableRowColumn>
-                <TableRowColumn>{removeDashesAndCapitalizeEachWord(participationTypeDisplay)}</TableRowColumn>
-                <TableRowColumn>{removeDashesAndCapitalizeEachWord(participationStatusCode)}</TableRowColumn>
+                <TableRowColumn>{startCase(camelCase(participationTypeDisplay))}</TableRowColumn>
+                <TableRowColumn>{startCase(camelCase(participationStatusCode))}</TableRowColumn>
               </TableRow>
             );
           }
