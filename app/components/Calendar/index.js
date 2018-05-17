@@ -16,7 +16,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 BigCalendar.momentLocalizer(moment);
 const allViews = ['month', 'day', 'week'];
 function Calendar(props) { // eslint-disable-line react/prefer-stateless-function
-  console.log(props.elements);
   const appointments = props.elements.map((element) => {
     const appointment = {};
     appointment.id = element.logicalId;
@@ -26,7 +25,6 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
     appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
     return appointment;
   });
-  console.log(appointments);
   return (
     <div style={{ height: 800 }}>
       <BigCalendar
