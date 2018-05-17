@@ -41,6 +41,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
     const columns = getColumns();
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn></TableHeaderColumn>
         {!isPatientWorkspace &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
         }
