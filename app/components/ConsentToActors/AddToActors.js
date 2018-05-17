@@ -57,7 +57,8 @@ class AddToActors extends React.Component {
 
   handleAddSelectedActors() {
     const toActors = union(this.state.selectedPractitioners, this.state.selectedOrganizations);
-    this.props.onAddToActors(toActors);
+    const fieldName = this.props.arrayHelpers.name;
+    this.props.arrayHelpers.form.setFieldValue(fieldName, toActors);
     this.props.onCloseDialog();
   }
 
@@ -118,7 +119,12 @@ function mapToName(nameArray) {
 
 AddToActors.propTypes = {
   onCloseDialog: PropTypes.func.isRequired,
-  onAddToActors: PropTypes.func.isRequired,
+  arrayHelpers: PropTypes.shape({
+    form: PropTypes.shape({
+      setFieldValue: PropTypes.func.isRequired,
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   addedActors: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string.isRequired,
     reference: PropTypes.shape({

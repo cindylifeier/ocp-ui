@@ -23,7 +23,7 @@ import messages from './messages';
 
 function AddedConsentActorsTable(props) {
   const tableColumns = '30% 15% 1fr 50px';
-  const { actors } = props;
+  const { actors, arrayHelpers } = props;
   return (
     <div>
       <InfoSection margin="10px -10px">
@@ -33,7 +33,7 @@ function AddedConsentActorsTable(props) {
             <TableHeaderColumn><FormattedMessage {...messages.type} /></TableHeaderColumn>
             <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
           </TableHeader>
-          {actors && actors.map((actor) => {
+          {actors && actors.map((actor, index) => {
             const { display, reference, identifiers } = actor;
             return (
               <TableRow key={uniqueId()} columns={tableColumns}>
@@ -43,6 +43,7 @@ function AddedConsentActorsTable(props) {
                 <StyledIconButton
                   size="x-small"
                   svgIconSize="medium"
+                  onClick={() => arrayHelpers.remove(index)}
                 >
                   <DeleteIcon color={red['800']} />
                 </StyledIconButton>
@@ -73,6 +74,9 @@ AddedConsentActorsTable.propTypes = {
       type: PropTypes.string.isRequired,
     }),
   })),
+  arrayHelpers: PropTypes.shape({
+    remove: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default AddedConsentActorsTable;

@@ -1,5 +1,3 @@
-import flattenDeep from 'lodash/flattenDeep';
-
 import request from 'utils/request';
 import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import Util from 'utils/Util';
@@ -41,13 +39,13 @@ function mapToBffConsentDto(consentFormData, patient) {
     consentFromActors, consentToActors, consentStart, consentEnd, consentType,
   } = consentFormData;
 
-  const fromActor = flattenDeep(consentFromActors)
+  const fromActor = consentFromActors
     .map((actor) => ({
       reference: `${actor.reference.type}/${actor.reference.logicalId}`,
       display: actor.display,
     }));
 
-  const toActor = flattenDeep(consentToActors)
+  const toActor = consentToActors
     .map((actor) => ({
       reference: `${actor.reference.type}/${actor.reference.logicalId}`,
       display: actor.display,
