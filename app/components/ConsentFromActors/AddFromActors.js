@@ -58,7 +58,7 @@ class AddFromActors extends React.Component {
   handleAddSelectedActors() {
     const fromActors = union(this.state.selectedPractitioners, this.state.selectedOrganizations);
     const fieldName = this.props.arrayHelpers.name;
-    this.props.arrayHelpers.form.setFieldValue(fieldName, fromActors);
+    this.props.arrayHelpers.form.setFieldValue(fieldName, union(fromActors, this.props.addedFromActors));
     this.props.onCloseDialog();
   }
 
@@ -125,6 +125,13 @@ AddFromActors.propTypes = {
     }).isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
+  addedFromActors: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string.isRequired,
+    reference: PropTypes.shape({
+      logicalId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+  })),
   addedActors: PropTypes.arrayOf(PropTypes.shape({
     display: PropTypes.string.isRequired,
     reference: PropTypes.shape({

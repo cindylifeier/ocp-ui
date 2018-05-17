@@ -56,6 +56,7 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
                 <DialogContent>
                   <AddToActors
                     addedActors={addedActors}
+                    addedToActors={consentToActors}
                     arrayHelpers={arrayHelpers}
                     onCloseDialog={this.handleCloseDialog}
                   />
