@@ -20,6 +20,7 @@ import reducer from './reducer';
 import saga from './saga';
 import makeSelectPractitioners from './selectors';
 import DefaultViewComponent from './DefaultViewComponent';
+import { flattenPractitionerData } from './helpers';
 
 export class Practitioners extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -42,7 +43,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     this.props.initializePractitioners();
     const { organization } = this.props;
     if (organization) {
-      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
     }
   }
 
@@ -50,7 +51,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     const { organization } = this.props;
     const { organization: newOrganization } = nextProps;
     if (!isEqual(organization, newOrganization)) {
-      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER);
+      this.props.getPractitionersInOrganization(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
     }
   }
 
@@ -77,11 +78,11 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   handleChangeListPage(currentPage) {
-    this.props.getPractitionersInOrganization(currentPage);
+    this.props.getPractitionersInOrganization(currentPage, this.props.pageSize);
   }
 
   render() {
-    const { practitioners } = this.props;
+    const { practitioners, ...rest } = this.props;
     const practitionersData = {
       loading: practitioners.loading,
       data: practitioners.data,
@@ -94,7 +95,10 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
     const viewComponentProps = {
       onSearch: this.handleSearch,
+      onPractitionerSelect: this.props.onPractitionerSelect,
+      flattenPractitionerData,
       practitionersData,
+      ...rest,
     };
     const Component = this.props.component;
     return (
@@ -105,6 +109,8 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
 
 Practitioners.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func]).isRequired,
+  pageSize: PropTypes.number,
+  onPractitionerSelect: PropTypes.func,
   organization: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
     identifiers: PropTypes.arrayOf(PropTypes.shape({
@@ -161,7 +167,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializePractitioners: () => dispatch(initializePractitioners()),
-    getPractitionersInOrganization: (currentPage) => dispatch(getPractitionersInOrganization(currentPage)),
+    getPractitionersInOrganization: (currentPage, pageSize) => dispatch(getPractitionersInOrganization(currentPage, pageSize)),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage, organization) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage, organization)),
   };
 }

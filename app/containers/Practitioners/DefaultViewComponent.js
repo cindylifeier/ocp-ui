@@ -8,7 +8,6 @@ import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import PractitionerTable from 'components/PractitionerTable';
 import messages from './messages';
-import { flattenPractitionerData } from './helpers';
 
 class DefaultViewComponent extends React.Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class DefaultViewComponent extends React.Component {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_PRACTITIONER_URL,
     };
-    const { onSearch, practitionersData } = this.props;
+    const { onSearch, flattenPractitionerData, practitionersData } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -53,6 +52,7 @@ class DefaultViewComponent extends React.Component {
 
 DefaultViewComponent.propTypes = {
   onSearch: PropTypes.func.isRequired,
+  flattenPractitionerData: PropTypes.func.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
