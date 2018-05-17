@@ -101,6 +101,7 @@ function setFormData(consent) {
       consentType: true,
       consentStart,
       consentEnd,
+      purposeOfUseCodes: ['TREAT'],
     };
   }
   return Util.pickByIdentity(formData);
