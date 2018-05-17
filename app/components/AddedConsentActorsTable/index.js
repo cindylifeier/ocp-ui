@@ -8,6 +8,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
+import red from 'material-ui-next/colors/red';
 
 import InfoSection from 'components/InfoSection';
 import Table from 'components/Table';
@@ -15,6 +17,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
+import StyledIconButton from 'components/StyledIconButton';
 import messages from './messages';
 
 
@@ -37,6 +40,12 @@ function AddedConsentActorsTable(props) {
                 <TableRowColumn>{display}</TableRowColumn>
                 <TableRowColumn>{reference.type}</TableRowColumn>
                 <TableRowColumn>{mapToIdentifiers(identifiers)}</TableRowColumn>
+                <StyledIconButton
+                  size="x-small"
+                  svgIconSize="medium"
+                >
+                  <DeleteIcon color={red['800']} />
+                </StyledIconButton>
               </TableRow>
             );
           })}
