@@ -14,24 +14,12 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import {
-  CONSENT_ACTION,
-  CONSENT_CATEGORY,
-  CONSENT_STATE_CODES,
-  PURPOSE_OF_USE,
-  SECURITY_ROLE_TYPE,
-} from 'containers/App/constants';
+import { CONSENT_ACTION, CONSENT_CATEGORY, CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_ROLE_TYPE } from 'containers/App/constants';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
 import PageContent from 'components/PageContent';
-import {
-  makeSelectConsentAction,
-  makeSelectConsentCategory,
-  makeSelectConsentStateCodes,
-  makeSelectPurposeOfUse,
-  makeSelectSecurityRoleType,
-} from 'containers/App/lookupSelectors';
+import { makeSelectConsentAction, makeSelectConsentCategory, makeSelectConsentStateCodes, makeSelectPurposeOfUse, makeSelectSecurityRoleType } from 'containers/App/lookupSelectors';
 import Util from 'utils/Util';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
@@ -137,7 +125,11 @@ ManageConsentPage.propTypes = {
   consentAction: PropTypes.array,
   match: PropTypes.object.isRequired,
   consents: PropTypes.object,
-  purposeOfUse: PropTypes.array,
+  purposeOfUse: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
   createConsent: PropTypes.func,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
