@@ -10,10 +10,11 @@ import {
   GET_COMMUNICATIONS_SUCCESS, INITIALIZE_COMMUNICATIONS,
 } from 'containers/Communications/constants';
 
-export function getCommunications(pageNumber) {
+export function getCommunications(pageNumber, organizationId) {
   return {
     type: GET_COMMUNICATIONS,
     pageNumber,
+    organizationId,
   };
 }
 
