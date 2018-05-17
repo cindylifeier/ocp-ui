@@ -299,8 +299,6 @@ function ManageCommunication(props) {
         yup.object().shape({
           statusCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          notDone: yup.boolean()
-            .required((<FormattedMessage {...messages.validation.required} />)),
           mediumCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           payloadContent: yup.string()
