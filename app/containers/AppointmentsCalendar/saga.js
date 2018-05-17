@@ -32,16 +32,15 @@ export function* getAppointmentsSaga({ query }) {
     const practitioner = yield select(makeSelectUser());
     const patientId = patient ? patient.id : null;
     const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
-    if (patientId && practitionerId) {
-      queryParams = {
-        patientId,
-        requesterReference: `Patient/${patientId}`,
-      };
-    }
     if (practitionerId) {
       queryParams = {
         practitionerId,
         requesterReference: `Practitioner/${practitionerId}`,
+      };
+    } else if (patientId) {
+      queryParams = {
+        patientId,
+        requesterReference: `Patient/${patientId}`,
       };
     }
     const appointments = yield call(getAppointmentsApi, queryParams);
