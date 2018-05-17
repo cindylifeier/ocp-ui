@@ -170,7 +170,8 @@ function ManageCommunication(props) {
                               currentPractitioner,
                               recipients,
                               task,
-                              appointment) {
+                              appointment,
+                              sentTime) {
     const {
       statusCode,
       categoryDisplay,
@@ -191,7 +192,7 @@ function ManageCommunication(props) {
       note,
       payloadContent,
       notDone,
-      // sent: sent.toLocaleDateString(),
+      sent: sentTime,
       statusCode,
       statusValue: status.display,
       categoryCode: category.code,
@@ -277,6 +278,7 @@ function ManageCommunication(props) {
       enableReinitialize
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
+        const sentDateTime = communication && communication.sent ? communication.sent : '';
         const communicationToBeSubmitted = mapToCommunication(
           values,
           communicationStatus,
@@ -288,7 +290,9 @@ function ManageCommunication(props) {
           practitioner,
           selectedRecipients,
           selectedTask,
-          selectedAppointment);
+          selectedAppointment,
+          sentDateTime
+          );
         onSave(communicationToBeSubmitted, actions);
       }}
       validationSchema={
