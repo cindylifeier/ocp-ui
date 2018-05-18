@@ -15,6 +15,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import uniqueId from 'lodash/uniqueId';
 import {
   EXPANDED_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
@@ -84,7 +85,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
     }];
     return (
       <ExpansionTableRow
-        key={logicalId}
+        key={uniqueId()}
         columns={columns}
         expansionTableRowDetails={<TaskExpansionRowDetails task={task} />}
       >

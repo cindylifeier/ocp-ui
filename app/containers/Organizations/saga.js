@@ -8,9 +8,9 @@ import {
   searchOrganizationsSuccess,
 } from './actions';
 
-export function* getOrganizationsSaga({ currentPage }) {
+export function* getOrganizationsSaga({ currentPage, pageSize }) {
   try {
-    const organizations = yield call(getOrganizations, currentPage);
+    const organizations = yield call(getOrganizations, currentPage, pageSize);
     yield put(getOrganizationsSuccess(organizations));
   } catch (err) {
     yield put(getOrganizationsError(getErrorDetail(err)));
