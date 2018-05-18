@@ -7,53 +7,60 @@ import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import messages from './messages';
 
-function AddMedicalInformation(props) {
-  const { arrayHelpers, medicalInformation, securityLabel, onCloseDialog } = props;
-  const medicalInfoCodes = medicalInformation.map((medicalInfo) => medicalInfo.code);
-  return (
-    <Grid columns={1}>
-      <Cell>
-        {securityLabel.map((medicalInfo) => (
-          <div key={medicalInfo.code}>
-            <input
-              name="medicalInfo"
-              type="checkbox"
-              value={medicalInfo.code}
-              checked={medicalInfoCodes.includes(medicalInfo.code)}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  arrayHelpers.push({
-                    code: medicalInfo.code,
-                    display: medicalInfo.display,
-                  });
-                } else {
-                  const idx = medicalInformation && medicalInformation.indexOf(medicalInfo.code);
-                  arrayHelpers.remove(idx);
-                }
-              }}
-            />{' '}
-            {medicalInfo.display}
-          </div>
-        ))}
-      </Cell>
-      <Cell>
-        <HorizontalAlignment position="end">
-          <StyledRaisedButton fullWidth onClick={onCloseDialog}>
-            <FormattedMessage {...messages.confirmButton} />
-          </StyledRaisedButton>
-        </HorizontalAlignment>
-      </Cell>
-    </Grid>
-  );
+class AddMedicalInformation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event, medicalInfo, medicalInfoCodes) {
+    if (event.target.checked) {
+      this.props.arrayHelpers.push({
+        code: medicalInfo.code,
+        display: medicalInfo.display,
+      });
+    } else {
+      const index = medicalInfoCodes.indexOf(medicalInfo.code);
+      this.props.arrayHelpers.remove(index);
+    }
+  }
+
+  render() {
+    const { medicalInformation, securityLabels, onCloseDialog } = this.props;
+    const medicalInfoCodes = medicalInformation.map((medicalInfo) => medicalInfo.code);
+    return (
+      <Grid columns={1}>
+        <Cell>
+          {securityLabels.map((securityLabel) => (
+            <div key={securityLabel.code}>
+              <input
+                name="medicalInfo"
+                type="checkbox"
+                value={securityLabel.code}
+                checked={medicalInfoCodes.includes(securityLabel.code)}
+                onChange={(event) => this.handleChange(event, securityLabel, medicalInfoCodes)}
+              />{' '}
+              {securityLabel.display}
+            </div>
+          ))}
+        </Cell>
+        <Cell>
+          <HorizontalAlignment position="end">
+            <StyledRaisedButton fullWidth onClick={onCloseDialog}>
+              <FormattedMessage {...messages.confirmButton} />
+            </StyledRaisedButton>
+          </HorizontalAlignment>
+        </Cell>
+      </Grid>
+    );
+  }
 }
 
 AddMedicalInformation.propTypes = {
   onCloseDialog: PropTypes.func.isRequired,
   arrayHelpers: PropTypes.shape({
-    form: PropTypes.shape({
-      setFieldValue: PropTypes.func.isRequired,
-    }).isRequired,
-    name: PropTypes.string.isRequired,
+    push: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
   }).isRequired,
   medicalInformation: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -61,7 +68,7 @@ AddMedicalInformation.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   })),
-  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     definition: PropTypes.string,

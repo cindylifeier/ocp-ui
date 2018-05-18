@@ -47,7 +47,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     const {
       patient,
       consentStateCodes,
-      securityLabel,
+      securityLabels,
       purposeOfUse,
       match,
       consents,
@@ -62,7 +62,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     const consentProps = {
       patient,
       consentStateCodes,
-      securityLabel,
+      securityLabels,
       purposeOfUse,
       initialSelectedFromActors,
       editMode,
@@ -92,7 +92,7 @@ ManageConsentPage.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   }))),
-  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     definition: PropTypes.string,
@@ -116,7 +116,7 @@ ManageConsentPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
   consentStateCodes: makeSelectConsentStateCodes(),
-  securityLabel: makeSelectSecurityLabel(),
+  securityLabels: makeSelectSecurityLabel(),
   purposeOfUse: makeSelectPurposeOfUse(),
 });
 

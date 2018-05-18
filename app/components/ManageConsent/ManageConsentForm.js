@@ -23,7 +23,7 @@ function ManageConsentForm(props) {
     isSubmitting,
     values,
     purposeOfUse,
-    securityLabel,
+    securityLabels,
   } = props;
 
   const today = new Date();
@@ -33,7 +33,7 @@ function ManageConsentForm(props) {
     consentToActors: values.consentToActors,
   };
   const selectMedicalInfoProps = {
-    securityLabel,
+    securityLabels,
     medicalInformation: values.medicalInformation || [],
   };
   const pouProps = { purposeOfUse };
@@ -124,7 +124,7 @@ ManageConsentForm.propTypes = {
     consentFromActors: PropTypes.array,
     consentToActors: PropTypes.array,
   }),
-  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     definition: PropTypes.string,

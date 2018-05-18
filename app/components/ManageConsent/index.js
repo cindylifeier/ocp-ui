@@ -19,13 +19,13 @@ function ManageConsent(props) {
   const {
     onSave,
     consentStateCodes,
-    securityLabel,
+    securityLabels,
     purposeOfUse,
     editMode,
   } = props;
   const formData = {
     consentStateCodes,
-    securityLabel,
+    securityLabels,
     purposeOfUse,
     editMode,
   };
@@ -65,7 +65,7 @@ ManageConsent.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   }))),
-  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     definition: PropTypes.string,

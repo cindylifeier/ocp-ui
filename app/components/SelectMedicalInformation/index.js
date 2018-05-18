@@ -44,8 +44,8 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { medicalInformation, securityLabel } = this.props;
-    const addMedicalInfoProps = { medicalInformation, securityLabel };
+    const { medicalInformation, securityLabels } = this.props;
+    const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
       <div>
         <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
@@ -96,7 +96,7 @@ SelectMedicalInformation.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   })),
-  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     definition: PropTypes.string,
