@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import SelectConsentMedicalInfo from '../index';
+// import SelectMedicalInformation from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<SelectConsentMedicalInfo />', () => {
+describe('<SelectMedicalInformation />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });

@@ -11,10 +11,11 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
 import SelectConsentActors from 'components/SelectConsentActors';
-import SelectConsentMedicalInfo from 'components/SelectConsentMedicalInfo';
+import SelectMedicalInformation from 'components/SelectMedicalInformation';
 import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
+
 
 function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
@@ -53,7 +54,7 @@ function ManageConsentForm(props) {
           <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.medicalInformation} />
           </FormSubtitle>
-          <SelectConsentMedicalInfo />
+          <SelectMedicalInformation />
         </Cell>
         <Cell area="purposeOfUseGroup">
           <FormSubtitle margin="2vh 0 0 0">
