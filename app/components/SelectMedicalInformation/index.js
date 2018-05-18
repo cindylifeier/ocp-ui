@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
 import Radio, { RadioGroup } from 'material-ui-next/Radio';
@@ -13,6 +14,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
+import AddMedicalInformation from './AddMedicalInformation';
 import { SHARE_ALL, SHARE_SPECIFIC } from './constants';
 import messages from './messages';
 
@@ -42,6 +44,8 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   render() {
+    const { medicalInformation, securityLabel } = this.props;
+    const addMedicalInfoProps = { medicalInformation, securityLabel };
     return (
       <div>
         <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
@@ -63,14 +67,18 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
         </RadioGroup>
         <FieldArray
           name="medicalInformation"
-          render={() => (
+          render={(arrayHelpers) => (
             <div>
-              <StyledDialog open={this.state.isMedicalInfoDialogOpen} onClose={this.handleCloseDialog} fullWidth>
+              <StyledDialog open={this.state.isMedicalInfoDialogOpen} fullWidth>
                 <DialogTitle>
                   <FormattedMessage {...messages.medicalInfoDialogTitle} />
                 </DialogTitle>
                 <DialogContent>
-                  <h1>Test</h1>
+                  <AddMedicalInformation
+                    arrayHelpers={arrayHelpers}
+                    onCloseDialog={this.handleCloseDialog}
+                    {...addMedicalInfoProps}
+                  />
                 </DialogContent>
               </StyledDialog>
             </div>
@@ -81,6 +89,19 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 }
 
-SelectMedicalInformation.propTypes = {};
+SelectMedicalInformation.propTypes = {
+  medicalInformation: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
+};
 
 export default SelectMedicalInformation;

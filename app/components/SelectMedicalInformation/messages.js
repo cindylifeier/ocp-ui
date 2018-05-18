@@ -22,4 +22,8 @@ export default defineMessages({
     id: 'ocpui.components.SelectMedicalInformation.medicalInfoDialogTitle',
     defaultMessage: 'Privacy Settings',
   },
+  confirmButton: {
+    id: 'ocpui.components.SelectMedicalInformation.confirmButton',
+    defaultMessage: 'Confirm',
+  },
 });

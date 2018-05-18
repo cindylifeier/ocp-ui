@@ -32,7 +32,10 @@ function ManageConsentForm(props) {
     consentFromActors: values.consentFromActors,
     consentToActors: values.consentToActors,
   };
-  const selectMedicalInfoProps = { securityLabel };
+  const selectMedicalInfoProps = {
+    securityLabel,
+    medicalInformation: values.medicalInformation || [],
+  };
   const pouProps = { purposeOfUse };
 
   return (
