@@ -15,6 +15,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
 import AddMedicalInformation from './AddMedicalInformation';
+import AddedMedicalInformation from './AddedMedicalInformation';
 import { SHARE_ALL, SHARE_SPECIFIC } from './constants';
 import messages from './messages';
 
@@ -84,6 +85,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
             </div>
           )}
         />
+        <AddedMedicalInformation medicalInformation={medicalInformation} />
       </div>
     );
   }
