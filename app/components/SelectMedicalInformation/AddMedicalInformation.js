@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
+import { FormControlLabel, FormGroup } from 'material-ui-next/Form';
+import Checkbox from 'material-ui-next/Checkbox';
+import upperFirst from 'lodash/upperFirst';
 
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -32,16 +35,19 @@ class AddMedicalInformation extends React.Component {
       <Grid columns={1}>
         <Cell>
           {securityLabels.map((securityLabel) => (
-            <div key={securityLabel.code}>
-              <input
-                name="medicalInfo"
-                type="checkbox"
-                value={securityLabel.code}
-                checked={medicalInfoCodes.includes(securityLabel.code)}
-                onChange={(event) => this.handleChange(event, securityLabel, medicalInfoCodes)}
-              />{' '}
-              {securityLabel.display}
-            </div>
+            <FormGroup key={securityLabel.code}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color="primary"
+                    value={securityLabel.code}
+                    checked={medicalInfoCodes.includes(securityLabel.code)}
+                    onChange={(event) => this.handleChange(event, securityLabel, medicalInfoCodes)}
+                  />
+                }
+                label={upperFirst(securityLabel.display)}
+              />
+            </FormGroup>
           ))}
         </Cell>
         <Cell>

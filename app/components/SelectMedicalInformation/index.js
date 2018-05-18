@@ -23,7 +23,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.state = {
-      medicalInfo: null,
+      shareType: null,
       isMedicalInfoDialogOpen: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -32,7 +32,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   handleChange(event) {
-    this.setState({ medicalInfo: event.target.value });
+    this.setState({ shareType: event.target.value });
   }
 
   handleOpenDialog() {
@@ -50,8 +50,8 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
       <div>
         <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
         <RadioGroup
-          name="medicalInfo"
-          value={this.state.medicalInfo}
+          name="shareType"
+          value={this.state.shareType}
           onChange={this.handleChange}
         >
           <FormControlLabel
