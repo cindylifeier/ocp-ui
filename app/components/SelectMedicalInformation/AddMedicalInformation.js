@@ -67,7 +67,7 @@ class AddMedicalInformation extends React.Component {
         <Cell>
           <HorizontalAlignment position="end">
             <StyledRaisedButton fullWidth onClick={onCloseDialog}>
-              <FormattedMessage {...messages.confirmButton} />
+              <FormattedMessage {...messages.okButton} />
             </StyledRaisedButton>
           </HorizontalAlignment>
         </Cell>

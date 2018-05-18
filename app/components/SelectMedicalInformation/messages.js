@@ -22,8 +22,12 @@ export default defineMessages({
     id: 'ocpui.components.SelectMedicalInformation.medicalInfoDialogTitle',
     defaultMessage: 'Privacy Settings',
   },
-  confirmButton: {
-    id: 'ocpui.components.SelectMedicalInformation.confirmButton',
-    defaultMessage: 'Confirm',
+  medicalInfoDialogSubtitle: {
+    id: 'ocpui.components.SelectMedicalInformation.medicalInfoDialogSubtitle',
+    defaultMessage: 'Please select the medical information that you want to share',
+  },
+  okButton: {
+    id: 'ocpui.components.SelectMedicalInformation.okButton',
+    defaultMessage: 'OK',
   },
 });
