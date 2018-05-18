@@ -40,19 +40,21 @@ function ManageConsentForm(props) {
 
   return (
     <Form>
-      <ManageConsentFormGrid gap="1vw">
+      <ManageConsentFormGrid>
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="2vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.selectActors} />
           </FormSubtitle>
-          <Checkbox
-            name="consentType"
-            label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
-          >
-          </Checkbox>
-          {!values.consentType &&
-          <SelectConsentActors {...selectActorsProps} />
-          }
+          <InfoSection>
+            <Checkbox
+              name="consentType"
+              label={<FormattedMessage {...messages.consentType} />}
+            >
+            </Checkbox>
+            {!values.consentType &&
+            <SelectConsentActors {...selectActorsProps} />
+            }
+          </InfoSection>
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
@@ -62,40 +64,38 @@ function ManageConsentForm(props) {
         </Cell>
         <Cell area="purposeOfUseGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.purposeOfUseInformation} />
+            <FormattedMessage {...messages.purposeOfUseInformation} />
           </FormSubtitle>
           <InfoSection>
-            {<FormattedMessage {...messages.floatingLabelText.purposeOfUseTitle} />}
-          </InfoSection>
-          <cell>
+            <FormattedMessage {...messages.purposeOfUseTitle} />
             <PurposeOfUse {...pouProps} />
-          </cell>
+          </InfoSection>
         </Cell>
         <Cell area="consentTermGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.consentTermInformation} />
+            <FormattedMessage {...messages.consentTermInformation} />
           </FormSubtitle>
           <InfoSection>
-            {<FormattedMessage {...messages.floatingLabelText.consentTermTitle} />}
+            <FormattedMessage {...messages.consentTermTitle} />
+            <Grid columns={4} gap="30px">
+              <DatePicker
+                fullWidth
+                name="consentStart"
+                mode={datePickerLandscapeMode}
+                minDate={today}
+                hintText={<FormattedMessage {...messages.hintText.consentStart} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
+              />
+              <DatePicker
+                fullWidth
+                name="consentEnd"
+                minDate={today}
+                mode={datePickerLandscapeMode}
+                hintText={<FormattedMessage {...messages.hintText.consentEnd} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentEnd} />}
+              />
+            </Grid>
           </InfoSection>
-          <Grid columns={4} gap="30px">
-            <DatePicker
-              fullWidth
-              name="consentStart"
-              mode={datePickerLandscapeMode}
-              minDate={today}
-              hintText={<FormattedMessage {...messages.hintText.consentStart} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
-            />
-            <DatePicker
-              fullWidth
-              name="consentEnd"
-              minDate={today}
-              mode={datePickerLandscapeMode}
-              hintText={<FormattedMessage {...messages.hintText.consentEnd} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentEnd} />}
-            />
-          </Grid>
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>

@@ -18,7 +18,7 @@ function SelectConsentActors(props) {
   const { consentFromActors, consentToActors } = props;
   const addedActors = union(consentFromActors, consentToActors);
   return (
-    <InfoSection>
+    <InfoSection margin="10px 0 0 0">
       <Grid columns={2} gap={'20px'}>
         <Cell>
           <ConsentFromActors consentFromActors={consentFromActors} addedActors={addedActors} />

@@ -12,6 +12,7 @@ import Radio, { RadioGroup } from 'material-ui-next/Radio';
 import { FormControlLabel } from 'material-ui-next/Form';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
+import InfoSection from 'components/InfoSection';
 import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
 import AddMedicalInformation from './AddMedicalInformation';
@@ -48,7 +49,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
     const { medicalInformation, securityLabels } = this.props;
     const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
-      <div>
+      <InfoSection>
         <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
         <RadioGroup
           name="shareType"
@@ -88,7 +89,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
           )}
         />
         <AddedMedicalInformation medicalInformation={medicalInformation} />
-      </div>
+      </InfoSection>
     );
   }
 }
