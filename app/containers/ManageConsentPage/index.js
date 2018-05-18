@@ -13,23 +13,15 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
-import {
-  CONSENT_ACTION,
-  CONSENT_CATEGORY,
-  CONSENT_STATE_CODES,
-  PURPOSE_OF_USE,
-  SECURITY_ROLE_TYPE,
-} from 'containers/App/constants';
+import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
 import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
 import PageContent from 'components/PageContent';
 import {
-  makeSelectConsentAction,
-  makeSelectConsentCategory,
   makeSelectConsentStateCodes,
   makeSelectPurposeOfUse,
-  makeSelectSecurityRoleType,
+  makeSelectSecurityLabel,
 } from 'containers/App/lookupSelectors';
 import Util from 'utils/Util';
 import find from 'lodash/find';
@@ -55,9 +47,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     const {
       patient,
       consentStateCodes,
-      consentCategory,
-      securityRoleType,
-      consentAction,
+      securityLabel,
       purposeOfUse,
       match,
       consents,
@@ -72,9 +62,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     const consentProps = {
       patient,
       consentStateCodes,
-      consentCategory,
-      securityRoleType,
-      consentAction,
+      securityLabel,
       purposeOfUse,
       initialSelectedFromActors,
       editMode,
@@ -98,13 +86,26 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
 
 ManageConsentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
-  consentStateCodes: PropTypes.array,
-  consentCategory: PropTypes.array,
-  securityRoleType: PropTypes.array,
-  consentAction: PropTypes.array,
+  consentStateCodes: PropTypes.arrayOf((PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  }))),
+  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  purposeOfUse: PropTypes.arrayOf((PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  }))),
   match: PropTypes.object.isRequired,
   consents: PropTypes.object,
-  purposeOfUse: PropTypes.array,
   saveConsent: PropTypes.func,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -115,15 +116,13 @@ ManageConsentPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
   consentStateCodes: makeSelectConsentStateCodes(),
-  consentCategory: makeSelectConsentCategory(),
-  securityRoleType: makeSelectSecurityRoleType(),
-  consentAction: makeSelectConsentAction(),
+  securityLabel: makeSelectSecurityLabel(),
   purposeOfUse: makeSelectPurposeOfUse(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([CONSENT_STATE_CODES, CONSENT_CATEGORY, SECURITY_ROLE_TYPE, CONSENT_ACTION, PURPOSE_OF_USE])),
+    getLookups: () => dispatch(getLookupsAction([CONSENT_STATE_CODES, SECURITY_LABEL, PURPOSE_OF_USE])),
     saveConsent: (consentFormData, handleSubmitting) => dispatch(saveConsent(consentFormData, handleSubmitting)),
   };
 }

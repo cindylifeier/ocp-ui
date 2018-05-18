@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
 import Radio, { RadioGroup } from 'material-ui-next/Radio';
 import { FormControlLabel } from 'material-ui-next/Form';
@@ -13,6 +13,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
+import { SHARE_ALL, SHARE_SPECIFIC } from './constants';
 import messages from './messages';
 
 
@@ -50,14 +51,14 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
           onChange={this.handleChange}
         >
           <FormControlLabel
-            value="shareAll"
+            value={SHARE_ALL}
             control={<Radio color="primary" onClick={this.handleOpenDialog} />}
-            label={<FormattedMessage {...messages.shareAll} />}
+            label={<FormattedHTMLMessage {...messages.shareAll} />}
           />
           <FormControlLabel
-            value="shareSpecific"
+            value={SHARE_SPECIFIC}
             control={<Radio color="primary" onClick={this.handleOpenDialog} />}
-            label={<FormattedMessage {...messages.shareSpecific} />}
+            label={<FormattedHTMLMessage {...messages.shareSpecific} />}
           />
         </RadioGroup>
         <FieldArray

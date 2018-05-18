@@ -19,17 +19,13 @@ function ManageConsent(props) {
   const {
     onSave,
     consentStateCodes,
-    consentCategory,
-    securityRoleType,
-    consentAction,
+    securityLabel,
     purposeOfUse,
     editMode,
   } = props;
   const formData = {
     consentStateCodes,
-    consentCategory,
-    securityRoleType,
-    consentAction,
+    securityLabel,
     purposeOfUse,
     editMode,
   };
@@ -58,30 +54,27 @@ function ManageConsent(props) {
           })}
         render={(formikProps) => <ManageConsentForm {...formikProps} {...formData} />}
       />
-
     </div>
   );
 }
 
 ManageConsent.propTypes = {
   consentStateCodes: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
     display: PropTypes.string,
   }))),
-  consentCategory: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
+  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
     display: PropTypes.string,
-  }))),
-  securityRoleType: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
-    display: PropTypes.string,
-  }))),
-  consentAction: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
-    display: PropTypes.string,
-  }))),
+  })),
   purposeOfUse: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
     display: PropTypes.string,
   }))),
   onSave: PropTypes.func,

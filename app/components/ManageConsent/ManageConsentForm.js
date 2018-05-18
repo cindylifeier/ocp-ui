@@ -23,16 +23,17 @@ function ManageConsentForm(props) {
     isSubmitting,
     values,
     purposeOfUse,
+    securityLabel,
   } = props;
-  const pouProps = {
-    purposeOfUse,
-  };
+
   const today = new Date();
 
   const selectActorsProps = {
     consentFromActors: values.consentFromActors,
     consentToActors: values.consentToActors,
   };
+  const selectMedicalInfoProps = { securityLabel };
+  const pouProps = { purposeOfUse };
 
   return (
     <Form>
@@ -54,7 +55,7 @@ function ManageConsentForm(props) {
           <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.medicalInformation} />
           </FormSubtitle>
-          <SelectMedicalInformation />
+          <SelectMedicalInformation {...selectMedicalInfoProps} />
         </Cell>
         <Cell area="purposeOfUseGroup">
           <FormSubtitle margin="2vh 0 0 0">
@@ -117,8 +118,21 @@ ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   values: PropTypes.shape({
     consentType: PropTypes.bool.isRequired,
+    consentFromActors: PropTypes.array,
+    consentToActors: PropTypes.array,
   }),
-  purposeOfUse: PropTypes.array,
+  securityLabel: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  purposeOfUse: PropTypes.arrayOf((PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  }))),
 };
 
 export default ManageConsentForm;

@@ -12,11 +12,11 @@ export default defineMessages({
   },
   shareAll: {
     id: 'ocpui.components.SelectMedicalInformation.shareAll',
-    defaultMessage: 'SHARE my medical record WITHOUT ANY EXCEPTION of medical information categories',
+    defaultMessage: '<strong>SHARE</strong> my medical record <strong>WITHOUT ANY EXCEPTION</strong> of medical information categories',
   },
   shareSpecific: {
     id: 'ocpui.components.SelectMedicalInformation.shareSpecific',
-    defaultMessage: 'SHARE my medical record WITH EXCEPTION of specific medical information categories',
+    defaultMessage: '<strong>SHARE</strong> my medical record <strong>WITH EXCEPTION</strong> of specific medical information categories',
   },
   medicalInfoDialogTitle: {
     id: 'ocpui.components.SelectMedicalInformation.medicalInfoDialogTitle',
