@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import isEqual from 'lodash/isEqual';
 
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getCommunications } from 'containers/Communications/actions';
 import {
   CARE_COORDINATOR_ROLE_CODE,
@@ -40,9 +40,9 @@ export class Communications extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
-    const { selectedPatient } = this.props;
-    if (selectedPatient) {
-      this.props.getCommunications(DEFAULT_START_PAGE_NUMBER);
+    const { selectedPatient, organization } = this.props;
+    if (selectedPatient && organization) {
+      this.props.getCommunications(DEFAULT_START_PAGE_NUMBER, organization.logicalId);
     }
   }
 
@@ -94,6 +94,7 @@ export class Communications extends React.Component { // eslint-disable-line rea
 
 Communications.propTypes = {
   getCommunications: PropTypes.func.isRequired,
+  organization: PropTypes.object.isRequired,
   communications: PropTypes.shape({
     data: PropTypes.shape({
       currentPage: PropTypes.number,
@@ -118,11 +119,12 @@ Communications.propTypes = {
 const mapStateToProps = createStructuredSelector({
   communications: makeSelectCommunications(),
   selectedPatient: makeSelectPatient(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCommunications: (pageNumber) => dispatch(getCommunications(pageNumber)),
+    getCommunications: (pageNumber, organizationId) => dispatch(getCommunications(pageNumber, organizationId)),
   };
 }
 

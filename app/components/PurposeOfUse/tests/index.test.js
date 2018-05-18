@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import RadioButton from '../index';
+// import PurposeOfUse from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<RadioButton />', () => {
+xdescribe('<PurposeOfUse />', () => {
   it('Expect to have unit tests specified', () => {
-   // expect(true).toEqual(false);
+    expect(true).toEqual(false);
   });
 });

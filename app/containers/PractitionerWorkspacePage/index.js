@@ -4,7 +4,7 @@
  *
  */
 
-import renderCalendarComponent from 'components/Calendar/render';
+import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';

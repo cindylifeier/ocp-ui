@@ -8,9 +8,10 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import startCase from 'lodash/startCase';
+import camelCase from 'lodash/camelCase';
+import upperFirst from 'lodash/upperFirst';
 import messages from './messages';
-
 
 function SelectedParticipants(props) {
   const {
@@ -21,16 +22,6 @@ function SelectedParticipants(props) {
   const handleRemoveParticipant = (participant) => {
     removeParticipant(participant);
   };
-
-  function removeDashesAndCapitalizeEachWord(str) {
-    const words = str.match(/([^-]+)/g) || [];
-    words.forEach((word, i) => {
-      words[i] = word[0].toUpperCase() + word.slice(1);
-    });
-    return words.join(' ');
-  }
-
-  const capitalizeFirstLetter = (word) => (word ? (word.charAt(0).toUpperCase().concat(word.slice(1))) : '');
 
   return (
     <Table>
@@ -48,10 +39,10 @@ function SelectedParticipants(props) {
         selectedParticipants.map((participant) => (
           <TableRow key={uniqueId()}>
             <TableRowColumn>{participant.name}</TableRowColumn>
-            <TableRowColumn>{capitalizeFirstLetter(participant.memberType)}</TableRowColumn>
-            <TableRowColumn>{capitalizeFirstLetter(participant.participationType.display)}</TableRowColumn>
-            <TableRowColumn>{removeDashesAndCapitalizeEachWord(participant.required.display)}</TableRowColumn>
-            <TableRowColumn>{removeDashesAndCapitalizeEachWord(participant.status.display)}</TableRowColumn>
+            <TableRowColumn>{upperFirst(participant.memberType)}</TableRowColumn>
+            <TableRowColumn>{upperFirst(participant.participationType.display)}</TableRowColumn>
+            <TableRowColumn>{startCase(camelCase(participant.required.display))}</TableRowColumn>
+            <TableRowColumn>{startCase(camelCase(participant.status.display))}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
                 <FormattedMessage {...messages.removeParticipantBtnLabel} />

@@ -80,8 +80,8 @@ export function combineAddress(address) {
   addressStr.push(address.line1 || '');
   addressStr.push(address.line2 || '');
   addressStr.push(address.city || '');
-  addressStr.push(address.postalCode || '');
   addressStr.push(address.stateCode || '');
+  addressStr.push(address.postalCode || '');
   addressStr.push(address.countryCode || '');
   return addressStr
     .filter((field) => field !== '')

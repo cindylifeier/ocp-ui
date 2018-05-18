@@ -4,9 +4,10 @@ import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
 
-export function getOrganizations(page) {
+export function getOrganizations(page, pageSize) {
+  const size = pageSize || DEFAULT_PAGE_SIZE;
   const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
-  const params = queryString({ size: DEFAULT_PAGE_SIZE, page });
+  const params = queryString({ size, page });
   // Todo: Change list organization endpoint
   const requestURL = `${baseEndpoint}/all${params}`;
   return request(requestURL);

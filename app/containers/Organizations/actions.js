@@ -21,10 +21,11 @@ export function initializeOrganizations(organizations) {
   };
 }
 
-export function getOrganizations(currentPage) {
+export function getOrganizations(currentPage, pageSize) {
   return {
     type: GET_ORGANIZATIONS,
     currentPage,
+    pageSize,
   };
 }
 

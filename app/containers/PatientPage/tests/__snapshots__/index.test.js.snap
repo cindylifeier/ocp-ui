@@ -158,13 +158,6 @@ ShallowWrapper {
                             "type": "component",
                           },
                           Object {
-                            "componentName": "calendar",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "CALENDAR",
-                            "type": "component",
-                          },
-                          Object {
                             "componentName": "communications",
                             "isClosable": true,
                             "reorderEnabled": true,
@@ -377,13 +370,6 @@ ShallowWrapper {
                               "type": "component",
                             },
                             Object {
-                              "componentName": "calendar",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "CALENDAR",
-                              "type": "component",
-                            },
-                            Object {
                               "componentName": "communications",
                               "isClosable": true,
                               "reorderEnabled": true,
@@ -549,13 +535,6 @@ ShallowWrapper {
                             "isClosable": true,
                             "reorderEnabled": true,
                             "title": "My Appointments",
-                            "type": "component",
-                          },
-                          Object {
-                            "componentName": "calendar",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "CALENDAR",
                             "type": "component",
                           },
                           Object {
@@ -741,13 +720,6 @@ ShallowWrapper {
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "My Appointments",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "calendar",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "CALENDAR",
                               "type": "component",
                             },
                             Object {
@@ -963,13 +935,6 @@ ShallowWrapper {
                                 "type": "component",
                               },
                               Object {
-                                "componentName": "calendar",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "CALENDAR",
-                                "type": "component",
-                              },
-                              Object {
                                 "componentName": "communications",
                                 "isClosable": true,
                                 "reorderEnabled": true,
@@ -1135,13 +1100,6 @@ ShallowWrapper {
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "My Appointments",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "calendar",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "CALENDAR",
                               "type": "component",
                             },
                             Object {

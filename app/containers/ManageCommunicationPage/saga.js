@@ -50,7 +50,7 @@ export function* updateCommunicationSaga(action) {
 export function* getEpisodeOfCaresSaga(action) {
   try {
     if (action.patientId) {
-      const episodeOfCares = yield call(getEpisodeOfCares, action.patientId);
+      const episodeOfCares = yield call(getEpisodeOfCares, action.patientId, action.organizationId);
       yield put(getEpisodeOfCaresSuccess(episodeOfCares));
     }
   } catch (error) {

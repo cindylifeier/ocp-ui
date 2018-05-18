@@ -58,4 +58,38 @@ export default defineMessages({
     id: 'ocpui.components.AppointmentTable.editAppointment',
     defaultMessage: 'Edit',
   },
+  expansionRowDetails: {
+    appointmentType: {
+      id: 'ocpui.components.AppointmentTable.appointmentType',
+      defaultMessage: 'Appointment Type',
+    },
+    appointmentName: {
+      id: 'ocpui.components.AppointmentTable.appointmentName',
+      defaultMessage: 'Name',
+    },
+    participantType: {
+      id: 'ocpui.components.AppointmentTable.participantType',
+      defaultMessage: 'Participant Type',
+    },
+    participationType: {
+      id: 'ocpui.components.AppointmentTable.participationType',
+      defaultMessage: 'Participation Type',
+    },
+    required: {
+      id: 'ocpui.components.AppointmentTable.required',
+      defaultMessage: 'Required',
+    },
+    status: {
+      id: 'ocpui.components.AppointmentTable.status',
+      defaultMessage: 'Status',
+    },
+    noParticipantAdded: {
+      id: 'ocpui.components.AppointmentTable.noParticipantAdded',
+      defaultMessage: 'No participant added',
+    },
+    participants: {
+      id: 'ocpui.components.AppointmentTable.participants',
+      defaultMessage: 'Participants:',
+    },
+  },
 });
