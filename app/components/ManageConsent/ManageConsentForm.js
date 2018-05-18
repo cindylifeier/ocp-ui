@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
-import { RadioButton } from 'material-ui';
 
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
@@ -11,8 +10,8 @@ import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
-import RadioButtonGroup from 'components/RadioButtonGroup';
 import SelectConsentActors from 'components/SelectConsentActors';
+import SelectConsentMedicalInfo from 'components/SelectConsentMedicalInfo';
 import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
@@ -52,21 +51,9 @@ function ManageConsentForm(props) {
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.medicalInformation} />
+            <FormattedMessage {...messages.medicalInformation} />
           </FormSubtitle>
-          <InfoSection>
-            {<FormattedMessage {...messages.floatingLabelText.medInfoTitle} />}
-          </InfoSection>
-          <RadioButtonGroup name="medInfo" defaultSelected="shareAll">
-            <RadioButton
-              value="shareAll"
-              label={<FormattedMessage {...messages.floatingLabelText.shareAll} />}
-            />
-            <RadioButton
-              value="shareSpecific"
-              label={<FormattedMessage {...messages.floatingLabelText.shareSpecific} />}
-            />
-          </RadioButtonGroup>
+          <SelectConsentMedicalInfo />
         </Cell>
         <Cell area="purposeOfUseGroup">
           <FormSubtitle margin="2vh 0 0 0">

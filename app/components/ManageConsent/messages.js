@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageConsent.selectActors',
     defaultMessage: 'Selected Actors',
   },
+  medicalInformation: {
+    id: 'ocpui.components.ManageConsent.medicalInformation',
+    defaultMessage: 'Medical Information',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minLength',
@@ -36,22 +40,6 @@ export default defineMessages({
     consentType: {
       id: 'ocpui.components.ManageConsent.manageForm.hintText.consentType',
       defaultMessage: 'Make available to my entire care team',
-    },
-    medicalInformation: {
-      id: 'ocpui.components.ManageConsent.manageForm.hintText.medicalInformation',
-      defaultMessage: 'Medical Information',
-    },
-    medInfoTitle: {
-      id: 'ocpui.components.ManageConsent.manageForm.hintText.medInfoTitle',
-      defaultMessage: 'Select how you would like to share your medical information.',
-    },
-    shareAll: {
-      id: 'ocpui.components.ManageConsent.manageForm.hintText.shareAll',
-      defaultMessage: 'SHARE my medical record WITHOUT ANY EXCEPTION of medical information categories',
-    },
-    shareSpecific: {
-      id: 'ocpui.components.ManageConsent.manageForm.hintText.shareSpecific',
-      defaultMessage: 'SHARE my medical record WITH EXCEPTION of specific medical information categories',
     },
     purposeOfUseInformation: {
       id: 'ocpui.components.ManageConsent.manageForm.hintText.purposeOfUseInformation',
@@ -86,22 +74,6 @@ export default defineMessages({
     consentType: {
       id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.consentType',
       defaultMessage: 'Make available to my entire care team',
-    },
-    medicalInformation: {
-      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.medicalInformation',
-      defaultMessage: 'Medical Information',
-    },
-    medInfoTitle: {
-      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.medInfoTitle',
-      defaultMessage: 'Select how you would like to share your medical information.',
-    },
-    shareAll: {
-      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.shareAll',
-      defaultMessage: 'SHARE my medical record WITHOUT ANY EXCEPTION of medical information categories',
-    },
-    shareSpecific: {
-      id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.shareSpecific',
-      defaultMessage: 'SHARE my medical record WITH EXCEPTION of specific medical information categories',
     },
     purposeOfUseInformation: {
       id: 'ocpui.components.ManageConsent.manageForm.floatingLabelText.purposeOfUseInformation',
