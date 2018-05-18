@@ -76,6 +76,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
                 </DialogTitle>
                 <DialogContent>
                   <AddMedicalInformation
+                    shareType={this.state.shareType}
                     arrayHelpers={arrayHelpers}
                     onCloseDialog={this.handleCloseDialog}
                     {...addMedicalInfoProps}
