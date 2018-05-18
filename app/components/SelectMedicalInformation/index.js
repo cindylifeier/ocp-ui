@@ -13,6 +13,7 @@ import { FormControlLabel } from 'material-ui-next/Form';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import InfoSection from 'components/InfoSection';
+import CustomErrorText from 'components/CustomErrorText';
 import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
 import AddMedicalInformation from './AddMedicalInformation';
@@ -46,7 +47,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { medicalInformation, securityLabels } = this.props;
+    const { errors, medicalInformation, securityLabels } = this.props;
     const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
       <InfoSection>
@@ -89,12 +90,18 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
           )}
         />
         <AddedMedicalInformation medicalInformation={medicalInformation} />
+        {errors && errors.medicalInformation &&
+        <CustomErrorText>{errors.medicalInformation}</CustomErrorText>
+        }
       </InfoSection>
     );
   }
 }
 
 SelectMedicalInformation.propTypes = {
+  errors: PropTypes.shape({
+    medicalInformation: PropTypes.any,
+  }),
   medicalInformation: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,

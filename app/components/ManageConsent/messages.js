@@ -35,9 +35,9 @@ export default defineMessages({
     defaultMessage: 'Enter a start and end date during which your medical records will be shared.',
   },
   validation: {
-    minLength: {
-      id: 'ocpui.components.ManageConsent.manageForm.validation.minLength',
-      defaultMessage: 'Minimum {minimumLength} characters',
+    minMedicalInfo: {
+      id: 'ocpui.components.ManageConsent.manageForm.validation.minMedicalInfo',
+      defaultMessage: 'Consent must have at least ONE medical information',
     },
     required: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.required',

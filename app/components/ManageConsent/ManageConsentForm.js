@@ -20,8 +20,7 @@ import messages from './messages';
 function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
-    isSubmitting,
-    values,
+    isSubmitting, dirty, isValid, errors, values,
     purposeOfUse,
     securityLabels,
   } = props;
@@ -29,10 +28,12 @@ function ManageConsentForm(props) {
   const today = new Date();
 
   const selectActorsProps = {
+    errors,
     consentFromActors: values.consentFromActors,
     consentToActors: values.consentToActors,
   };
   const selectMedicalInfoProps = {
+    errors,
     securityLabels,
     medicalInformation: values.medicalInformation || [],
   };
@@ -103,6 +104,7 @@ function ManageConsentForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
+                disabled={!dirty || isSubmitting || !isValid}
               >
                 Save
               </StyledRaisedButton>
@@ -119,6 +121,16 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    consentType: PropTypes.any,
+    consentFromActors: PropTypes.any,
+    consentToActors: PropTypes.any,
+    medicalInformation: PropTypes.any,
+    consentStart: PropTypes.any,
+    consentEnd: PropTypes.any,
+  }),
   values: PropTypes.shape({
     consentType: PropTypes.bool.isRequired,
     consentFromActors: PropTypes.array,
