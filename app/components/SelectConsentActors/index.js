@@ -15,16 +15,16 @@ import PropTypes from 'prop-types';
 
 
 function SelectConsentActors(props) {
-  const { consentFromActors, consentToActors } = props;
+  const { consentFromActors, consentToActors, errors } = props;
   const addedActors = union(consentFromActors, consentToActors);
   return (
     <InfoSection margin="10px 0 0 0">
       <Grid columns={2} gap={'20px'}>
         <Cell>
-          <ConsentFromActors consentFromActors={consentFromActors} addedActors={addedActors} />
+          <ConsentFromActors errors={errors} consentFromActors={consentFromActors} addedActors={addedActors} />
         </Cell>
         <Cell>
-          <ConsentToActors consentToActors={consentToActors} addedActors={addedActors} />
+          <ConsentToActors errors={errors} consentToActors={consentToActors} addedActors={addedActors} />
         </Cell>
       </Grid>
     </InfoSection>
@@ -46,6 +46,10 @@ SelectConsentActors.propTypes = {
       type: PropTypes.string.isRequired,
     }),
   })),
+  errors: PropTypes.shape({
+    consentFromActors: PropTypes.any,
+    consentToActors: PropTypes.any,
+  }),
 };
 
 export default SelectConsentActors;

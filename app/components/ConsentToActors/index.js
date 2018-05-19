@@ -11,6 +11,7 @@ import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import isEmpty from 'lodash/isEmpty';
 
+import CustomErrorText from 'components/CustomErrorText';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import AddedConsentActorsTable from 'components/AddedConsentActorsTable';
@@ -39,7 +40,7 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
-    const { consentToActors, addedActors } = this.props;
+    const { consentToActors, addedActors, errors } = this.props;
     return (
       <div>
         <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
@@ -68,6 +69,9 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
             </div>
           )}
         />
+        {errors && errors.consentToActors &&
+        <CustomErrorText>{errors.consentToActors}</CustomErrorText>
+        }
       </div>
     );
   }
@@ -88,6 +92,9 @@ ConsentToActors.propTypes = {
       type: PropTypes.string.isRequired,
     }),
   })),
+  errors: PropTypes.shape({
+    consentToActors: PropTypes.any,
+  }),
 };
 
 export default ConsentToActors;

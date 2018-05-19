@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   selectActors: {
     id: 'ocpui.components.ManageConsent.selectActors',
-    defaultMessage: 'Selected Actors',
+    defaultMessage: 'Selected Care Teams',
   },
   consentType: {
     id: 'ocpui.components.ManageConsent.consentType',
@@ -38,6 +38,14 @@ export default defineMessages({
     minMedicalInfo: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minMedicalInfo',
       defaultMessage: 'Consent must have at least ONE medical information',
+    },
+    minFromActors: {
+      id: 'ocpui.components.ManageConsent.manageForm.validation.minFromActors',
+      defaultMessage: 'Consent must have at least ONE FROM care team',
+    },
+    minToActors: {
+      id: 'ocpui.components.ManageConsent.manageForm.validation.minToActors',
+      defaultMessage: 'Consent must have at least ONE TO care team',
     },
     required: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.required',
