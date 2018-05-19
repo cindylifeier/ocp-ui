@@ -104,12 +104,6 @@ export const initialStateMetadata =
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'CALENDAR',
-              type: 'component',
-              componentName: 'calendar',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
               title: 'Communications',
               type: 'component',
               componentName: 'communications',
