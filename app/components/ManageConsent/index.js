@@ -43,7 +43,7 @@ function ManageConsent(props) {
             if (values.consentStart) {
               consentStart = values.consentStart;
             }
-            return yup.object().shape({
+            let schema = yup.object().shape({
               consentFromActors: yup.array()
                 .required((<FormattedMessage {...messages.validation.minFromActors} />)),
               consentToActors: yup.array()
@@ -57,6 +57,17 @@ function ManageConsent(props) {
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
+            if (values.consentType) {
+              schema = yup.object().shape({
+                consentStart: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+                consentEnd: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+              });
+            }
+            return schema;
           })}
         render={(formikProps) => <ManageConsentForm {...formikProps} {...formData} />}
       />

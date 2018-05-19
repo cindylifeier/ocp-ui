@@ -47,7 +47,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { errors, medicalInformation, securityLabels } = this.props;
+    const { errors, medicalInformation, securityLabels, isGeneralDesignation } = this.props;
     const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
       <InfoSection>
@@ -61,11 +61,13 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
             value={SHARE_ALL}
             control={<Radio color="primary" onClick={this.handleOpenDialog} />}
             label={<FormattedHTMLMessage {...messages.shareAll} />}
+            disabled={isGeneralDesignation}
           />
           <FormControlLabel
             value={SHARE_SPECIFIC}
             control={<Radio color="primary" onClick={this.handleOpenDialog} />}
             label={<FormattedHTMLMessage {...messages.shareSpecific} />}
+            disabled={isGeneralDesignation}
           />
         </RadioGroup>
         <FieldArray
@@ -114,6 +116,7 @@ SelectMedicalInformation.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   })),
+  isGeneralDesignation: PropTypes.bool.isRequired,
 };
 
 export default SelectMedicalInformation;

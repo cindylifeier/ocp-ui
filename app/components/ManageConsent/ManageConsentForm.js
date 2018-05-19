@@ -25,6 +25,7 @@ function ManageConsentForm(props) {
     securityLabels,
   } = props;
 
+  const isGeneralDesignation = values.consentType;
   const today = new Date();
 
   const selectActorsProps = {
@@ -36,6 +37,7 @@ function ManageConsentForm(props) {
     errors,
     securityLabels,
     medicalInformation: values.medicalInformation || [],
+    isGeneralDesignation,
   };
   const pouProps = { purposeOfUse };
 
@@ -52,7 +54,7 @@ function ManageConsentForm(props) {
               label={<FormattedMessage {...messages.consentType} />}
             >
             </Checkbox>
-            {!values.consentType &&
+            {!isGeneralDesignation &&
             <SelectConsentActors {...selectActorsProps} />
             }
           </InfoSection>
