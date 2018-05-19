@@ -35,6 +35,12 @@ function createConsent(consentFormData, patient) {
 }
 
 function mapToBffConsentDto(consentFormData, patient) {
+  // TODO: Handle UI hard-coded data
+  const status = 'draft';
+  const category = [{
+    code: '59284-0',
+    display: 'Patient Consent',
+  }];
   const {
     consentFromActors, consentToActors, medicalInformation, consentStart, consentEnd, consentType,
   } = consentFormData;
@@ -61,7 +67,9 @@ function mapToBffConsentDto(consentFormData, patient) {
     end: Util.formatDate(consentEnd),
   };
 
-  return {
+  let consentData = {
+    status,
+    category,
     period,
     generalDesignation: consentType,
     patient: patientReference,
@@ -69,4 +77,16 @@ function mapToBffConsentDto(consentFormData, patient) {
     toActor,
     medicalInformation,
   };
+
+  // If generalDesignation is true, create general consent
+  if (consentType) {
+    consentData = {
+      status,
+      category,
+      period,
+      generalDesignation: consentType,
+      patient: patientReference,
+    };
+  }
+  return consentData;
 }
