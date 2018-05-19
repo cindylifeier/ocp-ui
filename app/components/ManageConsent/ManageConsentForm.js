@@ -23,6 +23,7 @@ function ManageConsentForm(props) {
     isSubmitting, dirty, isValid, errors, values,
     purposeOfUse,
     securityLabels,
+    isCareCoordinator,
   } = props;
 
   const isGeneralDesignation = values.consentType;
@@ -32,6 +33,7 @@ function ManageConsentForm(props) {
     errors,
     consentFromActors: values.consentFromActors,
     consentToActors: values.consentToActors,
+    isCareCoordinator,
   };
   const selectMedicalInfoProps = {
     errors,
@@ -150,6 +152,7 @@ ManageConsentForm.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   }))),
+  isCareCoordinator: PropTypes.bool.isRequired,
 };
 
 export default ManageConsentForm;

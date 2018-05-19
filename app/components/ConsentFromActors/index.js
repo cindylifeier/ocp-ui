@@ -40,10 +40,10 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 
   render() {
-    const { consentFromActors, addedActors, errors } = this.props;
+    const { consentFromActors, addedActors, isCareCoordinator, errors } = this.props;
     return (
       <div>
-        <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
+        <StyledRaisedButton fullWidth onClick={this.handleOpenDialog} disabled={isCareCoordinator}>
           <FormattedMessage {...messages.consentFromActorsButton} />
         </StyledRaisedButton>
         <FieldArray
@@ -64,7 +64,11 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                 </DialogContent>
               </StyledDialog>
               {!isEmpty(consentFromActors) &&
-              <AddedConsentActorsTable arrayHelpers={arrayHelpers} actors={consentFromActors} />
+              <AddedConsentActorsTable
+                arrayHelpers={arrayHelpers}
+                actors={consentFromActors}
+                disabledRemoveButton={isCareCoordinator}
+              />
               }
             </div>
           )}
@@ -92,6 +96,7 @@ ConsentFromActors.propTypes = {
       type: PropTypes.string.isRequired,
     }),
   })),
+  isCareCoordinator: PropTypes.bool.isRequired,
   errors: PropTypes.shape({
     consentFromActors: PropTypes.any,
   }),

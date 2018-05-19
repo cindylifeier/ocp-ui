@@ -6,10 +6,10 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import yup from 'yup';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
 
 import ManageConsentForm from './ManageConsentForm';
 import messages from './messages';
@@ -22,17 +22,19 @@ function ManageConsent(props) {
     securityLabels,
     purposeOfUse,
     editMode,
+    careCoordinatorContext,
   } = props;
   const formData = {
     consentStateCodes,
     securityLabels,
     purposeOfUse,
     editMode,
+    isCareCoordinator: !isEmpty(careCoordinatorContext),
   };
   return (
     <div>
       <Formik
-        initialValues={setFormData(props.consent)}
+        initialValues={setFormData(props.consent, props.careCoordinatorContext)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -94,24 +96,56 @@ ManageConsent.propTypes = {
     definition: PropTypes.string,
     display: PropTypes.string,
   }))),
+  careCoordinatorContext: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    organization: PropTypes.object.isRequired,
+  }),
   onSave: PropTypes.func,
   editMode: PropTypes.bool,
   consent: PropTypes.object,
 };
 
-export default ManageConsent;
-
-function setFormData(consent) {
+function setFormData(consent, careCoordinatorContext) {
   let formData = null;
   if (isEmpty(consent)) {
     const consentStart = new Date();
     const consentEnd = new Date();
     consentEnd.setFullYear(consentEnd.getFullYear() + 1);
-    formData = {
-      consentType: false,
-      consentStart,
-      consentEnd,
-    };
+    if (!isEmpty(careCoordinatorContext)) {
+      const practitionerReference = {
+        reference: {
+          logicalId: careCoordinatorContext.logicalId,
+          type: 'Practitioner',
+        },
+        display: careCoordinatorContext.name,
+        identifiers: careCoordinatorContext.identifiers,
+      };
+      const orgReference = {
+        reference: {
+          logicalId: careCoordinatorContext.organization.logicalId,
+          type: 'Organization',
+        },
+        display: careCoordinatorContext.organization.name,
+        identifiers: careCoordinatorContext.organization.identifiers,
+      };
+      const fromActor = [orgReference, practitionerReference];
+      formData = {
+        consentType: false,
+        consentStart,
+        consentEnd,
+        consentFromActors: fromActor,
+      };
+    } else {
+      formData = {
+        consentType: false,
+        consentStart,
+        consentEnd,
+      };
+    }
   }
   return formData;
 }
+
+export default ManageConsent;
+

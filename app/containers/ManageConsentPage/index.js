@@ -10,24 +10,26 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+
 import injectSaga from 'utils/injectSaga';
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
-import ManageConsent from 'components/ManageConsent';
-import PageHeader from 'components/PageHeader';
-import Page from 'components/Page';
-import PageContent from 'components/PageContent';
 import {
   makeSelectConsentStateCodes,
   makeSelectPurposeOfUse,
   makeSelectSecurityLabel,
 } from 'containers/App/lookupSelectors';
-import Util from 'utils/Util';
-import find from 'lodash/find';
-import isUndefined from 'lodash/isUndefined';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { CONSENT_STATE_CODES, PURPOSE_OF_USE, SECURITY_LABEL } from 'containers/App/constants';
+import ManageConsent from 'components/ManageConsent';
+import PageHeader from 'components/PageHeader';
+import Page from 'components/Page';
+import PageContent from 'components/PageContent';
 import saga from './saga';
 import { saveConsent } from './actions';
+import { isCareCoordinator, mapResourceName } from './helpers';
+
 
 export class ManageConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -46,6 +48,8 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
   render() {
     const {
       patient,
+      user,
+      organization,
       consentStateCodes,
       securityLabels,
       purposeOfUse,
@@ -59,8 +63,23 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
     if (consent && consent.recipient) {
       initialSelectedFromActors = consent.fromActor;
     }
+
+    let careCoordinatorContext = null;
+    if (isCareCoordinator(user.role)) {
+      careCoordinatorContext = {
+        logicalId: user.fhirResource.logicalId,
+        name: mapResourceName(user.fhirResource.name),
+        identifiers: user.fhirResource.identifiers,
+        organization: {
+          logicalId: organization.logicalId,
+          name: organization.name,
+          identifiers: organization.identifiers,
+        },
+      };
+    }
     const consentProps = {
       patient,
+      careCoordinatorContext,
       consentStateCodes,
       securityLabels,
       purposeOfUse,
@@ -73,9 +92,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
           <title> Manage Consent </title>
           <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
         </Helmet>
-        <PageHeader
-          title={patient && `I,${getResourceDisplayName(patient)},here by authorize`}
-        />
+        <PageHeader title={patient && `I,${mapResourceName(patient.name)},here by authorize`} />
         <PageContent>
           <ManageConsent {...consentProps} onSave={this.handleSave} />
         </PageContent>
@@ -107,6 +124,31 @@ ManageConsentPage.propTypes = {
   match: PropTypes.object.isRequired,
   consents: PropTypes.object,
   saveConsent: PropTypes.func,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+    fhirResource: PropTypes.shape({
+      logicalId: PropTypes.string,
+      name: PropTypes.array,
+      identifiers: PropTypes.arrayOf(PropTypes.shape({
+        system: PropTypes.string,
+        oid: PropTypes.string,
+        value: PropTypes.string,
+        priority: PropTypes.number,
+        display: PropTypes.string,
+      })),
+    }),
+  }),
+  organization: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+  }),
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
@@ -114,6 +156,8 @@ ManageConsentPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+  organization: makeSelectOrganization(),
   patient: makeSelectPatient(),
   consentStateCodes: makeSelectConsentStateCodes(),
   securityLabels: makeSelectSecurityLabel(),
@@ -125,18 +169,6 @@ function mapDispatchToProps(dispatch) {
     getLookups: () => dispatch(getLookupsAction([CONSENT_STATE_CODES, SECURITY_LABEL, PURPOSE_OF_USE])),
     saveConsent: (consentFormData, handleSubmitting) => dispatch(saveConsent(consentFormData, handleSubmitting)),
   };
-}
-
-
-function getResourceDisplayName(resource) {
-  let name = {};
-  if (resource.name.length > 0) {
-    const fName = resource.name[0];
-    const firstName = Util.setEmptyStringWhenUndefined(fName.firstName);
-    const lastName = Util.setEmptyStringWhenUndefined(fName.lastName);
-    name = `${firstName}-${lastName}`;
-  }
-  return name;
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
