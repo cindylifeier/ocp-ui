@@ -27,6 +27,7 @@ function ManageConsentForm(props) {
   const pouProps = {
     purposeOfUse,
     values,
+    purposeOfUseCodes: values.purposeOfUseCodes || [],
   };
   const today = new Date();
 
