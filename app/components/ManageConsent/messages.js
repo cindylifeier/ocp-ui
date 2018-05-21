@@ -22,10 +22,6 @@ export default defineMessages({
     id: 'ocpui.components.ManageConsent.purposeOfUseInformation',
     defaultMessage: 'Purpose Of Use',
   },
-  purposeOfUseTitle: {
-    id: 'ocpui.components.ManageConsent.purposeOfUseTitle',
-    defaultMessage: 'Choose for what purposes your medical information may be used.',
-  },
   consentTermInformation: {
     id: 'ocpui.components.ManageConsent.consentTermInformation',
     defaultMessage: 'Consent Terms',
@@ -38,6 +34,10 @@ export default defineMessages({
     minMedicalInfo: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minMedicalInfo',
       defaultMessage: 'Consent must have at least ONE medical information',
+    },
+    minPurpose: {
+      id: 'ocpui.components.ManageConsent.manageForm.validation.minPurpose',
+      defaultMessage: 'Consent must have at least ONE purpose of use',
     },
     minFromActors: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minFromActors',

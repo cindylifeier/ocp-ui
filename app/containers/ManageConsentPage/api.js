@@ -47,7 +47,7 @@ function mapToBffConsentDto(consentFormData, patient) {
     display: 'Patient Consent',
   }];
   const {
-    consentFromActors, consentToActors, medicalInformation, consentStart, consentEnd, consentType,
+    consentFromActors, consentToActors, medicalInformation, purpose, consentStart, consentEnd, consentType,
   } = consentFormData;
 
   const fromActor = consentFromActors
@@ -81,6 +81,7 @@ function mapToBffConsentDto(consentFormData, patient) {
     fromActor,
     toActor,
     medicalInformation,
+    purpose,
   };
 
   // If generalDesignation is true, create general consent
