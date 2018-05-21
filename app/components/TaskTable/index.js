@@ -109,7 +109,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
         <TableRowColumn>{lastModified} </TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{remainingSubtasks}/{totalSubtasks} tasks remaining {logicalId}</TableRowColumn>
+        <TableRowColumn>{remainingSubtasks}/{totalSubtasks} tasks remaining</TableRowColumn>
         }
         {isExpanded &&
         <TableRowColumn>{status && status.display}</TableRowColumn>
