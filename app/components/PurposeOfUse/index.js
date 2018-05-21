@@ -7,12 +7,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledDialog from 'components/StyledDialog';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import PropTypes from 'prop-types';
+import StyledDialog from 'components/StyledDialog';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import messages from './messages';
+import AddPurposeOfUse from './AddPurposeOfUse';
+import AddedPurposeOfUse from './AddedPurposeOfUse';
 
-// import styled from 'styled-components';
 
 class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -35,31 +37,52 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
+    const { purposeOfUse, purposeOfUseCodes } = this.props;
+    console.log('purposeOfUseCodes', purposeOfUseCodes);
+    const addPurposeOfUsesFormProps = {
+      purposeOfUse,
+      purposeOfUseCodes,
+    };
     return (
       <div>
-        <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
+        <StyledRaisedButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
           <FormattedMessage {...messages.addPurposeOfUseButton} />
         </StyledRaisedButton>
         <FieldArray
-          name="consentFromActors"
-          render={() => (
+          name="purposeOfUseCodes"
+          render={(arrayHelpers) => (
             <div>
               <StyledDialog open={this.state.isPurposeOfUsesDialogOpen} onClose={this.handleCloseDialog} fullWidth>
                 <DialogTitle>
                   <FormattedMessage {...messages.dialogPurposeOfUseTitle} />
                 </DialogTitle>
                 <DialogContent>
-                  <p>Test</p>
+                  <AddPurposeOfUse {...addPurposeOfUsesFormProps} arrayHelpers={arrayHelpers} onCloseDialog={this.handleCloseDialog} />
                 </DialogContent>
               </StyledDialog>
             </div>
-          )}
+            )}
         />
+        <AddedPurposeOfUse purposeOfUseCodes={purposeOfUseCodes} />
       </div>
     );
   }
 }
 
-PurposeOfUse.propTypes = {};
+PurposeOfUse.propTypes = {
+  purposeOfUse: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
+  purposeOfUseCodes: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      system: PropTypes.string,
+      definition: PropTypes.string,
+      display: PropTypes.string,
+    }),
+  ),
+};
 
 export default PurposeOfUse;

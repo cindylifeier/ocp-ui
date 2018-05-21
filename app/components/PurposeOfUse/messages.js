@@ -14,4 +14,16 @@ export default defineMessages({
     id: 'ocpui.components.PurposeOfUse.addPurposeOfUseButton',
     defaultMessage: 'Edit',
   },
+  purposeOfUseInfo: {
+    id: 'ocpui.components.PurposeOfUse.purposeOfUseInfo',
+    defaultMessage: 'Share my iformation only for specified purposes of use.',
+  },
+  purposeOfUse: {
+    id: 'ocpui.components.PurposeOfUse.purposeOfUse',
+    defaultMessage: 'Share my iformation only for specified purposes of use.',
+  },
+  okButton: {
+    id: 'ocpui.components.PurposeOfUse.okButton',
+    defaultMessage: 'OK',
+  },
 });

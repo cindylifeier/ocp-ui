@@ -25,6 +25,10 @@ function ManageConsentForm(props) {
     securityLabels,
     isCareCoordinator,
   } = props;
+  const pouProps = {
+    purposeOfUse,
+    purposeOfUseCodes: values.purposeOfUseCodes || [{ code: 'TREAT', display: 'treatment' }],
+  };
 
   const isGeneralDesignation = values.consentType;
   const today = new Date();
@@ -41,7 +45,6 @@ function ManageConsentForm(props) {
     medicalInformation: values.medicalInformation || [],
     isGeneralDesignation,
   };
-  const pouProps = { purposeOfUse };
 
   return (
     <Form>
