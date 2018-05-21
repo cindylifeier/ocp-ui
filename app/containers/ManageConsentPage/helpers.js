@@ -24,6 +24,10 @@ export function initialConsentFormValues(consent, careCoordinatorContext) {
     const consentStart = new Date();
     const consentEnd = new Date();
     consentEnd.setFullYear(consentEnd.getFullYear() + 1);
+    const purpose = [{
+      code: 'TREAT',
+      display: 'treatment',
+    }];
     if (!isEmpty(careCoordinatorContext)) {
       const practitionerReference = {
         reference: {
@@ -46,6 +50,7 @@ export function initialConsentFormValues(consent, careCoordinatorContext) {
         consentType: false,
         consentStart,
         consentEnd,
+        purpose,
         consentFromActors: fromActor,
       };
     } else {
@@ -53,6 +58,7 @@ export function initialConsentFormValues(consent, careCoordinatorContext) {
         consentType: false,
         consentStart,
         consentEnd,
+        purpose,
       };
     }
   }

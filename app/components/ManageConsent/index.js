@@ -55,6 +55,8 @@ function ManageConsent(props) {
                 .required((<FormattedMessage {...messages.validation.minToActors} />)),
               medicalInformation: yup.array()
                 .required((<FormattedMessage {...messages.validation.minMedicalInfo} />)),
+              purpose: yup.array()
+                .required((<FormattedMessage {...messages.validation.minPurpose} />)),
               consentStart: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),

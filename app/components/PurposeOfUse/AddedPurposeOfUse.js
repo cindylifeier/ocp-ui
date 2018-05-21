@@ -7,13 +7,13 @@ import upperFirst from 'lodash/upperFirst';
 import MedicalInfoChip from 'components/SelectMedicalInformation/MedicalInfoChip';
 
 function AddedPurposeOfUse(props) {
-  const { purposeOfUseCodes } = props;
+  const { purpose } = props;
   return (
     <div>
-      {purposeOfUseCodes.map((info) => (
+      {purpose.map((pou) => (
         <MedicalInfoChip
-          key={info.code}
-          label={upperFirst(info.display)}
+          key={pou.code}
+          label={upperFirst(pou.display)}
           avatar={
             <Avatar>
               <CheckCircleIcon color={teal['500']} />
@@ -27,7 +27,7 @@ function AddedPurposeOfUse(props) {
 }
 
 AddedPurposeOfUse.propTypes = {
-  purposeOfUseCodes: PropTypes.arrayOf(PropTypes.shape({
+  purpose: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     definition: PropTypes.string,

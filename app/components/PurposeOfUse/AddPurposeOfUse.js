@@ -1,38 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import { FormattedMessage } from 'react-intl';
+import { FormControlLabel, FormGroup } from 'material-ui-next/Form';
+import Checkbox from 'material-ui-next/Checkbox';
+import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
+import upperFirst from 'lodash/upperFirst';
+
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import { Cell, Grid } from 'styled-css-grid';
-import upperFirst from 'lodash/upperFirst';
-import Checkbox from 'material-ui-next/Checkbox';
-import { FormControlLabel, FormGroup } from 'material-ui-next/Form';
 import messages from './messages';
 
 class AddPurposeOfUse extends React.Component {
-
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, purposeOfUse, pouCodes) {
+  handleChange(event, purpose, purposeCodes) {
     if (event.target.checked) {
       this.props.arrayHelpers.push({
-        code: purposeOfUse.code,
-        display: purposeOfUse.display,
+        code: purpose.code,
+        display: purpose.display,
       });
     } else {
-      const idx = pouCodes.indexOf(purposeOfUse.code);
-      this.props.arrayHelpers.remove(idx);
+      const index = purposeCodes.indexOf(purpose.code);
+      this.props.arrayHelpers.remove(index);
     }
   }
 
   render() {
-    const { purposeOfUse, purposeOfUseCodes, onCloseDialog } = this.props;
-    console.log('purposeOfUseCodes', purposeOfUseCodes);
-    const pouCodes = purposeOfUseCodes.map((pou) => pou.code);
+    const { purposeOfUse, purpose, onCloseDialog } = this.props;
+    const purposeCodes = purpose.map((pou) => pou.code);
     return (
       <Grid columns={1}>
         <Cell>
@@ -43,8 +42,8 @@ class AddPurposeOfUse extends React.Component {
                   <Checkbox
                     color="primary"
                     value={pou.code}
-                    checked={pouCodes && pouCodes.includes(pou.code)}
-                    onChange={(event) => this.handleChange(event, pou, pouCodes)}
+                    checked={purposeCodes && purposeCodes.includes(pou.code)}
+                    onChange={(event) => this.handleChange(event, pou, purposeCodes)}
                   />
                 }
                 label={upperFirst(pou.display)}
@@ -52,7 +51,6 @@ class AddPurposeOfUse extends React.Component {
             </FormGroup>
           ))}
         </Cell>
-
         <Cell>
           <HorizontalAlignment position="end">
             <StyledRaisedButton fullWidth onClick={onCloseDialog}>
@@ -73,22 +71,15 @@ AddPurposeOfUse.propTypes = {
   })).isRequired,
   onCloseDialog: PropTypes.func.isRequired,
   arrayHelpers: PropTypes.shape({
-    form: PropTypes.shape({
-      setFieldValue: PropTypes.func.isRequired,
-    }).isRequired,
-    name: PropTypes.string.isRequired,
     push: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
   }).isRequired,
-  purposeOfUseCodes: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      system: PropTypes.string,
-      definition: PropTypes.string,
-      display: PropTypes.string,
-    }),
-  ),
+  purpose: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
 };
 
 export default AddPurposeOfUse;
-

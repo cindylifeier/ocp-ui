@@ -6,6 +6,14 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  purposeOfUseTitle: {
+    id: 'ocpui.components.PurposeOfUse.purposeOfUseTitle',
+    defaultMessage: 'Choose for what purposes your medical information may be used.',
+  },
+  purposeOfUseSubTitle: {
+    id: 'ocpui.components.PurposeOfUse.purposeOfUseSubTitle',
+    defaultMessage: '<strong>SHARE</strong> my medical record ONLY for the selected purposes of use.',
+  },
   dialogPurposeOfUseTitle: {
     id: 'ocpui.components.PurposeOfUse.dialogPurposeOfUseTitle',
     defaultMessage: 'Share for selected purpose only',

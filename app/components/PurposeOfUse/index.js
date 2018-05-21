@@ -5,15 +5,18 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
-import PropTypes from 'prop-types';
+
+import CustomErrorText from 'components/CustomErrorText';
+import InfoSection from 'components/InfoSection';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import messages from './messages';
 import AddPurposeOfUse from './AddPurposeOfUse';
 import AddedPurposeOfUse from './AddedPurposeOfUse';
+import messages from './messages';
 
 
 class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -31,25 +34,24 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
   }
 
   handleCloseDialog() {
-    this.setState({
-      isPurposeOfUsesDialogOpen: false,
-    });
+    this.setState({ isPurposeOfUsesDialogOpen: false });
   }
 
   render() {
-    const { purposeOfUse, purposeOfUseCodes } = this.props;
-    console.log('purposeOfUseCodes', purposeOfUseCodes);
-    const addPurposeOfUsesFormProps = {
-      purposeOfUse,
-      purposeOfUseCodes,
-    };
+    const { errors, purposeOfUse, purpose, isGeneralDesignation } = this.props;
+    const addPurposeOfUsesProps = { purposeOfUse, purpose };
     return (
-      <div>
-        <StyledRaisedButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
+      <InfoSection>
+        <div><FormattedMessage {...messages.purposeOfUseTitle} /></div>
+        <FormattedHTMLMessage {...messages.purposeOfUseSubTitle} />
+        <StyledRaisedButton
+          onClick={this.handleOpenDialog}
+          disabled={isGeneralDesignation}
+        >
           <FormattedMessage {...messages.addPurposeOfUseButton} />
         </StyledRaisedButton>
         <FieldArray
-          name="purposeOfUseCodes"
+          name="purpose"
           render={(arrayHelpers) => (
             <div>
               <StyledDialog open={this.state.isPurposeOfUsesDialogOpen} onClose={this.handleCloseDialog} fullWidth>
@@ -57,32 +59,41 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
                   <FormattedMessage {...messages.dialogPurposeOfUseTitle} />
                 </DialogTitle>
                 <DialogContent>
-                  <AddPurposeOfUse {...addPurposeOfUsesFormProps} arrayHelpers={arrayHelpers} onCloseDialog={this.handleCloseDialog} />
+                  <AddPurposeOfUse
+                    {...addPurposeOfUsesProps}
+                    arrayHelpers={arrayHelpers}
+                    onCloseDialog={this.handleCloseDialog}
+                  />
                 </DialogContent>
               </StyledDialog>
             </div>
-            )}
+          )}
         />
-        <AddedPurposeOfUse purposeOfUseCodes={purposeOfUseCodes} />
-      </div>
+        <AddedPurposeOfUse purpose={purpose} />
+        {errors && errors.purpose &&
+        <CustomErrorText>{errors.purpose}</CustomErrorText>
+        }
+      </InfoSection>
     );
   }
 }
 
 PurposeOfUse.propTypes = {
+  errors: PropTypes.shape({
+    purpose: PropTypes.any,
+  }),
   purposeOfUse: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     display: PropTypes.string.isRequired,
   })).isRequired,
-  purposeOfUseCodes: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      system: PropTypes.string,
-      definition: PropTypes.string,
-      display: PropTypes.string,
-    }),
-  ),
+  purpose: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  isGeneralDesignation: PropTypes.bool.isRequired,
 };
 
 export default PurposeOfUse;
