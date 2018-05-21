@@ -1,15 +1,14 @@
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
-
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
-GET_APPOINTMENTS,
-} from './constants';
-import {
-getAppointmentsSuccess,
-getAppointmentsError,
+  getAppointmentsError,
+  getAppointmentsSuccess,
+  getOutlookAppointmentsError,
+  getOutlookAppointmentsSuccess,
 } from './actions';
-import getAppointmentsApi from './api';
+import getAppointmentsApi, { getOutlookAppointmentsApi } from './api';
+import { GET_APPOINTMENTS, GET_OUTLOOK_APPOINTMENTS } from './constants';
 
 function getErrorMessage(err) {
   let errorMessage = '';
@@ -21,6 +20,20 @@ function getErrorMessage(err) {
     errorMessage = 'Failed to retrieve the appointment list. Unknown server error.';
   } else {
     errorMessage = 'Failed to retrieve the appointment list. Unknown error.';
+  }
+  return errorMessage;
+}
+
+function getErrorMessageForOutlookAPICall(err) {
+  let errorMessage = '';
+  if (err && err.message === 'Failed to fetch') {
+    errorMessage = 'Failed to retrieve the appointment list. Server is offline.';
+  } else if (err && err.response && err.response.status === 404) {
+    errorMessage = 'No Outlook appointments to show.';
+  } else if (err && err.response && err.response.status === 500) {
+    errorMessage = 'Failed to retrieve the Outlook appointment list. Unknown server error.';
+  } else {
+    errorMessage = 'Failed to retrieve the Outlook appointment list. Unknown error.';
   }
   return errorMessage;
 }
@@ -56,8 +69,24 @@ export function* watchGetAppointmentsSaga() {
   yield takeLatest(GET_APPOINTMENTS, getAppointmentsSaga);
 }
 
+export function* getOutlookAppointmentsSaga() {
+  try {
+    const outlookAppointments = yield call(getOutlookAppointmentsApi);
+    yield put(getOutlookAppointmentsSuccess(outlookAppointments));
+  } catch (err) {
+    const errMsg = getErrorMessageForOutlookAPICall(err);
+    yield put(getOutlookAppointmentsError(err));
+    yield put(showNotification(errMsg));
+  }
+}
+
+export function* watchGetOutlookAppointmentsSaga() {
+  yield takeLatest(GET_OUTLOOK_APPOINTMENTS, getOutlookAppointmentsSaga);
+}
+
 export default function* defaultSaga() {
   yield all([
     watchGetAppointmentsSaga(),
+    watchGetOutlookAppointmentsSaga(),
   ]);
 }

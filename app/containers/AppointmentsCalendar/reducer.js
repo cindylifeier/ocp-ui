@@ -7,10 +7,14 @@
 import { fromJS } from 'immutable';
 import {
   DATA,
-  LOADING,
   GET_APPOINTMENTS,
-  GET_APPOINTMENTS_SUCCESS,
   GET_APPOINTMENTS_ERROR,
+  GET_APPOINTMENTS_SUCCESS,
+  GET_OUTLOOK_APPOINTMENTS,
+  GET_OUTLOOK_APPOINTMENTS_ERROR,
+  GET_OUTLOOK_APPOINTMENTS_SUCCESS,
+  LOADING,
+  OUTLOOK_DATA,
 } from './constants';
 
 const initialState = fromJS({
@@ -29,6 +33,16 @@ function appointmentsCalendarReducer(state = initialState, action) {
         .set(LOADING, false)
         .set(DATA, fromJS(action.appointments || {}));
     case GET_APPOINTMENTS_ERROR:
+      return state.set(LOADING, false);
+    case GET_OUTLOOK_APPOINTMENTS:
+      return state
+        .set(LOADING, true)
+        .set(OUTLOOK_DATA, null);
+    case GET_OUTLOOK_APPOINTMENTS_SUCCESS:
+      return state
+        .set(LOADING, false)
+        .set(OUTLOOK_DATA, fromJS(action.outlookAppointments || {}));
+    case GET_OUTLOOK_APPOINTMENTS_ERROR:
       return state.set(LOADING, false);
     default:
       return state;
