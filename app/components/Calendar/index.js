@@ -4,10 +4,10 @@
  *
  */
 
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
@@ -15,6 +15,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 BigCalendar.momentLocalizer(moment);
 const allViews = ['month', 'day', 'week'];
+
 function Calendar(props) { // eslint-disable-line react/prefer-stateless-function
   const appointments = props.elements.map((element) => {
     const appointment = {};
@@ -25,6 +26,19 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
     appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
     return appointment;
   });
+  if (props.outlookElements !== null) {
+    const outlookAppointments = props.outlookElements.map((element) => {
+      const outlookAppointment = {};
+      outlookAppointment.id = element.calUid;
+      outlookAppointment.title = element.subject;
+      outlookAppointment.description = element.subject;
+      outlookAppointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
+      outlookAppointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
+      return outlookAppointment;
+    });
+    appointments.push(...outlookAppointments);
+  }
+
   return (
     <div style={{ height: 800 }}>
       <BigCalendar
@@ -46,6 +60,7 @@ Calendar.propTypes = {
     description: PropTypes.string.isRequired,
     patientName: PropTypes.string.isRequired,
   })),
+  outlookElements: PropTypes.array,
 };
 
 export default Calendar;

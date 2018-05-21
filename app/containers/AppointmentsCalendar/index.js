@@ -4,36 +4,38 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import Calendar from 'components/Calendar';
+import { getLookupsAction } from 'containers/App/actions';
 
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
-import { getLookupsAction } from 'containers/App/actions';
-import Calendar from 'components/Calendar';
 import isEmpty from 'lodash/isEmpty';
-import injectSaga from 'utils/injectSaga';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAppointmentsCalendar from './selectors';
-import { getAppointments } from './actions';
+import injectSaga from 'utils/injectSaga';
+import { getAppointments, getOutlookAppointments } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import makeSelectAppointmentsCalendar from './selectors';
 
 export class AppointmentsCalendar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     this.props.getAppointments();
+    this.props.getOutlookAppointments();
   }
 
   render() {
-    const { appointmentsCalendar: { data } } = this.props;
+    const { appointmentsCalendar: { data, outlookData } } = this.props;
     return (
       <div>
         {!isEmpty(data) &&
-          <Calendar
-            elements={data}
-          />
+        <Calendar
+          elements={data}
+          outlookElements={outlookData}
+        />
         }
       </div>
     );
@@ -42,8 +44,10 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
 AppointmentsCalendar.propTypes = {
   getAppointments: PropTypes.func.isRequired,
+  getOutlookAppointments: PropTypes.func.isRequired,
   appointmentsCalendar: PropTypes.shape({
     data: PropTypes.array,
+    outlookData: PropTypes.array,
   }),
 };
 
@@ -54,6 +58,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getAppointments: (query) => dispatch(getAppointments(query)),
+    getOutlookAppointments: () => dispatch(getOutlookAppointments()),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
   };
 }
