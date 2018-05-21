@@ -1,8 +1,13 @@
 import request from 'utils/request';
-import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import Util from 'utils/Util';
+import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import { mapToName } from 'containers/App/helpers';
 
+
+export function getConsent(consentId) {
+  const requestURL = `${getEndpoint(BASE_CONSENTS_API_URL)}/${consentId}`;
+  return request(requestURL);
+}
 
 export function saveConsent(consentFormData, patient) {
   return createConsent(consentFormData, patient);
@@ -35,8 +40,14 @@ function createConsent(consentFormData, patient) {
 }
 
 function mapToBffConsentDto(consentFormData, patient) {
+  // TODO: Handle UI hard-coded data
+  const status = 'draft';
+  const category = [{
+    code: '59284-0',
+    display: 'Patient Consent',
+  }];
   const {
-    consentFromActors, consentToActors, consentStart, consentEnd, consentType,
+    consentFromActors, consentToActors, medicalInformation, consentStart, consentEnd, consentType,
   } = consentFormData;
 
   const fromActor = consentFromActors
@@ -61,11 +72,26 @@ function mapToBffConsentDto(consentFormData, patient) {
     end: Util.formatDate(consentEnd),
   };
 
-  return {
+  let consentData = {
+    status,
+    category,
     period,
+    generalDesignation: consentType,
     patient: patientReference,
     fromActor,
     toActor,
-    generalDesignation: consentType,
+    medicalInformation,
   };
+
+  // If generalDesignation is true, create general consent
+  if (consentType) {
+    consentData = {
+      status,
+      category,
+      period,
+      generalDesignation: consentType,
+      patient: patientReference,
+    };
+  }
+  return consentData;
 }
