@@ -24,6 +24,7 @@ function ManageConsent(props) {
     editMode,
     careCoordinatorContext,
     consent,
+    initialConsentFormValues,
   } = props;
   const formData = {
     consentStateCodes,
@@ -36,7 +37,7 @@ function ManageConsent(props) {
     <div>
       {((editMode && consent) || !editMode) &&
       <Formik
-        initialValues={setFormData(props.consent, props.careCoordinatorContext)}
+        initialValues={initialConsentFormValues(consent, careCoordinatorContext)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -104,7 +105,8 @@ ManageConsent.propTypes = {
     name: PropTypes.string,
     organization: PropTypes.object.isRequired,
   }),
-  onSave: PropTypes.func,
+  onSave: PropTypes.func.isRequired,
+  initialConsentFormValues: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
   consent: PropTypes.shape({
     logicalId: PropTypes.string.isRequired,
@@ -124,47 +126,6 @@ ManageConsent.propTypes = {
     }),
   }),
 };
-
-function setFormData(consent, careCoordinatorContext) {
-  let formData = null;
-  if (isEmpty(consent)) {
-    const consentStart = new Date();
-    const consentEnd = new Date();
-    consentEnd.setFullYear(consentEnd.getFullYear() + 1);
-    if (!isEmpty(careCoordinatorContext)) {
-      const practitionerReference = {
-        reference: {
-          logicalId: careCoordinatorContext.logicalId,
-          type: 'Practitioner',
-        },
-        display: careCoordinatorContext.name,
-        identifiers: careCoordinatorContext.identifiers,
-      };
-      const orgReference = {
-        reference: {
-          logicalId: careCoordinatorContext.organization.logicalId,
-          type: 'Organization',
-        },
-        display: careCoordinatorContext.organization.name,
-        identifiers: careCoordinatorContext.organization.identifiers,
-      };
-      const fromActor = [orgReference, practitionerReference];
-      formData = {
-        consentType: false,
-        consentStart,
-        consentEnd,
-        consentFromActors: fromActor,
-      };
-    } else {
-      formData = {
-        consentType: false,
-        consentStart,
-        consentEnd,
-      };
-    }
-  }
-  return formData;
-}
 
 export default ManageConsent;
 

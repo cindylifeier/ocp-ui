@@ -30,7 +30,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { getConsent, saveConsent } from './actions';
 import { makeSelectConsent } from './selectors';
-import { isCareCoordinator, mapResourceName } from './helpers';
+import { initialConsentFormValues, isCareCoordinator, mapResourceName } from './helpers';
 
 
 export class ManageConsentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -98,7 +98,11 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
         </Helmet>
         <PageHeader title={patient && `I,${mapResourceName(patient.name)},here by authorize`} />
         <PageContent>
-          <ManageConsent {...consentProps} onSave={this.handleSave} />
+          <ManageConsent
+            {...consentProps}
+            onSave={this.handleSave}
+            initialConsentFormValues={initialConsentFormValues}
+          />
         </PageContent>
       </Page>
     );
