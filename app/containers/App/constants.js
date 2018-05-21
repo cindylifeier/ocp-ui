@@ -106,6 +106,7 @@ export const DATE_RANGE = 'DATE_RANGE';
 export const CONSENT_STATE_CODES = 'CONSENT_STATE_CODES';
 export const CONSENT_CATEGORY = 'CONSENT_CATEGORY';
 export const SECURITY_ROLE_TYPE = 'SECURITY_ROLE_TYPE';
+export const SECURITY_LABEL = 'SECURITY_LABEL';
 export const CONSENT_ACTION = 'CONSENT_ACTION';
 export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
 // Consent Resource Lookups - End

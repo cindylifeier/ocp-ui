@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
-import { RadioButton } from 'material-ui';
 
 import { GoBackButton } from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
@@ -11,99 +10,99 @@ import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
-import RadioButtonGroup from 'components/RadioButtonGroup';
 import SelectConsentActors from 'components/SelectConsentActors';
+import SelectMedicalInformation from 'components/SelectMedicalInformation';
 import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
 
+
 function ManageConsentForm(props) {
   const datePickerLandscapeMode = 'landscape';
   const {
-    isSubmitting,
-    values,
+    isSubmitting, dirty, isValid, errors, values,
     purposeOfUse,
+    securityLabels,
+    isCareCoordinator,
   } = props;
-  const pouProps = {
-    purposeOfUse,
-  };
+
+  const isGeneralDesignation = values.consentType;
   const today = new Date();
 
   const selectActorsProps = {
+    errors,
     consentFromActors: values.consentFromActors,
     consentToActors: values.consentToActors,
+    isCareCoordinator,
+  };
+  const selectMedicalInfoProps = {
+    errors,
+    securityLabels,
+    medicalInformation: values.medicalInformation || [],
+    isGeneralDesignation,
+  };
+  const purposeOfUseProps = {
+    errors,
+    purposeOfUse,
+    purpose: values.purpose || [],
+    isGeneralDesignation,
   };
 
   return (
     <Form>
-      <ManageConsentFormGrid gap="1vw">
+      <ManageConsentFormGrid>
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="2vh 0 1vh 0">
+          <FormSubtitle margin="2vh 0 0 0">
             <FormattedMessage {...messages.selectActors} />
           </FormSubtitle>
-          <Checkbox
-            name="consentType"
-            label={<FormattedMessage {...messages.floatingLabelText.consentType} />}
-          >
-          </Checkbox>
-          {!values.consentType &&
-          <SelectConsentActors {...selectActorsProps} />
-          }
+          <InfoSection>
+            <Checkbox
+              name="consentType"
+              label={<FormattedMessage {...messages.consentType} />}
+            >
+            </Checkbox>
+            {!isGeneralDesignation &&
+            <SelectConsentActors {...selectActorsProps} />
+            }
+          </InfoSection>
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.medicalInformation} />
+            <FormattedMessage {...messages.medicalInformation} />
           </FormSubtitle>
-          <InfoSection>
-            {<FormattedMessage {...messages.floatingLabelText.medInfoTitle} />}
-          </InfoSection>
-          <RadioButtonGroup name="medInfo" defaultSelected="shareAll">
-            <RadioButton
-              value="shareAll"
-              label={<FormattedMessage {...messages.floatingLabelText.shareAll} />}
-            />
-            <RadioButton
-              value="shareSpecific"
-              label={<FormattedMessage {...messages.floatingLabelText.shareSpecific} />}
-            />
-          </RadioButtonGroup>
+          <SelectMedicalInformation {...selectMedicalInfoProps} />
         </Cell>
         <Cell area="purposeOfUseGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.purposeOfUseInformation} />
+            <FormattedMessage {...messages.purposeOfUseInformation} />
           </FormSubtitle>
-          <InfoSection>
-            {<FormattedMessage {...messages.floatingLabelText.purposeOfUseTitle} />}
-          </InfoSection>
-          <cell>
-            <PurposeOfUse {...pouProps} />
-          </cell>
+          <PurposeOfUse {...purposeOfUseProps} />
         </Cell>
         <Cell area="consentTermGroup">
           <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.floatingLabelText.consentTermInformation} />
+            <FormattedMessage {...messages.consentTermInformation} />
           </FormSubtitle>
           <InfoSection>
-            {<FormattedMessage {...messages.floatingLabelText.consentTermTitle} />}
+            <FormattedMessage {...messages.consentTermTitle} />
+            <Grid columns={4} gap="30px">
+              <DatePicker
+                fullWidth
+                name="consentStart"
+                mode={datePickerLandscapeMode}
+                minDate={today}
+                hintText={<FormattedMessage {...messages.hintText.consentStart} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
+              />
+              <DatePicker
+                fullWidth
+                name="consentEnd"
+                minDate={today}
+                mode={datePickerLandscapeMode}
+                hintText={<FormattedMessage {...messages.hintText.consentEnd} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentEnd} />}
+              />
+            </Grid>
           </InfoSection>
-          <Grid columns={4} gap="30px">
-            <DatePicker
-              fullWidth
-              name="consentStart"
-              mode={datePickerLandscapeMode}
-              minDate={today}
-              hintText={<FormattedMessage {...messages.hintText.consentStart} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
-            />
-            <DatePicker
-              fullWidth
-              name="consentEnd"
-              minDate={today}
-              mode={datePickerLandscapeMode}
-              hintText={<FormattedMessage {...messages.hintText.consentEnd} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentEnd} />}
-            />
-          </Grid>
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -111,6 +110,7 @@ function ManageConsentForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
+                disabled={!dirty || isSubmitting || !isValid}
               >
                 Save
               </StyledRaisedButton>
@@ -127,10 +127,34 @@ function ManageConsentForm(props) {
 
 ManageConsentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  dirty: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    consentType: PropTypes.any,
+    consentFromActors: PropTypes.any,
+    consentToActors: PropTypes.any,
+    medicalInformation: PropTypes.any,
+    consentStart: PropTypes.any,
+    consentEnd: PropTypes.any,
+  }),
   values: PropTypes.shape({
     consentType: PropTypes.bool.isRequired,
+    consentFromActors: PropTypes.array,
+    consentToActors: PropTypes.array,
   }),
-  purposeOfUse: PropTypes.array,
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  })),
+  purposeOfUse: PropTypes.arrayOf((PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
+    display: PropTypes.string,
+  }))),
+  isCareCoordinator: PropTypes.bool.isRequired,
 };
 
 export default ManageConsentForm;
