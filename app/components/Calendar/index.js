@@ -21,7 +21,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
     const appointment = {};
     appointment.id = element.logicalId;
     appointment.title = element.description;
-    appointment.description = element.description;
+    // appointment.description = element.description;
     appointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
     appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
     appointment.isOutlookAppointment = false;
@@ -32,7 +32,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       const outlookAppointment = {};
       outlookAppointment.id = element.calUid;
       outlookAppointment.title = element.subject;
-      outlookAppointment.description = element.subject;
+      // outlookAppointment.description = element.subject;
       outlookAppointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
       outlookAppointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
       outlookAppointment.isOutlookAppointment = true;
@@ -48,7 +48,8 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         events={appointments}
         defaultView="week"
         views={allViews}
-        step={60}
+        step={30}
+        timeslots={4}
         showMultiDayTimes
         defaultDate={new Date()}
         eventPropGetter={
