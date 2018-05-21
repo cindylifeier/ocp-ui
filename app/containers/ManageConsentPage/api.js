@@ -1,8 +1,13 @@
 import request from 'utils/request';
-import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import Util from 'utils/Util';
+import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import { mapToName } from 'containers/App/helpers';
 
+
+export function getConsent(consentId) {
+  const requestURL = `${getEndpoint(BASE_CONSENTS_API_URL)}/${consentId}`;
+  return request(requestURL);
+}
 
 export function saveConsent(consentFormData, patient) {
   return createConsent(consentFormData, patient);
