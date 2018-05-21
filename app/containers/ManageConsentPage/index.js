@@ -13,6 +13,7 @@ import { compose } from 'redux';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
 
+import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { getLookupsAction } from 'containers/App/actions';
 import {
@@ -26,6 +27,7 @@ import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
 import PageContent from 'components/PageContent';
+import reducer from './reducer';
 import saga from './saga';
 import { saveConsent } from './actions';
 import { isCareCoordinator, mapResourceName } from './helpers';
@@ -173,9 +175,11 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
+const withReducer = injectReducer({ key: 'manageConsentPage', reducer });
 const withSaga = injectSaga({ key: 'manageConsentPage', saga });
 
 export default compose(
+  withReducer,
   withSaga,
   withConnect,
 )(ManageConsentPage);
