@@ -12,7 +12,8 @@ import PropTypes from 'prop-types';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import messages from './messages';
-import PurposeOfUseForm from './PurposeOfUseForm';
+import AddPurposeOfUse from './AddPurposeOfUse';
+import AddedPurposeOfUse from './AddedPurposeOfUse';
 
 
 class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -20,7 +21,6 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
     super(props);
     this.state = {
       isPurposeOfUsesDialogOpen: false,
-      editingPurposeOfUse: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
@@ -33,16 +33,15 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
   handleCloseDialog() {
     this.setState({
       isPurposeOfUsesDialogOpen: false,
-      editingPurposeOfUse: null,
     });
   }
 
   render() {
-    const { purposeOfUse, values } = this.props;
-    console.log('values', values);
-    const addedPurposeOfUsesFormProps = {
+    const { purposeOfUse, purposeOfUseCodes } = this.props;
+    console.log('purposeOfUseCodes', purposeOfUseCodes);
+    const addPurposeOfUsesFormProps = {
       purposeOfUse,
-      values,
+      purposeOfUseCodes,
     };
     return (
       <div>
@@ -58,13 +57,13 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
                   <FormattedMessage {...messages.dialogPurposeOfUseTitle} />
                 </DialogTitle>
                 <DialogContent>
-                  <PurposeOfUseForm {...addedPurposeOfUsesFormProps} arrayHelpers={arrayHelpers} values={values} />
+                  <AddPurposeOfUse {...addPurposeOfUsesFormProps} arrayHelpers={arrayHelpers} onCloseDialog={this.handleCloseDialog} />
                 </DialogContent>
               </StyledDialog>
             </div>
             )}
         />
-        <pre>{JSON.stringify(values, null, 2)}</pre>
+        <AddedPurposeOfUse purposeOfUseCodes={purposeOfUseCodes} />
       </div>
     );
   }
@@ -76,7 +75,14 @@ PurposeOfUse.propTypes = {
     system: PropTypes.string,
     display: PropTypes.string.isRequired,
   })).isRequired,
-  values: PropTypes.object,
+  purposeOfUseCodes: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      system: PropTypes.string,
+      definition: PropTypes.string,
+      display: PropTypes.string,
+    }),
+  ),
 };
 
 export default PurposeOfUse;

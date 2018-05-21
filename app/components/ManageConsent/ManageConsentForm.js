@@ -27,8 +27,7 @@ function ManageConsentForm(props) {
   } = props;
   const pouProps = {
     purposeOfUse,
-    values,
-    purposeOfUseCodes: values.purposeOfUseCodes || [],
+    purposeOfUseCodes: values.purposeOfUseCodes || [{ code: 'TREAT', display: 'treatment' }],
   };
 
   const isGeneralDesignation = values.consentType;
