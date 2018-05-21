@@ -1,11 +1,9 @@
 /**
-*
-* ConsentTable
-*
-*/
+ *
+ * ConsentTable
+ *
+ */
 import React from 'react';
-// import styled from 'styled-components';
-
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
@@ -20,10 +18,9 @@ import TableHeader from 'components/TableHeader';
 import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import ConsentExpandableTableRow from './ConsentExpandableTableRow';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 import messages from './messages';
 
-// const tableColumns = '50px repeat(5, 1fr) 50px';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
 function ConsentTable(props) {
   const { consentData, relativeTop, allowedAttestConsentRoles, size } = props;
@@ -36,7 +33,7 @@ function ConsentTable(props) {
           ? <div>
             <Table>
               <TableHeader columns={columns} relativeTop={relativeTop}>
-                <TableHeaderColumn></TableHeaderColumn>
+                <TableHeaderColumn />
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderPatientName} /></TableHeaderColumn>
                 }
@@ -55,7 +52,7 @@ function ConsentTable(props) {
                   allowedAttestConsentRoles={allowedAttestConsentRoles}
                   isExpanded={isExpanded}
                 />
-                ))}
+              ))}
             </Table>
             {!!consentData && !!consentData.currentPage &&
             <div>

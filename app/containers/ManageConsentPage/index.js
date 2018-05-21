@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
 
 import injectReducer from 'utils/injectReducer';
@@ -29,7 +28,8 @@ import Page from 'components/Page';
 import PageContent from 'components/PageContent';
 import reducer from './reducer';
 import saga from './saga';
-import { saveConsent } from './actions';
+import { getConsent, saveConsent } from './actions';
+import { makeSelectConsent } from './selectors';
 import { isCareCoordinator, mapResourceName } from './helpers';
 
 
@@ -41,6 +41,10 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
 
   componentDidMount() {
     this.props.getLookups();
+    const consentId = this.props.match.params.id;
+    if (consentId) {
+      this.props.getConsent(consentId);
+    }
   }
 
   handleSave(consentFormData, actions) {
@@ -56,14 +60,12 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       securityLabels,
       purposeOfUse,
       match,
-      consents,
+      selectedConsent,
     } = this.props;
-    const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
-    let initialSelectedFromActors = [];
-    const consent = consents && consents.listConsents && find(consents.listConsents.data.elements, { logicalId });
-    if (consent && consent.recipient) {
-      initialSelectedFromActors = consent.fromActor;
+    let consent = null;
+    if (editMode && selectedConsent) {
+      consent = selectedConsent;
     }
 
     let careCoordinatorContext = null;
@@ -85,8 +87,8 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       consentStateCodes,
       securityLabels,
       purposeOfUse,
-      initialSelectedFromActors,
       editMode,
+      consent,
     };
     return (
       <Page>
@@ -105,6 +107,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
 
 ManageConsentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
+  getConsent: PropTypes.func.isRequired,
   consentStateCodes: PropTypes.arrayOf((PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
@@ -124,7 +127,23 @@ ManageConsentPage.propTypes = {
     display: PropTypes.string,
   }))),
   match: PropTypes.object.isRequired,
-  consents: PropTypes.object,
+  selectedConsent: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+    status: PropTypes.string,
+    fromActor: PropTypes.array,
+    toActor: PropTypes.array,
+    period: PropTypes.shape({
+      start: PropTypes.date,
+      end: PropTypes.date,
+    }),
+  }),
   saveConsent: PropTypes.func,
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,
@@ -164,11 +183,13 @@ const mapStateToProps = createStructuredSelector({
   consentStateCodes: makeSelectConsentStateCodes(),
   securityLabels: makeSelectSecurityLabel(),
   purposeOfUse: makeSelectPurposeOfUse(),
+  selectedConsent: makeSelectConsent(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([CONSENT_STATE_CODES, SECURITY_LABEL, PURPOSE_OF_USE])),
+    getConsent: (consentId) => dispatch(getConsent(consentId)),
     saveConsent: (consentFormData, handleSubmitting) => dispatch(saveConsent(consentFormData, handleSubmitting)),
   };
 }

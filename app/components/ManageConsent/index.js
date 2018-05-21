@@ -23,6 +23,7 @@ function ManageConsent(props) {
     purposeOfUse,
     editMode,
     careCoordinatorContext,
+    consent,
   } = props;
   const formData = {
     consentStateCodes,
@@ -33,6 +34,7 @@ function ManageConsent(props) {
   };
   return (
     <div>
+      {((editMode && consent) || !editMode) &&
       <Formik
         initialValues={setFormData(props.consent, props.careCoordinatorContext)}
         onSubmit={(values, actions) => {
@@ -73,6 +75,7 @@ function ManageConsent(props) {
           })}
         render={(formikProps) => <ManageConsentForm {...formikProps} {...formData} />}
       />
+      }
     </div>
   );
 }
@@ -103,7 +106,23 @@ ManageConsent.propTypes = {
   }),
   onSave: PropTypes.func,
   editMode: PropTypes.bool,
-  consent: PropTypes.object,
+  consent: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+    status: PropTypes.string,
+    fromActor: PropTypes.array,
+    toActor: PropTypes.array,
+    period: PropTypes.shape({
+      start: PropTypes.date,
+      end: PropTypes.date,
+    }),
+  }),
 };
 
 function setFormData(consent, careCoordinatorContext) {
