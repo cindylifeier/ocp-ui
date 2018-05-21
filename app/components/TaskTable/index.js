@@ -15,7 +15,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
-import uniqueId from 'lodash/uniqueId';
 import {
   EXPANDED_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
@@ -50,6 +49,9 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastModified} /></TableHeaderColumn>
         }
         {isExpanded &&
+        <TableHeaderColumn><FormattedMessage {...messages.subTasks} /></TableHeaderColumn>
+        }
+        {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
         }
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
@@ -59,7 +61,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
 
   function createTableRows(task) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
-    const { logicalId, definition, status, description, authoredOn, executionPeriod, owner, lastModified } = task;
+    const { logicalId, definition, status, description, authoredOn, executionPeriod, owner, lastModified, remainingSubtasks, totalSubtasks } = task;
     const menuItems = [{
       primaryText: <FormattedMessage {...messages.editTask} />,
       linkTo: {
@@ -85,7 +87,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
     }];
     return (
       <ExpansionTableRow
-        key={uniqueId()}
+        key={logicalId}
         columns={columns}
         expansionTableRowDetails={<TaskExpansionRowDetails task={task} />}
       >
@@ -105,6 +107,9 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
         }
         {isExpanded &&
         <TableRowColumn>{lastModified} </TableRowColumn>
+        }
+        {isExpanded &&
+        <TableRowColumn>{remainingSubtasks}/{totalSubtasks} tasks remaining</TableRowColumn>
         }
         {isExpanded &&
         <TableRowColumn>{status && status.display}</TableRowColumn>
@@ -157,6 +162,8 @@ TaskTable.propTypes = {
       reference: PropTypes.string,
       display: PropTypes.string,
     }),
+    totalSubtasks: PropTypes.number.isRequired,
+    remainingSubtasks: PropTypes.number.isRequired,
   })),
   size: PropTypes.object.isRequired,
 };
