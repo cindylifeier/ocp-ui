@@ -24,6 +24,7 @@ export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
 export const BASE_EPISODE_OF_CARES_API_URL = 'ocpui/utils/BASE_EPISODE_OF_CARES_API_URL';
 export const BASE_ACTIVITY_DEFINITIONS_API_URL = 'ocpui/utils/BASE_ACTIVITY_DEFINITIONS_API_URL';
 export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
+export const BASE_OUTLOOK_API_URL = 'ocpui/utils/BASE_OUTLOOK_API_URL';
 export const BASE_CONSENTS_API_URL = 'ocpui/utils/BASE_CONSENTS_API_URL';
 export const BASE_USER_CONTEXT_API_URL = 'ocpui/utils/BASE_USER_CONTEXT_API_URL';
 
@@ -51,6 +52,7 @@ const apiEndpoints = [
   { key: BASE_EPISODE_OF_CARES_API_URL, url: `${BASE_API_URL}/ocp-fis/episode-of-cares` },
   { key: BASE_ACTIVITY_DEFINITIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/activity-definitions` },
   { key: BASE_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
+  { key: BASE_OUTLOOK_API_URL, url: `${BASE_API_URL}/ocp-fis/outlook/calendar` },
   { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/consents` },
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
