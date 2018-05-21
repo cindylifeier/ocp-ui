@@ -6,10 +6,10 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import yup from 'yup';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
 
 import ManageConsentForm from './ManageConsentForm';
 import messages from './messages';
@@ -19,24 +19,25 @@ function ManageConsent(props) {
   const {
     onSave,
     consentStateCodes,
-    consentCategory,
-    securityRoleType,
-    consentAction,
+    securityLabels,
     purposeOfUse,
     editMode,
+    careCoordinatorContext,
+    consent,
+    initialConsentFormValues,
   } = props;
   const formData = {
     consentStateCodes,
-    consentCategory,
-    securityRoleType,
-    consentAction,
+    securityLabels,
     purposeOfUse,
     editMode,
+    isCareCoordinator: !isEmpty(careCoordinatorContext),
   };
   return (
     <div>
+      {((editMode && consent) || !editMode) &&
       <Formik
-        initialValues={setFormData(props.consent)}
+        initialValues={initialConsentFormValues(consent, careCoordinatorContext)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -47,7 +48,13 @@ function ManageConsent(props) {
             if (values.consentStart) {
               consentStart = values.consentStart;
             }
-            return yup.object().shape({
+            let schema = yup.object().shape({
+              consentFromActors: yup.array()
+                .required((<FormattedMessage {...messages.validation.minFromActors} />)),
+              consentToActors: yup.array()
+                .required((<FormattedMessage {...messages.validation.minToActors} />)),
+              medicalInformation: yup.array()
+                .required((<FormattedMessage {...messages.validation.minMedicalInfo} />)),
               consentStart: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
@@ -55,54 +62,69 @@ function ManageConsent(props) {
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
+            if (values.consentType) {
+              schema = yup.object().shape({
+                consentStart: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+                consentEnd: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+              });
+            }
+            return schema;
           })}
         render={(formikProps) => <ManageConsentForm {...formikProps} {...formData} />}
       />
-
+      }
     </div>
   );
 }
 
 ManageConsent.propTypes = {
   consentStateCodes: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
     display: PropTypes.string,
   }))),
-  consentCategory: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
+  securityLabels: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
     display: PropTypes.string,
-  }))),
-  securityRoleType: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
-    display: PropTypes.string,
-  }))),
-  consentAction: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
-    display: PropTypes.string,
-  }))),
+  })),
   purposeOfUse: PropTypes.arrayOf((PropTypes.shape({
-    reference: PropTypes.string,
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    definition: PropTypes.string,
     display: PropTypes.string,
   }))),
-  onSave: PropTypes.func,
+  careCoordinatorContext: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    organization: PropTypes.object.isRequired,
+  }),
+  onSave: PropTypes.func.isRequired,
+  initialConsentFormValues: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
-  consent: PropTypes.object,
+  consent: PropTypes.shape({
+    logicalId: PropTypes.string.isRequired,
+    identifiers: PropTypes.arrayOf(PropTypes.shape({
+      system: PropTypes.string,
+      oid: PropTypes.string,
+      value: PropTypes.string,
+      priority: PropTypes.number,
+      display: PropTypes.string,
+    })),
+    status: PropTypes.string,
+    fromActor: PropTypes.array,
+    toActor: PropTypes.array,
+    period: PropTypes.shape({
+      start: PropTypes.date,
+      end: PropTypes.date,
+    }),
+  }),
 };
 
 export default ManageConsent;
-
-function setFormData(consent) {
-  let formData = null;
-  if (isEmpty(consent)) {
-    const consentStart = new Date();
-    const consentEnd = new Date();
-    consentEnd.setFullYear(consentEnd.getFullYear() + 1);
-    formData = {
-      consentType: false,
-      consentStart,
-      consentEnd,
-      purposeOfUseCodes: ['TREAT'],
-    };
-  }
-  return formData;
-}

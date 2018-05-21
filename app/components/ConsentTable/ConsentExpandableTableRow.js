@@ -102,7 +102,6 @@ class ConsentExpandableTableRow extends React.PureComponent {
                 onClick={this.handleCloseIconMenu}
                 component={Link}
                 to={`/ocp-ui/manage-consent/${logicalId}`}
-                disabled
               >
                 <FormattedMessage {...messages.edit} />
               </MenuItem>

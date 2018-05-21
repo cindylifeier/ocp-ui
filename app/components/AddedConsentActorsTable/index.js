@@ -23,7 +23,7 @@ import messages from './messages';
 
 function AddedConsentActorsTable(props) {
   const tableColumns = '30% 15% 1fr 50px';
-  const { actors, arrayHelpers } = props;
+  const { actors, arrayHelpers, disabledRemoveButton } = props;
   return (
     <div>
       <InfoSection margin="10px -10px">
@@ -44,8 +44,9 @@ function AddedConsentActorsTable(props) {
                   size="x-small"
                   svgIconSize="medium"
                   onClick={() => arrayHelpers.remove(index)}
+                  disabled={disabledRemoveButton}
                 >
-                  <DeleteIcon color={red['800']} />
+                  <DeleteIcon color={disabledRemoveButton ? 'rgba(0, 0, 0, 0.3)' : red['800']} />
                 </StyledIconButton>
               </TableRow>
             );
@@ -77,6 +78,11 @@ AddedConsentActorsTable.propTypes = {
   arrayHelpers: PropTypes.shape({
     remove: PropTypes.func.isRequired,
   }).isRequired,
+  disabledRemoveButton: PropTypes.bool,
+};
+
+AddedConsentActorsTable.defaultProps = {
+  disabledRemoveButton: false,
 };
 
 export default AddedConsentActorsTable;

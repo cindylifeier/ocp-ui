@@ -13,7 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import renderCalendarComponent from 'components/Calendar/render';
+import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import renderTasks from 'containers/Tasks/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import renderRelatedPersonsComponent from 'containers/RelatedPersons/render';
