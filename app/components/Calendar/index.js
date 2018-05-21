@@ -24,6 +24,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
     appointment.description = element.description;
     appointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
     appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
+    appointment.isOutlookAppointment = false;
     return appointment;
   });
   if (props.outlookElements !== null) {
@@ -34,6 +35,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       outlookAppointment.description = element.subject;
       outlookAppointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
       outlookAppointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
+      outlookAppointment.isOutlookAppointment = true;
       return outlookAppointment;
     });
     appointments.push(...outlookAppointments);
@@ -49,6 +51,26 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         step={60}
         showMultiDayTimes
         defaultDate={new Date()}
+        eventPropGetter={
+          (event) => {
+            const newStyle = {
+              backgroundColor: '#9cc',
+              color: 'black',
+              borderRadius: '0px',
+              border: 'none',
+            };
+
+            if (event.isOutlookAppointment) {
+              newStyle.backgroundColor = '#115dd8';
+              newStyle.color = 'white';
+            }
+
+            return {
+              className: '',
+              style: newStyle,
+            };
+          }
+        }
       />
     </div>
   );
