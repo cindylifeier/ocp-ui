@@ -128,4 +128,3 @@ ManageConsent.propTypes = {
 };
 
 export default ManageConsent;
-
