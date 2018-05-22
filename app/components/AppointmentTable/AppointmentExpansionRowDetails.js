@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
+import startCase from 'lodash/startCase';
+import camelCase from 'lodash/camelCase';
+import uniqueId from 'lodash/uniqueId';
+
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -12,8 +16,6 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import StyledText from 'components/StyledText/index';
 import Align from 'components/Align/index';
 import { getRoleName } from 'utils/CommunicationUtils';
-import startCase from 'lodash/startCase';
-import camelCase from 'lodash/camelCase';
 import messages from './messages';
 
 function AppointmentExpansionRowDetails({ participants, appointmentType }) {
@@ -32,7 +34,7 @@ function AppointmentExpansionRowDetails({ participants, appointmentType }) {
         <Grid columns={'100%'} justifyContent="space-between">
           <Cell>
             <StyledText>
-              <Align variant={'left'} >
+              <Align variant={'left'}>
                 {<FormattedMessage {...messages.expansionRowDetails.participants} />}
               </Align>
             </StyledText>
@@ -50,15 +52,14 @@ function AppointmentExpansionRowDetails({ participants, appointmentType }) {
           participants.map((participant) => {
             const { actorName, actorReference, participationStatusCode, participationTypeDisplay } = participant;
             return (
-              <TableRow key={actorReference} columns={column}>
+              <TableRow key={uniqueId()} columns={column}>
                 <TableRowColumn>{actorName}</TableRowColumn>
                 <TableRowColumn>{getRoleName(actorReference)}</TableRowColumn>
                 <TableRowColumn>{startCase(camelCase(participationTypeDisplay))}</TableRowColumn>
                 <TableRowColumn>{startCase(camelCase(participationStatusCode))}</TableRowColumn>
               </TableRow>
             );
-          }
-          ) : (
+          }) : (
             <TableRow>
               <TableRowColumn>
                 <span><FormattedMessage {...messages.expansionRowDetails.noParticipantAdded} /></span>
