@@ -69,6 +69,7 @@ function mapToBffConsentDto(consentFormData, patient) {
       period,
       generalDesignation: consentType,
       patient: patientReference,
+      purpose,
     };
   } else {
     const fromActor = consentFromActors
