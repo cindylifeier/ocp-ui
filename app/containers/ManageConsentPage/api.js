@@ -50,18 +50,6 @@ function mapToBffConsentDto(consentFormData, patient) {
     consentFromActors, consentToActors, medicalInformation, purpose, consentStart, consentEnd, consentType,
   } = consentFormData;
 
-  const fromActor = consentFromActors
-    .map((actor) => ({
-      reference: `${actor.reference.type}/${actor.reference.logicalId}`,
-      display: actor.display,
-    }));
-
-  const toActor = consentToActors
-    .map((actor) => ({
-      reference: `${actor.reference.type}/${actor.reference.logicalId}`,
-      display: actor.display,
-    }));
-
   const patientReference = {
     reference: `Patient/${patient.id}`,
     display: mapToName(patient.name),
@@ -72,18 +60,7 @@ function mapToBffConsentDto(consentFormData, patient) {
     end: Util.formatDate(consentEnd),
   };
 
-  let consentData = {
-    status,
-    category,
-    period,
-    generalDesignation: consentType,
-    patient: patientReference,
-    fromActor,
-    toActor,
-    medicalInformation,
-    purpose,
-  };
-
+  let consentData;
   // If generalDesignation is true, create general consent
   if (consentType) {
     consentData = {
@@ -92,6 +69,29 @@ function mapToBffConsentDto(consentFormData, patient) {
       period,
       generalDesignation: consentType,
       patient: patientReference,
+    };
+  } else {
+    const fromActor = consentFromActors
+      .map((actor) => ({
+        reference: `${actor.reference.type}/${actor.reference.logicalId}`,
+        display: actor.display,
+      }));
+
+    const toActor = consentToActors
+      .map((actor) => ({
+        reference: `${actor.reference.type}/${actor.reference.logicalId}`,
+        display: actor.display,
+      }));
+    consentData = {
+      status,
+      category,
+      period,
+      generalDesignation: consentType,
+      patient: patientReference,
+      fromActor,
+      toActor,
+      medicalInformation,
+      purpose,
     };
   }
   return consentData;
