@@ -4,6 +4,7 @@
  *
  */
 
+import isUndefined from 'lodash/isUndefined';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -17,17 +18,21 @@ BigCalendar.momentLocalizer(moment);
 const allViews = ['month', 'day', 'week'];
 
 function Calendar(props) { // eslint-disable-line react/prefer-stateless-function
-  const appointments = props.elements.map((element) => {
-    const appointment = {};
-    appointment.id = element.logicalId;
-    appointment.title = element.description;
-    // appointment.description = element.description;
-    appointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
-    appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
-    appointment.isOutlookAppointment = false;
-    return appointment;
-  });
-  if (props.outlookElements !== null) {
+  let appointments = {};
+  if (!isUndefined(props.elements) && props.elements !== null) {
+    appointments = props.elements.map((element) => {
+      const appointment = {};
+      appointment.id = element.logicalId;
+      appointment.title = element.description;
+      // appointment.description = element.description;
+      appointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
+      appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
+      appointment.isOutlookAppointment = false;
+      return appointment;
+    });
+  }
+
+  if (!isUndefined(props.outlookElements) && props.outlookElements !== null) {
     const outlookAppointments = props.outlookElements.map((element) => {
       const outlookAppointment = {};
       outlookAppointment.id = element.calUid;
