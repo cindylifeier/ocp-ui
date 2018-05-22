@@ -18,11 +18,12 @@ import NavigationIconMenu from 'components/NavigationIconMenu';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import AppointmentExpansionRowDetails from 'components/AppointmentTable/AppointmentExpansionRowDetails';
 import messages from './messages';
-import { EXPANDED_TABLE_COLUMNS,
+import {
+  EXPANDED_TABLE_COLUMNS,
+  PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS,
+  PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS,
   SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
-  PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS,
-  PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS,
 } from './constants';
 
 function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace }) { // eslint-disable-line react/prefer-stateless-function
@@ -37,11 +38,12 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
     }
     return columns;
   }
+
   function createTableHeaders() {
     const columns = getColumns();
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
-        <TableHeaderColumn></TableHeaderColumn>
+        <TableHeaderColumn />
         {!isPatientWorkspace &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
         }
@@ -62,7 +64,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
   return (
     <div>
       <Table>
-        { createTableHeaders()}
+        {createTableHeaders()}
         {elements && elements.map((appointment) => {
           const addCommunicationMenuItem = patientId ? {
             primaryText: <FormattedMessage {...messages.addCommunication} />,
@@ -106,7 +108,12 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               columns={getColumns()}
               role="button"
               tabIndex="0"
-              expansionTableRowDetails={<AppointmentExpansionRowDetails participants={appointment.participant} appointmentType={appointmentType.display} />}
+              expansionTableRowDetails={
+                <AppointmentExpansionRowDetails
+                  participants={appointment.participant}
+                  appointmentType={appointmentType.display}
+                />
+              }
             >
               {!isPatientWorkspace &&
               <TableRowColumn>{appointment.patientName}</TableRowColumn>
