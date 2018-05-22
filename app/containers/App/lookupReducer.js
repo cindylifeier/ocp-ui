@@ -7,15 +7,25 @@ import {
   ADDRESSUSE,
   ADMINISTRATIVEGENDER,
   APPOINTMENT_PARTICIPANT_REQUIRED,
-  APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPANT_TYPE,
+  APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPATION_TYPE,
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
   CARETEAMCATEGORY,
   CARETEAMREASON,
   CARETEAMSTATUS,
+  COMMUNICATION_CATEGORY,
+  COMMUNICATION_MEDIUM,
+  COMMUNICATION_NOT_DONE_REASON,
+  COMMUNICATION_STATUS,
+  CONSENT_ACTION,
+  CONSENT_CATEGORY,
+  CONSENT_STATE_CODES,
+  DATE_RANGE,
   DEFINITION_TOPIC,
+  FLAG_CATEGORY,
+  FLAG_STATUS,
   GET_LOOKUPS,
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_SUCCESS,
@@ -38,11 +48,14 @@ import {
   PROVIDER_ROLE,
   PROVIDER_SPECIALTY,
   PUBLICATION_STATUS,
+  PURPOSE_OF_USE,
   RELATED_ARTIFACT_TYPE,
   RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   REQUEST_INTENT,
   REQUEST_PRIORITY,
   RESOURCE_TYPE,
+  SECURITY_LABEL,
+  SECURITY_ROLE_TYPE,
   TASK_PERFORMER_TYPE,
   TASK_STATUS,
   TELECOMSYSTEM,
@@ -51,21 +64,6 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-  // Communications Resource lookups start
-  COMMUNICATION_STATUS,
-  COMMUNICATION_CATEGORY,
-  COMMUNICATION_NOT_DONE_REASON,
-  COMMUNICATION_MEDIUM,
-  FLAG_STATUS,
-  FLAG_CATEGORY,
-  DATE_RANGE,
-  // Consent Resource Lookups - Start
-  CONSENT_STATE_CODES,
-  CONSENT_CATEGORY,
-  SECURITY_ROLE_TYPE,
-  CONSENT_ACTION,
-  PURPOSE_OF_USE,
-  // Consent Resource Lookups - End
 } from './constants';
 
 // The initial state of the lookup
@@ -132,6 +130,7 @@ const initialState = fromJS({
   // Consent Resource Lookups - Start
   CONSENT_STATE_CODES: [],
   CONSENT_CATEGORY: [],
+  SECURITY_LABEL: [],
   SECURITY_ROLE_TYPE: [],
   CONSENT_ACTION: [],
   PURPOSE_OF_USE: [],
@@ -208,6 +207,7 @@ function lookupReducer(state = initialState, action) {
         // Consent Resource Lookups - Start
         .set(CONSENT_STATE_CODES, fromJS((action.lookups && action.lookups.consentStateCodes) || state.get(CONSENT_STATE_CODES)))
         .set(CONSENT_CATEGORY, fromJS((action.lookups && action.lookups.consentCategory) || state.get(CONSENT_CATEGORY)))
+        .set(SECURITY_LABEL, fromJS((action.lookups && action.lookups.securityLabel) || state.get(SECURITY_LABEL)))
         .set(SECURITY_ROLE_TYPE, fromJS((action.lookups && action.lookups.securityRoleType) || state.get(SECURITY_ROLE_TYPE)))
         .set(CONSENT_ACTION, fromJS((action.lookups && action.lookups.consentAction) || state.get(CONSENT_ACTION)))
         .set(PURPOSE_OF_USE, fromJS((action.lookups && action.lookups.purposeOfUse) || state.get(PURPOSE_OF_USE)))

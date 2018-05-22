@@ -26,6 +26,10 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.columnHeaderLastModified',
     defaultMessage: 'Last Modified',
   },
+  subTasks: {
+    id: 'ocpui.components.TaskTable.subTasks',
+    defaultMessage: 'Sub Tasks',
+  },
   columnHeaderTaskOwner: {
     id: 'ocpui.components.TaskTable.columnHeaderTaskOwner',
     defaultMessage: 'Owner',

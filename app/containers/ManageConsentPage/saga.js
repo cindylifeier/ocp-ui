@@ -3,10 +3,21 @@ import { goBack } from 'react-router-redux';
 
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
-import { saveConsentError } from './actions';
-import { getErrorDetail, saveConsent } from './api';
-import { SAVE_CONSENT } from './constants';
+import { getConsentError, getConsentSuccess, saveConsentError } from './actions';
+import { getConsent, getErrorDetail, saveConsent } from './api';
+import { GET_CONSENT, SAVE_CONSENT } from './constants';
 
+
+function* getConsentSaga({ consentId }) {
+  try {
+    const consent = yield call(getConsent, consentId);
+    yield put(getConsentSuccess(consent));
+  } catch (error) {
+    yield put(getConsentError(getErrorDetail(error)));
+    yield put(showNotification('No match consent found.'));
+    yield put(goBack());
+  }
+}
 
 function* saveConsentSaga(action) {
   try {
@@ -22,6 +33,10 @@ function* saveConsentSaga(action) {
   }
 }
 
+function* watchGetConsentSaga() {
+  yield takeLatest(GET_CONSENT, getConsentSaga);
+}
+
 function* watchSaveConsentSaga() {
   yield takeLatest(SAVE_CONSENT, saveConsentSaga);
 }
@@ -31,6 +46,7 @@ function* watchSaveConsentSaga() {
  */
 export default function* rootSaga() {
   yield all([
+    watchGetConsentSaga(),
     watchSaveConsentSaga(),
   ]);
 }

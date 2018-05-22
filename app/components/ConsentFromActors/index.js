@@ -11,6 +11,7 @@ import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import isEmpty from 'lodash/isEmpty';
 
+import CustomErrorText from 'components/CustomErrorText';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import AddedConsentActorsTable from 'components/AddedConsentActorsTable';
@@ -39,10 +40,10 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
   }
 
   render() {
-    const { consentFromActors, addedActors } = this.props;
+    const { consentFromActors, addedActors, isCareCoordinator, errors } = this.props;
     return (
       <div>
-        <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
+        <StyledRaisedButton fullWidth onClick={this.handleOpenDialog} disabled={isCareCoordinator}>
           <FormattedMessage {...messages.consentFromActorsButton} />
         </StyledRaisedButton>
         <FieldArray
@@ -63,11 +64,18 @@ class ConsentFromActors extends React.Component { // eslint-disable-line react/p
                 </DialogContent>
               </StyledDialog>
               {!isEmpty(consentFromActors) &&
-              <AddedConsentActorsTable arrayHelpers={arrayHelpers} actors={consentFromActors} />
+              <AddedConsentActorsTable
+                arrayHelpers={arrayHelpers}
+                actors={consentFromActors}
+                disabledRemoveButton={isCareCoordinator}
+              />
               }
             </div>
           )}
         />
+        {errors && errors.consentFromActors &&
+        <CustomErrorText>{errors.consentFromActors}</CustomErrorText>
+        }
       </div>
     );
   }
@@ -88,6 +96,10 @@ ConsentFromActors.propTypes = {
       type: PropTypes.string.isRequired,
     }),
   })),
+  isCareCoordinator: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    consentFromActors: PropTypes.any,
+  }),
 };
 
 export default ConsentFromActors;
