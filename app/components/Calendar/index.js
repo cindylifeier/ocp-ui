@@ -10,12 +10,21 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
-
-
 BigCalendar.momentLocalizer(moment);
 const allViews = ['month', 'day', 'week'];
+
+// TODO: Get the translations from messages.js
+const messages = {
+  next: 'Next',
+  previous: 'Previous',
+  today: 'Today',
+  month: 'Month',
+  day: 'Day',
+  week: 'Week',
+};
 
 function Calendar(props) { // eslint-disable-line react/prefer-stateless-function
   let appointments = {};
@@ -57,6 +66,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         timeslots={4}
         showMultiDayTimes
         defaultDate={new Date()}
+        messages={messages}
         eventPropGetter={
           (event) => {
             const newStyle = {
