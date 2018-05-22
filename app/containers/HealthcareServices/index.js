@@ -54,7 +54,7 @@ import { flattenHealthcareServiceData } from './helpers';
 
 export class HealthcareServices extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static initalState = {
-    reltaiveTop: 0,
+    relativeTop: 0,
     panelHeight: 0,
     filterHeight: 0,
     currentPage: 1,
