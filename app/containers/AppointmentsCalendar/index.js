@@ -7,7 +7,11 @@
 import Calendar from 'components/Calendar';
 import { getLookupsAction } from 'containers/App/actions';
 
-import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
+import {
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
+  MANAGE_APPOINTMENT_URL,
+} from 'containers/App/constants';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -35,6 +39,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
         <Calendar
           elements={data}
           outlookElements={outlookData}
+          manageAppointmentUrl={MANAGE_APPOINTMENT_URL}
         />
         }
       </div>
