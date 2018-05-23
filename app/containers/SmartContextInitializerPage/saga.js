@@ -1,6 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import queryString from 'utils/queryString';
 
+import queryString from 'utils/queryString';
+import { getEndpoint, SMART_AUTHORIZE_URL } from 'utils/endpointService';
 import { showNotification } from 'containers/Notification/actions';
 import { POST_CONTEXT } from './constants';
 import { postContext } from './api';
@@ -11,8 +12,8 @@ export function* postContextSaga({ launchId, context, params }) {
     const response = yield call(postContext, launchId, context);
     yield put(postContextSuccess(response));
     const paramsQueryString = yield call(queryString, params);
-    // FIXME: refactor the authorize endpoint configuration properly
-    const endpoint = `http://localhost:8445/authorize${paramsQueryString}`;
+    const authorizeUrl = getEndpoint(SMART_AUTHORIZE_URL);
+    const endpoint = `${authorizeUrl}${paramsQueryString}`;
     window.location = endpoint;
   } catch (error) {
     yield put(postContextError(error));
