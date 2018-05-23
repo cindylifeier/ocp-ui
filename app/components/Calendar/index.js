@@ -27,9 +27,10 @@ const messages = {
 };
 
 function Calendar(props) { // eslint-disable-line react/prefer-stateless-function
+  const { elements, manageAppointmentUrl } = props;
   let appointments = {};
-  if (!isUndefined(props.elements) && props.elements !== null) {
-    appointments = props.elements.map((element) => {
+  if (!isUndefined(elements) && props.elements !== null) {
+    appointments = elements.map((element) => {
       const appointment = {};
       appointment.id = element.logicalId;
       appointment.title = element.description;
@@ -37,6 +38,8 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       appointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
       appointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
       appointment.isOutlookAppointment = false;
+      appointment.editUrl = `${manageAppointmentUrl}/${element.logicalId}`;
+      appointment.patientId = element.patientId;
       return appointment;
     });
   }
@@ -50,6 +53,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       outlookAppointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
       outlookAppointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
       outlookAppointment.isOutlookAppointment = true;
+      outlookAppointment.patientId = '';
       return outlookAppointment;
     });
     appointments.push(...outlookAppointments);
@@ -59,6 +63,8 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
     <div style={{ height: 800 }}>
       <BigCalendar
         popup
+        selectable
+        onDoubleClickEvent={(appointment) => props.navigateToEditAppointment(appointment, appointment.patientId)}
         events={appointments}
         defaultView="week"
         views={allViews}
@@ -70,14 +76,14 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         eventPropGetter={
           (event) => {
             const newStyle = {
-              backgroundColor: '#9cc',
+              backgroundColor: '#99CCCC',
               color: 'black',
               borderRadius: '0px',
               border: 'none',
             };
 
             if (event.isOutlookAppointment) {
-              newStyle.backgroundColor = '#115dd8';
+              newStyle.backgroundColor = '#2416D8';
               newStyle.color = 'white';
             }
 
@@ -99,6 +105,8 @@ Calendar.propTypes = {
     patientName: PropTypes.string.isRequired,
   })),
   outlookElements: PropTypes.array,
+  manageAppointmentUrl: PropTypes.string,
+  navigateToEditAppointment: PropTypes.func,
 };
 
 export default Calendar;
