@@ -15,6 +15,7 @@ import StyledToolbar from 'components/StyledToolbar';
 import StyledIconButton from 'components/StyledIconButton';
 import {
   ADMIN_MANAGE_PERMISSIONS_URL,
+  MANAGE_USERS_URL,
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
@@ -42,7 +43,7 @@ function PrivateNavigation(props) {
           </NavigationButton>
         }
         {role === ORGANIZATION_ADMIN_ROLE_CODE &&
-        <NavigationButton component={Link} to={props.getLinkUrlByRole(role)}>
+        <NavigationButton component={Link} to={MANAGE_USERS_URL}>
           <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
             <ActionBuild color="#9cc" />
           </StyledIconButton>
