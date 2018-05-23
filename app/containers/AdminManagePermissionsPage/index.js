@@ -25,6 +25,9 @@ export class AdminManagePermissionsPage extends React.Component { // eslint-disa
           <title>AdminManagePermissionsPage</title>
           <meta name="description" content="Description of AdminManagePermissionsPage" />
         </Helmet>
+        <div>
+          Manage Permissions Page Test
+        </div>
       </div>
     );
   }
