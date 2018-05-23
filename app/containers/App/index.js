@@ -20,6 +20,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Authentication from 'containers/Authentication';
 import WorkspaceSelectionPage from 'containers/WorkspaceSelectionPage';
 import AdminWorkspacePage from 'containers/AdminWorkspacePage';
+import AdminManagePermissionsPage from 'containers/AdminManagePermissionsPage';
 import PractitionerWorkspacePage from 'containers/PractitionerWorkspacePage';
 import PatientWorkspacePage from 'containers/PatientWorkspacePage';
 import LoginPage from 'containers/LoginPage';
@@ -63,6 +64,7 @@ export function App() {
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
             <Route path="/ocp-ui/admin-workspace" component={AdminWorkspacePage} />
+            <Route path="/ocp-ui/manage-permissions" component={AdminManagePermissionsPage} />
             <Route path="/ocp-ui/practitioner-workspace" component={PractitionerWorkspacePage} />
             <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />

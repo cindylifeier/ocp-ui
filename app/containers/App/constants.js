@@ -128,6 +128,7 @@ export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
 export const MANAGE_CONSENT_URL = '/ocp-ui/manage-consent';
 export const MANAGE_HEALTHCARE_SERVICE_URL = '/ocp-ui/manage-healthcare-service';
+export const ADMIN_MANAGE_PERMISSIONS_URL = '/ocp-ui/manage-permissions';
 
 /**
  *  Constants to hold the workspace urls
