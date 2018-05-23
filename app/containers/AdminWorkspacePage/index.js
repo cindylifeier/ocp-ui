@@ -74,12 +74,6 @@ export const initialStateMetadata =
               isClosable: true,
               reorderEnabled: true,
             },
-          ],
-        },
-        {
-          type: 'row',
-          height: 50,
-          content: [
             {
               title: 'Practitioners',
               type: 'component',
@@ -87,6 +81,12 @@ export const initialStateMetadata =
               isClosable: true,
               reorderEnabled: true,
             },
+          ],
+        },
+        {
+          type: 'row',
+          height: 50,
+          content: [
             {
               title: 'Patients',
               type: 'component',
