@@ -12,6 +12,7 @@ import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
 import SelectConsentActors from 'components/SelectConsentActors';
 import SelectMedicalInformation from 'components/SelectMedicalInformation';
+import ConsentFormSection from 'components/ConsentFormSection';
 import PurposeOfUse from 'components/PurposeOfUse';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
@@ -52,10 +53,7 @@ function ManageConsentForm(props) {
     <Form>
       <ManageConsentFormGrid>
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.selectActors} />
-          </FormSubtitle>
-          <InfoSection>
+          <ConsentFormSection title={<FormattedMessage {...messages.selectActors} />}>
             <Checkbox
               name="consentType"
               label={<FormattedMessage {...messages.consentType} />}
@@ -64,7 +62,7 @@ function ManageConsentForm(props) {
             {!isGeneralDesignation &&
             <SelectConsentActors {...selectActorsProps} />
             }
-          </InfoSection>
+          </ConsentFormSection>
         </Cell>
         <Cell area="medicalInfoGroup">
           <FormSubtitle margin="2vh 0 0 0">
