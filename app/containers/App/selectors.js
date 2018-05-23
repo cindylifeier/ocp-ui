@@ -16,9 +16,15 @@ const makeSelectRehydrated = () => createSelector(
   (rehydrateState) => rehydrateState,
 );
 
+const makeSelectConfig = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get('config').toJS(),
+);
+
 export default selectGlobalDomain;
 
 export {
   makeSelectLocation,
   makeSelectRehydrated,
+  makeSelectConfig,
 };

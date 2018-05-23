@@ -9,6 +9,7 @@ const BASE_API_URL = '/ocp-ui-api';
  *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
  */
+export const CONFIG_API_URL = 'ocpui/utils/CONFIG_API_URL';
 export const LOGIN_API_URL = 'ocpui/utils/LOGIN_API_URL';
 export const LOOKUPS_API_URL = 'ocpui/utils/LOOKUPS_API_URL';
 export const BASE_CARE_TEAMS_API_URL = 'ocpui/utils/BASE_CARE_TEAMS_API_URL';
@@ -36,6 +37,7 @@ export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_
  * @type {*[]}
  */
 const apiEndpoints = [
+  { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
   { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/ocp-fis/lookups`, isSecured: false },
 
