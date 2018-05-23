@@ -65,10 +65,9 @@ function ManageConsentForm(props) {
           </ConsentFormSection>
         </Cell>
         <Cell area="medicalInfoGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.medicalInformation} />
-          </FormSubtitle>
-          <SelectMedicalInformation {...selectMedicalInfoProps} />
+          <ConsentFormSection title={<FormattedMessage {...messages.medicalInformation} />}>
+            <SelectMedicalInformation {...selectMedicalInfoProps} />
+          </ConsentFormSection>
         </Cell>
         <Cell area="purposeOfUseGroup">
           <FormSubtitle margin="2vh 0 0 0">
