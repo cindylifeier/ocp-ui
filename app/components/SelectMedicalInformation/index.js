@@ -12,7 +12,6 @@ import Radio, { RadioGroup } from 'material-ui-next/Radio';
 import { FormControlLabel } from 'material-ui-next/Form';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import CustomErrorText from 'components/CustomErrorText';
-import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
 import AddMedicalInformation from './AddMedicalInformation';
 import AddedMedicalInformation from './AddedMedicalInformation';
@@ -49,7 +48,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
     const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
       <div>
-        <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
+        <div><FormattedMessage {...messages.medicalInfoTitle} /></div>
         <RadioGroup
           name="shareType"
           value={this.state.shareType}

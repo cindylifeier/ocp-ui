@@ -70,10 +70,9 @@ function ManageConsentForm(props) {
           </ConsentFormSection>
         </Cell>
         <Cell area="purposeOfUseGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.purposeOfUseInformation} />
-          </FormSubtitle>
-          <PurposeOfUse {...purposeOfUseProps} />
+          <ConsentFormSection title={<FormattedMessage {...messages.purposeOfUseInformation} />}>
+            <PurposeOfUse {...purposeOfUseProps} />
+          </ConsentFormSection>
         </Cell>
         <Cell area="consentTermGroup">
           <FormSubtitle margin="2vh 0 0 0">
