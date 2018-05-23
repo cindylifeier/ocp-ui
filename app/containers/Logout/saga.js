@@ -6,13 +6,15 @@ import { showNotification } from 'containers/Notification/actions';
 import { LOGIN_URL } from 'containers/App/constants';
 import { LOGOUT } from './constants';
 
-function* logoutSaga() {
+export function* logoutSaga({ config }) {
   try {
     yield call(removeToken);
+    const authorizationServerEndpoint = config && config.oauth2 && config.oauth2.authorizationServerEndpoint;
+    const baseHref = document.getElementsByTagName('base')[0].getAttribute('href');
+    const { protocol, port, hostname } = location;
     setTimeout(() => {
-      // FIXME: retrieve the UAA endpoint config from backend
-      // FIXME: consider computing redirect endpoint
-      window.location = 'http://localhost:8080/uaa/logout.do?redirect=http://localhost:3000';
+      const logoutLocation = `${authorizationServerEndpoint}/logout.do?redirect=${protocol}//${hostname}${port ? `:${port}` : port}${baseHref}`;
+      window.location = logoutLocation;
     }, 0);
     yield put(push(LOGIN_URL));
   } catch (error) {
@@ -21,7 +23,7 @@ function* logoutSaga() {
   }
 }
 
-function* watchLogoutSaga() {
+export function* watchLogoutSaga() {
   yield takeLatest(LOGOUT, logoutSaga);
 }
 
