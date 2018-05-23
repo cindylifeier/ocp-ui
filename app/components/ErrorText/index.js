@@ -1,18 +1,25 @@
 /**
-*
-* ErrorText
-*
-*/
+ *
+ * ErrorText
+ *
+ */
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ErrorText = styled.span`
   color: rgb(244, 67, 54);
-  padding-left: 0.5vw;
-  margin-left: 1vw;
+  margin-left: ${({ marginLeft }) => marginLeft};
+  padding-left: ${({ paddingLeft }) => paddingLeft};
 `;
 
-ErrorText.propTypes = {};
-
+ErrorText.propTypes = {
+  marginLeft: PropTypes.string,
+  paddingLeft: PropTypes.string,
+};
+ErrorText.defaultProps = {
+  marginLeft: '1vw',
+  paddingLeft: '0.5vw',
+};
 
 export default ErrorText;

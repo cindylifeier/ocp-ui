@@ -3,14 +3,17 @@
  * StyledFlatButton
  *
  */
+import React from 'react';
 import styled from 'styled-components';
 import Button from 'material-ui-next/Button/index';
+import PropTypes from 'prop-types';
 
 
-const StyledFlatButton = styled(Button)`
+const StyledFlatButton = styled(({ marginRight, ...rest }) => (<Button {...rest} />))`
   && {
     color: #366;
     text-transform: capitalize;
+    margin-right: ${({ marginRight }) => marginRight}px;
   }
 
   && svg {
@@ -23,6 +26,12 @@ const StyledFlatButton = styled(Button)`
   }
 `;
 
-StyledFlatButton.propTypes = {};
+StyledFlatButton.propTypes = {
+  marginRight: PropTypes.number,
+};
+
+StyledFlatButton.defaultProps = {
+  marginRight: 0,
+};
 
 export default StyledFlatButton;

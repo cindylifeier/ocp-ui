@@ -4,7 +4,10 @@ exports[`<ErrorText /> snapshot tests should have children 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ErrorText__ErrorText>
+  Symbol(enzyme.__unrendered__): <ErrorText__ErrorText
+    marginLeft="1vw"
+    paddingLeft="0.5vw"
+  >
     <span>
       test
     </span>
@@ -24,7 +27,7 @@ ShallowWrapper {
       "children": <span>
         test
       </span>,
-      "className": "ErrorText__ErrorText-jrrceQ eSgNqQ",
+      "className": "ErrorText__ErrorText-jrrceQ fyYNAz",
     },
     "ref": null,
     "rendered": Object {
@@ -49,7 +52,7 @@ ShallowWrapper {
         "children": <span>
           test
         </span>,
-        "className": "ErrorText__ErrorText-jrrceQ eSgNqQ",
+        "className": "ErrorText__ErrorText-jrrceQ fyYNAz",
       },
       "ref": null,
       "rendered": Object {

@@ -6,8 +6,9 @@
 
 import { LOGOUT } from './constants';
 
-export function logout() {
+export function logout(config) {
   return {
     type: LOGOUT,
+    config,
   };
 }
