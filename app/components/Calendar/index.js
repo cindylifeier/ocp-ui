@@ -40,6 +40,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       appointment.isOutlookAppointment = false;
       appointment.editUrl = `${manageAppointmentUrl}/${element.logicalId}`;
       appointment.patientId = element.patientId;
+      appointment.myResponse = element.requesterParticipationStatusCode;
       return appointment;
     });
   }
@@ -53,6 +54,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       outlookAppointment.start = new Date(element.start[0], element.start[1] - 1, element.start[2], element.start[3], element.start[4]);
       outlookAppointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
       outlookAppointment.isOutlookAppointment = true;
+      outlookAppointment.myResponse = element.myResponse;
       outlookAppointment.patientId = '';
       return outlookAppointment;
     });
@@ -76,15 +78,22 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         eventPropGetter={
           (event) => {
             const newStyle = {
-              backgroundColor: '#99CCCC',
-              color: 'black',
+              backgroundColor: '#009688',
+              color: 'white',
               borderRadius: '0px',
               border: 'none',
             };
 
             if (event.isOutlookAppointment) {
-              newStyle.backgroundColor = '#2416D8';
-              newStyle.color = 'white';
+              newStyle.color = 'black';
+              newStyle.backgroundColor = '#CDE6F7';
+              if (event.myResponse === 'NoResponseReceived') {
+                newStyle.backgroundColor = '#2D7BC0';
+              }
+            }
+            if (!event.isOutlookAppointment && event.myResponse === 'needs-action') {
+              newStyle.backgroundColor = '#9FE3CB';
+              newStyle.color = 'black';
             }
 
             return {
