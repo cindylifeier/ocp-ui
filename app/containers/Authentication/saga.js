@@ -1,5 +1,6 @@
-import { all, put, takeLatest } from 'redux-saga/effects';
+import { all, put, select, takeLatest } from 'redux-saga/effects';
 import queryString from 'utils/queryString';
+import { makeSelectConfig } from 'containers/App/selectors';
 import { AUTOLOGIN } from './constants';
 import { autologinError } from './actions';
 
@@ -8,9 +9,10 @@ function* autologinSaga({ code }) {
     const currentLocation = window.location;
     /* eslint-disable camelcase */
     if (code) {
-      // FIXME: retrieve the UAA endpoint config from backend
-      const endpoint = 'http://localhost:8080/uaa/autologin';
-      const client_id = 'ocp-ui';
+      const config = yield select(makeSelectConfig());
+      const authorizationServerEndpoint = config && config.oauth2 && config.oauth2.authorizationServerEndpoint;
+      const endpoint = `${authorizationServerEndpoint}/autologin`;
+      const client_id = config && config.oauth2 && config.oauth2.oauth2Client && config.oauth2.oauth2Client.clientId;
       const autologin_redirect_uri = currentLocation;
       const q = { code, client_id, autologin_redirect_uri };
       const autologinUrl = `${endpoint}${queryString(q)}`;
