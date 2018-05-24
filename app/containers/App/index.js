@@ -17,6 +17,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { compose } from 'redux';
 import 'font-awesome/css/font-awesome.min.css';
 
+import injectSaga from 'utils/injectSaga';
 import Authentication from 'containers/Authentication';
 import WorkspaceSelectionPage from 'containers/WorkspaceSelectionPage';
 import AdminWorkspacePage from 'containers/AdminWorkspacePage';
@@ -37,10 +38,10 @@ import ManageTaskPage from 'containers/ManageTaskPage';
 import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPage';
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
-import injectSaga from 'utils/injectSaga';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageConsentPage from 'containers/ManageConsentPage';
 import AttestConsentPage from 'containers/AttestConsentPage';
+import Consent2SharePage from 'containers/Consent2SharePage';
 import saga from './saga';
 import './styles.css';
 
@@ -59,6 +60,7 @@ export function App() {
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
+          <Route path="/c2s-sof-ui/patient/:id?" component={Consent2SharePage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />

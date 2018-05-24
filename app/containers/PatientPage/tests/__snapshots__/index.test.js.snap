@@ -214,6 +214,8 @@ ShallowWrapper {
           />
         </div>,
       ],
+      "color": "primary",
+      "padding": "3px 20px",
     },
     "ref": null,
     "rendered": Array [
@@ -779,6 +781,8 @@ ShallowWrapper {
             />
           </div>,
         ],
+        "color": "primary",
+        "padding": "3px 20px",
       },
       "ref": null,
       "rendered": Array [
