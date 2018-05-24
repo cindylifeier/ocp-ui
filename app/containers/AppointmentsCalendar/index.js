@@ -6,13 +6,18 @@
 
 import Calendar from 'components/Calendar';
 import HorizontalAlignment from 'components/HorizontalAlignment';
+import LoginButtonCell from 'components/Login/LoginButtonCell';
+import LoginFieldGrid from 'components/Login/LoginFieldGrid';
+import LoginStyledCard from 'components/Login/LoginStyledCard';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
 import { getLookupsAction } from 'containers/App/actions';
 
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE, MANAGE_APPOINTMENT_URL } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import messages from 'containers/AppointmentsCalendar/messages';
+import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { DialogContent, DialogTitle } from 'material-ui-next';
 import PropTypes from 'prop-types';
@@ -25,6 +30,7 @@ import { createStructuredSelector } from 'reselect';
 import { Cell, Grid } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import yup from 'yup';
 import { getAppointments, getOutlookAppointments } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -36,13 +42,17 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.state = {
       cannotEditModalOpen: false,
       confirmEditModalOpen: false,
+      loginModalOpen: false,
       editAppointmentURL: '',
       patientId: '',
     };
     this.handleCloseCannotEditDialog = this.handleCloseCannotEditDialog.bind(this);
     this.handleCloseConfirmEditDialog = this.handleCloseConfirmEditDialog.bind(this);
-    this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
+    this.handleCloseLoginDialog = this.handleCloseLoginDialog.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
+    this.authenticateOutlookCredentials = this.authenticateOutlookCredentials.bind(this);
+    this.handleOpenLoginDialog = this.handleOpenLoginDialog.bind(this);
   }
 
   componentDidMount() {
@@ -65,6 +75,11 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.props.history.push(this.state.editAppointmentURL);
   }
 
+  authenticateOutlookCredentials(values, action) {
+    console.log('values = ', values);
+    console.log('action = ', action);
+  }
+
   handleCloseCannotEditDialog() {
     this.setState({ cannotEditModalOpen: false });
   }
@@ -73,10 +88,28 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.setState({ confirmEditModalOpen: false });
   }
 
+  handleCloseLoginDialog() {
+    this.setState({ loginModalOpen: false });
+  }
+
+  handleOpenLoginDialog() {
+    this.setState({ loginModalOpen: true });
+  }
+
   render() {
     const { appointmentsCalendar: { data, outlookData } } = this.props;
     return (
       <div>
+        <div>
+          <HorizontalAlignment position={'end'}>
+            <StyledRaisedButton
+              onClick={this.handleOpenLoginDialog}
+            >
+              <FormattedMessage {...messages.buttonLoginToOutlook} />
+            </StyledRaisedButton>
+          </HorizontalAlignment>
+        </div>
+
         {!isEmpty(data) &&
         <Calendar
           elements={data}
@@ -91,7 +124,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
             fullWidth
           >
             <DialogTitle>
-              <FormattedMessage {...messages.openEvent} />
+              <FormattedMessage {...messages.dialogTitleOpenEvent} />
             </DialogTitle>
             <DialogContent>
               <Grid columns={1} alignContent="space-between">
@@ -118,7 +151,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
             fullWidth
           >
             <DialogTitle>
-              <FormattedMessage {...messages.openEvent} />
+              <FormattedMessage {...messages.dialogTitleOpenEvent} />
             </DialogTitle>
             <DialogContent>
               <Grid columns={1} alignContent="space-between">
@@ -142,6 +175,83 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
                   </HorizontalAlignment>
                 </Cell>
               </Grid>
+            </DialogContent>
+          </StyledDialog>
+        </div>
+
+        <div>
+          <StyledDialog
+            open={this.state.loginModalOpen}
+            fullWidth
+          >
+            <DialogTitle>
+              <FormattedMessage {...messages.dialogTitleLoginToOutlook} />
+            </DialogTitle>
+            <DialogContent>
+              <LoginStyledCard>
+                <Formik
+                  onSubmit={(values, actions) => {
+                    this.authenticateOutlookCredentials(values, actions);
+                  }}
+                  validationSchema={yup.object().shape({
+                    username: yup.string()
+                      .required((<FormattedMessage {...messages.validation.required} />)),
+                    password: yup.string()
+                      .required((<FormattedMessage {...messages.validation.required} />)),
+                  })}
+                  render={(loginFormProps) => {
+                    const { isSubmitting, dirty, isValid } = loginFormProps;
+                    return (
+                      <Form>
+                        <LoginFieldGrid
+                          columns={1}
+                          rows="120px 120px 45px 100px"
+                          areas={[
+                            'username',
+                            'password',
+                            'loginButton',
+                          ]}
+                        >
+                          <Cell>
+                            <TextField
+                              name="username"
+                              hintText={<FormattedMessage {...messages.hintText.username} />}
+                              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.username} />}
+                              fullWidth
+                            />
+                          </Cell>
+                          <Cell>
+                            <TextField
+                              name="password"
+                              type="password"
+                              hintText={<FormattedMessage {...messages.hintText.password} />}
+                              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.password} />}
+                              fullWidth
+                            />
+                          </Cell>
+                          <LoginButtonCell>
+                            <Grid columns={2} alignContent="space-between">
+                              <StyledRaisedButton
+                                type="submit"
+                                fullWidth
+                                disabled={!dirty || isSubmitting || !isValid}
+                              >{isSubmitting ?
+                                <FormattedMessage {...messages.authenticatingButton} /> :
+                                <FormattedMessage {...messages.dialogButtonLabelLogin} />}
+                              </StyledRaisedButton>
+                              <StyledRaisedButton
+                                onClick={this.handleCloseLoginDialog}
+                              >
+                                <FormattedMessage {...messages.dialogButtonLabelCancel} />
+                              </StyledRaisedButton>
+                            </Grid>
+                          </LoginButtonCell>
+                        </LoginFieldGrid>
+                      </Form>
+                    );
+                  }}
+                />
+              </LoginStyledCard>
             </DialogContent>
           </StyledDialog>
         </div>

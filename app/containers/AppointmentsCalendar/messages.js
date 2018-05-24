@@ -21,8 +21,50 @@ export default defineMessages({
     id: 'ocpui.containers.AppointmentsCalendar.dialogButtonLabelOk',
     defaultMessage: 'OK',
   },
-  openEvent: {
-    id: 'ocpui.containers.AppointmentsCalendar.openEvent',
+  dialogTitleOpenEvent: {
+    id: 'ocpui.containers.AppointmentsCalendar.dialogTitleOpenEvent',
     defaultMessage: 'Open Calendar Event',
+  },
+  dialogButtonLabelLogin: {
+    id: 'ocpui.containers.AppointmentsCalendar.dialogButtonLabelLogin',
+    defaultMessage: 'Login',
+  },
+  dialogTitleLoginToOutlook: {
+    id: 'ocpui.containers.AppointmentsCalendar.dialogTitleLoginToOutlook',
+    defaultMessage: 'Login to Outlook Web App',
+  },
+  buttonLoginToOutlook: {
+    id: 'ocpui.containers.AppointmentsCalendar.buttonLoginToOutlook',
+    defaultMessage: 'Login to Outlook',
+  },
+  authenticatingButton: {
+    id: 'ocpui.containers.AppointmentsCalendar.authenticatingButton',
+    defaultMessage: 'Login...',
+  },
+  validation: {
+    required: {
+      id: 'ocpui.containers.AppointmentsCalendar.validation.required',
+      defaultMessage: 'Required',
+    },
+  },
+  hintText: {
+    username: {
+      id: 'ocpui.containers.AppointmentsCalendar.hintText.username',
+      defaultMessage: 'Username',
+    },
+    password: {
+      id: 'ocpui.containers.AppointmentsCalendar.hintText.password',
+      defaultMessage: 'Password',
+    },
+  },
+  floatingLabelText: {
+    username: {
+      id: 'ocpui.containers.AppointmentsCalendar.floatingLabelText.username',
+      defaultMessage: 'Username',
+    },
+    password: {
+      id: 'ocpui.containers.AppointmentsCalendar.floatingLabelText.password',
+      defaultMessage: 'Password',
+    },
   },
 });
