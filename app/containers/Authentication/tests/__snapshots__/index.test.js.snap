@@ -10,6 +10,7 @@ ShallowWrapper {
         "isAuthenticated": true,
       }
     }
+    rehydrated={true}
     user={
       Object {
         "role": "Patient",
@@ -32,7 +33,14 @@ ShallowWrapper {
         undefined,
         <Redirect
           push={false}
-          to="/ocp-ui/login"
+          to={
+            Object {
+              "pathname": "/ocp-ui/login",
+              "state": Object {
+                "from": undefined,
+              },
+            }
+          }
         />,
       ],
     },
@@ -45,7 +53,12 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "push": false,
-          "to": "/ocp-ui/login",
+          "to": Object {
+            "pathname": "/ocp-ui/login",
+            "state": Object {
+              "from": undefined,
+            },
+          },
         },
         "ref": null,
         "rendered": null,
@@ -64,7 +77,14 @@ ShallowWrapper {
           undefined,
           <Redirect
             push={false}
-            to="/ocp-ui/login"
+            to={
+              Object {
+                "pathname": "/ocp-ui/login",
+                "state": Object {
+                  "from": undefined,
+                },
+              }
+            }
           />,
         ],
       },
@@ -77,7 +97,12 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "push": false,
-            "to": "/ocp-ui/login",
+            "to": Object {
+              "pathname": "/ocp-ui/login",
+              "state": Object {
+                "from": undefined,
+              },
+            },
           },
           "ref": null,
           "rendered": null,

@@ -1,7 +1,12 @@
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import request from 'utils/request';
-import { BASE_PATIENTS_API_URL, getEndpoint, LOOKUPS_API_URL } from 'utils/endpointService';
+import { BASE_PATIENTS_API_URL, CONFIG_API_URL, getEndpoint, LOOKUPS_API_URL } from 'utils/endpointService';
+
+export function getConfig() {
+  const requestURL = getEndpoint(CONFIG_API_URL);
+  return request(requestURL);
+}
 
 export function fetchLookups(lookupTypes) {
   const baseEndpoint = getEndpoint(LOOKUPS_API_URL);

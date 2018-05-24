@@ -6,6 +6,7 @@ import find from 'lodash/find';
 import { removeToken, storeAuthStatus, storeToken } from 'utils/tokenService';
 import { checkAuthenticated } from 'utils/auth';
 import { showNotification } from 'containers/Notification/actions';
+import { autologin } from 'containers/Authentication/actions';
 import { makeSelectLocation } from 'containers/App/selectors';
 import { setOrganization, setPatient, setUser } from 'containers/App/contextActions';
 import { getLinkUrlByRole, getRoleByScope } from 'containers/App/helpers';
@@ -16,7 +17,8 @@ import { LOGIN } from './constants';
 
 function* loginSaga(loginAction) {
   try {
-    const authData = yield call(login, loginAction.loginCredentials);
+    const loginResponse = yield call(login, loginAction.loginCredentials);
+    const { authData, autologin: { code } } = loginResponse;
     const { user_id, user_name, email, scope, ext_attr } = yield call(jwt.decode, authData.access_token);
     const roleScope = find(scope, (s) => s.startsWith('ocp.role'));
     const userRole = yield call(getRoleByScope, roleScope);
@@ -48,7 +50,10 @@ function* loginSaga(loginAction) {
     const location = yield select(makeSelectLocation());
     const linkUrl = yield call(getLinkUrlByRole, userRole);
     const { from } = location.state || { from: { pathname: linkUrl } };
-    yield put(push(from));
+    yield all([
+      put(push(from)),
+      put(autologin(code)),
+    ]);
   } catch (error) {
     yield put(loginError(getLoginErrorDetail(error)));
     yield put(showNotification('Failed to login.'));

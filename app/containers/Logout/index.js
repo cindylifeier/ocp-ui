@@ -9,21 +9,32 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import MenuItem from 'material-ui/MenuItem';
 
 import injectSaga from 'utils/injectSaga';
 import { clearAll } from 'containers/App/contextActions';
+import { makeSelectConfig } from 'containers/App/selectors';
 import saga from './saga';
 import messages from './messages';
 import { logout } from './actions';
 
-export class Logout extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Logout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    this.props.onLogout(this.props.config);
+  }
+
   render() {
     return (
       <div>
         <MenuItem
           primaryText={<FormattedMessage {...messages.logoutButton} />}
-          onClick={this.props.onLogout}
+          onClick={this.handleLogout}
         />
       </div>
     );
@@ -32,18 +43,23 @@ export class Logout extends React.Component { // eslint-disable-line react/prefe
 
 Logout.propTypes = {
   onLogout: PropTypes.func.isRequired,
+  config: PropTypes.object,
 };
+
+const mapStateToProps = createStructuredSelector({
+  config: makeSelectConfig(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
-    onLogout: () => {
-      dispatch(logout());
+    onLogout: (config) => {
+      dispatch(logout(config));
       dispatch(clearAll());
     },
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withSaga = injectSaga({ key: 'logout', saga });
 

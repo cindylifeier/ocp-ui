@@ -4,14 +4,14 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Avatar from 'material-ui-next/Avatar';
 import teal from 'material-ui-next/colors/teal';
 import upperFirst from 'lodash/upperFirst';
-import MedicalInfoChip from './MedicalInfoChip';
+import StyledChip from 'components/StyledChip';
 
 function AddedMedicalInformation(props) {
   const { medicalInformation } = props;
   return (
     <div>
       {medicalInformation.map((info) => (
-        <MedicalInfoChip
+        <StyledChip
           key={info.code}
           label={upperFirst(info.display)}
           avatar={
