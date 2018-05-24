@@ -4,13 +4,10 @@
  *
  */
 
-import Close from '@material-ui/icons/Close';
 import Calendar from 'components/Calendar';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledDialog from 'components/StyledDialog';
-import StyledIconButton from 'components/StyledIconButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledTooltip from 'components/StyledTooltip';
 import { getLookupsAction } from 'containers/App/actions';
 
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE, MANAGE_APPOINTMENT_URL } from 'containers/App/constants';
@@ -95,13 +92,6 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           >
             <DialogTitle>
               <FormattedMessage {...messages.openEvent} />
-              <HorizontalAlignment position={'end'}>
-                <StyledTooltip title="Close">
-                  <StyledIconButton onClick={this.handleCloseCannotEditDialog}>
-                    <Close />
-                  </StyledIconButton>
-                </StyledTooltip>
-              </HorizontalAlignment>
             </DialogTitle>
             <DialogContent>
               <Grid columns={1} alignContent="space-between">
@@ -129,13 +119,6 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           >
             <DialogTitle>
               <FormattedMessage {...messages.openEvent} />
-              <HorizontalAlignment position={'end'}>
-                <StyledTooltip title="Close">
-                  <StyledIconButton onClick={this.handleCloseConfirmEditDialog}>
-                    <Close />
-                  </StyledIconButton>
-                </StyledTooltip>
-              </HorizontalAlignment>
             </DialogTitle>
             <DialogContent>
               <Grid columns={1} alignContent="space-between">
