@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import Util from 'utils/Util';
 import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
+import { SHARE_ALL } from 'components/SelectMedicalInformation/constants';
 
 export function isCareCoordinator(roleCode) {
   return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
@@ -61,6 +62,17 @@ export function initialConsentFormValues(consent, careCoordinatorContext) {
         purpose,
       };
     }
+  } else {
+    const consentStart = consent.period.start;
+    const consentEnd = consent.period.end;
+    const purpose = consent.purpose;
+    formData = {
+      consentType: true,
+      shareType: SHARE_ALL,
+      consentStart,
+      consentEnd,
+      purpose,
+    };
   }
 
   return formData;
