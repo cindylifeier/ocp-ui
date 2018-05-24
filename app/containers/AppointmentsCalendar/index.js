@@ -4,17 +4,20 @@
  *
  */
 
+import Close from '@material-ui/icons/Close';
 import Calendar from 'components/Calendar';
-import DialogHeader from 'components/DialogHeader';
-import H3 from 'components/H3';
-import StyledFlatButton from 'components/StyledFlatButton';
+import HorizontalAlignment from 'components/HorizontalAlignment';
+import StyledDialog from 'components/StyledDialog';
+import StyledIconButton from 'components/StyledIconButton';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledTooltip from 'components/StyledTooltip';
 import { getLookupsAction } from 'containers/App/actions';
 
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE, MANAGE_APPOINTMENT_URL } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import messages from 'containers/AppointmentsCalendar/messages';
 import isEmpty from 'lodash/isEmpty';
-import { Dialog } from 'material-ui';
+import { DialogContent, DialogTitle } from 'material-ui-next';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -22,10 +25,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { Cell, Grid } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { getAppointments, getOutlookAppointments } from './actions';
-import { customContentStyle } from './constants';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectAppointmentsCalendar from './selectors';
@@ -34,7 +37,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      cannotEditModalOpen: false,
     };
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
@@ -47,7 +50,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
   navigateToEditAppointment(appointment, patientId) {
     if (appointment.isOutlookAppointment) {
-      this.setState({ open: true });
+      this.setState({ cannotEditModalOpen: true });
     } else {
       this.props.getPatient(patientId);
       this.props.history.push(appointment.editUrl);
@@ -55,16 +58,11 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
   }
 
   handleCloseDialog() {
-    this.setState({ open: false });
+    this.setState({ cannotEditModalOpen: false });
   }
 
   render() {
     const { appointmentsCalendar: { data, outlookData } } = this.props;
-    const actions = [
-      <StyledFlatButton onClick={this.handleCloseDialog}>
-        <FormattedMessage {...messages.dialogButtonLabelOk} />
-      </StyledFlatButton>,
-    ];
     return (
       <div>
         {!isEmpty(data) &&
@@ -76,19 +74,38 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
         />
         }
         <div>
-          <Dialog
-            title={<H3><FormattedMessage {...messages.openEvent} /></H3>}
-            actions={actions}
-            modal
-            open={this.state.open}
-            onRequestClose={this.handleCloseDialog}
-            contentStyle={customContentStyle}
+          <StyledDialog
+            open={this.state.cannotEditModalOpen}
+            fullWidth
           >
-            <DialogHeader>
-              <FormattedMessage {...messages.cannotEdit} />
-            </DialogHeader>
+            <DialogTitle>
+              <FormattedMessage {...messages.openEvent} />
+              <HorizontalAlignment position={'end'}>
+                <StyledTooltip title="Close">
+                  <StyledIconButton onClick={this.handleCloseDialog}>
+                    <Close />
+                  </StyledIconButton>
+                </StyledTooltip>
+              </HorizontalAlignment>
+            </DialogTitle>
+            <DialogContent>
+              <Grid columns={1} alignContent="space-between">
+                <Cell>
+                  <FormattedMessage {...messages.cannotEdit} />
+                </Cell>
+                <Cell>
+                  <HorizontalAlignment position={'end'}>
+                    <StyledRaisedButton
+                      onClick={this.handleCloseDialog}
+                    >
+                      <FormattedMessage {...messages.dialogButtonLabelOk} />
+                    </StyledRaisedButton>
+                  </HorizontalAlignment>
+                </Cell>
+              </Grid>
+            </DialogContent>
 
-          </Dialog>
+          </StyledDialog>
         </div>
       </div>
     );

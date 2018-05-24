@@ -23,4 +23,3 @@ export const GET_OUTLOOK_APPOINTMENTS_ERROR = 'ocpui/AppointmentsCalendar/GET_OU
 export const LOADING = 'loading';
 export const DATA = 'data';
 export const OUTLOOK_DATA = 'outlookData';
-export const customContentStyle = { width: '30%', maxWidth: 'none' };

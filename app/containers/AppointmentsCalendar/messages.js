@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   cannotEdit: {
     id: 'ocpui.containers.AppointmentsCalendar.cannotEdit',
-    defaultMessage: 'Cannot edit the Outlook calendar event',
+    defaultMessage: 'This is an Outlook calendar event. You cannot edit it.',
   },
   dialogButtonLabelEdit: {
     id: 'ocpui.containers.AppointmentsCalendar.dialogButtonLabelEdit',
