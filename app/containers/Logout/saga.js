@@ -13,8 +13,7 @@ export function* logoutSaga({ config }) {
     const baseHref = document.getElementsByTagName('base')[0].getAttribute('href');
     const { protocol, port, hostname } = location;
     setTimeout(() => {
-      const logoutLocation = `${authorizationServerEndpoint}/logout.do?redirect=${protocol}//${hostname}${port ? `:${port}` : port}${baseHref}`;
-      window.location = logoutLocation;
+      window.location = `${authorizationServerEndpoint}/logout.do?redirect=${protocol}//${hostname}${port ? `:${port}` : port}${baseHref}`;
     }, 0);
     yield put(push(LOGIN_URL));
   } catch (error) {
