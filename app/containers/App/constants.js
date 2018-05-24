@@ -20,6 +20,10 @@ export const GET_LOOKUPS_SUCCESS = 'ocpui/App/GET_LOOKUPS_SUCCESS';
 export const GET_LOOKUPS_FROM_STORE = 'ocpui/App/GET_LOOKUPS_FROM_STORE';
 export const GET_LOOKUPS_ERROR = 'ocpui/App/GET_LOOKUPS_ERROR';
 
+export const GET_CONFIG = 'ocpui/App/GET_CONFIG';
+export const GET_CONFIG_SUCCESS = 'ocpui/App/GET_CONFIG_SUCCESS';
+export const GET_CONFIG_ERROR = 'ocpui/App/GET_CONFIG_ERROR';
+
 /**
  *  Global object keys
  * @type {string}

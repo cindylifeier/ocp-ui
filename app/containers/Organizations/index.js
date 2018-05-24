@@ -142,10 +142,14 @@ Organizations.propTypes = {
       PropTypes.bool,
     ]),
   }),
+  showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 Organizations.defaultProps = {
   component: DefaultViewComponent,
+  showSearchBarByDefault: false,
+  hideToolbar: false,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -22,17 +22,22 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 
-  const pxhost = process.env.npm_config_pxhost || 'localhost';
-  const pxport = process.env.npm_config_pxport || '8446';
-  const proxyLink = `${pxhost}:${pxport}`;
-  const proxyRoute = '/ocp-ui-api';
   const check = '✓';
   const cross = '✗';
+  const routes = [
+    { route: '/ocp-ui-api', url: 'http://localhost:8446' },
+    { route: '/smart', url: 'http://localhost:8449' },
+  ];
   if (proxy) {
-    app.use(proxyRoute, proxy(proxyLink));
-    console.log(`proxy setup:\n\t ${proxyRoute} -> ${proxyLink} ${(chalk && chalk.green(check)) || check}`);
+    console.log('proxy setup:');
+    routes.forEach(({ route, url }) => {
+      app.use(route, proxy(url));
+      console.log(`\t ${route} -> ${url} ${(chalk && chalk.green(check)) || check}`);
+    });
   } else {
-    console.log(`proxy setup: ${proxyRoute} -> ${proxyLink} ${(chalk && chalk.red(cross)) || cross}`);
+    routes.forEach(({ route, url }) => {
+      console.log(`\t ${route} -> ${url} ${(chalk && chalk.green(cross)) || cross}`);
+    });
   }
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
