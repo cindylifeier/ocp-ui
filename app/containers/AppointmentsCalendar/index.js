@@ -38,9 +38,14 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     super(props);
     this.state = {
       cannotEditModalOpen: false,
+      confirmEditModalOpen: false,
+      editAppointmentURL: '',
+      patientId: '',
     };
-    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleCloseCannotEditDialog = this.handleCloseCannotEditDialog.bind(this);
+    this.handleCloseConfirmEditDialog = this.handleCloseConfirmEditDialog.bind(this);
     this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   componentDidMount() {
@@ -48,17 +53,27 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.props.getOutlookAppointments();
   }
 
-  navigateToEditAppointment(appointment, patientId) {
+  openModal(appointment, patientId) {
     if (appointment.isOutlookAppointment) {
       this.setState({ cannotEditModalOpen: true });
     } else {
-      this.props.getPatient(patientId);
-      this.props.history.push(appointment.editUrl);
+      this.setState({ editAppointmentURL: appointment.editUrl });
+      this.setState({ patientId });
+      this.setState({ confirmEditModalOpen: true });
     }
   }
 
-  handleCloseDialog() {
+  navigateToEditAppointment() {
+    this.props.getPatient(this.state.patientId);
+    this.props.history.push(this.state.editAppointmentURL);
+  }
+
+  handleCloseCannotEditDialog() {
     this.setState({ cannotEditModalOpen: false });
+  }
+
+  handleCloseConfirmEditDialog() {
+    this.setState({ confirmEditModalOpen: false });
   }
 
   render() {
@@ -70,7 +85,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           elements={data}
           outlookElements={outlookData}
           manageAppointmentUrl={MANAGE_APPOINTMENT_URL}
-          navigateToEditAppointment={this.navigateToEditAppointment}
+          openModal={this.openModal}
         />
         }
         <div>
@@ -82,7 +97,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
               <FormattedMessage {...messages.openEvent} />
               <HorizontalAlignment position={'end'}>
                 <StyledTooltip title="Close">
-                  <StyledIconButton onClick={this.handleCloseDialog}>
+                  <StyledIconButton onClick={this.handleCloseCannotEditDialog}>
                     <Close />
                   </StyledIconButton>
                 </StyledTooltip>
@@ -96,7 +111,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
                 <Cell>
                   <HorizontalAlignment position={'end'}>
                     <StyledRaisedButton
-                      onClick={this.handleCloseDialog}
+                      onClick={this.handleCloseCannotEditDialog}
                     >
                       <FormattedMessage {...messages.dialogButtonLabelOk} />
                     </StyledRaisedButton>
@@ -104,11 +119,53 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
                 </Cell>
               </Grid>
             </DialogContent>
-
           </StyledDialog>
         </div>
+
+        <div>
+          <StyledDialog
+            open={this.state.confirmEditModalOpen}
+            fullWidth
+          >
+            <DialogTitle>
+              <FormattedMessage {...messages.openEvent} />
+              <HorizontalAlignment position={'end'}>
+                <StyledTooltip title="Close">
+                  <StyledIconButton onClick={this.handleCloseConfirmEditDialog}>
+                    <Close />
+                  </StyledIconButton>
+                </StyledTooltip>
+              </HorizontalAlignment>
+            </DialogTitle>
+            <DialogContent>
+              <Grid columns={1} alignContent="space-between">
+                <Cell>
+                  <FormattedMessage {...messages.confirmEdit} />
+                </Cell>
+                <Cell>
+                  <HorizontalAlignment position={'end'}>
+                    <Grid columns={2} alignContent="space-between">
+                      <StyledRaisedButton
+                        onClick={this.navigateToEditAppointment}
+                      >
+                        <FormattedMessage {...messages.dialogButtonLabelEdit} />
+                      </StyledRaisedButton>
+                      <StyledRaisedButton
+                        onClick={this.handleCloseConfirmEditDialog}
+                      >
+                        <FormattedMessage {...messages.dialogButtonLabelCancel} />
+                      </StyledRaisedButton>
+                    </Grid>
+                  </HorizontalAlignment>
+                </Cell>
+              </Grid>
+            </DialogContent>
+          </StyledDialog>
+        </div>
+
       </div>
-    );
+    )
+      ;
   }
 }
 

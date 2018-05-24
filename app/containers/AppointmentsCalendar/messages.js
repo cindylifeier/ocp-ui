@@ -5,6 +5,10 @@ export default defineMessages({
     id: 'ocpui.containers.AppointmentsCalendar.cannotEdit',
     defaultMessage: 'This is an Outlook calendar event. You cannot edit it.',
   },
+  confirmEdit: {
+    id: 'ocpui.containers.AppointmentsCalendar.confirmEdit',
+    defaultMessage: 'Edit this calendar event?',
+  },
   dialogButtonLabelEdit: {
     id: 'ocpui.containers.AppointmentsCalendar.dialogButtonLabelEdit',
     defaultMessage: 'Edit',

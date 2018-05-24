@@ -66,7 +66,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       <BigCalendar
         popup
         selectable
-        onDoubleClickEvent={(appointment) => props.navigateToEditAppointment(appointment, appointment.patientId)}
+        onDoubleClickEvent={(appointment) => props.openModal(appointment, appointment.patientId)}
         events={appointments}
         defaultView="week"
         views={allViews}
@@ -76,7 +76,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         defaultDate={new Date()}
         messages={messages}
         eventPropGetter={
-          (event) => {
+          (appointment) => {
             const newStyle = {
               backgroundColor: '#009688',
               color: 'white',
@@ -84,14 +84,14 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
               border: 'none',
             };
 
-            if (event.isOutlookAppointment) {
+            if (appointment.isOutlookAppointment) {
               newStyle.color = 'black';
               newStyle.backgroundColor = '#CDE6F7';
-              if (event.myResponse === 'NoResponseReceived') {
+              if (appointment.myResponse === 'NoResponseReceived') {
                 newStyle.backgroundColor = '#2D7BC0';
               }
             }
-            if (!event.isOutlookAppointment && event.myResponse === 'needs-action') {
+            if (!appointment.isOutlookAppointment && appointment.myResponse === 'needs-action') {
               newStyle.backgroundColor = '#9FE3CB';
               newStyle.color = 'black';
             }
@@ -115,7 +115,7 @@ Calendar.propTypes = {
   })),
   outlookElements: PropTypes.array,
   manageAppointmentUrl: PropTypes.string,
-  navigateToEditAppointment: PropTypes.func,
+  openModal: PropTypes.func,
 };
 
 export default Calendar;
