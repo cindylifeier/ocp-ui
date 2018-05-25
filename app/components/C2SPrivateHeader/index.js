@@ -5,16 +5,16 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import common from 'material-ui-next/colors/common';
-
-import GoBackButton from 'components/GoBackButton';
 import UserAvatar from 'components/UserAvatar';
 import StyledToolbar from 'components/StyledToolbar';
 import StyledImage from 'components/StyledImage';
 import c2sBrandImg from 'images/c2s-logo.png';
+import HomeButton from './HomeButton';
 import messages from './messages';
 
 
@@ -28,9 +28,10 @@ class C2SPrivateHeader extends React.Component { // eslint-disable-line react/pr
           <ToolbarTitle text={user.user_name} />
         </ToolbarGroup>
         <ToolbarGroup>
-          <StyledImage height="35px" width="35px" src={c2sBrandImg} alt={<FormattedMessage {...messages.brandImg} />} />
-          <ToolbarSeparator />
-          <GoBackButton label={<FormattedMessage {...messages.homeButton} />} />
+          <StyledImage height="35px" width="40px" src={c2sBrandImg} alt={<FormattedMessage {...messages.brandImg} />} />
+          <HomeButton component={Link} to="/c2s-sof-ui/patient">
+            <FormattedMessage {...messages.homeButton} />
+          </HomeButton>
         </ToolbarGroup>
       </StyledToolbar>
     );
