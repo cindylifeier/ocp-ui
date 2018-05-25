@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Cancel from '@material-ui/icons/Cancel';
 
+import Padding from 'components/Padding';
 import StyledDrawer from 'components/StyledDrawer';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
@@ -38,10 +39,12 @@ function OrganizationSlider(props) {
             </StyledIconButton>
           </StyledTooltip>
         </HorizontalAlignment>
-        <OrganizationSliderHeader organization={flattenedOrganization} />
-        <OrganizationSliderServices organization={flattenedOrganization} />
-        <OrganizationSliderLocations organization={flattenedOrganization} />
-        <OrganizationSliderActivityDefinitions organization={flattenedOrganization} />
+        <Padding left="10px" right="10px">
+          <OrganizationSliderHeader organization={flattenedOrganization} />
+          <OrganizationSliderServices organization={flattenedOrganization} />
+          <OrganizationSliderLocations organization={flattenedOrganization} />
+          <OrganizationSliderActivityDefinitions organization={flattenedOrganization} />
+        </Padding>
       </StyledDrawer>
     </div>
   );

@@ -13,8 +13,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { makeSelectPatient } from 'containers/App/contextSelectors';
 import Consent2ShareHome from 'components/Consent2ShareHome';
-import makeSelectConsent2ShareHomePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -28,18 +28,21 @@ export class Consent2ShareHomePage extends React.Component { // eslint-disable-l
           <title>Consent2Share</title>
           <meta name="description" content="Patient Summary page of Consent2Share Smart On Fhir" />
         </Helmet>
-        <Consent2ShareHome />
+        <Consent2ShareHome patient={this.props.patient} />
       </div>
     );
   }
 }
 
 Consent2ShareHomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.array,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  consent2ShareHomePage: makeSelectConsent2ShareHomePage(),
+  patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {

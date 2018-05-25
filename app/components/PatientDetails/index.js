@@ -21,7 +21,7 @@ import StyledText from 'components/StyledText';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
-import PatientBanner from './PatientBanner';
+import PatientBannerSection from 'components/PatientBannerSection';
 import StyledExpansionDetails from './StyledExpansionDetails';
 import ExpansionDetails from './ExpansionDetails';
 import messages from './messages';
@@ -44,7 +44,7 @@ class PatientDetails extends React.Component {
     const flattenPatient = flattenPatientData(patient);
     const { id, name, phones, genderCode, flags } = flattenPatient;
     return (
-      <PatientBanner>
+      <PatientBannerSection>
         <Grid columns="0.1fr 0.1fr repeat(3, 0.7fr) 1fr">
           <Cell middle center>
             <StyledTooltip title={<FormattedMessage {...messages.viewDetails} />} placement="bottom">
@@ -92,7 +92,7 @@ class PatientDetails extends React.Component {
         <StyledExpansionDetails expanded={this.state.expansionPanelOpen}>
           <ExpansionDetails patient={flattenPatient} />
         </StyledExpansionDetails>
-      </PatientBanner>
+      </PatientBannerSection>
     );
   }
 }

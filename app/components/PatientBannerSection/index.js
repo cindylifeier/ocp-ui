@@ -1,6 +1,13 @@
+/**
+ *
+ * PatientBannerSection
+ *
+ */
+
 import styled from 'styled-components';
 
-const PatientBanner = styled.div`
+
+const PatientBannerSection = styled.div`
   border-radius: 6px;
   border: 3px solid rgba(0, 153, 153, 1);
   padding-top: 2px;
@@ -8,6 +15,6 @@ const PatientBanner = styled.div`
   margin-bottom: 6px;
 `;
 
-PatientBanner.propTypes = {};
+PatientBannerSection.propTypes = {};
 
-export default PatientBanner;
+export default PatientBannerSection;

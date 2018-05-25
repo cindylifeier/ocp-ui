@@ -8,7 +8,7 @@ import Section from 'components/Section';
 
 
 const PanelSection = Section.extend`
-  margin: 10px;
+  margin: 10px 0;
   border-radius: 5px;
 
   &:hover {
