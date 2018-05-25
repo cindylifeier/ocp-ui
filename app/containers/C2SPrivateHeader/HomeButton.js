@@ -1,6 +1,6 @@
 /**
  *
- * StyledFlatButton
+ * HomeButton
  *
  */
 import styled from 'styled-components';

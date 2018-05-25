@@ -7,7 +7,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import C2SLayout from 'containers/C2SLayout';
+import C2SLayout from 'components/C2SLayout';
 
 
 function C2SRoute({ component: Component, ...rest }) {

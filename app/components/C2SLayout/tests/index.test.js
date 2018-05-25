@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import C2SPrivateHeader from '../index';
+// import C2SLayout from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<C2SPrivateHeader />', () => {
+describe('<C2SLayout />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });
