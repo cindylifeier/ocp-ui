@@ -11,7 +11,7 @@ import { ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolba
 import common from 'material-ui-next/colors/common';
 
 import GoBackButton from 'components/GoBackButton';
-import PatientAvatar from 'components/PatientAvatar';
+import UserAvatar from 'components/UserAvatar';
 import StyledToolbar from 'components/StyledToolbar';
 import StyledImage from 'components/StyledImage';
 import c2sBrandImg from 'images/c2s-logo.png';
@@ -20,12 +20,12 @@ import messages from './messages';
 
 class C2SPrivateHeader extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { patient: { genderCode, name }, mapPatientName } = this.props;
+    const { user } = this.props;
     return (
       <StyledToolbar color={common.white} height="60px">
         <ToolbarGroup>
-          <PatientAvatar genderCode={genderCode} />
-          <ToolbarTitle text={mapPatientName(name)} />
+          <UserAvatar />
+          <ToolbarTitle text={user.user_name} />
         </ToolbarGroup>
         <ToolbarGroup>
           <StyledImage height="35px" width="35px" src={c2sBrandImg} alt={<FormattedMessage {...messages.brandImg} />} />
@@ -38,12 +38,9 @@ class C2SPrivateHeader extends React.Component { // eslint-disable-line react/pr
 }
 
 C2SPrivateHeader.propTypes = {
-  patient: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.array,
-    genderCode: PropTypes.string,
+  user: PropTypes.shape({
+    user_name: PropTypes.string,
   }).isRequired,
-  mapPatientName: PropTypes.func.isRequired,
 };
 
 export default C2SPrivateHeader;
