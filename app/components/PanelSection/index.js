@@ -1,6 +1,13 @@
+/**
+ *
+ * PanelSection
+ *
+ */
+
 import Section from 'components/Section';
 
-const SliderContentSection = Section.extend`
+
+const PanelSection = Section.extend`
   margin: 10px;
   border-radius: 5px;
 
@@ -10,6 +17,6 @@ const SliderContentSection = Section.extend`
   }
 `;
 
-SliderContentSection.propTypes = {};
+PanelSection.propTypes = {};
 
-export default SliderContentSection;
+export default PanelSection;
