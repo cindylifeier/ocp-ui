@@ -5,16 +5,14 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectConsent2SharePage from './selectors';
+import Page from 'components/Page';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,24 +20,18 @@ import messages from './messages';
 export class Consent2SharePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <Page color="secondary">
         <Helmet>
-          <title>Consent2SharePage</title>
-          <meta name="description" content="Description of Consent2SharePage" />
+          <title>Consent2Share</title>
+          <meta name="description" content="Patient Summary page of Consent2Share Smart On Fhir" />
         </Helmet>
         <FormattedMessage {...messages.header} />
-      </div>
+      </Page>
     );
   }
 }
 
-Consent2SharePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = createStructuredSelector({
-  consent2sharepage: makeSelectConsent2SharePage(),
-});
+Consent2SharePage.propTypes = {};
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -47,7 +39,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'consent2SharePage', reducer });
 const withSaga = injectSaga({ key: 'consent2SharePage', saga });
