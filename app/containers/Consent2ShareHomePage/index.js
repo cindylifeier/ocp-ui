@@ -8,17 +8,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Page from 'components/Page';
+import Consent2ShareHome from 'components/Consent2ShareHome';
 import makeSelectConsent2ShareHomePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 
 // Todo: will separate out current code base
@@ -26,13 +24,11 @@ export class Consent2ShareHomePage extends React.Component { // eslint-disable-l
   render() {
     return (
       <div>
-        <Page color="secondary">
-          <Helmet>
-            <title>Consent2Share</title>
-            <meta name="description" content="Patient Summary page of Consent2Share Smart On Fhir" />
-          </Helmet>
-          <FormattedMessage {...messages.header} />
-        </Page>
+        <Helmet>
+          <title>Consent2Share</title>
+          <meta name="description" content="Patient Summary page of Consent2Share Smart On Fhir" />
+        </Helmet>
+        <Consent2ShareHome />
       </div>
     );
   }
