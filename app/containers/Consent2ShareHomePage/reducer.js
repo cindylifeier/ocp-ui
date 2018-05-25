@@ -1,6 +1,6 @@
 /*
  *
- * Consent2SharePage reducer
+ * Consent2ShareHomePage reducer
  *
  */
 
@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({});
 
-function consent2SharePageReducer(state = initialState, action) {
+function consent2ShareHomePageReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +20,4 @@ function consent2SharePageReducer(state = initialState, action) {
   }
 }
 
-export default consent2SharePageReducer;
+export default consent2ShareHomePageReducer;

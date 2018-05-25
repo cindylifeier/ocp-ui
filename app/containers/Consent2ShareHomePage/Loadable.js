@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Consent2SharePage
+ * Asynchronously loads the component for Consent2ShareHomePage
  *
  */
 

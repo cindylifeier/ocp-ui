@@ -41,7 +41,7 @@ import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageConsentPage from 'containers/ManageConsentPage';
 import AttestConsentPage from 'containers/AttestConsentPage';
-import Consent2SharePage from 'containers/Consent2SharePage';
+import Consent2ShareHomePage from 'containers/Consent2ShareHomePage';
 import C2SRoute from 'components/C2SRoute';
 import saga from './saga';
 import './styles.css';
@@ -61,7 +61,7 @@ export function App() {
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
-          <C2SRoute exact path="/c2s-sof-ui/patient/:id?" component={Consent2SharePage} />
+          <C2SRoute exact path="/c2s-sof-ui/patient/:id?" component={Consent2ShareHomePage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />

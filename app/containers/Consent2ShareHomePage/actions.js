@@ -1,6 +1,6 @@
 /*
  *
- * Consent2SharePage actions
+ * Consent2ShareHomePage actions
  *
  */
 
