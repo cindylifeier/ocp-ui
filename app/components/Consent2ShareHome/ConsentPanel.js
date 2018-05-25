@@ -1,5 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import Consents from 'containers/Consents';
 import ControlledAccordion from 'components/ControlledAccordion';
 import FullWidthPanelDetails from 'components/ControlledAccordion/FullWidthPanelDetails';
 import StyledText from 'components/StyledText';
@@ -12,13 +14,13 @@ function ConsentPanel() {
     <PanelSection>
       <ControlledAccordion
         accordionTitle={
-          <StyledText whiteSpace>
+          <StyledText fontSize="16px" whiteSpace>
             <FormattedMessage {...messages.consentPanel.panelSummary} />
           </StyledText>
         }
       >
         <FullWidthPanelDetails>
-          <FormattedMessage {...messages.header} />
+          <Consents />
         </FullWidthPanelDetails>
       </ControlledAccordion>
     </PanelSection>
