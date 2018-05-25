@@ -15,7 +15,7 @@ import Flag from '@material-ui/icons/Flag';
 import upperFirst from 'lodash/upperFirst';
 
 import ShowHideWrapper from 'containers/ShowHideWrapper';
-import PatientAvatar from 'components/PatientAvatar';
+import UserAvatar from 'components/UserAvatar';
 import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
 import StyledText from 'components/StyledText';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -53,7 +53,7 @@ class PatientDetails extends React.Component {
               </StyledIconButton>
             </StyledTooltip>
           </Cell>
-          <Cell><PatientAvatar genderCode={genderCode} /></Cell>
+          <Cell><UserAvatar genderCode={genderCode} /></Cell>
           <Cell middle>
             <StyledText>
               <FormattedMessage {...messages.name} />
