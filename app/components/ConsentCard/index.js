@@ -8,14 +8,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ConsentCardGrid from './ConsentCardGrid';
+import ConsentCardHeaderCell from './ConsentCardHeaderCell';
+import ConsentCardContentCell from './ConsentCardContentCell';
 import messages from './messages';
 
 
 class ConsentCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <ConsentCardGrid>
-        <FormattedMessage {...messages.header} />
+      <ConsentCardGrid columns={1}>
+        <ConsentCardHeaderCell>
+          <FormattedMessage {...messages.header} />
+        </ConsentCardHeaderCell>
+        <ConsentCardContentCell><FormattedMessage {...messages.header} /></ConsentCardContentCell>
       </ConsentCardGrid>
     );
   }
