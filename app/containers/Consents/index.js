@@ -12,7 +12,8 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Cell, Grid } from 'styled-css-grid';
-import isEqual from 'lodash/isEqual';
+import Add from '@material-ui/icons/Add';
+import common from 'material-ui-next/colors/common';
 
 import { DEFAULT_START_PAGE_NUMBER, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
@@ -26,37 +27,21 @@ import messages from './messages';
 import { getConsents, initializeConsents } from './actions';
 
 export class Consents extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
-  static initalState = {
-    relativeTop: 0,
-    isShowSearchResult: false,
-    listConsents: {
-      currentPage: 1,
-    },
-  };
-
   constructor(props) {
     super(props);
     this.state = {
-      ...Consents.initalState,
+      relativeTop: 0,
+      isShowSearchResult: false,
+      listConsents: {
+        currentPage: 1,
+      },
     };
     this.handleListPageClick = this.handleListPageClick.bind(this);
     this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
-    this.props.getConsents({
-      pageNumber: DEFAULT_START_PAGE_NUMBER,
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { consent } = this.props;
-    const { consent: newConsent } = nextProps;
-    if (!isEqual(consent, newConsent)) {
-      this.props.initializeConsents([newConsent]);
-      this.setState({ ...Consents.initalState });
-    }
+    this.props.getConsents(DEFAULT_START_PAGE_NUMBER);
   }
 
   onSize(size) {
@@ -64,7 +49,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
   }
 
   handleListPageClick(currentPage) {
-    this.props.getConsents({ pageNumber: currentPage });
+    this.props.getConsents(currentPage);
   }
 
   render() {
@@ -83,6 +68,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
       <Grid columns={1} gap="20px">
         <Cell center>
           <StyledRaisedButton component={Link} to="/ocp-ui/manage-consent">
+            <Add color={common.white} />
             <FormattedMessage {...messages.buttonLabelCreateNew} />
           </StyledRaisedButton>
         </Cell>
@@ -99,8 +85,6 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
 }
 
 Consents.propTypes = {
-  initializeConsents: PropTypes.func.isRequired,
-  consent: PropTypes.object,
   getConsents: PropTypes.func.isRequired,
   consents: PropTypes.shape({
     listConsents: PropTypes.shape({
@@ -126,7 +110,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeConsents: (consents) => dispatch(initializeConsents(consents)),
-    getConsents: (query) => dispatch(getConsents(query)),
+    getConsents: (pageNumber) => dispatch(getConsents(pageNumber)),
   };
 }
 
