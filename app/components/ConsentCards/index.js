@@ -21,7 +21,7 @@ function ConsentCards(props) {
       {(!consentData.loading && consentData.data && consentData.data.length > 0 ?
         <div>
           {!isEmpty(consentData.data) && consentData.data.map((consent) => (
-            <ConsentCard consent={consent} />
+            <ConsentCard key={consent.logicalId} consent={consent} />
           ))}
           <CenterAlignedUltimatePagination
             currentPage={consentData.currentPage}

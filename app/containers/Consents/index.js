@@ -24,38 +24,32 @@ import makeSelectConsents from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getConsents, initializeConsents } from './actions';
+import { getConsents } from './actions';
 
 export class Consents extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = {
-      isShowSearchResult: false,
-      listConsents: {
-        currentPage: 1,
-      },
-    };
-    this.handleListPageClick = this.handleListPageClick.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
   componentDidMount() {
     this.props.getConsents(DEFAULT_START_PAGE_NUMBER);
   }
 
-  handleListPageClick(currentPage) {
+  handlePageChange(currentPage) {
     this.props.getConsents(currentPage);
   }
 
   render() {
     const { consents } = this.props;
     const consentData = {
-      loading: consents.listConsents.loading,
-      data: consents.listConsents.data,
-      currentPage: consents.listConsents.currentPage,
-      totalNumberOfPages: consents.listConsents.totalNumberOfPages,
-      currentPageSize: consents.listConsents.currentPageSize,
-      totalElements: consents.listConsents.totalElements,
-      handlePageClick: this.handleListPageClick,
+      loading: consents.loading,
+      data: consents.data,
+      currentPage: consents.currentPage,
+      totalNumberOfPages: consents.totalNumberOfPages,
+      currentPageSize: consents.currentPageSize,
+      totalElements: consents.totalElements,
+      handlePageClick: this.handlePageChange,
     };
 
     return (
@@ -77,19 +71,17 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
 Consents.propTypes = {
   getConsents: PropTypes.func.isRequired,
   consents: PropTypes.shape({
-    listConsents: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number,
-      totalElements: PropTypes.number,
-      data: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
+    data: PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
   }),
 };
 
@@ -99,7 +91,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    initializeConsents: (consents) => dispatch(initializeConsents(consents)),
     getConsents: (pageNumber) => dispatch(getConsents(pageNumber)),
   };
 }
