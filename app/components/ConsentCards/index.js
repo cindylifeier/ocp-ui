@@ -6,14 +6,39 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import CenterAlign from 'components/Align/CenterAlign';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import RecordsRange from 'components/RecordsRange';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import ConsentCard from 'components/ConsentCard';
+import isEmpty from 'lodash/isEmpty';
 
 
-function ConsentCards() {
+function ConsentCards(props) {
+  const { consentData } = props;
   return (
     <div>
-      <FormattedMessage {...messages.header} />
+      {(!consentData.loading && consentData.data && consentData.data.length > 0 ?
+        <div>
+          {!isEmpty(consentData.data) && consentData.data.map((consent) => (
+            <ConsentCard consent={consent} />
+          ))}
+          <CenterAlignedUltimatePagination
+            currentPage={consentData.currentPage}
+            totalPages={consentData.totalNumberOfPages}
+            onChange={consentData.handlePageClick}
+          />
+          <RecordsRange
+            currentPage={consentData.currentPage}
+            totalPages={consentData.totalNumberOfPages}
+            totalElements={consentData.totalElements}
+            currentPageSize={consentData.currentPageSize}
+          />
+        </div> : (
+          <CenterAlign>
+            <NoResultsFoundText>No consents found.</NoResultsFoundText>
+          </CenterAlign>
+        ))}
     </div>
   );
 }
@@ -43,7 +68,7 @@ ConsentCards.propTypes = {
         end: PropTypes.date,
       }),
     })).isRequired,
-  }),
+  }).isRequired,
 };
 
 export default ConsentCards;

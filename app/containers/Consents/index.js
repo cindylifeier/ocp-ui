@@ -15,10 +15,10 @@ import { Cell, Grid } from 'styled-css-grid';
 import Add from '@material-ui/icons/Add';
 import common from 'material-ui-next/colors/common';
 
-import { DEFAULT_START_PAGE_NUMBER, PATIENT_ROLE_CODE } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ConsentTable from 'components/ConsentTable';
+import ConsentCards from 'components/ConsentCards';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import makeSelectConsents from './selectors';
 import reducer from './reducer';
@@ -30,22 +30,16 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
   constructor(props) {
     super(props);
     this.state = {
-      relativeTop: 0,
       isShowSearchResult: false,
       listConsents: {
         currentPage: 1,
       },
     };
     this.handleListPageClick = this.handleListPageClick.bind(this);
-    this.onSize = this.onSize.bind(this);
   }
 
   componentDidMount() {
     this.props.getConsents(DEFAULT_START_PAGE_NUMBER);
-  }
-
-  onSize(size) {
-    this.setState({ relativeTop: size.height });
   }
 
   handleListPageClick(currentPage) {
@@ -73,11 +67,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
           </StyledRaisedButton>
         </Cell>
         <Cell>
-          <ConsentTable
-            relativeTop={this.state.relativeTop}
-            consentData={consentData}
-            allowedAttestConsentRoles={PATIENT_ROLE_CODE}
-          />
+          <ConsentCards consentData={consentData} />
         </Cell>
       </Grid>
     );
