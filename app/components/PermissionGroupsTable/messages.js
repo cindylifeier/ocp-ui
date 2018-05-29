@@ -13,4 +13,8 @@ export default defineMessages({
     id: 'ocpui.components.PermissionGroupsTable.action',
     defaultMessage: 'Action',
   },
+  manageGroup: {
+    id: 'ocpui.components.PermissionGroupsTable.manageGroup',
+    defaultMessage: 'Manage Group',
+  },
 });

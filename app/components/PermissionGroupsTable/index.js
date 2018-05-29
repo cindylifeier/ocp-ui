@@ -11,6 +11,7 @@ import TableHeader from 'components/TableHeader';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import TableHeaderColumn from 'components/TableHeaderColumn';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 import { PERMISSION_GROUPS_TABLE_COLUMNS } from './constants';
 // import styled from 'styled-components';
@@ -21,6 +22,11 @@ const elements = [
 ];
 
 const columns = PERMISSION_GROUPS_TABLE_COLUMNS;
+const menuItems = [{
+  primaryText: <FormattedMessage {...messages.manageGroup} />,
+  disabled: true,
+}];
+
 function createTableHeaders() {
   return (
     <TableHeader columns={columns}>
@@ -43,8 +49,8 @@ function createTableRows() {
             {permissionGroup.description}
           </TableRowColumn>
           <TableRowColumn>
-              Aciton Button
-            </TableRowColumn>
+            <NavigationIconMenu menuItems={menuItems} />
+          </TableRowColumn>
         </TableRow>
         ))}
     </div>
