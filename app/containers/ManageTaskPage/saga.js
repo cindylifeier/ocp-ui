@@ -205,6 +205,8 @@ function getErrorDetail(err) {
     errorDetail = ' Server is offline.';
   } else if (err && err.response && err.response.status === 409) {
     errorDetail = ' Duplicate Entry:: Activity Definition already exists for the patient.';
+  } else if (err && err.response && err.response.status === 400) {
+    errorDetail = ' Invalid status code.';
   } else if (err && err.response && err.response.status === 500) {
     errorDetail = ' Unknown server error.';
   }
