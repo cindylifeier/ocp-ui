@@ -27,5 +27,13 @@ export default defineMessages({
       id: 'ocpui.components.ConsentCard.consentCardHeader.effectiveDatesLabel',
       defaultMessage: 'Effective dates:',
     },
+    medicalInfoLabel: {
+      id: 'ocpui.components.ConsentCard.consentCardHeader.medicalInfoLabel',
+      defaultMessage: 'Medical information disclosed:',
+    },
+    purposeLabel: {
+      id: 'ocpui.components.ConsentCard.consentCardHeader.purposeLabel',
+      defaultMessage: 'Share the following purposes:',
+    },
   },
 });

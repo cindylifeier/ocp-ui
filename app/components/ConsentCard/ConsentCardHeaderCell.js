@@ -1,7 +1,7 @@
 import { Cell } from 'styled-css-grid';
 
 const ConsentCardHeaderCell = Cell.extend`
-  padding: 5px 10px;
+  padding: 5px 0;
   background-color: rgba(242, 242, 242, 1);
   border-bottom: 1px solid rgba(153, 153, 153, 1);
 `;

@@ -10,7 +10,10 @@ import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 
 import StyledFlatButton from 'components/StyledFlatButton';
+import Padding from 'components/Padding';
 import TextLabelGroup from 'components/TextLabelGroup';
+import StyledConsentHeaderDetails from './StyledConsentHeaderDetails';
+import ConsentHeaderDetails from './ConsentHeaderDetails';
 import { flattenConsentData } from './helpers';
 import messages from './messages';
 
@@ -33,31 +36,38 @@ class ConsentCartHeader extends React.Component { // eslint-disable-line react/p
     const flattenedConsent = flattenConsentData(consent);
     const { fromActor, toActor, period } = flattenedConsent;
     return (
-      <Grid columns="repeat(3, 1fr) 0.3fr">
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.consentCardHeader.authorizedLabel} />}
-            text={fromActor}
-          />
-        </Cell>
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.consentCardHeader.sharingLabel} />}
-            text={toActor}
-          />
-        </Cell>
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.consentCardHeader.effectiveDatesLabel} />}
-            text={period}
-          />
-        </Cell>
-        <Cell>
-          <StyledFlatButton onClick={this.handlePanelOpen}>
-            {this.state.expansionPanelOpen ? 'Less Details' : 'More Details'}
-          </StyledFlatButton>
-        </Cell>
-      </Grid>
+      <div>
+        <Padding left="10px" right="10px">
+          <Grid columns="repeat(3, 1fr) 0.3fr">
+            <Cell>
+              <TextLabelGroup
+                label={<FormattedMessage {...messages.consentCardHeader.authorizedLabel} />}
+                text={fromActor}
+              />
+            </Cell>
+            <Cell>
+              <TextLabelGroup
+                label={<FormattedMessage {...messages.consentCardHeader.sharingLabel} />}
+                text={toActor}
+              />
+            </Cell>
+            <Cell>
+              <TextLabelGroup
+                label={<FormattedMessage {...messages.consentCardHeader.effectiveDatesLabel} />}
+                text={period}
+              />
+            </Cell>
+            <Cell middle>
+              <StyledFlatButton onClick={this.handlePanelOpen}>
+                {this.state.expansionPanelOpen ? 'Less Details' : 'More Details'}
+              </StyledFlatButton>
+            </Cell>
+          </Grid>
+        </Padding>
+        <StyledConsentHeaderDetails expanded={this.state.expansionPanelOpen}>
+          <ConsentHeaderDetails purpose={consent.purpose} />
+        </StyledConsentHeaderDetails>
+      </div>
     );
   }
 }
