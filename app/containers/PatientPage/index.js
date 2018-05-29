@@ -18,7 +18,6 @@ import renderCalendarComponent from 'components/Calendar/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderTasksComponent from 'containers/Tasks/render';
-import renderConsentsComponent from 'containers/Consents/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import PatientDetails from 'components/PatientDetails';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
@@ -73,12 +72,6 @@ export const initialStateMetadata =
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'Consents',
-              type: 'component',
-              componentName: 'consents',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
               title: 'Care teams',
               type: 'component',
               componentName: 'careTeams',
@@ -127,7 +120,6 @@ export const componentMetadata = [
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'toDos', text: 'My To Do', factoryMethod: renderPatientToDosComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderCalendarComponent },
-  { name: 'consents', text: 'Consents', factoryMethod: renderConsentsComponent },
   { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
 ];
 
