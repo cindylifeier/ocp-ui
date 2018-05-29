@@ -206,7 +206,7 @@ function getErrorDetail(err) {
   } else if (err && err.response && err.response.status === 409) {
     errorDetail = ' Duplicate Entry:: Activity Definition already exists for the patient.';
   } else if (err && err.response && err.response.status === 400) {
-    errorDetail = ' Invalid status code.';
+    errorDetail = ' Invalid Task Status.';
   } else if (err && err.response && err.response.status === 500) {
     errorDetail = ' Unknown server error.';
   }
