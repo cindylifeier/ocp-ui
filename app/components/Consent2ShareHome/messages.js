@@ -10,6 +10,18 @@ export default defineMessages({
     id: 'ocpui.components.Consent2ShareHome.header',
     defaultMessage: 'This is Consent2ShareHome component!',
   },
+  patientInfoPanelSummary: {
+    id: 'ocpui.components.Consent2ShareHome.patientInfoPanelSummary',
+    defaultMessage: 'Patient\'s Information',
+  },
+  careTeamPanelSummary: {
+    id: 'ocpui.components.Consent2ShareHome.careTeamPanelSummary',
+    defaultMessage: 'Patient\'s Care Teams',
+  },
+  consentPanelSummary: {
+    id: 'ocpui.components.Consent2ShareHome.consentPanelSummary',
+    defaultMessage: 'Patient\'s Consents',
+  },
   patientBanner: {
     identifier: {
       id: 'ocpui.components.Consent2ShareHome.patientBanner.identifier',
@@ -22,12 +34,6 @@ export default defineMessages({
     gender: {
       id: 'ocpui.components.Consent2ShareHome.patientBanner.gender',
       defaultMessage: 'Gender',
-    },
-  },
-  consentPanel: {
-    panelSummary: {
-      id: 'ocpui.components.Consent2ShareHome.consentPanel.panelSummary',
-      defaultMessage: 'Patient\'s Consents',
     },
   },
 });
