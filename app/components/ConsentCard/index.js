@@ -7,20 +7,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
+import TextLabelGroup from 'components/TextLabelGroup';
 import ConsentCardGrid from './ConsentCardGrid';
 import ConsentCardHeaderCell from './ConsentCardHeaderCell';
+import ConsentCartHeader from './ConsentCartHeader';
 import ConsentCardContentCell from './ConsentCardContentCell';
 import messages from './messages';
 
 
 class ConsentCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { consent } = this.props;
     return (
       <ConsentCardGrid columns={1}>
         <ConsentCardHeaderCell>
-          <FormattedMessage {...messages.header} />
+          <ConsentCartHeader consent={consent} />
         </ConsentCardHeaderCell>
-        <ConsentCardContentCell><FormattedMessage {...messages.header} /></ConsentCardContentCell>
+        <ConsentCardContentCell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.consentStatus} />}
+            text={consent.status}
+          />
+        </ConsentCardContentCell>
       </ConsentCardGrid>
     );
   }
