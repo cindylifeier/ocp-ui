@@ -12,6 +12,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import PermissionAssignmentTable from 'components/PermissionAssignmentTable';
+
 import makeSelectPermissionAssignments from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -20,7 +22,7 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
   render() {
     return (
       <div>
-        test
+        <PermissionAssignmentTable />
       </div>
     );
   }
