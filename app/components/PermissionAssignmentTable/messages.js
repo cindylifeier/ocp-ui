@@ -21,4 +21,12 @@ export default defineMessages({
     id: 'ocpui.components.PermissionAssignmentTable.action',
     defaultMessage: 'Action',
   },
+  viewDetails: {
+    id: 'ocpui.components.PermissionGroupsTable.viewDetails',
+    defaultMessage: 'View Details',
+  },
+  assignRoles: {
+    id: 'ocpui.components.PermissionGroupsTable.assignRoles',
+    defaultMessage: 'Assign Roles',
+  },
 });
