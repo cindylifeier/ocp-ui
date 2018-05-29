@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.ConsentCard.consentStatus',
     defaultMessage: 'Consent state:',
   },
+  manageConsentButton: {
+    id: 'ocpui.components.ConsentCard.manageConsentButton',
+    defaultMessage: 'Manage Consent',
+  },
   consentCardHeader: {
     authorizedLabel: {
       id: 'ocpui.components.ConsentCard.consentCardHeader.authorizedLabel',
@@ -34,6 +38,16 @@ export default defineMessages({
     purposeLabel: {
       id: 'ocpui.components.ConsentCard.consentCardHeader.purposeLabel',
       defaultMessage: 'Share the following purposes:',
+    },
+  },
+  consentDialog: {
+    title: {
+      id: 'ocpui.components.ConsentCard.consentDialog.title',
+      defaultMessage: 'Consent Options',
+    },
+    editConsentOption: {
+      id: 'ocpui.components.ConsentCard.consentDialog.editConsentOption',
+      defaultMessage: 'Edit This Consent',
     },
   },
 });
