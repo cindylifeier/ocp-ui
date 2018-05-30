@@ -82,7 +82,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     const { patient: newPatient } = nextProps;
     const practitionerId = getPractitionerIdByRole(user);
     if (!isEqual(patient, newPatient) && nextProps && nextProps.patient) {
-      this.props.getTasks(practitionerId, nextProps.patient.id);
+      this.props.getTasks(practitionerId, nextProps.patient.id, this.state.statusList);
     }
   }
 
@@ -92,11 +92,11 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   }
 
   handleStatusListChange(code, checked) {
-    const { statusList } = this.props.tasks;
+    const { tasks: { statusList }, patient, user } = this.props;
     const filteredStatusList = statusList.filter((c) => c !== code);
     const newStatusList = checked ? [...filteredStatusList, code] : filteredStatusList;
-    console.log(newStatusList);
-    // this.props.getTasks(DEFAULT_START_PAGE_NUMBER, newStatusList);
+    const practitionerId = getPractitionerIdByRole(user);
+    this.props.getTasks(practitionerId || '', patient.id, newStatusList);
   }
 
   handleFilterResize(size) {
