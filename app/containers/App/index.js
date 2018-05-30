@@ -41,6 +41,7 @@ import injectSaga from 'utils/injectSaga';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageConsentPage from 'containers/ManageConsentPage';
 import AttestConsentPage from 'containers/AttestConsentPage';
+import ManageClientPage from 'containers/ManageClientPage';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
 import saga from './saga';
 import './styles.css';
@@ -85,6 +86,7 @@ export function App() {
             <Route path="/ocp-ui/manage-consent/:id?" component={ManageConsentPage} />
             <Route path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
             <Route path="/ocp-ui/smart-context" component={SmartContextInitializerPage} />
+            <Route path="/ocp-ui/manage-client" component={ManageClientPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>
