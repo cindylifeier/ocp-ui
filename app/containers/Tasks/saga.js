@@ -1,9 +1,10 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-
 import { showNotification } from 'containers/Notification/actions';
+
 import getTasksApi, { cancelTask } from './api';
 import { cancelTaskError, cancelTaskSuccess, getTasksError, getTasksSuccess } from './actions';
-import { CANCEL_TASK, GET_TASKS } from './constants';
+import { CANCEL_TASK, GET_TASKS, DEFAULT_TASK_STATUS_CODE } from './constants';
+
 
 function getErrorMessage(err) {
   let errorMessage = '';
@@ -19,9 +20,9 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getTasksSaga({ practitionerId, patientId }) {
+export function* getTasksSaga({ practitionerId, patientId, statusList }) {
   try {
-    const tasksPage = yield call(getTasksApi, practitionerId, patientId);
+    const tasksPage = yield call(getTasksApi, practitionerId, patientId, [DEFAULT_TASK_STATUS_CODE, ...statusList]);
     yield put(getTasksSuccess(tasksPage));
   } catch (err) {
     const errMsg = getErrorMessage(err);
