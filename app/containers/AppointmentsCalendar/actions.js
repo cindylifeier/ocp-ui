@@ -11,6 +11,9 @@ import {
   GET_OUTLOOK_APPOINTMENTS,
   GET_OUTLOOK_APPOINTMENTS_ERROR,
   GET_OUTLOOK_APPOINTMENTS_SUCCESS,
+  LOGIN_OUTLOOK,
+  LOGIN_OUTLOOK_ERROR,
+  LOGIN_OUTLOOK_SUCCESS,
 } from './constants';
 
 // Get
@@ -51,6 +54,28 @@ export function getOutlookAppointmentsSuccess(outlookAppointments) {
 export function getOutlookAppointmentsError(error) {
   return {
     type: GET_OUTLOOK_APPOINTMENTS_ERROR,
+    error,
+  };
+}
+
+export function loginToOWA(loginCredentials, handleSubmitting) {
+  return {
+    type: LOGIN_OUTLOOK,
+    loginCredentials,
+    handleSubmitting,
+  };
+}
+
+export function loginToOWASuccess(isAuthenticated) {
+  return {
+    type: LOGIN_OUTLOOK_SUCCESS,
+    isAuthenticated,
+  };
+}
+
+export function loginToOWAError(error) {
+  return {
+    type: LOGIN_OUTLOOK_ERROR,
     error,
   };
 }

@@ -16,6 +16,10 @@ export const GET_OUTLOOK_APPOINTMENTS = 'ocpui/AppointmentsCalendar/GET_OUTLOOK_
 export const GET_OUTLOOK_APPOINTMENTS_SUCCESS = 'ocpui/AppointmentsCalendar/GET_OUTLOOK_APPOINTMENTS_SUCCESS';
 export const GET_OUTLOOK_APPOINTMENTS_ERROR = 'ocpui/AppointmentsCalendar/GET_OUTLOOK_APPOINTMENTS_ERROR';
 
+export const LOGIN_OUTLOOK = 'ocpui/AppointmentsCalendar/LOGIN_OUTLOOK';
+export const LOGIN_OUTLOOK_SUCCESS = 'ocpui/AppointmentsCalendar/LOGIN_OUTLOOK_SUCCESS';
+export const LOGIN_OUTLOOK_ERROR = 'ocpui/AppointmentsCalendar/LOGIN_OUTLOOK_ERROR';
+
 /**
 *  Other constants
 *
