@@ -35,7 +35,7 @@ export class PanelToolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowSearchBar: false,
+      isShowSearchBar: props.showSearchBarByDefault,
       isShowFilter: false,
     };
     this.handleShowSearchBar = this.handleShowSearchBar.bind(this);
@@ -65,9 +65,11 @@ export class PanelToolbar extends React.Component {
       showToDoSpecificFilters,
       onFilter,
       filterField,
+      hideToolbar,
     } = this.props;
     return (
       <div>
+        {!hideToolbar &&
         <StyledToolbar
           color="#91AAB3"
           height="20px"
@@ -126,7 +128,7 @@ export class PanelToolbar extends React.Component {
             </StyledTooltip>
             }
           </ToolbarGroup>
-        </StyledToolbar>
+        </StyledToolbar>}
         {this.state.isShowSearchBar &&
         <SearchBar
           onSearch={onSearch}
@@ -175,6 +177,7 @@ PanelToolbar.propTypes = {
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
   showSearchIcon: PropTypes.bool,
+  showSearchBarByDefault: PropTypes.bool,
   addNewItem: PropTypes.shape({
     labelName: PropTypes.node.isRequired,
     linkUrl: PropTypes.string.isRequired,
@@ -195,6 +198,7 @@ PanelToolbar.propTypes = {
     })),
     searchValueHintText: PropTypes.node.isRequired,
   }),
+  hideToolbar: PropTypes.bool,
 };
 
 PanelToolbar.defaultProps = {
@@ -204,8 +208,10 @@ PanelToolbar.defaultProps = {
   showSettingIcon: true,
   showFilterIcon: true,
   showSearchIcon: true,
+  showSearchBarByDefault: false,
   showFilter: true,
   showToDoSpecificFilters: false,
+  hideToolbar: false,
 };
 
 export default sizeMeHOC(PanelToolbar);

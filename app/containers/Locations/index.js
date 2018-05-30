@@ -115,7 +115,12 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
   }
 
   handleRowClick(location) {
-    this.props.setLocation(location);
+    const { onLocationClick } = this.props;
+    if (onLocationClick) {
+      onLocationClick(location);
+    } else {
+      this.props.setLocation(location);
+    }
   }
 
   handleIncludeInactive(event, checked) {
@@ -190,7 +195,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_LOCATION_URL,
     };
-    const { data, currentPage, totalNumberOfPages, totalElements, currentPageSize } = this.props;
+    const { data, currentPage, totalNumberOfPages, totalElements, currentPageSize, showSearchBarByDefault, hideToolbar } = this.props;
     const locationTableData = {
       data,
       currentPage,
@@ -208,6 +213,8 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
           showFilter={false}
+          showSearchBarByDefault={showSearchBarByDefault}
+          hideToolbar={hideToolbar}
         />
         }
         {this.props.showActionSection && this.renderActionSection()}
@@ -241,10 +248,15 @@ Locations.propTypes = {
   includeInactive: PropTypes.bool,
   includeSuspended: PropTypes.bool,
   searchLocations: PropTypes.func,
+  onLocationClick: PropTypes.func,
+  showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 Locations.defaultProps = {
   showActionSection: true,
+  showSearchBarByDefault: false,
+  hideToolbar: false,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -41,7 +41,7 @@ class DefaultViewComponent extends React.Component {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_ORGANIZATION_URL,
     };
-    const { onSearch, onViewAll, onOrganizationClick, isShowViewAllButton, flattenOrganizationData, organizationData } = this.props;
+    const { onSearch, onViewAll, onOrganizationClick, isShowViewAllButton, flattenOrganizationData, organizationData, showSearchBarByDefault, hideToolbar } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -49,6 +49,8 @@ class DefaultViewComponent extends React.Component {
           allowedAddNewItemRoles={OCP_ADMIN_ROLE_CODE}
           onSearch={onSearch}
           onSize={this.onSize}
+          showSearchBarByDefault={showSearchBarByDefault}
+          hideToolbar={hideToolbar}
         />
         {isShowViewAllButton &&
         <InfoSection margin="10px 0">
@@ -124,6 +126,8 @@ DefaultViewComponent.propTypes = {
       })),
     })).isRequired,
   }),
+  showSearchBarByDefault: PropTypes.bool,
+  hideToolbar: PropTypes.bool,
 };
 
 export default DefaultViewComponent;

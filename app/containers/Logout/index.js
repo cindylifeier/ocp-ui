@@ -15,6 +15,7 @@ import { MenuItem } from 'material-ui-next/Menu';
 
 import injectSaga from 'utils/injectSaga';
 import { clearAll } from 'containers/App/contextActions';
+import { makeSelectConfig } from 'containers/App/selectors';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import { CARE_COORDINATOR_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
@@ -22,9 +23,18 @@ import { logout } from './actions';
 import saga from './saga';
 import messages from './messages';
 
-export class Logout extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Logout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    this.props.onLogout(this.props.config);
+  }
+
   render() {
-    const { patient, onLogout } = this.props;
+    const { patient } = this.props;
     return (
       <div>
         {patient &&
@@ -34,7 +44,7 @@ export class Logout extends React.Component { // eslint-disable-line react/prefe
           </MenuItem>
         </ShowHideWrapper>
         }
-        <MenuItem onClick={onLogout}>
+        <MenuItem onClick={this.handleLogout}>
           <FormattedMessage {...messages.logoutButton} />
         </MenuItem>
       </div>
@@ -44,6 +54,7 @@ export class Logout extends React.Component { // eslint-disable-line react/prefe
 
 Logout.propTypes = {
   onLogout: PropTypes.func.isRequired,
+  config: PropTypes.object,
   patient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.array,
@@ -51,13 +62,14 @@ Logout.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  config: makeSelectConfig(),
   patient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onLogout: () => {
-      dispatch(logout());
+    onLogout: (config) => {
+      dispatch(logout(config));
       dispatch(clearAll());
     },
   };

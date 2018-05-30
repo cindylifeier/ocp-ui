@@ -43,6 +43,7 @@ import ManageConsentPage from 'containers/ManageConsentPage';
 import AttestConsentPage from 'containers/AttestConsentPage';
 import Consent2ShareHomePage from 'containers/Consent2ShareHomePage';
 import C2SRoute from 'components/C2SRoute';
+import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
 import saga from './saga';
 import './styles.css';
 
@@ -86,6 +87,7 @@ export function App() {
             <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
             <Route path="/ocp-ui/manage-consent/:id?" component={ManageConsentPage} />
             <Route path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
+            <Route path="/ocp-ui/smart-context" component={SmartContextInitializerPage} />
           </Authentication>
           <Route component={NotFoundPage} />
         </Switch>

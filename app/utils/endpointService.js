@@ -4,11 +4,13 @@ import includes from 'lodash/includes';
 
 // Todo: Make server side configurable
 const BASE_API_URL = '/ocp-ui-api';
+const BASE_SMART_GATEWAY_URL = '/smart';
 
 /**
  *  Constants to hold the external UI Api endpoint Keys
  * @type {string}
  */
+export const CONFIG_API_URL = 'ocpui/utils/CONFIG_API_URL';
 export const LOGIN_API_URL = 'ocpui/utils/LOGIN_API_URL';
 export const LOOKUPS_API_URL = 'ocpui/utils/LOOKUPS_API_URL';
 export const BASE_CARE_TEAMS_API_URL = 'ocpui/utils/BASE_CARE_TEAMS_API_URL';
@@ -26,6 +28,8 @@ export const BASE_ACTIVITY_DEFINITIONS_API_URL = 'ocpui/utils/BASE_ACTIVITY_DEFI
 export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
 export const BASE_CONSENTS_API_URL = 'ocpui/utils/BASE_CONSENTS_API_URL';
 export const BASE_USER_CONTEXT_API_URL = 'ocpui/utils/BASE_USER_CONTEXT_API_URL';
+export const BASE_SMART_URL = 'ocpui/utils/BASE_SMART_URL';
+export const SMART_AUTHORIZE_URL = 'ocpui/utils/SMART_AUTHORIZE_URL';
 
 
 export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
@@ -35,6 +39,7 @@ export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_
  * @type {*[]}
  */
 const apiEndpoints = [
+  { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
   { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/ocp-fis/lookups`, isSecured: false },
 
@@ -54,6 +59,8 @@ const apiEndpoints = [
   { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/consents` },
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
+  { key: BASE_SMART_URL, url: `${BASE_API_URL}/smart` },
+  { key: SMART_AUTHORIZE_URL, url: `${BASE_SMART_GATEWAY_URL}/authorize` },
 ];
 
 const configuredEndpoints = collectEndpoints();
