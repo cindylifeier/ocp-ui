@@ -16,10 +16,12 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { CARE_COORDINATOR_ROLE_CODE,
+import {
+  CARE_COORDINATOR_ROLE_CODE,
   MANAGE_COMMUNICATION_URL,
-  MANAGE_TASK_URL,
-  TO_DO_DEFINITION } from 'containers/App/constants';
+  MANAGE_TASK_URL, TASK_STATUS,
+  TO_DO_DEFINITION,
+} from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
@@ -27,16 +29,26 @@ import CenterAlign from 'components/Align/CenterAlign';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import { getPractitionerIdByRole } from 'containers/App/helpers';
+import { Checkbox } from 'material-ui';
+import FilterSection from 'components/FilterSection';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import TaskTable from 'components/TaskTable';
 import PanelToolbar from 'components/PanelToolbar';
+import { Cell, Grid } from 'styled-css-grid';
+
+import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import { makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
+import {
+  CANCELLED_STATUS_CODE, COMPLETED_STATUS_CODE, FAILED_STATUS_CODE,
+  SUMMARY_VIEW_WIDTH,
+} from 'containers/Tasks/constants';
+import { getLookupsAction } from 'containers/App/actions';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { cancelTask, getTasks, initializeTasks } from './actions';
-
 
 export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -45,19 +57,23 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       panelHeight: 0,
       filterHeight: 0,
       isPatientModalOpen: false,
+      isExpanded: false,
     };
     this.cancelTask = this.cancelTask.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
+    this.handleStatusListChange = this.handleStatusListChange.bind(this);
+    this.onSize = this.onSize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
 
   componentDidMount() {
     this.props.initializeTasks();
+    this.props.getLookups();
     const { patient, user } = this.props;
     const practitionerId = getPractitionerIdByRole(user);
     if (patient) {
-      this.props.getTasks(practitionerId, patient.id);
+      this.props.getTasks(practitionerId, patient.id, []);
     }
   }
 
@@ -70,21 +86,62 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
     }
   }
 
-  handlePanelResize(size) {
-    this.setState({ panelHeight: size.height });
+  onSize(size) {
+    const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+    this.setState({ isExpanded });
+  }
+
+  handleStatusListChange(code, checked) {
+    const { statusList } = this.props.tasks;
+    const filteredStatusList = statusList.filter((c) => c !== code);
+    const newStatusList = checked ? [...filteredStatusList, code] : filteredStatusList;
+    console.log(newStatusList);
+    // this.props.getTasks(DEFAULT_START_PAGE_NUMBER, newStatusList);
   }
 
   handleFilterResize(size) {
     this.setState({ filterHeight: size.height });
   }
 
+  handlePanelResize(size) {
+    this.setState({ panelHeight: size.height });
+  }
+
   cancelTask(logicalId) {
     this.props.cancelTask(logicalId);
   }
 
+  calculateCheckboxColumns({ length }) {
+    return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
+  }
+
+  renderFilter(taskStatus, statusList) {
+    const filteredTaskStatuses = taskStatus.filter(({ code }) => code === CANCELLED_STATUS_CODE
+                                                                    || code === FAILED_STATUS_CODE
+                                                                    || code === COMPLETED_STATUS_CODE);
+    return (
+      <FilterSection>
+        <CheckboxFilterGrid columns={this.calculateCheckboxColumns(filteredTaskStatuses)}>
+          <Cell><CenterAlign><FormattedMessage {...messages.includeLabel} /></CenterAlign></Cell>
+          {filteredTaskStatuses.map(({ code, display }) => (
+            <Cell key={code}>
+              <CenterAlign>
+                <Checkbox
+                  name={code}
+                  checked={statusList && statusList.includes(code)}
+                  label={display}
+                  onCheck={(event, checked) => this.handleStatusListChange(code, checked)}
+                />
+              </CenterAlign>
+            </Cell>
+          ))
+          }
+        </CheckboxFilterGrid>
+      </FilterSection>);
+  }
 
   render() {
-    const { tasks: { loading, data }, patient, user } = this.props;
+    const { tasks: { loading, data, statusList }, patient, user, taskStatus } = this.props;
     let taskList = data;
     if (!isEmpty(data)) {
       taskList = data.filter((task) => task.description !== TO_DO_DEFINITION);
@@ -113,13 +170,22 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
           <h4><FormattedMessage {...messages.patientNotSelected} /></h4>
           :
           <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
-            <InfoSection margin="0px">
-                The <FormattedMessage {...messages.tasks} /> for&nbsp;
-                <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                  <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
-                </InlineLabel>
-                are :
-            </InfoSection>
+            <Grid columns={1} gap="">
+              <Cell>
+                <InfoSection margin="0px">
+                    The <FormattedMessage {...messages.tasks} /> for&nbsp;
+                    <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                      <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                    </InlineLabel>
+                    are :
+                </InfoSection>
+              </Cell>
+              {!isEmpty(taskList) && this.state.isExpanded &&
+              <Cell>
+                {this.renderFilter(taskStatus, statusList)}
+              </Cell>
+              }
+            </Grid>
           </SizedStickyDiv>
         }
 
@@ -141,6 +207,8 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
               patientId={patient.id}
               communicationBaseUrl={MANAGE_COMMUNICATION_URL}
               taskBaseUrl={MANAGE_TASK_URL}
+              onSize={this.onSize}
+              isExpanded={this.state.isExpanded}
             />
           </CenterAlign>
         </div>
@@ -156,20 +224,25 @@ Tasks.propTypes = {
   getTasks: PropTypes.func.isRequired,
   tasks: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    statusList: PropTypes.arrayOf(PropTypes.string),
   }),
   patient: PropTypes.object,
   user: PropTypes.object,
+  taskStatus: PropTypes.array,
+  getLookups: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   tasks: makeSelectTasks(),
   patient: makeSelectPatient(),
   user: makeSelectUser(),
+  taskStatus: makeSelectTaskStatuses(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTasks: (practitionerId, patientId) => dispatch(getTasks(practitionerId, patientId)),
+    getLookups: () => dispatch(getLookupsAction([TASK_STATUS])),
+    getTasks: (practitionerId, patientId, statusList) => dispatch(getTasks(practitionerId, patientId, statusList)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
   };
