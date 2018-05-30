@@ -55,7 +55,7 @@ export class Consents extends React.Component { // eslint-disable-line react/pre
     return (
       <Grid columns={1} gap="20px">
         <Cell center>
-          <StyledRaisedButton component={Link} to="/ocp-ui/manage-consent">
+          <StyledRaisedButton component={Link} to="/c2s-sof-ui/manage-consent">
             <Add color={common.white} />
             <FormattedMessage {...messages.buttonLabelCreateNew} />
           </StyledRaisedButton>

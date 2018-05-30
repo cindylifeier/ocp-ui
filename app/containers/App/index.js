@@ -63,6 +63,7 @@ export function App() {
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
           <C2SRoute exact path="/c2s-sof-ui/patient/:id?" component={Consent2ShareHomePage} />
+          <C2SRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
@@ -85,7 +86,6 @@ export function App() {
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
             <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
-            <Route path="/ocp-ui/manage-consent/:id?" component={ManageConsentPage} />
             <Route path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
             <Route path="/ocp-ui/smart-context" component={SmartContextInitializerPage} />
           </Authentication>

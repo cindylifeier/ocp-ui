@@ -77,7 +77,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                   variant="raised"
                   fullWidth
                   component={Link}
-                  to={`/ocp-ui/manage-consent/${logicalId}`}
+                  to={`/c2s-sof-ui/manage-consent/${logicalId}`}
                 >
                   <FormattedMessage {...messages.consentDialog.editConsentOption} />
                 </Button>
