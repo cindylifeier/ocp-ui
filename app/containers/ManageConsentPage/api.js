@@ -10,6 +10,9 @@ export function getConsent(consentId) {
 }
 
 export function saveConsent(consentFormData, patient) {
+  if (consentFormData.logicalId) {
+    return updateConsent(consentFormData.logicalId, consentFormData, patient);
+  }
   return createConsent(consentFormData, patient);
 }
 
@@ -38,6 +41,19 @@ function createConsent(consentFormData, patient) {
     },
   });
 }
+
+function updateConsent(logicalId, consentFormData, patient) {
+  const baseEndpoint = getEndpoint(BASE_CONSENTS_API_URL);
+  const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL, {
+    method: 'PUT',
+    body: JSON.stringify(mapToBffConsentDto(consentFormData, patient)),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 
 function mapToBffConsentDto(consentFormData, patient) {
   // TODO: Handle UI hard-coded data

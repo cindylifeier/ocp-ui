@@ -19,7 +19,7 @@ export function mapResourceName(nameArray) {
   return name;
 }
 
-export function initialConsentFormValues(consent, careCoordinatorContext) {
+export function initialConsentFormValues(consent, careCoordinatorContext, securityLabels) {
   let formData = null;
   if (isEmpty(consent)) {
     const consentStart = new Date();
@@ -60,19 +60,32 @@ export function initialConsentFormValues(consent, careCoordinatorContext) {
         consentStart,
         consentEnd,
         purpose,
+        shareType: SHARE_ALL,
+        medicalInformation: securityLabels,
       };
     }
   } else {
-    const consentStart = consent.period.start;
-    const consentEnd = consent.period.end;
-    const purpose = consent.purpose;
-    formData = {
-      consentType: true,
-      shareType: SHARE_ALL,
-      consentStart,
-      consentEnd,
-      purpose,
-    };
+    const consentStart = Util.setEmptyStringWhenUndefined(consent.period.start);
+    const consentEnd = Util.setEmptyStringWhenUndefined(consent.period.end);
+    if (consent.generalDesignation) {
+      formData = {
+        consentType: true,
+        shareType: SHARE_ALL,
+        medicalInformation: securityLabels,
+        consentStart: consentStart && new Date(consentStart),
+        consentEnd: consentEnd && new Date(consentEnd),
+        purpose: consent.purpose,
+      };
+    } else {
+      formData = {
+        consentType: false,
+        // shareType: SHARE_ALL,
+        // medicalInformation: securityLabels,
+        consentStart: consentStart && new Date(consentStart),
+        consentEnd: consentEnd && new Date(consentEnd),
+        purpose: consent.purpose,
+      };
+    }
   }
 
   return formData;

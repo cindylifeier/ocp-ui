@@ -26,7 +26,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.state = {
-      shareType: null,
+      shareType: SHARE_ALL,
       isMedicalInfoDialogOpen: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -34,6 +34,15 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
 
+  componentDidMount() {
+    this.state = {
+      medicalInformation: this.props.securityLabels,
+      sharedType: this.props.shareType,
+    };
+    if (this.props.isGeneralDesignation) {
+      this.state.shareType = SHARE_ALL;
+    }
+  }
   handleChange(event) {
     this.setState({ shareType: event.target.value });
   }
@@ -47,8 +56,8 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { errors, medicalInformation, securityLabels, isGeneralDesignation } = this.props;
-    const addMedicalInfoProps = { medicalInformation, securityLabels };
+    const { shareType, errors, medicalInformation, securityLabels, isGeneralDesignation } = this.props;
+    const addMedicalInfoProps = { shareType, medicalInformation, securityLabels };
     return (
       <InfoSection>
         <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
@@ -117,6 +126,7 @@ SelectMedicalInformation.propTypes = {
     display: PropTypes.string,
   })),
   isGeneralDesignation: PropTypes.bool.isRequired,
+  shareType: PropTypes.oneOf([SHARE_ALL, SHARE_SPECIFIC]),
 };
 
 export default SelectMedicalInformation;

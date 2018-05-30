@@ -59,6 +59,7 @@ function ManageConsentForm(props) {
             <Checkbox
               name="consentType"
               label={<FormattedMessage {...messages.consentType} />}
+              disabled={isGeneralDesignation}
             >
             </Checkbox>
             {!isGeneralDesignation &&
