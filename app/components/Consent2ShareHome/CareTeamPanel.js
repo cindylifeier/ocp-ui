@@ -18,7 +18,7 @@ function CareTeamPanel() {
         }
       >
         <FullWidthPanelDetails>
-          Under construction
+          Under Construction
         </FullWidthPanelDetails>
       </ControlledAccordion>
     </PanelSection>

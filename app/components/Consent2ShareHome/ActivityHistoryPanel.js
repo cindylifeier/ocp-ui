@@ -7,13 +7,13 @@ import PanelSection from 'components/PanelSection';
 import messages from './messages';
 
 
-function PatientInfoPanel() {
+function ActivityHistoryPanel() {
   return (
     <PanelSection>
       <ControlledAccordion
         accordionTitle={
           <StyledText fontSize="16px" whiteSpace>
-            <FormattedMessage {...messages.patientInfoPanelSummary} />
+            <FormattedMessage {...messages.activityHistoryPanelSummary} />
           </StyledText>
         }
       >
@@ -25,6 +25,6 @@ function PatientInfoPanel() {
   );
 }
 
-PatientInfoPanel.propTypes = {};
+ActivityHistoryPanel.propTypes = {};
 
-export default PatientInfoPanel;
+export default ActivityHistoryPanel;

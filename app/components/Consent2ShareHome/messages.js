@@ -12,15 +12,23 @@ export default defineMessages({
   },
   patientInfoPanelSummary: {
     id: 'ocpui.components.Consent2ShareHome.patientInfoPanelSummary',
-    defaultMessage: 'Patient\'s Information',
+    defaultMessage: 'Patient\'s Information (Under Construction)',
   },
   careTeamPanelSummary: {
     id: 'ocpui.components.Consent2ShareHome.careTeamPanelSummary',
-    defaultMessage: 'Patient\'s Care Teams',
+    defaultMessage: 'Patient\'s Care Teams (Under Construction)',
   },
   consentPanelSummary: {
     id: 'ocpui.components.Consent2ShareHome.consentPanelSummary',
     defaultMessage: 'Patient\'s Consents',
+  },
+  segmentHealthRecordPanelSummary: {
+    id: 'ocpui.components.Consent2ShareHome.segmentHealthRecordPanelSummary',
+    defaultMessage: 'Segment Patient\'s Health Record (Under Construction)',
+  },
+  activityHistoryPanelSummary: {
+    id: 'ocpui.components.Consent2ShareHome.activityHistoryPanelSummary',
+    defaultMessage: 'Activity History (Under Construction)',
   },
   patientBanner: {
     identifier: {

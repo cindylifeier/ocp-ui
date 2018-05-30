@@ -11,6 +11,8 @@ import PatientBanner from './PatientBanner';
 import PatientInfoPanel from './PatientInfoPanel';
 import CareTeamPanel from './CareTeamPanel';
 import ConsentPanel from './ConsentPanel';
+import SegmentHealthRecordPanel from './SegmentHealthRecordPanel';
+import ActivityHistoryPanel from './ActivityHistoryPanel';
 
 
 function Consent2ShareHome(props) {
@@ -20,6 +22,8 @@ function Consent2ShareHome(props) {
       <PatientInfoPanel />
       <CareTeamPanel />
       <ConsentPanel />
+      <SegmentHealthRecordPanel />
+      <ActivityHistoryPanel />
     </Page>
   );
 }
