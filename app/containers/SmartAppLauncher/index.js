@@ -10,9 +10,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Apps from '@material-ui/icons/Apps';
+import Settings from '@material-ui/icons/Settings';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedMessage } from 'react-intl';
+import get from 'lodash/get';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,6 +24,7 @@ import InfoSection from 'components/InfoSection';
 import StickyDiv from 'components/StickyDiv';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE } from 'containers/App/constants';
+import { makeSelectConfig } from 'containers/App/selectors';
 import makeSelectContext from 'containers/App/contextSelectors';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import { makeSelectSmartApps } from './selectors';
@@ -42,6 +45,7 @@ export class SmartAppLauncher extends React.Component {
     };
     this.handleSmartAppsDialogToggle = this.handleSmartAppsDialogToggle.bind(this);
     this.handleLaunch = this.handleLaunch.bind(this);
+    this.handleSmartAppSettingsClick = this.handleSmartAppSettingsClick.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +58,14 @@ export class SmartAppLauncher extends React.Component {
 
   handleLaunch(clientId) {
     this.props.createLaunch(clientId);
+  }
+
+  handleSmartAppSettingsClick() {
+    const { config } = this.props;
+    const authorizationServerEndpoint = get(config, 'oauth2.authorizationServerEndpoint');
+    if (authorizationServerEndpoint) {
+      window.open(`${authorizationServerEndpoint}/profile`);
+    }
   }
 
   render() {
@@ -71,7 +83,16 @@ export class SmartAppLauncher extends React.Component {
             <StickyDiv>
               <DialogTitle>
                 <HorizontalAlignment position="center">
-                  <FormattedMessage {...messages.buttonLabel} />
+                  <Grid columns="1fr 0px">
+                    <Cell middle>
+                      <FormattedMessage {...messages.buttonLabel} />
+                    </Cell>
+                    <Cell middle>
+                      <StyledFlatButton onClick={this.handleSmartAppSettingsClick}>
+                        <Settings />
+                      </StyledFlatButton>
+                    </Cell>
+                  </Grid>
                 </HorizontalAlignment>
               </DialogTitle>
             </StickyDiv>
@@ -113,11 +134,17 @@ SmartAppLauncher.propTypes = {
     clientName: PropTypes.string.isRequired,
     appIcon: PropTypes.string,
   })),
+  config: PropTypes.shape({
+    oauth2: PropTypes.shape({
+      authorizationServerEndpoint: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   smartApps: makeSelectSmartApps(),
   context: makeSelectContext(),
+  config: makeSelectConfig(),
 });
 
 function mapDispatchToProps(dispatch) {
