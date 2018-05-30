@@ -96,11 +96,6 @@ ShallowWrapper {
                 },
                 Object {
                   "factoryMethod": [Function],
-                  "name": "consents",
-                  "text": "Consents",
-                },
-                Object {
-                  "factoryMethod": [Function],
                   "name": "careTeams",
                   "text": "Care teams",
                 },
@@ -121,13 +116,6 @@ ShallowWrapper {
                             "isClosable": true,
                             "reorderEnabled": true,
                             "title": "Tasks",
-                            "type": "component",
-                          },
-                          Object {
-                            "componentName": "consents",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Consents",
                             "type": "component",
                           },
                           Object {
@@ -310,11 +298,6 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "consents",
-                    "text": "Consents",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
                     "name": "careTeams",
                     "text": "Care teams",
                   },
@@ -335,13 +318,6 @@ ShallowWrapper {
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "Tasks",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "consents",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Consents",
                               "type": "component",
                             },
                             Object {
@@ -480,11 +456,6 @@ ShallowWrapper {
                 },
                 Object {
                   "factoryMethod": [Function],
-                  "name": "consents",
-                  "text": "Consents",
-                },
-                Object {
-                  "factoryMethod": [Function],
                   "name": "careTeams",
                   "text": "Care teams",
                 },
@@ -503,13 +474,6 @@ ShallowWrapper {
                             "isClosable": true,
                             "reorderEnabled": true,
                             "title": "Tasks",
-                            "type": "component",
-                          },
-                          Object {
-                            "componentName": "consents",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Consents",
                             "type": "component",
                           },
                           Object {
@@ -663,11 +627,6 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "consents",
-                    "text": "Consents",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
                     "name": "careTeams",
                     "text": "Care teams",
                   },
@@ -688,13 +647,6 @@ ShallowWrapper {
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "Tasks",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "consents",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Consents",
                               "type": "component",
                             },
                             Object {
@@ -877,11 +829,6 @@ ShallowWrapper {
                     },
                     Object {
                       "factoryMethod": [Function],
-                      "name": "consents",
-                      "text": "Consents",
-                    },
-                    Object {
-                      "factoryMethod": [Function],
                       "name": "careTeams",
                       "text": "Care teams",
                     },
@@ -902,13 +849,6 @@ ShallowWrapper {
                                 "isClosable": true,
                                 "reorderEnabled": true,
                                 "title": "Tasks",
-                                "type": "component",
-                              },
-                              Object {
-                                "componentName": "consents",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Consents",
                                 "type": "component",
                               },
                               Object {
@@ -1047,11 +987,6 @@ ShallowWrapper {
                   },
                   Object {
                     "factoryMethod": [Function],
-                    "name": "consents",
-                    "text": "Consents",
-                  },
-                  Object {
-                    "factoryMethod": [Function],
                     "name": "careTeams",
                     "text": "Care teams",
                   },
@@ -1070,13 +1005,6 @@ ShallowWrapper {
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "Tasks",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "consents",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Consents",
                               "type": "component",
                             },
                             Object {
