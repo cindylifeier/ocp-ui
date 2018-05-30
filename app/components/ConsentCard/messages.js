@@ -49,5 +49,13 @@ export default defineMessages({
       id: 'ocpui.components.ConsentCard.consentDialog.editConsentOption',
       defaultMessage: 'Edit This Consent',
     },
+    previewConsentOption: {
+      id: 'ocpui.components.ConsentCard.consentDialog.previewConsentOption',
+      defaultMessage: 'Preview This Consent',
+    },
+    closeButton: {
+      id: 'ocpui.components.ConsentCard.consentDialog.closeButton',
+      defaultMessage: 'Close',
+    },
   },
 });
