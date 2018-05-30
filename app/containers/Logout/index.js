@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { MenuItem } from 'material-ui-next/Menu';
-import { Link } from 'react-router-dom';
 
 import injectSaga from 'utils/injectSaga';
 import { clearAll } from 'containers/App/contextActions';
@@ -33,9 +32,6 @@ export class Logout extends React.Component {
   render() {
     return (
       <div>
-        <MenuItem component={Link} to="/c2s-ui/manage-client">
-          <FormattedMessage {...messages.manageClient} />
-        </MenuItem>
         <MenuItem
           onClick={this.handleLogout}
         >

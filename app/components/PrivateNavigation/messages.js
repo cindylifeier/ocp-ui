@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.PrivateNavigation.navButton',
     defaultMessage: 'My Dashboard',
   },
+  manageSmartApps: {
+    id: 'ocpui.components.PrivateNavigation.manageSmartApps',
+    defaultMessage: 'Manage SMART Apps',
+  },
 });
