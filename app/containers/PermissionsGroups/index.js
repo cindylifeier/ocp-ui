@@ -20,7 +20,6 @@ import teal from 'material-ui-next/colors/teal';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddPermissionGroupForm from 'components/AddPermissionGroupForm';
 
-import { PanelToolbar } from 'components/PanelToolbar';
 import PermissionGroupsTable from 'components/PermissionGroupsTable';
 import makeSelectPermissionsGroups from './selectors';
 import reducer from './reducer';
@@ -58,14 +57,8 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const addNewPermissionGroup = {
-      labelName: <FormattedMessage {...messages.newPermissionsGroup} />,
-    };
     return (
       <div>
-        <PanelToolbar
-          addNewPermissionGroup={addNewPermissionGroup}
-        />
         <div>
           <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
             <StyledAddCircleIcon color={teal['500']} />
