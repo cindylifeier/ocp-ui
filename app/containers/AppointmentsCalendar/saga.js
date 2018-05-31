@@ -6,9 +6,11 @@ import {
   getAppointmentsSuccess,
   getOutlookAppointmentsError,
   getOutlookAppointmentsSuccess,
+  loginToOWAError,
+  loginToOWASuccess,
 } from './actions';
-import getAppointmentsApi, { getOutlookAppointmentsApi } from './api';
-import { GET_APPOINTMENTS, GET_OUTLOOK_APPOINTMENTS } from './constants';
+import getAppointmentsApi, { getOutlookAppointmentsApi, loginToOWA } from './api';
+import { GET_APPOINTMENTS, GET_OUTLOOK_APPOINTMENTS, LOGIN_OUTLOOK } from './constants';
 
 function getErrorMessage(err) {
   let errorMessage = '';
@@ -37,6 +39,20 @@ function getErrorMessageForOutlookAPICall(err) {
   }
   return errorMessage;
 }
+
+
+export function getLoginTOWAErrorDetail(err) {
+  let errorMessage = '';
+  if (err && err.message === 'Failed to fetch') {
+    errorMessage = ' Server is offline.';
+  } else if (err && err.response && err.response.status === 401) {
+    errorMessage = 'Failed to authorize the Outlook Credentials';
+  } else if (err && err.response && err.response.status === 500) {
+    errorMessage = ' Unknown server error.';
+  }
+  return errorMessage;
+}
+
 
 export function* getAppointmentsSaga({ query }) {
   try {
@@ -70,6 +86,7 @@ export function* watchGetAppointmentsSaga() {
 }
 
 export function* getOutlookAppointmentsSaga() {
+  // Check session storage and only then call the api. Else do nothing.
   try {
     const outlookAppointments = yield call(getOutlookAppointmentsApi);
     yield put(getOutlookAppointmentsSuccess(outlookAppointments));
@@ -84,9 +101,29 @@ export function* watchGetOutlookAppointmentsSaga() {
   yield takeLatest(GET_OUTLOOK_APPOINTMENTS, getOutlookAppointmentsSaga);
 }
 
+export function* loginToOWASaga(loginAction) {
+  try {
+    const loginResponse = yield call(loginToOWA, loginAction.loginCredentials);
+    if (loginResponse === null) {
+      yield put(loginToOWASuccess(true));
+      yield put(showNotification('Authenticated'));
+      // put in Session storage and get outlook appointments
+    }
+  } catch (err) {
+    const errMsg = getLoginTOWAErrorDetail(err);
+    yield put(loginToOWAError(err));
+    yield put(showNotification(errMsg));
+  }
+}
+
+export function* watchLoginToOWASaga() {
+  yield takeLatest(LOGIN_OUTLOOK, loginToOWASaga);
+}
+
 export default function* defaultSaga() {
   yield all([
     watchGetAppointmentsSaga(),
     watchGetOutlookAppointmentsSaga(),
+    watchLoginToOWASaga(),
   ]);
 }

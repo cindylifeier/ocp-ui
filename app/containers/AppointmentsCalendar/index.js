@@ -31,7 +31,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import yup from 'yup';
-import { getAppointments, getOutlookAppointments } from './actions';
+import { getAppointments, getOutlookAppointments, loginToOWA } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectAppointmentsCalendar from './selectors';
@@ -75,9 +75,9 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.props.history.push(this.state.editAppointmentURL);
   }
 
-  authenticateOutlookCredentials(values, action) {
-    console.log('values = ', values);
-    console.log('action = ', action);
+  authenticateOutlookCredentials(loginFormData, actions) {
+    this.props.authenticateOutlookCredentials(loginFormData, () => actions.setSubmitting(false));
+    // this.setState({ loginModalOpen: false });
   }
 
   handleCloseCannotEditDialog() {
@@ -271,6 +271,7 @@ AppointmentsCalendar.propTypes = {
   }),
   history: PropTypes.object.isRequired,
   getPatient: PropTypes.func.isRequired,
+  authenticateOutlookCredentials: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -284,6 +285,7 @@ function mapDispatchToProps(dispatch) {
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     refreshPatient: () => dispatch(refreshPatient()),
     getPatient: (logicalId) => dispatch(getPatient(logicalId)),
+    authenticateOutlookCredentials: (loginFormData, handleSubmitting) => dispatch(loginToOWA(loginFormData, handleSubmitting)),
   };
 }
 
