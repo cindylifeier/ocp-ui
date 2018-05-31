@@ -15,7 +15,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import { mapToPatientName, mapToPatientPhone } from 'utils/PatientUtils';
 import { PATIENTS_URL, WHITE_SPACE } from 'containers/App/constants';
-import PatientAvatar from 'components/PatientAvatar';
+import UserAvatar from 'components/UserAvatar';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledIconButton from 'components/StyledIconButton';
@@ -43,7 +43,7 @@ function ConfirmPatientModal(props) {
         </DialogTitle>
         <DialogContent>
           <Grid columns={1} alignContent="space-between">
-            <Cell center><PatientAvatar size={80} genderCode={patient.genderCode} /></Cell>
+            <Cell center><UserAvatar size={80} genderCode={patient.genderCode} /></Cell>
             <PatientModalCell center>
               Name{WHITE_SPACE}<strong>{mapToPatientName(patient)}</strong>
             </PatientModalCell>

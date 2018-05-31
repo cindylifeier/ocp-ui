@@ -3,11 +3,11 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import PatientAvatar from '../index';
+// import C2SLayout from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<PatientAvatar />', () => {
+describe('<C2SLayout />', () => {
   it('Expect to have unit tests specified', () => {
     // expect(true).toEqual(false);
   });

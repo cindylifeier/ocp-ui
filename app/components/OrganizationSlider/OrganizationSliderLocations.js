@@ -11,13 +11,13 @@ import FullWidthPanelDetails from 'components/ControlledAccordion/FullWidthPanel
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledText from 'components/StyledText';
-import SliderContentSection from './SliderContentSection';
+import PanelSection from 'components/PanelSection';
 import messages from './messages';
 
 
 function OrganizationSliderLocations() {
   return (
-    <SliderContentSection>
+    <PanelSection>
       <ControlledAccordion
         accordionTitle={
           <StyledText whiteSpace>
@@ -36,7 +36,7 @@ function OrganizationSliderLocations() {
           <Locations showActionSection={false} />
         </FullWidthPanelDetails>
       </ControlledAccordion>
-    </SliderContentSection>
+    </PanelSection>
   );
 }
 

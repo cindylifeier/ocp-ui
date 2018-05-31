@@ -2,6 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import 'jest-styled-components';
+import common from 'material-ui-next/colors/common';
 
 import Page from '../index';
 
@@ -43,7 +44,7 @@ describe('<Page />', () => {
       const renderedComponent = shallow(<Page>{children}</Page>);
 
       // Arrange
-      expect(renderedComponent).toHaveStyleRule('background-color', 'white');
+      expect(renderedComponent).toHaveStyleRule('background-color', common.white);
     });
   });
 });
