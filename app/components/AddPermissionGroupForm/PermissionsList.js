@@ -1,8 +1,12 @@
 import React from 'react';
 import Subheader from 'material-ui/Subheader';
+import ArrowFowardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import StyledIconButton from 'components/StyledIconButton';
 import { Cell, Grid } from 'styled-css-grid';
 import StyledListItem from './StyledListItem';
 import StyledList from './StyledList';
+import PermissionAddButtonsSection from './PermissionAddButtonsSection';
 
 function PermissionsList() {
   return (
@@ -78,7 +82,16 @@ function PermissionsList() {
           </StyledList>
         </Cell>
         <Cell row={1} width={1}>
-
+          <PermissionAddButtonsSection>
+            <Grid columns={1}>
+              <StyledIconButton svgIconSize="large">
+                <ArrowFowardIcon />
+              </StyledIconButton>
+              <StyledIconButton svgIconSize="large">
+                <ArrowBackIcon />
+              </StyledIconButton>
+            </Grid>
+          </PermissionAddButtonsSection>
         </Cell>
         <Cell row={1} width={2}>
           <Subheader>Added Permissions</Subheader>
