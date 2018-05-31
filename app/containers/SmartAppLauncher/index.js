@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Apps from '@material-ui/icons/Apps';
+import Close from '@material-ui/icons/Close';
 import Settings from '@material-ui/icons/Settings';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
@@ -23,6 +24,8 @@ import StyledDialog from 'components/StyledDialog';
 import InfoSection from 'components/InfoSection';
 import StickyDiv from 'components/StickyDiv';
 import HorizontalAlignment from 'components/HorizontalAlignment';
+import StyledTooltip from 'components/StyledTooltip';
+import StyledIconButton from 'components/StyledIconButton';
 import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectConfig } from 'containers/App/selectors';
 import makeSelectContext from 'containers/App/contextSelectors';
@@ -79,27 +82,37 @@ export class SmartAppLauncher extends React.Component {
           </InfoSection>
         </StyledFlatButton>
         <StyledDialog open={this.state.smartAppsDialogOpen} onClose={this.handleSmartAppsDialogToggle}>
-          <InfoSection>
-            <StickyDiv>
-              <DialogTitle>
-                <HorizontalAlignment position="center">
-                  <Grid columns="1fr 0px">
-                    <Cell middle>
-                      <FormattedMessage {...messages.buttonLabel} />
-                    </Cell>
-                    <Cell middle>
-                      <StyledFlatButton onClick={this.handleSmartAppSettingsClick}>
-                        <Settings />
-                      </StyledFlatButton>
-                    </Cell>
-                  </Grid>
-                </HorizontalAlignment>
-              </DialogTitle>
-            </StickyDiv>
-            <DialogContent>
-              <Grid columns={3} justifyContent="space-around" gap="16px">
-                {smartApps.map(({ clientId, clientName, appIcon }) => (
-                  <Cell key={clientId}>
+          <StickyDiv>
+            <DialogTitle>
+              <HorizontalAlignment position="center">
+                <Grid columns="1.5fr 1fr 0px 1.5fr">
+                  <Cell />
+                  <Cell middle>
+                    <FormattedMessage {...messages.buttonLabel} />
+                  </Cell>
+                  <Cell middle>
+                    <StyledFlatButton onClick={this.handleSmartAppSettingsClick}>
+                      <Settings />
+                    </StyledFlatButton>
+                  </Cell>
+                  <Cell middle>
+                    <HorizontalAlignment position="end">
+                      <StyledTooltip title="Close">
+                        <StyledIconButton onClick={this.handleSmartAppsDialogToggle}>
+                          <Close />
+                        </StyledIconButton>
+                      </StyledTooltip>
+                    </HorizontalAlignment>
+                  </Cell>
+                </Grid>
+              </HorizontalAlignment>
+            </DialogTitle>
+          </StickyDiv>
+          <DialogContent>
+            <Grid columns={3} justifyContent="space-around" gap="16px">
+              {smartApps.map(({ clientId, clientName, appIcon }) => (
+                <Cell key={clientId} middle>
+                  <HorizontalAlignment position="center">
                     <StyledFlatButton onClick={() => this.handleLaunch(clientId)}>
                       <Grid columns={1}>
                         <Cell>
@@ -115,11 +128,11 @@ export class SmartAppLauncher extends React.Component {
                         </Cell>
                       </Grid>
                     </StyledFlatButton>
-                  </Cell>
-                ))}
-              </Grid>
-            </DialogContent>
-          </InfoSection>
+                  </HorizontalAlignment>
+                </Cell>
+              ))}
+            </Grid>
+          </DialogContent>
         </StyledDialog>
       </ShowHideWrapper>
     );
