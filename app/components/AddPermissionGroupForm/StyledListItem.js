@@ -13,7 +13,7 @@ const StyledListItem = styled(ListItem).attrs({
     height: '18px',
   },
   innerDivStyle: {
-    padding: '0',
+    padding: '0 5px',
   },
 })('');
 
