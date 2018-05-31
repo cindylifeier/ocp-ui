@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
+import FileInputComponentField from 'components/FileInputComponentField';
 import TextField from 'components/TextField';
 import messages from './messages';
 
@@ -95,6 +96,15 @@ function ManageClientForm(props) {
                   name="scopes"
                   hintText={<FormattedMessage {...messages.hintText.scopes} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.scopes} />}
+                />
+              </Cell>
+              <Cell>
+                <FileInputComponentField
+                  name="appIcon"
+                  labelText="App Logo"
+                  accept="image/*"
+                  imageStyle={{ width: 150, height: 150 }}
+                  buttonComponent={<StyledRaisedButton> Select Image </StyledRaisedButton>}
                 />
               </Cell>
               <Cell>
