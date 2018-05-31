@@ -79,11 +79,13 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
     } else {
       formData = {
         consentType: false,
-        // shareType: SHARE_ALL,
-        // medicalInformation: securityLabels,
+        shareType: consent.consentMedicalInfoType,
+        medicalInformation: consent.medicalInformation,
         consentStart: consentStart && new Date(consentStart),
         consentEnd: consentEnd && new Date(consentEnd),
         purpose: consent.purpose,
+        consentFromActors: consent.fromActor,
+        consentToActors: consent.toActor,
       };
     }
   }

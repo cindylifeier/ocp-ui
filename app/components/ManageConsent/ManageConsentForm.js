@@ -13,6 +13,7 @@ import Checkbox from 'components/Checkbox';
 import SelectConsentActors from 'components/SelectConsentActors';
 import SelectMedicalInformation from 'components/SelectMedicalInformation';
 import PurposeOfUse from 'components/PurposeOfUse';
+import { SHARE_ALL, SHARE_SPECIFIC } from 'components/SelectMedicalInformation/constants';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
 
@@ -24,6 +25,8 @@ function ManageConsentForm(props) {
     purposeOfUse,
     securityLabels,
     isCareCoordinator,
+    shareType,
+    editMode,
   } = props;
 
   const isGeneralDesignation = values.consentType;
@@ -40,6 +43,7 @@ function ManageConsentForm(props) {
     securityLabels,
     medicalInformation: values.medicalInformation || [],
     isGeneralDesignation,
+    shareType,
   };
   const purposeOfUseProps = {
     errors,
@@ -59,7 +63,7 @@ function ManageConsentForm(props) {
             <Checkbox
               name="consentType"
               label={<FormattedMessage {...messages.consentType} />}
-              disabled={isGeneralDesignation}
+              disabled={isGeneralDesignation || editMode}
             >
             </Checkbox>
             {!isGeneralDesignation &&
@@ -156,6 +160,8 @@ ManageConsentForm.propTypes = {
     display: PropTypes.string,
   }))),
   isCareCoordinator: PropTypes.bool.isRequired,
+  shareType: PropTypes.oneOf([SHARE_ALL, SHARE_SPECIFIC]),
+  editMode: PropTypes.bool,
 };
 
 export default ManageConsentForm;
