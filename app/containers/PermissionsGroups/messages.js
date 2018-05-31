@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.newPermissionsGroup',
     defaultMessage: 'New Permission Group',
   },
+  managePermissionGroupDialogTitle: {
+    id: 'ocpui.containers.managePermissionGroupDialogTitle',
+    defaultMessage: 'Manage Permission Group',
+  },
 });
