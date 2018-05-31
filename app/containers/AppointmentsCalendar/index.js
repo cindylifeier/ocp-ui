@@ -34,7 +34,7 @@ import yup from 'yup';
 import { getAppointments, getOutlookAppointments, loginToOWA } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import makeSelectAppointmentsCalendar from './selectors';
+import makeSelectAppointmentsCalendar, { makeSelectIsOutlookAuthenticated } from './selectors';
 
 export class AppointmentsCalendar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -60,6 +60,12 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.props.getOutlookAppointments();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.state.loginModalOpen && nextProps.isOutlookAuthenticated) {
+      this.setState({ loginModalOpen: false });
+    }
+  }
+
   openModal(appointment, patientId) {
     if (appointment.isOutlookAppointment) {
       this.setState({ cannotEditModalOpen: true });
@@ -77,7 +83,6 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
   authenticateOutlookCredentials(loginFormData, actions) {
     this.props.authenticateOutlookCredentials(loginFormData, () => actions.setSubmitting(false));
-    // this.setState({ loginModalOpen: false });
   }
 
   handleCloseCannotEditDialog() {
@@ -104,6 +109,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           <HorizontalAlignment position={'end'}>
             <StyledRaisedButton
               onClick={this.handleOpenLoginDialog}
+              disabled={this.props.isOutlookAuthenticated}
             >
               <FormattedMessage {...messages.buttonLoginToOutlook} />
             </StyledRaisedButton>
@@ -272,10 +278,12 @@ AppointmentsCalendar.propTypes = {
   history: PropTypes.object.isRequired,
   getPatient: PropTypes.func.isRequired,
   authenticateOutlookCredentials: PropTypes.func,
+  isOutlookAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   appointmentsCalendar: makeSelectAppointmentsCalendar(),
+  isOutlookAuthenticated: makeSelectIsOutlookAuthenticated(),
 });
 
 function mapDispatchToProps(dispatch) {

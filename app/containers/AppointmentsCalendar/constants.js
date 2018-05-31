@@ -27,3 +27,4 @@ export const LOGIN_OUTLOOK_ERROR = 'ocpui/AppointmentsCalendar/LOGIN_OUTLOOK_ERR
 export const LOADING = 'loading';
 export const DATA = 'data';
 export const OUTLOOK_DATA = 'outlookData';
+export const IS_OUTLOOK_AUTHENTICATED = 'isOutlookAuthenticated';

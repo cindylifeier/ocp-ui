@@ -13,13 +13,16 @@ import {
   GET_OUTLOOK_APPOINTMENTS,
   GET_OUTLOOK_APPOINTMENTS_ERROR,
   GET_OUTLOOK_APPOINTMENTS_SUCCESS,
+  IS_OUTLOOK_AUTHENTICATED,
   LOADING,
+  LOGIN_OUTLOOK_SUCCESS,
   OUTLOOK_DATA,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
   query: null,
+  isOutlookAuthenticated: false,
 });
 
 function appointmentsCalendarReducer(state = initialState, action) {
@@ -44,6 +47,8 @@ function appointmentsCalendarReducer(state = initialState, action) {
         .set(OUTLOOK_DATA, fromJS(action.outlookAppointments || {}));
     case GET_OUTLOOK_APPOINTMENTS_ERROR:
       return state.set(LOADING, false);
+    case LOGIN_OUTLOOK_SUCCESS:
+      return state.set(IS_OUTLOOK_AUTHENTICATED, action.isAuthenticated);
     default:
       return state;
   }
