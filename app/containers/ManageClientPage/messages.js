@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.ManageClientPage.header',
-    defaultMessage: 'This is ManageClientPage container !',
+    defaultMessage: 'Manage SMART Apps',
   },
 });

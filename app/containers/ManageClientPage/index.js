@@ -14,27 +14,45 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import PageHeader from 'components/PageHeader';
+import Page from 'components/Page';
+import PageContent from 'components/PageContent';
+import ManageClient from 'components/ManageClient';
 import makeSelectManageClientPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { saveClient } from './actions';
 
 export class ManageClientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  handleSave(clientFormData, actions) {
+    this.props.onSaveForm(clientFormData, () => {
+      actions.setSubmitting(false);
+    });
+  }
   render() {
     return (
-      <div>
+      <Page>
         <Helmet>
-          <title>ManageClientPage</title>
-          <meta name="description" content="Description of ManageClientPage" />
+          <title>Manage SMART apps</title>
+          <meta name="description" content="Description of Manage SMART applications" />
         </Helmet>
-        <FormattedMessage {...messages.header} />
-      </div>
+        <PageHeader title={<FormattedMessage {...messages.header} />} />
+        <PageContent>
+          <ManageClient onSaveClient={this.handleSave} />
+        </PageContent>
+      </Page>
     );
   }
 }
 
 ManageClientPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onSaveForm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -43,7 +61,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onSaveForm: (clientFormData, handleSubmitting) => {
+      dispatch(saveClient(clientFormData, handleSubmitting));
+    },
   };
 }
 

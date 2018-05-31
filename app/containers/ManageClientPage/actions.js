@@ -4,12 +4,18 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { SAVE_CLIENT, SAVE_CLIENT_ERROR } from './constants';
 
-export function defaultAction() {
+export function saveClient(clientFormData, handleSubmitting) {
   return {
-    type: DEFAULT_ACTION,
+    type: SAVE_CLIENT,
+    clientFormData,
+    handleSubmitting,
+  };
+}
+
+export function saveClientError() {
+  return {
+    type: SAVE_CLIENT_ERROR,
   };
 }
