@@ -42,7 +42,7 @@ function ManageConsentForm(props) {
     securityLabels,
     medicalInformation: values.medicalInformation || [],
     isGeneralDesignation,
-    shareType,
+    shareType: values.shareType || shareType,
   };
   const purposeOfUseProps = {
     errors,
@@ -59,7 +59,7 @@ function ManageConsentForm(props) {
             <Checkbox
               name="consentType"
               label={<FormattedMessage {...messages.consentType} />}
-              disabled={isGeneralDesignation || editMode}
+              disabled={editMode}
             >
             </Checkbox>
             {!isGeneralDesignation &&
@@ -88,6 +88,7 @@ function ManageConsentForm(props) {
                 minDate={today}
                 hintText={<FormattedMessage {...messages.hintText.consentStart} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
+                disabled={editMode}
               />
               <DatePicker
                 fullWidth
