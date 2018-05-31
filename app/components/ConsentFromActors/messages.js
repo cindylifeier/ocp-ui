@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   consentFromActorsButton: {
     id: 'ocpui.components.ConsentFromActors.consentFromActorsButton',
-    defaultMessage: 'To Authorize my information To',
+    defaultMessage: 'To authorize my information to',
   },
   consentFromActorsDialogTitle: {
     id: 'ocpui.components.ConsentFromActors.consentFromActorsDialogTitle',

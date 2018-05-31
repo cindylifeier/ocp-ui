@@ -5,149 +5,93 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import isEqual from 'lodash/isEqual';
+import { Cell, Grid } from 'styled-css-grid';
+import Add from '@material-ui/icons/Add';
+import common from 'material-ui-next/colors/common';
 
-import {
-  CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE,
-  DEFAULT_START_PAGE_NUMBER,
-  MANAGE_CONSENT_URL,
-  PCP_ROLE_CODE,
-  PATIENT_ROLE_CODE,
-} from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Card from 'components/Card';
-import { PanelToolbar } from 'components/PanelToolbar';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import ContentSection from 'components/ContentSection';
-import ConsentTable from 'components/ConsentTable';
+import ConsentCards from 'components/ConsentCards';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import makeSelectConsents from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getConsents, initializeConsents } from './actions';
+import { getConsents } from './actions';
 
 export class Consents extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
-  static initalState = {
-    relativeTop: 0,
-    isShowSearchResult: false,
-    listConsents: {
-      currentPage: 1,
-    },
-  };
-
   constructor(props) {
     super(props);
-    this.state = {
-      ...Consents.initalState,
-    };
-    this.handleListPageClick = this.handleListPageClick.bind(this);
-    this.onSize = this.onSize.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.getConsents({
-      pageNumber: DEFAULT_START_PAGE_NUMBER,
-    });
+    this.props.getConsents(DEFAULT_START_PAGE_NUMBER);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { consent } = this.props;
-    const { consent: newConsent } = nextProps;
-    if (!isEqual(consent, newConsent)) {
-      this.props.initializeConsents([newConsent]);
-      this.setState({ ...Consents.initalState });
-    }
-  }
-
-  onSize(size) {
-    this.setState({ relativeTop: size.height });
-  }
-
-  handleListPageClick(currentPage) {
-    this.props.getConsents({ pageNumber: currentPage });
+  handlePageChange(currentPage) {
+    this.props.getConsents(currentPage);
   }
 
   render() {
-    const { selectedPatient, consents } = this.props;
-    const patientId = selectedPatient ? selectedPatient.id : null;
-    let CREATE_CONSENT_URL = '';
-    if (patientId) {
-      CREATE_CONSENT_URL = `${MANAGE_CONSENT_URL}?patientId=${patientId}`;
-    }
-    const addNewItem = {
-      labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: CREATE_CONSENT_URL,
-    };
+    const { consents } = this.props;
     const consentData = {
-      loading: consents.listConsents.loading,
-      data: consents.listConsents.data,
-      currentPage: consents.listConsents.currentPage,
-      totalNumberOfPages: consents.listConsents.totalNumberOfPages,
-      currentPageSize: consents.listConsents.currentPageSize,
-      totalElements: consents.listConsents.totalElements,
-      handlePageClick: this.handleListPageClick,
+      loading: consents.loading,
+      data: consents.data,
+      currentPage: consents.currentPage,
+      totalNumberOfPages: consents.totalNumberOfPages,
+      currentPageSize: consents.currentPageSize,
+      totalElements: consents.totalElements,
+      handlePageClick: this.handlePageChange,
     };
 
     return (
-      <Card>
-        <PanelToolbar
-          addNewItem={addNewItem}
-          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PCP_ROLE_CODE]}
-          showSearchIcon={false}
-          showFilterIcon={false}
-          showUploadIcon={false}
-          showSettingIcon={false}
-        />
-        <ContentSection>
-          <ConsentTable
-            relativeTop={this.state.relativeTop}
-            consentData={consentData}
-            allowedAttestConsentRoles={PATIENT_ROLE_CODE}
-          />
-        </ContentSection>
-      </Card>
+      <Grid columns={1} gap="20px">
+        <Cell center>
+          <StyledRaisedButton component={Link} to="/c2s-sof-ui/manage-consent">
+            <Add color={common.white} />
+            <FormattedMessage {...messages.buttonLabelCreateNew} />
+          </StyledRaisedButton>
+        </Cell>
+        <Cell>
+          <ConsentCards consentData={consentData} />
+        </Cell>
+      </Grid>
     );
   }
 }
 
 Consents.propTypes = {
-  selectedPatient: PropTypes.object,
-  initializeConsents: PropTypes.func.isRequired,
-  consent: PropTypes.object,
   getConsents: PropTypes.func.isRequired,
   consents: PropTypes.shape({
-    listConsents: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      currentPage: PropTypes.number.isRequired,
-      totalNumberOfPages: PropTypes.number.isRequired,
-      currentPageSize: PropTypes.number,
-      totalElements: PropTypes.number,
-      data: PropTypes.array,
-      error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.bool,
-      ]),
-    }),
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
+    data: PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
   }),
 };
 
 const mapStateToProps = createStructuredSelector({
   consents: makeSelectConsents(),
-  selectedPatient: makeSelectPatient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    initializeConsents: (consents) => dispatch(initializeConsents(consents)),
-    getConsents: (query) => dispatch(getConsents(query)),
+    getConsents: (pageNumber) => dispatch(getConsents(pageNumber)),
   };
 }
 

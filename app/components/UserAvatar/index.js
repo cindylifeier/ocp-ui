@@ -1,15 +1,15 @@
 /**
  *
- * PatientAvatar
+ * UserAvatar
  *
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
-import patientMaleAvatar from 'images/patient-male-avatar.png';
-import patientFemaleAvatar from 'images/patient-female-avatar.png';
-import patientGenericAvatar from 'images/patient-generic-avatar.png';
+import maleAvatar from 'images/user-male-avatar.png';
+import femaleAvatar from 'images/user-female-avatar.png';
+import genericAvatar from 'images/user-generic-avatar.png';
 
 
 const genderCodes = ['male', 'female', 'other', 'unknown'];
@@ -17,15 +17,15 @@ const genderCodes = ['male', 'female', 'other', 'unknown'];
 function getPatientAvatarByGender(genderCode) {
   switch (genderCode) {
     case 'male':
-      return patientMaleAvatar;
+      return maleAvatar;
     case 'female':
-      return patientFemaleAvatar;
+      return femaleAvatar;
     default:
-      return patientGenericAvatar;
+      return genericAvatar;
   }
 }
 
-function PatientAvatar(props) {
+function UserAvatar(props) {
   const { genderCode, size } = props;
   const avatar = getPatientAvatarByGender(genderCode);
   return (
@@ -33,14 +33,14 @@ function PatientAvatar(props) {
   );
 }
 
-PatientAvatar.propTypes = {
+UserAvatar.propTypes = {
   genderCode: PropTypes.oneOf(genderCodes),
   size: PropTypes.number,
 };
 
-PatientAvatar.defaultProps = {
+UserAvatar.defaultProps = {
   genderCode: 'unknown',
   size: 45,
 };
 
-export default PatientAvatar;
+export default UserAvatar;

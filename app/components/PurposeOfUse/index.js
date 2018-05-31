@@ -11,7 +11,6 @@ import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import CustomErrorText from 'components/CustomErrorText';
-import InfoSection from 'components/InfoSection';
 import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import AddPurposeOfUse from './AddPurposeOfUse';
@@ -41,7 +40,7 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
     const { errors, purposeOfUse, purpose, isGeneralDesignation } = this.props;
     const addPurposeOfUsesProps = { purposeOfUse, purpose };
     return (
-      <InfoSection>
+      <div>
         <div><FormattedMessage {...messages.purposeOfUseTitle} /></div>
         <FormattedHTMLMessage {...messages.purposeOfUseSubTitle} />
         <StyledRaisedButton
@@ -73,7 +72,7 @@ class PurposeOfUse extends React.Component { // eslint-disable-line react/prefer
         {errors && errors.purpose &&
         <CustomErrorText>{errors.purpose}</CustomErrorText>
         }
-      </InfoSection>
+      </div>
     );
   }
 }
