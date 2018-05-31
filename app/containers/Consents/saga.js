@@ -9,7 +9,7 @@ import { getConsents, getErrorDetail } from './api';
 /**
  * Root saga manages watcher lifecycle
  */
-export function* getConsentsSaga({ query: { pageNumber } }) {
+export function* getConsentsSaga({ pageNumber }) {
   try {
     let queryParams = {
       pageNumber,

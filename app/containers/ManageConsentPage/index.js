@@ -91,7 +91,7 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
       consent,
     };
     return (
-      <Page>
+      <Page color="secondary">
         <Helmet>
           <title> Manage Consent </title>
           <meta name="description" content="Manage Consent page of Omnibus Care Plan application" />
