@@ -6,6 +6,7 @@ describe('tasksReducer', () => {
     expect(tasksReducer(undefined, {})).toEqual(fromJS({
       loading: false,
       data: {},
+      statusList: [],
     }));
   });
 });
