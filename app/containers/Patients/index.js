@@ -27,11 +27,12 @@ import {
   USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { mapToTelecoms } from 'containers/App/helpers';
+import { isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
 import FhirUtil from 'utils/FhirUtil';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
+import { makeSelectLocation } from 'containers/App/selectors';
 import {
 makeSelectCurrentPage,
 makeSelectCurrentPageSize,
@@ -115,11 +116,13 @@ export class Patients extends React.Component {
   }
 
   handleSearch(searchTerms, includeInactive, searchType) {
-    const { organization } = this.props;
+    const { organization, location: { pathname } } = this.props;
+    const organizationId = isAdminWorkspace(pathname) ? null : organization.logicalId;
+
     if (organization) {
-      this.props.onSearchPatient(searchTerms, searchType, includeInactive, organization.logicalId, this.state.currentPage);
+      this.props.onSearchPatient(searchTerms, searchType, includeInactive, organizationId, this.state.currentPage);
     } else {
-      this.props.onSearchPatient(searchTerms, searchType, includeInactive, this.state.currentPage);
+      this.props.onSearchPatient(searchTerms, searchType, includeInactive, organizationId, this.state.currentPage);
     }
   }
 
@@ -228,6 +231,7 @@ Patients.propTypes = {
   onPatientClick: PropTypes.func,
   showSearchBarByDefault: PropTypes.bool,
   hideToolbar: PropTypes.bool,
+  location: PropTypes.object.isRequired,
 };
 
 Patients.defaultProps = {
@@ -250,6 +254,7 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   usCoreRaces: makeSelectUsCoreRaces(),
   usCoreEthnicities: makeSelectUsCoreEthnicities(),
+  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
