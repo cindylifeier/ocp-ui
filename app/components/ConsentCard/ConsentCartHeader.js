@@ -65,7 +65,7 @@ class ConsentCartHeader extends React.Component { // eslint-disable-line react/p
           </Grid>
         </Padding>
         <StyledConsentHeaderDetails expanded={this.state.expansionPanelOpen}>
-          <ConsentHeaderDetails purpose={consent.purpose} />
+          <ConsentHeaderDetails purpose={consent.purpose} medicalInformation={consent.medicalInformation} />
         </StyledConsentHeaderDetails>
       </div>
     );
