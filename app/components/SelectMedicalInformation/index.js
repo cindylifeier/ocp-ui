@@ -24,21 +24,14 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
     super(props);
     this.state = {
       isMedicalInfoDialogOpen: false,
+      medicalInformation: this.props.securityLabels,
+      shareType: this.props.shareType === undefined ? SHARE_ALL : this.props.shareType,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
 
-  componentDidMount() {
-    this.state = {
-      medicalInformation: this.props.securityLabels,
-      shareType: this.props.shareType === undefined ? SHARE_ALL : this.props.shareType,
-    };
-    if (this.props.isGeneralDesignation) {
-      this.state.shareType = SHARE_ALL;
-    }
-  }
   handleChange(event) {
     this.setState({ shareType: event.target.value });
   }
@@ -52,8 +45,8 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   }
 
   render() {
-    const { shareType, errors, medicalInformation, securityLabels, isGeneralDesignation } = this.props;
-    const addMedicalInfoProps = { shareType, medicalInformation, securityLabels };
+    const { errors, medicalInformation, securityLabels, isGeneralDesignation } = this.props;
+    const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
       <div>
         <div><FormattedMessage {...messages.medicalInfoTitle} /></div>

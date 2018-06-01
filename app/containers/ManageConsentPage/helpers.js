@@ -77,6 +77,27 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
         purpose: consent.purpose,
       };
     } else {
+      const fromActor = consent.fromActor.map(
+        (actor) => ({
+          reference: {
+            logicalId: actor.reference.split('/')[1],
+            type: actor.reference.split('/')[0],
+          },
+          display: actor.display,
+          identifiers: [],
+        })
+      );
+      const toActor = consent.toActor.map(
+        (actor) => ({
+          reference: {
+            logicalId: actor.reference.split('/')[1],
+            type: actor.reference.split('/')[0],
+          },
+          display: actor.display,
+          identifiers: [],
+        })
+      );
+
       formData = {
         consentType: false,
         shareType: consent.consentMedicalInfoType,
@@ -84,8 +105,8 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
         consentStart: consentStart && new Date(consentStart),
         consentEnd: consentEnd && new Date(consentEnd),
         purpose: consent.purpose,
-        consentFromActors: consent.fromActor,
-        consentToActors: consent.toActor,
+        consentFromActors: fromActor,
+        consentToActors: toActor,
       };
     }
   }
