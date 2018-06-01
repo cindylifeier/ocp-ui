@@ -55,8 +55,7 @@ export default function configureStore(initialState = { rehydrated: false }, his
   // initialize persistor if not in test environment
   if (!testEnvironment) {
     // persist store
-    const persistor = persistStore(store, { storage: asyncSessionStorage });
-    store.persistor = persistor;
+    store.persistor = persistStore(store, { storage: asyncSessionStorage });
   }
 
   // Extensions

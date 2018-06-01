@@ -6,28 +6,28 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  selectActors: {
-    id: 'ocpui.components.ManageConsent.selectActors',
+  selectActorsTitle: {
+    id: 'ocpui.components.ManageConsent.selectActorsTitle',
     defaultMessage: 'Selected Care Teams',
   },
   consentType: {
     id: 'ocpui.components.ManageConsent.consentType',
     defaultMessage: 'Make available to my entire care team',
   },
-  medicalInformation: {
-    id: 'ocpui.components.ManageConsent.medicalInformation',
+  medicalInformationTitle: {
+    id: 'ocpui.components.ManageConsent.medicalInformationTitle',
     defaultMessage: 'Medical Information',
   },
-  purposeOfUseInformation: {
-    id: 'ocpui.components.ManageConsent.purposeOfUseInformation',
+  purposeOfUseTitle: {
+    id: 'ocpui.components.ManageConsent.purposeOfUseTitle',
     defaultMessage: 'Purpose Of Use',
-  },
-  consentTermInformation: {
-    id: 'ocpui.components.ManageConsent.consentTermInformation',
-    defaultMessage: 'Consent Terms',
   },
   consentTermTitle: {
     id: 'ocpui.components.ManageConsent.consentTermTitle',
+    defaultMessage: 'Consent Terms',
+  },
+  consentTermSubtitle: {
+    id: 'ocpui.components.ManageConsent.consentTermSubtitle',
     defaultMessage: 'Enter a start and end date during which your medical records will be shared.',
   },
   validation: {

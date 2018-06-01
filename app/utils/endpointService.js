@@ -26,10 +26,13 @@ export const BASE_TASKS_API_URL = 'ocpui/utils/BASE_TASKS_API_URL';
 export const BASE_EPISODE_OF_CARES_API_URL = 'ocpui/utils/BASE_EPISODE_OF_CARES_API_URL';
 export const BASE_ACTIVITY_DEFINITIONS_API_URL = 'ocpui/utils/BASE_ACTIVITY_DEFINITIONS_API_URL';
 export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
+export const BASE_OUTLOOK_API_URL = 'ocpui/utils/BASE_OUTLOOK_API_URL';
 export const BASE_CONSENTS_API_URL = 'ocpui/utils/BASE_CONSENTS_API_URL';
 export const BASE_USER_CONTEXT_API_URL = 'ocpui/utils/BASE_USER_CONTEXT_API_URL';
 export const BASE_SMART_URL = 'ocpui/utils/BASE_SMART_URL';
 export const SMART_AUTHORIZE_URL = 'ocpui/utils/SMART_AUTHORIZE_URL';
+export const SMART_CLIENTS_URL = 'ocpui/utils/SMART_CLIENTS_URL';
+export const SMART_LAUNCHER_URL = 'ocpui/utils/SMART_LAUNCHER_URL';
 
 
 export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
@@ -56,11 +59,15 @@ const apiEndpoints = [
   { key: BASE_EPISODE_OF_CARES_API_URL, url: `${BASE_API_URL}/ocp-fis/episode-of-cares` },
   { key: BASE_ACTIVITY_DEFINITIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/activity-definitions` },
   { key: BASE_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
+  { key: BASE_OUTLOOK_API_URL, url: `${BASE_API_URL}/ocp-fis/outlook` },
   { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
   { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/consents` },
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
+  // TODO: consider moving all SMART endpoints under smart-gateway
   { key: BASE_SMART_URL, url: `${BASE_API_URL}/smart` },
   { key: SMART_AUTHORIZE_URL, url: `${BASE_SMART_GATEWAY_URL}/authorize` },
+  { key: SMART_CLIENTS_URL, url: `${BASE_SMART_GATEWAY_URL}/clients`, isSecured: false },
+  { key: SMART_LAUNCHER_URL, url: `${BASE_SMART_GATEWAY_URL}/launcher`, isSecured: false },
 ];
 
 const configuredEndpoints = collectEndpoints();
