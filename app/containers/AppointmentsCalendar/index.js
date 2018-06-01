@@ -102,7 +102,14 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
   }
 
   render() {
-    const { appointmentsCalendar: { data, outlookData } } = this.props;
+    let { appointmentsCalendar: { data, outlookData } } = this.props;
+    if (isEmpty(data)) {
+      data = [];
+    }
+    if (isEmpty(outlookData)) {
+      outlookData = [];
+    }
+
     return (
       <div>
         <div>
@@ -116,14 +123,13 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           </HorizontalAlignment>
         </div>
 
-        {!isEmpty(data) &&
         <Calendar
           elements={data}
           outlookElements={outlookData}
           manageAppointmentUrl={MANAGE_APPOINTMENT_URL}
           handleDoubleClickEvent={this.handleDoubleClickEvent}
         />
-        }
+
         <div>
           <StyledDialog
             open={this.state.cannotEditModalOpen}

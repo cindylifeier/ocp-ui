@@ -108,11 +108,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
 }
 
 Calendar.propTypes = {
-  elements: PropTypes.arrayOf(PropTypes.shape({
-    logicalId: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    patientName: PropTypes.string.isRequired,
-  })),
+  elements: PropTypes.array,
   outlookElements: PropTypes.array,
   manageAppointmentUrl: PropTypes.string,
   handleDoubleClickEvent: PropTypes.func,
