@@ -7,9 +7,23 @@ export function saveClient(clientFormData) {
   const requestURL = `${baseEndpoint}/clients`;
   return request(requestURL, {
     method: 'POST',
-    body: JSON.stringify(clientFormData),
+    body: JSON.stringify(mapToBackendDto(clientFormData)),
     headers: {
       'Content-Type': 'application/json',
     },
   });
+}
+
+function mapToBackendDto(clientFormData) {
+  const { appIcon, appLaunchUrl, client_id, client_type, name, redirect_uri, scopes } = clientFormData;
+  const appIconByte = appIcon && appIcon[0] && appIcon[0].base64;
+  return {
+    appIcon: appIconByte.substring(appIconByte.indexOf(',') + 1),
+    appLaunchUrl,
+    client_id,
+    client_type,
+    name,
+    redirect_uri,
+    scopes,
+  };
 }
