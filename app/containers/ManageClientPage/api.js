@@ -23,7 +23,7 @@ function mapToBackendDto(clientFormData) {
     client_id,
     client_type,
     name,
-    redirect_uri,
-    scopes,
+    redirect_uri: redirect_uri.replace(/\s+/g, '').split(','),
+    scopes: scopes.replace(/\s+/g, '').split(','),
   };
 }

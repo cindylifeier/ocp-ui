@@ -37,7 +37,7 @@ export default defineMessages({
     },
     redirect_uri: {
       id: 'ocpui.components.ManageClient.ManageClientForm.hintText.redirect_uri',
-      defaultMessage: 'App Redirect URIs',
+      defaultMessage: 'App Redirect URIs  (Comma separated list)',
     },
     client_secret: {
       id: 'ocpui.components.ManageClient.ManageClientForm.hintText.client_secret',
@@ -49,7 +49,7 @@ export default defineMessages({
     },
     scopes: {
       id: 'ocpui.components.ManageClient.ManageClientForm.hintText.scopes',
-      defaultMessage: 'Scopes',
+      defaultMessage: 'Scopes (Comma separated list)',
     },
   },
   floatingLabelText: {
@@ -67,7 +67,7 @@ export default defineMessages({
     },
     redirect_uri: {
       id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.redirect_uri',
-      defaultMessage: 'App Redirect URIs',
+      defaultMessage: 'App Redirect URIs (Comma separated list)',
     },
     client_secret: {
       id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.client_secret',
@@ -79,7 +79,7 @@ export default defineMessages({
     },
     scopes: {
       id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.scopes',
-      defaultMessage: 'Scopes',
+      defaultMessage: 'Scopes (Comma separated list)',
     },
   },
   validation: {
