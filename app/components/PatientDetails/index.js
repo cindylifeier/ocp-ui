@@ -22,6 +22,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import PatientBannerSection from 'components/PatientBannerSection';
+import SmartAppLauncher from 'containers/SmartAppLauncher';
 import StyledExpansionDetails from './StyledExpansionDetails';
 import ExpansionDetails from './ExpansionDetails';
 import messages from './messages';
@@ -45,7 +46,7 @@ class PatientDetails extends React.Component {
     const { id, name, phones, genderCode, flags } = flattenPatient;
     return (
       <PatientBannerSection>
-        <Grid columns="0.1fr 0.1fr repeat(3, 0.7fr) 1fr">
+        <Grid columns="0.1fr 0.1fr repeat(3, 0.7fr) 1fr 1fr">
           <Cell middle center>
             <StyledTooltip title={<FormattedMessage {...messages.viewDetails} />} placement="bottom">
               <StyledIconButton svgIconSize="large" size="x-small" onClick={this.handlePanelOpen}>
@@ -88,6 +89,9 @@ class PatientDetails extends React.Component {
             </ShowHideWrapper>
           </Cell>
           }
+          <Cell middle>
+            <SmartAppLauncher />
+          </Cell>
         </Grid>
         <StyledExpansionDetails expanded={this.state.expansionPanelOpen}>
           <ExpansionDetails patient={flattenPatient} />

@@ -11,6 +11,7 @@ import { CANCEL_TASK_SUCCESS, GET_TASKS, GET_TASKS_ERROR, GET_TASKS_SUCCESS, INI
 const initialState = fromJS({
   loading: false,
   data: {},
+  statusList: [],
 });
 
 function tasksReducer(state = initialState, action) {
@@ -22,6 +23,7 @@ function tasksReducer(state = initialState, action) {
         .set('loading', true)
         .set('practitionerId', action.practitionerId)
         .set('patientId', action.patientId)
+        .set('statusList', fromJS(action.statusList))
         .set('data', fromJS({}));
     case GET_TASKS_SUCCESS:
       return state

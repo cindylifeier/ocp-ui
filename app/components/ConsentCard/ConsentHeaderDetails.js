@@ -4,9 +4,11 @@ import { FormattedMessage } from 'react-intl';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import teal from 'material-ui-next/colors/teal';
 import Avatar from 'material-ui-next/Avatar';
+import Divider from 'material-ui-next/Divider';
 import upperFirst from 'lodash/upperFirst';
 
 import TextLabelGroup from 'components/TextLabelGroup';
+import Padding from 'components/Padding';
 import StyledChip from 'components/StyledChip';
 import messages from './messages';
 
@@ -15,42 +17,47 @@ function ConsentHeaderDetails(props) {
   return (
     <div>
       {medicalInformation &&
-      <TextLabelGroup
-        boldText={false}
-        label={<FormattedMessage {...messages.consentCardHeader.medicalInfoLabel} />}
-        text={
-          medicalInformation.map((info) => (
-            <StyledChip
-              key={info.code}
-              label={upperFirst(info.display)}
-              avatar={
-                <Avatar>
-                  <CheckCircleIcon color={teal['500']} />
-                </Avatar>
-              }
-            />
-          ))
-        }
-      />
+      <Padding left="10px" right="10px" top="5px" bottom="5px">
+        <TextLabelGroup
+          boldText={false}
+          label={<FormattedMessage {...messages.consentCardHeader.medicalInfoLabel} />}
+          text={
+            medicalInformation.map((info) => (
+              <StyledChip
+                key={info.code}
+                label={upperFirst(info.display)}
+                avatar={
+                  <Avatar>
+                    <CheckCircleIcon color={teal['500']} />
+                  </Avatar>
+                }
+              />
+            ))
+          }
+        />
+      </Padding>
       }
+      <Divider />
       {purpose &&
-      <TextLabelGroup
-        boldText={false}
-        label={<FormattedMessage {...messages.consentCardHeader.purposeLabel} />}
-        text={
-          purpose.map((pou) => (
-            <StyledChip
-              key={pou.code}
-              label={upperFirst(pou.display)}
-              avatar={
-                <Avatar>
-                  <CheckCircleIcon color={teal['500']} />
-                </Avatar>
-              }
-            />
-          ))
-        }
-      />
+      <Padding left="10px" right="10px" top="5px" bottom="5px">
+        <TextLabelGroup
+          boldText={false}
+          label={<FormattedMessage {...messages.consentCardHeader.purposeLabel} />}
+          text={
+            purpose.map((pou) => (
+              <StyledChip
+                key={pou.code}
+                label={upperFirst(pou.display)}
+                avatar={
+                  <Avatar>
+                    <CheckCircleIcon color={teal['500']} />
+                  </Avatar>
+                }
+              />
+            ))
+          }
+        />
+      </Padding>
       }
     </div>
   );
