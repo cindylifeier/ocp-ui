@@ -19,7 +19,13 @@ const makeSelectManageClientPage = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const makeSelectSmartApps = () => createSelector(
+  selectManageClientPageDomain,
+  (substate) => substate.get('clients').toJS(),
+);
+
 export default makeSelectManageClientPage;
 export {
   selectManageClientPageDomain,
+  makeSelectSmartApps,
 };

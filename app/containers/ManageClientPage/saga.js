@@ -2,11 +2,13 @@
 
 // Individual exports for testing
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { SAVE_CLIENT } from 'containers/ManageClientPage/constants';
-import { showNotification } from 'containers/Notification/actions';
 import { goBack } from 'react-router-redux';
-import { saveClientError } from './actions';
+
+import { showNotification } from 'containers/Notification/actions';
+import { getClients } from 'containers/SmartAppLauncher/api';
+import { saveClientError, getClientsSuccess, getClientsError } from './actions';
 import { saveClient } from './api';
+import { GET_CLIENTS, SAVE_CLIENT } from './constants';
 
 export function* saveClientWorker(action) {
   try {
@@ -21,6 +23,16 @@ export function* saveClientWorker(action) {
   }
 }
 
+export function* getClientsSaga() {
+  try {
+    const clients = yield call(getClients);
+    yield put(getClientsSuccess(clients));
+  } catch (error) {
+    yield put(getClientsError(error));
+    yield put(showNotification('Failed to retrieve SMART Apps.'));
+  }
+}
+
 function getNotificationAction(clientFormData) {
   let action = 'create';
   if (clientFormData.isEdit) {
@@ -29,14 +41,19 @@ function getNotificationAction(clientFormData) {
   return action;
 }
 
-export function* watchManageClientSaga() {
+export function* watchSaveClientSaga() {
   yield [
     takeLatest(SAVE_CLIENT, saveClientWorker),
   ];
 }
 
+export function* watchGetClientsSaga() {
+  yield takeLatest(GET_CLIENTS, getClientsSaga);
+}
+
 export default function* rootSaga() {
   yield all([
-    watchManageClientSaga(),
+    watchGetClientsSaga(),
+    watchSaveClientSaga(),
   ]);
 }

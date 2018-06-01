@@ -4,7 +4,7 @@
  *
  */
 
-import { SAVE_CLIENT, SAVE_CLIENT_ERROR } from './constants';
+import { SAVE_CLIENT, SAVE_CLIENT_ERROR, GET_CLIENTS, GET_CLIENTS_SUCCESS, GET_CLIENTS_ERROR } from './constants';
 
 export function saveClient(clientFormData, handleSubmitting) {
   return {
@@ -17,5 +17,25 @@ export function saveClient(clientFormData, handleSubmitting) {
 export function saveClientError() {
   return {
     type: SAVE_CLIENT_ERROR,
+  };
+}
+
+export function getClients() {
+  return {
+    type: GET_CLIENTS,
+  };
+}
+
+export function getClientsSuccess(clients) {
+  return {
+    type: GET_CLIENTS_SUCCESS,
+    clients,
+  };
+}
+
+export function getClientsError(error) {
+  return {
+    type: GET_CLIENTS_ERROR,
+    error,
   };
 }

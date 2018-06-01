@@ -18,16 +18,20 @@ import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
 import PageContent from 'components/PageContent';
 import ManageClient from 'components/ManageClient';
-import makeSelectManageClientPage from './selectors';
+import { makeSelectSmartApps } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { saveClient } from './actions';
+import { saveClient, getClients } from './actions';
 
 export class ManageClientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getClients();
   }
 
   handleSave(clientFormData, actions) {
@@ -36,6 +40,7 @@ export class ManageClientPage extends React.Component { // eslint-disable-line r
     });
   }
   render() {
+    const { smartApps } = this.props;
     return (
       <Page>
         <Helmet>
@@ -44,7 +49,7 @@ export class ManageClientPage extends React.Component { // eslint-disable-line r
         </Helmet>
         <PageHeader title={<FormattedMessage {...messages.header} />} />
         <PageContent>
-          <ManageClient onSaveClient={this.handleSave} />
+          <ManageClient onSaveClient={this.handleSave} smartApps={smartApps} />
         </PageContent>
       </Page>
     );
@@ -53,10 +58,16 @@ export class ManageClientPage extends React.Component { // eslint-disable-line r
 
 ManageClientPage.propTypes = {
   onSaveForm: PropTypes.func,
+  getClients: PropTypes.func,
+  smartApps: PropTypes.arrayOf(PropTypes.shape({
+    clientId: PropTypes.string.isRequired,
+    clientName: PropTypes.string.isRequired,
+    appIcon: PropTypes.string,
+  })),
 };
 
 const mapStateToProps = createStructuredSelector({
-  manageclientpage: makeSelectManageClientPage(),
+  smartApps: makeSelectSmartApps(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -64,6 +75,7 @@ function mapDispatchToProps(dispatch) {
     onSaveForm: (clientFormData, handleSubmitting) => {
       dispatch(saveClient(clientFormData, handleSubmitting));
     },
+    getClients: () => dispatch(getClients()),
   };
 }
 

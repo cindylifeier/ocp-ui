@@ -9,7 +9,10 @@ import PropTypes from 'prop-types';
 import teal from 'material-ui-next/colors/teal';
 import { FormattedMessage } from 'react-intl';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { Cell, Grid } from 'styled-css-grid';
 
+import HorizontalAlignment from 'components/HorizontalAlignment';
+import StyledFlatButton from 'components/StyledFlatButton';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledDialog from 'components/StyledDialog';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
@@ -19,6 +22,9 @@ import messages from './messages';
 // import styled from 'styled-components';
 
 class ManageClient extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  static SMART_APP_LOGO_SRC_PREFIX = 'data:image/png;base64,';
+  static SMART_APP_LOGO_ALT_SUFFIX = ' Logo';
 
   constructor(props) {
     super(props);
@@ -41,7 +47,7 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     const {
-      onSaveClient,
+      onSaveClient, smartApps,
     } = this.props;
 
     return (
@@ -50,6 +56,29 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
           <StyledAddCircleIcon color={teal['500']} />
           <FormattedMessage {...messages.addClient} />
         </AddNewItemButton>
+        <Grid columns={5} justifyContent="space-around" gap="16px">
+          {smartApps && smartApps.map(({ clientId, clientName, appIcon }) => (
+            <Cell key={clientId} middle>
+              <HorizontalAlignment position="center">
+                <StyledFlatButton>
+                  <Grid columns={1}>
+                    <Cell>
+                      {appIcon &&
+                      <img
+                        style={{ width: 100, height: 100 }}
+                        alt={`${clientName}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
+                        src={`${ManageClient.SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
+                      />}
+                    </Cell>
+                    <Cell>
+                      {clientName}
+                    </Cell>
+                  </Grid>
+                </StyledFlatButton>
+              </HorizontalAlignment>
+            </Cell>
+          ))}
+        </Grid>
         <StyledDialog
           open={this.state.isClientDialogOpen}
           onClose={this.handleCloseDialog}
@@ -72,6 +101,11 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
 
 ManageClient.propTypes = {
   onSaveClient: PropTypes.func,
+  smartApps: PropTypes.arrayOf(PropTypes.shape({
+    clientId: PropTypes.string.isRequired,
+    clientName: PropTypes.string.isRequired,
+    appIcon: PropTypes.string,
+  })),
 };
 
 export default ManageClient;
