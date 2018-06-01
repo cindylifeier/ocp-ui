@@ -13,8 +13,7 @@ export function* postContextSaga({ launchId, context, params }) {
     yield put(postContextSuccess(response));
     const paramsQueryString = yield call(queryString, params);
     const authorizeUrl = getEndpoint(SMART_AUTHORIZE_URL);
-    const endpoint = `${authorizeUrl}${paramsQueryString}`;
-    window.location = endpoint;
+    window.location = `${authorizeUrl}${paramsQueryString}`;
   } catch (error) {
     yield put(postContextError(error));
     yield put(showNotification('Unable to submit SMART context.'));

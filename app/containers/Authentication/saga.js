@@ -13,10 +13,8 @@ function* autologinSaga({ code }) {
       const authorizationServerEndpoint = config && config.oauth2 && config.oauth2.authorizationServerEndpoint;
       const endpoint = `${authorizationServerEndpoint}/autologin`;
       const client_id = config && config.oauth2 && config.oauth2.oauth2Client && config.oauth2.oauth2Client.clientId;
-      const autologin_redirect_uri = currentLocation;
-      const q = { code, client_id, autologin_redirect_uri };
-      const autologinUrl = `${endpoint}${queryString(q)}`;
-      window.location = autologinUrl;
+      const q = { code, client_id, autologin_redirect_uri: currentLocation };
+      window.location = `${endpoint}${queryString(q)}`;
     }
   } catch (error) {
     yield put(autologinError(error.message));
