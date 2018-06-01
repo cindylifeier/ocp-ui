@@ -12,7 +12,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import isEmpty from 'lodash/isEmpty';
 
 import CustomErrorText from 'components/CustomErrorText';
-import StyledRaisedButton from 'components/StyledRaisedButton';
+import SelectActorsButton from 'components/SelectConsentActors/SelectActorsButton';
 import StyledDialog from 'components/StyledDialog';
 import AddedConsentActorsTable from 'components/AddedConsentActorsTable';
 import AddToActors from './AddToActors';
@@ -43,9 +43,9 @@ class ConsentToActors extends React.Component { // eslint-disable-line react/pre
     const { consentToActors, addedActors, errors } = this.props;
     return (
       <div>
-        <StyledRaisedButton fullWidth onClick={this.handleOpenDialog}>
+        <SelectActorsButton fullWidth onClick={this.handleOpenDialog}>
           <FormattedMessage {...messages.consentToActorsButton} />
-        </StyledRaisedButton>
+        </SelectActorsButton>
         <FieldArray
           name="consentToActors"
           render={(arrayHelpers) => (

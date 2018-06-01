@@ -4,10 +4,12 @@
  *
  */
 
-import { INITIALIZE_CONSENTS,
+import {
   GET_CONSENTS,
   GET_CONSENTS_ERROR,
-  GET_CONSENTS_SUCCESS } from 'containers/Consents/constants';
+  GET_CONSENTS_SUCCESS,
+  INITIALIZE_CONSENTS,
+} from 'containers/Consents/constants';
 
 export function initializeConsents(consents) {
   return {
@@ -16,10 +18,10 @@ export function initializeConsents(consents) {
   };
 }
 
-export function getConsents(query) {
+export function getConsents(pageNumber) {
   return {
     type: GET_CONSENTS,
-    query,
+    pageNumber,
   };
 }
 

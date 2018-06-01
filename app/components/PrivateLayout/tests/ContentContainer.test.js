@@ -45,7 +45,7 @@ describe('<ContentContainer />', () => {
       // Assert
       expect(renderedComponent).toHaveStyleRule('position', 'relative');
       expect(renderedComponent).toHaveStyleRule('width', '100%');
-      expect(renderedComponent).toHaveStyleRule('padding-top', '70px');
+      expect(renderedComponent).toHaveStyleRule('padding-top', '65px');
       expect(renderedComponent).toHaveStyleRule('padding-bottom', '5px');
     });
   });
