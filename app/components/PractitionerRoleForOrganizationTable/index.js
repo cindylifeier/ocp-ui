@@ -23,7 +23,7 @@ import yup from 'yup';
 import messages from './messages';
 
 
-const tableColumns = 'repeat(7, 1fr) 50px';
+const tableColumns = 'repeat(3, 1fr) .5fr 2.5fr 2fr 1fr';
 
 function renderIdentifiers(identifiers) {
   return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier}</div>));

@@ -183,7 +183,7 @@ ShallowWrapper {
                   },
                 ]
               }
-              isExpanded={undefined}
+              isExpanded={false}
               manageCareTeamUrl="/ocp-ui/manage-care-team"
               onSize={[Function]}
               relativeTop={0}
@@ -302,7 +302,7 @@ ShallowWrapper {
                     },
                   ]
                 }
-                isExpanded={undefined}
+                isExpanded={false}
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
                 onSize={[Function]}
                 relativeTop={0}
@@ -407,7 +407,7 @@ ShallowWrapper {
                       </div>
                     </InfoSection__InfoSection>
                   </Cell__Cell>,
-                  undefined,
+                  false,
                 ],
                 "columns": 1,
                 "gap": "",
@@ -563,7 +563,7 @@ ShallowWrapper {
                   },
                   "type": [Function],
                 },
-                undefined,
+                false,
               ],
               "type": [Function],
             },
@@ -596,7 +596,7 @@ ShallowWrapper {
                       },
                     ]
                   }
-                  isExpanded={undefined}
+                  isExpanded={false}
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
                   onSize={[Function]}
                   relativeTop={0}
@@ -642,7 +642,7 @@ ShallowWrapper {
                       "subjectLastName": "subjectLastName2",
                     },
                   ],
-                  "isExpanded": undefined,
+                  "isExpanded": false,
                   "manageCareTeamUrl": "/ocp-ui/manage-care-team",
                   "onSize": [Function],
                   "relativeTop": 0,
@@ -781,7 +781,7 @@ ShallowWrapper {
                     },
                   ]
                 }
-                isExpanded={undefined}
+                isExpanded={false}
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
                 onSize={[Function]}
                 relativeTop={0}
@@ -900,7 +900,7 @@ ShallowWrapper {
                       },
                     ]
                   }
-                  isExpanded={undefined}
+                  isExpanded={false}
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
                   onSize={[Function]}
                   relativeTop={0}
@@ -1005,7 +1005,7 @@ ShallowWrapper {
                         </div>
                       </InfoSection__InfoSection>
                     </Cell__Cell>,
-                    undefined,
+                    false,
                   ],
                   "columns": 1,
                   "gap": "",
@@ -1161,7 +1161,7 @@ ShallowWrapper {
                     },
                     "type": [Function],
                   },
-                  undefined,
+                  false,
                 ],
                 "type": [Function],
               },
@@ -1194,7 +1194,7 @@ ShallowWrapper {
                         },
                       ]
                     }
-                    isExpanded={undefined}
+                    isExpanded={false}
                     manageCareTeamUrl="/ocp-ui/manage-care-team"
                     onSize={[Function]}
                     relativeTop={0}
@@ -1240,7 +1240,7 @@ ShallowWrapper {
                         "subjectLastName": "subjectLastName2",
                       },
                     ],
-                    "isExpanded": undefined,
+                    "isExpanded": false,
                     "manageCareTeamUrl": "/ocp-ui/manage-care-team",
                     "onSize": [Function],
                     "relativeTop": 0,
