@@ -26,4 +26,8 @@ export default defineMessages({
     id: 'ocpui.containers.Tasks.labelPatientName',
     defaultMessage: 'Patient:',
   },
+  includeLabel: {
+    id: 'ocpui.containers.Tasks.includeLabel',
+    defaultMessage: 'Include: ',
+  },
 });

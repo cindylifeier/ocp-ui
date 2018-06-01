@@ -54,6 +54,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
+      isExpanded: false,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);

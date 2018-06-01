@@ -19,14 +19,11 @@ import {
   EXPANDED_TABLE_COLUMNS,
   STATUS_CODE_CANCELLED,
   SUMMARIZED_TABLE_COLUMNS,
-  SUMMARY_VIEW_WIDTH,
 } from 'components/TaskTable/constants';
 import TaskExpansionRowDetails from './TaskExpansionRowDetails';
 import messages from './messages';
 
-function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, size }) {
-  const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
-
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded }) {
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
@@ -130,6 +127,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
 }
 
 TaskTable.propTypes = {
+  isExpanded: PropTypes.bool,
   relativeTop: PropTypes.number.isRequired,
   cancelTask: PropTypes.func.isRequired,
   patientId: PropTypes.string.isRequired,
@@ -165,7 +163,6 @@ TaskTable.propTypes = {
     totalSubtasks: PropTypes.number.isRequired,
     remainingSubtasks: PropTypes.number.isRequired,
   })),
-  size: PropTypes.object.isRequired,
 };
 
 export default sizeMeHOC(TaskTable);
