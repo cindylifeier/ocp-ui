@@ -11,10 +11,7 @@ import { FieldArray } from 'formik';
 import Radio, { RadioGroup } from 'material-ui-next/Radio';
 import { FormControlLabel } from 'material-ui-next/Form';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
-
-import InfoSection from 'components/InfoSection';
 import CustomErrorText from 'components/CustomErrorText';
-import StyledText from 'components/StyledText';
 import StyledDialog from 'components/StyledDialog';
 import AddMedicalInformation from './AddMedicalInformation';
 import AddedMedicalInformation from './AddedMedicalInformation';
@@ -50,8 +47,8 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
     const { errors, medicalInformation, securityLabels, isGeneralDesignation } = this.props;
     const addMedicalInfoProps = { medicalInformation, securityLabels };
     return (
-      <InfoSection>
-        <StyledText><FormattedMessage {...messages.medicalInfoTitle} /></StyledText>
+      <div>
+        <div><FormattedMessage {...messages.medicalInfoTitle} /></div>
         <RadioGroup
           name="shareType"
           value={this.state.shareType}
@@ -95,7 +92,7 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
         {errors && errors.medicalInformation &&
         <CustomErrorText>{errors.medicalInformation}</CustomErrorText>
         }
-      </InfoSection>
+      </div>
     );
   }
 }
