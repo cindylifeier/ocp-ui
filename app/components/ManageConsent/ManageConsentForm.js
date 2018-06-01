@@ -12,6 +12,7 @@ import SelectConsentActors from 'components/SelectConsentActors';
 import SelectMedicalInformation from 'components/SelectMedicalInformation';
 import ConsentFormSection from 'components/ConsentFormSection';
 import PurposeOfUse from 'components/PurposeOfUse';
+import { SHARE_ALL, SHARE_SPECIFIC } from 'components/SelectMedicalInformation/constants';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
 
@@ -23,6 +24,8 @@ function ManageConsentForm(props) {
     purposeOfUse,
     securityLabels,
     isCareCoordinator,
+    shareType,
+    editMode,
   } = props;
 
   const isGeneralDesignation = values.consentType;
@@ -39,6 +42,7 @@ function ManageConsentForm(props) {
     securityLabels,
     medicalInformation: values.medicalInformation || [],
     isGeneralDesignation,
+    shareType: values.shareType || shareType,
   };
   const purposeOfUseProps = {
     errors,
@@ -55,6 +59,7 @@ function ManageConsentForm(props) {
             <Checkbox
               name="consentType"
               label={<FormattedMessage {...messages.consentType} />}
+              disabled={editMode}
             >
             </Checkbox>
             {!isGeneralDesignation &&
@@ -83,6 +88,7 @@ function ManageConsentForm(props) {
                 minDate={today}
                 hintText={<FormattedMessage {...messages.hintText.consentStart} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
+                disabled={editMode}
               />
               <DatePicker
                 fullWidth
@@ -146,6 +152,8 @@ ManageConsentForm.propTypes = {
     display: PropTypes.string,
   }))),
   isCareCoordinator: PropTypes.bool.isRequired,
+  shareType: PropTypes.oneOf([SHARE_ALL, SHARE_SPECIFIC]),
+  editMode: PropTypes.bool,
 };
 
 export default ManageConsentForm;

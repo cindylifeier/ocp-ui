@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import yup from 'yup';
 import { Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
+import { SHARE_ALL, SHARE_SPECIFIC } from 'components/SelectMedicalInformation/constants';
 
 import ManageConsentForm from './ManageConsentForm';
 import messages from './messages';
@@ -25,19 +26,21 @@ function ManageConsent(props) {
     careCoordinatorContext,
     consent,
     initialConsentFormValues,
+    shareType,
   } = props;
   const formData = {
     consentStateCodes,
     securityLabels,
     purposeOfUse,
     editMode,
+    shareType,
     isCareCoordinator: !isEmpty(careCoordinatorContext),
   };
   return (
     <div>
       {((editMode && consent) || !editMode) &&
       <Formik
-        initialValues={initialConsentFormValues(consent, careCoordinatorContext)}
+        initialValues={initialConsentFormValues(consent, careCoordinatorContext, securityLabels)}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -64,11 +67,33 @@ function ManageConsent(props) {
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
+            if (editMode) {
+              schema = yup.object().shape({
+                consentFromActors: yup.array()
+                  .required((<FormattedMessage {...messages.validation.minFromActors} />)),
+                consentToActors: yup.array()
+                  .required((<FormattedMessage {...messages.validation.minToActors} />)),
+                medicalInformation: yup.array()
+                  .required((<FormattedMessage {...messages.validation.minMedicalInfo} />)),
+                purpose: yup.array()
+                  .required((<FormattedMessage {...messages.validation.minPurpose} />)),
+                consentEnd: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+              });
+            }
             if (values.consentType) {
               schema = yup.object().shape({
                 consentStart: yup.date()
                   .required((<FormattedMessage {...messages.validation.required} />))
                   .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+                consentEnd: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />))
+                  .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+              });
+            }
+            if (values.consentType && editMode) {
+              schema = yup.object().shape({
                 consentEnd: yup.date()
                   .required((<FormattedMessage {...messages.validation.required} />))
                   .min(consentStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
@@ -127,6 +152,7 @@ ManageConsent.propTypes = {
       end: PropTypes.date,
     }),
   }),
+  shareType: PropTypes.oneOf([SHARE_ALL, SHARE_SPECIFIC]),
 };
 
 export default ManageConsent;
