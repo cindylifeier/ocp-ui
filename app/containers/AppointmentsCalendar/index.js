@@ -49,7 +49,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.handleCloseCannotEditDialog = this.handleCloseCannotEditDialog.bind(this);
     this.handleCloseConfirmEditDialog = this.handleCloseConfirmEditDialog.bind(this);
     this.handleCloseLoginDialog = this.handleCloseLoginDialog.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.handleDoubleClickEvent = this.handleDoubleClickEvent.bind(this);
     this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
     this.authenticateOutlookCredentials = this.authenticateOutlookCredentials.bind(this);
     this.handleOpenLoginDialog = this.handleOpenLoginDialog.bind(this);
@@ -66,7 +66,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     }
   }
 
-  openModal(appointment, patientId) {
+  handleDoubleClickEvent(appointment, patientId) {
     if (appointment.isOutlookAppointment) {
       this.setState({ cannotEditModalOpen: true });
     } else {
@@ -121,7 +121,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           elements={data}
           outlookElements={outlookData}
           manageAppointmentUrl={MANAGE_APPOINTMENT_URL}
-          openModal={this.openModal}
+          handleDoubleClickEvent={this.handleDoubleClickEvent}
         />
         }
         <div>

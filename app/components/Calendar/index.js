@@ -66,7 +66,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       <BigCalendar
         popup
         selectable
-        onDoubleClickEvent={(appointment) => props.openModal(appointment, appointment.patientId)}
+        onDoubleClickEvent={(appointment) => props.handleDoubleClickEvent(appointment, appointment.patientId)}
         events={appointments}
         defaultView="week"
         views={allViews}
@@ -115,7 +115,7 @@ Calendar.propTypes = {
   })),
   outlookElements: PropTypes.array,
   manageAppointmentUrl: PropTypes.string,
-  openModal: PropTypes.func,
+  handleDoubleClickEvent: PropTypes.func,
 };
 
 export default Calendar;
