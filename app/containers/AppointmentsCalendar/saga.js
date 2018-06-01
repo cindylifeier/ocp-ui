@@ -2,6 +2,12 @@ import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelecto
 import { showNotification } from 'containers/Notification/actions';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
+  retrieveOutlookPassword,
+  retrieveOutlookUsername,
+  storeOutlookPassword,
+  storeOutlookUsername,
+} from 'utils/tokenService';
+import {
   getAppointmentsError,
   getAppointmentsSuccess,
   getOutlookAppointmentsError,
@@ -29,7 +35,7 @@ function getErrorMessage(err) {
 function getErrorMessageForOutlookAPICall(err) {
   let errorMessage = '';
   if (err && err.message === 'Failed to fetch') {
-    errorMessage = 'Failed to retrieve the appointment list. Server is offline.';
+    errorMessage = 'Failed to retrieve the Outlook appointment list. Server is offline.';
   } else if (err && err.response && err.response.status === 404) {
     errorMessage = 'No Outlook appointments to show.';
   } else if (err && err.response && err.response.status === 500) {
@@ -44,11 +50,11 @@ function getErrorMessageForOutlookAPICall(err) {
 export function getLoginTOWAErrorDetail(err) {
   let errorMessage = '';
   if (err && err.message === 'Failed to fetch') {
-    errorMessage = ' Server is offline.';
+    errorMessage = 'Failed to authorize the Outlook Credentials. Server is offline.';
   } else if (err && err.response && err.response.status === 401) {
     errorMessage = 'Failed to authorize the Outlook Credentials';
   } else if (err && err.response && err.response.status === 500) {
-    errorMessage = ' Unknown server error.';
+    errorMessage = 'Failed to authorize the Outlook Credentials. Unknown server error.';
   }
   return errorMessage;
 }
@@ -86,14 +92,19 @@ export function* watchGetAppointmentsSaga() {
 }
 
 export function* getOutlookAppointmentsSaga() {
-  // Check session storage and only then call the api. Else do nothing.
-  try {
-    const outlookAppointments = yield call(getOutlookAppointmentsApi);
-    yield put(getOutlookAppointmentsSuccess(outlookAppointments));
-  } catch (err) {
-    const errMsg = getErrorMessageForOutlookAPICall(err);
-    yield put(getOutlookAppointmentsError(err));
-    yield put(showNotification(errMsg));
+  // Check in session storage and only then call the API. Else do nothing.
+  const outlookUsername = retrieveOutlookUsername();
+  const outlookPassword = retrieveOutlookPassword();
+
+  if (outlookUsername !== null && outlookPassword !== null) {
+    try {
+      const outlookAppointments = yield call(getOutlookAppointmentsApi, outlookUsername, outlookPassword);
+      yield put(getOutlookAppointmentsSuccess(outlookAppointments));
+    } catch (err) {
+      const errMsg = getErrorMessageForOutlookAPICall(err);
+      yield put(getOutlookAppointmentsError(err));
+      yield put(showNotification(errMsg));
+    }
   }
 }
 
@@ -106,8 +117,18 @@ export function* loginToOWASaga(loginAction) {
     const loginResponse = yield call(loginToOWA, loginAction.loginCredentials);
     if (loginResponse === null) {
       yield put(loginToOWASuccess(true));
-      yield put(showNotification('Authenticated'));
+      yield put(showNotification('Successfully authenticated your Outlook credentials.'));
       // put in Session storage and get outlook appointments
+      yield call(storeOutlookUsername, loginAction.loginCredentials.username);
+      yield call(storeOutlookPassword, loginAction.loginCredentials.password);
+      try {
+        const outlookAppointments = yield call(getOutlookAppointmentsApi, loginAction.loginCredentials.username, loginAction.loginCredentials.password);
+        yield put(getOutlookAppointmentsSuccess(outlookAppointments));
+      } catch (err) {
+        const errMsg = getErrorMessageForOutlookAPICall(err);
+        yield put(getOutlookAppointmentsError(err));
+        yield put(showNotification(errMsg));
+      }
     }
   } catch (err) {
     const errMsg = getLoginTOWAErrorDetail(err);

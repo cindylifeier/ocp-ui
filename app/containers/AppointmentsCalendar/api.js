@@ -9,9 +9,11 @@ export default function getAppointmentsApi(query) {
   return request(requestURL);
 }
 
-export function getOutlookAppointmentsApi() {
+export function getOutlookAppointmentsApi(username, password) {
   const baseEndpoint = getEndpoint(BASE_OUTLOOK_API_URL);
-  const requestURL = `${baseEndpoint}/calendar`;
+  const query = { emailAddress: username, password };
+  const params = queryString(query);
+  const requestURL = `${baseEndpoint}/calendar${params}`;
   return request(requestURL);
 }
 
