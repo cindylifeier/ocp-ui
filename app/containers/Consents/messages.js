@@ -12,6 +12,6 @@ export default defineMessages({
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.Consents.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
+    defaultMessage: 'Add a new consent',
   },
 });
