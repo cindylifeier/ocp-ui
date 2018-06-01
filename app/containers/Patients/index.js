@@ -69,8 +69,9 @@ export class Patients extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.patient) {
-      this.props.initializePatients([this.props.patient]);
+    const { patient } = this.props;
+    if (patient) {
+      this.props.initializePatients([patient]);
     } else {
       this.props.initializePatients();
     }
@@ -78,10 +79,14 @@ export class Patients extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { patient } = this.props;
-    const { patient: newPatient } = nextProps;
+    const { patient, organization } = this.props;
+    const { patient: newPatient, organization: newOrganization } = nextProps;
     if (!isEqual(patient, newPatient) && !this.props.currentPage) {
       this.props.initializePatients([newPatient]);
+    }
+
+    if (!isEqual(organization, newOrganization)) {
+      this.props.onSearchPatient('', '', false, newOrganization.logicalId);
     }
   }
 
@@ -112,9 +117,9 @@ export class Patients extends React.Component {
   handleSearch(searchTerms, includeInactive, searchType) {
     const { organization } = this.props;
     if (organization) {
-      this.props.onSubmitForm(searchTerms, searchType, includeInactive, organization.logicalId, this.state.currentPage);
+      this.props.onSearchPatient(searchTerms, searchType, includeInactive, organization.logicalId, this.state.currentPage);
     } else {
-      this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
+      this.props.onSearchPatient(searchTerms, searchType, includeInactive, this.state.currentPage);
     }
   }
 
@@ -207,7 +212,7 @@ Patients.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  onSubmitForm: PropTypes.func.isRequired,
+  onSearchPatient: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   totalElements: PropTypes.number,
@@ -249,7 +254,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitForm: (searchTerms, searchType, includeInactive, organization) => {
+    onSearchPatient: (searchTerms, searchType, includeInactive, organization) => {
       const currentPage = 1;
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage, organization));
     },
