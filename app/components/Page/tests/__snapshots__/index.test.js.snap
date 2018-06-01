@@ -4,7 +4,10 @@ exports[`<Page /> snapshot tests should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Page__Page>
+  Symbol(enzyme.__unrendered__): <Page__Page
+    color="primary"
+    padding="3px 20px"
+  >
     <div>
       test
     </div>
@@ -24,7 +27,8 @@ ShallowWrapper {
       "children": <div>
         test
       </div>,
-      "className": "Page__Page-gtWHnP hOasLl",
+      "className": "Page__Page-gtWHnP hrneLw",
+      "color": "primary",
     },
     "ref": null,
     "rendered": Object {
@@ -49,7 +53,8 @@ ShallowWrapper {
         "children": <div>
           test
         </div>,
-        "className": "Page__Page-gtWHnP hOasLl",
+        "className": "Page__Page-gtWHnP hrneLw",
+        "color": "primary",
       },
       "ref": null,
       "rendered": Object {

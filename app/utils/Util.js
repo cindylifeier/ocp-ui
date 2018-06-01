@@ -1,4 +1,5 @@
 import isUndefined from 'lodash/isUndefined';
+import isNull from 'lodash/isNull';
 import identity from 'lodash/identity';
 import pickBy from 'lodash/pickBy';
 import eq from 'lodash/eq';
@@ -17,6 +18,10 @@ class Util {
 
   static pickByIdentity(dataObj) {
     return pickBy(dataObj, identity);
+  }
+
+  static pickByNonNullAndNonEmptyString(dataObj) {
+    return pickBy(dataObj, (value) => !isNull(value) && !isUndefined(value) && value !== EMPTY_STRING);
   }
 
   static equalsIgnoreCase(stringValue, stringSource) {
