@@ -2,7 +2,7 @@ import request from 'utils/request';
 import Util from 'utils/Util';
 import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import { mapToName } from 'containers/App/helpers';
-
+import { upperFirst, lowerCase } from 'lodash';
 
 export function getConsent(consentId) {
   const requestURL = `${getEndpoint(BASE_CONSENTS_API_URL)}/${consentId}`;
@@ -89,16 +89,10 @@ function mapToBffConsentDto(consentFormData, patient) {
     };
   } else {
     const fromActor = consentFromActors
-      .map((actor) => ({
-        reference: `${actor.reference.type}/${actor.reference.logicalId}`,
-        display: actor.display,
-      }));
+      .map((actor) => actorDto(actor));
 
     const toActor = consentToActors
-      .map((actor) => ({
-        reference: `${actor.reference.type}/${actor.reference.logicalId}`,
-        display: actor.display,
-      }));
+      .map((actor) => actorDto(actor));
     consentData = {
       status,
       category,
@@ -112,4 +106,11 @@ function mapToBffConsentDto(consentFormData, patient) {
     };
   }
   return consentData;
+}
+
+function actorDto(actor) {
+  return {
+    reference: `${upperFirst(lowerCase(actor.reference.type))}/${actor.reference.logicalId}`,
+    display: actor.display,
+  };
 }

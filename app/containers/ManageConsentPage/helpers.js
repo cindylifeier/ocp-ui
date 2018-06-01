@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import Util from 'utils/Util';
 import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
 import { SHARE_ALL } from 'components/SelectMedicalInformation/constants';
+import { upperFirst } from 'lodash';
 
 export function isCareCoordinator(roleCode) {
   return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
@@ -77,26 +78,8 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
         purpose: consent.purpose,
       };
     } else {
-      const fromActor = consent.fromActor.map(
-        (actor) => ({
-          reference: {
-            logicalId: actor.reference.split('/')[1],
-            type: actor.reference.split('/')[0],
-          },
-          display: actor.display,
-          identifiers: [],
-        })
-      );
-      const toActor = consent.toActor.map(
-        (actor) => ({
-          reference: {
-            logicalId: actor.reference.split('/')[1],
-            type: actor.reference.split('/')[0],
-          },
-          display: actor.display,
-          identifiers: [],
-        })
-      );
+      const fromActor = mapToConsentActors(consent.fromOrganizationActors, consent.fromPractitionerActors);
+      const toActor = mapToConsentActors(consent.toOrganizationActors, consent.toPractitionerActors);
 
       formData = {
         consentType: false,
@@ -112,4 +95,26 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
   }
 
   return formData;
+}
+
+function mapToConsentActors(organizationActors, practitionercActors) {
+  return (
+    (organizationActors && organizationActors.length > 0 && organizationActors
+      .map(
+        (actor) => (actorDto(actor)))) ||
+    (practitionercActors && practitionercActors.length > 0 && practitionercActors
+      .map(
+        (actor) => (actorDto(actor))))
+  );
+}
+
+function actorDto(actor) {
+  return {
+    reference: {
+      logicalId: actor.id,
+      type: upperFirst(actor.careTeamType),
+    },
+    display: actor.display,
+    identifiers: actor.identifiers,
+  };
 }
