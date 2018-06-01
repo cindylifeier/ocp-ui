@@ -124,6 +124,7 @@ export function* loginToOWASaga(loginAction) {
       try {
         const outlookAppointments = yield call(getOutlookAppointmentsApi, loginAction.loginCredentials.username, loginAction.loginCredentials.password);
         yield put(getOutlookAppointmentsSuccess(outlookAppointments));
+        yield put(showNotification('Displaying your Outlook Calendar events.'));
       } catch (err) {
         const errMsg = getErrorMessageForOutlookAPICall(err);
         yield put(getOutlookAppointmentsError(err));
