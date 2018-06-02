@@ -2,20 +2,19 @@
 
 // Individual exports for testing
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
 import { getClients } from 'containers/SmartAppLauncher/api';
-import { saveClientError, getClientsSuccess, getClientsError } from './actions';
+import { saveClientError, saveClientSuccess, getClientsSuccess, getClientsError } from './actions';
 import { saveClient } from './api';
 import { GET_CLIENTS, SAVE_CLIENT } from './constants';
 
 export function* saveClientWorker(action) {
   try {
-    yield call(saveClient, action.clientFormData);
+    const clientMetaDto = yield call(saveClient, action.clientFormData);
     yield put(showNotification(`Successfully ${getNotificationAction(action.clientFormData)} the SMART app.`));
     yield call(action.handleSubmitting);
-    yield put(goBack());
+    yield put(saveClientSuccess(clientMetaDto));
   } catch (error) {
     yield put(showNotification(`Failed to ${getNotificationAction(action.clientFormData)} the SMART app.`));
     yield call(action.handleSubmitting);

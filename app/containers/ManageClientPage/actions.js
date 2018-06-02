@@ -4,13 +4,20 @@
  *
  */
 
-import { SAVE_CLIENT, SAVE_CLIENT_ERROR, GET_CLIENTS, GET_CLIENTS_SUCCESS, GET_CLIENTS_ERROR } from './constants';
+import { SAVE_CLIENT, SAVE_CLIENT_ERROR, SAVE_CLIENT_SUCCESS, GET_CLIENTS, GET_CLIENTS_SUCCESS, GET_CLIENTS_ERROR } from './constants';
 
 export function saveClient(clientFormData, handleSubmitting) {
   return {
     type: SAVE_CLIENT,
     clientFormData,
     handleSubmitting,
+  };
+}
+
+export function saveClientSuccess(clientMetaDto) {
+  return {
+    type: SAVE_CLIENT_SUCCESS,
+    clientMetaDto,
   };
 }
 

@@ -45,11 +45,11 @@ function ManageClientForm(props) {
                   hintText={<FormattedMessage {...messages.hintText.client_type} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_type} />}
                 >
-                  <MenuItem value={'Public'} primaryText="Public" />
-                  <MenuItem value={'Credential'} primaryText="Credential" />
+                  <MenuItem value={'PUBLIC'} primaryText="PUBLIC" />
+                  <MenuItem value={'CREDENTIAL'} primaryText="CREDENTIAL" />
                 </SelectField>
               </Cell>
-              { values.client_type === 'Credential' && <Cell>
+              { values.client_type === 'CREDENTIAL' && <Cell>
                 <TextField
                   fullWidth
                   name="client_secret"
@@ -93,7 +93,7 @@ function ManageClientForm(props) {
               <Cell>
                 <TextField
                   fullWidth
-                  name="scopes"
+                  name="scope"
                   hintText={<FormattedMessage {...messages.hintText.scopes} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.scopes} />}
                 />
