@@ -30,7 +30,7 @@ const menuItems = [{
   disabled: true,
 }, {
   primaryText: <FormattedMessage {...messages.assignRoles} />,
-  disabled: false,
+  disabled: true,
 }];
 
 function createTableHeaders() {
