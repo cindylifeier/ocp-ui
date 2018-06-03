@@ -5,14 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
 
 import { GoBackButton } from 'components/GoBackButton';
-import FormSubtitle from 'components/FormSubtitle';
-import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import DatePicker from 'components/DatePicker';
 import Checkbox from 'components/Checkbox';
 import SelectConsentActors from 'components/SelectConsentActors';
 import SelectMedicalInformation from 'components/SelectMedicalInformation';
+import ConsentFormSection from 'components/ConsentFormSection';
 import PurposeOfUse from 'components/PurposeOfUse';
+import { SHARE_ALL, SHARE_SPECIFIC } from 'components/SelectMedicalInformation/constants';
 import ManageConsentFormGrid from './ManageConsentFormGrid';
 import messages from './messages';
 
@@ -24,6 +24,8 @@ function ManageConsentForm(props) {
     purposeOfUse,
     securityLabels,
     isCareCoordinator,
+    shareType,
+    editMode,
   } = props;
 
   const isGeneralDesignation = values.consentType;
@@ -40,6 +42,7 @@ function ManageConsentForm(props) {
     securityLabels,
     medicalInformation: values.medicalInformation || [],
     isGeneralDesignation,
+    shareType: values.shareType || shareType,
   };
   const purposeOfUseProps = {
     errors,
@@ -52,38 +55,31 @@ function ManageConsentForm(props) {
     <Form>
       <ManageConsentFormGrid>
         <Cell area="careTeamGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.selectActors} />
-          </FormSubtitle>
-          <InfoSection>
+          <ConsentFormSection title={<FormattedMessage {...messages.selectActorsTitle} />}>
             <Checkbox
               name="consentType"
               label={<FormattedMessage {...messages.consentType} />}
+              disabled={editMode}
             >
             </Checkbox>
             {!isGeneralDesignation &&
             <SelectConsentActors {...selectActorsProps} />
             }
-          </InfoSection>
+          </ConsentFormSection>
         </Cell>
         <Cell area="medicalInfoGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.medicalInformation} />
-          </FormSubtitle>
-          <SelectMedicalInformation {...selectMedicalInfoProps} />
+          <ConsentFormSection title={<FormattedMessage {...messages.medicalInformationTitle} />}>
+            <SelectMedicalInformation {...selectMedicalInfoProps} />
+          </ConsentFormSection>
         </Cell>
         <Cell area="purposeOfUseGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.purposeOfUseInformation} />
-          </FormSubtitle>
-          <PurposeOfUse {...purposeOfUseProps} />
+          <ConsentFormSection title={<FormattedMessage {...messages.purposeOfUseTitle} />}>
+            <PurposeOfUse {...purposeOfUseProps} />
+          </ConsentFormSection>
         </Cell>
         <Cell area="consentTermGroup">
-          <FormSubtitle margin="2vh 0 0 0">
-            <FormattedMessage {...messages.consentTermInformation} />
-          </FormSubtitle>
-          <InfoSection>
-            <FormattedMessage {...messages.consentTermTitle} />
+          <ConsentFormSection title={<FormattedMessage {...messages.consentTermTitle} />}>
+            <FormattedMessage {...messages.consentTermSubtitle} />
             <Grid columns={4} gap="30px">
               <DatePicker
                 fullWidth
@@ -92,6 +88,7 @@ function ManageConsentForm(props) {
                 minDate={today}
                 hintText={<FormattedMessage {...messages.hintText.consentStart} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentStart} />}
+                disabled={editMode}
               />
               <DatePicker
                 fullWidth
@@ -102,7 +99,7 @@ function ManageConsentForm(props) {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.consentEnd} />}
               />
             </Grid>
-          </InfoSection>
+          </ConsentFormSection>
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -155,6 +152,8 @@ ManageConsentForm.propTypes = {
     display: PropTypes.string,
   }))),
   isCareCoordinator: PropTypes.bool.isRequired,
+  shareType: PropTypes.oneOf([SHARE_ALL, SHARE_SPECIFIC]),
+  editMode: PropTypes.bool,
 };
 
 export default ManageConsentForm;

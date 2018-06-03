@@ -30,7 +30,6 @@ export const GET_CONFIG_ERROR = 'ocpui/App/GET_CONFIG_ERROR';
  */
 export const GLOBAL_LOOKUP_STATE_KEY = 'lookup';
 export const GLOBAL_AUTH_STATE_KEY = 'auth';
-export const GLOBAL_SHARED_DATA_KEY = 'sharedData';
 
 /**
  * Look up types constants
@@ -130,7 +129,6 @@ export const MANAGE_PATIENT_URL = '/ocp-ui/manage-patient';
 export const MANAGE_RELATED_PERSON_URL = '/ocp-ui/manage-related-person';
 export const MANAGE_TASK_URL = '/ocp-ui/manage-task';
 export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
-export const MANAGE_CONSENT_URL = '/ocp-ui/manage-consent';
 export const MANAGE_HEALTHCARE_SERVICE_URL = '/ocp-ui/manage-healthcare-service';
 export const ADMIN_MANAGE_PERMISSIONS_URL = '/ocp-ui/manage-permissions';
 export const MANAGE_USERS_URL = '/ocp-ui/manage-users';
@@ -139,7 +137,6 @@ export const MANAGE_USERS_URL = '/ocp-ui/manage-users';
  *  Constants to hold the workspace urls
  * @type {string}
  */
-export const WORKSPACE_SELECTION_URL = '/ocp-ui/workspace-selection';
 export const ADMIN_WORKSPACE = '/ocp-ui/admin-workspace';
 export const PRACTITIONER_WORKSPACE = '/ocp-ui/practitioner-workspace';
 export const PATIENT_WORKSPACE = '/ocp-ui/patient-workspace';
@@ -185,7 +182,6 @@ export const DATE_PICKER_MODE = {
 /**
  *  Other constants
  */
-export const ENTER_KEY = 'Enter';
 export const EMPTY_STRING = '';
 export const WHITE_SPACE = ' ';
 export const NEW_LINE_CHARACTER = '\n';
