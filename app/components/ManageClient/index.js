@@ -15,6 +15,7 @@ import HorizontalAlignment from 'components/HorizontalAlignment';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledDialog from 'components/StyledDialog';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import ManageClientForm from './ManageClientForm';
 import messages from './messages';
 
@@ -46,7 +47,7 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     const {
-        onSaveClient, smartApps,
+      onSaveClient, smartApps, onDeleteClient,
     } = this.props;
 
     return (
@@ -69,6 +70,11 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
                   </Cell>
                   <Cell>
                     {clientName}
+                  </Cell>
+                  <Cell>
+                    <StyledRaisedButton onClick={() => onDeleteClient && onDeleteClient(clientId)}>
+                      Delete
+                    </StyledRaisedButton>
                   </Cell>
                 </Grid>
               </HorizontalAlignment>
@@ -97,6 +103,7 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
 
 ManageClient.propTypes = {
   onSaveClient: PropTypes.func,
+  onDeleteClient: PropTypes.func,
   smartApps: PropTypes.arrayOf(PropTypes.shape({
     clientId: PropTypes.string.isRequired,
     clientName: PropTypes.string.isRequired,
