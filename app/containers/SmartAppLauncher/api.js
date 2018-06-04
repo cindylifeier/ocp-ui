@@ -1,8 +1,8 @@
 import request from 'utils/request';
-import { BASE_SMART_URL, getEndpoint, SMART_CLIENTS_URL } from 'utils/endpointService';
+import { BASE_SMART_URL, getEndpoint, SMART_CLIENTS_META_URL } from 'utils/endpointService';
 
 export function getClients() {
-  const baseEndpoint = getEndpoint(SMART_CLIENTS_URL);
+  const baseEndpoint = getEndpoint(SMART_CLIENTS_META_URL);
   return request(baseEndpoint);
 }
 

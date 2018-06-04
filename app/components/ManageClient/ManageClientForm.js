@@ -14,6 +14,8 @@ import TextField from 'components/TextField';
 import messages from './messages';
 
 function ManageClientForm(props) {
+  /* const imageFormat = new RegExp('(/(gif|jpg|jpeg|tiff|png)$/i)');
+  const imageSize = 500;*/
   const {
     handleCloseDialog,
     onSaveClient,
@@ -28,12 +30,29 @@ function ManageClientForm(props) {
         validationSchema={yup.object().shape({
           client_id: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
+          client_type: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          scope: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
           name: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           redirect_uri: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           appLaunchUrl: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
+          client_secret: yup.string()
+            .when('client_type', {
+              is: 'CREDENTIAL',
+              then: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+            }),
+          // TODO: Fix validation
+          /* appIcon: yup.array().of(yup.object().shape({
+            size: yup.number()
+              .lessThan(imageSize, (<FormattedMessage {...messages.validation.imageSize} values={{ imageSize }} />)),
+            name: yup.string()
+              .matches(imageFormat, (<FormattedMessage {...messages.validation.imageFormat} />)),
+          })),*/
         })}
         render={({ isSubmitting, dirty, isValid, values }) => (
           <Form>

@@ -22,23 +22,29 @@ import { makeSelectSmartApps } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { saveClient, getClients } from './actions';
+import { saveClient, getClients, deleteClient } from './actions';
 
 export class ManageClientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.handleSave = this.handleSave.bind(this);
+    this.handleSaveClient = this.handleSaveClient.bind(this);
+    this.handleDeleteClient = this.handleDeleteClient.bind(this);
   }
 
   componentDidMount() {
     this.props.getClients();
   }
 
-  handleSave(clientFormData, actions) {
+  handleSaveClient(clientFormData, actions) {
     this.props.onSaveForm(clientFormData, () => {
       actions.setSubmitting(false);
     });
   }
+
+  handleDeleteClient(clientId) {
+    this.props.deleteClient(clientId);
+  }
+
   render() {
     const { smartApps } = this.props;
     return (
@@ -49,7 +55,11 @@ export class ManageClientPage extends React.Component { // eslint-disable-line r
         </Helmet>
         <PageHeader title={<FormattedMessage {...messages.header} />} />
         <PageContent>
-          <ManageClient onSaveClient={this.handleSave} smartApps={smartApps} />
+          <ManageClient
+            onSaveClient={this.handleSaveClient}
+            onDeleteClient={this.handleDeleteClient}
+            smartApps={smartApps}
+          />
         </PageContent>
       </Page>
     );
@@ -59,6 +69,7 @@ export class ManageClientPage extends React.Component { // eslint-disable-line r
 ManageClientPage.propTypes = {
   onSaveForm: PropTypes.func,
   getClients: PropTypes.func,
+  deleteClient: PropTypes.func,
   smartApps: PropTypes.arrayOf(PropTypes.shape({
     clientId: PropTypes.string.isRequired,
     clientName: PropTypes.string.isRequired,
@@ -76,6 +87,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(saveClient(clientFormData, handleSubmitting));
     },
     getClients: () => dispatch(getClients()),
+    deleteClient: (clientId) => dispatch(deleteClient(clientId)),
   };
 }
 

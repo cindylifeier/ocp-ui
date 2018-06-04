@@ -5,20 +5,21 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
 import { getClients } from 'containers/SmartAppLauncher/api';
-import { saveClientError, saveClientSuccess, getClientsSuccess, getClientsError } from './actions';
-import { saveClient } from './api';
-import { GET_CLIENTS, SAVE_CLIENT } from './constants';
+import { saveClientError, saveClientSuccess, getClientsSuccess, getClientsError, deleteClientSuccess, deleteClientError } from './actions';
+import { saveClient, deleteClient, mapToClientMetaDto } from './api';
+import { GET_CLIENTS, SAVE_CLIENT, DELETE_CLIENT } from './constants';
 
-export function* saveClientWorker(action) {
+export function* saveClientSaga(action) {
   try {
-    const clientMetaDto = yield call(saveClient, action.clientFormData);
+    yield call(saveClient, action.clientFormData);
+    const clientMetaDto = yield call(mapToClientMetaDto, action.clientFormData);
     yield put(showNotification(`Successfully ${getNotificationAction(action.clientFormData)} the SMART app.`));
     yield call(action.handleSubmitting);
     yield put(saveClientSuccess(clientMetaDto));
   } catch (error) {
+    yield put(saveClientError(error));
     yield put(showNotification(`Failed to ${getNotificationAction(action.clientFormData)} the SMART app.`));
     yield call(action.handleSubmitting);
-    yield put(saveClientError(error));
   }
 }
 
@@ -32,6 +33,17 @@ export function* getClientsSaga() {
   }
 }
 
+export function* deleteClientsSaga(action) {
+  try {
+    yield call(deleteClient, action.clientId);
+    yield put(deleteClientSuccess(action.clientId));
+    yield put(showNotification('Successfully delete SMART App.'));
+  } catch (error) {
+    yield put(showNotification('Failed to delete SMART Apps.'));
+    yield put(deleteClientError(error));
+  }
+}
+
 function getNotificationAction(clientFormData) {
   let action = 'create';
   if (clientFormData.isEdit) {
@@ -42,7 +54,7 @@ function getNotificationAction(clientFormData) {
 
 export function* watchSaveClientSaga() {
   yield [
-    takeLatest(SAVE_CLIENT, saveClientWorker),
+    takeLatest(SAVE_CLIENT, saveClientSaga),
   ];
 }
 
@@ -50,9 +62,14 @@ export function* watchGetClientsSaga() {
   yield takeLatest(GET_CLIENTS, getClientsSaga);
 }
 
+export function* watchDeleteClientSaga() {
+  yield takeLatest(DELETE_CLIENT, deleteClientsSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetClientsSaga(),
     watchSaveClientSaga(),
+    watchDeleteClientSaga(),
   ]);
 }

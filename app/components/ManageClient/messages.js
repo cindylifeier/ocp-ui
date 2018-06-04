@@ -87,5 +87,13 @@ export default defineMessages({
       id: 'ocpui.components.ManageClient.ManageClientForm.validation.required',
       defaultMessage: 'Required',
     },
+    imageFormat: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.validation.imageFormat',
+      defaultMessage: 'Only gif|jpg|jpeg|tiff|png format be accepted',
+    },
+    imageSize: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.validation.imageSize',
+      defaultMessage: 'Image size must be less than {imageSize}kb',
+    },
   },
 });

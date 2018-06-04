@@ -12,7 +12,6 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
 
 import HorizontalAlignment from 'components/HorizontalAlignment';
-import StyledFlatButton from 'components/StyledFlatButton';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledDialog from 'components/StyledDialog';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
@@ -47,7 +46,7 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     const {
-      onSaveClient, smartApps,
+        onSaveClient, smartApps,
     } = this.props;
 
     return (
@@ -60,21 +59,18 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
           {smartApps && smartApps.map(({ clientId, clientName, appIcon }) => (
             <Cell key={clientId} middle>
               <HorizontalAlignment position="center">
-                <StyledFlatButton>
-                  <Grid columns={1}>
-                    <Cell>
-                      {appIcon &&
-                      <img
-                        style={{ width: 100, height: 100 }}
-                        alt={`${clientName}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
-                        src={`${ManageClient.SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
-                      />}
-                    </Cell>
-                    <Cell>
-                      {clientName}
-                    </Cell>
-                  </Grid>
-                </StyledFlatButton>
+                <Grid columns={1}>
+                  <Cell>
+                    <img
+                      style={{ width: 100, height: 100 }}
+                      alt={`${clientName}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
+                      src={`${ManageClient.SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
+                    />
+                  </Cell>
+                  <Cell>
+                    {clientName}
+                  </Cell>
+                </Grid>
               </HorizontalAlignment>
             </Cell>
           ))}
