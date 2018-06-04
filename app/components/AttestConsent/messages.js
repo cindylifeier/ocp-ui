@@ -11,12 +11,12 @@ export default defineMessages({
     defaultMessage: 'Consent to Share My Medical Information',
   },
   subtitle: {
-    authorization: {
-      id: 'ocpui.components.AttestConsent.subtitle.authorization',
+    medicalInfoGroup: {
+      id: 'ocpui.components.AttestConsent.subtitle.medicalInfoGroup',
       defaultMessage: 'AUTHORIZATION TO DISCLOSE:',
     },
-    healthInfo: {
-      id: 'ocpui.components.AttestConsent.subtitle.healthInfo',
+    purposeOfUseGroup: {
+      id: 'ocpui.components.AttestConsent.subtitle.purposeOfUseGroup',
       defaultMessage: 'HEALTH INFORMATION TO BE DISCLOSED:',
     },
     consentTerm: {
