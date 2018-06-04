@@ -27,11 +27,12 @@ import {
   USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { mapToTelecoms } from 'containers/App/helpers';
+import { isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
 import FhirUtil from 'utils/FhirUtil';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
+import { makeSelectLocation } from 'containers/App/selectors';
 import {
 makeSelectCurrentPage,
 makeSelectCurrentPageSize,
@@ -69,8 +70,9 @@ export class Patients extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.patient) {
-      this.props.initializePatients([this.props.patient]);
+    const { patient } = this.props;
+    if (patient) {
+      this.props.initializePatients([patient]);
     } else {
       this.props.initializePatients();
     }
@@ -78,10 +80,14 @@ export class Patients extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { patient } = this.props;
-    const { patient: newPatient } = nextProps;
+    const { patient, organization } = this.props;
+    const { patient: newPatient, organization: newOrganization } = nextProps;
     if (!isEqual(patient, newPatient) && !this.props.currentPage) {
       this.props.initializePatients([newPatient]);
+    }
+
+    if (!isEqual(organization, newOrganization)) {
+      this.props.onSearchPatient('', '', false, newOrganization.logicalId);
     }
   }
 
@@ -110,11 +116,13 @@ export class Patients extends React.Component {
   }
 
   handleSearch(searchTerms, includeInactive, searchType) {
-    const { organization } = this.props;
+    const { organization, location: { pathname } } = this.props;
+    const organizationId = isAdminWorkspace(pathname) ? null : organization.logicalId;
+
     if (organization) {
-      this.props.onSubmitForm(searchTerms, searchType, includeInactive, organization.logicalId, this.state.currentPage);
+      this.props.onSearchPatient(searchTerms, searchType, includeInactive, organizationId, this.state.currentPage);
     } else {
-      this.props.onSubmitForm(searchTerms, searchType, includeInactive, this.state.currentPage);
+      this.props.onSearchPatient(searchTerms, searchType, includeInactive, organizationId, this.state.currentPage);
     }
   }
 
@@ -207,7 +215,7 @@ Patients.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  onSubmitForm: PropTypes.func.isRequired,
+  onSearchPatient: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   totalElements: PropTypes.number,
@@ -223,6 +231,7 @@ Patients.propTypes = {
   onPatientClick: PropTypes.func,
   showSearchBarByDefault: PropTypes.bool,
   hideToolbar: PropTypes.bool,
+  location: PropTypes.object.isRequired,
 };
 
 Patients.defaultProps = {
@@ -245,11 +254,12 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   usCoreRaces: makeSelectUsCoreRaces(),
   usCoreEthnicities: makeSelectUsCoreEthnicities(),
+  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitForm: (searchTerms, searchType, includeInactive, organization) => {
+    onSearchPatient: (searchTerms, searchType, includeInactive, organization) => {
       const currentPage = 1;
       dispatch(loadPatientSearchResult(searchTerms, searchType, includeInactive, currentPage, organization));
     },

@@ -58,18 +58,10 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'row',
-      isClosable: true,
-      reorderEnabled: true,
-      title: '',
+      type: 'column',
       content: [
         {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
+          type: 'row',
           content: [{
             title: 'Organizations',
             type: 'component',
@@ -77,33 +69,25 @@ export const initialStateMetadata =
             isClosable: true,
             reorderEnabled: true,
           }],
-        }, {
-          type: 'stack',
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Practitioners',
-            type: 'component',
-            componentName: 'practitioners',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
-        }, {
-          type: 'stack',
-          header: {},
-          isClosable: true,
-          reorderEnabled: true,
-          title: '',
-          activeItemIndex: 0,
-          content: [{
-            title: 'Patients',
-            type: 'component',
-            componentName: 'patients',
-            isClosable: true,
-            reorderEnabled: true,
-          }],
+        },
+        {
+          type: 'row',
+          content: [
+            {
+              title: 'Practitioners',
+              type: 'component',
+              componentName: 'practitioners',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
+              title: 'Patients',
+              type: 'component',
+              componentName: 'patients',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+          ],
         },
       ],
     }],

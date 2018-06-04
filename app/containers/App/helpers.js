@@ -154,3 +154,8 @@ function maskSsn(value) {
   }
   return maskSsnValue;
 }
+
+
+export function isAdminWorkspace(pathname) {
+  return pathname && (pathname === ADMIN_WORKSPACE);
+}

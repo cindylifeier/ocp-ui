@@ -35,6 +35,13 @@ class AddPurposeOfUse extends React.Component {
     return (
       <Grid columns={1}>
         <Cell>
+          <HorizontalAlignment position="end">
+            <StyledRaisedButton fullWidth onClick={onCloseDialog}>
+              <FormattedMessage {...messages.okButton} />
+            </StyledRaisedButton>
+          </HorizontalAlignment>
+        </Cell>
+        <Cell>
           {purposeOfUse && purposeOfUse.map((pou) => (
             <FormGroup key={uniqueId()}>
               <FormControlLabel
