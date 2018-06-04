@@ -23,8 +23,9 @@ class SelectMedicalInformation extends React.Component { // eslint-disable-line 
   constructor(props) {
     super(props);
     this.state = {
-      shareType: null,
       isMedicalInfoDialogOpen: false,
+      medicalInformation: this.props.securityLabels,
+      shareType: this.props.shareType === undefined ? SHARE_ALL : this.props.shareType,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
@@ -114,6 +115,7 @@ SelectMedicalInformation.propTypes = {
     display: PropTypes.string,
   })),
   isGeneralDesignation: PropTypes.bool.isRequired,
+  shareType: PropTypes.oneOf([SHARE_ALL, SHARE_SPECIFIC]),
 };
 
 export default SelectMedicalInformation;

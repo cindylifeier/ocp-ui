@@ -105,26 +105,22 @@ export class SmartContextInitializerPage extends React.Component { // eslint-dis
   }
 
   getSearchParams() {
-    const params = queryString.parse(this.props.location.search);
-    return params;
+    return queryString.parse(this.props.location.search);
   }
 
   getLaunchId() {
     const params = this.getSearchParams();
-    const launchId = params.launch;
-    return launchId;
+    return params.launch;
   }
 
   getRequiredContexts() {
     const params = this.getSearchParams();
-    const requiredContexts = params.required_context.split(',').filter(identity).filter((value) => value !== SmartContextInitializerPage.USER_CONTEXT_PARAM);
-    return requiredContexts;
+    return params.required_context.split(',').filter(identity).filter((value) => value !== SmartContextInitializerPage.USER_CONTEXT_PARAM);
   }
 
   getRequiredSteps(requiredContexts) {
     const reqContexts = requiredContexts || this.getRequiredContexts();
-    const steps = reqContexts.map((c) => this.getSteps()[c]);
-    return steps;
+    return reqContexts.map((c) => this.getSteps()[c]);
   }
 
   completedSteps() {
