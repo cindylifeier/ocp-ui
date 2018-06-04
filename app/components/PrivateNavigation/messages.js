@@ -10,4 +10,12 @@ export default defineMessages({
     id: 'ocpui.components.PrivateNavigation.navButton',
     defaultMessage: 'My Dashboard',
   },
+  managePermissionsButton: {
+    id: 'ocpui.components.PrivateNavigation.managePermissionsButton',
+    defaultMessage: 'Manage Permissions',
+  },
+  manageUsersButton: {
+    id: 'ocpui.components.PrivateNavigation.managePermissionsButton',
+    defaultMessage: 'Manage Users',
+  },
 });
