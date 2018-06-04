@@ -1,6 +1,8 @@
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectPatientAppointments } from 'containers/PatientAppointments/selectors';
+import { makeSelectPractitionerAppointments } from 'containers/PractitionerAppointments/selectors';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
 import { goBack } from 'react-router-redux';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { getAppointmentSuccess } from './actions';
@@ -27,7 +29,10 @@ function* getAppointmentSaga({ appointmentId }) {
   try {
     let appointment;
     // Load appointments from store
-    const appointmentsSelector = yield select(makeSelectPatientAppointments());
+    let appointmentsSelector = yield select(makeSelectPatientAppointments());
+    if (isUndefined(appointmentsSelector)) {
+      appointmentsSelector = yield select(makeSelectPractitionerAppointments());
+    }
     const appointments = appointmentsSelector && appointmentsSelector.data && appointmentsSelector.data.elements;
     appointment = getAppointmentById(appointments, appointmentId);
     // Fetch from backend if Appointment is not found in the store

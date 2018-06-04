@@ -16,12 +16,12 @@ const selectPractitionerAppointmentsDomain = (state) => state.get('practitionerA
 
 const makeSelectPractitionerAppointments = () => createSelector(
   selectPractitionerAppointmentsDomain,
-  (substate) => substate.toJS()
+  (substate) => substate && substate.toJS()
 );
 
 const makeSelectShowPastAppointments = () => createSelector(
   selectPractitionerAppointmentsDomain,
-  (substate) => substate.get('showPastAppointments'),
+  (substate) => substate && substate.get('showPastAppointments'),
 );
 
 export {

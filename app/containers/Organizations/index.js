@@ -17,13 +17,14 @@ import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import { setOrganization } from 'containers/App/contextActions';
 import { makeSelectOrganization, makeSelectUser } from 'containers/App/contextSelectors';
+import { initializePractitioners } from 'containers/Practitioners/actions';
+import { initializePatients } from 'containers/Patients/actions';
 import makeSelectOrganizations from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getOrganizations, initializeOrganizations, searchOrganizations } from './actions';
 import { flattenOrganizationData } from './helpers';
 import DefaultViewComponent from './DefaultViewComponent';
-
 
 export class Organizations extends React.Component {
   static initialState = {
@@ -85,6 +86,8 @@ export class Organizations extends React.Component {
 
   handleViewAll() {
     this.props.getOrganizations(DEFAULT_START_PAGE_NUMBER, this.props.pageSize);
+    this.props.initializePractitioners();
+    this.props.initializePatients();
     this.setState({ showViewAllButton: false });
   }
 
@@ -125,6 +128,8 @@ Organizations.propTypes = {
   initializeOrganizations: PropTypes.func.isRequired,
   organization: PropTypes.object,
   setOrganization: PropTypes.func.isRequired,
+  initializePractitioners: PropTypes.func,
+  initializePatients: PropTypes.func,
   onOrganizationClick: PropTypes.func,
   getOrganizations: PropTypes.func.isRequired,
   searchOrganizations: PropTypes.func.isRequired,
@@ -161,6 +166,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeOrganizations: (organizations) => dispatch(initializeOrganizations(organizations)),
+    initializePractitioners: () => dispatch(initializePractitioners()),
+    initializePatients: () => dispatch(initializePatients()),
     getOrganizations: (currentPage, pageSize) => dispatch(getOrganizations(currentPage, pageSize)),
     searchOrganizations: (searchValue, showInactive, searchType, currentPage) => dispatch(searchOrganizations(searchValue, showInactive, searchType, currentPage)),
     setOrganization: (organization) => dispatch(setOrganization(organization)),

@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   createHeader: {
     id: 'ocpui.containers.ManagePractitionerPage.createHeader',
-    defaultMessage: 'Create Practitioner',
+    defaultMessage: 'Add New Practitioner',
   },
   updateHeader: {
     id: 'ocpui.containers.ManagePractitionerPage.updateHeader',

@@ -21,6 +21,7 @@ import injectSaga from 'utils/injectSaga';
 import Authentication from 'containers/Authentication';
 import WorkspaceSelectionPage from 'containers/WorkspaceSelectionPage';
 import AdminWorkspacePage from 'containers/AdminWorkspacePage';
+import AdminManagePermissionsPage from 'containers/AdminManagePermissionsPage';
 import PractitionerWorkspacePage from 'containers/PractitionerWorkspacePage';
 import PatientWorkspacePage from 'containers/PatientWorkspacePage';
 import LoginPage from 'containers/LoginPage';
@@ -31,6 +32,7 @@ import ManageLocationPage from 'containers/ManageLocationPage';
 import ManageOrganizationPage from 'containers/ManageOrganizationPage';
 import ManagePatientPage from 'containers/ManagePatientPage/index';
 import ManagePractitionerPage from 'containers/ManagePractitionerPage';
+import ManageUsersPage from 'containers/ManageUsersPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PatientPage from 'containers/PatientPage';
 import AssignHealthCareServiceToLocationPage from 'containers/AssignHealthcareServiceToLocationPage';
@@ -65,10 +67,13 @@ export function App() {
           <Route path="/ocp-ui/login" component={LoginPage} />
           <C2SRoute exact path="/c2s-sof-ui/patient/:id?" component={Consent2ShareHomePage} />
           <C2SRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
+          <C2SRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
             <Route path="/ocp-ui/admin-workspace" component={AdminWorkspacePage} />
+            <Route path="/ocp-ui/manage-permissions" component={AdminManagePermissionsPage} />
+            <Route path="/ocp-ui/manage-users" component={ManageUsersPage} />
             <Route path="/ocp-ui/practitioner-workspace" component={PractitionerWorkspacePage} />
             <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />

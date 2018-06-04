@@ -14,4 +14,12 @@ export default defineMessages({
     id: 'ocpui.components.PrivateNavigation.manageSmartApps',
     defaultMessage: 'Manage SMART Apps',
   },
+  managePermissionsButton: {
+    id: 'ocpui.components.PrivateNavigation.managePermissionsButton',
+    defaultMessage: 'Manage Permissions',
+  },
+  manageUsersButton: {
+    id: 'ocpui.components.PrivateNavigation.managePermissionsButton',
+    defaultMessage: 'Manage Users',
+  },
 });

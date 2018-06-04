@@ -13,11 +13,12 @@ import Button from 'material-ui-next/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { Cell, Grid } from 'styled-css-grid';
 import { Document, Page } from 'react-pdf/dist/entry.webpack';
-
+import Util from 'utils/Util';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import messages from './messages';
 
+const CONSENT_STATUS_DRAFT = 'DRAFT';
 
 class ConsentOptions extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -60,7 +61,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
 
   render() {
     const { consent } = this.props;
-    const { logicalId } = consent;
+    const { logicalId, status } = consent;
     return (
       <div>
         <StyledRaisedButton onClick={this.handleOpenDialog}>
@@ -82,6 +83,19 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                   <FormattedMessage {...messages.consentDialog.editConsentOption} />
                 </Button>
               </Cell>
+              {
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    component={Link}
+                    to={`/c2s-sof-ui/attest-consent/${logicalId}`}
+                  >
+                    <FormattedMessage {...messages.consentDialog.attestConsentOption} />
+                  </Button>
+                </Cell>
+              }
               <Cell>
                 <Button
                   variant="raised"

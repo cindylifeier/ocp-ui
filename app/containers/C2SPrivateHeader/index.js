@@ -13,10 +13,12 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import common from 'material-ui-next/colors/common';
+import isEqual from 'lodash/isEqual';
 
 import { removeToken } from 'utils/tokenService';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import StyledToolbar from 'components/StyledToolbar';
+import StyledFlatButton from 'components/StyledFlatButton';
 import UserAvatar from 'components/UserAvatar';
 import StyledImage from 'components/StyledImage';
 import c2sBrandImg from 'images/c2s-logo.png';
@@ -25,8 +27,10 @@ import messages from './messages';
 
 
 // Todo: Remove user checking
+// Todo: Remove linking to OCP button
 function C2SPrivateHeader(props) {
   const { user } = props;
+  const ocpLink = isEqual(user.role, 'patientRole') ? '/ocp-ui/patient-workspace' : '/ocp-ui/practitioner-workspace';
   return (
     <div>
       {user ?
@@ -34,6 +38,14 @@ function C2SPrivateHeader(props) {
           <ToolbarGroup>
             <UserAvatar />
             <ToolbarTitle text={user.user_name} />
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <StyledFlatButton
+              component={Link}
+              to={ocpLink}
+            >
+              Link to OCP (DEMO PURPOSE ONLY)
+            </StyledFlatButton>
           </ToolbarGroup>
           <ToolbarGroup>
             <StyledImage

@@ -2,6 +2,8 @@ import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import Util from 'utils/Util';
 import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
+import { SHARE_ALL } from 'components/SelectMedicalInformation/constants';
+import { upperFirst } from 'lodash';
 
 export function isCareCoordinator(roleCode) {
   return isEqual(roleCode, CARE_COORDINATOR_ROLE_CODE);
@@ -18,7 +20,7 @@ export function mapResourceName(nameArray) {
   return name;
 }
 
-export function initialConsentFormValues(consent, careCoordinatorContext) {
+export function initialConsentFormValues(consent, careCoordinatorContext, securityLabels) {
   let formData = null;
   if (isEmpty(consent)) {
     const consentStart = new Date();
@@ -59,9 +61,60 @@ export function initialConsentFormValues(consent, careCoordinatorContext) {
         consentStart,
         consentEnd,
         purpose,
+        shareType: SHARE_ALL,
+        medicalInformation: securityLabels,
+      };
+    }
+  } else {
+    const consentStart = Util.setEmptyStringWhenUndefined(consent.period.start);
+    const consentEnd = Util.setEmptyStringWhenUndefined(consent.period.end);
+    if (consent.generalDesignation) {
+      formData = {
+        consentType: true,
+        shareType: SHARE_ALL,
+        medicalInformation: securityLabels,
+        consentStart: consentStart && new Date(consentStart),
+        consentEnd: consentEnd && new Date(consentEnd),
+        purpose: consent.purpose,
+      };
+    } else {
+      const fromActor = mapToConsentActors(consent.fromOrganizationActors, consent.fromPractitionerActors);
+      const toActor = mapToConsentActors(consent.toOrganizationActors, consent.toPractitionerActors);
+
+      formData = {
+        consentType: false,
+        shareType: consent.consentMedicalInfoType,
+        medicalInformation: consent.medicalInformation,
+        consentStart: consentStart && new Date(consentStart),
+        consentEnd: consentEnd && new Date(consentEnd),
+        purpose: consent.purpose,
+        consentFromActors: fromActor,
+        consentToActors: toActor,
       };
     }
   }
 
   return formData;
+}
+
+function mapToConsentActors(organizationActors, practitionercActors) {
+  return (
+    (organizationActors && organizationActors.length > 0 && organizationActors
+      .map(
+        (actor) => (actorDto(actor)))) ||
+    (practitionercActors && practitionercActors.length > 0 && practitionercActors
+      .map(
+        (actor) => (actorDto(actor))))
+  );
+}
+
+function actorDto(actor) {
+  return {
+    reference: {
+      logicalId: actor.id,
+      type: upperFirst(actor.careTeamType),
+    },
+    display: actor.display,
+    identifiers: actor.identifiers,
+  };
 }

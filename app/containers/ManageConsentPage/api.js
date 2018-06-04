@@ -2,7 +2,7 @@ import request from 'utils/request';
 import Util from 'utils/Util';
 import { BASE_CONSENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import { mapToName } from 'containers/App/helpers';
-
+import { upperFirst, lowerCase } from 'lodash';
 
 export function getConsent(consentId) {
   const requestURL = `${getEndpoint(BASE_CONSENTS_API_URL)}/${consentId}`;
@@ -10,6 +10,9 @@ export function getConsent(consentId) {
 }
 
 export function saveConsent(consentFormData, patient) {
+  if (consentFormData.logicalId) {
+    return updateConsent(consentFormData.logicalId, consentFormData, patient);
+  }
   return createConsent(consentFormData, patient);
 }
 
@@ -38,6 +41,19 @@ function createConsent(consentFormData, patient) {
     },
   });
 }
+
+function updateConsent(logicalId, consentFormData, patient) {
+  const baseEndpoint = getEndpoint(BASE_CONSENTS_API_URL);
+  const requestURL = `${baseEndpoint}/${logicalId}`;
+  return request(requestURL, {
+    method: 'PUT',
+    body: JSON.stringify(mapToBffConsentDto(consentFormData, patient)),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 
 function mapToBffConsentDto(consentFormData, patient) {
   // TODO: Handle UI hard-coded data
@@ -73,16 +89,10 @@ function mapToBffConsentDto(consentFormData, patient) {
     };
   } else {
     const fromActor = consentFromActors
-      .map((actor) => ({
-        reference: `${actor.reference.type}/${actor.reference.logicalId}`,
-        display: actor.display,
-      }));
+      .map((actor) => actorDto(actor));
 
     const toActor = consentToActors
-      .map((actor) => ({
-        reference: `${actor.reference.type}/${actor.reference.logicalId}`,
-        display: actor.display,
-      }));
+      .map((actor) => actorDto(actor));
     consentData = {
       status,
       category,
@@ -96,4 +106,11 @@ function mapToBffConsentDto(consentFormData, patient) {
     };
   }
   return consentData;
+}
+
+function actorDto(actor) {
+  return {
+    reference: `${upperFirst(lowerCase(actor.reference.type))}/${actor.reference.logicalId}`,
+    display: actor.display,
+  };
 }
