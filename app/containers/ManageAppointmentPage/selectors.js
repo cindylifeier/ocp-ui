@@ -16,7 +16,7 @@ const selectManageAppointmentPageDomain = (state) => state.get('manageAppointmen
 
 const makeSelectManageAppointmentPage = () => createSelector(
   selectManageAppointmentPageDomain,
-  (subState) => subState.toJS()
+  (subState) => subState && subState.toJS()
 );
 
 const makeSelectAppointment = () => createSelector(

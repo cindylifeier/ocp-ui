@@ -26,6 +26,7 @@ import ManageConsent from 'components/ManageConsent';
 import PageHeader from 'components/PageHeader';
 import Page from 'components/Page';
 import PageContent from 'components/PageContent';
+import merge from 'lodash/merge';
 import reducer from './reducer';
 import saga from './saga';
 import { getConsent, saveConsent } from './actions';
@@ -48,6 +49,10 @@ export class ManageConsentPage extends React.Component { // eslint-disable-line 
   }
 
   handleSave(consentFormData, actions) {
+    const logicalId = this.props.match.params.id;
+    if (logicalId) {
+      merge(consentFormData, { logicalId });
+    }
     this.props.saveConsent(consentFormData, () => actions.setSubmitting(false));
   }
 

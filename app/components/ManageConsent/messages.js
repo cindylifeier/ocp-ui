@@ -41,11 +41,11 @@ export default defineMessages({
     },
     minFromActors: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minFromActors',
-      defaultMessage: 'Consent must have at least ONE FROM care team',
+      defaultMessage: 'Consent must have at least ONE Organization/Practitioner to authorize',
     },
     minToActors: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.minToActors',
-      defaultMessage: 'Consent must have at least ONE TO care team',
+      defaultMessage: 'Consent must have at least ONE Organization/Practitioner to disclose',
     },
     required: {
       id: 'ocpui.components.ManageConsent.manageForm.validation.required',

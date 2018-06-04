@@ -19,7 +19,15 @@ const makeSelectAppointmentsCalendar = () => createSelector(
   (substate) => substate.toJS()
 );
 
+
+const makeSelectIsOutlookAuthenticated = () => createSelector(
+  selectAppointmentsCalendarDomain,
+  (substate) => substate && substate.get('isOutlookAuthenticated'),
+);
+
+
 export default makeSelectAppointmentsCalendar;
 export {
   selectAppointmentsCalendarDomain,
+  makeSelectIsOutlookAuthenticated,
 };
