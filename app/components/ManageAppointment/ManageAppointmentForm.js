@@ -7,7 +7,6 @@ import SelectField from 'components/SelectField';
 import GoBackButton from 'components/GoBackButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
-import TimePicker from 'components/TimePicker';
 import { Form } from 'formik';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
@@ -23,6 +22,10 @@ import SelectedParticipants from './SelectedParticipants';
 
 function ManageAppointmentForm(props) {
   const today = new Date();
+  const startDateTime = new Date();
+  const endDateTime = new Date();
+  let isEndDateBeforeStartDate = false;
+
   const {
     isSubmitting,
     dirty,
@@ -43,6 +46,20 @@ function ManageAppointmentForm(props) {
   };
 
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+
+  function onStartTimeChange(event) {
+    const startTime = event.target.value;
+    const dateTimeArray = startTime && startTime.split(':');
+    startDateTime.setHours(dateTimeArray[0], dateTimeArray[1]);
+    isEndDateBeforeStartDate = startDateTime > endDateTime;
+  }
+
+  function onEndTimeChange(event) {
+    const endTime = event.target.value;
+    const dateTimeArray = endTime && endTime.split(':');
+    endDateTime.setHours(dateTimeArray[0], dateTimeArray[1]);
+    isEndDateBeforeStartDate = startDateTime > endDateTime;
+  }
 
   return (
     <div>
@@ -95,23 +112,30 @@ function ManageAppointmentForm(props) {
             />
           </Cell>
           <Cell area="startTime">
-            <TimePicker
+            <TextField
               fullWidth
+              type="time"
               name="startTime"
-              minutesStep={1}
+              onBlur={onStartTimeChange}
               hintText={<FormattedMessage {...messages.hintText.startTime} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startTime} />}
             />
           </Cell>
           <Cell area="endTime">
-            <TimePicker
+            <TextField
               fullWidth
+              type="time"
               name="endTime"
-              minutesStep={1}
+              onBlur={onEndTimeChange}
               hintText={<FormattedMessage {...messages.hintText.endTime} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endTime} />}
             />
+            {isEndDateBeforeStartDate ?
+              <strong>End time before start time.</strong> :
+              ''
+            }
           </Cell>
+
           {editMode &&
           <Cell area="appointmentStatus">
             <SelectField
@@ -153,7 +177,7 @@ function ManageAppointmentForm(props) {
                 <StyledRaisedButton
                   fullWidth
                   type="submit"
-                  disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid}
+                  disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || isEndDateBeforeStartDate}
                 >
                   Save
                 </StyledRaisedButton>
