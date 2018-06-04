@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.ConsentCards.header',
     defaultMessage: 'This is the ConsentCards component !',
   },
+  noConsentFoundText: {
+    id: 'ocpui.components.ConsentCards.noConsentFoundText',
+    defaultMessage: 'No consent found.',
+  },
 });
