@@ -1,8 +1,6 @@
-import { EMPTY_STRING } from 'containers/App/constants';
 
 export function fromBackendToFrontendOrganization(org) {
-  const { name, addresses: addressArr, telecoms, logicalId: id, active: statusBool, identifiers: identifiersRaw } = org;
-  const identifiers = identifiersRaw && identifiersRaw.map(({ oid, value }) => (`${oid || EMPTY_STRING}${oid ? ':' : EMPTY_STRING} ${value || EMPTY_STRING}`));
+  const { name, addresses: addressArr, telecoms, logicalId: id, active: statusBool, identifiers } = org;
   // format address
   let address = '';
   if (addressArr.length > 0) {

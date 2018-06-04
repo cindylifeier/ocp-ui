@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   createModeTitle: {
     id: 'ocpui.containers.ManageOrganizationPage.createModeTitle',
-    defaultMessage: 'Create Organization',
+    defaultMessage: 'Add New Organization',
   },
   updateModeTitle: {
     id: 'ocpui.containers.ManageOrganizationPage.updateModeTitle',
