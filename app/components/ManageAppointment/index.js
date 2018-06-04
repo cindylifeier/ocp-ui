@@ -48,11 +48,14 @@ function ManageAppointment(props) {
     return appointmentDate;
   }
 
-  function convertDateTimeArrayToDate(date) {
+  function padHourOrMinute(timeEntry) {
+    return parseInt(timeEntry, 10) <= 9 ? '0'.concat(timeEntry) : timeEntry;
+  }
+  function convertDateTimeArrayToTime(dateArray) {
     let timeStr = '';
-    if (date) {
-      const hh = date[3];
-      const mm = parseInt(date[4], 10) <= 9 ? '0'.concat(date[4]) : date[4];
+    if (dateArray && dateArray.length >= 4) {
+      const hh = padHourOrMinute(dateArray[3]);
+      const mm = padHourOrMinute(dateArray[4]);
       timeStr = `${hh}:${mm}`;
     }
     return timeStr;
@@ -67,8 +70,8 @@ function ManageAppointment(props) {
         appointmentType: appointment.typeCode,
         date: appointment.appointmentDate && new Date(appointment.appointmentDate),
         status: appointment.statusCode,
-        startTime: convertDateTimeArrayToDate(appointment.start),
-        endTime: convertDateTimeArrayToDate(appointment.end),
+        startTime: convertDateTimeArrayToTime(appointment.start),
+        endTime: convertDateTimeArrayToTime(appointment.end),
         appointmentStatus: appointment.statusCode,
       };
     }
