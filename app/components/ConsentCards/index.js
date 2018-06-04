@@ -6,12 +6,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import isEmpty from 'lodash/isEmpty';
+
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RecordsRange from 'components/RecordsRange';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ConsentCard from 'components/ConsentCard';
-import isEmpty from 'lodash/isEmpty';
+import messages from './messages';
 
 
 function ConsentCards(props) {
@@ -36,7 +39,7 @@ function ConsentCards(props) {
           />
         </div> : (
           <CenterAlign>
-            <NoResultsFoundText>No consents found.</NoResultsFoundText>
+            <NoResultsFoundText><FormattedMessage {...messages.noConsentFoundText} /></NoResultsFoundText>
           </CenterAlign>
         ))}
     </div>
