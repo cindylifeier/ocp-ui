@@ -5,19 +5,17 @@
  */
 
 import React from 'react';
-// import styled from 'styled-components';
 import { Cell, Grid } from 'styled-css-grid';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
-import uniqueId from 'lodash/uniqueId';
-
-import FormSubtitle from 'components/FormSubtitle';
 import Checkbox from 'components/Checkbox';
-import H2 from 'components/H2';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
+import { flattenConsentData } from 'components/ConsentCard/helpers';
+import TextLabelGroup from 'components/TextLabelGroup';
+import ConsentFormSection from 'components/ConsentFormSection';
 import CheckPassword from './CheckPassword';
 import messages from './messages';
 import AttestConsentGrid from './AttestConsentGrid';
@@ -53,6 +51,8 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
   render() {
     const { onSubmit, consent, isAuthenticated, patient } = this.props;
     const patientName = consent && consent.patient && consent.patient.display;
+
+    const flattenedConsent = consent && flattenConsentData(consent);
     return (
       <div>
         <Dialog
@@ -65,80 +65,66 @@ class AttestConsent extends React.Component { // eslint-disable-line react/prefe
           render={({ isSubmitting }) => (
             <Form>
               <AttestConsentGrid>
-                <Cell area="header">
-                  <H2><FormattedMessage {...messages.header} /></H2>
+                <Cell area="patientGroup">
+                  <ConsentFormSection title={<FormattedMessage {...messages.header} />}>
+                    <Grid columns={2} gap={'20px'}>
+                      <Cell>
+                        <FormattedMessage {...messages.label.patientName} />
+                        <strong>{consent && consent.patient && consent.patient.display}</strong>
+                      </Cell>
+                      <Cell>
+                        <FormattedMessage {...messages.label.patientDob} />
+                        <strong>{patient && patient.birthDate}</strong>
+                      </Cell>
+                    </Grid>
+                  </ConsentFormSection>
                 </Cell>
-                <Cell area="patientName">
-                  <FormattedMessage {...messages.label.patientName} />
-                  <strong>{consent && consent.patient && consent.patient.display}</strong>
+                <Cell area="medicalInfoGroup">
+                  <ConsentFormSection title={<FormattedMessage {...messages.subtitle.medicalInfoGroup} />}>
+                    <Grid columns="repeat(2, 1fr) 0.2fr">
+                      <Cell>
+                        <TextLabelGroup
+                          label={<FormattedMessage {...messages.label.authorizes} />}
+                          text={flattenedConsent && flattenedConsent.fromActor}
+                        />
+                      </Cell>
+                      <Cell>
+                        <TextLabelGroup
+                          label={<FormattedMessage {...messages.label.discloses} />}
+                          text={flattenedConsent && flattenedConsent.toActor}
+                        />
+                      </Cell>
+                    </Grid>
+                  </ConsentFormSection>
                 </Cell>
-                <Cell area="patientDob">
-                  <FormattedMessage {...messages.label.patientDob} />
-                  <strong>{patient && patient.birthDate}</strong>
-                </Cell>
-                <Cell area="authorization">
-                  <FormSubtitle margin="3vh 0 1vh 0">
-                    <FormattedMessage {...messages.subtitle.authorization} />
-                  </FormSubtitle>
-                  <FormattedMessage {...messages.label.authorizes} />
-                  <strong> {consent && consent.fromActor && consent.fromActor.map(({ display }) =>
-                    (
-                      <div key={uniqueId()}>
-                        {display}
-                      </div>
-                    ),
-                  )}
-                  </strong>
-                </Cell>
-                <Cell area="disclose">
-                  <FormattedMessage {...messages.label.discloses} />
-                  <strong>{consent && consent.toActor && consent.toActor.map(({ display }) =>
-                    (
-                      <div key={uniqueId()}>
-                        {display}
-                      </div>
-                    ),
-                  )}
-                  </strong>
-                </Cell>
-                <Cell area="healthInfo">
-                  <FormSubtitle margin="3vh 0 1vh 0">
-                    <FormattedMessage {...messages.subtitle.healthInfo} />
-                  </FormSubtitle>
-                  <FormattedMessage {...messages.label.purposes} />
-                  <strong>{consent && consent.purpose && consent.purpose.map(({ display }) =>
-                    (
-                      <div key={uniqueId()}>
-                        {display}
-                      </div>
-                    ),
-                  )}
-                  </strong>
+                <Cell area="purposeOfUseGroup">
+                  <ConsentFormSection title={<FormattedMessage {...messages.subtitle.purposeOfUseGroup} />}>
+                    <TextLabelGroup
+                      label={<FormattedMessage {...messages.label.purposes} />}
+                      text={flattenedConsent && flattenedConsent.purpose}
+                    />
+                  </ConsentFormSection>
                 </Cell>
                 <Cell area="consentTerm">
-                  <FormSubtitle margin="3vh 0 1vh 0">
-                    <FormattedMessage {...messages.subtitle.consentTerm} />
-                  </FormSubtitle>
-                  <FormattedHTMLMessage {...messages.attestTerm} values={{ patientName }} />
-                </Cell>
-                <Cell area="start">
-                  <FormattedMessage {...messages.label.effectiveDate} /><strong>{consent && consent.period && consent.period.start}</strong>
-                </Cell>
-                <Cell area="end">
-                  <FormattedMessage {...messages.label.expirationDate} /><strong>{consent && consent.period && consent.period.end}</strong>
-                </Cell>
-                <Cell area="agreement">
-                  <Checkbox
-                    name="agreement"
-                    checked={isAuthenticated}
-                    label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
-                    onCheck={this.handleCheckPassword}
-                  />
+                  <ConsentFormSection title={<FormattedMessage {...messages.subtitle.consentTerm} />}>
+                    <FormattedHTMLMessage {...messages.attestTerm} values={{ patientName }} />
+                    <Grid columns={2} gap={'20px'}>
+                      <Cell><FormattedMessage {...messages.label.effectiveDate} /><strong>{consent && consent.period && consent.period.start}</strong></Cell>
+                      <Cell><FormattedMessage {...messages.label.expirationDate} /><strong>{consent && consent.period && consent.period.end}</strong></Cell>
+                    </Grid>
+                    <Checkbox
+                      name="agreement"
+                      checked={isAuthenticated}
+                      label={<FormattedHTMLMessage {...messages.agreementTerm} values={{ patientName }} />}
+                      onCheck={this.handleCheckPassword}
+                    />
+                  </ConsentFormSection>
                 </Cell>
                 <Cell area="buttonGroup">
                   <Grid columns={2}>
                     <Cell>
                       <StyledRaisedButton
+                        fullWidth
                         type="submit"
                         disabled={!isAuthenticated}
                       >
