@@ -28,10 +28,8 @@ const columns = PERMISSION_ASSIGNMENT_TABLE_COLUMNS;
 const menuItems = [{
   primaryText: <FormattedMessage {...messages.viewDetails} />,
   disabled: true,
-}, {
-  primaryText: <FormattedMessage {...messages.assignRoles} />,
-  disabled: true,
-}];
+},
+];
 
 function createTableHeaders() {
   return (
