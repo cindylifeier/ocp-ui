@@ -7,6 +7,7 @@ import SelectField from 'components/SelectField';
 import GoBackButton from 'components/GoBackButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
+import ErrorText from 'components/ErrorText';
 import { Form } from 'formik';
 import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
@@ -19,6 +20,7 @@ import Util from 'utils/Util';
 import messages from './messages';
 
 import SelectedParticipants from './SelectedParticipants';
+
 
 class ManageAppointmentForm extends React.Component {
 
@@ -155,7 +157,9 @@ class ManageAppointmentForm extends React.Component {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endTime} />}
               />
               {this.state.isEndDateBeforeStartDate ?
-                <strong>End time before start time.</strong> :
+                <ErrorText>
+                  <FormattedMessage {...messages.validation.invalidDateRange} />
+                </ErrorText> :
                 ''
               }
             </Cell>
