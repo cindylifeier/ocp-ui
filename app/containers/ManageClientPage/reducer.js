@@ -5,8 +5,9 @@
  */
 
 import { fromJS } from 'immutable';
-import remove from 'lodash/remove';
-import { GET_CLIENTS_SUCCESS, SAVE_CLIENT_SUCCESS, DELETE_CLIENT_SUCCESS } from './constants';
+import pull from 'lodash/pull';
+import find from 'lodash/find';
+import { DELETE_CLIENT_SUCCESS, GET_CLIENTS_SUCCESS, SAVE_CLIENT_SUCCESS } from './constants';
 
 const initialState = fromJS({ clients: [] });
 
@@ -20,7 +21,8 @@ function manageClientPageReducer(state = initialState, action) {
     }
     case DELETE_CLIENT_SUCCESS: {
       const clients = state.get('clients').toJS();
-      return state.set('clients', fromJS(remove(clients, { client_id: action.id })));
+      const deletedClient = find(clients, { clientId: action.clientId });
+      return state.set('clients', fromJS(pull(clients, deletedClient)));
     }
     default:
       return state;
