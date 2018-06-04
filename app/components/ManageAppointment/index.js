@@ -38,6 +38,46 @@ function ManageAppointment(props) {
     initialSelectedParticipants,
     removeParticipant,
   };
+
+  function setAppointmentTime(timeStr, dateStr) {
+    const timeArray = timeStr && timeStr.split(':');
+    const appointmentDate = new Date(dateStr);
+    if (timeArray.length > 0) {
+      appointmentDate.setHours(timeArray[0], timeArray[1]);
+    }
+    return appointmentDate;
+  }
+
+  function padHourOrMinute(timeEntry) {
+    return parseInt(timeEntry, 10) <= 9 ? '0'.concat(timeEntry) : timeEntry;
+  }
+  function convertDateTimeArrayToTime(dateArray) {
+    let timeStr = '';
+    if (dateArray && dateArray.length >= 4) {
+      const hh = padHourOrMinute(dateArray[3]);
+      const mm = padHourOrMinute(dateArray[4]);
+      timeStr = `${hh}:${mm}`;
+    }
+    return timeStr;
+  }
+
+  function setFormData() {
+    let formData = null;
+    if (!isEmpty(appointment)) {
+      formData = {
+        selectedPatient: patient,
+        description: appointment.description,
+        appointmentType: appointment.typeCode,
+        date: appointment.appointmentDate && new Date(appointment.appointmentDate),
+        status: appointment.statusCode,
+        startTime: convertDateTimeArrayToTime(appointment.start),
+        endTime: convertDateTimeArrayToTime(appointment.end),
+        appointmentStatus: appointment.statusCode,
+      };
+    }
+    return Util.pickByIdentity(formData);
+  }
+
   return (
     <div>
       {patient &&
@@ -47,7 +87,12 @@ function ManageAppointment(props) {
           isInitialValid={editMode}
           initialValues={setFormData(appointment)}
           onSubmit={(values, actions) => {
-            onSave(values, actions);
+            const startDateTime = setAppointmentTime(values.startTime, values.date);
+            const endDateTime = setAppointmentTime(values.endTime, values.date);
+            const newValues = { ...values };
+            newValues.startTime = startDateTime;
+            newValues.endTime = endDateTime;
+            onSave(newValues, actions);
           }}
           validationSchema={yup.object().shape({
             date: yup.date()
@@ -55,9 +100,9 @@ function ManageAppointment(props) {
               .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
             appointmentType: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
-            startTime: yup.date()
+            startTime: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
-            endTime: yup.date()
+            endTime: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
           })
           }
@@ -85,31 +130,6 @@ ManageAppointment.propTypes = {
   selectedParticipants: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
 };
-
-function setFormData(appointment, patient) {
-  let formData = null;
-  if (!isEmpty(appointment)) {
-    formData = {
-      selectedPatient: patient,
-      description: appointment.description,
-      appointmentType: appointment.typeCode,
-      date: appointment.appointmentDate && new Date(appointment.appointmentDate),
-      status: appointment.statusCode,
-      startTime: convertDateTimeArrayToDate(appointment.start),
-      endTime: convertDateTimeArrayToDate(appointment.end),
-      appointmentStatus: appointment.statusCode,
-    };
-  }
-  return Util.pickByIdentity(formData);
-}
-
-function convertDateTimeArrayToDate(date) {
-  if (date) {
-    return new Date(date[0], date[1] - 1, date[2], date[3], date[4]);
-  }
-  return [];
-}
-
 
 export default ManageAppointment;
 

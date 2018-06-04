@@ -49,6 +49,10 @@ export default defineMessages({
       id: 'ocpui.components.ConsentCard.consentDialog.editConsentOption',
       defaultMessage: 'Edit This Consent',
     },
+    attestConsentOption: {
+      id: 'ocpui.components.ConsentCard.consentDialog.attestConsentOption',
+      defaultMessage: 'Provide Signature',
+    },
     previewConsentOption: {
       id: 'ocpui.components.ConsentCard.consentDialog.previewConsentOption',
       defaultMessage: 'Preview This Consent',
