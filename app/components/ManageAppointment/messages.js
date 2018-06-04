@@ -103,6 +103,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageAppointment.manageForm.validation.checkParticipants',
       defaultMessage: 'At least one participant must be selected',
     },
+    invalidDateRange: {
+      id: 'ocpui.components.ManageAppointment.manageForm.validation.invalidDateRange',
+      defaultMessage: 'End time before start time.',
+    },
   },
   hintText: {
     description: {
