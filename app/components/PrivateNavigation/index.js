@@ -24,7 +24,6 @@ import NavigationButton from './NavigationButton';
 
 function PrivateNavigation(props) {
   const role = props.user.role;
-  console.log(props.getLinkUrlByRole(role));
   return (
     <StyledToolbar height="30px">
       <ToolbarGroup firstChild>
