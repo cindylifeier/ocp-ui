@@ -11,6 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import { Cell, Grid } from 'styled-css-grid';
 
+import StyledImage from 'components/StyledImage';
+import StyledText from 'components/StyledText';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledDialog from 'components/StyledDialog';
@@ -62,16 +64,17 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
               <HorizontalAlignment position="center">
                 <Grid columns={1}>
                   <Cell>
-                    <img
-                      style={{ width: 100, height: 100 }}
+                    <StyledImage
+                      height="180px"
+                      width="180px"
                       alt={`${clientName}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
                       src={`${ManageClient.SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
                     />
                   </Cell>
-                  <Cell>
-                    {clientName}
+                  <Cell center>
+                    <StyledText fontSize="20px">{clientName}</StyledText>
                   </Cell>
-                  <Cell>
+                  <Cell center>
                     <StyledRaisedButton onClick={() => onDeleteClient && onDeleteClient(clientId)}>
                       Delete
                     </StyledRaisedButton>
