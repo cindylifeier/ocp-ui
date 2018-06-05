@@ -8,18 +8,9 @@ import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';
-import {
-  BENEFITS_SPECIALIST_ROLE_CODE,
-  CARE_COORDINATOR_ROLE_CODE,
-  CARE_MANAGER_ROLE_CODE,
-  FRONT_OFFICE_ROLE_CODE,
-  HEALTH_ASSISTANT_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE,
-  PCP_ROLE_CODE,
-} from 'containers/App/constants';
+import { BENEFITS_SPECIALIST_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE, HEALTH_ASSISTANT_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, PCP_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import renderCommunicationsComponent from 'containers/Communications/render';
-import renderPractitionerConsentsComponent from 'containers/PractitionerConsents/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderLocationsComponent from 'containers/Locations/render';
 import renderPatientsComponent from 'containers/Patients/render';
@@ -85,7 +76,6 @@ const baseLayout = {
 
 export class PractitionerWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static componentMetadata = [
-    { name: 'practitionerConsents', text: 'CONSENTS', factoryMethod: renderPractitionerConsentsComponent },
     { name: 'communications', text: 'COMMUNICATIONS', factoryMethod: renderCommunicationsComponent },
     { name: 'practitioners', text: 'PRACTITIONERS', factoryMethod: renderPractitionersComponent },
     { name: 'patients', text: 'PATIENTS', factoryMethod: renderPatientsComponent },
@@ -283,12 +273,6 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
                 title: 'PATIENTS',
                 type: 'component',
                 componentName: 'patients',
-                isClosable: true,
-                reorderEnabled: true,
-              }, {
-                title: 'Consents',
-                type: 'component',
-                componentName: 'practitionerConsents',
                 isClosable: true,
                 reorderEnabled: true,
               },
