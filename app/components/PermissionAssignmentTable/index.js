@@ -17,11 +17,11 @@ import { PERMISSION_ASSIGNMENT_TABLE_COLUMNS } from './constants';
 
 // import styled from 'styled-components';
 const elements = [
-  { logicalId: '1', providerName: 'Lee Coordinator1', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
-  { logicalId: '2', providerName: 'Lee Coordinator2', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
-  { logicalId: '3', providerName: 'Lee Coordinator3', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
-  { logicalId: '4', providerName: 'Lee Coordinator4', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
-  { logicalId: '5', providerName: 'Lee Coordinator5', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
+  { logicalId: '1', providerName: 'Lee Coordinator', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
+  { logicalId: '2', providerName: 'William Coordinator', role: 'PCP', permissionGroup: 'Care Coordinator', contact: '413-812-3141' },
+  { logicalId: '3', providerName: 'David Coordinator', role: 'PCP', permissionGroup: 'Care Manager', contact: '552-131-8913' },
+  { logicalId: '4', providerName: 'Alice Coordinator', role: 'PCP', permissionGroup: 'Administrator', contact: '339-121-1476' },
+  { logicalId: '5', providerName: 'Michael Coordinator', role: 'PCP', permissionGroup: 'Care Manager', contact: '421-321-1561' },
 ];
 
 const columns = PERMISSION_ASSIGNMENT_TABLE_COLUMNS;
