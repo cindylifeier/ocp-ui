@@ -73,16 +73,19 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
           </DialogTitle>
           <DialogContent>
             <Grid columns={1}>
-              <Cell>
-                <Button
-                  variant="raised"
-                  fullWidth
-                  component={Link}
-                  to={`/c2s-sof-ui/manage-consent/${logicalId}`}
-                >
-                  <FormattedMessage {...messages.consentDialog.editConsentOption} />
-                </Button>
-              </Cell>
+              {
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    component={Link}
+                    to={`/c2s-sof-ui/manage-consent/${logicalId}`}
+                  >
+                    <FormattedMessage {...messages.consentDialog.editConsentOption} />
+                  </Button>
+                </Cell>
+              }
               {
                 Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
                 <Cell>
