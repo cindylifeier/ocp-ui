@@ -98,14 +98,17 @@ export function initialConsentFormValues(consent, careCoordinatorContext, securi
 }
 
 function mapToConsentActors(organizationActors, practitionercActors) {
-  return (
+  const actorDtos = [];
+  actorDtos.push(
     (organizationActors && organizationActors.length > 0 && organizationActors
-      .map(
-        (actor) => (actorDto(actor)))) ||
+      .flatMap(
+        (actor) => (actorDto(actor)))));
+  actorDtos.push(
     (practitionercActors && practitionercActors.length > 0 && practitionercActors
-      .map(
-        (actor) => (actorDto(actor))))
-  );
+      .flatMap(
+        (actor) => (actorDto(actor)))));
+  const flattened = [].concat(...actorDtos);
+  return flattened;
 }
 
 function actorDto(actor) {

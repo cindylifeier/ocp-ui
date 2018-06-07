@@ -22,6 +22,7 @@ import TableHeader from 'components/TableHeader';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import TableHeaderColumn from 'components/TableHeaderColumn';
+import { flattenConsentData } from 'components/ConsentCard/helpers';
 import ConsentNavigationIconMenu from './ConsentNavigationIconMenu';
 import ConsentExpansionRowDetails from './ConsentExpansionRowDetails';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
@@ -51,7 +52,8 @@ function ConsentTable(props) {
               <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
             </TableHeader>
             {!isEmpty(consentData.data) && consentData.data.map((consent) => {
-              const { logicalId, patient, fromActor, toActor, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
+              const { logicalId, patient, status, period, fromGeneralDesignation, toGeneralDesignation, purpose } = consent;
+              const flattenedConsent = consent && flattenConsentData(consent);
               return (
                 <ExpansionTableRow
                   expansionTableRowDetails={<ConsentExpansionRowDetails purpose={purpose} />}
@@ -61,14 +63,14 @@ function ConsentTable(props) {
                   {isExpanded &&
                   <TableRowColumn>{patient && patient.display}</TableRowColumn>
                   }
-                  <TableRowColumn>{fromGeneralDesignation || fromActor.map(({ display }) => (
+                  <TableRowColumn>{fromGeneralDesignation || (flattenedConsent && flattenedConsent.fromActor.map(({ display }) => (
                     <StyledText key={uniqueId()}>{display}</StyledText>
-                  ))}
+                  )))}
                   </TableRowColumn>
                   {isExpanded &&
-                  <TableRowColumn>{toGeneralDesignation || toActor.map(({ display }) => (
+                  <TableRowColumn>{toGeneralDesignation || (flattenedConsent && flattenedConsent.toActor.map(({ display }) => (
                     <StyledText key={uniqueId()}>{display}</StyledText>
-                  ))}
+                  )))}
                   </TableRowColumn>
                   }
                   <TableRowColumn>{period && period.start}-{period && period.end} </TableRowColumn>
