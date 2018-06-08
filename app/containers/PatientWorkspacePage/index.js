@@ -18,6 +18,7 @@ import renderTasks from 'containers/Tasks/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import renderRelatedPersonsComponent from 'containers/RelatedPersons/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
+import renderCoveragesComponent from 'containers/Coverages/render';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import GoldenLayout from 'components/GoldenLayout';
@@ -102,6 +103,13 @@ export const initialStateMetadata =
               reorderEnabled: true,
             },
             {
+              title: 'Coverage',
+              type: 'component',
+              componentName: 'coverage',
+              isClosable: true,
+              reorderEnabled: true,
+            },
+            {
               title: 'Calendar',
               type: 'component',
               componentName: 'calendar',
@@ -124,6 +132,7 @@ export const componentMetadata = [
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderCalendarComponent },
   { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
+  { name: 'coverage', text: 'Coverage', factoryMethod: renderCoveragesComponent },
   { name: 'relatedPersons', text: 'Related Persons', factoryMethod: renderRelatedPersonsComponent },
 ];
 
