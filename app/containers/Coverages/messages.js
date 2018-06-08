@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.Coverages.header',
-    defaultMessage: 'This is Coverages container !',
+  buttonLabelCreateNew: {
+    id: 'ocpui.containers.Coverages.buttonLabelCreateNew',
+    defaultMessage: 'New Patient',
   },
 });
