@@ -11,10 +11,12 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import AddCoverageDialog from 'components/AddCoverageDialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PanelToolbar from 'components/PanelToolbar';
 import { PATIENT_ROLE_CODE } from 'containers/App/constants';
+import CoverageTable from 'components/CoverageTable';
 import makeSelectCoverages from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,13 +27,22 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
 
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+    };
     this.handleClick = this.handleClick.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   handleClick() {
     console.log('Click new button');
+    this.setState({ open: true });
   }
 
+  handleDialogClose() {
+    this.setState({ open: false });
+    // this.props.handleClose();
+  }
   render() {
     const addNewItem = {
       addNewItem: {
@@ -39,12 +50,19 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
         onClick: this.handleClick,
       },
     };
+
+    const addCoverageDialogProps = {
+      open: this.state.open,
+      handleDialogClose: this.handleDialogClose,
+    };
     return (
       <div>
         <PanelToolbar
           {...addNewItem}
           allowedAddNewItemRoles={[PATIENT_ROLE_CODE]}
         />
+        <CoverageTable></CoverageTable>
+        <AddCoverageDialog {...addCoverageDialogProps}></AddCoverageDialog>
       </div>
     );
   }
