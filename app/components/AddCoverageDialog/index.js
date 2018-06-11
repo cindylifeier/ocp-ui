@@ -8,8 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import DialogTitle from 'material-ui-next/es/Dialog/DialogTitle';
-
 
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -31,12 +29,12 @@ class AddCoverageDialog extends React.Component { // eslint-disable-line react/p
     return (
       <div>
         <Dialog
+          title={<FormattedMessage {...messages.addCoverageDialogTitle} />}
           actions={actionsButtons}
           modal={false}
           open={open}
           autoScrollBodyContent
         >
-          <DialogTitle > <FormattedMessage {...messages.addCoverageDialogTitle} /></DialogTitle>
         </Dialog>
       </div>
     );
