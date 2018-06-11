@@ -32,6 +32,7 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleSaveCoverage = this.handleSaveCoverage.bind(this);
   }
 
   handleClick() {
@@ -41,7 +42,9 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
 
   handleDialogClose() {
     this.setState({ open: false });
-    // this.props.handleClose();
+  }
+  handleSaveCoverage() {
+    this.setState({ open: false });
   }
   render() {
     const addNewItem = {
@@ -54,6 +57,8 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     const addCoverageDialogProps = {
       open: this.state.open,
       handleDialogClose: this.handleDialogClose,
+      handleSaveCoverage: this.handleSaveCoverage,
+
     };
     return (
       <div>

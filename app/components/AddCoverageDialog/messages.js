@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'ocpui.containers.AddCoverageDialog.addCoverageDialogTitle',
     defaultMessage: 'Coverage',
   },
+  addCoverageDialogSaveBtnLabel: {
+    id: 'ocpui.containers.AddCoverageDialog.addCoverageDialogSaveBtnLabel',
+    defaultMessage: 'Save',
+  },
 });
