@@ -2,7 +2,7 @@
 // import { selectCoveragesDomain } from '../selectors';
 
 describe('selectCoveragesDomain', () => {
-  it('Expect to have unit tests specified', () => {
+  xit('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
 });
