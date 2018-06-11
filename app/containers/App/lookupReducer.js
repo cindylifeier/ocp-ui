@@ -64,6 +64,9 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  COVERAGE_TYPE,
+  FM_STATUS,
+  POLICYHOLDER_RELATIONSHIP,
 } from './constants';
 
 // The initial state of the lookup
@@ -135,6 +138,11 @@ const initialState = fromJS({
   CONSENT_ACTION: [],
   PURPOSE_OF_USE: [],
   // Consent Resource Lookups - End
+  // Coverage Lookups - Start
+  POLICYHOLDER_RELATIONSHIP: [],
+  FM_STATUS: [],
+  COVERAGE_TYPE: [],
+  // Coverage Lookups - End
 });
 
 function lookupReducer(state = initialState, action) {
@@ -212,6 +220,11 @@ function lookupReducer(state = initialState, action) {
         .set(CONSENT_ACTION, fromJS((action.lookups && action.lookups.consentAction) || state.get(CONSENT_ACTION)))
         .set(PURPOSE_OF_USE, fromJS((action.lookups && action.lookups.purposeOfUse) || state.get(PURPOSE_OF_USE)))
         // Consent Resource Lookups - End
+        // Coverage Lookups - Start
+        .set(POLICYHOLDER_RELATIONSHIP, fromJS((action.lookups && action.lookups.policyholderRelationship) || state.get(POLICYHOLDER_RELATIONSHIP)))
+        .set(FM_STATUS, fromJS((action.lookups && action.lookups.fmStatus) || state.get(FM_STATUS)))
+        .set(COVERAGE_TYPE, fromJS((action.lookups && action.lookups.coverageType) || state.get(COVERAGE_TYPE)))
+        // Coverage Lookups - End
         .set(DATE_RANGE, fromJS((action.lookups && action.lookups.dateRanges) || state.get(DATE_RANGE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:

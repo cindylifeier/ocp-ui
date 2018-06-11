@@ -114,6 +114,12 @@ export const CONSENT_ACTION = 'CONSENT_ACTION';
 export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
 // Consent Resource Lookups - End
 
+// Coverage Lookups - Start
+export const POLICYHOLDER_RELATIONSHIP = 'POLICYHOLDER_RELATIONSHIP';
+export const FM_STATUS = 'FM_STATUS';
+export const COVERAGE_TYPE = 'COVERAGE_TYPE';
+// Coverage Lookups - End
+
 /**
  *  Constants to hold the internal urls
  * @type {string}
