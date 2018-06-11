@@ -15,9 +15,19 @@ import AddCoverageDialog from 'components/AddCoverageDialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PanelToolbar from 'components/PanelToolbar';
-import { PATIENT_ROLE_CODE } from 'containers/App/constants';
 import CoverageTable from 'components/CoverageTable';
-import makeSelectCoverages from './selectors';
+import { getLookupsAction } from 'containers/App/actions';
+import {
+  POLICYHOLDER_RELATIONSHIP,
+  FM_STATUS,
+  COVERAGE_TYPE,
+  PATIENT_ROLE_CODE,
+} from 'containers/App/constants';
+import {
+  makeSelectCoverageType,
+  makeSelectCoverageFmStatus,
+  makeSelectPolicyHolderRelationship,
+} from 'containers/App/lookupSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -35,8 +45,10 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     this.handleSaveCoverage = this.handleSaveCoverage.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getLookups();
+  }
   handleClick() {
-    console.log('Click new button');
     this.setState({ open: true });
   }
 
@@ -47,6 +59,7 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     this.setState({ open: false });
   }
   render() {
+    const { coverageType, coverageFmStatus, policyHolderRelationship } = this.props;
     const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
@@ -55,10 +68,12 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     };
 
     const addCoverageDialogProps = {
+      policyHolderRelationship,
+      coverageFmStatus,
+      coverageType,
       open: this.state.open,
       handleDialogClose: this.handleDialogClose,
       handleSaveCoverage: this.handleSaveCoverage,
-
     };
     return (
       <div>
@@ -74,16 +89,21 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
 }
 
 Coverages.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getLookups: PropTypes.func.isRequired,
+  coverageType: PropTypes.array.isRequired,
+  coverageFmStatus: PropTypes.array.isRequired,
+  policyHolderRelationship: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  coverages: makeSelectCoverages(),
+  policyHolderRelationship: makeSelectPolicyHolderRelationship(),
+  coverageFmStatus: makeSelectCoverageFmStatus(),
+  coverageType: makeSelectCoverageType(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getLookups: () => dispatch(getLookupsAction([POLICYHOLDER_RELATIONSHIP, FM_STATUS, COVERAGE_TYPE])),
   };
 }
 
