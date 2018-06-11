@@ -20,7 +20,7 @@ function* loginSaga(loginAction) {
     const loginResponse = yield call(login, loginAction.loginCredentials);
     const { authData, autologin: { code } } = loginResponse;
     const { user_id, user_name, email, scope, ext_attr } = yield call(jwt.decode, authData.access_token);
-    const roleScope = find(scope, (s) => s.startsWith('ocp.role'));
+    const roleScope = find(scope, (s) => (s.startsWith('ocp.role') && !s.startsWith('ocp.role.smart')));
     const userRole = yield call(getRoleByScope, roleScope);
     yield put(setUser({ user_id, user_name, email, scope, ext_attr, role: userRole }));
 
