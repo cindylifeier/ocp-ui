@@ -9,17 +9,11 @@ const selectCoveragesDomain = (state) => state.get('coverages');
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by Coverages
- */
-
-const makeSelectCoverages = () => createSelector(
+const makeSelectSubscriptionOptions = () => createSelector(
   selectCoveragesDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('subscriptionOptions').toJS(),
 );
 
-export default makeSelectCoverages;
 export {
-  selectCoveragesDomain,
+  makeSelectSubscriptionOptions,
 };

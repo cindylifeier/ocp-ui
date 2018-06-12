@@ -6,15 +6,18 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  GET_SUBSCRIBER_OPTIONS_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  subscriptionOptions: [],
+});
 
 function coveragesReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case GET_SUBSCRIBER_OPTIONS_SUCCESS:
+      return state
+        .set('subscriptionOptions', fromJS((action.subscriberOptions) || []));
     default:
       return state;
   }
