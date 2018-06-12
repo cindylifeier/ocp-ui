@@ -20,58 +20,85 @@ function AddCoverageForm(props) {
     coverageType,
     handleDialogClose,
     handleSaveCoverage,
+    subscriptionOptions,
+    patient,
   } = props;
   const today = new Date();
+
+  function getPatientFullName() {
+    const { name } = patient;
+    let fullName = '';
+    if (name && name.length > 0) {
+      fullName = `${name[0].firstName} ${name[0].lastName}`;
+    }
+    return fullName;
+  }
+  function setInitialValues() {
+    return {
+      beneficiary: getPatientFullName(),
+      startDate: today,
+      endDate: today,
+    };
+  }
   return (
     <div>
       <Formik
-        onSubmit={(values) => {
-          // if (initialValues) {
-          //   onRemoveAddress(initialValues.index);
-          // }
-          // onAddAddress(values);
-          handleSaveCoverage();
-          console.log(values);
+        onSubmit={(values, actions) => {
+          const coverageData = values;
+          handleSaveCoverage(coverageData, actions);
         }}
-        initialValues={{}}
-        validationSchema={yup.object().shape({
-          // beneficiary: yup.string()
-          //   .required((<FormattedMessage {...messages.validation.required} />)),
-          // subscriber: yup.string()
-          //   .required((<FormattedMessage {...messages.validation.required} />)),
-          // relationship: yup.string()
-          //   .required((<FormattedMessage {...messages.validation.required} />)),
-          // subscriberId: yup.string()
-          //   .required((<FormattedMessage {...messages.validation.required} />)),
-          // status: yup.string()
-          //   .required((<FormattedMessage {...messages.validation.required} />)),
-          // type: yup.string()
-          //   .required((<FormattedMessage {...messages.validation.required} />)),
-          // startDate: yup.date()
-          //   .required((<FormattedMessage {...messages.validation.required} />))
-          //   .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
-          // endDate: yup.date()
-          //   .required((<FormattedMessage {...messages.validation.required} />))
-          //   .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
-        })}
+        initialValues={setInitialValues(patient)}
+        validationSchema={() =>
+          yup.lazy((values) => {
+            let startDate = new Date();
+
+            if (values.startDate) {
+              startDate = values.startDate;
+            }
+            return yup.object().shape({
+              beneficiary: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              subscriber: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              relationship: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              subscriberId: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              status: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              type: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              startDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(today.toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+              endDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
+                .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+            });
+          })}
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
             <Grid columns="repeat(2, 1fr)">
               <Cell>
                 <TextField
                   fullWidth
+                  disabled
                   name="beneficiary"
                   hintText={<FormattedMessage {...messages.hintText.beneficiary} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.beneficiary} />}
                 />
               </Cell>
               <Cell>
-                <TextField
+                <SelectField
                   fullWidth
                   name="subscriber"
                   hintText={<FormattedMessage {...messages.hintText.subscriber} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.subscriber} />}
-                />
+                >
+                  {subscriptionOptions && subscriptionOptions.map((entry) =>
+                    <MenuItem key={entry.reference} value={entry.reference} primaryText={entry.display} />,
+                  )}
+                </SelectField>
               </Cell>
 
               <Cell>
@@ -164,9 +191,11 @@ function AddCoverageForm(props) {
 AddCoverageForm.propTypes = {
   policyHolderRelationship: PropTypes.array.isRequired,
   coverageFmStatus: PropTypes.array.isRequired,
+  subscriptionOptions: PropTypes.array.isRequired,
   coverageType: PropTypes.array.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
   handleSaveCoverage: PropTypes.func.isRequired,
+  patient: PropTypes.object.isRequired,
 };
 
 export default AddCoverageForm;

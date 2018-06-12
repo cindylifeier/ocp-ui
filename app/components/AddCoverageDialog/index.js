@@ -22,6 +22,8 @@ class AddCoverageDialog extends React.Component { // eslint-disable-line react/p
       policyHolderRelationship,
       coverageFmStatus,
       coverageType,
+      patient,
+      subscriptionOptions,
     } = this.props;
 
     const addCoverageFormProps = {
@@ -30,6 +32,8 @@ class AddCoverageDialog extends React.Component { // eslint-disable-line react/p
       coverageType,
       handleSaveCoverage,
       handleDialogClose,
+      patient,
+      subscriptionOptions,
     };
 
     return (
@@ -51,9 +55,11 @@ AddCoverageDialog.propTypes = {
   open: PropTypes.bool,
   handleDialogClose: PropTypes.func.isRequired,
   handleSaveCoverage: PropTypes.func.isRequired,
+  subscriptionOptions: PropTypes.array.isRequired,
   policyHolderRelationship: PropTypes.array.isRequired,
   coverageFmStatus: PropTypes.array.isRequired,
   coverageType: PropTypes.array.isRequired,
+  patient: PropTypes.object.isRequired,
 };
 
 export default AddCoverageDialog;
