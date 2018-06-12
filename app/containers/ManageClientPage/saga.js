@@ -4,9 +4,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
-import { getClients } from 'containers/SmartAppLauncher/api';
 import { saveClientError, saveClientSuccess, getClientsSuccess, getClientsError, deleteClientSuccess, deleteClientError } from './actions';
-import { saveClient, deleteClient, mapToClientMetaDto } from './api';
+import { saveClient, deleteClient, mapToClientMetaDto, getClients } from './api';
 import { GET_CLIENTS, SAVE_CLIENT, DELETE_CLIENT } from './constants';
 
 export function* saveClientSaga(action) {

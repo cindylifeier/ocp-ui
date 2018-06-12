@@ -59,7 +59,7 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
           <FormattedMessage {...messages.addClient} />
         </AddNewItemButton>
         <Grid columns={5} justifyContent="space-around" gap="16px">
-          {smartApps && smartApps.map(({ clientId, clientName, appIcon }) => (
+          {smartApps && smartApps.map(({ clientId, name, appIcon }) => (
             <Cell key={clientId} middle>
               <HorizontalAlignment position="center">
                 <Grid columns={1}>
@@ -67,12 +67,12 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
                     <StyledImage
                       height="180px"
                       width="180px"
-                      alt={`${clientName}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
+                      alt={`${name}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
                       src={`${ManageClient.SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
                     />
                   </Cell>
                   <Cell center>
-                    <StyledText fontSize="20px">{clientName}</StyledText>
+                    <StyledText fontSize="20px">{name}</StyledText>
                   </Cell>
                   <Cell center>
                     <StyledRaisedButton onClick={() => onDeleteClient && onDeleteClient(clientId)}>
@@ -109,7 +109,7 @@ ManageClient.propTypes = {
   onDeleteClient: PropTypes.func,
   smartApps: PropTypes.arrayOf(PropTypes.shape({
     clientId: PropTypes.string.isRequired,
-    clientName: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     appIcon: PropTypes.string,
   })),
 };

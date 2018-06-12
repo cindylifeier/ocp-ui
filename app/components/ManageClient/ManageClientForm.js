@@ -28,20 +28,20 @@ function ManageClientForm(props) {
           handleCloseDialog();
         }}
         validationSchema={yup.object().shape({
-          client_id: yup.string()
+          clientId: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          client_type: yup.string()
+          clientType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           scope: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           name: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          redirect_uri: yup.string()
+          redirectUri: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           appLaunchUrl: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          client_secret: yup.string()
-            .when('client_type', {
+          clientSecret: yup.string()
+            .when('clientType', {
               is: 'CREDENTIAL',
               then: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
@@ -60,29 +60,29 @@ function ManageClientForm(props) {
               <Cell>
                 <SelectField
                   fullWidth
-                  name="client_type"
-                  hintText={<FormattedMessage {...messages.hintText.client_type} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_type} />}
+                  name="clientType"
+                  hintText={<FormattedMessage {...messages.hintText.clientType} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientType} />}
                 >
                   <MenuItem value={'PUBLIC'} primaryText="PUBLIC" />
                   <MenuItem value={'CREDENTIAL'} primaryText="CREDENTIAL" />
                 </SelectField>
               </Cell>
-              { values.client_type === 'CREDENTIAL' && <Cell>
+              { values.clientType === 'CREDENTIAL' && <Cell>
                 <TextField
                   fullWidth
-                  name="client_secret"
-                  hintText={<FormattedMessage {...messages.hintText.client_secret} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_secret} />}
+                  name="clientSecret"
+                  hintText={<FormattedMessage {...messages.hintText.clientSecret} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientSecret} />}
                 />
               </Cell>
               }
               <Cell>
                 <TextField
                   fullWidth
-                  name="client_id"
-                  hintText={<FormattedMessage {...messages.hintText.client_id} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_id} />}
+                  name="clientId"
+                  hintText={<FormattedMessage {...messages.hintText.clientId} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientId} />}
                 />
               </Cell>
               <Cell>
@@ -104,9 +104,9 @@ function ManageClientForm(props) {
               <Cell>
                 <TextField
                   fullWidth
-                  name="redirect_uri"
-                  hintText={<FormattedMessage {...messages.hintText.redirect_uri} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.redirect_uri} />}
+                  name="redirectUri"
+                  hintText={<FormattedMessage {...messages.hintText.redirectUri} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.redirectUri} />}
                 />
               </Cell>
               <Cell>
