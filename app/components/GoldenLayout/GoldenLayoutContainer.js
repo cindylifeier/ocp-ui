@@ -24,7 +24,6 @@ const GoldenLayoutContainer = styled.div`
   & .lm_header + .lm_items {
     background: #fff;
     border: 1px solid #099;
-    padding: 0 10px 0 10px;
     border-top: 0;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -46,7 +45,7 @@ const GoldenLayoutContainer = styled.div`
   & .lm_content {
     overflow: auto;
     border: 0;
-    background: #fff;
+    background: transparent;
   }
 
   & .lm_tabs {

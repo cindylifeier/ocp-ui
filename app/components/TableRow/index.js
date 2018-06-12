@@ -14,7 +14,7 @@ function TableRow({ children, columns, onClick, onKeyPress, role, tabIndex }) {
   const additionalProps = pickBy({ onClick, onKeyPress, role, tabIndex });
   return (
     <TableRowGrid
-      gap="5px"
+      gap="0px"
       columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}
       {...additionalProps}
     >

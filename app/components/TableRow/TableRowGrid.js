@@ -1,7 +1,7 @@
 import { Grid } from 'styled-css-grid';
 
 const TableRowGrid = Grid.extend`
-  border-bottom: 1px outset rgb(51, 51, 51);
+  border-bottom: 1px solid #ccc;
 
   &:nth-child(odd) {
     background-color: #fff;
@@ -13,7 +13,7 @@ const TableRowGrid = Grid.extend`
   }
 
   &:hover {
-    background-color: #dce4ef;
+    background-color: #fcfcfc;
     cursor: pointer;
   }
 

@@ -26,7 +26,6 @@ const AddNewItemButton = styled(StyledFlatButton)`
     font-size: ${({ fontSize }) => fontSize};
     font-weight: ${({ fontWeight }) => fontWeight};
     padding-left: 5px;
-    max-height: 32px;
   }
 
   &&:hover {
