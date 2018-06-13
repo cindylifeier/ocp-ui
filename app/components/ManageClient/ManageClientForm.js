@@ -36,17 +36,17 @@ function ManageClientForm(props) {
         type: 'image/png',
       }];
       defaultImage = [`${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`];
-      initialValueClient = {
-        clientId,
-        clientType,
-        scope: join(scope, ','),
-        name,
-        redirectUri: join(redirectUri, ','),
-        appLaunchUrl,
-        appIcon: initialAppIcon,
-        clientSecret: '************',
-      };
     }
+    initialValueClient = {
+      clientId,
+      clientType,
+      scope: join(scope, ','),
+      name,
+      redirectUri: join(redirectUri, ','),
+      appLaunchUrl,
+      appIcon: initialAppIcon,
+      clientSecret: '************',
+    };
   }
   return (
     <div>
