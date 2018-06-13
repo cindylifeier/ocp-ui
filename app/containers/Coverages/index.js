@@ -23,6 +23,7 @@ import {
   COVERAGE_TYPE,
   PATIENT_ROLE_CODE,
   CARE_COORDINATOR_ROLE_CODE,
+  DEFAULT_START_PAGE_NUMBER,
 } from 'containers/App/constants';
 import {
   makeSelectCoverageType,
@@ -30,20 +31,22 @@ import {
   makeSelectPolicyHolderRelationship,
 } from 'containers/App/lookupSelectors';
 
-import {
-  getSaveCoverageAction,
-  getSubscriberOptions,
-} from 'containers/Coverages/actions';
-
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { makeSelectSubscriptionOptions } from './selectors';
-
+import {
+  getSaveCoverageAction,
+  getSubscriberOptions,
+  getCoverageAction,
+} from './actions';
+import {
+  makeSelectSubscriptionOptions,
+  makeSelectCoverages,
+  makeSelectCoverageLoading,
+} from './selectors';
 
 export class Coverages extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
     this.state = {
@@ -52,13 +55,20 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     this.handleClick = this.handleClick.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleSaveCoverage = this.handleSaveCoverage.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   componentDidMount() {
     const { patient } = this.props;
     this.props.getLookups();
+    this.props.getCoverages(DEFAULT_START_PAGE_NUMBER);
     this.props.getSubscriberOptions(patient.id);
   }
+
+  handlePageClick(pageNumber) {
+    this.props.getCoverages(pageNumber);
+  }
+
   handleClick() {
     this.setState({ open: true });
   }
@@ -71,7 +81,15 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
     this.setState({ open: false });
   }
   render() {
-    const { coverageType, coverageFmStatus, policyHolderRelationship, subscriptionOptions, patient } = this.props;
+    const {
+      coverageType,
+      coverageFmStatus,
+      policyHolderRelationship,
+      subscriptionOptions,
+      patient,
+      data,
+      loading,
+    } = this.props;
     const addNewItem = {
       addNewItem: {
         labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
@@ -89,13 +107,18 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
       handleDialogClose: this.handleDialogClose,
       handleSaveCoverage: this.handleSaveCoverage,
     };
+
     return (
       <div>
         <PanelToolbar
           {...addNewItem}
           allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
         />
-        <CoverageTable></CoverageTable>
+        <CoverageTable
+          coverageData={data}
+          loading={loading}
+          handleChangePage={this.handlePageClick}
+        ></CoverageTable>
         <AddCoverageDialog {...addCoverageDialogProps}></AddCoverageDialog>
       </div>
     );
@@ -105,12 +128,15 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
 Coverages.propTypes = {
   getLookups: PropTypes.func.isRequired,
   getSubscriberOptions: PropTypes.func.isRequired,
+  getCoverages: PropTypes.func.isRequired,
   onSaveCoverage: PropTypes.func.isRequired,
   coverageType: PropTypes.array.isRequired,
   coverageFmStatus: PropTypes.array.isRequired,
   policyHolderRelationship: PropTypes.array.isRequired,
   subscriptionOptions: PropTypes.array.isRequired,
   patient: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  data: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -119,6 +145,8 @@ const mapStateToProps = createStructuredSelector({
   coverageType: makeSelectCoverageType(),
   patient: makeSelectPatient(),
   subscriptionOptions: makeSelectSubscriptionOptions(),
+  data: makeSelectCoverages(),
+  loading: makeSelectCoverageLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -126,6 +154,7 @@ function mapDispatchToProps(dispatch) {
     getLookups: () => dispatch(getLookupsAction([POLICYHOLDER_RELATIONSHIP, FM_STATUS, COVERAGE_TYPE])),
     getSubscriberOptions: (patientId) => dispatch(getSubscriberOptions(patientId)),
     onSaveCoverage: (coverageData, handleSubmitting) => dispatch(getSaveCoverageAction(coverageData, handleSubmitting)),
+    getCoverages: (pageNumber) => dispatch(getCoverageAction(pageNumber)),
   };
 }
 
