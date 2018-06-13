@@ -18,6 +18,7 @@ import {
   MANAGE_USERS_URL,
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
+  MANAGE_CLIENT_URL,
 } from 'containers/App/constants';
 import messages from './messages';
 import NavigationButton from './NavigationButton';
@@ -47,6 +48,14 @@ function PrivateNavigation(props) {
             <ActionBuild color="#9cc" />
           </StyledIconButton>
           {<FormattedMessage {...messages.manageUsersButton} />}
+        </NavigationButton>
+        }
+        {role === OCP_ADMIN_ROLE_CODE &&
+        <NavigationButton component={Link} to={MANAGE_CLIENT_URL}>
+          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+            <ActionBuild color="#9cc" />
+          </StyledIconButton>
+          {<FormattedMessage {...messages.manageSmartApps} />}
         </NavigationButton>
         }
       </ToolbarGroup>
