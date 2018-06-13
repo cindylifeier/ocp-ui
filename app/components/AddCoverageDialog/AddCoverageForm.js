@@ -6,6 +6,7 @@ import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'components/DatePicker';
+import find from 'lodash/find';
 
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -33,6 +34,14 @@ function AddCoverageForm(props) {
     }
     return fullName;
   }
+
+  function composePatientReference() {
+    return {
+      reference: `Patient/${patient.id}`,
+      display: getPatientFullName(),
+    };
+  }
+
   function setInitialValues() {
     return {
       beneficiary: getPatientFullName(),
@@ -44,7 +53,18 @@ function AddCoverageForm(props) {
     <div>
       <Formik
         onSubmit={(values, actions) => {
-          const coverageData = values;
+          const subscriberReference = find(subscriptionOptions, { reference: values.subscriber });
+          const { startDate, endDate, type, status, subscriberId, relationship } = values;
+          const coverageData = {
+            subscriber: subscriberReference,
+            beneficiary: composePatientReference(),
+            startDate: startDate.toLocaleDateString(),
+            endDate: endDate.toLocaleDateString(),
+            type,
+            status,
+            subscriberId,
+            relationship,
+          };
           handleSaveCoverage(coverageData, actions);
         }}
         initialValues={setInitialValues(patient)}
