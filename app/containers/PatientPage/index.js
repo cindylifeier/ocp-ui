@@ -20,6 +20,7 @@ import renderCommunicationsComponent from 'containers/Communications/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import PatientDetails from 'components/PatientDetails';
+import SmartAppsGallery from 'containers/SmartAppsGallery';
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
 import { flattenPatientData } from 'containers/PatientWorkspacePage/helpers';
@@ -151,6 +152,7 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
             {...patientDetailsProps}
             flattenPatientData={flattenPatientData}
           />
+          <SmartAppsGallery />
           <GoldenLayout
             containerId="golden-patient"
             containerHeight="75vh"
