@@ -75,7 +75,7 @@ export default defineMessages({
     },
     coverageType: {
       id: 'ocpui.components.AddCoverageDialog.hintText.coverageType',
-      defaultMessage: 'coverageType',
+      defaultMessage: 'Coverage Type',
     },
     startDate: {
       id: 'ocpui.components.AddCoverageDialog.hintText.startDate',
@@ -101,7 +101,7 @@ export default defineMessages({
     },
     subscriberId: {
       id: 'ocpui.components.AddCoverageDialog.floatingLabelText.subscriberId',
-      defaultMessage: 'SubscriberId',
+      defaultMessage: 'Subscriber Id',
     },
     status: {
       id: 'ocpui.components.AddCoverageDialog.floatingLabelText.status',
@@ -109,7 +109,7 @@ export default defineMessages({
     },
     coverageType: {
       id: 'ocpui.components.AddCoverageDialog.floatingLabelText.coverageType',
-      defaultMessage: 'coverageType',
+      defaultMessage: 'Coverage Type',
     },
     startDate: {
       id: 'ocpui.components.AddCoverageDialog.floatingLabelText.startDate',
