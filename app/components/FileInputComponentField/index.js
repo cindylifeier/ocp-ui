@@ -22,7 +22,6 @@ function FileInputComponentFieldBridge(props) {
         name={name}
         value={value}
         callbackFunction={(fileArr) => {
-          console.log(fileArr);
           setFieldValue(name, fileArr);
         }}
         errorText={errors[name]}
@@ -34,7 +33,6 @@ function FileInputComponentFieldBridge(props) {
     <FileInputComponent
       name={name}
       callbackFunction={(fileArr) => {
-        console.log(fileArr);
         setFieldValue(name, fileArr);
       }}
       errorText={errors[name]}

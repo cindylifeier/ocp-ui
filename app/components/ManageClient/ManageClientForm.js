@@ -26,19 +26,27 @@ function ManageClientForm(props) {
   } = props;
   let initialValueClient = null;
   let initialAppIcon = [];
+  let defaultImage = [];
   if (initialValues !== null) {
     const { clientId, clientType, scope, name, redirectUri, appLaunchUrl, appIcon } = initialValues;
-    initialAppIcon = [{ base64: `${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`, name: 'default.png', size: '11', type: 'image/png', file: { name: 'default.png', size: '11', type: 'image/png' } }];
-    initialValueClient = {
-      clientId,
-      clientType,
-      scope: join(scope, ','),
-      name,
-      redirectUri: join(redirectUri, ','),
-      appLaunchUrl,
-      appIcon: initialAppIcon,
-      clientSecret: '************',
-    };
+    if (appIcon !== '' && appIcon !== undefined) {
+      initialAppIcon = [{
+        base64: `${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`,
+        name: 'default.png',
+        type: 'image/png',
+      }];
+      defaultImage = [`${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`];
+      initialValueClient = {
+        clientId,
+        clientType,
+        scope: join(scope, ','),
+        name,
+        redirectUri: join(redirectUri, ','),
+        appLaunchUrl,
+        appIcon: initialAppIcon,
+        clientSecret: '************',
+      };
+    }
   }
   return (
     <div>
@@ -149,6 +157,7 @@ function ManageClientForm(props) {
                   name="appIcon"
                   labelText="App Logo"
                   accept="image/*"
+                  defaultFiles={defaultImage}
                   imageStyle={{ width: 150, height: 150 }}
                   buttonComponent={<StyledRaisedButton> Select Image </StyledRaisedButton>}
                 />
