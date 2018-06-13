@@ -20,7 +20,7 @@ function ToDoList(props) {
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   return (
     <div>
-      <Padding top={'10px'} right={'10px'} bottom={'10px'} left={'10px'}>
+      <Padding top={10} right={10} bottom={10} left={10}>
         {toDos && toDos.length > 0 &&
         <div>
           {!isEmpty(toDos) && toDos.map((toDo) =>

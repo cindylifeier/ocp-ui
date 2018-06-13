@@ -76,7 +76,7 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
       onClick: () => openDialog(toDoLogicalId),
     }];
     return (
-      <Padding bottom={'5px'} >
+      <Padding bottom={5}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen} >
           <ExpansionPanelSummary >
             <ToDoCardCell top={1} left={1} width={14}>
