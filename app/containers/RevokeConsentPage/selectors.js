@@ -5,21 +5,25 @@ import { createSelector } from 'reselect';
  */
 const selectRevokeConsentPageDomain = (state) => state.get('revokeConsentPage');
 
-/**
- * Other specific selectors
- */
 
-
-/**
- * Default selector used by RevokeConsentPage
- */
-
-const makeSelectRevokeConsentPage = () => createSelector(
+const makeSelectGetConsentError = () => createSelector(
   selectRevokeConsentPageDomain,
-  (substate) => substate.toJS()
+  (subState) => subState.get('error'),
 );
 
-export default makeSelectRevokeConsentPage;
+const makeSelectConsent = () => createSelector(
+  selectRevokeConsentPageDomain,
+  (subState) => subState && subState.get('consent'),
+);
+
+const makeSelectIsAuthenticated = () => createSelector(
+  selectRevokeConsentPageDomain,
+  (subState) => subState && subState.get('isAuthenticated'),
+);
+
 export {
   selectRevokeConsentPageDomain,
+  makeSelectGetConsentError,
+  makeSelectConsent,
+  makeSelectIsAuthenticated,
 };
