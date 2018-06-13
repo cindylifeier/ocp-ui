@@ -22,7 +22,6 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import StyledIconButton from 'components/StyledIconButton';
 import StyledTooltip from 'components/StyledTooltip';
 import PatientBannerSection from 'components/PatientBannerSection';
-import SmartAppLauncher from 'containers/SmartAppLauncher';
 import StyledExpansionDetails from './StyledExpansionDetails';
 import ExpansionDetails from './ExpansionDetails';
 import messages from './messages';
@@ -89,9 +88,6 @@ class PatientDetails extends React.Component {
             </ShowHideWrapper>
           </Cell>
           }
-          <Cell middle>
-            <SmartAppLauncher />
-          </Cell>
         </Grid>
         <StyledExpansionDetails expanded={this.state.expansionPanelOpen}>
           <ExpansionDetails patient={flattenPatient} />

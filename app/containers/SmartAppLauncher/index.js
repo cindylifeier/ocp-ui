@@ -21,15 +21,13 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledDialog from 'components/StyledDialog';
-import InfoSection from 'components/InfoSection';
 import StickyDiv from 'components/StickyDiv';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
-import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE } from 'containers/App/constants';
 import { makeSelectConfig } from 'containers/App/selectors';
 import makeSelectContext from 'containers/App/contextSelectors';
-import ShowHideWrapper from 'containers/ShowHideWrapper';
+import LaunchButton from 'components/SmartApps/LaunchButton';
 import { makeSelectSmartApps } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -74,13 +72,11 @@ export class SmartAppLauncher extends React.Component {
   render() {
     const { smartApps } = this.props;
     return (
-      <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}>
-        <StyledFlatButton onClick={this.handleSmartAppsDialogToggle}>
+      <div>
+        <LaunchButton onClick={this.handleSmartAppsDialogToggle}>
           <Apps />
-          <InfoSection fontSize="14px">
-            <FormattedMessage {...messages.buttonLabel} />
-          </InfoSection>
-        </StyledFlatButton>
+          <FormattedMessage {...messages.buttonLabel} />
+        </LaunchButton>
         <StyledDialog open={this.state.smartAppsDialogOpen} onClose={this.handleSmartAppsDialogToggle}>
           <StickyDiv>
             <DialogTitle>
@@ -134,7 +130,7 @@ export class SmartAppLauncher extends React.Component {
             </Grid>
           </DialogContent>
         </StyledDialog>
-      </ShowHideWrapper>
+      </div>
     );
   }
 }

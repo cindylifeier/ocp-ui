@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.SmartApps.header',
-    defaultMessage: 'This is the SmartApps component !',
+  c2sLaunchButton: {
+    id: 'ocpui.components.SmartApps.c2sLaunchButton',
+    defaultMessage: 'C2S Smart',
   },
 });
