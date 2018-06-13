@@ -7,7 +7,7 @@ export function getClients() {
   return request(baseEndpoint);
 }
 
-export function saveClient(clientFormData) {
+export function createClient(clientFormData) {
   const requestURL = `${baseEndpoint}`;
   return request(requestURL, {
     method: 'POST',
@@ -19,15 +19,14 @@ export function saveClient(clientFormData) {
 }
 
 export function updateClient(clientFormData) {
-  const requestURL = `${baseEndpoint}/${clientFormData.client_id}`;
-  request(requestURL, {
+  const requestURL = `${baseEndpoint}/${clientFormData.clientId}`;
+  return request(requestURL, {
     method: 'PUT',
     body: JSON.stringify(mapToBackendDto(clientFormData)),
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  return mapToClientMetaDto(clientFormData);
 }
 
 export function deleteClient(clientId) {
@@ -37,7 +36,7 @@ export function deleteClient(clientId) {
   });
 }
 
-function mapToBackendDto(clientFormData) {
+export function mapToBackendDto(clientFormData) {
   const { appIcon, appLaunchUrl, clientId, clientType, name, redirectUri, scope } = clientFormData;
   const appIconByte = appIcon && appIcon[0] && appIcon[0].base64;
   return {
@@ -48,16 +47,5 @@ function mapToBackendDto(clientFormData) {
     name,
     redirectUri: redirectUri.replace(/\s+/g, '').split(','),
     scope: scope.replace(/\s+/g, '').split(','),
-  };
-}
-
-export function mapToClientMetaDto(clientFormData) {
-  const { appIcon, appLaunchUrl, clientId, name } = clientFormData;
-  const appIconByte = appIcon && appIcon[0] && appIcon[0].base64;
-  return {
-    appIcon: appIconByte && appIconByte.substring(appIconByte.indexOf(',') + 1),
-    appLaunchUrl,
-    clientId,
-    name,
   };
 }

@@ -5,6 +5,8 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
+import join from 'lodash/join';
+import merge from 'lodash/merge';
 
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -12,21 +14,43 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import FileInputComponentField from 'components/FileInputComponentField';
 import TextField from 'components/TextField';
 import messages from './messages';
+import { SMART_APP_LOGO_SRC_PREFIX } from './constants';
 
 function ManageClientForm(props) {
   /* const imageFormat = new RegExp('(/(gif|jpg|jpeg|tiff|png)$/i)');
   const imageSize = 500;*/
   const {
+    initialValues,
     handleCloseDialog,
     onSaveClient,
   } = props;
+  let initialValueClient = null;
+  let initialAppIcon = [];
+  if (initialValues !== null) {
+    const { clientId, clientType, scope, name, redirectUri, appLaunchUrl, appIcon } = initialValues;
+    initialAppIcon = [{ base64: `${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`, name: 'default.png', size: '11', type: 'image/png', file: { name: 'default.png', size: '11', type: 'image/png' } }];
+    initialValueClient = {
+      clientId,
+      clientType,
+      scope: join(scope, ','),
+      name,
+      redirectUri: join(redirectUri, ','),
+      appLaunchUrl,
+      appIcon: initialAppIcon,
+      clientSecret: '************',
+    };
+  }
   return (
     <div>
       <Formik
         onSubmit={(values, actions) => {
+          if (initialValues !== null) {
+            onSaveClient(merge(values, { isEdit: true }), actions);
+          }
           onSaveClient(values, actions);
           handleCloseDialog();
         }}
+        initialValues={{ ...initialValueClient }}
         validationSchema={yup.object().shape({
           clientId: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -61,6 +85,7 @@ function ManageClientForm(props) {
                 <SelectField
                   fullWidth
                   name="clientType"
+                  disabled={initialValueClient !== null}
                   hintText={<FormattedMessage {...messages.hintText.clientType} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientType} />}
                 >
@@ -72,6 +97,7 @@ function ManageClientForm(props) {
                 <TextField
                   fullWidth
                   name="clientSecret"
+                  disabled={initialValueClient !== null}
                   hintText={<FormattedMessage {...messages.hintText.clientSecret} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientSecret} />}
                 />
@@ -81,6 +107,7 @@ function ManageClientForm(props) {
                 <TextField
                   fullWidth
                   name="clientId"
+                  disabled={initialValueClient !== null}
                   hintText={<FormattedMessage {...messages.hintText.clientId} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientId} />}
                 />
@@ -146,6 +173,10 @@ function ManageClientForm(props) {
 }
 
 ManageClientForm.propTypes = {
+  initialValues: PropTypes.shape({
+    clientId: PropTypes.string,
+    clientType: PropTypes.string,
+  }),
   handleCloseDialog: PropTypes.func.isRequired,
   onSaveClient: PropTypes.func.isRequired,
 };

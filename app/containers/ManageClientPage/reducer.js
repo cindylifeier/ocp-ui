@@ -17,7 +17,10 @@ function manageClientPageReducer(state = initialState, action) {
       return state.set('clients', fromJS(action.clients));
     case SAVE_CLIENT_SUCCESS: {
       const clients = state.get('clients').toJS();
-      return state.set('clients', fromJS(clients.concat(action.clientMetaDto)));
+      if (find(clients, { clientId: action.clientDto.clientId }) !== undefined) {
+        pull(clients, find(clients, { clientId: action.clientDto.clientId }));
+      }
+      return state.set('clients', fromJS(clients.concat(action.clientDto)));
     }
     case DELETE_CLIENT_SUCCESS: {
       const clients = state.get('clients').toJS();

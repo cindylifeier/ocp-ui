@@ -4,17 +4,28 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
-import { saveClientError, saveClientSuccess, getClientsSuccess, getClientsError, deleteClientSuccess, deleteClientError } from './actions';
-import { saveClient, deleteClient, mapToClientMetaDto, getClients } from './api';
-import { GET_CLIENTS, SAVE_CLIENT, DELETE_CLIENT } from './constants';
+import {
+  deleteClientError,
+  deleteClientSuccess,
+  getClientsError,
+  getClientsSuccess,
+  saveClientError,
+  saveClientSuccess,
+} from './actions';
+import { createClient, deleteClient, getClients, mapToBackendDto, updateClient } from './api';
+import { DELETE_CLIENT, GET_CLIENTS, SAVE_CLIENT } from './constants';
 
 export function* saveClientSaga(action) {
   try {
-    yield call(saveClient, action.clientFormData);
-    const clientMetaDto = yield call(mapToClientMetaDto, action.clientFormData);
+    if (action.clientFormData.isEdit) {
+      yield call(updateClient, action.clientFormData);
+    } else {
+      yield call(createClient, action.clientFormData);
+    }
+    const clientDto = yield call(mapToBackendDto, action.clientFormData);
     yield put(showNotification(`Successfully ${getNotificationAction(action.clientFormData)} the SMART app.`));
     yield call(action.handleSubmitting);
-    yield put(saveClientSuccess(clientMetaDto));
+    yield put(saveClientSuccess(clientDto));
   } catch (error) {
     yield put(saveClientError(error));
     yield put(showNotification(`Failed to ${getNotificationAction(action.clientFormData)} the SMART app.`));
@@ -46,7 +57,7 @@ export function* deleteClientsSaga(action) {
 function getNotificationAction(clientFormData) {
   let action = 'create';
   if (clientFormData.isEdit) {
-    action = 'edit';
+    action = 'update';
   }
   return action;
 }
