@@ -19,6 +19,7 @@ import StyledDialog from 'components/StyledDialog';
 import messages from './messages';
 
 const CONSENT_STATUS_DRAFT = 'DRAFT';
+const CONSENT_STATUS_ACTIVE = 'ACTIVE';
 
 class ConsentOptions extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -108,6 +109,19 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                   <FormattedMessage {...messages.consentDialog.previewConsentOption} />
                 </Button>
               </Cell>
+              {
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_ACTIVE) &&
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    component={Link}
+                    to={`/c2s-sof-ui/revoke-consent/${logicalId}`}
+                  >
+                    <FormattedMessage {...messages.consentDialog.revokeConsentOption} />
+                  </Button>
+                </Cell>
+              }
             </Grid>
           </DialogContent>
         </StyledDialog>
