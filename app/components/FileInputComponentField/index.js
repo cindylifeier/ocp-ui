@@ -12,7 +12,24 @@ import FileInputComponent from 'react-file-input-previews-base64';
 
 
 function FileInputComponentFieldBridge(props) {
-  const { field: { name }, form: { setFieldValue, errors }, ...rest } = props;
+  const { field: { name, value }, form: { setFieldValue, errors, initialValues }, ...rest } = props;
+  const initialValue = initialValues[name];
+  // if initial value exists
+  if (initialValue) {
+    // make it a controlled component
+    return (
+      <FileInputComponent
+        name={name}
+        value={value}
+        callbackFunction={(fileArr) => {
+          console.log(fileArr);
+          setFieldValue(name, fileArr);
+        }}
+        errorText={errors[name]}
+        {...rest}
+      />);
+  }
+
   return (
     <FileInputComponent
       name={name}

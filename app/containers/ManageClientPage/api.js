@@ -37,13 +37,14 @@ export function deleteClient(clientId) {
 }
 
 export function mapToBackendDto(clientFormData) {
-  const { appIcon, appLaunchUrl, clientId, clientType, name, redirectUri, scope } = clientFormData;
+  const { appIcon, appLaunchUrl, clientId, clientType, name, redirectUri, scope, clientSecret } = clientFormData;
   const appIconByte = appIcon && appIcon[0] && appIcon[0].base64;
   return {
     appIcon: appIconByte && appIconByte.substring(appIconByte.indexOf(',') + 1),
     appLaunchUrl,
     clientId,
     clientType,
+    clientSecret,
     name,
     redirectUri: redirectUri.replace(/\s+/g, '').split(','),
     scope: scope.replace(/\s+/g, '').split(','),

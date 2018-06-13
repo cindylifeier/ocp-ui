@@ -14,7 +14,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import FileInputComponentField from 'components/FileInputComponentField';
 import TextField from 'components/TextField';
 import messages from './messages';
-import { SMART_APP_LOGO_SRC_PREFIX } from './constants';
+import { SMART_APP_LOGO_SRC_PREFIX, CLIENT_TYPE_CONFIDENTIAL, CLIENT_TYPE_PUBLIC } from './constants';
 
 function ManageClientForm(props) {
   /* const imageFormat = new RegExp('(/(gif|jpg|jpeg|tiff|png)$/i)');
@@ -66,7 +66,7 @@ function ManageClientForm(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           clientSecret: yup.string()
             .when('clientType', {
-              is: 'CREDENTIAL',
+              is: CLIENT_TYPE_CONFIDENTIAL,
               then: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
             }),
@@ -89,20 +89,10 @@ function ManageClientForm(props) {
                   hintText={<FormattedMessage {...messages.hintText.clientType} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientType} />}
                 >
-                  <MenuItem value={'PUBLIC'} primaryText="PUBLIC" />
-                  <MenuItem value={'CREDENTIAL'} primaryText="CREDENTIAL" />
+                  <MenuItem value={CLIENT_TYPE_PUBLIC} primaryText={CLIENT_TYPE_PUBLIC} />
+                  <MenuItem value={CLIENT_TYPE_CONFIDENTIAL} primaryText={CLIENT_TYPE_CONFIDENTIAL} />
                 </SelectField>
               </Cell>
-              { values.clientType === 'CREDENTIAL' && <Cell>
-                <TextField
-                  fullWidth
-                  name="clientSecret"
-                  disabled={initialValueClient !== null}
-                  hintText={<FormattedMessage {...messages.hintText.clientSecret} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientSecret} />}
-                />
-              </Cell>
-              }
               <Cell>
                 <TextField
                   fullWidth
@@ -112,6 +102,16 @@ function ManageClientForm(props) {
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientId} />}
                 />
               </Cell>
+              { values.clientType === CLIENT_TYPE_CONFIDENTIAL && <Cell>
+                <TextField
+                  fullWidth
+                  name="clientSecret"
+                  disabled={initialValueClient !== null}
+                  hintText={<FormattedMessage {...messages.hintText.clientSecret} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientSecret} />}
+                />
+              </Cell>
+              }
               <Cell>
                 <TextField
                   fullWidth

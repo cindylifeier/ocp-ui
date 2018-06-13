@@ -21,13 +21,9 @@ import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import ManageClientForm from './ManageClientForm';
 import messages from './messages';
-
-// import styled from 'styled-components';
+import { SMART_APP_LOGO_ALT_SUFFIX, SMART_APP_LOGO_SRC_PREFIX } from './constants';
 
 class ManageClient extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
-  static SMART_APP_LOGO_SRC_PREFIX = 'data:image/png;base64,';
-  static SMART_APP_LOGO_ALT_SUFFIX = ' Logo';
 
   constructor(props) {
     super(props);
@@ -78,8 +74,8 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
                     <StyledImage
                       height="180px"
                       width="180px"
-                      alt={`${name}${ManageClient.SMART_APP_LOGO_ALT_SUFFIX}`}
-                      src={`${ManageClient.SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
+                      alt={`${name}${SMART_APP_LOGO_ALT_SUFFIX}`}
+                      src={`${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
                     />
                   </Cell>
                   <Cell center>
