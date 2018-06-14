@@ -66,6 +66,7 @@ ShallowWrapper {
               }
             }
           />
+          <withReducer(withSaga(Connect(SmartAppLauncher))) />
           <GoldenLayout
             componentMetadata={
               Array [
@@ -268,6 +269,7 @@ ShallowWrapper {
                 }
               }
             />,
+            <withReducer(withSaga(Connect(SmartAppLauncher))) />,
             <GoldenLayout
               componentMetadata={
                 Array [
@@ -419,6 +421,15 @@ ShallowWrapper {
                 ],
               },
             },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {},
             "ref": null,
             "rendered": null,
             "type": [Function],
@@ -597,6 +608,7 @@ ShallowWrapper {
                 }
               }
             />
+            <withReducer(withSaga(Connect(SmartAppLauncher))) />
             <GoldenLayout
               componentMetadata={
                 Array [
@@ -799,6 +811,7 @@ ShallowWrapper {
                   }
                 }
               />,
+              <withReducer(withSaga(Connect(SmartAppLauncher))) />,
               <GoldenLayout
                 componentMetadata={
                   Array [
@@ -950,6 +963,15 @@ ShallowWrapper {
                   ],
                 },
               },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {},
               "ref": null,
               "rendered": null,
               "type": [Function],
