@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { Cell, Grid } from 'styled-css-grid';
@@ -17,6 +16,15 @@ import LaunchButton from './LaunchButton';
 
 
 class SmartApps extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.handleLaunch = this.handleLaunch.bind(this);
+  }
+
+  handleLaunch(clientId) {
+    this.props.onCreateLaunch(clientId);
+  }
+
   render() {
     const { onCreateLaunch, smartApps, config, appShortcuts } = this.props;
     const registeredAppShortcuts = smartApps.filter((app) => appShortcuts.clientIds.includes(app.clientId));
@@ -24,12 +32,12 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
       <PanelSection>
         <Padding left={5} right={5} top={5} bottom={5}>
           <Grid gap="10px" columns="repeat(auto-fit, minmax(100px,250px))">
-            {registeredAppShortcuts && registeredAppShortcuts.map((app) => (
-              <Cell key={app.clientId}>
-                <LaunchButton component={Link} target="_blank" to={app.appLaunchUrl}>
-                  <Avatar size={25} src={`data:image/png;base64,${app.appIcon}`} />
+            {registeredAppShortcuts && registeredAppShortcuts.map(({ clientId, clientName, appIcon }) => (
+              <Cell key={clientId}>
+                <LaunchButton onClick={() => this.handleLaunch(clientId)}>
+                  <Avatar size={25} src={`data:image/png;base64,${appIcon}`} />
                   <StyledText fontWeight={600} whiteSpace>
-                    {app.clientName}
+                    {clientName}
                   </StyledText>
                 </LaunchButton>
               </Cell>
