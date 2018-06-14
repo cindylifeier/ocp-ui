@@ -17,6 +17,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import LaunchButton from 'components/SmartApps/LaunchButton';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledDialog from 'components/StyledDialog';
+import StyledText from 'components/StyledText';
 import StickyDiv from 'components/StickyDiv';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledTooltip from 'components/StyledTooltip';
@@ -60,7 +61,7 @@ class SmartAppsGallery extends React.Component { // eslint-disable-line react/pr
       <div>
         <LaunchButton onClick={this.handleSmartAppsDialogToggle}>
           <Apps />
-          <FormattedMessage {...messages.buttonLabel} />
+          <StyledText fontWeight={600} whiteSpace><FormattedMessage {...messages.buttonLabel} /></StyledText>
         </LaunchButton>
         <StyledDialog open={this.state.smartAppsDialogOpen} onClose={this.handleSmartAppsDialogToggle}>
           <StickyDiv>

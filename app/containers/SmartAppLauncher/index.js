@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { CircularProgress } from 'material-ui-next/Progress';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -33,12 +34,14 @@ export class SmartAppLauncher extends React.Component {
     const { appShortcuts, config, smartApps } = this.props;
     return (
       <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}>
-        <SmartApps
-          smartApps={smartApps}
-          config={config}
-          appShortcuts={appShortcuts}
-          onCreateLaunch={this.props.createLaunch}
-        />
+        {smartApps && appShortcuts && config ?
+          <SmartApps
+            smartApps={smartApps}
+            config={config}
+            appShortcuts={appShortcuts}
+            onCreateLaunch={this.props.createLaunch}
+          /> : <CircularProgress />
+        }
       </ShowHideWrapper>
     );
   }
