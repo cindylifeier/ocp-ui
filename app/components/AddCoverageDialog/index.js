@@ -8,8 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import DialogTitle from 'material-ui-next/es/Dialog/DialogTitle';
-import DialogContent from 'material-ui-next/es/Dialog/DialogContent';
+import DialogHeader from 'components/DialogHeader';
 import AddCoverageForm from 'components/AddCoverageDialog/AddCoverageForm';
 import messages from './messages';
 
@@ -44,10 +43,10 @@ class AddCoverageDialog extends React.Component { // eslint-disable-line react/p
           open={open}
           autoScrollBodyContent
         >
-          <DialogTitle >{<FormattedMessage {...messages.addCoverageDialogTitle} />}</DialogTitle>
-          <DialogContent>
-            <AddCoverageForm {...addCoverageFormProps}></AddCoverageForm>
-          </DialogContent>
+          <DialogHeader>
+            {<FormattedMessage {...messages.addCoverageDialogTitle} />}
+          </DialogHeader>
+          <AddCoverageForm {...addCoverageFormProps}></AddCoverageForm>
         </Dialog>
       </div>
     );
