@@ -28,7 +28,7 @@ export function* saveClientSaga(action) {
     yield put(saveClientSuccess(clientDto));
   } catch (error) {
     yield put(saveClientError(error));
-    yield put(showNotification(`Failed to ${getNotificationAction(action.clientFormData)} the SMART app.`));
+    yield put(showNotification(`Failed to ${getNotificationAction(action.clientFormData)} the SMART app: ${getErrorDetail(error, action.clientFormData.clientId)}`));
     yield call(action.handleSubmitting);
   }
 }
@@ -74,6 +74,20 @@ export function* watchGetClientsSaga() {
 
 export function* watchDeleteClientSaga() {
   yield takeLatest(DELETE_CLIENT, deleteClientsSaga);
+}
+
+function getErrorDetail(err, clientId) {
+  let errorDetail = '';
+  if (err && err.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (err && err.response && err.response.status === 400) {
+    errorDetail = ' Bad request.';
+  } else if (err && err.response && err.response.status === 409) {
+    errorDetail = ` Duplicate Entry:: Client id ${clientId} already exists.`;
+  } else if (err && err.response && err.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
 }
 
 export default function* rootSaga() {
