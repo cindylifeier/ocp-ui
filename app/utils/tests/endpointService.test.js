@@ -1,5 +1,8 @@
 import {
+  BASE_ACTIVITY_DEFINITIONS_API_URL,
   BASE_CARE_TEAMS_API_URL,
+  BASE_COVERAGE_URL,
+  BASE_EPISODE_OF_CARES_API_URL,
   BASE_HEALTHCARE_SERVICES_API_URL,
   BASE_LOCATIONS_API_URL,
   BASE_ORGANIZATION_API_URL,
@@ -9,8 +12,6 @@ import {
   BASE_PRACTITIONERS_API_URL,
   BASE_RELATED_PERSONS_API_URL,
   BASE_TASKS_API_URL,
-  BASE_ACTIVITY_DEFINITIONS_API_URL,
-  BASE_EPISODE_OF_CARES_API_URL,
   collectEndpoints,
   getEndpoint,
   isSecuredEndpoint,
@@ -21,7 +22,7 @@ import {
 describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
-    const numberOfEndpoints = 26;
+    const numberOfEndpoints = 27;
     const numberOfUnsecuredEndpoints = 6;
 
     // Act
@@ -50,6 +51,7 @@ describe('endpointService.js', () => {
     const TEST_TASKS_API_URL = '/ocp-ui-api/ocp-fis/tasks';
     const TEST_EPISODE_OF_CARES_API_URL = '/ocp-ui-api/ocp-fis/episode-of-cares';
     const TEST_ACTIVITY_DEFINITIONS_API_URL = '/ocp-ui-api/ocp-fis/activity-definitions';
+    const TEST_BASE_COVERAGE_URL = '/ocp-ui-api/ocp-fis/coverage';
 
     // Act
     const loginUrl = getEndpoint(LOGIN_API_URL);
@@ -66,6 +68,7 @@ describe('endpointService.js', () => {
     const tasksUrl = getEndpoint(BASE_TASKS_API_URL);
     const episodeOfCareUrl = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
     const activityDefinitionUrl = getEndpoint(BASE_ACTIVITY_DEFINITIONS_API_URL);
+    const coveragesUrl = getEndpoint(BASE_COVERAGE_URL);
 
     // Assert
     expect(loginUrl).toEqual(TEST_LOGIN_URL);
@@ -82,6 +85,7 @@ describe('endpointService.js', () => {
     expect(tasksUrl).toEqual(TEST_TASKS_API_URL);
     expect(episodeOfCareUrl).toEqual(TEST_EPISODE_OF_CARES_API_URL);
     expect(activityDefinitionUrl).toEqual(TEST_ACTIVITY_DEFINITIONS_API_URL);
+    expect(coveragesUrl).toEqual(TEST_BASE_COVERAGE_URL);
   });
 
   it('should throw No endpoint configured', () => {
