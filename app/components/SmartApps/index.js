@@ -9,8 +9,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { Cell, Grid } from 'styled-css-grid';
-
-import HorizontalAlignment from 'components/HorizontalAlignment';
 import Padding from 'components/Padding';
 import PanelSection from 'components/PanelSection';
 import StyledText from 'components/StyledText';
@@ -25,7 +23,7 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
     return (
       <PanelSection>
         <Padding left={5} right={5} top={5} bottom={5}>
-          <Grid gap="5px" columns="repeat(auto-fit,minmax(100px,250px))">
+          <Grid gap="10px" columns="repeat(auto-fit, minmax(100px,250px))">
             {registeredAppShortcuts && registeredAppShortcuts.map((app) => (
               <Cell key={app.clientId}>
                 <LaunchButton component={Link} target="_blank" to={app.appLaunchUrl}>
@@ -37,13 +35,11 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
               </Cell>
             ))}
             <Cell>
-              <HorizontalAlignment position="end">
-                <SmartAppsGallery
-                  smartApps={smartApps}
-                  onCreateLaunch={onCreateLaunch}
-                  config={config}
-                />
-              </HorizontalAlignment>
+              <SmartAppsGallery
+                smartApps={smartApps}
+                onCreateLaunch={onCreateLaunch}
+                config={config}
+              />
             </Cell>
           </Grid>
         </Padding>
