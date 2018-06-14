@@ -5,16 +5,18 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { GET_APP_SHORTCUTS_SUCCESS } from './constants';
 
-const initialState = fromJS({});
+
+const initialState = fromJS({
+  error: false,
+  appShortcuts: null,
+});
 
 function smartAppsGalleryReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case GET_APP_SHORTCUTS_SUCCESS:
+      return state.set('appShortcuts', fromJS(action.appShortcuts));
     default:
       return state;
   }

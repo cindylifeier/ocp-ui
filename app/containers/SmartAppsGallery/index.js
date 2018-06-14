@@ -15,11 +15,16 @@ import injectReducer from 'utils/injectReducer';
 import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE } from 'containers/App/constants';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import SmartApps from 'components/SmartApps';
+import { getAppShortcuts } from './actions';
 import makeSelectSmartAppsGallery from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 export class SmartAppsGallery extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    this.props.getAppShortcuts();
+  }
+
   render() {
     return (
       <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}>
@@ -30,16 +35,16 @@ export class SmartAppsGallery extends React.Component { // eslint-disable-line r
 }
 
 SmartAppsGallery.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getAppShortcuts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  smartappsgallery: makeSelectSmartAppsGallery(),
+  smartAppsGallery: makeSelectSmartAppsGallery(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getAppShortcuts: () => dispatch(getAppShortcuts()),
   };
 }
 
