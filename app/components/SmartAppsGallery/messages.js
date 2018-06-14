@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.containers.SmartAppsGallery.header',
-    defaultMessage: 'This is SmartAppsGallery container !',
+  buttonLabel: {
+    id: 'ocpui.components.SmartAppsGallery.buttonLabel',
+    defaultMessage: 'SMART Apps',
   },
 });

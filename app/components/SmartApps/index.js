@@ -7,10 +7,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { Cell, Grid } from 'styled-css-grid';
 
-import SmartAppLauncher from 'containers/SmartAppLauncher';
+import SmartAppsGallery from 'components/SmartAppsGallery';
 import Padding from 'components/Padding';
 import PanelSection from 'components/PanelSection';
 import StyledText from 'components/StyledText';
@@ -20,6 +21,8 @@ import messages from './messages';
 
 class SmartApps extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { onCreateLaunch, smartApps, config, appShortcuts } = this.props;
+    console.log(appShortcuts);
     return (
       <PanelSection>
         <Padding left={5} right={5} top={5} bottom={5}>
@@ -34,7 +37,11 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
             <Cell center />
             <Cell center />
             <Cell>
-              <SmartAppLauncher />
+              <SmartAppsGallery
+                smartApps={smartApps}
+                onCreateLaunch={onCreateLaunch}
+                config={config}
+              />
             </Cell>
           </Grid>
         </Padding>
@@ -43,6 +50,21 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
   }
 }
 
-SmartApps.propTypes = {};
+SmartApps.propTypes = {
+  onCreateLaunch: PropTypes.func.isRequired,
+  smartApps: PropTypes.arrayOf(PropTypes.shape({
+    clientId: PropTypes.string.isRequired,
+    clientName: PropTypes.string.isRequired,
+    appIcon: PropTypes.string,
+  })).isRequired,
+  config: PropTypes.shape({
+    oauth2: PropTypes.shape({
+      authorizationServerEndpoint: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  appShortcuts: PropTypes.shape({
+    clientIds: PropTypes.array,
+  }),
+};
 
 export default SmartApps;

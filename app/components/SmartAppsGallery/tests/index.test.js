@@ -3,7 +3,7 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import { SmartAppsGallery } from '../index';
+// import SmartAppsGallery from '../index';
 
 // configure({ adapter: new Adapter() });
 
