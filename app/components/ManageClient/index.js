@@ -21,7 +21,7 @@ import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import ManageClientForm from './ManageClientForm';
 import messages from './messages';
-import { SMART_APP_LOGO_ALT_SUFFIX, SMART_APP_LOGO_SRC_PREFIX } from './constants';
+import { SMART_APP_LOGO_ALT_SUFFIX, SMART_APP_LOGO_SRC_PREFIX, DEFAULT_APP_ICON } from './constants';
 
 class ManageClient extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -75,7 +75,7 @@ class ManageClient extends React.Component { // eslint-disable-line react/prefer
                       height="180px"
                       width="180px"
                       alt={`${name}${SMART_APP_LOGO_ALT_SUFFIX}`}
-                      src={`${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`}
+                      src={(appIcon && `${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`) || `${SMART_APP_LOGO_SRC_PREFIX}${DEFAULT_APP_ICON}`}
                     />
                   </Cell>
                   <Cell center>
