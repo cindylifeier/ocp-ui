@@ -1,5 +1,8 @@
 import {
+  BASE_ACTIVITY_DEFINITIONS_API_URL,
   BASE_CARE_TEAMS_API_URL,
+  BASE_COVERAGE_URL,
+  BASE_EPISODE_OF_CARES_API_URL,
   BASE_HEALTHCARE_SERVICES_API_URL,
   BASE_LOCATIONS_API_URL,
   BASE_ORGANIZATION_API_URL,
@@ -9,21 +12,18 @@ import {
   BASE_PRACTITIONERS_API_URL,
   BASE_RELATED_PERSONS_API_URL,
   BASE_TASKS_API_URL,
-  BASE_ACTIVITY_DEFINITIONS_API_URL,
-  BASE_EPISODE_OF_CARES_API_URL,
   collectEndpoints,
   getEndpoint,
   isSecuredEndpoint,
   LOGIN_API_URL,
   LOOKUPS_API_URL,
-  BASE_COVERAGE_URL,
 } from '../endpointService';
 
 describe('endpointService.js', () => {
   it('should contain correct number of configured urls', () => {
     // Arrange
-    const numberOfEndpoints = 26;
-    const numberOfUnsecuredEndpoints = 5;
+    const numberOfEndpoints = 27;
+    const numberOfUnsecuredEndpoints = 6;
 
     // Act
     const configuredEndpoints = collectEndpoints();
