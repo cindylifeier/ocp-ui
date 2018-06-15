@@ -17,6 +17,7 @@ import GoldenLayout from 'components/GoldenLayout';
 import renderCalendarComponent from 'components/Calendar/render';
 import renderPatientAppointmentsComponent from 'containers/PatientAppointments/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
+import renderCoverageComponent from 'containers/Coverages/render';
 import renderTasksComponent from 'containers/Tasks/render';
 import renderCareTeamsComponent from 'containers/CareTeams/render';
 import PatientDetails from 'components/PatientDetails';
@@ -103,6 +104,13 @@ export const initialStateMetadata =
               isClosable: true,
               reorderEnabled: true,
             },
+            {
+              title: 'Coverage',
+              type: 'component',
+              componentName: 'coverage',
+              isClosable: true,
+              reorderEnabled: true,
+            },
           ],
         },
       ],
@@ -119,6 +127,7 @@ export const componentMetadata = [
   { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
   { name: 'toDos', text: 'My To Do', factoryMethod: renderPatientToDosComponent },
+  { name: 'coverage', text: 'Coverage', factoryMethod: renderCoverageComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderCalendarComponent },
   { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
 ];

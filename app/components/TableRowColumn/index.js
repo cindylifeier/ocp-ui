@@ -16,7 +16,7 @@ const TableRowColumn = styled.div`
   line-height: normal;
   text-align: left;
   margin: 0;
-  word-break: break-all;
+  word-break: break-word;
   padding: 5px;
 `;
 

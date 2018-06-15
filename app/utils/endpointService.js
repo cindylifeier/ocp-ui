@@ -34,6 +34,7 @@ export const SMART_AUTHORIZE_URL = 'ocpui/utils/SMART_AUTHORIZE_URL';
 export const SMART_CLIENTS_URL = 'ocpui/utils/SMART_CLIENTS_URL';
 export const SMART_CLIENTS_META_URL = 'ocpui/utils/SMART_CLIENTS_META_URL';
 export const SMART_LAUNCHER_URL = 'ocpui/utils/SMART_LAUNCHER_URL';
+export const BASE_COVERAGE_URL = 'ocpui/utils/BASE_COVERAGE_URL';
 
 
 export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
@@ -70,6 +71,7 @@ const apiEndpoints = [
   { key: SMART_CLIENTS_URL, url: `${BASE_SMART_GATEWAY_URL}/clients` },
   { key: SMART_CLIENTS_META_URL, url: `${BASE_SMART_GATEWAY_URL}/clients/meta`, isSecured: false },
   { key: SMART_LAUNCHER_URL, url: `${BASE_SMART_GATEWAY_URL}/launcher`, isSecured: false },
+  { key: BASE_COVERAGE_URL, url: `${BASE_API_URL}/ocp-fis/coverage` },
 ];
 
 const configuredEndpoints = collectEndpoints();
