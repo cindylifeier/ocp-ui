@@ -4,9 +4,17 @@ import { getEndpoint, SMART_LAUNCHER_URL } from 'utils/endpointService';
 import Util from 'utils/Util';
 import makeSelectContext from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
-import { CREATE_LAUNCH, GET_CLIENTS } from './constants';
-import { createLaunch, getClients } from './api';
-import { createLaunchError, createLaunchSuccess, getClientsError, getClientsSuccess } from './actions';
+import { CREATE_LAUNCH, GET_APP_SHORTCUTS, GET_CLIENTS } from './constants';
+import { createLaunch, getAppShortcuts, getClients } from './api';
+import {
+  createLaunchError,
+  createLaunchSuccess,
+  getAppShortcutsError,
+  getAppShortcutsSuccess,
+  getClientsError,
+  getClientsSuccess,
+} from './actions';
+
 
 export function* getClientsSaga() {
   try {
@@ -15,6 +23,16 @@ export function* getClientsSaga() {
   } catch (error) {
     yield put(getClientsError(error));
     yield put(showNotification('Failed to retrieve SMART Apps.'));
+  }
+}
+
+function* getAppShortcutsSaga() {
+  try {
+    const appShortcuts = yield call(getAppShortcuts);
+    yield put(getAppShortcutsSuccess(appShortcuts));
+  } catch (error) {
+    yield put(showNotification('Cannot get smart app shortcuts configuration.'));
+    yield put(getAppShortcutsError(error));
   }
 }
 
@@ -42,6 +60,10 @@ export function* watchGetClientsSaga() {
   yield takeLatest(GET_CLIENTS, getClientsSaga);
 }
 
+function* watchGetAppShortcutsSaga() {
+  yield takeLatest(GET_APP_SHORTCUTS, getAppShortcutsSaga);
+}
+
 export function* watchCreateLaunchSaga() {
   yield takeLatest(CREATE_LAUNCH, createLaunchSaga);
 }
@@ -49,6 +71,7 @@ export function* watchCreateLaunchSaga() {
 export default function* rootSaga() {
   yield all([
     watchGetClientsSaga(),
+    watchGetAppShortcutsSaga(),
     watchCreateLaunchSaga(),
   ]);
 }

@@ -14,7 +14,7 @@ function TableHeader(props) {
 
   function renderTableHeader() {
     return (
-      <TableHeaderGrid gap="5px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
+      <TableHeaderGrid gap="0px" columns={columns || `repeat(${React.Children.count(children)}, 1fr)`}>
         {children}
       </TableHeaderGrid>
     );

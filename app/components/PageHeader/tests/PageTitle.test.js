@@ -46,7 +46,7 @@ describe('<PageTitle />', () => {
       expect(renderedComponent).toHaveStyleRule('padding-left', '1vw');
       expect(renderedComponent).toHaveStyleRule('padding-top', '1vh');
       expect(renderedComponent).toHaveStyleRule('padding-bottom', '1vh');
-      expect(renderedComponent).toHaveStyleRule('font-size', '1.5rem');
+      expect(renderedComponent).toHaveStyleRule('font-size', '1.2rem');
       expect(renderedComponent).toHaveStyleRule('font-weight', 'bold');
       expect(renderedComponent).toHaveStyleRule('color', '#366');
     });

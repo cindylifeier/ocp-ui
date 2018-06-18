@@ -131,7 +131,7 @@ function ManageCommunicationForm(props) {
         <FormCell top={4} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
-              <Padding top={'35px'}>
+              <Padding top={35}>
                 <Checkbox
                   name="notDone"
                   label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}

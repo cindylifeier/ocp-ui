@@ -25,7 +25,7 @@ ShallowWrapper {
         Row
       </TableRowColumn__TableRowColumn>,
       "columns": "repeat(1, 1fr)",
-      "gap": "5px",
+      "gap": "0px",
     },
     "ref": null,
     "rendered": Object {
@@ -51,7 +51,7 @@ ShallowWrapper {
           Row
         </TableRowColumn__TableRowColumn>,
         "columns": "repeat(1, 1fr)",
-        "gap": "5px",
+        "gap": "0px",
       },
       "ref": null,
       "rendered": Object {

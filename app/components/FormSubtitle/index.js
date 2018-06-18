@@ -8,9 +8,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const FormSubtitle = styled.div`
-  padding-left: 0.5vw;
   margin: ${({ margin }) => margin};
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #444;
   background-color: #f2f2f2;
