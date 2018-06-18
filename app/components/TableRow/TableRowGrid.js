@@ -18,7 +18,7 @@ const TableRowGrid = Grid.extend`
   }
 
   &:focus {
-    background-color: #93b9ea;
+    background-color: #d4efef;
   }
 `;
 

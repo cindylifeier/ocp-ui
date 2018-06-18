@@ -18,7 +18,7 @@ const TableHeaderColumn = styled.div`
   text-align: left;
   margin: 0;
   word-break: break-word;
-  padding: 2px;
+  padding: 5px;
 `;
 
 TableHeaderColumn.propTypes = {
