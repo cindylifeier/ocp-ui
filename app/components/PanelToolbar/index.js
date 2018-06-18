@@ -15,7 +15,6 @@ import FileUploadIcon from '@material-ui/icons/FileUpload';
 import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterIcon from '@material-ui/icons/FilterList';
-import common from 'material-ui-next/colors/common';
 import isUndefined from 'lodash/isUndefined';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
@@ -28,8 +27,6 @@ import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
 import messages from './messages';
-
-const white = common.white;
 
 export class PanelToolbar extends React.Component {
   constructor(props) {
@@ -71,15 +68,15 @@ export class PanelToolbar extends React.Component {
       <div>
         {!hideToolbar &&
         <StyledToolbar
-          color="#91AAB3"
-          height="20px"
+          color="#e3e8ea"
+          height="30px"
         >
           <ToolbarGroup firstChild>
             {!isUndefined(addNewItem) &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
                 <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-                  <AddCircle color={white} />
+                  <AddCircle color={'#666'} />
                 </StyledIconButton>
                 {addNewItem.labelName}
               </AddNewItemButton>
@@ -90,14 +87,14 @@ export class PanelToolbar extends React.Component {
             {showUploadIcon &&
             <StyledTooltip title={<FormattedMessage {...messages.uploadFiles} />}>
               <StyledIconButton svgIconSize="small">
-                <FileUploadIcon color={white} />
+                <FileUploadIcon color={'#666'} />
               </StyledIconButton>
             </StyledTooltip>
             }
             {showSettingIcon &&
             <StyledTooltip title={<FormattedMessage {...messages.settings} />}>
               <StyledIconButton svgIconSize="small">
-                <SettingsIcon color={white} />
+                <SettingsIcon color={'#666'} />
               </StyledIconButton>
             </StyledTooltip>
             }
@@ -109,7 +106,7 @@ export class PanelToolbar extends React.Component {
             >
               <StyledIconButton svgIconSize="small" onClick={this.handleShowFilter}>
                 {this.state.isShowFilter ?
-                  <CancelIcon color={white} /> : <FilterIcon color={white} />
+                  <CancelIcon color={'#666'} /> : <FilterIcon color={'#666'} />
                 }
               </StyledIconButton>
             </StyledTooltip>
@@ -122,7 +119,7 @@ export class PanelToolbar extends React.Component {
             >
               <StyledIconButton svgIconSize="small" onClick={this.handleShowSearchBar}>
                 {this.state.isShowSearchBar ?
-                  <CancelIcon color={white} /> : <SearchIcon color={white} />
+                  <CancelIcon color={'#666'} /> : <SearchIcon color={'#666'} />
                 }
               </StyledIconButton>
             </StyledTooltip>
