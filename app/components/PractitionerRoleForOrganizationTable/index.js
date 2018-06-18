@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import MenuItem from 'material-ui/MenuItem';
 import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import Table from 'components/Table';
@@ -18,7 +17,6 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import { Form, Formik } from 'formik';
-import SelectField from 'components/SelectField';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import yup from 'yup';
@@ -31,40 +29,61 @@ class PractitionerRoleForOrganizationTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: '',
-      single: null,
+      role: {},
+      specialty: {},
     };
     this.renderIdentifiers = this.renderIdentifiers.bind(this);
     this.findExistingOrganization = this.findExistingOrganization.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
+    this.handleSpecialtyChange = this.handleSpecialtyChange.bind(this);
+    this.isRoleSelected = this.isRoleSelected.bind(this);
+    this.isSpecialtySelected = this.isSpecialtySelected.bind(this);
   }
 
-  handleChange(selectedOption) {
-    this.setState({ selectedOption });
-    // selectedOption can be null when the `x` (close) button is clicked
-    if (selectedOption) {
-      console.log(`Selected: ${selectedOption.label}`);
-    }
+  handleRoleChange(selectedOption) {
+    this.setState({ role: selectedOption });
+  }
+
+  handleSpecialtyChange(selectedOption) {
+    this.setState({ specialty: selectedOption });
   }
 
   findExistingOrganization(reference, existingOrganizations) {
     return find(existingOrganizations, ['organization.reference', reference]);
   }
 
+  isRoleSelected() {
+    const { roleType } = this.props;
+    const role = this.state.role && this.state.role.value && find(roleType, ['code', this.state.role.value]);
+    return this.state.role && role;
+  }
+
+  isSpecialtySelected() {
+    const { specialtyType } = this.props;
+    const specialty = this.state.specialty && this.state.specialty.value && find(specialtyType, ['code', this.state.specialty.value]);
+    return this.state.specialty && specialty;
+  }
 
   renderIdentifiers(identifiers) {
     return identifiers && identifiers.map((identifier) => (<div key={uniqueId()}>{identifier.systemDisplay}</div>));
   }
 
-
   render() {
     const { organizations, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = this.props;
-    const suggestions = roleType
+    const roleSuggestions = roleType
       .filter((entry) => (entry.code !== null) && (entry.display !== null))
       .map((entry) => ({
         value: entry.code,
         label: entry.display,
       }));
+
+    const specialtySuggestions = specialtyType
+      .filter((entry) => (entry.code !== null) && (entry.display !== null))
+      .map((entry) => ({
+        value: entry.code,
+        label: entry.display,
+      }));
+
     return (
       <div>
         <Table>
@@ -83,25 +102,21 @@ class PractitionerRoleForOrganizationTable extends React.Component {
             key={org.id}
             initialValues={this.findExistingOrganization(`Organization/${org.id}`, existingOrganizations)}
             onSubmit={(values, actions) => {
-              const { code, specialty } = values;
+              const { role, specialty } = this.state;
+
               actions.setSubmitting(false);
               onAddAssociateOrganization({
                 organization: { reference: `Organization/${org.id}`, display: `${org.name}` },
-                code,
-                specialty,
+                code: role.value,
+                specialty: specialty.value,
                 active: true,
               });
               callback();
             }}
             validationSchema={yup.object().shape({
-              code: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              specialty: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
             })}
-            render={(formikProps) => {
+            render={() => {
               const { name, address, id, identifiers, status } = org;
-              const { isSubmitting, dirty, isValid } = formikProps;
               return (
                 <Form>
                   <Table>
@@ -117,35 +132,26 @@ class PractitionerRoleForOrganizationTable extends React.Component {
                         <TableRowColumn>{this.renderIdentifiers(identifiers)}</TableRowColumn>
                         <TableRowColumn>{status}</TableRowColumn>
                         <TableRowColumn>
-
                           <Select
-                            name="form-field-name"
-                            value={this.state.selectedOption}
-                            onChange={this.handleChange}
-                            options={suggestions}
+                            name="code"
+                            value={this.state.role}
+                            onChange={this.handleRoleChange}
+                            options={roleSuggestions}
                           />
-
                         </TableRowColumn>
                         <TableRowColumn>
-                          <SelectField
-                            fullWidth
+                          <Select
                             name="specialty"
-                            hintText={<FormattedMessage {...messages.hint.specialty} />}
-                          >
-                            {specialtyType && specialtyType.map((rt) =>
-                              (<MenuItem
-                                key={rt.code}
-                                value={rt.code}
-                                primaryText={rt.display}
-                              />),
-                            )}
-                          </SelectField>
+                            value={this.state.specialty}
+                            onChange={this.handleSpecialtyChange}
+                            options={specialtySuggestions}
+                          />
                         </TableRowColumn>
                         <TableRowColumn>
                           <StyledRaisedButton
                             type="submit"
                             value={org}
-                            disabled={!dirty || isSubmitting || !isValid || this.findExistingOrganization(`Organization/${org.id}`, existingOrganizations) !== undefined}
+                            disabled={!this.isRoleSelected() || !this.isSpecialtySelected()}
                           >
                             Add
                           </StyledRaisedButton>
