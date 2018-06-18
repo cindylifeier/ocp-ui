@@ -16,11 +16,12 @@ import TableRowColumn from 'components/TableRowColumn';
 import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import AutoSuggestionField from 'components/AutoSuggestion';
 import { Form, Formik } from 'formik';
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import yup from 'yup';
 import messages from './messages';
+
 
 const tableColumns = '1fr 1fr 1.5fr .5fr 2fr 2fr 1fr';
 
@@ -28,40 +29,12 @@ class PractitionerRoleForOrganizationTable extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      role: {},
-      specialty: {},
-    };
     this.renderIdentifiers = this.renderIdentifiers.bind(this);
     this.findExistingOrganization = this.findExistingOrganization.bind(this);
-    this.handleRoleChange = this.handleRoleChange.bind(this);
-    this.handleSpecialtyChange = this.handleSpecialtyChange.bind(this);
-    this.isRoleSelected = this.isRoleSelected.bind(this);
-    this.isSpecialtySelected = this.isSpecialtySelected.bind(this);
-  }
-
-  handleRoleChange(selectedOption) {
-    this.setState({ role: selectedOption });
-  }
-
-  handleSpecialtyChange(selectedOption) {
-    this.setState({ specialty: selectedOption });
   }
 
   findExistingOrganization(reference, existingOrganizations) {
     return find(existingOrganizations, ['organization.reference', reference]);
-  }
-
-  isRoleSelected() {
-    const { roleType } = this.props;
-    const role = this.state.role && this.state.role.value && find(roleType, ['code', this.state.role.value]);
-    return this.state.role && role;
-  }
-
-  isSpecialtySelected() {
-    const { specialtyType } = this.props;
-    const specialty = this.state.specialty && this.state.specialty.value && find(specialtyType, ['code', this.state.specialty.value]);
-    return this.state.specialty && specialty;
   }
 
   renderIdentifiers(identifiers) {
@@ -102,20 +75,24 @@ class PractitionerRoleForOrganizationTable extends React.Component {
             key={org.id}
             initialValues={this.findExistingOrganization(`Organization/${org.id}`, existingOrganizations)}
             onSubmit={(values, actions) => {
-              const { role, specialty } = this.state;
-
+              const { code, specialty } = values;
               actions.setSubmitting(false);
               onAddAssociateOrganization({
                 organization: { reference: `Organization/${org.id}`, display: `${org.name}` },
-                code: role.value,
-                specialty: specialty.value,
+                code,
+                specialty,
                 active: true,
               });
               callback();
             }}
             validationSchema={yup.object().shape({
+              code: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              specialty: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
             })}
-            render={() => {
+            render={(formikProps) => {
+              const { isSubmitting, dirty, isValid } = formikProps;
               const { name, address, id, identifiers, status } = org;
               return (
                 <Form>
@@ -132,26 +109,24 @@ class PractitionerRoleForOrganizationTable extends React.Component {
                         <TableRowColumn>{this.renderIdentifiers(identifiers)}</TableRowColumn>
                         <TableRowColumn>{status}</TableRowColumn>
                         <TableRowColumn>
-                          <Select
+                          <AutoSuggestionField
                             name="code"
-                            value={this.state.role}
-                            onChange={this.handleRoleChange}
-                            options={roleSuggestions}
+                            suggestions={roleSuggestions}
+                            {...this.props}
                           />
                         </TableRowColumn>
                         <TableRowColumn>
-                          <Select
+                          <AutoSuggestionField
                             name="specialty"
-                            value={this.state.specialty}
-                            onChange={this.handleSpecialtyChange}
-                            options={specialtySuggestions}
+                            suggestions={specialtySuggestions}
+                            {...this.props}
                           />
                         </TableRowColumn>
                         <TableRowColumn>
                           <StyledRaisedButton
                             type="submit"
                             value={org}
-                            disabled={!this.isRoleSelected() || !this.isSpecialtySelected()}
+                            disabled={!dirty || isSubmitting || !isValid || this.findExistingOrganization(`Organization/${org.id}`, existingOrganizations) !== undefined}
                           >
                             Add
                           </StyledRaisedButton>
