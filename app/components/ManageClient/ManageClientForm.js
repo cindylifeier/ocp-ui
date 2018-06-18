@@ -5,6 +5,8 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
+import join from 'lodash/join';
+import merge from 'lodash/merge';
 
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -12,37 +14,67 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import FileInputComponentField from 'components/FileInputComponentField';
 import TextField from 'components/TextField';
 import messages from './messages';
+import { SMART_APP_LOGO_SRC_PREFIX, CLIENT_TYPE_CONFIDENTIAL, CLIENT_TYPE_PUBLIC } from './constants';
 
 function ManageClientForm(props) {
   /* const imageFormat = new RegExp('(/(gif|jpg|jpeg|tiff|png)$/i)');
   const imageSize = 500;*/
   const {
+    initialValues,
     handleCloseDialog,
     onSaveClient,
   } = props;
+  let initialValueClient = null;
+  let initialAppIcon = [];
+  let defaultImage = [];
+  if (initialValues !== null) {
+    const { clientId, clientType, scope, name, redirectUri, appLaunchUrl, appIcon } = initialValues;
+    if (appIcon !== '' && appIcon !== undefined) {
+      initialAppIcon = [{
+        base64: `${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`,
+        name: 'default.png',
+        type: 'image/png',
+      }];
+      defaultImage = [`${SMART_APP_LOGO_SRC_PREFIX}${appIcon}`];
+    }
+    initialValueClient = {
+      clientId,
+      clientType,
+      scope: join(scope, ','),
+      name,
+      redirectUri: join(redirectUri, ','),
+      appLaunchUrl,
+      appIcon: initialAppIcon,
+      clientSecret: '************',
+    };
+  }
   return (
     <div>
       <Formik
         onSubmit={(values, actions) => {
+          if (initialValues !== null) {
+            onSaveClient(merge(values, { isEdit: true }), actions);
+          }
           onSaveClient(values, actions);
           handleCloseDialog();
         }}
+        initialValues={{ ...initialValueClient }}
         validationSchema={yup.object().shape({
-          client_id: yup.string()
+          clientId: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          client_type: yup.string()
+          clientType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           scope: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           name: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          redirect_uri: yup.string()
+          redirectUri: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           appLaunchUrl: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          client_secret: yup.string()
-            .when('client_type', {
-              is: 'CREDENTIAL',
+          clientSecret: yup.string()
+            .when('clientType', {
+              is: CLIENT_TYPE_CONFIDENTIAL,
               then: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
             }),
@@ -60,31 +92,34 @@ function ManageClientForm(props) {
               <Cell>
                 <SelectField
                   fullWidth
-                  name="client_type"
-                  hintText={<FormattedMessage {...messages.hintText.client_type} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_type} />}
+                  name="clientType"
+                  disabled={initialValueClient !== null}
+                  hintText={<FormattedMessage {...messages.hintText.clientType} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientType} />}
                 >
-                  <MenuItem value={'PUBLIC'} primaryText="PUBLIC" />
-                  <MenuItem value={'CREDENTIAL'} primaryText="CREDENTIAL" />
+                  <MenuItem value={CLIENT_TYPE_PUBLIC} primaryText={CLIENT_TYPE_PUBLIC} />
+                  <MenuItem value={CLIENT_TYPE_CONFIDENTIAL} primaryText={CLIENT_TYPE_CONFIDENTIAL} />
                 </SelectField>
               </Cell>
-              { values.client_type === 'CREDENTIAL' && <Cell>
-                <TextField
-                  fullWidth
-                  name="client_secret"
-                  hintText={<FormattedMessage {...messages.hintText.client_secret} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_secret} />}
-                />
-              </Cell>
-              }
               <Cell>
                 <TextField
                   fullWidth
-                  name="client_id"
-                  hintText={<FormattedMessage {...messages.hintText.client_id} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.client_id} />}
+                  name="clientId"
+                  disabled={initialValueClient !== null}
+                  hintText={<FormattedMessage {...messages.hintText.clientId} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientId} />}
                 />
               </Cell>
+              { values.clientType === CLIENT_TYPE_CONFIDENTIAL && <Cell>
+                <TextField
+                  fullWidth
+                  name="clientSecret"
+                  disabled={initialValueClient !== null}
+                  hintText={<FormattedMessage {...messages.hintText.clientSecret} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.clientSecret} />}
+                />
+              </Cell>
+              }
               <Cell>
                 <TextField
                   fullWidth
@@ -104,9 +139,9 @@ function ManageClientForm(props) {
               <Cell>
                 <TextField
                   fullWidth
-                  name="redirect_uri"
-                  hintText={<FormattedMessage {...messages.hintText.redirect_uri} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.redirect_uri} />}
+                  name="redirectUri"
+                  hintText={<FormattedMessage {...messages.hintText.redirectUri} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.redirectUri} />}
                 />
               </Cell>
               <Cell>
@@ -122,6 +157,7 @@ function ManageClientForm(props) {
                   name="appIcon"
                   labelText="App Logo"
                   accept="image/*"
+                  defaultFiles={defaultImage}
                   imageStyle={{ width: 150, height: 150 }}
                   buttonComponent={<StyledRaisedButton> Select Image </StyledRaisedButton>}
                 />
@@ -146,6 +182,10 @@ function ManageClientForm(props) {
 }
 
 ManageClientForm.propTypes = {
+  initialValues: PropTypes.shape({
+    clientId: PropTypes.string,
+    clientType: PropTypes.string,
+  }),
   handleCloseDialog: PropTypes.func.isRequired,
   onSaveClient: PropTypes.func.isRequired,
 };

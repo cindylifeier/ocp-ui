@@ -72,7 +72,7 @@ ManageClientPage.propTypes = {
   deleteClient: PropTypes.func,
   smartApps: PropTypes.arrayOf(PropTypes.shape({
     clientId: PropTypes.string.isRequired,
-    clientName: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     appIcon: PropTypes.string,
   })),
 };
