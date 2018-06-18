@@ -535,7 +535,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           <meta name="description" content="Practitioner workspace page of Omnibus Care Plan application" />
         </Helmet>
         {stateMetadata &&
-        <Page>
+        <Page color="workspaces">
           <GoldenLayout
             containerHeight="88vh"
             containerWidth="95vw"

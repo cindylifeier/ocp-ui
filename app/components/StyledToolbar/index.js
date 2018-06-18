@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { Toolbar } from 'material-ui/Toolbar';
 
 const StyledToolbar = styled(Toolbar)`
-  background-color: ${(props) => props.color || 'rgba(32, 60, 85, 1)'} !important;
-  height: ${(props) => props.height || '40px'} !important;
+  background-color: ${(props) => props.color || '#fff'} !important;
+  height: ${(props) => props.height || '50px'} !important;
 `;
 
 StyledToolbar.propTypes = {

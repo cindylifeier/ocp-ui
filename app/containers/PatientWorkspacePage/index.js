@@ -140,7 +140,7 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
   render() {
     const { patient } = this.props;
     return (
-      <Page>
+      <Page color="workspaces">
         <Helmet>
           <title>Patient Workspace</title>
           <meta name="description" content="Patient workspace page of Omnibus Care Plan application" />
