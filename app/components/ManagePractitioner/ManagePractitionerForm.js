@@ -304,10 +304,7 @@ ManagePractitionerForm.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  providerSpecialties: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
+  providerSpecialties: PropTypes.array,
   onPageClick: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   initialSearchOrganizationResult: PropTypes.func.isRequired,
