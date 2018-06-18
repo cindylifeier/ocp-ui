@@ -29,7 +29,7 @@ const StyledText = styled.span`
   margin: ${({ whiteSpace }) => whiteSpace ? '0 0 0 10px' : '0px'};
   text-align: ${({ textAlign }) => textAlign};
   white-space: pre-line;
-  word-break: break-all;
+  word-break: break-word;
 `;
 
 StyledText.propTypes = {

@@ -107,7 +107,7 @@ export const componentMetadata = [
 export class AdminWorkspacePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <Page>
+      <Page color="workspaces">
         <Helmet>
           <title>Admin Workspace</title>
           <meta name="description" content="Admin workspace page of Omnibus Care Plan application" />

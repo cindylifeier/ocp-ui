@@ -2,15 +2,13 @@
 
 import styled from 'styled-components';
 import teal from 'material-ui-next/colors/teal';
-import common from 'material-ui-next/colors/common';
-
 
 function defineTextColor(colorPros) {
   switch (colorPros) {
     case 'primary':
       return teal['500'];
     case 'secondary':
-      return common.white;
+      return '#666';
     default:
       return 'default';
   }

@@ -9,14 +9,20 @@ import StyledFlatButton from 'components/StyledFlatButton';
 
 const NavigationButton = styled(StyledFlatButton)`
   && {
-    color: #9cc;
+    color: #666;
     font-size: 12px;
-    padding-left: 5px;
     max-height: 32px;
+    padding: 0;
+    font-weight: normal;
+    margin-left: 5px;
   }
 
   &&:hover {
-    background-color: inherit;
+    border-bottom: 2px solid #557b7b;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-left: 5px;
   }
 `;
 
