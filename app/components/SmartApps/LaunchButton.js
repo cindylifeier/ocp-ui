@@ -12,7 +12,7 @@ const LaunchButton = styled(({ width, ...rest }) => (<Button {...rest} />))`
   && {
     text-transform: capitalize;
     border: 2px solid rgba(242, 242, 242, 1);
-    width: ${({ width }) => width || 260}px;
+    width: ${({ width }) => width || 150}px;
   }
 
   &&:hover {
