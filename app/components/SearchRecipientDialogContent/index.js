@@ -72,7 +72,7 @@ function SearchRecipientDialogContent(props) {
                       </SelectField>
                     </Cell>
                     <Cell>
-                      <Padding top={'40px'}>
+                      <Padding top={40}>
                         <StyledTooltip title={<FormattedMessage {...messages.searchButtonTooltip} />}>
                           <StyledIconButton type="submit" disabled={isSubmitting}>
                             <ActionSearch />

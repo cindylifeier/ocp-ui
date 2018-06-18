@@ -60,6 +60,9 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  POLICYHOLDER_RELATIONSHIP,
+  FM_STATUS,
+  COVERAGE_TYPE,
 } from 'containers/App/constants';
 import selectGlobalDomain from './selectors';
 
@@ -363,6 +366,23 @@ const makeSelectPurposeOfUse = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PURPOSE_OF_USE).toJS(),
 );
+
+const makeSelectPolicyHolderRelationship = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(POLICYHOLDER_RELATIONSHIP).toJS(),
+);
+
+const makeSelectCoverageFmStatus = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(FM_STATUS).toJS(),
+);
+
+
+const makeSelectCoverageType = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COVERAGE_TYPE).toJS(),
+);
+
 // Consent Resource Lookups - End
 export {
   makeSelectUspsStates,
@@ -426,5 +446,8 @@ export {
   makeSelectSecurityRoleType,
   makeSelectConsentAction,
   makeSelectPurposeOfUse,
-  // Consent Resource Lookups - End
+  // Consent Resource Lookups - End,
+  makeSelectPolicyHolderRelationship,
+  makeSelectCoverageFmStatus,
+  makeSelectCoverageType,
 };

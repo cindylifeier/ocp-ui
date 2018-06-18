@@ -8,7 +8,10 @@ const selectSmartAppLauncherDomain = (state) => state.get('smartAppLauncher');
 /**
  * Other specific selectors
  */
-
+const makeSelectSmartAppShortcuts = () => createSelector(
+  selectSmartAppLauncherDomain,
+  (substate) => substate.get('appShortcuts') && substate.get('appShortcuts').toJS(),
+);
 
 /**
  * Default selector used by SmartAppLauncher
@@ -29,4 +32,5 @@ export {
   selectSmartAppLauncherDomain,
   makeSelectSmartAppLauncher,
   makeSelectSmartApps,
+  makeSelectSmartAppShortcuts,
 };

@@ -20,7 +20,7 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": "Row",
-      "className": "TableRowColumn__TableRowColumn-VzNyU hMMXVq",
+      "className": "TableRowColumn__TableRowColumn-VzNyU dYPFTR",
     },
     "ref": null,
     "rendered": "Row",
@@ -33,7 +33,7 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": "Row",
-        "className": "TableRowColumn__TableRowColumn-VzNyU hMMXVq",
+        "className": "TableRowColumn__TableRowColumn-VzNyU dYPFTR",
       },
       "ref": null,
       "rendered": "Row",

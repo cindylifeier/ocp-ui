@@ -39,7 +39,7 @@ function OrganizationSlider(props) {
             </StyledIconButton>
           </StyledTooltip>
         </HorizontalAlignment>
-        <Padding left="10px" right="10px">
+        <Padding left={10} right={10}>
           <OrganizationSliderHeader organization={flattenedOrganization} />
           <OrganizationSliderServices organization={flattenedOrganization} />
           <OrganizationSliderLocations organization={flattenedOrganization} />

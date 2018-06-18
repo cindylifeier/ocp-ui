@@ -114,6 +114,12 @@ export const CONSENT_ACTION = 'CONSENT_ACTION';
 export const PURPOSE_OF_USE = 'PURPOSE_OF_USE';
 // Consent Resource Lookups - End
 
+// Coverage Lookups - Start
+export const POLICYHOLDER_RELATIONSHIP = 'POLICYHOLDER_RELATIONSHIP';
+export const FM_STATUS = 'FM_STATUS';
+export const COVERAGE_TYPE = 'COVERAGE_TYPE';
+// Coverage Lookups - End
+
 /**
  *  Constants to hold the internal urls
  * @type {string}
@@ -132,6 +138,7 @@ export const MANAGE_APPOINTMENT_URL = '/ocp-ui/manage-appointment';
 export const MANAGE_HEALTHCARE_SERVICE_URL = '/ocp-ui/manage-healthcare-service';
 export const ADMIN_MANAGE_PERMISSIONS_URL = '/ocp-ui/manage-permissions';
 export const MANAGE_USERS_URL = '/ocp-ui/manage-users';
+export const MANAGE_CLIENT_URL = '/ocp-ui/manage-client';
 
 /**
  *  Constants to hold the workspace urls

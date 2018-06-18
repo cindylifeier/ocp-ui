@@ -15,6 +15,7 @@ import FileUploadIcon from '@material-ui/icons/FileUpload';
 import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterIcon from '@material-ui/icons/FilterList';
+import common from 'material-ui-next/colors/common';
 import isUndefined from 'lodash/isUndefined';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
@@ -26,7 +27,11 @@ import StickyDiv from 'components/StickyDiv';
 import SearchBar from 'components/SearchBar';
 import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
+import AddNewItemSpan from './AddNewItemSpan';
 import messages from './messages';
+
+
+const white = common.white;
 
 export class PanelToolbar extends React.Component {
   constructor(props) {
@@ -71,8 +76,9 @@ export class PanelToolbar extends React.Component {
           color="#e3e8ea"
           height="30px"
         >
+
           <ToolbarGroup firstChild>
-            {!isUndefined(addNewItem) &&
+            {!isUndefined(addNewItem) && addNewItem.linkUrl &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
                 <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
@@ -80,6 +86,16 @@ export class PanelToolbar extends React.Component {
                 </StyledIconButton>
                 {addNewItem.labelName}
               </AddNewItemButton>
+            </ShowHideWrapper>
+            }
+            {!isUndefined(addNewItem) && addNewItem.onClick &&
+            <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
+              <AddNewItemSpan onClick={addNewItem.onClick}>
+                <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+                  <AddCircle color={white} />
+                </StyledIconButton>
+                {addNewItem.labelName}
+              </AddNewItemSpan>
             </ShowHideWrapper>
             }
           </ToolbarGroup>
@@ -177,7 +193,8 @@ PanelToolbar.propTypes = {
   showSearchBarByDefault: PropTypes.bool,
   addNewItem: PropTypes.shape({
     labelName: PropTypes.node.isRequired,
-    linkUrl: PropTypes.string.isRequired,
+    linkUrl: PropTypes.string,
+    onClick: PropTypes.func,
   }),
   onSearch: PropTypes.func,
   onFilter: PropTypes.func,
