@@ -61,6 +61,10 @@ class Util {
     }
     return null;
   }
+
+  static hasText(str) {
+    return typeof str === 'string' && str.trim() !== '';
+  }
 }
 
 export default Util;
