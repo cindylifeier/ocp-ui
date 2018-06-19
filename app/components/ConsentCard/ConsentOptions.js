@@ -15,6 +15,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import { Document, Page } from 'react-pdf/dist/entry.webpack';
 import Util from 'utils/Util';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import HorizontalAlignment from 'components/HorizontalAlignment';
 import StyledDialog from 'components/StyledDialog';
 import messages from './messages';
 
@@ -27,6 +28,7 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.state = {
       isManageConsentDialogOpen: false,
       isPreviewConsentDialogOpen: false,
+      isDeleteConsentDialogOpen: false,
       numPages: null,
       pageNumber: 1,
     };
@@ -34,6 +36,9 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handlePreviewConsentOpen = this.handlePreviewConsentOpen.bind(this);
     this.handlePreviewConsentClose = this.handlePreviewConsentClose.bind(this);
+    this.handleDeleteConsentOpen = this.handleDeleteConsentOpen.bind(this);
+    this.handleDeleteConsentClose = this.handleDeleteConsentClose.bind(this);
+    this.handleDeleteConsentOk = this.handleDeleteConsentOk.bind(this);
     this.onDocumentLoadSuccess = this.onDocumentLoadSuccess.bind(this);
   }
 
@@ -49,6 +54,10 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     this.setState({ isManageConsentDialogOpen: false });
   }
 
+  handlePreviewConsentClose() {
+    this.setState({ isPreviewConsentDialogOpen: false });
+  }
+
   handlePreviewConsentOpen() {
     this.setState({
       isManageConsentDialogOpen: false,
@@ -56,8 +65,25 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
     });
   }
 
-  handlePreviewConsentClose() {
-    this.setState({ isPreviewConsentDialogOpen: false });
+  handleDeleteConsentOpen() {
+    this.setState({
+      isDeleteConsentDialogOpen: true,
+    });
+  }
+
+  handleDeleteConsentClose() {
+    this.setState({ isDeleteConsentDialogOpen: false });
+  }
+
+  handleDeleteConsentOk() {
+    const { consent } = this.props;
+    if (this.state.isDeleteConsentDialogOpen) {
+      this.props.handleDeleteConsent(consent);
+      this.setState({
+        isDeleteConsentDialogOpen: false,
+        isManageConsentDialogOpen: false,
+      });
+    }
   }
 
   render() {
@@ -100,6 +126,18 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
                   </Button>
                 </Cell>
               }
+              {
+                Util.equalsIgnoreCase(status, CONSENT_STATUS_DRAFT) &&
+                <Cell>
+                  <Button
+                    variant="raised"
+                    fullWidth
+                    onClick={this.handleDeleteConsentOpen}
+                  >
+                    <FormattedMessage {...messages.consentDialog.deleteConsentOption} />
+                  </Button>
+                </Cell>
+              }
               <Cell>
                 <Button
                   variant="raised"
@@ -139,6 +177,28 @@ class ConsentOptions extends React.Component { // eslint-disable-line react/pref
             </Document>
           </DialogContent>
         </Dialog>
+        <StyledDialog open={this.state.isDeleteConsentDialogOpen} onClose={this.handleDeleteConsentClose} fullWidth>
+          <DialogTitle>
+            <FormattedMessage {...messages.consentDialog.deleteConsentTitle} />
+          </DialogTitle>
+          <DialogContent>
+            <FormattedMessage {...messages.consentDialog.deleteConsentMessage} />
+            <HorizontalAlignment position={'end'}>
+              <Grid columns={2} alignContent="space-between">
+                <Cell>
+                  <StyledRaisedButton fullWidth onClick={this.handleDeleteConsentOk}>
+                    <FormattedMessage {...messages.consentDialog.okButton} />
+                  </StyledRaisedButton>
+                </Cell>
+                <Cell>
+                  <StyledRaisedButton fullWidth onClick={this.handleDeleteConsentClose}>
+                    <FormattedMessage {...messages.consentDialog.cancelButton} />
+                  </StyledRaisedButton>
+                </Cell>
+              </Grid>
+            </HorizontalAlignment>
+          </DialogContent>
+        </StyledDialog>
       </div>
     );
   }
@@ -163,6 +223,7 @@ ConsentOptions.propTypes = {
     }),
     sourceAttachment: PropTypes.string,
   }).isRequired,
+  handleDeleteConsent: PropTypes.func.isRequired,
 };
 
 export default ConsentOptions;

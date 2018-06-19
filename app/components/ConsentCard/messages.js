@@ -57,6 +57,26 @@ export default defineMessages({
       id: 'ocpui.components.ConsentCard.consentDialog.revokeConsentOption',
       defaultMessage: 'Revoke This Consent',
     },
+    deleteConsentOption: {
+      id: 'ocpui.components.ConsentCard.consentDialog.deleteConsentOption',
+      defaultMessage: 'Delete This Consent',
+    },
+    deleteConsentTitle: {
+      id: 'ocpui.components.ConsentCard.consentDialog.deleteConsentTitle',
+      defaultMessage: 'Delete Consent',
+    },
+    deleteConsentMessage: {
+      id: 'ocpui.components.ConsentCard.consentDialog.deleteConsentMessage',
+      defaultMessage: 'Are you sure you want to delete this consent?',
+    },
+    okButton: {
+      id: 'ocpui.components.ConsentCard.consentDialog.okButton',
+      defaultMessage: 'OK',
+    },
+    cancelButton: {
+      id: 'ocpui.components.ConsentCard.consentDialog.cancelButton',
+      defaultMessage: 'Cancel',
+    },
     previewConsentOption: {
       id: 'ocpui.components.ConsentCard.consentDialog.previewConsentOption',
       defaultMessage: 'Preview This Consent',
