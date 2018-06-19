@@ -6,7 +6,7 @@
 
 import { fromJS } from 'immutable';
 
-import { GET_CONSENTS, GET_CONSENTS_ERROR, GET_CONSENTS_SUCCESS, INITIALIZE_CONSENTS } from './constants';
+import { GET_CONSENTS, GET_CONSENTS_ERROR, GET_CONSENTS_SUCCESS, INITIALIZE_CONSENTS, GET_CONSENT_SUCCESS } from './constants';
 
 const initialState = fromJS({
   loading: false,
@@ -30,6 +30,8 @@ function consentsReducer(state = initialState, action) {
         .set('totalElements', action.consents.totalElements)
         .set('currentPageSize', action.consents.currentPageSize)
         .set('currentPage', action.consents.currentPage);
+    case GET_CONSENT_SUCCESS:
+      return state.set('consent', action.consent);
     case GET_CONSENTS_ERROR:
       return state
         .set('loading', false)
