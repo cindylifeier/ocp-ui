@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { Cell, Grid } from 'styled-css-grid';
+import Util from 'utils/Util';
 import Padding from 'components/Padding';
 import PanelSection from 'components/PanelSection';
 import StyledText from 'components/StyledText';
@@ -35,7 +36,7 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
             {registeredAppShortcuts && registeredAppShortcuts.map(({ clientId, clientName, appIcon }) => (
               <Cell key={clientId}>
                 <LaunchButton onClick={() => this.handleLaunch(clientId)}>
-                  <Avatar size={25} src={`data:image/png;base64,${appIcon}`} />
+                  {Util.hasText(appIcon) && (<Avatar size={25} src={`data:image/png;base64,${appIcon}`} />)}
                   <StyledText fontWeight={600} whiteSpace>
                     {clientName}
                   </StyledText>
