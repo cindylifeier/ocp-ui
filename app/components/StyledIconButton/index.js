@@ -58,6 +58,7 @@ const StyledIconButton = styled(({ size, svgIconSize, disableIconHover, ...other
   &&:hover svg {
     background-color: ${({ disableIconHover }) => disableIconHover ? 'default' : '#91bdba'};
     border-radius: 5px;
+    fill: #fff !important;
   }
 `;
 

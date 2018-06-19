@@ -54,7 +54,7 @@ describe('<TableRowGrid />', () => {
       const renderedComponent = shallow(<TableRowGrid>{children}</TableRowGrid>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('border-bottom', '1px outset rgb(51, 51, 51)');
+      expect(renderedComponent).toHaveStyleRule('border-bottom', '1px solid #ccc');
     });
 
     it('should have first-child styles', () => {
@@ -94,7 +94,7 @@ describe('<TableRowGrid />', () => {
       const renderedComponent = shallow(<TableRowGrid>{children}</TableRowGrid>);
 
       // Assert
-      expect(renderedComponent).toHaveStyleRule('background-color', '#dce4ef', {
+      expect(renderedComponent).toHaveStyleRule('background-color', '#fcfcfc', {
         modifier: ':hover',
       });
       expect(renderedComponent).toHaveStyleRule('cursor', 'pointer', {

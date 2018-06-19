@@ -27,7 +27,7 @@ ShallowWrapper {
       "backgroundColor": "#fff",
       "children": <styled.div
         columns="repeat(1, 1fr)"
-        gap="5px"
+        gap="0px"
       >
         <TableHeaderColumn__TableHeaderColumn>
           Col
@@ -46,7 +46,7 @@ ShallowWrapper {
           Col
         </TableHeaderColumn__TableHeaderColumn>,
         "columns": "repeat(1, 1fr)",
-        "gap": "5px",
+        "gap": "0px",
       },
       "ref": null,
       "rendered": Object {
@@ -73,7 +73,7 @@ ShallowWrapper {
         "backgroundColor": "#fff",
         "children": <styled.div
           columns="repeat(1, 1fr)"
-          gap="5px"
+          gap="0px"
         >
           <TableHeaderColumn__TableHeaderColumn>
             Col
@@ -92,7 +92,7 @@ ShallowWrapper {
             Col
           </TableHeaderColumn__TableHeaderColumn>,
           "columns": "repeat(1, 1fr)",
-          "gap": "5px",
+          "gap": "0px",
         },
         "ref": null,
         "rendered": Object {

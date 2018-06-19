@@ -1,7 +1,7 @@
 import { Grid } from 'styled-css-grid';
 
 const TableHeaderGrid = Grid.extend`
-  border-bottom: 2px outset #000;
+  border-bottom: 2px solid #666;
 
   &:first-child {
     background-color: #fff;

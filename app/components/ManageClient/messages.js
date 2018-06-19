@@ -23,24 +23,24 @@ export default defineMessages({
     defaultMessage: 'Register App on OCP SMART on FHIR Platform',
   },
   hintText: {
-    client_id: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.client_id',
+    clientId: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.clientId',
       defaultMessage: 'Client ID',
     },
-    client_type: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.client_type',
+    clientType: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.clientType',
       defaultMessage: 'Client Type',
     },
     name: {
       id: 'ocpui.components.ManageClient.ManageClientForm.hintText.name',
       defaultMessage: 'App Name',
     },
-    redirect_uri: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.redirect_uri',
+    redirectUri: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.redirectUri',
       defaultMessage: 'App Redirect URIs  (Comma separated list)',
     },
-    client_secret: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.client_secret',
+    clientSecret: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.clientSecret',
       defaultMessage: 'Client Secret',
     },
     appLaunchUrl: {
@@ -53,24 +53,24 @@ export default defineMessages({
     },
   },
   floatingLabelText: {
-    client_type: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.client_type',
+    clientType: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.hintText.clientType',
       defaultMessage: 'Client Type',
     },
-    client_id: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.client_id',
+    clientId: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.clientId',
       defaultMessage: 'Client ID',
     },
     name: {
       id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.name',
       defaultMessage: 'App Name',
     },
-    redirect_uri: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.redirect_uri',
+    redirectUri: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.redirectUri',
       defaultMessage: 'App Redirect URIs (Comma separated list)',
     },
-    client_secret: {
-      id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.client_secret',
+    clientSecret: {
+      id: 'ocpui.components.ManageClient.ManageClientForm.floatingLabelText.clientSecret',
       defaultMessage: 'Client Secret',
     },
     appLaunchUrl: {

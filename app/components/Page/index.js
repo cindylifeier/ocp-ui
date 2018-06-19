@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import common from 'material-ui-next/colors/common';
 
 
-const colors = ['primary', 'secondary', 'default'];
+const colors = ['primary', 'secondary', 'default', 'workspaces'];
 
 function defineColor(colorPros) {
   switch (colorPros) {
@@ -17,6 +17,8 @@ function defineColor(colorPros) {
       return common.white;
     case 'secondary':
       return 'rgba(238, 238, 238, 1)';
+    case 'workspaces':
+      return '#F2F2F2';
     default:
       return 'default';
   }
@@ -34,7 +36,7 @@ Page.propTypes = {
 
 Page.defaultProps = {
   color: 'primary',
-  padding: '3px 20px',
+  padding: '20px',
 };
 
 

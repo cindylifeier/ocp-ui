@@ -14,10 +14,10 @@ export function saveClient(clientFormData, handleSubmitting) {
   };
 }
 
-export function saveClientSuccess(clientMetaDto) {
+export function saveClientSuccess(clientDto) {
   return {
     type: SAVE_CLIENT_SUCCESS,
-    clientMetaDto,
+    clientDto,
   };
 }
 
