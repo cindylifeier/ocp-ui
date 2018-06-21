@@ -74,6 +74,10 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.status',
     defaultMessage: 'Status',
   },
+  actions: {
+    id: 'ocpui.components.PatientSearchResult.actions',
+    defaultMessage: 'Actions',
+  },
   addRelatedPerson: {
     id: 'ocpui.components.PatientSearchResult.addRelatedPerson',
     defaultMessage: 'Add Related Person',

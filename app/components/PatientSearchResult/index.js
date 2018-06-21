@@ -124,6 +124,16 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
     return <RefreshIndicatorLoading />;
   }
 
+  if (loading) {
+    return (<TableHeader columns={4}>
+      <TableHeaderColumn />
+      <TableHeaderColumn><FormattedMessage {...messages.fullName} /></TableHeaderColumn>
+      <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+      <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
+      <TableHeaderColumn><FormattedMessage {...messages.actions} /></TableHeaderColumn>
+    </TableHeader>);
+  }
+
   if (error !== false) {
     return (<p>Error!</p>);
   }
@@ -162,7 +172,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
           }
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
-          <TableHeaderColumn />
+          <TableHeaderColumn><FormattedMessage {...messages.actions} /></TableHeaderColumn>
         </TableHeader>
         {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities)}
       </Table>
