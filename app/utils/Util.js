@@ -65,6 +65,13 @@ class Util {
   static hasText(str) {
     return typeof str === 'string' && str.trim() !== '';
   }
+
+  static invertSortDirection(direction) {
+    if (direction === 'asc') {
+      return 'desc';
+    }
+    return 'asc';
+  }
 }
 
 export default Util;
