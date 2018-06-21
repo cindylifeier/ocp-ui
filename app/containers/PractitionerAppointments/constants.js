@@ -42,3 +42,8 @@ export const TODAY = 'TODAY';
 export const WEEK = 'WEEK';
 export const MONTH = 'MONTH';
 export const RESET = 'RESET';
+
+export const TODAY_DISPLAY = 'Today';
+export const WEEK_DISPLAY = 'Current Week';
+export const MONTH_DISPLAY = 'Current Month';
+export const RESET_DISPLAY = 'Reset';

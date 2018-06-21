@@ -35,8 +35,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
-import Util from 'utils/Util';
 import injectSaga from 'utils/injectSaga';
+import Util from 'utils/Util';
 import {
   acceptPractitionerAppointment,
   cancelPractitionerAppointment,
@@ -44,6 +44,7 @@ import {
   getPractitionerAppointments,
   tentativePractitionerAppointment,
 } from './actions';
+import { MONTH, MONTH_DISPLAY, RESET, RESET_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
 import messages from './messages';
 import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
 import reducer from './reducer';
@@ -68,6 +69,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.tentativeAppointment = this.tentativeAppointment.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
 
   componentDidMount() {
@@ -88,6 +90,17 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
+  }
+
+  handleFilter(dateRange) {
+    if (dateRange === RESET) {
+      this.props.getUpcomingAppointments({
+        pageNumber: DEFAULT_START_PAGE_NUMBER,
+        showPastAppointments: false,
+      });
+    } else {
+      console.log(dateRange);
+    }
   }
 
   handleCheck(event, checked) {
@@ -131,12 +144,29 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const filterDateOptions = [
+      { value: TODAY, display: TODAY_DISPLAY },
+      { value: WEEK, display: WEEK_DISPLAY },
+      { value: MONTH, display: MONTH_DISPLAY },
+      { value: RESET, display: RESET_DISPLAY },
+    ];
+    const filterField = {
+      filterTypes: filterDateOptions,
+      filterValueHintText: <FormattedMessage {...messages.filterLabel} />,
+    };
     const { practitionerAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
     const showPastAppFilter = true;
     return (
       <div>
         <Card>
-          <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
+          <PanelToolbar
+            showSearchIcon={false}
+            showFilter={false}
+            showAppointmentSpecificFilters
+            filterField={filterField}
+            onFilter={this.handleFilter}
+            onSize={this.handlePanelResize}
+          />
           {showPastAppFilter &&
           <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
             <FilterSection>
