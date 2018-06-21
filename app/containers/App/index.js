@@ -41,7 +41,6 @@ import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPag
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
-import AttestConsentPage from 'containers/AttestConsentPage';
 import ManageClientPage from 'containers/ManageClientPage';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
 import saga from './saga';
@@ -86,7 +85,6 @@ export function App() {
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
             <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
-            <Route path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
             <Route path="/ocp-ui/smart-context" component={SmartContextInitializerPage} />
             <Route path="/ocp-ui/manage-client" component={ManageClientPage} />
           </Authentication>
