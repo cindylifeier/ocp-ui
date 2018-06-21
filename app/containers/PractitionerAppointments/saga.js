@@ -64,9 +64,11 @@ export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments
     const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
     yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
-    const errMsg = getErrorMessage(err);
     yield put(getPractitionerAppointmentsError(err));
-    yield put(showNotification(errMsg));
+    if (err.response.status !== 404) {
+      const errMsg = getErrorMessage(err);
+      yield put(showNotification(errMsg));
+    }
   }
 }
 
