@@ -27,8 +27,11 @@ import {
 } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+
+import { makeSelectLocation } from 'containers/App/selectors';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
+import orderBy from 'lodash/orderBy';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -37,9 +40,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
-
-import { makeSelectLocation } from 'containers/App/selectors';
 import injectSaga from 'utils/injectSaga';
+import Util from 'utils/Util';
 import {
   acceptPatientAppointment,
   cancelPatientAppointment,
@@ -59,8 +61,11 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
+      columnToSort: '',
+      sortDirection: 'desc',
     };
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleSort = this.handleSort.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
     this.acceptAppointment = this.acceptAppointment.bind(this);
@@ -88,6 +93,11 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
+  }
+
+  handleSort(columnName) {
+    this.setState({ columnToSort: columnName });
+    this.setState({ sortDirection: this.state.columnToSort === columnName ? Util.invertSortDirection(this.state.sortDirection) : 'asc' });
   }
 
   handleCheck(event, checked) {
@@ -184,7 +194,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             {!isEmpty(data) && !isEmpty(data.elements) &&
             <CenterAlign>
               <AppointmentTable
-                elements={data.elements}
+                elements={orderBy(data.elements, this.state.columnToSort, this.state.sortDirection)}
                 appointmentStatuses={appointmentStatuses}
                 appointmentTypes={appointmentTypes}
                 cancelAppointment={this.cancelAppointment}
@@ -197,6 +207,9 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 enableEditAppointment={enableEditAppointment}
                 manageAppointmentUrl={manageAppointmentUrl}
                 isPatientWorkspace={isPatientWorkspace}
+                handleSort={this.handleSort}
+                columnToSort={this.state.columnToSort}
+                sortDirection={this.state.sortDirection}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
