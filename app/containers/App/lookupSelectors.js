@@ -17,9 +17,6 @@ import {
   COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_STATUS,
-  CONSENT_ACTION,
-  CONSENT_CATEGORY,
-  CONSENT_STATE_CODES,
   DATE_RANGE,
   DEFINITION_TOPIC,
   FLAG_CATEGORY,
@@ -44,14 +41,11 @@ import {
   PROVIDER_ROLE,
   PROVIDER_SPECIALTY,
   PUBLICATION_STATUS,
-  PURPOSE_OF_USE,
   RELATED_ARTIFACT_TYPE,
   RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   REQUEST_INTENT,
   REQUEST_PRIORITY,
   RESOURCE_TYPE,
-  SECURITY_LABEL,
-  SECURITY_ROLE_TYPE,
   TASK_PERFORMER_TYPE,
   TASK_STATUS,
   TELECOMSYSTEM,
@@ -330,11 +324,6 @@ const makeSelectCommunicationMedia = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COMMUNICATION_MEDIUM).toJS(),
 );
-// Consent Resource Lookups - Start
-const makeSelectConsentStateCodes = () => createSelector(
-  selectGlobalDomain,
-  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(CONSENT_STATE_CODES).toJS(),
-);
 
 const makeSelectToDoFilterDateRanges = () => createSelector(
   selectGlobalDomain,
@@ -342,30 +331,6 @@ const makeSelectToDoFilterDateRanges = () => createSelector(
 );
 
 // Task Resource Lookups - End
-const makeSelectConsentCategory = () => createSelector(
-  selectGlobalDomain,
-  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(CONSENT_CATEGORY).toJS(),
-);
-
-const makeSelectSecurityRoleType = () => createSelector(
-  selectGlobalDomain,
-  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(SECURITY_ROLE_TYPE).toJS(),
-);
-
-const makeSelectSecurityLabel = () => createSelector(
-  selectGlobalDomain,
-  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(SECURITY_LABEL).toJS(),
-);
-
-const makeSelectConsentAction = () => createSelector(
-  selectGlobalDomain,
-  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(CONSENT_ACTION).toJS(),
-);
-
-const makeSelectPurposeOfUse = () => createSelector(
-  selectGlobalDomain,
-  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(PURPOSE_OF_USE).toJS(),
-);
 
 const makeSelectPolicyHolderRelationship = () => createSelector(
   selectGlobalDomain,
@@ -383,7 +348,6 @@ const makeSelectCoverageType = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COVERAGE_TYPE).toJS(),
 );
 
-// Consent Resource Lookups - End
 export {
   makeSelectUspsStates,
   makeSelectLocationPhysicalTypes,
@@ -439,14 +403,6 @@ export {
   makeSelectCommunicationNotDoneReasons,
   makeSelectCommunicationMedia,
   makeSelectToDoFilterDateRanges,
-  // Consent Resource Lookups - Start
-  makeSelectConsentStateCodes,
-  makeSelectConsentCategory,
-  makeSelectSecurityLabel,
-  makeSelectSecurityRoleType,
-  makeSelectConsentAction,
-  makeSelectPurposeOfUse,
-  // Consent Resource Lookups - End,
   makeSelectPolicyHolderRelationship,
   makeSelectCoverageFmStatus,
   makeSelectCoverageType,
