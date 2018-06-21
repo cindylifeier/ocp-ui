@@ -22,4 +22,8 @@ export default defineMessages({
     id: 'ocpui.containers.PractitionerAppointments.checkbox.showPastAppointments',
     defaultMessage: 'Show Past Appointments',
   },
+  filterLabel: {
+    id: 'ocpui.containers.PractitionerAppointments.checkbox.filterLabel',
+    defaultMessage: 'Select a date range to filter',
+  },
 });
