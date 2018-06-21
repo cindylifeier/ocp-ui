@@ -10,8 +10,4 @@ export default defineMessages({
     id: 'ocpui.containers.PatientWorkspacePage.header',
     defaultMessage: 'This is PatientWorkspacePage container !',
   },
-  buttonLabelCreateNew: {
-    id: 'ocpui.containers.PatientWorkspacePage.buttonLabelCreateNew',
-    defaultMessage: 'New Consent',
-  },
 });

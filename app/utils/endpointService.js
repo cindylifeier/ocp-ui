@@ -27,7 +27,6 @@ export const BASE_EPISODE_OF_CARES_API_URL = 'ocpui/utils/BASE_EPISODE_OF_CARES_
 export const BASE_ACTIVITY_DEFINITIONS_API_URL = 'ocpui/utils/BASE_ACTIVITY_DEFINITIONS_API_URL';
 export const BASE_APPOINTMENTS_API_URL = 'ocpui/utils/BASE_APPOINTMENTS_API_URL';
 export const BASE_OUTLOOK_API_URL = 'ocpui/utils/BASE_OUTLOOK_API_URL';
-export const BASE_CONSENTS_API_URL = 'ocpui/utils/BASE_CONSENTS_API_URL';
 export const BASE_USER_CONTEXT_API_URL = 'ocpui/utils/BASE_USER_CONTEXT_API_URL';
 export const BASE_SMART_URL = 'ocpui/utils/BASE_SMART_URL';
 export const SMART_AUTHORIZE_URL = 'ocpui/utils/SMART_AUTHORIZE_URL';
@@ -64,7 +63,6 @@ const apiEndpoints = [
   { key: BASE_APPOINTMENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/appointments` },
   { key: BASE_OUTLOOK_API_URL, url: `${BASE_API_URL}/ocp-fis/outlook` },
   { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
-  { key: BASE_CONSENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/consents` },
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
   // TODO: consider moving all SMART endpoints under smart-gateway
   { key: BASE_SMART_URL, url: `${BASE_API_URL}/smart` },
