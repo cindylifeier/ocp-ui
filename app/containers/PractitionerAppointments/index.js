@@ -99,7 +99,11 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
         showPastAppointments: false,
       });
     } else {
-      console.log(dateRange);
+      this.props.getUpcomingAppointments({
+        pageNumber: DEFAULT_START_PAGE_NUMBER,
+        showPastAppointments: false,
+        filterDateOption: dateRange,
+      });
     }
   }
 
@@ -254,7 +258,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUpcomingAppointments: (query, showPastAppointments) => dispatch(getPractitionerAppointments(query, showPastAppointments)),
+    getUpcomingAppointments: (query, showPastAppointments, filterDateOption) => dispatch(getPractitionerAppointments(query, showPastAppointments, filterDateOption)),
     getLookupData: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     cancelAppointment: (id) => dispatch(cancelPractitionerAppointment(id)),
     acceptAppointment: (id, query) => dispatch(acceptPractitionerAppointment(id, query)),

@@ -42,11 +42,12 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments, pageNumber } }) {
+export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments, pageNumber, filterDateOption } }) {
   try {
     let queryParams = {
       showPastAppointments,
       pageNumber,
+      filterDateOption,
     };
     const practitioner = yield select(makeSelectUser());
     const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
@@ -56,6 +57,7 @@ export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments
         showPastAppointments,
         pageNumber,
         practitionerId,
+        filterDateOption,
         requesterReference: `Practitioner/${practitionerId}`,
       };
     }
