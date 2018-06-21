@@ -15,7 +15,7 @@ class AutoSuggestionBridge extends React.Component { // eslint-disable-line reac
   constructor(props) {
     super(props);
     this.state = {
-      suggestion: {},
+      suggestion: null,
     };
     this.handleChange = this.handleChange.bind(this);
   }
