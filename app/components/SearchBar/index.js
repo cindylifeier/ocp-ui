@@ -4,22 +4,29 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Formik } from 'formik';
-import yup from 'yup';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import head from 'lodash/head';
 import { SEARCH_BY_DATE, SEARCH_BY_DUE_DATE, SEARCH_BY_ID, SEARCH_BY_NAME } from 'components/SearchBar/constants';
-
-import SearchBarForm from './SearchBarForm';
+import { Formik } from 'formik';
+import head from 'lodash/head';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import yup from 'yup';
 import messages from './messages';
 
+import SearchBarForm from './SearchBarForm';
+
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
-  const composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
-  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
+  const { minimumLength, onSearch, searchField, showToDoSpecificFilters, showAppointmentSpecificFilters } = props;
+  let composedSearchFields = {};
+  let searchFormProps = {};
+  if (showToDoSpecificFilters) {
+    composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
+    searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
+  } else if (showAppointmentSpecificFilters) {
+    composedSearchFields = getToDoSpecificSearchField(searchField, showAppointmentSpecificFilters);
+    searchFormProps = { searchField: composedSearchFields, showAppointmentSpecificFilters };
+  }
 
   function getToDoSpecificSearchField(searchFieldObject, showAdditionalSearchFields) {
     const newSearchTypes = !showAdditionalSearchFields ? searchFieldObject.searchTypes : [...searchFieldObject.searchTypes,
@@ -37,6 +44,7 @@ function SearchBar(props) {
       searchValueHintText: searchFieldObject.searchValueHintText,
     };
   }
+
   function initialFormValues() {
     let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
     if (!isEmpty(searchField.searchTypes)) {
@@ -75,6 +83,7 @@ SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
+  showAppointmentSpecificFilters: PropTypes.bool,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -87,6 +96,7 @@ SearchBar.propTypes = {
 SearchBar.defaultProps = {
   minimumLength: 3,
   showToDoSpecificFilters: false,
+  showAppointmentSpecificFilters: false,
   searchField: {
     searchTypes: [{
       value: SEARCH_BY_NAME,
