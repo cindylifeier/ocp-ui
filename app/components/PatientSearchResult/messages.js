@@ -42,6 +42,10 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.fullName',
     defaultMessage: 'Name',
   },
+  mrn: {
+    id: 'ocpui.components.PatientSearchResult.mrn',
+    defaultMessage: 'MRN',
+  },
   address: {
     id: 'ocpui.components.PatientSearchResult.address',
     defaultMessage: 'Address',
