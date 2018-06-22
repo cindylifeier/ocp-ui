@@ -18,15 +18,8 @@ import SearchBarForm from './SearchBarForm';
 
 function SearchBar(props) {
   const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
-  let composedSearchFields = {};
-  let searchFormProps = {};
-  if (showToDoSpecificFilters) {
-    composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
-    searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
-  } else {
-    composedSearchFields = getToDoSpecificSearchField(searchField, false);
-    searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
-  }
+  const composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
+  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
 
   function getToDoSpecificSearchField(searchFieldObject, showAdditionalSearchFields) {
     const newSearchTypes = !showAdditionalSearchFields ? searchFieldObject.searchTypes : [...searchFieldObject.searchTypes,
