@@ -148,7 +148,6 @@ export class PanelToolbar extends React.Component {
           onSearch={onSearch}
           searchField={searchField}
           showToDoSpecificFilters={showToDoSpecificFilters}
-          showAppointmentSpecificFilters={showAppointmentSpecificFilters}
         />
         }
         {this.state.isShowFilter &&

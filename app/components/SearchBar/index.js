@@ -17,15 +17,12 @@ import messages from './messages';
 import SearchBarForm from './SearchBarForm';
 
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField, showToDoSpecificFilters, showAppointmentSpecificFilters } = props;
+  const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
   let composedSearchFields = {};
   let searchFormProps = {};
   if (showToDoSpecificFilters) {
     composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
     searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
-  } else if (showAppointmentSpecificFilters) {
-    composedSearchFields = getToDoSpecificSearchField(searchField, showAppointmentSpecificFilters);
-    searchFormProps = { searchField: composedSearchFields, showAppointmentSpecificFilters };
   } else {
     composedSearchFields = getToDoSpecificSearchField(searchField, false);
     searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
@@ -86,7 +83,6 @@ SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
-  showAppointmentSpecificFilters: PropTypes.bool,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -99,7 +95,6 @@ SearchBar.propTypes = {
 SearchBar.defaultProps = {
   minimumLength: 3,
   showToDoSpecificFilters: false,
-  showAppointmentSpecificFilters: false,
   searchField: {
     searchTypes: [{
       value: SEARCH_BY_NAME,
