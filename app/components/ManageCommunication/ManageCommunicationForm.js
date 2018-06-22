@@ -20,7 +20,9 @@ import GoBackButton from 'components/GoBackButton';
 import TextField from 'components/TextField';
 import Padding from 'components/Padding/index';
 import SelectField from 'components/SelectField';
+import AutoSuggestionField from 'components/AutoSuggestion';
 import messages from './messages';
+
 
 function ManageCommunicationForm(props) {
   const {
@@ -40,12 +42,12 @@ function ManageCommunicationForm(props) {
     handleRemoveRecipient(check, reference);
   };
 
-  // const statusSuggestions = communicationStatus
-  //   .filter((entry) => (entry.code !== null) && (entry.display !== null))
-  //   .map((entry) => ({
-  //     value: entry.code,
-  //     label: entry.display,
-  //   }));
+  const mediumSuggestions = communicationMedia
+    .filter((entry) => (entry.code !== null) && (entry.display !== null))
+    .map((entry) => ({
+      value: entry.code,
+      label: entry.display,
+    }));
 
   function createRecipientTableRows() {
     return selectedRecipients && selectedRecipients.map((recipient) => (
@@ -165,15 +167,14 @@ function ManageCommunicationForm(props) {
               />
             </Cell>
             <Cell>
-              <SelectField
-                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
-                name="mediumCode"
-                fullWidth
-              >
-                {communicationMedia && communicationMedia.map((communicationMedium) => (
-                  <MenuItem key={uniqueId()} value={communicationMedium.code} primaryText={communicationMedium.display} />
-                ))}
-              </SelectField>
+              <Padding top={'25'}>
+                <AutoSuggestionField
+                  name="mediumCode"
+                  placeholder={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
+                  suggestions={mediumSuggestions}
+                  {...props}
+                />
+              </Padding>
             </Cell>
           </Grid>
         </FormCell>
