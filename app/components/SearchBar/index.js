@@ -26,6 +26,9 @@ function SearchBar(props) {
   } else if (showAppointmentSpecificFilters) {
     composedSearchFields = getToDoSpecificSearchField(searchField, showAppointmentSpecificFilters);
     searchFormProps = { searchField: composedSearchFields, showAppointmentSpecificFilters };
+  } else {
+    composedSearchFields = getToDoSpecificSearchField(searchField, false);
+    searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
   }
 
   function getToDoSpecificSearchField(searchFieldObject, showAdditionalSearchFields) {
