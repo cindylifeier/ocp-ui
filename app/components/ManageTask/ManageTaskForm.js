@@ -148,8 +148,8 @@ function ManageTaskForm(props) {
           <SelectField
             fullWidth
             name="context"
-            hintText={<FormattedMessage {...messages.hintText.eventType} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.eventType} />}
+            hintText={<FormattedMessage {...messages.hintText.episodeOdCare} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOdCare} />}
             disabled={!isMainTask}
           >
             {eventTypes && eventTypes.map((eventType) =>
