@@ -12,13 +12,14 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import find from 'lodash/find';
+import DownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import UpArrow from 'material-ui/svg-icons/navigation/arrow-drop-up';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import DownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
-import UpArrow from 'material-ui/svg-icons/navigation/arrow-drop-up';
-import Util from 'utils/Util';
+import { ASC } from 'utils/constants';
 import sizeMeHOC from 'utils/SizeMeUtils';
+import Util from 'utils/Util';
 import {
   EXPANDED_TABLE_COLUMNS,
   PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS,
@@ -43,7 +44,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
   }
 
   function getSortIcon() {
-    return (Util.equalsIgnoreCase(sortDirection, 'asc') ? <UpArrow /> : <DownArrow />);
+    return (Util.equalsIgnoreCase(sortDirection, ASC) ? <UpArrow /> : <DownArrow />);
   }
 
   function createTableHeaders() {
