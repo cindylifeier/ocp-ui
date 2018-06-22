@@ -165,6 +165,8 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
         <Card>
           <PanelToolbar
             showSearchIcon={false}
+            showUploadIcon={false}
+            showSettingIcon={false}
             showFilter={false}
             showAppointmentSpecificFilters
             filterField={filterField}

@@ -167,6 +167,9 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             {...addNewItem}
             allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
             showSearchIcon={false}
+            showUploadIcon={false}
+            showSettingIcon={false}
+            showFilterIcon={false}
             onSize={this.handlePanelResize}
           />
           <ContentSection>
