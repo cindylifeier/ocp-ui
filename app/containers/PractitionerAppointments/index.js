@@ -34,6 +34,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Cell } from 'styled-css-grid';
+import { ASC, DESC } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
@@ -58,7 +59,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
       panelHeight: 0,
       filterHeight: 0,
       columnToSort: '',
-      sortDirection: 'desc',
+      sortDirection: DESC,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleSort = this.handleSort.bind(this);
@@ -143,7 +144,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   handleSort(columnName) {
     this.setState({ columnToSort: columnName });
-    this.setState({ sortDirection: this.state.columnToSort === columnName ? Util.invertSortDirection(this.state.sortDirection) : 'asc' });
+    this.setState({ sortDirection: this.state.columnToSort === columnName ? Util.invertSortDirection(this.state.sortDirection) : ASC });
   }
 
   render() {
