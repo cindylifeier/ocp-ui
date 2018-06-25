@@ -4,17 +4,17 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Formik } from 'formik';
-import yup from 'yup';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import head from 'lodash/head';
 import { SEARCH_BY_DATE, SEARCH_BY_DUE_DATE, SEARCH_BY_ID, SEARCH_BY_NAME } from 'components/SearchBar/constants';
+import { Formik } from 'formik';
+import head from 'lodash/head';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import yup from 'yup';
+import messages from './messages';
 
 import SearchBarForm from './SearchBarForm';
-import messages from './messages';
 
 function SearchBar(props) {
   const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
@@ -37,6 +37,7 @@ function SearchBar(props) {
       searchValueHintText: searchFieldObject.searchValueHintText,
     };
   }
+
   function initialFormValues() {
     let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
     if (!isEmpty(searchField.searchTypes)) {

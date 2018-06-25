@@ -10,6 +10,7 @@ import trim from 'lodash/trim';
 import toUpper from 'lodash/toUpper';
 
 import { EMPTY_STRING } from '../containers/App/constants';
+import { ASC, DESC } from './constants';
 
 class Util {
   static setEmptyStringWhenUndefined(value) {
@@ -64,6 +65,13 @@ class Util {
 
   static hasText(str) {
     return typeof str === 'string' && str.trim() !== '';
+  }
+
+  static invertSortDirection(direction) {
+    if (direction === ASC) {
+      return DESC;
+    }
+    return ASC;
   }
 }
 

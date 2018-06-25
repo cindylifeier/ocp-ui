@@ -24,6 +24,6 @@ export default defineMessages({
   },
   selectLabelDateRange: {
     id: 'ocpui.containers.PractitionerToDos.selectLabelDateRange',
-    defaultMessage: 'Select Date range to filter.',
+    defaultMessage: 'Select a date range to filter',
   },
 });
