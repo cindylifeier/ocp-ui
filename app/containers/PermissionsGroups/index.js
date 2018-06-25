@@ -21,10 +21,11 @@ import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddPermissionGroupForm from 'components/AddPermissionGroupForm';
 
 import PermissionGroupsTable from 'components/PermissionGroupsTable';
-import makeSelectPermissionsGroups from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { getGroups, getScopes } from './actions';
+import { makeSelectGroups, makeSelectScopes } from './selectors';
 
 export class PermissionsGroups extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -36,6 +37,11 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEditPermissionGroup = this.handleEditPermissionGroup.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getGroups();
+    this.props.getScopes();
   }
 
   handleOpenDialog() {
@@ -57,6 +63,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
   }
 
   render() {
+    const { groups, scopes } = this.props;
     return (
       <div>
         <div>
@@ -67,7 +74,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
         </div>
         <FieldArray
           name="permissionGroup"
-          render={() => (
+          render={(arrayHelpers) => (
             <div>
               <Dialog
                 modal={false}
@@ -78,28 +85,37 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
                 <AddPermissionGroupForm
                   initialValues={this.state.editingPermissionGroup}
                   handleCloseDialog={this.handleCloseDialog}
+                  scopes={scopes}
                 />
               </Dialog>
+              <PermissionGroupsTable
+                arrayHelpers={arrayHelpers}
+                groups={groups}
+              />
             </div>
           )}
         />
-        <PermissionGroupsTable />
       </div>
     );
   }
 }
 
 PermissionsGroups.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getGroups: PropTypes.func.isRequired,
+  getScopes: PropTypes.func.isRequired,
+  groups: PropTypes.array,
+  scopes: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  permissionsgroups: makeSelectPermissionsGroups(),
+  groups: makeSelectGroups(),
+  scopes: makeSelectScopes(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getGroups: () => dispatch(getGroups()),
+    getScopes: () => dispatch(getScopes()),
   };
 }
 

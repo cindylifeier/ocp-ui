@@ -19,7 +19,19 @@ const makeSelectPermissionsGroups = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const makeSelectGroups = () => createSelector(
+  selectPermissionsGroupsDomain,
+  (substate) => substate.get('groups'),
+);
+
+const makeSelectScopes = () => createSelector(
+  selectPermissionsGroupsDomain,
+  (substate) => substate.get('scopes'),
+);
+
 export default makeSelectPermissionsGroups;
 export {
   selectPermissionsGroupsDomain,
+  makeSelectGroups,
+  makeSelectScopes,
 };

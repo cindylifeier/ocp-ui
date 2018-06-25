@@ -6,6 +6,8 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableRow from 'components/TableRow';
@@ -14,12 +16,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 import { PERMISSION_GROUPS_TABLE_COLUMNS } from './constants';
-// import styled from 'styled-components';
-const elements = [
-  { logicalId: '1', name: 'Administrator', description: ' Responsible for granting access and permission to other users.' },
-  { logicalId: '2', name: 'Care Manager', description: ' Supervises care coordinators and the management of patients.' },
-  { logicalId: '3', name: 'Care Coordinator', description: 'A care coordinator supervises interdisciplinary care by bringing together different specialists whose help the patient may need.' },
-];
 
 const columns = PERMISSION_GROUPS_TABLE_COLUMNS;
 const menuItems = [{
@@ -37,13 +33,13 @@ function createTableHeaders() {
   );
 }
 
-function createTableRows() {
+function createTableRows(groups) {
   return (
     <div>
-      {elements && elements.map((permissionGroup) => (
-        <TableRow key={permissionGroup.logicalId} columns={columns}>
+      {groups && groups.map((permissionGroup) => (
+        <TableRow key={permissionGroup.id} columns={columns}>
           <TableRowColumn>
-            {permissionGroup.name}
+            {permissionGroup.displayName}
           </TableRowColumn>
           <TableRowColumn>
             {permissionGroup.description}
@@ -57,17 +53,18 @@ function createTableRows() {
   );
 }
 
-function PermissionGroupsTable() { // eslint-disable-line react/prefer-stateless-function
+function PermissionGroupsTable(props) { // eslint-disable-line react/prefer-stateless-function
+  const { groups } = props;
   return (
     <Table>
       {createTableHeaders()}
-      {createTableRows()}
+      {createTableRows(groups)}
     </Table>
   );
 }
 
 PermissionGroupsTable.propTypes = {
-
+  groups: PropTypes.array,
 };
 
 export default PermissionGroupsTable;
