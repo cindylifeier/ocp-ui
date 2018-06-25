@@ -21,6 +21,7 @@ import PermissionsList from './PermissionsList';
 function AddPermissionGroupForm(props) { // eslint-disable-line react/prefer-stateless-function
   const {
     handleCloseDialog,
+    scopes,
   } = props;
   return (
     <div>
@@ -52,7 +53,7 @@ function AddPermissionGroupForm(props) { // eslint-disable-line react/prefer-sta
             </PermissionGroupInfoSection>
             <PermissionGroupPageTitle>Permissions</PermissionGroupPageTitle>
             <AddPermissionsSection>
-              <PermissionsList />
+              <PermissionsList scopes={scopes} />
             </AddPermissionsSection>
             <div>
               <StyledRaisedButton
@@ -74,6 +75,7 @@ function AddPermissionGroupForm(props) { // eslint-disable-line react/prefer-sta
 
 AddPermissionGroupForm.propTypes = {
   handleCloseDialog: PropTypes.func.isRequired,
+  scopes: PropTypes.array,
 };
 
 export default AddPermissionGroupForm;
