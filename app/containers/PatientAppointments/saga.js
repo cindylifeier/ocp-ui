@@ -57,7 +57,6 @@ export function* getPatientAppointmentsSaga({ query: { showPastAppointments, pag
         showPastAppointments,
         pageNumber,
         patientId,
-        practitionerId,
         requesterReference: `Practitioner/${practitionerId}`,
       };
     } else if (patientId) {
