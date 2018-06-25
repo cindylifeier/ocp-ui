@@ -15,3 +15,5 @@ export const homeUse = 'home';
 export const workUse = 'work';
 export const mobileUse = 'mobile';
 export const tempUse = 'temp';
+export const DESC = 'desc';
+export const ASC = 'asc';
