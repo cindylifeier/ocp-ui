@@ -123,5 +123,9 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.birthSex',
       defaultMessage: 'Birth Gender',
     },
+    activityType: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activityType',
+      defaultMessage: 'Activity Type',
+    },
   },
 });
