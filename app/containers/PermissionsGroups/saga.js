@@ -1,9 +1,11 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { GET_GROUPS, GET_SCOPES } from './constants';
-import { getGroups, getScopes } from './api';
-import { getGroupsError, getGroupsSuccess, getScopesSuccess, getScopesError } from './actions';
+
+import { showNotification } from 'containers/Notification/actions';
+import { GET_GROUPS, GET_SCOPES, SAVE_GROUP } from './constants';
+import { getGroups, getScopes, updateGroup, createGroup } from './api';
+import { getGroupsError, getGroupsSuccess, getScopesSuccess, getScopesError, saveGroupSuccess, saveGroupError } from './actions';
 
 export function* getGroupsSaga() {
   try {
@@ -24,6 +26,45 @@ export function* getScopesSaga() {
   }
 }
 
+export function* saveGroupSaga(action) {
+  try {
+    if (action.group.isEdit) {
+      yield call(updateGroup, action.group);
+    } else {
+      yield call(createGroup, action.group);
+    }
+    yield put(showNotification(`Successfully ${getNotificationAction(action.group)} group.`));
+    yield call(action.handleSubmitting);
+    yield put(saveGroupSuccess(action.group));
+  } catch (error) {
+    yield put(saveGroupError(error));
+    yield put(showNotification(`Failed to ${getNotificationAction(action.group)} group: ${getErrorDetail(error, action.group.name)}`));
+    yield call(action.handleSubmitting);
+  }
+}
+
+function getNotificationAction(group) {
+  let action = 'create';
+  if (group.isEdit) {
+    action = 'update';
+  }
+  return action;
+}
+
+function getErrorDetail(err, groupName) {
+  let errorDetail = '';
+  if (err && err.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (err && err.response && err.response.status === 400) {
+    errorDetail = ' Bad request.';
+  } else if (err && err.response && err.response.status === 409) {
+    errorDetail = ` Duplicate Entry:: Group ${groupName} already exists.`;
+  } else if (err && err.response && err.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
+}
+
 
 export function* watchGetGroupsSaga() {
   yield takeLatest(GET_GROUPS, getGroupsSaga);
@@ -34,6 +75,10 @@ export function* watchGetScopesSaga() {
   yield takeLatest(GET_SCOPES, getScopesSaga);
 }
 
+export function* watchSaveGroupSaga() {
+  yield takeLatest(SAVE_GROUP, saveGroupSaga);
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -41,5 +86,6 @@ export default function* rootSaga() {
   yield all([
     watchGetGroupsSaga(),
     watchGetScopesSaga(),
+    watchSaveGroupSaga(),
   ]);
 }

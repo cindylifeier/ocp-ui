@@ -4,7 +4,7 @@
  *
  */
 
-import { GET_GROUPS, GET_GROUPS_SUCCESS, GET_GROUPS_ERROR, GET_SCOPES, GET_SCOPES_SUCCESS, GET_SCOPES_ERROR } from './constants';
+import { GET_GROUPS, GET_GROUPS_SUCCESS, GET_GROUPS_ERROR, GET_SCOPES, GET_SCOPES_SUCCESS, GET_SCOPES_ERROR, SAVE_GROUP, SAVE_GROUP_SUCCESS, SAVE_GROUP_ERROR } from './constants';
 
 export function getGroups() {
   return {
@@ -42,6 +42,28 @@ export function getScopesSuccess(scopes) {
 export function getScopesError(error) {
   return {
     type: GET_SCOPES_ERROR,
+    error,
+  };
+}
+
+export function saveGroup(group, handleSubmitting) {
+  return {
+    type: SAVE_GROUP,
+    group,
+    handleSubmitting,
+  };
+}
+
+export function saveGroupSuccess(group) {
+  return {
+    type: SAVE_GROUP_SUCCESS,
+    group,
+  };
+}
+
+export function saveGroupError(error) {
+  return {
+    type: SAVE_GROUP_ERROR,
     error,
   };
 }

@@ -13,6 +13,7 @@ import PermissionAddButtonsSection from './PermissionAddButtonsSection';
 function PermissionsList(props) {
   const {
     scopes,
+    addedScopes,
   } = props;
   return (
     <div>
@@ -31,10 +32,10 @@ function PermissionsList(props) {
         <Cell row={1} width={1}>
           <PermissionAddButtonsSection>
             <Grid columns={1}>
-              <StyledIconButton svgIconSize="large">
+              <StyledIconButton svgIconSize="large" onClick={() => addedScopes.add()}>
                 <ArrowFowardIcon />
               </StyledIconButton>
-              <StyledIconButton svgIconSize="large">
+              <StyledIconButton svgIconSize="large" onClick={() => addedScopes.remove()}>
                 <ArrowBackIcon />
               </StyledIconButton>
             </Grid>
@@ -52,6 +53,7 @@ function PermissionsList(props) {
 
 PermissionsList.propTypes = {
   scopes: PropTypes.array,
+  addedScopes: PropTypes.array,
 };
 
 export default PermissionsList;

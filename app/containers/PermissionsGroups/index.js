@@ -24,7 +24,7 @@ import PermissionGroupsTable from 'components/PermissionGroupsTable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getGroups, getScopes } from './actions';
+import { getGroups, getScopes, saveGroup } from './actions';
 import { makeSelectGroups, makeSelectScopes } from './selectors';
 
 export class PermissionsGroups extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -37,6 +37,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEditPermissionGroup = this.handleEditPermissionGroup.bind(this);
+    this.handleSaveGroup = this.handleSaveGroup.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +63,13 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
     }));
   }
 
+
+  handleSaveGroup(group, actions) {
+    this.props.onSaveGroup(group, () => {
+      actions.setSubmitting(false);
+    });
+  }
+
   render() {
     const { groups, scopes } = this.props;
     return (
@@ -85,6 +93,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
                 <AddPermissionGroupForm
                   initialValues={this.state.editingPermissionGroup}
                   handleCloseDialog={this.handleCloseDialog}
+                  handleSaveGroup={this.handleSaveGroup}
                   scopes={scopes}
                 />
               </Dialog>
@@ -102,6 +111,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
 
 PermissionsGroups.propTypes = {
   getGroups: PropTypes.func.isRequired,
+  onSaveGroup: PropTypes.func.isRequired,
   getScopes: PropTypes.func.isRequired,
   groups: PropTypes.array,
   scopes: PropTypes.array,
@@ -116,6 +126,9 @@ function mapDispatchToProps(dispatch) {
   return {
     getGroups: () => dispatch(getGroups()),
     getScopes: () => dispatch(getScopes()),
+    onSaveGroup: (group, handleSubmitting) => {
+      dispatch(saveGroup(group, handleSubmitting));
+    },
   };
 }
 
