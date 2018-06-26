@@ -65,6 +65,7 @@ export class PractitionerToDos extends React.PureComponent { // eslint-disable-l
       <div>
         {loading && <RefreshIndicatorLoading />}
         <PanelToolbar
+          showSearchIcon={false}
           showFilter={false}
           showToDoSpecificFilters
           filterField={filterField}

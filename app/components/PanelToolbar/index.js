@@ -65,6 +65,7 @@ export class PanelToolbar extends React.Component {
       onSearch,
       searchField,
       showToDoSpecificFilters,
+      showAppointmentSpecificFilters,
       onFilter,
       filterField,
       hideToolbar,
@@ -153,7 +154,7 @@ export class PanelToolbar extends React.Component {
         <FilterBar
           onFilter={onFilter}
           filterField={filterField}
-          showFilter={showToDoSpecificFilters}
+          showFilter={showToDoSpecificFilters || showAppointmentSpecificFilters}
         />
         }
       </div>
@@ -186,6 +187,7 @@ PanelToolbar.propTypes = {
     ),
   ]),
   showToDoSpecificFilters: PropTypes.bool,
+  showAppointmentSpecificFilters: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
