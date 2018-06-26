@@ -111,6 +111,7 @@ class PractitionerRoleForOrganizationTable extends React.Component {
                         <TableRowColumn>
                           <AutoSuggestionField
                             name="code"
+                            placeholder={<FormattedMessage {...messages.rolePlaceholder} />}
                             suggestions={roleSuggestions}
                             {...this.props}
                           />
@@ -118,6 +119,7 @@ class PractitionerRoleForOrganizationTable extends React.Component {
                         <TableRowColumn>
                           <AutoSuggestionField
                             name="specialty"
+                            placeholder={<FormattedMessage {...messages.specialtyPlaceholder} />}
                             suggestions={specialtySuggestions}
                             {...this.props}
                           />
