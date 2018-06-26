@@ -89,7 +89,7 @@ PatientExpansionRowDetails.propTypes = {
     birthDate: PropTypes.string,
     genderCode: PropTypes.string,
     birthSex: PropTypes.string,
-    activityTypes: PropTypes.string,
+    activityTypes: PropTypes.array,
   }).isRequired,
 };
 
