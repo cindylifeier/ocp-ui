@@ -18,10 +18,7 @@ import messages from './messages';
 import { PERMISSION_GROUPS_TABLE_COLUMNS } from './constants';
 
 const columns = PERMISSION_GROUPS_TABLE_COLUMNS;
-const menuItems = [{
-  primaryText: <FormattedMessage {...messages.manageGroup} />,
-  disabled: true,
-}];
+
 
 function createTableHeaders() {
   return (
@@ -33,38 +30,45 @@ function createTableHeaders() {
   );
 }
 
-function createTableRows(groups) {
+function createTableRows(groups, handleEditPermissionGroup) {
   return (
     <div>
-      {groups && groups.map((permissionGroup) => (
-        <TableRow key={permissionGroup.id} columns={columns}>
-          <TableRowColumn>
-            {permissionGroup.displayName}
-          </TableRowColumn>
-          <TableRowColumn>
-            {permissionGroup.description}
-          </TableRowColumn>
-          <TableRowColumn>
-            <NavigationIconMenu menuItems={menuItems} />
-          </TableRowColumn>
-        </TableRow>
-        ))}
+      {groups && groups.map((permissionGroup) => {
+        const menuItems = [{
+          primaryText: <FormattedMessage {...messages.manageGroup} />,
+          onClick: () => handleEditPermissionGroup(permissionGroup),
+        }];
+        return (
+          <TableRow key={permissionGroup.id} columns={columns}>
+            <TableRowColumn>
+              {permissionGroup.displayName}
+            </TableRowColumn>
+            <TableRowColumn>
+              {permissionGroup.description}
+            </TableRowColumn>
+            <TableRowColumn>
+              <NavigationIconMenu menuItems={menuItems} />
+            </TableRowColumn>
+          </TableRow>
+        );
+      })}
     </div>
   );
 }
 
 function PermissionGroupsTable(props) { // eslint-disable-line react/prefer-stateless-function
-  const { groups } = props;
+  const { groups, handleEditPermissionGroup } = props;
   return (
     <Table>
       {createTableHeaders()}
-      {createTableRows(groups)}
+      {createTableRows(groups, handleEditPermissionGroup)}
     </Table>
   );
 }
 
 PermissionGroupsTable.propTypes = {
   groups: PropTypes.array,
+  handleEditPermissionGroup: PropTypes.func,
 };
 
 export default PermissionGroupsTable;

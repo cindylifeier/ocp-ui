@@ -56,10 +56,10 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
     });
   }
 
-  handleEditPermissionGroup(index, permissionGroup) {
+  handleEditPermissionGroup(permissionGroup) {
     this.setState((prevState) => ({
       isDialogOpen: !prevState.isDialogOpen,
-      editingPermissionGroup: { index, permissionGroup },
+      editingPermissionGroup: permissionGroup,
     }));
   }
 
@@ -100,6 +100,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
               <PermissionGroupsTable
                 arrayHelpers={arrayHelpers}
                 groups={groups}
+                handleEditPermissionGroup={this.handleEditPermissionGroup}
               />
             </div>
           )}
