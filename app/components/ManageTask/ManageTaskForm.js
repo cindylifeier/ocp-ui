@@ -217,7 +217,6 @@ function ManageTaskForm(props) {
             fullWidth
             name="taskStart"
             mode={datePickerLandscapeMode}
-            minDate={today}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
           />
