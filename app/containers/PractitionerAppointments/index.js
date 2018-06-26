@@ -108,7 +108,6 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   handleAppointmentRowClick(patientId) {
     const patientSpecificUrl = `${PATIENTS_URL}/${patientId}`;
-    console.log(patientSpecificUrl);
     this.setState({ patientPageURL: patientSpecificUrl });
     this.setState({ patientId });
     this.setState({ confirmViewPatientDetailsModalOpen: true });
@@ -120,7 +119,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   navigateToPatientDetailsPage() {
     this.props.getPatient(this.state.patientId);
-    this.props.history.push(this.state.editAppointmentURL);
+    this.props.history.push(this.state.patientPageURL);
   }
 
   handleFilter(dateRange) {
