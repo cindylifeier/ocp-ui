@@ -4,20 +4,22 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import find from 'lodash/find';
-
-import sizeMeHOC from 'utils/SizeMeUtils';
+import AppointmentExpansionRowDetails from 'components/AppointmentTable/AppointmentExpansionRowDetails';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import ExpansionTableRow from 'components/ExpansionTableRow';
-import AppointmentExpansionRowDetails from 'components/AppointmentTable/AppointmentExpansionRowDetails';
-import messages from './messages';
+import find from 'lodash/find';
+import DownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import UpArrow from 'material-ui/svg-icons/navigation/arrow-drop-up';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { ASC } from 'utils/constants';
+import sizeMeHOC from 'utils/SizeMeUtils';
+import Util from 'utils/Util';
 import {
   EXPANDED_TABLE_COLUMNS,
   PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS,
@@ -25,8 +27,10 @@ import {
   SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from './constants';
+import messages from './messages';
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace }) { // eslint-disable-line react/prefer-stateless-function
+
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, handleSort, columnToSort, sortDirection }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
 
   function getColumns() {
@@ -39,22 +43,52 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
     return columns;
   }
 
+  function getSortIcon() {
+    return (Util.equalsIgnoreCase(sortDirection, ASC) ? <UpArrow /> : <DownArrow />);
+  }
+
   function createTableHeaders() {
     const columns = getColumns();
+    const sortingEnabledColumnHeaders = [
+      'patientName',
+      'typeCode',
+      'statusCode',
+      'start',
+      'appointmentDuration',
+      'description',
+    ];
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn />
         {!isPatientWorkspace &&
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
+        <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[0])}>
+          <FormattedMessage {...messages.columnHeaderPatientName} />
+          {columnToSort === sortingEnabledColumnHeaders[0] ? getSortIcon() : null}
+        </TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAppointmentType} /></TableHeaderColumn>
+        <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[1])}>
+          <FormattedMessage {...messages.columnHeaderAppointmentType} />
+          {columnToSort === sortingEnabledColumnHeaders[1] ? getSortIcon() : null}
+        </TableHeaderColumn>
         }
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDate} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTime} /></TableHeaderColumn>
+        <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[2])}>
+          <FormattedMessage {...messages.columnHeaderStatus} />
+          {columnToSort === sortingEnabledColumnHeaders[2] ? getSortIcon() : null}
+        </TableHeaderColumn>
+        <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[3])}>
+          <FormattedMessage {...messages.columnHeaderDate} />
+          {columnToSort === sortingEnabledColumnHeaders[3] ? getSortIcon() : null}
+        </TableHeaderColumn>
+        <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[4])}>
+          <FormattedMessage {...messages.columnHeaderTime} />
+          {columnToSort === sortingEnabledColumnHeaders[4] ? getSortIcon() : null}
+        </TableHeaderColumn>
         {isExpanded &&
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
+        <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[5])}>
+          <FormattedMessage {...messages.columnHeaderDescription} />
+          {columnToSort === sortingEnabledColumnHeaders[5] ? getSortIcon() : null}
+        </TableHeaderColumn>
         }
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
       </TableHeader>
@@ -160,6 +194,9 @@ AppointmentTable.propTypes = {
   enableEditAppointment: PropTypes.bool,
   isPatientWorkspace: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
+  handleSort: PropTypes.func,
+  columnToSort: PropTypes.string,
+  sortDirection: PropTypes.string,
 };
 
 export default sizeMeHOC(AppointmentTable);
