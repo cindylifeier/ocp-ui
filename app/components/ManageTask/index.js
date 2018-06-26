@@ -52,6 +52,7 @@ function ManageTask(props) {
         validationSchema={() =>
           yup.lazy((values) => {
             let taskStart = new Date();
+            const authoredOn = values && values.authoredOn;
             if (values.taskStart) {
               taskStart = values.taskStart;
             }
@@ -70,9 +71,12 @@ function ManageTask(props) {
                 .required((<FormattedMessage {...messages.validation.required} />)),
               description: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
+              authoredOn: yup.date()
+                  .required((<FormattedMessage {...messages.validation.required} />)),
               taskStart: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
-                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
+                .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />))
+                .min(authoredOn.toLocaleDateString(), (<FormattedMessage {...messages.validation.minStarCreatedOntDate} />)),
               taskEnd: yup.date()
                 .min(taskStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
