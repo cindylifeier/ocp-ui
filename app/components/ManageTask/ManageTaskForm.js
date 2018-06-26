@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 
+import Padding from 'components/Padding';
+import AutoSuggestionField from 'components/AutoSuggestion';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
@@ -34,12 +36,36 @@ function ManageTaskForm(props) {
     tasksByPatient,
     subTasks,
     patient,
-    isEditTask,
     isSubmitting, dirty, isValid, isMainTask, organization, requester,
   } = props;
   const today = new Date();
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+
+  function createReferenceBaseSuggestions(entries) {
+    return entries && entries
+      .filter((entry) => (entry.reference !== null) && (entry.display !== null))
+      .map((entry) => ({
+        value: entry.reference,
+        label: entry.display,
+      }));
+  }
+
+  function createCodeBaseSuggestions(entries) {
+    return entries && entries
+      .filter((entry) => (entry.code !== null) && (entry.display !== null))
+      .map((entry) => ({
+        value: entry.code,
+        label: entry.display,
+      }));
+  }
+
+  const activityDefinitionSuggestions = createReferenceBaseSuggestions(activityDefinitions);
+  const taskStatusSuggestions = createCodeBaseSuggestions(taskStatus);
+  const requestPrioritySuggestions = createCodeBaseSuggestions(requestPriority);
+  const requestIntentSuggestions = createCodeBaseSuggestions(requestIntent);
+  const practitionersSuggestions = createReferenceBaseSuggestions(practitioners);
+  const taskPerformerTypeSuggestions = createCodeBaseSuggestions(taskPerformerType);
 
   return (
     <Form>
@@ -50,21 +76,16 @@ function ManageTaskForm(props) {
           </FormSubtitle>
         </Cell>
         <Cell area="activityDefinition">
-          <SelectField
-            fullWidth
-            name="activityDefinition"
-            hintText={<FormattedMessage {...messages.hintText.activityDefinitions} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
-            disabled={!isMainTask}
-          >
-            {activityDefinitions && activityDefinitions.map((activityDefinition) => (
-              <MenuItem
-                key={uniqueId()}
-                value={activityDefinition.reference}
-                primaryText={activityDefinition.display}
-              />),
-            )}
-          </SelectField>
+          <Padding top={'25'}>
+            <AutoSuggestionField
+              fullWidth
+              name="activityDefinition"
+              placeholder={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
+              suggestions={activityDefinitionSuggestions}
+              disabled={!isMainTask}
+              {...props}
+            />
+          </Padding>
         </Cell>
         <Cell area="selOrganization">
           <InfoSection margin="4vh 0 0 0">
@@ -91,7 +112,7 @@ function ManageTaskForm(props) {
           <DatePicker
             fullWidth
             name="authoredOn"
-            disabled={isEditTask}
+            disabled
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.authoredOn} />}
@@ -102,6 +123,7 @@ function ManageTaskForm(props) {
           <DatePicker
             fullWidth
             name="lastModifiedDate"
+            disabled
             defaultDate={today}
             minDate={today}
             maxDate={today}
@@ -110,40 +132,34 @@ function ManageTaskForm(props) {
           />
         </Cell>
         <Cell area="status">
-          <SelectField
-            fullWidth
-            name="status"
-            hintText={<FormattedMessage {...messages.hintText.status} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
-          >
-            {taskStatus && taskStatus.map((status) =>
-              <MenuItem key={uniqueId()} value={status.code} primaryText={status.display} />,
-            )}
-          </SelectField>
+          <Padding top={'25'}>
+            <AutoSuggestionField
+              name="status"
+              placeholder={<FormattedMessage {...messages.floatingLabelText.status} />}
+              suggestions={taskStatusSuggestions}
+              {...props}
+            />
+          </Padding>
         </Cell>
         <Cell area="priority">
-          <SelectField
-            fullWidth
-            name="priority"
-            hintText={<FormattedMessage {...messages.hintText.priority} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.priority} />}
-          >
-            {requestPriority && requestPriority.map((priority) =>
-              <MenuItem key={uniqueId()} value={priority.code} primaryText={priority.display} />,
-            )}
-          </SelectField>
+          <Padding top={'25'}>
+            <AutoSuggestionField
+              name="priority"
+              placeholder={<FormattedMessage {...messages.floatingLabelText.priority} />}
+              suggestions={requestPrioritySuggestions}
+              {...props}
+            />
+          </Padding>
         </Cell>
         <Cell area="intent">
-          <SelectField
-            fullWidth
-            name="intent"
-            hintText={<FormattedMessage {...messages.hintText.intent} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.intent} />}
-          >
-            {requestIntent && requestIntent.map((intent) =>
-              <MenuItem key={uniqueId()} value={intent.code} primaryText={intent.display} />,
-            )}
-          </SelectField>
+          <Padding top={'25'}>
+            <AutoSuggestionField
+              name="intent"
+              placeholder={<FormattedMessage {...messages.floatingLabelText.intent} />}
+              suggestions={requestIntentSuggestions}
+              {...props}
+            />
+          </Padding>
         </Cell>
         <Cell area="context">
           {(eventTypes && eventTypes.length > 0) &&
@@ -161,33 +177,26 @@ function ManageTaskForm(props) {
           }
         </Cell>
         <Cell area="taskOwner">
-          <SelectField
-            fullWidth
-            name="taskOwner"
-            hintText={<FormattedMessage {...messages.hintText.taskOwner} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
-          >
-            {practitioners && practitioners.map((practitioner) => (
-              <MenuItem
-                key={uniqueId()}
-                value={practitioner.reference}
-                primaryText={practitioner.display}
-              />),
-            )}
-          </SelectField>
+          <Padding top={'25'}>
+            <AutoSuggestionField
+              name="taskOwner"
+              placeholder={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
+              suggestions={practitionersSuggestions}
+              {...props}
+            />
+          </Padding>
         </Cell>
         <Cell area="performerType">
-          <SelectField
-            fullWidth
-            name="performerType"
-            hintText={<FormattedMessage {...messages.hintText.performerType} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.performerType} />}
-          >
-            {taskPerformerType && taskPerformerType.map((performerType) =>
-              <MenuItem key={uniqueId()} value={performerType.code} primaryText={performerType.display} />,
-            )}
-          </SelectField>
+          <Padding top={'25'}>
+            <AutoSuggestionField
+              name="performerType"
+              placeholder={<FormattedMessage {...messages.floatingLabelText.performerType} />}
+              suggestions={taskPerformerTypeSuggestions}
+              {...props}
+            />
+          </Padding>
         </Cell>
+
         <Cell area="partOf">
           {(tasksByPatient && tasksByPatient.length > 0) && !isMainTask &&
           <SelectField
@@ -310,7 +319,6 @@ ManageTaskForm.propTypes = {
   }),
   organization: PropTypes.object,
   requester: PropTypes.object,
-  isEditTask: PropTypes.bool.isRequired,
 };
 
 export default ManageTaskForm;

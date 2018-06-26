@@ -38,9 +38,8 @@ function ManageTask(props) {
     isMainTask,
     parentTask,
     subTasks,
-    isEditTask: !isEmpty(currentTask),
   };
-
+  // const isEditTask = !isEmpty(currentTask);
   return (
     <div>
       {((editMode && (currentTask || isMainTask)) || !editMode) &&
