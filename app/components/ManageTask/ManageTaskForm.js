@@ -34,6 +34,7 @@ function ManageTaskForm(props) {
     tasksByPatient,
     subTasks,
     patient,
+    isEditTask,
     isSubmitting, dirty, isValid, isMainTask, organization, requester,
   } = props;
   const today = new Date();
@@ -90,6 +91,7 @@ function ManageTaskForm(props) {
           <DatePicker
             fullWidth
             name="authoredOn"
+            disabled={isEditTask}
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.authoredOn} />}
@@ -308,6 +310,7 @@ ManageTaskForm.propTypes = {
   }),
   organization: PropTypes.object,
   requester: PropTypes.object,
+  isEditTask: PropTypes.bool.isRequired,
 };
 
 export default ManageTaskForm;

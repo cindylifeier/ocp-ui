@@ -38,6 +38,7 @@ function ManageTask(props) {
     isMainTask,
     parentTask,
     subTasks,
+    isEditTask: !isEmpty(currentTask),
   };
 
   return (
