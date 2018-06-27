@@ -53,6 +53,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
     this.authenticateOutlookCredentials = this.authenticateOutlookCredentials.bind(this);
     this.handleOpenLoginDialog = this.handleOpenLoginDialog.bind(this);
+    this.showTooltip = this.showTooltip.bind(this);
   }
 
   componentDidMount() {
@@ -101,6 +102,16 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.setState({ loginModalOpen: true });
   }
 
+  showTooltip(appointment) {
+    const title = appointment.title;
+    const names = appointment.participantNames.join(', ');
+    if (!appointment.isOutlookAppointment) {
+      const patientName = appointment.patientName;
+      return `\n Title: ${title} \n Patient Name: ${patientName} \n Participants: ${names}`;
+    }
+    return `\n Title: ${title} \n Participants: ${names}`;
+  }
+
   render() {
     let { appointmentsCalendar: { data, outlookData } } = this.props;
     if (isEmpty(data)) {
@@ -128,6 +139,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           outlookElements={outlookData}
           manageAppointmentUrl={MANAGE_APPOINTMENT_URL}
           handleDoubleClickEvent={this.handleDoubleClickEvent}
+          tooltipAccessor={this.showTooltip}
         />
 
         <div>
