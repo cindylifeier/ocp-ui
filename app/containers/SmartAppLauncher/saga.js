@@ -29,6 +29,7 @@ export function* getClientsSaga() {
 function* getAppShortcutsSaga() {
   try {
     const appShortcuts = yield call(getAppShortcuts);
+    console.log(appShortcuts);
     yield put(getAppShortcutsSuccess(appShortcuts));
   } catch (error) {
     yield put(showNotification('Cannot get smart app shortcuts configuration.'));

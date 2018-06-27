@@ -13,6 +13,8 @@ import Padding from 'components/Padding';
 import PanelSection from 'components/PanelSection';
 import StyledText from 'components/StyledText';
 import SmartAppsGallery from 'components/SmartAppsGallery';
+import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
+import ShowHideWrapper from 'containers/ShowHideWrapper';
 import LaunchButton from './LaunchButton';
 
 
@@ -27,8 +29,10 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
   }
 
   render() {
-    const { onCreateLaunch, smartApps, config, appShortcuts } = this.props;
-    const registeredAppShortcuts = smartApps.filter((app) => appShortcuts.clientIds.includes(app.clientId));
+    const { onCreateLaunch, smartApps, config, appShortcuts, userRole } = this.props;
+    const registeredAppShortcuts = (userRole === PATIENT_ROLE_CODE) ?
+      smartApps.filter((app) => appShortcuts.patientClientIds.includes(app.clientId)) :
+      smartApps.filter((app) => appShortcuts.clientIds.includes(app.clientId));
     return (
       <PanelSection>
         <Padding left={5} right={5} top={5} bottom={5}>
@@ -43,13 +47,15 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
                 </LaunchButton>
               </Cell>
             ))}
-            <Cell>
-              <SmartAppsGallery
-                smartApps={smartApps}
-                onCreateLaunch={onCreateLaunch}
-                config={config}
-              />
-            </Cell>
+            <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}>
+              <Cell>
+                <SmartAppsGallery
+                  smartApps={smartApps}
+                  onCreateLaunch={onCreateLaunch}
+                  config={config}
+                />
+              </Cell>
+            </ShowHideWrapper>
           </Grid>
         </Padding>
       </PanelSection>
@@ -71,7 +77,9 @@ SmartApps.propTypes = {
   }).isRequired,
   appShortcuts: PropTypes.shape({
     clientIds: PropTypes.array,
+    patientClientIds: PropTypes.array,
   }),
+  userRole: PropTypes.string.isRequired,
 };
 
 export default SmartApps;
