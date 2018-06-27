@@ -24,6 +24,7 @@ function AddPermissionGroupForm(props) { // eslint-disable-line react/prefer-sta
   const {
     handleCloseDialog,
     handleSaveGroup,
+    initialValues,
     scopes,
   } = props;
   return (
@@ -33,8 +34,9 @@ function AddPermissionGroupForm(props) { // eslint-disable-line react/prefer-sta
           handleSaveGroup(values, actions);
           handleCloseDialog();
         }}
+        initialValues={initialValues}
         validationSchema={yup.object().shape({
-          name: yup.string()
+          displayName: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           description: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -45,7 +47,7 @@ function AddPermissionGroupForm(props) { // eslint-disable-line react/prefer-sta
               <Grid columns={3}>
                 <Cell width={1}>
                   <TextField
-                    name="name"
+                    name="displayName"
                     hintText={<FormattedMessage {...messages.hintText.groupName} />}
                     floatingLabelText={<FormattedMessage {...messages.floatingLabelText.groupName} />}
                     fullWidth
@@ -90,6 +92,7 @@ AddPermissionGroupForm.propTypes = {
   handleCloseDialog: PropTypes.func.isRequired,
   handleSaveGroup: PropTypes.func.isRequired,
   scopes: PropTypes.array,
+  initialValues: PropTypes.object,
 };
 
 export default AddPermissionGroupForm;
