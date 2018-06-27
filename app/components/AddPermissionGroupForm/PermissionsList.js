@@ -44,7 +44,6 @@ class PermissionsList extends React.Component {
         scopes: updateScopes,
       });
   }
-
   render() {
     return (
       <div>
