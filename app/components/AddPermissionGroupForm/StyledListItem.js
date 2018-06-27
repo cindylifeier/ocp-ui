@@ -15,6 +15,7 @@ const StyledListItem = styled(ListItem).attrs({
   innerDivStyle: {
     padding: '0 5px',
   },
+  hoverColor: '#d3f1ff',
 })('');
 
 export default StyledListItem;

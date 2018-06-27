@@ -27,6 +27,10 @@ import messages from './messages';
 import { getGroups, getScopes, saveGroup } from './actions';
 import { makeSelectGroups, makeSelectScopes } from './selectors';
 
+const customContentStyle = {
+  width: '55%',
+  maxWidth: 'none',
+};
 export class PermissionsGroups extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -89,6 +93,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
                 open={this.state.isDialogOpen}
                 onRequestClose={this.handleCloseDialog}
                 title="Create Permission Group"
+                contentStyle={customContentStyle}
               >
                 <AddPermissionGroupForm
                   initialValues={this.state.editingPermissionGroup}
