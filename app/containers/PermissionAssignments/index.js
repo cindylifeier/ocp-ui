@@ -76,6 +76,7 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
                 <AddAssignRolesForm
                   initialValues={this.state.editingAssignRoles}
                   handleCloseDialog={this.handleCloseDialog}
+                  organization={{ identifiers: { name: 'test' } }}
                 />
               </Dialog>
             </div>
