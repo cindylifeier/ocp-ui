@@ -38,6 +38,14 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerRoleForOrganizationTable.TableColumnHeader.tableColumnHeaderSpecialty',
     defaultMessage: 'Specialty',
   },
+  specialtyPlaceholder: {
+    id: 'ocpui.components.PractitionerRoleForOrganizationTable.placeholder.specialtyPlaceholder',
+    defaultMessage: 'Select Specialty',
+  },
+  rolePlaceholder: {
+    id: 'ocpui.components.PractitionerRoleForOrganizationTable.placeholder.rolePlaceholder',
+    defaultMessage: 'Select Role',
+  },
   validation: {
     required: {
       id: 'ocpui.components.PractitionerRoleForOrganizationTable.validation.required',
