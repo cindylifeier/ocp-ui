@@ -110,7 +110,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
       const patientName = appointment.patientName;
       return `\n Title: ${title} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
     }
-    return `\n Title: ${title} \n Organizer: ${organizerName} \n Participants: ${participantNames}`;
+    return `\n Title: ${title} \n Organizer: ${organizerName} \n Attendees: ${participantNames}`;
   }
 
   render() {
