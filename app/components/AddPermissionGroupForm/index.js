@@ -5,13 +5,13 @@
  */
 
 import React from 'react';
-import DualListBox from 'react-dual-listbox';
 import 'react-dual-listbox/lib/react-dual-listbox.css';
 import { Form, Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import yup from 'yup';
 
+import ListBoxField from 'components/ListBoxField';
 import TextField from 'components/TextField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -29,7 +29,6 @@ class AddPermissionGroupForm extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
   onChange(selected) {
-    console.log(selected);
     this.setState({ selected });
   }
   render() {
@@ -59,6 +58,9 @@ class AddPermissionGroupForm extends React.Component {
               .required((<FormattedMessage {...messages.validation.required} />)),
             description: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
+            scopes: yup.array()
+              .min(1)
+              .required((<FormattedMessage {...messages.validation.required} />)),
           })}
           render={({ isSubmitting, dirty, isValid }) => (
             <Form>
@@ -82,17 +84,18 @@ class AddPermissionGroupForm extends React.Component {
                   </Cell>
                 </Grid>
               </PermissionGroupInfoSection>
-              <PermissionGroupPageTitle>Permissions</PermissionGroupPageTitle>
-              <div>
-                <DualListBox
+              <PermissionGroupPageTitle>Add permissions</PermissionGroupPageTitle>
+              <PermissionGroupInfoSection>
+                <ListBoxField
+                  name="scopes"
                   canFilter
                   availableLabel={'Scopes'}
-                  selectedLabel={'AddedScopes'}
+                  selectedLabel={'Added Scopes'}
                   options={options}
                   selected={selected}
-                  onChange={this.onChange}
+                  handleChange={this.onChange}
                 />
-              </div>
+              </PermissionGroupInfoSection>
               <div>
                 <StyledRaisedButton
                   type="submit"
