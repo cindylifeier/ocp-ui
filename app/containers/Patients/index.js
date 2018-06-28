@@ -52,7 +52,6 @@ import { flattenPatientData } from './helpers';
 import messages from './messages';
 
 export class Patients extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +69,13 @@ export class Patients extends React.Component {
   }
 
   componentDidMount() {
-    const { patient } = this.props;
+    const { patient, organization } = this.props;
+    const initSearchTerms = '';
+    const includeInactive = false;
+    const searchType = 'name';
+    if (organization) {
+      this.handleSearch(initSearchTerms, includeInactive, searchType);
+    }
     if (patient) {
       this.props.initializePatients([patient]);
     } else {
