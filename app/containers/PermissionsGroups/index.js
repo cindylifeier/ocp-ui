@@ -9,16 +9,17 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Dialog from 'material-ui/Dialog';
 import { compose } from 'redux';
 import { FieldArray } from 'formik';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import teal from 'material-ui-next/colors/teal';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddPermissionGroupForm from 'components/AddPermissionGroupForm';
+import StyledDialog from 'components/StyledDialog';
 
 import PermissionGroupsTable from 'components/PermissionGroupsTable';
 import reducer from './reducer';
@@ -27,10 +28,7 @@ import messages from './messages';
 import { getGroups, getScopes, saveGroup } from './actions';
 import { makeSelectGroups, makeSelectScopes } from './selectors';
 
-const customContentStyle = {
-  width: '55%',
-  maxWidth: 'none',
-};
+
 export class PermissionsGroups extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -88,20 +86,24 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
           name="permissionGroup"
           render={(arrayHelpers) => (
             <div>
-              <Dialog
+              <StyledDialog
+                maxWidth={'md'}
                 modal={false}
                 open={this.state.isDialogOpen}
                 onRequestClose={this.handleCloseDialog}
-                title="Create Permission Group"
-                contentStyle={customContentStyle}
               >
-                <AddPermissionGroupForm
-                  initialValues={this.state.editingPermissionGroup}
-                  handleCloseDialog={this.handleCloseDialog}
-                  handleSaveGroup={this.handleSaveGroup}
-                  scopes={scopes}
-                />
-              </Dialog>
+                <DialogTitle>
+                  <FormattedMessage {...messages.createPermissionGroup} />
+                </DialogTitle>
+                <DialogContent>
+                  <AddPermissionGroupForm
+                    initialValues={this.state.editingPermissionGroup}
+                    handleCloseDialog={this.handleCloseDialog}
+                    handleSaveGroup={this.handleSaveGroup}
+                    scopes={scopes}
+                  />
+                </DialogContent>
+              </StyledDialog>
               <PermissionGroupsTable
                 arrayHelpers={arrayHelpers}
                 groups={groups}
