@@ -52,7 +52,7 @@ import {
   getPractitionerAppointments,
   tentativePractitionerAppointment,
 } from './actions';
-import { MONTH, MONTH_DISPLAY, RESET, RESET_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
+import { MONTH, MONTH_DISPLAY, DEFAULT, DEFAULT_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
 import messages from './messages';
 import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
 import reducer from './reducer';
@@ -123,7 +123,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
   }
 
   handleFilter(dateRange) {
-    if (dateRange === RESET) {
+    if (dateRange === DEFAULT) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         showPastAppointments: false,
@@ -182,7 +182,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
       { value: TODAY, display: TODAY_DISPLAY },
       { value: WEEK, display: WEEK_DISPLAY },
       { value: MONTH, display: MONTH_DISPLAY },
-      { value: RESET, display: RESET_DISPLAY },
+      { value: DEFAULT, display: DEFAULT_DISPLAY },
     ];
     const filterField = {
       filterTypes: filterDateOptions,
