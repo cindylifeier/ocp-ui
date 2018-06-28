@@ -40,6 +40,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       appointment.isOutlookAppointment = false;
       appointment.editUrl = `${manageAppointmentUrl}/${element.logicalId}`;
       appointment.patientId = element.patientId;
+      appointment.status = element.statusCode;
       appointment.patientName = element.patientName;
       appointment.myResponse = element.requesterParticipationStatusCode;
       appointment.allParticipantNames = element.participantName;

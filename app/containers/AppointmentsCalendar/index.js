@@ -108,7 +108,8 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     if (!appointment.isOutlookAppointment) {
       const patientName = appointment.patientName;
       const participantNames = appointment.allParticipantNames.join(', ');
-      return `\n Title: ${title} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
+      const status = (appointment.status ? (appointment.status.charAt(0).toUpperCase().concat(appointment.status.slice(1))) : '');
+      return `\n Title: ${title} \n Status: ${status} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
     }
     const required = appointment.requiredParticipantNames.join(', ');
     const optional = appointment.optionalParticipantNames.join(', ');
