@@ -8,6 +8,8 @@
  *  PermissionAssignments action types
  *  @type {string}
  */
+export const INITIALIZE_PERMISSION_ASSIGNMENT = 'ocpui/PermissionAssignments/INITIALIZE_PERMISSION_ASSIGNMENT';
+
 export const GET_USERS = 'ocpui/PermissionAssignments/GET_USER';
 export const GET_USERS_SUCCESS = 'ocpui/PermissionAssignments/GET_USER_SUCCESS';
 export const GET_USERS_ERROR = 'ocpui/PermissionAssignments/GET_USER_ERROR';

@@ -1,8 +1,9 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { GET_USERS } from './constants';
 import { getUsers } from './api';
 import { getUsersSuccess, getUsersError } from './actions';
@@ -10,7 +11,8 @@ import { getUsersSuccess, getUsersError } from './actions';
 
 export function* getUsersSaga() {
   try {
-    const users = yield call(getUsers);
+    const organization = yield select(makeSelectOrganization());
+    const users = yield call(getUsers, organization.logicalId);
     yield put(getUsersSuccess(users));
   } catch (err) {
     yield put(getUsersError(err));

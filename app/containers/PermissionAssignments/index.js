@@ -19,10 +19,11 @@ import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import teal from 'material-ui-next/colors/teal';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddAssignRolesForm from 'components/AddAssignRolesForm';
-import makeSelectPermissionAssignments from './selectors';
+import { makeSelectUsers } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { getUsers, initializePermissionAssignment } from './actions';
 
 export class PermissionAssignments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -34,6 +35,13 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEditAssignRoles = this.handleEditAssignRoles.bind(this);
+  }
+  componentWillMount() {
+    this.props.initializePermissionAssignment();
+  }
+
+  componentDidMount() {
+    this.props.getUsers();
   }
 
   handleOpenDialog() {
@@ -55,6 +63,7 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
   }
 
   render() {
+    const { users } = this.props;
     return (
       <div>
         <div>
@@ -81,23 +90,26 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
             </div>
           )}
         />
-        <PermissionAssignmentTable />
+        <PermissionAssignmentTable users={users} />
       </div>
     );
   }
 }
 
 PermissionAssignments.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
+  initializePermissionAssignment: PropTypes.func.isRequired,
+  users: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  permissionassignments: makeSelectPermissionAssignments(),
+  users: makeSelectUsers(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getUsers: () => dispatch(getUsers()),
+    initializePermissionAssignment: () => dispatch(initializePermissionAssignment()),
   };
 }
 

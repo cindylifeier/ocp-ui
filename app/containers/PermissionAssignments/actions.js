@@ -4,7 +4,13 @@
  *
  */
 
-import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from './constants';
+import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR, INITIALIZE_PERMISSION_ASSIGNMENT } from './constants';
+
+export function initializePermissionAssignment() {
+  return {
+    type: INITIALIZE_PERMISSION_ASSIGNMENT,
+  };
+}
 
 export function getUsers() {
   return {

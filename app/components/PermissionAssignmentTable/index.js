@@ -6,6 +6,8 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableRow from 'components/TableRow';
@@ -16,14 +18,6 @@ import messages from './messages';
 import { PERMISSION_ASSIGNMENT_TABLE_COLUMNS } from './constants';
 
 // import styled from 'styled-components';
-const elements = [
-  { logicalId: '1', providerName: 'Lee Coordinator', role: 'PCP', permissionGroup: 'Care Manager', contact: '339-111-1111' },
-  { logicalId: '2', providerName: 'William Coordinator', role: 'PCP', permissionGroup: 'Care Coordinator', contact: '413-812-3141' },
-  { logicalId: '3', providerName: 'David Coordinator', role: 'PCP', permissionGroup: 'Care Manager', contact: '552-131-8913' },
-  { logicalId: '4', providerName: 'Alice Coordinator', role: 'PCP', permissionGroup: 'Administrator', contact: '339-121-1476' },
-  { logicalId: '5', providerName: 'Michael Coordinator', role: 'PCP', permissionGroup: 'Care Manager', contact: '421-321-1561' },
-];
-
 const columns = PERMISSION_ASSIGNMENT_TABLE_COLUMNS;
 const menuItems = [{
   primaryText: <FormattedMessage {...messages.viewDetails} />,
@@ -43,45 +37,45 @@ function createTableHeaders() {
   );
 }
 
-function createTableRows() {
+function createTableRows(users) {
   return (
     <div>
-      {elements && elements.map((permissionAssignment) => (
-        <TableRow key={permissionAssignment.logicalId} columns={columns}>
+      {users && users.map((user) => (
+        <TableRow key={user.id} columns={columns}>
           <TableRowColumn>
-            {permissionAssignment.providerName}
+            {user.givenName}, {user.familyName}
           </TableRowColumn>
           <TableRowColumn>
-            {permissionAssignment.role}
+            {user.role}
           </TableRowColumn>
           <TableRowColumn>
-            {permissionAssignment.permissionGroup}
+            {user.displayName}
           </TableRowColumn>
           <TableRowColumn>
-            {permissionAssignment.contact}
+            {user.contact}
           </TableRowColumn>
           <TableRowColumn>
             <NavigationIconMenu menuItems={menuItems} />
           </TableRowColumn>
         </TableRow>
       ))}
-    </div>
-  );
+    </div>);
 }
 
 class PermissionAssignmentTable extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { users } = this.props;
     return (
       <Table>
         {createTableHeaders()}
-        {createTableRows()}
+        {createTableRows(users)}
       </Table>
     );
   }
 }
 
 PermissionAssignmentTable.propTypes = {
-
+  users: PropTypes.array,
 };
 
 export default PermissionAssignmentTable;
