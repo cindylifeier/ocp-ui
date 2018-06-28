@@ -43,6 +43,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       appointment.patientName = element.patientName;
       appointment.myResponse = element.requesterParticipationStatusCode;
       appointment.participantNames = element.participantName;
+      appointment.organizerName = element.creatorName;
       return appointment;
     });
   }
@@ -58,6 +59,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       outlookAppointment.isOutlookAppointment = true;
       outlookAppointment.myResponse = element.myResponse;
       outlookAppointment.participantNames = element.participantName;
+      outlookAppointment.organizerName = element.organizerName;
       return outlookAppointment;
     });
     appointments.push(...outlookAppointments);
