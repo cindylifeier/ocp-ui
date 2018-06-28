@@ -30,7 +30,7 @@ import {
 import messages from './messages';
 
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, handleSort, columnToSort, sortDirection, handleAppointmentRowClick }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
 
   function getColumns() {
@@ -150,7 +150,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               }
             >
               {!isPatientWorkspace &&
-              <TableRowColumn onClick={() => handleAppointmentRowClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
+              <TableRowColumn onClick={() => handlePatientNameClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
               }
               {isExpanded &&
               <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
@@ -197,7 +197,7 @@ AppointmentTable.propTypes = {
   handleSort: PropTypes.func,
   columnToSort: PropTypes.string,
   sortDirection: PropTypes.string,
-  handleAppointmentRowClick: PropTypes.func,
+  handlePatientNameClick: PropTypes.func,
 };
 
 export default sizeMeHOC(AppointmentTable);

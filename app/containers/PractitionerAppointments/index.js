@@ -82,7 +82,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.handleCloseViewPatientDetailsDialog = this.handleCloseViewPatientDetailsDialog.bind(this);
-    this.handleAppointmentRowClick = this.handleAppointmentRowClick.bind(this);
+    this.handlePatientNameClick = this.handlePatientNameClick.bind(this);
     this.navigateToPatientDetailsPage = this.navigateToPatientDetailsPage.bind(this);
   }
 
@@ -106,7 +106,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.props.getUpcomingAppointments({ pageNumber: page });
   }
 
-  handleAppointmentRowClick(patientId) {
+  handlePatientNameClick(patientId) {
     const patientSpecificUrl = `${PATIENTS_URL}/${patientId}`;
     this.setState({ patientPageURL: patientSpecificUrl });
     this.setState({ patientId });
@@ -240,7 +240,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
                 handleSort={this.handleSort}
                 columnToSort={this.state.columnToSort}
                 sortDirection={this.state.sortDirection}
-                handleAppointmentRowClick={this.handleAppointmentRowClick}
+                handlePatientNameClick={this.handlePatientNameClick}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
