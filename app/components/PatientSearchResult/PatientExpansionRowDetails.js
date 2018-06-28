@@ -8,7 +8,8 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, active, birthDate, genderCode, birthSex } = patient;
+  const { addresses, name, identifier, telecoms, active, birthDate, genderCode, birthSex, activityTypes } = patient;
+
   return (
     <InfoSection>
       <Grid columns={'60% 40%'} justifyContent="space-between">
@@ -63,6 +64,15 @@ function PatientExpansionRowDetails({ patient }) {
             text={birthSex}
           />
         </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.activityType} />}
+            text={activityTypes && activityTypes.map((type) => (
+                `${type}  `
+              )
+            )}
+          />
+        </Cell>
       </Grid>
     </InfoSection>
   );
@@ -79,6 +89,7 @@ PatientExpansionRowDetails.propTypes = {
     birthDate: PropTypes.string,
     genderCode: PropTypes.string,
     birthSex: PropTypes.string,
+    activityTypes: PropTypes.array,
   }).isRequired,
 };
 

@@ -10,7 +10,7 @@ import AdvisoryDetails from './AdvisoryDetails';
 import messages from './messages';
 
 function ExpansionDetails({ patient }) {
-  const { addresses, name, genderCode, identifier, telecoms, birthDate, flags } = patient;
+  const { addresses, name, genderCode, identifier, telecoms, birthDate, flags, mrn } = patient;
   return (
     <Grid columns={'70% 30%'} justifyContent="space-between">
       <Cell>
@@ -56,6 +56,12 @@ function ExpansionDetails({ patient }) {
               <TextLabelGroup
                 label={<FormattedMessage {...messages.expansionDetailsDOB} />}
                 text={birthDate}
+              />
+            </Cell>
+            <Cell>
+              <TextLabelGroup
+                label={<FormattedMessage {...messages.expansionDetailsMRN} />}
+                text={mrn}
               />
             </Cell>
           </Grid>
