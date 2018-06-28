@@ -8,6 +8,7 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import ErrorText from 'components/ErrorText';
 import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
@@ -19,8 +20,10 @@ import uniqueId from 'lodash/uniqueId';
 import AddFlags from 'components/AddFlags';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
+import { EMAIL } from 'components/ManagePatient/constants';
 import messages from './messages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
+
 
 function ManagePatientForm(props) {
   const {
@@ -49,6 +52,10 @@ function ManagePatientForm(props) {
   };
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
 
+  function hasEmailContact() {
+    const emailContacts = values && values.telecoms && values.telecoms.filter((entry) => entry.system === EMAIL);
+    return emailContacts && emailContacts.length > 0;
+  }
   return (
     <Form>
       <ManagePatientFormGrid>
@@ -194,6 +201,11 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
+          {values && values.telecoms &&
+          <ErrorText>{hasEmailContact() ?
+            '' : <FormattedMessage {...messages.validation.emailContact} />}
+          </ErrorText>
+          }
         </Cell>
         <Cell area="flags">
           <AddFlags {...addFlagsProps} />
@@ -204,7 +216,7 @@ function ManagePatientForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                disabled={!dirty || isSubmitting || !isValid}
+                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact()}
               >
                 Save
               </StyledRaisedButton>
