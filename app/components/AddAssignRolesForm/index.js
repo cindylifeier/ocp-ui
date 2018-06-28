@@ -43,7 +43,7 @@ class AddAssignRolesForm extends React.Component {
               <div>
                 <AddAssignRolesSection>
                   <div>
-                    <div>Organization : {organization.identifiers.name} </div>
+                    <div>Organization : {organization.name} </div>
                     <RadioButtonGroup name="assignRoleButtonGroup">
                       {this.state.assignRoles && this.state.assignRoles.map((role) => (
                         <RadioButton

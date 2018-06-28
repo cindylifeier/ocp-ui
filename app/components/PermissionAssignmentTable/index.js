@@ -19,11 +19,7 @@ import { PERMISSION_ASSIGNMENT_TABLE_COLUMNS } from './constants';
 
 // import styled from 'styled-components';
 const columns = PERMISSION_ASSIGNMENT_TABLE_COLUMNS;
-const menuItems = [{
-  primaryText: <FormattedMessage {...messages.viewDetails} />,
-  disabled: true,
-},
-];
+
 
 function createTableHeaders() {
   return (
@@ -37,38 +33,45 @@ function createTableHeaders() {
   );
 }
 
-function createTableRows(users) {
+function createTableRows(users, handleEditAssignRoles) {
   return (
     <div>
-      {users && users.map((user) => (
-        <TableRow key={user.id} columns={columns}>
-          <TableRowColumn>
-            {user.givenName}, {user.familyName}
-          </TableRowColumn>
-          <TableRowColumn>
-            {user.role}
-          </TableRowColumn>
-          <TableRowColumn>
-            {user.displayName}
-          </TableRowColumn>
-          <TableRowColumn>
-            {user.contact}
-          </TableRowColumn>
-          <TableRowColumn>
-            <NavigationIconMenu menuItems={menuItems} />
-          </TableRowColumn>
-        </TableRow>
-      ))}
+      {users && users.map((user) => {
+        const menuItems = [{
+          primaryText: <FormattedMessage {...messages.assignRole} />,
+          onClick: () => handleEditAssignRoles(user),
+        },
+        ];
+        return (
+          <TableRow key={user.id} columns={columns}>
+            <TableRowColumn>
+              {user.givenName}, {user.familyName}
+            </TableRowColumn>
+            <TableRowColumn>
+              {user.role}
+            </TableRowColumn>
+            <TableRowColumn>
+              {user.displayName}
+            </TableRowColumn>
+            <TableRowColumn>
+              {user.contact}
+            </TableRowColumn>
+            <TableRowColumn>
+              <NavigationIconMenu menuItems={menuItems} />
+            </TableRowColumn>
+          </TableRow>
+        );
+      })}
     </div>);
 }
 
 class PermissionAssignmentTable extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { users } = this.props;
+    const { users, handleEditAssignRoles } = this.props;
     return (
       <Table>
         {createTableHeaders()}
-        {createTableRows(users)}
+        {createTableRows(users, handleEditAssignRoles)}
       </Table>
     );
   }
@@ -76,6 +79,7 @@ class PermissionAssignmentTable extends React.Component { // eslint-disable-line
 
 PermissionAssignmentTable.propTypes = {
   users: PropTypes.array,
+  handleEditAssignRoles: PropTypes.func,
 };
 
 export default PermissionAssignmentTable;
