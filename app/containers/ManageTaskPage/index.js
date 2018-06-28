@@ -75,7 +75,7 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
   handleSave(taskFormData, actions) {
     const taskDataToSubmit = {};
     const {
-      activityDefinition, status, priority, intent, taskOwner, eventTypes, partOf, performerType, description, comments, taskStart, taskEnd,
+      activityDefinition, status, priority, intent, taskOwner, context, partOf, performerType, description, comments, taskStart, taskEnd,
     } = taskFormData;
 
     let reference = activityDefinition;
@@ -121,9 +121,8 @@ export class ManageTaskPage extends React.Component { // eslint-disable-line rea
     };
 
     // Optional Fields
-    if (eventTypes) {
-      reference = eventTypes;
-      taskDataToSubmit.context = find(this.props.eventTypes, { reference });
+    if (context) {
+      taskDataToSubmit.context = find(this.props.eventTypes, { reference: context });
     }
 
     if (partOf) {

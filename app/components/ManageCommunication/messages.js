@@ -42,7 +42,7 @@ export default defineMessages({
       },
       context: {
         id: 'ocpui.containers.ManageCommunication.form.context',
-        defaultMessage: 'Event Type',
+        defaultMessage: 'Episode Of Care',
       },
       notDone: {
         id: 'ocpui.containers.ManageCommunication.form.notDone',

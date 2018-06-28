@@ -19,9 +19,6 @@ import {
   COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_STATUS,
-  CONSENT_ACTION,
-  CONSENT_CATEGORY,
-  CONSENT_STATE_CODES,
   DATE_RANGE,
   DEFINITION_TOPIC,
   FLAG_CATEGORY,
@@ -48,14 +45,11 @@ import {
   PROVIDER_ROLE,
   PROVIDER_SPECIALTY,
   PUBLICATION_STATUS,
-  PURPOSE_OF_USE,
   RELATED_ARTIFACT_TYPE,
   RELATEDPERSONPATIENTRELATIONSHIPTYPES,
   REQUEST_INTENT,
   REQUEST_PRIORITY,
   RESOURCE_TYPE,
-  SECURITY_LABEL,
-  SECURITY_ROLE_TYPE,
   TASK_PERFORMER_TYPE,
   TASK_STATUS,
   TELECOMSYSTEM,
@@ -130,14 +124,6 @@ const initialState = fromJS({
   COMMUNICATION_NOT_DONE_REASON: [],
   COMMUNICATION_MEDIUM: [],
   DATE_RANGE: [],
-  // Consent Resource Lookups - Start
-  CONSENT_STATE_CODES: [],
-  CONSENT_CATEGORY: [],
-  SECURITY_LABEL: [],
-  SECURITY_ROLE_TYPE: [],
-  CONSENT_ACTION: [],
-  PURPOSE_OF_USE: [],
-  // Consent Resource Lookups - End
   // Coverage Lookups - Start
   POLICYHOLDER_RELATIONSHIP: [],
   FM_STATUS: [],
@@ -212,14 +198,6 @@ function lookupReducer(state = initialState, action) {
         .set(COMMUNICATION_CATEGORY, fromJS((action.lookups && action.lookups.communicationCategory) || state.get(COMMUNICATION_CATEGORY)))
         .set(COMMUNICATION_NOT_DONE_REASON, fromJS((action.lookups && action.lookups.communicationNotDoneReason) || state.get(COMMUNICATION_NOT_DONE_REASON)))
         .set(COMMUNICATION_MEDIUM, fromJS((action.lookups && action.lookups.communicationMedium) || state.get(COMMUNICATION_MEDIUM)))
-        // Consent Resource Lookups - Start
-        .set(CONSENT_STATE_CODES, fromJS((action.lookups && action.lookups.consentStateCodes) || state.get(CONSENT_STATE_CODES)))
-        .set(CONSENT_CATEGORY, fromJS((action.lookups && action.lookups.consentCategory) || state.get(CONSENT_CATEGORY)))
-        .set(SECURITY_LABEL, fromJS((action.lookups && action.lookups.securityLabel) || state.get(SECURITY_LABEL)))
-        .set(SECURITY_ROLE_TYPE, fromJS((action.lookups && action.lookups.securityRoleType) || state.get(SECURITY_ROLE_TYPE)))
-        .set(CONSENT_ACTION, fromJS((action.lookups && action.lookups.consentAction) || state.get(CONSENT_ACTION)))
-        .set(PURPOSE_OF_USE, fromJS((action.lookups && action.lookups.purposeOfUse) || state.get(PURPOSE_OF_USE)))
-        // Consent Resource Lookups - End
         // Coverage Lookups - Start
         .set(POLICYHOLDER_RELATIONSHIP, fromJS((action.lookups && action.lookups.policyholderRelationship) || state.get(POLICYHOLDER_RELATIONSHIP)))
         .set(FM_STATUS, fromJS((action.lookups && action.lookups.fmStatus) || state.get(FM_STATUS)))
