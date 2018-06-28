@@ -107,7 +107,6 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     if (!isUndefined(patientId) && patientId != null) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
-        practitionerId,
         showPastAppointments: checked,
         patientId,
       });
