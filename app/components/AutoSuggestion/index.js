@@ -25,12 +25,13 @@ class AutoSuggestionBridge extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const { suggestions, field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, ...rest } = this.props;
+    const { suggestions, disabled, field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, ...rest } = this.props;
     return (
       <Select
         name={name}
         options={suggestions}
         value={value || this.state.suggestion}
+        disabled={disabled}
         onChange={(event) => {
           this.handleChange(event);
           setFieldValue(name, event && event.value);
@@ -55,8 +56,9 @@ function AutoSuggestionField(props) {
 }
 
 AutoSuggestionBridge.propTypes = {
-  suggestions: PropTypes.array.isRequired,
+  suggestions: PropTypes.array,
   name: PropTypes.string,
+  disabled: PropTypes.bool,
   field: PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
