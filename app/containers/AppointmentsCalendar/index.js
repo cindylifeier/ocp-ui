@@ -104,13 +104,15 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
   showTooltip(appointment) {
     const title = appointment.title;
-    const participantNames = appointment.participantNames.join(', ');
     const organizerName = appointment.organizerName;
     if (!appointment.isOutlookAppointment) {
       const patientName = appointment.patientName;
+      const participantNames = appointment.allParticipantNames.join(', ');
       return `\n Title: ${title} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
     }
-    return `\n Title: ${title} \n Organizer: ${organizerName} \n Attendees: ${participantNames}`;
+    const required = appointment.requiredParticipantNames.join(', ');
+    const optional = appointment.optionalParticipantNames.join(', ');
+    return `\n Title: ${title} \n Organizer: ${organizerName} \n Required Attendees: ${required} \n Optional Attendees: ${optional}`;
   }
 
   render() {
