@@ -18,7 +18,6 @@ function smartAppLauncherReducer(state = initialState, action) {
     case GET_CLIENTS_SUCCESS:
       return state.set('clients', fromJS(action.clients));
     case GET_APP_SHORTCUTS_SUCCESS: {
-      console.log(action.appShortcuts);
       return state.set('appShortcuts', fromJS((action.appShortcuts) || {}));
       // return state.set('appShortcuts', fromJS(action.appShortcuts));
     }
