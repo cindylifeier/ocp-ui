@@ -4,7 +4,7 @@ import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
 import request from 'utils/request';
 
-export default function getPractitionerAppointmentsApi(query) {
+export default function getPractitionerAppointmentsApi(practitionerId, query) {
   const { pageSize = DEFAULT_PAGE_SIZE } = query;
   const q = {
     ...query,
@@ -13,7 +13,7 @@ export default function getPractitionerAppointmentsApi(query) {
   q.sortByStartTimeAsc = !(!isUndefined(query.showPastAppointments) && query.showPastAppointments);
   const params = queryString(q);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
-  const requestURL = `${baseEndpoint}/search${params}`;
+  const requestURL = `${baseEndpoint}/Practitioner/${practitionerId}/include-care-team-patient${params}`;
   return request(requestURL);
 }
 

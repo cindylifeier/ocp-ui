@@ -15,7 +15,7 @@ class AutoSuggestionBridge extends React.Component { // eslint-disable-line reac
   constructor(props) {
     super(props);
     this.state = {
-      suggestion: {},
+      suggestion: null,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -25,15 +25,16 @@ class AutoSuggestionBridge extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const { suggestions, field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, ...rest } = this.props;
+    const { suggestions, disabled, field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, ...rest } = this.props;
     return (
       <Select
         name={name}
         options={suggestions}
         value={value || this.state.suggestion}
+        disabled={disabled}
         onChange={(event) => {
           this.handleChange(event);
-          setFieldValue(name, event.value);
+          setFieldValue(name, event && event.value);
         }}
         onClick={() => setFieldTouched(name)}
         errorText={errors[name]}
@@ -55,11 +56,12 @@ function AutoSuggestionField(props) {
 }
 
 AutoSuggestionBridge.propTypes = {
-  suggestions: PropTypes.array.isRequired,
-  name: PropTypes.string.isRequired,
+  suggestions: PropTypes.array,
+  name: PropTypes.string,
+  disabled: PropTypes.bool,
   field: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.object,
+    value: PropTypes.string,
   }).isRequired,
   form: PropTypes.shape({
     handleChange: PropTypes.func.isRequired,
@@ -70,7 +72,7 @@ AutoSuggestionBridge.propTypes = {
 };
 
 AutoSuggestionField.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
 };
 
 export default AutoSuggestionField;

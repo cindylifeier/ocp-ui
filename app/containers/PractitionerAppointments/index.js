@@ -10,30 +10,37 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
+import HorizontalAlignment from 'components/HorizontalAlignment';
 import InfoSection from 'components/InfoSection';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import StyledDialog from 'components/StyledDialog';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_COMMUNICATION_URL,
+  PATIENTS_URL,
 } from 'containers/App/constants';
+import { getPatient } from 'containers/App/contextActions';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
+import { DialogContent, DialogTitle } from 'material-ui-next';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Cell } from 'styled-css-grid';
+import { Cell, Grid } from 'styled-css-grid';
 import { ASC, DESC } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -45,7 +52,7 @@ import {
   getPractitionerAppointments,
   tentativePractitionerAppointment,
 } from './actions';
-import { MONTH, MONTH_DISPLAY, RESET, RESET_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
+import { MONTH, MONTH_DISPLAY, DEFAULT, DEFAULT_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
 import messages from './messages';
 import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
 import reducer from './reducer';
@@ -58,6 +65,9 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
+      confirmViewPatientDetailsModalOpen: false,
+      patientId: '',
+      patientPageURL: '',
       columnToSort: '',
       sortDirection: DESC,
     };
@@ -71,6 +81,9 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleCloseViewPatientDetailsDialog = this.handleCloseViewPatientDetailsDialog.bind(this);
+    this.handlePatientNameClick = this.handlePatientNameClick.bind(this);
+    this.navigateToPatientDetailsPage = this.navigateToPatientDetailsPage.bind(this);
   }
 
   componentDidMount() {
@@ -93,8 +106,24 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.props.getUpcomingAppointments({ pageNumber: page });
   }
 
+  handlePatientNameClick(patientId) {
+    const patientSpecificUrl = `${PATIENTS_URL}/${patientId}`;
+    this.setState({ patientPageURL: patientSpecificUrl });
+    this.setState({ patientId });
+    this.setState({ confirmViewPatientDetailsModalOpen: true });
+  }
+
+  handleCloseViewPatientDetailsDialog() {
+    this.setState({ confirmViewPatientDetailsModalOpen: false });
+  }
+
+  navigateToPatientDetailsPage() {
+    this.props.getPatient(this.state.patientId);
+    this.props.history.push(this.state.patientPageURL);
+  }
+
   handleFilter(dateRange) {
-    if (dateRange === RESET) {
+    if (dateRange === DEFAULT) {
       this.props.getUpcomingAppointments({
         pageNumber: DEFAULT_START_PAGE_NUMBER,
         showPastAppointments: false,
@@ -153,7 +182,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
       { value: TODAY, display: TODAY_DISPLAY },
       { value: WEEK, display: WEEK_DISPLAY },
       { value: MONTH, display: MONTH_DISPLAY },
-      { value: RESET, display: RESET_DISPLAY },
+      { value: DEFAULT, display: DEFAULT_DISPLAY },
     ];
     const filterField = {
       filterTypes: filterDateOptions,
@@ -211,6 +240,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
                 handleSort={this.handleSort}
                 columnToSort={this.state.columnToSort}
                 sortDirection={this.state.sortDirection}
+                handlePatientNameClick={this.handlePatientNameClick}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
@@ -227,6 +257,40 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
           </InfoSection>
           }
         </Card>
+
+        <div>
+          <StyledDialog
+            open={this.state.confirmViewPatientDetailsModalOpen}
+            fullWidth
+          >
+            <DialogTitle>
+              <FormattedMessage {...messages.dialogTitleOpenEvent} />
+            </DialogTitle>
+            <DialogContent>
+              <Grid columns={1} alignContent="space-between">
+                <Cell>
+                  <FormattedMessage {...messages.confirmNavigation} />
+                </Cell>
+                <Cell>
+                  <HorizontalAlignment position={'end'}>
+                    <Grid columns={2} alignContent="space-between">
+                      <StyledRaisedButton
+                        onClick={this.navigateToPatientDetailsPage}
+                      >
+                        <FormattedMessage {...messages.dialogButtonLabelOK} />
+                      </StyledRaisedButton>
+                      <StyledRaisedButton
+                        onClick={this.handleCloseViewPatientDetailsDialog}
+                      >
+                        <FormattedMessage {...messages.dialogButtonLabelCancel} />
+                      </StyledRaisedButton>
+                    </Grid>
+                  </HorizontalAlignment>
+                </Cell>
+              </Grid>
+            </DialogContent>
+          </StyledDialog>
+        </div>
       </div>
     );
   }
@@ -249,6 +313,8 @@ PractitionerAppointments.propTypes = {
   tentativeAppointment: PropTypes.func.isRequired,
   user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
+  getPatient: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -267,6 +333,7 @@ function mapDispatchToProps(dispatch) {
     acceptAppointment: (id, query) => dispatch(acceptPractitionerAppointment(id, query)),
     declineAppointment: (id, query) => dispatch(declinePractitionerAppointment(id, query)),
     tentativeAppointment: (id, query) => dispatch(tentativePractitionerAppointment(id, query)),
+    getPatient: (logicalId) => dispatch(getPatient(logicalId)),
   };
 }
 
@@ -275,8 +342,10 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: 'practitionerAppointments', reducer });
 const withSaga = injectSaga({ key: 'practitionerAppointments', saga });
 
-export default compose(
+const reduxCompose = compose(
   withReducer,
   withSaga,
   withConnect,
 )(PractitionerAppointments);
+
+export default withRouter(reduxCompose);

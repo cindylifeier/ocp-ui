@@ -41,9 +41,9 @@ export const STATUS_CODE_CANCELLED = 'cancelled';
 export const TODAY = 'TODAY';
 export const WEEK = 'WEEK';
 export const MONTH = 'MONTH';
-export const RESET = 'RESET';
+export const DEFAULT = 'DEFAULT';
 
 export const TODAY_DISPLAY = 'Today';
 export const WEEK_DISPLAY = 'Current Week';
 export const MONTH_DISPLAY = 'Current Month';
-export const RESET_DISPLAY = 'Reset';
+export const DEFAULT_DISPLAY = 'Default';
