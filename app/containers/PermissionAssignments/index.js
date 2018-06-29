@@ -125,7 +125,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getUsers: () => dispatch(getUsers()),
     getGroups: () => dispatch(getGroups()),
-    onAssignRole: (userId, groupId) => dispatch(assignUserRole(userId, groupId)),
+    onAssignRole: (userId, groupId, handleSubmitting) => dispatch(assignUserRole(userId, groupId, handleSubmitting)),
     initializePermissionAssignment: () => dispatch(initializePermissionAssignment()),
   };
 }
