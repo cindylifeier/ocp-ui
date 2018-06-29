@@ -11,3 +11,13 @@ export function getUsers(organizationId) {
   return request(`${baseUsersEndpoint}${params}`);
 }
 
+export function assignUserRole(userId, groupId) {
+  const url = `${baseUsersEndpoint}/${userId}/groups/${groupId}`;
+  return request(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+

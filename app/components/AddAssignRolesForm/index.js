@@ -16,69 +16,61 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import messages from './messages';
 import AddAssignRolesSection from './AddAssignRolesSection';
 
-class AddAssignRolesForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      assignRoles: [
-        { id: '1', displayName: 'Permission Group 1' },
-        { id: '2', displayName: 'Permission Group 2' },
-        { id: '3', displayName: 'Permission Group 3' },
-        { id: '4', displayName: 'Permission Group 4' },
-        { id: '5', displayName: 'Permission Group 5' },
-        { id: '6', displayName: 'Permission Group 6' },
-      ],
-    };
-  }
-  render() {
-    const {
-      handleCloseDialog,
-      organization,
-    } = this.props;
-    return (
-      <div>
-        <Formik
-          render={({ isSubmitting, dirty, isValid }) => (
-            <Form>
-              <div>
-                <AddAssignRolesSection>
-                  <div>
-                    <div>Organization : {organization.name} </div>
-                    <RadioButtonGroup name="assignRoleButtonGroup">
-                      {this.state.assignRoles && this.state.assignRoles.map((role) => (
-                        <RadioButton
-                          value={role.id}
-                          label={role.displayName}
-                          onClick={() => {}}
-                        />))
-                      }
-                    </RadioButtonGroup>
-                  </div>
-                </AddAssignRolesSection>
-                <StyledRaisedButton
-                  type="submit"
-                  disabled={!dirty || isSubmitting || !isValid}
-                >
-                  <FormattedMessage {...messages.addButton} />
-                </StyledRaisedButton>
-                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
-                  <FormattedMessage {...messages.cancelButton} />
-                </StyledFlatButton>
-              </div>
-            </Form>
-          )}
-        />
-      </div>
-    );
-  }
+function AddAssignRolesForm(props) {
+  const {
+    handleCloseDialog,
+    organization,
+    handleAssignRole,
+    groups,
+  } = props;
+  return (
+    <div>
+      <div>Organization : {organization.name} </div>
+      <Formik
+        onSubmit={(values, actions) => {
+          handleAssignRole(values, actions);
+        }}
+        render={({ isSubmitting, dirty, isValid }) => (
+          <Form>
+            <div>
+              <AddAssignRolesSection>
+                <div>
+                  <RadioButtonGroup name="role">
+                    {groups && groups.map((group) => (
+                      <RadioButton
+                        key={group.id}
+                        value={group.id}
+                        label={group.displayName}
+                        onClick={() => {
+                        }}
+                      />))
+                    }
+                  </RadioButtonGroup>
+                </div>
+              </AddAssignRolesSection>
+              <StyledRaisedButton
+                type="submit"
+                disabled={!dirty || isSubmitting || !isValid}
+              >
+                <FormattedMessage {...messages.assignButton} />
+              </StyledRaisedButton>
+              <StyledFlatButton type="reset" onClick={handleCloseDialog}>
+                <FormattedMessage {...messages.cancelButton} />
+              </StyledFlatButton>
+            </div>
+          </Form>
+        )}
+      />
+    </div>
+  );
 }
 
 AddAssignRolesForm.propTypes = {
   handleCloseDialog: PropTypes.func.isRequired,
+  handleAssignRole: PropTypes.func,
+  groups: PropTypes.array,
   organization: PropTypes.shape({
-    identifiers: PropTypes.shape({
-      name: PropTypes.string,
-    }),
+    name: PropTypes.string,
   }),
 };
 

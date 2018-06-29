@@ -90,7 +90,6 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
                 maxWidth={'md'}
                 modal={false}
                 open={this.state.isDialogOpen}
-                onRequestClose={this.handleCloseDialog}
               >
                 <DialogTitle>
                   <FormattedMessage {...messages.createPermissionGroup} />
