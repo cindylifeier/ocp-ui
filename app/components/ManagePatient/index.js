@@ -18,7 +18,8 @@ function ManagePatient(props) {
   const {
     onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
     usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
-    flagCategories, practitioners, organization,
+    flagCategories, practitioners, organization, episodeOfCareType,
+    episodeOfCareStatus,
   } = props;
   const managePatientFormProps = {
     uspsStates,
@@ -35,6 +36,8 @@ function ManagePatient(props) {
     practitioner,
     practitioners,
     organization,
+    episodeOfCareType,
+    episodeOfCareStatus,
   };
   return (
     <div>
@@ -77,6 +80,8 @@ ManagePatient.propTypes = {
   usCoreEthnicities: PropTypes.array.isRequired,
   usCoreBirthSexes: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
+  episodeOfCareType: PropTypes.array.isRequired,
+  episodeOfCareStatus: PropTypes.array.isRequired,
   telecomSystems: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,

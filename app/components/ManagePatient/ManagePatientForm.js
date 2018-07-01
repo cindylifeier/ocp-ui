@@ -20,16 +20,18 @@ import uniqueId from 'lodash/uniqueId';
 import AddFlags from 'components/AddFlags';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
+import AddEpisodeOfCare from 'components/AddEpisodeOfCare';
 import { EMAIL } from 'components/ManagePatient/constants';
-import messages from './messages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
+import messages from './messages';
 
 
 function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
-    flagStatuses, flagCategories, practitioner, practitioners, organization,
+    flagStatuses, flagCategories, practitioner, practitioners, organization, episodeOfCareType,
+    episodeOfCareStatus,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -47,7 +49,19 @@ function ManagePatientForm(props) {
     flagCategories,
     errors,
     flags: values.flags,
+    practitioners,
+    patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
+  };
+
+  const addEpisodeOfCareProps = {
+    episodeOfCareStatus,
+    episodeOfCareType,
+    flagStatuses,
+    flagCategories,
+    errors,
+    flags: values.flags,
     practitioner,
+    practitioners,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
@@ -210,6 +224,9 @@ function ManagePatientForm(props) {
         <Cell area="flags">
           <AddFlags {...addFlagsProps} />
         </Cell>
+        <Cell area="episodeOfCare">
+          <AddEpisodeOfCare {...addEpisodeOfCareProps} />
+        </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
@@ -293,6 +310,8 @@ ManagePatientForm.propTypes = {
     display: PropTypes.string,
   })),
   organization: PropTypes.object,
+  episodeOfCareType: PropTypes.array,
+  episodeOfCareStatus: PropTypes.array,
 };
 
 export default ManagePatientForm;
