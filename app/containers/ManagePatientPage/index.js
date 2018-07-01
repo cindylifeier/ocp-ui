@@ -29,6 +29,8 @@ import {
   makeSelectUsCoreEthnicities,
   makeSelectUsCoreRaces,
   makeSelectUspsStates,
+  makeSelectEpisodeOfCareStatus,
+  makeSelectEpisodeOfCareType,
 } from 'containers/App/lookupSelectors';
 import {
   ADMINISTRATIVEGENDER,
@@ -42,6 +44,8 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
+  EOC_STATUS,
+  EOC_TYPE,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { getPatient } from 'containers/App/contextActions';
@@ -93,7 +97,7 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
     const {
       match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
       usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories,
-      practitioners, organization,
+      practitioners, organization, episodeOfCareType, episodeOfCareStatus,
     } = this.props;
     const patientId = match.params.id;
     let patient = null;
@@ -116,6 +120,8 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
       practitioner: this.getPractitioner(),
       practitioners,
       organization,
+      episodeOfCareType,
+      episodeOfCareStatus,
     };
     return (
       <Page>
@@ -151,6 +157,8 @@ ManagePatientPage.propTypes = {
   usCoreRaces: PropTypes.array,
   usCoreEthnicities: PropTypes.array,
   usCoreBirthSexes: PropTypes.array,
+  episodeOfCareType: PropTypes.array.isRequired,
+  episodeOfCareStatus: PropTypes.array.isRequired,
   languages: PropTypes.array,
   telecomSystems: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -199,6 +207,8 @@ const mapStateToProps = createStructuredSelector({
   practitioners: makeSelectPractitioners(),
   user: makeSelectUser(),
   organization: makeSelectOrganization(),
+  episodeOfCareType: makeSelectEpisodeOfCareType(),
+  episodeOfCareStatus: makeSelectEpisodeOfCareStatus(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -207,7 +217,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(savePatient(patientFormData, handleSubmitting));
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY])),
+      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY, EOC_TYPE, EOC_STATUS])),
     getPatient: (id) => dispatch(getPatient(id)),
     getPractitioners: (organizationId) => dispatch(getPractitioners(organizationId)),
 
