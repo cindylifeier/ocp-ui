@@ -111,6 +111,11 @@ export const FM_STATUS = 'FM_STATUS';
 export const COVERAGE_TYPE = 'COVERAGE_TYPE';
 // Coverage Lookups - End
 
+// Episode of Care Lookups - Start
+export const EOC_TYPE = 'EOC_TYPE';
+export const EOC_STATUS = 'EOC_STATUS';
+// Episode OF Care Lookups - End
+
 /**
  *  Constants to hold the internal urls
  * @type {string}
