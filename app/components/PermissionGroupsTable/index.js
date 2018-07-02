@@ -8,6 +8,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import Util from 'utils/Util';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableRow from 'components/TableRow';
@@ -38,10 +39,11 @@ function createTableRows(groups, handleEditPermissionGroup) {
           primaryText: <FormattedMessage {...messages.manageGroup} />,
           onClick: () => handleEditPermissionGroup(permissionGroup),
         }];
+        const displayName = permissionGroup.displayName.split('.');
         return (
           <TableRow key={permissionGroup.id} columns={columns}>
             <TableRowColumn>
-              {permissionGroup.displayName}
+              {Util.deCamelize(displayName[displayName.length - 1])}
             </TableRowColumn>
             <TableRowColumn>
               {permissionGroup.description}
