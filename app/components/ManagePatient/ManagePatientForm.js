@@ -22,6 +22,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import AddEpisodeOfCare from 'components/AddEpisodeOfCare';
 import { EMAIL } from 'components/ManagePatient/constants';
+import AddCoverages from 'components/AddCoverages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 import messages from './messages';
 
@@ -226,6 +227,9 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="episodeOfCare">
           <AddEpisodeOfCare {...addEpisodeOfCareProps} />
+        </Cell>
+        <Cell area="coverages">
+          <AddCoverages {...addFlagsProps} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>

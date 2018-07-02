@@ -22,6 +22,7 @@ const ManagePatientFormGrid = Grid.extend`
     "contacts"
     "flags"
     "episodeOfCare"
+    "coverages"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -38,6 +39,7 @@ const ManagePatientFormGrid = Grid.extend`
       "addresses addresses"
       "flags flags"
       "episodeOfCare episodeOfCare"
+      "coverages coverages"
       "buttonGroup .";
   }
 
@@ -54,6 +56,7 @@ const ManagePatientFormGrid = Grid.extend`
       "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"
       "flags flags flags flags flags flags flags flags flags flags flags flags"
       "episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare episodeOfCare"
+      "coverages coverages coverages coverages coverages coverages coverages coverages coverages coverages coverages coverages"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;
