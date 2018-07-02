@@ -7,7 +7,7 @@
 
 // configure({ adapter: new Adapter() });
 
-describe('<AddFlags />', () => {
+describe('<AddEpisodeOfCare />', () => {
   it('Expect to have unit tests specified', () => {
     /* expect(true).toEqual(false);*/
   });
