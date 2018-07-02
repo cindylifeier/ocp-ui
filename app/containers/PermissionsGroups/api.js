@@ -1,5 +1,6 @@
 import { BASE_GROUPS_API_URL, BASE_SCOPES_API_URL, getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
+import camelCase from 'lodash/camelCase';
 
 const baseGroupsEndpoint = getEndpoint(BASE_GROUPS_API_URL);
 const baseScopesEndpoint = getEndpoint(BASE_SCOPES_API_URL);
@@ -15,7 +16,7 @@ export function getScopes() {
 export function createGroup(group) {
   return request(baseGroupsEndpoint, {
     method: 'POST',
-    body: JSON.stringify(group),
+    body: JSON.stringify(addRolePrefix(group)),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -30,6 +31,11 @@ export function updateGroup(group) {
       'Content-Type': 'application/json',
     },
   });
+}
+
+function addRolePrefix(group) {
+  const { displayName, description, scopes } = group;
+  return { displayName: 'ocp.role.'.concat(camelCase(displayName)), description, scopes };
 }
 
 
