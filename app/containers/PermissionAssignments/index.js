@@ -88,7 +88,7 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
                 </DialogTitle>
                 <DialogContent>
                   <AddAssignRolesForm
-                    initialValues={this.state.selectedUser}
+                    user={this.state.selectedUser}
                     handleCloseDialog={this.handleCloseDialog}
                     handleAssignRole={this.handleAssignRole}
                     organization={organization}

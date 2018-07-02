@@ -7,6 +7,7 @@ const baseUsersEndpoint = getEndpoint(BASE_USERS_API_URL);
 export function getUsers(organizationId) {
   const params = queryString({
     organizationId,
+    resource: 'Practitioner',
   });
   return request(`${baseUsersEndpoint}${params}`);
 }
