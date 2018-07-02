@@ -8,6 +8,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import Util from 'utils/Util';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableRow from 'components/TableRow';
@@ -25,9 +26,9 @@ function createTableHeaders() {
   return (
     <TableHeader columns={columns}>
       <TableHeaderColumn><FormattedMessage {...messages.providerName} /></TableHeaderColumn>
-      <TableHeaderColumn><FormattedMessage {...messages.role} /></TableHeaderColumn>
+      {/* <TableHeaderColumn><FormattedMessage {...messages.role} /></TableHeaderColumn>*/}
       <TableHeaderColumn><FormattedMessage {...messages.permissionGroup} /></TableHeaderColumn>
-      <TableHeaderColumn><FormattedMessage {...messages.contact} /></TableHeaderColumn>
+      {/* <TableHeaderColumn><FormattedMessage {...messages.contact} /></TableHeaderColumn>*/}
       <TableHeaderColumn><FormattedMessage {...messages.action} /></TableHeaderColumn>
     </TableHeader>
   );
@@ -42,20 +43,21 @@ function createTableRows(users, handleEditAssignRoles) {
           onClick: () => handleEditAssignRoles(user),
         },
         ];
+        const displayName = user.displayName.split('.');
         return (
           <TableRow key={user.id} columns={columns}>
             <TableRowColumn>
-              {user.givenName}, {user.familyName}
+              {user.givenName} {user.familyName}
             </TableRowColumn>
-            <TableRowColumn>
+            {/* <TableRowColumn>
               {user.role}
-            </TableRowColumn>
+            </TableRowColumn>*/}
             <TableRowColumn>
-              {user.displayName}
+              {Util.deCamelize(displayName[displayName.length - 1])}
             </TableRowColumn>
-            <TableRowColumn>
+            {/* <TableRowColumn>
               {user.contact}
-            </TableRowColumn>
+            </TableRowColumn>*/}
             <TableRowColumn>
               <NavigationIconMenu menuItems={menuItems} />
             </TableRowColumn>

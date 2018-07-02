@@ -38,6 +38,7 @@ function createTableRows(groups, handleEditPermissionGroup) {
         const menuItems = [{
           primaryText: <FormattedMessage {...messages.manageGroup} />,
           onClick: () => handleEditPermissionGroup(permissionGroup),
+          disabled: true,
         }];
         const displayName = permissionGroup.displayName.split('.');
         return (
