@@ -21,12 +21,12 @@ const makeSelectPermissionAssignments = () => createSelector(
 
 const makeSelectUsers = () => createSelector(
   selectPermissionAssignmentsDomain,
-  (substate) => substate.get('users'),
+  (substate) => substate.get('users').toJS(),
 );
 
 const makeSelectGroups = () => createSelector(
   selectPermissionAssignmentsDomain,
-  (substate) => substate.get('groups'),
+  (substate) => substate.get('groups').toJS(),
 );
 
 export default makeSelectPermissionAssignments;

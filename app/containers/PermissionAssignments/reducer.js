@@ -22,20 +22,21 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
+  users: [],
+  groups: [],
 });
 
 function permissionAssignmentsReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_PERMISSION_ASSIGNMENT:
-      return state
-        .set('loading', true);
+      return initialState;
     case GET_USERS:
       return state
         .set('loading', true);
     case GET_USERS_SUCCESS:
       return state
         .set('loading', false)
-        .set('users', action.users);
+        .set('users', fromJS((action.users) || []));
     case GET_USERS_ERROR:
       return state
         .set('loading', false)
@@ -46,7 +47,7 @@ function permissionAssignmentsReducer(state = initialState, action) {
     case GET_GROUPS_SUCCESS:
       return state
         .set('loading', false)
-        .set('groups', action.groups);
+        .set('groups', fromJS((action.groups) || []));
     case GET_GROUPS_ERROR:
       return state
         .set('loading', false)
@@ -57,7 +58,7 @@ function permissionAssignmentsReducer(state = initialState, action) {
       users.map((user) => {
         if (user.id === action.userId) {
           const updatedUser = user;
-          updatedUser.role = find(groups, { id: action.groupId }).displayName;
+          updatedUser.displayName = find(groups, { id: action.groupId }).displayName;
           const i = users.indexOf(user);
           users[i] = updatedUser;
           return updatedUser;
