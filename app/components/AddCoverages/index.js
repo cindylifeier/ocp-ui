@@ -1,6 +1,6 @@
 /**
  *
- * AddFlags
+ * AddCoverages
  *
  */
 
@@ -24,46 +24,42 @@ class AddCoverages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFlagDialogOpen: false,
-      editingFlag: null,
+      isCoverageDialogOpen: false,
+      editingCoverage: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
-    this.handleEditFlag = this.handleEditFlag.bind(this);
+    this.handleEditCoverage = this.handleEditCoverage.bind(this);
   }
 
   handleOpenDialog() {
-    this.setState({ isFlagDialogOpen: true });
+    this.setState({ isCoverageDialogOpen: true });
   }
 
   handleCloseDialog() {
     this.setState({
-      isFlagDialogOpen: false,
-      editingFlag: null,
+      isCoverageDialogOpen: false,
+      editingCoverage: null,
     });
   }
 
-  handleEditFlag(index, flag) {
+  handleEditCoverage(index, flag) {
     this.setState((prevState) => ({
-      isFlagDialogOpen: !prevState.isFlagDialogOpen,
-      editingFlag: { index, flag },
+      isCoverageDialogOpen: !prevState.isCoverageDialogOpen,
+      editingCoverage: { index, flag },
     }));
   }
 
   render() {
-    const { errors, flags, flagStatuses, flagCategories, patientName, practitioner } = this.props;
-    const addFlagFormProps = {
-      flagStatuses,
-      flagCategories,
-      flags,
+    const { errors, coverages, patientName, practitioner } = this.props;
+    const addCoverageFormProps = {
+      coverages,
       patientName,
       practitioner,
     };
-    const addedFlagTableProps = {
+    const addedCoverageTableProps = {
       errors,
-      flags,
-      flagStatuses,
-      flagCategories,
+      coverages,
     };
     return (
       <div>
@@ -73,31 +69,31 @@ class AddCoverages extends React.Component {
           </FormSubtitle>
           <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
             <StyledAddCircleIcon color={teal['500']} />
-            <FormattedMessage {...messages.addFlagButton} />
+            <FormattedMessage {...messages.addCoverageButton} />
           </AddNewItemButton>
           <FieldArray
-            name="flags"
+            name="coverages"
             render={(arrayHelpers) => (
               <div>
                 <Dialog
                   title={<H1> <FormattedMessage {...messages.addCoverageDialogHeader} /> </H1>}
                   modal={false}
-                  open={this.state.isFlagDialogOpen}
+                  open={this.state.isCoverageDialogOpen}
                   onRequestClose={this.handleCloseDialog}
                 >
                   <AddCoverageForm
-                    initialValues={this.state.editingFlag}
+                    initialValues={this.state.editingCoverage}
                     onAddFlag={arrayHelpers.push}
                     onRemoveFlag={arrayHelpers.remove}
                     handleCloseDialog={this.handleCloseDialog}
                     patientName={patientName}
-                    {...addFlagFormProps}
+                    {...addCoverageFormProps}
                   />
                 </Dialog>
                 <AddedCoverageTable
-                  handleEditFlag={this.handleEditFlag}
+                  handleEditCoverage={this.handleEditCoverage}
                   arrayHelpers={arrayHelpers}
-                  {...addedFlagTableProps}
+                  {...addedCoverageTableProps}
                 />
               </div>
             )}
@@ -110,23 +106,7 @@ class AddCoverages extends React.Component {
 
 AddCoverages.propTypes = {
   errors: PropTypes.object,
-  flags: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string,
-    code: PropTypes.string,
-    status: PropTypes.string,
-    author: PropTypes.shape({
-      code: PropTypes.string,
-      display: PropTypes.string,
-    }),
-  })),
-  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
-  flagCategories: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
+  coverages: PropTypes.array,
   patientName: PropTypes.string,
   practitioner: PropTypes.shape({
     reference: PropTypes.string,

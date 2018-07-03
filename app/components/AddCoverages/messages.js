@@ -10,8 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.AddCoverages.header',
     defaultMessage: 'Coverage',
   },
-  addFlagButton: {
-    id: 'ocpui.components.AddCoverages.addFlagButton',
+  addCoverageButton: {
+    id: 'ocpui.components.AddCoverages.addCoverageButton',
     defaultMessage: 'Add Coverage',
   },
   addCoverageDialogHeader: {
@@ -31,13 +31,13 @@ export default defineMessages({
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.id',
       defaultMessage: 'ID',
     },
-    tableHeaderStartDate: {
-      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderStartDate',
-      defaultMessage: 'Start Date',
+    tableHeaderPeriod: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderPeriod',
+      defaultMessage: 'Period',
     },
-    tableHeaderEndDate: {
-      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderEndDate',
-      defaultMessage: 'End Date',
+    tableHeaderSubscriber: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderSubscriber',
+      defaultMessage: 'Subscriber',
     },
     tableHeaderBeneficiary: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderBeneficiary',

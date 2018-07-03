@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
-import find from 'lodash/find';
 
-import Util from 'utils/Util';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -18,11 +16,9 @@ function addedCoveragesTable(props) {
   const tableColumns = 'repeat(6, 1fr) 80px';
   const {
     errors,
-    flags,
+    coverages,
     arrayHelpers,
-    handleEditFlag,
-    flagStatuses,
-    flagCategories,
+    handleEditCoverage,
   } = props;
   return (
     <div>
@@ -32,18 +28,18 @@ function addedCoveragesTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderStatus} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.id} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderBeneficiary} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderStartDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderPeriod} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderSubscriber} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {errors && errors.flags &&
         <CustomErrorText>{errors.flags}</CustomErrorText>
         }
-        {flags && flags.map((flag, index) => {
-          const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
+        {coverages && coverages.map((coverage, index) => {
+          const { logicalId, subscriberId, status, typeDisplay, startDate, endDate, beneficiary, subscriber } = coverage;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionEdit} />,
-            onClick: () => handleEditFlag(index, flag),
+            onClick: () => handleEditCoverage(index, coverage),
           }, {
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionRemove} />,
             disabled: logicalId !== undefined,
@@ -51,12 +47,12 @@ function addedCoveragesTable(props) {
           }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{find(flagCategories, { code: category }) && (find(flagCategories, { code: category })).display}</TableRowColumn>
-              <TableRowColumn>{find(flagStatuses, { code: status }) && (find(flagStatuses, { code: status })).display}</TableRowColumn>
-              <TableRowColumn>{code}</TableRowColumn>
-              <TableRowColumn>{author && author.display}</TableRowColumn>
-              <TableRowColumn>{flagStart && Util.formatDate(flagStart)}</TableRowColumn>
-              <TableRowColumn>{flagEnd && Util.formatDate(flagEnd)}</TableRowColumn>
+              <TableRowColumn>{typeDisplay}</TableRowColumn>
+              <TableRowColumn>{status}</TableRowColumn>
+              <TableRowColumn>{subscriberId}</TableRowColumn>
+              <TableRowColumn>{beneficiary && beneficiary.display}</TableRowColumn>
+              <TableRowColumn>{startDate} - {endDate}</TableRowColumn>
+              <TableRowColumn>{subscriber && subscriber.display}</TableRowColumn>
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
@@ -71,24 +67,8 @@ function addedCoveragesTable(props) {
 addedCoveragesTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
-  handleEditFlag: PropTypes.func,
-  flags: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string,
-    code: PropTypes.string,
-    status: PropTypes.string,
-    author: PropTypes.shape({
-      code: PropTypes.string,
-      display: PropTypes.string,
-    }),
-  })),
-  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })).isRequired,
-  flagCategories: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })).isRequired,
+  handleEditCoverage: PropTypes.func,
+  coverages: PropTypes.array,
 };
 
 export default addedCoveragesTable;
