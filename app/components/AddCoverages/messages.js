@@ -14,22 +14,22 @@ export default defineMessages({
     id: 'ocpui.components.AddCoverages.addFlagButton',
     defaultMessage: 'Add Coverage',
   },
-  addFlagDialogHeader: {
-    id: 'ocpui.components.AddCoverages.addFlagDialogHeader',
-    defaultMessage: 'Add Advisory',
+  addCoverageDialogHeader: {
+    id: 'ocpui.components.AddCoverages.addCoverageDialogHeader',
+    defaultMessage: 'Add Coverage',
   },
   addedCoveragesTable: {
     tableHeaderStatus: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderStatus',
       defaultMessage: 'Status',
     },
-    tableHeaderCategory: {
-      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderCategory',
-      defaultMessage: 'Category',
+    tableHeaderCoverage: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderCoverage',
+      defaultMessage: 'Coverage',
     },
-    tableHeaderCode: {
-      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderCode',
-      defaultMessage: 'Note',
+    id: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.id',
+      defaultMessage: 'ID',
     },
     tableHeaderStartDate: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderStartDate',
@@ -39,9 +39,9 @@ export default defineMessages({
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderEndDate',
       defaultMessage: 'End Date',
     },
-    tableHeaderAuthor: {
-      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderAuthor',
-      defaultMessage: 'Author',
+    tableHeaderBeneficiary: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderBeneficiary',
+      defaultMessage: 'Beneficiary',
     },
     tableHeaderAction: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderAction',

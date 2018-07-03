@@ -80,7 +80,7 @@ class AddCoverages extends React.Component {
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title={<H1> <FormattedMessage {...messages.addFlagDialogHeader} /> </H1>}
+                  title={<H1> <FormattedMessage {...messages.addCoverageDialogHeader} /> </H1>}
                   modal={false}
                   open={this.state.isFlagDialogOpen}
                   onRequestClose={this.handleCloseDialog}

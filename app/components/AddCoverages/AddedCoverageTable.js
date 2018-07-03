@@ -28,10 +28,10 @@ function addedCoveragesTable(props) {
     <div>
       <Table>
         <TableHeader columns={tableColumns}>
-          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderCategory} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderCoverage} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderCode} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderAuthor} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.id} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderBeneficiary} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderEndDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderAction} /></TableHeaderColumn>
