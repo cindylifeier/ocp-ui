@@ -67,25 +67,29 @@ export default defineMessages({
     },
   },
   hintText: {
-    category: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.category',
-      defaultMessage: 'Category',
+    subscriberId: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.subscriberId',
+      defaultMessage: 'Subscriber Id',
+    },
+    relationship: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.relationship',
+      defaultMessage: 'Relationship',
+    },
+    beneficiary: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.beneficiary',
+      defaultMessage: 'Beneficiary',
+    },
+    subscriber: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.subscriber',
+      defaultMessage: 'Subscriber',
+    },
+    coverageType: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.coverageType',
+      defaultMessage: 'Coverage Type',
     },
     status: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.status',
       defaultMessage: 'Status',
-    },
-    patientName: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.status',
-      defaultMessage: 'Patient Name',
-    },
-    author: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.author',
-      defaultMessage: 'Author',
-    },
-    code: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.code',
-      defaultMessage: 'Note',
     },
     startDate: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.startDate',
@@ -97,25 +101,29 @@ export default defineMessages({
     },
   },
   floatingLabelText: {
-    category: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.category',
-      defaultMessage: 'Category',
+    subscriberId: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.subscriberId',
+      defaultMessage: 'Subscriber Id',
     },
-    patientName: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.status',
-      defaultMessage: 'Patient Name',
+    beneficiary: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.beneficiary',
+      defaultMessage: 'Beneficiary',
     },
-    author: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.author',
-      defaultMessage: 'Author',
+    subscriber: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.subscriber',
+      defaultMessage: 'Subscriber',
+    },
+    relationship: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.relationship',
+      defaultMessage: 'Relationship',
     },
     status: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.status',
       defaultMessage: 'Status',
     },
-    code: {
-      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.code',
-      defaultMessage: 'Note',
+    coverageType: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.coverageType',
+      defaultMessage: 'Coverage Type',
     },
     startDate: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.startDate',
