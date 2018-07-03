@@ -55,12 +55,10 @@ function ManagePatientForm(props) {
   };
 
   const addEpisodeOfCareProps = {
+    episodeOfCares: values.episodeOfCares,
     episodeOfCareStatus,
     episodeOfCareType,
-    flagStatuses,
-    flagCategories,
     errors,
-    flags: values.flags,
     practitioner,
     practitioners,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
@@ -225,7 +223,7 @@ function ManagePatientForm(props) {
         <Cell area="flags">
           <AddFlags {...addFlagsProps} />
         </Cell>
-        <Cell area="episodeOfCare">
+        <Cell area="episodeOfCares">
           <AddEpisodeOfCare {...addEpisodeOfCareProps} />
         </Cell>
         <Cell area="coverages">
