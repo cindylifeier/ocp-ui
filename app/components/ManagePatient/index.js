@@ -19,7 +19,7 @@ function ManagePatient(props) {
     onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
     usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
     flagCategories, practitioners, organization, episodeOfCareType,
-    episodeOfCareStatus,
+    episodeOfCareStatus, policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions,
   } = props;
   const managePatientFormProps = {
     uspsStates,
@@ -38,6 +38,10 @@ function ManagePatient(props) {
     organization,
     episodeOfCareType,
     episodeOfCareStatus,
+    policyHolderRelationship,
+    coverageFmStatus,
+    coverageType,
+    subscriptionOptions,
   };
   return (
     <div>
@@ -111,6 +115,10 @@ ManagePatient.propTypes = {
     display: PropTypes.string,
   })),
   organization: PropTypes.object,
+  subscriptionOptions: PropTypes.array,
+  policyHolderRelationship: PropTypes.array,
+  coverageType: PropTypes.array,
+  coverageFmStatus: PropTypes.array,
 };
 
 export default ManagePatient;
