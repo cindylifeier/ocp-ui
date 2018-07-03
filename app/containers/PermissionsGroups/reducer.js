@@ -11,24 +11,30 @@ import {
   GET_GROUPS_SUCCESS,
   GET_SCOPES_ERROR,
   GET_SCOPES_SUCCESS,
+  INITIALIZE_PERMISSIONS_GROUP,
+  SAVE_GROUP,
   SAVE_GROUP_ERROR,
   SAVE_GROUP_SUCCESS,
-  SAVE_GROUP,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
   error: false,
+  groups: [],
+  scopes: [],
 });
+
 function permissionsGroupsReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_PERMISSIONS_GROUP:
+      return initialState;
     case GET_GROUPS:
       return state
         .set('loading', true);
     case GET_GROUPS_SUCCESS:
       return state
         .set('loading', false)
-        .set('groups', action.groups);
+        .set('groups', fromJS((action.groups) || []));
     case GET_GROUPS_ERROR:
       return state
         .set('loading', false)
@@ -36,7 +42,7 @@ function permissionsGroupsReducer(state = initialState, action) {
     case GET_SCOPES_SUCCESS:
       return state
         .set('loading', false)
-        .set('scopes', action.scopes);
+        .set('scopes', fromJS((action.scopes) || []));
     case GET_SCOPES_ERROR:
       return state
         .set('loading', false)

@@ -7,6 +7,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 
 import Util from 'utils/Util';
 import Table from 'components/Table';
@@ -42,7 +43,7 @@ function createTableRows(groups, handleEditPermissionGroup) {
         }];
         const displayName = permissionGroup.displayName.split('.');
         return (
-          <TableRow key={permissionGroup.id} columns={columns}>
+          <TableRow key={permissionGroup.id || uniqueId()} columns={columns}>
             <TableRowColumn>
               {Util.deCamelize(displayName[displayName.length - 1])}
             </TableRowColumn>

@@ -4,7 +4,24 @@
  *
  */
 
-import { GET_GROUPS, GET_GROUPS_SUCCESS, GET_GROUPS_ERROR, GET_SCOPES, GET_SCOPES_SUCCESS, GET_SCOPES_ERROR, SAVE_GROUP, SAVE_GROUP_SUCCESS, SAVE_GROUP_ERROR } from './constants';
+import {
+  GET_GROUPS,
+  GET_GROUPS_ERROR,
+  GET_GROUPS_SUCCESS,
+  GET_SCOPES,
+  GET_SCOPES_ERROR,
+  GET_SCOPES_SUCCESS,
+  INITIALIZE_PERMISSIONS_GROUP,
+  SAVE_GROUP,
+  SAVE_GROUP_ERROR,
+  SAVE_GROUP_SUCCESS,
+} from './constants';
+
+export function initializePermissionsGroup() {
+  return {
+    type: INITIALIZE_PERMISSIONS_GROUP,
+  };
+}
 
 export function getGroups() {
   return {

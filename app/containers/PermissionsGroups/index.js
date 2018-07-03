@@ -25,7 +25,7 @@ import PermissionGroupsTable from 'components/PermissionGroupsTable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getGroups, getScopes, saveGroup } from './actions';
+import { getGroups, getScopes, saveGroup, initializePermissionsGroup } from './actions';
 import { makeSelectGroups, makeSelectScopes } from './selectors';
 
 
@@ -43,6 +43,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
   }
 
   componentDidMount() {
+    this.props.initializePermissionsGroup();
     this.props.getGroups();
     this.props.getScopes();
   }
@@ -88,7 +89,6 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
             <div>
               <StyledDialog
                 maxWidth={'md'}
-                modal={false}
                 open={this.state.isDialogOpen}
               >
                 <DialogTitle>
@@ -118,6 +118,7 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
 
 PermissionsGroups.propTypes = {
   getGroups: PropTypes.func.isRequired,
+  initializePermissionsGroup: PropTypes.func.isRequired,
   onSaveGroup: PropTypes.func.isRequired,
   getScopes: PropTypes.func.isRequired,
   groups: PropTypes.array,
@@ -131,6 +132,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializePermissionsGroup: () => dispatch(initializePermissionsGroup()),
     getGroups: () => dispatch(getGroups()),
     getScopes: () => dispatch(getScopes()),
     onSaveGroup: (group, handleSubmitting) => {

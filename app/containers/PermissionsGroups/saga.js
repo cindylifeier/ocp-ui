@@ -1,11 +1,16 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { showNotification } from 'containers/Notification/actions';
 import { GET_GROUPS, GET_SCOPES, SAVE_GROUP } from './constants';
-import { getGroups, getScopes, updateGroup, createGroup } from './api';
-import { getGroupsError, getGroupsSuccess, getScopesSuccess, getScopesError, saveGroupSuccess, saveGroupError } from './actions';
+import { createGroup, getGroups, getScopes, updateGroup } from './api';
+import {
+  getGroupsError,
+  getGroupsSuccess,
+  getScopesError,
+  getScopesSuccess,
+  saveGroupError,
+  saveGroupSuccess,
+} from './actions';
 
 export function* getGroupsSaga() {
   try {
@@ -15,7 +20,6 @@ export function* getGroupsSaga() {
     yield put(getGroupsError(err));
   }
 }
-
 
 export function* getScopesSaga() {
   try {

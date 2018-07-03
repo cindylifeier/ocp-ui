@@ -9,6 +9,7 @@
  *  @type {string}
  */
 export const DEFAULT_ACTION = 'ocpui/PermissionsGroups/DEFAULT_ACTION';
+export const INITIALIZE_PERMISSIONS_GROUP = 'ocpui/PermissionsGroups/INITIALIZE_PERMISSIONS_GROUP';
 export const GET_GROUPS = 'ocpui/PermissionsGroups/GET_GROUPS';
 export const GET_GROUPS_SUCCESS = 'ocpui/PermissionsGroups/GET_GROUPS_SUCCESS';
 export const GET_GROUPS_ERROR = 'ocpui/PermissionsGroups/GET_GROUPS_ERROR';
