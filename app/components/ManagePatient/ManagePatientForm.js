@@ -63,6 +63,14 @@ function ManagePatientForm(props) {
     practitioners,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
+
+  const addCoverageProps = {
+    coverages: values.coverages,
+    errors,
+    practitioners,
+    patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
+  };
+
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
 
   function hasEmailContact() {
@@ -227,7 +235,7 @@ function ManagePatientForm(props) {
           <AddEpisodeOfCare {...addEpisodeOfCareProps} />
         </Cell>
         <Cell area="coverages">
-          <AddCoverages {...addFlagsProps} />
+          <AddCoverages {...addCoverageProps} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
