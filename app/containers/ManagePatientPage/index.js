@@ -31,6 +31,9 @@ import {
   makeSelectUspsStates,
   makeSelectEpisodeOfCareStatus,
   makeSelectEpisodeOfCareType,
+  makeSelectCoverageFmStatus,
+  makeSelectCoverageType,
+  makeSelectPolicyHolderRelationship,
 } from 'containers/App/lookupSelectors';
 import {
   ADMINISTRATIVEGENDER,
@@ -47,11 +50,13 @@ import {
   EOC_STATUS,
   EOC_TYPE,
 } from 'containers/App/constants';
+import { makeSelectSubscriptionOptions } from 'containers/Coverages/selectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { getPatient } from 'containers/App/contextActions';
 import { makeSelectUser, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import { getPatientById } from 'containers/App/api';
+import { getSubscriberOptions } from 'containers/Coverages/actions';
 import merge from 'lodash/merge';
 import reducer from './reducer';
 import saga from './saga';
@@ -59,6 +64,7 @@ import messages from './messages';
 import { savePatient, getPractitioners } from './actions';
 import { mapToFrontendPatientForm } from './api';
 import { makeSelectPractitioners } from './selectors';
+
 
 export class ManagePatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -70,10 +76,14 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
 
   componentDidMount() {
     this.props.getLookUpFormData();
-    const { organization } = this.props;
+    const { organization, match } = this.props;
+    const patientId = match.params.id;
     if (organization) {
       // get practitioners belonging to requester organization
       this.props.getPractitioners(organization.logicalId);
+    }
+    if (patientId) {
+      this.props.getSubscriberOptions(patientId);
     }
   }
   getPractitioner() {
@@ -97,7 +107,8 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
     const {
       match, patients, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
       usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, flagCategories,
-      practitioners, organization, episodeOfCareType, episodeOfCareStatus,
+      practitioners, organization, episodeOfCareType, episodeOfCareStatus, policyHolderRelationship, coverageFmStatus,
+      coverageType, subscriptionOptions,
     } = this.props;
     const patientId = match.params.id;
     let patient = null;
@@ -122,6 +133,10 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
       organization,
       episodeOfCareType,
       episodeOfCareStatus,
+      policyHolderRelationship,
+      coverageFmStatus,
+      coverageType,
+      subscriptionOptions,
     };
     return (
       <Page>
@@ -150,6 +165,7 @@ ManagePatientPage.propTypes = {
   }).isRequired,
   onSaveForm: PropTypes.func,
   getPatient: PropTypes.func.isRequired,
+  getSubscriberOptions: PropTypes.func.isRequired,
   getLookUpFormData: PropTypes.func.isRequired,
   uspsStates: PropTypes.array,
   patientIdentifierSystems: PropTypes.array,
@@ -189,6 +205,10 @@ ManagePatientPage.propTypes = {
   getPractitioners: PropTypes.func.isRequired,
   user: PropTypes.object,
   organization: PropTypes.object,
+  subscriptionOptions: PropTypes.array,
+  policyHolderRelationship: PropTypes.array,
+  coverageType: PropTypes.array,
+  coverageFmStatus: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -209,6 +229,10 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   episodeOfCareType: makeSelectEpisodeOfCareType(),
   episodeOfCareStatus: makeSelectEpisodeOfCareStatus(),
+  policyHolderRelationship: makeSelectPolicyHolderRelationship(),
+  coverageFmStatus: makeSelectCoverageFmStatus(),
+  coverageType: makeSelectCoverageType(),
+  subscriptionOptions: makeSelectSubscriptionOptions(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -220,6 +244,7 @@ function mapDispatchToProps(dispatch) {
       USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY, EOC_TYPE, EOC_STATUS])),
     getPatient: (id) => dispatch(getPatient(id)),
     getPractitioners: (organizationId) => dispatch(getPractitioners(organizationId)),
+    getSubscriberOptions: (patientId) => dispatch(getSubscriberOptions(patientId)),
 
   };
 }
