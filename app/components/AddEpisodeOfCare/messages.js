@@ -18,112 +18,112 @@ export default defineMessages({
     id: 'ocpui.components.AddEpisodeOfCare.addEpisodeOFCareDialogHeader',
     defaultMessage: 'Add Episode Of Care',
   },
-  addedFlagsTable: {
+  addedCoveragesTable: {
     tableHeaderStatus: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderStatus',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderStatus',
       defaultMessage: 'Status',
     },
     tableHeaderIdentifier: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderIdentifier',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderIdentifier',
       defaultMessage: 'Identifier',
     },
     tableHeaderType: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderType',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderType',
       defaultMessage: 'Type',
     },
     tableHeaderStartDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderStartDate',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderStartDate',
       defaultMessage: 'Start Date',
     },
     tableHeaderEndDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderEndDate',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderEndDate',
       defaultMessage: 'End Date',
     },
     tableHeaderCareManager: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderCareManager',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderCareManager',
       defaultMessage: 'Care Manager ',
     },
     tableHeaderAction: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableHeaderAction',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderAction',
       defaultMessage: 'Action',
     },
     tableActionEdit: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableActionEdit',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableActionEdit',
       defaultMessage: 'Edit',
     },
     tableActionRemove: {
-      id: 'ocpui.components.AddEpisodeOfCare.addedFlagsTable.tableActionRemove',
+      id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableActionRemove',
       defaultMessage: 'Remove',
     },
   },
   validation: {
     required: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.validation.required',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.validation.required',
       defaultMessage: 'Required',
     },
     minEndDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.validation.minEndDate',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.validation.minEndDate',
       defaultMessage: 'Flag End date field must be later than flag Start date field',
     },
   },
   hintText: {
     careManager: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.careManager',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.careManager',
       defaultMessage: 'Care Manager',
     },
     status: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.status',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.status',
       defaultMessage: 'Status',
     },
     patientName: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.status',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.status',
       defaultMessage: 'Patient Name',
     },
     type: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.type',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.type',
       defaultMessage: 'Type',
     },
     identifier: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.identifier',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.identifier',
       defaultMessage: 'Identifier',
     },
     startDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.startDate',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.startDate',
       defaultMessage: 'Start Date',
     },
     endDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.hintText.endDate',
-      defaultMessage: 'end Date',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.endDate',
+      defaultMessage: 'End Date',
     },
   },
   floatingLabelText: {
     careManager: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.careManager',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.careManager',
       defaultMessage: 'Care Manager',
     },
     patientName: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.status',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.status',
       defaultMessage: 'Patient Name',
     },
     type: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.type',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.type',
       defaultMessage: 'Type',
     },
     status: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.status',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.status',
       defaultMessage: 'Status',
     },
     identifier: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.identifier',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.identifier',
       defaultMessage: 'Identifier',
     },
     startDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.startDate',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.startDate',
       defaultMessage: 'Start Date',
     },
     endDate: {
-      id: 'ocpui.components.AddEpisodeOfCare.addFlagForm.floatingLabelText.endDate',
-      defaultMessage: 'end Date',
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.endDate',
+      defaultMessage: 'End Date',
     },
   },
   saveButton: {
