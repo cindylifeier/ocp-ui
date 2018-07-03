@@ -29,12 +29,9 @@ function isDuplicate(initialValues, values) {
 function AddEpisodeOfCareForm(props) {
   const {
     initialValues,
-    // onAddFlag,
-    // onRemoveFlag,
+    onAddEpisodeOfCare,
+    onRemoveEpisodeOfCare,
     handleCloseDialog,
-    episodeOfCareIdentifiers,
-    // flags,
-    // practitioner,
     practitioners,
     episodeOfCareStatus,
     episodeOfCareType,
@@ -44,21 +41,22 @@ function AddEpisodeOfCareForm(props) {
     <div>
       <Formik
         onSubmit={(values) => {
-          console.log(values);
-          handleCloseDialog(values);
+          if (initialValues) {
+            onRemoveEpisodeOfCare(initialValues.index);
+          }
+          if (initialValues !== null) {
+            onAddEpisodeOfCare(values);
+          }
+          handleCloseDialog();
         }}
-        initialValues={{ }}
+        initialValues={{ ...(initialValues || {}).episodeOfCare }}
         validationSchema={() =>
           yup.lazy((values) => {
             let defaultStartDate = new Date();
-            if (values.flagStart) {
-              defaultStartDate = values.flagStart;
+            if (values.startDate) {
+              defaultStartDate = values.startDate;
             }
             return yup.object().shape({
-              code: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              category: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
               type: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               status: yup.string()
@@ -66,28 +64,13 @@ function AddEpisodeOfCareForm(props) {
               startDate: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               endDate: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
                 .min(defaultStartDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}
         render={({ isSubmitting, dirty, isValid, values }) => (
           <Form>
             <Grid columns="repeat(2, 1fr)">
-              <Cell>
-                <SelectField
-                  fullWidth
-                  name={'id'}
-                  hintText={<FormattedMessage {...messages.hintText.identifier} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifier} />}
-                >
-                  {episodeOfCareIdentifiers && episodeOfCareIdentifiers.map((rt) =>
-                    (<MenuItem
-                      key={rt.code}
-                      value={rt.code}
-                      primaryText={rt.display}
-                    />),
-                  )}
-                </SelectField>
-              </Cell>
               <Cell>
                 <SelectField
                   fullWidth
@@ -103,6 +86,8 @@ function AddEpisodeOfCareForm(props) {
                     />),
                   )}
                 </SelectField>
+              </Cell>
+              <Cell>
               </Cell>
               <Cell>
                 <SelectField
@@ -141,7 +126,6 @@ function AddEpisodeOfCareForm(props) {
                   fullWidth
                   name="startDate"
                   mode={DATE_PICKER_MODE.LANDSCAPE}
-                  defaultDate={today}
                   minDate={today}
                   hintText={<FormattedMessage {...messages.hintText.startDate} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
@@ -177,21 +161,16 @@ function AddEpisodeOfCareForm(props) {
 }
 
 AddEpisodeOfCareForm.propTypes = {
-  // onAddFlag: PropTypes.func.isRequired,
-  // onRemoveFlag: PropTypes.func.isRequired,
+  onAddEpisodeOfCare: PropTypes.func.isRequired,
+  onRemoveEpisodeOfCare: PropTypes.func.isRequired,
   handleCloseDialog: PropTypes.func.isRequired,
   initialValues: PropTypes.shape({
     index: PropTypes.number,
     flag: PropTypes.object,
   }),
-  // patientName: PropTypes.string,
   practitioners: PropTypes.array,
   episodeOfCareStatus: PropTypes.array,
   episodeOfCareType: PropTypes.array,
-  episodeOfCareIdentifiers: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
 };
 
 export default AddEpisodeOfCareForm;

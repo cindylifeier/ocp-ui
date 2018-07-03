@@ -25,11 +25,11 @@ class AddEpisodeOfCare extends React.Component {
     super(props);
     this.state = {
       isEpisodeOFCareDialogOpen: false,
-      editingFlag: null,
+      editingEpisodeOfCare: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
-    this.handleEditFlag = this.handleEditFlag.bind(this);
+    this.handleEditEpisodeOfCare = this.handleEditEpisodeOfCare.bind(this);
   }
 
   handleOpenDialog() {
@@ -39,35 +39,38 @@ class AddEpisodeOfCare extends React.Component {
   handleCloseDialog() {
     this.setState({
       isEpisodeOFCareDialogOpen: false,
-      editingFlag: null,
+      editingEpisodeOfCare: null,
     });
   }
 
-  handleEditFlag(index, flag) {
+  handleEditEpisodeOfCare(index, episodeOfCare) {
+    const { startDate, endDate, careManager, type, status } = episodeOfCare;
+    const flattenedEpisodeOfCare = {
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      careManager: careManager.reference,
+      type,
+      status,
+    };
     this.setState((prevState) => ({
       isEpisodeOFCareDialogOpen: !prevState.isEpisodeOFCareDialogOpen,
-      editingFlag: { index, flag },
+      editingEpisodeOfCare: { index, episodeOfCare: flattenedEpisodeOfCare },
     }));
   }
 
   render() {
-    const { errors, flags, flagStatuses, flagCategories, patientName, practitioners, episodeOfCareType,
-      episodeOfCareStatus, practitioner } = this.props;
+    const { errors, patientName, practitioners, episodeOfCareType,
+      episodeOfCareStatus, practitioner, episodeOfCares } = this.props;
     const addEpisodeOfCareFormProps = {
-      flagStatuses,
-      flagCategories,
-      flags,
       patientName,
       practitioners,
       practitioner,
       episodeOfCareStatus,
       episodeOfCareType,
     };
-    const addedFlagTableProps = {
+    const addedEpisodeOfCareTableProps = {
       errors,
-      flags,
-      flagStatuses,
-      flagCategories,
+      episodeOfCares,
     };
     return (
       <div>
@@ -80,7 +83,7 @@ class AddEpisodeOfCare extends React.Component {
             <FormattedMessage {...messages.episodeOfCareButtton} />
           </AddNewItemButton>
           <FieldArray
-            name="epidoseOfCare"
+            name="episodeOfCares"
             render={(arrayHelpers) => (
               <div>
                 <Dialog
@@ -90,18 +93,18 @@ class AddEpisodeOfCare extends React.Component {
                   onRequestClose={this.handleCloseDialog}
                 >
                   <AddEpisodeOfCareForm
-                    initialValues={this.state.editingFlag}
-                    onAddFlag={arrayHelpers.push}
-                    onRemoveFlag={arrayHelpers.remove}
+                    initialValues={this.state.editingEpisodeOfCare}
+                    onAddEpisodeOfCare={arrayHelpers.push}
+                    onRemoveEpisodeOfCare={arrayHelpers.remove}
                     handleCloseDialog={this.handleCloseDialog}
                     patientName={patientName}
                     {...addEpisodeOfCareFormProps}
                   />
                 </Dialog>
                 <AddEpisodeOfCareTable
-                  handleEditFlag={this.handleEditFlag}
+                  handleEditEpisodeOfCare={this.handleEditEpisodeOfCare}
                   arrayHelpers={arrayHelpers}
-                  {...addedFlagTableProps}
+                  {...addedEpisodeOfCareTableProps}
                 />
               </div>
             )}
@@ -114,23 +117,6 @@ class AddEpisodeOfCare extends React.Component {
 
 AddEpisodeOfCare.propTypes = {
   errors: PropTypes.object,
-  flags: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string,
-    code: PropTypes.string,
-    status: PropTypes.string,
-    author: PropTypes.shape({
-      code: PropTypes.string,
-      display: PropTypes.string,
-    }),
-  })),
-  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
-  flagCategories: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })),
   patientName: PropTypes.string,
   practitioner: PropTypes.shape({
     reference: PropTypes.string,
@@ -139,6 +125,7 @@ AddEpisodeOfCare.propTypes = {
   practitioners: PropTypes.array,
   episodeOfCareType: PropTypes.array,
   episodeOfCareStatus: PropTypes.array,
+  episodeOfCares: PropTypes.array,
 };
 
 export default AddEpisodeOfCare;
