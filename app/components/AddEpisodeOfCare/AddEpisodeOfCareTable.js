@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
-import find from 'lodash/find';
-
-import Util from 'utils/Util';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -15,48 +12,44 @@ import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
 function AddEpisodeOfCareTable(props) {
-  const tableColumns = 'repeat(6, 1fr) 80px';
+  const tableColumns = 'repeat(5, 1fr) 80px';
   const {
     errors,
-    flags,
     arrayHelpers,
-    handleEditFlag,
-    flagStatuses,
-    flagCategories,
+    handleEditEpisodeOfCare,
+    episodeOfCares,
   } = props;
   return (
     <div>
       <Table>
         <TableHeader columns={tableColumns}>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderIdentifier} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderStatus} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderType} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderCareManager} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderStartDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderEndDate} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.addedFlagsTable.tableHeaderAction} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderStatus} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderType} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderCareManager} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderStartDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
-        {errors && errors.flags &&
-        <CustomErrorText>{errors.flags}</CustomErrorText>
+        {errors && errors.epidoseOfCare &&
+        <CustomErrorText>{errors.epidoseOfCare}</CustomErrorText>
         }
-        {flags && flags.map((flag, index) => {
-          const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
+        {episodeOfCares && episodeOfCares.map((episodeOfCare, index) => {
+          const { status, type, startDate, endDate, careManager, id } = episodeOfCare;
           const menuItems = [{
-            primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionEdit} />,
-            onClick: () => handleEditFlag(index, flag),
+            primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionEdit} />,
+            onClick: () => handleEditEpisodeOfCare(index, episodeOfCare),
           }, {
-            primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionRemove} />,
-            disabled: logicalId !== undefined,
+            primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionRemove} />,
+            disabled: id !== undefined,
             onClick: () => arrayHelpers.remove(index),
           }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{find(flagCategories, { code: category }) && (find(flagCategories, { code: category })).display}</TableRowColumn>
-              <TableRowColumn>{find(flagStatuses, { code: status }) && (find(flagStatuses, { code: status })).display}</TableRowColumn>
-              <TableRowColumn>{code}</TableRowColumn>
-              <TableRowColumn>{author && author.display}</TableRowColumn>
-              <TableRowColumn>{flagStart && Util.formatDate(flagStart)}</TableRowColumn>
-              <TableRowColumn>{flagEnd && Util.formatDate(flagEnd)}</TableRowColumn>
+              <TableRowColumn>{status}</TableRowColumn>
+              <TableRowColumn>{type}</TableRowColumn>
+              <TableRowColumn>{careManager && careManager.reference}</TableRowColumn>
+              <TableRowColumn>{startDate}</TableRowColumn>
+              <TableRowColumn>{endDate}</TableRowColumn>
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
@@ -71,24 +64,8 @@ function AddEpisodeOfCareTable(props) {
 AddEpisodeOfCareTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
-  handleEditFlag: PropTypes.func,
-  flags: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string,
-    code: PropTypes.string,
-    status: PropTypes.string,
-    author: PropTypes.shape({
-      code: PropTypes.string,
-      display: PropTypes.string,
-    }),
-  })),
-  flagStatuses: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })).isRequired,
-  flagCategories: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  })).isRequired,
+  handleEditEpisodeOfCare: PropTypes.func,
+  episodeOfCares: PropTypes.array,
 };
 
 export default AddEpisodeOfCareTable;
