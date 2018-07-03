@@ -87,6 +87,7 @@ function mapToBackendFlags(flags) {
 export function mapToFrontendPatientForm(patientData) {
   const {
     id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex, flags,
+    episodeOfCares,
   } = patientData;
 
   const identifierType = identifier[0].system;
@@ -110,6 +111,7 @@ export function mapToFrontendPatientForm(patientData) {
     birthSex,
     addresses,
     telecoms,
+    episodeOfCares,
     flags: mappedFlags,
   };
 }
