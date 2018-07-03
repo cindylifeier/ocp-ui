@@ -39,7 +39,7 @@ function AddCoverageForm(props) {
           console.log(values);
           handleCloseDialog();
         }}
-        initialValues={{}}
+        initialValues={{ ...(initialValues || {}).coverage }}
         validationSchema={() =>
           yup.lazy((values) => {
             let startDate = new Date();

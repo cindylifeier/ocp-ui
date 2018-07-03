@@ -43,19 +43,35 @@ class AddCoverages extends React.Component {
     });
   }
 
-  handleEditCoverage(index, flag) {
+  handleEditCoverage(index, coverage) {
+    const { beneficiary, startDate, endDate, relationship, subscriberId, type, status, subscriber } = coverage;
+    const flattenedCoverage = {
+      type,
+      subscriberId,
+      status,
+      relationship,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      subscriber: subscriber && subscriber.reference,
+      beneficiary: beneficiary && beneficiary.display,
+    };
     this.setState((prevState) => ({
       isCoverageDialogOpen: !prevState.isCoverageDialogOpen,
-      editingCoverage: { index, flag },
+      editingCoverage: { index, coverage: flattenedCoverage },
     }));
   }
 
   render() {
-    const { errors, coverages, patientName, practitioner } = this.props;
+    const { errors, coverages, patientName, practitioner,
+      policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions } = this.props;
     const addCoverageFormProps = {
       coverages,
       patientName,
       practitioner,
+      policyHolderRelationship,
+      coverageFmStatus,
+      coverageType,
+      subscriptionOptions,
     };
     const addedCoverageTableProps = {
       errors,
@@ -112,6 +128,10 @@ AddCoverages.propTypes = {
     reference: PropTypes.string,
     display: PropTypes.string,
   }),
+  subscriptionOptions: PropTypes.array,
+  policyHolderRelationship: PropTypes.array,
+  coverageType: PropTypes.array,
+  coverageFmStatus: PropTypes.array,
 };
 
 export default AddCoverages;
