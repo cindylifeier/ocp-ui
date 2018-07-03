@@ -23,6 +23,7 @@ import { makeSelectPatient } from 'containers/App/contextSelectors';
 import PatientDetails from 'components/PatientDetails';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
+import SmartAppLauncher from 'containers/SmartAppLauncher';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
@@ -151,6 +152,7 @@ export class PatientWorkspacePage extends React.Component { // eslint-disable-li
             patient={patient}
             flattenPatientData={flattenPatientData}
           />
+          <SmartAppLauncher />
           <GoldenLayout
             containerHeight="75vh"
             containerWidth="95vw"

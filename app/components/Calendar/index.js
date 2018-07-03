@@ -40,7 +40,11 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       appointment.isOutlookAppointment = false;
       appointment.editUrl = `${manageAppointmentUrl}/${element.logicalId}`;
       appointment.patientId = element.patientId;
+      appointment.status = element.statusCode;
+      appointment.patientName = element.patientName;
       appointment.myResponse = element.requesterParticipationStatusCode;
+      appointment.allParticipantNames = element.participantName;
+      appointment.organizerName = element.creatorName;
       return appointment;
     });
   }
@@ -55,7 +59,10 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       outlookAppointment.end = new Date(element.end[0], element.end[1] - 1, element.end[2], element.end[3], element.end[4]);
       outlookAppointment.isOutlookAppointment = true;
       outlookAppointment.myResponse = element.myResponse;
-      outlookAppointment.patientId = '';
+      outlookAppointment.allParticipantNames = element.allAttendeeName;
+      outlookAppointment.organizerName = element.organizerName;
+      outlookAppointment.requiredParticipantNames = element.requiredAttendeeName;
+      outlookAppointment.optionalParticipantNames = element.optionalAttendeeName;
       return outlookAppointment;
     });
     appointments.push(...outlookAppointments);
@@ -75,6 +82,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
         showMultiDayTimes
         defaultDate={new Date()}
         messages={messages}
+        tooltipAccessor={(appointment) => props.tooltipAccessor(appointment)}
         eventPropGetter={
           (appointment) => {
             const newStyle = {
@@ -112,6 +120,7 @@ Calendar.propTypes = {
   outlookElements: PropTypes.array,
   manageAppointmentUrl: PropTypes.string,
   handleDoubleClickEvent: PropTypes.func,
+  tooltipAccessor: PropTypes.func,
 };
 
 export default Calendar;

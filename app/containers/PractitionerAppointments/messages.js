@@ -12,7 +12,7 @@ export default defineMessages({
   },
   noUpcomingAppointments: {
     id: 'ocpui.containers.PractitionerAppointments.noUpcomingAppointments',
-    defaultMessage: 'No Appointments found.',
+    defaultMessage: 'No Appointments Found.',
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.PractitionerAppointments.buttonLabelCreateNew',
@@ -21,5 +21,25 @@ export default defineMessages({
   showPastAppointments: {
     id: 'ocpui.containers.PractitionerAppointments.checkbox.showPastAppointments',
     defaultMessage: 'Show Past Appointments',
+  },
+  filterLabel: {
+    id: 'ocpui.containers.PractitionerAppointments.checkbox.filterLabel',
+    defaultMessage: 'Select a date range to filter',
+  },
+  dialogTitleOpenEvent: {
+    id: 'ocpui.containers.PractitionerAppointments.dialogTitleOpenEvent',
+    defaultMessage: 'Confirm Navigation',
+  },
+  confirmNavigation: {
+    id: 'ocpui.containers.PractitionerAppointments.confirmNavigation',
+    defaultMessage: 'View Patient Details?',
+  },
+  dialogButtonLabelOK: {
+    id: 'ocpui.containers.PractitionerAppointments.dialogButtonLabelOK',
+    defaultMessage: 'OK',
+  },
+  dialogButtonLabelCancel: {
+    id: 'ocpui.containers.PractitionerAppointments.dialogButtonLabelCancel',
+    defaultMessage: 'Cancel',
   },
 });

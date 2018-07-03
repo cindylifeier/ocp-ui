@@ -42,29 +42,26 @@ function getErrorMessage(err) {
   return errorMessage;
 }
 
-export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments, pageNumber } }) {
+export function* getPractitionerAppointmentsSaga({ query: { showPastAppointments, pageNumber, filterDateOption } }) {
   try {
-    let queryParams = {
-      showPastAppointments,
-      pageNumber,
-    };
     const practitioner = yield select(makeSelectUser());
     const practitionerId = (practitioner && practitioner.fhirResource) ? practitioner.fhirResource.logicalId : null;
 
-    if (practitionerId) {
-      queryParams = {
-        showPastAppointments,
-        pageNumber,
-        practitionerId,
-        requesterReference: `Practitioner/${practitionerId}`,
-      };
-    }
-    const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, queryParams);
+    const queryParams = {
+      showPastAppointments,
+      pageNumber,
+      filterDateOption,
+      requesterReference: `Practitioner/${practitionerId}`,
+    };
+
+    const practitionerAppointmentsPage = yield call(getPractitionerAppointmentsApi, practitionerId, queryParams);
     yield put(getPractitionerAppointmentsSuccess(practitionerAppointmentsPage));
   } catch (err) {
-    const errMsg = getErrorMessage(err);
     yield put(getPractitionerAppointmentsError(err));
-    yield put(showNotification(errMsg));
+    if (err.response.status !== 404) {
+      const errMsg = getErrorMessage(err);
+      yield put(showNotification(errMsg));
+    }
   }
 }
 

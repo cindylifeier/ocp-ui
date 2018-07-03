@@ -41,11 +41,6 @@ import ManageActivityDefinitionPage from 'containers/ManageActivityDefinitionPag
 import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
-import ManageConsentPage from 'containers/ManageConsentPage';
-import AttestConsentPage from 'containers/AttestConsentPage';
-import RevokeConsentPage from 'containers/RevokeConsentPage';
-import Consent2ShareHomePage from 'containers/Consent2ShareHomePage';
-import C2SRoute from 'components/C2SRoute';
 import ManageClientPage from 'containers/ManageClientPage';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
 import saga from './saga';
@@ -66,10 +61,6 @@ export function App() {
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
-          <C2SRoute exact path="/c2s-sof-ui/patient/:id?" component={Consent2ShareHomePage} />
-          <C2SRoute path="/c2s-sof-ui/manage-consent/:id?" component={ManageConsentPage} />
-          <C2SRoute path="/c2s-sof-ui/attest-consent/:id?" component={AttestConsentPage} />
-          <C2SRoute path="/c2s-sof-ui/revoke-consent/:id?" component={RevokeConsentPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
@@ -94,7 +85,6 @@ export function App() {
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />
             <Route path="/ocp-ui/manage-appointment/:id?" component={ManageAppointmentPage} />
             <Route path="/ocp-ui/manage-communication/:id?" component={ManageCommunicationPage} />
-            <Route path="/ocp-ui/sign-consent/:id" component={AttestConsentPage} />
             <Route path="/ocp-ui/smart-context" component={SmartContextInitializerPage} />
             <Route path="/ocp-ui/manage-client" component={ManageClientPage} />
           </Authentication>

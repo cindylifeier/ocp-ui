@@ -28,7 +28,7 @@ export default defineMessages({
   },
   selectLabelDateRange: {
     id: 'ocpui.containers.PatientToDos.selectLabelDateRange',
-    defaultMessage: 'Select Date range to filter.',
+    defaultMessage: 'Select a date range to filter',
   },
   cancelToDoSuccess: {
     id: 'ocpui.containers.PatientToDos.cancelToDoSuccess',

@@ -53,6 +53,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.navigateToEditAppointment = this.navigateToEditAppointment.bind(this);
     this.authenticateOutlookCredentials = this.authenticateOutlookCredentials.bind(this);
     this.handleOpenLoginDialog = this.handleOpenLoginDialog.bind(this);
+    this.showTooltip = this.showTooltip.bind(this);
   }
 
   componentDidMount() {
@@ -101,6 +102,20 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     this.setState({ loginModalOpen: true });
   }
 
+  showTooltip(appointment) {
+    const title = appointment.title;
+    const organizerName = appointment.organizerName;
+    if (!appointment.isOutlookAppointment) {
+      const patientName = appointment.patientName;
+      const participantNames = appointment.allParticipantNames.join(', ');
+      const status = (appointment.status ? (appointment.status.charAt(0).toUpperCase().concat(appointment.status.slice(1))) : '');
+      return `\n Title: ${title} \n Status: ${status} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
+    }
+    const required = appointment.requiredParticipantNames.join(', ');
+    const optional = appointment.optionalParticipantNames.join(', ');
+    return `\n Title: ${title} \n Organizer: ${organizerName} \n Required Attendees: ${required} \n Optional Attendees: ${optional}`;
+  }
+
   render() {
     let { appointmentsCalendar: { data, outlookData } } = this.props;
     if (isEmpty(data)) {
@@ -128,6 +143,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           outlookElements={outlookData}
           manageAppointmentUrl={MANAGE_APPOINTMENT_URL}
           handleDoubleClickEvent={this.handleDoubleClickEvent}
+          tooltipAccessor={this.showTooltip}
         />
 
         <div>

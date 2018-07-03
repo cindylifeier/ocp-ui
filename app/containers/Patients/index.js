@@ -23,27 +23,27 @@ import {
   CARE_MANAGER_ROLE_CODE,
   MANAGE_PATIENT_URL,
   OCP_ADMIN_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE, USCOREETHNICITY,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  USCOREETHNICITY,
   USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
-import FhirUtil from 'utils/FhirUtil';
+import { combineAddress, isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
 import {
-makeSelectCurrentPage,
-makeSelectCurrentPageSize,
-makeSelectPatientSearchResult,
-makeSelectPatientTotalElements,
-makeSelectQueryIncludeInactive,
-makeSelectQuerySearchTerms,
-makeSelectQuerySearchType,
-makeSelectSearchError,
-makeSelectSearchLoading,
-makeSelectTotalPages,
+  makeSelectCurrentPage,
+  makeSelectCurrentPageSize,
+  makeSelectPatientSearchResult,
+  makeSelectPatientTotalElements,
+  makeSelectQueryIncludeInactive,
+  makeSelectQuerySearchTerms,
+  makeSelectQuerySearchType,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
+  makeSelectTotalPages,
 } from './selectors';
 import { initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
@@ -52,7 +52,6 @@ import { flattenPatientData } from './helpers';
 import messages from './messages';
 
 export class Patients extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +69,13 @@ export class Patients extends React.Component {
   }
 
   componentDidMount() {
-    const { patient } = this.props;
+    const { patient, organization } = this.props;
+    const initSearchTerms = '';
+    const includeInactive = false;
+    const searchType = 'name';
+    if (organization) {
+      this.handleSearch(initSearchTerms, includeInactive, searchType);
+    }
     if (patient) {
       this.props.initializePatients([patient]);
     } else {
@@ -169,7 +174,7 @@ export class Patients extends React.Component {
           onPatientViewDetailsClick={this.handlePatientViewDetailsClick}
           flattenPatientData={flattenPatientData}
           mapToTelecoms={mapToTelecoms}
-          combineAddress={FhirUtil.combineAddress}
+          combineAddress={combineAddress}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>

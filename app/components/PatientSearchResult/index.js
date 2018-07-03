@@ -74,6 +74,9 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         tabIndex="0"
       >
         <TableRowColumn>{getFullName(patient)}</TableRowColumn>
+        {isExpanded &&
+        <TableRowColumn>{patient && patient.mrn}</TableRowColumn>
+        }
         <TableRowColumn>{ contact }</TableRowColumn>
         {isExpanded &&
         <TableRowColumn>{ address }</TableRowColumn>
@@ -142,6 +145,9 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
         <TableHeader columns={columns} relativeTop={relativeTop}>
           <TableHeaderColumn />
           <TableHeaderColumn><FormattedMessage {...messages.fullName} /></TableHeaderColumn>
+          {isExpanded &&
+          <TableHeaderColumn><FormattedMessage {...messages.mrn} /></TableHeaderColumn>
+          }
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
           {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.address} /></TableHeaderColumn>
@@ -162,7 +168,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
           }
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
-          <TableHeaderColumn />
+          <TableHeaderColumn><FormattedMessage {...messages.actions} /></TableHeaderColumn>
         </TableHeader>
         {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities)}
       </Table>

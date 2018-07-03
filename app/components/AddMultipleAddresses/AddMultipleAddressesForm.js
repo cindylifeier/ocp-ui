@@ -4,18 +4,17 @@ import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
-import MenuItem from 'material-ui/MenuItem';
 
+import Padding from 'components/Padding';
+import AutoSuggestionField from 'components/AutoSuggestion';
 import { POSTAL_CODE_PATTERN } from 'containers/App/constants';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
 import messages from './messages';
 
 function AddMultipleAddressesForm(props) {
   const postalCodePattern = new RegExp(POSTAL_CODE_PATTERN);
-
   const {
     uspsStates,
     initialValues,
@@ -23,6 +22,13 @@ function AddMultipleAddressesForm(props) {
     onRemoveAddress,
     handleCloseDialog,
   } = props;
+
+  const stateSuggestions = uspsStates
+    .filter((entry) => (entry.code !== null) && (entry.display !== null))
+    .map((entry) => ({
+      value: entry.code,
+      label: entry.display,
+    }));
 
   return (
     <div>
@@ -76,16 +82,14 @@ function AddMultipleAddressesForm(props) {
                 />
               </Cell>
               <Cell>
-                <SelectField
-                  fullWidth
-                  name="stateCode"
-                  hintText={<FormattedMessage {...messages.hintText.stateCode} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.stateCode} />}
-                >
-                  {uspsStates && uspsStates.map((uspsState) =>
-                    <MenuItem key={uspsState.code} value={uspsState.code} primaryText={uspsState.display} />,
-                  )}
-                </SelectField>
+                <Padding top={'25'}>
+                  <AutoSuggestionField
+                    name="stateCode"
+                    placeholder={<FormattedMessage {...messages.hintText.stateCode} />}
+                    suggestions={stateSuggestions}
+                    {...props}
+                  />
+                </Padding>
               </Cell>
               <Cell>
                 <TextField
