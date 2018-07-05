@@ -63,7 +63,11 @@ export default defineMessages({
     },
     minEndDate: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.validation.minEndDate',
-      defaultMessage: 'Flag End date field must be later than flag Start date field',
+      defaultMessage: 'End date field must be later than Start date field',
+    },
+    minStartDate: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.validation.minStartDate',
+      defaultMessage: 'Start date field cannot be in the past',
     },
   },
   hintText: {
