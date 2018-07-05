@@ -63,15 +63,17 @@ class AddCoverages extends React.Component {
 
   render() {
     const { errors, coverages, patientName, practitioner,
-      policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions } = this.props;
+      policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions, composePatientReference, patient, getPatientFullName } = this.props;
     const addCoverageFormProps = {
-      coverages,
       patientName,
       practitioner,
       policyHolderRelationship,
       coverageFmStatus,
       coverageType,
       subscriptionOptions,
+      composePatientReference,
+      getPatientFullName,
+      patient,
     };
     const addedCoverageTableProps = {
       errors,
@@ -99,8 +101,8 @@ class AddCoverages extends React.Component {
                 >
                   <AddCoverageForm
                     initialValues={this.state.editingCoverage}
-                    onAddFlag={arrayHelpers.push}
-                    onRemoveFlag={arrayHelpers.remove}
+                    onAddCoverage={arrayHelpers.push}
+                    onRemoveCoverage={arrayHelpers.remove}
                     handleCloseDialog={this.handleCloseDialog}
                     patientName={patientName}
                     {...addCoverageFormProps}
@@ -132,6 +134,9 @@ AddCoverages.propTypes = {
   policyHolderRelationship: PropTypes.array,
   coverageType: PropTypes.array,
   coverageFmStatus: PropTypes.array,
+  composePatientReference: PropTypes.func,
+  getPatientFullName: PropTypes.func,
+  patient: PropTypes.object,
 };
 
 export default AddCoverages;
