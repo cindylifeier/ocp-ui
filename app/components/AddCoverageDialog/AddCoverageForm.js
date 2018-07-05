@@ -23,28 +23,14 @@ function AddCoverageForm(props) {
     handleSaveCoverage,
     subscriptionOptions,
     patient,
+    composePatientReference,
+    getPatientFullName,
   } = props;
   const today = new Date();
 
-  function getPatientFullName() {
-    const { name } = patient;
-    let fullName = '';
-    if (name && name.length > 0) {
-      fullName = `${name[0].firstName} ${name[0].lastName}`;
-    }
-    return fullName;
-  }
-
-  function composePatientReference() {
-    return {
-      reference: `Patient/${patient.id}`,
-      display: getPatientFullName(),
-    };
-  }
-
   function setInitialValues() {
     return {
-      beneficiary: getPatientFullName(),
+      beneficiary: getPatientFullName(patient),
       startDate: today,
       endDate: today,
     };
@@ -57,7 +43,7 @@ function AddCoverageForm(props) {
           const { startDate, endDate, type, status, subscriberId, relationship } = values;
           const coverageData = {
             subscriber: subscriberReference,
-            beneficiary: composePatientReference(),
+            beneficiary: composePatientReference(patient),
             startDate: startDate.toLocaleDateString(),
             endDate: endDate.toLocaleDateString(),
             type,
@@ -216,6 +202,8 @@ AddCoverageForm.propTypes = {
   handleDialogClose: PropTypes.func.isRequired,
   handleSaveCoverage: PropTypes.func.isRequired,
   patient: PropTypes.object.isRequired,
+  composePatientReference: PropTypes.func.isRequired,
+  getPatientFullName: PropTypes.func.isRequired,
 };
 
 export default AddCoverageForm;
