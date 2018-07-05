@@ -73,7 +73,6 @@ export function* getLocationSaga({ logicalId }) {
 
 function* getSubscriberOptionsSaga(action) {
   try {
-    console.log(action);
     const subscriberOptions = yield call(getSubscriberOptions, action.patientId);
     yield put(getSubscriberOptionsSuccess(subscriberOptions));
   } catch (error) {
