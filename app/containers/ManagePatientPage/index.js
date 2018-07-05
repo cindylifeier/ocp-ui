@@ -55,6 +55,7 @@ import { getPatient, getSubscriberOptions } from 'containers/App/contextActions'
 import { makeSelectUser, makeSelectOrganization, makeSelectSubscriptionOptions } from 'containers/App/contextSelectors';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import { getPatientById } from 'containers/App/api';
+import { composePatientReference, getPatientFullName } from 'containers/App/helpers';
 import merge from 'lodash/merge';
 import reducer from './reducer';
 import saga from './saga';
@@ -62,6 +63,7 @@ import messages from './messages';
 import { savePatient, getPractitioners } from './actions';
 import { mapToFrontendPatientForm } from './api';
 import { makeSelectPractitioners } from './selectors';
+
 
 export class ManagePatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -136,6 +138,8 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
       coverageFmStatus,
       coverageType,
       subscriptionOptions,
+      composePatientReference,
+      getPatientFullName,
     };
     return (
       <Page>
