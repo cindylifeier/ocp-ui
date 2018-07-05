@@ -30,21 +30,20 @@ import {
   makeSelectCoverageFmStatus,
   makeSelectPolicyHolderRelationship,
 } from 'containers/App/lookupSelectors';
-
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { getSubscriberOptions } from 'containers/App/contextActions';
+import { makeSelectPatient, makeSelectSubscriptionOptions } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import {
   getSaveCoverageAction,
-  getSubscriberOptions,
   getCoverageAction,
 } from './actions';
 import {
-  makeSelectSubscriptionOptions,
   makeSelectCoverages,
   makeSelectCoverageLoading,
 } from './selectors';
+
 
 export class Coverages extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {

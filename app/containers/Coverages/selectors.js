@@ -9,11 +9,6 @@ const selectCoveragesDomain = (state) => state.get('coverages');
  * Other specific selectors
  */
 
-const makeSelectSubscriptionOptions = () => createSelector(
-  selectCoveragesDomain,
-  (coverageSubstate) => coverageSubstate && coverageSubstate.get('subscriptionOptions').toJS(),
-);
-
 const makeSelectCoverages = () => createSelector(
   selectCoveragesDomain,
   (coverageSubstate) => coverageSubstate && coverageSubstate.get('data').toJS(),
@@ -29,7 +24,6 @@ const makeSelectCoverageError = () => createSelector(
   (coverageSubstate) => coverageSubstate && coverageSubstate.get('error'),
 );
 export {
-  makeSelectSubscriptionOptions,
   makeSelectCoverages,
   makeSelectCoverageLoading,
   makeSelectCoverageError,

@@ -33,9 +33,3 @@ export function getCoverages(patientId, pageNumber) {
   const url = `${patientBaseEndpoint}/${patientId}/coverages${params}`;
   return request(url);
 }
-
-export function getSubscriberOptions(patientId) {
-  const patientBaseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
-  const requestURL = `${patientBaseEndpoint}/${patientId}/subscriber-options`;
-  return request(requestURL);
-}

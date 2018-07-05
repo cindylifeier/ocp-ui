@@ -50,13 +50,11 @@ import {
   EOC_STATUS,
   EOC_TYPE,
 } from 'containers/App/constants';
-import { makeSelectSubscriptionOptions } from 'containers/Coverages/selectors';
 import { getLookupsAction } from 'containers/App/actions';
-import { getPatient } from 'containers/App/contextActions';
-import { makeSelectUser, makeSelectOrganization } from 'containers/App/contextSelectors';
+import { getPatient, getSubscriberOptions } from 'containers/App/contextActions';
+import { makeSelectUser, makeSelectOrganization, makeSelectSubscriptionOptions } from 'containers/App/contextSelectors';
 import { makeSelectPatientSearchResult } from 'containers/Patients/selectors';
 import { getPatientById } from 'containers/App/api';
-import { getSubscriberOptions } from 'containers/Coverages/actions';
 import merge from 'lodash/merge';
 import reducer from './reducer';
 import saga from './saga';
@@ -64,7 +62,6 @@ import messages from './messages';
 import { savePatient, getPractitioners } from './actions';
 import { mapToFrontendPatientForm } from './api';
 import { makeSelectPractitioners } from './selectors';
-
 
 export class ManagePatientPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -78,12 +75,14 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
     this.props.getLookUpFormData();
     const { organization, match } = this.props;
     const patientId = match.params.id;
+
+    if (patientId) {
+      this.props.getSubscriberOptions(patientId);
+    }
+
     if (organization) {
       // get practitioners belonging to requester organization
       this.props.getPractitioners(organization.logicalId);
-    }
-    if (patientId) {
-      this.props.getSubscriberOptions(patientId);
     }
   }
   getPractitioner() {
