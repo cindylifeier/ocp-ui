@@ -33,7 +33,7 @@ function ManagePatientForm(props) {
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
     flagStatuses, flagCategories, practitioner, practitioners, organization, episodeOfCareType,
     policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions,
-    episodeOfCareStatus,
+    episodeOfCareStatus, composePatientReference, patient, getPatientFullName,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -68,11 +68,14 @@ function ManagePatientForm(props) {
   const addCoverageProps = {
     coverages: values.coverages,
     errors,
+    patient,
     practitioners,
     policyHolderRelationship,
     coverageFmStatus,
     coverageType,
     subscriptionOptions,
+    getPatientFullName,
+    composePatientReference,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
 
@@ -331,6 +334,9 @@ ManagePatientForm.propTypes = {
   coverageFmStatus: PropTypes.array,
   coverageType: PropTypes.array,
   subscriptionOptions: PropTypes.array,
+  composePatientReference: PropTypes.func,
+  getPatientFullName: PropTypes.func,
+  patient: PropTypes.object,
 };
 
 export default ManagePatientForm;
