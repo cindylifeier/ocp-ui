@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
+import merge from 'lodash/merge';
+import find from 'lodash/find';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
@@ -30,16 +32,38 @@ function AddCoverageForm(props) {
     handleCloseDialog,
     subscriptionOptions,
     coverageFmStatus,
+    onRemoveCoverage,
+    onAddCoverage,
+    patient,
+    composePatientReference,
+    getPatientFullName,
   } = props;
   const today = new Date();
+
+  function getDateFromDateTimeStr(dateStr) {
+    return dateStr && dateStr.split(',')[0];
+  }
   return (
     <div>
       <Formik
         onSubmit={(values) => {
-          console.log(values);
+          if (initialValues) {
+            onRemoveCoverage(initialValues.index);
+          }
+          const { startDate, endDate, subscriber, type } = values;
+          const subscriberData = find(subscriptionOptions, { reference: subscriber });
+          const typeData = find(coverageType, { code: type });
+          const data = {
+            startDate: startDate && getDateFromDateTimeStr(startDate.toLocaleString()),
+            endDate: endDate && getDateFromDateTimeStr(endDate.toLocaleString()),
+            subscriber: subscriberData,
+            beneficiary: composePatientReference(patient),
+            typeDisplay: typeData && typeData.display,
+          };
+          onAddCoverage(merge(values, data));
           handleCloseDialog();
         }}
-        initialValues={{ ...(initialValues || {}).coverage }}
+        initialValues={{ ...(initialValues || { coverage: { beneficiary: getPatientFullName(patient) } }).coverage }}
         validationSchema={() =>
           yup.lazy((values) => {
             let startDate = new Date();
@@ -178,6 +202,7 @@ function AddCoverageForm(props) {
 
 AddCoverageForm.propTypes = {
   handleCloseDialog: PropTypes.func.isRequired,
+  composePatientReference: PropTypes.func.isRequired,
   initialValues: PropTypes.shape({
     index: PropTypes.number,
     flag: PropTypes.object,
@@ -186,6 +211,10 @@ AddCoverageForm.propTypes = {
   coverageFmStatus: PropTypes.array,
   coverageType: PropTypes.array,
   policyHolderRelationship: PropTypes.array,
+  onRemoveCoverage: PropTypes.func.isRequired,
+  onAddCoverage: PropTypes.func.isRequired,
+  getPatientFullName: PropTypes.func.isRequired,
+  patient: PropTypes.object,
 };
 
 export default AddCoverageForm;
