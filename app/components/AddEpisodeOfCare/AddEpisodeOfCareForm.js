@@ -5,9 +5,8 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
-// import find from 'lodash/find';
-// // import merge from 'lodash/merge';
-// import remove from 'lodash/remove';
+import find from 'lodash/find';
+import merge from 'lodash/merge';
 
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
@@ -20,10 +19,6 @@ import messages from './messages';
 function isDuplicate(initialValues, values) {
   console.log(initialValues);
   console.log(values);
-  // if (initialValues !== null) {
-  //   return find(remove(flags, initialValues.index), { code, category }) !== undefined;
-  // }
-  // return find(flags, { code, category }) !== undefined;
 }
 
 function AddEpisodeOfCareForm(props) {
@@ -44,9 +39,18 @@ function AddEpisodeOfCareForm(props) {
           if (initialValues) {
             onRemoveEpisodeOfCare(initialValues.index);
           }
-          if (initialValues !== null) {
-            onAddEpisodeOfCare(values);
-          }
+
+          const { status, startDate, endDate, type, careManager } = values;
+          const selectedCareManager = find(practitioners, { reference: careManager });
+          const episodeOfCare = {
+            type,
+            status,
+            startDate: startDate && startDate.toLocaleString(),
+            endDate: endDate && endDate.toLocaleString(),
+            careManager: selectedCareManager,
+          };
+          onAddEpisodeOfCare(merge(values, episodeOfCare));
+
           handleCloseDialog();
         }}
         initialValues={{ ...(initialValues || {}).episodeOfCare }}

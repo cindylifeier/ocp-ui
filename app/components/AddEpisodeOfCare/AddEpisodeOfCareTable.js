@@ -47,7 +47,7 @@ function AddEpisodeOfCareTable(props) {
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{status}</TableRowColumn>
               <TableRowColumn>{type}</TableRowColumn>
-              <TableRowColumn>{careManager && careManager.reference}</TableRowColumn>
+              <TableRowColumn>{careManager && careManager.display}</TableRowColumn>
               <TableRowColumn>{startDate}</TableRowColumn>
               <TableRowColumn>{endDate}</TableRowColumn>
               <TableRowColumn>
