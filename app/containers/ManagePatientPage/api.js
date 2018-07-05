@@ -43,7 +43,7 @@ export function getPractitioners({ organizationId }) {
 function mapToBackendPatient(patientFormData) {
   const {
     id, firstName, lastName, birthDate, genderCode, identifierType, identifierValue, language, race,
-    ethnicity, birthSex, addresses, telecoms, flags, organizationId, careManager,
+    ethnicity, birthSex, addresses, telecoms, flags, organizationId, careManager, coverages, episodeOfCares,
   } = patientFormData;
 
 
@@ -74,6 +74,8 @@ function mapToBackendPatient(patientFormData) {
     active: true,
     organizationId,
     practitionerId,
+    coverages,
+    episodeOfCares,
   };
 }
 
