@@ -9,6 +9,7 @@ describe('contextReducer', () => {
       organization: null,
       location: null,
       patient: null,
+      subscriptionOptions: [],
     }));
   });
 });

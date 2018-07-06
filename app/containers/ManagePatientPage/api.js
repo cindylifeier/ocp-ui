@@ -43,7 +43,7 @@ export function getPractitioners({ organizationId }) {
 function mapToBackendPatient(patientFormData) {
   const {
     id, firstName, lastName, birthDate, genderCode, identifierType, identifierValue, language, race,
-    ethnicity, birthSex, addresses, telecoms, flags, organizationId, careManager,
+    ethnicity, birthSex, addresses, telecoms, flags, organizationId, careManager, coverages, episodeOfCares,
   } = patientFormData;
 
 
@@ -74,6 +74,8 @@ function mapToBackendPatient(patientFormData) {
     active: true,
     organizationId,
     practitionerId,
+    coverages,
+    episodeOfCares,
   };
 }
 
@@ -87,6 +89,7 @@ function mapToBackendFlags(flags) {
 export function mapToFrontendPatientForm(patientData) {
   const {
     id, identifier, name, telecoms, addresses, birthDate, genderCode, language, race, ethnicity, birthSex, flags,
+    episodeOfCares, coverages,
   } = patientData;
 
   const identifierType = identifier[0].system;
@@ -110,6 +113,8 @@ export function mapToFrontendPatientForm(patientData) {
     birthSex,
     addresses,
     telecoms,
+    episodeOfCares,
+    coverages,
     flags: mappedFlags,
   };
 }

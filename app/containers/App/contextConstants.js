@@ -23,7 +23,8 @@ export const REFRESH_LOCATION = 'ocpui/Context/REFRESH_LOCATION';
 export const GET_PATIENT = 'ocpui/Context/GET_PATIENT';
 export const GET_ORGANIZATION = 'ocpui/Context/GET_ORGANIZATION';
 export const GET_LOCATION = 'ocpui/Context/GET_LOCATION';
-
+export const GET_SUBSCRIBER_OPTIONS = 'ocpui/Context/GET_SUBSCRIBER_OPTIONS';
+export const GET_SUBSCRIBER_OPTIONS_SUCCESS = 'ocpui/Context/GET_SUBSCRIBER_OPTIONS_SUCCESS';
 /**
  *  Other constants
  *

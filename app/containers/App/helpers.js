@@ -159,3 +159,22 @@ function maskSsn(value) {
 export function isAdminWorkspace(pathname) {
   return pathname && (pathname === ADMIN_WORKSPACE);
 }
+
+export function composePatientReference(patient) {
+  return {
+    reference: `Patient/${patient.id}`,
+    display: getPatientFullName(patient),
+  };
+}
+
+export function getPatientFullName(patient) {
+  const { name } = patient;
+  let fullName = '';
+  if (name && name.length > 0) {
+    fullName = `${name[0].firstName} ${name[0].lastName}`;
+  } else if (patient && patient.firstName && patient.lastName) {
+    const { firstName, lastName } = patient;
+    fullName = firstName.concat(' ').concat(lastName);
+  }
+  return fullName;
+}

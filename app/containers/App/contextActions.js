@@ -20,6 +20,8 @@ import {
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
+  GET_SUBSCRIBER_OPTIONS,
+  GET_SUBSCRIBER_OPTIONS_SUCCESS,
 } from './contextConstants';
 
 export function setPatient(patient) {
@@ -116,5 +118,21 @@ export function getLocation(logicalId) {
   return {
     type: GET_LOCATION,
     logicalId,
+  };
+}
+
+
+export function getSubscriberOptions(patientId) {
+  return {
+    type: GET_SUBSCRIBER_OPTIONS,
+    patientId,
+  };
+}
+
+
+export function getSubscriberOptionsSuccess(subscriberOptions) {
+  return {
+    type: GET_SUBSCRIBER_OPTIONS_SUCCESS,
+    subscriberOptions,
   };
 }

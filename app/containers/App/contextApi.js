@@ -23,3 +23,9 @@ export function getLocation(id) {
   const requestURL = `${baseEndpoint}/${id}`;
   return request(requestURL);
 }
+
+export function getSubscriberOptions(patientId) {
+  const patientBaseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
+  const requestURL = `${patientBaseEndpoint}/${patientId}/subscriber-options`;
+  return request(requestURL);
+}

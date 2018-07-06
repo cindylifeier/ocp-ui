@@ -5,8 +5,6 @@
  */
 import {
   SAVE_COVERAGE,
-  GET_SUBSCRIBER_OPTIONS,
-  GET_SUBSCRIBER_OPTIONS_SUCCESS,
   GET_COVERAGE,
   GET_COVERAGE_SUCCESS,
   GET_COVERAGE_ERROR,
@@ -20,20 +18,6 @@ export function getSaveCoverageAction(coverageData, handleSubmitting) {
   };
 }
 
-export function getSubscriberOptions(patientId) {
-  return {
-    type: GET_SUBSCRIBER_OPTIONS,
-    patientId,
-  };
-}
-
-
-export function getSubscriberOptionsSuccess(subscriberOptions) {
-  return {
-    type: GET_SUBSCRIBER_OPTIONS_SUCCESS,
-    subscriberOptions,
-  };
-}
 
 export function getCoverageAction(pageNumber) {
   return {

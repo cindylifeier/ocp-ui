@@ -23,6 +23,10 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
     },
+    emailContact: {
+      id: 'ocpui.components.ManagePatient.manageForm.validation.emailContact',
+      defaultMessage: 'Must have at least one email contact.',
+    },
   },
   hintText: {
     firstName: {

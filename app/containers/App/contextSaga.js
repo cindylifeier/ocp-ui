@@ -8,10 +8,11 @@ import {
   REFRESH_LOCATION,
   REFRESH_ORGANIZATION,
   REFRESH_PATIENT,
+  GET_SUBSCRIBER_OPTIONS,
 } from './contextConstants';
 import { makeSelectLocation, makeSelectOrganization, makeSelectPatient } from './contextSelectors';
-import { getLocation, getOrganization, getPatient } from './contextApi';
-import { setLocation, setOrganization, setPatient } from './contextActions';
+import { getLocation, getOrganization, getPatient, getSubscriberOptions } from './contextApi';
+import { setLocation, setOrganization, setPatient, getSubscriberOptionsSuccess } from './contextActions';
 
 export function* refreshPatientSaga() {
   const patient = yield select(makeSelectPatient());
@@ -70,6 +71,15 @@ export function* getLocationSaga({ logicalId }) {
   }
 }
 
+function* getSubscriberOptionsSaga(action) {
+  try {
+    const subscriberOptions = yield call(getSubscriberOptions, action.patientId);
+    yield put(getSubscriberOptionsSuccess(subscriberOptions));
+  } catch (error) {
+    yield put(showNotification('Error in  getting subscriber options'));
+  }
+}
+
 export function* watchRefreshPatientSaga() {
   yield takeLatest(REFRESH_PATIENT, refreshPatientSaga);
 }
@@ -94,6 +104,10 @@ export function* watchGetLocationSaga() {
   yield takeLatest(GET_LOCATION, getLocationSaga);
 }
 
+function* watchGetSubscriberOptionsSaga() {
+  yield takeLatest(GET_SUBSCRIBER_OPTIONS, getSubscriberOptionsSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchRefreshPatientSaga(),
@@ -102,5 +116,6 @@ export default function* rootSaga() {
     watchGetPatientSaga(),
     watchGetOrganizationSaga(),
     watchGetLocationSaga(),
+    watchGetSubscriberOptionsSaga(),
   ]);
 }
