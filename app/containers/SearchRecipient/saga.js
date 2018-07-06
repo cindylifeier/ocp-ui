@@ -7,7 +7,7 @@ import { showNotification } from 'containers/Notification/actions';
 export function* getRecipientsSaga(action) {
   try {
     if (action.patientId) {
-      const recipients = yield call(getRecipients, action.patientId, action.member, action.communicationId);
+      const recipients = yield call(getRecipients, action.patientId, action.member, action.name, action.communicationId);
       yield put(getRecipientsSuccess(recipients));
     }
   } catch (error) {
