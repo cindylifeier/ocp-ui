@@ -89,14 +89,6 @@ class ManagePractitionerForm extends React.Component {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
               />
             </Cell>
-            <Cell area="middleName">
-              <TextField
-                fullWidth
-                name="middleName"
-                hintText={<FormattedMessage {...messages.hintText.middleName} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.middleName} />}
-              />
-            </Cell>
             <Cell area="lastName">
               <TextField
                 fullWidth
