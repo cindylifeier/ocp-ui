@@ -46,6 +46,10 @@ export default defineMessages({
     id: 'ocpui.components.PatientDetails.expansionDetailsDOB',
     defaultMessage: 'DOB',
   },
+  expansionDetailsMRN: {
+    id: 'ocpui.components.PatientDetails.expansionDetailsMRN',
+    defaultMessage: 'MRN',
+  },
   expansionDetailsIdentifiers: {
     id: 'ocpui.components.PatientDetails.expansionDetailsIdentifiers',
     defaultMessage: 'Identifiers',

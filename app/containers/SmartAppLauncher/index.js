@@ -14,8 +14,8 @@ import { CircularProgress } from 'material-ui-next/Progress';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectConfig } from 'containers/App/selectors';
-import makeSelectContext from 'containers/App/contextSelectors';
-import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE } from 'containers/App/constants';
+import makeSelectContext, { makeSelectUser } from 'containers/App/contextSelectors';
+import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
 import SmartApps from 'components/SmartApps';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import { makeSelectSmartApps, makeSelectSmartAppShortcuts } from './selectors';
@@ -31,13 +31,14 @@ export class SmartAppLauncher extends React.Component {
   }
 
   render() {
-    const { appShortcuts, config, smartApps } = this.props;
+    const { appShortcuts, config, smartApps, user: { role } } = this.props;
     return (
-      <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}>
+      <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PATIENT_ROLE_CODE]}>
         {smartApps && appShortcuts && config ?
           <SmartApps
             smartApps={smartApps}
             config={config}
+            userRole={role}
             appShortcuts={appShortcuts}
             onCreateLaunch={this.props.createLaunch}
           /> : <CircularProgress />
@@ -63,7 +64,11 @@ SmartAppLauncher.propTypes = {
   }),
   appShortcuts: PropTypes.shape({
     clientIds: PropTypes.array,
-  }),
+    patientClientIds: PropTypes.array,
+  }).isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -71,6 +76,7 @@ const mapStateToProps = createStructuredSelector({
   appShortcuts: makeSelectSmartAppShortcuts(),
   context: makeSelectContext(),
   config: makeSelectConfig(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

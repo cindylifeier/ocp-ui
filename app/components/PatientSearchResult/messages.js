@@ -42,6 +42,10 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.fullName',
     defaultMessage: 'Name',
   },
+  mrn: {
+    id: 'ocpui.components.PatientSearchResult.mrn',
+    defaultMessage: 'MRN',
+  },
   address: {
     id: 'ocpui.components.PatientSearchResult.address',
     defaultMessage: 'Address',
@@ -73,6 +77,10 @@ export default defineMessages({
   status: {
     id: 'ocpui.components.PatientSearchResult.status',
     defaultMessage: 'Status',
+  },
+  actions: {
+    id: 'ocpui.components.PatientSearchResult.actions',
+    defaultMessage: 'Actions',
   },
   addRelatedPerson: {
     id: 'ocpui.components.PatientSearchResult.addRelatedPerson',
@@ -114,6 +122,10 @@ export default defineMessages({
     birthSex: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.birthSex',
       defaultMessage: 'Birth Gender',
+    },
+    activityType: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activityType',
+      defaultMessage: 'Activity Type',
     },
   },
 });

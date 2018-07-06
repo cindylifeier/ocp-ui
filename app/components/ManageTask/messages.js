@@ -35,6 +35,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.validation.minEndDate',
       defaultMessage: 'Task End date field must be later than Task Start date field',
     },
+    minStarCreatedOntDate: {
+      id: 'ocpui.components.ManageTask.manageForm.validation.minStarCreatedOntDate',
+      defaultMessage: 'Task Created date field must be later than Task Start date field',
+    },
   },
   hintText: {
     patientName: {
@@ -73,9 +77,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.hintText.performerType',
       defaultMessage: 'Participation',
     },
-    eventType: {
-      id: 'ocpui.components.ManageTask.manageForm.hintText.eventType',
-      defaultMessage: 'Event Type',
+    episodeOdCare: {
+      id: 'ocpui.components.ManageTask.manageForm.hintText.episodeOdCare',
+      defaultMessage: 'Episode Of Care',
     },
     taskOwner: {
       id: 'ocpui.components.ManageTask.manageForm.hintText.taskOwner',
@@ -143,9 +147,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.performerType',
       defaultMessage: 'Participation',
     },
-    eventType: {
-      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.eventType',
-      defaultMessage: 'Event Type',
+    episodeOdCare: {
+      id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.episodeOdCare',
+      defaultMessage: 'Episode Of Care',
     },
     taskOwner: {
       id: 'ocpui.components.ManageTask.manageForm.floatingLabelText.taskOwner',
