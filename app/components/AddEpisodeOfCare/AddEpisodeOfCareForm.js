@@ -16,11 +16,6 @@ import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
-function isDuplicate(initialValues, values) {
-  console.log(initialValues);
-  console.log(values);
-}
-
 function AddEpisodeOfCareForm(props) {
   const {
     initialValues,
@@ -72,7 +67,7 @@ function AddEpisodeOfCareForm(props) {
                 .min(defaultStartDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}
-        render={({ isSubmitting, dirty, isValid, values }) => (
+        render={({ isSubmitting, dirty, isValid }) => (
           <Form>
             <Grid columns="repeat(2, 1fr)">
               <Cell>
@@ -148,7 +143,7 @@ function AddEpisodeOfCareForm(props) {
               <Cell>
                 <StyledRaisedButton
                   type="submit"
-                  disabled={!dirty || isSubmitting || !isValid || isDuplicate(initialValues, values)}
+                  disabled={!dirty || isSubmitting || !isValid}
                 >
                   <FormattedMessage {...messages.saveButton} />
                 </StyledRaisedButton>
