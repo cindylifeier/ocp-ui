@@ -14,7 +14,9 @@ ShallowWrapper {
       </TableHeaderColumn__TableHeaderColumn>
     </TableHeader>
     <TableRow>
-      <TableRowColumn__TableRowColumn>
+      <TableRowColumn__TableRowColumn
+        textDecorationLine="none"
+      >
         Row
       </TableRowColumn__TableRowColumn>
     </TableRow>
@@ -41,7 +43,9 @@ ShallowWrapper {
           </TableHeaderColumn__TableHeaderColumn>
         </TableHeader>,
         <TableRow>
-          <TableRowColumn__TableRowColumn>
+          <TableRowColumn__TableRowColumn
+            textDecorationLine="none"
+          >
             Row
           </TableRowColumn__TableRowColumn>
         </TableRow>,
@@ -80,7 +84,9 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "children": <TableRowColumn__TableRowColumn>
+          "children": <TableRowColumn__TableRowColumn
+            textDecorationLine="none"
+          >
             Row
           </TableRowColumn__TableRowColumn>,
         },
@@ -91,6 +97,7 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "children": "Row",
+            "textDecorationLine": "none",
           },
           "ref": null,
           "rendered": "Row",
@@ -117,7 +124,9 @@ ShallowWrapper {
             </TableHeaderColumn__TableHeaderColumn>
           </TableHeader>,
           <TableRow>
-            <TableRowColumn__TableRowColumn>
+            <TableRowColumn__TableRowColumn
+              textDecorationLine="none"
+            >
               Row
             </TableRowColumn__TableRowColumn>
           </TableRow>,
@@ -156,7 +165,9 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": <TableRowColumn__TableRowColumn>
+            "children": <TableRowColumn__TableRowColumn
+              textDecorationLine="none"
+            >
               Row
             </TableRowColumn__TableRowColumn>,
           },
@@ -167,6 +178,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": "Row",
+              "textDecorationLine": "none",
             },
             "ref": null,
             "rendered": "Row",
