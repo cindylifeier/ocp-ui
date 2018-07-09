@@ -70,7 +70,76 @@ ShallowWrapper {
         },
       ]
     }
-    flattenHealthcareServiceData={[Function]}
+    flattenHealthcareServiceData={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay1",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem1",
+                  "value": "identifierValue1",
+                },
+                Object {
+                  "system": "identifierSystem2",
+                  "value": "identifierValue2",
+                },
+              ],
+              "logicalId": "logicalId1",
+              "name": "name1",
+              "programName": Array [
+                "programName1",
+                "programName2",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay1",
+                },
+                Object {
+                  "display": "typeDisplay2",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay2",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem3",
+                  "value": "identifierValue3",
+                },
+                Object {
+                  "system": "identifierSystem4",
+                  "value": "identifierValue4",
+                },
+              ],
+              "logicalId": "logicalId2",
+              "name": "name2",
+              "programName": Array [
+                "programName3",
+                "programName4",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay3",
+                },
+                Object {
+                  "display": "typeDisplay4",
+                },
+              ],
+            },
+          ],
+        ],
+      }
+    }
     relativeTop={50}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -2114,7 +2183,140 @@ ShallowWrapper {
         },
       ]
     }
-    flattenHealthcareServiceData={[Function]}
+    flattenHealthcareServiceData={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay1",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem1",
+                  "value": "identifierValue1",
+                },
+                Object {
+                  "system": "identifierSystem2",
+                  "value": "identifierValue2",
+                },
+              ],
+              "logicalId": "logicalId1",
+              "name": "name1",
+              "programName": Array [
+                "programName1",
+                "programName2",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay1",
+                },
+                Object {
+                  "display": "typeDisplay2",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay2",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem3",
+                  "value": "identifierValue3",
+                },
+                Object {
+                  "system": "identifierSystem4",
+                  "value": "identifierValue4",
+                },
+              ],
+              "logicalId": "logicalId2",
+              "name": "name2",
+              "programName": Array [
+                "programName3",
+                "programName4",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay3",
+                },
+                Object {
+                  "display": "typeDisplay4",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": false,
+              "category": Object {
+                "display": "categoryDisplay1",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem1",
+                  "value": "identifierValue1",
+                },
+                Object {
+                  "system": "identifierSystem2",
+                  "value": "identifierValue2",
+                },
+              ],
+              "logicalId": "logicalId1",
+              "name": "name1",
+              "programName": Array [
+                "programName1",
+                "programName2",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay1",
+                },
+                Object {
+                  "display": "typeDisplay2",
+                },
+              ],
+            },
+          ],
+          Array [
+            Object {
+              "active": true,
+              "category": Object {
+                "display": "categoryDisplay2",
+              },
+              "identifiers": Array [
+                Object {
+                  "system": "identifierSystem3",
+                  "value": "identifierValue3",
+                },
+                Object {
+                  "system": "identifierSystem4",
+                  "value": "identifierValue4",
+                },
+              ],
+              "logicalId": "logicalId2",
+              "name": "name2",
+              "programName": Array [
+                "programName3",
+                "programName4",
+              ],
+              "type": Array [
+                Object {
+                  "display": "typeDisplay3",
+                },
+                Object {
+                  "display": "typeDisplay4",
+                },
+              ],
+            },
+          ],
+        ],
+      }
+    }
     relativeTop={50}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -2729,7 +2931,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "healthCareService-programNames-1",
+                  "key": "healthCareService-programNames-5",
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
@@ -2754,7 +2956,7 @@ ShallowWrapper {
                 },
                 Object {
                   "instance": null,
-                  "key": "healthCareService-programNames-2",
+                  "key": "healthCareService-programNames-6",
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
@@ -2969,7 +3171,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "healthCareService-programNames-3",
+                  "key": "healthCareService-programNames-7",
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
@@ -2994,7 +3196,7 @@ ShallowWrapper {
                 },
                 Object {
                   "instance": null,
-                  "key": "healthCareService-programNames-4",
+                  "key": "healthCareService-programNames-8",
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
@@ -3706,7 +3908,7 @@ ShallowWrapper {
                 "rendered": Array [
                   Object {
                     "instance": null,
-                    "key": "healthCareService-programNames-1",
+                    "key": "healthCareService-programNames-5",
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
@@ -3731,7 +3933,7 @@ ShallowWrapper {
                   },
                   Object {
                     "instance": null,
-                    "key": "healthCareService-programNames-2",
+                    "key": "healthCareService-programNames-6",
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
@@ -3946,7 +4148,7 @@ ShallowWrapper {
                 "rendered": Array [
                   Object {
                     "instance": null,
-                    "key": "healthCareService-programNames-3",
+                    "key": "healthCareService-programNames-7",
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
@@ -3971,7 +4173,7 @@ ShallowWrapper {
                   },
                   Object {
                     "instance": null,
-                    "key": "healthCareService-programNames-4",
+                    "key": "healthCareService-programNames-8",
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
