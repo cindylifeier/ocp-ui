@@ -4,7 +4,9 @@ exports[`<TableRowColumn /> should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <TableRowColumn__TableRowColumn>
+  Symbol(enzyme.__unrendered__): <TableRowColumn__TableRowColumn
+    textDecorationLine="none"
+  >
     Row
   </TableRowColumn__TableRowColumn>,
   Symbol(enzyme.__renderer__): Object {
@@ -20,7 +22,7 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": "Row",
-      "className": "TableRowColumn__TableRowColumn-VzNyU hMMXVq",
+      "className": "TableRowColumn__TableRowColumn-VzNyU igUXOh",
     },
     "ref": null,
     "rendered": "Row",
@@ -33,7 +35,7 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": "Row",
-        "className": "TableRowColumn__TableRowColumn-VzNyU hMMXVq",
+        "className": "TableRowColumn__TableRowColumn-VzNyU igUXOh",
       },
       "ref": null,
       "rendered": "Row",
