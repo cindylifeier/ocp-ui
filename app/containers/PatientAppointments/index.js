@@ -159,7 +159,8 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     };
     const enableEditAppointment = !!(patientId && role === CARE_COORDINATOR_ROLE_CODE);
     const { pathname } = this.props.location;
-    const isPatientWorkspace = pathname && pathname.indexOf('/patients/') > 0;
+    const isPatientWorkspace = pathname && pathname.indexOf('/patient-workspace') > 0;
+    const isPatientDetailsPage = pathname && pathname.indexOf('/patients/') > 0;
     return (
       <div>
         <Card>
@@ -210,6 +211,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 enableEditAppointment={enableEditAppointment}
                 manageAppointmentUrl={manageAppointmentUrl}
                 isPatientWorkspace={isPatientWorkspace}
+                isPatientDetailsPage={isPatientDetailsPage}
                 handleSort={this.handleSort}
                 columnToSort={this.state.columnToSort}
                 sortDirection={this.state.sortDirection}
