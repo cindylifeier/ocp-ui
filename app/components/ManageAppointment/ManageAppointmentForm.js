@@ -26,26 +26,39 @@ class ManageAppointmentForm extends React.Component {
 
   constructor(props) {
     super(props);
+    this.startDateTime = null;
+    this.endDateTime = null;
     this.state = {
       isEndDateBeforeStartDate: false,
-      startDateTime: new Date(),
-      endDateTime: new Date(),
+      // startDateTime: null,
+      // endDateTime: null,
     };
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { appointment } = this.props;
+    if (appointment && appointment.start && appointment.end && this.startDateTime === null && this.endDateTime === null) {
+      const { start, end } = appointment;
+      const startTime = new Date(start[0], start[1], start[2], start[3], start[4]);
+      const endTime = new Date(end[0], end[1], end[2], end[3], end[4]);
+      this.startDateTime = startTime;
+      this.endDateTime = endTime;
+    }
   }
 
   onStartTimeChange(event) {
     const startTime = event.target.value;
     const dateTimeArray = startTime && startTime.split(':');
 
-    const startDateTime = this.state.startDateTime;
-    const endDateTime = this.state.endDateTime;
+    const startDateTime = this.startDateTime === null ? new Date() : this.startDateTime;
+    const endDateTime = this.endDateTime === null ? new Date() : this.endDateTime;
     startDateTime.setHours(dateTimeArray[0], dateTimeArray[1]);
     const result = startDateTime > endDateTime;
+    this.startDateTime = startDateTime;
     this.setState({
       isEndDateBeforeStartDate: result,
-      startDateTime,
     });
   }
 
@@ -53,14 +66,14 @@ class ManageAppointmentForm extends React.Component {
     const endTime = event.target.value;
     const dateTimeArray = endTime && endTime.split(':');
 
-    const startDateTime = this.state.startDateTime;
-    const endDateTime = this.state.endDateTime;
+    const startDateTime = this.startDateTime === null ? new Date() : this.startDateTime;
+    const endDateTime = this.endDateTime === null ? new Date() : this.endDateTime;
     endDateTime.setHours(dateTimeArray[0], dateTimeArray[1]);
 
     const result = startDateTime > endDateTime;
+    this.endDateTime = endDateTime;
     this.setState({
       isEndDateBeforeStartDate: result,
-      endDateTime,
     });
   }
 
@@ -143,7 +156,7 @@ class ManageAppointmentForm extends React.Component {
                 type="time"
                 name="startTime"
                 onBlur={this.onStartTimeChange}
-                hintText={<FormattedMessage {...messages.hintText.startTime} />}
+                // hintText={<FormattedMessage {...messages.hintText.startTime} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startTime} />}
               />
             </Cell>
@@ -153,7 +166,7 @@ class ManageAppointmentForm extends React.Component {
                 type="time"
                 name="endTime"
                 onBlur={this.onEndTimeChange}
-                hintText={<FormattedMessage {...messages.hintText.endTime} />}
+                // hintText={<FormattedMessage {...messages.hintText.endTime} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endTime} />}
               />
               {this.state.isEndDateBeforeStartDate ?
@@ -240,6 +253,7 @@ ManageAppointmentForm.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   appointmentStatuses: PropTypes.array,
+  appointment: PropTypes.object,
 };
 
 export default ManageAppointmentForm;
