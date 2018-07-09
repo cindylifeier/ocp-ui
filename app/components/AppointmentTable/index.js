@@ -30,12 +30,13 @@ import {
 import messages from './messages';
 
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
+  const practitionerWorkspace = !isPatientWorkspace && !isPatientDetailsPage;
 
   function getColumns() {
     let columns = '';
-    if (!isPatientWorkspace) {
+    if (practitionerWorkspace) {
       columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     } else {
       columns = isExpanded ? PATIENT_WORKSPACE_EXPANDED_TABLE_COLUMNS : PATIENT_WORKSPACE_SUMMARIZED_TABLE_COLUMNS;
@@ -60,7 +61,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn />
-        {!isPatientWorkspace &&
+        {practitionerWorkspace &&
         <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[0])}>
           <FormattedMessage {...messages.columnHeaderPatientName} />
           {columnToSort === sortingEnabledColumnHeaders[0] ? getSortIcon() : null}
@@ -100,7 +101,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
       <Table>
         {createTableHeaders()}
         {elements && elements.map((appointment) => {
-          const addCommunicationMenuItem = patientId ? {
+          const addCommunicationMenuItem = (patientId && isPatientDetailsPage) ? {
             primaryText: <FormattedMessage {...messages.addCommunication} />,
             linkTo: {
               pathname: `${communicationBaseUrl}`,
@@ -193,6 +194,7 @@ AppointmentTable.propTypes = {
   patientId: PropTypes.string,
   enableEditAppointment: PropTypes.bool,
   isPatientWorkspace: PropTypes.bool,
+  isPatientDetailsPage: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,
   handleSort: PropTypes.func,
   columnToSort: PropTypes.string,
