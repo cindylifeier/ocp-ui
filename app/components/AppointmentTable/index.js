@@ -150,8 +150,8 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
                 />
               }
             >
-              {!isPatientWorkspace &&
-              <TableRowColumn onClick={() => handlePatientNameClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
+              {practitionerWorkspace &&
+              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
               }
               {isExpanded &&
               <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
