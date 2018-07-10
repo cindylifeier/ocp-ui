@@ -67,9 +67,9 @@ const apiEndpoints = [
   { key: BASE_OUTLOOK_API_URL, url: `${BASE_API_URL}/ocp-fis/outlook` },
   { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
-  { key: BASE_GROUPS_API_URL, url: `${BASE_API_URL}/groups`, isSecured: false },
-  { key: BASE_SCOPES_API_URL, url: `${BASE_API_URL}/scopes`, isSecured: false },
-  { key: BASE_USERS_API_URL, url: `${BASE_API_URL}/users`, isSecured: false },
+  { key: BASE_GROUPS_API_URL, url: `${BASE_API_URL}/groups` },
+  { key: BASE_SCOPES_API_URL, url: `${BASE_API_URL}/scopes` },
+  { key: BASE_USERS_API_URL, url: `${BASE_API_URL}/users` },
   // TODO: consider moving all SMART endpoints under smart-gateway
   { key: BASE_SMART_URL, url: `${BASE_API_URL}/smart` },
   { key: SMART_AUTHORIZE_URL, url: `${BASE_SMART_GATEWAY_URL}/authorize` },
