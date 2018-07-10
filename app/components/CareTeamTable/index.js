@@ -13,10 +13,7 @@ import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
-import {
-  EXPANDED_TABLE_COLUMNS,
-  SUMMARIZED_TABLE_COLUMNS,
-} from 'components/CareTeamTable/constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
@@ -34,7 +31,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
         {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
         }
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
@@ -46,8 +43,19 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
     );
   }
 
-  function createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems) {
+  function createTableRows(careTeam) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    const { id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay } = careTeam;
+    const menuItems = [{
+      primaryText: <FormattedMessage {...messages.menuItemEdit} />,
+      linkTo: {
+        pathname: `${manageCareTeamUrl}/${id}`,
+        search: `?patientId=${subjectId}`,
+      },
+    }, {
+      primaryText: <FormattedMessage {...messages.menuItemRemove} />,
+      disabled: true,
+    }];
     return (
       <TableRow key={id} columns={columns}>
         <TableRowColumn>{name}</TableRowColumn>
@@ -65,7 +73,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
           }
         </TableRowColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableRowColumn>{startDate}</TableRowColumn>
         }
         <TableRowColumn>{endDate}</TableRowColumn>
@@ -78,23 +86,12 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
       </TableRow>
     );
   }
+
   return (
     <div>
       <Table>
         {createTableHeaders()}
-        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => {
-          const menuItems = [{
-            primaryText: <FormattedMessage {...messages.menuItemEdit} />,
-            linkTo: {
-              pathname: `${manageCareTeamUrl}/${id}`,
-              search: `?patientId=${subjectId}`,
-            },
-          }, {
-            primaryText: <FormattedMessage {...messages.menuItemRemove} />,
-            disabled: true,
-          }];
-          return createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems);
-        })}
+        {!isEmpty(elements) && elements.map((careTeam) => createTableRows(careTeam))}
       </Table>
     </div>
   );
