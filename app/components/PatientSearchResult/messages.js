@@ -24,7 +24,7 @@ export default defineMessages({
   },
   viewDetails: {
     id: 'ocpui.components.PatientSearchResult.viewDetails',
-    defaultMessage: 'View Details',
+    defaultMessage: 'Select Patient',
   },
   remove: {
     id: 'ocpui.components.PatientSearchResult.remove',

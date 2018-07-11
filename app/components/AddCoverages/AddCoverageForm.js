@@ -2,58 +2,68 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
+import merge from 'lodash/merge';
+import find from 'lodash/find';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
-import DatePicker from 'components/DatePicker';
-import find from 'lodash/find';
 
+
+import { DATE_PICKER_MODE } from 'containers/App/constants';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
+import DatePicker from 'components/DatePicker';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
+function isDuplicate(initialValues) {
+  if (initialValues !== null) {
+    return false;
+  }
+  return false;
+}
+
 function AddCoverageForm(props) {
   const {
+    initialValues,
     policyHolderRelationship,
-    coverageFmStatus,
     coverageType,
-    handleDialogClose,
-    handleSaveCoverage,
+    handleCloseDialog,
     subscriptionOptions,
+    coverageFmStatus,
+    onRemoveCoverage,
+    onAddCoverage,
     patient,
     composePatientReference,
     getPatientFullName,
   } = props;
   const today = new Date();
 
-  function setInitialValues() {
-    return {
-      beneficiary: getPatientFullName(patient),
-      startDate: today,
-      endDate: today,
-    };
+  function getDateFromDateTimeStr(dateStr) {
+    return dateStr && dateStr.split(',')[0];
   }
   return (
     <div>
       <Formik
-        onSubmit={(values, actions) => {
-          const subscriberReference = find(subscriptionOptions, { reference: values.subscriber });
-          const { startDate, endDate, type, status, subscriberId, relationship } = values;
-          const coverageData = {
-            subscriber: subscriberReference,
+        onSubmit={(values) => {
+          if (initialValues) {
+            onRemoveCoverage(initialValues.index);
+          }
+          const { startDate, endDate, subscriber, type } = values;
+          const subscriberData = find(subscriptionOptions, { reference: subscriber });
+          const typeData = find(coverageType, { code: type });
+          const data = {
+            startDate: startDate && getDateFromDateTimeStr(startDate.toLocaleString()),
+            endDate: endDate && getDateFromDateTimeStr(endDate.toLocaleString()),
+            subscriber: subscriberData,
             beneficiary: composePatientReference(patient),
-            startDate: startDate.toLocaleDateString(),
-            endDate: endDate.toLocaleDateString(),
-            type,
-            status,
-            subscriberId,
-            relationship,
+            typeDisplay: typeData && typeData.display,
           };
-          handleSaveCoverage(coverageData, actions);
+          onAddCoverage(merge(values, data));
+          handleCloseDialog();
         }}
-        initialValues={setInitialValues(patient)}
+        initialValues={{ ...(initialValues || { coverage: { beneficiary: getPatientFullName(patient) } }).coverage }}
         validationSchema={() =>
           yup.lazy((values) => {
             let startDate = new Date();
@@ -88,10 +98,10 @@ function AddCoverageForm(props) {
               <Cell>
                 <TextField
                   fullWidth
-                  disabled
                   name="beneficiary"
                   hintText={<FormattedMessage {...messages.hintText.beneficiary} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.beneficiary} />}
+                  disabled
                 />
               </Cell>
               <Cell>
@@ -106,7 +116,6 @@ function AddCoverageForm(props) {
                   )}
                 </SelectField>
               </Cell>
-
               <Cell>
                 <SelectField
                   fullWidth
@@ -127,7 +136,6 @@ function AddCoverageForm(props) {
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.subscriberId} />}
                 />
               </Cell>
-
               <Cell>
                 <SelectField
                   fullWidth
@@ -140,7 +148,7 @@ function AddCoverageForm(props) {
                   )}
                 </SelectField>
               </Cell>
-              <Cell>
+              <Cell >
                 <SelectField
                   fullWidth
                   name="type"
@@ -152,13 +160,13 @@ function AddCoverageForm(props) {
                   )}
                 </SelectField>
               </Cell>
-
               <Cell>
                 <DatePicker
                   fullWidth
                   name="startDate"
+                  mode={DATE_PICKER_MODE.LANDSCAPE}
+                  defaultDate={today}
                   minDate={today}
-                  mode="landscape"
                   hintText={<FormattedMessage {...messages.hintText.startDate} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.startDate} />}
                 />
@@ -167,22 +175,20 @@ function AddCoverageForm(props) {
                 <DatePicker
                   fullWidth
                   name="endDate"
+                  mode={DATE_PICKER_MODE.LANDSCAPE}
                   minDate={today}
-                  mode="landscape"
                   hintText={<FormattedMessage {...messages.hintText.endDate} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
                 />
               </Cell>
-
-
               <Cell>
                 <StyledRaisedButton
                   type="submit"
-                  disabled={!dirty || isSubmitting || !isValid}
+                  disabled={!dirty || isSubmitting || !isValid || isDuplicate(initialValues)}
                 >
-                  <FormattedMessage {...messages.saveButton} />
+                  <FormattedMessage {...messages.saveFlagButton} />
                 </StyledRaisedButton>
-                <StyledFlatButton type="reset" onClick={handleDialogClose}>
+                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
                   <FormattedMessage {...messages.cancelButton} />
                 </StyledFlatButton>
               </Cell>
@@ -195,15 +201,20 @@ function AddCoverageForm(props) {
 }
 
 AddCoverageForm.propTypes = {
-  policyHolderRelationship: PropTypes.array.isRequired,
-  coverageFmStatus: PropTypes.array.isRequired,
-  subscriptionOptions: PropTypes.array.isRequired,
-  coverageType: PropTypes.array.isRequired,
-  handleDialogClose: PropTypes.func.isRequired,
-  handleSaveCoverage: PropTypes.func.isRequired,
-  patient: PropTypes.object.isRequired,
+  handleCloseDialog: PropTypes.func.isRequired,
   composePatientReference: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({
+    index: PropTypes.number,
+    flag: PropTypes.object,
+  }),
+  subscriptionOptions: PropTypes.array,
+  coverageFmStatus: PropTypes.array,
+  coverageType: PropTypes.array,
+  policyHolderRelationship: PropTypes.array,
+  onRemoveCoverage: PropTypes.func.isRequired,
+  onAddCoverage: PropTypes.func.isRequired,
   getPatientFullName: PropTypes.func.isRequired,
+  patient: PropTypes.object,
 };
 
 export default AddCoverageForm;

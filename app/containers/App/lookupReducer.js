@@ -61,6 +61,8 @@ import {
   COVERAGE_TYPE,
   FM_STATUS,
   POLICYHOLDER_RELATIONSHIP,
+  EOC_TYPE,
+  EOC_STATUS,
 } from './constants';
 
 // The initial state of the lookup
@@ -129,6 +131,10 @@ const initialState = fromJS({
   FM_STATUS: [],
   COVERAGE_TYPE: [],
   // Coverage Lookups - End
+  // Episode OF Care Lookups - Start
+  EOC_TYPE: [],
+  EOC_STATUS: [],
+  // Episode OF Care Lookups - End
 });
 
 function lookupReducer(state = initialState, action) {
@@ -203,6 +209,10 @@ function lookupReducer(state = initialState, action) {
         .set(FM_STATUS, fromJS((action.lookups && action.lookups.fmStatus) || state.get(FM_STATUS)))
         .set(COVERAGE_TYPE, fromJS((action.lookups && action.lookups.coverageType) || state.get(COVERAGE_TYPE)))
         // Coverage Lookups - End
+        // Episode of Care Lookups - Start
+        .set(EOC_TYPE, fromJS((action.lookups && action.lookups.eocType) || state.get(EOC_TYPE)))
+        .set(EOC_STATUS, fromJS((action.lookups && action.lookups.eocStatus) || state.get(EOC_STATUS)))
+        // Episode of Care Lookups - End
         .set(DATE_RANGE, fromJS((action.lookups && action.lookups.dateRanges) || state.get(DATE_RANGE)))
         .set('loading', false);
     case GET_LOOKUPS_ERROR:

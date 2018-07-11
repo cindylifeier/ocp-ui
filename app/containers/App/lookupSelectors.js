@@ -57,6 +57,8 @@ import {
   POLICYHOLDER_RELATIONSHIP,
   FM_STATUS,
   COVERAGE_TYPE,
+  EOC_TYPE,
+  EOC_STATUS,
 } from 'containers/App/constants';
 import selectGlobalDomain from './selectors';
 
@@ -348,6 +350,17 @@ const makeSelectCoverageType = () => createSelector(
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(COVERAGE_TYPE).toJS(),
 );
 
+const makeSelectEpisodeOfCareType = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(EOC_TYPE).toJS(),
+);
+
+const makeSelectEpisodeOfCareStatus = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(EOC_STATUS).toJS(),
+);
+
+
 export {
   makeSelectUspsStates,
   makeSelectLocationPhysicalTypes,
@@ -406,4 +419,6 @@ export {
   makeSelectPolicyHolderRelationship,
   makeSelectCoverageFmStatus,
   makeSelectCoverageType,
+  makeSelectEpisodeOfCareType,
+  makeSelectEpisodeOfCareStatus,
 };

@@ -8,6 +8,7 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import ErrorText from 'components/ErrorText';
 import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import FieldGroupGrid from 'components/FieldGroupGrid';
@@ -19,14 +20,20 @@ import uniqueId from 'lodash/uniqueId';
 import AddFlags from 'components/AddFlags';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import messages from './messages';
+import AddEpisodeOfCare from 'components/AddEpisodeOfCare';
+import { EMAIL } from 'components/ManagePatient/constants';
+import AddCoverages from 'components/AddCoverages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
+import messages from './messages';
+
 
 function ManagePatientForm(props) {
   const {
     isSubmitting, dirty, isValid, values, errors,
     uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces, usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses,
-    flagStatuses, flagCategories, practitioner, practitioners, organization,
+    flagStatuses, flagCategories, practitioner, practitioners, organization, episodeOfCareType,
+    policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions,
+    episodeOfCareStatus, composePatientReference, patient, getPatientFullName,
   } = props;
   const addAddressesProps = {
     uspsStates,
@@ -44,11 +51,40 @@ function ManagePatientForm(props) {
     flagCategories,
     errors,
     flags: values.flags,
-    practitioner,
+    practitioners,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
+
+  const addEpisodeOfCareProps = {
+    episodeOfCares: values.episodeOfCares,
+    episodeOfCareStatus,
+    episodeOfCareType,
+    errors,
+    practitioner,
+    practitioners,
+    patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
+  };
+
+  const addCoverageProps = {
+    coverages: values.coverages,
+    errors,
+    patient,
+    practitioners,
+    policyHolderRelationship,
+    coverageFmStatus,
+    coverageType,
+    subscriptionOptions,
+    getPatientFullName,
+    composePatientReference,
+    patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
+  };
+
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
 
+  function hasEmailContact() {
+    const emailContacts = values && values.telecoms && values.telecoms.filter((entry) => entry.system === EMAIL);
+    return emailContacts && emailContacts.length > 0;
+  }
   return (
     <Form>
       <ManagePatientFormGrid>
@@ -194,9 +230,20 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
+          {values && values.telecoms &&
+          <ErrorText>{hasEmailContact() ?
+            '' : <FormattedMessage {...messages.validation.emailContact} />}
+          </ErrorText>
+          }
         </Cell>
         <Cell area="flags">
           <AddFlags {...addFlagsProps} />
+        </Cell>
+        <Cell area="episodeOfCares">
+          <AddEpisodeOfCare {...addEpisodeOfCareProps} />
+        </Cell>
+        <Cell area="coverages">
+          <AddCoverages {...addCoverageProps} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -204,7 +251,7 @@ function ManagePatientForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                disabled={!dirty || isSubmitting || !isValid}
+                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact()}
               >
                 Save
               </StyledRaisedButton>
@@ -281,6 +328,15 @@ ManagePatientForm.propTypes = {
     display: PropTypes.string,
   })),
   organization: PropTypes.object,
+  episodeOfCareType: PropTypes.array,
+  episodeOfCareStatus: PropTypes.array,
+  policyHolderRelationship: PropTypes.array,
+  coverageFmStatus: PropTypes.array,
+  coverageType: PropTypes.array,
+  subscriptionOptions: PropTypes.array,
+  composePatientReference: PropTypes.func,
+  getPatientFullName: PropTypes.func,
+  patient: PropTypes.object,
 };
 
 export default ManagePatientForm;

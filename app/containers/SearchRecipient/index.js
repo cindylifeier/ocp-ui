@@ -61,11 +61,12 @@ export class SearchRecipient extends React.Component { // eslint-disable-line re
   }
 
   handleSearch(values) {
-    const member = values && values.member ? values.member : '';
+    const { member, name } = values;
+    // const member = values && values.member ? values.member : '';
     if (this.props.communicationId) {
-      this.props.getRecipients(this.props.selectedPatient.id, member, this.props.communicationId);
+      this.props.getRecipients(this.props.selectedPatient.id, member, name, this.props.communicationId);
     } else {
-      this.props.getRecipients(this.props.selectedPatient.id, member, null);
+      this.props.getRecipients(this.props.selectedPatient.id, member, name, null);
     }
   }
 
@@ -135,7 +136,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRecipients: (patientId, member, communicationId) => dispatch(getRecipients(patientId, member, communicationId)),
+    getRecipients: (patientId, member, name, communicationId) => dispatch(getRecipients(patientId, member, name, communicationId)),
     getLookUpFormData: () => dispatch(getLookupsAction([PARTICIPANTTYPE, PARTICIPANTROLE])),
     setSelectRecipientStatus: (checked, recipientReference) => dispatch(setSelectRecipientStatus(checked, recipientReference)),
     addSelectedRecipients: () => dispatch(addSelectedRecipients()),

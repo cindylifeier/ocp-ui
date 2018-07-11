@@ -16,12 +16,7 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import {
-  CARE_COORDINATOR_ROLE_CODE,
-  MANAGE_COMMUNICATION_URL,
-  MANAGE_TASK_URL, TASK_STATUS,
-  TO_DO_DEFINITION,
-} from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_CODE, TASK_STATUS, TO_DO_DEFINITION } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
@@ -39,10 +34,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import { makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
-import {
-  CANCELLED_STATUS_CODE, COMPLETED_STATUS_CODE, FAILED_STATUS_CODE,
-  SUMMARY_VIEW_WIDTH,
-} from 'containers/Tasks/constants';
+import { CANCELLED_STATUS_CODE, COMPLETED_STATUS_CODE, FAILED_STATUS_CODE, SUMMARY_VIEW_WIDTH } from 'containers/Tasks/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import makeSelectTasks from './selectors';
 import reducer from './reducer';
@@ -117,8 +109,8 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
 
   renderFilter(taskStatus, statusList) {
     const filteredTaskStatuses = taskStatus.filter(({ code }) => code === CANCELLED_STATUS_CODE
-                                                                    || code === FAILED_STATUS_CODE
-                                                                    || code === COMPLETED_STATUS_CODE);
+      || code === FAILED_STATUS_CODE
+      || code === COMPLETED_STATUS_CODE);
     return (
       <FilterSection>
         <CheckboxFilterGrid columns={this.calculateCheckboxColumns(filteredTaskStatuses)}>
@@ -157,7 +149,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
         linkUrl: createTaskUrl,
       };
     }
-
+    const isPatient = user && user.role && user.role === PATIENT_ROLE_CODE;
     return (
       <Card minWidth={'auto'}>
         <PanelToolbar
@@ -173,11 +165,11 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
             <Grid columns={1} gap="">
               <Cell>
                 <InfoSection margin="0px">
-                    The <FormattedMessage {...messages.tasks} /> for&nbsp;
-                    <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
-                      <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
-                    </InlineLabel>
-                    are :
+                  The <FormattedMessage {...messages.tasks} /> for&nbsp;
+                  <InlineLabel htmlFor={this.PATIENT_NAME_HTML_ID}>
+                    <span id={this.PATIENT_NAME_HTML_ID}>{patientName}</span>&nbsp;
+                  </InlineLabel>
+                  are :
                 </InfoSection>
               </Cell>
               {!isEmpty(taskList) && this.state.isExpanded &&
@@ -209,6 +201,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
               taskBaseUrl={MANAGE_TASK_URL}
               onSize={this.onSize}
               isExpanded={this.state.isExpanded}
+              isPatient={isPatient}
             />
           </CenterAlign>
         </div>

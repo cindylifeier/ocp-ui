@@ -9,7 +9,6 @@ const ManagePractitionerFormGrid = Grid.extend`
   grid-template-areas:
     "generalInformationSubtitle"
     "firstName"
-    "middleName"
     "lastName"
     "identifierGroup"
     "addresses"
@@ -22,7 +21,6 @@ const ManagePractitionerFormGrid = Grid.extend`
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
       "firstName lastName"
-      "middleName ."
       "identifierGroup identifierGroup"
       "addresses addresses"
       "contacts contacts"
@@ -34,7 +32,7 @@ const ManagePractitionerFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
-      "firstName firstName firstName firstName middleName middleName middleName middleName lastName lastName lastName lastName"
+      "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."
       "identifierGroup identifierGroup identifierGroup identifierGroup . . . . . . . ."
       "addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses addresses"
       "contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts contacts"

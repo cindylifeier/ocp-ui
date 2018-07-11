@@ -17,6 +17,7 @@ import injectReducer from 'utils/injectReducer';
 import PanelToolbar from 'components/PanelToolbar';
 import CoverageTable from 'components/CoverageTable';
 import { getLookupsAction } from 'containers/App/actions';
+import { composePatientReference, getPatientFullName } from 'containers/App/helpers';
 import {
   POLICYHOLDER_RELATIONSHIP,
   FM_STATUS,
@@ -30,18 +31,16 @@ import {
   makeSelectCoverageFmStatus,
   makeSelectPolicyHolderRelationship,
 } from 'containers/App/lookupSelectors';
-
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { getSubscriberOptions } from 'containers/App/contextActions';
+import { makeSelectPatient, makeSelectSubscriptionOptions } from 'containers/App/contextSelectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import {
   getSaveCoverageAction,
-  getSubscriberOptions,
   getCoverageAction,
 } from './actions';
 import {
-  makeSelectSubscriptionOptions,
   makeSelectCoverages,
   makeSelectCoverageLoading,
 } from './selectors';
@@ -106,6 +105,8 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
       open: this.state.open,
       handleDialogClose: this.handleDialogClose,
       handleSaveCoverage: this.handleSaveCoverage,
+      composePatientReference,
+      getPatientFullName,
     };
 
     return (

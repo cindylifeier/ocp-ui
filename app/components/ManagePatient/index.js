@@ -18,7 +18,9 @@ function ManagePatient(props) {
   const {
     onSave, patient, uspsStates, patientIdentifierSystems, administrativeGenders, usCoreRaces,
     usCoreEthnicities, usCoreBirthSexes, languages, telecomSystems, telecomUses, flagStatuses, practitioner,
-    flagCategories, practitioners, organization,
+    flagCategories, practitioners, organization, episodeOfCareType,
+    episodeOfCareStatus, policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions,
+    composePatientReference, getPatientFullName,
   } = props;
   const managePatientFormProps = {
     uspsStates,
@@ -35,6 +37,15 @@ function ManagePatient(props) {
     practitioner,
     practitioners,
     organization,
+    episodeOfCareType,
+    episodeOfCareStatus,
+    policyHolderRelationship,
+    coverageFmStatus,
+    coverageType,
+    subscriptionOptions,
+    composePatientReference,
+    getPatientFullName,
+    patient,
   };
   return (
     <div>
@@ -60,8 +71,6 @@ function ManagePatient(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierValue: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
-          careManager: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={(formikProps) => (
           <ManagePatientForm {...formikProps} {...managePatientFormProps} />)}
@@ -72,6 +81,8 @@ function ManagePatient(props) {
 
 ManagePatient.propTypes = {
   onSave: PropTypes.func.isRequired,
+  composePatientReference: PropTypes.func.isRequired,
+  getPatientFullName: PropTypes.func.isRequired,
   uspsStates: PropTypes.array.isRequired,
   patientIdentifierSystems: PropTypes.array.isRequired,
   administrativeGenders: PropTypes.array.isRequired,
@@ -79,6 +90,8 @@ ManagePatient.propTypes = {
   usCoreEthnicities: PropTypes.array.isRequired,
   usCoreBirthSexes: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
+  episodeOfCareType: PropTypes.array.isRequired,
+  episodeOfCareStatus: PropTypes.array.isRequired,
   telecomSystems: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
@@ -108,6 +121,10 @@ ManagePatient.propTypes = {
     display: PropTypes.string,
   })),
   organization: PropTypes.object,
+  subscriptionOptions: PropTypes.array,
+  policyHolderRelationship: PropTypes.array,
+  coverageType: PropTypes.array,
+  coverageFmStatus: PropTypes.array,
 };
 
 export default ManagePatient;

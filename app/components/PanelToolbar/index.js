@@ -15,7 +15,6 @@ import FileUploadIcon from '@material-ui/icons/FileUpload';
 import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterIcon from '@material-ui/icons/FilterList';
-import common from 'material-ui-next/colors/common';
 import isUndefined from 'lodash/isUndefined';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
@@ -29,9 +28,6 @@ import StyledToolbar from 'components/StyledToolbar';
 import AddNewItemButton from './AddNewItemButton';
 import AddNewItemSpan from './AddNewItemSpan';
 import messages from './messages';
-
-
-const white = common.white;
 
 export class PanelToolbar extends React.Component {
   constructor(props) {
@@ -93,7 +89,7 @@ export class PanelToolbar extends React.Component {
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemSpan onClick={addNewItem.onClick}>
                 <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-                  <AddCircle color={white} />
+                  <AddCircle color={'#666'} />
                 </StyledIconButton>
                 {addNewItem.labelName}
               </AddNewItemSpan>

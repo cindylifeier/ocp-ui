@@ -23,7 +23,7 @@ import {
 import TaskExpansionRowDetails from './TaskExpansionRowDetails';
 import messages from './messages';
 
-function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded }) {
+function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded, isPatient }) {
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
@@ -56,10 +56,10 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
     );
   }
 
-  function createTableRows(task) {
+  function createTableRows(task, isPatientRole) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     const { logicalId, definition, status, description, authoredOn, executionPeriod, owner, lastModified, remainingSubtasks, totalSubtasks } = task;
-    const menuItems = [{
+    const menuItems = (isPatientRole) ? [] : [{
       primaryText: <FormattedMessage {...messages.editTask} />,
       linkTo: {
         pathname: `${taskBaseUrl}/${logicalId}`,
@@ -121,7 +121,7 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
   return (
     <Table>
       {createTableHeaders()}
-      {!isEmpty(elements) && elements.map((element) => createTableRows(element))}
+      {!isEmpty(elements) && elements.map((element) => createTableRows(element, isPatient))}
     </Table>
   );
 }
@@ -163,6 +163,7 @@ TaskTable.propTypes = {
     totalSubtasks: PropTypes.number.isRequired,
     remainingSubtasks: PropTypes.number.isRequired,
   })),
+  isPatient: PropTypes.bool,
 };
 
 export default sizeMeHOC(TaskTable);

@@ -12,12 +12,13 @@ import {
   SET_SELECT_RECIPIENT_STATUS, INITIALIZE_LIST_OF_RECIPIENTS, SET_SELECTED_RECIPIENTS,
 } from 'containers/SearchRecipient/constants';
 
-export function getRecipients(patientId, member, communicationId) {
+export function getRecipients(patientId, member, name, communicationId) {
   return {
     type: GET_RECIPIENTS,
     patientId,
     member,
     communicationId,
+    name,
   };
 }
 
