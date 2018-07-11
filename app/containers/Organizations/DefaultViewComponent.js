@@ -51,6 +51,9 @@ class DefaultViewComponent extends React.Component {
           onSize={this.onSize}
           showSearchBarByDefault={showSearchBarByDefault}
           hideToolbar={hideToolbar}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
         />
         {isShowViewAllButton &&
         <InfoSection margin="10px 0">
