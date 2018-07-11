@@ -46,7 +46,7 @@ class NavigationIconMenu extends React.Component { // eslint-disable-line react/
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {!isEmpty(menuItems) && menuItems.map((menuItem) => (
+          { menuItems.map((menuItem) => (
             menuItem &&
             <MenuItem
               key={uniqueId()}
