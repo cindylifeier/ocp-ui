@@ -13,6 +13,7 @@ import uniqueId from 'lodash/uniqueId';
 import isUndefined from 'lodash/isUndefined';
 
 import StyledIconButton from 'components/StyledIconButton';
+import isEmpty from 'lodash/isEmpty';
 
 class NavigationIconMenu extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -37,7 +38,7 @@ class NavigationIconMenu extends React.Component { // eslint-disable-line react/
     const { menuItems } = this.props;
     return (
       <div>
-        <StyledIconButton size="x-small" onClick={this.handleClick}>
+        <StyledIconButton size="x-small" onClick={this.handleClick} disabled={isEmpty(menuItems)} >
           <MoreHorizIcon />
         </StyledIconButton>
         <Menu
@@ -45,7 +46,7 @@ class NavigationIconMenu extends React.Component { // eslint-disable-line react/
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {menuItems.map((menuItem) => (
+          {!isEmpty(menuItems) && menuItems.map((menuItem) => (
             menuItem &&
             <MenuItem
               key={uniqueId()}
