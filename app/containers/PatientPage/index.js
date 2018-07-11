@@ -80,7 +80,7 @@ export const initialStateMetadata =
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'MY TO DO',
+              title: 'TO DO',
               type: 'component',
               componentName: 'toDos',
               isClosable: true,
@@ -93,7 +93,7 @@ export const initialStateMetadata =
           height: 60,
           content: [
             {
-              title: 'My Appointments',
+              title: 'Appointments',
               type: 'component',
               componentName: 'appointments',
               isClosable: true,
@@ -125,9 +125,9 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasksComponent },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
+  { name: 'appointments', text: 'Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'communications', text: 'Communications', factoryMethod: renderCommunicationsComponent },
-  { name: 'toDos', text: 'My To Do', factoryMethod: renderPatientToDosComponent },
+  { name: 'toDos', text: 'To Do', factoryMethod: renderPatientToDosComponent },
   { name: 'coverage', text: 'Coverage', factoryMethod: renderCoverageComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderCalendarComponent },
   { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
