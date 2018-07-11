@@ -133,6 +133,8 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
           allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
           filterField={filterField}
           onFilter={this.handleFilter}
+          showUploadIcon={false}
+          showSettingIcon={false}
         />
         {!loading && isEmpty(toDos) &&
         <NoResultsFoundText>
