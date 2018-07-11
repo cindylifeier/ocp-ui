@@ -164,6 +164,9 @@ export class Patients extends React.Component {
           allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.onSize}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
           showSearchBarByDefault={showSearchBarByDefault}
           hideToolbar={hideToolbar}
         />

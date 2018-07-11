@@ -75,7 +75,13 @@ export class UpcomingTasks extends React.Component { // eslint-disable-line reac
     }
     return (
       <Card>
-        <PanelToolbar showSearchIcon={false} onSize={this.handlePanelResize} />
+        <PanelToolbar
+          showSearchIcon={false}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
+          onSize={this.handlePanelResize}
+        />
         {loading &&
         <RefreshIndicatorLoading />}
 
