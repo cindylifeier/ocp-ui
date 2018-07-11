@@ -78,7 +78,7 @@ ShallowWrapper {
                 Object {
                   "factoryMethod": [Function],
                   "name": "appointments",
-                  "text": "My Appointments",
+                  "text": "Appointments",
                 },
                 Object {
                   "factoryMethod": [Function],
@@ -88,7 +88,7 @@ ShallowWrapper {
                 Object {
                   "factoryMethod": [Function],
                   "name": "toDos",
-                  "text": "My To Do",
+                  "text": "To Do",
                 },
                 Object {
                   "factoryMethod": [Function],
@@ -135,7 +135,7 @@ ShallowWrapper {
                             "componentName": "toDos",
                             "isClosable": true,
                             "reorderEnabled": true,
-                            "title": "MY TO DO",
+                            "title": "TO DO",
                             "type": "component",
                           },
                         ],
@@ -148,7 +148,7 @@ ShallowWrapper {
                             "componentName": "appointments",
                             "isClosable": true,
                             "reorderEnabled": true,
-                            "title": "My Appointments",
+                            "title": "Appointments",
                             "type": "component",
                           },
                           Object {
@@ -293,7 +293,7 @@ ShallowWrapper {
                   Object {
                     "factoryMethod": [Function],
                     "name": "appointments",
-                    "text": "My Appointments",
+                    "text": "Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
@@ -303,7 +303,7 @@ ShallowWrapper {
                   Object {
                     "factoryMethod": [Function],
                     "name": "toDos",
-                    "text": "My To Do",
+                    "text": "To Do",
                   },
                   Object {
                     "factoryMethod": [Function],
@@ -350,7 +350,7 @@ ShallowWrapper {
                               "componentName": "toDos",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "MY TO DO",
+                              "title": "TO DO",
                               "type": "component",
                             },
                           ],
@@ -363,7 +363,7 @@ ShallowWrapper {
                               "componentName": "appointments",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "My Appointments",
+                              "title": "Appointments",
                               "type": "component",
                             },
                             Object {
@@ -472,7 +472,7 @@ ShallowWrapper {
                 Object {
                   "factoryMethod": [Function],
                   "name": "appointments",
-                  "text": "My Appointments",
+                  "text": "Appointments",
                 },
                 Object {
                   "factoryMethod": [Function],
@@ -482,7 +482,7 @@ ShallowWrapper {
                 Object {
                   "factoryMethod": [Function],
                   "name": "toDos",
-                  "text": "My To Do",
+                  "text": "To Do",
                 },
                 Object {
                   "factoryMethod": [Function],
@@ -527,7 +527,7 @@ ShallowWrapper {
                             "componentName": "toDos",
                             "isClosable": true,
                             "reorderEnabled": true,
-                            "title": "MY TO DO",
+                            "title": "TO DO",
                             "type": "component",
                           },
                         ],
@@ -540,7 +540,7 @@ ShallowWrapper {
                             "componentName": "appointments",
                             "isClosable": true,
                             "reorderEnabled": true,
-                            "title": "My Appointments",
+                            "title": "Appointments",
                             "type": "component",
                           },
                           Object {
@@ -656,7 +656,7 @@ ShallowWrapper {
                   Object {
                     "factoryMethod": [Function],
                     "name": "appointments",
-                    "text": "My Appointments",
+                    "text": "Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
@@ -666,7 +666,7 @@ ShallowWrapper {
                   Object {
                     "factoryMethod": [Function],
                     "name": "toDos",
-                    "text": "My To Do",
+                    "text": "To Do",
                   },
                   Object {
                     "factoryMethod": [Function],
@@ -713,7 +713,7 @@ ShallowWrapper {
                               "componentName": "toDos",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "MY TO DO",
+                              "title": "TO DO",
                               "type": "component",
                             },
                           ],
@@ -726,7 +726,7 @@ ShallowWrapper {
                               "componentName": "appointments",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "My Appointments",
+                              "title": "Appointments",
                               "type": "component",
                             },
                             Object {
@@ -871,7 +871,7 @@ ShallowWrapper {
                     Object {
                       "factoryMethod": [Function],
                       "name": "appointments",
-                      "text": "My Appointments",
+                      "text": "Appointments",
                     },
                     Object {
                       "factoryMethod": [Function],
@@ -881,7 +881,7 @@ ShallowWrapper {
                     Object {
                       "factoryMethod": [Function],
                       "name": "toDos",
-                      "text": "My To Do",
+                      "text": "To Do",
                     },
                     Object {
                       "factoryMethod": [Function],
@@ -928,7 +928,7 @@ ShallowWrapper {
                                 "componentName": "toDos",
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "MY TO DO",
+                                "title": "TO DO",
                                 "type": "component",
                               },
                             ],
@@ -941,7 +941,7 @@ ShallowWrapper {
                                 "componentName": "appointments",
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "My Appointments",
+                                "title": "Appointments",
                                 "type": "component",
                               },
                               Object {
@@ -1050,7 +1050,7 @@ ShallowWrapper {
                   Object {
                     "factoryMethod": [Function],
                     "name": "appointments",
-                    "text": "My Appointments",
+                    "text": "Appointments",
                   },
                   Object {
                     "factoryMethod": [Function],
@@ -1060,7 +1060,7 @@ ShallowWrapper {
                   Object {
                     "factoryMethod": [Function],
                     "name": "toDos",
-                    "text": "My To Do",
+                    "text": "To Do",
                   },
                   Object {
                     "factoryMethod": [Function],
@@ -1105,7 +1105,7 @@ ShallowWrapper {
                               "componentName": "toDos",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "MY TO DO",
+                              "title": "TO DO",
                               "type": "component",
                             },
                           ],
@@ -1118,7 +1118,7 @@ ShallowWrapper {
                               "componentName": "appointments",
                               "isClosable": true,
                               "reorderEnabled": true,
-                              "title": "My Appointments",
+                              "title": "Appointments",
                               "type": "component",
                             },
                             Object {
