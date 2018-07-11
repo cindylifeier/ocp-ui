@@ -13,13 +13,32 @@ import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import ManageRelatedPersonDialog from './ManageRelatedPersonDialog';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 import messages from './messages';
 
-function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded }) {
-  function createTableHeaders() {
+class CareTeamTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialogOpen: false,
+    };
+    this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+  }
+
+  handleOpenDialog() {
+    this.setState({ dialogOpen: true });
+  }
+
+  handleCloseDialog() {
+    this.setState({ dialogOpen: false });
+  }
+
+  renderTableHeaders() {
+    const { relativeTop, isExpanded } = this.props;
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
@@ -43,18 +62,19 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
     );
   }
 
-  function createTableRows(careTeam) {
+  renderTableRows(careTeam) {
+    const { manageCareTeamUrl, isExpanded, isPatient } = this.props;
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     const { id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay } = careTeam;
-    const menuItems = [{
+    const menuItems = isPatient ? [{
+      primaryText: <FormattedMessage {...messages.menuItemManageRelatedPerson} />,
+      onClick: () => this.handleOpenDialog(),
+    }] : [{
       primaryText: <FormattedMessage {...messages.menuItemEdit} />,
       linkTo: {
         pathname: `${manageCareTeamUrl}/${id}`,
         search: `?patientId=${subjectId}`,
       },
-    }, {
-      primaryText: <FormattedMessage {...messages.menuItemRemove} />,
-      disabled: true,
     }];
     return (
       <TableRow key={id} columns={columns}>
@@ -87,17 +107,22 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
     );
   }
 
-  return (
-    <div>
-      <Table>
-        {createTableHeaders()}
-        {!isEmpty(elements) && elements.map((careTeam) => createTableRows(careTeam))}
-      </Table>
-    </div>
-  );
+  render() {
+    const { elements } = this.props;
+    return (
+      <div>
+        <Table>
+          {this.renderTableHeaders()}
+          {!isEmpty(elements) && elements.map((careTeam) => this.renderTableRows(careTeam))}
+        </Table>
+        <ManageRelatedPersonDialog dialogOpen={this.state.dialogOpen} onDialogClose={this.handleCloseDialog} />
+      </div>
+    );
+  }
 }
 
 CareTeamTable.propTypes = {
+  isPatient: PropTypes.bool.isRequired,
   isExpanded: PropTypes.bool,
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,
