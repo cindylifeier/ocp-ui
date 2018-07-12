@@ -12,18 +12,20 @@ import { DialogActions, DialogContent, DialogTitle } from 'material-ui-next/Dial
 import StyledDialog from 'components/StyledDialog';
 import StyledFlatButton from 'components/StyledFlatButton';
 import SearchBar from 'components/SearchBar';
+import ManageRelatedPersonTable from './ManageRelatedPersonTable';
 import messages from './messages';
 
 function ManageRelatedPersonDialog(props) {
   const { dialogOpen, onDialogClose, onRelatedPersonsSearch } = props;
   return (
     <div>
-      <StyledDialog open={dialogOpen} fullWidth>
+      <StyledDialog open={dialogOpen} fullScreen>
         <DialogTitle>
           <FormattedMessage {...messages.manageRelatedPersonDialogTitle} />
         </DialogTitle>
         <DialogContent>
           <SearchBar onSearch={onRelatedPersonsSearch} />
+          <ManageRelatedPersonTable />
         </DialogContent>
         <DialogActions>
           <StyledFlatButton onClick={onDialogClose}>
