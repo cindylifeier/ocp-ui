@@ -1,6 +1,29 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+import { getErrorDetail } from 'containers/App/helpers';
+import { searchRelatedPersonsError, searchRelatedPersonsSuccess } from './actions';
+import { SEARCH_RELATED_PERSONS } from './constants';
+import { searchRelatedPersons } from './api';
+
+
+export function* searchRelatedPersonsSaga({ searchType, searchValue, includeInactive, patientId, currentPage }) {
+  try {
+    const relatedPersons = yield call(searchRelatedPersons, searchType, searchValue, includeInactive, patientId, currentPage);
+    yield put(searchRelatedPersonsSuccess(relatedPersons));
+  } catch (error) {
+    yield put(searchRelatedPersonsError(getErrorDetail(error)));
+  }
+}
+
+export function* watchSearchRelatedPersonsSaga() {
+  yield takeLatest(SEARCH_RELATED_PERSONS, searchRelatedPersonsSaga);
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* rootSaga() {
+  yield all([
+    watchSearchRelatedPersonsSaga(),
+  ]);
 }
