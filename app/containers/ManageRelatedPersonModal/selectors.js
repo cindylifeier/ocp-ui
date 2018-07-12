@@ -16,7 +16,7 @@ const selectManageRelatedPersonModalDomain = (state) => state.get('manageRelated
 
 const makeSelectManageRelatedPersonModal = () => createSelector(
   selectManageRelatedPersonModalDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectManageRelatedPersonModal;
