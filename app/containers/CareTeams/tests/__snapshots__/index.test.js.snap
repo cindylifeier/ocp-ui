@@ -87,6 +87,11 @@ ShallowWrapper {
         ],
       }
     }
+    user={
+      Object {
+        "role": "patientRole",
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -184,6 +189,7 @@ ShallowWrapper {
                 ]
               }
               isExpanded={false}
+              isPatient={true}
               manageCareTeamUrl="/ocp-ui/manage-care-team"
               onSize={[Function]}
               relativeTop={0}
@@ -303,6 +309,7 @@ ShallowWrapper {
                   ]
                 }
                 isExpanded={false}
+                isPatient={true}
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
                 onSize={[Function]}
                 relativeTop={0}
@@ -597,6 +604,7 @@ ShallowWrapper {
                     ]
                   }
                   isExpanded={false}
+                  isPatient={true}
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
                   onSize={[Function]}
                   relativeTop={0}
@@ -643,6 +651,7 @@ ShallowWrapper {
                     },
                   ],
                   "isExpanded": false,
+                  "isPatient": true,
                   "manageCareTeamUrl": "/ocp-ui/manage-care-team",
                   "onSize": [Function],
                   "relativeTop": 0,
@@ -782,6 +791,7 @@ ShallowWrapper {
                   ]
                 }
                 isExpanded={false}
+                isPatient={true}
                 manageCareTeamUrl="/ocp-ui/manage-care-team"
                 onSize={[Function]}
                 relativeTop={0}
@@ -901,6 +911,7 @@ ShallowWrapper {
                     ]
                   }
                   isExpanded={false}
+                  isPatient={true}
                   manageCareTeamUrl="/ocp-ui/manage-care-team"
                   onSize={[Function]}
                   relativeTop={0}
@@ -1195,6 +1206,7 @@ ShallowWrapper {
                       ]
                     }
                     isExpanded={false}
+                    isPatient={true}
                     manageCareTeamUrl="/ocp-ui/manage-care-team"
                     onSize={[Function]}
                     relativeTop={0}
@@ -1241,6 +1253,7 @@ ShallowWrapper {
                       },
                     ],
                     "isExpanded": false,
+                    "isPatient": true,
                     "manageCareTeamUrl": "/ocp-ui/manage-care-team",
                     "onSize": [Function],
                     "relativeTop": 0,

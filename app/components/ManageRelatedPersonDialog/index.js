@@ -1,3 +1,9 @@
+/**
+ *
+ * ManageRelatedPersonDialog
+ *
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -33,3 +39,4 @@ ManageRelatedPersonDialog.propTypes = {
 };
 
 export default ManageRelatedPersonDialog;
+

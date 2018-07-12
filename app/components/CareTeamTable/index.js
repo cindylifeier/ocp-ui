@@ -9,13 +9,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import sizeMeHOC from 'utils/SizeMeUtils';
+import ManageRelatedPersonModal from 'containers/ManageRelatedPersonModal';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
-import ManageRelatedPersonDialog from './ManageRelatedPersonDialog';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 import messages from './messages';
 
@@ -108,14 +108,16 @@ class CareTeamTable extends React.Component {
   }
 
   render() {
-    const { elements } = this.props;
+    const { elements, isPatient } = this.props;
     return (
       <div>
         <Table>
           {this.renderTableHeaders()}
           {!isEmpty(elements) && elements.map((careTeam) => this.renderTableRows(careTeam))}
         </Table>
-        <ManageRelatedPersonDialog dialogOpen={this.state.dialogOpen} onDialogClose={this.handleCloseDialog} />
+        {isPatient &&
+        <ManageRelatedPersonModal dialogOpen={this.state.dialogOpen} onDialogClose={this.handleCloseDialog} />
+        }
       </div>
     );
   }
