@@ -4,12 +4,27 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { SEARCH_RELATED_PERSONS, SEARCH_RELATED_PERSONS_ERROR, SEARCH_RELATED_PERSONS_SUCCESS } from './constants';
 
-export function defaultAction() {
+export function searchRelatedPersons(patientId, searchValue, currentPage) {
   return {
-    type: DEFAULT_ACTION,
+    type: SEARCH_RELATED_PERSONS,
+    patientId,
+    searchValue,
+    currentPage,
+  };
+}
+
+export function searchRelatedPersonsSuccess(relatedPersons) {
+  return {
+    type: SEARCH_RELATED_PERSONS_SUCCESS,
+    relatedPersons,
+  };
+}
+
+export function searchRelatedPersonsError(error) {
+  return {
+    type: SEARCH_RELATED_PERSONS_ERROR,
+    error,
   };
 }
