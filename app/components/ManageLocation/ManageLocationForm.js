@@ -112,7 +112,7 @@ function ManageLocationForm(props) {
                 floatingLabelText={<FormattedMessage {...messages.identifierSystemTypeFloatingLabelText} />}
               >
                 {identifierSystems && identifierSystems.map((identifierSystem) => (
-                  <MenuItem key={uniqueId()} value={identifierSystem.display} primaryText={identifierSystem.display} />
+                  <MenuItem key={uniqueId()} value={identifierSystem.uri} primaryText={identifierSystem.display} />
                 ))}
               </SelectField>
             </PrefixCell>
