@@ -4,13 +4,13 @@ import { BASE_RELATED_PERSONS_API_URL, getEndpoint } from 'utils/endpointService
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
 
-export function searchRelatedPersons(searchKey, searchValue, showInActive, patientId, pageNumber) {
+export function searchRelatedPersons(searchValue, showInActive, searchKey, patientId, pageNumber) {
   const baseEndpoint = getEndpoint(BASE_RELATED_PERSONS_API_URL);
   const params = queryString({
     patientId,
-    searchKey,
     searchValue,
     showInActive,
+    searchKey,
     pageNumber,
     pageSize: DEFAULT_PAGE_SIZE,
   });

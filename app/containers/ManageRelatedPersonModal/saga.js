@@ -6,9 +6,9 @@ import { SEARCH_RELATED_PERSONS } from './constants';
 import { searchRelatedPersons } from './api';
 
 
-export function* searchRelatedPersonsSaga({ searchType, searchValue, includeInactive, patientId, currentPage }) {
+export function* searchRelatedPersonsSaga({ searchValue, showInActive, searchType, patientId, currentPage }) {
   try {
-    const relatedPersons = yield call(searchRelatedPersons, searchType, searchValue, includeInactive, patientId, currentPage);
+    const relatedPersons = yield call(searchRelatedPersons, searchValue, showInActive, searchType, patientId, currentPage);
     yield put(searchRelatedPersonsSuccess(relatedPersons));
   } catch (error) {
     yield put(searchRelatedPersonsError(getErrorDetail(error)));

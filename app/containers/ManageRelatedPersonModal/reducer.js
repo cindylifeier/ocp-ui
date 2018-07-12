@@ -12,7 +12,6 @@ const initialState = fromJS({
   data: [],
   currentPage: 0,
   totalNumberOfPages: 0,
-  error: false,
 });
 
 function manageRelatedPersonModalReducer(state = initialState, action) {
@@ -27,7 +26,8 @@ function manageRelatedPersonModalReducer(state = initialState, action) {
         .set('totalElements', action.relatedPersons.totalElements)
         .set('currentPageSize', action.relatedPersons.currentPageSize)
         .set('totalNumberOfPages', action.relatedPersons.totalNumberOfPages)
-        .set('currentPage', action.relatedPersons.currentPage);
+        .set('currentPage', action.relatedPersons.currentPage)
+        .set('error', false);
     case SEARCH_RELATED_PERSONS_ERROR:
       return state
         .set('loading', false)
