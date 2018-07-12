@@ -121,7 +121,7 @@ function ManageLocationForm(props) {
                 name="identifierValue"
                 fullWidth
                 hintText={<FormattedMessage {...messages.identifierValueHintText} />}
-                floatingLabelText={<FormattedMessage {...messages.identifierVlueFloatingLabelText} />}
+                floatingLabelText={<FormattedMessage {...messages.identifierValueFloatingLabelText} />}
               />
             </MainCell>
           </FieldGroupGrid>
