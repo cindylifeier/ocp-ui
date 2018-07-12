@@ -33,6 +33,7 @@ class AddPermissionGroupForm extends React.Component {
   }
   render() {
     const options = [];
+    const namePattern = new RegExp('^[a-zA-Z\\s]+$');
     const { selected } = this.state;
     const {
       handleCloseDialog,
@@ -55,7 +56,8 @@ class AddPermissionGroupForm extends React.Component {
           initialValues={initialValues}
           validationSchema={yup.object().shape({
             displayName: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .matches(namePattern, (<FormattedMessage {...messages.validation.namePattern} />)),
             description: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
             scopes: yup.array()
