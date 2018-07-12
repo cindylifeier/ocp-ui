@@ -24,7 +24,7 @@ export function createGroup(group) {
 }
 
 export function updateGroup(group) {
-  return request(baseGroupsEndpoint, {
+  return request(`${baseGroupsEndpoint}/${group.id}`, {
     method: 'PUT',
     body: JSON.stringify(group),
     headers: {

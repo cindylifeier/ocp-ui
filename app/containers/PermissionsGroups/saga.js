@@ -32,7 +32,7 @@ export function* getScopesSaga() {
 
 export function* saveGroupSaga(action) {
   try {
-    if (action.group.isEdit) {
+    if (action.group.id !== null) {
       yield call(updateGroup, action.group);
     } else {
       yield call(createGroup, action.group);
@@ -49,7 +49,7 @@ export function* saveGroupSaga(action) {
 
 function getNotificationAction(group) {
   let action = 'create';
-  if (group.isEdit) {
+  if (group.id) {
     action = 'update';
   }
   return action;

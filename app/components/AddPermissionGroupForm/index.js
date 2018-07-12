@@ -10,7 +10,9 @@ import { Form, Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import yup from 'yup';
+import merge from 'lodash/merge';
 
+import Util from 'utils/Util';
 import ListBoxField from 'components/ListBoxField';
 import TextField from 'components/TextField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -23,9 +25,15 @@ import PermissionGroupPageTitle from './PermissonGroupPageTitle';
 class AddPermissionGroupForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selected: [],
-    };
+    if (props.initialValues !== null) {
+      this.state = {
+        selected: props.initialValues.scopes,
+      };
+    } else {
+      this.state = {
+        selected: [],
+      };
+    }
     this.onChange = this.onChange.bind(this);
   }
   onChange(selected) {
@@ -46,14 +54,25 @@ class AddPermissionGroupForm extends React.Component {
       const option = { value: id, label: description };
       return options.push(option);
     });
+    let initialGroup = null;
+    if (initialValues !== null) {
+      const { id, displayName, description } = initialValues;
+      initialGroup = {
+        id,
+        displayName: Util.deCamelize(displayName.split('.').pop()),
+        description,
+      };
+    }
     return (
       <div>
         <Formik
           onSubmit={(values, actions) => {
-            handleSaveGroup(values, actions);
+            if (initialValues !== null) {
+              handleSaveGroup(merge(values, { id: initialValues.id }), actions);
+            } else handleSaveGroup(values, actions);
             handleCloseDialog();
           }}
-          initialValues={initialValues}
+          initialValues={initialGroup}
           validationSchema={yup.object().shape({
             displayName: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />))
