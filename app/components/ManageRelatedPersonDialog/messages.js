@@ -34,4 +34,8 @@ export default defineMessages({
     id: 'ocpui.components.ManageRelatedPersonTable.manageRelatedPersonTableHeaderAction',
     defaultMessage: 'Action',
   },
+  noRelatedPersonFoundText: {
+    id: 'ocpui.components.ManageRelatedPersonTable.noRelatedPersonFoundText',
+    defaultMessage: 'No related person found.',
+  },
 });

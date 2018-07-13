@@ -12,7 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import ManageRelatedPersonDialog from 'components/ManageRelatedPersonDialog';
 import { searchRelatedPersons } from './actions';
 import makeSelectManageRelatedPersonModal from './selectors';
@@ -22,22 +22,56 @@ import saga from './saga';
 export class ManageRelatedPersonModal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      showSearchResult: false,
+      searchRelatedPersons: {
+        searchValue: '',
+        showInactive: false,
+        searchType: 'name',
+      },
+    };
     this.handleRelatedPersonsSearch = this.handleRelatedPersonsSearch.bind(this);
+    this.handleSearchPageChange = this.handleSearchPageChange.bind(this);
+    this.handleListPageChange = this.handleListPageChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.searchRelatedPersons(DEFAULT_START_PAGE_NUMBER);
   }
 
   handleRelatedPersonsSearch(searchValue, showInactive, searchType) {
-    const patientId = this.props.patient.id;
-    const page = 1;
-    this.props.searchRelatedPersons(searchValue, showInactive, searchType, patientId, page);
+    this.setState({
+      showSearchResult: true,
+      searchPractitioners: { searchValue, showInactive, searchType },
+    });
+    this.props.searchRelatedPersons(DEFAULT_START_PAGE_NUMBER, searchValue, showInactive, searchType);
+  }
+
+  handleSearchPageChange(currentPage) {
+    this.props.searchRelatedPersons(currentPage, this.state.searchRelatedPersons.searchValue, this.state.searchRelatedPersons.showInactive, this.state.searchRelatedPersons.searchType);
+  }
+
+  handleListPageChange(currentPage) {
+    this.props.searchRelatedPersons(currentPage);
   }
 
   render() {
-    const { dialogOpen, onDialogClose } = this.props;
+    const { dialogOpen, onDialogClose, relatedPersons } = this.props;
+    const relatedPersonsData = {
+      loading: relatedPersons.loading,
+      data: relatedPersons.data,
+      currentPage: relatedPersons.currentPage,
+      totalNumberOfPages: relatedPersons.totalNumberOfPages,
+      currentPageSize: relatedPersons.currentPageSize,
+      totalElements: relatedPersons.totalElements,
+      handleChangePage: this.state.showSearchResult ? this.handleSearchPageChange : this.handleListPageChange,
+    };
     return (
       <ManageRelatedPersonDialog
         dialogOpen={dialogOpen}
         onDialogClose={onDialogClose}
         onRelatedPersonsSearch={this.handleRelatedPersonsSearch}
+        relatedPersonsData={relatedPersonsData}
       />
     );
   }
@@ -47,21 +81,28 @@ ManageRelatedPersonModal.propTypes = {
   dialogOpen: PropTypes.bool.isRequired,
   onDialogClose: PropTypes.func.isRequired,
   searchRelatedPersons: PropTypes.func.isRequired,
-  patient: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    identifier: PropTypes.array,
-    name: PropTypes.array,
-  }).isRequired,
+  relatedPersons: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    currentPageSize: PropTypes.number,
+    totalElements: PropTypes.number,
+    data: PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  relatedPersonModal: makeSelectManageRelatedPersonModal(),
-  patient: makeSelectPatient(),
+  relatedPersons: makeSelectManageRelatedPersonModal(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchRelatedPersons: (searchValue, showInactive, searchType, patientId, currentPage) => dispatch(searchRelatedPersons(searchValue, showInactive, searchType, patientId, currentPage)),
+    searchRelatedPersons: (currentPage, searchValue, showInactive, searchType) => dispatch(searchRelatedPersons(currentPage, searchValue, showInactive, searchType)),
   };
 }
 
