@@ -35,6 +35,9 @@ class DefaultViewComponent extends React.Component {
           allowedAddNewItemRoles={[OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           onSearch={onSearch}
           onSize={this.onSize}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
         />
         <InfoSection margin="0 0 10px 0">
           <PractitionerTable

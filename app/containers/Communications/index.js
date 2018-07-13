@@ -80,6 +80,9 @@ export class Communications extends React.Component { // eslint-disable-line rea
           addNewItem={addNewItem}
           allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
           showSearchIcon={false}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
           onSize={this.onSize}
         />
         <CommunicationsTable
