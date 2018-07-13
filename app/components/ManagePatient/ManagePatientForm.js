@@ -100,20 +100,6 @@ function ManagePatientForm(props) {
               </InlineLabel>
               <span id={ORGANIZATION_NAME_HTML_ID}>{organization && organization.name}</span>
             </InfoSection>
-            <SelectField
-              fullWidth
-              name="careManager"
-              hintText={<FormattedMessage {...messages.hintText.careManager} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.careManager} />}
-            >
-              {practitioners && practitioners.map((aPractitioner) =>
-                (<MenuItem
-                  key={uniqueId()}
-                  value={aPractitioner.reference}
-                  primaryText={aPractitioner.display}
-                />),
-              )}
-            </SelectField>
           </Grid>
         </Cell>
         <Cell area="firstName">
