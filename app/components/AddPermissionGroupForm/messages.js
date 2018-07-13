@@ -29,4 +29,14 @@ export default defineMessages({
     id: 'ocpui.components.AddPermissionGroupForm.cancelButton',
     defaultMessage: 'Cancel',
   },
+  validation: {
+    required: {
+      id: 'ocpui.components.AddPermissionGroupForm.validation.required',
+      defaultMessage: 'Required',
+    },
+    namePattern: {
+      id: 'ocpui.components.AddPermissionGroupForm.validation.namePattern',
+      defaultMessage: 'Only letter and space allowed',
+    },
+  },
 });

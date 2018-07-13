@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  assignRoles: {
-    id: 'ocpui.containers.PermissionAssignments.assignRoles',
-    defaultMessage: 'Assign Roles',
+  assignRole: {
+    id: 'ocpui.containers.PermissionAssignments.assignRole',
+    defaultMessage: 'Assign Role',
   },
 });

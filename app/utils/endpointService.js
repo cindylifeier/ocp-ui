@@ -35,6 +35,9 @@ export const SMART_APP_SHORTCUTS_URL = 'ocpui/utils/SMART_APP_SHORTCUTS_URL';
 export const SMART_CLIENTS_META_URL = 'ocpui/utils/SMART_CLIENTS_META_URL';
 export const SMART_LAUNCHER_URL = 'ocpui/utils/SMART_LAUNCHER_URL';
 export const BASE_COVERAGE_URL = 'ocpui/utils/BASE_COVERAGE_URL';
+export const BASE_GROUPS_API_URL = 'ocpui/utils/BASE_GROUPS_API_URL';
+export const BASE_SCOPES_API_URL = 'ocpui/utils/BASE_SCOPES_API_URL';
+export const BASE_USERS_API_URL = 'ocpui/utils/BASE_USERS_API_URL';
 
 
 export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
@@ -64,6 +67,9 @@ const apiEndpoints = [
   { key: BASE_OUTLOOK_API_URL, url: `${BASE_API_URL}/ocp-fis/outlook` },
   { key: BASE_COMMUNICATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/communications` },
   { key: BASE_USER_CONTEXT_API_URL, url: `${BASE_API_URL}/user-context` },
+  { key: BASE_GROUPS_API_URL, url: `${BASE_API_URL}/groups` },
+  { key: BASE_SCOPES_API_URL, url: `${BASE_API_URL}/scopes` },
+  { key: BASE_USERS_API_URL, url: `${BASE_API_URL}/users` },
   // TODO: consider moving all SMART endpoints under smart-gateway
   { key: BASE_SMART_URL, url: `${BASE_API_URL}/smart` },
   { key: SMART_AUTHORIZE_URL, url: `${BASE_SMART_GATEWAY_URL}/authorize` },
