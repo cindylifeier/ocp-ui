@@ -227,6 +227,11 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="episodeOfCares">
           <AddEpisodeOfCare {...addEpisodeOfCareProps} />
+          {values && values.episodeOfCares && (values.episodeOfCares.length === 0) &&
+          <ErrorText>{hasEmailContact() ?
+            '' : <FormattedMessage {...messages.validation.noEpisodeOfCares} />}
+          </ErrorText>
+          }
         </Cell>
         <Cell area="coverages">
           <AddCoverages {...addCoverageProps} />

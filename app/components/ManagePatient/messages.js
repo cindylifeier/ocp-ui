@@ -27,6 +27,10 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.validation.emailContact',
       defaultMessage: 'Must have at least one email contact.',
     },
+    noEpisodeOfCares: {
+      id: 'ocpui.components.ManagePatient.manageForm.validation.noEpisodeOfCares',
+      defaultMessage: 'Must have at least one Episode Of Care.',
+    },
   },
   hintText: {
     firstName: {
