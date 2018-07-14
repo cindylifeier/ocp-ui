@@ -31,6 +31,14 @@ export default defineMessages({
       id: 'ocpui.components.SearchRelatedPersonsField.validation.minLength',
       defaultMessage: 'Minimum {minimumLength} characters',
     },
+    minStartDate: {
+      id: 'ocpui.components.AddRelatedPersonTableRow.validation.minStartDate',
+      defaultMessage: 'Start date field must be later than today',
+    },
+    minEndDate: {
+      id: 'ocpui.components.AddRelatedPersonTableRow.validation.minEndDate',
+      defaultMessage: 'End date field must be later than Start date field',
+    },
   },
   manageRelatedPersonTableHeaderName: {
     id: 'ocpui.components.ManageRelatedPersonTable.manageRelatedPersonTableHeaderName',
@@ -52,8 +60,28 @@ export default defineMessages({
     id: 'ocpui.components.ManageRelatedPersonTable.manageRelatedPersonTableHeaderAction',
     defaultMessage: 'Action',
   },
+  removeButton: {
+    id: 'ocpui.components.ManageRelatedPersonTable.removeButton',
+    defaultMessage: 'Remove',
+  },
   noRelatedPersonFoundText: {
     id: 'ocpui.components.ManageRelatedPersonTable.noRelatedPersonFoundText',
     defaultMessage: 'No related person found.',
+  },
+  addButton: {
+    id: 'ocpui.components.AddRelatedPersonTableRow.addButton',
+    defaultMessage: 'Add',
+  },
+  roleHintText: {
+    id: 'ocpui.components.AddRelatedPersonTableRow.roleHintText',
+    defaultMessage: 'Role',
+  },
+  startDateHintText: {
+    id: 'ocpui.components.AddRelatedPersonTableRow.startDateHintText',
+    defaultMessage: 'Start Date',
+  },
+  endDateHintText: {
+    id: 'ocpui.components.AddRelatedPersonTableRow.endDateHintText',
+    defaultMessage: 'End Date',
   },
 });

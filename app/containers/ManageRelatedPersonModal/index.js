@@ -12,7 +12,9 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import { DEFAULT_START_PAGE_NUMBER, PARTICIPANTROLE } from 'containers/App/constants';
+import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectParticipantRoles } from 'containers/App/lookupSelectors';
 import ManageRelatedPersonDialog from 'components/ManageRelatedPersonDialog';
 import { searchRelatedPersons } from './actions';
 import makeSelectManageRelatedPersonModal from './selectors';
@@ -34,6 +36,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
   }
 
   componentDidMount() {
+    this.props.getLookUp();
     const careTeamId = this.props.careTeam.id;
     this.props.searchRelatedPersons(careTeamId, DEFAULT_START_PAGE_NUMBER);
   }
@@ -58,7 +61,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
   }
 
   render() {
-    const { dialogOpen, onDialogClose, relatedPersons } = this.props;
+    const { dialogOpen, onDialogClose, participantRoles, relatedPersons } = this.props;
     const relatedPersonsData = {
       loading: relatedPersons.loading,
       data: relatedPersons.data,
@@ -72,8 +75,10 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
       <ManageRelatedPersonDialog
         dialogOpen={dialogOpen}
         onDialogClose={onDialogClose}
-        onRelatedPersonsSearch={this.handleRelatedPersonsSearch}
         relatedPersonsData={relatedPersonsData}
+        participantRoles={participantRoles}
+        onAddRelatedPerson={this.props.searchRelatedPersons}
+        onRelatedPersonsSearch={this.handleRelatedPersonsSearch}
       />
     );
   }
@@ -108,7 +113,14 @@ ManageRelatedPersonModal.propTypes = {
       onBehalfOfName: PropTypes.string,
     })),
   }).isRequired,
+  getLookUp: PropTypes.func.isRequired,
   searchRelatedPersons: PropTypes.func.isRequired,
+  participantRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+    definition: PropTypes.string,
+    system: PropTypes.string,
+  })),
   relatedPersons: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -125,11 +137,13 @@ ManageRelatedPersonModal.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  participantRoles: makeSelectParticipantRoles(),
   relatedPersons: makeSelectManageRelatedPersonModal(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    getLookUp: () => dispatch(getLookupsAction([PARTICIPANTROLE])),
     searchRelatedPersons: (careTeamId, currentPage, searchTerms) => dispatch(searchRelatedPersons(careTeamId, currentPage, searchTerms)),
   };
 }

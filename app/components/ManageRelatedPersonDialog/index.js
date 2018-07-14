@@ -16,7 +16,7 @@ import ManageRelatedPersonTable from './ManageRelatedPersonTable';
 import messages from './messages';
 
 function ManageRelatedPersonDialog(props) {
-  const { dialogOpen, onDialogClose, onRelatedPersonsSearch, relatedPersonsData } = props;
+  const { dialogOpen, onDialogClose, onAddRelatedPerson, onRelatedPersonsSearch, participantRoles, relatedPersonsData } = props;
   return (
     <div>
       <StyledDialog open={dialogOpen} fullScreen>
@@ -25,7 +25,11 @@ function ManageRelatedPersonDialog(props) {
         </DialogTitle>
         <DialogContent>
           <SearchRelatedPersonsField onSearch={onRelatedPersonsSearch} />
-          <ManageRelatedPersonTable relatedPersonsData={relatedPersonsData} />
+          <ManageRelatedPersonTable
+            relatedPersonsData={relatedPersonsData}
+            participantRoles={participantRoles}
+            onAddRelatedPerson={onAddRelatedPerson}
+          />
         </DialogContent>
         <DialogActions>
           <StyledFlatButton onClick={onDialogClose}>
@@ -40,7 +44,14 @@ function ManageRelatedPersonDialog(props) {
 ManageRelatedPersonDialog.propTypes = {
   dialogOpen: PropTypes.bool.isRequired,
   onDialogClose: PropTypes.func.isRequired,
+  onAddRelatedPerson: PropTypes.func.isRequired,
   onRelatedPersonsSearch: PropTypes.func.isRequired,
+  participantRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+    definition: PropTypes.string,
+    system: PropTypes.string,
+  })).isRequired,
   relatedPersonsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -49,14 +60,20 @@ ManageRelatedPersonDialog.propTypes = {
     totalElements: PropTypes.number,
     handleChangePage: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
+      isInCareTeam: PropTypes.bool.isRequired,
+      memberId: PropTypes.string,
       memberFirstName: PropTypes.string,
       memberLastName: PropTypes.string,
+      memberName: PropTypes.string,
+      memberType: PropTypes.string,
       startDate: PropTypes.string,
       endDate: PropTypes.string,
+      onBehalfOfId: PropTypes.string,
+      onBehalfOfName: PropTypes.string,
       roleCode: PropTypes.string,
       roleDisplay: PropTypes.string,
     })).isRequired,
-  }),
+  }).isRequired,
 };
 
 export default ManageRelatedPersonDialog;

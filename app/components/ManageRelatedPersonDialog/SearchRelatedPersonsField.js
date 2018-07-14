@@ -41,7 +41,7 @@ function SearchRelatedPersonsField(props) {
                   />
                 </PrefixCell>
                 <MainCell>
-                  <StyledRaisedButton size="large" type="submit" disabled={!dirty || isSubmitting || !isValid}>
+                  <StyledRaisedButton type="submit" disabled={!dirty || isSubmitting || !isValid}>
                     <FormattedMessage {...messages.searchButton} />
                   </StyledRaisedButton>
                 </MainCell>

@@ -20,10 +20,12 @@ import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RecordsRange from 'components/RecordsRange';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import AddRelatedPersonTableRow from './AddRelatedPersonTableRow';
 import messages from './messages';
 
 function ManageRelatedPersonTable(props) {
-  const { relatedPersonsData } = props;
+  const { onAddRelatedPerson, participantRoles, relatedPersonsData } = props;
   return (
     <div>
       {relatedPersonsData.loading && <LinearProgress />}
@@ -51,11 +53,26 @@ function ManageRelatedPersonTable(props) {
             </TableHeader>
           </TableHeader>
           {!isEmpty(relatedPersonsData.data) && relatedPersonsData.data.map((relatedPerson) => {
-            const { lastName, firstName } = relatedPerson;
+            const { isInCareTeam, memberFirstName, memberLastName, roleDisplay, startDate, endDate } = relatedPerson;
             return (
-              <TableRow key={uniqueId()}>
-                <TableRowColumn>{firstName} {lastName}</TableRowColumn>
-              </TableRow>
+              isInCareTeam ?
+                <TableRow key={uniqueId()}>
+                  <TableRowColumn>{memberFirstName} {memberLastName}</TableRowColumn>
+                  <TableRowColumn>{roleDisplay}</TableRowColumn>
+                  <TableRowColumn>{startDate}</TableRowColumn>
+                  <TableRowColumn>{endDate}</TableRowColumn>
+                  <TableRowColumn>
+                    <StyledRaisedButton>
+                      <FormattedMessage {...messages.removeButton} />
+                    </StyledRaisedButton>
+                  </TableRowColumn>
+                </TableRow> :
+                <AddRelatedPersonTableRow
+                  key={uniqueId()}
+                  relatedPerson={relatedPerson}
+                  participantRoles={participantRoles}
+                  onAddRelatedPerson={onAddRelatedPerson}
+                />
             );
           })}
         </Table>
@@ -77,6 +94,13 @@ function ManageRelatedPersonTable(props) {
 }
 
 ManageRelatedPersonTable.propTypes = {
+  onAddRelatedPerson: PropTypes.func.isRequired,
+  participantRoles: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+    definition: PropTypes.string,
+    system: PropTypes.string,
+  })).isRequired,
   relatedPersonsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -85,10 +109,16 @@ ManageRelatedPersonTable.propTypes = {
     totalElements: PropTypes.number,
     handleChangePage: PropTypes.func.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
+      isInCareTeam: PropTypes.bool.isRequired,
+      memberId: PropTypes.string,
       memberFirstName: PropTypes.string,
       memberLastName: PropTypes.string,
+      memberName: PropTypes.string,
+      memberType: PropTypes.string,
       startDate: PropTypes.string,
       endDate: PropTypes.string,
+      onBehalfOfId: PropTypes.string,
+      onBehalfOfName: PropTypes.string,
       roleCode: PropTypes.string,
       roleDisplay: PropTypes.string,
     })).isRequired,
