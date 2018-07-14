@@ -24,13 +24,17 @@ class CareTeamTable extends React.Component {
     super(props);
     this.state = {
       dialogOpen: false,
+      careTeam: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
 
-  handleOpenDialog() {
-    this.setState({ dialogOpen: true });
+  handleOpenDialog(careTeam) {
+    this.setState({
+      dialogOpen: true,
+      careTeam,
+    });
   }
 
   handleCloseDialog() {
@@ -68,7 +72,7 @@ class CareTeamTable extends React.Component {
     const { id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay } = careTeam;
     const menuItems = isPatient ? [{
       primaryText: <FormattedMessage {...messages.menuItemManageRelatedPerson} />,
-      onClick: () => this.handleOpenDialog(),
+      onClick: () => this.handleOpenDialog(careTeam),
     }] : [{
       primaryText: <FormattedMessage {...messages.menuItemEdit} />,
       linkTo: {
@@ -115,8 +119,12 @@ class CareTeamTable extends React.Component {
           {this.renderTableHeaders()}
           {!isEmpty(elements) && elements.map((careTeam) => this.renderTableRows(careTeam))}
         </Table>
-        {isPatient &&
-        <ManageRelatedPersonModal dialogOpen={this.state.dialogOpen} onDialogClose={this.handleCloseDialog} />
+        {isPatient && this.state.careTeam &&
+        <ManageRelatedPersonModal
+          dialogOpen={this.state.dialogOpen}
+          onDialogClose={this.handleCloseDialog}
+          careTeam={this.state.careTeam}
+        />
         }
       </div>
     );

@@ -1,23 +1,15 @@
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { getErrorDetail } from 'containers/App/helpers';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
-import { showNotification } from 'containers/Notification/actions';
 import { searchRelatedPersonsError, searchRelatedPersonsSuccess } from './actions';
 import { SEARCH_RELATED_PERSONS } from './constants';
 import { searchRelatedPersons } from './api';
 
 
-export function* searchRelatedPersonsSaga({ currentPage, searchValue, showInActive, searchType }) {
+export function* searchRelatedPersonsSaga({ careTeamId, currentPage, searchTerms }) {
   try {
-    const patient = yield select(makeSelectPatient());
-    if (patient) {
-      const patientId = patient.id;
-      const relatedPersons = yield call(searchRelatedPersons, searchValue, showInActive, searchType, patientId, currentPage);
-      yield put(searchRelatedPersonsSuccess(relatedPersons));
-    } else {
-      yield put(showNotification('No patient found.'));
-    }
+    const relatedPersons = yield call(searchRelatedPersons, careTeamId, currentPage, searchTerms);
+    yield put(searchRelatedPersonsSuccess(relatedPersons));
   } catch (error) {
     yield put(searchRelatedPersonsError(getErrorDetail(error)));
   }

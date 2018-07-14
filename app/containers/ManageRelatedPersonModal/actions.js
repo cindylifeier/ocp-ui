@@ -6,13 +6,12 @@
 
 import { SEARCH_RELATED_PERSONS, SEARCH_RELATED_PERSONS_ERROR, SEARCH_RELATED_PERSONS_SUCCESS } from './constants';
 
-export function searchRelatedPersons(currentPage, searchValue, showInActive, searchType) {
+export function searchRelatedPersons(careTeamId, currentPage, searchTerms) {
   return {
     type: SEARCH_RELATED_PERSONS,
+    careTeamId,
     currentPage,
-    searchValue,
-    showInActive,
-    searchType,
+    searchTerms,
   };
 }
 

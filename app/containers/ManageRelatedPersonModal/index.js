@@ -25,9 +25,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
     this.state = {
       showSearchResult: false,
       searchRelatedPersons: {
-        searchValue: '',
-        showInactive: false,
-        searchType: 'name',
+        searchTerms: '',
       },
     };
     this.handleRelatedPersonsSearch = this.handleRelatedPersonsSearch.bind(this);
@@ -36,23 +34,27 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
   }
 
   componentDidMount() {
-    this.props.searchRelatedPersons(DEFAULT_START_PAGE_NUMBER);
+    const careTeamId = this.props.careTeam.id;
+    this.props.searchRelatedPersons(careTeamId, DEFAULT_START_PAGE_NUMBER);
   }
 
-  handleRelatedPersonsSearch(searchValue, showInactive, searchType) {
+  handleRelatedPersonsSearch(searchTerms) {
     this.setState({
       showSearchResult: true,
-      searchPractitioners: { searchValue, showInactive, searchType },
+      searchRelatedPersons: { searchTerms },
     });
-    this.props.searchRelatedPersons(DEFAULT_START_PAGE_NUMBER, searchValue, showInactive, searchType);
+    const careTeamId = this.props.careTeam.id;
+    this.props.searchRelatedPersons(careTeamId, DEFAULT_START_PAGE_NUMBER, searchTerms);
   }
 
   handleSearchPageChange(currentPage) {
-    this.props.searchRelatedPersons(currentPage, this.state.searchRelatedPersons.searchValue, this.state.searchRelatedPersons.showInactive, this.state.searchRelatedPersons.searchType);
+    const careTeamId = this.props.careTeam.id;
+    this.props.searchRelatedPersons(careTeamId, currentPage, this.state.searchRelatedPersons.searchTerms);
   }
 
   handleListPageChange(currentPage) {
-    this.props.searchRelatedPersons(currentPage);
+    const careTeamId = this.props.careTeam.id;
+    this.props.searchRelatedPersons(careTeamId, currentPage);
   }
 
   render() {
@@ -80,6 +82,32 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
 ManageRelatedPersonModal.propTypes = {
   dialogOpen: PropTypes.bool.isRequired,
   onDialogClose: PropTypes.func.isRequired,
+  careTeam: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    reasonCode: PropTypes.string,
+    reasonDisplay: PropTypes.string,
+    statusCode: PropTypes.string,
+    statusDisplay: PropTypes.string,
+    categoryCode: PropTypes.string,
+    categoryDisplay: PropTypes.string,
+    subjectId: PropTypes.string.isRequired,
+    subjectFirstName: PropTypes.string.isRequired,
+    subjectLastName: PropTypes.string.isRequired,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    participants: PropTypes.arrayOf(PropTypes.shape({
+      roleCode: PropTypes.string,
+      roleDisplay: PropTypes.string,
+      memberId: PropTypes.string.isRequired,
+      memberFirstName: PropTypes.string,
+      memberLastName: PropTypes.string,
+      memberName: PropTypes.string,
+      memberType: PropTypes.string.isRequired,
+      onBehalfOfId: PropTypes.string,
+      onBehalfOfName: PropTypes.string,
+    })),
+  }).isRequired,
   searchRelatedPersons: PropTypes.func.isRequired,
   relatedPersons: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
@@ -102,7 +130,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchRelatedPersons: (currentPage, searchValue, showInactive, searchType) => dispatch(searchRelatedPersons(currentPage, searchValue, showInactive, searchType)),
+    searchRelatedPersons: (careTeamId, currentPage, searchTerms) => dispatch(searchRelatedPersons(careTeamId, currentPage, searchTerms)),
   };
 }
 
