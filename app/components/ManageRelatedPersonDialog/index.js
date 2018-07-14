@@ -11,7 +11,7 @@ import { DialogActions, DialogContent, DialogTitle } from 'material-ui-next/Dial
 
 import StyledDialog from 'components/StyledDialog';
 import StyledFlatButton from 'components/StyledFlatButton';
-import SearchBar from 'components/SearchBar';
+import SearchRelatedPersonsField from './SearchRelatedPersonsField';
 import ManageRelatedPersonTable from './ManageRelatedPersonTable';
 import messages from './messages';
 
@@ -24,7 +24,7 @@ function ManageRelatedPersonDialog(props) {
           <FormattedMessage {...messages.manageRelatedPersonDialogTitle} />
         </DialogTitle>
         <DialogContent>
-          <SearchBar onSearch={onRelatedPersonsSearch} />
+          <SearchRelatedPersonsField onSearch={onRelatedPersonsSearch} />
           <ManageRelatedPersonTable relatedPersonsData={relatedPersonsData} />
         </DialogContent>
         <DialogActions>

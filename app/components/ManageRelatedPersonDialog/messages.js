@@ -14,6 +14,24 @@ export default defineMessages({
     id: 'ocpui.components.ManageRelatedPersonDialog.cancelButton',
     defaultMessage: 'Cancel',
   },
+  relatedPersonNameHintText: {
+    id: 'ocpui.components.SearchRelatedPersonsField.relatedPersonNameHintText',
+    defaultMessage: 'Name',
+  },
+  searchButton: {
+    id: 'ocpui.components.SearchRelatedPersonsField.searchButton',
+    defaultMessage: 'Search',
+  },
+  validation: {
+    required: {
+      id: 'ocpui.components.SearchRelatedPersonsField.validation.required',
+      defaultMessage: 'Required',
+    },
+    minLength: {
+      id: 'ocpui.components.SearchRelatedPersonsField.validation.minLength',
+      defaultMessage: 'Minimum {minimumLength} characters',
+    },
+  },
   manageRelatedPersonTableHeaderName: {
     id: 'ocpui.components.ManageRelatedPersonTable.manageRelatedPersonTableHeaderName',
     defaultMessage: 'Name',
