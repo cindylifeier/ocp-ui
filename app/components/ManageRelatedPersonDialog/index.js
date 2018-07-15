@@ -16,7 +16,7 @@ import ManageRelatedPersonTable from './ManageRelatedPersonTable';
 import messages from './messages';
 
 function ManageRelatedPersonDialog(props) {
-  const { dialogOpen, onDialogClose, onAddRelatedPerson, onRelatedPersonsSearch, participantRoles, relatedPersonsData } = props;
+  const { dialogOpen, onDialogClose, onAddRelatedPerson, onRemoveRelatedPerson, onRelatedPersonsSearch, participantRoles, relatedPersonsData } = props;
   return (
     <div>
       <StyledDialog open={dialogOpen} fullScreen>
@@ -29,6 +29,7 @@ function ManageRelatedPersonDialog(props) {
             relatedPersonsData={relatedPersonsData}
             participantRoles={participantRoles}
             onAddRelatedPerson={onAddRelatedPerson}
+            onRemoveRelatedPerson={onRemoveRelatedPerson}
           />
         </DialogContent>
         <DialogActions>
@@ -46,6 +47,7 @@ ManageRelatedPersonDialog.propTypes = {
   onDialogClose: PropTypes.func.isRequired,
   onAddRelatedPerson: PropTypes.func.isRequired,
   onRelatedPersonsSearch: PropTypes.func.isRequired,
+  onRemoveRelatedPerson: PropTypes.func.isRequired,
   participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -54,6 +56,7 @@ ManageRelatedPersonDialog.propTypes = {
   })).isRequired,
   relatedPersonsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    submitting: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
     currentPageSize: PropTypes.number,

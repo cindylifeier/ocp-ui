@@ -16,7 +16,7 @@ import { DEFAULT_START_PAGE_NUMBER, PARTICIPANTROLE } from 'containers/App/const
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectParticipantRoles } from 'containers/App/lookupSelectors';
 import ManageRelatedPersonDialog from 'components/ManageRelatedPersonDialog';
-import { searchRelatedPersons } from './actions';
+import { removeRelatedPerson, searchRelatedPersons } from './actions';
 import makeSelectManageRelatedPersonModal from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -33,6 +33,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
     this.handleRelatedPersonsSearch = this.handleRelatedPersonsSearch.bind(this);
     this.handleSearchPageChange = this.handleSearchPageChange.bind(this);
     this.handleListPageChange = this.handleListPageChange.bind(this);
+    this.handleRemoveRelatedPerson = this.handleRemoveRelatedPerson.bind(this);
   }
 
   componentDidMount() {
@@ -60,10 +61,16 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
     this.props.searchRelatedPersons(careTeamId, currentPage);
   }
 
+  handleRemoveRelatedPerson(relatedPerson) {
+    const careTeamId = this.props.careTeam.id;
+    this.props.removeRelatedPerson(careTeamId, relatedPerson);
+  }
+
   render() {
     const { dialogOpen, onDialogClose, participantRoles, relatedPersons } = this.props;
     const relatedPersonsData = {
       loading: relatedPersons.loading,
+      submitting: relatedPersons.submitting,
       data: relatedPersons.data,
       currentPage: relatedPersons.currentPage,
       totalNumberOfPages: relatedPersons.totalNumberOfPages,
@@ -78,6 +85,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
         relatedPersonsData={relatedPersonsData}
         participantRoles={participantRoles}
         onAddRelatedPerson={this.props.searchRelatedPersons}
+        onRemoveRelatedPerson={this.handleRemoveRelatedPerson}
         onRelatedPersonsSearch={this.handleRelatedPersonsSearch}
       />
     );
@@ -115,6 +123,7 @@ ManageRelatedPersonModal.propTypes = {
   }).isRequired,
   getLookUp: PropTypes.func.isRequired,
   searchRelatedPersons: PropTypes.func.isRequired,
+  removeRelatedPerson: PropTypes.func.isRequired,
   participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -123,6 +132,7 @@ ManageRelatedPersonModal.propTypes = {
   })),
   relatedPersons: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    submitting: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
     currentPageSize: PropTypes.number,
@@ -145,6 +155,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookUp: () => dispatch(getLookupsAction([PARTICIPANTROLE])),
     searchRelatedPersons: (careTeamId, currentPage, searchTerms) => dispatch(searchRelatedPersons(careTeamId, currentPage, searchTerms)),
+    removeRelatedPerson: (careTeamId, relatedPerson) => dispatch(removeRelatedPerson(careTeamId, relatedPerson)),
   };
 }
 

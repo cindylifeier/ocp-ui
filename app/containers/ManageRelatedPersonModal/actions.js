@@ -6,8 +6,8 @@
 
 import {
   REMOVE_RELATED_PERSON,
-  REMOVE_RELATED_PERSON_SUCCESS,
   REMOVE_RELATED_PERSON_ERROR,
+  REMOVE_RELATED_PERSON_SUCCESS,
   SEARCH_RELATED_PERSONS,
   SEARCH_RELATED_PERSONS_ERROR,
   SEARCH_RELATED_PERSONS_SUCCESS,
@@ -39,6 +39,7 @@ export function searchRelatedPersonsError(error) {
 export function removeRelatedPerson(careTeamId, relatedPerson) {
   return {
     type: REMOVE_RELATED_PERSON,
+    careTeamId,
     relatedPerson,
   };
 }

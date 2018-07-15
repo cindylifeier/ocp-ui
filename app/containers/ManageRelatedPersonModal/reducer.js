@@ -17,6 +17,7 @@ import {
 
 const initialState = fromJS({
   loading: false,
+  submitting: false,
   data: [],
   currentPage: 0,
   totalNumberOfPages: 0,
@@ -40,11 +41,11 @@ function manageRelatedPersonModalReducer(state = initialState, action) {
         .set('loading', false)
         .set('error', action.error);
     case REMOVE_RELATED_PERSON:
-      return state.set('loading', true);
+      return state.set('submitting', true);
     case REMOVE_RELATED_PERSON_SUCCESS:
-      return state.set('loading', false);
+      return state.set('submitting', false);
     case REMOVE_RELATED_PERSON_ERROR:
-      return state.set('loading', false);
+      return state.set('submitting', false);
     default:
       return state;
   }

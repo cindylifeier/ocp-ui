@@ -27,7 +27,7 @@ import messages from './messages';
 const tableColumns = '0.4fr repeat(3, 1fr) .3fr';
 
 function ManageRelatedPersonTable(props) {
-  const { onAddRelatedPerson, participantRoles, relatedPersonsData } = props;
+  const { onAddRelatedPerson, onRemoveRelatedPerson, participantRoles, relatedPersonsData } = props;
   return (
     <div>
       {relatedPersonsData.loading && <LinearProgress />}
@@ -57,7 +57,10 @@ function ManageRelatedPersonTable(props) {
                   <TableRowColumn>{endDate}</TableRowColumn>
                   <TableRowColumn>{roleDisplay}</TableRowColumn>
                   <TableRowColumn>
-                    <StyledRaisedButton>
+                    <StyledRaisedButton
+                      onClick={() => onRemoveRelatedPerson(relatedPerson)}
+                      disabled={relatedPersonsData.submitting}
+                    >
                       <FormattedMessage {...messages.removeButton} />
                     </StyledRaisedButton>
                   </TableRowColumn>
@@ -91,6 +94,7 @@ function ManageRelatedPersonTable(props) {
 
 ManageRelatedPersonTable.propTypes = {
   onAddRelatedPerson: PropTypes.func.isRequired,
+  onRemoveRelatedPerson: PropTypes.func.isRequired,
   participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -99,6 +103,7 @@ ManageRelatedPersonTable.propTypes = {
   })).isRequired,
   relatedPersonsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    submitting: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
     currentPageSize: PropTypes.number,
