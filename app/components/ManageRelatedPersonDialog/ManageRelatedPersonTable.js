@@ -24,6 +24,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import AddRelatedPersonTableRow from './AddRelatedPersonTableRow';
 import messages from './messages';
 
+const tableColumns = '0.4fr repeat(3, 1fr) .3fr';
+
 function ManageRelatedPersonTable(props) {
   const { onAddRelatedPerson, participantRoles, relatedPersonsData } = props;
   return (
@@ -38,29 +40,22 @@ function ManageRelatedPersonTable(props) {
       {!relatedPersonsData.loading && relatedPersonsData.data && relatedPersonsData.data.length > 0 &&
       <div>
         <Table>
-          <TableHeader>
-            <TableHeader>
-              <TableHeaderColumn>{
-                <FormattedMessage {...messages.manageRelatedPersonTableHeaderName} />}</TableHeaderColumn>
-              <TableHeaderColumn>{
-                <FormattedMessage {...messages.manageRelatedPersonTableHeaderRole} />}</TableHeaderColumn>
-              <TableHeaderColumn>{
-                <FormattedMessage {...messages.manageRelatedPersonTableHeaderStartDate} />}</TableHeaderColumn>
-              <TableHeaderColumn>{
-                <FormattedMessage {...messages.manageRelatedPersonTableHeaderEndDate} />}</TableHeaderColumn>
-              <TableHeaderColumn>{
-                <FormattedMessage {...messages.manageRelatedPersonTableHeaderAction} />}</TableHeaderColumn>
-            </TableHeader>
+          <TableHeader columns={tableColumns}>
+            <TableHeaderColumn><FormattedMessage {...messages.manageRelatedPersonTableHeaderName} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.manageRelatedPersonTableHeaderStartDate} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.manageRelatedPersonTableHeaderEndDate} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.manageRelatedPersonTableHeaderRole} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.manageRelatedPersonTableHeaderAction} /></TableHeaderColumn>
           </TableHeader>
           {!isEmpty(relatedPersonsData.data) && relatedPersonsData.data.map((relatedPerson) => {
             const { isInCareTeam, memberFirstName, memberLastName, roleDisplay, startDate, endDate } = relatedPerson;
             return (
               isInCareTeam ?
-                <TableRow key={uniqueId()}>
+                <TableRow key={uniqueId()} columns={tableColumns}>
                   <TableRowColumn>{memberFirstName} {memberLastName}</TableRowColumn>
-                  <TableRowColumn>{roleDisplay}</TableRowColumn>
                   <TableRowColumn>{startDate}</TableRowColumn>
                   <TableRowColumn>{endDate}</TableRowColumn>
+                  <TableRowColumn>{roleDisplay}</TableRowColumn>
                   <TableRowColumn>
                     <StyledRaisedButton>
                       <FormattedMessage {...messages.removeButton} />
@@ -69,6 +64,7 @@ function ManageRelatedPersonTable(props) {
                 </TableRow> :
                 <AddRelatedPersonTableRow
                   key={uniqueId()}
+                  columns={tableColumns}
                   relatedPerson={relatedPerson}
                   participantRoles={participantRoles}
                   onAddRelatedPerson={onAddRelatedPerson}

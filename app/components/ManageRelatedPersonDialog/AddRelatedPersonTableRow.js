@@ -31,7 +31,7 @@ class AddRelatedPersonTableRow extends React.Component {
   }
 
   render() {
-    const { relatedPerson, participantRoles } = this.props;
+    const { columns, relatedPerson, participantRoles } = this.props;
     const { memberFirstName, memberLastName } = relatedPerson;
     return (
       <Formik
@@ -61,22 +61,8 @@ class AddRelatedPersonTableRow extends React.Component {
           const today = new Date();
           return (
             <Form>
-              <TableRow>
+              <TableRow columns={columns}>
                 <TableRowColumn>{memberFirstName} {memberLastName}</TableRowColumn>
-                <TableRowColumn>
-                  <SelectField
-                    name="roleCode"
-                    hintText={<FormattedMessage {...messages.roleHintText} />}
-                  >
-                    {participantRoles && participantRoles.map((participantRole) =>
-                      (<MenuItem
-                        key={uniqueId()}
-                        value={participantRole.code}
-                        primaryText={participantRole.display}
-                      />),
-                    )}
-                  </SelectField>
-                </TableRowColumn>
                 <TableRowColumn>
                   <DatePicker
                     fullWidth
@@ -96,6 +82,21 @@ class AddRelatedPersonTableRow extends React.Component {
                   />
                 </TableRowColumn>
                 <TableRowColumn>
+                  <SelectField
+                    name="roleCode"
+                    fullWidth
+                    hintText={<FormattedMessage {...messages.roleHintText} />}
+                  >
+                    {participantRoles && participantRoles.map((participantRole) =>
+                      (<MenuItem
+                        key={uniqueId()}
+                        value={participantRole.code}
+                        primaryText={participantRole.display}
+                      />),
+                    )}
+                  </SelectField>
+                </TableRowColumn>
+                <TableRowColumn>
                   <StyledRaisedButton type="submit" disabled={!dirty || isSubmitting || !isValid}>
                     <FormattedMessage {...messages.addButton} />
                   </StyledRaisedButton>
@@ -110,6 +111,7 @@ class AddRelatedPersonTableRow extends React.Component {
 }
 
 AddRelatedPersonTableRow.propTypes = {
+  columns: PropTypes.string,
   onAddRelatedPerson: PropTypes.func.isRequired,
   participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
