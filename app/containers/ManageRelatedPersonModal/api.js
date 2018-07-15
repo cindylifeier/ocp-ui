@@ -16,6 +16,17 @@ export function searchRelatedPersons(careTeamId, pageNumber, searchTerms) {
   return request(requestURL);
 }
 
+export function addRelatedPerson(careTeamId, relatedPerson) {
+  const requestURL = `${baseEndpoint}/${careTeamId}/add-related-person`;
+  return request(requestURL, {
+    method: 'PUT',
+    body: JSON.stringify(relatedPerson),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 export function removeRelatedPerson(careTeamId, relatedPerson) {
   const requestURL = `${baseEndpoint}/${careTeamId}/remove-related-person`;
   return request(requestURL, {

@@ -5,6 +5,8 @@
  */
 
 import {
+  ADD_RELATED_PERSON,
+  ADD_RELATED_PERSON_ERROR,
   REMOVE_RELATED_PERSON,
   REMOVE_RELATED_PERSON_ERROR,
   REMOVE_RELATED_PERSON_SUCCESS,
@@ -32,6 +34,22 @@ export function searchRelatedPersonsSuccess(relatedPersons) {
 export function searchRelatedPersonsError(error) {
   return {
     type: SEARCH_RELATED_PERSONS_ERROR,
+    error,
+  };
+}
+
+export function addRelatedPerson(careTeamId, relatedPerson, handleSubmitting) {
+  return {
+    type: ADD_RELATED_PERSON,
+    careTeamId,
+    relatedPerson,
+    handleSubmitting,
+  };
+}
+
+export function addRelatedPersonError(error) {
+  return {
+    type: ADD_RELATED_PERSON_ERROR,
     error,
   };
 }
