@@ -113,6 +113,12 @@ class CareTeamTable extends React.Component {
 
   render() {
     const { elements, isPatient } = this.props;
+    const renderUnMountableModal = this.state.dialogOpen ?
+      (<ManageRelatedPersonModal
+        dialogOpen={this.state.dialogOpen}
+        onDialogClose={this.handleCloseDialog}
+        careTeam={this.state.careTeam}
+      />) : null;
     return (
       <div>
         <Table>
@@ -120,11 +126,7 @@ class CareTeamTable extends React.Component {
           {!isEmpty(elements) && elements.map((careTeam) => this.renderTableRows(careTeam))}
         </Table>
         {isPatient && this.state.careTeam &&
-        <ManageRelatedPersonModal
-          dialogOpen={this.state.dialogOpen}
-          onDialogClose={this.handleCloseDialog}
-          careTeam={this.state.careTeam}
-        />
+        renderUnMountableModal
         }
       </div>
     );

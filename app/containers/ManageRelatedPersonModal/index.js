@@ -71,11 +71,13 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
       roleCode: formValue.roleCode,
     };
     this.props.addRelatedPerson(careTeamId, merge(relatedPerson, formData), () => actions.setSubmitting(false));
+    this.props.onDialogClose();
   }
 
   handleRemoveRelatedPerson(relatedPerson) {
     const careTeamId = this.props.careTeam.id;
     this.props.removeRelatedPerson(careTeamId, relatedPerson);
+    this.props.onDialogClose();
   }
 
   render() {
