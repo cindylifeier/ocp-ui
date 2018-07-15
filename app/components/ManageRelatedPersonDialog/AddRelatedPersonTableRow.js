@@ -26,7 +26,7 @@ function AddRelatedPersonTableRow(props) {
   return (
     <Formik
       onSubmit={(values, actions) => {
-        onAddRelatedPerson(values);
+        onAddRelatedPerson(values, relatedPerson, actions);
         actions.setSubmitting(false);
       }}
       validationSchema={() =>

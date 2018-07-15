@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -16,7 +17,7 @@ import { DEFAULT_START_PAGE_NUMBER, PARTICIPANTROLE } from 'containers/App/const
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectParticipantRoles } from 'containers/App/lookupSelectors';
 import ManageRelatedPersonDialog from 'components/ManageRelatedPersonDialog';
-import { removeRelatedPerson, searchRelatedPersons } from './actions';
+import { addRelatedPerson, removeRelatedPerson, searchRelatedPersons } from './actions';
 import makeSelectManageRelatedPersonModal from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -33,6 +34,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
     this.handleRelatedPersonsSearch = this.handleRelatedPersonsSearch.bind(this);
     this.handleSearchPageChange = this.handleSearchPageChange.bind(this);
     this.handleListPageChange = this.handleListPageChange.bind(this);
+    this.handleAddRelatedPerson = this.handleAddRelatedPerson.bind(this);
     this.handleRemoveRelatedPerson = this.handleRemoveRelatedPerson.bind(this);
   }
 
@@ -61,6 +63,16 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
     this.props.searchRelatedPersons(careTeamId, currentPage);
   }
 
+  handleAddRelatedPerson(formValue, relatedPerson, actions) {
+    const careTeamId = this.props.careTeam.id;
+    const formData = {
+      startDate: formValue.startDate.toLocaleDateString(),
+      endDate: formValue.endDate.toLocaleDateString(),
+      roleCode: formValue.roleCode,
+    };
+    this.props.addRelatedPerson(careTeamId, merge(relatedPerson, formData), () => actions.setSubmitting(false));
+  }
+
   handleRemoveRelatedPerson(relatedPerson) {
     const careTeamId = this.props.careTeam.id;
     this.props.removeRelatedPerson(careTeamId, relatedPerson);
@@ -84,7 +96,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
         onDialogClose={onDialogClose}
         relatedPersonsData={relatedPersonsData}
         participantRoles={participantRoles}
-        onAddRelatedPerson={this.props.searchRelatedPersons}
+        onAddRelatedPerson={this.handleAddRelatedPerson}
         onRemoveRelatedPerson={this.handleRemoveRelatedPerson}
         onRelatedPersonsSearch={this.handleRelatedPersonsSearch}
       />
@@ -123,6 +135,7 @@ ManageRelatedPersonModal.propTypes = {
   }).isRequired,
   getLookUp: PropTypes.func.isRequired,
   searchRelatedPersons: PropTypes.func.isRequired,
+  addRelatedPerson: PropTypes.func.isRequired,
   removeRelatedPerson: PropTypes.func.isRequired,
   participantRoles: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -155,6 +168,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookUp: () => dispatch(getLookupsAction([PARTICIPANTROLE])),
     searchRelatedPersons: (careTeamId, currentPage, searchTerms) => dispatch(searchRelatedPersons(careTeamId, currentPage, searchTerms)),
+    addRelatedPerson: (careTeamId, relatedPerson, handleSubmitting) => dispatch(addRelatedPerson(careTeamId, relatedPerson, handleSubmitting)),
     removeRelatedPerson: (careTeamId, relatedPerson) => dispatch(removeRelatedPerson(careTeamId, relatedPerson)),
   };
 }

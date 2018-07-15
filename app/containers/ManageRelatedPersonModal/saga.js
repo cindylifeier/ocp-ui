@@ -1,5 +1,4 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { goBack } from 'react-router-redux';
 
 import { getErrorDetail } from 'containers/App/helpers';
 import { showNotification } from 'containers/Notification/actions';
@@ -27,7 +26,6 @@ export function* addRelatedPersonSaga({ careTeamId, relatedPerson, handleSubmitt
   try {
     yield call(addRelatedPerson, careTeamId, relatedPerson);
     yield call(handleSubmitting);
-    yield put(goBack());
   } catch (error) {
     yield put(showNotification('Failed to add the related person.'));
     yield call(handleSubmitting);
@@ -39,7 +37,6 @@ export function* removeRelatedPersonSaga({ careTeamId, relatedPerson }) {
   try {
     yield call(removeRelatedPerson, careTeamId, relatedPerson);
     yield put(removeRelatedPersonSuccess());
-    yield put(goBack());
   } catch (error) {
     yield put(showNotification('Failed to remove the related person.'));
     yield put(removeRelatedPersonError(getErrorDetail(error)));
