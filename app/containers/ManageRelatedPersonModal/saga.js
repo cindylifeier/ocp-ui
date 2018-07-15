@@ -1,9 +1,16 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { goBack } from 'react-router-redux';
 
 import { getErrorDetail } from 'containers/App/helpers';
-import { searchRelatedPersonsError, searchRelatedPersonsSuccess } from './actions';
-import { SEARCH_RELATED_PERSONS } from './constants';
-import { searchRelatedPersons } from './api';
+import { showNotification } from 'containers/Notification/actions';
+import {
+  removeRelatedPersonError,
+  removeRelatedPersonSuccess,
+  searchRelatedPersonsError,
+  searchRelatedPersonsSuccess,
+} from './actions';
+import { REMOVE_RELATED_PERSON, SEARCH_RELATED_PERSONS } from './constants';
+import { removeRelatedPerson, searchRelatedPersons } from './api';
 
 
 export function* searchRelatedPersonsSaga({ careTeamId, currentPage, searchTerms }) {
@@ -15,8 +22,23 @@ export function* searchRelatedPersonsSaga({ careTeamId, currentPage, searchTerms
   }
 }
 
+export function* removeRelatedPersonSaga({ careTeamId, relatedPerson }) {
+  try {
+    yield call(removeRelatedPerson, careTeamId, relatedPerson);
+    yield put(removeRelatedPersonSuccess());
+    yield put(goBack());
+  } catch (error) {
+    yield put(showNotification('Failed to remove the related person.'));
+    yield put(removeRelatedPersonError(getErrorDetail(error)));
+  }
+}
+
 export function* watchSearchRelatedPersonsSaga() {
   yield takeLatest(SEARCH_RELATED_PERSONS, searchRelatedPersonsSaga);
+}
+
+export function* watchRemoveRelatedPersonSaga() {
+  yield takeLatest(REMOVE_RELATED_PERSON, removeRelatedPersonSaga);
 }
 
 /**
@@ -25,5 +47,6 @@ export function* watchSearchRelatedPersonsSaga() {
 export default function* rootSaga() {
   yield all([
     watchSearchRelatedPersonsSaga(),
+    watchRemoveRelatedPersonSaga(),
   ]);
 }

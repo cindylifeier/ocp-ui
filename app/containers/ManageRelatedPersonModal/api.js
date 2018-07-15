@@ -4,8 +4,9 @@ import { BASE_CARE_TEAMS_API_URL, getEndpoint } from 'utils/endpointService';
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
 
+const baseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
+
 export function searchRelatedPersons(careTeamId, pageNumber, searchTerms) {
-  const baseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
   const params = queryString({
     name: searchTerms,
     pageNumber,
@@ -13,4 +14,15 @@ export function searchRelatedPersons(careTeamId, pageNumber, searchTerms) {
   });
   const requestURL = `${baseEndpoint}/${careTeamId}/related-persons/search${params}`;
   return request(requestURL);
+}
+
+export function removeRelatedPerson(careTeamId, relatedPerson) {
+  const requestURL = `${baseEndpoint}/${careTeamId}/remove-related-person`;
+  return request(requestURL, {
+    method: 'PUT',
+    body: JSON.stringify(relatedPerson),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }
