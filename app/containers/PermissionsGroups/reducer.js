@@ -52,7 +52,7 @@ function permissionsGroupsReducer(state = initialState, action) {
         .set('loading', true);
     case SAVE_GROUP_SUCCESS: {
       const groups = state.get('groups').toJS();
-      if (action.group.id !== null) {
+      if (action.group.id !== undefined) {
         groups.map((group) => {
           if (group.id === action.group.id) {
             const i = groups.indexOf(group);

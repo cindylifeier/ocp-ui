@@ -25,7 +25,7 @@ import PermissionGroupsTable from 'components/PermissionGroupsTable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getGroups, getScopes, saveGroup, initializePermissionsGroup } from './actions';
+import { getGroups, getScopes, initializePermissionsGroup, saveGroup } from './actions';
 import { makeSelectGroups, makeSelectScopes } from './selectors';
 
 
@@ -91,9 +91,13 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
                 maxWidth={'md'}
                 open={this.state.isDialogOpen}
               >
-                <DialogTitle>
+                {!this.state.editingPermissionGroup && <DialogTitle>
                   <FormattedMessage {...messages.createPermissionGroup} />
-                </DialogTitle>
+                </DialogTitle>}
+                {this.state.editingPermissionGroup && <DialogTitle>
+                  <FormattedMessage {...messages.updatePermissionGroup} />
+                </DialogTitle>}
+
                 <DialogContent>
                   <AddPermissionGroupForm
                     initialValues={this.state.editingPermissionGroup}

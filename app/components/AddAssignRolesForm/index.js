@@ -35,6 +35,7 @@ function AddAssignRolesForm(props) {
       <Formik
         onSubmit={(values, actions) => {
           handleAssignRole(values, actions);
+          handleCloseDialog();
         }}
         initialValues={initialValues}
         render={({ isSubmitting, dirty, isValid }) => (
