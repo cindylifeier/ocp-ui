@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'ocpui.containers.PermissionsGroups.createPermissionGroup',
     defaultMessage: 'Create Permission Group',
   },
+  updatePermissionGroup: {
+    id: 'ocpui.containers.PermissionsGroups.updatePermissionGroup',
+    defaultMessage: 'Update Permission Group',
+  },
 });
