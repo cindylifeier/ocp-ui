@@ -1,15 +1,16 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import camelCase from 'lodash/camelCase';
 
 import { showNotification } from 'containers/Notification/actions';
 import { GET_GROUPS, GET_SCOPES, SAVE_GROUP } from './constants';
 import { createGroup, getGroups, getScopes, updateGroup } from './api';
 import {
-  getGroupsError,
-  getGroupsSuccess,
-  getScopesError,
-  getScopesSuccess,
-  saveGroupError,
-  saveGroupSuccess,
+getGroupsError,
+getGroupsSuccess,
+getScopesError,
+getScopesSuccess,
+saveGroupError,
+saveGroupSuccess,
 } from './actions';
 
 export function* getGroupsSaga() {
@@ -32,14 +33,14 @@ export function* getScopesSaga() {
 
 export function* saveGroupSaga(action) {
   try {
-    if (action.group.id !== null) {
+    if (action.group.id !== undefined) {
       yield call(updateGroup, action.group);
     } else {
       yield call(createGroup, action.group);
     }
     yield put(showNotification(`Successfully ${getNotificationAction(action.group)} group.`));
     yield call(action.handleSubmitting);
-    yield put(saveGroupSuccess(action.group));
+    yield put(saveGroupSuccess(addRolePrefix(action.group)));
   } catch (error) {
     yield put(saveGroupError(error));
     yield put(showNotification(`Failed to ${getNotificationAction(action.group)} group: ${getErrorDetail(error, action.group.name)}`));
@@ -67,6 +68,11 @@ function getErrorDetail(err, groupName) {
     errorDetail = ' Unknown server error.';
   }
   return errorDetail;
+}
+
+function addRolePrefix(group) {
+  const { id, displayName, description, scopes } = group;
+  return { id, displayName: 'ocp.role.'.concat(camelCase(displayName)), description, scopes };
 }
 
 

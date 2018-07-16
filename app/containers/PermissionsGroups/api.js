@@ -26,7 +26,7 @@ export function createGroup(group) {
 export function updateGroup(group) {
   return request(`${baseGroupsEndpoint}/${group.id}`, {
     method: 'PUT',
-    body: JSON.stringify(group),
+    body: JSON.stringify(addRolePrefix(group)),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -34,8 +34,8 @@ export function updateGroup(group) {
 }
 
 function addRolePrefix(group) {
-  const { displayName, description, scopes } = group;
-  return { displayName: 'ocp.role.'.concat(camelCase(displayName)), description, scopes };
+  const { id, displayName, description, scopes } = group;
+  return { id, displayName: 'ocp.role.'.concat(camelCase(displayName)), description, scopes };
 }
 
 

@@ -6,17 +6,18 @@
 
 import { fromJS } from 'immutable';
 import find from 'lodash/find';
+import pull from 'lodash/pull';
 
 import {
-  ASSIGN_USER_ROLE_ERROR,
-  ASSIGN_USER_ROLE_SUCCESS,
-  GET_GROUPS,
-  GET_GROUPS_ERROR,
-  GET_GROUPS_SUCCESS,
-  GET_USERS,
-  GET_USERS_ERROR,
-  GET_USERS_SUCCESS,
-  INITIALIZE_PERMISSION_ASSIGNMENT,
+ASSIGN_USER_ROLE_ERROR,
+ASSIGN_USER_ROLE_SUCCESS,
+GET_GROUPS,
+GET_GROUPS_ERROR,
+GET_GROUPS_SUCCESS,
+GET_USERS,
+GET_USERS_ERROR,
+GET_USERS_SUCCESS,
+INITIALIZE_PERMISSION_ASSIGNMENT,
 } from './constants';
 
 const initialState = fromJS({
@@ -44,10 +45,12 @@ function permissionAssignmentsReducer(state = initialState, action) {
     case GET_GROUPS:
       return state
         .set('loading', true);
-    case GET_GROUPS_SUCCESS:
+    case GET_GROUPS_SUCCESS: {
+      const patientGroup = find(action.groups, { displayName: 'ocp.role.patient' });
       return state
         .set('loading', false)
-        .set('groups', fromJS((action.groups) || []));
+        .set('groups', fromJS(pull(action.groups, patientGroup) || []));
+    }
     case GET_GROUPS_ERROR:
       return state
         .set('loading', false)
