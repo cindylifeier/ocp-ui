@@ -274,7 +274,7 @@ class ManagePractitionerForm extends React.Component {
                   <StyledRaisedButton
                     fullWidth
                     type="submit"
-                    disabled={!dirty || isSubmitting || !isValid || !this.hasEmailContact()}
+                    disabled={!dirty || isSubmitting || !isValid || !this.hasEmailContact() || !this.hasTelephoneContact()}
                   >
                     Save
                   </StyledRaisedButton>

@@ -37,7 +37,7 @@ export default defineMessages({
     },
     phoneContact: {
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.phoneContact',
-      defaultMessage: 'Must have at least one Telephone contact.',
+      defaultMessage: 'Must have at least one telephone contact.',
     },
   },
   hintText: {
