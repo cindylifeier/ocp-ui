@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   manageRelatedPersonDialogTitle: {
     id: 'ocpui.components.ManageRelatedPersonDialog.manageRelatedPersonDialogTitle',
-    defaultMessage: 'Manage Related Person',
+    defaultMessage: 'Manage Related Person in CareTeam',
   },
   cancelButton: {
     id: 'ocpui.components.ManageRelatedPersonDialog.cancelButton',

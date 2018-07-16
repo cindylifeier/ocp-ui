@@ -79,7 +79,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
   }
 
   render() {
-    const { dialogOpen, onDialogClose, participantRoles, relatedPersons } = this.props;
+    const { dialogOpen, onDialogClose, participantRoles, careTeam, relatedPersons } = this.props;
     const relatedPersonsData = {
       loading: relatedPersons.loading,
       submitting: relatedPersons.submitting,
@@ -96,6 +96,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
         onDialogClose={onDialogClose}
         relatedPersonsData={relatedPersonsData}
         participantRoles={participantRoles}
+        careTeamName={careTeam.name}
         onAddRelatedPerson={this.handleAddRelatedPerson}
         onRemoveRelatedPerson={this.handleRemoveRelatedPerson}
         onRelatedPersonsSearch={this.handleRelatedPersonsSearch}
