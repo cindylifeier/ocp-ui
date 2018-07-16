@@ -8,10 +8,31 @@ import React from 'react';
 import { RadioButton, RadioButtonGroup as MUIRadioButtonGroup } from 'material-ui';
 import PropTypes from 'prop-types';
 import { Field } from 'formik';
+import { EMPTY_STRING } from 'containers/App/constants';
 
 
 function RadioButtonGroupBridge(props) {
-  const { field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, children, ...rest } = props;
+  const { field: { name, value }, form: { setFieldValue, setFieldTouched, errors, initialValues }, children, ...rest } = props;
+  const initialValue = initialValues[name];
+  // if initial value exists
+  if (initialValue && typeof initialValue === 'string' && initialValue !== EMPTY_STRING) {
+    // make it a controlled component
+    return (
+      <MUIRadioButtonGroup
+        name={name}
+        value={value}
+        defaultSelected={initialValue}
+        onChange={(event, newValue) => {
+          setFieldValue(name, newValue);
+        }}
+        onClick={() => setFieldTouched(name)}
+        errorText={errors[name]}
+        {...rest}
+      >
+        {children}
+      </MUIRadioButtonGroup>
+    );
+  }
   return (
     <MUIRadioButtonGroup
       name={name}

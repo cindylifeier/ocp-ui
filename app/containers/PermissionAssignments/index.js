@@ -7,33 +7,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
+import { FormattedMessage } from 'react-intl';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import StyledDialog from 'components/StyledDialog';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { FieldArray } from 'formik';
-import Dialog from 'material-ui/Dialog';
 import PermissionAssignmentTable from 'components/PermissionAssignmentTable';
-import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
-import teal from 'material-ui-next/colors/teal';
-import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddAssignRolesForm from 'components/AddAssignRolesForm';
-import makeSelectPermissionAssignments from './selectors';
+import messages from './messages';
+import { makeSelectUsers, makeSelectGroups } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import { getUsers, getGroups, initializePermissionAssignment, assignUserRole } from './actions';
 
 export class PermissionAssignments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       isDialogOpen: false,
-      editingAssignRoles: null,
+      selectedUser: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEditAssignRoles = this.handleEditAssignRoles.bind(this);
+    this.handleAssignRole = this.handleAssignRole.bind(this);
+  }
+  componentWillMount() {
+    this.props.initializePermissionAssignment();
+  }
+
+  componentDidMount() {
+    this.props.getUsers();
+    this.props.getGroups();
   }
 
   handleOpenDialog() {
@@ -47,57 +56,77 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
     });
   }
 
-  handleEditAssignRoles(index, permissionGroup) {
+  handleEditAssignRoles(user) {
     this.setState((prevState) => ({
       isDialogOpen: !prevState.isDialogOpen,
-      editingAssignRoles: { index, permissionGroup },
+      selectedUser: user,
     }));
   }
 
+  handleAssignRole(values, actions) {
+    const userId = this.state.selectedUser.id;
+    const groupId = values.role;
+    this.props.onAssignRole(userId, groupId, () => {
+      actions.setSubmitting(false);
+    });
+  }
+
   render() {
+    const { users, groups, organization } = this.props;
     return (
       <div>
-        <div>
-          <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
-            <StyledAddCircleIcon color={teal['500']} />
-            <FormattedMessage {...messages.assignRoles} />
-          </AddNewItemButton>
-        </div>
         <FieldArray
           name="assignRoles"
           render={() => (
             <div>
-              <Dialog
-                modal={false}
+              <StyledDialog
+                fullWidth
                 open={this.state.isDialogOpen}
-                onRequestClose={this.handleCloseDialog}
-                title="Assign Roles"
               >
-                <AddAssignRolesForm
-                  initialValues={this.state.editingAssignRoles}
-                  handleCloseDialog={this.handleCloseDialog}
-                />
-              </Dialog>
+                <DialogTitle>
+                  <FormattedMessage {...messages.assignRole} />
+                </DialogTitle>
+                <DialogContent>
+                  <AddAssignRolesForm
+                    user={this.state.selectedUser}
+                    handleCloseDialog={this.handleCloseDialog}
+                    handleAssignRole={this.handleAssignRole}
+                    organization={organization}
+                    groups={groups}
+                  />
+                </DialogContent>
+              </StyledDialog>
             </div>
           )}
         />
-        <PermissionAssignmentTable />
+        <PermissionAssignmentTable users={users} handleEditAssignRoles={this.handleEditAssignRoles} />
       </div>
     );
   }
 }
 
 PermissionAssignments.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
+  getGroups: PropTypes.func.isRequired,
+  onAssignRole: PropTypes.func.isRequired,
+  initializePermissionAssignment: PropTypes.func.isRequired,
+  users: PropTypes.array,
+  groups: PropTypes.array,
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  permissionassignments: makeSelectPermissionAssignments(),
+  users: makeSelectUsers(),
+  groups: makeSelectGroups(),
+  organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getUsers: () => dispatch(getUsers()),
+    getGroups: () => dispatch(getGroups()),
+    onAssignRole: (userId, groupId, handleSubmitting) => dispatch(assignUserRole(userId, groupId, handleSubmitting)),
+    initializePermissionAssignment: () => dispatch(initializePermissionAssignment()),
   };
 }
 

@@ -25,8 +25,8 @@ export default defineMessages({
     id: 'ocpui.components.PermissionGroupsTable.viewDetails',
     defaultMessage: 'View Details',
   },
-  assignRoles: {
-    id: 'ocpui.components.PermissionGroupsTable.assignRoles',
-    defaultMessage: 'Assign Roles',
+  assignRole: {
+    id: 'ocpui.components.PermissionGroupsTable.assignRole',
+    defaultMessage: 'Assign Role',
   },
 });
