@@ -68,6 +68,14 @@ export default defineMessages({
     id: 'ocpui.components.ManageRelatedPersonTable.noRelatedPersonFoundText',
     defaultMessage: 'No related person found.',
   },
+  alertDialogTitle: {
+    id: 'ocpui.components.ManageRelatedPersonTable.alertDialogTitle',
+    defaultMessage: 'Remove this related person from care team?',
+  },
+  okButton: {
+    id: 'ocpui.components.ManageRelatedPersonDialog.okButton',
+    defaultMessage: 'OK',
+  },
   addButton: {
     id: 'ocpui.components.AddRelatedPersonTableRow.addButton',
     defaultMessage: 'Add',
