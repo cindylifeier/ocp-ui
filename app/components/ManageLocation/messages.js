@@ -90,8 +90,8 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.identifierValueHintText',
     defaultMessage: 'Identifier Value',
   },
-  identifierVlueFloatingLabelText: {
-    id: 'ocpui.components.ManageLocation.identifierVlueFloatingLabelText',
+  identifierValueFloatingLabelText: {
+    id: 'ocpui.components.ManageLocation.identifierValueFloatingLabelText',
     defaultMessage: 'Identifier Value',
   },
   saveLocationError: {
