@@ -85,6 +85,11 @@ function ManagePatientForm(props) {
     const emailContacts = values && values.telecoms && values.telecoms.filter((entry) => entry.system === EMAIL);
     return emailContacts && emailContacts.length > 0;
   }
+
+  function hasEpisodeOfCare() {
+    return values && values.episodeOfCares && values.episodeOfCares.length > 0;
+  }
+
   return (
     <Form>
       <ManagePatientFormGrid>
@@ -216,9 +221,9 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
-          {values && values.telecoms &&
-          <ErrorText>{hasEmailContact() ?
-            '' : <FormattedMessage {...messages.validation.emailContact} />}
+          { hasEmailContact() ? '' :
+          <ErrorText>
+            <FormattedMessage {...messages.validation.emailContact} />
           </ErrorText>
           }
         </Cell>
@@ -227,9 +232,9 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="episodeOfCares">
           <AddEpisodeOfCare {...addEpisodeOfCareProps} />
-          {values && values.episodeOfCares && (values.episodeOfCares.length === 0) &&
-          <ErrorText>{hasEmailContact() ?
-            '' : <FormattedMessage {...messages.validation.noEpisodeOfCares} />}
+          { hasEpisodeOfCare() ? '' :
+          <ErrorText>
+            <FormattedMessage {...messages.validation.noEpisodeOfCares} />
           </ErrorText>
           }
         </Cell>
@@ -242,7 +247,7 @@ function ManagePatientForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact()}
+                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact() || !hasEpisodeOfCare()}
               >
                 Save
               </StyledRaisedButton>
