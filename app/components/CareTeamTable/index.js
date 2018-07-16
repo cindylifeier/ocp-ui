@@ -9,20 +9,40 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import sizeMeHOC from 'utils/SizeMeUtils';
+import ManageRelatedPersonModal from 'containers/ManageRelatedPersonModal';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
-import {
-  EXPANDED_TABLE_COLUMNS,
-  SUMMARIZED_TABLE_COLUMNS,
-} from 'components/CareTeamTable/constants';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 import messages from './messages';
 
-function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded }) {
-  function createTableHeaders() {
+class CareTeamTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialogOpen: false,
+      careTeam: null,
+    };
+    this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+  }
+
+  handleOpenDialog(careTeam) {
+    this.setState({
+      dialogOpen: true,
+      careTeam,
+    });
+  }
+
+  handleCloseDialog() {
+    this.setState({ dialogOpen: false });
+  }
+
+  renderTableHeaders() {
+    const { relativeTop, isExpanded } = this.props;
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
@@ -34,7 +54,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
         {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderParticipantsAndRoles} /></TableHeaderColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStartDate} /></TableHeaderColumn>
         }
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderEndDate} /></TableHeaderColumn>
@@ -46,8 +66,20 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
     );
   }
 
-  function createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems) {
+  renderTableRows(careTeam) {
+    const { manageCareTeamUrl, isExpanded, isPatient } = this.props;
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+    const { id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay } = careTeam;
+    const menuItems = isPatient ? [{
+      primaryText: <FormattedMessage {...messages.menuItemManageRelatedPerson} />,
+      onClick: () => this.handleOpenDialog(careTeam),
+    }] : [{
+      primaryText: <FormattedMessage {...messages.menuItemEdit} />,
+      linkTo: {
+        pathname: `${manageCareTeamUrl}/${id}`,
+        search: `?patientId=${subjectId}`,
+      },
+    }];
     return (
       <TableRow key={id} columns={columns}>
         <TableRowColumn>{name}</TableRowColumn>
@@ -65,7 +97,7 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
           }
         </TableRowColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableRowColumn>{startDate}</TableRowColumn>
         }
         <TableRowColumn>{endDate}</TableRowColumn>
@@ -78,29 +110,31 @@ function CareTeamTable({ elements, relativeTop, manageCareTeamUrl, isExpanded })
       </TableRow>
     );
   }
-  return (
-    <div>
-      <Table>
-        {createTableHeaders()}
-        {!isEmpty(elements) && elements.map(({ id, name, statusDisplay, categoryDisplay, participants, subjectId, startDate, endDate, reasonDisplay }) => {
-          const menuItems = [{
-            primaryText: <FormattedMessage {...messages.menuItemEdit} />,
-            linkTo: {
-              pathname: `${manageCareTeamUrl}/${id}`,
-              search: `?patientId=${subjectId}`,
-            },
-          }, {
-            primaryText: <FormattedMessage {...messages.menuItemRemove} />,
-            disabled: true,
-          }];
-          return createTableRows(id, name, statusDisplay, categoryDisplay, participants, startDate, endDate, reasonDisplay, menuItems);
-        })}
-      </Table>
-    </div>
-  );
+
+  render() {
+    const { elements, isPatient } = this.props;
+    const renderUnMountableModal = this.state.dialogOpen ?
+      (<ManageRelatedPersonModal
+        dialogOpen={this.state.dialogOpen}
+        onDialogClose={this.handleCloseDialog}
+        careTeam={this.state.careTeam}
+      />) : null;
+    return (
+      <div>
+        <Table>
+          {this.renderTableHeaders()}
+          {!isEmpty(elements) && elements.map((careTeam) => this.renderTableRows(careTeam))}
+        </Table>
+        {isPatient && this.state.careTeam &&
+        renderUnMountableModal
+        }
+      </div>
+    );
+  }
 }
 
 CareTeamTable.propTypes = {
+  isPatient: PropTypes.bool.isRequired,
   isExpanded: PropTypes.bool,
   relativeTop: PropTypes.number.isRequired,
   manageCareTeamUrl: PropTypes.string.isRequired,

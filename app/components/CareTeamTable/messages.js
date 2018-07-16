@@ -42,8 +42,16 @@ export default defineMessages({
     id: 'ocpui.components.CareTeamTable.menuItemEdit',
     defaultMessage: 'Edit',
   },
-  menuItemRemove: {
-    id: 'ocpui.components.CareTeamTable.menuItemRemove',
-    defaultMessage: 'Remove',
+  menuItemManageRelatedPerson: {
+    id: 'ocpui.components.CareTeamTable.menuItemManageRelatedPerson',
+    defaultMessage: 'Manage Related Person',
+  },
+  manageRelatedPersonDialogTitle: {
+    id: 'ocpui.components.CareTeamTable.manageRelatedPersonDialogTitle',
+    defaultMessage: 'Manage Related Person',
+  },
+  cancelButton: {
+    id: 'ocpui.components.CareTeamTable.cancelButton',
+    defaultMessage: 'Cancel',
   },
 });
