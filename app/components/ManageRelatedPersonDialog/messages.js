@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   manageRelatedPersonDialogTitle: {
     id: 'ocpui.components.ManageRelatedPersonDialog.manageRelatedPersonDialogTitle',
-    defaultMessage: 'Manage Related Person',
+    defaultMessage: 'Manage Related Person in CareTeam',
   },
   cancelButton: {
     id: 'ocpui.components.ManageRelatedPersonDialog.cancelButton',
@@ -67,6 +67,14 @@ export default defineMessages({
   noRelatedPersonFoundText: {
     id: 'ocpui.components.ManageRelatedPersonTable.noRelatedPersonFoundText',
     defaultMessage: 'No related person found.',
+  },
+  alertDialogTitle: {
+    id: 'ocpui.components.ManageRelatedPersonTable.alertDialogTitle',
+    defaultMessage: 'Remove this related person from care team?',
+  },
+  okButton: {
+    id: 'ocpui.components.ManageRelatedPersonDialog.okButton',
+    defaultMessage: 'OK',
   },
   addButton: {
     id: 'ocpui.components.AddRelatedPersonTableRow.addButton',
