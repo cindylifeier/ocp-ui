@@ -29,8 +29,7 @@ import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
-import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS } from './constants';
-
+import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS, EMAIL, PHONE } from './constants';
 
 class ManagePractitionerForm extends React.Component {
 
@@ -43,6 +42,8 @@ class ManagePractitionerForm extends React.Component {
     this.state = { ...ManagePractitionerForm.initialState };
     this.handleDialogCallback = this.handleDialogCallback.bind(this);
     this.handleAddOrganizations = this.handleAddOrganizations.bind(this);
+    this.hasEmailContact = this.hasEmailContact.bind(this);
+    this.hasTelephoneContact = this.hasTelephoneContact.bind(this);
   }
 
   handleDialogCallback() {
@@ -52,6 +53,18 @@ class ManagePractitionerForm extends React.Component {
 
   handleAddOrganizations() {
     this.setState({ searchOrganizationDialogOpen: true });
+  }
+
+  hasEmailContact() {
+    const { values: { telecoms } } = this.props;
+    const emailContacts = telecoms && telecoms.filter((entry) => entry.system === EMAIL);
+    return emailContacts && emailContacts.length > 0;
+  }
+
+  hasTelephoneContact() {
+    const { values: { telecoms } } = this.props;
+    const phoneContacts = telecoms && telecoms.filter((entry) => entry.system === PHONE);
+    return phoneContacts && phoneContacts.length > 0;
   }
 
   render() {
@@ -130,6 +143,16 @@ class ManagePractitionerForm extends React.Component {
             </Cell>
             <Cell area="contacts">
               <AddMultipleTelecoms {...addTelecomsProps} />
+              { this.hasEmailContact() ? '' :
+              <ErrorText>
+                <FormattedMessage {...messages.validation.emailContact} /><br />
+              </ErrorText>
+              }
+              { this.hasTelephoneContact() ? '' :
+              <ErrorText>
+                <FormattedMessage {...messages.validation.phoneContact} />
+              </ErrorText>
+              }
             </Cell>
             <Cell area="associateOrganizationSection">
               <div>
@@ -251,7 +274,7 @@ class ManagePractitionerForm extends React.Component {
                   <StyledRaisedButton
                     fullWidth
                     type="submit"
-                    disabled={!dirty || isSubmitting || !isValid}
+                    disabled={!dirty || isSubmitting || !isValid || !this.hasEmailContact() || !this.hasTelephoneContact()}
                   >
                     Save
                   </StyledRaisedButton>
