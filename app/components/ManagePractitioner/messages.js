@@ -31,6 +31,14 @@ export default defineMessages({
       id: 'ocpui.components.ManagePractitioner.manageForm.validation.minLengthAssociateOrganization',
       defaultMessage: 'Minimum {minimumOrganization} associate organization required',
     },
+    emailContact: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.validation.emailContact',
+      defaultMessage: 'Must have at least one email contact.',
+    },
+    phoneContact: {
+      id: 'ocpui.components.ManagePractitioner.manageForm.validation.phoneContact',
+      defaultMessage: 'Must have at least one Telephone contact.',
+    },
   },
   hintText: {
     firstName: {
