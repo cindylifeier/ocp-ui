@@ -76,8 +76,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
 
   handleRemoveRelatedPerson(relatedPerson) {
     const careTeamId = this.props.careTeam.id;
-    this.props.removeRelatedPerson(careTeamId, relatedPerson);
-    this.props.onDialogClose();
+    this.props.removeRelatedPerson(careTeamId, relatedPerson, () => this.props.onDialogClose());
   }
 
   render() {
@@ -171,7 +170,7 @@ function mapDispatchToProps(dispatch) {
     getLookUp: () => dispatch(getLookupsAction([PARTICIPANTROLE])),
     searchRelatedPersons: (careTeamId, currentPage, searchTerms) => dispatch(searchRelatedPersons(careTeamId, currentPage, searchTerms)),
     addRelatedPerson: (careTeamId, relatedPerson, handleSubmitting) => dispatch(addRelatedPerson(careTeamId, relatedPerson, handleSubmitting)),
-    removeRelatedPerson: (careTeamId, relatedPerson) => dispatch(removeRelatedPerson(careTeamId, relatedPerson)),
+    removeRelatedPerson: (careTeamId, relatedPerson, handleCloseDialog) => dispatch(removeRelatedPerson(careTeamId, relatedPerson, handleCloseDialog)),
   };
 }
 

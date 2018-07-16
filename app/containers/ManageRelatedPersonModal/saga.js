@@ -33,12 +33,14 @@ export function* addRelatedPersonSaga({ careTeamId, relatedPerson, handleSubmitt
   }
 }
 
-export function* removeRelatedPersonSaga({ careTeamId, relatedPerson }) {
+export function* removeRelatedPersonSaga({ careTeamId, relatedPerson, handleCloseDialog }) {
   try {
     yield call(removeRelatedPerson, careTeamId, relatedPerson);
     yield put(removeRelatedPersonSuccess());
+    yield call(handleCloseDialog);
   } catch (error) {
     yield put(showNotification('Failed to remove the related person.'));
+    yield call(handleCloseDialog);
     yield put(removeRelatedPersonError(getErrorDetail(error)));
   }
 }

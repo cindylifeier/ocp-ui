@@ -54,11 +54,12 @@ export function addRelatedPersonError(error) {
   };
 }
 
-export function removeRelatedPerson(careTeamId, relatedPerson) {
+export function removeRelatedPerson(careTeamId, relatedPerson, handleCloseDialog) {
   return {
     type: REMOVE_RELATED_PERSON,
     careTeamId,
     relatedPerson,
+    handleCloseDialog,
   };
 }
 
