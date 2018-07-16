@@ -212,7 +212,9 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           allowedAddNewItemRoles={ORGANIZATION_ADMIN_ROLE_CODE}
           onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
-          showFilter={false}
+          showFilterIcon={false}
+          showUploadIcon={false}
+          showSearchIcon={false}
           showSearchBarByDefault={showSearchBarByDefault}
           hideToolbar={hideToolbar}
         />
