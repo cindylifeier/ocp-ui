@@ -22,13 +22,15 @@ export function* searchRelatedPersonsSaga({ careTeamId, currentPage, searchTerms
   }
 }
 
-export function* addRelatedPersonSaga({ careTeamId, relatedPerson, handleSubmitting }) {
+export function* addRelatedPersonSaga({ careTeamId, relatedPerson, handleSubmitting, handleCloseDialog }) {
   try {
     yield call(addRelatedPerson, careTeamId, relatedPerson);
     yield call(handleSubmitting);
+    yield call(handleCloseDialog);
   } catch (error) {
     yield put(showNotification('Failed to add the related person.'));
     yield call(handleSubmitting);
+    yield call(handleCloseDialog);
     yield put(addRelatedPersonError(getErrorDetail(error)));
   }
 }

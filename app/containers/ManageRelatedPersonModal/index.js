@@ -70,8 +70,7 @@ export class ManageRelatedPersonModal extends React.Component { // eslint-disabl
       endDate: formValue.endDate.toLocaleDateString(),
       roleCode: formValue.roleCode,
     };
-    this.props.addRelatedPerson(careTeamId, merge(relatedPerson, formData), () => actions.setSubmitting(false));
-    this.props.onDialogClose();
+    this.props.addRelatedPerson(careTeamId, merge(relatedPerson, formData), () => actions.setSubmitting(false), () => this.props.onDialogClose());
   }
 
   handleRemoveRelatedPerson(relatedPerson) {
@@ -169,7 +168,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookUp: () => dispatch(getLookupsAction([PARTICIPANTROLE])),
     searchRelatedPersons: (careTeamId, currentPage, searchTerms) => dispatch(searchRelatedPersons(careTeamId, currentPage, searchTerms)),
-    addRelatedPerson: (careTeamId, relatedPerson, handleSubmitting) => dispatch(addRelatedPerson(careTeamId, relatedPerson, handleSubmitting)),
+    addRelatedPerson: (careTeamId, relatedPerson, handleSubmitting, handleCloseDialog) => dispatch(addRelatedPerson(careTeamId, relatedPerson, handleSubmitting, handleCloseDialog)),
     removeRelatedPerson: (careTeamId, relatedPerson, handleCloseDialog) => dispatch(removeRelatedPerson(careTeamId, relatedPerson, handleCloseDialog)),
   };
 }

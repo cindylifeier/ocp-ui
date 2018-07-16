@@ -38,12 +38,13 @@ export function searchRelatedPersonsError(error) {
   };
 }
 
-export function addRelatedPerson(careTeamId, relatedPerson, handleSubmitting) {
+export function addRelatedPerson(careTeamId, relatedPerson, handleSubmitting, handleCloseDialog) {
   return {
     type: ADD_RELATED_PERSON,
     careTeamId,
     relatedPerson,
     handleSubmitting,
+    handleCloseDialog,
   };
 }
 
