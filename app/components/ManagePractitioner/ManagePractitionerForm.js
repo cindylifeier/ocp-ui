@@ -145,7 +145,7 @@ class ManagePractitionerForm extends React.Component {
               <AddMultipleTelecoms {...addTelecomsProps} />
               { this.hasEmailContact() ? '' :
               <ErrorText>
-                <FormattedMessage {...messages.validation.emailContact} />
+                <FormattedMessage {...messages.validation.emailContact} /><br />
               </ErrorText>
               }
               { this.hasTelephoneContact() ? '' :
