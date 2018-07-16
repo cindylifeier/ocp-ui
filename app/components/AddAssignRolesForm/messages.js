@@ -1,9 +1,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  addButton: {
-    id: 'ocpui.components.AddAssignRolesForm.addButton',
-    defaultMessage: 'Add',
+  assignButton: {
+    id: 'ocpui.components.AddAssignRolesForm.assignButton',
+    defaultMessage: 'Assign',
   },
   cancelButton: {
     id: 'ocpui.components.AddAssignRolesForm.cancelButton',

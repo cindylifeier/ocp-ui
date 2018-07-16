@@ -11,6 +11,7 @@ const StyledList = styled(List).attrs({
   style: {
     height: '330px',
     border: '1px solid #a9a9a9',
+    overflow: 'auto',
   },
 })('');
 

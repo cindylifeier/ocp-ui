@@ -124,7 +124,10 @@ ShallowWrapper {
             ]
           }
           onSize={[Function]}
+          showFilterIcon={false}
           showSearchIcon={false}
+          showSettingIcon={false}
+          showUploadIcon={false}
         />,
         <ContentSection__ContentSection
           fontSize="12px"
@@ -235,7 +238,10 @@ ShallowWrapper {
             "CAREMNGR",
           ],
           "onSize": [Function],
+          "showFilterIcon": false,
           "showSearchIcon": false,
+          "showSettingIcon": false,
+          "showUploadIcon": false,
         },
         "ref": null,
         "rendered": null,
@@ -726,7 +732,10 @@ ShallowWrapper {
               ]
             }
             onSize={[Function]}
+            showFilterIcon={false}
             showSearchIcon={false}
+            showSettingIcon={false}
+            showUploadIcon={false}
           />,
           <ContentSection__ContentSection
             fontSize="12px"
@@ -837,7 +846,10 @@ ShallowWrapper {
               "CAREMNGR",
             ],
             "onSize": [Function],
+            "showFilterIcon": false,
             "showSearchIcon": false,
+            "showSettingIcon": false,
+            "showUploadIcon": false,
           },
           "ref": null,
           "rendered": null,

@@ -9,22 +9,25 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Dialog from 'material-ui/Dialog';
 import { compose } from 'redux';
 import { FieldArray } from 'formik';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import teal from 'material-ui-next/colors/teal';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import AddPermissionGroupForm from 'components/AddPermissionGroupForm';
+import StyledDialog from 'components/StyledDialog';
 
 import PermissionGroupsTable from 'components/PermissionGroupsTable';
-import makeSelectPermissionsGroups from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { getGroups, getScopes, initializePermissionsGroup, saveGroup } from './actions';
+import { makeSelectGroups, makeSelectScopes } from './selectors';
+
 
 export class PermissionsGroups extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -36,6 +39,13 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEditPermissionGroup = this.handleEditPermissionGroup.bind(this);
+    this.handleSaveGroup = this.handleSaveGroup.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.initializePermissionsGroup();
+    this.props.getGroups();
+    this.props.getScopes();
   }
 
   handleOpenDialog() {
@@ -49,14 +59,22 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
     });
   }
 
-  handleEditPermissionGroup(index, permissionGroup) {
+  handleEditPermissionGroup(permissionGroup) {
     this.setState((prevState) => ({
       isDialogOpen: !prevState.isDialogOpen,
-      editingPermissionGroup: { index, permissionGroup },
+      editingPermissionGroup: permissionGroup,
     }));
   }
 
+
+  handleSaveGroup(group, actions) {
+    this.props.onSaveGroup(group, () => {
+      actions.setSubmitting(false);
+    });
+  }
+
   render() {
+    const { groups, scopes } = this.props;
     return (
       <div>
         <div>
@@ -67,39 +85,63 @@ export class PermissionsGroups extends React.Component { // eslint-disable-line 
         </div>
         <FieldArray
           name="permissionGroup"
-          render={() => (
+          render={(arrayHelpers) => (
             <div>
-              <Dialog
-                modal={false}
+              <StyledDialog
+                maxWidth={'md'}
                 open={this.state.isDialogOpen}
-                onRequestClose={this.handleCloseDialog}
-                title="Create Permission Group"
               >
-                <AddPermissionGroupForm
-                  initialValues={this.state.editingPermissionGroup}
-                  handleCloseDialog={this.handleCloseDialog}
-                />
-              </Dialog>
+                {!this.state.editingPermissionGroup && <DialogTitle>
+                  <FormattedMessage {...messages.createPermissionGroup} />
+                </DialogTitle>}
+                {this.state.editingPermissionGroup && <DialogTitle>
+                  <FormattedMessage {...messages.updatePermissionGroup} />
+                </DialogTitle>}
+
+                <DialogContent>
+                  <AddPermissionGroupForm
+                    initialValues={this.state.editingPermissionGroup}
+                    handleCloseDialog={this.handleCloseDialog}
+                    handleSaveGroup={this.handleSaveGroup}
+                    scopes={scopes}
+                  />
+                </DialogContent>
+              </StyledDialog>
+              <PermissionGroupsTable
+                arrayHelpers={arrayHelpers}
+                groups={groups}
+                handleEditPermissionGroup={this.handleEditPermissionGroup}
+              />
             </div>
           )}
         />
-        <PermissionGroupsTable />
       </div>
     );
   }
 }
 
 PermissionsGroups.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getGroups: PropTypes.func.isRequired,
+  initializePermissionsGroup: PropTypes.func.isRequired,
+  onSaveGroup: PropTypes.func.isRequired,
+  getScopes: PropTypes.func.isRequired,
+  groups: PropTypes.array,
+  scopes: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  permissionsgroups: makeSelectPermissionsGroups(),
+  groups: makeSelectGroups(),
+  scopes: makeSelectScopes(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    initializePermissionsGroup: () => dispatch(initializePermissionsGroup()),
+    getGroups: () => dispatch(getGroups()),
+    getScopes: () => dispatch(getScopes()),
+    onSaveGroup: (group, handleSubmitting) => {
+      dispatch(saveGroup(group, handleSubmitting));
+    },
   };
 }
 

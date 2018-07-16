@@ -100,20 +100,6 @@ function ManagePatientForm(props) {
               </InlineLabel>
               <span id={ORGANIZATION_NAME_HTML_ID}>{organization && organization.name}</span>
             </InfoSection>
-            <SelectField
-              fullWidth
-              name="careManager"
-              hintText={<FormattedMessage {...messages.hintText.careManager} />}
-              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.careManager} />}
-            >
-              {practitioners && practitioners.map((aPractitioner) =>
-                (<MenuItem
-                  key={uniqueId()}
-                  value={aPractitioner.reference}
-                  primaryText={aPractitioner.display}
-                />),
-              )}
-            </SelectField>
           </Grid>
         </Cell>
         <Cell area="firstName">
@@ -241,6 +227,11 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="episodeOfCares">
           <AddEpisodeOfCare {...addEpisodeOfCareProps} />
+          {values && values.episodeOfCares && (values.episodeOfCares.length === 0) &&
+          <ErrorText>{hasEmailContact() ?
+            '' : <FormattedMessage {...messages.validation.noEpisodeOfCares} />}
+          </ErrorText>
+          }
         </Cell>
         <Cell area="coverages">
           <AddCoverages {...addCoverageProps} />

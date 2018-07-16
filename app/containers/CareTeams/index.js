@@ -154,6 +154,9 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           addNewItem={addNewItem}
           allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           showSearchIcon={false}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
           onSize={this.handlePanelResize}
         />
         <ContentSection>
