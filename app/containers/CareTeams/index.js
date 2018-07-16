@@ -22,9 +22,11 @@ import {
   CARE_MANAGER_ROLE_CODE,
   CARETEAMSTATUS,
   DEFAULT_START_PAGE_NUMBER,
-  MANAGE_CARE_TEAM_URL, ORGANIZATION_ADMIN_ROLE_CODE,
+  MANAGE_CARE_TEAM_URL,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
 } from 'containers/App/constants';
-import { makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import PanelToolbar from 'components/PanelToolbar';
@@ -110,6 +112,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
   calculateCheckboxColumns({ length }) {
     return `100px repeat(${length < 1 ? 0 : length - 1},110px) 180px 1fr`;
   }
+
   renderFilter(careTeamStatuses, statusList) {
     const filteredCareTeamStatuses = careTeamStatuses.filter(({ code }) => DEFAULT_CARE_TEAM_STATUS_CODE !== code);
     return (
@@ -134,7 +137,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
-    const { careTeams: { loading, data, statusList }, careTeamStatuses, patient } = this.props;
+    const { careTeams: { loading, data, statusList }, careTeamStatuses, patient, user } = this.props;
     let patientName = null;
     if (patient) {
       const { name: [{ firstName, lastName }] } = patient;
@@ -144,6 +147,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       linkUrl: MANAGE_CARE_TEAM_URL,
     };
+    const isPatient = user.role === PATIENT_ROLE_CODE;
     return (
       <Card>
         <PanelToolbar
@@ -187,26 +191,27 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           <NoResultsFoundText>No care teams found.</NoResultsFoundText>}
 
           {!isEmpty(data) && !isEmpty(data.elements) &&
-            <CenterAlign>
-              <CareTeamTable
-                relativeTop={this.state.panelHeight + this.state.filterHeight}
-                elements={data.elements}
-                manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
-                onSize={this.onSize}
-                isExpanded={this.state.isExpanded}
-              />
-              <CenterAlignedUltimatePagination
-                currentPage={data.currentPage}
-                totalPages={data.totalNumberOfPages}
-                onChange={this.handlePageClick}
-              />
-              <RecordsRange
-                currentPage={data.currentPage}
-                totalPages={data.totalNumberOfPages}
-                totalElements={data.totalElements}
-                currentPageSize={data.currentPageSize}
-              />
-            </CenterAlign>
+          <CenterAlign>
+            <CareTeamTable
+              isPatient={isPatient}
+              relativeTop={this.state.panelHeight + this.state.filterHeight}
+              elements={data.elements}
+              manageCareTeamUrl={MANAGE_CARE_TEAM_URL}
+              onSize={this.onSize}
+              isExpanded={this.state.isExpanded}
+            />
+            <CenterAlignedUltimatePagination
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              onChange={this.handlePageClick}
+            />
+            <RecordsRange
+              currentPage={data.currentPage}
+              totalPages={data.totalNumberOfPages}
+              totalElements={data.totalElements}
+              currentPageSize={data.currentPageSize}
+            />
+          </CenterAlign>
           }
         </ContentSection>
       </Card>
@@ -231,12 +236,16 @@ CareTeams.propTypes = {
     display: PropTypes.string,
   })),
   patient: PropTypes.object,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
   careTeams: makeSelectCareTeams(),
   careTeamStatuses: makeSelectCareTeamStatuses(),
   patient: makeSelectPatient(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

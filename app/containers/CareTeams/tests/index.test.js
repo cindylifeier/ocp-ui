@@ -7,6 +7,9 @@ import { CareTeams } from '../index';
 
 configure({ adapter: new Adapter() });
 
+const user = {
+  role: 'patientRole',
+};
 describe('<CareTeams />', () => {
   describe('snapshot tests', () => {
     it('should match snapshot', () => {
@@ -63,6 +66,7 @@ describe('<CareTeams />', () => {
         careTeams,
         careTeamStatuses,
         patient,
+        user,
       };
 
       // Act
@@ -129,6 +133,7 @@ describe('<CareTeams />', () => {
         patient,
         careTeams,
         careTeamStatuses,
+        user,
       };
 
       // Act
@@ -190,6 +195,7 @@ describe('<CareTeams />', () => {
         initializeCareTeams,
         careTeams,
         careTeamStatuses,
+        user,
       };
 
       // Act
