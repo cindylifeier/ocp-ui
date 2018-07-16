@@ -73,6 +73,12 @@ class Util {
     }
     return ASC;
   }
+
+  static deCamelize(str) {
+    let string = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
+    string = string.charAt(0).toUpperCase() + string.substr(1);
+    return string;
+  }
 }
 
 export default Util;
