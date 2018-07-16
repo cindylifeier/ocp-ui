@@ -11,12 +11,13 @@ import { DialogActions, DialogContent, DialogTitle } from 'material-ui-next/Dial
 
 import StyledDialog from 'components/StyledDialog';
 import StyledFlatButton from 'components/StyledFlatButton';
+import StyledText from 'components/StyledText';
 import SearchRelatedPersonsField from './SearchRelatedPersonsField';
 import ManageRelatedPersonTable from './ManageRelatedPersonTable';
 import messages from './messages';
 
 function ManageRelatedPersonDialog(props) {
-  const { dialogOpen, onDialogClose, onAddRelatedPerson, onRemoveRelatedPerson, onRelatedPersonsSearch, participantRoles, relatedPersonsData } = props;
+  const { dialogOpen, onDialogClose, onAddRelatedPerson, onRemoveRelatedPerson, onRelatedPersonsSearch, careTeamName, participantRoles, relatedPersonsData } = props;
   return (
     <div>
       <StyledDialog open={dialogOpen} fullScreen>
@@ -24,6 +25,9 @@ function ManageRelatedPersonDialog(props) {
           <FormattedMessage {...messages.manageRelatedPersonDialogTitle} />
         </DialogTitle>
         <DialogContent>
+          <StyledText fontWeight={700}>CareTeam Name:
+            <StyledText whiteSpace>{careTeamName}</StyledText>
+          </StyledText>
           <SearchRelatedPersonsField onSearch={onRelatedPersonsSearch} />
           <ManageRelatedPersonTable
             relatedPersonsData={relatedPersonsData}
@@ -54,6 +58,7 @@ ManageRelatedPersonDialog.propTypes = {
     definition: PropTypes.string,
     system: PropTypes.string,
   })).isRequired,
+  careTeamName: PropTypes.string.isRequired,
   relatedPersonsData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     submitting: PropTypes.bool.isRequired,
