@@ -522,7 +522,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
       case FRONT_OFFICE_ROLE_CODE:
         return PractitionerWorkspacePage.frontOfficeLayout;
       default:
-        return null;
+        return PractitionerWorkspacePage.careCoordinatorLayout;
     }
   }
 

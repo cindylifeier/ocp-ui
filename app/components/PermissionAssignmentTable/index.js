@@ -43,7 +43,7 @@ function createTableRows(users, handleEditAssignRoles) {
           onClick: () => handleEditAssignRoles(user),
         },
         ];
-        const displayName = user.displayName.split('.');
+        const displayName = user.displayName && user.displayName.split('.');
         return (
           <TableRow key={user.id} columns={columns}>
             <TableRowColumn>
@@ -53,7 +53,7 @@ function createTableRows(users, handleEditAssignRoles) {
               {user.role}
             </TableRowColumn>*/}
             <TableRowColumn>
-              {Util.deCamelize(displayName[displayName.length - 1])}
+              {displayName && Util.deCamelize(displayName[displayName.length - 1])}
             </TableRowColumn>
             {/* <TableRowColumn>
               {user.contact}

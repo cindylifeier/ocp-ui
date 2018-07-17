@@ -26,7 +26,7 @@ function AddAssignRolesForm(props) {
     groups,
     user,
   } = props;
-  const role = find(groups, { displayName: user.displayName }).id;
+  const role = user.displayName && find(groups, { displayName: user.displayName }).id;
   const initialValues = { role };
   return (
     <div>
