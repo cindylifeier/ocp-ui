@@ -34,13 +34,12 @@ function AddEpisodeOfCareTable(props) {
         <CustomErrorText>{errors.epidoseOfCare}</CustomErrorText>
         }
         {episodeOfCares && episodeOfCares.map((episodeOfCare, index) => {
-          const { status, type, startDate, endDate, careManager, id } = episodeOfCare;
+          const { status, type, startDate, endDate, careManager } = episodeOfCare;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionEdit} />,
             onClick: () => handleEditEpisodeOfCare(index, episodeOfCare),
           }, {
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionRemove} />,
-            disabled: id !== undefined,
             onClick: () => arrayHelpers.remove(index),
           }];
           return (
