@@ -97,7 +97,7 @@ export const initialStateMetadata =
           height: 60,
           content: [
             {
-              title: 'My Appointments',
+              title: 'Appointments',
               type: 'component',
               componentName: 'appointments',
               isClosable: true,
@@ -130,7 +130,7 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'tasks', text: 'Tasks', factoryMethod: renderTasks },
-  { name: 'appointments', text: 'My Appointments', factoryMethod: renderPatientAppointmentsComponent },
+  { name: 'appointments', text: 'Appointments', factoryMethod: renderPatientAppointmentsComponent },
   { name: 'calendar', text: 'Calendar', factoryMethod: renderCalendarComponent },
   { name: 'careTeams', text: 'Care teams', factoryMethod: renderCareTeamsComponent },
   { name: 'coverage', text: 'Coverage', factoryMethod: renderCoveragesComponent },

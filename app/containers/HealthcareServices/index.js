@@ -161,7 +161,9 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, OCP_ADMIN_ROLE_CODE]}
           onSearch={this.handleSearch}
           onSize={this.handlePanelResize}
-          showFilter={false}
+          showFilterIcon={false}
+          showUploadIcon={false}
+          showSearchIcon={false}
         />
         }
         {showActionSection &&

@@ -98,6 +98,10 @@ export class ManagePatientPage extends React.Component { // eslint-disable-line 
     if (this.props.organization) {
       merge(patientFormData, { organizationId: this.props.organization.logicalId });
     }
+    const practitioner = this.getPractitioner();
+    if (practitioner && practitioner.id) {
+      merge(patientFormData, { practitionerId: practitioner.id });
+    }
     this.props.onSaveForm(patientFormData, () => {
       actions.setSubmitting(false);
       this.props.getPatient(patientFormData.id);

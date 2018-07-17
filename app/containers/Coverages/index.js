@@ -115,6 +115,9 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
           {...addNewItem}
           allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
           showSearchIcon={false}
+          showUploadIcon={false}
+          showSettingIcon={false}
+          showFilterIcon={false}
         />
         <CoverageTable
           coverageData={data}
