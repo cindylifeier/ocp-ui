@@ -25,7 +25,7 @@ const columns = PERMISSION_ASSIGNMENT_TABLE_COLUMNS;
 function createTableHeaders() {
   return (
     <TableHeader columns={columns}>
-      <TableHeaderColumn><FormattedMessage {...messages.providerName} /></TableHeaderColumn>
+      <TableHeaderColumn><FormattedMessage {...messages.userName} /></TableHeaderColumn>
       {/* <TableHeaderColumn><FormattedMessage {...messages.role} /></TableHeaderColumn>*/}
       <TableHeaderColumn><FormattedMessage {...messages.permissionGroup} /></TableHeaderColumn>
       {/* <TableHeaderColumn><FormattedMessage {...messages.contact} /></TableHeaderColumn>*/}
