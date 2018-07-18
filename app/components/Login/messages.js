@@ -10,10 +10,6 @@ export default defineMessages({
     id: 'ocpui.components.Login.title',
     defaultMessage: 'Login to your account',
   },
-  brandImg: {
-    id: 'ocpui.components.Login.brandImg',
-    defaultMessage: 'OCP brand image',
-  },
   viewUserAccounts: {
     id: 'ocpui.components.Login.viewUserAccounts',
     defaultMessage: 'View all test user login information',

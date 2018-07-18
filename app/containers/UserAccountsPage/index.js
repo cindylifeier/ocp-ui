@@ -13,6 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import PublicHeader from 'components/PublicHeader';
 import UserAccounts from 'components/UserAccounts';
 import makeSelectUserAccountsPage from './selectors';
 import reducer from './reducer';
@@ -26,6 +27,7 @@ export class UserAccountsPage extends React.Component { // eslint-disable-line r
           <title>Test User Accounts</title>
           <meta name="description" content="Test User Accounts page of Omnibus Care Plan application" />
         </Helmet>
+        <PublicHeader />
         <UserAccounts />
       </div>
     );
