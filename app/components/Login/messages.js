@@ -14,9 +14,9 @@ export default defineMessages({
     id: 'ocpui.components.Login.brandImg',
     defaultMessage: 'OCP brand image',
   },
-  forgotLink: {
-    id: 'ocpui.components.Login.forgotLink',
-    defaultMessage: 'Forgot your username or password?',
+  viewUserAccounts: {
+    id: 'ocpui.components.Login.viewUserAccounts',
+    defaultMessage: 'View all test user login information',
   },
   validation: {
     required: {

@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
@@ -87,7 +88,9 @@ function Login(props) {
                         />
                       </Cell>
                       <Cell>
-                        <FormattedMessage {...messages.forgotLink} />
+                        <Link to="/ocp-ui/user-accounts" target="_blank">
+                          <FormattedMessage {...messages.viewUserAccounts} />
+                        </Link>
                       </Cell>
                       <LoginButtonCell>
                         <StyledRaisedButton
