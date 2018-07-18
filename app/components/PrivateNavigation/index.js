@@ -39,7 +39,7 @@ function PrivateNavigation(props) {
             <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
               <ActionBuild color="#9cc" />
             </StyledIconButton>
-            {<FormattedMessage {...messages.managePermissionsButton} />}
+            {<FormattedMessage {...messages.administrativeSettingsButton} />}
           </NavigationButton>
         }
         {role === ORGANIZATION_ADMIN_ROLE_CODE &&
