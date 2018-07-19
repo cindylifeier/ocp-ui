@@ -65,7 +65,11 @@ function PractitionerTable(props) {
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
-                }];
+                }, {
+                  primaryText: <FormattedMessage {...messages.assignLocation} />,
+                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                },
+                ];
                 return (
                   <ExpansionTableRow
                     expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
