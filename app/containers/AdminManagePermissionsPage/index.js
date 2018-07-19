@@ -16,6 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderPermissionGroupsComponent from 'containers/PermissionsGroups/render';
+import renderUserRegistration from 'containers/UserRegistration/render';
 import makeSelectAdminManagePermissionsPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -56,7 +57,7 @@ export const initialStateMetadata =
       tabDropdown: 'additional tabs',
     },
     content: [{
-      type: 'column',
+      type: 'row',
       isClosable: true,
       reorderEnabled: true,
       title: '',
@@ -65,6 +66,13 @@ export const initialStateMetadata =
           title: 'Permission Groups',
           type: 'component',
           componentName: 'permissionGroups',
+          isClosable: true,
+          reorderEnabled: true,
+        },
+        {
+          title: 'Manage Users',
+          type: 'component',
+          componentName: 'userRegistration',
           isClosable: true,
           reorderEnabled: true,
         },
@@ -79,6 +87,7 @@ export const initialStateMetadata =
 
 export const componentMetadata = [
   { name: 'permissionGroups', text: 'permissionGroups', factoryMethod: renderPermissionGroupsComponent },
+  { name: 'userRegistration', text: 'userRegistration', factoryMethod: renderUserRegistration },
 ];
 
 export class AdminManagePermissionsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
