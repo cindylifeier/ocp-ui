@@ -17,9 +17,9 @@ import messages from './messages';
 import SearchBarForm from './SearchBarForm';
 
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
+  const { minimumLength, onSearch, searchField, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   const composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
-  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
+  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters, showUserRegistrationRoleSelection };
 
   function getToDoSpecificSearchField(searchFieldObject, showAdditionalSearchFields) {
     const newSearchTypes = !showAdditionalSearchFields ? searchFieldObject.searchTypes : [...searchFieldObject.searchTypes,
@@ -76,6 +76,7 @@ SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
+  showUserRegistrationRoleSelection: PropTypes.bool,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -88,6 +89,7 @@ SearchBar.propTypes = {
 SearchBar.defaultProps = {
   minimumLength: 3,
   showToDoSpecificFilters: false,
+  showUserRegistrationRoleSelection: false,
   searchField: {
     searchTypes: [{
       value: SEARCH_BY_NAME,

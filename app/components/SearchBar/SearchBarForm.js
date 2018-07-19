@@ -16,11 +16,11 @@ import SearchContainerGrid from './SearchContainerGrid';
 import StyledTextField from './StyledTextField';
 import messages from './messages';
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters } = props;
+  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   return (
     <Form>
       <SearchSection>
-        <SearchContainerGrid gap="5px" columns={'30px 130px 150px 80px'}>
+        <SearchContainerGrid gap="5px" columns={'30px 130px 150px 150px 80px'}>
           <ActionSearch color={'#336666'} />
           <StyledSelectField
             fullWidth
@@ -30,6 +30,16 @@ function SearchBarForm(props) {
               <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
             )}
           </StyledSelectField>
+          {showUserRegistrationRoleSelection &&
+          <StyledSelectField
+            fullWidth
+            name="searchType"
+          >
+            {searchTypes && searchTypes.map((searchType) =>
+              <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
+            )}
+          </StyledSelectField>
+          }
           <StyledTextField
             fullWidth
             name="searchValue"
@@ -94,6 +104,7 @@ SearchBarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
+  showUserRegistrationRoleSelection: PropTypes.bool,
   isValid: PropTypes.bool.isRequired,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
