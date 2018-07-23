@@ -43,7 +43,7 @@ import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageClientPage from 'containers/ManageClientPage';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
-import { AssignLocationToPractitionerPage } from 'containers/AssignLocationToPractitionerPage';
+import AssignLocationToPractitionerPage from 'containers/AssignLocationToPractitionerPage';
 import saga from './saga';
 import './styles.css';
 
