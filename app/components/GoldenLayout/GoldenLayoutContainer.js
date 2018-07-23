@@ -38,6 +38,7 @@ const GoldenLayoutContainer = styled.div`
   /* Enable scroll content */
   & .lm_content {
     overflow: auto;
+    max-height: 98%;
     border-top: 1px solid #099;
     border-bottom: 0 !important;
     border-left: 0 !important;
