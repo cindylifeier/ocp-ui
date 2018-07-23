@@ -9,17 +9,41 @@ const selectAssignLocationToPractitionerPageDomain = (state) => state.get('assig
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by AssignLocationToPractitionerPage
- */
-
-const makeSelectAssignLocationToPractitionerPage = () => createSelector(
+const makeSelectPractitionLocations = () => createSelector(
   selectAssignLocationToPractitionerPageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data').toJS(),
 );
 
-export default makeSelectAssignLocationToPractitionerPage;
-export {
+const makeSelectQueryLoading = () => createSelector(
   selectAssignLocationToPractitionerPageDomain,
+  (substate) => substate.get('loading'),
+);
+
+const makeSelectQueryError = () => createSelector(
+  selectAssignLocationToPractitionerPageDomain,
+  (substate) => substate.get('error'),
+);
+
+const makeSelectCurrentPage = () => createSelector(
+  selectAssignLocationToPractitionerPageDomain,
+  (substate) => substate.get('currentPage'),
+);
+
+const makeSelectTotalNumberOfPages = () => createSelector(
+  selectAssignLocationToPractitionerPageDomain,
+  (substate) => substate.get('totalNumberOfPages'),
+);
+
+const makeSelectIncludeInactive = () => createSelector(
+  selectAssignLocationToPractitionerPageDomain,
+  (substate) => substate.get('includeInactive'),
+);
+
+export {
+  makeSelectPractitionLocations,
+  makeSelectQueryLoading,
+  makeSelectQueryError,
+  makeSelectCurrentPage,
+  makeSelectTotalNumberOfPages,
+  makeSelectIncludeInactive,
 };
