@@ -12,7 +12,7 @@ export default defineMessages({
   },
   viewUserAccounts: {
     id: 'ocpui.components.Login.viewUserAccounts',
-    defaultMessage: 'View all test user login information',
+    defaultMessage: 'Sample User Login Details',
   },
   validation: {
     required: {
