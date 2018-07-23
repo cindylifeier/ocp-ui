@@ -43,6 +43,7 @@ const GoldenLayoutContainer = styled.div`
     border-left: 0 !important;
     border-right: 0 !important;
     background: transparent;
+    max-height: 98%;
   }
 
   & .lm_tab {
