@@ -80,7 +80,7 @@ export default defineMessages({
   },
   actions: {
     id: 'ocpui.components.PatientSearchResult.actions',
-    defaultMessage: 'Actions',
+    defaultMessage: 'Action',
   },
   addRelatedPerson: {
     id: 'ocpui.components.PatientSearchResult.addRelatedPerson',
