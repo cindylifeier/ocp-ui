@@ -211,6 +211,10 @@ PanelToolbar.propTypes = {
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })),
+    searchResources: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
     searchValueHintText: PropTypes.node.isRequired,
   }),
   hideToolbar: PropTypes.bool,

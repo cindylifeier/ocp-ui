@@ -16,30 +16,30 @@ import SearchContainerGrid from './SearchContainerGrid';
 import StyledTextField from './StyledTextField';
 import messages from './messages';
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
+  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchResources, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   return (
     <Form>
       <SearchSection>
         <SearchContainerGrid gap="5px" columns={'30px 130px 150px 150px 80px'}>
           <ActionSearch color={'#336666'} />
-          <StyledSelectField
-            fullWidth
-            name="searchType"
-          >
-            {searchTypes && searchTypes.map((searchType) =>
-              <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
-            )}
-          </StyledSelectField>
           {showUserRegistrationRoleSelection &&
           <StyledSelectField
             fullWidth
+            name="searchResource"
+          >
+            {searchResources && searchResources.map((searchResource) =>
+              <MenuItem key={uniqueId()} value={searchResource.value} primaryText={searchResource.display} />,
+            )}
+          </StyledSelectField>
+          }
+          <StyledSelectField
+            fullWidth
             name="searchType"
           >
             {searchTypes && searchTypes.map((searchType) =>
               <MenuItem key={uniqueId()} value={searchType.value} primaryText={searchType.display} />,
             )}
           </StyledSelectField>
-          }
           <StyledTextField
             fullWidth
             name="searchValue"
@@ -111,6 +111,10 @@ SearchBarForm.propTypes = {
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })).isRequired,
+    searchResources: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
     searchValueHintText: PropTypes.node.isRequired,
   }).isRequired,
 };
