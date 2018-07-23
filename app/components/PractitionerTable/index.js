@@ -28,7 +28,9 @@ import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, assignLocationUrl } = props;
+  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, assignLocationUrl }
+  = props;
+  const { setSelectedPractitioner } = practitionersData;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -75,6 +77,7 @@ function PractitionerTable(props) {
                     expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
                     columns={columns}
                     key={logicalId}
+                    onClick={() => setSelectedPractitioner(practitioner)}
                   >
                     <TableRowColumn>{renderFullName(name)}</TableRowColumn>
                     {isExpanded ?
