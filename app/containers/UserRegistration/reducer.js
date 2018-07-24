@@ -6,15 +6,35 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  SEARCH_RESOURCES, SEARCH_RESOURCES_ERROR,
+  SEARCH_RESOURCES_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  loading: false,
+  data: [],
+  currentPage: 0,
+  totalNumberOfPages: 0,
+  error: false,
+});
 
 function userRegistrationReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case SEARCH_RESOURCES:
+      return state
+        .set('loading', true);
+    case SEARCH_RESOURCES_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('data', fromJS(action.resources.elements))
+        .set('totalElements', action.resources.totalElements)
+        .set('currentPageSize', action.resources.currentPageSize)
+        .set('totalNumberOfPages', action.resources.totalNumberOfPages)
+        .set('currentPage', action.resources.currentPage);
+    case SEARCH_RESOURCES_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.error);
     default:
       return state;
   }

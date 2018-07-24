@@ -48,6 +48,14 @@ export default defineMessages({
     id: 'ocpui.components.SearchBar.searchById',
     defaultMessage: 'By ID',
   },
+  searchPractitioner: {
+    id: 'ocpui.components.SearchBar.searchPractitioner',
+    defaultMessage: 'Practitioner',
+  },
+  searchPatient: {
+    id: 'ocpui.components.SearchBar.searchPatient',
+    defaultMessage: 'Patient',
+  },
   searchByDate: {
     id: 'ocpui.components.SearchBar.searchByDate',
     defaultMessage: 'By Date',

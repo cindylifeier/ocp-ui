@@ -4,7 +4,7 @@
  *
  */
 
-import { SEARCH_BY_DATE, SEARCH_BY_DUE_DATE, SEARCH_BY_ID, SEARCH_BY_NAME } from 'components/SearchBar/constants';
+import { SEARCH_BY_DATE, SEARCH_BY_DUE_DATE, SEARCH_BY_ID, SEARCH_BY_NAME, SEARCH_PRACTITIONER, SEARCH_PATIENT } from 'components/SearchBar/constants';
 import { Formik } from 'formik';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
@@ -34,16 +34,24 @@ function SearchBar(props) {
 
     return {
       searchTypes: newSearchTypes,
+      searchResources: searchFieldObject.searchResources,
       searchValueHintText: searchFieldObject.searchValueHintText,
     };
   }
 
   function initialFormValues() {
-    let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
+    let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME, searchResource: SEARCH_PRACTITIONER };
     if (!isEmpty(searchField.searchTypes)) {
       initialValues = {
         showInactive: false,
         searchType: head(searchField.searchTypes).value,
+      };
+    }
+    if (!isEmpty(searchField.searchTypes) && showUserRegistrationRoleSelection) {
+      initialValues = {
+        showInactive: false,
+        searchType: head(searchField.searchTypes).value,
+        searchResource: head(searchField.searchResources).value,
       };
     }
     return initialValues;
@@ -82,6 +90,10 @@ SearchBar.propTypes = {
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })).isRequired,
+    searchResources: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
     searchValueHintText: PropTypes.node.isRequired,
   }),
 };
@@ -97,6 +109,13 @@ SearchBar.defaultProps = {
     }, {
       value: SEARCH_BY_ID,
       display: <FormattedMessage {...messages.searchById} />,
+    }],
+    searchResources: [{
+      value: SEARCH_PRACTITIONER,
+      display: <FormattedMessage {...messages.searchPractitioner} />,
+    }, {
+      value: SEARCH_PATIENT,
+      display: <FormattedMessage {...messages.searchPatient} />,
     }],
     searchValueHintText: <FormattedMessage {...messages.hintText} />,
   },
