@@ -34,6 +34,12 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import AssignLocationTable from 'components/AssignLocationTable';
 import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
+import {
+  makeSelectCurrentPage, makeSelectPractitionLocations,
+  makeSelectQueryError,
+  makeSelectQueryLoading, makeSelectTotalNumberOfPages,
+} from 'containers/AssignLocationToPractitionerPage/selectors';
+import { flattenLocationData } from 'containers/App/helpers';
 // import find from 'lodash/find';
 import reducer from './reducer';
 import saga from './saga';
@@ -98,7 +104,6 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
 
   render() {
     const { currentPage, totalPages, loading, locations, organization, selectedPractitioner } = this.props;
-    // const logicalId = this.props.match.params.id;
     const { open, selectedPractitionerName, selectedLocationName } = this.state;
     const actions = [
       <StyledFlatButton onClick={this.handleCloseDialog}>
@@ -147,7 +152,12 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
           {!loading && !isEmpty(organization) && !isEmpty(locations) && locations.length > 0 &&
           <div>
             <CenterAlign>
-              <AssignLocationTable />
+              <AssignLocationTable
+                elements={locations}
+                showAssigned
+                onCheck={this.onCheckAssignedCheckbox}
+                flattenLocationData={flattenLocationData}
+              />
             </CenterAlign>
             <CenterAlignedUltimatePagination
               currentPage={currentPage}
@@ -191,15 +201,13 @@ AssignLocationToPractitionerPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // assignlocationtopractitionerpage: makeSelectAssignLocationToPractitionerPage(),
   organization: makeSelectOrganization(),
-  // locations: makeSelectLocations(),
   selectedPractitioner: makeSelectPractitioner(),
-  // loading: makeSelectQueryLoading(),
-  // error: makeSelectQueryError(),
-  // currentPage: makeSelectCurrentPage(),
-  // totalPages: makeSelectTotalNumberOfPages(),
-  // healthcareServices: makeSelectHealthcareServices(),
+  loading: makeSelectQueryLoading(),
+  error: makeSelectQueryError(),
+  currentPage: makeSelectCurrentPage(),
+  totalPages: makeSelectTotalNumberOfPages(),
+  locations: makeSelectPractitionLocations(),
 });
 
 function mapDispatchToProps(dispatch) {
