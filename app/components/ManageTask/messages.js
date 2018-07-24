@@ -29,15 +29,15 @@ export default defineMessages({
     },
     minStartDate: {
       id: 'ocpui.components.ManageTask.manageForm.validation.minStartDate',
-      defaultMessage: 'Task Start date field must be later than today',
+      defaultMessage: 'Task Start Date field must be later than today',
     },
     minEndDate: {
       id: 'ocpui.components.ManageTask.manageForm.validation.minEndDate',
-      defaultMessage: 'Task End date field must be later than Task Start date field',
+      defaultMessage: 'Task End Date field must be later than Task Start date field',
     },
     minStartCreatedOntDate: {
       id: 'ocpui.components.ManageTask.manageForm.validation.minStarCreatedOntDate',
-      defaultMessage: 'Task Created date field must be later than Task Start date field',
+      defaultMessage: 'Task Start Date field must be later than Created On date field',
     },
   },
   hintText: {
