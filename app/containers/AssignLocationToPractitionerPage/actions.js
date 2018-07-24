@@ -7,8 +7,13 @@
 import {
   GET_PRACTIONER_LOCATION_ASSIGNMENT,
   GET_PRACTIONER_LOCATION_ASSIGNMENT_SUCCESS,
-  GET_PRACTIONER_LOCATION_ASSIGNMENT_ERROR,
+  GET_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
   INITIALIZE_ASSIGN_LOCATION_TO_PRACTITIONER,
+  ASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT,
+  ASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
+  MARK_LOCATION_AS_ASSIGNED,
+  UNMARK_LOCATION_AS_ASSIGNED,
+  UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
 } from './constants';
 
 
@@ -34,7 +39,41 @@ export function getPractitionerLocationAssignmentSuccess(practitionerLocations) 
 
 export function getPractitionerLocationAssignmentError(error) {
   return {
-    type: GET_PRACTIONER_LOCATION_ASSIGNMENT_ERROR,
+    type: GET_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
+    error,
+  };
+}
+
+export function assignPractitionerLocationAssignment(locationId) {
+  return {
+    type: ASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT,
+    locationId,
+  };
+}
+
+export function assignPractitionerLocationAssignmentError(error) {
+  return {
+    type: ASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
+    error,
+  };
+}
+
+export function markLocationAsAssigned(locationId) {
+  return {
+    type: MARK_LOCATION_AS_ASSIGNED,
+    locationId,
+  };
+}
+export function unmarkLocationAsAssigned(locationId) {
+  return {
+    type: UNMARK_LOCATION_AS_ASSIGNED,
+    locationId,
+  };
+}
+
+export function unassignPractitionerLocationAssignmentServicesError(error) {
+  return {
+    type: UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
     error,
   };
 }

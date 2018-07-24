@@ -92,7 +92,7 @@ AssignLocationTable.propTypes = {
   relativeTop: PropTypes.number,
   elements: PropTypes.array,
   showAssigned: PropTypes.bool,
-  onCheck: PropTypes.func,
+  onCheck: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,
 };
 

@@ -23,6 +23,7 @@ import injectReducer from 'utils/injectReducer';
 import {
   getPractitionerLocationAssignment,
   initializeAssignLocationToPractitionerPage,
+  assignPractitionerLocationAssignment,
 } from 'containers/AssignLocationToPractitionerPage/actions';
 import { makeSelectOrganization, makeSelectPractitioner } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
@@ -40,7 +41,7 @@ import {
   makeSelectQueryLoading, makeSelectTotalNumberOfPages,
 } from 'containers/AssignLocationToPractitionerPage/selectors';
 import { flattenLocationData } from 'containers/App/helpers';
-// import find from 'lodash/find';
+import find from 'lodash/find';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -69,23 +70,21 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
     this.props.getPractitionerLocationAssignment(DEFAULT_START_PAGE_NUMBER);
   }
 
-  onCheckAssignedCheckbox() {
-  // onCheckAssignedCheckbox(evt, checked, locationLogicalId) {
-  //   const practitionerLogicalId = this.props.match.params.id;
-    // if (checked) {
-    //   this.props.updateHealthcareServicesLocationAssignment(locationLogicalId);
-    // } else {
-    //   const selectedPractitioner = find(this.props.practitioners, { logicalId: practitionerLogicalId });
-    //   const selectedLocation = find(this.props.locations, { logicalId: locationLogicalId });
-    //   this.setState({ selectedLocationName: selectedLocation.name });
-    //   this.setState({ locationLogicalId });
-    //   this.setState({ selectedPractitionerName: selectedPractitioner.name });
-    //   this.setState({ open: true });
-    // }
+  onCheckAssignedCheckbox(evt, checked, locationId) {
+    // const practitionerLogicalId = this.props.match.params.id;
+    if (checked) {
+      this.props.assignPractitionerLocationAssignment(locationId);
+    } else {
+      const selectedLocation = find(this.props.locations, { logicalId: locationId });
+      this.setState({ selectedLocationName: selectedLocation.name });
+      this.setState({ locationLogicalId: locationId });
+      this.setState({ selectedPractitionerName: this.props.selectedPractitioner.name });
+      this.setState({ open: true });
+    }
   }
 
   handleCloseDialog() {
-    // this.props.markHealthcareServiceAsAssigned(this.state.healthcareServiceLogicalId);
+    this.props.assignPractitionerLocationAssignment(this.state.locationLogicalId);
     this.setState({ open: false });
   }
 
@@ -189,14 +188,15 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
 
 AssignLocationToPractitionerPage.propTypes = {
   locations: PropTypes.array,
+  // match: PropTypes.object,
   loading: PropTypes.bool,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  // match: PropTypes.object,
   organization: PropTypes.object.isRequired,
   selectedPractitioner: PropTypes.object.isRequired,
   getPractitionerLocationAssignment: PropTypes.func.isRequired,
   initializeAssignLocationToPractitionerPage: PropTypes.func.isRequired,
+  assignPractitionerLocationAssignment: PropTypes.func.isRequired,
 
 };
 
@@ -214,6 +214,7 @@ function mapDispatchToProps(dispatch) {
   return {
     initializeAssignLocationToPractitionerPage: () => dispatch(initializeAssignLocationToPractitionerPage()),
     getPractitionerLocationAssignment: (currentPage) => dispatch(getPractitionerLocationAssignment(currentPage)),
+    assignPractitionerLocationAssignment: (locationId) => dispatch(assignPractitionerLocationAssignment(locationId)),
   };
 }
 

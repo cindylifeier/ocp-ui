@@ -9,7 +9,8 @@ import {
   INITIALIZE_ASSIGN_LOCATION_TO_PRACTITIONER,
   GET_PRACTIONER_LOCATION_ASSIGNMENT,
   GET_PRACTIONER_LOCATION_ASSIGNMENT_SUCCESS,
-  GET_PRACTIONER_LOCATION_ASSIGNMENT_ERROR,
+  GET_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
+  UPDATE_PRACTIONER_LOCATION_ASSIGNMENT_ERROR,
 } from './constants';
 
 const initialState = fromJS({
@@ -37,7 +38,11 @@ function assignLocationToPractitionerPageReducer(state = initialState, action) {
         .set('loading', false)
         .set('totalNumberOfPages', action.practitionerLocations.totalNumberOfPages)
         .set('currentPage', action.practitionerLocations.currentPage);
-    case GET_PRACTIONER_LOCATION_ASSIGNMENT_ERROR:
+    case GET_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
+    case UPDATE_PRACTIONER_LOCATION_ASSIGNMENT_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);
