@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'ocpui.containers.Patients.buttonLabelCreateNew',
     defaultMessage: 'New Patient',
   },
+  filterLabel: {
+    id: 'ocpui.containers.Patients.filterLabel',
+    defaultMessage: 'Select Filter',
+  },
 });

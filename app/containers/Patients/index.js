@@ -21,6 +21,7 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import {
   CARE_MANAGER_ROLE_CODE,
+  OCP_ADMIN_ROLE_CODE,
   MANAGE_PATIENT_URL,
   ORGANIZATION_ADMIN_ROLE_CODE,
   USCOREETHNICITY,
@@ -28,7 +29,7 @@ import {
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
 import { combineAddress, isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
-import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
@@ -49,6 +50,14 @@ import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
 import messages from './messages';
+import
+{ MY_CARE_TEAM_PATIENTS,
+  MY_CARE_TEAM_PATIENTS_DISPLAY,
+  ALL_ORG_PATIENTS,
+  ALL_ORG_PATIENTS_DISPLAY,
+  UNASSIGNED_PATIENTS,
+  UNASSIGNED_PATIENTS_DISPLAY,
+} from './constants';
 
 export class Patients extends React.Component {
   constructor(props) {
@@ -60,6 +69,7 @@ export class Patients extends React.Component {
       isPatientModalOpen: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handlePatientClick = this.handlePatientClick.bind(this);
     this.handlePatientViewDetailsClick = this.handlePatientViewDetailsClick.bind(this);
@@ -130,6 +140,9 @@ export class Patients extends React.Component {
     }
   }
 
+  handleFilter() {
+  }
+
   handleChangePage(newPage) {
     this.setState({ currentPage: newPage });
     const { organization } = this.props;
@@ -141,7 +154,7 @@ export class Patients extends React.Component {
   }
 
   render() {
-    const { loading, error, searchResult, organization, usCoreRaces, usCoreEthnicities, showSearchBarByDefault, hideToolbar } = this.props;
+    const { loading, error, searchResult, organization, usCoreRaces, usCoreEthnicities, showSearchBarByDefault, hideToolbar, user } = this.props;
     const searchResultProps = {
       loading,
       error,
@@ -156,6 +169,15 @@ export class Patients extends React.Component {
         linkUrl: MANAGE_PATIENT_URL,
       },
     };
+    const filterDateOptions = [
+      { value: MY_CARE_TEAM_PATIENTS, display: MY_CARE_TEAM_PATIENTS_DISPLAY },
+      { value: ALL_ORG_PATIENTS, display: ALL_ORG_PATIENTS_DISPLAY },
+      { value: UNASSIGNED_PATIENTS, display: UNASSIGNED_PATIENTS_DISPLAY },
+    ];
+    const filterField = {
+      filterTypes: filterDateOptions,
+      filterValueHintText: <FormattedMessage {...messages.filterLabel} />,
+    };
     return (
       <div>
         <PanelToolbar
@@ -165,7 +187,10 @@ export class Patients extends React.Component {
           onSize={this.onSize}
           showUploadIcon={false}
           showSettingIcon={false}
-          showFilterIcon={false}
+          showFilterIcon={user.role !== OCP_ADMIN_ROLE_CODE}
+          showPatientSpecificFilters
+          filterField={filterField}
+          onFilter={this.handleFilter}
           showSearchBarByDefault={showSearchBarByDefault}
           hideToolbar={hideToolbar}
         />
@@ -239,6 +264,7 @@ Patients.propTypes = {
   showSearchBarByDefault: PropTypes.bool,
   hideToolbar: PropTypes.bool,
   location: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 Patients.defaultProps = {
@@ -262,6 +288,7 @@ const mapStateToProps = createStructuredSelector({
   usCoreRaces: makeSelectUsCoreRaces(),
   usCoreEthnicities: makeSelectUsCoreEthnicities(),
   location: makeSelectLocation(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
