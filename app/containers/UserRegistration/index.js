@@ -27,7 +27,7 @@ import PractitionerTable from 'components/PractitionerTable';
 import makeSelectUserRegistration from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { searchResources } from './actions';
+import { searchResources, initializeUserRegistration } from './actions';
 import { PRACTITIONER, PATIENT } from './constants';
 
 export class UserRegistration extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -49,6 +49,7 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
     this.onSize = this.onSize.bind(this);
   }
   componentDidMount() {
+    this.props.initializeUserRegistration();
     this.props.getLookUpData();
   }
 
@@ -161,6 +162,7 @@ UserRegistration.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   getLookUpData: PropTypes.func.isRequired,
+  initializeUserRegistration: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -171,6 +173,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initializeUserRegistration: () => dispatch(initializeUserRegistration()),
     getLookUpData: () => dispatch(getLookupsAction([USCORERACE, USCOREETHNICITY])),
     searchResources: (searchType, searchValue, resourceType, includeInactive, currentPage, organization) => dispatch(searchResources(searchType, searchValue, resourceType, includeInactive, currentPage, organization)),
   };

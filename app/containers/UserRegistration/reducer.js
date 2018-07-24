@@ -7,7 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   SEARCH_RESOURCES, SEARCH_RESOURCES_ERROR,
-  SEARCH_RESOURCES_SUCCESS,
+  SEARCH_RESOURCES_SUCCESS, INITIALIZE_USER_REGISTRATION,
 } from './constants';
 
 const initialState = fromJS({
@@ -20,6 +20,8 @@ const initialState = fromJS({
 
 function userRegistrationReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_USER_REGISTRATION:
+      return initialState;
     case SEARCH_RESOURCES:
       return state
         .set('loading', true);
