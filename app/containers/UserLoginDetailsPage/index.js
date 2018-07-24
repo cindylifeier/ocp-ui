@@ -8,40 +8,96 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { LinearProgress } from 'material-ui-next/Progress';
+import { Document, Page } from 'react-pdf/dist/entry.webpack';
+import uniqueId from 'lodash/uniqueId';
 
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import PublicHeader from 'components/PublicHeader';
-import messages from './messages';
+import InfoSection from 'components/InfoSection';
+import { getUserLoginDetails } from './actions';
+import makeSelectUserLoginDetailsPage from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+
 
 export class UserLoginDetailsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      numPages: null,
+    };
+    this.onDocumentLoadSuccess = this.onDocumentLoadSuccess.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getUserLoginDetails();
+  }
+
+  onDocumentLoadSuccess({ numPages }) {
+    this.setState({ numPages });
+  }
+
   render() {
+    const { userLoginDetails: { data } } = this.props;
     return (
       <div>
         <Helmet>
           <title>Sample User Login Details</title>
           <meta name="description" content="Sample User Login Details page of Omnibus Care Plan application" />
         </Helmet>
-        <PublicHeader />
-        <FormattedMessage {...messages.header} />
+        {data && data.encodedPdf ?
+          <div>
+            <PublicHeader />
+            <InfoSection margin="10px 0">
+              <Document
+                loading={<LinearProgress />}
+                file={`data:application/pdf;base64,${data.encodedPdf}`}
+                onLoadSuccess={this.onDocumentLoadSuccess}
+              >
+                {
+                  Array.from(
+                    new Array(this.state.numPages),
+                    (el, index) => (
+                      <Page key={uniqueId()} pageNumber={index + 1} scale={2} renderMode="svg" />
+                    ))
+                }
+              </Document>
+            </InfoSection>
+          </div> : <LinearProgress />
+        }
       </div>
     );
   }
 }
 
 UserLoginDetailsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getUserLoginDetails: PropTypes.func.isRequired,
+  userLoginDetails: PropTypes.shape({
+    encodedPdf: PropTypes.string,
+  }),
 };
 
+const mapStateToProps = createStructuredSelector({
+  userLoginDetails: makeSelectUserLoginDetailsPage(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getUserLoginDetails: () => dispatch(getUserLoginDetails()),
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer({ key: 'userLoginDetailsPage', reducer });
+const withSaga = injectSaga({ key: 'userLoginDetailsPage', saga });
 
 export default compose(
+  withReducer,
+  withSaga,
   withConnect,
 )(UserLoginDetailsPage);

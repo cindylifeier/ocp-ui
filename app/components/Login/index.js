@@ -21,7 +21,7 @@ import LoginButtonCell from './LoginButtonCell';
 import messages from './messages';
 
 function Login(props) {
-  const { onLogin } = props;
+  const { onLogin, isShowSampleUserLoginDetails } = props;
 
   return (
     <div>
@@ -84,9 +84,11 @@ function Login(props) {
                         />
                       </Cell>
                       <Cell>
-                        <Link to="/ocp-ui/sample-user-login-details" target="_blank">
-                          <FormattedMessage {...messages.viewUserAccounts} />
-                        </Link>
+                        {isShowSampleUserLoginDetails ?
+                          <Link to="/ocp-ui/sample-user-login-details" target="_blank">
+                            <FormattedMessage {...messages.viewUserAccounts} />
+                          </Link> : <FormattedMessage {...messages.forgotLink} />
+                        }
                       </Cell>
                       <LoginButtonCell>
                         <StyledRaisedButton
@@ -113,6 +115,7 @@ function Login(props) {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
+  isShowSampleUserLoginDetails: PropTypes.bool,
 };
 
 export default Login;

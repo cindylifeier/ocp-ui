@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.Login.viewUserAccounts',
     defaultMessage: 'Sample User Login Details',
   },
+  forgotLink: {
+    id: 'ocpui.components.Login.forgotLink',
+    defaultMessage: 'Forgot your username or password?',
+  },
   validation: {
     required: {
       id: 'ocpui.components.Login.loginForm.validation.required',
