@@ -16,7 +16,7 @@ import SearchContainerGrid from './SearchContainerGrid';
 import StyledTextField from './StyledTextField';
 import messages from './messages';
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchField: { searchTypes, searchResources, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
+  const { isSubmitting, dirty, isValid, searchField: { searchTypes, resourceTypes, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   return (
     <Form>
       <SearchSection>
@@ -25,9 +25,9 @@ function SearchBarForm(props) {
           {showUserRegistrationRoleSelection &&
           <StyledSelectField
             fullWidth
-            name="searchResource"
+            name="resourceType"
           >
-            {searchResources && searchResources.map((searchResource) =>
+            {resourceTypes && resourceTypes.map((searchResource) =>
               <MenuItem key={uniqueId()} value={searchResource.value} primaryText={searchResource.display} />,
             )}
           </StyledSelectField>
@@ -111,7 +111,7 @@ SearchBarForm.propTypes = {
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })).isRequired,
-    searchResources: PropTypes.arrayOf(PropTypes.shape({
+    resourceTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })),

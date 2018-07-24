@@ -14,6 +14,10 @@ export const SEARCH_RESOURCES_SUCCESS = 'ocpui/UserRegistration/SEARCH_RESOURCES
 export const SEARCH_RESOURCES_ERROR = 'ocpui/UserRegistration/SEARCH_RESOURCES_ERROR';
 
 
+export const PRACTITIONER = 'Practitioner';
+export const PATIENT = 'Patient';
+
+
 /**
 *  Other constants
 *

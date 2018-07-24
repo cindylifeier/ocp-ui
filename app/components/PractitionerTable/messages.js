@@ -42,6 +42,10 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.edit',
     defaultMessage: 'Edit',
   },
+  manageUser: {
+    id: 'ocpui.components.PractitionerTable.manageUser',
+    defaultMessage: 'Manage User',
+  },
   expansionRowDetailsName: {
     id: 'ocpui.components.PractitionerTable.expansionRowDetailsName',
     defaultMessage: 'Name',
