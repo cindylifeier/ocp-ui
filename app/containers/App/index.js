@@ -42,6 +42,7 @@ import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageClientPage from 'containers/ManageClientPage';
+import { ManageUserRegistration } from 'containers/ManageUserRegistration';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
 import saga from './saga';
 import './styles.css';
@@ -67,7 +68,8 @@ export function App() {
             <Route path="/ocp-ui/admin-workspace" component={AdminWorkspacePage} />
             <Route path="/ocp-ui/manage-permissions" component={AdminManagePermissionsPage} />
             <Route path="/ocp-ui/manage-users" component={ManageUsersPage} />
-            <Route path="/ocp-ui/practitioner-workspace" component={PractitionerWorkspacePage} />
+            <Route path="/ocp-ui/manage-user-registration/:id?" component={ManageUserRegistration} />
+            <Route path="/ocp-ui/practitioner-workspace/" component={PractitionerWorkspacePage} />
             <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
