@@ -84,7 +84,7 @@ function Login(props) {
                         />
                       </Cell>
                       <Cell>
-                        <Link to="/ocp-ui/user-accounts" target="_blank">
+                        <Link to="/ocp-ui/sample-user-login-details" target="_blank">
                           <FormattedMessage {...messages.viewUserAccounts} />
                         </Link>
                       </Cell>
