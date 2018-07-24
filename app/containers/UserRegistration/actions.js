@@ -5,11 +5,31 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  SEARCH_RESOURCES, SEARCH_RESOURCES_ERROR,
+  SEARCH_RESOURCES_SUCCESS,
 } from './constants';
 
-export function defaultAction() {
+export function searchResources(searchType, searchValue, resourceType, includeInactive, currentPage) {
   return {
-    type: DEFAULT_ACTION,
+    type: SEARCH_RESOURCES,
+    searchType,
+    searchValue,
+    resourceType,
+    includeInactive,
+    currentPage,
+  };
+}
+
+export function searchResourcesSuccess(resources) {
+  return {
+    type: SEARCH_RESOURCES_SUCCESS,
+    resources,
+  };
+}
+
+export function searchPractitionersError(error) {
+  return {
+    type: SEARCH_RESOURCES_ERROR,
+    error,
   };
 }

@@ -16,11 +16,20 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectUserRegistration from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { searchResources } from './actions';
 
 export class UserRegistration extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
+      isShowSearchResult: false,
+      search: {
+        resourceType: 'Practitioner',
+        searchType: 'name',
+        searchValue: '',
+        includeInactive: false,
+        currentPage: 1,
+      },
       relativeTop: 0,
       currentPage: 1,
     };
@@ -30,8 +39,12 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
   onSize(size) {
     this.setState({ relativeTop: size.height });
   }
-  handleSearch() {
-    console.log('Handle Search');
+  handleSearch(searchValue, includeInactive, searchType, resourceType) {
+    this.setState({
+      isShowSearchResult: true,
+      search: { searchType, searchValue, includeInactive, resourceType },
+    });
+    this.props.resourceTypes(searchType, searchValue, resourceType, includeInactive, this.state.search.currentPage);
   }
 
   render() {
@@ -44,6 +57,7 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
           showSettingIcon={false}
           showFilterIcon={false}
           showUserRegistrationRoleSelection
+          showSearchBarByDefault
         />
       </div>
     );
@@ -51,15 +65,17 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
 }
 
 UserRegistration.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  resourceTypes: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  userregistration: makeSelectUserRegistration(),
+  resources: makeSelectUserRegistration(),
 });
 
-function mapDispatchToProps() {
-  return {};
+function mapDispatchToProps(dispatch) {
+  return {
+    resourceTypes: (searchType, searchValue, resourceType, includeInactive, currentPage, organization) => dispatch(searchResources(searchType, searchValue, resourceType, includeInactive, currentPage, organization)),
+  };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

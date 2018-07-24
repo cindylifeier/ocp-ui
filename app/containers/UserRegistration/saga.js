@@ -1,6 +1,28 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { SEARCH_RESOURCES } from './constants';
+import { searchResourcesSuccess, searchResourcesError } from './actions';
+import { getErrorDetail, searchResources } from './api';
+
+export function* searchResourcesSaga({ searchType, searchValue, resourceType, includeInactive, currentPage }) {
+  try {
+    const resources = yield call(searchResources, searchType, searchValue, resourceType, includeInactive, currentPage);
+    yield put(searchResourcesSuccess(resources));
+  } catch (error) {
+    yield put(searchResourcesError(getErrorDetail(error)));
+  }
+}
+
+export function* watchSearchResourcesSaga() {
+  yield takeLatest(SEARCH_RESOURCES, searchResourcesSaga);
+}
+
+/**
+ * Root saga manages watcher lifecycle
+ */
+export default function* rootSaga() {
+  yield all([
+    watchSearchResourcesSaga(),
+  ]);
 }
