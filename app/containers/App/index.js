@@ -43,6 +43,7 @@ import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageClientPage from 'containers/ManageClientPage';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
+import UserLoginDetailsPage from 'containers/UserLoginDetailsPage';
 import saga from './saga';
 import './styles.css';
 
@@ -61,6 +62,7 @@ export function App() {
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
+          <Route path="/ocp-ui/sample-user-login-details" component={UserLoginDetailsPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />

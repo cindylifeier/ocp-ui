@@ -8,9 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
+import { makeSelectConfig } from 'containers/App/selectors';
 import Login from 'components/Login';
 import saga from './saga';
 import { login } from './actions';
@@ -26,6 +28,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
+    const { config: { isShowSampleUserLoginDetails } } = this.props;
     return (
       <div>
         <Helmet>
@@ -33,7 +36,9 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
           <meta name="description" content="Login page of Omnibus Care Plan application" />
         </Helmet>
         <div>
-          <Login onLogin={this.handleLogin} />
+          {this.props.config &&
+          <Login onLogin={this.handleLogin} isShowSampleUserLoginDetails={isShowSampleUserLoginDetails} />
+          }
         </div>
       </div>
     );
@@ -42,7 +47,14 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
 
 LoginPage.propTypes = {
   onRequestLogin: PropTypes.func.isRequired,
+  config: PropTypes.shape({
+    isShowSampleUserLoginDetails: PropTypes.bool,
+  }),
 };
+
+const mapStateToProps = createStructuredSelector({
+  config: makeSelectConfig(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -50,7 +62,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withSaga = injectSaga({ key: 'loginPage', saga });
 
