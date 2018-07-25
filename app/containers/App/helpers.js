@@ -188,3 +188,12 @@ export function getErrorDetail(error) {
   }
   return errorDetail;
 }
+
+export function flattenLocationData(location) {
+  return {
+    ...location,
+    telecoms: mapToTelecoms(location.telecoms),
+    address: combineAddress(location.address),
+    identifiers: mapToIdentifiers(location.identifiers),
+  };
+}
