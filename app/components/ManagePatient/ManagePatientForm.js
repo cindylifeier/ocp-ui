@@ -21,11 +21,10 @@ import AddFlags from 'components/AddFlags';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import AddEpisodeOfCare from 'components/AddEpisodeOfCare';
-import { EMAIL } from 'components/ManagePatient/constants';
+import { EMAIL, PHONE } from 'components/ManagePatient/constants';
 import AddCoverages from 'components/AddCoverages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 import messages from './messages';
-import { PHONE } from '../ManagePractitioner/constants';
 
 
 function ManagePatientForm(props) {
@@ -236,7 +235,7 @@ function ManagePatientForm(props) {
           <AddMultipleTelecoms {...addTelecomsProps} />
           { hasEmailContact() ? '' :
           <ErrorText>
-            <FormattedMessage {...messages.validation.emailContact} />
+            <FormattedMessage {...messages.validation.emailContact} /><br />
           </ErrorText>
           }
           { hasPhoneContact() ? '' :
