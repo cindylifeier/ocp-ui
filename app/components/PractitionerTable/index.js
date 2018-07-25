@@ -28,7 +28,9 @@ import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms } = props;
+  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, assignLocationUrl }
+  = props;
+  const { setSelectedPractitioner } = practitionersData;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -65,12 +67,17 @@ function PractitionerTable(props) {
                 const menuItems = [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
-                }];
+                }, {
+                  primaryText: <FormattedMessage {...messages.assignLocation} />,
+                  linkTo: `${assignLocationUrl}/${practitioner.logicalId}`,
+                },
+                ];
                 return (
                   <ExpansionTableRow
                     expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
                     columns={columns}
                     key={logicalId}
+                    onClick={() => setSelectedPractitioner(practitioner)}
                   >
                     <TableRowColumn>{renderFullName(name)}</TableRowColumn>
                     {isExpanded ?
@@ -117,6 +124,7 @@ PractitionerTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   size: PropTypes.object.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
+  assignLocationUrl: PropTypes.string.isRequired,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,

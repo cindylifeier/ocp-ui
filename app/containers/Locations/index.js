@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import { Cell } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 import isEqual from 'lodash/isEqual';
-
+import { flattenLocationData, mapToIdentifiers } from 'containers/App/helpers';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DEFAULT_START_PAGE_NUMBER, MANAGE_LOCATION_URL, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
@@ -28,7 +28,6 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import StyledFlatButton from 'components/StyledFlatButton';
 import PanelToolbar from 'components/PanelToolbar';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import { mapToIdentifiers } from 'containers/App/helpers';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -42,7 +41,6 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getActiveLocations, getFilteredLocations, initializeLocations, searchLocations } from './actions';
-import { flattenLocationData } from './helpers';
 
 export class Locations extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static initalState = {
