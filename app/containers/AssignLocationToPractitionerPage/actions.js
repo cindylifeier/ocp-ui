@@ -11,9 +11,10 @@ import {
   INITIALIZE_ASSIGN_LOCATION_TO_PRACTITIONER,
   ASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT,
   ASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
+  UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT,
+  UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
   MARK_LOCATION_AS_ASSIGNED,
   UNMARK_LOCATION_AS_ASSIGNED,
-  UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
 } from './constants';
 
 
@@ -71,7 +72,14 @@ export function unmarkLocationAsAssigned(locationId) {
   };
 }
 
-export function unassignPractitionerLocationAssignmentServicesError(error) {
+export function unassignPractitionerLocationAssignment(locationId) {
+  return {
+    type: UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT,
+    locationId,
+  };
+}
+
+export function unassignPractitionerLocationAssignmentError(error) {
   return {
     type: UNASSIGN_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
     error,

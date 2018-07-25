@@ -6,11 +6,15 @@
 
 import { fromJS } from 'immutable';
 import {
+  setLocationAssignedToCurrentPractitioner,
+} from 'containers/AssignLocationToPractitionerPage/api';
+import {
   INITIALIZE_ASSIGN_LOCATION_TO_PRACTITIONER,
   GET_PRACTIONER_LOCATION_ASSIGNMENT,
   GET_PRACTIONER_LOCATION_ASSIGNMENT_SUCCESS,
   GET_PRACTITIONER_LOCATION_ASSIGNMENT_ERROR,
-  UPDATE_PRACTIONER_LOCATION_ASSIGNMENT_ERROR,
+  MARK_LOCATION_AS_ASSIGNED,
+  UNMARK_LOCATION_AS_ASSIGNED,
 } from './constants';
 
 const initialState = fromJS({
@@ -42,10 +46,18 @@ function assignLocationToPractitionerPageReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
-    case UPDATE_PRACTIONER_LOCATION_ASSIGNMENT_ERROR:
-      return state
-        .set('error', action.error)
-        .set('loading', false);
+    case MARK_LOCATION_AS_ASSIGNED: {
+      const locations = state.get('data');
+      const locationsArray = locations.toJS();
+      setLocationAssignedToCurrentPractitioner(locationsArray, action.locationId, true);
+      return state.set('data', fromJS((locationsArray || [])));
+    }
+    case UNMARK_LOCATION_AS_ASSIGNED: {
+      const locations = state.get('data');
+      const locationsArray = locations.toJS();
+      setLocationAssignedToCurrentPractitioner(locationsArray, action.locationId, false);
+      return state.set('data', fromJS((locationsArray || [])));
+    }
     default:
       return state;
   }
