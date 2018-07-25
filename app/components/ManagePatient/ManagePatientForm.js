@@ -53,6 +53,7 @@ function ManagePatientForm(props) {
     errors,
     flags: values.flags,
     practitioners,
+    practitioner,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
 
