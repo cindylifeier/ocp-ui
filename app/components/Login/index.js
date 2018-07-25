@@ -5,25 +5,23 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
-
-import brandImg from 'images/omnibus-care-plan-logo.png';
 import CardHeader from 'components/CardHeader';
 import TextField from 'components/TextField';
+import PublicHeader from 'components/PublicHeader';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledDivider from 'components/StyledDivider';
-import StyledImage from 'components/StyledImage';
 import LoginStyledCard from './LoginStyledCard';
 import LoginFieldGrid from './LoginFieldGrid';
 import LoginButtonCell from './LoginButtonCell';
 import messages from './messages';
 
 function Login(props) {
-  const { onLogin } = props;
+  const { onLogin, isShowSampleUserLoginDetails } = props;
 
   return (
     <div>
@@ -37,8 +35,7 @@ function Login(props) {
         ]}
       >
         <Cell area="header">
-          <StyledImage src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
-          <StyledDivider />
+          <PublicHeader />
         </Cell>
         <Cell area="leftSide" />
         <Cell area="rightSide" />
@@ -87,7 +84,11 @@ function Login(props) {
                         />
                       </Cell>
                       <Cell>
-                        <FormattedMessage {...messages.forgotLink} />
+                        {isShowSampleUserLoginDetails ?
+                          <Link to="/ocp-ui/sample-user-login-details" target="_blank">
+                            <FormattedMessage {...messages.viewUserAccounts} />
+                          </Link> : <FormattedMessage {...messages.forgotLink} />
+                        }
                       </Cell>
                       <LoginButtonCell>
                         <StyledRaisedButton
@@ -114,6 +115,7 @@ function Login(props) {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
+  isShowSampleUserLoginDetails: PropTypes.bool,
 };
 
 export default Login;
