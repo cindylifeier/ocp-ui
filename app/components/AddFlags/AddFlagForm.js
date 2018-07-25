@@ -38,14 +38,14 @@ function AddFlagForm(props) {
     practitioner,
   } = props;
   let initialValueFlag = null;
-  let author = null;
+  let author = practitioner;
   if (initialValues !== null) {
     const { index, flag } = initialValues;
     author = flag.author;
     const { logicalId, flagStart, flagEnd, code, status, category } = flag;
     initialValueFlag = {
       index,
-      flag: { logicalId, authorName: author.display, flagStart, flagEnd, code, status, category },
+      flag: { logicalId, authorName: author && author.display, flagStart, flagEnd, code, status, category },
     };
   }
   const today = new Date();
