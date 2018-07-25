@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
-import { MANAGE_PRACTITIONER_URL, OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { MANAGE_PRACTITIONER_URL, OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL,
+} from 'containers/App/constants';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import PractitionerTable from 'components/PractitionerTable';
@@ -46,6 +49,7 @@ class DefaultViewComponent extends React.Component {
             flattenPractitionerData={flattenPractitionerData}
             combineAddress={combineAddress}
             mapToTelecoms={mapToTelecoms}
+            assignLocationUrl={MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL}
           />
         </InfoSection>
       </div>
