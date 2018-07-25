@@ -6,6 +6,7 @@ import {
   assignPractitionerLocationAssignmentError,
   markLocationAsAssigned,
   unmarkLocationAsAssigned,
+  unassignPractitionerLocationAssignmentError,
 } from 'containers/AssignLocationToPractitionerPage/actions';
 
 import { makeSelectOrganization,
@@ -20,7 +21,6 @@ import {
   getLocationWithPractitionerAssignmentData,
   assignPractitionerToLocation,
   unassignPractitionerToLocation,
-  unassignPractitionerLocationAssignmentError,
 } from 'containers/AssignLocationToPractitionerPage/api';
 
 export function* getPractitionerLocationAssignmentSaga(action) {
