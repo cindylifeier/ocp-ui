@@ -15,12 +15,12 @@ const selectPatientToDosDomain = (state) => state.get('patientToDos');
  */
 const makeSelectPatientToDos = () => createSelector(
   selectPatientToDosDomain,
-  (substate) => substate.get('data').toJS()
+  (substate) => substate && substate.get('data').toJS()
 );
 
 const makeSelectPatientToDoMainTask = () => createSelector(
   selectPatientToDosDomain,
-  (substate) => substate.get('toDoMainTask').toJS()
+  (substate) => substate && substate.get('toDoMainTask').toJS()
 );
 
 
