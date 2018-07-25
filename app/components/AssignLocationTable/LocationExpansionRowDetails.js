@@ -59,7 +59,7 @@ function LocationExpansionRowDetails({ location, physicalType }) {
 
 LocationExpansionRowDetails.propTypes = {
   location: PropTypes.object,
-  physicalType: PropTypes.object,
+  physicalType: PropTypes.string,
 };
 
 export default LocationExpansionRowDetails;

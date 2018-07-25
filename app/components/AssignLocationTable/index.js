@@ -65,7 +65,7 @@ function AssignLocationTable({ elements, showAssigned = false, onCheck, relative
                 <Grid columns={12}>
                   <Cell left={2} width={1}>
                     <Checkbox
-                      // checked={element.assignedToCurrentLocation}
+                      checked={location.assignToCurrentPractitioner}
                       onCheck={(evt, checked) => onCheck(evt, checked, logicalId)}
                     />
                   </Cell>
