@@ -24,6 +24,7 @@ import {
   getPractitionerLocationAssignment,
   initializeAssignLocationToPractitionerPage,
   assignPractitionerLocationAssignment,
+  unassignPractitionerLocationAssignment,
 } from 'containers/AssignLocationToPractitionerPage/actions';
 import { makeSelectOrganization, makeSelectPractitioner } from 'containers/App/contextSelectors';
 import InfoSection from 'components/InfoSection';
@@ -71,14 +72,13 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
   }
 
   onCheckAssignedCheckbox(evt, checked, locationId) {
-    // const practitionerLogicalId = this.props.match.params.id;
     if (checked) {
       this.props.assignPractitionerLocationAssignment(locationId);
     } else {
       const selectedLocation = find(this.props.locations, { logicalId: locationId });
       this.setState({ selectedLocationName: selectedLocation.name });
       this.setState({ locationLogicalId: locationId });
-      this.setState({ selectedPractitionerName: this.props.selectedPractitioner.name });
+      this.setState({ selectedPractitionerName: this.renderFullName(this.props.selectedPractitioner.name) });
       this.setState({ open: true });
     }
   }
@@ -88,12 +88,12 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
     this.setState({ open: false });
   }
 
-  handlePageClick() {
-    // this.props.getHealthcareServicesLocationAssignment(this.props.organization.logicalId, this.props.organization.name, this.props.match.params.id, currentPage);
+  handlePageClick(currentPage) {
+    this.props.getPractitionerLocationAssignment(currentPage);
   }
 
   handleUnassignLocation() {
-    // this.props.unassignHealthcareServicesLocationAssignment(this.state.healthcareServiceLogicalId);
+    this.props.unassignPractitionerLocationAssignment(this.state.locationLogicalId);
     this.setState({ open: false });
   }
 
@@ -103,7 +103,6 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
 
   render() {
     const { currentPage, totalPages, loading, locations, organization, selectedPractitioner } = this.props;
-    const { open, selectedPractitionerName, selectedLocationName } = this.state;
     const actions = [
       <StyledFlatButton onClick={this.handleCloseDialog}>
         <FormattedMessage {...messages.dialogButtonLabelCancel} />
@@ -170,14 +169,14 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
           title={<H3><FormattedMessage {...messages.dialogTitleUnassignLocation} /></H3>}
           actions={actions}
           modal
-          open={open}
+          open={this.state.open}
           onRequestClose={this.handleCloseDialog}
         >
           <FormattedMessage
             {...messages.confirmPractitionerUnassignment}
             values={{
-              selectedLocationName: <strong>{selectedLocationName} </strong>,
-              selectedPractitionerName: <strong>{selectedPractitionerName} </strong>,
+              selectedLocationName: <strong>{this.state.selectedLocationName} </strong>,
+              selectedPractitionerName: <strong>{this.state.selectedPractitionerName} </strong>,
             }}
           />
         </Dialog>
@@ -188,7 +187,6 @@ export class AssignLocationToPractitionerPage extends React.Component { // eslin
 
 AssignLocationToPractitionerPage.propTypes = {
   locations: PropTypes.array,
-  // match: PropTypes.object,
   loading: PropTypes.bool,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
@@ -197,6 +195,7 @@ AssignLocationToPractitionerPage.propTypes = {
   getPractitionerLocationAssignment: PropTypes.func.isRequired,
   initializeAssignLocationToPractitionerPage: PropTypes.func.isRequired,
   assignPractitionerLocationAssignment: PropTypes.func.isRequired,
+  unassignPractitionerLocationAssignment: PropTypes.func.isRequired,
 
 };
 
@@ -215,6 +214,7 @@ function mapDispatchToProps(dispatch) {
     initializeAssignLocationToPractitionerPage: () => dispatch(initializeAssignLocationToPractitionerPage()),
     getPractitionerLocationAssignment: (currentPage) => dispatch(getPractitionerLocationAssignment(currentPage)),
     assignPractitionerLocationAssignment: (locationId) => dispatch(assignPractitionerLocationAssignment(locationId)),
+    unassignPractitionerLocationAssignment: (locationId) => dispatch(unassignPractitionerLocationAssignment(locationId)),
   };
 }
 
