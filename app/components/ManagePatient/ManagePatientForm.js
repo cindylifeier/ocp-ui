@@ -21,7 +21,7 @@ import AddFlags from 'components/AddFlags';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import AddEpisodeOfCare from 'components/AddEpisodeOfCare';
-import { EMAIL } from 'components/ManagePatient/constants';
+import { EMAIL, PHONE } from 'components/ManagePatient/constants';
 import AddCoverages from 'components/AddCoverages';
 import ManagePatientFormGrid from './ManagePatientFormGrid';
 import messages from './messages';
@@ -52,6 +52,7 @@ function ManagePatientForm(props) {
     errors,
     flags: values.flags,
     practitioners,
+    practitioner,
     patientName: (values.firstName !== undefined && values.lastName !== undefined) ? `${values.firstName} ${values.lastName}` : null,
   };
 
@@ -86,8 +87,15 @@ function ManagePatientForm(props) {
     return emailContacts && emailContacts.length > 0;
   }
 
+  function hasPhoneContact() {
+    const phoneContacts = values && values.telecoms && values.telecoms.filter((entry) => entry.system === PHONE);
+    return phoneContacts && phoneContacts.length > 0;
+  }
   function hasEpisodeOfCare() {
     return values && values.episodeOfCares && values.episodeOfCares.length > 0;
+  }
+  function hasAddress() {
+    return values && values.addresses && values.addresses.length > 0;
   }
 
   return (
@@ -154,7 +162,7 @@ function ManagePatientForm(props) {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
               >
                 {patientIdentifierSystems && patientIdentifierSystems.reverse().map((identifierType) =>
-                  <MenuItem key={identifierType.oid} value={identifierType.oid} primaryText={identifierType.display} />,
+                  <MenuItem key={identifierType.oid} value={identifierType.uri} primaryText={identifierType.display} />,
                 )}
               </SelectField>
             </PrefixCell>
@@ -218,12 +226,22 @@ function ManagePatientForm(props) {
         </Cell>
         <Cell area="addresses">
           <AddMultipleAddresses{...addAddressesProps} />
+          { hasAddress() ? '' :
+          <ErrorText>
+            <FormattedMessage {...messages.validation.addressRequired} />
+          </ErrorText>
+          }
         </Cell>
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
           { hasEmailContact() ? '' :
           <ErrorText>
-            <FormattedMessage {...messages.validation.emailContact} />
+            <FormattedMessage {...messages.validation.emailContact} /><br />
+          </ErrorText>
+          }
+          { hasPhoneContact() ? '' :
+          <ErrorText>
+            <FormattedMessage {...messages.validation.phoneContact} />
           </ErrorText>
           }
         </Cell>
