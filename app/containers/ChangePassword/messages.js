@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  closeButton: {
-    id: 'ocpui.containers.ChangePassword.closeButton',
-    defaultMessage: 'Close',
+  title: {
+    id: 'ocpui.containers.ChangePassword.title',
+    defaultMessage: 'Change password',
+  },
+  cancelButton: {
+    id: 'ocpui.containers.ChangePassword.cancelButton',
+    defaultMessage: 'Cancel',
   },
 });
