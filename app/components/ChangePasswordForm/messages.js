@@ -23,6 +23,10 @@ export default defineMessages({
       id: 'ocpui.components.ChangePasswordForm.validation.required',
       defaultMessage: 'Required',
     },
+    matchOldPassword: {
+      id: 'ocpui.components.ChangePasswordForm.validation.matchOldPassword',
+      defaultMessage: 'New password cannot be the same as the old password',
+    },
     notMatch: {
       id: 'ocpui.components.ChangePasswordForm.validation.notMatch',
       defaultMessage: 'Password does not match',

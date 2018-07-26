@@ -16,7 +16,7 @@ const selectChangePasswordDomain = (state) => state.get('changePassword');
 
 const makeSelectChangePassword = () => createSelector(
   selectChangePasswordDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectChangePassword;

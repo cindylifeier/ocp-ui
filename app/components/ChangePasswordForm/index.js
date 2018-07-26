@@ -31,6 +31,7 @@ function ChangePasswordForm(props) {
           oldPassword: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           password: yup.string()
+            .notOneOf([yup.ref('oldPassword')], <FormattedMessage {...messages.validation.matchOldPassword} />)
             .required((<FormattedMessage {...messages.validation.required} />)),
           confirmPassword: yup.string()
             .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)
