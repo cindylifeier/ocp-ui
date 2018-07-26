@@ -40,13 +40,12 @@ function AddedFlagsTable(props) {
         <CustomErrorText>{errors.flags}</CustomErrorText>
         }
         {flags && flags.map((flag, index) => {
-          const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
+          const { category, status, code, author, flagStart, flagEnd } = flag;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionEdit} />,
             onClick: () => handleEditFlag(index, flag),
           }, {
             primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionRemove} />,
-            disabled: logicalId !== undefined,
             onClick: () => arrayHelpers.remove(index),
           }];
           return (

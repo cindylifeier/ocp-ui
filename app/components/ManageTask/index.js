@@ -69,15 +69,16 @@ function ManageTask(props) {
                 .required((<FormattedMessage {...messages.validation.required} />)),
               taskOwner: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              description: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
+              description: yup.string(),
               authoredOn: yup.date()
-                  .required((<FormattedMessage {...messages.validation.required} />)),
+                .required((<FormattedMessage {...messages.validation.required} />)),
               taskStart: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />))
-                .min(authoredOn.toLocaleDateString(), (<FormattedMessage {...messages.validation.minStarCreatedOntDate} />)),
+                .min(authoredOn.toLocaleDateString(), (
+                  <FormattedMessage {...messages.validation.minStartCreatedOntDate} />)),
               taskEnd: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />))
                 .min(taskStart.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}
@@ -279,7 +280,7 @@ function mapMainTaskToEditForm(task) {
 
 
   return merge(activityDefinition,
-     patientName, selRequester,
+    patientName, selRequester,
     authoredOn, lastModifiedDate,
     status, priority, intent, context,
     taskOwner, performerType, partOf,
