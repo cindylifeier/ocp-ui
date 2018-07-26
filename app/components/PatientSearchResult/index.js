@@ -34,7 +34,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
     if (manageUserEnabled) {
       menuItems = [{
         primaryText: <FormattedMessage {...messages.manageUser} />,
-        linkTo: `${MANAGE_USER_REGISTRATION}/${patient.id}`,
+        linkTo: `${MANAGE_USER_REGISTRATION}/${patient.id}?resourceType=Patient`,
       }];
     } else {
       menuItems = [{

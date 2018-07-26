@@ -6,18 +6,27 @@ import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 export function searchResources(searchType, searchValue, resourceType, showInactive, page) {
   const basePractitionerEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const basePatientEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
-  const params = queryString({
-    searchType,
-    searchValue,
-    showInactive,
-    size: DEFAULT_PAGE_SIZE,
-    page,
-    showAll: true,
-  });
+  let params;
   let requestURL;
   if (resourceType === 'Practitioner') {
+    params = queryString({
+      searchType,
+      searchValue,
+      showInactive,
+      size: DEFAULT_PAGE_SIZE,
+      page,
+      showAll: true,
+    });
     requestURL = `${basePractitionerEndpoint}/search${params}`;
   } else {
+    params = queryString({
+      type: searchType,
+      value: searchValue,
+      showInactive,
+      size: DEFAULT_PAGE_SIZE,
+      page,
+      showAll: true,
+    });
     requestURL = `${basePatientEndpoint}/search${params}`;
   }
   return request(requestURL);

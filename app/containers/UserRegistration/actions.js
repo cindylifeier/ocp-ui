@@ -34,7 +34,7 @@ export function searchResourcesSuccess(resources) {
   };
 }
 
-export function searchPractitionersError(error) {
+export function searchResourcesError(error) {
   return {
     type: SEARCH_RESOURCES_ERROR,
     error,

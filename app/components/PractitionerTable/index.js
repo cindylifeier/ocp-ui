@@ -66,7 +66,7 @@ function PractitionerTable(props) {
                 if (manageUserEnabled) {
                   menuItems = [{
                     primaryText: <FormattedMessage {...messages.manageUser} />,
-                    linkTo: `${MANAGE_USER_REGISTRATION}/${practitioner.logicalId}`,
+                    linkTo: `${MANAGE_USER_REGISTRATION}/${practitioner.logicalId}?resourceType=Practitioner`,
                   }];
                 } else {
                   menuItems = [{
