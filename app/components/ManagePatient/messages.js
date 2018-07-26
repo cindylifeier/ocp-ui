@@ -37,7 +37,7 @@ export default defineMessages({
     },
     noEpisodeOfCares: {
       id: 'ocpui.components.ManagePatient.manageForm.validation.noEpisodeOfCares',
-      defaultMessage: 'Must have at least one Episode Of Care.',
+      defaultMessage: 'Must have at least one episode Of care.',
     },
   },
   hintText: {
