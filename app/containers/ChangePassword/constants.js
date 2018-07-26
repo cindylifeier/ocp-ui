@@ -8,10 +8,12 @@
  *  ChangePassword action types
  *  @type {string}
  */
-export const DEFAULT_ACTION = 'ocpui/ChangePassword/DEFAULT_ACTION';
+export const CHANGE_PASSWORD = 'ocpui/ChangePassword/CHANGE_PASSWORD';
+export const CHANGE_PASSWORD_SUCCESS = 'ocpui/ChangePassword/CHANGE_PASSWORD_SUCCESS';
+export const CHANGE_PASSWORD_ERROR = 'ocpui/ChangePassword/CHANGE_PASSWORD_ERROR';
 
 
 /**
-*  Other constants
-*
-*/
+ *  Other constants
+ *
+ */

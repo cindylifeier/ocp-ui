@@ -4,12 +4,23 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS } from './constants';
 
-export function defaultAction() {
+export function changePassword() {
   return {
-    type: DEFAULT_ACTION,
+    type: CHANGE_PASSWORD,
+  };
+}
+
+export function changePasswordSuccess() {
+  return {
+    type: CHANGE_PASSWORD_SUCCESS,
+  };
+}
+
+export function changePasswordError(error) {
+  return {
+    type: CHANGE_PASSWORD_ERROR,
+    error,
   };
 }
