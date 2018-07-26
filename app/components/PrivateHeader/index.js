@@ -11,8 +11,9 @@ import { ToolbarGroup } from 'material-ui/Toolbar';
 import AccountBox from '@material-ui/icons/AccountBox';
 import Notifications from '@material-ui/icons/Notifications';
 import FlatButton from 'material-ui/FlatButton';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
+import Menu, { MenuItem } from 'material-ui-next/Menu';
+
+import ChangePassword from 'containers/ChangePassword';
 import Logout from 'containers/Logout';
 import StyledImage from 'components/StyledImage';
 import StyledToolbar from 'components/StyledToolbar';
@@ -24,10 +25,13 @@ class PrivateHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      anchorEl: null,
+      openDrawer: false,
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
 
   getUserProfileName() {
@@ -35,18 +39,23 @@ class PrivateHeader extends React.Component {
   }
 
   handleClick(event) {
-    event.preventDefault();
-    this.setState({
-      isOpen: true,
-      anchorEl: event.currentTarget,
-    });
+    this.setState({ anchorEl: event.currentTarget });
   }
 
-  handleRequestClose() {
-    this.setState({ isOpen: false });
+  handleClose() {
+    this.setState({ anchorEl: null });
+  }
+
+  handleDrawerOpen() {
+    this.setState({ openDrawer: true });
+  }
+
+  handleDrawerClose() {
+    this.setState({ openDrawer: false });
   }
 
   render() {
+    const { anchorEl, openDrawer } = this.state;
     return (
       <StyledToolbar
         color="#ffffff"
@@ -63,17 +72,22 @@ class PrivateHeader extends React.Component {
             onClick={this.handleClick}
           />
         </ToolbarGroup>
-        <Popover
-          open={this.state.isOpen}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.handleRequestClose}
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
         >
-          <Menu>
-            <Logout />
-          </Menu>
-        </Popover>
+          <MenuItem
+            onClick={() => {
+              this.handleClose();
+              this.handleDrawerOpen();
+            }}
+          >
+            <FormattedMessage {...messages.changePasswordMenuItem} />
+          </MenuItem>
+          <Logout />
+        </Menu>
+        <ChangePassword drawerOpen={openDrawer} onCloseDrawer={this.handleDrawerClose} />
       </StyledToolbar>
     );
   }
