@@ -25,8 +25,13 @@ class AutoSuggestionBridge extends React.Component { // eslint-disable-line reac
   }
 
   handleChange(selectedOption) {
+    const { isRequired } = this.props;
     const defaultMessage = (!selectedOption) || (selectedOption && selectedOption.value === null) ? 'Required' : null;
-    this.setState({ suggestion: selectedOption, defaultRequiredMessage: defaultMessage });
+    if (isRequired && defaultMessage === 'Required') {
+      this.setState({ suggestion: selectedOption, defaultRequiredMessage: defaultMessage });
+    } else {
+      this.setState({ suggestion: selectedOption, defaultRequiredMessage: null });
+    }
   }
 
   render() {
@@ -68,6 +73,7 @@ function AutoSuggestionField(props) {
     />);
 }
 
+
 AutoSuggestionBridge.propTypes = {
   suggestions: PropTypes.array,
   name: PropTypes.string,
@@ -82,10 +88,15 @@ AutoSuggestionBridge.propTypes = {
     setFieldTouched: PropTypes.func.isRequired,
     errors: PropTypes.object,
   }).isRequired,
+  isRequired: PropTypes.bool,
 };
 
 AutoSuggestionField.propTypes = {
   name: PropTypes.string,
+};
+
+AutoSuggestionField.defaultProps = {
+  isRequired: false,
 };
 
 export default AutoSuggestionField;
