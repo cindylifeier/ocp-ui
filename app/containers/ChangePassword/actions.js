@@ -6,9 +6,13 @@
 
 import { CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS } from './constants';
 
-export function changePassword() {
+export function changePassword(oldPassword, newPassword, handleSubmitting, handleCloseDrawer) {
   return {
     type: CHANGE_PASSWORD,
+    oldPassword,
+    newPassword,
+    handleSubmitting,
+    handleCloseDrawer,
   };
 }
 
