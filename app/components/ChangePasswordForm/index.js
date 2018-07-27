@@ -21,6 +21,7 @@ import messages from './messages';
 
 function ChangePasswordForm(props) {
   const { onChangePassword, onCloseDrawer, user } = props;
+  const passwordPattern = new RegExp('^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@!#$]).*$');
   return (
     <div>
       <Formik
@@ -32,6 +33,7 @@ function ChangePasswordForm(props) {
             .required((<FormattedMessage {...messages.validation.required} />)),
           password: yup.string()
             .notOneOf([yup.ref('oldPassword')], <FormattedMessage {...messages.validation.matchOldPassword} />)
+            .matches(passwordPattern, <FormattedMessage {...messages.validation.passwordPattern} />)
             .required((<FormattedMessage {...messages.validation.required} />)),
           confirmPassword: yup.string()
             .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)

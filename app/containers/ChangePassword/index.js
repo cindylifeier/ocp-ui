@@ -43,7 +43,7 @@ export class ChangePassword extends React.Component { // eslint-disable-line rea
         anchor="right"
         open={drawerOpen}
         transitionDuration={{ enter: 500, exit: 20 }}
-        width="500px"
+        width="550px"
       >
         <DialogTitle>
           <FormattedMessage {...messages.title} />
