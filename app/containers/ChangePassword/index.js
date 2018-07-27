@@ -10,14 +10,15 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { DialogContent, DialogContentText, DialogTitle } from 'material-ui-next/Dialog';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import StyledDrawer from 'components/StyledDrawer';
+import StyledText from 'components/StyledText';
 import ChangePasswordForm from 'components/ChangePasswordForm';
-import makeSelectChangePassword from './selectors';
+import { changePassword } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -29,8 +30,10 @@ export class ChangePassword extends React.Component { // eslint-disable-line rea
     this.handleChangePassword = this.handleChangePassword.bind(this);
   }
 
-  handleChangePassword(changePasswordFormData) {
-    console.log(changePasswordFormData);
+  handleChangePassword(changePasswordFormData, actions) {
+    const oldPassword = changePasswordFormData.oldPassword;
+    const newPassword = changePasswordFormData.password;
+    this.props.changePassword(oldPassword, newPassword, () => actions.setSubmitting(false), () => this.props.onCloseDrawer());
   }
 
   render() {
@@ -47,6 +50,9 @@ export class ChangePassword extends React.Component { // eslint-disable-line rea
         </DialogTitle>
         <DialogContent>
           <ChangePasswordForm user={user} onCloseDrawer={onCloseDrawer} onChangePassword={this.handleChangePassword} />
+          <DialogContentText>
+            <StyledText fontWeight={700}><FormattedMessage {...messages.notes} /></StyledText>
+          </DialogContentText>
         </DialogContent>
       </StyledDrawer>
     )
@@ -56,6 +62,7 @@ export class ChangePassword extends React.Component { // eslint-disable-line rea
 
 ChangePassword.propTypes = {
   drawerOpen: PropTypes.bool.isRequired,
+  changePassword: PropTypes.func.isRequired,
   onCloseDrawer: PropTypes.func.isRequired,
   user: PropTypes.shape({
     user_name: PropTypes.string.isRequired,
@@ -63,13 +70,12 @@ ChangePassword.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  changepassword: makeSelectChangePassword(),
   user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    changePassword: (oldPassword, newPassword, handleSubmitting, handleCloseDrawer) => dispatch(changePassword(oldPassword, newPassword, handleSubmitting, handleCloseDrawer)),
   };
 }
 

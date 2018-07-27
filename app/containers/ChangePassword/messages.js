@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.containers.ChangePassword.title',
     defaultMessage: 'Change Password',
   },
+  notes: {
+    id: 'ocpui.containers.ChangePassword.notes',
+    defaultMessage: 'Note: After successfully change password, Please re-login with the new password.',
+  },
 });

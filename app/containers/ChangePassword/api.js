@@ -2,11 +2,11 @@ import request from 'utils/request';
 import { CHANGE_PASSWORD_API_URL, getEndpoint } from 'utils/endpointService';
 
 
-export function changePassword(oldPassword, newPassword) {
+export function changePassword(oldPassword, password) {
   const requestUrl = getEndpoint(CHANGE_PASSWORD_API_URL);
   return request(requestUrl, {
     method: 'PUT',
-    body: JSON.stringify({ oldPassword, password: newPassword }),
+    body: JSON.stringify({ oldPassword, password }),
     headers: {
       'Content-Type': 'application/json',
     },

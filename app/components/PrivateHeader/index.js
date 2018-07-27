@@ -87,7 +87,9 @@ class PrivateHeader extends React.Component {
           </MenuItem>
           <Logout />
         </Menu>
+        {openDrawer &&
         <ChangePassword drawerOpen={openDrawer} onCloseDrawer={this.handleDrawerClose} />
+        }
       </StyledToolbar>
     );
   }
