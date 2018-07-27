@@ -23,6 +23,10 @@ export default defineMessages({
       id: 'ocpui.components.ChangePasswordForm.validation.required',
       defaultMessage: 'Required',
     },
+    passwordPattern: {
+      id: 'ocpui.components.ChangePasswordForm.validation.passwordPattern',
+      defaultMessage: 'Password must contain 8 characters and at least one number, one letter and one unique character such as @!#$',
+    },
     matchOldPassword: {
       id: 'ocpui.components.ChangePasswordForm.validation.matchOldPassword',
       defaultMessage: 'New password cannot be the same as the old password',
