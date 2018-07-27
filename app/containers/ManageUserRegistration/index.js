@@ -12,6 +12,7 @@ import { compose } from 'redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import queryString from 'query-string';
+import merge from 'lodash/merge';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,7 +22,7 @@ import PageHeader from 'components/PageHeader';
 import PageContent from 'components/PageContent';
 import reducer from './reducer';
 import saga from './saga';
-import { getGroups, getUser, saveUser } from './actions';
+import { getGroups, getUser, saveUser, initializeUserRegistration } from './actions';
 import { makeSelectGroups, makeSelectUser } from './selectors';
 import messages from './messages';
 
@@ -33,6 +34,7 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
   }
 
   componentDidMount() {
+    this.props.initializeUserRegistration();
     const { match, location } = this.props;
     const resourceId = match.params.id;
     const queryObj = queryString.parse(location.search);
@@ -42,7 +44,11 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
   }
 
   handleSave(userFormData, actions) {
-    this.props.onSaveUser(userFormData, () => actions.setSubmitting(false));
+    const { match, location } = this.props;
+    const resourceId = match.params.id;
+    const queryObj = queryString.parse(location.search);
+    const resourceType = queryObj.resourceType;
+    this.props.onSaveUser(merge(userFormData, { resourceType, resourceId }), () => actions.setSubmitting(false));
   }
 
   render() {
@@ -61,7 +67,7 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
           title={<FormattedMessage {...messages.title} />}
         />
         <PageContent>
-          <ManageUser {...manageUserProps} onSave={this.handleSave} />
+          {user && <ManageUser {...manageUserProps} onSave={this.handleSave} />}
         </PageContent>
       </Page>
     );
@@ -76,6 +82,7 @@ ManageUserRegistration.propTypes = {
   getUser: PropTypes.func,
   getGroups: PropTypes.func,
   onSaveUser: PropTypes.func,
+  initializeUserRegistration: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -87,6 +94,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getUser: (resourceType, resourceId) => dispatch(getUser(resourceType, resourceId)),
     getGroups: () => dispatch(getGroups()),
+    initializeUserRegistration: () => dispatch(initializeUserRegistration()),
     onSaveUser: (userFormData, handleSubmitting) => dispatch(saveUser(userFormData, handleSubmitting)),
   };
 }

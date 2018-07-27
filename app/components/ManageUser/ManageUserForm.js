@@ -19,7 +19,7 @@ function ManageUserForm(props) {
   const {
     user, groups, isSubmitting, dirty, isValid,
   } = props;
-  const organizations = user && user.episodeOdCare;
+  const practitionerRoles = user && user.practitionerRoles;
   return (
     <Form>
       <ManageUserFormGrid>
@@ -34,6 +34,7 @@ function ManageUserForm(props) {
             name="firstName"
             hintText={<FormattedMessage {...messages.hintText.firstName} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
+            disabled
           />
         </Cell>
         <Cell area="lastName">
@@ -42,6 +43,7 @@ function ManageUserForm(props) {
             name="lastName"
             hintText={<FormattedMessage {...messages.hintText.lastName} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
+            disabled
           />
         </Cell>
         <Cell area="username">
@@ -56,6 +58,7 @@ function ManageUserForm(props) {
           <TextField
             fullWidth
             name="password"
+            type="password"
             hintText={<FormattedMessage {...messages.hintText.password} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.password} />}
           />
@@ -64,6 +67,7 @@ function ManageUserForm(props) {
           <TextField
             fullWidth
             name="repeatPassword"
+            type="password"
             hintText={<FormattedMessage {...messages.hintText.repeatPassword} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.repeatPassword} />}
           />
@@ -75,8 +79,8 @@ function ManageUserForm(props) {
             hintText={<FormattedMessage {...messages.hintText.organization} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
           >
-            {organizations && organizations.map((organization) =>
-              <MenuItem key={organization.id} value={organization.id} primaryText={organization.name} />,
+            {practitionerRoles && practitionerRoles.map((practitionerRole) =>
+              <MenuItem key={practitionerRole.organization.reference} value={practitionerRole.organization.reference} primaryText={practitionerRole.organization.display} />,
             )}
           </SelectField>
         </Cell>

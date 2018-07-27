@@ -8,7 +8,7 @@
  *  ManageUserRegistration action types
  *  @type {string}
  */
-export const DEFAULT_ACTION = 'ocpui/ManageUserRegistration/DEFAULT_ACTION';
+export const INITIALIZE_USER_REGISTRATION = 'ocpui/ManageUserRegistration/INITIALIZE_USER_REGISTRATION';
 
 export const GET_USER = 'ocpui/ManageUserRegistration/GET_USER';
 export const GET_USER_SUCCESS = 'ocpui/ManageUserRegistration/GET_USER_SUCCESS';

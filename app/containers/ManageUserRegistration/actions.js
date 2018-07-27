@@ -6,8 +6,14 @@
 
 import {
   GET_GROUPS, GET_GROUPS_SUCCESS, GET_GROUPS_ERROR, GET_USER, GET_USER_ERROR,
-  GET_USER_SUCCESS, SAVE_USER,
+  GET_USER_SUCCESS, SAVE_USER, INITIALIZE_USER_REGISTRATION,
 } from './constants';
+
+export function initializeUserRegistration() {
+  return {
+    type: INITIALIZE_USER_REGISTRATION,
+  };
+}
 
 export function getUser(resourceType, resourceId) {
   return {

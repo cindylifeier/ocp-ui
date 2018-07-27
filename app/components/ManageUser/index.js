@@ -21,9 +21,11 @@ function ManageUser(props) {
   const formData = {
     user, groups,
   };
+  const initialValues = { firstName: user.name[0].firstName, lastName: user.name[0].lastName, username: user.userName };
   return (
     <div>
       <Formik
+        initialValues={{ ...initialValues }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -34,7 +36,7 @@ function ManageUser(props) {
             .required((<FormattedMessage {...messages.validation.required} />))
             .min(PASSWORD_MIN_LENGTH, (
               <FormattedMessage {...messages.validation.minLength} values={{ PASSWORD_MIN_LENGTH }} />)),
-          retypePassword: yup.string()
+          repeatPassword: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
 

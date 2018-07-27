@@ -27,6 +27,7 @@ export function* saveUserSaga(action) {
     yield put(goBack());
   } catch (err) {
     yield put(showNotification(`Failed to update user: ${getErrorDetail(err)}`));
+    yield call(action.handleSubmitting);
   }
 }
 
