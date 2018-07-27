@@ -36,7 +36,7 @@ function PrivateLayout(props) {
                   getLinkUrlByRole={props.getLinkUrlByRole}
                 />
               </Cell>
-              <Cell top={2}>
+              <Cell left={3} top={2}>
                 <PrivateHeader user={props.user} />
               </Cell>
             </Grid>

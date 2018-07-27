@@ -26,17 +26,17 @@ import NavigationButton from './NavigationButton';
 function PrivateNavigation(props) {
   const role = props.user.role;
   return (
-    <StyledToolbar height="40px">
+    <StyledToolbar height="50px">
       <ToolbarGroup firstChild>
         <NavigationButton component={Link} to={props.getLinkUrlByRole(role)}>
-          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+          <StyledIconButton size="small" svgIconSize="large" disableIconHover>
             <ActionHome color="#9cc" />
           </StyledIconButton>
           {<FormattedMessage {...messages.navButton} />}
         </NavigationButton>
         {role === OCP_ADMIN_ROLE_CODE &&
           <NavigationButton component={Link} to={ADMIN_MANAGE_PERMISSIONS_URL}>
-            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+            <StyledIconButton size="small" svgIconSize="large" disableIconHover>
               <ActionBuild color="#9cc" />
             </StyledIconButton>
             {<FormattedMessage {...messages.administrativeSettingsButton} />}
@@ -44,7 +44,7 @@ function PrivateNavigation(props) {
         }
         {role === ORGANIZATION_ADMIN_ROLE_CODE &&
         <NavigationButton component={Link} to={MANAGE_USERS_URL}>
-          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+          <StyledIconButton size="small" svgIconSize="large" disableIconHover>
             <ActionBuild color="#9cc" />
           </StyledIconButton>
           {<FormattedMessage {...messages.manageUsersButton} />}
@@ -52,7 +52,7 @@ function PrivateNavigation(props) {
         }
         {role === OCP_ADMIN_ROLE_CODE &&
         <NavigationButton component={Link} to={MANAGE_CLIENT_URL}>
-          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+          <StyledIconButton size="small" svgIconSize="large" disableIconHover>
             <ActionBuild color="#9cc" />
           </StyledIconButton>
           {<FormattedMessage {...messages.manageSmartApps} />}
