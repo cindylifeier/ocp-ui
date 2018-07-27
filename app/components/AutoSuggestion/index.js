@@ -96,7 +96,7 @@ AutoSuggestionField.propTypes = {
 };
 
 AutoSuggestionField.defaultProps = {
-  isRequired: false,
+  isRequired: false, // Pass this parameter with a true value if this field is required
 };
 
 export default AutoSuggestionField;
