@@ -20,10 +20,11 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RecordsRange from 'components/RecordsRange';
+import StyledText from 'components/StyledText';
 import messages from './messages';
 
 
-const tableColumns = 'repeat(2, 1fr) 70px 110px 70px 50px';
+const tableColumns = 'repeat(2, 1fr) 0.5fr 0.7fr 0.3fr 0.3fr';
 
 function ActivityDefinitionsTable(props) {
   const { activityDefinitionsData } = props;
@@ -55,7 +56,24 @@ function ActivityDefinitionsTable(props) {
                     <TableRowColumn>{title}</TableRowColumn>
                     <TableRowColumn>{description}</TableRowColumn>
                     <TableRowColumn>{topic}</TableRowColumn>
-                    <TableRowColumn>Start: {effectivePeriod && effectivePeriod.start} End:{effectivePeriod && effectivePeriod.end}</TableRowColumn>
+                    <TableRowColumn>
+                      {effectivePeriod && effectivePeriod.start &&
+                      <StyledText>
+                        Start:
+                        <StyledText whiteSpace>
+                          {effectivePeriod.start}
+                        </StyledText>
+                      </StyledText>
+                      }
+                      {effectivePeriod && effectivePeriod.end &&
+                      <StyledText>
+                        End:
+                        <StyledText whiteSpace>
+                          {effectivePeriod.end}
+                        </StyledText>
+                      </StyledText>
+                      }
+                    </TableRowColumn>
                     <TableRowColumn>{status}</TableRowColumn>
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />

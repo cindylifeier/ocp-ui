@@ -236,7 +236,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             type: 'row',
             content: [
               {
-                title: 'MY TO DO',
+                title: 'TO DO',
                 type: 'component',
                 componentName: 'toDos',
                 isClosable: true,

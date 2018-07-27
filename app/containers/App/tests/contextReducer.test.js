@@ -8,6 +8,7 @@ describe('contextReducer', () => {
       user: null,
       organization: null,
       location: null,
+      practitioner: null,
       patient: null,
       subscriptionOptions: [],
     }));

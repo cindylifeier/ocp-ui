@@ -81,7 +81,11 @@ function mapToBackendPatient(patientFormData) {
 function mapToBackendFlags(flags) {
   return flags.map((flag) => {
     const { status, category, logicalId, code, flagStart, flagEnd, author } = flag;
-    return { status, category, logicalId, code, period: { start: flagStart && Util.formatDate(flagStart), end: flagEnd && Util.formatDate(flagEnd) }, author };
+    const authorRef = (author && author.id && author.display) ? {
+      reference: `Practitioner/${author.id}`,
+      display: author.display,
+    } : author;
+    return { status, category, logicalId, code, period: { start: flagStart && Util.formatDate(flagStart), end: flagEnd && Util.formatDate(flagEnd) }, author: authorRef };
   });
 }
 

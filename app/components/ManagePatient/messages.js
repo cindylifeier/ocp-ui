@@ -27,9 +27,17 @@ export default defineMessages({
       id: 'ocpui.components.ManagePatient.manageForm.validation.emailContact',
       defaultMessage: 'Must have at least one email contact.',
     },
+    phoneContact: {
+      id: 'ocpui.components.ManagePatient.manageForm.validation.phoneContact',
+      defaultMessage: 'Must have at least one phone contact.',
+    },
+    addressRequired: {
+      id: 'ocpui.components.ManagePatient.manageForm.validation.addressRequired',
+      defaultMessage: 'Must have at least one address.',
+    },
     noEpisodeOfCares: {
       id: 'ocpui.components.ManagePatient.manageForm.validation.noEpisodeOfCares',
-      defaultMessage: 'Must have at least one Episode Of Care.',
+      defaultMessage: 'Must have at least one episode of care.',
     },
   },
   hintText: {

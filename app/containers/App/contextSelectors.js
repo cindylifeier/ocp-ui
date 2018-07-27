@@ -34,6 +34,11 @@ const makeSelectLocation = () => createSelector(
   (substate) => substate.get('location') && substate.get('location').toJS(),
 );
 
+const makeSelectPractitioner = () => createSelector(
+  selectContextDomain,
+  (substate) => substate.get('practitioner') && substate.get('practitioner').toJS(),
+);
+
 const makeSelectUser = () => createSelector(
   selectContextDomain,
   (substate) => substate.get('user') && substate.get('user').toJS(),
@@ -53,5 +58,6 @@ export {
   makeSelectOrganization,
   makeSelectLocation,
   makeSelectUser,
+  makeSelectPractitioner,
   makeSelectSubscriptionOptions,
 };

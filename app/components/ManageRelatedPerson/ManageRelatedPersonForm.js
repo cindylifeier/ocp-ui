@@ -153,7 +153,7 @@ function ManageRelatedPersonForm(props) {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.identifierType} />}
               >
                 {patientIdentifierSystems && patientIdentifierSystems.reverse().map((identifierType) =>
-                  <MenuItem key={identifierType.oid} value={identifierType.oid} primaryText={identifierType.display} />,
+                  <MenuItem key={identifierType.oid} value={identifierType.uri} primaryText={identifierType.display} />,
                 )}
               </SelectField>
             </PrefixCell>
