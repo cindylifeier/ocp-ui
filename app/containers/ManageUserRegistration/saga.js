@@ -22,11 +22,11 @@ export function* getUserSaga(action) {
 export function* saveUserSaga(action) {
   try {
     yield call(saveUser, action.userFormData);
-    yield put(showNotification('Successfully update user registration'));
+    yield put(showNotification('Successfully create user account'));
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (err) {
-    yield put(showNotification(`Failed to update user: ${getErrorDetail(err)}`));
+    yield put(showNotification(`Failed to create user: ${getErrorDetail(err)}`));
     yield call(action.handleSubmitting);
   }
 }

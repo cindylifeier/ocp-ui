@@ -6,13 +6,13 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.ManageUser.header',
-    defaultMessage: 'This is the ManageUser component !',
-  },
   title: {
     id: 'ocpui.components.ManageUser.manageForm.title',
-    defaultMessage: 'General Information',
+    defaultMessage: 'General Information for practitioner',
+  },
+  patientTitle: {
+    id: 'ocpui.components.ManageUser.manageForm.patientTitle',
+    defaultMessage: 'General Information for patient',
   },
   validation: {
     minLength: {
@@ -26,6 +26,14 @@ export default defineMessages({
     invalid: {
       id: 'ocpui.components.ManageUser.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',
+    },
+    notMatch: {
+      id: 'ocpui.components.ManageUser.manageForm.validation.notMatch',
+      defaultMessage: 'Password does not match',
+    },
+    passwordPattern: {
+      id: 'ocpui.components.ManageUser.manageForm.validation.passwordPattern',
+      defaultMessage: 'Password must contain 8 characters and at least one number, one letter and one unique character such as @!#$',
     },
   },
   hintText: {

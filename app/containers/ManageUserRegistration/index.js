@@ -52,10 +52,13 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
   }
 
   render() {
-    const { user, groups } = this.props;
+    const { user, groups, location } = this.props;
+    const queryObj = queryString.parse(location.search);
+    const resourceType = queryObj.resourceType;
     const manageUserProps = {
       groups,
       user,
+      resourceType,
     };
     return (
       <Page>

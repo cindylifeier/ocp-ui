@@ -13,21 +13,28 @@ import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
 import ManageUserFormGrid from './ManageUserFormGrid';
 import messages from './messages';
+import { PATIENT } from './constants';
 
 
 function ManageUserForm(props) {
   const {
-    user, groups, isSubmitting, dirty, isValid,
+    user, groups, isSubmitting, dirty, isValid, resourceType,
   } = props;
-  const practitionerRoles = user && user.practitionerRoles;
   return (
     <Form>
       <ManageUserFormGrid>
-        <Cell area="generalInformationSubtitle">
+        {resourceType !== PATIENT && <Cell area="generalInformationSubtitle">
           <FormSubtitle margin="0">
             <FormattedMessage {...messages.title} />
           </FormSubtitle>
         </Cell>
+        }
+        {resourceType === PATIENT && <Cell area="generalInformationSubtitle">
+          <FormSubtitle margin="0">
+            <FormattedMessage {...messages.patientTitle} />
+          </FormSubtitle>
+        </Cell>
+        }
         <Cell area="firstName">
           <TextField
             fullWidth
@@ -79,7 +86,14 @@ function ManageUserForm(props) {
             hintText={<FormattedMessage {...messages.hintText.organization} />}
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
           >
-            {practitionerRoles && practitionerRoles.map((practitionerRole) =>
+            {resourceType === 'Patient' &&
+            <MenuItem
+              key={user.organization && user.organization.reference}
+              value={user.organization && user.organization.reference}
+              primaryText={user.organization && user.organization.display}
+            />
+            }
+            {resourceType === 'Practitioner' && user && user.practitionerRoles && user.practitionerRoles.map((practitionerRole) =>
               <MenuItem key={practitionerRole.organization.reference} value={practitionerRole.organization.reference} primaryText={practitionerRole.organization.display} />,
             )}
           </SelectField>
@@ -129,6 +143,7 @@ ManageUserForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   user: PropTypes.object,
   groups: PropTypes.array,
+  resourceType: PropTypes.string,
 };
 
 export default ManageUserForm;
