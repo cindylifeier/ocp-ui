@@ -8,7 +8,15 @@ import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';
-import { BENEFITS_SPECIALIST_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, FRONT_OFFICE_ROLE_CODE, HEALTH_ASSISTANT_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, PCP_ROLE_CODE } from 'containers/App/constants';
+import {
+  BENEFITS_SPECIALIST_ROLE_CODE,
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  FRONT_OFFICE_ROLE_CODE,
+  HEALTH_ASSISTANT_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  PCP_ROLE_CODE,
+} from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
@@ -25,12 +33,6 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import injectReducer from 'utils/injectReducer';
-
-import injectSaga from 'utils/injectSaga';
-import reducer from './reducer';
-import saga from './saga';
-import makeSelectPractitionerWorkspacePage from './selectors';
 
 
 const baseLayout = {
@@ -236,7 +238,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             type: 'row',
             content: [
               {
-                title: 'MY TO DO',
+                title: 'TO DO',
                 type: 'component',
                 componentName: 'toDos',
                 isClosable: true,
@@ -557,23 +559,11 @@ PractitionerWorkspacePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  practitionerworkspacepage: makeSelectPractitionerWorkspacePage(),
   user: makeSelectUser(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'practitionerWorkspacePage', reducer });
-const withSaga = injectSaga({ key: 'practitionerWorkspacePage', saga });
+const withConnect = connect(mapStateToProps);
 
 export default compose(
-  withReducer,
-  withSaga,
   withConnect,
 )(PractitionerWorkspacePage);

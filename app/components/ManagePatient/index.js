@@ -65,6 +65,7 @@ function ManagePatient(props) {
               <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           genderCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
+          language: yup.string(),
           birthDate: yup.date()
             .required((<FormattedMessage {...messages.validation.required} />)),
           identifierType: yup.string()

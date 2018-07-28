@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.AutoSuggestionBridge.header',
     defaultMessage: 'This is the AutoSuggestionBridge component !',
   },
+  required: {
+    id: 'ocpui.components.AutoSuggestionBridge.required',
+    defaultMessage: 'Required',
+  },
 });

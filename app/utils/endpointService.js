@@ -12,6 +12,7 @@ const BASE_SMART_GATEWAY_URL = '/smart';
  */
 export const CONFIG_API_URL = 'ocpui/utils/CONFIG_API_URL';
 export const LOGIN_API_URL = 'ocpui/utils/LOGIN_API_URL';
+export const CHANGE_PASSWORD_API_URL = 'ocpui/utils/CHANGE_PASSWORD_API_URL';
 export const LOOKUPS_API_URL = 'ocpui/utils/LOOKUPS_API_URL';
 export const BASE_CARE_TEAMS_API_URL = 'ocpui/utils/BASE_CARE_TEAMS_API_URL';
 export const BASE_ORGANIZATION_API_URL = 'ocpui/utils/BASE_ORGANIZATION_API_URL';
@@ -38,6 +39,7 @@ export const BASE_COVERAGE_URL = 'ocpui/utils/BASE_COVERAGE_URL';
 export const BASE_GROUPS_API_URL = 'ocpui/utils/BASE_GROUPS_API_URL';
 export const BASE_SCOPES_API_URL = 'ocpui/utils/BASE_SCOPES_API_URL';
 export const BASE_USERS_API_URL = 'ocpui/utils/BASE_USERS_API_URL';
+export const BASE_USER_LOGIN_DETAILS_API_URL = 'ocpui/utils/BASE_USER_LOGIN_DETAILS_API_URL';
 
 
 export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
@@ -50,7 +52,9 @@ const apiEndpoints = [
   { key: CONFIG_API_URL, url: `${BASE_API_URL}/config`, isSecured: false },
   { key: LOGIN_API_URL, url: `${BASE_API_URL}/login`, isSecured: false },
   { key: LOOKUPS_API_URL, url: `${BASE_API_URL}/ocp-fis/lookups`, isSecured: false },
+  { key: BASE_USER_LOGIN_DETAILS_API_URL, url: `${BASE_API_URL}/sample-user-login-details`, isSecured: false },
 
+  { key: CHANGE_PASSWORD_API_URL, url: `${BASE_API_URL}/change-password` },
   { key: BASE_CARE_TEAMS_API_URL, url: `${BASE_API_URL}/ocp-fis/care-teams` },
   { key: BASE_ORGANIZATION_API_URL, url: `${BASE_API_URL}/ocp-fis/organization` },
   { key: BASE_ORGANIZATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/organizations` },

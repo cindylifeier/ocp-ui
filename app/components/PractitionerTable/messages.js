@@ -42,6 +42,10 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.edit',
     defaultMessage: 'Edit',
   },
+  assignLocation: {
+    id: 'ocpui.components.PractitionerTable.assignLocation',
+    defaultMessage: 'Assign Location',
+  },
   manageUser: {
     id: 'ocpui.components.PractitionerTable.manageUser',
     defaultMessage: 'Manage User',
