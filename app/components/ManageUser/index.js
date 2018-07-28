@@ -22,9 +22,9 @@ function ManageUser(props) {
   const formData = {
     user, groups, resourceType,
   };
-  const organization = resourceType === PATIENT ? user.organization && user.organization.reference : null;
+  const organization = resourceType === PATIENT ? user.organization && user.organization.reference : '';
   const patientGroup = groups.filter((group) => group.displayName.includes(PATIENT.toLowerCase()));
-  const role = resourceType === PATIENT ? patientGroup[0].id : null;
+  const role = resourceType === PATIENT ? patientGroup[0].id : '';
   const initialValues = { firstName: user.name[0].firstName, lastName: user.name[0].lastName, username: user.userName, organization, role };
   return (
     <div>
