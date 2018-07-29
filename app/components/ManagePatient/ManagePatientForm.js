@@ -265,7 +265,7 @@ function ManagePatientForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact() || !hasEpisodeOfCare()}
+                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact() || !hasEpisodeOfCare() || !hasPhoneContact()}
               >
                 Save
               </StyledRaisedButton>
