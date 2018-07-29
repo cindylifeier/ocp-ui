@@ -82,9 +82,10 @@ function AddMultipleAddressesForm(props) {
                 />
               </Cell>
               <Cell>
-                <Padding top={'25'}>
+                <Padding top={25}>
                   <AutoSuggestionField
                     name="stateCode"
+                    isRequired
                     placeholder={<FormattedMessage {...messages.hintText.stateCode} />}
                     suggestions={stateSuggestions}
                     {...props}

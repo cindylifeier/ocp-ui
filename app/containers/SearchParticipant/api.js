@@ -4,9 +4,9 @@ import { BASE_PARTICIPANTS_API_URL, getEndpoint } from '../../utils/endpointServ
 
 export function searchParticipant(value, member, patientId, organizationId) {
   const baseEndpoint = getEndpoint(BASE_PARTICIPANTS_API_URL);
-  let queryParams = queryString({ value, member, patientId, showAll: true });
+  let queryParams = queryString({ value, member, patientId, showAll: true, participantForCareTeam: true });
   if (organizationId) {
-    queryParams = queryString({ value, member, patientId, showAll: true, organization: organizationId });
+    queryParams = queryString({ value, member, patientId, showAll: true, participantForCareTeam: true });
   }
   const url = `${baseEndpoint}/search${queryParams}`;
   return request(url);
