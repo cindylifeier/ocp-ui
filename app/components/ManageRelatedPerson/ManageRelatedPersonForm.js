@@ -21,7 +21,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { EMAIL, PHONE } from '../ManagePatient/constants';
+import { EMAIL, PHONE } from './constants';
 import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
 import messages from './messages';
 
