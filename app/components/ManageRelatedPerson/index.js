@@ -4,20 +4,20 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import * as yup from 'yup';
 import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import Util from 'utils/Util';
-import messages from './messages';
-import ManageRelatedPersonForm from './ManageRelatedPersonForm';
+import * as yup from 'yup';
 import { TEXT_MIN_LENGTH } from './constants';
+import ManageRelatedPersonForm from './ManageRelatedPersonForm';
+import messages from './messages';
 
 function ManageRelatedPerson(props) {
   const minimumLength = TEXT_MIN_LENGTH;
@@ -69,10 +69,8 @@ function ManageRelatedPerson(props) {
                   <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
               relationshipCode: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              birthDate: yup.date()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-              genderCode: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
+              birthDate: yup.date(),
+              genderCode: yup.string(),
               startDate: yup.date()
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
               endDate: yup.date()
@@ -131,8 +129,11 @@ function mapToRelatedPerson(capturedFormData, patient, administrativeGenders, re
     identifierType,
     identifierValue,
   } = capturedFormData;
-  const selectedAdministrativeGenders = find(administrativeGenders, { code: genderCode });
-  const genderValue = selectedAdministrativeGenders.display;
+  let genderValue = '';
+  if (!isUndefined(genderCode)) {
+    const selectedAdministrativeGenders = find(administrativeGenders, { code: genderCode });
+    genderValue = selectedAdministrativeGenders.display;
+  }
   const selectedRelationshipTypes = find(relationshipTypes, { code: relationshipCode });
   const relationshipValue = selectedRelationshipTypes.display;
   return {
@@ -148,9 +149,9 @@ function mapToRelatedPerson(capturedFormData, patient, administrativeGenders, re
     identifierValue,
     active,
     patient: patient.id,
-    startDate: startDate.toLocaleDateString(),
-    endDate: endDate.toLocaleDateString(),
-    birthDate: birthDate.toLocaleDateString(),
+    startDate: !isUndefined(startDate) ? startDate.toLocaleDateString() : null,
+    endDate: !isUndefined(endDate) ? endDate.toLocaleDateString() : null,
+    birthDate: !isUndefined(birthDate) ? birthDate.toLocaleDateString() : null,
   };
 }
 

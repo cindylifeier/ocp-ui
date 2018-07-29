@@ -39,6 +39,14 @@ export default defineMessages({
       id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.minEndDate',
       defaultMessage: 'End date field must be later than Start date field',
     },
+    emailContact: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.emailContact',
+      defaultMessage: 'Must have at least one email contact.',
+    },
+    phoneContact: {
+      id: 'ocpui.components.ManageRelatedPerson.manageForm.validation.phoneContact',
+      defaultMessage: 'Must have at least one phone contact.',
+    },
   },
   hintText: {
     firstName: {

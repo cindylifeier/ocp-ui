@@ -1,27 +1,29 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import { Form } from 'formik';
-import MenuItem from 'material-ui/MenuItem';
-import { Cell, Grid } from 'styled-css-grid';
-import uniqueId from 'lodash/uniqueId';
-
-import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
-import DatePicker from 'components/DatePicker';
-import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import GoBackButton from 'components/GoBackButton';
-import InlineLabel from 'components/InlineLabel';
-import FormSubtitle from 'components/FormSubtitle';
-import FieldGroupGrid from 'components/FieldGroupGrid';
-import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
-import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import DatePicker from 'components/DatePicker';
+import ErrorText from 'components/ErrorText';
+import FieldGroupGrid from 'components/FieldGroupGrid';
+import MainCell from 'components/FieldGroupGrid/MainCell';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import FormSubtitle from 'components/FormSubtitle';
+import GoBackButton from 'components/GoBackButton';
+import InlineLabel from 'components/InlineLabel';
+import SelectField from 'components/SelectField';
+import StyledFormikCheckbox from 'components/StyledFormikCheckbox';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+
+import TextField from 'components/TextField';
+import { Form } from 'formik';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import messages from './messages';
+import { EMAIL, PHONE } from '../ManagePatient/constants';
 import ManageRelatedPersonFormGrid from './ManageRelatedPersonFormGrid';
+import messages from './messages';
 
 function ManageRelatedPersonForm(props) {
   const today = new Date();
@@ -39,6 +41,17 @@ function ManageRelatedPersonForm(props) {
     patient,
   } = props;
   const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
+
+  function hasEmailContact() {
+    const emailContacts = values && values.telecoms && values.telecoms.filter((entry) => entry.system === EMAIL);
+    return emailContacts && emailContacts.length > 0;
+  }
+
+  function hasPhoneContact() {
+    const phoneContacts = values && values.telecoms && values.telecoms.filter((entry) => entry.system === PHONE);
+    return phoneContacts && phoneContacts.length > 0;
+  }
+
   const addAddressesProps = {
     uspsStates,
     errors,
@@ -172,6 +185,14 @@ function ManageRelatedPersonForm(props) {
         </Cell>
         <Cell area="contacts">
           <AddMultipleTelecoms {...addTelecomsProps} />
+          {hasEmailContact() ? '' : <ErrorText>
+            <FormattedMessage {...messages.validation.emailContact} /><br />
+          </ErrorText>
+          }
+          {hasPhoneContact() ? '' : <ErrorText>
+            <FormattedMessage {...messages.validation.phoneContact} />
+          </ErrorText>
+          }
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -179,7 +200,7 @@ function ManageRelatedPersonForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                disabled={!dirty || isSubmitting || !isValid}
+                disabled={!dirty || isSubmitting || !isValid || !hasEmailContact() || !hasPhoneContact()}
               >
                 Save
               </StyledRaisedButton>
