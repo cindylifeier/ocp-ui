@@ -63,7 +63,7 @@ export const initialStateMetadata =
       title: '',
       content: [
         {
-          title: 'PRACTITIONER PERMISSION ASSIGNMENT',
+          title: 'User Permission Management',
           type: 'component',
           componentName: 'practitionerPermissionAssignment',
           isClosable: true,

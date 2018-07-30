@@ -61,6 +61,7 @@ export class PanelToolbar extends React.Component {
       onSearch,
       searchField,
       showToDoSpecificFilters,
+      showUserRegistrationRoleSelection,
       showPatientSpecificFilters,
       showAppointmentSpecificFilters,
       onFilter,
@@ -145,6 +146,7 @@ export class PanelToolbar extends React.Component {
           onSearch={onSearch}
           searchField={searchField}
           showToDoSpecificFilters={showToDoSpecificFilters}
+          showUserRegistrationRoleSelection={showUserRegistrationRoleSelection}
         />
         }
         {this.state.isShowFilter &&
@@ -184,6 +186,7 @@ PanelToolbar.propTypes = {
     ),
   ]),
   showToDoSpecificFilters: PropTypes.bool,
+  showUserRegistrationRoleSelection: PropTypes.bool,
   showAppointmentSpecificFilters: PropTypes.bool,
   showPatientSpecificFilters: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
@@ -207,6 +210,10 @@ PanelToolbar.propTypes = {
   }),
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
+    resourceTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })),

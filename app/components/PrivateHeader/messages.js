@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.PrivateHeader.brandImg',
     defaultMessage: 'OCP brand image',
   },
+  changePasswordMenuItem: {
+    id: 'ocpui.containers.PrivateHeader.changePasswordMenuItem',
+    defaultMessage: 'Change Password',
+  },
 });

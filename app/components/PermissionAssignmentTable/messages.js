@@ -1,9 +1,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  providerName: {
-    id: 'ocpui.components.PermissionAssignmentTable.providerName',
-    defaultMessage: 'Provider Name',
+  userName: {
+    id: 'ocpui.components.PermissionAssignmentTable.userName',
+    defaultMessage: 'User Name',
   },
   role: {
     id: 'ocpui.components.PermissionAssignmentTable.role',

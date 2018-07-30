@@ -5,22 +5,14 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import renderOrganizationsComponent from 'containers/Organizations/render';
 import renderPractitionersComponent from 'containers/Practitioners/render';
 import renderPatientsComponent from 'containers/Patients/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
-import makeSelectAdminWorkspacePage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
 export const initialStateMetadata =
   {
@@ -124,27 +116,6 @@ export class AdminWorkspacePage extends React.Component { // eslint-disable-line
   }
 }
 
-AdminWorkspacePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+AdminWorkspacePage.propTypes = {};
 
-const mapStateToProps = createStructuredSelector({
-  adminworkspacepage: makeSelectAdminWorkspacePage(),
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'adminWorkspacePage', reducer });
-const withSaga = injectSaga({ key: 'adminWorkspacePage', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(AdminWorkspacePage);
+export default compose()(AdminWorkspacePage);

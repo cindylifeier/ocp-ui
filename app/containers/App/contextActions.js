@@ -20,6 +20,7 @@ import {
   SET_ORGANIZATION,
   SET_PATIENT,
   SET_USER,
+  SET_PRACTITIONER,
   GET_SUBSCRIBER_OPTIONS,
   GET_SUBSCRIBER_OPTIONS_SUCCESS,
 } from './contextConstants';
@@ -42,6 +43,14 @@ export function setLocation(location) {
   return {
     type: SET_LOCATION,
     location,
+  };
+}
+
+
+export function setPractitioner(practitioner) {
+  return {
+    type: SET_PRACTITIONER,
+    practitioner,
   };
 }
 

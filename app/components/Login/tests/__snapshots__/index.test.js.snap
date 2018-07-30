@@ -33,21 +33,7 @@ ShallowWrapper {
         <Cell__Cell
           area="header"
         >
-          <StyledImage__StyledImage
-            alt={
-              <FormattedMessage
-                defaultMessage="OCP brand image"
-                id="ocpui.components.Login.brandImg"
-                values={Object {}}
-              />
-            }
-            borderWidth="0px"
-            height="56px"
-            margin="10px"
-            src="IMAGE_MOCK"
-            width="85px"
-          />
-          <Styled(Divider) />
+          <PublicHeader />
         </Cell__Cell>
         <Cell__Cell
           area="leftSide"
@@ -173,21 +159,7 @@ ShallowWrapper {
           <Cell__Cell
             area="header"
           >
-            <StyledImage__StyledImage
-              alt={
-                <FormattedMessage
-                  defaultMessage="OCP brand image"
-                  id="ocpui.components.Login.brandImg"
-                  values={Object {}}
-                />
-              }
-              borderWidth="0px"
-              height="56px"
-              margin="10px"
-              src="IMAGE_MOCK"
-              width="85px"
-            />
-            <Styled(Divider) />
+            <PublicHeader />
           </Cell__Cell>,
           <Cell__Cell
             area="leftSide"
@@ -308,56 +280,18 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "area": "header",
-            "children": Array [
-              <StyledImage__StyledImage
-                alt={
-                  <FormattedMessage
-                    defaultMessage="OCP brand image"
-                    id="ocpui.components.Login.brandImg"
-                    values={Object {}}
-                  />
-                }
-                borderWidth="0px"
-                height="56px"
-                margin="10px"
-                src="IMAGE_MOCK"
-                width="85px"
-              />,
-              <Styled(Divider) />,
-            ],
+            "children": <PublicHeader />,
           },
           "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "alt": <FormattedMessage
-                  defaultMessage="OCP brand image"
-                  id="ocpui.components.Login.brandImg"
-                  values={Object {}}
-                />,
-                "borderWidth": "0px",
-                "height": "56px",
-                "margin": "10px",
-                "src": "IMAGE_MOCK",
-                "width": "85px",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {},
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-          ],
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {},
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
           "type": [Function],
         },
         Object {
@@ -729,21 +663,7 @@ ShallowWrapper {
           <Cell__Cell
             area="header"
           >
-            <StyledImage__StyledImage
-              alt={
-                <FormattedMessage
-                  defaultMessage="OCP brand image"
-                  id="ocpui.components.Login.brandImg"
-                  values={Object {}}
-                />
-              }
-              borderWidth="0px"
-              height="56px"
-              margin="10px"
-              src="IMAGE_MOCK"
-              width="85px"
-            />
-            <Styled(Divider) />
+            <PublicHeader />
           </Cell__Cell>
           <Cell__Cell
             area="leftSide"
@@ -869,21 +789,7 @@ ShallowWrapper {
             <Cell__Cell
               area="header"
             >
-              <StyledImage__StyledImage
-                alt={
-                  <FormattedMessage
-                    defaultMessage="OCP brand image"
-                    id="ocpui.components.Login.brandImg"
-                    values={Object {}}
-                  />
-                }
-                borderWidth="0px"
-                height="56px"
-                margin="10px"
-                src="IMAGE_MOCK"
-                width="85px"
-              />
-              <Styled(Divider) />
+              <PublicHeader />
             </Cell__Cell>,
             <Cell__Cell
               area="leftSide"
@@ -1004,56 +910,18 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "area": "header",
-              "children": Array [
-                <StyledImage__StyledImage
-                  alt={
-                    <FormattedMessage
-                      defaultMessage="OCP brand image"
-                      id="ocpui.components.Login.brandImg"
-                      values={Object {}}
-                    />
-                  }
-                  borderWidth="0px"
-                  height="56px"
-                  margin="10px"
-                  src="IMAGE_MOCK"
-                  width="85px"
-                />,
-                <Styled(Divider) />,
-              ],
+              "children": <PublicHeader />,
             },
             "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "alt": <FormattedMessage
-                    defaultMessage="OCP brand image"
-                    id="ocpui.components.Login.brandImg"
-                    values={Object {}}
-                  />,
-                  "borderWidth": "0px",
-                  "height": "56px",
-                  "margin": "10px",
-                  "src": "IMAGE_MOCK",
-                  "width": "85px",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {},
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-            ],
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
             "type": [Function],
           },
           Object {

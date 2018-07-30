@@ -68,19 +68,19 @@ export const initialStateMetadata =
           height: 40,
           content: [
             {
-              title: 'Tasks',
+              title: 'Patient\'s Tasks',
               type: 'component',
               componentName: 'tasks',
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'Care teams',
+              title: 'Patient\'s Care teams',
               type: 'component',
               componentName: 'careTeams',
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'TO DO',
+              title: 'Patient\'s TO DO',
               type: 'component',
               componentName: 'toDos',
               isClosable: true,
@@ -93,20 +93,20 @@ export const initialStateMetadata =
           height: 60,
           content: [
             {
-              title: 'Appointments',
+              title: 'Patient\'s Appointments',
               type: 'component',
               componentName: 'appointments',
               isClosable: true,
               reorderEnabled: true,
             }, {
-              title: 'Communications',
+              title: 'Patient\'s Communications',
               type: 'component',
               componentName: 'communications',
               isClosable: true,
               reorderEnabled: true,
             },
             {
-              title: 'Coverage',
+              title: 'Patient\'s Coverage',
               type: 'component',
               componentName: 'coverage',
               isClosable: true,
