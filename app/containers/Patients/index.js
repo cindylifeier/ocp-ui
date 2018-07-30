@@ -28,7 +28,7 @@ import {
   USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { combineAddress, isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
+import { combineAddress, isAdminWorkspace, mapToTelecoms, getPractitionerIdByRole } from 'containers/App/helpers';
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
@@ -45,7 +45,7 @@ import {
   makeSelectSearchLoading,
   makeSelectTotalPages,
 } from './selectors';
-import { initializePatients, loadPatientSearchResult } from './actions';
+import { initializePatients, loadPatientSearchResult, fitlerPatient } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
@@ -140,7 +140,13 @@ export class Patients extends React.Component {
     }
   }
 
-  handleFilter() {
+  handleFilter(filterBy) {
+    const { organization, user, location: { pathname } } = this.props;
+    const practitionerId = getPractitionerIdByRole(user);
+    const organizationId = isAdminWorkspace(pathname) ? null : organization.logicalId;
+    if (organizationId && practitionerId) {
+      this.props.onFitlerPatient(filterBy, organizationId, practitionerId, this.state.currentPage, this.props.includeInactive);
+    }
   }
 
   handleChangePage(newPage) {
@@ -170,8 +176,8 @@ export class Patients extends React.Component {
       },
     };
     const filterDateOptions = [
-      { value: MY_CARE_TEAM_PATIENTS, display: MY_CARE_TEAM_PATIENTS_DISPLAY },
       { value: ALL_ORG_PATIENTS, display: ALL_ORG_PATIENTS_DISPLAY },
+      { value: MY_CARE_TEAM_PATIENTS, display: MY_CARE_TEAM_PATIENTS_DISPLAY },
       { value: UNASSIGNED_PATIENTS, display: UNASSIGNED_PATIENTS_DISPLAY },
     ];
     const filterField = {
@@ -248,6 +254,7 @@ Patients.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   onSearchPatient: PropTypes.func.isRequired,
+  onFitlerPatient: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   totalElements: PropTypes.number,
@@ -301,6 +308,7 @@ function mapDispatchToProps(dispatch) {
     initializePatients: (patients) => dispatch(initializePatients(patients)),
     getLookUpData: () => dispatch(getLookupsAction([USCORERACE, USCOREETHNICITY])),
     setPatient: (patient) => dispatch(setPatient(patient)),
+    onFitlerPatient: (filterBy, organizationId, practitionerId, currentPage, includeInactive) => dispatch(fitlerPatient(filterBy, organizationId, practitionerId, currentPage, includeInactive)),
   };
 }
 
