@@ -9,6 +9,9 @@ import {
   LOAD_PATIENT_SEARCH_RESULT,
   SEARCH_PATIENTS_ERROR,
   SEARCH_PATIENTS_SUCCESS,
+  FILTER_PATIENTS,
+  FILTER_PATIENTS_SUCCESS,
+  FILTER_PATIENTS_ERROR,
 } from './constants';
 
 export function initializePatients(patients) {
@@ -26,6 +29,34 @@ export function loadPatientSearchResult(searchTerms, searchType, includeInactive
     includeInactive,
     currentPage,
     organization,
+  };
+}
+
+export function fitlerPatient(filterBy, organization, practitioner, currentPage) {
+  return {
+    type: FILTER_PATIENTS,
+    filterBy,
+    organization,
+    practitioner,
+    currentPage,
+  };
+}
+
+
+export function fitlerPatientError(error) {
+  return {
+    type: FILTER_PATIENTS_ERROR,
+    error,
+  };
+}
+
+export function fitlerPatientSuccess(searchResult, filterBy) {
+  return {
+    type: FILTER_PATIENTS_SUCCESS,
+    searchResult,
+    queryParameters: {
+      filterBy,
+    },
   };
 }
 
