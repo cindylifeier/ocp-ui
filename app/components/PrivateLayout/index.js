@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Cell, Grid } from 'styled-css-grid';
-import { FormattedMessage } from 'react-intl';
 import brandImg from 'images/omnibus-care-plan-logo.png';
 
 import PrivateHeader from 'components/PrivateHeader';
@@ -17,7 +16,6 @@ import LayoutGrid from './LayoutGrid';
 import HeaderGrid from './HeaderGrid';
 import HeaderContainer from './HeaderContainer';
 import ContentContainer from './ContentContainer';
-import messages from './messages';
 
 function PrivateLayout(props) {
   return (
@@ -25,7 +23,7 @@ function PrivateLayout(props) {
       <HeaderContainer>
         <HeaderGrid columns={'100px 1fr'} alignContent="end">
           <Cell>
-            <StyledImage height="55px" width="75px" src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
+            <StyledImage height="55px" width="75px" src={brandImg} alt="Omnibus Care Plan Logo" />
           </Cell>
           {props.user.role &&
           <Cell>
