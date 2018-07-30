@@ -42,10 +42,12 @@ import ManageRelatedPersonPage from 'containers/ManageRelatedPersonPage';
 import Notification from 'containers/Notification';
 import ManageCommunicationPage from 'containers/ManageCommunicationPage';
 import ManageClientPage from 'containers/ManageClientPage';
+import ManageUserRegistration from 'containers/ManageUserRegistration';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
+import UserLoginDetailsPage from 'containers/UserLoginDetailsPage';
+import AssignLocationToPractitionerPage from 'containers/AssignLocationToPractitionerPage';
 import saga from './saga';
 import './styles.css';
-
 
 export function App() {
   return (
@@ -61,13 +63,15 @@ export function App() {
           <Redirect exact from="/" to="/ocp-ui/login" />
           <Route exact path="/ocp-ui" component={LoginPage} />
           <Route path="/ocp-ui/login" component={LoginPage} />
+          <Route path="/ocp-ui/sample-user-login-details" component={UserLoginDetailsPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />
             <Route path="/ocp-ui/admin-workspace" component={AdminWorkspacePage} />
             <Route path="/ocp-ui/manage-permissions" component={AdminManagePermissionsPage} />
             <Route path="/ocp-ui/manage-users" component={ManageUsersPage} />
-            <Route path="/ocp-ui/practitioner-workspace" component={PractitionerWorkspacePage} />
+            <Route path="/ocp-ui/manage-user-registration/:id?" component={ManageUserRegistration} />
+            <Route path="/ocp-ui/practitioner-workspace/" component={PractitionerWorkspacePage} />
             <Route path="/ocp-ui/patient-workspace" component={PatientWorkspacePage} />
             <Route exact path="/ocp-ui/patients/:id" component={PatientPage} />
             <Route path="/ocp-ui/manage-organization/:id?" component={ManageOrganizationPage} />
@@ -76,10 +80,8 @@ export function App() {
             <Route path="/ocp-ui/manage-location/:id?" component={ManageLocationPage} />
             <Route path="/ocp-ui/manage-care-team/:id?" component={ManageCareTeamPage} />
             <Route path="/ocp-ui/manage-healthcare-service/:id?" component={ManageHealthcareServicePage} />
-            <Route
-              path="/ocp-ui/assign-healthcareservice-location/:id?"
-              component={AssignHealthCareServiceToLocationPage}
-            />
+            <Route path="/ocp-ui/assign-healthcareservice-location/:id?" component={AssignHealthCareServiceToLocationPage} />
+            <Route path="/ocp-ui/assign-location-practitioner/:id?" component={AssignLocationToPractitionerPage} />
             <Route path="/ocp-ui/manage-task/:id?" component={ManageTaskPage} />
             <Route path="/ocp-ui/manage-activity-definition/:id?" component={ManageActivityDefinitionPage} />
             <Route path="/ocp-ui/manage-related-person/:id?" component={ManageRelatedPersonPage} />

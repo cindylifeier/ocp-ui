@@ -15,6 +15,7 @@ import {
   SET_LOCATION,
   SET_PATIENT,
   SET_USER,
+  SET_PRACTITIONER,
   GET_SUBSCRIBER_OPTIONS_SUCCESS,
 } from './contextConstants';
 
@@ -22,6 +23,7 @@ const initialState = fromJS({
   user: null,
   organization: null,
   location: null,
+  practitioner: null,
   patient: null,
   subscriptionOptions: [],
 });
@@ -36,6 +38,8 @@ function contextReducer(state = initialState, action) {
         .set('organization', fromJS(action.organization));
     case SET_LOCATION:
       return state.set('location', fromJS(action.location));
+    case SET_PRACTITIONER:
+      return state.set('practitioner', fromJS(action.practitioner));
     case SET_USER:
       return state.set('user', fromJS(action.user));
     case CLEAR_PATIENT:

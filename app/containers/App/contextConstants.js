@@ -11,6 +11,7 @@
 export const SET_PATIENT = 'ocpui/Context/SET_PATIENT';
 export const SET_ORGANIZATION = 'ocpui/Context/SET_ORGANIZATION';
 export const SET_LOCATION = 'ocpui/Context/SET_LOCATION';
+export const SET_PRACTITIONER = 'ocpui/Context/SET_PRACTITIONER';
 export const SET_USER = 'ocpui/Context/SET_USER';
 export const CLEAR_PATIENT = 'ocpui/Context/CLEAR_PATIENT';
 export const CLEAR_ORGANIZATION = 'ocpui/Context/CLEAR_ORGANIZATION';

@@ -17,6 +17,7 @@ import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
 import { isAdminWorkspace } from 'containers/App/helpers';
+import { setPractitioner } from 'containers/App/contextActions';
 import { getPractitionersInOrganization, initializePractitioners, searchPractitioners } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -88,7 +89,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const { practitioners, ...rest } = this.props;
+    const { practitioners, setSelectedPractitioner, ...rest } = this.props;
     const practitionersData = {
       loading: practitioners.loading,
       data: practitioners.data,
@@ -97,6 +98,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
       currentPageSize: practitioners.currentPageSize,
       totalElements: practitioners.totalElements,
       handleChangePage: this.state.isShowSearchResult ? this.handleChangeSearchPage : this.handleChangeListPage,
+      setSelectedPractitioner,
     };
 
     const viewComponentProps = {
@@ -157,6 +159,7 @@ Practitioners.propTypes = {
     ]),
   }),
   getPractitionersInOrganization: PropTypes.func.isRequired,
+  setSelectedPractitioner: PropTypes.func.isRequired,
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
   location: PropTypes.object.isRequired,
@@ -174,6 +177,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    setSelectedPractitioner: (practitioner) => dispatch(setPractitioner(practitioner)),
     initializePractitioners: () => dispatch(initializePractitioners()),
     getPractitionersInOrganization: (currentPage, pageSize) => dispatch(getPractitionersInOrganization(currentPage, pageSize)),
     searchPractitioners: (searchType, searchValue, includeInactive, currentPage, organization) => dispatch(searchPractitioners(searchType, searchValue, includeInactive, currentPage, organization)),

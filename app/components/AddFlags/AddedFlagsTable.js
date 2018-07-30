@@ -16,6 +16,8 @@ import messages from './messages';
 
 function AddedFlagsTable(props) {
   const tableColumns = 'repeat(6, 1fr) 80px';
+  const activeStatus = 'active';
+  const inactiveStatus = 'inactive';
   const {
     errors,
     flags,
@@ -40,16 +42,18 @@ function AddedFlagsTable(props) {
         <CustomErrorText>{errors.flags}</CustomErrorText>
         }
         {flags && flags.map((flag, index) => {
-          const { logicalId, category, status, code, author, flagStart, flagEnd } = flag;
+          const { category, status, logicalId, code, author, flagStart, flagEnd } = flag;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionEdit} />,
             onClick: () => handleEditFlag(index, flag),
           }, {
             primaryText: <FormattedMessage {...messages.addedFlagsTable.tableActionRemove} />,
-            disabled: logicalId !== undefined,
-            onClick: () => arrayHelpers.remove(index),
+            onClick: () => {
+              const inactiveFlag = { status: inactiveStatus, category, logicalId, code, flagStart, flagEnd, author };
+              arrayHelpers.replace(index, inactiveFlag);
+            },
           }];
-          return (
+          return (status === activeStatus &&
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{find(flagCategories, { code: category }) && (find(flagCategories, { code: category })).display}</TableRowColumn>
               <TableRowColumn>{find(flagStatuses, { code: status }) && (find(flagStatuses, { code: status })).display}</TableRowColumn>
