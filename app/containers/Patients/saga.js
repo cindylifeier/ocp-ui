@@ -1,9 +1,20 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { LOAD_PATIENT_SEARCH_RESULT } from './constants';
-import { searchPatientsError, searchPatientsSuccess } from './actions';
-import searchPatients from './api';
+import { call, put, takeLatest, all } from 'redux-saga/effects';
+import {
+  LOAD_PATIENT_SEARCH_RESULT,
+  FILTER_PATIENTS,
+} from 'containers/Patients/constants';
+import {
+  searchPatientsError,
+  searchPatientsSuccess,
+  fitlerPatientSuccess,
+  fitlerPatientError,
+} from 'containers/Patients/actions';
+import {
+  fitlerPatients,
+  searchPatients,
+} from 'containers/Patients/api';
 
-export function* fetchSearchResult({ searchTerms, searchType, includeInactive, currentPage, organization }) {
+export function* fetchSearchResultSaga({ searchTerms, searchType, includeInactive, currentPage, organization }) {
   try {
     const searchPatientResult = yield call(searchPatients, searchTerms, searchType, includeInactive, currentPage, organization);
     yield put(searchPatientsSuccess(searchPatientResult, searchTerms, searchType, includeInactive));
@@ -12,9 +23,31 @@ export function* fetchSearchResult({ searchTerms, searchType, includeInactive, c
   }
 }
 
+
+export function* filterPatientSaga({ filterBy, organization, practitioner, currentPage }) {
+  try {
+    const filterPatientResult = yield call(fitlerPatients, filterBy, organization, practitioner, currentPage);
+    yield put(fitlerPatientSuccess(filterPatientResult, filterBy));
+  } catch (error) {
+    yield put(fitlerPatientError(error));
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* watchFetchPatients() {
-  yield takeLatest(LOAD_PATIENT_SEARCH_RESULT, fetchSearchResult);
+export function* watchSearchPatients() {
+  yield takeLatest(LOAD_PATIENT_SEARCH_RESULT, fetchSearchResultSaga);
+}
+
+
+export function* watchFilterPatients() {
+  yield takeLatest(FILTER_PATIENTS, filterPatientSaga);
+}
+
+
+export default function* rootSaga() {
+  yield all([
+    watchSearchPatients(),
+    watchFilterPatients(),
+  ]);
 }
