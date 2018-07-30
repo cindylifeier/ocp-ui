@@ -12,7 +12,7 @@ import uniqueId from 'lodash/uniqueId';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
-import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import { MANAGE_PRACTITIONER_URL, MANAGE_USER_REGISTRATION } from 'containers/App/constants';
 import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -28,8 +28,7 @@ import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 
 function PractitionerTable(props) {
-  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, assignLocationUrl }
-  = props;
+  const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, manageUserEnabled, assignLocationUrl } = props;
   const { setSelectedPractitioner } = practitionersData;
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
@@ -64,14 +63,22 @@ function PractitionerTable(props) {
                 const flattenedPractitioner = flattenPractitionerData(practitioner);
                 const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
                 const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
-                const menuItems = [{
-                  primaryText: <FormattedMessage {...messages.edit} />,
-                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
-                }, {
-                  primaryText: <FormattedMessage {...messages.assignLocation} />,
-                  linkTo: `${assignLocationUrl}/${practitioner.logicalId}`,
-                },
-                ];
+                let menuItems;
+                if (manageUserEnabled) {
+                  menuItems = [{
+                    primaryText: <FormattedMessage {...messages.manageUser} />,
+                    linkTo: `${MANAGE_USER_REGISTRATION}/${practitioner.logicalId}?resourceType=Practitioner`,
+                  }];
+                } else {
+                  menuItems = [{
+                    primaryText: <FormattedMessage {...messages.edit} />,
+                    linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                  }, {
+                    primaryText: <FormattedMessage {...messages.assignLocation} />,
+                    linkTo: `${assignLocationUrl}/${practitioner.logicalId}`,
+                  },
+                  ];
+                }
                 return (
                   <ExpansionTableRow
                     expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
@@ -162,6 +169,7 @@ PractitionerTable.propTypes = {
   }),
   combineAddress: PropTypes.func.isRequired,
   mapToTelecoms: PropTypes.func.isRequired,
+  manageUserEnabled: PropTypes.bool,
 };
 
 export default sizeMeHOC(PractitionerTable);
