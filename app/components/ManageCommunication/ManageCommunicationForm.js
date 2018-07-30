@@ -170,6 +170,7 @@ function ManageCommunicationForm(props) {
               <Padding top={'25'}>
                 <AutoSuggestionField
                   name="mediumCode"
+                  isRequired
                   placeholder={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
                   suggestions={mediumSuggestions}
                   {...props}
