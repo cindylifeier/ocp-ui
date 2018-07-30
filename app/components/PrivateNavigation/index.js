@@ -29,31 +29,31 @@ function PrivateNavigation(props) {
     <StyledToolbar height="40px">
       <ToolbarGroup firstChild>
         <NavigationButton component={Link} to={props.getLinkUrlByRole(role)}>
-          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-            <ActionHome color="#9cc" />
+          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Home icon'}>
+            <ActionHome color="#2f5e5e" />
           </StyledIconButton>
           {<FormattedMessage {...messages.navButton} />}
         </NavigationButton>
         {role === OCP_ADMIN_ROLE_CODE &&
           <NavigationButton component={Link} to={ADMIN_MANAGE_PERMISSIONS_URL}>
-            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-              <ActionBuild color="#9cc" />
+            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'wrench icon'}>
+              <ActionBuild color="#2f5e5e" />
             </StyledIconButton>
             {<FormattedMessage {...messages.administrativeSettingsButton} />}
           </NavigationButton>
         }
         {role === ORGANIZATION_ADMIN_ROLE_CODE &&
         <NavigationButton component={Link} to={MANAGE_USERS_URL}>
-          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-            <ActionBuild color="#9cc" />
+          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'wrench icon'}>
+            <ActionBuild color="#2f5e5e" />
           </StyledIconButton>
           {<FormattedMessage {...messages.manageUsersButton} />}
         </NavigationButton>
         }
         {role === OCP_ADMIN_ROLE_CODE &&
         <NavigationButton component={Link} to={MANAGE_CLIENT_URL}>
-          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-            <ActionBuild color="#9cc" />
+          <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'wrench icon'}>
+            <ActionBuild color="#2f5e5e" />
           </StyledIconButton>
           {<FormattedMessage {...messages.manageSmartApps} />}
         </NavigationButton>

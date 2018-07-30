@@ -10,7 +10,7 @@ import styled from 'styled-components';
 const textDecorationLineValues = ['blink', 'inherit', 'initial', 'line-through', 'none', 'overline', 'underline', 'unset'];
 
 const TableRowColumn = styled.div`
-  color: #666;
+  color: #000;
   font-family: "Arial", sans-serif;
   font-style: normal;
   font-size: 12px;

@@ -78,7 +78,7 @@ export class PanelToolbar extends React.Component {
             {!isUndefined(addNewItem) && addNewItem.linkUrl &&
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
-                <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
+                <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Add icon'}>
                   <AddCircle color={'#666'} />
                 </StyledIconButton>
                 {addNewItem.labelName}
@@ -117,7 +117,7 @@ export class PanelToolbar extends React.Component {
                 <FormattedMessage {...messages.cancelFilter} /> :
                 <FormattedMessage {...messages.filter} />}
             >
-              <StyledIconButton svgIconSize="small" onClick={this.handleShowFilter}>
+              <StyledIconButton svgIconSize="small" onClick={this.handleShowFilter} aria-label={'filter icon'}>
                 {this.state.isShowFilter ?
                   <CancelIcon color={'#666'} /> : <FilterIcon color={'#666'} />
                 }
@@ -130,7 +130,7 @@ export class PanelToolbar extends React.Component {
                 <FormattedMessage {...messages.cancelSearch} /> :
                 <FormattedMessage {...messages.search} />}
             >
-              <StyledIconButton svgIconSize="small" onClick={this.handleShowSearchBar}>
+              <StyledIconButton svgIconSize="small" onClick={this.handleShowSearchBar} aria-label={'search magnifying glass icon'}>
                 {this.state.isShowSearchBar ?
                   <CancelIcon color={'#666'} /> : <SearchIcon color={'#666'} />
                 }

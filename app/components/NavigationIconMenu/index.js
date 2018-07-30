@@ -38,7 +38,7 @@ class NavigationIconMenu extends React.Component { // eslint-disable-line react/
     const { menuItems } = this.props;
     return (
       <div>
-        <StyledIconButton size="x-small" onClick={this.handleClick} disabled={isEmpty(menuItems)} >
+        <StyledIconButton size="x-small" onClick={this.handleClick} disabled={isEmpty(menuItems)} aria-label={'action ellipsis icon'}>
           <MoreHorizIcon />
         </StyledIconButton>
         <Menu

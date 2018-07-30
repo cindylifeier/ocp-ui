@@ -7,7 +7,7 @@
 import { Grid } from 'styled-css-grid';
 
 const ToDoCardGrid = Grid.extend`
-  color: #444;
+  color: #000;
   width: auto;
   margin: 0 1vw;
   grid-column-gap: 2vw;

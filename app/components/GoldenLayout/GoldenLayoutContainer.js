@@ -14,7 +14,7 @@ const GoldenLayoutContainer = styled.div`
 
   & .lm_header + .lm_items {
     background: ${(props) => props.secondaryColor};
-    border: 1px solid #099;
+    border: 1px solid #007979;
     border-top: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -39,7 +39,7 @@ const GoldenLayoutContainer = styled.div`
   & .lm_content {
     overflow: auto;
     max-height: 98%;
-    border-top: 1px solid #099;
+    border-top: 1px solid #007979;
     border-bottom: 0 !important;
     border-left: 0 !important;
     border-right: 0 !important;
@@ -50,7 +50,7 @@ const GoldenLayoutContainer = styled.div`
     height: 18px !important;
     margin-top: 5px !important;
     border-radius: 5px;
-    border: 1px solid #099 !important;
+    border: 1px solid #007979 !important;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     box-shadow: none !important;
@@ -58,7 +58,7 @@ const GoldenLayoutContainer = styled.div`
 
   & .lm_tab.lm_active {
     color: ${(props) => props.secondaryColor};
-    background: #099;
+    background: #007979;
     font-size: 13px;
     font-family: Arial Bold, Arial, sans-serif;
   }
@@ -67,7 +67,7 @@ const GoldenLayoutContainer = styled.div`
   .lm_tab:hover {
     color: ${(props) => props.secondaryColor};
     font-size: 13px;
-    background: #62b5b5;
+    background: #099;
   }
 
   & .lm_title {
