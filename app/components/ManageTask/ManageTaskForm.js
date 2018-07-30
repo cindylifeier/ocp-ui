@@ -75,6 +75,7 @@ function ManageTaskForm(props) {
           <Padding top={paddingTop}>
             <AutoSuggestionField
               fullWidth
+              isRequired
               name="activityDefinition"
               placeholder={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
               suggestions={activityDefinitionSuggestions}
@@ -131,6 +132,7 @@ function ManageTaskForm(props) {
           <Padding top={paddingTop}>
             <AutoSuggestionField
               name="status"
+              isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.status} />}
               suggestions={taskStatusSuggestions}
               {...props}
@@ -141,6 +143,7 @@ function ManageTaskForm(props) {
           <Padding top={paddingTop}>
             <AutoSuggestionField
               name="priority"
+              isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.priority} />}
               suggestions={requestPrioritySuggestions}
               {...props}
@@ -151,6 +154,7 @@ function ManageTaskForm(props) {
           <Padding top={paddingTop}>
             <AutoSuggestionField
               name="intent"
+              isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.intent} />}
               suggestions={requestIntentSuggestions}
               {...props}
@@ -162,6 +166,7 @@ function ManageTaskForm(props) {
           <Padding top={paddingTop}>
             <AutoSuggestionField
               name="context"
+              isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.episodeOdCare} />}
               suggestions={eventTypeSuggestions}
               {...props}
@@ -173,6 +178,7 @@ function ManageTaskForm(props) {
           <Padding top={paddingTop}>
             <AutoSuggestionField
               name="taskOwner"
+              isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
               suggestions={practitionersSuggestions}
               {...props}
@@ -182,6 +188,7 @@ function ManageTaskForm(props) {
         <Cell area="performerType">
           <Padding top={paddingTop}>
             <AutoSuggestionField
+              isRequired
               name="performerType"
               placeholder={<FormattedMessage {...messages.floatingLabelText.performerType} />}
               suggestions={taskPerformerTypeSuggestions}
