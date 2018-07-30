@@ -136,6 +136,8 @@ export const ADMIN_MANAGE_PERMISSIONS_URL = '/ocp-ui/manage-permissions';
 export const MANAGE_USERS_URL = '/ocp-ui/manage-users';
 export const MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL = '/ocp-ui/assign-location-practitioner';
 export const MANAGE_CLIENT_URL = '/ocp-ui/manage-client';
+export const MANAGE_USER_REGISTRATION = '/ocp-ui/manage-user-registration';
+
 /**
  *  Constants to hold the workspace urls
  * @type {string}
