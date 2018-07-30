@@ -12,6 +12,6 @@ export default defineMessages({
   },
   brandImg: {
     id: 'ocpui.components.PrivateHeader.brandImg',
-    defaultMessage: 'OCP brand image',
+    defaultMessage: 'Omnibus Care Plan Logo',
   },
 });
