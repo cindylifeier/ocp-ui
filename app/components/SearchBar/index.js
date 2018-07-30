@@ -4,7 +4,14 @@
  *
  */
 
-import { SEARCH_BY_DATE, SEARCH_BY_DUE_DATE, SEARCH_BY_ID, SEARCH_BY_NAME } from 'components/SearchBar/constants';
+import {
+  SEARCH_BY_DATE,
+  SEARCH_BY_DUE_DATE,
+  SEARCH_BY_ID,
+  SEARCH_BY_NAME,
+  SEARCH_PATIENT,
+  SEARCH_PRACTITIONER,
+} from 'components/SearchBar/constants';
 import { Formik } from 'formik';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
@@ -17,9 +24,9 @@ import messages from './messages';
 import SearchBarForm from './SearchBarForm';
 
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField, showToDoSpecificFilters } = props;
+  const { minimumLength, onSearch, searchField, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   const composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
-  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters };
+  const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters, showUserRegistrationRoleSelection };
 
   function getToDoSpecificSearchField(searchFieldObject, showAdditionalSearchFields) {
     const newSearchTypes = !showAdditionalSearchFields ? searchFieldObject.searchTypes : [...searchFieldObject.searchTypes,
@@ -34,16 +41,24 @@ function SearchBar(props) {
 
     return {
       searchTypes: newSearchTypes,
+      resourceTypes: searchFieldObject.resourceTypes,
       searchValueHintText: searchFieldObject.searchValueHintText,
     };
   }
 
   function initialFormValues() {
-    let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME };
+    let initialValues = { showInactive: false, searchType: SEARCH_BY_NAME, resourceType: SEARCH_PRACTITIONER };
     if (!isEmpty(searchField.searchTypes)) {
       initialValues = {
         showInactive: false,
         searchType: head(searchField.searchTypes).value,
+      };
+    }
+    if (!isEmpty(searchField.searchTypes) && showUserRegistrationRoleSelection) {
+      initialValues = {
+        showInactive: false,
+        searchType: head(searchField.searchTypes).value,
+        resourceType: head(searchField.resourceTypes).value,
       };
     }
     return initialValues;
@@ -54,8 +69,12 @@ function SearchBar(props) {
       <Formik
         initialValues={initialFormValues(searchField)}
         onSubmit={(values, actions) => {
-          const { searchValue, showInactive, searchType } = values;
-          onSearch(searchValue, showInactive, searchType);
+          const { searchValue, showInactive, searchType, resourceType } = values;
+          if (showUserRegistrationRoleSelection) {
+            onSearch(searchValue, showInactive, searchType, resourceType);
+          } else {
+            onSearch(searchValue, showInactive, searchType);
+          }
           actions.setSubmitting(false);
         }}
         validationSchema={yup.object().shape({
@@ -76,11 +95,16 @@ SearchBar.propTypes = {
   minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
+  showUserRegistrationRoleSelection: PropTypes.bool,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })).isRequired,
+    resourceTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
     searchValueHintText: PropTypes.node.isRequired,
   }),
 };
@@ -88,6 +112,7 @@ SearchBar.propTypes = {
 SearchBar.defaultProps = {
   minimumLength: 3,
   showToDoSpecificFilters: false,
+  showUserRegistrationRoleSelection: false,
   searchField: {
     searchTypes: [{
       value: SEARCH_BY_NAME,
@@ -95,6 +120,13 @@ SearchBar.defaultProps = {
     }, {
       value: SEARCH_BY_ID,
       display: <FormattedMessage {...messages.searchById} />,
+    }],
+    resourceTypes: [{
+      value: SEARCH_PRACTITIONER,
+      display: <FormattedMessage {...messages.searchPractitioner} />,
+    }, {
+      value: SEARCH_PATIENT,
+      display: <FormattedMessage {...messages.searchPatient} />,
     }],
     searchValueHintText: <FormattedMessage {...messages.hintText} />,
   },
