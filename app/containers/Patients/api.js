@@ -3,7 +3,7 @@ import request from '../../utils/request';
 import queryString from '../../utils/queryString';
 import { BASE_PATIENTS_API_URL, getEndpoint } from '../../utils/endpointService';
 
-export default function searchPatients(searchTerms, searchType, includeInactive, currentPage, organization) {
+export function searchPatients(searchTerms, searchType, includeInactive, currentPage, organization) {
   let params = queryString({
     value: searchTerms,
     type: searchType,
@@ -21,6 +21,20 @@ export default function searchPatients(searchTerms, searchType, includeInactive,
       organization,
     });
   }
+
+  const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
+  const requestURL = `${baseEndpoint}/search${params}`;
+  return request(requestURL);
+}
+
+export function fitlerPatients(filterBy, organization, practitioner, currentPage) {
+  const params = queryString({
+    page: currentPage,
+    size: DEFAULT_PAGE_SIZE,
+    filterBy,
+    organization,
+    practitioner,
+  });
 
   const baseEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
   const requestURL = `${baseEndpoint}/search${params}`;

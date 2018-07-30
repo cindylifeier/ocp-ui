@@ -61,6 +61,8 @@ export class PanelToolbar extends React.Component {
       onSearch,
       searchField,
       showToDoSpecificFilters,
+      showUserRegistrationRoleSelection,
+      showPatientSpecificFilters,
       showAppointmentSpecificFilters,
       onFilter,
       filterField,
@@ -144,13 +146,14 @@ export class PanelToolbar extends React.Component {
           onSearch={onSearch}
           searchField={searchField}
           showToDoSpecificFilters={showToDoSpecificFilters}
+          showUserRegistrationRoleSelection={showUserRegistrationRoleSelection}
         />
         }
         {this.state.isShowFilter &&
         <FilterBar
           onFilter={onFilter}
           filterField={filterField}
-          showFilter={showToDoSpecificFilters || showAppointmentSpecificFilters}
+          showFilter={showToDoSpecificFilters || showPatientSpecificFilters || showAppointmentSpecificFilters}
         />
         }
       </div>
@@ -183,7 +186,9 @@ PanelToolbar.propTypes = {
     ),
   ]),
   showToDoSpecificFilters: PropTypes.bool,
+  showUserRegistrationRoleSelection: PropTypes.bool,
   showAppointmentSpecificFilters: PropTypes.bool,
+  showPatientSpecificFilters: PropTypes.bool,
   showUploadIcon: PropTypes.bool,
   showSettingIcon: PropTypes.bool,
   showFilterIcon: PropTypes.bool,
@@ -208,6 +213,10 @@ PanelToolbar.propTypes = {
       value: PropTypes.string.isRequired,
       display: PropTypes.node.isRequired,
     })),
+    resourceTypes: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      display: PropTypes.node.isRequired,
+    })),
     searchValueHintText: PropTypes.node.isRequired,
   }),
   hideToolbar: PropTypes.bool,
@@ -223,6 +232,7 @@ PanelToolbar.defaultProps = {
   showSearchBarByDefault: false,
   showFilter: true,
   showToDoSpecificFilters: false,
+  showPatientSpecificFilters: false,
   hideToolbar: false,
 };
 
