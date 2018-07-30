@@ -10,8 +10,4 @@ export default defineMessages({
     id: 'ocpui.components.PrivateLayout.header',
     defaultMessage: 'This is the PrivateLayout component !',
   },
-  brandImg: {
-    id: 'ocpui.components.PrivateHeader.brandImg',
-    defaultMessage: 'Omnibus Care Plan Logo',
-  },
 });

@@ -18,12 +18,13 @@ import HeaderContainer from './HeaderContainer';
 import ContentContainer from './ContentContainer';
 
 function PrivateLayout(props) {
+  const BRAND_IMAGE = 'Omnibus Care Plan Logo';
   return (
     <LayoutGrid columns={1}>
       <HeaderContainer>
         <HeaderGrid columns={'100px 1fr'} alignContent="end">
           <Cell>
-            <StyledImage height="55px" width="75px" src={brandImg} alt="Omnibus Care Plan Logo" />
+            <StyledImage height="55px" width="75px" src={brandImg} alt={BRAND_IMAGE} />
           </Cell>
           {props.user.role &&
           <Cell>
