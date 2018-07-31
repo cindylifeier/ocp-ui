@@ -16,9 +16,9 @@ import LayoutGrid from './LayoutGrid';
 import HeaderGrid from './HeaderGrid';
 import HeaderContainer from './HeaderContainer';
 import ContentContainer from './ContentContainer';
+import { BRAND_IMAGE } from './constants';
 
 function PrivateLayout(props) {
-  const BRAND_IMAGE = 'Omnibus Care Plan Logo';
   return (
     <LayoutGrid columns={1}>
       <HeaderContainer>
