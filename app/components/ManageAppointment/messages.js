@@ -30,41 +30,17 @@ export default defineMessages({
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderName',
     defaultMessage: 'Name',
   },
-  participantTableHeaderType: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderType',
-    defaultMessage: 'Participant Type',
+  participantTableHeaderService: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderService',
+    defaultMessage: 'Service',
   },
-  participantTableHeaderActor: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderActor',
-    defaultMessage: 'Actor',
-  },
-  participantTableHeaderDate: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderDate',
-    defaultMessage: 'Date',
-  },
-  participantTableHeaderStartTime: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderStartTime',
-    defaultMessage: 'Start Time',
-  },
-  participantTableHeaderEndTime: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderEndTime',
-    defaultMessage: 'End Time',
+  participantTableHeaderLocation: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderLocation',
+    defaultMessage: 'Location',
   },
   participantTableHeaderAction: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderAction',
     defaultMessage: 'Action',
-  },
-  participantTableHeaderParticipationType: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderParticipationType',
-    defaultMessage: 'Participation Type',
-  },
-  participantTableHeaderParticipationStatus: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderParticipationStatus',
-    defaultMessage: 'Status',
-  },
-  participantTableHeaderRequired: {
-    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderRequired',
-    defaultMessage: 'Required',
   },
   noParticipantAdded: {
     id: 'ocpui.components.ManageAppointment.manageForm.noParticipantAdded',
