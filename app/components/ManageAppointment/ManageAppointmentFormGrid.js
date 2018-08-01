@@ -8,15 +8,14 @@ const ManageAppointmentFormGrid = Grid.extend`
   grid-template-areas:
     "generalInformationSubtitle"
     "selectedPatient"
-    "description"
+    "appointmentType"
+    "addParticipant"
+    "selectedParticipants"
     "date"
     "startTime"
     "endTime"
+    "description"
     "appointmentStatus"
-    "appointmentType"
-    "participantSubtitle"
-    "addParticipant"
-    "selectedParticipants"
     "buttonGroup";
 
   @media (min-width: 768px) {
@@ -24,15 +23,14 @@ const ManageAppointmentFormGrid = Grid.extend`
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle"
       "selectedPatient selectedPatient"
-      "description"
+      "appointmentType"
+      "addParticipant ."
+      "selectedParticipants selectedParticipants"
       "date"
       "startTime"
       "endTime"
+      "description"
       "appointmentStatus"
-      "appointmentType"
-      "participantSubtitle participantSubtitle"
-      "addParticipant ."
-      "selectedParticipants selectedParticipants"
       "buttonGroup .";
   }
 
@@ -41,12 +39,12 @@ const ManageAppointmentFormGrid = Grid.extend`
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
       "selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient selectedPatient"
-      "description description description description date date date date date . . ."
-      "startTime startTime endTime endTime . . . . . . . ."
       "appointmentType appointmentType appointmentType appointmentStatus appointmentStatus . . . . . . ."
-      "participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle participantSubtitle"
       "addParticipant addParticipant . . . . . . . . . ."
       "selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants selectedParticipants"
+      "date date . . . . . . . . . ."
+      "startTime startTime endTime endTime . . . . . . . ."
+      "description description description description . . . . . . . ."
       "buttonGroup buttonGroup buttonGroup . . . . . . . . .";
   }
 `;

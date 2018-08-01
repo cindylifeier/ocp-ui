@@ -116,13 +116,16 @@ class ManageAppointmentForm extends React.Component {
                 <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
               </InfoSection>
             </Cell>
-            <Cell area="description">
-              <TextField
+            <Cell area="addParticipant">
+              <StyledRaisedButton
                 fullWidth
-                name="description"
-                hintText={<FormattedMessage {...messages.hintText.description} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
-              />
+                onClick={handleOpen}
+              >
+                <FormattedMessage {...messages.addParticipantBtnLabel} />
+              </StyledRaisedButton>
+            </Cell>
+            <Cell area="selectedParticipants">
+              <SelectedParticipants {...selectedParticipantsProps} />
             </Cell>
             <Cell area="appointmentType">
               <SelectField
@@ -177,6 +180,15 @@ class ManageAppointmentForm extends React.Component {
               }
             </Cell>
 
+            <Cell area="description">
+              <TextField
+                fullWidth
+                name="description"
+                hintText={<FormattedMessage {...messages.hintText.description} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
+              />
+            </Cell>
+
             {editMode &&
             <Cell area="appointmentStatus">
               <SelectField
@@ -196,22 +208,6 @@ class ManageAppointmentForm extends React.Component {
             </Cell>
             }
 
-            <Cell area="participantSubtitle">
-              <FormSubtitle margin="0">
-                <FormattedMessage {...messages.participantTitle} />
-              </FormSubtitle>
-            </Cell>
-            <Cell area="addParticipant">
-              <StyledRaisedButton
-                fullWidth
-                onClick={handleOpen}
-              >
-                <FormattedMessage {...messages.addParticipantBtnLabel} />
-              </StyledRaisedButton>
-            </Cell>
-            <Cell area="selectedParticipants">
-              <SelectedParticipants {...selectedParticipantsProps} />
-            </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>
                 <Cell>

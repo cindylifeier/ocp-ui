@@ -18,13 +18,9 @@ export default defineMessages({
     id: 'ocpui.components.ManageAppointment.patientName',
     defaultMessage: 'Patient:',
   },
-  participantTitle: {
-    id: 'ocpui.components.ManageAppointment.participantTitle',
-    defaultMessage: 'Participant',
-  },
   addParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.addParticipantBtnLabel',
-    defaultMessage: 'Add Participant',
+    defaultMessage: 'Add Participant or Service:',
   },
   removeParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.removeParticipantBtnLabel',
