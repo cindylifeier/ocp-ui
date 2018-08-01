@@ -21,7 +21,7 @@ export const ALL_ORG_PATIENTS = 'ORGANIZATION';
 export const UNASSIGNED_PATIENTS = 'UNASSIGNPATIENT';
 
 
-export const MY_CARE_TEAM_PATIENTS_DISPLAY = 'My Care Team Ass. Patients';
-export const ALL_ORG_PATIENTS_DISPLAY = 'All Organization Patients';
+export const MY_CARE_TEAM_PATIENTS_DISPLAY = 'My Care Team Patients';
+export const ALL_ORG_PATIENTS_DISPLAY = 'My Organization Patients';
 export const UNASSIGNED_PATIENTS_DISPLAY = 'Unassigned Patients';
 
