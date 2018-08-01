@@ -80,7 +80,7 @@ export class PanelToolbar extends React.Component {
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemButton component={Link} to={addNewItem.linkUrl}>
                 <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Add icon'}>
-                  <AddCircle color={'#666'} />
+                  <AddCircle color={'#004747'} />
                 </StyledIconButton>
                 {addNewItem.labelName}
               </AddNewItemButton>
@@ -90,7 +90,7 @@ export class PanelToolbar extends React.Component {
             <ShowHideWrapper allowedRoles={allowedAddNewItemRoles}>
               <AddNewItemSpan onClick={addNewItem.onClick}>
                 <StyledIconButton size="x-small" svgIconSize="small" disableIconHover>
-                  <AddCircle color={'#666'} />
+                  <AddCircle color={'#004747'} />
                 </StyledIconButton>
                 {addNewItem.labelName}
               </AddNewItemSpan>
@@ -101,14 +101,14 @@ export class PanelToolbar extends React.Component {
             {showUploadIcon &&
             <StyledTooltip title={<FormattedMessage {...messages.uploadFiles} />}>
               <StyledIconButton svgIconSize="small">
-                <FileUploadIcon color={'#666'} />
+                <FileUploadIcon color={'#004747'} />
               </StyledIconButton>
             </StyledTooltip>
             }
             {showSettingIcon &&
             <StyledTooltip title={<FormattedMessage {...messages.settings} />}>
               <StyledIconButton svgIconSize="small">
-                <SettingsIcon color={'#666'} />
+                <SettingsIcon color={'#004747'} />
               </StyledIconButton>
             </StyledTooltip>
             }
@@ -120,7 +120,7 @@ export class PanelToolbar extends React.Component {
             >
               <StyledIconButton svgIconSize="small" onClick={this.handleShowFilter} aria-label={'filter icon'}>
                 {this.state.isShowFilter ?
-                  <CancelIcon color={'#666'} /> : <FilterIcon color={'#666'} />
+                  <CancelIcon color={'#004747'} /> : <FilterIcon color={'#004747'} />
                 }
               </StyledIconButton>
             </StyledTooltip>
@@ -133,7 +133,7 @@ export class PanelToolbar extends React.Component {
             >
               <StyledIconButton svgIconSize="small" onClick={this.handleShowSearchBar} aria-label={'search magnifying glass icon'}>
                 {this.state.isShowSearchBar ?
-                  <CancelIcon color={'#666'} /> : <SearchIcon color={'#666'} />
+                  <CancelIcon color={'#004747'} /> : <SearchIcon color={'#004747'} />
                 }
               </StyledIconButton>
             </StyledTooltip>

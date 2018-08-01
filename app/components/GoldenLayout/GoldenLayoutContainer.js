@@ -73,6 +73,15 @@ const GoldenLayoutContainer = styled.div`
   & .lm_title {
     text-transform: uppercase;
   }
+
+  & .ui-hide { /* class used to move things off the screen but not hide them, this is for 508 compliance */
+    position: absolute !important;
+    left: -999999px !important;
+    height: 0 !important;
+    top: 0;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 `;
 
 GoldenLayoutContainer.propTypes = {
