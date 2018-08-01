@@ -26,7 +26,7 @@ import NavigationButton from './NavigationButton';
 function PrivateNavigation(props) {
   const role = props.user.role;
   return (
-    <StyledToolbar height="40px">
+    <StyledToolbar height="50px">
       <ToolbarGroup firstChild>
         <NavigationButton component={Link} to={props.getLinkUrlByRole(role)}>
           <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Home icon'}>

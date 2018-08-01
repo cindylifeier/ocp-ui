@@ -7,6 +7,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
+import uniqueId from 'lodash/uniqueId';
 
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
@@ -15,6 +16,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
 import messages from './messages';
+import { PROGRAM_NAME_MAP_ARRAY, DEFAULT_PROGRAM_NAME_KEY } from './constants';
 
 function AddEpisodeOfCareForm(props) {
   const {
@@ -27,6 +29,13 @@ function AddEpisodeOfCareForm(props) {
     episodeOfCareType,
   } = props;
   const today = new Date();
+  let initialEpisodeOfCare = {
+    programName: DEFAULT_PROGRAM_NAME_KEY,
+  };
+  if (initialValues) {
+    initialEpisodeOfCare = initialValues.episodeOfCare;
+    initialEpisodeOfCare.programName = DEFAULT_PROGRAM_NAME_KEY;
+  }
   return (
     <div>
       <Formik
@@ -48,7 +57,7 @@ function AddEpisodeOfCareForm(props) {
 
           handleCloseDialog();
         }}
-        initialValues={{ ...(initialValues || {}).episodeOfCare }}
+        initialValues={initialEpisodeOfCare}
         validationSchema={() =>
           yup.lazy((values) => {
             let defaultStartDate = new Date();
@@ -87,6 +96,20 @@ function AddEpisodeOfCareForm(props) {
                 </SelectField>
               </Cell>
               <Cell>
+                <SelectField
+                  fullWidth
+                  name={'programName'}
+                  hintText={<FormattedMessage {...messages.hintText.programName} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.programName} />}
+                >
+                  {PROGRAM_NAME_MAP_ARRAY && PROGRAM_NAME_MAP_ARRAY.map((program) =>
+                    (<MenuItem
+                      key={uniqueId()}
+                      value={program.key}
+                      primaryText={program.display}
+                    />),
+                  )}
+                </SelectField>
               </Cell>
               <Cell>
                 <SelectField

@@ -15,9 +15,7 @@ import Menu, { MenuItem } from 'material-ui-next/Menu';
 
 import ChangePassword from 'containers/ChangePassword';
 import Logout from 'containers/Logout';
-import StyledImage from 'components/StyledImage';
 import StyledToolbar from 'components/StyledToolbar';
-import brandImg from 'images/omnibus-care-plan-logo.png';
 import messages from './messages';
 
 
@@ -61,10 +59,7 @@ class PrivateHeader extends React.Component {
         color="#ffffff"
         height="35px"
       >
-        <ToolbarGroup firstChild>
-          <StyledImage height="30px" width="40px" src={brandImg} alt={<FormattedMessage {...messages.brandImg} />} />
-        </ToolbarGroup>
-        <ToolbarGroup lastChild>
+        <ToolbarGroup>
           <Notifications viewBox="-2 -2 25 25" />
           <FlatButton
             label={this.getUserProfileName()}
