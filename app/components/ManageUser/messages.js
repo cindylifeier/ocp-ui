@@ -27,6 +27,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.validation.required',
       defaultMessage: 'Required',
     },
+    requiredPermissionGroup: {
+      id: 'ocpui.components.ManageUser.manageForm.validation.requiredPermissionGroup',
+      defaultMessage: 'Must assign at least ONE permission group',
+    },
     invalid: {
       id: 'ocpui.components.ManageUser.manageForm.validation.invalid',
       defaultMessage: 'Invalid value',

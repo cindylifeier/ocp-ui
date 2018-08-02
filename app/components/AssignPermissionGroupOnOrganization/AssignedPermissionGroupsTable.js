@@ -10,14 +10,12 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
-import CustomErrorText from 'components/CustomErrorText';
 import messages from './messages';
 
 function AssignedPermissionGroupsTable(props) {
   const tableColumns = 'repeat(2, 1fr) 80px';
   const {
     roles,
-    errors,
     arrayHelpers,
     onEditPermissionGroup,
   } = props;
@@ -30,9 +28,6 @@ function AssignedPermissionGroupsTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.assignedGroupsTable.tableHeaderRole} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.assignedGroupsTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
-        {errors && errors.roles &&
-        <CustomErrorText>{errors.roles}</CustomErrorText>
-        }
         {roles && roles.map((role, index) => {
           const { organization, group } = role;
           const groupName = group.displayName.split('.').pop();
@@ -59,7 +54,6 @@ function AssignedPermissionGroupsTable(props) {
 }
 
 AssignedPermissionGroupsTable.propTypes = {
-  errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
   onEditPermissionGroup: PropTypes.func,
   roles: PropTypes.arrayOf(PropTypes.shape({

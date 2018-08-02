@@ -12,6 +12,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
+import CustomErrorText from 'components/CustomErrorText';
 import AssignPermissionGroupsForm from './AssignPermissionGroupsForm';
 import AssignedPermissionGroupsTable from './AssignedPermissionGroupsTable';
 import messages from './messages';
@@ -56,10 +57,6 @@ class AssignPermissionGroupOnOrganization extends React.Component { // eslint-di
       groups,
       organizations,
     };
-    const assignedPermissionGroupsTableProps = {
-      roles,
-      errors,
-    };
 
     return (
       <div>
@@ -88,8 +85,11 @@ class AssignPermissionGroupOnOrganization extends React.Component { // eslint-di
               <AssignedPermissionGroupsTable
                 arrayHelpers={arrayHelpers}
                 onEditPermissionGroup={this.handleEditPermissionGroup}
-                {...assignedPermissionGroupsTableProps}
+                roles={roles}
               />
+              }
+              {errors && errors.roles &&
+              <CustomErrorText>{errors.roles}</CustomErrorText>
               }
             </div>
           )}

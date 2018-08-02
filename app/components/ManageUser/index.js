@@ -39,6 +39,8 @@ function ManageUser(props) {
           repeatPassword: yup.string()
             .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)
             .required((<FormattedMessage {...messages.validation.required} />)),
+          roles: yup.array()
+            .required((<FormattedMessage {...messages.validation.requiredPermissionGroup} />)),
         })}
         render={(formikProps) => <ManageUserForm {...formikProps} {...formData} />}
       />
