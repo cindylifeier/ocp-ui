@@ -14,12 +14,9 @@ import messages from './messages';
 
 function AssignPermissionGroupsForm(props) {
   const ORG_REFERENCE_SEPARATOR = '/';
-  const PATIENT_TYPE = 'Patient';
-  const PRACTITIONER_TYPE = 'Practitioner';
   const {
     groups,
-    user,
-    resourceType,
+    organizations,
     initialValues,
     onAssignPermissionGroup,
     onRemovePermissionGroup,
@@ -53,19 +50,12 @@ function AssignPermissionGroupsForm(props) {
                   floatingLabelText={<FormattedMessage {...messages.assignGroupsForm.floatingLabelText.organization} />}
                   fullWidth
                 >
-                  {resourceType === PATIENT_TYPE && user.organization &&
-                  <MenuItem
-                    key={user.organization.reference}
-                    value={user.organization.reference.split(ORG_REFERENCE_SEPARATOR).pop()}
-                    primaryText={user.organization.display}
-                  />
-                  }
-                  {resourceType === PRACTITIONER_TYPE && user.practitionerRoles &&
-                  user.practitionerRoles.map((practitionerRole) => (
+                  {organizations &&
+                  organizations.map((organization) => (
                     <MenuItem
-                      key={practitionerRole.organization.reference}
-                      value={practitionerRole.organization.reference.split(ORG_REFERENCE_SEPARATOR).pop()}
-                      primaryText={practitionerRole.organization.display}
+                      key={organization.reference}
+                      value={organization.reference.split(ORG_REFERENCE_SEPARATOR).pop()}
+                      primaryText={organization.display}
                     />),
                   )}
                 </SelectField>
@@ -125,8 +115,7 @@ AssignPermissionGroupsForm.propTypes = {
     description: PropTypes.string,
     scopes: PropTypes.array.isRequired,
   })).isRequired,
-  user: PropTypes.object.isRequired,
-  resourceType: PropTypes.string.isRequired,
+  organizations: PropTypes.array.isRequired,
 };
 
 export default AssignPermissionGroupsForm;

@@ -61,7 +61,7 @@ AssignedPermissionGroupsTable.propTypes = {
   arrayHelpers: PropTypes.object,
   onEditPermissionGroup: PropTypes.func,
   roles: PropTypes.arrayOf(PropTypes.shape({
-    orgId: PropTypes.object,
+    orgId: PropTypes.string,
     role: PropTypes.string,
   })),
 };

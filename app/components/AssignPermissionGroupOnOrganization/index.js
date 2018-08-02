@@ -47,13 +47,14 @@ class AssignPermissionGroupOnOrganization extends React.Component { // eslint-di
     }));
   }
 
-
   render() {
     const { user, groups, resourceType, roles, errors } = this.props;
+    const PATIENT_TYPE = 'Patient';
+    const organizations = resourceType === PATIENT_TYPE ? [].concat(user.organization) :
+      user.practitionerRoles && user.practitionerRoles.map((practitioner) => practitioner.organization);
     const assignPermissionGroupsFormProps = {
       groups,
-      user,
-      resourceType,
+      organizations,
     };
     const assignedPermissionGroupsTableProps = {
       roles,
