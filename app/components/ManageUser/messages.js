@@ -57,14 +57,6 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.hintText.repeatPassword',
       defaultMessage: 'Repeat Password',
     },
-    organization: {
-      id: 'ocpui.components.ManageUser.manageForm.hintText.organization',
-      defaultMessage: 'Organization',
-    },
-    permissionGroup: {
-      id: 'ocpui.components.ManageUser.manageForm.hintText.permissionGroup',
-      defaultMessage: 'Permission Group',
-    },
   },
   floatingLabelText: {
     firstName: {
@@ -86,14 +78,6 @@ export default defineMessages({
     repeatPassword: {
       id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.repeatPassword',
       defaultMessage: 'Repeat Password',
-    },
-    organization: {
-      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.organization',
-      defaultMessage: 'Organization',
-    },
-    permissionGroup: {
-      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.permissionGroup',
-      defaultMessage: 'Permission Group',
     },
   },
 });

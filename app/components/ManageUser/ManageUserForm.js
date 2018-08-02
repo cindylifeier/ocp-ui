@@ -78,7 +78,7 @@ function ManageUserForm(props) {
           />
         </Cell>
         <Cell area="assignPermissionGroup">
-          <AssignPermissionGroupOnOrganization user={user} groups={groups} />
+          <AssignPermissionGroupOnOrganization user={user} groups={groups} resourceType={resourceType} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
