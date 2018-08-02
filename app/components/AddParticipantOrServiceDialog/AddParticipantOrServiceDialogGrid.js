@@ -23,7 +23,7 @@ const AddParticipantORServiceFormGrid = Grid.extend`
     grid-template-areas:
       "dialogTitle dialogTitle dialogTitle"
       "serviceCareTeamNonCareTeamTab serviceCareTeamNonCareTeamTab serviceCareTeamNonCareTeamTab"
-      "actionButtons actionButtons .";
+      "actionButtons . .";
   }
 `;
 
