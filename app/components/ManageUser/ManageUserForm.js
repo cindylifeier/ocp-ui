@@ -2,15 +2,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
-import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
-import Util from 'utils/Util';
 import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
+import AssignPermissionGroupOnOrganization from 'components/AssignPermissionGroupOnOrganization';
 import ManageUserFormGrid from './ManageUserFormGrid';
 import messages from './messages';
 import { PATIENT } from './constants';
@@ -79,42 +77,8 @@ function ManageUserForm(props) {
             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.repeatPassword} />}
           />
         </Cell>
-        <Cell area="organization">
-          <SelectField
-            fullWidth
-            name="organization"
-            hintText={<FormattedMessage {...messages.hintText.organization} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
-          >
-            {resourceType === 'Patient' &&
-            <MenuItem
-              key={user.organization && user.organization.reference}
-              value={user.organization && user.organization.reference}
-              primaryText={user.organization && user.organization.display}
-            />
-            }
-            {resourceType === 'Practitioner' && user && user.practitionerRoles && user.practitionerRoles.map((practitionerRole) =>
-              <MenuItem key={practitionerRole.organization.reference} value={practitionerRole.organization.reference} primaryText={practitionerRole.organization.display} />,
-            )}
-          </SelectField>
-        </Cell>
-        <Cell area="permissionGroup">
-          <SelectField
-            fullWidth
-            name="role"
-            hintText={<FormattedMessage {...messages.hintText.permissionGroup} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.permissionGroup} />}
-          >
-            {groups && groups.map((group) => {
-              const displayName = group.displayName.split('.');
-              return (<MenuItem
-                key={group.id}
-                value={group.id}
-                primaryText={Util.deCamelize(displayName[displayName.length - 1])}
-              />);
-            },
-            )}
-          </SelectField>
+        <Cell area="assignPermissionGroup">
+          <AssignPermissionGroupOnOrganization user={user} groups={groups} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
