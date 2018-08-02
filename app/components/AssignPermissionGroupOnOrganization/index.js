@@ -109,8 +109,8 @@ AssignPermissionGroupOnOrganization.propTypes = {
     scopes: PropTypes.array.isRequired,
   })).isRequired,
   roles: PropTypes.arrayOf(PropTypes.shape({
-    orgId: PropTypes.string,
-    role: PropTypes.string,
+    organization: PropTypes.object,
+    group: PropTypes.object,
   })),
   errors: PropTypes.object,
 };

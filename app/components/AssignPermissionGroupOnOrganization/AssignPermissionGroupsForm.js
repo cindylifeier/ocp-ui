@@ -13,7 +13,6 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import messages from './messages';
 
 function AssignPermissionGroupsForm(props) {
-  const ORG_REFERENCE_SEPARATOR = '/';
   const {
     groups,
     organizations,
@@ -35,9 +34,9 @@ function AssignPermissionGroupsForm(props) {
         }}
         initialValues={{ ...(initialValues || {}).permissionGroup }}
         validationSchema={yup.object().shape({
-          orgId: yup.string()
+          organization: yup.object()
             .required((<FormattedMessage {...messages.assignGroupsForm.validation.required} />)),
-          role: yup.string()
+          group: yup.object()
             .required((<FormattedMessage {...messages.assignGroupsForm.validation.required} />)),
         })}
         render={({ isSubmitting, dirty, isValid }) => (
@@ -45,7 +44,7 @@ function AssignPermissionGroupsForm(props) {
             <Grid columns={1}>
               <Cell>
                 <SelectField
-                  name="orgId"
+                  name="organization"
                   hintText={<FormattedMessage {...messages.assignGroupsForm.hintText.organization} />}
                   floatingLabelText={<FormattedMessage {...messages.assignGroupsForm.floatingLabelText.organization} />}
                   fullWidth
@@ -54,7 +53,7 @@ function AssignPermissionGroupsForm(props) {
                   organizations.map((organization) => (
                     <MenuItem
                       key={organization.reference}
-                      value={organization.reference.split(ORG_REFERENCE_SEPARATOR).pop()}
+                      value={organization}
                       primaryText={organization.display}
                     />),
                   )}
@@ -62,19 +61,19 @@ function AssignPermissionGroupsForm(props) {
               </Cell>
               <Cell>
                 <SelectField
-                  name="role"
+                  name="group"
                   fullWidth
                   hintText={<FormattedMessage {...messages.assignGroupsForm.hintText.permissionGroup} />}
                   floatingLabelText={
                     <FormattedMessage {...messages.assignGroupsForm.floatingLabelText.permissionGroup} />}
                 >
                   {groups.map((group) => {
-                    const displayName = group.displayName.split('.');
+                    const displayName = group.displayName.split('.').pop();
                     return (
                       <MenuItem
                         key={group.id}
-                        value={group.id}
-                        primaryText={Util.deCamelize(displayName[displayName.length - 1])}
+                        value={group}
+                        primaryText={Util.deCamelize(displayName)}
                       />);
                   })}
                 </SelectField>

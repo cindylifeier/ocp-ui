@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
 
+import Util from 'utils/Util';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -32,19 +33,20 @@ function AssignedPermissionGroupsTable(props) {
         {errors && errors.roles &&
         <CustomErrorText>{errors.roles}</CustomErrorText>
         }
-        {roles && roles.map((permissionGroup, index) => {
-          const { orgId, role } = permissionGroup;
+        {roles && roles.map((role, index) => {
+          const { organization, group } = role;
+          const groupName = group.displayName.split('.').pop();
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.assignedGroupsTable.tableActionEdit} />,
-            onClick: () => onEditPermissionGroup(index, permissionGroup),
+            onClick: () => onEditPermissionGroup(index, role),
           }, {
             primaryText: <FormattedMessage {...messages.assignedGroupsTable.tableActionRemove} />,
             onClick: () => arrayHelpers.remove(index),
           }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{orgId}</TableRowColumn>
-              <TableRowColumn>{role}</TableRowColumn>
+              <TableRowColumn>{organization.display}</TableRowColumn>
+              <TableRowColumn>{Util.deCamelize(groupName)}</TableRowColumn>
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
@@ -61,8 +63,8 @@ AssignedPermissionGroupsTable.propTypes = {
   arrayHelpers: PropTypes.object,
   onEditPermissionGroup: PropTypes.func,
   roles: PropTypes.arrayOf(PropTypes.shape({
-    orgId: PropTypes.string,
-    role: PropTypes.string,
+    organization: PropTypes.object,
+    group: PropTypes.object,
   })),
 };
 
