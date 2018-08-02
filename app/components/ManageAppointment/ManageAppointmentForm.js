@@ -16,11 +16,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
+import AddParticipantOrServiceDialog from 'components/AddParticipantOrServiceDialog';
 import Util from 'utils/Util';
 import messages from './messages';
-
 import SelectedParticipants from './SelectedParticipants';
-
 
 class ManageAppointmentForm extends React.Component {
 
@@ -29,12 +28,13 @@ class ManageAppointmentForm extends React.Component {
     this.startDateTime = null;
     this.endDateTime = null;
     this.state = {
+      open: false,
       isEndDateBeforeStartDate: false,
-      // startDateTime: null,
-      // endDateTime: null,
     };
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
+    this.handleDialogOpen = this.handleDialogOpen.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +45,8 @@ class ManageAppointmentForm extends React.Component {
       const endTime = new Date(end[0], end[1], end[2], end[3], end[4]);
       this.startDateTime = startTime;
       this.endDateTime = endTime;
+      this.handleDialogOpen = this.handleDialogOpen.bind(this);
+      this.handleDialogClose = this.handleDialogClose.bind(this);
     }
   }
 
@@ -77,6 +79,14 @@ class ManageAppointmentForm extends React.Component {
     });
   }
 
+  handleDialogOpen() {
+    this.setState({ open: true });
+  }
+
+  handleDialogClose() {
+    this.setState({ open: false });
+  }
+
   render() {
     const today = new Date();
     const {
@@ -86,7 +96,6 @@ class ManageAppointmentForm extends React.Component {
       editMode,
       appointmentTypes,
       appointmentStatuses,
-      handleOpen,
       selectedParticipants,
       initialSelectedParticipants,
       removeParticipant,
@@ -96,6 +105,11 @@ class ManageAppointmentForm extends React.Component {
     const selectedParticipantsProps = {
       selectedParticipants,
       removeParticipant,
+    };
+
+    const addParticipantsOrServiceProps = {
+      open: this.state.open,
+      handleDialogClose: this.handleDialogClose,
     };
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
@@ -119,7 +133,7 @@ class ManageAppointmentForm extends React.Component {
             <Cell area="addParticipant">
               <StyledRaisedButton
                 fullWidth
-                onClick={handleOpen}
+                onClick={this.handleDialogOpen}
               >
                 <FormattedMessage {...messages.addParticipantBtnLabel} />
               </StyledRaisedButton>
@@ -226,6 +240,7 @@ class ManageAppointmentForm extends React.Component {
             </Cell>
           </ManageAppointmentFormGrid>
         </Form>
+        <AddParticipantOrServiceDialog {...addParticipantsOrServiceProps}></AddParticipantOrServiceDialog>
       </div>
     );
   }
@@ -236,7 +251,7 @@ ManageAppointmentForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   editMode: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
+  // handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,

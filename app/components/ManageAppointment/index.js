@@ -22,7 +22,6 @@ function ManageAppointment(props) {
     editMode,
     appointmentStatuses,
     appointmentTypes,
-    handleOpen,
     onSave,
     selectedParticipants,
     initialSelectedParticipants,
@@ -33,7 +32,6 @@ function ManageAppointment(props) {
     editMode,
     appointmentStatuses,
     appointmentTypes,
-    handleOpen,
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
@@ -116,7 +114,7 @@ function ManageAppointment(props) {
 }
 
 ManageAppointment.propTypes = {
-  handleOpen: PropTypes.func.isRequired,
+  // handleOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,

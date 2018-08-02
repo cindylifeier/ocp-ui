@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageAppointment.title',
     defaultMessage: 'General Information',
   },
+  addAppointmentForTitle: {
+    id: 'ocpui.components.ManageAppointment.addAppointmentForTitle',
+    defaultMessage: 'Add Appointment for:',
+  },
   patientName: {
     id: 'ocpui.components.ManageAppointment.patientName',
     defaultMessage: 'Patient:',
