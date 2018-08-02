@@ -11,9 +11,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
-import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
-  initializeSearchAppointmentParticipantResult,
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
 import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
@@ -30,7 +28,7 @@ import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { getAppointment, initializeManageAppointment, saveAppointment } from './actions';
+import { getAppointment, saveAppointment, initializeManageAppointment } from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
 import reducer from './reducer';
@@ -42,13 +40,10 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       name: '',
       member: '',
     };
     this.handleSave = this.handleSave.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleOpen = this.handleOpen.bind(this);
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
   }
 
@@ -89,15 +84,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     const selectedParticipants = this.props.selectedParticipants;
     merge(appointmentFormData, { participants: selectedParticipants });
     this.props.saveAppointment(appointmentFormData, () => actions.setSubmitting(false));
-  }
-
-  handleClose() {
-    this.setState({ open: false });
-  }
-
-  handleOpen() {
-    this.setState({ open: true });
-    this.props.initializeSearchParticipantResult();
   }
 
   handleRemoveParticipant(participant) {
@@ -149,15 +135,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
           removeParticipant={this.handleRemoveParticipant}
           handleOpen={this.handleOpen}
         />
-        {((editMode && appointment) || !editMode) &&
-        <SearchAppointmentParticipant
-          initialSelectedParticipants={initialSelectedParticipants}
-          isOpen={this.state.open}
-          handleOpen={this.handleOpen}
-          handleClose={this.handleClose}
-        >
-        </SearchAppointmentParticipant>
-        }
       </Page>
     );
   }
@@ -171,7 +148,6 @@ ManageAppointmentPage.propTypes = {
   patient: PropTypes.object,
   user: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
-  initializeSearchParticipantResult: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   appointmentStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
@@ -202,7 +178,6 @@ function mapDispatchToProps(dispatch) {
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
-    initializeSearchParticipantResult: () => dispatch(initializeSearchAppointmentParticipantResult()),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
   };
 }
