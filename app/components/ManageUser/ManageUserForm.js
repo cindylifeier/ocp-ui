@@ -16,8 +16,16 @@ import { PATIENT } from './constants';
 
 function ManageUserForm(props) {
   const {
-    user, groups, isSubmitting, dirty, isValid, resourceType,
+    isSubmitting, dirty, isValid, values, errors,
+    user, groups, resourceType,
   } = props;
+  const assignPermissionGroupProps = {
+    user,
+    groups,
+    resourceType,
+    errors,
+    roles: values.roles,
+  };
   return (
     <Form>
       <ManageUserFormGrid>
@@ -73,12 +81,17 @@ function ManageUserForm(props) {
             fullWidth
             name="repeatPassword"
             type="password"
-            hintText={<FormattedMessage {...messages.hintText.repeatPassword} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.repeatPassword} />}
+            hintText={<FormattedMessage {...messages.hintText.confirmPassword} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.confirmPassword} />}
           />
         </Cell>
+        <Cell area="assignPermissionGroupSubtitle">
+          <FormSubtitle margin="0">
+            <FormattedMessage {...messages.assignPermissionGroupSubtitle} />
+          </FormSubtitle>
+        </Cell>
         <Cell area="assignPermissionGroup">
-          <AssignPermissionGroupOnOrganization user={user} groups={groups} resourceType={resourceType} />
+          <AssignPermissionGroupOnOrganization {...assignPermissionGroupProps} />
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -105,6 +118,8 @@ ManageUserForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   user: PropTypes.object,
   groups: PropTypes.array,
   resourceType: PropTypes.string,

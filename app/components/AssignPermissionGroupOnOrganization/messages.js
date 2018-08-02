@@ -50,4 +50,26 @@ export default defineMessages({
       defaultMessage: 'Cancel',
     },
   },
+  assignedGroupsTable: {
+    tableHeaderOrganization: {
+      id: 'ocpui.components.assignedGroupsTable.tableHeaderOrganization',
+      defaultMessage: 'Organization ID',
+    },
+    tableHeaderRole: {
+      id: 'ocpui.components.assignedGroupsTable.tableHeaderRole',
+      defaultMessage: 'Permission Group ID',
+    },
+    tableHeaderAction: {
+      id: 'ocpui.components.assignedGroupsTable.tableHeaderAction',
+      defaultMessage: 'Action',
+    },
+    tableActionEdit: {
+      id: 'ocpui.components.assignedGroupsTable.tableActionEdit',
+      defaultMessage: 'Edit',
+    },
+    tableActionRemove: {
+      id: 'ocpui.components.assignedGroupsTable.tableActionRemove',
+      defaultMessage: 'Remove',
+    },
+  },
 });

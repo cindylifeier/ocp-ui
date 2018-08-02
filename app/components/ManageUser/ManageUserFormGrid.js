@@ -33,12 +33,11 @@ const ManageUserFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
-      "firstName firstName firstName firstName . . . . . . . ."
-      "lastName lastName lastName lastName . . . . . . . ."
+      "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."
       "username username username username . . . . . . . ."
-      "password password password password . . . . . . . ."
-      "repeatPassword repeatPassword repeatPassword repeatPassword . . . . . . . ."
-      "assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup . . . . . . . ."
+      "password password password password repeatPassword repeatPassword repeatPassword repeatPassword . . . ."
+      "assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle"
+      "assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;

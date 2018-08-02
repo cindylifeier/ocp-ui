@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageUser.manageForm.patientTitle',
     defaultMessage: 'General Information for patient',
   },
+  assignPermissionGroupSubtitle: {
+    id: 'ocpui.components.ManageUser.manageForm.assignPermissionGroupSubtitle',
+    defaultMessage: 'Assign Permission Group',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageUser.manageForm.validation.minLength',
@@ -53,9 +57,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.hintText.password',
       defaultMessage: 'Password',
     },
-    repeatPassword: {
-      id: 'ocpui.components.ManageUser.manageForm.hintText.repeatPassword',
-      defaultMessage: 'Repeat Password',
+    confirmPassword: {
+      id: 'ocpui.components.ManageUser.manageForm.hintText.confirmPassword',
+      defaultMessage: 'Confirm Password',
     },
   },
   floatingLabelText: {
@@ -75,9 +79,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.password',
       defaultMessage: 'Password',
     },
-    repeatPassword: {
-      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.repeatPassword',
-      defaultMessage: 'Repeat Password',
+    confirmPassword: {
+      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.confirmPassword',
+      defaultMessage: 'Confirm Password',
     },
   },
 });

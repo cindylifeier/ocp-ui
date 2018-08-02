@@ -13,6 +13,9 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import messages from './messages';
 
 function AssignPermissionGroupsForm(props) {
+  const ORG_REFERENCE_SEPARATOR = '/';
+  const PATIENT_TYPE = 'Patient';
+  const PRACTITIONER_TYPE = 'Practitioner';
   const {
     groups,
     user,
@@ -35,7 +38,7 @@ function AssignPermissionGroupsForm(props) {
         }}
         initialValues={{ ...(initialValues || {}).permissionGroup }}
         validationSchema={yup.object().shape({
-          organization: yup.string()
+          orgId: yup.string()
             .required((<FormattedMessage {...messages.assignGroupsForm.validation.required} />)),
           role: yup.string()
             .required((<FormattedMessage {...messages.assignGroupsForm.validation.required} />)),
@@ -45,23 +48,23 @@ function AssignPermissionGroupsForm(props) {
             <Grid columns={1}>
               <Cell>
                 <SelectField
-                  name="organization"
+                  name="orgId"
                   hintText={<FormattedMessage {...messages.assignGroupsForm.hintText.organization} />}
                   floatingLabelText={<FormattedMessage {...messages.assignGroupsForm.floatingLabelText.organization} />}
                   fullWidth
                 >
-                  {resourceType === 'Patient' &&
+                  {resourceType === PATIENT_TYPE && user.organization &&
                   <MenuItem
-                    key={user.organization && user.organization.reference}
-                    value={user.organization && user.organization.reference}
-                    primaryText={user.organization && user.organization.display}
+                    key={user.organization.reference}
+                    value={user.organization.reference.split(ORG_REFERENCE_SEPARATOR).pop()}
+                    primaryText={user.organization.display}
                   />
                   }
-                  {resourceType === 'Practitioner' && user.practitionerRoles &&
+                  {resourceType === PRACTITIONER_TYPE && user.practitionerRoles &&
                   user.practitionerRoles.map((practitionerRole) => (
                     <MenuItem
                       key={practitionerRole.organization.reference}
-                      value={practitionerRole.organization.reference}
+                      value={practitionerRole.organization.reference.split(ORG_REFERENCE_SEPARATOR).pop()}
                       primaryText={practitionerRole.organization.display}
                     />),
                   )}

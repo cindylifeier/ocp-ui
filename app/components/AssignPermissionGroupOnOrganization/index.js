@@ -9,12 +9,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
-import teal from 'material-ui-next/colors/teal';
 
-import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
-import StyledFlatButton from 'components/StyledFlatButton';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import AssignPermissionGroupsForm from './AssignPermissionGroupsForm';
+import AssignedPermissionGroupsTable from './AssignedPermissionGroupsTable';
 import messages from './messages';
 
 
@@ -50,25 +49,24 @@ class AssignPermissionGroupOnOrganization extends React.Component { // eslint-di
 
 
   render() {
-    const { user, groups, resourceType, assignedPermissionGroups, errors } = this.props;
+    const { user, groups, resourceType, roles, errors } = this.props;
     const assignPermissionGroupsFormProps = {
       groups,
       user,
       resourceType,
     };
-    const assignedGroupsTableProps = {
-      assignedPermissionGroups,
+    const assignedPermissionGroupsTableProps = {
+      roles,
       errors,
     };
-    console.log(assignedGroupsTableProps);
+
     return (
       <div>
-        <StyledFlatButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
-          <StyledAddCircleIcon color={teal['500']} />
+        <StyledRaisedButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleOpenDialog}>
           <FormattedMessage {...messages.assignPermissionGroupButton} />
-        </StyledFlatButton>
+        </StyledRaisedButton>
         <FieldArray
-          name="permissionGroups"
+          name="roles"
           render={(arrayHelpers) => (
             <div>
               <StyledDialog open={this.state.dialogOpen} fullWidth>
@@ -85,6 +83,13 @@ class AssignPermissionGroupOnOrganization extends React.Component { // eslint-di
                   />
                 </DialogContent>
               </StyledDialog>
+              {roles &&
+              <AssignedPermissionGroupsTable
+                arrayHelpers={arrayHelpers}
+                onEditPermissionGroup={this.handleEditPermissionGroup}
+                {...assignedPermissionGroupsTableProps}
+              />
+              }
             </div>
           )}
         />
@@ -102,9 +107,9 @@ AssignPermissionGroupOnOrganization.propTypes = {
     description: PropTypes.string,
     scopes: PropTypes.array.isRequired,
   })).isRequired,
-  assignedPermissionGroups: PropTypes.arrayOf(PropTypes.shape({
-    organizationReference: PropTypes.object,
-    groupId: PropTypes.string,
+  roles: PropTypes.arrayOf(PropTypes.shape({
+    orgId: PropTypes.string,
+    role: PropTypes.string,
   })),
   errors: PropTypes.object,
 };
