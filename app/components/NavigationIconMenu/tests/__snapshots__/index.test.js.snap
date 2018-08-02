@@ -30,6 +30,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <StyledIconButton__StyledIconButton
+          aria-label="action ellipsis icon"
           disableIconHover={false}
           disabled={false}
           onClick={[Function]}
@@ -60,6 +61,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
+          "aria-label": "action ellipsis icon",
           "children": <pure(MoreHoriz) />,
           "disableIconHover": false,
           "disabled": false,
@@ -128,6 +130,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <StyledIconButton__StyledIconButton
+            aria-label="action ellipsis icon"
             disableIconHover={false}
             disabled={false}
             onClick={[Function]}
@@ -158,6 +161,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
+            "aria-label": "action ellipsis icon",
             "children": <pure(MoreHoriz) />,
             "disableIconHover": false,
             "disabled": false,

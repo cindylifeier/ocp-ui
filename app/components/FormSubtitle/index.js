@@ -11,7 +11,7 @@ const FormSubtitle = styled.div`
   margin: ${({ margin }) => margin};
   font-size: 1.1rem;
   font-weight: bold;
-  color: #444;
+  color: #000;
   background-color: #f2f2f2;
 `;
 
