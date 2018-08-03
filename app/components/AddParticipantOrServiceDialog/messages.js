@@ -6,13 +6,21 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  addCoverageDialogCancelBtnLabel: {
-    id: 'ocpui.containers.AddParticipantOrServiceDialog.addCoverageDialogCancelBtnLabel',
-    defaultMessage: 'Cancel',
-  },
   addParticipantOrServiceDialogTitle: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.addParticipantOrServiceDialogTitle',
     defaultMessage: 'Add appointment for:',
+  },
+  serviceTabLabel: {
+    id: 'ocpui.containers.AddParticipantOrServiceDialog.serviceTabLabel',
+    defaultMessage: 'Service',
+  },
+  careTeamTabLabel: {
+    id: 'ocpui.containers.AddParticipantOrServiceDialog.careTeamTabLabel',
+    defaultMessage: 'Care Team',
+  },
+  nonCareTeamTabLabel: {
+    id: 'ocpui.containers.AddParticipantOrServiceDialog.nonCareTeamTabLabel',
+    defaultMessage: 'Non-Care Team',
   },
   saveButton: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.saveButton',
@@ -21,10 +29,6 @@ export default defineMessages({
   cancelButton: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.cancelButton',
     defaultMessage: 'Cancel',
-  },
-  addCoverageDialogSaveBtnLabel: {
-    id: 'ocpui.containers.AddParticipantOrServiceDialog.addCoverageDialogSaveBtnLabel',
-    defaultMessage: 'Save',
   },
   validation: {
     minLength: {
@@ -53,71 +57,63 @@ export default defineMessages({
     },
   },
   hintText: {
-    beneficiary: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.beneficiary',
-      defaultMessage: 'Beneficiary',
+    selectService: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectService',
+      defaultMessage: 'Select Service',
     },
-    subscriber: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.subscriber',
-      defaultMessage: 'Subscriber',
+    selectLocation: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectLocation',
+      defaultMessage: 'Select Location',
     },
-    relationship: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.relationship',
-      defaultMessage: 'Relationship',
+    selectPractitioner: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectPractitioner',
+      defaultMessage: 'Select Practitioner',
     },
-    subscriberId: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.subscriberId',
-      defaultMessage: 'SubscriberId',
+    selectedCareTeam: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectedCareTeam',
+      defaultMessage: 'Select Care Team Member',
     },
-    status: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.status',
-      defaultMessage: 'Status',
+    serviceName: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.serviceName',
+      defaultMessage: 'Enter service',
     },
-    coverageType: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.coverageType',
-      defaultMessage: 'Coverage Type',
+    locationName: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.locationName',
+      defaultMessage: 'Enter location',
     },
-    startDate: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.startDate',
-      defaultMessage: 'Start Date',
-    },
-    endDate: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.endDate',
-      defaultMessage: 'End Date',
+    practitionerName: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.practitionerName',
+      defaultMessage: 'Enter practitioner name',
     },
   },
   floatingLabelText: {
-    beneficiary: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.beneficiary',
-      defaultMessage: 'Beneficiary',
+    selectService: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectService',
+      defaultMessage: 'Select Service',
     },
-    subscriber: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.subscriber',
-      defaultMessage: 'Subscriber',
+    selectLocation: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectLocation',
+      defaultMessage: 'Select Location',
     },
-    relationship: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.relationship',
-      defaultMessage: 'Relationship',
+    selectPractitioner: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectPractitioner',
+      defaultMessage: 'Select Practitioner',
     },
-    subscriberId: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.subscriberId',
-      defaultMessage: 'Subscriber Id',
+    selectedCareTeam: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectedCareTeam',
+      defaultMessage: 'Select Care Team Member',
     },
-    status: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.status',
-      defaultMessage: 'Status',
+    serviceName: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.serviceName',
+      defaultMessage: 'Enter service',
     },
-    coverageType: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.coverageType',
-      defaultMessage: 'Coverage Type',
+    locationName: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.locationName',
+      defaultMessage: 'Enter location',
     },
-    startDate: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.startDate',
-      defaultMessage: 'Start Date',
-    },
-    endDate: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.endDate',
-      defaultMessage: 'End Date',
+    practitionerName: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.practitionerName',
+      defaultMessage: 'Enter practitioner name',
     },
   },
 });
