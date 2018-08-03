@@ -1,18 +1,13 @@
-
-import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+import { resetPassword } from '../actions';
+import { RESET_PASSWORD } from '../constants';
 
 describe('ResetPassword actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('Reset Password Action', () => {
+    it('has a type of RESET_PASSWORD', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: RESET_PASSWORD,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(resetPassword()).toEqual(expected);
     });
   });
 });
