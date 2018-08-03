@@ -24,21 +24,21 @@ export default defineMessages({
     hintText: {
       organization: {
         id: 'ocpui.components.AssignPermissionGroupsForm.hintText.organization',
-        defaultMessage: 'Organization',
+        defaultMessage: 'Select Organization',
       },
       permissionGroup: {
         id: 'ocpui.components.AssignPermissionGroupsForm.hintText.permissionGroup',
-        defaultMessage: 'Permission Group',
+        defaultMessage: 'Select Permission Group',
       },
     },
     floatingLabelText: {
       organization: {
         id: 'ocpui.components.AssignPermissionGroupsForm.floatingLabelText.organization',
-        defaultMessage: 'Organization',
+        defaultMessage: 'Select Organization',
       },
       permissionGroup: {
         id: 'ocpui.components.AssignPermissionGroupsForm.floatingLabelText.permissionGroup',
-        defaultMessage: 'Permission Group',
+        defaultMessage: 'Select Permission Group',
       },
     },
     saveButton: {
@@ -53,11 +53,11 @@ export default defineMessages({
   assignedGroupsTable: {
     tableHeaderOrganization: {
       id: 'ocpui.components.assignedGroupsTable.tableHeaderOrganization',
-      defaultMessage: 'Organization ID',
+      defaultMessage: 'Organization',
     },
     tableHeaderRole: {
       id: 'ocpui.components.assignedGroupsTable.tableHeaderRole',
-      defaultMessage: 'Permission Group ID',
+      defaultMessage: 'Permission Group',
     },
     tableHeaderAction: {
       id: 'ocpui.components.assignedGroupsTable.tableHeaderAction',
