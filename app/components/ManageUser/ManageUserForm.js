@@ -3,11 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { Cell, Grid } from 'styled-css-grid';
+import uniq from 'lodash/uniq';
 
 import TextField from 'components/TextField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
+import CustomErrorText from 'components/CustomErrorText';
 import AssignPermissionGroupOnOrganization from 'components/AssignPermissionGroupOnOrganization';
 import ManageUserFormGrid from './ManageUserFormGrid';
 import messages from './messages';
@@ -19,6 +21,11 @@ function ManageUserForm(props) {
     isSubmitting, dirty, isValid, values, errors,
     user, groups, resourceType,
   } = props;
+  const assignedOrganizations = values.roles && values.roles.map((role) => role.organization);
+  let duplicatedAssignedOrganization = false;
+  if (assignedOrganizations) {
+    duplicatedAssignedOrganization = uniq(assignedOrganizations).length !== assignedOrganizations.length;
+  }
   const assignPermissionGroupProps = {
     user,
     groups,
@@ -92,6 +99,9 @@ function ManageUserForm(props) {
         </Cell>
         <Cell area="assignPermissionGroup">
           <AssignPermissionGroupOnOrganization {...assignPermissionGroupProps} />
+          {duplicatedAssignedOrganization &&
+          <CustomErrorText><FormattedMessage {...messages.validation.duplicatedOrganization} /></CustomErrorText>
+          }
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -99,9 +109,9 @@ function ManageUserForm(props) {
               <StyledRaisedButton
                 fullWidth
                 type="submit"
-                disabled={!dirty || isSubmitting || !isValid}
+                disabled={!dirty || isSubmitting || !isValid || duplicatedAssignedOrganization}
               >
-                Save
+                <FormattedMessage {...messages.saveButton} />
               </StyledRaisedButton>
             </Cell>
             <Cell>

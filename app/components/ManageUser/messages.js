@@ -43,6 +43,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.validation.passwordPattern',
       defaultMessage: 'Password must contain 8 characters and at least one number, one letter and one unique character such as @!#$',
     },
+    duplicatedOrganization: {
+      id: 'ocpui.components.ManageUser.manageForm.validation.duplicatedOrganization',
+      defaultMessage: 'Cannot assign permission group to the SAME organization',
+    },
   },
   hintText: {
     firstName: {
@@ -87,5 +91,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.confirmPassword',
       defaultMessage: 'Confirm Password',
     },
+  },
+  saveButton: {
+    id: 'ocpui.components.ManageUser.manageForm.saveButton',
+    defaultMessage: 'Save',
   },
 });
