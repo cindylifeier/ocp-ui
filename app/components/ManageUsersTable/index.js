@@ -20,7 +20,7 @@ import messages from './messages';
 const columns = 'repeat(2,1fr) 200px';
 
 function ManageUsersTable(props) {
-  const { users, onEditAssignRoles } = props;
+  const { users, onEditAssignRoles, onOpenResetPasswordModal } = props;
   return (
     <Table>
       <TableHeader columns={columns}>
@@ -30,8 +30,11 @@ function ManageUsersTable(props) {
       </TableHeader>
       {users && users.map((user) => {
         const menuItems = [{
-          primaryText: <FormattedMessage {...messages.assignRole} />,
+          primaryText: <FormattedMessage {...messages.menuItemAssignRole} />,
           onClick: () => onEditAssignRoles(user),
+        }, {
+          primaryText: <FormattedMessage {...messages.menuItemResetPassword} />,
+          onClick: () => onOpenResetPasswordModal(user),
         }];
         const permissionGroupName = user.displayName && user.displayName.split('.').pop();
         return (
@@ -54,6 +57,7 @@ ManageUsersTable.propTypes = {
     displayName: PropTypes.string.isRequired,
   })).isRequired,
   onEditAssignRoles: PropTypes.func.isRequired,
+  onOpenResetPasswordModal: PropTypes.func.isRequired,
 };
 
 export default ManageUsersTable;

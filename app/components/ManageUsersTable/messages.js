@@ -22,8 +22,12 @@ export default defineMessages({
     id: 'ocpui.components.ManageUsersTable.action',
     defaultMessage: 'Action',
   },
-  assignRole: {
-    id: 'ocpui.components.PermissionGroupsTable.assignRole',
-    defaultMessage: 'Assign Role',
+  menuItemAssignRole: {
+    id: 'ocpui.components.PermissionGroupsTable.menuItemAssignRole',
+    defaultMessage: 'Assign Role/Permission group',
+  },
+  menuItemResetPassword: {
+    id: 'ocpui.components.PermissionGroupsTable.menuItemResetPassword',
+    defaultMessage: 'Reset Password',
   },
 });

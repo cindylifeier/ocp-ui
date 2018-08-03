@@ -16,6 +16,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import ResetPassword from 'containers/ResetPassword';
 import StyledDialog from 'components/StyledDialog';
 import AddAssignRolesForm from 'components/AddAssignRolesForm';
 import ManageUsersTable from 'components/ManageUsersTable';
@@ -30,11 +31,14 @@ export class ManageUsers extends React.Component { // eslint-disable-line react/
     super(props);
     this.state = {
       isDialogOpen: false,
+      resetPasswordModalOpen: false,
       selectedUser: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEditAssignRoles = this.handleEditAssignRoles.bind(this);
+    this.handleOpenResetPasswordModal = this.handleOpenResetPasswordModal.bind(this);
+    this.handleCloseResetPasswordModal = this.handleCloseResetPasswordModal.bind(this);
     this.handleAssignRole = this.handleAssignRole.bind(this);
   }
 
@@ -65,6 +69,17 @@ export class ManageUsers extends React.Component { // eslint-disable-line react/
     }));
   }
 
+  handleOpenResetPasswordModal(selectedUser) {
+    this.setState({
+      selectedUser,
+      resetPasswordModalOpen: true,
+    });
+  }
+
+  handleCloseResetPasswordModal() {
+    this.setState({ resetPasswordModalOpen: false });
+  }
+
   handleAssignRole(values, actions) {
     const userId = this.state.selectedUser.id;
     const groupId = values.role;
@@ -75,9 +90,21 @@ export class ManageUsers extends React.Component { // eslint-disable-line react/
 
   render() {
     const { users, groups, organization } = this.props;
+    const { selectedUser, resetPasswordModalOpen } = this.state;
     return (
       <div>
-        <ManageUsersTable users={users} onEditAssignRoles={this.handleEditAssignRoles} />
+        <ManageUsersTable
+          users={users}
+          onEditAssignRoles={this.handleEditAssignRoles}
+          onOpenResetPasswordModal={this.handleOpenResetPasswordModal}
+        />
+        {selectedUser &&
+        <ResetPassword
+          dialogOpen={resetPasswordModalOpen}
+          onCloseDialog={this.handleCloseResetPasswordModal}
+          user={selectedUser}
+        />
+        }
         <FieldArray
           name="assignRoles"
           render={() => (
@@ -91,7 +118,7 @@ export class ManageUsers extends React.Component { // eslint-disable-line react/
                 </DialogTitle>
                 <DialogContent>
                   <AddAssignRolesForm
-                    user={this.state.selectedUser}
+                    user={selectedUser}
                     handleCloseDialog={this.handleCloseDialog}
                     handleAssignRole={this.handleAssignRole}
                     organization={organization}
