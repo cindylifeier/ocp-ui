@@ -46,4 +46,8 @@ export default defineMessages({
     id: 'ocpui.components.WorkspaceSelection.inactive',
     defaultMessage: 'Inactive',
   },
+  noPatientsFound: {
+    id: 'ocpui.components.WorkspaceSelection.NoPatientsFound',
+    defaultMessage: 'No Patients Found',
+  },
 });

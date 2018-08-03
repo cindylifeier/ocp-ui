@@ -49,9 +49,9 @@ function PractitionerTable(props) {
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
                 {isExpanded &&
-                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 }
-                <TableHeaderColumn > <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+                <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
@@ -84,7 +84,7 @@ function PractitionerTable(props) {
                     expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
                     columns={columns}
                     key={logicalId}
-                    onClick={() => setSelectedPractitioner(practitioner)}
+                    onClick={() => setSelectedPractitioner && setSelectedPractitioner(practitioner)}
                   >
                     <TableRowColumn>{renderFullName(name)}</TableRowColumn>
                     {isExpanded ?
@@ -131,7 +131,7 @@ PractitionerTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   size: PropTypes.object.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
-  assignLocationUrl: PropTypes.string.isRequired,
+  assignLocationUrl: PropTypes.string,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
