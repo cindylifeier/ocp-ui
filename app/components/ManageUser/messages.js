@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageUser.manageForm.patientTitle',
     defaultMessage: 'General Information for patient',
   },
+  assignPermissionGroupSubtitle: {
+    id: 'ocpui.components.ManageUser.manageForm.assignPermissionGroupSubtitle',
+    defaultMessage: 'Assign Permission Group',
+  },
   validation: {
     minLength: {
       id: 'ocpui.components.ManageUser.manageForm.validation.minLength',
@@ -22,6 +26,10 @@ export default defineMessages({
     required: {
       id: 'ocpui.components.ManageUser.manageForm.validation.required',
       defaultMessage: 'Required',
+    },
+    requiredPermissionGroup: {
+      id: 'ocpui.components.ManageUser.manageForm.validation.requiredPermissionGroup',
+      defaultMessage: 'Must assign at least ONE permission group',
     },
     invalid: {
       id: 'ocpui.components.ManageUser.manageForm.validation.invalid',
@@ -34,6 +42,10 @@ export default defineMessages({
     passwordPattern: {
       id: 'ocpui.components.ManageUser.manageForm.validation.passwordPattern',
       defaultMessage: 'Password must contain 8 characters and at least one number, one letter and one unique character such as @!#$',
+    },
+    duplicatedOrganization: {
+      id: 'ocpui.components.ManageUser.manageForm.validation.duplicatedOrganization',
+      defaultMessage: 'Cannot assign permission group to the SAME organization',
     },
   },
   hintText: {
@@ -53,17 +65,9 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.hintText.password',
       defaultMessage: 'Password',
     },
-    repeatPassword: {
-      id: 'ocpui.components.ManageUser.manageForm.hintText.repeatPassword',
-      defaultMessage: 'Repeat Password',
-    },
-    organization: {
-      id: 'ocpui.components.ManageUser.manageForm.hintText.organization',
-      defaultMessage: 'Organization',
-    },
-    permissionGroup: {
-      id: 'ocpui.components.ManageUser.manageForm.hintText.permissionGroup',
-      defaultMessage: 'Permission Group',
+    confirmPassword: {
+      id: 'ocpui.components.ManageUser.manageForm.hintText.confirmPassword',
+      defaultMessage: 'Confirm Password',
     },
   },
   floatingLabelText: {
@@ -83,17 +87,13 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.password',
       defaultMessage: 'Password',
     },
-    repeatPassword: {
-      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.repeatPassword',
-      defaultMessage: 'Repeat Password',
+    confirmPassword: {
+      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.confirmPassword',
+      defaultMessage: 'Confirm Password',
     },
-    organization: {
-      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.organization',
-      defaultMessage: 'Organization',
-    },
-    permissionGroup: {
-      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.permissionGroup',
-      defaultMessage: 'Permission Group',
-    },
+  },
+  saveButton: {
+    id: 'ocpui.components.ManageUser.manageForm.saveButton',
+    defaultMessage: 'Save',
   },
 });

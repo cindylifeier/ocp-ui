@@ -13,8 +13,7 @@ const ManageUserFormGrid = Grid.extend`
     "username"
     "password"
     "repeatPassword"
-    "organization"
-    "permissionGroup"
+    "assignPermissionGroup"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -26,8 +25,7 @@ const ManageUserFormGrid = Grid.extend`
       "username username"
       "password password"
       "repeatPassword repeatPassword"
-      "organization organization"
-      "permissionGroup permissionGroup"
+      "assignPermissionGroup assignPermissionGroup"
       "buttonGroup .";
   }
 
@@ -35,13 +33,11 @@ const ManageUserFormGrid = Grid.extend`
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
-      "firstName firstName firstName firstName . . . . . . . ."
-      "lastName lastName lastName lastName . . . . . . . ."
+      "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."
       "username username username username . . . . . . . ."
-      "password password password password . . . . . . . ."
-      "repeatPassword repeatPassword repeatPassword repeatPassword . . . . . . . ."
-      "organization organization organization organization . . . . . . . ."
-      "permissionGroup permissionGroup permissionGroup permissionGroup . . . . . . . ."
+      "password password password password repeatPassword repeatPassword repeatPassword repeatPassword . . . ."
+      "assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle"
+      "assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup"
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;
