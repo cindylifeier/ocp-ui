@@ -3,13 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import PermissionAssignmentTable from '../index';
+// import ManageUsersTable from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<PermissionAssignmentTable />', () => {
+describe('<ManageUsersTable />', () => {
   it('Expect to have unit tests specified', () => {
-    // FIXME: add unit tests
     // expect(true).toEqual(false);
   });
 });

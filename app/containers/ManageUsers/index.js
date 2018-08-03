@@ -18,7 +18,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import StyledDialog from 'components/StyledDialog';
 import AddAssignRolesForm from 'components/AddAssignRolesForm';
-import PermissionAssignmentTable from 'components/PermissionAssignmentTable';
+import ManageUsersTable from 'components/ManageUsersTable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -77,6 +77,7 @@ export class ManageUsers extends React.Component { // eslint-disable-line react/
     const { users, groups, organization } = this.props;
     return (
       <div>
+        <ManageUsersTable users={users} onEditAssignRoles={this.handleEditAssignRoles} />
         <FieldArray
           name="assignRoles"
           render={() => (
@@ -101,7 +102,6 @@ export class ManageUsers extends React.Component { // eslint-disable-line react/
             </div>
           )}
         />
-        <PermissionAssignmentTable users={users} handleEditAssignRoles={this.handleEditAssignRoles} />
       </div>
     );
   }
