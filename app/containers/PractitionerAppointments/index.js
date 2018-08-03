@@ -18,6 +18,7 @@ import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import StyledDialog from 'components/StyledDialog';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import { getLookupsAction } from 'containers/App/actions';
 import {
@@ -54,7 +55,6 @@ import {
 } from './actions';
 import { MONTH, MONTH_DISPLAY, DEFAULT, DEFAULT_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
 import messages from './messages';
-import NoPractitionerAppointmentsMessage from './NoPractitionerAppointmentsMessage';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectPractitionerAppointments, makeSelectShowPastAppointments } from './selectors';
@@ -222,8 +222,8 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
           {loading &&
           <RefreshIndicatorLoading />}
           {!loading && isEmpty(data) &&
-          <NoPractitionerAppointmentsMessage>{
-            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPractitionerAppointmentsMessage>}
+          <NoResultsFoundText>{
+            <FormattedMessage {...messages.noUpcomingAppointments} />}</NoResultsFoundText>}
           {!isEmpty(data) && !isEmpty(data.elements) &&
           <InfoSection margin="0 0 10px 0">
             <CenterAlign>
