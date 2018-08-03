@@ -5,20 +5,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 
 import renderPermissionAssignmentsComponent from 'containers/PermissionAssignments/render';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
-import makeSelectManageUsersPage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
 
 export const initialStateMetadata =
@@ -102,27 +93,6 @@ export class ManageUsersPage extends React.Component { // eslint-disable-line re
   }
 }
 
-ManageUsersPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+ManageUsersPage.propTypes = {};
 
-const mapStateToProps = createStructuredSelector({
-  manageuserspage: makeSelectManageUsersPage(),
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'manageUsersPage', reducer });
-const withSaga = injectSaga({ key: 'manageUsersPage', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ManageUsersPage);
+export default ManageUsersPage;
