@@ -63,9 +63,9 @@ export const initialStateMetadata =
       title: '',
       content: [
         {
-          title: 'User Permission Management',
+          title: 'User Management',
           type: 'component',
-          componentName: 'practitionerPermissionAssignment',
+          componentName: 'userManagement',
           isClosable: true,
           reorderEnabled: true,
         },
@@ -79,7 +79,7 @@ export const initialStateMetadata =
   };
 
 export const componentMetadata = [
-  { name: 'practitionerPermissionAssignment', text: 'practitionerPermissionAssignment', factoryMethod: renderPermissionAssignmentsComponent },
+  { name: 'userManagement', text: 'userManagement', factoryMethod: renderPermissionAssignmentsComponent },
 ];
 
 export class ManageUsersPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -87,8 +87,8 @@ export class ManageUsersPage extends React.Component { // eslint-disable-line re
     return (
       <Page>
         <Helmet>
-          <title>Admin Manage Permissions Page</title>
-          <meta name="description" content="Admin Manage Permissions page of Omnibus Care Plan application" />
+          <title>User Manage Page</title>
+          <meta name="description" content="User Manage page of Omnibus Care Plan application" />
         </Helmet>
         <GoldenLayout
           containerHeight="85vh"
