@@ -68,7 +68,7 @@ class AddParticipantOrServiceForm extends React.Component {
                   <Tabs value={tabIndex} onChange={this.handleTabChange}>
                     <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
                     <Tab label={<FormattedMessage {...messages.careTeamTabLabel} />} />
-                    <Tab label={<FormattedMessage {...messages.nonCareTeamTabLabel} />} />
+                    <Tab label={<FormattedMessage {...messages.nonCareTeamTabLabel} />} disabled />
                   </Tabs>
                   {tabIndex === 0 &&
                     <TabContainer>
