@@ -8,7 +8,7 @@ function defineTextColor(colorPros) {
     case 'primary':
       return teal['500'];
     case 'secondary':
-      return '#666';
+      return '#000';
     default:
       return 'default';
   }

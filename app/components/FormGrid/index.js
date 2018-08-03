@@ -7,7 +7,7 @@
 import { Grid } from 'styled-css-grid';
 
 const FormGrid = Grid.extend`
-  color: #444;
+  color: #000;
   width: auto;
   padding-left: 0.5vw;
   margin: 0 1vw;
