@@ -70,7 +70,7 @@ function PatientTable(props) {
             />
           </div> :
           (<CenterAlign>
-            <NoResultsFoundText>No patients found</NoResultsFoundText>
+            <NoResultsFoundText><FormattedMessage {...messages.noPatientsFound} /></NoResultsFoundText>
           </CenterAlign>)
       )}
     </div>
