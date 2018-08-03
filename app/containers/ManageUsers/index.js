@@ -1,30 +1,31 @@
 /**
  *
- * PermissionAssignments
+ * ManageUsers
  *
  */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { FieldArray } from 'formik';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import StyledDialog from 'components/StyledDialog';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import { FieldArray } from 'formik';
-import PermissionAssignmentTable from 'components/PermissionAssignmentTable';
+import StyledDialog from 'components/StyledDialog';
 import AddAssignRolesForm from 'components/AddAssignRolesForm';
-import messages from './messages';
-import { makeSelectUsers, makeSelectGroups } from './selectors';
+import PermissionAssignmentTable from 'components/PermissionAssignmentTable';
 import reducer from './reducer';
 import saga from './saga';
-import { getUsers, getGroups, initializePermissionAssignment, assignUserRole } from './actions';
+import messages from './messages';
+import { makeSelectGroups, makeSelectUsers } from './selectors';
+import { assignUserRole, getGroups, getUsers, initializePermissionAssignment } from './actions';
 
-export class PermissionAssignments extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class ManageUsers extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +37,7 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
     this.handleEditAssignRoles = this.handleEditAssignRoles.bind(this);
     this.handleAssignRole = this.handleAssignRole.bind(this);
   }
+
   componentWillMount() {
     this.props.initializePermissionAssignment();
   }
@@ -105,7 +107,7 @@ export class PermissionAssignments extends React.Component { // eslint-disable-l
   }
 }
 
-PermissionAssignments.propTypes = {
+ManageUsers.propTypes = {
   getUsers: PropTypes.func.isRequired,
   getGroups: PropTypes.func.isRequired,
   onAssignRole: PropTypes.func.isRequired,
@@ -132,11 +134,11 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'permissionAssignments', reducer });
-const withSaga = injectSaga({ key: 'permissionAssignments', saga });
+const withReducer = injectReducer({ key: 'manageUsers', reducer });
+const withSaga = injectSaga({ key: 'manageUsers', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(PermissionAssignments);
+)(ManageUsers);

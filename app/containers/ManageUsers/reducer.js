@@ -1,23 +1,22 @@
 /*
  *
- * PermissionAssignments reducer
+ * ManageUsers reducer
  *
  */
 
 import { fromJS } from 'immutable';
 import find from 'lodash/find';
 import pull from 'lodash/pull';
-
 import {
-ASSIGN_USER_ROLE_ERROR,
-ASSIGN_USER_ROLE_SUCCESS,
-GET_GROUPS,
-GET_GROUPS_ERROR,
-GET_GROUPS_SUCCESS,
-GET_USERS,
-GET_USERS_ERROR,
-GET_USERS_SUCCESS,
-INITIALIZE_PERMISSION_ASSIGNMENT,
+  ASSIGN_USER_ROLE_ERROR,
+  ASSIGN_USER_ROLE_SUCCESS,
+  GET_GROUPS,
+  GET_GROUPS_ERROR,
+  GET_GROUPS_SUCCESS,
+  GET_USERS,
+  GET_USERS_ERROR,
+  GET_USERS_SUCCESS,
+  INITIALIZE_PERMISSION_ASSIGNMENT,
 } from './constants';
 
 const initialState = fromJS({
@@ -27,7 +26,7 @@ const initialState = fromJS({
   groups: [],
 });
 
-function permissionAssignmentsReducer(state = initialState, action) {
+function manageUsersReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_PERMISSION_ASSIGNMENT:
       return initialState;
@@ -78,4 +77,4 @@ function permissionAssignmentsReducer(state = initialState, action) {
   }
 }
 
-export default permissionAssignmentsReducer;
+export default manageUsersReducer;

@@ -1,20 +1,20 @@
 /*
  *
- * PermissionAssignments actions
+ * ManageUsers actions
  *
  */
 
 import {
-  GET_USERS,
-  GET_USERS_SUCCESS,
-  GET_USERS_ERROR,
-  INITIALIZE_PERMISSION_ASSIGNMENT,
-  GET_GROUPS,
-  GET_GROUPS_SUCCESS,
-  GET_GROUPS_ERROR,
   ASSIGN_USER_ROLE,
   ASSIGN_USER_ROLE_ERROR,
   ASSIGN_USER_ROLE_SUCCESS,
+  GET_GROUPS,
+  GET_GROUPS_ERROR,
+  GET_GROUPS_SUCCESS,
+  GET_USERS,
+  GET_USERS_ERROR,
+  GET_USERS_SUCCESS,
+  INITIALIZE_PERMISSION_ASSIGNMENT,
 } from './constants';
 
 export function initializePermissionAssignment() {

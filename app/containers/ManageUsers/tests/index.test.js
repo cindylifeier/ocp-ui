@@ -3,13 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import { PermissionAssignments } from '../index';
+// import { ManageUsers } from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<PermissionAssignments />', () => {
+describe('<ManageUsers />', () => {
   it('Expect to have unit tests specified', () => {
-    // FIXME: add unit tests
-    //  expect(true).toEqual(false);
+    expect(true).toEqual(false);
   });
 });

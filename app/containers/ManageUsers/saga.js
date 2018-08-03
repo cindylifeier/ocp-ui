@@ -1,13 +1,17 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-
 import { showNotification } from 'containers/Notification/actions';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { getGroups } from 'containers/PermissionsGroups/api';
-import { GET_USERS, GET_GROUPS, ASSIGN_USER_ROLE } from './constants';
-import { getUsers, assignUserRole } from './api';
-import { getUsersSuccess, getUsersError, getGroupsError, getGroupsSuccess, assignUserRoleError, assignUserRoleSuccess } from './actions';
+import { ASSIGN_USER_ROLE, GET_GROUPS, GET_USERS } from './constants';
+import { assignUserRole, getUsers } from './api';
+import {
+  assignUserRoleError,
+  assignUserRoleSuccess,
+  getGroupsError,
+  getGroupsSuccess,
+  getUsersError,
+  getUsersSuccess,
+} from './actions';
 
 
 export function* getUsersSaga() {

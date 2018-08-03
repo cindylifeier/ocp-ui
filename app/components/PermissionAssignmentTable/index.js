@@ -1,8 +1,8 @@
 /**
-*
-* PermissionAssignmentTable
-*
-*/
+ *
+ * PermissionAssignmentTable
+ *
+ */
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -18,7 +18,6 @@ import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 import { PERMISSION_ASSIGNMENT_TABLE_COLUMNS } from './constants';
 
-// import styled from 'styled-components';
 const columns = PERMISSION_ASSIGNMENT_TABLE_COLUMNS;
 
 
@@ -26,9 +25,7 @@ function createTableHeaders() {
   return (
     <TableHeader columns={columns}>
       <TableHeaderColumn><FormattedMessage {...messages.userName} /></TableHeaderColumn>
-      {/* <TableHeaderColumn><FormattedMessage {...messages.role} /></TableHeaderColumn>*/}
       <TableHeaderColumn><FormattedMessage {...messages.permissionGroup} /></TableHeaderColumn>
-      {/* <TableHeaderColumn><FormattedMessage {...messages.contact} /></TableHeaderColumn>*/}
       <TableHeaderColumn><FormattedMessage {...messages.action} /></TableHeaderColumn>
     </TableHeader>
   );
@@ -49,15 +46,9 @@ function createTableRows(users, handleEditAssignRoles) {
             <TableRowColumn>
               {user.givenName} {user.familyName}
             </TableRowColumn>
-            {/* <TableRowColumn>
-              {user.role}
-            </TableRowColumn>*/}
             <TableRowColumn>
               {displayName && Util.deCamelize(displayName[displayName.length - 1])}
             </TableRowColumn>
-            {/* <TableRowColumn>
-              {user.contact}
-            </TableRowColumn>*/}
             <TableRowColumn>
               <NavigationIconMenu menuItems={menuItems} />
             </TableRowColumn>

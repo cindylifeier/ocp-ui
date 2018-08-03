@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for PermissionAssignments
+ * Asynchronously loads the component for ManageUsers
  *
  */
 
