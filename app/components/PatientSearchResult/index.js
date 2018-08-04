@@ -22,13 +22,14 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import PatientExpansionRowDetails from './PatientExpansionRowDetails';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 import messages from './messages';
 
 
-function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled) {
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton) {
   return patients && patients.map((patient) => {
     let menuItems;
     if (manageUserEnabled) {
@@ -77,6 +78,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
       const name = patientData && patientData.name && patientData.name.length > 0 ? patientData.name[0] : null;
       return name != null ? (name.firstName.concat(' ').concat(name.lastName)) : null;
     }
+
     return (
       <ExpansionTableRow
         expansionTableRowDetails={<PatientExpansionRowDetails patient={flattenPatientData(patient)} />}
@@ -90,17 +92,17 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         {isExpanded &&
         <TableRowColumn>{patient && patient.mrn}</TableRowColumn>
         }
-        <TableRowColumn>{ contact }</TableRowColumn>
+        <TableRowColumn>{contact}</TableRowColumn>
         {isExpanded &&
-        <TableRowColumn>{ address }</TableRowColumn>
+        <TableRowColumn>{address}</TableRowColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableRowColumn>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableRowColumn>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
         }
-        { isExpanded &&
+        {isExpanded &&
         <TableRowColumn>{patient.birthDate}</TableRowColumn>
         }
         {isExpanded &&
@@ -113,9 +115,11 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
           <FormattedMessage {...messages.active} /> :
           <FormattedMessage {...messages.inactive} />}
         </TableRowColumn>
+        {showActionButton &&
         <TableRowColumn>
           <NavigationIconMenu menuItems={menuItems} />
         </TableRowColumn>
+        }
       </ExpansionTableRow>
     );
   });
@@ -132,7 +136,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -141,15 +145,15 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
   }
 
   if (error !== false) {
-    return (<p>Error!</p>);
+    return (<NoResultsFoundText><FormattedMessage {...messages.errorMessage} /></NoResultsFoundText>);
   }
 
   if (error !== false) {
-    return (<p>No match search result.</p>);
+    return (<NoResultsFoundText><FormattedMessage {...messages.noMatchResult} /></NoResultsFoundText>);
   }
 
   if (searchResult !== false && searchResult !== null && searchResult.length === 0) {
-    return (<p>No patients found.</p>);
+    return (<NoResultsFoundText><FormattedMessage {...messages.noPatientsFound} /></NoResultsFoundText>);
   }
 
   if (searchResult !== false && searchResult !== null && searchResult.length !== 0) {
@@ -169,7 +173,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.race} /></TableHeaderColumn>
           }
           {isExpanded &&
-            <TableHeaderColumn><FormattedMessage {...messages.ethnicity} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.ethnicity} /></TableHeaderColumn>
           }
           {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.dob} /></TableHeaderColumn>
@@ -181,9 +185,11 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
           }
           <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
+          {showActionButton &&
           <TableHeaderColumn><FormattedMessage {...messages.actions} /></TableHeaderColumn>
+          }
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton)}
       </Table>
     );
   }
@@ -201,6 +207,7 @@ PatientSearchResult.propTypes = {
   flattenPatientData: PropTypes.func.isRequired,
   mapToTelecoms: PropTypes.func.isRequired,
   combineAddress: PropTypes.func.isRequired,
+  showActionButton: PropTypes.bool,
   size: PropTypes.object.isRequired,
   usCoreRaces: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,

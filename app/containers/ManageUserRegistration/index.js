@@ -19,10 +19,9 @@ import injectReducer from 'utils/injectReducer';
 import ManageUser from 'components/ManageUser';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
 import reducer from './reducer';
 import saga from './saga';
-import { getGroups, getUser, saveUser, initializeUserRegistration } from './actions';
+import { getGroups, getUser, initializeUserRegistration, saveUser } from './actions';
 import { makeSelectGroups, makeSelectUser } from './selectors';
 import messages from './messages';
 
@@ -69,9 +68,9 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
         <PageHeader
           title={<FormattedMessage {...messages.title} />}
         />
-        <PageContent>
-          {user && <ManageUser {...manageUserProps} onSave={this.handleSave} />}
-        </PageContent>
+        {user &&
+        <ManageUser {...manageUserProps} onSave={this.handleSave} />
+        }
       </Page>
     );
   }

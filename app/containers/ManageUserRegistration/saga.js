@@ -26,7 +26,7 @@ export function* saveUserSaga(action) {
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (err) {
-    yield put(showNotification(`Failed to create user: ${getErrorDetail(err)}`));
+    yield put(showNotification(`Failed to create user: ${getErrorDetail(err, action.userFormData.username)}`));
     yield call(action.handleSubmitting);
   }
 }
@@ -40,10 +40,14 @@ export function* getGroupsSaga() {
   }
 }
 
-export function getErrorDetail(error) {
+export function getErrorDetail(error, username) {
   let errorDetail = error.message;
   if (error && error.message === 'Failed to fetch') {
     errorDetail = ' Server is offline.';
+  } else if (error && error.response && error.response.status === 400) {
+    errorDetail = ' Bad request.';
+  } else if (error && error.response && error.response.status === 409) {
+    errorDetail = ` Duplicate Entry:: username ${username} already exists.`;
   } else if (error && error.response && error.response.status === 500) {
     errorDetail = ' Unknown server error.';
   }
