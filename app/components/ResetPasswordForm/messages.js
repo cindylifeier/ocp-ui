@@ -35,21 +35,21 @@ export default defineMessages({
   hintText: {
     newPassword: {
       id: 'ocpui.components.ResetPasswordForm.hintText.newPassword',
-      defaultMessage: 'New Password',
+      defaultMessage: 'Enter temporary password',
     },
     confirmPassword: {
       id: 'ocpui.components.ResetPasswordForm.hintText.confirmPassword',
-      defaultMessage: 'Confirm Password',
+      defaultMessage: 'Confirm temporary password',
     },
   },
   floatingLabelText: {
     newPassword: {
       id: 'ocpui.components.ResetPasswordForm.floatingLabelText.newPassword',
-      defaultMessage: 'New Password',
+      defaultMessage: 'Enter temporary password',
     },
     confirmPassword: {
       id: 'ocpui.components.ResetPasswordForm.floatingLabelText.confirmPassword',
-      defaultMessage: 'Confirm Password',
+      defaultMessage: 'Confirm temporary password',
     },
   },
 });
