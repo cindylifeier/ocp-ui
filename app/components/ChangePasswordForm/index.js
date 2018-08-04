@@ -39,8 +39,8 @@ function ChangePasswordForm(props) {
             .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
-        render={(loginFormProps) => {
-          const { isSubmitting, dirty, isValid } = loginFormProps;
+        render={(changePasswordFormProps) => {
+          const { isSubmitting, dirty, isValid } = changePasswordFormProps;
           return (
             <Form>
               <Grid columns={1}>
