@@ -26,6 +26,7 @@ function ManageAppointment(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    healthcareServices,
   } = props;
   const propsFromContainer = {
     patient,
@@ -35,6 +36,7 @@ function ManageAppointment(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    healthcareServices,
   };
 
   function setAppointmentTime(timeStr, dateStr) {
@@ -126,6 +128,7 @@ ManageAppointment.propTypes = {
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
   selectedParticipants: PropTypes.array,
+  healthcareServices: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
 };
 

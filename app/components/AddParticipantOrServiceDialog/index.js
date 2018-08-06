@@ -16,10 +16,12 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
     const {
       open,
       handleDialogClose,
+      healthcareServices,
     } = this.props;
 
     const addParticipantOrServiceProps = {
       handleDialogClose,
+      healthcareServices,
     };
 
     return (
@@ -39,6 +41,7 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
 AddParticipantOrServiceDialog.propTypes = {
   open: PropTypes.bool,
   handleDialogClose: PropTypes.func.isRequired,
+  healthcareServices: PropTypes.array.isRequired,
 };
 
 export default AddParticipantOrServiceDialog;

@@ -100,6 +100,7 @@ class ManageAppointmentForm extends React.Component {
       initialSelectedParticipants,
       removeParticipant,
       patient,
+      healthcareServices,
     } = this.props;
 
     const selectedParticipantsProps = {
@@ -110,6 +111,7 @@ class ManageAppointmentForm extends React.Component {
     const addParticipantsOrServiceProps = {
       open: this.state.open,
       handleDialogClose: this.handleDialogClose,
+      healthcareServices,
     };
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
@@ -264,6 +266,7 @@ ManageAppointmentForm.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   appointmentStatuses: PropTypes.array,
+  healthcareServices: PropTypes.array,
   appointment: PropTypes.object,
 };
 

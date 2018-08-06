@@ -32,15 +32,18 @@ class AddParticipantOrServiceForm extends React.Component {
     this.setState({ tabIndex: index });
   }
   render() {
-    const { handleDialogClose } = this.props;
+    const {
+      handleDialogClose,
+      healthcareServices,
+    } = this.props;
     const { tabIndex } = this.state;
 
     function setInitialValues() {
       return {
       };
     }
+
     const careTeams = [];
-    const services = [];
     const locations = [];
     const practitioners = [];
     return (
@@ -77,13 +80,16 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="service"
+                            onchange={(selected) => {
+                              console.log(selected);
+                            }}
                             hintText={<FormattedMessage {...messages.hintText.selectService} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
                           >
-                            {services && services.map((service) =>
+                            {healthcareServices && healthcareServices.map((service) =>
                               (<MenuItem
-                                key={service.code}
-                                value={service.code}
+                                key={service.reference}
+                                value={service.reference}
                                 primaryText={service.display}
                               />),
                             )}
@@ -237,6 +243,7 @@ class AddParticipantOrServiceForm extends React.Component {
 
 AddParticipantOrServiceForm.propTypes = {
   handleDialogClose: PropTypes.func.isRequired,
+  healthcareServices: PropTypes.array.isRequired,
 
 };
 
