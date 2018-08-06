@@ -94,7 +94,7 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
           onSize={this.handlePanelResize}
         />
         {isEmpty(patient) && (
-          <h4><FormattedMessage {...messages.noRelatedPersonSelected} /></h4>)}
+          <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonSelected} /></NoResultsFoundText>)}
         {!isEmpty(patient) && (
           <InfoSection>
             The <FormattedMessage {...messages.relatedPersons} /> for&nbsp;

@@ -21,7 +21,6 @@ import {
   SUMMARY_VIEW_WIDTH,
 } from 'components/LocationTable/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import LocationExpansionRowDetails from './LocationExpansionRowDetails';
 import messages from './messages';
@@ -106,9 +105,7 @@ function LocationTable(props) {
             currentPageSize={currentPageSize}
           />
         </div> :
-        <CenterAlign>
-          <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
-        </CenterAlign>
+        <NoResultsFoundText><FormattedMessage {...messages.noLocationsFound} /></NoResultsFoundText>
       }
     </div>
   );

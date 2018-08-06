@@ -20,11 +20,11 @@ export default defineMessages({
   },
   noRelatedPersonSelected: {
     id: 'ocpui.containers.RelatedPersons.noRelatedPersonSelected',
-    defaultMessage: 'No Related Person loaded. Please select a patient to view his/her Related Person.',
+    defaultMessage: 'No related persons loaded. Please select a patient to view his/her related person.',
   },
   noRelatedPersonFound: {
     id: 'ocpui.containers.RelatedPersons.noRelatedPersonFound',
-    defaultMessage: 'No Related Person found.',
+    defaultMessage: 'No related persons found.',
   },
   labelPatientName: {
     id: 'ocpui.containers.RelatedPersons.labelPatientName',

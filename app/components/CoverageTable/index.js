@@ -11,7 +11,6 @@ import isEmpty from 'lodash/isEmpty';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -40,7 +39,6 @@ function CoverageTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
-                <TableHeaderColumn></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.coverage} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.ID} /></TableHeaderColumn>
@@ -92,9 +90,9 @@ function CoverageTable(props) {
               hideEllipsis={false}
             />
           </div> :
-          (<CenterAlign>
+          (
             <NoResultsFoundText><FormattedMessage {...messages.noCoverageReason} /></NoResultsFoundText>
-          </CenterAlign>)
+          )
       )}
     </div>
   );

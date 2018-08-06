@@ -100,11 +100,11 @@ export default defineMessages({
   },
   noMatchResult: {
     id: 'ocpui.components.PatientSearchResult.expansionRowDetails.noMatchResult',
-    defaultMessage: 'No match search result',
+    defaultMessage: 'No match search result.',
   },
   noPatientsFound: {
     id: 'ocpui.components.PatientSearchResult.expansionRowDetails.noPatientsFound',
-    defaultMessage: 'No Patients Found',
+    defaultMessage: 'No patients found.',
   },
   expansionRowDetails: {
     name: {

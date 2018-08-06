@@ -13,6 +13,7 @@ import ContentSection from 'components/ContentSection';
 import FilterSection from 'components/FilterSection';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
@@ -51,7 +52,6 @@ import {
   tentativePatientAppointment,
 } from './actions';
 import messages from './messages';
-import NoPatientAppointmentsMessage from './NoPatientAppointmentsMessage';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectPatientAppointments, makeSelectShowPastAppointments } from './selectors';
@@ -193,8 +193,8 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             {loading &&
             <RefreshIndicatorLoading />}
             {!loading && isEmpty(data) &&
-            <NoPatientAppointmentsMessage>{
-              <FormattedMessage {...messages.noUpcomingAppointments} />}</NoPatientAppointmentsMessage>}
+            <NoResultsFoundText>{
+              <FormattedMessage {...messages.noUpcomingAppointments} />}</NoResultsFoundText>}
             {!isEmpty(data) && !isEmpty(data.elements) &&
             <CenterAlign>
               <AppointmentTable

@@ -16,7 +16,7 @@ export default defineMessages({
   },
   noToDosFound: {
     id: 'ocpui.containers.PractitionerToDos.noToDosFound',
-    defaultMessage: 'No To Dos found.',
+    defaultMessage: 'No to-dos found.',
   },
   noFilterToDoError: {
     id: 'ocpui.containers.PractitionerToDos.noFilterToDoError',
