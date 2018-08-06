@@ -188,7 +188,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
-          <NoResultsFoundText>No care teams found.</NoResultsFoundText>}
+          <NoResultsFoundText><FormattedMessage {...messages.noCareTeamsFound} /></NoResultsFoundText>}
 
           {!isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>
