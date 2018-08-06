@@ -24,8 +24,14 @@ const makeSelectAppointment = () => createSelector(
   (subState) => subState && subState.get('appointment'),
 );
 
+const makeSelectHealthcareService = () => createSelector(
+  selectManageAppointmentPageDomain,
+  (subState) => subState && subState.get('healthcareServices'),
+);
+
 export {
   selectManageAppointmentPageDomain,
   makeSelectManageAppointmentPage,
   makeSelectAppointment,
+  makeSelectHealthcareService,
 };

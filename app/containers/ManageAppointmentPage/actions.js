@@ -8,6 +8,9 @@ import {
   GET_APPOINTMENT, GET_APPOINTMENT_SUCCESS,
   INITIALIZE_MANAGE_APPOINTMENT,
   SAVE_APPOINTMENT,
+  GET_HEALTHCARE_SERVICE,
+  GET_HEALTHCARE_SERVICE_SUCCESS,
+  GET_HEALTHCARE_SERVICE_ERROR,
 } from './constants';
 
 export function initializeManageAppointment() {
@@ -20,6 +23,27 @@ export function getAppointment(appointmentId) {
   return {
     type: GET_APPOINTMENT,
     appointmentId,
+  };
+}
+
+export function getHealthcareService(organizationId) {
+  return {
+    type: GET_HEALTHCARE_SERVICE,
+    organizationId,
+  };
+}
+
+export function getHealthcareServiceSuccess(healthcareServices) {
+  return {
+    type: GET_HEALTHCARE_SERVICE_SUCCESS,
+    healthcareServices,
+  };
+}
+
+export function getHealthcareServiceError(error) {
+  return {
+    type: GET_HEALTHCARE_SERVICE_ERROR,
+    error,
   };
 }
 

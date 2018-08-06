@@ -5,9 +5,18 @@ import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import { goBack } from 'react-router-redux';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { getAppointmentSuccess } from './actions';
-import { getAppointmentApi, getAppointmentById, saveAppointment } from './api';
-import { GET_APPOINTMENT, SAVE_APPOINTMENT } from './constants';
+import { getAppointmentSuccess, getHealthcareServiceSuccess } from './actions';
+import {
+  getAppointmentApi,
+  getAppointmentById,
+  saveAppointment,
+  getHealthcareService,
+} from './api';
+import {
+  GET_APPOINTMENT,
+  SAVE_APPOINTMENT,
+  GET_HEALTHCARE_SERVICE,
+} from './constants';
 
 function* saveAppointmentSaga(action) {
   try {
@@ -46,6 +55,24 @@ function* getAppointmentSaga({ appointmentId }) {
   }
 }
 
+
+function* getHealthcareServiceSaga({ organizationId }) {
+  try {
+    if (!isEmpty(organizationId)) {
+      const healthcareServices = yield call(getHealthcareService, organizationId);
+      yield put(getHealthcareServiceSuccess(healthcareServices));
+    }
+  } catch (error) {
+    yield put(showNotification('Error in getting Heathcare Service'));
+    yield put(goBack());
+  }
+}
+
+function* watchGetHealthcareServiceSaga() {
+  yield takeLatest(GET_HEALTHCARE_SERVICE, getHealthcareServiceSaga);
+}
+
+
 function* watchGetAppointmentSaga() {
   yield takeLatest(GET_APPOINTMENT, getAppointmentSaga);
 }
@@ -70,5 +97,6 @@ export default function* rootSaga() {
   yield all([
     watchSaveAppointmentSaga(),
     watchGetAppointmentSaga(),
+    watchGetHealthcareServiceSaga(),
   ]);
 }

@@ -9,7 +9,11 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import {
+  makeSelectPatient,
+  makeSelectUser,
+  makeSelectOrganization,
+} from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import {
   removeAppointmentParticipant,
@@ -28,12 +32,20 @@ import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { getAppointment, saveAppointment, initializeManageAppointment } from './actions';
+import {
+  getAppointment,
+  saveAppointment,
+  initializeManageAppointment,
+  getHealthcareService,
+} from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import { makeSelectAppointment } from './selectors';
+import {
+  makeSelectAppointment,
+  makeSelectHealthcareService,
+} from './selectors';
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -50,8 +62,12 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
   componentDidMount() {
     this.props.getLookups();
     const appointmentId = this.props.match.params.id;
+    const { organization } = this.props;
     if (appointmentId) {
       this.props.getAppointment(appointmentId);
+    }
+    if (organization) {
+      this.props.getHealthcareService(organization.logicalId);
     }
   }
 
@@ -98,6 +114,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       appointmentTypes,
       selectedParticipants,
       selectedAppointment,
+      healthcareServices,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let appointment = null;
@@ -115,6 +132,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       appointmentTypes,
       selectedParticipants,
       initialSelectedParticipants,
+      healthcareServices,
     };
 
     return (
@@ -145,6 +163,7 @@ ManageAppointmentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
+  healthcareServices: PropTypes.array,
   patient: PropTypes.object,
   user: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
@@ -160,7 +179,9 @@ ManageAppointmentPage.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   getAppointment: PropTypes.func.isRequired,
+  getHealthcareService: PropTypes.func.isRequired,
   selectedAppointment: PropTypes.object,
+  organization: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -170,6 +191,8 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   selectedParticipants: makeSelectSelectedAppointmentParticipants(),
   selectedAppointment: makeSelectAppointment(),
+  organization: makeSelectOrganization(),
+  healthcareServices: makeSelectHealthcareService(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -179,6 +202,7 @@ function mapDispatchToProps(dispatch) {
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
+    getHealthcareService: (organizationId) => dispatch(getHealthcareService(organizationId)),
   };
 }
 

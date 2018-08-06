@@ -6,11 +6,16 @@
 
 
 import { fromJS } from 'immutable';
-import { GET_APPOINTMENT_SUCCESS, INITIALIZE_MANAGE_APPOINTMENT } from './constants';
+import {
+  GET_APPOINTMENT_SUCCESS,
+  INITIALIZE_MANAGE_APPOINTMENT,
+  GET_HEALTHCARE_SERVICE_SUCCESS,
+} from './constants';
 
 const initialState = fromJS({
   patient: null,
   appointment: null,
+  healthcareServices: null,
 });
 
 function manageAppointmentPageReducer(state = initialState, action) {
@@ -20,6 +25,9 @@ function manageAppointmentPageReducer(state = initialState, action) {
     case GET_APPOINTMENT_SUCCESS:
       return state
         .set('appointment', action.appointment);
+    case GET_HEALTHCARE_SERVICE_SUCCESS:
+      return state
+        .set('healthcareServices', action.healthcareServices);
     default:
       return state;
   }

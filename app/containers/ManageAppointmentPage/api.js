@@ -1,7 +1,10 @@
 import { isEmpty } from 'lodash';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
-import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import {
+  BASE_APPOINTMENTS_API_URL,
+  BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL,
+  getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
 
 const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
@@ -18,6 +21,12 @@ export function saveAppointment(appointmentFormData) {
 
 export function getAppointmentApi(appointmentId) {
   const requestURL = `${baseEndpoint}/${appointmentId}`;
+  return request(requestURL);
+}
+
+export function getHealthcareService(organizationId) {
+  const healthcareServiceBaseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL);
+  const requestURL = `${healthcareServiceBaseEndpoint}?${organizationId}`;
   return request(requestURL);
 }
 
