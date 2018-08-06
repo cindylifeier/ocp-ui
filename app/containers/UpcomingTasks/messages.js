@@ -12,6 +12,6 @@ export default defineMessages({
   },
   noUpcomingTasksFound: {
     id: 'ocpui.containers.UpcomingTasks.noUpcomingTasksFound',
-    defaultMessage: 'No Upcoming Tasks Found.',
+    defaultMessage: 'No upcoming tasks found.',
   },
 });

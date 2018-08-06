@@ -161,7 +161,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
         />
         <ContentSection>
           {isEmpty(patientName) ?
-            <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
+            <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText> :
             <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
               <Grid columns={1} gap="">
                 <Cell>

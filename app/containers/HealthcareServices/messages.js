@@ -24,7 +24,7 @@ export default defineMessages({
   },
   noHealthcareServicesFound: {
     id: 'ocpui.containers.HealthcareServices.noHealthcareServicesFound',
-    defaultMessage: 'No Healthcare Services found.',
+    defaultMessage: 'No healthcare services found.',
   },
   inactive: {
     id: 'ocpui.containers.HealthcareServices.checkbox.inactive',
