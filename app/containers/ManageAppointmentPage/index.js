@@ -17,6 +17,7 @@ import {
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
 import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
+import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
@@ -87,6 +88,15 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     }
     // Add selected participants to form data
     const selectedParticipants = this.props.selectedParticipants;
+
+    // Add Appointment Type
+    const { appointmentType } = appointmentFormData;
+    if (!isUndefined(appointmentType)) {
+      const selectedType = find(this.props.appointmentTypes, { code: appointmentType });
+      const appType = [];
+      appType.push(selectedType);
+      merge(appointmentFormData, { appointmentType: appType }); // Adding the field as object
+    }
     merge(appointmentFormData, { participants: selectedParticipants });
     this.props.saveAppointment(appointmentFormData, () => actions.setSubmitting(false));
   }
