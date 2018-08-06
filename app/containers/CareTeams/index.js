@@ -19,6 +19,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
+  CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
   CARETEAMSTATUS,
   DEFAULT_START_PAGE_NUMBER,
@@ -152,7 +153,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
+          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
