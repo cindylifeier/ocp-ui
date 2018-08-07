@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.PatientDetails.header',
     defaultMessage: 'This is the PatientDetails component !',
   },
+  edit: {
+    id: 'ocpui.components.PatientDetails.edit',
+    defaultMessage: 'Edit',
+  },
   viewDetails: {
     id: 'ocpui.components.PatientDetails.viewDetails',
     defaultMessage: 'View Details',
