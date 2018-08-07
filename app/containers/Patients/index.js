@@ -212,7 +212,7 @@ export class Patients extends React.Component {
           flattenPatientData={flattenPatientData}
           mapToTelecoms={mapToTelecoms}
           combineAddress={combineAddress}
-          showActionButton={user.role !== OCP_ADMIN_ROLE_CODE}
+          showActionButton={false}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>

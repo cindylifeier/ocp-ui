@@ -114,11 +114,11 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
           <FormattedMessage {...messages.active} /> :
           <FormattedMessage {...messages.inactive} />}
         </TableRowColumn>
-        {showActionButton &&
-        <TableRowColumn>
-          <NavigationIconMenu menuItems={menuItems} />
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>
+          {showActionButton &&
+            <NavigationIconMenu menuItems={menuItems} />
+          }
         </TableRowColumn>
-        }
       </ExpansionTableRow>
     );
   });
