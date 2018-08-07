@@ -13,7 +13,6 @@ import uniqueId from 'lodash/uniqueId';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import { MANAGE_PRACTITIONER_URL, MANAGE_USER_REGISTRATION } from 'containers/App/constants';
-import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -119,9 +118,9 @@ function PractitionerTable(props) {
               currentPageSize={practitionersData.currentPageSize}
             />
           </div> :
-          (<CenterAlign>
-            <NoResultsFoundText>No practitioners found</NoResultsFoundText>
-          </CenterAlign>)
+          (
+            <NoResultsFoundText><FormattedMessage {...messages.NoPractitionersFound} /></NoResultsFoundText>
+          )
       )}
     </div>
   );

@@ -62,4 +62,8 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.expansionRowDetailsTelecoms',
     defaultMessage: 'Contact',
   },
+  NoPractitionersFound: {
+    id: 'ocpui.components.PractitionerTable.noPractitionersFound',
+    defaultMessage: 'No practitioners found.',
+  },
 });

@@ -11,7 +11,6 @@ import isEmpty from 'lodash/isEmpty';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -42,7 +41,6 @@ function CommunicationsTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
-                <TableHeaderColumn></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
@@ -114,9 +112,9 @@ function CommunicationsTable(props) {
               hideEllipsis={false}
             />
           </div> :
-          (<CenterAlign>
+          (
             <NoResultsFoundText><FormattedMessage {...messages.noCommunications} /></NoResultsFoundText>
-          </CenterAlign>)
+          )
       )}
     </div>
   );

@@ -19,6 +19,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
+  CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
   CARETEAMSTATUS,
   DEFAULT_START_PAGE_NUMBER,
@@ -152,7 +153,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
+          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
@@ -161,7 +162,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
         />
         <ContentSection>
           {isEmpty(patientName) ?
-            <h4><FormattedMessage {...messages.patientNotSelected} /></h4> :
+            <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText> :
             <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
               <Grid columns={1} gap="">
                 <Cell>
@@ -188,7 +189,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
-          <NoResultsFoundText>No care teams found.</NoResultsFoundText>}
+          <NoResultsFoundText><FormattedMessage {...messages.noCareTeamsFound} /></NoResultsFoundText>}
 
           {!isEmpty(data) && !isEmpty(data.elements) &&
           <CenterAlign>

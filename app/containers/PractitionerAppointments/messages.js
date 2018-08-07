@@ -12,7 +12,7 @@ export default defineMessages({
   },
   noUpcomingAppointments: {
     id: 'ocpui.containers.PractitionerAppointments.noUpcomingAppointments',
-    defaultMessage: 'No Appointments Found.',
+    defaultMessage: 'No appointments found.',
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.PractitionerAppointments.buttonLabelCreateNew',

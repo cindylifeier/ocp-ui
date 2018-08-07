@@ -121,6 +121,7 @@ ShallowWrapper {
             Array [
               "ORGADMIN",
               "CAREMNGR",
+              "171M00000X",
             ]
           }
           onSize={[Function]}
@@ -236,6 +237,7 @@ ShallowWrapper {
           "allowedAddNewItemRoles": Array [
             "ORGADMIN",
             "CAREMNGR",
+            "171M00000X",
           ],
           "onSize": [Function],
           "showFilterIcon": false,
@@ -729,6 +731,7 @@ ShallowWrapper {
               Array [
                 "ORGADMIN",
                 "CAREMNGR",
+                "171M00000X",
               ]
             }
             onSize={[Function]}
@@ -844,6 +847,7 @@ ShallowWrapper {
             "allowedAddNewItemRoles": Array [
               "ORGADMIN",
               "CAREMNGR",
+              "171M00000X",
             ],
             "onSize": [Function],
             "showFilterIcon": false,
