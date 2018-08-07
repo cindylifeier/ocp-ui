@@ -7,7 +7,7 @@ const StyledExpansionDetails = styled.div`
   border: ${(props) => props.expanded && '1px solid rgba(204, 204, 204, 1)'};
   overflow: hidden;
   transition: height 300ms;
-  height: ${(props) => props.expanded ? '165px' : '0px'};
+  height: ${(props) => props.expanded ? '160px' : '0px'};
 `;
 
 StyledExpansionDetails.propTypes = {
