@@ -11,6 +11,9 @@ import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import yup from 'yup';
 import merge from 'lodash/merge';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
+import union from 'lodash/union';
 
 import Util from 'utils/Util';
 import ListBoxField from 'components/ListBoxField';
@@ -35,25 +38,83 @@ class AddPermissionGroupForm extends React.Component {
       };
     }
     this.onChange = this.onChange.bind(this);
+    this.getAllOptions = this.getAllOptions.bind(this);
+    this.collectScopeIdsWithinHierarchyRange = this.collectScopeIdsWithinHierarchyRange.bind(this);
+    // HIERARCHY: read < update < create
+    this.PERMISSION_HIERARCHY = ['read', 'update', 'create'];
   }
+
   onChange(selected) {
-    this.setState({ selected });
+    this.setState((prevState) => {
+      // Compare with previous state do identify the values added and removed
+      const addedValues = selected.filter((v) => !prevState.selected.includes(v));
+      const removedValues = prevState.selected.filter((v) => !selected.includes(v));
+      const options = this.getAllOptions();
+      // Map values to options which contains more details like displayName and description
+      const addedOptions = addedValues && addedValues.map((v) => find(options, ({ value: v })));
+      const removedOptions = removedValues && removedValues.map((v) => find(options, ({ value: v })));
+      // Collections to keep additional adds/removes based on hierarchical relationship
+      const hierarchicalAdds = this.collectScopeIdsWithinHierarchyRange(options, addedOptions, true);
+      const hierarchicalRemoves = this.collectScopeIdsWithinHierarchyRange(options, removedOptions, false);
+      // FinalSelection = selected + hierarchicalAdds - hierarchicalRemoves
+      return ({ selected: filter(union(selected, hierarchicalAdds), (v) => !hierarchicalRemoves.includes(v)) });
+    });
   }
+
+  getAllOptions() {
+    const { scopes } = this.props;
+    const options = scopes.map(({ id, description, displayName }) => ({ value: id, label: description, displayName }));
+    return options;
+  }
+
+  /**
+   * Searches and finds other scopes following a specific naming convention
+   * considering a group of moving scopes options and the hierarchical relationship direction to scan.
+   *
+   * In order for this to work, the scope names need to follow a naming convention as $resource_$action
+   * using _ as the delimiter.
+   *
+   * @param allOptions the options based on all scopes
+   * @param movingOptions the options based on a selected group of scopes that are moving
+   * @param includeDirectionLower boolean value to specify the hierarchy include direction. true to scan lower scopes in the hierarchy, false to scan higher levels.
+   * @returns {Array} array of collected additional scope IDs based on the hierarchy scan direction and relationships
+   */
+  collectScopeIdsWithinHierarchyRange(allOptions, movingOptions, includeDirectionLower) {
+    const collectedScopeIds = [];
+    // Identify and collect additional scope IDs based on moving options and hierarchy scan direction
+    movingOptions.forEach(({ displayName }) => {
+      // Identify the resource and action segments of the scope display name using _ as the delimiter
+      const splitScope = displayName.split('_');
+      // The scope display name must have two segments (resource, action) in order to qualify
+      if (splitScope.length === 2) {
+        const resource = splitScope[0];
+        const action = splitScope[1];
+        const actionIndex = this.PERMISSION_HIERARCHY.indexOf(action);
+        // The action must be defined in PERMISSION_HIERARCHY in order to qualify
+        if (actionIndex > -1) {
+          // If the include direction is towards lower in hierarchy, the range should be [0, actionIndex]
+          // If the include direction is towards higher in hierarchy, the range should be [actionIndex, lastIndex]
+          const start = includeDirectionLower ? 0 : actionIndex + 1;
+          const end = includeDirectionLower ? actionIndex : this.PERMISSION_HIERARCHY.length;
+          for (let i = start; i < end; i += 1) {
+            const collectedDisplayName = `${resource}_${this.PERMISSION_HIERARCHY[i]}`;
+            filter(allOptions, { displayName: collectedDisplayName }).forEach(({ value }) => collectedScopeIds.push(value));
+          }
+        }
+      }
+    });
+    return collectedScopeIds;
+  }
+
   render() {
-    const options = [];
+    const options = this.getAllOptions();
     const namePattern = new RegExp('^[a-zA-Z\\s]+$');
     const { selected } = this.state;
     const {
       handleCloseDialog,
       handleSaveGroup,
       initialValues,
-      scopes,
     } = this.props;
-    scopes.map((scope) => {
-      const { id, description } = scope;
-      const option = { value: id, label: description };
-      return options.push(option);
-    });
     let initialGroup = null;
     if (initialValues !== null) {
       const { id, displayName, description } = initialValues;
@@ -69,7 +130,9 @@ class AddPermissionGroupForm extends React.Component {
           onSubmit={(values, actions) => {
             if (initialValues !== null) {
               handleSaveGroup(merge(values, { id: initialValues.id }), actions);
-            } else handleSaveGroup(values, actions);
+            } else {
+              handleSaveGroup(values, actions);
+            }
             handleCloseDialog();
           }}
           initialValues={initialGroup}
