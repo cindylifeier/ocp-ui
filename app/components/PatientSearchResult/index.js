@@ -84,34 +84,33 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         expansionTableRowDetails={<PatientExpansionRowDetails patient={flattenPatientData(patient)} />}
         columns={columns}
         key={`patient_${patient.id}`}
-        onClick={() => onPatientClick && onPatientClick(patient)}
         role="button"
         tabIndex="0"
       >
-        <TableRowColumn>{getFullName(patient)}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{getFullName(patient)}</TableRowColumn>
         {isExpanded &&
-        <TableRowColumn>{patient && patient.mrn}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient && patient.mrn}</TableRowColumn>
         }
-        <TableRowColumn>{contact}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{contact}</TableRowColumn>
         {isExpanded &&
-        <TableRowColumn>{address}</TableRowColumn>
-        }
-        {isExpanded &&
-        <TableRowColumn>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{address}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{patient.birthDate}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{patient.genderCode}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.birthDate}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.genderCode}</TableRowColumn>
         }
-        <TableRowColumn>{patient.active ?
+        {isExpanded &&
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        }
+        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.active ?
           <FormattedMessage {...messages.active} /> :
           <FormattedMessage {...messages.inactive} />}
         </TableRowColumn>
