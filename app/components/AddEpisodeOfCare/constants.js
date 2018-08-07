@@ -14,3 +14,4 @@ export const PROGRAM_NAME_MAP_ARRAY = [
 ];
 
 export const DEFAULT_PROGRAM_NAME_KEY = 'MMTP';
+export const ENTERED_IN_ERROR_STATUS = 'entered-in-error';

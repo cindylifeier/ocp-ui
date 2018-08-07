@@ -11,10 +11,10 @@ import NavigationIconMenu from 'components/NavigationIconMenu';
 import CustomErrorText from 'components/CustomErrorText';
 import find from 'lodash/find';
 import messages from './messages';
+import { ENTERED_IN_ERROR_STATUS } from './constants';
 
 function AddEpisodeOfCareTable(props) {
   const tableColumns = 'repeat(5, 1fr) 80px';
-  const enteredInErrorStatus = 'entered-in-error';
   const {
     errors,
     arrayHelpers,
@@ -44,11 +44,11 @@ function AddEpisodeOfCareTable(props) {
           }, {
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionRemove} />,
             onClick: () => {
-              const enteredInErroEOC = { id, managingOrganization, patient, type, status: enteredInErrorStatus, statusDisplay: typeDisplay, startDate, endDate, careManager };
+              const enteredInErroEOC = { id, managingOrganization, patient, type, status: ENTERED_IN_ERROR_STATUS, statusDisplay: typeDisplay, startDate, endDate, careManager };
               arrayHelpers.replace(index, enteredInErroEOC);
             },
           }];
-          return (status !== enteredInErrorStatus &&
+          return (status !== ENTERED_IN_ERROR_STATUS &&
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{status}</TableRowColumn>
               <TableRowColumn>{find(episodeOfCareType, { code: type }) && (find(episodeOfCareType, { code: type })).display}</TableRowColumn>
