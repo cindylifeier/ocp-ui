@@ -15,6 +15,7 @@ function ExpansionDetails({ patient }) {
     <Grid columns={'70% 30%'} justifyContent="space-between">
       <Cell>
         <InfoSection>
+          <div>Edit</div>
           <Grid columns={'repeat(4, 1fr)'} justifyContent="space-between">
             <Cell>
               <TextLabelGroup

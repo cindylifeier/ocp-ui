@@ -116,6 +116,10 @@ export class Patients extends React.Component {
     } else {
       this.props.setPatient(patient);
     }
+    this.setState({
+      patient,
+      isPatientModalOpen: true,
+    });
   }
 
   handlePatientViewDetailsClick(patient) {
