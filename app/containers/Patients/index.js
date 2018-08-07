@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import find from 'lodash/find';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -33,6 +34,7 @@ import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'conta
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
+import { showNotification } from 'containers/Notification/actions';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -119,10 +121,17 @@ export class Patients extends React.Component {
   }
 
   handlePatientViewDetailsClick(patient) {
-    this.setState({
-      patient,
-      isPatientModalOpen: true,
-    });
+    const { searchResult } = this.props;
+    const selectedPatient = find(searchResult, { id: patient.id });
+
+    if (selectedPatient && !selectedPatient.canViewPatientDetail) {
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allow to view patient\'s dashboard.');
+    } else {
+      this.setState({
+        patient,
+        isPatientModalOpen: true,
+      });
+    }
   }
 
   handlePatientModalClose() {
@@ -260,6 +269,7 @@ Patients.propTypes = {
   totalPages: PropTypes.number,
   totalElements: PropTypes.number,
   onChangePage: PropTypes.func.isRequired,
+  showNotAllowToViewPatientDetailsMessage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
@@ -310,6 +320,7 @@ function mapDispatchToProps(dispatch) {
     getLookUpData: () => dispatch(getLookupsAction([USCORERACE, USCOREETHNICITY])),
     setPatient: (patient) => dispatch(setPatient(patient)),
     onFitlerPatient: (filterBy, organizationId, practitionerId, currentPage, includeInactive) => dispatch(fitlerPatient(filterBy, organizationId, practitionerId, currentPage, includeInactive)),
+    showNotAllowToViewPatientDetailsMessage: (message) => dispatch(showNotification(message)),
   };
 }
 
