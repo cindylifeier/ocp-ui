@@ -136,15 +136,17 @@ function mapToRelatedPerson(capturedFormData, patient, administrativeGenders, re
   }
   const selectedRelationshipTypes = find(relationshipTypes, { code: relationshipCode });
   const relationshipValue = selectedRelationshipTypes.display;
+  const relationshipSystem = selectedRelationshipTypes.system;
   return {
     firstName,
     lastName,
-    relationshipCode,
     telecoms,
     addresses,
     genderCode,
     genderValue,
+    relationshipCode,
     relationshipValue,
+    relationshipSystem,
     identifierType,
     identifierValue,
     active,
