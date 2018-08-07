@@ -71,6 +71,7 @@ class AddEpisodeOfCare extends React.Component {
     const addedEpisodeOfCareTableProps = {
       errors,
       episodeOfCares,
+      episodeOfCareType,
     };
     return (
       <div>
