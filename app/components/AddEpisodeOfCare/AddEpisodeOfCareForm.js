@@ -44,10 +44,11 @@ function AddEpisodeOfCareForm(props) {
             onRemoveEpisodeOfCare(initialValues.index);
           }
 
-          const { status, startDate, endDate, type, careManager } = values;
+          const { status, startDate, endDate, type, typeDisplay, careManager } = values;
           const selectedCareManager = find(practitioners, { reference: careManager });
           const episodeOfCare = {
             type,
+            typeDisplay,
             status,
             startDate: startDate && startDate.toLocaleString(),
             endDate: endDate && endDate.toLocaleString(),
