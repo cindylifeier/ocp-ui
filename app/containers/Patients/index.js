@@ -118,9 +118,7 @@ export class Patients extends React.Component {
     } else {
       this.props.setPatient(patient);
     }
-    const { searchResult } = this.props;
-    const selectedPatient = find(searchResult, { id: patient.id });
-    if (selectedPatient && !selectedPatient.canViewPatientDetail) {
+    if (patient && !patient.canViewPatientDetail) {
       this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
     } else {
       this.setState({
