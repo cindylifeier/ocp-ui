@@ -65,7 +65,6 @@ function AddEpisodeOfCareTable(props) {
     </div>
   );
 }
-
 AddEpisodeOfCareTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
@@ -73,5 +72,4 @@ AddEpisodeOfCareTable.propTypes = {
   episodeOfCares: PropTypes.array,
   episodeOfCareType: PropTypes.array,
 };
-
 export default AddEpisodeOfCareTable;

@@ -47,6 +47,8 @@ import ParticipantName from './ParticipantName';
 import ParticipantSearchContainer from './ParticipantSearchContainer';
 import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
 
+const COLUMNS = '1fr 2fr 1fr 1fr .5fr';
+
 export class SearchParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -85,11 +87,13 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
     return (
       <Table>
         <TableHeader>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
-          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+          <Grid columns={COLUMNS}>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+          </Grid>
         </TableHeader>
       </Table>
     );
@@ -142,7 +146,7 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
               <Table>
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
-                    <Grid columns={5}>
+                    <Grid columns={COLUMNS}>
                       <Cell middle>
                         <ParticipantName>
                           {mapSearchParticipantName(participant)}
@@ -150,6 +154,7 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
                       </Cell>
                       <Cell middle>
                         <SelectFieldWithoutOnClick
+                          fullWidth
                           name="roleCode"
                           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.participantRole} />}
                         >
