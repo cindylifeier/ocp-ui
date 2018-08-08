@@ -74,18 +74,22 @@ function updateCareTeam(careTeamFormData) {
 
 function mapToBffCareTeam(careTeamData) {
   const {
-    careTeamName, category, patientId, status, startDate, endDate, reason, participants, managingOrganization,
+    careTeamName, patientId, status, startDate, endDate, participants, managingOrganization, categoryCode, categoryDisplay, categorySystem, reasonCode, reasonDisplay, reasonSystem,
   } = careTeamData;
 
   return {
     name: careTeamName,
     statusCode: status,
-    categoryCode: category,
     subjectId: patientId,
     startDate: startDate.toLocaleDateString(),
     endDate: endDate.toLocaleDateString(),
-    reasonCode: reason,
     managingOrganization,
+    categoryCode,
+    categoryDisplay,
+    categorySystem,
+    reasonCode,
+    reasonDisplay,
+    reasonSystem,
     participants: mapToBffParticipants(participants),
   };
 }
@@ -95,6 +99,8 @@ function mapToBffParticipants(participants) {
     return participants
       .map((participant) => ({
         roleCode: participant.roleCode,
+        roleDisplay: participant.roleDisplay,
+        roleSystem: participant.roleSystem,
         memberId: participant.memberId,
         memberType: participant.memberType,
         startDate: participant.startDate,

@@ -8,6 +8,17 @@ import { getCareTeamSuccess } from './actions';
 import makeSelectCareTeams from '../CareTeams/selectors';
 import { determineNotificationForSavingCareTeam, getCareTeam, getCareTeamById, saveCareTeam } from './api';
 
+function getErrorDetail(err) {
+  let errorDetail = '';
+  if (err && err.message === 'Failed to fetch') {
+    errorDetail = ' Server is offline.';
+  } else if (err && err.response && err.response.status === 409) {
+    errorDetail = ' Duplicate CareTeam - An active CareTeam already exists for the given category.';
+  } else if (err && err.response && err.response.status === 500) {
+    errorDetail = ' Unknown server error.';
+  }
+  return errorDetail;
+}
 function* getCareTeamSaga({ careTeamId }) {
   try {
     let careTeam;
@@ -33,7 +44,7 @@ function* saveCareTeamSaga(action) {
     yield call(action.handleSubmitting);
     yield put(goBack());
   } catch (error) {
-    yield put(showNotification(`Failed to ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.`));
+    yield put(showNotification(`Failed to ${determineNotificationForSavingCareTeam(action.careTeamFormData)} the care team.${getErrorDetail(error)}`));
     yield call(action.handleSubmitting);
   }
 }

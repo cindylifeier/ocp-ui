@@ -114,6 +114,7 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
             startDate: startDate.toLocaleDateString(),
             endDate: endDate.toLocaleDateString(),
             roleDisplay: role.display,
+            roleSystem: role.system,
             memberId: participant.member.id,
             memberType: participant.member.type,
             name: mapSearchParticipantName(participant),
