@@ -118,10 +118,16 @@ export class Patients extends React.Component {
     } else {
       this.props.setPatient(patient);
     }
-    this.setState({
-      patient,
-      isPatientModalOpen: true,
-    });
+    const { searchResult } = this.props;
+    const selectedPatient = find(searchResult, { id: patient.id });
+    if (selectedPatient && !selectedPatient.canViewPatientDetail) {
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
+    } else {
+      this.setState({
+        patient,
+        isPatientModalOpen: true,
+      });
+    }
   }
 
   handlePatientViewDetailsClick(patient) {
@@ -129,7 +135,7 @@ export class Patients extends React.Component {
     const selectedPatient = find(searchResult, { id: patient.id });
 
     if (selectedPatient && !selectedPatient.canViewPatientDetail) {
-      this.props.showNotAllowToViewPatientDetailsMessage('Not allow to view patient\'s dashboard.');
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
     } else {
       this.setState({
         patient,
