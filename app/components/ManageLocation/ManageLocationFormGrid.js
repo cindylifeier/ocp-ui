@@ -45,7 +45,7 @@ const ManageLocationFormGrid = Grid.extend`
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
       "organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName"
       "name name name name status status status . . . . ."
-      "locationType locationType identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . . "
+      "locationType locationType identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . ."
       "contact contact contact contact contact contact contact contact contact contact contact contact"
       "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."
       "city city city city state state state postalCode postalCode . . ."
