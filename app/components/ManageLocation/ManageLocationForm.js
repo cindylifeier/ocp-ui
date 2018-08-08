@@ -80,28 +80,16 @@ function ManageLocationForm(props) {
             </SelectField>
           )}
         </Cell>
-        <Cell area="locationGroup">
-          <FieldGroupGrid>
-            <PrefixCell>
-              <SelectField
-                name="physicalType"
-                fullWidth
-                floatingLabelText={<FormattedMessage {...messages.locationPhysicalType} />}
-              >
-                {locationPhysicalTypes && locationPhysicalTypes.map((locationType) => (
-                  <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
+        <Cell area="locationType">
+          <SelectField
+            name="physicalType"
+            fullWidth
+            floatingLabelText={<FormattedMessage {...messages.locationPhysicalType} />}
+          >
+            {locationPhysicalTypes && locationPhysicalTypes.map((locationType) => (
+              <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
                 ))}
-              </SelectField>
-            </PrefixCell>
-            <MainCell>
-              <TextField
-                fullWidth
-                name="managingLocationLogicalId"
-                hintText={<FormattedMessage {...messages.locationPartOfHintText} />}
-                floatingLabelText={<FormattedMessage {...messages.managingLocationLogicalIdFloatingLabelText} />}
-              />
-            </MainCell>
-          </FieldGroupGrid>
+          </SelectField>
         </Cell>
         <Cell area="identifierGroup">
           <FieldGroupGrid>
@@ -119,7 +107,6 @@ function ManageLocationForm(props) {
             <MainCell>
               <TextField
                 name="identifierValue"
-                fullWidth
                 hintText={<FormattedMessage {...messages.identifierValueHintText} />}
                 floatingLabelText={<FormattedMessage {...messages.identifierValueFloatingLabelText} />}
               />
