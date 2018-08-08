@@ -10,28 +10,30 @@ const selectManageAppointmentPageDomain = (state) => state.get('manageAppointmen
  */
 
 
-/**
- * Default selector used by ManageAppointmentPage
- */
-
-const makeSelectManageAppointmentPage = () => createSelector(
-  selectManageAppointmentPageDomain,
-  (subState) => subState && subState.toJS()
-);
-
 const makeSelectAppointment = () => createSelector(
   selectManageAppointmentPageDomain,
   (subState) => subState && subState.get('appointment'),
 );
 
-const makeSelectHealthcareService = () => createSelector(
+const makeSelectHealthcareServiceReferences = () => createSelector(
   selectManageAppointmentPageDomain,
   (subState) => subState && subState.get('healthcareServices'),
 );
 
+const makeSelectLocationReferences = () => createSelector(
+  selectManageAppointmentPageDomain,
+  (subState) => subState && subState.get('locations'),
+);
+
+const makeSelectPractitionerReferences = () => createSelector(
+  selectManageAppointmentPageDomain,
+  (subState) => subState && subState.get('practitioners'),
+);
+
 export {
   selectManageAppointmentPageDomain,
-  makeSelectManageAppointmentPage,
   makeSelectAppointment,
-  makeSelectHealthcareService,
+  makeSelectHealthcareServiceReferences,
+  makeSelectLocationReferences,
+  makeSelectPractitionerReferences,
 };
