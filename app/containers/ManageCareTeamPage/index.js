@@ -4,6 +4,7 @@
  *
  */
 
+import find from 'lodash/find';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -71,6 +72,7 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
 
   handleSave(careTeamFormData, actions) {
     const patientId = this.props.patient.id;
+    let code;
     if (patientId) {
       merge(careTeamFormData, { patientId });
     }
@@ -80,6 +82,23 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
     const careTeamId = this.props.match.params.id;
     if (careTeamId) {
       merge(careTeamFormData, { careTeamId });
+    }
+    const { category } = careTeamFormData;
+    if (!isUndefined(category)) {
+      code = category;
+      const selectedCategory = find(this.props.careTeamCategories, { code });
+      merge(careTeamFormData, { categoryCode: selectedCategory.code });
+      merge(careTeamFormData, { categoryDisplay: selectedCategory.display });
+      merge(careTeamFormData, { categorySystem: selectedCategory.system });
+    }
+
+    const { reason } = careTeamFormData;
+    if (!isUndefined(reason)) {
+      code = reason;
+      const selectedReason = find(this.props.careTeamReasons, { code });
+      merge(careTeamFormData, { reasonCode: selectedReason.code });
+      merge(careTeamFormData, { reasonDisplay: selectedReason.display });
+      merge(careTeamFormData, { reasonSystem: selectedReason.system });
     }
     // Add selected participants to form data
     const selectedParticipants = this.props.selectedParticipants;
