@@ -9,13 +9,17 @@ import { fromJS } from 'immutable';
 import {
   GET_APPOINTMENT_SUCCESS,
   INITIALIZE_MANAGE_APPOINTMENT,
-  GET_HEALTHCARE_SERVICE_SUCCESS,
+  GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
+  GET_LOCATION_REFERENCES_SUCCESS,
+  GET_PRACTITIONER_REFERENCES_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
   patient: null,
   appointment: null,
   healthcareServices: null,
+  locations: null,
+  practitioners: null,
 });
 
 function manageAppointmentPageReducer(state = initialState, action) {
@@ -25,9 +29,15 @@ function manageAppointmentPageReducer(state = initialState, action) {
     case GET_APPOINTMENT_SUCCESS:
       return state
         .set('appointment', action.appointment);
-    case GET_HEALTHCARE_SERVICE_SUCCESS:
+    case GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS:
       return state
         .set('healthcareServices', action.healthcareServices);
+    case GET_LOCATION_REFERENCES_SUCCESS:
+      return state
+        .set('locations', action.locations);
+    case GET_PRACTITIONER_REFERENCES_SUCCESS:
+      return state
+        .set('practitioners', action.practitioners);
     default:
       return state;
   }

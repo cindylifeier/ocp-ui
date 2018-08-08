@@ -29,14 +29,16 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-
+import { getLogicalIdFromReference } from 'containers/App/helpers';
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
 import {
   getAppointment,
   saveAppointment,
   initializeManageAppointment,
-  getHealthcareService,
+  getHealthcareServiceReferences,
+  getLocationReferences,
+  getPractitionerReferences,
 } from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
@@ -44,7 +46,9 @@ import reducer from './reducer';
 import saga from './saga';
 import {
   makeSelectAppointment,
-  makeSelectHealthcareService,
+  makeSelectLocationReferences,
+  makeSelectPractitionerReferences,
+  makeSelectHealthcareServiceReferences,
 } from './selectors';
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -57,6 +61,8 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
+    this.handleSelectLocation = this.handleSelectLocation.bind(this);
+    this.handleSelectPractitioner = this.handleSelectPractitioner.bind(this);
   }
 
   componentDidMount() {
@@ -67,7 +73,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       this.props.getAppointment(appointmentId);
     }
     if (organization) {
-      this.props.getHealthcareService(organization.logicalId);
+      this.props.getHealthcareServiceReferences(organization.logicalId);
     }
   }
 
@@ -106,6 +112,20 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     this.props.removeParticipant(participant);
   }
 
+  handleSelectLocation(healtcareServiceRefrence) {
+    const healthcareServiceId = getLogicalIdFromReference(healtcareServiceRefrence);
+    if (healthcareServiceId) {
+      this.props.getLocationReferences(healthcareServiceId);
+    }
+  }
+
+  handleSelectPractitioner(locationReference) {
+    const locationId = getLogicalIdFromReference(locationReference);
+    if (locationId) {
+      this.props.getPractitionerReferences(this.props.organization.logicalId, locationId);
+    }
+  }
+
   render() {
     const {
       match,
@@ -115,6 +135,8 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       selectedParticipants,
       selectedAppointment,
       healthcareServices,
+      locations,
+      practitioners,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let appointment = null;
@@ -133,6 +155,10 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       selectedParticipants,
       initialSelectedParticipants,
       healthcareServices,
+      locations,
+      practitioners,
+      handleSelectLocation: this.handleSelectLocation,
+      handleSelectPractitioner: this.handleSelectPractitioner,
     };
 
     return (
@@ -164,6 +190,8 @@ ManageAppointmentPage.propTypes = {
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
   healthcareServices: PropTypes.array,
+  locations: PropTypes.array,
+  practitioners: PropTypes.array,
   patient: PropTypes.object,
   user: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
@@ -179,7 +207,9 @@ ManageAppointmentPage.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   getAppointment: PropTypes.func.isRequired,
-  getHealthcareService: PropTypes.func.isRequired,
+  getHealthcareServiceReferences: PropTypes.func.isRequired,
+  getPractitionerReferences: PropTypes.func.isRequired,
+  getLocationReferences: PropTypes.func.isRequired,
   selectedAppointment: PropTypes.object,
   organization: PropTypes.object,
 };
@@ -192,7 +222,9 @@ const mapStateToProps = createStructuredSelector({
   selectedParticipants: makeSelectSelectedAppointmentParticipants(),
   selectedAppointment: makeSelectAppointment(),
   organization: makeSelectOrganization(),
-  healthcareServices: makeSelectHealthcareService(),
+  healthcareServices: makeSelectHealthcareServiceReferences(),
+  locations: makeSelectLocationReferences(),
+  practitioners: makeSelectPractitionerReferences(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -202,7 +234,9 @@ function mapDispatchToProps(dispatch) {
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
-    getHealthcareService: (organizationId) => dispatch(getHealthcareService(organizationId)),
+    getHealthcareServiceReferences: (organizationId) => dispatch(getHealthcareServiceReferences(organizationId)),
+    getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
+    getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
   };
 }
 

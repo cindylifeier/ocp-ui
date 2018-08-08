@@ -4,6 +4,8 @@ import isUndefined from 'lodash/isUndefined';
 import {
   BASE_APPOINTMENTS_API_URL,
   BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL,
+  BASE_LOCATION_REFERENCES_API_URL,
+  BASE_PRACTITIONERS_API_URL,
   getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
 
@@ -29,6 +31,21 @@ export function getHealthcareService(organizationId) {
   const requestURL = `${healthcareServiceBaseEndpoint}?${organizationId}`;
   return request(requestURL);
 }
+
+export function getLocationReferences(healthcareServiceId) {
+  console.log(healthcareServiceId);
+  const locationReferenceBaseEndpoint = getEndpoint(BASE_LOCATION_REFERENCES_API_URL);
+  const requestURL = `${locationReferenceBaseEndpoint}?healthcareService=${healthcareServiceId}`;
+  return request(requestURL);
+}
+
+
+export function getPractitionerReferences(organizationId, locationId) {
+  const practitionerReferenceBaseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
+  const requestURL = `${practitionerReferenceBaseEndpoint}/practitioner-references?organization=${organizationId}&location=${locationId}`;
+  return request(requestURL);
+}
+
 
 export function getAppointmentById(appointments, appointmentId) {
   if (!isEmpty(appointments)) {
