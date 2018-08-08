@@ -17,11 +17,19 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
       open,
       handleDialogClose,
       healthcareServices,
+      handleSelectLocation,
+      handleSelectPractitioner,
+      locations,
+      practitioners,
     } = this.props;
 
     const addParticipantOrServiceProps = {
       handleDialogClose,
       healthcareServices,
+      handleSelectLocation,
+      handleSelectPractitioner,
+      locations,
+      practitioners,
     };
 
     return (
@@ -41,7 +49,11 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
 AddParticipantOrServiceDialog.propTypes = {
   open: PropTypes.bool,
   handleDialogClose: PropTypes.func.isRequired,
-  healthcareServices: PropTypes.array.isRequired,
+  healthcareServices: PropTypes.array,
+  handleSelectLocation: PropTypes.func.isRequired,
+  handleSelectPractitioner: PropTypes.func.isRequired,
+  locations: PropTypes.array,
+  practitioners: PropTypes.array,
 };
 
 export default AddParticipantOrServiceDialog;

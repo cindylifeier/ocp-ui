@@ -9,8 +9,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import ErrorText from 'components/ErrorText';
 import { Form } from 'formik';
-import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
+import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -101,6 +101,10 @@ class ManageAppointmentForm extends React.Component {
       removeParticipant,
       patient,
       healthcareServices,
+      handleSelectLocation,
+      handleSelectPractitioner,
+      locations,
+      practitioners,
     } = this.props;
 
     const selectedParticipantsProps = {
@@ -112,6 +116,10 @@ class ManageAppointmentForm extends React.Component {
       open: this.state.open,
       handleDialogClose: this.handleDialogClose,
       healthcareServices,
+      handleSelectLocation,
+      handleSelectPractitioner,
+      locations,
+      practitioners,
     };
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
@@ -152,7 +160,7 @@ class ManageAppointmentForm extends React.Component {
               >
                 {appointmentTypes && appointmentTypes.map((appointmentType) =>
                   (<MenuItem
-                    key={appointmentType.code}
+                    key={uniqueId()}
                     value={appointmentType.code}
                     primaryText={appointmentType.display}
                   />),
@@ -215,7 +223,7 @@ class ManageAppointmentForm extends React.Component {
               >
                 {appointmentStatuses && appointmentStatuses.map((appointmentStatus) =>
                   (<MenuItem
-                    key={appointmentStatus.code}
+                    key={uniqueId()}
                     value={appointmentStatus.code}
                     primaryText={appointmentStatus.display}
                   />),
@@ -268,6 +276,10 @@ ManageAppointmentForm.propTypes = {
   appointmentStatuses: PropTypes.array,
   healthcareServices: PropTypes.array,
   appointment: PropTypes.object,
+  handleSelectLocation: PropTypes.func.isRequired,
+  handleSelectPractitioner: PropTypes.func.isRequired,
+  locations: PropTypes.array,
+  practitioners: PropTypes.array,
 };
 
 export default ManageAppointmentForm;

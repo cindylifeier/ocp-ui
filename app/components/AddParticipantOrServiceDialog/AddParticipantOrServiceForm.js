@@ -10,6 +10,7 @@ import { Tab } from 'material-ui-next/es/Tabs';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
+
 import TabContainer from 'components/AddParticipantOrServiceDialog/TabContainer';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -24,28 +25,45 @@ class AddParticipantOrServiceForm extends React.Component {
     super(props);
     this.state = {
       tabIndex: 0,
+      // serviceReference: null,
     };
     this.handleTabChange = this.handleTabChange.bind(this);
+    this.handleServiceChanged = this.handleServiceChanged.bind(this);
+    this.handleLocationChanged = this.handleLocationChanged.bind(this);
   }
 
   handleTabChange(event, index) {
     this.setState({ tabIndex: index });
   }
+  handleServiceChanged(serviceReference) {
+    const { handleSelectLocation } = this.props;
+    handleSelectLocation(serviceReference);
+  }
+
+  handleLocationChanged(locationReference) {
+    const { handleSelectPractitioner } = this.props;
+    handleSelectPractitioner(locationReference);
+  }
+
   render() {
     const {
       handleDialogClose,
       healthcareServices,
+      locations,
+      practitioners,
     } = this.props;
     const { tabIndex } = this.state;
 
+    const careTeams = [];
+
     function setInitialValues() {
-      return {
-      };
+      const initialValue = {};
+      // if(serviceReference) {
+      //   initialValue.service = serviceReference;
+      // }
+      return initialValue;
     }
 
-    const careTeams = [];
-    const locations = [];
-    const practitioners = [];
     return (
       <div>
         <Formik
@@ -53,12 +71,11 @@ class AddParticipantOrServiceForm extends React.Component {
             console.log(actions);
             console.log(values);
           }}
-          initialValues={setInitialValues({})}
-          validationSchema={() =>
-            yup.lazy((values) => {
-              console.log(values);
-              return yup.object().shape({});
-            })}
+          initialValues={setInitialValues()}
+          validationSchema={yup.object().shape({
+            service: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+          })}
           render={({ isSubmitting, dirty, isValid }) => (
             <Form>
               <AddParticipantORServiceFormGrid gap="1vw">
@@ -80,9 +97,7 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="service"
-                            onchange={(selected) => {
-                              console.log(selected);
-                            }}
+                            onChange={this.handleServiceChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectService} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
                           >
@@ -92,20 +107,21 @@ class AddParticipantOrServiceForm extends React.Component {
                                 value={service.reference}
                                 primaryText={service.display}
                               />),
-                            )}
+                              )}
                           </SelectField>
                         </Cell>
                         <Cell>
                           <SelectField
                             fullWidth
                             name="location"
+                            onChange={this.handleLocationChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
                           >
                             {locations && locations.map((location) =>
                               (<MenuItem
-                                key={location.code}
-                                value={location.code}
+                                key={location.reference}
+                                value={location.reference}
                                 primaryText={location.display}
                               />),
                             )}
@@ -120,8 +136,8 @@ class AddParticipantOrServiceForm extends React.Component {
                           >
                             {practitioners && practitioners.map((practitioner) =>
                               (<MenuItem
-                                key={practitioner.code}
-                                value={practitioner.code}
+                                key={practitioner.reference}
+                                value={practitioner.reference}
                                 primaryText={practitioner.display}
                               />),
                             )}
@@ -142,8 +158,8 @@ class AddParticipantOrServiceForm extends React.Component {
                           >
                             {careTeams && careTeams.map((careTeam) =>
                               (<MenuItem
-                                key={careTeam.code}
-                                value={careTeam.code}
+                                key={careTeam.reference}
+                                value={careTeam.reference}
                                 primaryText={careTeam.display}
                               />),
                             )}
@@ -153,13 +169,14 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="location"
+                            onChange={this.handleLocationChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
                           >
                             {locations && locations.map((location) =>
                               (<MenuItem
-                                key={location.code}
-                                value={location.code}
+                                key={location.reference}
+                                value={location.reference}
                                 primaryText={location.display}
                               />),
                             )}
@@ -174,8 +191,8 @@ class AddParticipantOrServiceForm extends React.Component {
                           >
                             {practitioners && practitioners.map((practitioner) =>
                               (<MenuItem
-                                key={practitioner.code}
-                                value={practitioner.code}
+                                key={practitioner.reference}
+                                value={practitioner.reference}
                                 primaryText={practitioner.display}
                               />),
                             )}
@@ -242,8 +259,12 @@ class AddParticipantOrServiceForm extends React.Component {
 }
 
 AddParticipantOrServiceForm.propTypes = {
-  handleDialogClose: PropTypes.func.isRequired,
-  healthcareServices: PropTypes.array.isRequired,
+  handleDialogClose: PropTypes.func,
+  healthcareServices: PropTypes.array,
+  handleSelectLocation: PropTypes.func,
+  handleSelectPractitioner: PropTypes.func,
+  locations: PropTypes.array,
+  practitioners: PropTypes.array,
 
 };
 
