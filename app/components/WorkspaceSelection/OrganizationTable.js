@@ -14,7 +14,6 @@ import Table from 'components/Table';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -69,9 +68,9 @@ function OrganizationTable(props) {
               onChange={onChangeOrganizationSearchPage}
             />
           </div> :
-          (<CenterAlign>
-            <NoResultsFoundText>No organizations found</NoResultsFoundText>
-          </CenterAlign>)
+          (
+            <NoResultsFoundText><FormattedMessage {...messages.noOrganizationsFound} /></NoResultsFoundText>
+          )
       )}
     </div>
   );
