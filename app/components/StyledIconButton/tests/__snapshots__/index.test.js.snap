@@ -22,7 +22,7 @@ ShallowWrapper {
     "nodeType": "function",
     "props": Object {
       "children": <pure(Menu) />,
-      "className": "StyledIconButton__StyledIconButton-hHQfQP eQgFWH",
+      "className": "StyledIconButton__StyledIconButton-hHQfQP iqGkHF",
       "disableIconHover": false,
     },
     "ref": null,
@@ -44,7 +44,7 @@ ShallowWrapper {
       "nodeType": "function",
       "props": Object {
         "children": <pure(Menu) />,
-        "className": "StyledIconButton__StyledIconButton-hHQfQP eQgFWH",
+        "className": "StyledIconButton__StyledIconButton-hHQfQP iqGkHF",
         "disableIconHover": false,
       },
       "ref": null,
