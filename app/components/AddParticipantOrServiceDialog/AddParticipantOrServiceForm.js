@@ -185,6 +185,22 @@ class AddParticipantOrServiceForm extends React.Component {
                         <Cell>
                           <SelectField
                             fullWidth
+                            name="required"
+                            hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
+                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
+                          >
+                            {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
+                              (<MenuItem
+                                key={entry.code}
+                                value={entry.code}
+                                primaryText={entry.display}
+                              />),
+                            )}
+                          </SelectField>
+                        </Cell>
+                        <Cell>
+                          <SelectField
+                            fullWidth
                             name="location"
                             onChange={this.handleLocationChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
@@ -202,35 +218,21 @@ class AddParticipantOrServiceForm extends React.Component {
                         <Cell>
                           <SelectField
                             fullWidth
-                            name="practitioner"
-                            hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
-                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
+                            name="service"
+                            onChange={this.handleServiceChanged}
+                            hintText={<FormattedMessage {...messages.hintText.selectService} />}
+                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
                           >
-                            {practitioners && practitioners.map((practitioner) =>
+                            {healthcareServices && healthcareServices.map((service) =>
                               (<MenuItem
-                                key={practitioner.reference}
-                                value={practitioner.reference}
-                                primaryText={practitioner.display}
+                                key={service.reference}
+                                value={service.reference}
+                                primaryText={service.display}
                               />),
                             )}
                           </SelectField>
                         </Cell>
-                        <Cell>
-                          <SelectField
-                            fullWidth
-                            name="required"
-                            hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
-                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
-                          >
-                            {practitioners && practitioners.map((entry) =>
-                              (<MenuItem
-                                key={entry.code}
-                                value={entry.code}
-                                primaryText={entry.display}
-                              />),
-                            )}
-                          </SelectField>
-                        </Cell>
+
                       </Grid>
                     </TabContainer>
                   }
