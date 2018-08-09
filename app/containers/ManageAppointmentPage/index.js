@@ -8,6 +8,7 @@ import ManageAppointment from 'components/ManageAppointment';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
+import find from 'lodash/find';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
@@ -96,11 +97,24 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     this.props.initializeManageAppointment();
   }
 
-  handleAddParticipant(selectedPpartipant) {
-    // const { healthcareServices, locations,  } = this.props;
-    console.log(selectedPpartipant);
+  handleAddParticipant(selectedParticipant) {
+    const { healthcareServices, locations, appointmentParticipantRequired, practitioners, careTeams } = this.props;
+
+    const service = this.findObject(healthcareServices, selectedParticipant, 'reference', 'service');
+    const location = this.findObject(locations, selectedParticipant, 'reference', 'location');
+    const practitioner = this.findObject(practitioners, selectedParticipant, 'reference', 'practitioner');
+    const required = this.findObject(appointmentParticipantRequired, selectedParticipant, 'code', 'required');
+    const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
+
+    const participantList = [service, location, practitioner, required, careTeam];
+    console.log(participantList);
   }
 
+  findObject(entries, selectedParticipant, key, value) {
+    const searckObject = {};
+    searckObject[key] = selectedParticipant[value];
+    return selectedParticipant && selectedParticipant[value] && find(entries, searckObject);
+  }
   handleSave(appointmentFormData, actions) {
     const patientId = this.props.patient.id;
     const practitionerId = (this.props.user && this.props.user.fhirResource) ? this.props.user.fhirResource.logicalId : null;
