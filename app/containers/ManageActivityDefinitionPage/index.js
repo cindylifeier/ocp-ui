@@ -4,6 +4,7 @@
  *
  */
 
+import find from 'lodash/find';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -64,6 +65,42 @@ export class ManageActivityDefinitionPage extends React.Component { // eslint-di
     const activityDefinitionId = this.props.match.params.id;
     if (activityDefinitionId) {
       merge(activityDefinitionFormData, { activityDefinitionId });
+    }
+    let code;
+
+    const { statusCode } = activityDefinitionFormData;
+    if (!isUndefined(statusCode)) {
+      code = statusCode;
+      const selectedCode = find(this.props.publicationStatuses, { code });
+      merge(activityDefinitionFormData, { status: selectedCode });
+    }
+
+    const { topicCode } = activityDefinitionFormData;
+    if (!isUndefined(topicCode)) {
+      code = topicCode;
+      const selectedTopic = find(this.props.definitionTopics, { code });
+      merge(activityDefinitionFormData, { topic: selectedTopic });
+    }
+
+    const { kindCode } = activityDefinitionFormData;
+    if (!isUndefined(kindCode)) {
+      code = kindCode;
+      const selectedKind = find(this.props.resourceTypes, { code });
+      merge(activityDefinitionFormData, { kind: selectedKind });
+    }
+
+    const { participantTypeCode } = activityDefinitionFormData;
+    if (!isUndefined(participantTypeCode)) {
+      code = participantTypeCode;
+      const selectedParticipantType = find(this.props.actionParticipantTypes, { code });
+      merge(activityDefinitionFormData, { actionParticipantType: selectedParticipantType });
+    }
+
+    const { participantRoleCode } = activityDefinitionFormData;
+    if (!isUndefined(participantRoleCode)) {
+      code = participantRoleCode;
+      const selectedParticipantRole = find(this.props.actionParticipantRoles, { code });
+      merge(activityDefinitionFormData, { actionParticipantRole: selectedParticipantRole });
     }
     this.props.saveActivityDefinition(activityDefinitionFormData, () => actions.setSubmitting(false));
   }
