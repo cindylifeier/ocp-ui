@@ -71,6 +71,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
     this.handleSelectLocation = this.handleSelectLocation.bind(this);
     this.handleSelectPractitioner = this.handleSelectPractitioner.bind(this);
+    this.handleAddParticipant = this.handleAddParticipant.bind(this);
   }
 
   componentDidMount() {
@@ -87,6 +88,11 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
 
   componentWillUnmount() {
     this.props.initializeManageAppointment();
+  }
+
+  handleAddParticipant(selectedPpartipant) {
+    // const { healthcareServices, locations,  } = this.props;
+    console.log(selectedPpartipant);
   }
 
   handleSave(appointmentFormData, actions) {
@@ -163,6 +169,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       appointmentTypes,
       selectedParticipants,
       initialSelectedParticipants,
+      handleAddParticipant: this.handleAddParticipant,
       healthcareServices,
       locations,
       practitioners,

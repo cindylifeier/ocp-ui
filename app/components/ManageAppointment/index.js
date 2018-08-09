@@ -32,6 +32,7 @@ function ManageAppointment(props) {
     handleSelectPractitioner,
     handleSelectLocation,
     appointmentParticipantRequired,
+    handleAddParticipant,
   } = props;
   const propsFromContainer = {
     patient,
@@ -47,6 +48,7 @@ function ManageAppointment(props) {
     handleSelectLocation,
     handleSelectPractitioner,
     appointmentParticipantRequired,
+    handleAddParticipant,
   };
 
   function setAppointmentTime(timeStr, dateStr) {
@@ -129,6 +131,7 @@ function ManageAppointment(props) {
 
 ManageAppointment.propTypes = {
   handleSelectLocation: PropTypes.func.isRequired,
+  handleAddParticipant: PropTypes.func.isRequired,
   handleSelectPractitioner: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,

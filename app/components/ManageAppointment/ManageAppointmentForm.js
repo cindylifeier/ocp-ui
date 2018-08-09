@@ -47,6 +47,7 @@ class ManageAppointmentForm extends React.Component {
       this.endDateTime = endTime;
       this.handleDialogOpen = this.handleDialogOpen.bind(this);
       this.handleDialogClose = this.handleDialogClose.bind(this);
+      this.addParticipant = this.addParticipant.bind(this);
     }
   }
 
@@ -106,6 +107,7 @@ class ManageAppointmentForm extends React.Component {
       locations,
       practitioners,
       appointmentParticipantRequired,
+      handleAddParticipant,
     } = this.props;
 
     const selectedParticipantsProps = {
@@ -122,6 +124,7 @@ class ManageAppointmentForm extends React.Component {
       locations,
       practitioners,
       appointmentParticipantRequired,
+      handleAddParticipant,
     };
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
@@ -299,6 +302,7 @@ ManageAppointmentForm.propTypes = {
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
+  handleAddParticipant: PropTypes.func,
 };
 
 export default ManageAppointmentForm;

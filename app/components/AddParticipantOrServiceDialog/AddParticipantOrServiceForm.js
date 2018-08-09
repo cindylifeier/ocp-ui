@@ -52,6 +52,7 @@ class AddParticipantOrServiceForm extends React.Component {
       locations,
       practitioners,
       appointmentParticipantRequired,
+      handleAddParticipant,
     } = this.props;
     const { tabIndex } = this.state;
 
@@ -68,9 +69,8 @@ class AddParticipantOrServiceForm extends React.Component {
     return (
       <div>
         <Formik
-          onSubmit={(values, actions) => {
-            console.log(actions);
-            console.log(values);
+          onSubmit={(values) => {
+            handleAddParticipant(values);
           }}
           initialValues={setInitialValues()}
           validationSchema={yup.object().shape({
@@ -295,6 +295,7 @@ class AddParticipantOrServiceForm extends React.Component {
 
 AddParticipantOrServiceForm.propTypes = {
   handleDialogClose: PropTypes.func,
+  handleAddParticipant: PropTypes.func,
   healthcareServices: PropTypes.array,
   handleSelectLocation: PropTypes.func,
   handleSelectPractitioner: PropTypes.func,
