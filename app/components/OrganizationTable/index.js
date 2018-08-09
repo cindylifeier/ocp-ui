@@ -12,7 +12,6 @@ import isEmpty from 'lodash/isEmpty';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import NavigationIconMenu from 'components/NavigationIconMenu';
@@ -119,9 +118,9 @@ function OrganizationTable(props) {
               />
             </div>}
           </div> :
-          (<CenterAlign>
-            <NoResultsFoundText>No organizations found</NoResultsFoundText>
-          </CenterAlign>)
+          (
+            <NoResultsFoundText><FormattedMessage {...messages.noOrganizationsFound} /></NoResultsFoundText>
+          )
       )}
     </div>
   );

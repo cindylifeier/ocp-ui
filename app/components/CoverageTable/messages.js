@@ -40,7 +40,7 @@ export default defineMessages({
   },
   noCoverageReason: {
     id: 'ocpui.components.CoverageTable.noCoverageReason',
-    defaultMessage: 'No coverage in system.',
+    defaultMessage: 'No coverage found.',
   },
 
 });

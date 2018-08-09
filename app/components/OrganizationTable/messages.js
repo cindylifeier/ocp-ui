@@ -62,4 +62,8 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.inactive',
     defaultMessage: 'Inactive',
   },
+  noOrganizationsFound: {
+    id: 'ocpui.components.OrganizationTable.noOrganizationsFound',
+    defaultMessage: 'No organizations found.',
+  },
 });
