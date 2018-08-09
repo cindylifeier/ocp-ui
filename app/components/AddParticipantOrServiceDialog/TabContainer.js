@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { Typography } from 'material-ui-next/es';
 import PropTypes from 'prop-types';
+import { Typography } from 'material-ui-next';
 
 function TabContainer(props) {
   return (

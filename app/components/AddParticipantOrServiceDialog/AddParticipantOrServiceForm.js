@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
-import { Tabs } from 'material-ui-next/es';
-import { Tab } from 'material-ui-next/es/Tabs';
+import Tabs from 'material-ui-next/Tabs/Tabs';
+import Tab from 'material-ui-next/Tabs/Tab';
 
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'components/TextField';
@@ -17,7 +17,6 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import AddParticipantORServiceFormGrid from 'components/AddParticipantOrServiceDialog/AddParticipantOrServiceDialogGrid';
 import DialogHeader from 'components/DialogHeader';
 import messages from './messages';
-
 
 class AddParticipantOrServiceForm extends React.Component {
 
