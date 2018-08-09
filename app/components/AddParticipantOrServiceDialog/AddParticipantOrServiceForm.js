@@ -51,6 +51,7 @@ class AddParticipantOrServiceForm extends React.Component {
       healthcareServices,
       locations,
       practitioners,
+      appointmentParticipantRequired,
     } = this.props;
     const { tabIndex } = this.state;
 
@@ -92,7 +93,7 @@ class AddParticipantOrServiceForm extends React.Component {
                   </Tabs>
                   {tabIndex === 0 &&
                     <TabContainer>
-                      <Grid columns={3}>
+                      <Grid columns={4}>
                         <Cell>
                           <SelectField
                             fullWidth
@@ -134,21 +135,39 @@ class AddParticipantOrServiceForm extends React.Component {
                             hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
                           >
-                            {practitioners && practitioners.map((practitioner) =>
+                            {practitioners && practitioners.map((entry) =>
                               (<MenuItem
-                                key={practitioner.reference}
-                                value={practitioner.reference}
-                                primaryText={practitioner.display}
+                                key={entry.reference}
+                                value={entry.reference}
+                                primaryText={entry.display}
                               />),
                             )}
                           </SelectField>
+                        </Cell>
+                        <Cell>
+                          <Cell>
+                            <SelectField
+                              fullWidth
+                              name="required"
+                              hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
+                              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
+                            >
+                              {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
+                                (<MenuItem
+                                  key={entry.code}
+                                  value={entry.code}
+                                  primaryText={entry.display}
+                                />),
+                              )}
+                            </SelectField>
+                          </Cell>
                         </Cell>
                       </Grid>
                     </TabContainer>
                   }
                   {tabIndex === 1 &&
                     <TabContainer>
-                      <Grid columns={3}>
+                      <Grid columns={4}>
                         <Cell>
                           <SelectField
                             fullWidth
@@ -194,6 +213,22 @@ class AddParticipantOrServiceForm extends React.Component {
                                 key={practitioner.reference}
                                 value={practitioner.reference}
                                 primaryText={practitioner.display}
+                              />),
+                            )}
+                          </SelectField>
+                        </Cell>
+                        <Cell>
+                          <SelectField
+                            fullWidth
+                            name="required"
+                            hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
+                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
+                          >
+                            {practitioners && practitioners.map((entry) =>
+                              (<MenuItem
+                                key={entry.code}
+                                value={entry.code}
+                                primaryText={entry.display}
                               />),
                             )}
                           </SelectField>
@@ -265,6 +300,7 @@ AddParticipantOrServiceForm.propTypes = {
   handleSelectPractitioner: PropTypes.func,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
+  appointmentParticipantRequired: PropTypes.array,
 
 };
 

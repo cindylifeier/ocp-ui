@@ -71,7 +71,7 @@ export default defineMessages({
     },
     selectedCareTeam: {
       id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectedCareTeam',
-      defaultMessage: 'Select Care Team Member',
+      defaultMessage: 'Select Care Team',
     },
     serviceName: {
       id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.serviceName',
@@ -84,6 +84,10 @@ export default defineMessages({
     practitionerName: {
       id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.practitionerName',
       defaultMessage: 'Enter practitioner name',
+    },
+    selectPractitionerRequired: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectPractitionerRequired',
+      defaultMessage: 'Required',
     },
   },
   floatingLabelText: {
@@ -101,7 +105,7 @@ export default defineMessages({
     },
     selectedCareTeam: {
       id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectedCareTeam',
-      defaultMessage: 'Select Care Team Member',
+      defaultMessage: 'Select Care Team',
     },
     serviceName: {
       id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.serviceName',
@@ -114,6 +118,10 @@ export default defineMessages({
     practitionerName: {
       id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.practitionerName',
       defaultMessage: 'Enter practitioner name',
+    },
+    selectPractitionerRequired: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectPractitionerRequired',
+      defaultMessage: 'Required',
     },
   },
 });

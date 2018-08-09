@@ -105,6 +105,7 @@ class ManageAppointmentForm extends React.Component {
       handleSelectPractitioner,
       locations,
       practitioners,
+      appointmentParticipantRequired,
     } = this.props;
 
     const selectedParticipantsProps = {
@@ -120,6 +121,7 @@ class ManageAppointmentForm extends React.Component {
       handleSelectPractitioner,
       locations,
       practitioners,
+      appointmentParticipantRequired,
     };
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
@@ -163,6 +165,22 @@ class ManageAppointmentForm extends React.Component {
                     key={uniqueId()}
                     value={appointmentType.code}
                     primaryText={appointmentType.display}
+                  />),
+                )}
+              </SelectField>
+            </Cell>
+            <Cell area="appointmentRequired">
+              <SelectField
+                fullWidth
+                name="required"
+                hintText={<FormattedMessage {...messages.hintText.appointmentRequired} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentRequired} />}
+              >
+                {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
+                  (<MenuItem
+                    key={uniqueId()}
+                    value={entry.code}
+                    primaryText={entry.display}
                   />),
                 )}
               </SelectField>
@@ -280,6 +298,7 @@ ManageAppointmentForm.propTypes = {
   handleSelectPractitioner: PropTypes.func.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
+  appointmentParticipantRequired: PropTypes.array,
 };
 
 export default ManageAppointmentForm;

@@ -31,6 +31,7 @@ function ManageAppointment(props) {
     practitioners,
     handleSelectPractitioner,
     handleSelectLocation,
+    appointmentParticipantRequired,
   } = props;
   const propsFromContainer = {
     patient,
@@ -45,6 +46,7 @@ function ManageAppointment(props) {
     practitioners,
     handleSelectLocation,
     handleSelectPractitioner,
+    appointmentParticipantRequired,
   };
 
   function setAppointmentTime(timeStr, dateStr) {
@@ -108,6 +110,8 @@ function ManageAppointment(props) {
               .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
             appointmentType: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
+            required: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
             startTime: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
             endTime: yup.string()
@@ -141,6 +145,7 @@ ManageAppointment.propTypes = {
   initialSelectedParticipants: PropTypes.array,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
+  appointmentParticipantRequired: PropTypes.array,
 };
 
 export default ManageAppointment;

@@ -93,6 +93,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentType',
       defaultMessage: 'Appointment Type',
     },
+    appointmentRequired: {
+      id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentRequired',
+      defaultMessage: 'Required',
+    },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.status',
       defaultMessage: 'Status',
@@ -118,6 +122,10 @@ export default defineMessages({
     appointmentType: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentType',
       defaultMessage: 'Appointment Type',
+    },
+    appointmentRequired: {
+      id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentRequired',
+      defaultMessage: 'Required',
     },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.status',

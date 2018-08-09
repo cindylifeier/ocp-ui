@@ -8,13 +8,21 @@ import ManageAppointment from 'components/ManageAppointment';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
-import { APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
+import {
+  APPOINTMENT_STATUS,
+  APPOINTMENT_TYPE,
+  APPOINTMENT_PARTICIPANT_REQUIRED,
+} from 'containers/App/constants';
 import {
   makeSelectPatient,
   makeSelectUser,
   makeSelectOrganization,
 } from 'containers/App/contextSelectors';
-import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
+import {
+  makeSelectAppointmentStatuses,
+  makeSelectAppointmentTypes,
+  makeSelectAppointmentParticipationRequired,
+} from 'containers/App/lookupSelectors';
 import {
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
@@ -137,6 +145,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       healthcareServices,
       locations,
       practitioners,
+      appointmentParticipantRequired,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let appointment = null;
@@ -157,6 +166,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       healthcareServices,
       locations,
       practitioners,
+      appointmentParticipantRequired,
       handleSelectLocation: this.handleSelectLocation,
       handleSelectPractitioner: this.handleSelectPractitioner,
     };
@@ -212,6 +222,7 @@ ManageAppointmentPage.propTypes = {
   getLocationReferences: PropTypes.func.isRequired,
   selectedAppointment: PropTypes.object,
   organization: PropTypes.object,
+  appointmentParticipantRequired: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -225,12 +236,13 @@ const mapStateToProps = createStructuredSelector({
   healthcareServices: makeSelectHealthcareServiceReferences(),
   locations: makeSelectLocationReferences(),
   practitioners: makeSelectPractitionerReferences(),
+  appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     initializeManageAppointment: () => dispatch(initializeManageAppointment()),
-    getLookups: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE])),
+    getLookups: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE, APPOINTMENT_PARTICIPANT_REQUIRED])),
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
