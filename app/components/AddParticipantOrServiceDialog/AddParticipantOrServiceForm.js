@@ -49,13 +49,12 @@ class AddParticipantOrServiceForm extends React.Component {
       handleDialogClose,
       healthcareServices,
       locations,
+      careTeams,
       practitioners,
       appointmentParticipantRequired,
       handleAddParticipant,
     } = this.props;
     const { tabIndex } = this.state;
-
-    const careTeams = [];
 
     function setInitialValues() {
       const initialValue = {};
@@ -301,6 +300,7 @@ AddParticipantOrServiceForm.propTypes = {
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
+  careTeams: PropTypes.array,
 
 };
 

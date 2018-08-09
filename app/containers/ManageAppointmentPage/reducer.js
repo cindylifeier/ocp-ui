@@ -12,6 +12,7 @@ import {
   GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
+  GET_CARE_TEAM_REFERENCES_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -20,6 +21,7 @@ const initialState = fromJS({
   healthcareServices: null,
   locations: null,
   practitioners: null,
+  careTeams: null,
 });
 
 function manageAppointmentPageReducer(state = initialState, action) {
@@ -38,6 +40,9 @@ function manageAppointmentPageReducer(state = initialState, action) {
     case GET_PRACTITIONER_REFERENCES_SUCCESS:
       return state
         .set('practitioners', action.practitioners);
+    case GET_CARE_TEAM_REFERENCES_SUCCESS:
+      return state
+        .set('careTeams', action.careTeams);
     default:
       return state;
   }

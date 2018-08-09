@@ -10,6 +10,7 @@ import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
   getPractitionerReferencesSuccess,
+  getCareTeamReferencesSuccess,
 } from './actions';
 import {
   getAppointmentApi,
@@ -18,6 +19,7 @@ import {
   getHealthcareService,
   getLocationReferences,
   getPractitionerReferences,
+  getCareTeamReferences,
 } from './api';
 import {
   GET_APPOINTMENT,
@@ -25,6 +27,7 @@ import {
   GET_HEALTHCARE_SERVICE_REFERENCES,
   GET_LOCATION_REFERENCES,
   GET_PRACTITIONER_REFERENCES,
+  GET_CARE_TEAM_REFERENCES,
 } from './constants';
 
 function* saveAppointmentSaga(action) {
@@ -103,6 +106,19 @@ function* getPractitionerReferencesSaga({ organizationId, locationId }) {
   }
 }
 
+
+function* getCareTeamReferencesSaga({ patientId }) {
+  try {
+    if (!isEmpty(patientId)) {
+      const careTeams = yield call(getCareTeamReferences, patientId);
+      yield put(getCareTeamReferencesSuccess(careTeams));
+    }
+  } catch (error) {
+    yield put(showNotification('Error in getting care teams'));
+    yield put(goBack());
+  }
+}
+
 function* watchGetHealthcareServiceSaga() {
   yield takeLatest(GET_HEALTHCARE_SERVICE_REFERENCES, getHealthcareServiceSaga);
 }
@@ -118,6 +134,10 @@ function* watchGetPractitionerReferencesSaga() {
 
 function* watchGetAppointmentSaga() {
   yield takeLatest(GET_APPOINTMENT, getAppointmentSaga);
+}
+
+function* watchGetCareTeamReferencesSaga() {
+  yield takeLatest(GET_CARE_TEAM_REFERENCES, getCareTeamReferencesSaga);
 }
 
 export function determineNotificationForAppointment(appointmentFormData) {
@@ -143,5 +163,6 @@ export default function* rootSaga() {
     watchGetHealthcareServiceSaga(),
     watchGetLocationReferencesSaga(),
     watchGetPractitionerReferencesSaga(),
+    watchGetCareTeamReferencesSaga(),
   ]);
 }

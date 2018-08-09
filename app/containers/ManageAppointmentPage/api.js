@@ -6,6 +6,7 @@ import {
   BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL,
   BASE_LOCATION_REFERENCES_API_URL,
   BASE_PRACTITIONERS_API_URL,
+  BASE_CARE_TEAMS_API_URL,
   getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
 
@@ -39,10 +40,16 @@ export function getLocationReferences(healthcareServiceId) {
   return request(requestURL);
 }
 
-
 export function getPractitionerReferences(organizationId, locationId) {
   const practitionerReferenceBaseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const requestURL = `${practitionerReferenceBaseEndpoint}/practitioner-references?organization=${organizationId}&location=${locationId}`;
+  return request(requestURL);
+}
+
+
+export function getCareTeamReferences(patientId) {
+  const careTeamReferenceBaseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
+  const requestURL = `${careTeamReferenceBaseEndpoint}/participant-references?patient=${patientId}`;
   return request(requestURL);
 }
 

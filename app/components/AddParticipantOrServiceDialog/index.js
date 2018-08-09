@@ -21,6 +21,7 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
       handleSelectPractitioner,
       locations,
       practitioners,
+      careTeams,
       appointmentParticipantRequired,
       handleAddParticipant,
     } = this.props;
@@ -31,6 +32,7 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
       handleSelectLocation,
       handleSelectPractitioner,
       locations,
+      careTeams,
       practitioners,
       appointmentParticipantRequired,
       handleAddParticipant,
@@ -60,6 +62,7 @@ AddParticipantOrServiceDialog.propTypes = {
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
+  careTeams: PropTypes.array,
 };
 
 export default AddParticipantOrServiceDialog;

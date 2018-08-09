@@ -18,6 +18,7 @@ import messages from './messages';
 function ManageAppointment(props) {
   const {
     patient,
+    careTeams,
     appointment,
     editMode,
     appointmentStatuses,
@@ -37,6 +38,7 @@ function ManageAppointment(props) {
   const propsFromContainer = {
     patient,
     editMode,
+    careTeams,
     appointmentStatuses,
     appointmentTypes,
     selectedParticipants,
@@ -149,6 +151,7 @@ ManageAppointment.propTypes = {
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
+  careTeams: PropTypes.array,
 };
 
 export default ManageAppointment;

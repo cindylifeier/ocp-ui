@@ -47,6 +47,7 @@ import {
   getHealthcareServiceReferences,
   getLocationReferences,
   getPractitionerReferences,
+  getCareTeamReferences,
 } from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
@@ -57,6 +58,7 @@ import {
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
   makeSelectHealthcareServiceReferences,
+  makeSelectCareTeamReferences,
 } from './selectors';
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -77,12 +79,16 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
   componentDidMount() {
     this.props.getLookups();
     const appointmentId = this.props.match.params.id;
-    const { organization } = this.props;
+    const { organization, patient } = this.props;
     if (appointmentId) {
       this.props.getAppointment(appointmentId);
     }
     if (organization) {
       this.props.getHealthcareServiceReferences(organization.logicalId);
+    }
+
+    if (patient) {
+      this.props.getCareTeamReferences(patient.id);
     }
   }
 
@@ -152,6 +158,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       locations,
       practitioners,
       appointmentParticipantRequired,
+      careTeams,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let appointment = null;
@@ -163,6 +170,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
 
     const manageAppointmentProps = {
       patient,
+      careTeams,
       appointment,
       editMode,
       appointmentStatuses,
@@ -226,10 +234,12 @@ ManageAppointmentPage.propTypes = {
   getAppointment: PropTypes.func.isRequired,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
+  getCareTeamReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
   selectedAppointment: PropTypes.object,
   organization: PropTypes.object,
   appointmentParticipantRequired: PropTypes.array,
+  careTeams: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -244,6 +254,7 @@ const mapStateToProps = createStructuredSelector({
   locations: makeSelectLocationReferences(),
   practitioners: makeSelectPractitionerReferences(),
   appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
+  careTeams: makeSelectCareTeamReferences(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -254,6 +265,7 @@ function mapDispatchToProps(dispatch) {
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
     getHealthcareServiceReferences: (organizationId) => dispatch(getHealthcareServiceReferences(organizationId)),
+    getCareTeamReferences: (patientId) => dispatch(getCareTeamReferences(patientId)),
     getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
     getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
   };

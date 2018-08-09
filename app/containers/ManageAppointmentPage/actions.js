@@ -10,13 +10,12 @@ import {
   SAVE_APPOINTMENT,
   GET_HEALTHCARE_SERVICE_REFERENCES,
   GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
-  GET_HEALTHCARE_SERVICE_REFERENCES_ERROR,
   GET_LOCATION_REFERENCES,
   GET_LOCATION_REFERENCES_SUCCESS,
-  GET_LOCATION_REFERENCES_ERROR,
   GET_PRACTITIONER_REFERENCES,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
-  GET_PRACTITIONER_REFERENCES_ERROR,
+  GET_CARE_TEAM_REFERENCES,
+  GET_CARE_TEAM_REFERENCES_SUCCESS,
 } from './constants';
 
 export function initializeManageAppointment() {
@@ -46,13 +45,6 @@ export function getHealthcareServiceReferencesSuccess(healthcareServices) {
   };
 }
 
-export function getHealthcareServiceReferencesError(error) {
-  return {
-    type: GET_HEALTHCARE_SERVICE_REFERENCES_ERROR,
-    error,
-  };
-}
-
 export function getLocationReferences(healthcareServiceId) {
   return {
     type: GET_LOCATION_REFERENCES,
@@ -66,14 +58,6 @@ export function getLocationReferencesSuccess(locations) {
     locations,
   };
 }
-
-export function getLocationReferencesError(error) {
-  return {
-    type: GET_LOCATION_REFERENCES_ERROR,
-    error,
-  };
-}
-
 
 export function getPractitionerReferences(organizationId, locationId) {
   return {
@@ -90,13 +74,6 @@ export function getPractitionerReferencesSuccess(practitioners) {
   };
 }
 
-export function getPractitionerReferencesError(error) {
-  return {
-    type: GET_PRACTITIONER_REFERENCES_ERROR,
-    error,
-  };
-}
-
 export function getAppointmentSuccess(appointment) {
   return {
     type: GET_APPOINTMENT_SUCCESS,
@@ -109,5 +86,19 @@ export function saveAppointment(appointment, handleSubmitting) {
     type: SAVE_APPOINTMENT,
     appointment,
     handleSubmitting,
+  };
+}
+
+export function getCareTeamReferences(patientId) {
+  return {
+    type: GET_CARE_TEAM_REFERENCES,
+    patientId,
+  };
+}
+
+export function getCareTeamReferencesSuccess(careTeams) {
+  return {
+    type: GET_CARE_TEAM_REFERENCES_SUCCESS,
+    careTeams,
   };
 }

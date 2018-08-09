@@ -95,6 +95,7 @@ class ManageAppointmentForm extends React.Component {
       dirty,
       isValid,
       editMode,
+      careTeams,
       appointmentTypes,
       appointmentStatuses,
       selectedParticipants,
@@ -122,6 +123,7 @@ class ManageAppointmentForm extends React.Component {
       handleSelectLocation,
       handleSelectPractitioner,
       locations,
+      careTeams,
       practitioners,
       appointmentParticipantRequired,
       handleAddParticipant,
@@ -302,6 +304,7 @@ ManageAppointmentForm.propTypes = {
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
+  careTeams: PropTypes.array,
   handleAddParticipant: PropTypes.func,
 };
 
