@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   patientNotSelected: {
     id: 'ocpui.containers.Tasks.patientNotSelected',
-    defaultMessage: 'No tasks loaded. Please select a patient to view his/her tasks.',
+    defaultMessage: 'No tasks found.',
   },
   tasks: {
     id: 'ocpui.containers.Tasks.header',
