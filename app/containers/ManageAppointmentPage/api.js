@@ -28,7 +28,7 @@ export function getAppointmentApi(appointmentId) {
 
 export function getHealthcareService(organizationId) {
   const healthcareServiceBaseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL);
-  const requestURL = `${healthcareServiceBaseEndpoint}?${organizationId}`;
+  const requestURL = `${healthcareServiceBaseEndpoint}?organization=${organizationId}`;
   return request(requestURL);
 }
 
