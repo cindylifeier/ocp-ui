@@ -41,6 +41,7 @@ function CommunicationsTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
+                <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
