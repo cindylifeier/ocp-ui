@@ -13,7 +13,7 @@ import Padding from 'components/Padding';
 import PanelSection from 'components/PanelSection';
 import StyledText from 'components/StyledText';
 import SmartAppsGallery from 'components/SmartAppsGallery';
-import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PATIENT_ROLE_CODE } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PATIENT_ROLE_CODE, PCP_ROLE_CODE } from 'containers/App/constants';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
 import LaunchButton from './LaunchButton';
 
@@ -47,7 +47,7 @@ class SmartApps extends React.Component { // eslint-disable-line react/prefer-st
                 </LaunchButton>
               </Cell>
             ))}
-            <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}>
+            <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PCP_ROLE_CODE]}>
               <Cell>
                 <SmartAppsGallery
                   smartApps={smartApps}
