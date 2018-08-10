@@ -39,6 +39,7 @@ function CoverageTable(props) {
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
+                <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.coverage} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.ID} /></TableHeaderColumn>
