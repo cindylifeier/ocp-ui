@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import find from 'lodash/find';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -22,14 +21,14 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import {
   CARE_MANAGER_ROLE_CODE,
-  OCP_ADMIN_ROLE_CODE,
   MANAGE_PATIENT_URL,
+  OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
   USCOREETHNICITY,
   USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { combineAddress, isAdminWorkspace, mapToTelecoms, getPractitionerIdByRole } from 'containers/App/helpers';
+import { combineAddress, getPractitionerIdByRole, isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
@@ -47,16 +46,16 @@ import {
   makeSelectSearchLoading,
   makeSelectTotalPages,
 } from './selectors';
-import { initializePatients, loadPatientSearchResult, fitlerPatient } from './actions';
+import { fitlerPatient, initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
 import messages from './messages';
-import
-{ MY_CARE_TEAM_PATIENTS,
-  MY_CARE_TEAM_PATIENTS_DISPLAY,
+import {
   ALL_ORG_PATIENTS,
   ALL_ORG_PATIENTS_DISPLAY,
+  MY_CARE_TEAM_PATIENTS,
+  MY_CARE_TEAM_PATIENTS_DISPLAY,
   UNASSIGNED_PATIENTS,
   UNASSIGNED_PATIENTS_DISPLAY,
 } from './constants';
@@ -118,18 +117,19 @@ export class Patients extends React.Component {
     } else {
       this.props.setPatient(patient);
     }
-    this.setState({
-      patient,
-      isPatientModalOpen: true,
-    });
+    if (patient && !patient.canViewPatientDetail) {
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
+    } else {
+      this.setState({
+        patient,
+        isPatientModalOpen: true,
+      });
+    }
   }
 
   handlePatientViewDetailsClick(patient) {
-    const { searchResult } = this.props;
-    const selectedPatient = find(searchResult, { id: patient.id });
-
-    if (selectedPatient && !selectedPatient.canViewPatientDetail) {
-      this.props.showNotAllowToViewPatientDetailsMessage('Not allow to view patient\'s dashboard.');
+    if (patient && !patient.canViewPatientDetail) {
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
     } else {
       this.setState({
         patient,

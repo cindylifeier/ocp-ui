@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'ocpui.components.AddPractitionerRoleForOrganization.header',
     defaultMessage: 'Search Organization',
   },
+  noOrganizationsFound: {
+    id: 'ocpui.components.AddPractitionerRoleForOrganization.noOrganizationsFound',
+    defaultMessage: 'No organizations found.',
+  },
 });

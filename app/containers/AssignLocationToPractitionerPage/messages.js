@@ -12,7 +12,7 @@ export default defineMessages({
   },
   organizationNotSelected: {
     id: 'ocpui.containers.AssignLocationToPractitionerPage.organizationNotSelected',
-    defaultMessage: 'No location loaded. Please select an practitioner to view its location.',
+    defaultMessage: 'No locations found.',
   },
   labelOrganization: {
     id: 'ocpui.containers.AssignLocationToPractitionerPage.labelOrganization',
@@ -24,7 +24,7 @@ export default defineMessages({
   },
   noLocationFound: {
     id: 'ocpui.containers.AssignLocationToPractitionerPage.noLocationFound',
-    defaultMessage: 'No Locations found.',
+    defaultMessage: 'No locations found.',
   },
   dialogTitleUnassignLocation: {
     id: 'ocpui.containers.AssignLocationToPractitionerPage.dialogTitleUnassignLocation',

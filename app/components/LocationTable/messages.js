@@ -52,6 +52,6 @@ export default defineMessages({
   },
   noLocationsFound: {
     id: 'ocpui.containers.Locations.noLocationsFound',
-    defaultMessage: 'No locations loaded. Please select an organization to view its locations.',
+    defaultMessage: 'No locations found.',
   },
 });

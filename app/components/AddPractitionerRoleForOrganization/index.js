@@ -14,8 +14,8 @@ import { fromBackendToFrontendOrganization } from 'components/OrganizationTable/
 import PractitionerRoleForOrganizationTable from 'components/PractitionerRoleForOrganizationTable';
 import StyledIconButton from 'components/StyledIconButton';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import CenterAlign from 'components/Align/CenterAlign';
 import H1 from 'components/H1';
 import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
@@ -53,10 +53,8 @@ function AddPractitionerRoleForOrgnaization(props) {
           />
         </div>
       ) ||
-      ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
-        <CenterAlign>
-          <span>No organizations found</span>
-        </CenterAlign>))
+      ((!organizations.loading && organizations.data && organizations.data.length === 0 && <NoResultsFoundText><FormattedMessage {...messages.noOrganizationsFound} /></NoResultsFoundText>
+      ))
       }
     </div>
   );
