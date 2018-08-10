@@ -16,6 +16,7 @@ import {
   GET_PRACTITIONER_REFERENCES_SUCCESS,
   GET_CARE_TEAM_REFERENCES,
   GET_CARE_TEAM_REFERENCES_SUCCESS,
+  GET_ADD_PARTICIPANTS,
 } from './constants';
 
 export function initializeManageAppointment() {
@@ -100,5 +101,12 @@ export function getCareTeamReferencesSuccess(careTeams) {
   return {
     type: GET_CARE_TEAM_REFERENCES_SUCCESS,
     careTeams,
+  };
+}
+
+export function getAddParticipants(participants) {
+  return {
+    type: GET_ADD_PARTICIPANTS,
+    participants,
   };
 }

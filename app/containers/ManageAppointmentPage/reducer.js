@@ -6,6 +6,7 @@
 
 
 import { fromJS } from 'immutable';
+import Utils from 'utils/Util';
 import {
   GET_APPOINTMENT_SUCCESS,
   INITIALIZE_MANAGE_APPOINTMENT,
@@ -13,6 +14,7 @@ import {
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
   GET_CARE_TEAM_REFERENCES_SUCCESS,
+  GET_ADD_PARTICIPANTS,
 } from './constants';
 
 const initialState = fromJS({
@@ -22,6 +24,7 @@ const initialState = fromJS({
   locations: null,
   practitioners: null,
   careTeams: null,
+  selectedParticipants: null,
 });
 
 function manageAppointmentPageReducer(state = initialState, action) {
@@ -43,6 +46,27 @@ function manageAppointmentPageReducer(state = initialState, action) {
     case GET_CARE_TEAM_REFERENCES_SUCCESS:
       return state
         .set('careTeams', action.careTeams);
+    case GET_ADD_PARTICIPANTS: {
+      const appointment = Utils.getFromState(state, 'appointment');
+      const participants = action.participants;
+      console.log(appointment);
+      console.log(participants);
+
+      // if (selectedRecipientsAsArray.length > 0) {
+      //   for (let j = 0; j < recipients.length; j += 1) {
+      //     recipients[j].checked = false;
+      //   }
+      //
+      //   for (let i = 0; i < selectedRecipientsAsArray.length; i += 1) {
+      //     for (let j = 0; j < recipients.length; j += 1) {
+      //       if (recipients[j].reference === selectedRecipientsAsArray[i].reference) {
+      //         recipients[j].checked = true;
+      //       }
+      //     }
+      //   }
+      // }
+      return state.set('selectedParticipants', fromJS((action.participants) || []));
+    }
     default:
       return state;
   }

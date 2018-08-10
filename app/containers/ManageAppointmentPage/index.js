@@ -49,6 +49,7 @@ import {
   getLocationReferences,
   getPractitionerReferences,
   getCareTeamReferences,
+  getAddParticipants,
 } from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
@@ -107,7 +108,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
 
     const participantList = [service, location, practitioner, required, careTeam];
-    console.log(participantList);
+    this.props.addParticipants(participantList);
   }
 
   findObject(entries, selectedParticipant, key, value) {
@@ -250,6 +251,7 @@ ManageAppointmentPage.propTypes = {
   getPractitionerReferences: PropTypes.func.isRequired,
   getCareTeamReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
+  addParticipants: PropTypes.func.isRequired,
   selectedAppointment: PropTypes.object,
   organization: PropTypes.object,
   appointmentParticipantRequired: PropTypes.array,
@@ -282,6 +284,7 @@ function mapDispatchToProps(dispatch) {
     getCareTeamReferences: (patientId) => dispatch(getCareTeamReferences(patientId)),
     getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
     getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
+    addParticipants: (participants) => dispatch(getAddParticipants(participants)),
   };
 }
 

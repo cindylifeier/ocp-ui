@@ -21,6 +21,7 @@ export const GET_PRACTITIONER_REFERENCES_SUCCESS = 'ocpui/ManageAppointmentPage/
 export const GET_PRACTITIONER_REFERENCES = 'ocpui/ManageAppointmentPage/GET_PRACTITIONER_REFERENCES';
 export const GET_CARE_TEAM_REFERENCES = 'ocpui/ManageAppointmentPage/GET_CARE_TEAM_REFERENCES';
 export const GET_CARE_TEAM_REFERENCES_SUCCESS = 'ocpui/ManageAppointmentPage/GET_CARE_TEAM_REFERENCES_SUCCESS';
+export const GET_ADD_PARTICIPANTS = 'ocpui/ManageAppointmentPage/GET_ADD_PARTICIPANTS';
 
 /**
 *  Other constants
