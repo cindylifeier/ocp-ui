@@ -69,6 +69,7 @@ class AddParticipantOrServiceForm extends React.Component {
         <Formik
           onSubmit={(values) => {
             handleAddParticipant(values);
+            handleDialogClose();
           }}
           initialValues={setInitialValues()}
           validationSchema={yup.object().shape({
