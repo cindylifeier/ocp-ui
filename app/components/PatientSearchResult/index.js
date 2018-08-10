@@ -29,7 +29,7 @@ import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } 
 import messages from './messages';
 
 
-function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton) {
+function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick) {
   return patients && patients.map((patient) => {
     let menuItems;
     if (manageUserEnabled) {
@@ -87,34 +87,34 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         role="button"
         tabIndex="0"
       >
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{getFullName(patient)}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{getFullName(patient)}</TableRowColumn>
         {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient && patient.mrn}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient && patient.mrn}</TableRowColumn>
         }
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{contact}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{contact}</TableRowColumn>
         {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{address}</TableRowColumn>
-        }
-        {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{address}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.birthDate}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.genderCode}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.birthDate}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.genderCode}</TableRowColumn>
         }
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>{patient.active ?
+        {isExpanded &&
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        }
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.active ?
           <FormattedMessage {...messages.active} /> :
           <FormattedMessage {...messages.inactive} />}
         </TableRowColumn>
-        <TableRowColumn onClick={() => onPatientClick && onPatientClick(patient)}>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
           {showActionButton &&
             <NavigationIconMenu menuItems={menuItems} />
           }
@@ -135,7 +135,7 @@ function getIdentifiers(identifier) {
   );
 }
 
-function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton }) {
+function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
@@ -188,7 +188,7 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.actions} /></TableHeaderColumn>
           }
         </TableHeader>
-        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton)}
+        {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick)}
       </Table>
     );
   }
@@ -207,6 +207,7 @@ PatientSearchResult.propTypes = {
   mapToTelecoms: PropTypes.func.isRequired,
   combineAddress: PropTypes.func.isRequired,
   showActionButton: PropTypes.bool,
+  ablePatientClick: PropTypes.bool,
   size: PropTypes.object.isRequired,
   usCoreRaces: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
