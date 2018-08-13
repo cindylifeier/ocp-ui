@@ -7,6 +7,8 @@
 
 import { fromJS } from 'immutable';
 import Utils from 'utils/Util';
+import { uniqBy, filter } from 'lodash';
+
 import {
   GET_APPOINTMENT_SUCCESS,
   INITIALIZE_MANAGE_APPOINTMENT,
@@ -14,6 +16,7 @@ import {
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
   GET_CARE_TEAM_REFERENCES_SUCCESS,
+  REMOVE_APPOINTMENT_PARTICIPANT,
   GET_ADD_PARTICIPANTS,
 } from './constants';
 
@@ -24,7 +27,7 @@ const initialState = fromJS({
   locations: null,
   practitioners: null,
   careTeams: null,
-  selectedParticipants: null,
+  selectedParticipants: [],
 });
 
 function manageAppointmentPageReducer(state = initialState, action) {
@@ -47,25 +50,21 @@ function manageAppointmentPageReducer(state = initialState, action) {
       return state
         .set('careTeams', action.careTeams);
     case GET_ADD_PARTICIPANTS: {
-      const appointment = Utils.getFromState(state, 'appointment');
+      const selectedParticipants = Utils.getFromState(state, 'selectedParticipants');
       const participants = action.participants;
-      console.log(appointment);
-      console.log(participants);
-
-      // if (selectedRecipientsAsArray.length > 0) {
-      //   for (let j = 0; j < recipients.length; j += 1) {
-      //     recipients[j].checked = false;
-      //   }
-      //
-      //   for (let i = 0; i < selectedRecipientsAsArray.length; i += 1) {
-      //     for (let j = 0; j < recipients.length; j += 1) {
-      //       if (recipients[j].reference === selectedRecipientsAsArray[i].reference) {
-      //         recipients[j].checked = true;
-      //       }
-      //     }
-      //   }
-      // }
-      return state.set('selectedParticipants', fromJS((action.participants) || []));
+      // Merge all participant
+      const mergedArray = selectedParticipants.concat(participants);
+      // Remove duplicate from the list
+      const selectedParticipantsWitoutDuplicate = uniqBy(mergedArray, (e) => (e.reference));
+      return state
+        .set('selectedParticipants', fromJS((selectedParticipantsWitoutDuplicate) || []));
+    }
+    case REMOVE_APPOINTMENT_PARTICIPANT: {
+      const participants = state.get('selectedParticipants');
+      const participantsAsArray = participants.toJS();
+      const filteredParticipants = filter(participantsAsArray, (e) => (e.reference !== action.participant.reference));
+      return state
+        .set('selectedParticipants', fromJS((filteredParticipants) || []));
     }
     default:
       return state;

@@ -16,6 +16,7 @@ import {
   GET_PRACTITIONER_REFERENCES_SUCCESS,
   GET_CARE_TEAM_REFERENCES,
   GET_CARE_TEAM_REFERENCES_SUCCESS,
+  REMOVE_APPOINTMENT_PARTICIPANT,
   GET_ADD_PARTICIPANTS,
 } from './constants';
 
@@ -108,5 +109,19 @@ export function getAddParticipants(participants) {
   return {
     type: GET_ADD_PARTICIPANTS,
     participants,
+  };
+}
+export function getAddAppointmentParticipants(participants) {
+  return {
+    type: GET_ADD_PARTICIPANTS,
+    participants,
+  };
+}
+
+
+export function removeAppointmentParticipant(participant) {
+  return {
+    type: REMOVE_APPOINTMENT_PARTICIPANT,
+    participant,
   };
 }
