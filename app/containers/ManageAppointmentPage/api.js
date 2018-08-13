@@ -131,17 +131,17 @@ function mapToBffParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        participationTypeCode: participant.participationType.code,
-        participationTypeDisplay: participant.participationType.display,
-        participationTypeSystem: participant.participationType.system,
-        participantRequiredCode: participant.required.code,
-        participantRequiredDisplay: participant.required.display,
-        participantRequiredSystem: participant.required.system,
-        participationStatusCode: participant.status.code,
-        participationStatusDisplay: participant.status.display,
-        participationStatusSystem: participant.status.system,
-        actorReference: `${participant.memberType}/${participant.memberId}`,
-        actorName: participant.name,
+        participationTypeCode: participant.participationTypeCode,
+        participationTypeDisplay: participant.participationTypeDisplay,
+        participationTypeSystem: participant.participationTypeSystem,
+        participantRequiredCode: participant.participantRequiredCode,
+        participantRequiredDisplay: participant.participantRequiredDisplay,
+        participantRequiredSystem: participant.participantRequiredSystem,
+        participationStatusCode: participant.participationStatusCode,
+        participationStatusDisplay: participant.participationStatusDisplay,
+        participationStatusSystem: participant.participationStatusSystem,
+        actorReference: participant.reference,
+        actorName: participant.display,
       }));
   }
   return [];
@@ -151,21 +151,13 @@ export function mapToEditParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        participationType: {
-          code: participant.participationTypeCode,
-          display: participant.participationTypeDisplay,
-        },
-        required: {
-          code: participant.participantRequiredCode,
-          display: participant.participantRequiredCode,
-        },
-        status: {
-          code: participant.participationStatusCode,
-          display: participant.participationStatusCode,
-        },
-        memberType: participant.actorReference.substr(0, participant.actorReference.indexOf('/')),
-        memberId: participant.actorReference.substr(participant.actorReference.indexOf('/') + 1),
-        name: participant.actorName,
+        display: participant.actorName,
+        participationTypeCode: participant.participationTypeCode,
+        participationTypeDisplay: participant.participationTypeDisplay,
+        participantRequiredCode: participant.participantRequiredCode,
+        participationStatusCode: participant.participationStatusCode,
+        participantStatusDisplay: participant.participantStatusDisplay,
+        reference: participant.actorReference,
       }));
   }
   return [];
