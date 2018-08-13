@@ -3,13 +3,9 @@ import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
 import {
   BASE_APPOINTMENTS_API_URL,
-  BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL,
-  BASE_LOCATION_REFERENCES_API_URL,
-  BASE_PRACTITIONERS_API_URL,
-  BASE_CARE_TEAMS_API_URL,
   getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
-
+import * as queryString from 'query-string';
 const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
 const headers = {
   'Content-Type': 'application/json',
@@ -28,28 +24,31 @@ export function getAppointmentApi(appointmentId) {
 }
 
 export function getHealthcareService(organizationId) {
-  const healthcareServiceBaseEndpoint = getEndpoint(BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL);
-  const requestURL = `${healthcareServiceBaseEndpoint}?organization=${organizationId}`;
+  const stringifiedParams = queryString.stringify({ resourceType: 'organization', resourceValue: organizationId });
+  const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const requestURL = `${appointmentBaseEndpoint}/healthcare-service-references?${stringifiedParams}`;
   return request(requestURL);
 }
 
 export function getLocationReferences(healthcareServiceId) {
-  console.log(healthcareServiceId);
-  const locationReferenceBaseEndpoint = getEndpoint(BASE_LOCATION_REFERENCES_API_URL);
-  const requestURL = `${locationReferenceBaseEndpoint}?healthcareService=${healthcareServiceId}`;
+  const stringifiedParams = queryString.stringify({ resourceType: 'healthcareservice', resourceValue: healthcareServiceId });
+  const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const requestURL = `${appointmentBaseEndpoint}/location-references?${stringifiedParams}`;
   return request(requestURL);
 }
 
 export function getPractitionerReferences(organizationId, locationId) {
-  const practitionerReferenceBaseEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
-  const requestURL = `${practitionerReferenceBaseEndpoint}/practitioner-references?organization=${organizationId}&location=${locationId}`;
+  const stringifiedParams = queryString.stringify({ resourceType: 'location', resourceValue: locationId });
+  const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const requestURL = `${appointmentBaseEndpoint}/practitioner-references?${stringifiedParams}`;
   return request(requestURL);
 }
 
 
 export function getCareTeamReferences(patientId) {
-  const careTeamReferenceBaseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
-  const requestURL = `${careTeamReferenceBaseEndpoint}/participant-references?patient=${patientId}`;
+  const stringifiedParams = queryString.stringify({ resourceType: 'patient', resourceValue: patientId });
+  const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const requestURL = `${appointmentBaseEndpoint}/practitioner-references?${stringifiedParams}`;
   return request(requestURL);
 }
 
