@@ -177,7 +177,7 @@ class ManageAppointmentForm extends React.Component {
             <Cell area="appointmentRequired">
               <SelectField
                 fullWidth
-                name="required"
+                name="creatorRequired"
                 hintText={<FormattedMessage {...messages.hintText.appointmentRequired} />}
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentRequired} />}
               >
