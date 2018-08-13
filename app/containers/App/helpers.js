@@ -203,3 +203,9 @@ export function getLogicalIdFromReference(reference) {
   const logicalId = referenceArray && referenceArray.length > 0 && referenceArray[1];
   return logicalId;
 }
+
+export function getReferenceTypeFromReference(reference) {
+  const referenceArray = reference && reference.split('/');
+  const referenceType = referenceArray && referenceArray.length > 0 && referenceArray[0];
+  return referenceType;
+}
