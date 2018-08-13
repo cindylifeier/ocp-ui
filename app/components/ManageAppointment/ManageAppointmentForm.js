@@ -109,11 +109,12 @@ class ManageAppointmentForm extends React.Component {
       practitioners,
       appointmentParticipantRequired,
       handleAddParticipant,
+      getReferenceTypeFromReference,
     } = this.props;
-
     const selectedParticipantsProps = {
       selectedParticipants,
       removeParticipant,
+      getReferenceTypeFromReference,
     };
 
     const addParticipantsOrServiceProps = {
@@ -284,7 +285,7 @@ ManageAppointmentForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   editMode: PropTypes.bool.isRequired,
-  // handleOpen: PropTypes.func.isRequired,
+  getReferenceTypeFromReference: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
