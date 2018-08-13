@@ -22,6 +22,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageAppointment.patientName',
     defaultMessage: 'Patient:',
   },
+  participantTitle: {
+    id: 'ocpui.components.ManageAppointment.participantTitle',
+    defaultMessage: 'Participant',
+  },
   addParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.addParticipantBtnLabel',
     defaultMessage: 'Add Participant or Service:',
@@ -42,9 +46,41 @@ export default defineMessages({
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderLocation',
     defaultMessage: 'Location',
   },
+  participantTableHeaderType: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderType',
+    defaultMessage: 'Participant Type',
+  },
+  participantTableHeaderActor: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderActor',
+    defaultMessage: 'Actor',
+  },
+  participantTableHeaderDate: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderDate',
+    defaultMessage: 'Date',
+  },
+  participantTableHeaderStartTime: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderStartTime',
+    defaultMessage: 'Start Time',
+  },
+  participantTableHeaderEndTime: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderEndTime',
+    defaultMessage: 'End Time',
+  },
   participantTableHeaderAction: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderAction',
     defaultMessage: 'Action',
+  },
+  participantTableHeaderParticipationType: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderParticipationType',
+    defaultMessage: 'Participation Type',
+  },
+  participantTableHeaderParticipationStatus: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderParticipationStatus',
+    defaultMessage: 'Status',
+  },
+  participantTableHeaderRequired: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderRequired',
+    defaultMessage: 'Required',
   },
   noParticipantAdded: {
     id: 'ocpui.components.ManageAppointment.manageForm.noParticipantAdded',

@@ -8,6 +8,8 @@ import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import startCase from 'lodash/startCase';
+import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 import messages from './messages';
 
@@ -25,8 +27,12 @@ function SelectedParticipants(props) {
     <Table>
       <TableHeader>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderService} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderLocation} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRequired} />}</TableHeaderColumn>
+        <TableHeaderColumn>{
+          <FormattedMessage {...messages.participantTableHeaderParticipationStatus} />}</TableHeaderColumn>
         <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
       </TableHeader>
       {selectedParticipants && selectedParticipants.length > 0 ?
@@ -35,6 +41,8 @@ function SelectedParticipants(props) {
             <TableRowColumn>{participant.name}</TableRowColumn>
             <TableRowColumn>{upperFirst(participant.memberType)}</TableRowColumn>
             <TableRowColumn>{upperFirst(participant.participationType.display)}</TableRowColumn>
+            <TableRowColumn>{startCase(camelCase(participant.required.display))}</TableRowColumn>
+            <TableRowColumn>{startCase(camelCase(participant.status.display))}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
                 <FormattedMessage {...messages.removeParticipantBtnLabel} />
