@@ -24,7 +24,7 @@ export default defineMessages({
   },
   saveButton: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.saveButton',
-    defaultMessage: 'Save',
+    defaultMessage: 'Add',
   },
   cancelButton: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.cancelButton',
