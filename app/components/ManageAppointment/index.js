@@ -116,7 +116,7 @@ function ManageAppointment(props) {
               .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
             appointmentType: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
-            required: yup.string()
+            creatorRequired: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
             startTime: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
