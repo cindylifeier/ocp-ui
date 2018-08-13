@@ -9,6 +9,7 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
@@ -24,10 +25,6 @@ import {
   makeSelectAppointmentTypes,
   makeSelectAppointmentParticipationRequired,
 } from 'containers/App/lookupSelectors';
-import {
-  removeAppointmentParticipant,
-} from 'containers/SearchAppointmentParticipant/actions';
-// import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
@@ -38,7 +35,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import { getLogicalIdFromReference } from 'containers/App/helpers';
+import {
+  getLogicalIdFromReference,
+  getReferenceTypeFromReference,
+} from 'containers/App/helpers';
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
 import {
@@ -49,7 +49,8 @@ import {
   getLocationReferences,
   getPractitionerReferences,
   getCareTeamReferences,
-  getAddParticipants,
+  getAddAppointmentParticipants,
+  removeAppointmentParticipant,
 } from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
@@ -102,18 +103,36 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
   handleAddParticipant(selectedParticipant) {
     const { healthcareServices, locations, appointmentParticipantRequired, practitioners, careTeams } = this.props;
 
-    const service = this.findObject(healthcareServices, selectedParticipant, 'reference', 'service');
-    const location = this.findObject(locations, selectedParticipant, 'reference', 'location');
-    const practitioner = this.findObject(practitioners, selectedParticipant, 'reference', 'practitioner');
-    const required = this.findObject(appointmentParticipantRequired, selectedParticipant, 'code', 'required');
-    const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
+    const participantList = [];
 
-    if (practitioner && required) {
+    const service = this.findObject(healthcareServices, selectedParticipant, 'reference', 'service');
+    if (!isEmpty(service)) {
+      participantList.push(service);
+    }
+
+    const location = this.findObject(locations, selectedParticipant, 'reference', 'location');
+    if (!isEmpty(location)) {
+      participantList.push(location);
+    }
+    const practitioner = this.findObject(practitioners, selectedParticipant, 'reference', 'practitioner');
+    if (!isEmpty(practitioner)) {
+      participantList.push(practitioner);
+    }
+
+    const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
+    if (!isEmpty(careTeam)) {
+      participantList.push(careTeam);
+    }
+
+
+    const required = this.findObject(appointmentParticipantRequired, selectedParticipant, 'code', 'required');
+
+    if (!isEmpty(practitioner) && !isEmpty(required)) {
       practitioner.participantRequiredDisplay = required.display;
       practitioner.participantRequiredSystem = required.system;
+
+      this.props.addParticipants(participantList);
     }
-    const participantList = [service, location, practitioner, careTeam];
-    this.props.addParticipants(participantList);
   }
 
   findObject(entries, selectedParticipant, key, value) {
@@ -201,6 +220,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       healthcareServices,
       locations,
       practitioners,
+      getReferenceTypeFromReference,
       appointmentParticipantRequired,
       handleSelectLocation: this.handleSelectLocation,
       handleSelectPractitioner: this.handleSelectPractitioner,
@@ -290,7 +310,7 @@ function mapDispatchToProps(dispatch) {
     getCareTeamReferences: (patientId) => dispatch(getCareTeamReferences(patientId)),
     getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
     getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
-    addParticipants: (participants) => dispatch(getAddParticipants(participants)),
+    addParticipants: (participants) => dispatch(getAddAppointmentParticipants(participants)),
   };
 }
 
