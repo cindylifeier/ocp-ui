@@ -12,7 +12,7 @@ export function mapToPatientName(patient) {
 }
 
 export function mapToPatientPhone(patient) {
-  const telecoms = patient.telecom;
+  const telecoms = patient.telecoms;
   return telecoms && telecoms
     .filter((telecom) => telecom.system === PHONE_SYSTEM)
     .map((telecom) => telecom.value)

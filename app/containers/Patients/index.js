@@ -222,6 +222,7 @@ export class Patients extends React.Component {
           mapToTelecoms={mapToTelecoms}
           combineAddress={combineAddress}
           showActionButton={false}
+          ablePatientClick={user.role !== OCP_ADMIN_ROLE_CODE}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
