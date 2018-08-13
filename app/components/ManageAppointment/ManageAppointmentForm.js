@@ -313,7 +313,7 @@ export default ManageAppointmentForm;
 
 function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
   let isDirty = dirty;
-  const identityOfArray = 'memberId';
+  const identityOfArray = 'reference';
   if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
     isDirty = true;
   }
