@@ -35,6 +35,12 @@ const makeSelectCareTeamReferences = () => createSelector(
   (subState) => subState && subState.get('careTeams'),
 );
 
+
+const makeSelectParticipants = () => createSelector(
+  selectManageAppointmentPageDomain,
+  (subState) => subState && subState.get('selectedParticipants'),
+);
+
 export {
   selectManageAppointmentPageDomain,
   makeSelectAppointment,
@@ -42,4 +48,5 @@ export {
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
   makeSelectCareTeamReferences,
+  makeSelectParticipants,
 };

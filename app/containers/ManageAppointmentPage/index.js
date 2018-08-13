@@ -27,7 +27,7 @@ import {
 import {
   removeAppointmentParticipant,
 } from 'containers/SearchAppointmentParticipant/actions';
-import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
+// import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
 import isUndefined from 'lodash/isUndefined';
 import merge from 'lodash/merge';
 import PropTypes from 'prop-types';
@@ -61,6 +61,7 @@ import {
   makeSelectPractitionerReferences,
   makeSelectHealthcareServiceReferences,
   makeSelectCareTeamReferences,
+  makeSelectParticipants,
 } from './selectors';
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -107,7 +108,11 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     const required = this.findObject(appointmentParticipantRequired, selectedParticipant, 'code', 'required');
     const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
 
-    const participantList = [service, location, practitioner, required, careTeam];
+    if (practitioner && required) {
+      practitioner.participantRequiredDisplay = required.display;
+      practitioner.participantRequiredSystem = required.system;
+    }
+    const participantList = [service, location, practitioner, careTeam];
     this.props.addParticipants(participantList);
   }
 
@@ -263,7 +268,7 @@ const mapStateToProps = createStructuredSelector({
   appointmentTypes: makeSelectAppointmentTypes(),
   patient: makeSelectPatient(),
   user: makeSelectUser(),
-  selectedParticipants: makeSelectSelectedAppointmentParticipants(),
+  // selectedParticipants: makeSelectSelectedAppointmentParticipants(),
   selectedAppointment: makeSelectAppointment(),
   organization: makeSelectOrganization(),
   healthcareServices: makeSelectHealthcareServiceReferences(),
@@ -271,6 +276,7 @@ const mapStateToProps = createStructuredSelector({
   practitioners: makeSelectPractitionerReferences(),
   appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
   careTeams: makeSelectCareTeamReferences(),
+  selectedParticipants: makeSelectParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {
