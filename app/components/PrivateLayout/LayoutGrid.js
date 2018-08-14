@@ -3,7 +3,7 @@ import { Grid } from 'styled-css-grid';
 const LayoutGrid = Grid.extend`
   position: absolute;
   width: 100%;
-  color: #444;
+  color: #000;
   margin: 0 auto;
   grid-row-gap: 2px;
 `;

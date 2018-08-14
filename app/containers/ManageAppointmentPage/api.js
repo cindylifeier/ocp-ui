@@ -59,7 +59,9 @@ function mapToBackendAppointment(appointmentFormData, isCreate) {
   }
 
   if (!isUndefined(appointmentType)) {
-    appointmentDataToSubmit.typeCode = appointmentType;
+    appointmentDataToSubmit.typeCode = appointmentType[0].code;
+    appointmentDataToSubmit.typeSystem = appointmentType[0].system;
+    appointmentDataToSubmit.typeDisplay = appointmentType[0].display;
   }
 
   if (!isUndefined(date) && !isUndefined(startTime)) {

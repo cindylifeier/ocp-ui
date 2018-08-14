@@ -56,7 +56,7 @@ class ExpansionTableRow extends React.Component { // eslint-disable-line react/p
           {...other}
         >
           <TableRowColumn>
-            <StyledIconButton svgIconSize="small" size="x-small" onClick={this.handleRowOpen}>
+            <StyledIconButton svgIconSize="small" size="x-small" onClick={this.handleRowOpen} aria-label={'Expand/Collapse'}>
               {this.state.expansionRowOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </StyledIconButton>
           </TableRowColumn>

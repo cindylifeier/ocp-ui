@@ -21,18 +21,19 @@ import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import PanelToolbar from 'components/PanelToolbar';
 import {
   CARE_MANAGER_ROLE_CODE,
-  OCP_ADMIN_ROLE_CODE,
   MANAGE_PATIENT_URL,
+  OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
   USCOREETHNICITY,
   USCORERACE,
 } from 'containers/App/constants';
 import { setPatient } from 'containers/App/contextActions';
-import { combineAddress, isAdminWorkspace, mapToTelecoms, getPractitionerIdByRole } from 'containers/App/helpers';
+import { combineAddress, getPractitionerIdByRole, isAdminWorkspace, mapToTelecoms } from 'containers/App/helpers';
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
+import { showNotification } from 'containers/Notification/actions';
 import {
   makeSelectCurrentPage,
   makeSelectCurrentPageSize,
@@ -45,16 +46,16 @@ import {
   makeSelectSearchLoading,
   makeSelectTotalPages,
 } from './selectors';
-import { initializePatients, loadPatientSearchResult, fitlerPatient } from './actions';
+import { fitlerPatient, initializePatients, loadPatientSearchResult } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { flattenPatientData } from './helpers';
 import messages from './messages';
-import
-{ MY_CARE_TEAM_PATIENTS,
-  MY_CARE_TEAM_PATIENTS_DISPLAY,
+import {
   ALL_ORG_PATIENTS,
   ALL_ORG_PATIENTS_DISPLAY,
+  MY_CARE_TEAM_PATIENTS,
+  MY_CARE_TEAM_PATIENTS_DISPLAY,
   UNASSIGNED_PATIENTS,
   UNASSIGNED_PATIENTS_DISPLAY,
 } from './constants';
@@ -116,13 +117,25 @@ export class Patients extends React.Component {
     } else {
       this.props.setPatient(patient);
     }
+    if (patient && !patient.canViewPatientDetail) {
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
+    } else {
+      this.setState({
+        patient,
+        isPatientModalOpen: true,
+      });
+    }
   }
 
   handlePatientViewDetailsClick(patient) {
-    this.setState({
-      patient,
-      isPatientModalOpen: true,
-    });
+    if (patient && !patient.canViewPatientDetail) {
+      this.props.showNotAllowToViewPatientDetailsMessage('Not allowed to view patient\'s dashboard.');
+    } else {
+      this.setState({
+        patient,
+        isPatientModalOpen: true,
+      });
+    }
   }
 
   handlePatientModalClose() {
@@ -208,6 +221,8 @@ export class Patients extends React.Component {
           flattenPatientData={flattenPatientData}
           mapToTelecoms={mapToTelecoms}
           combineAddress={combineAddress}
+          showActionButton={false}
+          ablePatientClick={user.role !== OCP_ADMIN_ROLE_CODE}
         />
         {!!this.props.searchResult && !!this.props.currentPage &&
         <div>
@@ -259,6 +274,7 @@ Patients.propTypes = {
   totalPages: PropTypes.number,
   totalElements: PropTypes.number,
   onChangePage: PropTypes.func.isRequired,
+  showNotAllowToViewPatientDetailsMessage: PropTypes.func.isRequired,
   searchTerms: PropTypes.string,
   searchType: PropTypes.string,
   includeInactive: PropTypes.bool,
@@ -309,6 +325,7 @@ function mapDispatchToProps(dispatch) {
     getLookUpData: () => dispatch(getLookupsAction([USCORERACE, USCOREETHNICITY])),
     setPatient: (patient) => dispatch(setPatient(patient)),
     onFitlerPatient: (filterBy, organizationId, practitionerId, currentPage, includeInactive) => dispatch(fitlerPatient(filterBy, organizationId, practitionerId, currentPage, includeInactive)),
+    showNotAllowToViewPatientDetailsMessage: (message) => dispatch(showNotification(message)),
   };
 }
 

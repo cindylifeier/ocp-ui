@@ -40,7 +40,7 @@ export default defineMessages({
   },
   noCommunications: {
     id: 'ocpui.containers.communicationsTable.noCommunications',
-    defaultMessage: 'No Communications for selected patient. Please create communication.',
+    defaultMessage: 'No communications found.',
   },
   expansionRowDetails: {
     message: {

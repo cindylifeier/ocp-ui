@@ -4,26 +4,11 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import find from 'lodash/find';
-import isUndefined from 'lodash/isUndefined';
-import merge from 'lodash/merge';
-
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import Util from 'utils/Util';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
 import ManageHealthcareService from 'components/ManageHealthcareService';
+import Page from 'components/Page';
+import PageContent from 'components/PageContent';
+import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
@@ -33,6 +18,7 @@ import {
   TELECOMSYSTEM,
   TELECOMUSE,
 } from 'containers/App/constants';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   makeSelectHealthcareServiceCategories,
   makeSelectHealthcareServiceReferralMethods,
@@ -42,8 +28,22 @@ import {
   makeSelectTelecomSystems,
   makeSelectTelecomUses,
 } from 'containers/App/lookupSelectors';
-import messages from './messages';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import Util from 'utils/Util';
 import { createHealthcareService, getHealthcareServiceById, updateHealthcareService } from './actions';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectHealthcareService } from './selectors';
@@ -104,16 +104,13 @@ export class ManageHealthcareServicePage extends React.Component { // eslint-dis
       referralMethod.push(selectedReferralMethod);
       hcsDataToSubmit.referralMethod = referralMethod;
     }
-    if (!isUndefined(telecomType)) {
+    if (!isUndefined(telecomType) && !isUndefined(telecomValue)) {
       hcsDataToSubmit.telecom = [{
         system: telecomType,
-      }];
-    }
-    if (!isUndefined(telecomValue)) {
-      hcsDataToSubmit.telecom = [{
         value: telecomValue,
       }];
     }
+
     Util.pickByIdentity(hcsDataToSubmit);
     const logicalId = this.props.match.params.id;
     if (logicalId) {

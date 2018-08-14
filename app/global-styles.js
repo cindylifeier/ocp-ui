@@ -24,7 +24,8 @@ injectGlobal`
 
   p,
   label {
-    font-family: 'Roboto', sans-serif, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Arial', sans-serif, Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
+    color: #000 !important;
   }
 `;

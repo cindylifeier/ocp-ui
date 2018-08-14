@@ -3,29 +3,47 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import upperFirst from 'lodash/upperFirst';
+import words from 'lodash/words';
+import take from 'lodash/take';
+import drop from 'lodash/drop';
 
+
+import { Link } from 'react-router-dom';
+import AddCircle from '@material-ui/icons/AddCircle';
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
 import AdvisoryDetails from './AdvisoryDetails';
 import messages from './messages';
+import StyledFlatButton from '../StyledFlatButton';
+import StyledIconButton from '../StyledIconButton';
+import { MANAGE_PATIENT_URL } from '../../containers/App/constants';
 
 function ExpansionDetails({ patient }) {
   const { addresses, name, genderCode, identifier, telecoms, birthDate, flags, mrn } = patient;
+  const firstName = take(words(name));
+  const lastNames = (drop(words(name)));
+  const lastName = lastNames.join(' ');
   return (
     <Grid columns={'70% 30%'} justifyContent="space-between">
       <Cell>
         <InfoSection>
+          <StyledFlatButton component={Link} to={`${MANAGE_PATIENT_URL}/${patient.id}`}>
+            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Add icon'}>
+              <AddCircle color={'#004747'} />
+            </StyledIconButton>
+            <FormattedMessage {...messages.edit} />
+          </StyledFlatButton>
           <Grid columns={'repeat(4, 1fr)'} justifyContent="space-between">
             <Cell>
               <TextLabelGroup
                 label={<FormattedMessage {...messages.expansionDetailsFirstName} />}
-                text={name}
+                text={firstName}
               />
             </Cell>
             <Cell>
               <TextLabelGroup
                 label={<FormattedMessage {...messages.expansionDetailsLastName} />}
-                text={name}
+                text={lastName}
               />
             </Cell>
             <Cell>

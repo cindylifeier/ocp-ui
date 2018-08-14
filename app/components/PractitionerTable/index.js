@@ -13,7 +13,6 @@ import uniqueId from 'lodash/uniqueId';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import { MANAGE_PRACTITIONER_URL, MANAGE_USER_REGISTRATION } from 'containers/App/constants';
-import CenterAlign from 'components/Align/CenterAlign';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -49,9 +48,9 @@ function PractitionerTable(props) {
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
                 {isExpanded &&
-                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
                 }
-                <TableHeaderColumn > <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+                <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
@@ -84,7 +83,7 @@ function PractitionerTable(props) {
                     expansionTableRowDetails={<PractitionerExpansionRowDetails practitioner={flattenedPractitioner} />}
                     columns={columns}
                     key={logicalId}
-                    onClick={() => setSelectedPractitioner(practitioner)}
+                    onClick={() => setSelectedPractitioner && setSelectedPractitioner(practitioner)}
                   >
                     <TableRowColumn>{renderFullName(name)}</TableRowColumn>
                     {isExpanded ?
@@ -119,9 +118,9 @@ function PractitionerTable(props) {
               currentPageSize={practitionersData.currentPageSize}
             />
           </div> :
-          (<CenterAlign>
-            <NoResultsFoundText>No practitioners found</NoResultsFoundText>
-          </CenterAlign>)
+          (
+            <NoResultsFoundText><FormattedMessage {...messages.NoPractitionersFound} /></NoResultsFoundText>
+          )
       )}
     </div>
   );
@@ -131,7 +130,7 @@ PractitionerTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   size: PropTypes.object.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
-  assignLocationUrl: PropTypes.string.isRequired,
+  assignLocationUrl: PropTypes.string,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,

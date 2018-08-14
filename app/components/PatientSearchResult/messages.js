@@ -94,6 +94,18 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.addAdvisory',
     defaultMessage: 'Add Advisory',
   },
+  errorMessage: {
+    id: 'ocpui.components.PatientSearchResult.expansionRowDetails.errorMessage',
+    defaultMessage: 'Error!',
+  },
+  noMatchResult: {
+    id: 'ocpui.components.PatientSearchResult.expansionRowDetails.noMatchResult',
+    defaultMessage: 'No match search result.',
+  },
+  noPatientsFound: {
+    id: 'ocpui.components.PatientSearchResult.expansionRowDetails.noPatientsFound',
+    defaultMessage: 'No patients found.',
+  },
   expansionRowDetails: {
     name: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.name',

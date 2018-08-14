@@ -9,7 +9,9 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import CustomErrorText from 'components/CustomErrorText';
+import find from 'lodash/find';
 import messages from './messages';
+import { ENTERED_IN_ERROR_STATUS } from './constants';
 
 function AddEpisodeOfCareTable(props) {
   const tableColumns = 'repeat(5, 1fr) 80px';
@@ -18,6 +20,7 @@ function AddEpisodeOfCareTable(props) {
     arrayHelpers,
     handleEditEpisodeOfCare,
     episodeOfCares,
+    episodeOfCareType,
   } = props;
   return (
     <div>
@@ -34,18 +37,21 @@ function AddEpisodeOfCareTable(props) {
         <CustomErrorText>{errors.epidoseOfCare}</CustomErrorText>
         }
         {episodeOfCares && episodeOfCares.map((episodeOfCare, index) => {
-          const { status, type, startDate, endDate, careManager } = episodeOfCare;
+          const { id, managingOrganization, patient, type, status, typeDisplay, startDate, endDate, careManager } = episodeOfCare;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionEdit} />,
             onClick: () => handleEditEpisodeOfCare(index, episodeOfCare),
           }, {
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionRemove} />,
-            onClick: () => arrayHelpers.remove(index),
+            onClick: () => {
+              const enteredInErroEOC = { id, managingOrganization, patient, type, status: ENTERED_IN_ERROR_STATUS, statusDisplay: typeDisplay, startDate, endDate, careManager };
+              arrayHelpers.replace(index, enteredInErroEOC);
+            },
           }];
-          return (
+          return (status !== ENTERED_IN_ERROR_STATUS &&
             <TableRow key={uniqueId()} columns={tableColumns}>
               <TableRowColumn>{status}</TableRowColumn>
-              <TableRowColumn>{type}</TableRowColumn>
+              <TableRowColumn>{find(episodeOfCareType, { code: type }) && (find(episodeOfCareType, { code: type })).display}</TableRowColumn>
               <TableRowColumn>{careManager && careManager.display}</TableRowColumn>
               <TableRowColumn>{startDate}</TableRowColumn>
               <TableRowColumn>{endDate}</TableRowColumn>
@@ -59,12 +65,11 @@ function AddEpisodeOfCareTable(props) {
     </div>
   );
 }
-
 AddEpisodeOfCareTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
   handleEditEpisodeOfCare: PropTypes.func,
   episodeOfCares: PropTypes.array,
+  episodeOfCareType: PropTypes.array,
 };
-
 export default AddEpisodeOfCareTable;

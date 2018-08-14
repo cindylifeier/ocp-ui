@@ -5,20 +5,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 
-import renderPermissionAssignmentsComponent from 'containers/PermissionAssignments/render';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import renderManageUsersComponent from 'containers/ManageUsers/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
-import makeSelectManageUsersPage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
 
 export const initialStateMetadata =
@@ -63,9 +54,9 @@ export const initialStateMetadata =
       title: '',
       content: [
         {
-          title: 'User Permission Management',
+          title: 'User Management',
           type: 'component',
-          componentName: 'practitionerPermissionAssignment',
+          componentName: 'userManagement',
           isClosable: true,
           reorderEnabled: true,
         },
@@ -79,7 +70,7 @@ export const initialStateMetadata =
   };
 
 export const componentMetadata = [
-  { name: 'practitionerPermissionAssignment', text: 'practitionerPermissionAssignment', factoryMethod: renderPermissionAssignmentsComponent },
+  { name: 'userManagement', text: 'userManagement', factoryMethod: renderManageUsersComponent },
 ];
 
 export class ManageUsersPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -87,8 +78,8 @@ export class ManageUsersPage extends React.Component { // eslint-disable-line re
     return (
       <Page>
         <Helmet>
-          <title>Admin Manage Permissions Page</title>
-          <meta name="description" content="Admin Manage Permissions page of Omnibus Care Plan application" />
+          <title>User Manage Page</title>
+          <meta name="description" content="User Manage page of Omnibus Care Plan application" />
         </Helmet>
         <GoldenLayout
           containerHeight="85vh"
@@ -102,27 +93,6 @@ export class ManageUsersPage extends React.Component { // eslint-disable-line re
   }
 }
 
-ManageUsersPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+ManageUsersPage.propTypes = {};
 
-const mapStateToProps = createStructuredSelector({
-  manageuserspage: makeSelectManageUsersPage(),
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'manageUsersPage', reducer });
-const withSaga = injectSaga({ key: 'manageUsersPage', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ManageUsersPage);
+export default ManageUsersPage;

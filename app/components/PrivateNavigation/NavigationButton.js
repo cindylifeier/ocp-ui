@@ -9,7 +9,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 
 const NavigationButton = styled(StyledFlatButton)`
   && {
-    color: #666;
+    color: #000;
     font-size: 12px;
     max-height: 32px;
     padding: 0;
