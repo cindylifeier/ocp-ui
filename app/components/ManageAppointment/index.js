@@ -35,6 +35,7 @@ function ManageAppointment(props) {
     appointmentParticipantRequired,
     handleAddParticipant,
     getReferenceTypeFromReference,
+    handleDialogOpen,
   } = props;
   const propsFromContainer = {
     patient,
@@ -53,6 +54,7 @@ function ManageAppointment(props) {
     appointmentParticipantRequired,
     handleAddParticipant,
     getReferenceTypeFromReference,
+    handleDialogOpen,
   };
 
   function setAppointmentTime(timeStr, dateStr) {
@@ -135,6 +137,7 @@ function ManageAppointment(props) {
 
 ManageAppointment.propTypes = {
   handleSelectLocation: PropTypes.func.isRequired,
+  handleDialogOpen: PropTypes.func.isRequired,
   getReferenceTypeFromReference: PropTypes.func.isRequired,
   handleAddParticipant: PropTypes.func.isRequired,
   handleSelectPractitioner: PropTypes.func.isRequired,

@@ -16,7 +16,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
-import AddParticipantOrServiceDialog from 'components/AddParticipantOrServiceDialog';
 import Util from 'utils/Util';
 import messages from './messages';
 import SelectedParticipants from './SelectedParticipants';
@@ -28,13 +27,11 @@ class ManageAppointmentForm extends React.Component {
     this.startDateTime = null;
     this.endDateTime = null;
     this.state = {
-      open: false,
+      // open: false,
       isEndDateBeforeStartDate: false,
     };
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
-    this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   componentDidMount() {
@@ -45,9 +42,6 @@ class ManageAppointmentForm extends React.Component {
       const endTime = new Date(end[0], end[1], end[2], end[3], end[4]);
       this.startDateTime = startTime;
       this.endDateTime = endTime;
-      this.handleDialogOpen = this.handleDialogOpen.bind(this);
-      this.handleDialogClose = this.handleDialogClose.bind(this);
-      this.addParticipant = this.addParticipant.bind(this);
     }
   }
 
@@ -80,14 +74,6 @@ class ManageAppointmentForm extends React.Component {
     });
   }
 
-  handleDialogOpen() {
-    this.setState({ open: true });
-  }
-
-  handleDialogClose() {
-    this.setState({ open: false });
-  }
-
   render() {
     const today = new Date();
     const {
@@ -95,21 +81,15 @@ class ManageAppointmentForm extends React.Component {
       dirty,
       isValid,
       editMode,
-      careTeams,
       appointmentTypes,
       appointmentStatuses,
       selectedParticipants,
       initialSelectedParticipants,
       removeParticipant,
       patient,
-      healthcareServices,
-      handleSelectLocation,
-      handleSelectPractitioner,
-      locations,
-      practitioners,
       appointmentParticipantRequired,
-      handleAddParticipant,
       getReferenceTypeFromReference,
+      handleDialogOpen,
     } = this.props;
     const selectedParticipantsProps = {
       selectedParticipants,
@@ -117,18 +97,6 @@ class ManageAppointmentForm extends React.Component {
       getReferenceTypeFromReference,
     };
 
-    const addParticipantsOrServiceProps = {
-      open: this.state.open,
-      handleDialogClose: this.handleDialogClose,
-      healthcareServices,
-      handleSelectLocation,
-      handleSelectPractitioner,
-      locations,
-      careTeams,
-      practitioners,
-      appointmentParticipantRequired,
-      handleAddParticipant,
-    };
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
@@ -151,7 +119,10 @@ class ManageAppointmentForm extends React.Component {
             <Cell area="addParticipant">
               <StyledRaisedButton
                 fullWidth
-                onClick={this.handleDialogOpen}
+                onClick={() => {
+                  handleDialogOpen();
+                }
+                }
               >
                 <FormattedMessage {...messages.addParticipantBtnLabel} />
               </StyledRaisedButton>
@@ -274,7 +245,6 @@ class ManageAppointmentForm extends React.Component {
             </Cell>
           </ManageAppointmentFormGrid>
         </Form>
-        <AddParticipantOrServiceDialog {...addParticipantsOrServiceProps}></AddParticipantOrServiceDialog>
       </div>
     );
   }
@@ -298,15 +268,9 @@ ManageAppointmentForm.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   appointmentStatuses: PropTypes.array,
-  healthcareServices: PropTypes.array,
   appointment: PropTypes.object,
-  handleSelectLocation: PropTypes.func.isRequired,
-  handleSelectPractitioner: PropTypes.func.isRequired,
-  locations: PropTypes.array,
-  practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
-  careTeams: PropTypes.array,
-  handleAddParticipant: PropTypes.func,
+  handleDialogOpen: PropTypes.func,
 };
 
 export default ManageAppointmentForm;
