@@ -4,20 +4,20 @@
  *
  */
 
-import React from 'react';
-import yup from 'yup';
-import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import find from 'lodash/find';
-import Util from 'utils/Util';
-import { getPatientName } from 'utils/PatientUtils';
 import { isUndefined } from 'lodash';
+import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { getPatientName } from 'utils/PatientUtils';
+import Util from 'utils/Util';
+import yup from 'yup';
+import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
-import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 
 
 function ManageCommunication(props) {
@@ -291,8 +291,8 @@ function ManageCommunication(props) {
           selectedRecipients,
           selectedTask,
           selectedAppointment,
-          sentDateTime
-          );
+          sentDateTime,
+        );
         onSave(communicationToBeSubmitted, actions);
       }}
       validationSchema={
@@ -307,6 +307,10 @@ function ManageCommunication(props) {
               <FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
             .min(textAreaMinLength, (
               <FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
+          notDone: yup.bool(),
+          notDoneReasonCode: yup.string()
+            .when('notDone', { is: true, then: yup.string().required((<FormattedMessage {...messages.validation.required} />)), otherwise: yup.string() },
+            ),
         })
       }
       render={(formikProps) => <ManageCommunicationForm {...formikProps} {...propsFromContainer} />}
