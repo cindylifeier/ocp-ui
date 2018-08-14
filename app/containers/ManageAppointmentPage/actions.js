@@ -8,16 +8,6 @@ import {
   GET_APPOINTMENT, GET_APPOINTMENT_SUCCESS,
   INITIALIZE_MANAGE_APPOINTMENT,
   SAVE_APPOINTMENT,
-  GET_HEALTHCARE_SERVICE_REFERENCES,
-  GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
-  GET_LOCATION_REFERENCES,
-  GET_LOCATION_REFERENCES_SUCCESS,
-  GET_PRACTITIONER_REFERENCES,
-  GET_PRACTITIONER_REFERENCES_SUCCESS,
-  GET_CARE_TEAM_REFERENCES,
-  GET_CARE_TEAM_REFERENCES_SUCCESS,
-  REMOVE_APPOINTMENT_PARTICIPANT,
-  GET_ADD_PARTICIPANTS,
 } from './constants';
 
 export function initializeManageAppointment() {
@@ -33,48 +23,6 @@ export function getAppointment(appointmentId) {
   };
 }
 
-export function getHealthcareServiceReferences(organizationId) {
-  return {
-    type: GET_HEALTHCARE_SERVICE_REFERENCES,
-    organizationId,
-  };
-}
-
-export function getHealthcareServiceReferencesSuccess(healthcareServices) {
-  return {
-    type: GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
-    healthcareServices,
-  };
-}
-
-export function getLocationReferences(healthcareServiceId) {
-  return {
-    type: GET_LOCATION_REFERENCES,
-    healthcareServiceId,
-  };
-}
-
-export function getLocationReferencesSuccess(locations) {
-  return {
-    type: GET_LOCATION_REFERENCES_SUCCESS,
-    locations,
-  };
-}
-
-export function getPractitionerReferences(organizationId, locationId) {
-  return {
-    type: GET_PRACTITIONER_REFERENCES,
-    organizationId,
-    locationId,
-  };
-}
-
-export function getPractitionerReferencesSuccess(practitioners) {
-  return {
-    type: GET_PRACTITIONER_REFERENCES_SUCCESS,
-    practitioners,
-  };
-}
 
 export function getAppointmentSuccess(appointment) {
   return {
@@ -88,40 +36,5 @@ export function saveAppointment(appointment, handleSubmitting) {
     type: SAVE_APPOINTMENT,
     appointment,
     handleSubmitting,
-  };
-}
-
-export function getCareTeamReferences(patientId) {
-  return {
-    type: GET_CARE_TEAM_REFERENCES,
-    patientId,
-  };
-}
-
-export function getCareTeamReferencesSuccess(careTeams) {
-  return {
-    type: GET_CARE_TEAM_REFERENCES_SUCCESS,
-    careTeams,
-  };
-}
-
-export function getAddParticipants(participants) {
-  return {
-    type: GET_ADD_PARTICIPANTS,
-    participants,
-  };
-}
-export function getAddAppointmentParticipants(participants) {
-  return {
-    type: GET_ADD_PARTICIPANTS,
-    participants,
-  };
-}
-
-
-export function removeAppointmentParticipant(participant) {
-  return {
-    type: REMOVE_APPOINTMENT_PARTICIPANT,
-    participant,
   };
 }

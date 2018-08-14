@@ -15,38 +15,8 @@ const makeSelectAppointment = () => createSelector(
   (subState) => subState && subState.get('appointment'),
 );
 
-const makeSelectHealthcareServiceReferences = () => createSelector(
-  selectManageAppointmentPageDomain,
-  (subState) => subState && subState.get('healthcareServices'),
-);
-
-const makeSelectLocationReferences = () => createSelector(
-  selectManageAppointmentPageDomain,
-  (subState) => subState && subState.get('locations'),
-);
-
-const makeSelectPractitionerReferences = () => createSelector(
-  selectManageAppointmentPageDomain,
-  (subState) => subState && subState.get('practitioners'),
-);
-
-const makeSelectCareTeamReferences = () => createSelector(
-  selectManageAppointmentPageDomain,
-  (subState) => subState && subState.get('careTeams'),
-);
-
-
-const makeSelectParticipants = () => createSelector(
-  selectManageAppointmentPageDomain,
-  (subState) => subState && subState.get('selectedParticipants').toJS(),
-);
 
 export {
   selectManageAppointmentPageDomain,
   makeSelectAppointment,
-  makeSelectHealthcareServiceReferences,
-  makeSelectLocationReferences,
-  makeSelectPractitionerReferences,
-  makeSelectCareTeamReferences,
-  makeSelectParticipants,
 };

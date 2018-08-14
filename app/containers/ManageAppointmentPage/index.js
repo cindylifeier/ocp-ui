@@ -8,8 +8,6 @@ import ManageAppointment from 'components/ManageAppointment';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
-import find from 'lodash/find';
-import isEmpty from 'lodash/isEmpty';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
@@ -20,6 +18,7 @@ import {
   makeSelectUser,
   makeSelectOrganization,
 } from 'containers/App/contextSelectors';
+import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
   makeSelectAppointmentStatuses,
   makeSelectAppointmentTypes,
@@ -42,28 +41,23 @@ import {
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
 import {
+  removeAppointmentParticipant,
+} from 'containers/SearchAppointmentParticipant/actions';
+import {
+  makeSelectAppointment,
+} from 'containers/ManageAppointmentPage/selectors';
+import {
+  makeSelectSelectedAppointmentParticipants,
+} from 'containers/SearchAppointmentParticipant/selectors';
+import {
   getAppointment,
   saveAppointment,
   initializeManageAppointment,
-  getHealthcareServiceReferences,
-  getLocationReferences,
-  getPractitionerReferences,
-  getCareTeamReferences,
-  getAddAppointmentParticipants,
-  removeAppointmentParticipant,
 } from './actions';
 import { mapToEditParticipants } from './api';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import {
-  makeSelectAppointment,
-  makeSelectLocationReferences,
-  makeSelectPractitionerReferences,
-  makeSelectHealthcareServiceReferences,
-  makeSelectCareTeamReferences,
-  makeSelectParticipants,
-} from './selectors';
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -72,73 +66,26 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     this.state = {
       name: '',
       member: '',
+      open: false,
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
     this.handleSelectLocation = this.handleSelectLocation.bind(this);
     this.handleSelectPractitioner = this.handleSelectPractitioner.bind(this);
-    this.handleAddParticipant = this.handleAddParticipant.bind(this);
+    this.handleDialogOpen = this.handleDialogOpen.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   componentDidMount() {
     this.props.getLookups();
     const appointmentId = this.props.match.params.id;
-    const { organization, patient } = this.props;
     if (appointmentId) {
       this.props.getAppointment(appointmentId);
-    }
-    if (organization) {
-      this.props.getHealthcareServiceReferences(organization.logicalId);
-    }
-
-    if (patient) {
-      this.props.getCareTeamReferences(patient.id);
     }
   }
 
   componentWillUnmount() {
     this.props.initializeManageAppointment();
-  }
-
-  handleAddParticipant(selectedParticipant) {
-    const { healthcareServices, locations, appointmentParticipantRequired, practitioners, careTeams } = this.props;
-
-    const participantList = [];
-
-    const service = this.findObject(healthcareServices, selectedParticipant, 'reference', 'service');
-    if (!isEmpty(service)) {
-      participantList.push(service);
-    }
-
-    const location = this.findObject(locations, selectedParticipant, 'reference', 'location');
-    if (!isEmpty(location)) {
-      participantList.push(location);
-    }
-    const practitioner = this.findObject(practitioners, selectedParticipant, 'reference', 'practitioner');
-    if (!isEmpty(practitioner)) {
-      participantList.push(practitioner);
-    }
-
-    const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
-    if (!isEmpty(careTeam)) {
-      participantList.push(careTeam);
-    }
-
-
-    const required = this.findObject(appointmentParticipantRequired, selectedParticipant, 'code', 'required');
-
-    if (!isEmpty(practitioner) && !isEmpty(required)) {
-      practitioner.participantRequiredDisplay = required.display;
-      practitioner.participantRequiredSystem = required.system;
-
-      this.props.addParticipants(participantList);
-    }
-  }
-
-  findObject(entries, selectedParticipant, key, value) {
-    const searckObject = {};
-    searckObject[key] = selectedParticipant[value];
-    return selectedParticipant && selectedParticipant[value] && find(entries, searckObject);
   }
   handleSave(appointmentFormData, actions) {
     const patientId = this.props.patient.id;
@@ -185,6 +132,14 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     }
   }
 
+  handleDialogOpen() {
+    this.setState({ open: true });
+  }
+
+  handleDialogClose() {
+    this.setState({ open: false });
+  }
+
   render() {
     const {
       match,
@@ -208,6 +163,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     }
 
     const manageAppointmentProps = {
+      handleDialogOpen: this.handleDialogOpen,
       patient,
       careTeams,
       appointment,
@@ -225,6 +181,24 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       handleSelectLocation: this.handleSelectLocation,
       handleSelectPractitioner: this.handleSelectPractitioner,
     };
+
+    const searchParticipantProps = {
+      careTeams,
+      appointment,
+      appointmentStatuses,
+      appointmentTypes,
+      selectedParticipants,
+      initialSelectedParticipants,
+      handleAddParticipant: this.handleAddParticipant,
+      healthcareServices,
+      locations,
+      practitioners,
+      appointmentParticipantRequired,
+      handleSelectLocation: this.handleSelectLocation,
+      handleSelectPractitioner: this.handleSelectPractitioner,
+      handleDialogClose: this.handleDialogClose,
+    };
+
 
     return (
       <Page>
@@ -244,6 +218,10 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
           removeParticipant={this.handleRemoveParticipant}
           handleOpen={this.handleOpen}
         />
+        <SearchAppointmentParticipant
+          open={this.state.open}
+          {...searchParticipantProps}
+        ></SearchAppointmentParticipant>
       </Page>
     );
   }
@@ -252,6 +230,9 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
 ManageAppointmentPage.propTypes = {
   match: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
+  getLocationReferences: PropTypes.func,
+  getPractitionerReferences: PropTypes.func,
+  getAppointment: PropTypes.func.isRequired,
   saveAppointment: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
   healthcareServices: PropTypes.array,
@@ -271,12 +252,6 @@ ManageAppointmentPage.propTypes = {
     system: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  getAppointment: PropTypes.func.isRequired,
-  getHealthcareServiceReferences: PropTypes.func.isRequired,
-  getPractitionerReferences: PropTypes.func.isRequired,
-  getCareTeamReferences: PropTypes.func.isRequired,
-  getLocationReferences: PropTypes.func.isRequired,
-  addParticipants: PropTypes.func.isRequired,
   selectedAppointment: PropTypes.object,
   organization: PropTypes.object,
   appointmentParticipantRequired: PropTypes.array,
@@ -288,15 +263,10 @@ const mapStateToProps = createStructuredSelector({
   appointmentTypes: makeSelectAppointmentTypes(),
   patient: makeSelectPatient(),
   user: makeSelectUser(),
-  // selectedParticipants: makeSelectSelectedAppointmentParticipants(),
+  selectedParticipants: makeSelectSelectedAppointmentParticipants(),
   selectedAppointment: makeSelectAppointment(),
   organization: makeSelectOrganization(),
-  healthcareServices: makeSelectHealthcareServiceReferences(),
-  locations: makeSelectLocationReferences(),
-  practitioners: makeSelectPractitionerReferences(),
   appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
-  careTeams: makeSelectCareTeamReferences(),
-  selectedParticipants: makeSelectParticipants(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -306,11 +276,6 @@ function mapDispatchToProps(dispatch) {
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
-    getHealthcareServiceReferences: (organizationId) => dispatch(getHealthcareServiceReferences(organizationId)),
-    getCareTeamReferences: (patientId) => dispatch(getCareTeamReferences(patientId)),
-    getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
-    getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
-    addParticipants: (participants) => dispatch(getAddAppointmentParticipants(participants)),
   };
 }
 
