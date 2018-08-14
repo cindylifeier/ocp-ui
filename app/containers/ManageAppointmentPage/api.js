@@ -126,6 +126,7 @@ export function mapToEditParticipants(participants) {
         participantRequiredCode: participant.participantRequiredCode,
         participationStatusCode: participant.participationStatusCode,
         participantStatusDisplay: participant.participantStatusDisplay,
+        participantRequiredDisplay: participant.participantRequiredDisplay,
         reference: participant.actorReference,
       }));
   }

@@ -183,6 +183,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     };
 
     const searchParticipantProps = {
+      open: this.state.open,
       careTeams,
       appointment,
       appointmentStatuses,
@@ -198,7 +199,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       handleSelectPractitioner: this.handleSelectPractitioner,
       handleDialogClose: this.handleDialogClose,
     };
-
 
     return (
       <Page>
@@ -219,7 +219,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
           handleOpen={this.handleOpen}
         />
         <SearchAppointmentParticipant
-          open={this.state.open}
           {...searchParticipantProps}
         ></SearchAppointmentParticipant>
       </Page>
