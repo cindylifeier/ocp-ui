@@ -57,11 +57,7 @@ class AddParticipantOrServiceForm extends React.Component {
     const { tabIndex } = this.state;
 
     function setInitialValues() {
-      const initialValue = {};
-      // if(serviceReference) {
-      //   initialValue.service = serviceReference;
-      // }
-      return initialValue;
+      return {};
     }
 
     return (
@@ -76,7 +72,7 @@ class AddParticipantOrServiceForm extends React.Component {
             service: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
           })}
-          render={({ isSubmitting, dirty, isValid }) => (
+          render={({ isSubmitting, dirty, isValid, resetForm }) => (
             <Form>
               <AddParticipantORServiceFormGrid gap="1vw">
                 <Cell area="dialogTitle">
@@ -85,7 +81,13 @@ class AddParticipantOrServiceForm extends React.Component {
                   </DialogHeader>
                 </Cell>
                 <Cell area="serviceCareTeamNonCareTeamTab">
-                  <Tabs value={tabIndex} onChange={this.handleTabChange}>
+                  <Tabs
+                    value={tabIndex}
+                    onChange={(event, index) => {
+                      resetForm();
+                      this.handleTabChange(event, index);
+                    }}
+                  >
                     <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
                     <Tab label={<FormattedMessage {...messages.careTeamTabLabel} />} />
                     <Tab label={<FormattedMessage {...messages.nonCareTeamTabLabel} />} disabled />
