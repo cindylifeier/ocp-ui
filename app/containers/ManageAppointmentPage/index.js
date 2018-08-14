@@ -19,7 +19,6 @@ import {
   makeSelectOrganization,
 } from 'containers/App/contextSelectors';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
-import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
 import find from 'lodash/find';
 import {
   makeSelectAppointmentStatuses,
@@ -43,15 +42,14 @@ import {
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
 import {
+  makeSelectSelectedAppointmentParticipants,
+} from 'containers/SearchAppointmentParticipant/selectors';
+import {
   removeAppointmentParticipant,
-  initializeSearchAppointmentParticipantResult,
 } from 'containers/SearchAppointmentParticipant/actions';
 import {
   makeSelectAppointment,
 } from 'containers/ManageAppointmentPage/selectors';
-import {
-  makeSelectSelectedAppointmentParticipants,
-} from 'containers/SearchAppointmentParticipant/selectors';
 import {
   getAppointment,
   saveAppointment,
@@ -61,6 +59,7 @@ import { mapToEditParticipants } from './api';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
+
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
