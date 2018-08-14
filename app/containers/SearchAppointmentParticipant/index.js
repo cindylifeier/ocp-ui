@@ -64,7 +64,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     const { organization, patient } = this.props;
 
     this.props.getLookups();
-
+    this.props.initializeSearchParticipant([]);
     if (organization) {
       this.props.getHealthcareServiceReferences(organization.logicalId);
     }
