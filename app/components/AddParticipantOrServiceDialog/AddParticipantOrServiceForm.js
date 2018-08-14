@@ -202,23 +202,6 @@ class AddParticipantOrServiceForm extends React.Component {
                         <Cell>
                           <SelectField
                             fullWidth
-                            name="location"
-                            onChange={this.handleLocationChanged}
-                            hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
-                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
-                          >
-                            {locations && locations.map((location) =>
-                              (<MenuItem
-                                key={location.reference}
-                                value={location.reference}
-                                primaryText={location.display}
-                              />),
-                            )}
-                          </SelectField>
-                        </Cell>
-                        <Cell>
-                          <SelectField
-                            fullWidth
                             name="service"
                             onChange={this.handleServiceChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectService} />}
@@ -233,7 +216,23 @@ class AddParticipantOrServiceForm extends React.Component {
                             )}
                           </SelectField>
                         </Cell>
-
+                        <Cell>
+                          <SelectField
+                            fullWidth
+                            name="location"
+                            onChange={this.handleLocationChanged}
+                            hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
+                            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
+                          >
+                            {locations && locations.map((location) =>
+                              (<MenuItem
+                                key={location.reference}
+                                value={location.reference}
+                                primaryText={location.display}
+                              />),
+                            )}
+                          </SelectField>
+                        </Cell>
                       </Grid>
                     </TabContainer>
                   }
