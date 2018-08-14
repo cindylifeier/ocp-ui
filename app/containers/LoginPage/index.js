@@ -35,11 +35,9 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
           <title>Login</title>
           <meta name="description" content="Login page of Omnibus Care Plan application" />
         </Helmet>
-        <div>
-          {this.props.config &&
-          <Login onLogin={this.handleLogin} isShowSampleUserLoginDetails={isShowSampleUserLoginDetails} />
-          }
-        </div>
+        {this.props.config &&
+        <Login onLogin={this.handleLogin} isShowSampleUserLoginDetails={isShowSampleUserLoginDetails} />
+        }
       </div>
     );
   }
