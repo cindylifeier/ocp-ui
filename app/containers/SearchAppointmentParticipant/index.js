@@ -25,6 +25,7 @@ import {
   getPractitionerReferences,
 } from 'containers/SearchAppointmentParticipant/actions';
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 import find from 'lodash/find';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import PropTypes from 'prop-types';
@@ -51,6 +52,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     super(props);
     this.state = {
       open: false,
+      initializeParticipant: false,
     };
     this.handleAddParticipant = this.handleAddParticipant.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
@@ -62,7 +64,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     const { organization, patient } = this.props;
 
     this.props.getLookups();
-    this.props.initializeSearchParticipant(this.props.initialSelectedParticipants);
 
     if (organization) {
       this.props.getHealthcareServiceReferences(organization.logicalId);
@@ -70,6 +71,15 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
     if (patient) {
       this.props.getCareTeamReferences(patient.id);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { initialSelectedParticipants } = this.props;
+    const { initialSelectedParticipants: newInitialSelectedParticipants } = nextProps;
+    if (!isEqual(initialSelectedParticipants, newInitialSelectedParticipants) && !this.state.initializeParticipant) {
+      this.setState({ initializeParticipant: true });
+      this.props.initializeSearchParticipant(newInitialSelectedParticipants);
     }
   }
 
