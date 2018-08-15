@@ -116,4 +116,34 @@ export default defineMessages({
       defaultMessage: 'Country',
     },
   },
+  addedContactsTable: {
+    tableHeaderName: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableHeaderName',
+      defaultMessage: 'Name',
+    },
+    tableHeaderPurpose: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableHeaderPurpose',
+      defaultMessage: 'Purpose',
+    },
+    tableHeaderTelecoms: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableHeaderTelecoms',
+      defaultMessage: 'Telecom',
+    },
+    tableHeaderAddress: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableHeaderAddress',
+      defaultMessage: 'Address',
+    },
+    tableHeaderAction: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableHeaderAction',
+      defaultMessage: 'Action',
+    },
+    tableActionEdit: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableActionEdit',
+      defaultMessage: 'Edit',
+    },
+    tableActionRemove: {
+      id: 'ocpui.components.AddMultipleContacts.addedTelecomsTable.tableActionRemove',
+      defaultMessage: 'Remove',
+    },
+  },
 });

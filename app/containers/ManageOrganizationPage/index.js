@@ -14,6 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import {
+  CONTACTPURPOSE,
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
   TELECOMSYSTEM,
@@ -22,6 +23,7 @@ import {
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import {
+  makeSelectContactPurpose,
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
@@ -67,7 +69,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
   }
 
   render() {
-    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, organization } = this.props;
+    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, contactPurposes, organization } = this.props;
     let initialValues = {};
     let editingOrganization = null;
     // if id in the route exists but no initial data to edit
@@ -115,6 +117,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
               organizationStatuses={organizationStatuses}
               telecomSystems={telecomSystems}
               telecomUses={telecomUses}
+              contactPurposes={contactPurposes}
               onSubmitCreate={this.handleSubmitCreate}
               onSubmitUpdate={this.handleSubmitUpdate}
             />
@@ -150,6 +153,12 @@ ManageOrganizationPage.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
+  contactPurposes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     display: PropTypes.string,
@@ -193,12 +202,13 @@ const mapStateToProps = createStructuredSelector({
   organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
+  contactPurposes: makeSelectContactPurpose(),
   organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, TELECOMUSE, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, TELECOMUSE, CONTACTPURPOSE, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
     updateOrganization: (id, organization, callback) => dispatch(updateOrganization(id, organization, callback)),
     getOrganization: (logicalId) => dispatch(getOrganization(logicalId)),

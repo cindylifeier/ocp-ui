@@ -7,13 +7,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import teal from 'material-ui-next/colors/teal';
 
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import FormSubtitle from 'components/FormSubtitle';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
+import StyledDialog from 'components/StyledDialog';
 import AddMultipleAddressesForm from './AddMultipleAddressesForm';
 import AddedAddressesTable from './AddedAddressesTable';
 import messages from './messages';
@@ -68,20 +69,18 @@ class AddMultipleAddresses extends React.Component {
             name="addresses"
             render={(arrayHelpers) => (
               <div>
-                <Dialog
-                  title="Add Address"
-                  modal={false}
-                  open={this.state.isAddressesDialogOpen}
-                  onRequestClose={this.handleCloseDialog}
-                >
-                  <AddMultipleAddressesForm
-                    initialValues={this.state.editingAddress}
-                    onAddAddress={arrayHelpers.push}
-                    onRemoveAddress={arrayHelpers.remove}
-                    uspsStates={uspsStates}
-                    handleCloseDialog={this.handleCloseDialog}
-                  />
-                </Dialog>
+                <StyledDialog fullWidth open={this.state.isAddressesDialogOpen}>
+                  <DialogTitle>Add Address</DialogTitle>
+                  <DialogContent>
+                    <AddMultipleAddressesForm
+                      initialValues={this.state.editingAddress}
+                      onAddAddress={arrayHelpers.push}
+                      onRemoveAddress={arrayHelpers.remove}
+                      uspsStates={uspsStates}
+                      handleCloseDialog={this.handleCloseDialog}
+                    />
+                  </DialogContent>
+                </StyledDialog>
                 <AddedAddressesTable
                   handleEditAddress={this.handleEditAddress}
                   arrayHelpers={arrayHelpers}

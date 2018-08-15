@@ -57,35 +57,8 @@ function ManageOrganization(props) {
   const {
     id, initialValues, editingOrganization, onSubmitCreate, onSubmitUpdate,
     uspsStates, organizationIdentifierSystems, organizationStatuses,
-    telecomSystems, telecomUses,
+    telecomSystems, telecomUses, contactPurposes,
   } = props;
-
-  // Todo: Get lookup from backend
-  const contactPurposes = [{
-    code: 'BILL',
-    definition: null,
-    display: 'Billing',
-  }, {
-    code: 'ADMIN',
-    definition: null,
-    display: 'Administrative',
-  }, {
-    code: 'HR',
-    definition: null,
-    display: 'Human Resource',
-  }, {
-    code: 'PAYOR',
-    definition: null,
-    display: 'Payor',
-  }, {
-    code: 'PATINF',
-    definition: null,
-    display: 'Patient',
-  }, {
-    code: 'PRESS',
-    definition: null,
-    display: 'Press',
-  }];
 
   return (
     <Formik
@@ -229,6 +202,12 @@ ManageOrganization.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
+  contactPurposes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     display: PropTypes.string,

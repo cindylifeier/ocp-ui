@@ -16,6 +16,7 @@ import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import StyledDialog from 'components/StyledDialog';
 import AddMultipleContactsForm from './AddMultipleContactsForm';
+import AddedContactsTable from './AddedContactsTable';
 import messages from './messages';
 
 
@@ -24,9 +25,11 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
     super(props);
     this.state = {
       dialogOpen: false,
+      editingContact: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleEditContact = this.handleEditContact.bind(this);
   }
 
   handleOpenDialog() {
@@ -39,9 +42,15 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
     });
   }
 
+  handleEditContact(index, contact) {
+    this.setState((prevState) => ({
+      dialogOpen: !prevState.dialogOpen,
+      editingContact: { index, contact },
+    }));
+  }
+
   render() {
     const { contactPurposes, uspsStates, contacts, errors } = this.props;
-    console.log(contacts, errors);
     return (
       <div>
         <FormSubtitle margin="1vh 0 0 0">
@@ -61,6 +70,7 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
                 </DialogTitle>
                 <DialogContent>
                   <AddMultipleContactsForm
+                    initialValues={this.state.editingContact}
                     onAddContact={arrayHelpers.push}
                     onRemoveContact={arrayHelpers.remove}
                     onCloseDialog={this.handleCloseDialog}
@@ -69,6 +79,12 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
                   />
                 </DialogContent>
               </StyledDialog>
+              <AddedContactsTable
+                arrayHelpers={arrayHelpers}
+                onEditContact={this.handleEditContact}
+                contacts={contacts}
+                errors={errors}
+              />
             </div>
           )}
         />
@@ -86,7 +102,18 @@ AddMultipleContacts.propTypes = {
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })),
-  contacts: PropTypes.object,
+  contacts: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    purpose: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    line1: PropTypes.string,
+    line2: PropTypes.string,
+    city: PropTypes.string,
+    state: PropTypes.string,
+    postalCode: PropTypes.string,
+    countryCode: PropTypes.string,
+  })),
   errors: PropTypes.object,
 };
 

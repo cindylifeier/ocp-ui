@@ -43,7 +43,7 @@ function AddMultipleContactsForm(props) {
           onAddContact(values);
           onCloseDialog();
         }}
-        initialValues={{ ...(initialValues || {}).telecom }}
+        initialValues={{ ...(initialValues || {}).contact }}
         validationSchema={yup.object().shape({
           purpose: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -130,7 +130,6 @@ function AddMultipleContactsForm(props) {
                   fullWidth
                   name="postalCode"
                   hintText={<FormattedMessage {...messages.hintText.postalCode} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
                 />
               </Cell>
               <Cell area="country">
@@ -138,7 +137,6 @@ function AddMultipleContactsForm(props) {
                   fullWidth
                   name="countryCode"
                   hintText={<FormattedMessage {...messages.hintText.countryCode} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.countryCode} />}
                 />
               </Cell>
               <Cell area="buttonGroup">
