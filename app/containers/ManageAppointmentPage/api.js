@@ -52,8 +52,12 @@ function updateAppointment(appointmentFormData) {
 }
 
 function mapToBackendAppointment(appointmentFormData, isCreate) {
-  const { appointmentStatus, appointmentType, date, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
+  const { appointmentStatus, appointmentType, date, creatorRequired, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
   const appointmentDataToSubmit = {};
+  if (!isUndefined(creatorRequired)) {
+    appointmentDataToSubmit.creatorRequired = creatorRequired;
+  }
+
   if (!isUndefined(description)) {
     appointmentDataToSubmit.description = description;
   }
@@ -126,7 +130,7 @@ export function mapToEditParticipants(participants) {
         participationTypeCode: participant.participationTypeCode,
         participationTypeDisplay: participant.participationTypeDisplay,
         participantRequiredCode: participant.participantRequiredCode,
-        participationStatusCode: participant.participationStatusCode,
+        participantStatusCode: participant.participantStatusCode,
         participantStatusDisplay: participant.participantStatusDisplay,
         participantRequiredDisplay: participant.participantRequiredDisplay,
         reference: participant.actorReference,
