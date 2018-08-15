@@ -71,12 +71,16 @@ class AddParticipantOrServiceForm extends React.Component {
           initialValues={setInitialValues()}
           validationSchema={() =>
              yup.object().shape({
+               // service: yup.string()
+               //   .required((<FormattedMessage {...messages.validation.required} />)),
                required: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
                location: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-               practitioner: yup.string()
-                 .required((<FormattedMessage {...messages.validation.required} />)),
+               // careTeam: yup.string()
+               //   .required((<FormattedMessage {...messages.validation.required} />)),
+               // practitioner: yup.string()
+               //   .required((<FormattedMessage {...messages.validation.required} />)),
              })
           }
           render={({ isSubmitting, dirty, isValid, resetForm }) => (
