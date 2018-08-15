@@ -36,7 +36,7 @@ function ManageLocationForm(props) {
     telecomUses,
     isSubmitting,
     organization,
-    location,
+    selectedLocation,
   } = props;
   const ORGANIZATION_NAME_HTML_ID = uniqueId('organization_name_');
   const addTelecomsProps = {
@@ -68,7 +68,7 @@ function ManageLocationForm(props) {
           />
         </Cell>
         <Cell area="status">
-          {(location && location.logicalId &&
+          {(selectedLocation && selectedLocation.logicalId &&
             <SelectField
               name="status"
               fullWidth
@@ -209,7 +209,7 @@ ManageLocationForm.propTypes = {
   identifierSystems: PropTypes.array.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   organization: PropTypes.object.isRequired,
-  location: PropTypes.object,
+  selectedLocation: PropTypes.object,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
