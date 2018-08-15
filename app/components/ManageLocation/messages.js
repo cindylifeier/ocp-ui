@@ -36,7 +36,7 @@ export default defineMessages({
   },
   locationPhysicalType: {
     id: 'ocpui.components.ManageLocation.locationPhysicalType',
-    defaultMessage: 'Location Type',
+    defaultMessage: 'Location Physical Type',
   },
   managingLocationLogicalIdFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.managingLocationLogicalIdFloatingLabelText',

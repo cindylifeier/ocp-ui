@@ -87,7 +87,7 @@ function ManageLocationForm(props) {
             floatingLabelText={<FormattedMessage {...messages.locationPhysicalType} />}
           >
             {locationPhysicalTypes && locationPhysicalTypes.map((locationType) => (
-              <MenuItem key={uniqueId()} value={locationType.display} primaryText={locationType.display} />
+              <MenuItem key={uniqueId()} value={locationType.code} primaryText={locationType.display} />
                 ))}
           </SelectField>
         </Cell>
@@ -201,7 +201,7 @@ ManageLocationForm.propTypes = {
   isValid: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   uspsStates: PropTypes.array.isRequired,
-  locationPhysicalTypes: PropTypes.array.isRequired,
+  locationPhysicalTypes: PropTypes.array,
   locationStatuses: PropTypes.array.isRequired,
   telecomUses: PropTypes.array.isRequired,
   telecomSystems: PropTypes.array.isRequired,

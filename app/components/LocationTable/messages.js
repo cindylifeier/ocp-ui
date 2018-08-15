@@ -40,7 +40,7 @@ export default defineMessages({
   },
   expansionRowDetailsLocationType: {
     id: 'ocpui.components.LocationTable.expansionRowDetailsLocationType',
-    defaultMessage: 'Location Type',
+    defaultMessage: 'Location Physical Type',
   },
   actionLabelEdit: {
     id: 'ocpui.components.LocationTable.actionLabelEdit',
