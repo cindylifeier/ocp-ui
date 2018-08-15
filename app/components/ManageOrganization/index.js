@@ -60,6 +60,33 @@ function ManageOrganization(props) {
     telecomSystems, telecomUses,
   } = props;
 
+  // Todo: Get lookup from backend
+  const contactPurposes = [{
+    code: 'BILL',
+    definition: null,
+    display: 'Billing',
+  }, {
+    code: 'ADMIN',
+    definition: null,
+    display: 'Administrative',
+  }, {
+    code: 'HR',
+    definition: null,
+    display: 'Human Resource',
+  }, {
+    code: 'PAYOR',
+    definition: null,
+    display: 'Payor',
+  }, {
+    code: 'PATINF',
+    definition: null,
+    display: 'Patient',
+  }, {
+    code: 'PRESS',
+    definition: null,
+    display: 'Press',
+  }];
+
   return (
     <Formik
       validationSchema={id ? validationSchemaUpdate : validationSchemaCreate}
@@ -78,6 +105,13 @@ function ManageOrganization(props) {
           errors,
           telecoms: values.telecoms,
         };
+        const addContactsProps = {
+          contactPurposes,
+          uspsStates,
+          errors,
+          contacts: values.contacts,
+        };
+
         return (
           <Form>
             <ManageOrganizationFormGrid>
@@ -140,7 +174,7 @@ function ManageOrganization(props) {
                 <AddMultipleTelecoms {...addTelecomsProps} />
               </Cell>
               <Cell area="contacts">
-                <AddMultipleContacts />
+                <AddMultipleContacts {...addContactsProps} />
               </Cell>
               <Cell area="buttonGroup">
                 <Grid columns={2}>

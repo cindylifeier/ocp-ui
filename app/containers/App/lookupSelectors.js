@@ -17,10 +17,15 @@ import {
   COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_STATUS,
+  CONTACTPURPOSE,
+  COVERAGE_TYPE,
   DATE_RANGE,
   DEFINITION_TOPIC,
+  EOC_STATUS,
+  EOC_TYPE,
   FLAG_CATEGORY,
   FLAG_STATUS,
+  FM_STATUS,
   GLOBAL_LOOKUP_STATE_KEY,
   HEALTHCARESERVICECATEGORY,
   HEALTHCARESERVICEREFERRALMETHOD,
@@ -36,6 +41,7 @@ import {
   PARTICIPANTROLE,
   PARTICIPANTTYPE,
   PATIENTIDENTIFIERSYSTEM,
+  POLICYHOLDER_RELATIONSHIP,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PROVIDER_ROLE,
@@ -54,11 +60,6 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-  POLICYHOLDER_RELATIONSHIP,
-  FM_STATUS,
-  COVERAGE_TYPE,
-  EOC_TYPE,
-  EOC_STATUS,
 } from 'containers/App/constants';
 import selectGlobalDomain from './selectors';
 
@@ -135,6 +136,11 @@ const makeSelectTelecomSystems = () => createSelector(
 const makeSelectTelecomUses = () => createSelector(
   selectGlobalDomain,
   (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(TELECOMUSE).toJS(),
+);
+
+const makeSelectContactPurpose = () => createSelector(
+  selectGlobalDomain,
+  (globalState) => globalState.get(GLOBAL_LOOKUP_STATE_KEY).get(CONTACTPURPOSE).toJS(),
 );
 
 const makeSelectPractitionerRoles = () => createSelector(
@@ -372,6 +378,7 @@ export {
   makeSelectPractitionerIdentifierSystems,
   makeSelectTelecomUses,
   makeSelectTelecomSystems,
+  makeSelectContactPurpose,
   makeSelectPractitionerRoles,
   makeSelectLookups,
   makeSelectPatientIdentifierSystems,

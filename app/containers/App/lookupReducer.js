@@ -19,10 +19,15 @@ import {
   COMMUNICATION_MEDIUM,
   COMMUNICATION_NOT_DONE_REASON,
   COMMUNICATION_STATUS,
+  CONTACTPURPOSE,
+  COVERAGE_TYPE,
   DATE_RANGE,
   DEFINITION_TOPIC,
+  EOC_STATUS,
+  EOC_TYPE,
   FLAG_CATEGORY,
   FLAG_STATUS,
+  FM_STATUS,
   GET_LOOKUPS,
   GET_LOOKUPS_ERROR,
   GET_LOOKUPS_SUCCESS,
@@ -40,6 +45,7 @@ import {
   PARTICIPANTROLE,
   PARTICIPANTTYPE,
   PATIENTIDENTIFIERSYSTEM,
+  POLICYHOLDER_RELATIONSHIP,
   PRACTITIONERIDENTIFIERSYSTEM,
   PRACTITIONERROLES,
   PROVIDER_ROLE,
@@ -58,11 +64,6 @@ import {
   USCOREETHNICITY,
   USCORERACE,
   USPSSTATES,
-  COVERAGE_TYPE,
-  FM_STATUS,
-  POLICYHOLDER_RELATIONSHIP,
-  EOC_TYPE,
-  EOC_STATUS,
 } from './constants';
 
 // The initial state of the lookup
@@ -79,6 +80,7 @@ const initialState = fromJS({
   PRACTITIONERROLES: [],
   TELECOMSYSTEM: [],
   TELECOMUSE: [],
+  CONTACTPURPOSE: [],
   ORGANIZATIONIDENTIFIERSYSTEM: [],
   ORGANIZATIONSTATUS: [],
   PATIENTIDENTIFIERSYSTEM: [],
@@ -152,6 +154,7 @@ function lookupReducer(state = initialState, action) {
         .set(PRACTITIONERIDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.practitionerIdentifierSystems) || state.get(PRACTITIONERIDENTIFIERSYSTEM)))
         .set(TELECOMSYSTEM, fromJS((action.lookups && action.lookups.telecomSystems) || state.get(TELECOMSYSTEM)))
         .set(TELECOMUSE, fromJS((action.lookups && action.lookups.telecomUses) || state.get(TELECOMUSE)))
+        .set(CONTACTPURPOSE, fromJS((action.lookups && action.lookups.contactPurposes) || state.get(CONTACTPURPOSE)))
         .set(LOCATIONSTATUS, fromJS((action.lookups && action.lookups.locationStatuses) || state.get(LOCATIONSTATUS)))
         .set(LOCATIONPHYSICALTYPE, fromJS((action.lookups && action.lookups.locationPhysicalTypes) || state.get(LOCATIONPHYSICALTYPE)))
         .set(ORGANIZATIONIDENTIFIERSYSTEM, fromJS((action.lookups && action.lookups.organizationIdentifierSystems) || state.get(ORGANIZATIONIDENTIFIERSYSTEM)))

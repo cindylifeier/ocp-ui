@@ -5,15 +5,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
-import { DialogTitle } from 'material-ui-next/Dialog';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import teal from 'material-ui-next/colors/teal';
 
 import FormSubtitle from 'components/FormSubtitle';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import StyledDialog from 'components/StyledDialog';
+import AddMultipleContactsForm from './AddMultipleContactsForm';
 import messages from './messages';
 
 
@@ -38,6 +40,8 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
   }
 
   render() {
+    const { contactPurposes, uspsStates, contacts, errors } = this.props;
+    console.log(contacts, errors);
     return (
       <div>
         <FormSubtitle margin="1vh 0 0 0">
@@ -49,12 +53,21 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
         </AddNewItemButton>
         <FieldArray
           name="contacts"
-          render={() => (
+          render={(arrayHelpers) => (
             <div>
-              <StyledDialog open={this.state.dialogOpen}>
+              <StyledDialog fullWidth open={this.state.dialogOpen}>
                 <DialogTitle>
                   <FormattedMessage {...messages.title} />
                 </DialogTitle>
+                <DialogContent>
+                  <AddMultipleContactsForm
+                    onAddContact={arrayHelpers.push}
+                    onRemoveContact={arrayHelpers.remove}
+                    onCloseDialog={this.handleCloseDialog}
+                    contactPurposes={contactPurposes}
+                    uspsStates={uspsStates}
+                  />
+                </DialogContent>
               </StyledDialog>
             </div>
           )}
@@ -64,6 +77,17 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
   }
 }
 
-AddMultipleContacts.propTypes = {};
+AddMultipleContacts.propTypes = {
+  contactPurposes: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  uspsStates: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })),
+  contacts: PropTypes.object,
+  errors: PropTypes.object,
+};
 
 export default AddMultipleContacts;
