@@ -42,13 +42,16 @@ import PageHeader from 'components/PageHeader';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import PageContent from 'components/PageContent';
 import FormSubtitle from 'components/FormSubtitle';
+import FieldGroupGrid from 'components/FieldGroupGrid';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import AddContactDetails from 'components/AddContactDetails';
 import saga from './saga';
 import messages from './messages';
 import { createOrganization, updateOrganization } from './actions';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
-import ManageOrganizationFormCell from './ManageOrganizationFormCell';
 
 const minimumNumberOfAddresses = 1;
 const minimumNumberOfTelecoms = 1;
@@ -163,22 +166,22 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                 };
                 return (
                   <Form>
-                    <ManageOrganizationFormGrid columns={12}>
-                      <ManageOrganizationFormCell width={12}>
+                    <ManageOrganizationFormGrid>
+                      <Cell area="generalInformationSubtitle">
                         <FormSubtitle margin="1vh 0 0 0">
                           <FormattedMessage {...messages.subtitle} />
                         </FormSubtitle>
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell left={1} width={4}>
+                      </Cell>
+                      <Cell area="name">
                         <TextField
                           name="name"
                           floatingLabelText={<FormattedMessage {...messages.form.name} />}
                           fullWidth
                         />
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell left={5} width={3}>
-                        <Grid columns="1fr 2fr" gap="">
-                          <Cell>
+                      </Cell>
+                      <Cell area="identifierGroup">
+                        <FieldGroupGrid>
+                          <PrefixCell>
                             <SelectField
                               floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
                               name="identifierSystem"
@@ -191,18 +194,18 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                                   primaryText={display}
                                 />))}
                             </SelectField>
-                          </Cell>
-                          <Cell>
+                          </PrefixCell>
+                          <MainCell>
                             <TextField
                               floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
                               fullWidth
                               name="identifierValue"
                             />
-                          </Cell>
-                        </Grid>
-                      </ManageOrganizationFormCell>
+                          </MainCell>
+                        </FieldGroupGrid>
+                      </Cell>
                       {id &&
-                      <ManageOrganizationFormCell left={8} width={2}>
+                      <Cell area="status">
                         <SelectField
                           floatingLabelText={<FormattedMessage {...messages.form.status} />}
                           fullWidth
@@ -215,14 +218,17 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                               primaryText={display}
                             />))}
                         </SelectField>
-                      </ManageOrganizationFormCell>}
-                      <ManageOrganizationFormCell width={12}>
+                      </Cell>}
+                      <Cell area="addresses">
                         <AddMultipleAddresses{...addAddressesProps} />
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell width={12}>
+                      </Cell>
+                      <Cell area="telecoms">
                         <AddMultipleTelecoms {...addTelecomsProps} />
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell top={5} left={1} width={4}>
+                      </Cell>
+                      <Cell area="contacts">
+                        <AddContactDetails />
+                      </Cell>
+                      <Cell area="buttonGroup">
                         <Grid columns={2}>
                           <Cell>
                             <StyledRaisedButton
@@ -241,7 +247,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
                             />
                           </Cell>
                         </Grid>
-                      </ManageOrganizationFormCell>
+                      </Cell>
                     </ManageOrganizationFormGrid>
                   </Form>
                 );
