@@ -24,7 +24,8 @@ class AddParticipantOrServiceForm extends React.Component {
     super(props);
     this.state = {
       tabIndex: 0,
-      // serviceReference: null,
+      isServiceRequired: false,
+      isCareTeamRequired: false,
     };
     this.handleTabChange = this.handleTabChange.bind(this);
     this.handleServiceChanged = this.handleServiceChanged.bind(this);
@@ -68,10 +69,16 @@ class AddParticipantOrServiceForm extends React.Component {
             handleAddParticipant(values);
           }}
           initialValues={setInitialValues()}
-          validationSchema={yup.object().shape({
-            service: yup.string()
-              .required((<FormattedMessage {...messages.validation.required} />)),
-          })}
+          validationSchema={() =>
+             yup.object().shape({
+               required: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+               location: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+               practitioner: yup.string()
+                 .required((<FormattedMessage {...messages.validation.required} />)),
+             })
+          }
           render={({ isSubmitting, dirty, isValid, resetForm }) => (
             <Form>
               <AddParticipantORServiceFormGrid gap="1vw">
@@ -111,6 +118,9 @@ class AddParticipantOrServiceForm extends React.Component {
                               />),
                               )}
                           </SelectField>
+                          {this.state.isServiceRequired &&
+                            <div>Required</div>
+                          }
                         </Cell>
                         <Cell>
                           <SelectField
@@ -184,6 +194,9 @@ class AddParticipantOrServiceForm extends React.Component {
                               />),
                             )}
                           </SelectField>
+                          {this.state.isCareTeamRequired &&
+                            <div>Required</div>
+                          }
                         </Cell>
                         <Cell>
                           <SelectField
