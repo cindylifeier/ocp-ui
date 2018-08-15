@@ -1,24 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'formik';
-import { FormattedMessage } from 'react-intl';
-import MenuItem from 'material-ui/MenuItem';
-import uniqueId from 'lodash/uniqueId';
-import { Cell, Grid } from 'styled-css-grid';
-
-import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
-import FormSubtitle from 'components/FormSubtitle';
-import InlineLabel from 'components/InlineLabel';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import GoBackButton from 'components/GoBackButton';
+import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import ErrorText from 'components/ErrorText';
 import FieldGroupGrid from 'components/FieldGroupGrid';
-import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
-import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import messages from './messages';
+import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
+import FormSubtitle from 'components/FormSubtitle';
+import GoBackButton from 'components/GoBackButton';
+import InlineLabel from 'components/InlineLabel';
+import SelectField from 'components/SelectField';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+
+import TextField from 'components/TextField';
+import { Form } from 'formik';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
+import messages from './messages';
 
 function ManageLocationForm(props) {
   const {
@@ -88,7 +88,7 @@ function ManageLocationForm(props) {
           >
             {locationPhysicalTypes && locationPhysicalTypes.map((locationType) => (
               <MenuItem key={uniqueId()} value={locationType.code} primaryText={locationType.display} />
-                ))}
+            ))}
           </SelectField>
         </Cell>
         <Cell area="identifierGroup">
@@ -115,6 +115,11 @@ function ManageLocationForm(props) {
         </Cell>
         <Cell area="contact">
           <AddMultipleTelecoms {...addTelecomsProps} />
+        </Cell>
+        <Cell area="addressSubtitle">
+          <FormSubtitle margin="3vh 0 1vh 0">
+            <FormattedMessage {...messages.addressHeader} />
+          </FormSubtitle>
         </Cell>
         <Cell area="address1">
           <TextField
