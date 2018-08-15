@@ -73,7 +73,7 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title="Add Contacts"
+                  title="Add Contact Detail"
                   modal={false}
                   open={this.state.isTelecomsDialogOpen}
                   onRequestClose={this.handleCloseDialog}

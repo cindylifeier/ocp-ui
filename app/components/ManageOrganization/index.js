@@ -20,7 +20,7 @@ import SelectField from 'components/SelectField';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import AddContactDetails from 'components/AddContactDetails';
+import AddMultipleContacts from 'components/AddMultipleContacts';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
@@ -140,7 +140,7 @@ function ManageOrganization(props) {
                 <AddMultipleTelecoms {...addTelecomsProps} />
               </Cell>
               <Cell area="contacts">
-                <AddContactDetails />
+                <AddMultipleContacts />
               </Cell>
               <Cell area="buttonGroup">
                 <Grid columns={2}>

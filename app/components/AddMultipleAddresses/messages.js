@@ -35,11 +35,11 @@ export default defineMessages({
   hintText: {
     line1: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.line1',
-      defaultMessage: 'Address 1',
+      defaultMessage: 'Line 1',
     },
     line2: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.line2',
-      defaultMessage: 'Address 2',
+      defaultMessage: 'Line 2',
     },
     city: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.hintText.city',
@@ -61,11 +61,11 @@ export default defineMessages({
   floatingLabelText: {
     line1: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.line1',
-      defaultMessage: 'Address 1',
+      defaultMessage: 'Line 1',
     },
     line2: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.line2',
-      defaultMessage: 'Address 2',
+      defaultMessage: 'Line 2',
     },
     city: {
       id: 'ocpui.components.AddMultipleAddresses.addAddressForm.floatingLabelText.city',
@@ -87,11 +87,11 @@ export default defineMessages({
   addedAddressesTable: {
     tableHeaderAddress1: {
       id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderAddress1',
-      defaultMessage: 'Address1',
+      defaultMessage: 'Line 1',
     },
     tableHeaderAddress2: {
       id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderAddress2',
-      defaultMessage: 'Address2',
+      defaultMessage: 'Line 2',
     },
     tableHeaderCity: {
       id: 'ocpui.components.AddMultipleAddresses.addedAddressesTable.tableHeaderCity',

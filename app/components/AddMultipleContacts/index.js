@@ -1,6 +1,6 @@
 /**
  *
- * AddContactDetails
+ * AddMultipleContacts
  *
  */
 
@@ -16,7 +16,8 @@ import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
 import StyledDialog from 'components/StyledDialog';
 import messages from './messages';
 
-class AddContactDetails extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+class AddMultipleContacts extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +51,7 @@ class AddContactDetails extends React.Component { // eslint-disable-line react/p
           name="contacts"
           render={() => (
             <div>
-              <StyledDialog fullScreen open={this.state.dialogOpen}>
+              <StyledDialog open={this.state.dialogOpen}>
                 <DialogTitle>
                   <FormattedMessage {...messages.title} />
                 </DialogTitle>
@@ -63,6 +64,6 @@ class AddContactDetails extends React.Component { // eslint-disable-line react/p
   }
 }
 
-AddContactDetails.propTypes = {};
+AddMultipleContacts.propTypes = {};
 
-export default AddContactDetails;
+export default AddMultipleContacts;

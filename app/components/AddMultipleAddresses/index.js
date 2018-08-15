@@ -69,7 +69,7 @@ class AddMultipleAddresses extends React.Component {
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title="Add Addresses"
+                  title="Add Address"
                   modal={false}
                   open={this.state.isAddressesDialogOpen}
                   onRequestClose={this.handleCloseDialog}
