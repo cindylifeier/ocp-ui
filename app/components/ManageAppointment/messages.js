@@ -161,7 +161,7 @@ export default defineMessages({
     },
     appointmentRequired: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentRequired',
-      defaultMessage: 'Required',
+      defaultMessage: 'Creator Required',
     },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.status',

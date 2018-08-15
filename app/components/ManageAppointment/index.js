@@ -83,6 +83,7 @@ function ManageAppointment(props) {
     let formData = null;
     if (!isEmpty(appointment)) {
       formData = {
+        creatorRequired: appointment.creatorRequired,
         selectedPatient: patient,
         description: appointment.description,
         appointmentType: appointment.typeCode,
