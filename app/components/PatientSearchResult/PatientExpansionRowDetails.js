@@ -8,7 +8,7 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, active, birthDate, genderCode, birthSex, activityTypes } = patient;
+  const { addresses, name, identifier, telecoms, active, birthDate, genderCode, birthSex, activityTypes, organization } = patient;
 
   return (
     <InfoSection>
@@ -71,6 +71,12 @@ function PatientExpansionRowDetails({ patient }) {
                 `${type}  `
               )
             )}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.managingOrganization} />}
+            text={organization && organization.display}
           />
         </Cell>
       </Grid>

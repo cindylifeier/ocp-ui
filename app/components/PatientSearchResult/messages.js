@@ -143,5 +143,9 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activeTasks',
       defaultMessage: 'Active Tasks',
     },
+    managingOrganization: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.managingOrganization',
+      defaultMessage: 'Managing Organization',
+    },
   },
 });
