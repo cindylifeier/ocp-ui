@@ -4,29 +4,29 @@
  *
  */
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import find from 'lodash/find';
-
-import sizeMeHOC from 'utils/SizeMeUtils';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import NavigationIconMenu from 'components/NavigationIconMenu';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRowColumn from 'components/TableRowColumn';
 import {
   MANAGE_CARE_TEAM_URL,
   MANAGE_PATIENT_URL,
   MANAGE_TASK_URL,
   MANAGE_USER_REGISTRATION,
 } from 'containers/App/constants';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import ExpansionTableRow from 'components/ExpansionTableRow';
-import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import NoResultsFoundText from 'components/NoResultsFoundText';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import PatientExpansionRowDetails from './PatientExpansionRowDetails';
+import find from 'lodash/find';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import sizeMeHOC from 'utils/SizeMeUtils';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 import messages from './messages';
+import PatientExpansionRowDetails from './PatientExpansionRowDetails';
 
 
 function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick) {
@@ -108,7 +108,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         }
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
           {showActionButton &&
-            <NavigationIconMenu menuItems={menuItems} />
+          <NavigationIconMenu menuItems={menuItems} />
           }
         </TableRowColumn>
       </ExpansionTableRow>
