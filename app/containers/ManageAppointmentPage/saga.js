@@ -5,9 +5,18 @@ import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import { goBack } from 'react-router-redux';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { getAppointmentSuccess } from './actions';
-import { getAppointmentApi, getAppointmentById, saveAppointment } from './api';
-import { GET_APPOINTMENT, SAVE_APPOINTMENT } from './constants';
+import {
+  getAppointmentSuccess,
+} from './actions';
+import {
+  getAppointmentApi,
+  getAppointmentById,
+  saveAppointment,
+} from './api';
+import {
+  GET_APPOINTMENT,
+  SAVE_APPOINTMENT,
+} from './constants';
 
 function* saveAppointmentSaga(action) {
   try {
@@ -45,6 +54,7 @@ function* getAppointmentSaga({ appointmentId }) {
     yield put(goBack());
   }
 }
+
 
 function* watchGetAppointmentSaga() {
   yield takeLatest(GET_APPOINTMENT, getAppointmentSaga);

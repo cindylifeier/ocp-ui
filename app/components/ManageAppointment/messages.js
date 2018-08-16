@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.ManageAppointment.title',
     defaultMessage: 'General Information',
   },
+  addAppointmentForTitle: {
+    id: 'ocpui.components.ManageAppointment.addAppointmentForTitle',
+    defaultMessage: 'Add Appointment for:',
+  },
   patientName: {
     id: 'ocpui.components.ManageAppointment.patientName',
     defaultMessage: 'Patient:',
@@ -24,7 +28,7 @@ export default defineMessages({
   },
   addParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.addParticipantBtnLabel',
-    defaultMessage: 'Add Participant',
+    defaultMessage: 'Add Participant or Service:',
   },
   removeParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.removeParticipantBtnLabel',
@@ -33,6 +37,14 @@ export default defineMessages({
   participantTableHeaderName: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderName',
     defaultMessage: 'Name',
+  },
+  participantTableHeaderService: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderService',
+    defaultMessage: 'Service',
+  },
+  participantTableHeaderLocation: {
+    id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderLocation',
+    defaultMessage: 'Location',
   },
   participantTableHeaderType: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderType',
@@ -117,6 +129,10 @@ export default defineMessages({
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentType',
       defaultMessage: 'Appointment Type',
     },
+    appointmentRequired: {
+      id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentRequired',
+      defaultMessage: 'Required',
+    },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.status',
       defaultMessage: 'Status',
@@ -142,6 +158,10 @@ export default defineMessages({
     appointmentType: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentType',
       defaultMessage: 'Appointment Type',
+    },
+    appointmentRequired: {
+      id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentRequired',
+      defaultMessage: 'Creator Required',
     },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.status',
