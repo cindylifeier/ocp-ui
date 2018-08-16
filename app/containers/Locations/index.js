@@ -213,6 +213,7 @@ export class Locations extends React.Component { // eslint-disable-line react/pr
           showFilterIcon={false}
           showUploadIcon={false}
           showSearchIcon={false}
+          showSettingIcon={false}
           showSearchBarByDefault={showSearchBarByDefault}
           hideToolbar={hideToolbar}
         />
