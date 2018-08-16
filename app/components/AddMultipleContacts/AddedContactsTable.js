@@ -11,13 +11,15 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import CustomErrorText from 'components/CustomErrorText';
 import StyledText from 'components/StyledText';
-import { combineAddress, combineTelecoms } from './helpers';
+import { flattenContact } from './helpers';
 import messages from './messages';
+
 
 function AddedContactsTable(props) {
   const tableColumns = 'repeat(4, 1fr) 80px';
   const {
     contacts,
+    contactPurposes,
     errors,
     arrayHelpers,
     onEditContact,
@@ -36,9 +38,8 @@ function AddedContactsTable(props) {
       <CustomErrorText>{errors.contacts}</CustomErrorText>
       }
       {contacts && contacts.map((contact, index) => {
-        const { firstName, lastName, purpose, email, phone, line1, line2, city, state, postalCode, countryCode } = contact;
-        const telecoms = combineTelecoms(email, phone);
-        const address = combineAddress(line1, line2, city, state, postalCode, countryCode);
+        const flattenedContact = flattenContact(contact, contactPurposes);
+        const { name, purpose, telecoms, address } = flattenedContact;
         const menuItems = [{
           primaryText: <FormattedMessage {...messages.addedContactsTable.tableActionEdit} />,
           onClick: () => onEditContact(index, contact),
@@ -48,7 +49,7 @@ function AddedContactsTable(props) {
         }];
         return (
           <TableRow key={uniqueId()} columns={tableColumns}>
-            <TableRowColumn>{firstName} {lastName}</TableRowColumn>
+            <TableRowColumn>{name}</TableRowColumn>
             <TableRowColumn>{purpose}</TableRowColumn>
             <TableRowColumn>
               <StyledText>{telecoms}</StyledText>
@@ -67,6 +68,10 @@ function AddedContactsTable(props) {
 }
 
 AddedContactsTable.propTypes = {
+  contactPurposes: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  })).isRequired,
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
   onEditContact: PropTypes.func,

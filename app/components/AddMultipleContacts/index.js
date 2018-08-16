@@ -84,6 +84,7 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
                 onEditContact={this.handleEditContact}
                 contacts={contacts}
                 errors={errors}
+                contactPurposes={contactPurposes}
               />
             </div>
           )}
