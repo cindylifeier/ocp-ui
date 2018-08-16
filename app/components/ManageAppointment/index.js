@@ -18,25 +18,43 @@ import messages from './messages';
 function ManageAppointment(props) {
   const {
     patient,
+    careTeams,
     appointment,
     editMode,
     appointmentStatuses,
     appointmentTypes,
-    handleOpen,
     onSave,
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    healthcareServices,
+    locations,
+    practitioners,
+    handleSelectPractitioner,
+    handleSelectLocation,
+    appointmentParticipantRequired,
+    handleAddParticipant,
+    getReferenceTypeFromReference,
+    handleDialogOpen,
   } = props;
   const propsFromContainer = {
     patient,
     editMode,
+    careTeams,
     appointmentStatuses,
     appointmentTypes,
-    handleOpen,
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    healthcareServices,
+    locations,
+    practitioners,
+    handleSelectLocation,
+    handleSelectPractitioner,
+    appointmentParticipantRequired,
+    handleAddParticipant,
+    getReferenceTypeFromReference,
+    handleDialogOpen,
   };
 
   function setAppointmentTime(timeStr, dateStr) {
@@ -65,6 +83,7 @@ function ManageAppointment(props) {
     let formData = null;
     if (!isEmpty(appointment)) {
       formData = {
+        creatorRequired: appointment.creatorRequired,
         selectedPatient: patient,
         description: appointment.description,
         appointmentType: appointment.typeCode,
@@ -100,9 +119,13 @@ function ManageAppointment(props) {
               .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
             appointmentType: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
+            creatorRequired: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
             startTime: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
             endTime: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />)),
+            description: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
           })
           }
@@ -116,7 +139,11 @@ function ManageAppointment(props) {
 }
 
 ManageAppointment.propTypes = {
-  handleOpen: PropTypes.func.isRequired,
+  handleSelectLocation: PropTypes.func.isRequired,
+  handleDialogOpen: PropTypes.func.isRequired,
+  getReferenceTypeFromReference: PropTypes.func.isRequired,
+  handleAddParticipant: PropTypes.func.isRequired,
+  handleSelectPractitioner: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
@@ -128,7 +155,12 @@ ManageAppointment.propTypes = {
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
   selectedParticipants: PropTypes.array,
+  healthcareServices: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
+  locations: PropTypes.array,
+  practitioners: PropTypes.array,
+  appointmentParticipantRequired: PropTypes.array,
+  careTeams: PropTypes.array,
 };
 
 export default ManageAppointment;
