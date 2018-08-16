@@ -130,8 +130,8 @@ export function mapToEditParticipants(participants) {
         participationTypeCode: participant.participationTypeCode,
         participationTypeDisplay: participant.participationTypeDisplay,
         participantRequiredCode: participant.participantRequiredCode,
-        participantStatusCode: participant.participantStatusCode,
-        participantStatusDisplay: participant.participantStatusDisplay,
+        participationStatusCode: participant.participationStatusCode,
+        participationStatusDisplay: participant.participationStatusDisplay,
         participantRequiredDisplay: participant.participantRequiredDisplay,
         reference: participant.actorReference,
       }));

@@ -43,7 +43,7 @@ function SelectedParticipants(props) {
             <TableRowColumn>{upperFirst(getReferenceTypeFromReference(participant.reference))}</TableRowColumn>
             <TableRowColumn>{upperFirst(participant.participationTypeDisplay)}</TableRowColumn>
             <TableRowColumn>{startCase(camelCase(participant.participantRequiredDisplay))}</TableRowColumn>
-            <TableRowColumn>{upperFirst(participant.participantStatusDisplay)}</TableRowColumn>
+            <TableRowColumn>{upperFirst(participant.participationStatusDisplay)}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
                 <FormattedMessage {...messages.removeParticipantBtnLabel} />
