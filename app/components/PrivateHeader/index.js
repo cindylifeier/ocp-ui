@@ -167,6 +167,7 @@ class PrivateHeader extends React.Component {
               </StyledText>
             </StyledText>
             }
+            <StyledText></StyledText>
           </Grid>
         </ToolbarGroup>
         <Menu
