@@ -38,6 +38,7 @@ import PageContent from 'components/PageContent';
 import ManageOrganization from 'components/ManageOrganization';
 import { createOrganization, updateOrganization } from './actions';
 import saga from './saga';
+import { mapToFrontendContacts } from './helpers';
 import messages from './messages';
 
 
@@ -82,6 +83,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
         identifiers: [{ system: identifierSystem, value: identifierValue }],
         addresses,
         telecoms,
+        contacts,
         active,
       } = editingOrganization;
       initialValues = {
@@ -91,6 +93,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
         identifierValue,
         telecoms,
         addresses,
+        contacts: mapToFrontendContacts(contacts),
       };
     }
 

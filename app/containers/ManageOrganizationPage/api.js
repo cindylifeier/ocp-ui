@@ -1,5 +1,6 @@
 import request from 'utils/request';
 import { BASE_ORGANIZATIONS_API_URL, getEndpoint } from 'utils/endpointService';
+import { EMAIL_SYSTEM, PHONE_SYSTEM } from 'utils/constants';
 
 const baseEndpoint = getEndpoint(BASE_ORGANIZATIONS_API_URL);
 const headers = {
@@ -40,10 +41,10 @@ function mapToBackendOrganization(organizationFormData) {
       name: { firstName, lastName },
       purpose,
       telecoms: [{
-        system: 'phone',
+        system: PHONE_SYSTEM,
         value: phone,
       }, {
-        system: 'email',
+        system: EMAIL_SYSTEM,
         value: email,
       }],
       address: { line1, line2, city, stateCode, postalCode, countryCode },
