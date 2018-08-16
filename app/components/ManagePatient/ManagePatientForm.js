@@ -256,9 +256,11 @@ function ManagePatientForm(props) {
           </ErrorText>
           }
         </Cell>
-        <Cell area="coverages">
-          <AddCoverages {...addCoverageProps} />
-        </Cell>
+        {patient &&
+          <Cell area="coverages">
+            <AddCoverages {...addCoverageProps} />
+          </Cell>
+        }
         <Cell area="buttonGroup">
           <Grid columns={2}>
             <Cell>
