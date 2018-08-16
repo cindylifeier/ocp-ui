@@ -103,7 +103,8 @@ AddMultipleContacts.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   contacts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
     purpose: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,

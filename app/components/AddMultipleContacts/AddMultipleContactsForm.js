@@ -48,7 +48,9 @@ function AddMultipleContactsForm(props) {
         }}
         initialValues={{ ...(initialValues || {}).contact }}
         validationSchema={yup.object().shape({
-          name: yup.string()
+          firstName: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          lastName: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
           purpose: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -73,12 +75,20 @@ function AddMultipleContactsForm(props) {
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
             <AddMultipleContactsFormGrid>
-              <Cell area="name">
+              <Cell area="firstName">
                 <TextField
                   fullWidth
-                  name="name"
-                  hintText={<FormattedMessage {...messages.hintText.name} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.name} />}
+                  name="firstName"
+                  hintText={<FormattedMessage {...messages.hintText.firstName} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.firstName} />}
+                />
+              </Cell>
+              <Cell area="lastName">
+                <TextField
+                  fullWidth
+                  name="lastName"
+                  hintText={<FormattedMessage {...messages.hintText.lastName} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastName} />}
                 />
               </Cell>
               <Cell area="purpose">

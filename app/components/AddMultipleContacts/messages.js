@@ -41,9 +41,13 @@ export default defineMessages({
     },
   },
   hintText: {
-    name: {
-      id: 'ocpui.components.AddMultipleContacts.hintText.name',
-      defaultMessage: 'Name',
+    firstName: {
+      id: 'ocpui.components.AddMultipleContacts.hintText.firstName',
+      defaultMessage: 'FirstName',
+    },
+    lastName: {
+      id: 'ocpui.components.AddMultipleContacts.hintText.lastName',
+      defaultMessage: 'LastName',
     },
     purpose: {
       id: 'ocpui.components.AddMultipleContacts.hintText.purpose',
@@ -83,9 +87,13 @@ export default defineMessages({
     },
   },
   floatingLabelText: {
-    name: {
-      id: 'ocpui.components.AddMultipleContacts.floatingLabelText.name',
-      defaultMessage: 'Name',
+    firstName: {
+      id: 'ocpui.components.AddMultipleContacts.floatingLabelText.firstName',
+      defaultMessage: 'FirstName',
+    },
+    lastName: {
+      id: 'ocpui.components.AddMultipleContacts.floatingLabelText.lastName',
+      defaultMessage: 'LastName',
     },
     purpose: {
       id: 'ocpui.components.AddMultipleContacts.floatingLabelText.purpose',

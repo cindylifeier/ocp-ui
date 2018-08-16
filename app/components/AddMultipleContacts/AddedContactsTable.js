@@ -36,7 +36,7 @@ function AddedContactsTable(props) {
       <CustomErrorText>{errors.contacts}</CustomErrorText>
       }
       {contacts && contacts.map((contact, index) => {
-        const { name, purpose, email, phone, line1, line2, city, state, postalCode, countryCode } = contact;
+        const { firstName, lastName, purpose, email, phone, line1, line2, city, state, postalCode, countryCode } = contact;
         const telecoms = combineTelecoms(email, phone);
         const address = combineAddress(line1, line2, city, state, postalCode, countryCode);
         const menuItems = [{
@@ -48,7 +48,7 @@ function AddedContactsTable(props) {
         }];
         return (
           <TableRow key={uniqueId()} columns={tableColumns}>
-            <TableRowColumn>{name}</TableRowColumn>
+            <TableRowColumn>{firstName} {lastName}</TableRowColumn>
             <TableRowColumn>{purpose}</TableRowColumn>
             <TableRowColumn>
               <StyledText>{telecoms}</StyledText>
@@ -71,7 +71,8 @@ AddedContactsTable.propTypes = {
   arrayHelpers: PropTypes.object,
   onEditContact: PropTypes.func,
   contacts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
     purpose: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,

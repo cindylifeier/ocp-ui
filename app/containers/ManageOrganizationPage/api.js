@@ -27,18 +27,34 @@ export function updateOrganizationApiCall(id, organizationFormData) {
 }
 
 function mapToBackendOrganization(organizationFormData) {
-  const { name, identifierSystem, identifierValue, status, addresses, telecoms } = organizationFormData;
+  const { name, identifierSystem, identifierValue, status, addresses, telecoms, contacts } = organizationFormData;
   const active = status === 'true';
   const identifier = {
     system: identifierSystem,
     value: identifierValue,
   };
   const identifiers = [identifier];
+  const backendContacts = contacts.map((contact) => {
+    const { firstName, lastName, purpose, email, phone, line1, line2, city, stateCode, postalCode, countryCode } = contact;
+    return {
+      name: { firstName, lastName },
+      purpose,
+      telecoms: [{
+        system: 'phone',
+        value: phone,
+      }, {
+        system: 'email',
+        value: email,
+      }],
+      address: { line1, line2, city, stateCode, postalCode, countryCode },
+    };
+  });
   return {
     name,
     active,
     addresses,
     telecoms,
+    contacts: backendContacts,
     identifiers,
   };
 }
