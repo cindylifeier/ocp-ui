@@ -66,7 +66,7 @@ function PatientExpansionRowDetails({ patient }) {
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.activityType} />}
+            label={<FormattedMessage {...messages.expansionRowDetails.activeTasks} />}
             text={activityTypes && activityTypes.map((type) => (
                 `${type}  `
               )
