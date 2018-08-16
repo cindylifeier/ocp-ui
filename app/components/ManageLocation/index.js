@@ -68,7 +68,7 @@ ManageLocation.propTypes = {
     logicalId: PropTypes.string.isRequired,
     managingLocationLogicalId: PropTypes.string,
     status: PropTypes.string,
-    physicalType: PropTypes.string,
+    physicalType: PropTypes.object,
     name: PropTypes.string,
     address: PropTypes.shape({
       line1: PropTypes.string,
