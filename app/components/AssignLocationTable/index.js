@@ -23,6 +23,7 @@ import {
   SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH, ACTIVE,
 } from 'components/AssignLocationTable/constants';
 import LocationExpansionRowDetails from 'components/AssignLocationTable/LocationExpansionRowDetails';
+import { GoBackButton } from 'components/GoBackButton';
 import messages from './messages';
 
 
@@ -82,6 +83,15 @@ function AssignLocationTable({ elements, showAssigned = false, onCheck, relative
             </ExpansionTableRow>
           );
         })}
+        <Grid columns={7}>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><GoBackButton label={'Back to Dashboard'} /></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+        </Grid>
       </Table>
     </div>
   );

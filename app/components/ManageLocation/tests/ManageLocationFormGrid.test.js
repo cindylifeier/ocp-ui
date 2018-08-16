@@ -58,7 +58,7 @@ describe('<ManageLocationFormGrid />', () => {
       expect(renderedComponent).toHaveStyleRule('padding-right', '1vw');
       expect(renderedComponent).toHaveStyleRule('margin', '0 1vw');
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr');
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "organizationName"    "name"    "status"    "locationType"    "identifierGroup"    "contact"    "address1"    "address2"    "city"    "state"    "postalCode"    "addressUse"    "buttonGroup"    "errorMessage"');
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle"    "organizationName"    "name"    "status"    "locationType"    "identifierGroup"    "contact"    "addressSubtitle"    "address1"    "address2"    "city"    "state"    "postalCode"    "addressUse"    "buttonGroup"    "errorMessage"');
     });
 
     it('should have styles in min-width: 768px', () => {
@@ -71,7 +71,7 @@ describe('<ManageLocationFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', '1fr 1fr', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "organizationName organizationName"      "name status"      "locationType locationType"      "identifierGroup identifierGroup"      "identifierGroup identifierGroup"      "contact contact"      "address1 address2"      "city state"      "postalCode addressUse"      "buttonGroup ."      "errorMessage errorMessage"', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle"      "organizationName organizationName"      "name status"      "locationType locationType"      "identifierGroup identifierGroup"      "identifierGroup identifierGroup"      "contact contact"      "addressSubtitle addressSubtitle"      "address1 address2"      "city state"      "postalCode addressUse"      "buttonGroup ."      "errorMessage errorMessage"', { media });
     });
 
     it('should have styles in min-width: 1200px', () => {
@@ -84,7 +84,7 @@ describe('<ManageLocationFormGrid />', () => {
 
       // Assert
       expect(renderedComponent).toHaveStyleRule('grid-template-columns', 'repeat(12, 1fr)', { media });
-      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName"      "name name name name status status status . . . . ."      "locationType locationType identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . ."      "contact contact contact contact contact contact contact contact contact contact contact contact"      "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."      "city city city city state state state postalCode postalCode . . ."      "addressUse addressUse addressUse addressUse . . . . . . . ."      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."      "errorMessage errorMessage . . . . . . . . . ."', { media });
+      expect(renderedComponent).toHaveStyleRule('grid-template-areas', '"generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"      "organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName organizationName"      "name name name name status status status . . . . ."      "locationType locationType identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup identifierGroup . . . ."      "contact contact contact contact contact contact contact contact contact contact contact contact"      "addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle"      "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."      "city city city city state state state postalCode postalCode . . ."      "addressUse addressUse addressUse addressUse . . . . . . . ."      "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."      "errorMessage errorMessage . . . . . . . . . ."', { media });
     });
   });
 });

@@ -164,6 +164,7 @@ export class HealthcareServices extends React.Component { // eslint-disable-line
           showFilterIcon={false}
           showUploadIcon={false}
           showSearchIcon={false}
+          showSettingIcon={false}
         />
         }
         {showActionSection &&
