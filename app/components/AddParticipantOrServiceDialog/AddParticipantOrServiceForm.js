@@ -24,12 +24,24 @@ class AddParticipantOrServiceForm extends React.Component {
     super(props);
     this.state = {
       tabIndex: 0,
-      isServiceRequired: false,
-      isCareTeamRequired: false,
+      isHcServiceDisabled: true,
+      isLocationDisabled: true,
+      isPractitionertDisabled: true,
+      isCareTeamDisabled: true,
+      isRequiredDisabled: true,
+      isRequiredSelected: false,
+      isLocationSelected: false,
     };
     this.handleTabChange = this.handleTabChange.bind(this);
     this.handleServiceChanged = this.handleServiceChanged.bind(this);
     this.handleLocationChanged = this.handleLocationChanged.bind(this);
+    this.handlePractitionerChanged = this.handlePractitionerChanged.bind(this);
+    this.canAddParticipant = this.canAddParticipant.bind(this);
+    this.handleRequiredChanged = this.handleRequiredChanged.bind(this);
+    this.handleCareTeamTabCareTeamChanged = this.handleCareTeamTabCareTeamChanged.bind(this);
+    this.handleCareTeamTabRequiredChanged = this.handleCareTeamTabRequiredChanged.bind(this);
+    this.handleCareTeamTabServiceChanged = this.handleCareTeamTabServiceChanged.bind(this);
+    this.handleCareTeamTabLocationChanged = this.handleCareTeamTabLocationChanged.bind(this);
   }
 
   handleTabChange(event, index) {
@@ -37,12 +49,112 @@ class AddParticipantOrServiceForm extends React.Component {
   }
   handleServiceChanged(serviceReference) {
     const { handleSelectLocation } = this.props;
+    if (serviceReference) {
+      this.setState({
+        isLocationDisabled: false,
+        isHcServiceDisabled: false,
+      });
+    } else {
+      this.setState({
+        isLocationDisabled: true,
+        isHcServiceDisabled: true,
+      });
+    }
     handleSelectLocation(serviceReference);
   }
 
   handleLocationChanged(locationReference) {
     const { handleSelectPractitioner } = this.props;
+    if (locationReference) {
+      this.setState({ isPractitionertDisabled: false });
+    } else {
+      this.setState({ isPractitionertDisabled: true });
+    }
     handleSelectPractitioner(locationReference);
+  }
+
+  handlePractitionerChanged(practitionerReference) {
+    if (practitionerReference) {
+      this.setState({ isRequiredDisabled: false });
+    } else {
+      this.setState({ isRequiredDisabled: true });
+    }
+  }
+  handleRequiredChanged(requiredReference) {
+    if (requiredReference) {
+      this.setState({ isRequiredSelected: true });
+    } else {
+      this.setState({ isRequiredSelected: false });
+    }
+  }
+
+  handleCareTeamTabCareTeamChanged(careTeamReference) {
+    if (careTeamReference) {
+      this.setState({
+        isRequiredDisabled: false,
+        isCareTeamDisabled: false,
+      });
+    } else {
+      this.setState({
+        isRequiredDisabled: true,
+        isCareTeamDisabled: true,
+      });
+    }
+  }
+
+  handleCareTeamTabRequiredChanged(requiredReference) {
+    if (requiredReference) {
+      this.setState({
+        isHcServiceDisabled: false,
+      });
+    } else {
+      this.setState({
+        isHcServiceDisabled: true,
+      });
+    }
+  }
+
+  handleCareTeamTabServiceChanged(serviceference) {
+    if (serviceference) {
+      this.setState({
+        isLocationDisabled: false,
+      });
+    } else {
+      this.setState({
+        isLocationDisabled: true,
+      });
+    }
+  }
+
+  handleCareTeamTabLocationChanged(serviceference) {
+    if (serviceference) {
+      this.setState({
+        isLocationSelected: true,
+      });
+    } else {
+      this.setState({
+        isLocationSelected: false,
+      });
+    }
+  }
+  canAddParticipant() {
+    const {
+      isHcServiceDisabled,
+      isLocationDisabled,
+      isPractitionertDisabled,
+      isCareTeamDisabled,
+      isRequiredDisabled,
+      isRequiredSelected,
+      isLocationSelected,
+    } = this.state;
+
+    let disabled = true;
+    if (this.state.tabIndex === 0) {
+      disabled = isHcServiceDisabled || isLocationDisabled || isPractitionertDisabled || isRequiredDisabled || !isRequiredSelected;
+    } else if (this.state.tabIndex === 1) {
+      disabled = isCareTeamDisabled || isRequiredDisabled || isLocationDisabled || isHcServiceDisabled || !isLocationSelected;
+    }
+    return disabled;
   }
 
   render() {
@@ -71,16 +183,6 @@ class AddParticipantOrServiceForm extends React.Component {
           initialValues={setInitialValues()}
           validationSchema={() =>
              yup.object().shape({
-               // service: yup.string()
-               //   .required((<FormattedMessage {...messages.validation.required} />)),
-               required: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-               location: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
-               // careTeam: yup.string()
-               //   .required((<FormattedMessage {...messages.validation.required} />)),
-               // practitioner: yup.string()
-               //   .required((<FormattedMessage {...messages.validation.required} />)),
              })
           }
           render={({ isSubmitting, dirty, isValid, resetForm }) => (
@@ -130,6 +232,7 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="location"
+                            disabled={this.state.isLocationDisabled}
                             onChange={this.handleLocationChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
@@ -147,6 +250,8 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="practitioner"
+                            disabled={this.state.isPractitionertDisabled}
+                            onChange={this.handlePractitionerChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
                           >
@@ -164,6 +269,8 @@ class AddParticipantOrServiceForm extends React.Component {
                             <SelectField
                               fullWidth
                               name="required"
+                              disabled={this.state.isRequiredDisabled}
+                              onChange={this.handleRequiredChanged}
                               hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
                               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
                             >
@@ -187,6 +294,7 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="careTeam"
+                            onChange={this.handleCareTeamTabCareTeamChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectedCareTeam} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectedCareTeam} />}
                           >
@@ -198,14 +306,13 @@ class AddParticipantOrServiceForm extends React.Component {
                               />),
                             )}
                           </SelectField>
-                          {this.state.isCareTeamRequired &&
-                            <div>Required</div>
-                          }
                         </Cell>
                         <Cell>
                           <SelectField
                             fullWidth
                             name="required"
+                            disabled={this.state.isRequiredDisabled}
+                            onChange={this.handleCareTeamTabRequiredChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
                           >
@@ -222,7 +329,8 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="service"
-                            onChange={this.handleServiceChanged}
+                            disabled={this.state.isHcServiceDisabled}
+                            onChange={this.handleCareTeamTabServiceChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectService} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
                           >
@@ -239,7 +347,8 @@ class AddParticipantOrServiceForm extends React.Component {
                           <SelectField
                             fullWidth
                             name="location"
-                            onChange={this.handleLocationChanged}
+                            disabled={this.state.isLocationDisabled}
+                            onChange={this.handleCareTeamTabLocationChanged}
                             hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
                             floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
                           >
@@ -291,7 +400,7 @@ class AddParticipantOrServiceForm extends React.Component {
                     <Cell>
                       <StyledRaisedButton
                         type="submit"
-                        disabled={!dirty || isSubmitting || !isValid}
+                        disabled={!dirty || isSubmitting || !isValid || this.canAddParticipant()}
                       >
                         <FormattedMessage {...messages.saveButton} />
                       </StyledRaisedButton>
