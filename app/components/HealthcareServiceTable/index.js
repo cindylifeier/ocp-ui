@@ -78,6 +78,7 @@ export function HealthcareServiceTable({ elements, showAssigned = false, onCheck
           }
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderProgramName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderStatus} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((element) => {
           const menuItems = [{
