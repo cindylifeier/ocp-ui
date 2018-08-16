@@ -6,6 +6,7 @@ import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 
+import { PHONE_PATTERN, POSTAL_CODE_PATTERN } from 'containers/App/constants';
 import Padding from 'components/Padding';
 import AutoSuggestionField from 'components/AutoSuggestion';
 import SelectField from 'components/SelectField';
@@ -17,6 +18,8 @@ import AddMultipleContactsFormGrid from './AddMultipleContactsFormGrid';
 
 
 function AddMultipleContactsForm(props) {
+  const postalCodePattern = new RegExp(POSTAL_CODE_PATTERN);
+  const phonePattern = new RegExp(PHONE_PATTERN);
   const {
     initialValues,
     contactPurposes,
@@ -45,7 +48,26 @@ function AddMultipleContactsForm(props) {
         }}
         initialValues={{ ...(initialValues || {}).contact }}
         validationSchema={yup.object().shape({
+          name: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
           purpose: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          phone: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .matches(phonePattern, (<FormattedMessage {...messages.validation.phone} />)),
+          email: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .email(),
+          line1: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          city: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          stateCode: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          postalCode: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />))
+            .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
+          countryCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={({ isSubmitting, dirty, isValid }) => (

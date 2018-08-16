@@ -31,6 +31,14 @@ export default defineMessages({
       id: 'ocpui.components.AddMultipleContacts.validation.required',
       defaultMessage: 'Required',
     },
+    phone: {
+      id: 'ocpui.components.AddMultipleContacts.validation.phone',
+      defaultMessage: 'Must be with formats: 123-456-7890 (123)456-7890 1234567890 123.456.7890',
+    },
+    postalCode: {
+      id: 'ocpui.components.AddMultipleContacts.validation.postalCode',
+      defaultMessage: 'Must be with formats: 12345 or 12345-6789',
+    },
   },
   hintText: {
     name: {
