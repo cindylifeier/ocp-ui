@@ -160,6 +160,16 @@ export const BENEFITS_SPECIALIST_ROLE_CODE = 'BENETSPT';
 export const HEALTH_ASSISTANT_ROLE_CODE = 'HASST';
 export const FRONT_OFFICE_ROLE_CODE = 'FORECEPT';
 
+export const OCP_ADMIN_ROLE_DISPLAY = 'OCP Admin';
+export const PATIENT_ROLE_DISPLAY = 'Patient';
+export const CARE_COORDINATOR_ROLE_DISPLAY = 'Care Coordinator';
+export const CARE_MANAGER_ROLE_DISPLAY = 'Care Manager';
+export const ORGANIZATION_ADMIN_ROLE_DISPLAY = 'Organization Admin';
+export const PCP_ROLE_DISPLAY = 'Primary Care Provider';
+export const BENEFITS_SPECIALIST_ROLE_DISPLAY = 'Benefits Specialist';
+export const HEALTH_ASSISTANT_ROLE_DISPLAY = 'Health Assistant';
+export const FRONT_OFFICE_ROLE_DISPLAY = 'Front Office Receptionist';
+
 /**
  *  Constants to hold the default pagination page size and start page number
  * @type {number}
