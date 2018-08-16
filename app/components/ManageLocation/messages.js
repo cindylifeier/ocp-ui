@@ -36,7 +36,7 @@ export default defineMessages({
   },
   locationPhysicalType: {
     id: 'ocpui.components.ManageLocation.locationPhysicalType',
-    defaultMessage: 'Location Type',
+    defaultMessage: 'Location Physical Type',
   },
   managingLocationLogicalIdFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.managingLocationLogicalIdFloatingLabelText',
@@ -45,6 +45,10 @@ export default defineMessages({
   identifierSystemTypeFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.identifierSystemTypeFloatingLabelText',
     defaultMessage: 'Identifier System',
+  },
+  addressHeader: {
+    id: 'ocpui.components.ManageLocation.addressHeader',
+    defaultMessage: 'Address',
   },
   address1HintText: {
     id: 'ocpui.components.ManageLocation.address1HintText',

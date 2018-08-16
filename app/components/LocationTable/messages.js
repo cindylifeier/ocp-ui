@@ -40,7 +40,7 @@ export default defineMessages({
   },
   expansionRowDetailsLocationType: {
     id: 'ocpui.components.LocationTable.expansionRowDetailsLocationType',
-    defaultMessage: 'Location Type',
+    defaultMessage: 'Location Physical Type',
   },
   actionLabelEdit: {
     id: 'ocpui.components.LocationTable.actionLabelEdit',
@@ -48,7 +48,7 @@ export default defineMessages({
   },
   actionLabelAssignHealthCareService: {
     id: 'ocpui.components.LocationTable.actionLabelAssignHealthCareService',
-    defaultMessage: 'Assign HealthCareService',
+    defaultMessage: 'Assign HealthCare Service',
   },
   noLocationsFound: {
     id: 'ocpui.containers.Locations.noLocationsFound',
