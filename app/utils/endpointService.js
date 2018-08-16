@@ -40,6 +40,8 @@ export const BASE_GROUPS_API_URL = 'ocpui/utils/BASE_GROUPS_API_URL';
 export const BASE_SCOPES_API_URL = 'ocpui/utils/BASE_SCOPES_API_URL';
 export const BASE_USERS_API_URL = 'ocpui/utils/BASE_USERS_API_URL';
 export const BASE_USER_LOGIN_DETAILS_API_URL = 'ocpui/utils/BASE_USER_LOGIN_DETAILS_API_URL';
+export const BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL = 'ocpui/utils/BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL';
+export const BASE_LOCATION_REFERENCES_API_URL = 'ocpui/utils/BASE_LOCATION_REFERENCES_API_URL';
 
 
 export const BASE_COMMUNICATIONS_API_URL = 'ocpui/utils/BASE_COMMUNICATIONS_API_URL';
@@ -59,6 +61,8 @@ const apiEndpoints = [
   { key: BASE_ORGANIZATION_API_URL, url: `${BASE_API_URL}/ocp-fis/organization` },
   { key: BASE_ORGANIZATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/organizations` },
   { key: BASE_HEALTHCARE_SERVICES_API_URL, url: `${BASE_API_URL}/ocp-fis/healthcare-services` },
+  { key: BASE_HEALTHCARE_SERVICES_REFERENCES_API_URL, url: `${BASE_API_URL}/ocp-fis/healthcare-service-references` },
+  { key: BASE_LOCATION_REFERENCES_API_URL, url: `${BASE_API_URL}/ocp-fis/location-references` },
   { key: BASE_LOCATIONS_API_URL, url: `${BASE_API_URL}/ocp-fis/locations` },
   { key: BASE_PARTICIPANTS_API_URL, url: `${BASE_API_URL}/ocp-fis/participants` },
   { key: BASE_PATIENTS_API_URL, url: `${BASE_API_URL}/ocp-fis/patients` },
