@@ -135,7 +135,7 @@ export default defineMessages({
     },
     endDate: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.endDate',
-      defaultMessage: 'end Date',
+      defaultMessage: 'End Date',
     },
   },
   saveFlagButton: {

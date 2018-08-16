@@ -25,6 +25,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
+import { GoBackButton } from 'components/GoBackButton';
 import HealthcareServiceExpansionRowDetails from './HealthcareServiceExpansionRowDetails';
 import messages from './messages';
 
@@ -131,6 +132,17 @@ export function HealthcareServiceTable({ elements, showAssigned = false, onCheck
           );
         })}
       </Table>
+      {showAssigned &&
+      <Grid columns={7}>
+        <Cell></Cell>
+        <Cell></Cell>
+        <Cell></Cell>
+        <Cell><GoBackButton label={'Back to Dashboard'} /></Cell>
+        <Cell></Cell>
+        <Cell></Cell>
+        <Cell></Cell>
+      </Grid>
+      }
     </div>
   );
 }
