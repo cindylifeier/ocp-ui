@@ -101,19 +101,11 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
         }
-        {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.birthDate}</TableRowColumn>
-        }
-        {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.genderCode}</TableRowColumn>
-        }
         {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{getIdentifiers(patient.identifier)}</TableRowColumn>
         }
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.active ?
-          <FormattedMessage {...messages.active} /> :
-          <FormattedMessage {...messages.inactive} />}
-        </TableRowColumn>
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
           {showActionButton &&
             <NavigationIconMenu menuItems={menuItems} />
@@ -174,16 +166,11 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.ethnicity} /></TableHeaderColumn>
           }
-          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.dob} /></TableHeaderColumn>
-          }
-          {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.gender} /></TableHeaderColumn>
-          }
           {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.identifier} /></TableHeaderColumn>
           }
-          <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
           {showActionButton &&
           <TableHeaderColumn><FormattedMessage {...messages.actions} /></TableHeaderColumn>
           }
