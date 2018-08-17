@@ -139,9 +139,13 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.birthSex',
       defaultMessage: 'Birth Gender',
     },
-    activityType: {
-      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activityType',
-      defaultMessage: 'Activity Type',
+    activeTasks: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activeTasks',
+      defaultMessage: 'Active Tasks',
+    },
+    managingOrganization: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.managingOrganization',
+      defaultMessage: 'Managing Organization',
     },
   },
 });
