@@ -1,18 +1,13 @@
-
-import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+import { findPractitioner } from '../actions';
+import { FIND_PRACTITIONER } from '../constants';
 
 describe('NewPractitionerResource actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('Find Practitioner Action', () => {
+    it('has a type of FIND_PRACTITIONER', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: FIND_PRACTITIONER,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(findPractitioner()).toEqual(expected);
     });
   });
 });
