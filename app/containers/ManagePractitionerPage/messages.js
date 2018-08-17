@@ -12,6 +12,6 @@ export default defineMessages({
   },
   updateHeader: {
     id: 'ocpui.containers.ManagePractitionerPage.updateHeader',
-    defaultMessage: 'Edit Practitioner',
+    defaultMessage: 'Edit Practitioner/Resource',
   },
 });
