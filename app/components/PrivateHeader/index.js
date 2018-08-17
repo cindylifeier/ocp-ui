@@ -75,7 +75,7 @@ class PrivateHeader extends React.Component {
     return this.props.user && this.props.user.role;
   }
 
-  getUserOrganization() {
+  getUserOrganizationName() {
     let orgId;
     if (this.props.user && this.props.user.ext_attr && this.props.user.ext_attr.orgId) {
       orgId = this.props.user.ext_attr.orgId;
@@ -159,14 +159,15 @@ class PrivateHeader extends React.Component {
               </StyledText>
             </StyledText>
             }
-            {this.getUserOrganization() &&
+            {this.getUserOrganizationName() &&
             <StyledText textAlign="right">
               Organization:
               <StyledText fontWeight={700} whiteSpace>
-                {this.getUserOrganization()}
+                {this.getUserOrganizationName()}
               </StyledText>
             </StyledText>
             }
+            <StyledText></StyledText>
           </Grid>
         </ToolbarGroup>
         <Menu
