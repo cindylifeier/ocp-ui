@@ -10,6 +10,7 @@ configure({ adapter: new Adapter() });
 
 const tableColumns = 'repeat(7, 1fr) 50px';
 const relativeTop = 50;
+const size = { width: 400 };
 const flattenHealthcareServiceData = jest.fn();
 
 describe('<HealthcareServiceTable />', () => {
@@ -86,6 +87,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -164,6 +166,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -243,6 +246,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -315,7 +319,6 @@ describe('<HealthcareServiceTable />', () => {
         active: active2,
       };
       const mockElements = [element1, element2];
-      const size = { width: 400 };
       const showAssigned = false;
       const onCheck = jest.fn();
       // Act
@@ -406,6 +409,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -487,6 +491,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -568,6 +573,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -653,6 +659,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -734,6 +741,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
@@ -813,6 +821,7 @@ describe('<HealthcareServiceTable />', () => {
         relativeTop={relativeTop}
         elements={mockElements}
         flattenHealthcareServiceData={flattenHealthcareServiceData}
+        size={size}
       />);
 
       // Assert
