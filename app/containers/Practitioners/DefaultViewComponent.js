@@ -8,10 +8,10 @@ import {
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
+import NewPractitionerResource from 'containers/NewPractitionerResource';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import PractitionerTable from 'components/PractitionerTable';
-import AddPractitionerModal from 'components/AddPractitionerModal';
 import messages from './messages';
 
 class DefaultViewComponent extends React.Component {
@@ -66,7 +66,7 @@ class DefaultViewComponent extends React.Component {
           />
         </InfoSection>
         {this.state.modalOpen &&
-        <AddPractitionerModal modalOpen={this.state.modalOpen} onModalClose={this.handleCloseModal} />
+        <NewPractitionerResource modalOpen={this.state.modalOpen} onModalClose={this.handleCloseModal} />
         }
       </div>
     );
