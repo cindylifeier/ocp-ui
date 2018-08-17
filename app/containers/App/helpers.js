@@ -76,16 +76,10 @@ export function mapToAddresses(addresses) {
 }
 
 export function combineAddress(address) {
-  const addressStr = [];
-  addressStr.push(address.line1 || '');
-  addressStr.push(address.line2 || '');
-  addressStr.push(address.city || '');
-  addressStr.push(address.stateCode || '');
-  addressStr.push(address.postalCode || '');
-  addressStr.push(address.countryCode || '');
-  return addressStr
-    .filter((field) => field !== '')
-    .join(', ');
+  const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+  const firstLineAddress = [line1, line2].filter(identity).join(', ');
+  const secondLineAddress = [city, stateCode, postalCode, countryCode].filter(identity).join(', ');
+  return [firstLineAddress, secondLineAddress].filter(identity).join(NEW_LINE_CHARACTER);
 }
 
 export function getLinkUrlByRole(role) {
