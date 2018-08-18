@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'ocpui.components.CreatePractitionerForm.checkExistingButton',
     defaultMessage: 'Check Existing',
   },
+  modalContentText: {
+    id: 'ocpui.components.AddPractitionerModal.modalContentText',
+    defaultMessage: 'User may already exist within OCP. Please associate an organization below or continue creating a new practitioner.',
+  },
   validation: {
     required: {
       id: 'ocpui.components.CreatePractitionerForm.validation.required',
@@ -59,5 +63,25 @@ export default defineMessages({
       id: 'ocpui.components.CreatePractitionerForm.floatingLabelText.identifierValue',
       defaultMessage: 'Identifier Value',
     },
+  },
+  tableHeaderColumnName: {
+    id: 'ocpui.components.PractitionerLookupResult.tableHeaderColumnName',
+    defaultMessage: 'Name',
+  },
+  tableColumnHeaderRole: {
+    id: 'ocpui.components.PractitionerLookupResult.tableColumnHeaderRole',
+    defaultMessage: 'Role',
+  },
+  tableHeaderColumnIdentifier: {
+    id: 'ocpui.components.PractitionerLookupResult.tableHeaderColumnIdentifier',
+    defaultMessage: 'ID',
+  },
+  tableColumnHeaderEmail: {
+    id: 'ocpui.components.PractitionerLookupResult.tableColumnHeaderEmail',
+    defaultMessage: 'Email',
+  },
+  tableHeaderColumnAction: {
+    id: 'ocpui.components.PractitionerLookupResult.tableHeaderColumnAction',
+    defaultMessage: 'Action',
   },
 });

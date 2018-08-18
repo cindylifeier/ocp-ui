@@ -6,7 +6,6 @@ describe('newPractitionerResourceReducer', () => {
     expect(newPractitionerResourceReducer(undefined, {})).toEqual(fromJS({
       loading: false,
       practitioner: null,
-      queryData: null,
       error: false,
     }));
   });

@@ -1,8 +1,7 @@
 import { Grid } from 'styled-css-grid';
 
 const CreatePractitionerForm = Grid.extend`
-  padding-left: 0.5vw;
-  margin: 2vh 1vw;
+  margin-bottom: 2vh;
   grid-column-gap: 2vw;
   grid-row-gap: 2vh;
   grid-template-columns: 1fr;

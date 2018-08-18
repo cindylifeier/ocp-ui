@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { DialogContent, DialogContentText, DialogTitle } from 'material-ui-next/Dialog';
 import Close from '@material-ui/icons/Close';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -15,6 +15,7 @@ import StyledDialog from 'components/StyledDialog';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
 import CreatePractitionerForm from './CreatePractitionerForm';
+import PractitionerLookupResult from './PractitionerLookupResult';
 import messages from './messages';
 
 
@@ -40,6 +41,8 @@ class AddPractitionerModal extends React.Component { // eslint-disable-line reac
           </DialogTitle>
           <DialogContent>
             <CreatePractitionerForm identifierSystems={identifierSystems} onCheckExisting={onCheckExisting} />
+            <DialogContentText><FormattedMessage {...messages.modalContentText} /></DialogContentText>
+            <PractitionerLookupResult />
           </DialogContent>
         </StyledDialog>
       </div>
