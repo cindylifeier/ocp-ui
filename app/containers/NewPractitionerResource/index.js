@@ -66,6 +66,7 @@ NewPractitionerResource.propTypes = {
   })).isRequired,
   practitionerLookup: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    exists: PropTypes.bool.isRequired,
     practitioner: PropTypes.object,
     error: PropTypes.oneOfType([
       PropTypes.string,

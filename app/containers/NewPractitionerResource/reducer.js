@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+import isEmpty from 'lodash/isEmpty';
 import {
   FIND_PRACTITIONER,
   FIND_PRACTITIONER_ERROR,
@@ -16,6 +17,7 @@ import {
 const initialState = fromJS({
   loading: false,
   practitioner: null,
+  exists: false,
   error: false,
 });
 
@@ -27,10 +29,12 @@ function newPractitionerResourceReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('practitioner', null)
+        .set('exists', false)
         .set('error', false);
     case FIND_PRACTITIONER_SUCCESS:
       return state
         .set('loading', false)
+        .set('exists', !isEmpty(action.practitioner))
         .set('practitioner', fromJS(action.practitioner))
         .setIn(['queryParameters', 'firstName'], action.queryParameters.firstName)
         .setIn(['queryParameters', 'lastName'], action.queryParameters.lastName)
@@ -39,6 +43,7 @@ function newPractitionerResourceReducer(state = initialState, action) {
     case FIND_PRACTITIONER_ERROR:
       return state
         .set('loading', false)
+        .set('exists', false)
         .set('error', action.error);
     default:
       return state;

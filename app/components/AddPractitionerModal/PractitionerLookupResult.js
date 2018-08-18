@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Divider from 'material-ui-next/Divider';
 import { LinearProgress } from 'material-ui-next/Progress';
-import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
 import Table from 'components/Table';
@@ -27,7 +26,7 @@ import messages from './messages';
 const columns = 'repeat(4, 1fr) .5fr';
 
 function PractitionerLookupResult(props) {
-  const { practitionerLookup: { loading, practitioner, error } } = props;
+  const { practitionerLookup: { loading, practitioner, exists, error } } = props;
   const managePractitionerUrl = '/ocp-ui/manage-practitioner';
 
   function renderPractitionerTable() {
@@ -76,13 +75,13 @@ function PractitionerLookupResult(props) {
   return (
     <div>
       {loading && <LinearProgress />}
-      {error && isEmpty(practitioner) &&
+      {error && !exists &&
       <div>
         <FormattedMessage {...messages.NoExistPractitionerFound} />
         {renderCreateNewRecordButton()}
       </div>
       }
-      {!loading && practitioner && renderPractitionerTable()}
+      {!loading && exists && renderPractitionerTable()}
     </div>
   );
 }
@@ -90,6 +89,7 @@ function PractitionerLookupResult(props) {
 PractitionerLookupResult.propTypes = {
   practitionerLookup: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    exists: PropTypes.bool.isRequired,
     practitioner: PropTypes.shape({
       name: PropTypes.array,
       identifiers: PropTypes.array,
