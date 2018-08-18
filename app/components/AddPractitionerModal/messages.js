@@ -20,7 +20,7 @@ export default defineMessages({
   },
   modalContentText: {
     id: 'ocpui.components.AddPractitionerModal.modalContentText',
-    defaultMessage: 'The user already exists in the system. Please associate an organization below or continue creating a new practitioner.',
+    defaultMessage: 'The user already exists in the system.',
   },
   validation: {
     required: {
@@ -91,5 +91,9 @@ export default defineMessages({
   edit: {
     id: 'ocpui.components.PractitionerLookupResult.edit',
     defaultMessage: 'Edit',
+  },
+  createButton: {
+    id: 'ocpui.components.PractitionerLookupResult.createButton',
+    defaultMessage: 'Create New Record',
   },
 });

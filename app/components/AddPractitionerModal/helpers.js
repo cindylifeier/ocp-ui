@@ -17,8 +17,10 @@ export function flattenPractitioner(practitioner) {
 }
 
 function mapToRoles(practitionerRoles) {
-  return practitionerRoles && practitionerRoles
+  const roles = practitionerRoles && practitionerRoles
     .map((role) => role.code)
+    .pop();
+  return roles && roles
     .map((roleCode) => roleCode.display)
     .join(NEW_LINE_CHARACTER);
 }

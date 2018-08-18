@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
-import { Cell, Grid } from 'styled-css-grid';
+import { Cell } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'components/SelectField';
 import TextField from 'components/TextField';
@@ -82,11 +82,9 @@ function CreatePractitionerForm(props) {
                 </FieldGroupGrid>
               </Cell>
               <Cell area="button">
-                <Grid columns={2}>
-                  <StyledRaisedButton type="submit" disabled={!dirty || isSubmitting || !isValid}>
-                    <FormattedMessage {...messages.checkExistingButton} />
-                  </StyledRaisedButton>
-                </Grid>
+                <StyledRaisedButton type="submit" disabled={!dirty || isSubmitting || !isValid}>
+                  <FormattedMessage {...messages.checkExistingButton} />
+                </StyledRaisedButton>
               </Cell>
             </CreatePractitionerFormGrid>
           </Form>
