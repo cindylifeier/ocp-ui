@@ -20,7 +20,7 @@ export default defineMessages({
   },
   modalContentText: {
     id: 'ocpui.components.AddPractitionerModal.modalContentText',
-    defaultMessage: 'User may already exist within OCP. Please associate an organization below or continue creating a new practitioner.',
+    defaultMessage: 'The user already exists in the system. Please associate an organization below or continue creating a new practitioner.',
   },
   validation: {
     required: {
@@ -83,5 +83,13 @@ export default defineMessages({
   tableHeaderColumnAction: {
     id: 'ocpui.components.PractitionerLookupResult.tableHeaderColumnAction',
     defaultMessage: 'Action',
+  },
+  NoExistPractitionerFound: {
+    id: 'ocpui.components.PractitionerLookupResult.NoExistPractitionerFound',
+    defaultMessage: 'No exist practitioner found in the system. Please continue creating a new practitioner.',
+  },
+  edit: {
+    id: 'ocpui.components.PractitionerLookupResult.edit',
+    defaultMessage: 'Edit',
   },
 });

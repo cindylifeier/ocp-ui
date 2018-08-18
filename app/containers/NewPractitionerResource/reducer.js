@@ -25,7 +25,9 @@ function newPractitionerResourceReducer(state = initialState, action) {
       return initialState;
     case FIND_PRACTITIONER:
       return state
-        .set('loading', true);
+        .set('loading', true)
+        .set('practitioner', null)
+        .set('error', false);
     case FIND_PRACTITIONER_SUCCESS:
       return state
         .set('loading', false)

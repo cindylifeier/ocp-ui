@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { DialogContent, DialogContentText, DialogTitle } from 'material-ui-next/Dialog';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import Close from '@material-ui/icons/Close';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -21,7 +21,7 @@ import messages from './messages';
 
 class AddPractitionerModal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { modalOpen, onModalClose, identifierSystems, onCheckExisting } = this.props;
+    const { modalOpen, onModalClose, identifierSystems, practitionerLookup, onCheckExisting } = this.props;
     return (
       <div>
         <StyledDialog fullWidth maxWidth="md" open={modalOpen}>
@@ -41,8 +41,7 @@ class AddPractitionerModal extends React.Component { // eslint-disable-line reac
           </DialogTitle>
           <DialogContent>
             <CreatePractitionerForm identifierSystems={identifierSystems} onCheckExisting={onCheckExisting} />
-            <DialogContentText><FormattedMessage {...messages.modalContentText} /></DialogContentText>
-            <PractitionerLookupResult />
+            <PractitionerLookupResult practitionerLookup={practitionerLookup} />
           </DialogContent>
         </StyledDialog>
       </div>
@@ -59,6 +58,15 @@ AddPractitionerModal.propTypes = {
     oid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })).isRequired,
+  practitionerLookup: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    practitioner: PropTypes.object,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
+  }).isRequired,
 };
 
 export default AddPractitionerModal;

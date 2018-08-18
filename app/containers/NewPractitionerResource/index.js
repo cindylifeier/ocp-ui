@@ -38,13 +38,14 @@ export class NewPractitionerResource extends React.Component { // eslint-disable
   }
 
   render() {
-    const { modalOpen, onModalClose, identifierSystems } = this.props;
+    const { modalOpen, onModalClose, identifierSystems, practitionerLookup } = this.props;
     return (
       <div>
         <AddPractitionerModal
           modalOpen={modalOpen}
           onModalClose={onModalClose}
           identifierSystems={identifierSystems}
+          practitionerLookup={practitionerLookup}
           onCheckExisting={this.handleCheckExisting}
         />
       </div>
@@ -63,10 +64,19 @@ NewPractitionerResource.propTypes = {
     oid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })).isRequired,
+  practitionerLookup: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    practitioner: PropTypes.object,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  newPractitionerResource: makeSelectNewPractitionerResource(),
+  practitionerLookup: makeSelectNewPractitionerResource(),
   identifierSystems: makeSelectPractitionerIdentifierSystems(),
 });
 
