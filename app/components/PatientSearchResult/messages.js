@@ -52,7 +52,7 @@ export default defineMessages({
   },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Telecom',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact Detail(s)',
   },
   race: {
     id: 'ocpui.components.PatientSearchResult.race',
@@ -121,7 +121,7 @@ export default defineMessages({
     },
     telecoms: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
-      defaultMessage: 'Contact',
+      defaultMessage: 'Contact Details',
     },
     status: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
