@@ -85,6 +85,8 @@ class PrivateHeader extends React.Component {
           .filter((pracRole) => pracRole.organization.reference === organizationReference)
           .map((pracRole) => pracRole.organization.display)
           .join(', ');
+      } else if (this.props.user && this.props.user.fhirResource && this.props.user.fhirResource.organization) {
+        return this.props.user.fhirResource.organization.display;
       }
     }
     return null;
