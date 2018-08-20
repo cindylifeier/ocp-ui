@@ -64,7 +64,7 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
           name="contacts"
           render={(arrayHelpers) => (
             <div>
-              <StyledDialog fullWidth open={this.state.dialogOpen}>
+              <StyledDialog maxWidth="md" fullWidth open={this.state.dialogOpen}>
                 <DialogTitle>
                   <FormattedMessage {...messages.title} />
                 </DialogTitle>

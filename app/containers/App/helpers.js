@@ -6,7 +6,8 @@ import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import identity from 'lodash/identity';
 
-import { PHONE_SYSTEM } from 'utils/constants';
+import { EMAIL_SYSTEM, PHONE_SYSTEM } from 'utils/constants';
+import Util from 'utils/Util';
 import {
   ADMIN_WORKSPACE,
   BENEFITS_SPECIALIST_ROLE_CODE,
@@ -64,7 +65,14 @@ export function mapToTelecoms(telecoms) {
 
 export function mapToPhone(telecoms) {
   return telecoms && telecoms
-    .filter((telecom) => telecom.system === PHONE_SYSTEM)
+    .filter((telecom) => Util.equalsIgnoreCase(telecom.system, PHONE_SYSTEM))
+    .map((telecom) => telecom.value)
+    .join(NEW_LINE_CHARACTER);
+}
+
+export function mapToEmail(telecoms) {
+  return telecoms && telecoms
+    .filter((telecom) => Util.equalsIgnoreCase(telecom.system, EMAIL_SYSTEM))
     .map((telecom) => telecom.value)
     .join(NEW_LINE_CHARACTER);
 }

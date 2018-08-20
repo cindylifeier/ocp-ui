@@ -104,6 +104,8 @@ function AddMultipleAddressesForm(props) {
                 <TextField
                   fullWidth
                   name="countryCode"
+                  defaultValue="United States"
+                  disabled
                   hintText={<FormattedMessage {...messages.hintText.countryCode} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.countryCode} />}
                 />
