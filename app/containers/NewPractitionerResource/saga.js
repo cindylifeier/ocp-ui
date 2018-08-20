@@ -8,7 +8,7 @@ import { FIND_PRACTITIONER } from './constants';
 export function* findPractitionerSaga({ firstName, lastName, identifierType, identifier, handleSubmitting }) {
   try {
     const practitioner = yield call(findPractitioner, firstName, lastName, identifierType, identifier);
-    yield put(findPractitionerSuccess(practitioner, firstName, lastName, identifierType, identifier));
+    yield put(findPractitionerSuccess(practitioner));
     yield call(handleSubmitting);
   } catch (error) {
     yield put(findPractitionerError(getErrorDetail(error)));

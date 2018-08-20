@@ -8,7 +8,15 @@ const selectNewPractitionerResourceDomain = (state) => state.get('newPractitione
 /**
  * Other specific selectors
  */
+const makeSelectNewPractitionerQueryParameters = () => createSelector(
+  selectNewPractitionerResourceDomain,
+  (substate) => substate && substate.get('queryParameters'),
+);
 
+const makeSelectNewPractitionerExists = () => createSelector(
+  selectNewPractitionerResourceDomain,
+  (substate) => substate && substate.get('exists'),
+);
 
 /**
  * Default selector used by NewPractitionerResource
@@ -16,10 +24,12 @@ const selectNewPractitionerResourceDomain = (state) => state.get('newPractitione
 
 const makeSelectNewPractitionerResource = () => createSelector(
   selectNewPractitionerResourceDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default makeSelectNewPractitionerResource;
 export {
   selectNewPractitionerResourceDomain,
+  makeSelectNewPractitionerQueryParameters,
+  makeSelectNewPractitionerExists,
 };

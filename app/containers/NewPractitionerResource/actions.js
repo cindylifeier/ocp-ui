@@ -29,11 +29,10 @@ export function findPractitioner(firstName, lastName, identifierType, identifier
   };
 }
 
-export function findPractitionerSuccess(practitioner, firstName, lastName, identifierType, identifier) {
+export function findPractitionerSuccess(practitioner) {
   return {
     type: FIND_PRACTITIONER_SUCCESS,
     practitioner,
-    queryParameters: { firstName, lastName, identifierType, identifier },
   };
 }
 

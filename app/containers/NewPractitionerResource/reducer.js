@@ -17,6 +17,12 @@ import {
 const initialState = fromJS({
   loading: false,
   practitioner: null,
+  queryParameters: {
+    firstName: null,
+    lastName: null,
+    identifierType: null,
+    identifier: null,
+  },
   exists: false,
   error: false,
 });
@@ -30,16 +36,16 @@ function newPractitionerResourceReducer(state = initialState, action) {
         .set('loading', true)
         .set('practitioner', null)
         .set('exists', false)
-        .set('error', false);
+        .set('error', false)
+        .setIn(['queryParameters', 'firstName'], action.firstName)
+        .setIn(['queryParameters', 'lastName'], action.lastName)
+        .setIn(['queryParameters', 'identifierType'], action.identifierType)
+        .setIn(['queryParameters', 'identifier'], action.identifier);
     case FIND_PRACTITIONER_SUCCESS:
       return state
         .set('loading', false)
         .set('exists', !isEmpty(action.practitioner))
-        .set('practitioner', fromJS(action.practitioner))
-        .setIn(['queryParameters', 'firstName'], action.queryParameters.firstName)
-        .setIn(['queryParameters', 'lastName'], action.queryParameters.lastName)
-        .setIn(['queryParameters', 'identifierType'], action.queryParameters.identifierType)
-        .setIn(['queryParameters', 'identifier'], action.queryParameters.identifier);
+        .set('practitioner', fromJS(action.practitioner));
     case FIND_PRACTITIONER_ERROR:
       return state
         .set('loading', false)
