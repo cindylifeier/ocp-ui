@@ -6,7 +6,7 @@ import 'jest-styled-components';
 import 'mock-local-storage';
 import React from 'react';
 
-import { componentMetadata, initialStateMetadata, PatientPage } from '../index';
+import { componentMetadata, otherRoleStateMetadata, PatientPage } from '../index';
 
 configure({ adapter: new Adapter() });
 
@@ -37,11 +37,12 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
+      const user = { role: PATIENT_ROLE_CODE };
       const patient = {
         id: '1',
         name: ['test'],
       };
-      const props = { match, patient };
+      const props = { match, patient, user };
 
       // Act
       shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -56,7 +57,8 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
-      const props = { match };
+      const user = { role: PATIENT_ROLE_CODE };
+      const props = { match, user };
 
       // Act
       shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -73,11 +75,12 @@ describe('<PatientPage />', () => {
       const params = { id };
       const match = { params };
       const getPatient = jest.fn();
+      const user = { role: PATIENT_ROLE_CODE };
       const patient = {
         id: '1',
         name: ['test'],
       };
-      const props = { match, patient };
+      const props = { match, patient, user };
 
       // Act
       const renderedComponent = shallow(<PatientPage {...props} getPatient={getPatient} />);
@@ -90,7 +93,7 @@ describe('<PatientPage />', () => {
           containerHeight="75vh"
           containerWidth="95vw"
           componentMetadata={componentMetadata}
-          stateMetadata={initialStateMetadata}
+          stateMetadata={otherRoleStateMetadata}
         />)).toEqual(true);
     });
   });

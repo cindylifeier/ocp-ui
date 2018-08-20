@@ -5,15 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PatientPage
-    getPatient={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            "id",
-          ],
-        ],
-      }
-    }
+    getPatient={[Function]}
     match={
       Object {
         "params": Object {
