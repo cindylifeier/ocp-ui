@@ -66,7 +66,7 @@ export const initialStateMetadata =
           type: 'row',
           content: [
             {
-              title: 'Practitioners',
+              title: 'Practitioners / Resources',
               type: 'component',
               componentName: 'practitioners',
               isClosable: true,
