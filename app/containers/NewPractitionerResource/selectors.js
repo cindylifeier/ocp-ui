@@ -10,7 +10,7 @@ const selectNewPractitionerResourceDomain = (state) => state.get('newPractitione
  */
 const makeSelectNewPractitionerQueryParameters = () => createSelector(
   selectNewPractitionerResourceDomain,
-  (substate) => substate && substate.get('queryParameters'),
+  (substate) => substate && substate.get('queryParameters').toJS(),
 );
 
 const makeSelectNewPractitionerExists = () => createSelector(
