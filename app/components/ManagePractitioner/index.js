@@ -25,6 +25,7 @@ function ManagePractitioner(props) {
     onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
     providerRoles, providerSpecialties, editMode, practitioner, onPageClick, onSearch, currentPage,
     totalNumberOfPages, organizations, initialSearchOrganizationResult,
+    initialNewPractitionerValue,
   } = props;
   const formData = {
     uspsStates,
@@ -44,7 +45,7 @@ function ManagePractitioner(props) {
     <div>
       {((editMode && practitioner) || !editMode) &&
       <Formik
-        initialValues={(editMode && setFormData(practitioner)) || { practitionerRoles: [] }}
+        initialValues={(setFormData(practitioner, initialNewPractitionerValue)) || { practitionerRoles: [] }}
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
@@ -117,12 +118,18 @@ ManagePractitioner.propTypes = {
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
   }),
+  initialNewPractitionerValue: PropTypes.any,
 };
 
 export default ManagePractitioner;
 
-function setFormData(practitioner) {
+function setFormData(practitioner, initialNewPractitionerValue) {
   let formData = null;
+  if (isEmpty(practitioner) && initialNewPractitionerValue) {
+    const { firstName, lastName, identifierType, identifier } = initialNewPractitionerValue;
+    formData = { firstName, lastName, identifierType, identifierValue: identifier };
+  }
+
   if (!isEmpty(practitioner)) {
     formData = merge(mapPractitionerToFirstIdentifier(practitioner), mapPractitionerToFirstName(practitioner),
       mapPractitionerToAddresses(practitioner), mapPractitionerToTelecoms(practitioner),

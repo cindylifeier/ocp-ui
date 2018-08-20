@@ -39,6 +39,10 @@ import {
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import {
+  makeSelectNewPractitionerExists,
+  makeSelectNewPractitionerQueryParameters,
+} from 'containers/NewPractitionerResource/selectors';
+import {
   getOrganizations,
   getPractitioner,
   initializeManagePractitioner,
@@ -106,15 +110,25 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
 
   render() {
     const {
-      match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties, selectedPractitioner,
-      organizations,
-      currentPage,
-      totalNumberOfPages,
+      match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles,
+      providerSpecialties, selectedPractitioner, organizations, currentPage, totalNumberOfPages,
+      newPractitionerExists, newPractitionerQueryParameters,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let practitioner = null;
     if (editMode && selectedPractitioner) {
       practitioner = selectedPractitioner;
+    }
+
+    let initialNewPractitionerValue;
+    if (!editMode && newPractitionerQueryParameters) {
+      const { firstName, lastName, identifierType, identifier } = newPractitionerQueryParameters;
+      initialNewPractitionerValue = !newPractitionerExists && {
+        firstName,
+        lastName,
+        identifierType,
+        identifier,
+      };
     }
     const formProps = {
       uspsStates,
@@ -128,6 +142,7 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
       organizations,
       currentPage,
       totalNumberOfPages,
+      initialNewPractitionerValue,
     };
     return (
       <Page>
@@ -184,6 +199,13 @@ ManagePractitionerPage.propTypes = {
     loading: PropTypes.bool.isRequired,
   }),
   initializeOrganizations: PropTypes.func.isRequired,
+  newPractitionerExists: PropTypes.bool,
+  newPractitionerQueryParameters: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    identifierType: PropTypes.string,
+    identifier: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -197,6 +219,8 @@ const mapStateToProps = createStructuredSelector({
   organizations: makeSelectOrganizations(),
   currentPage: makeSelectCurrentPage(),
   totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  newPractitionerQueryParameters: makeSelectNewPractitionerQueryParameters(),
+  newPractitionerExists: makeSelectNewPractitionerExists(),
 });
 
 function mapDispatchToProps(dispatch) {
