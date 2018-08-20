@@ -54,7 +54,7 @@ function ConfirmPatientModal(props) {
               Gender{WHITE_SPACE}<strong>{upperFirst(patient.genderCode)}</strong>
             </PatientModalCell>
             <PatientModalCell center>
-              ID{WHITE_SPACE}<strong>{patient.id}</strong>
+              MRN{WHITE_SPACE}<strong>{patient.mrn}</strong>
             </PatientModalCell>
             <PatientModalCell center>
               Phone{WHITE_SPACE}<strong>{mapToPatientPhone(patient)}</strong>
