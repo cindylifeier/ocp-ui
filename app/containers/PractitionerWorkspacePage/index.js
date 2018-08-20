@@ -134,7 +134,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 100,
           content: [{
-            title: 'Practitioners',
+            title: 'Practitioners / Resources',
             type: 'component',
             componentName: 'practitioners',
             isClosable: true,
