@@ -121,7 +121,7 @@ export default defineMessages({
     },
     telecoms: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
-      defaultMessage: 'Contact Details',
+      defaultMessage: 'Contact Detail(s)',
     },
     status: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
