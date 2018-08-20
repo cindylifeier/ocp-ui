@@ -16,15 +16,11 @@ export default defineMessages({
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.PatientToDos.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
+    defaultMessage: 'New To Do',
   },
   noToDosFound: {
     id: 'ocpui.containers.PatientToDos.noToDosFound',
     defaultMessage: 'No to-dos found.',
-  },
-  noFilterToDoError: {
-    id: 'ocpui.containers.PatientToDos.noFilterToDoError',
-    defaultMessage: 'No filter To Dos found.',
   },
   selectLabelDateRange: {
     id: 'ocpui.containers.PatientToDos.selectLabelDateRange',
