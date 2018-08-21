@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
-import { CARE_COORDINATOR_ROLE_CODE, DATE_RANGE, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, DATE_RANGE, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import { compose } from 'redux';
 import { cancelToDos, getFilterToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
@@ -130,7 +130,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
         <PanelToolbar
           addNewItem={addNewItem}
           showToDoSpecificFilters
-          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           filterField={filterField}
           onFilter={this.handleFilter}
           showUploadIcon={false}

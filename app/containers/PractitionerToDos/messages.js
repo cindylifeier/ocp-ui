@@ -18,10 +18,6 @@ export default defineMessages({
     id: 'ocpui.containers.PractitionerToDos.noToDosFound',
     defaultMessage: 'No to-dos found.',
   },
-  noFilterToDoError: {
-    id: 'ocpui.containers.PractitionerToDos.noFilterToDoError',
-    defaultMessage: 'No filter To Dos found.',
-  },
   selectLabelDateRange: {
     id: 'ocpui.containers.PractitionerToDos.selectLabelDateRange',
     defaultMessage: 'Select a date range to filter',
