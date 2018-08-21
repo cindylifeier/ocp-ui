@@ -66,4 +66,8 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.noPractitionersFound',
     defaultMessage: 'No practitioners found.',
   },
+  selectOrganization: {
+    id: 'ocpui.components.PractitionerTable.selectOrganization',
+    defaultMessage: 'Please select organization: ',
+  },
 });
