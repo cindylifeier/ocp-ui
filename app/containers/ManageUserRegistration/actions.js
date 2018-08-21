@@ -23,9 +23,10 @@ export function getUser(resourceType, resourceId) {
   };
 }
 
-export function getUserSuccess(user) {
+export function getUserSuccess(fhirResource, user) {
   return {
     type: GET_USER_SUCCESS,
+    fhirResource,
     user,
   };
 }

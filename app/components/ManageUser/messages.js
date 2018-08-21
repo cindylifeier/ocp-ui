@@ -69,6 +69,14 @@ export default defineMessages({
       id: 'ocpui.components.ManageUser.manageForm.hintText.confirmPassword',
       defaultMessage: 'Confirm Password',
     },
+    organization: {
+      id: 'ocpui.components.ManageUser.manageForm.hintText.organization',
+      defaultMessage: 'Select Organization',
+    },
+    permissionGroup: {
+      id: 'ocpui.components.ManageUser.manageForm.hintText.permissionGroup',
+      defaultMessage: 'Select Permission Group',
+    },
   },
   floatingLabelText: {
     firstName: {
@@ -90,6 +98,14 @@ export default defineMessages({
     confirmPassword: {
       id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.confirmPassword',
       defaultMessage: 'Confirm Password',
+    },
+    organization: {
+      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.organization',
+      defaultMessage: 'Organization',
+    },
+    permissionGroup: {
+      id: 'ocpui.components.ManageUser.manageForm.floatingLabelText.permissionGroup',
+      defaultMessage: 'Select Permission Group',
     },
   },
   saveButton: {
