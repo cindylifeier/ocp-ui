@@ -37,6 +37,16 @@ export function saveUser(userFormData) {
   });
 }
 
+export function updateUser(userFormData) {
+  const url = `${baseUsersEndpoint}/${userFormData.id}/groups/${userFormData.group}`;
+  return request(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 export function mapToBackendDto(userFormData) {
   const { username, password, resourceType, resourceId, organization, group } = userFormData;
   return {

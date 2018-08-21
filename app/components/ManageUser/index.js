@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import yup from 'yup';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
+import merge from 'lodash/merge';
 
 import messages from './messages';
 import ManageUserForm from './ManageUserForm';
@@ -57,7 +58,11 @@ function ManageUser(props) {
       <Formik
         initialValues={{ ...initialValues }}
         onSubmit={(values, actions) => {
-          onSave(values, actions);
+          if (isEditing) {
+            onSave(merge(values, { isEditing, id: uaaUser[0].id }), actions);
+          } else {
+            onSave(values, actions);
+          }
         }}
         validationSchema={isEditing ? updateUserValidationScheme : createUserValidationScheme}
         render={(formikProps) => <ManageUserForm {...formikProps} {...formData} />}
