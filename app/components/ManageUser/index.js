@@ -16,12 +16,14 @@ import ManageUserForm from './ManageUserForm';
 
 function ManageUser(props) {
   const passwordPattern = new RegExp('^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@!#$]).*$');
-  const { user, groups, onSave, resourceType, uaaUser } = props;
-  const formData = { user, groups, resourceType };
+  const { user, groups, onSave, resourceType, uaaUser, organization } = props;
+  const isEditing = (uaaUser.length > 0);
+  const formData = { user, groups, resourceType, isEditing };
   const initialValues = {
     firstName: user.name[0].firstName,
     lastName: user.name[0].lastName,
     username: uaaUser && uaaUser[0] && uaaUser[0].username,
+    organization,
   };
   return (
     <div>
@@ -39,8 +41,11 @@ function ManageUser(props) {
           repeatPassword: yup.string()
             .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)
             .required((<FormattedMessage {...messages.validation.required} />)),
-          roles: yup.array()
-            .required((<FormattedMessage {...messages.validation.requiredPermissionGroup} />)),
+          group: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+          organization: yup.string()
+            .required((<FormattedMessage {...messages.validation.required} />)),
+
         })}
         render={(formikProps) => <ManageUserForm {...formikProps} {...formData} />}
       />
@@ -53,6 +58,7 @@ ManageUser.propTypes = {
   resourceType: PropTypes.string,
   groups: PropTypes.array,
   uaaUser: PropTypes.array,
+  organization: PropTypes.string,
   onSave: PropTypes.func,
 };
 

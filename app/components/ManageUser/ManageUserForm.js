@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import { Cell, Grid } from 'styled-css-grid';
 import uniq from 'lodash/uniq';
+import Util from 'utils/Util';
+import MenuItem from 'material-ui/MenuItem';
+
 
 import TextField from 'components/TextField';
+import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
 import FormSubtitle from 'components/FormSubtitle';
-import CustomErrorText from 'components/CustomErrorText';
-import AssignPermissionGroupOnOrganization from 'components/AssignPermissionGroupOnOrganization';
 import ManageUserFormGrid from './ManageUserFormGrid';
 import messages from './messages';
 import { PATIENT } from './constants';
@@ -18,7 +20,7 @@ import { PATIENT } from './constants';
 
 function ManageUserForm(props) {
   const {
-    isSubmitting, dirty, isValid, values, errors,
+    isSubmitting, dirty, isValid, values,
     user, groups, resourceType,
   } = props;
   const assignedOrganizations = values.roles && values.roles.map((role) => role.organization);
@@ -26,13 +28,6 @@ function ManageUserForm(props) {
   if (assignedOrganizations) {
     duplicatedAssignedOrganization = uniq(assignedOrganizations).length !== assignedOrganizations.length;
   }
-  const assignPermissionGroupProps = {
-    user,
-    groups,
-    resourceType,
-    errors,
-    roles: values.roles,
-  };
   return (
     <Form>
       <ManageUserFormGrid>
@@ -97,11 +92,42 @@ function ManageUserForm(props) {
             <FormattedMessage {...messages.assignPermissionGroupSubtitle} />
           </FormSubtitle>
         </Cell>
-        <Cell area="assignPermissionGroup">
-          <AssignPermissionGroupOnOrganization {...assignPermissionGroupProps} />
-          {duplicatedAssignedOrganization &&
-          <CustomErrorText><FormattedMessage {...messages.validation.duplicatedOrganization} /></CustomErrorText>
-          }
+        <Cell area="organization">
+          <SelectField
+            name="organization"
+            hintText={<FormattedMessage {...messages.hintText.organization} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.organization} />}
+            fullWidth
+            disabled
+          >
+            {user && user.practitionerRoles &&
+            user.practitionerRoles.map((practitionerRoles) => (
+              <MenuItem
+                key={practitionerRoles.organization.reference.split('/').pop()}
+                value={practitionerRoles.organization.reference.split('/').pop()}
+                primaryText={practitionerRoles.organization.display}
+              />),
+            )}
+          </SelectField>
+        </Cell>
+        <Cell area="group">
+          <SelectField
+            name="group"
+            fullWidth
+            hintText={<FormattedMessage {...messages.hintText.permissionGroup} />}
+            floatingLabelText={
+              <FormattedMessage {...messages.floatingLabelText.permissionGroup} />}
+          >
+            {groups.map((group) => {
+              const displayName = group.displayName.split('.').pop();
+              return (
+                <MenuItem
+                  key={group.id}
+                  value={group}
+                  primaryText={Util.deCamelize(displayName)}
+                />);
+            })}
+          </SelectField>
         </Cell>
         <Cell area="buttonGroup">
           <Grid columns={2}>
@@ -129,7 +155,6 @@ ManageUserForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   values: PropTypes.object,
-  errors: PropTypes.object,
   user: PropTypes.object,
   groups: PropTypes.array,
   resourceType: PropTypes.string,

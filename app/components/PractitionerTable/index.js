@@ -72,6 +72,7 @@ class PractitionerTable extends React.Component {
           <DialogContent>
             {this.state.practitioner && this.state.practitioner.practitionerRoles && this.state.practitioner.practitionerRoles.map((practitionerRole) => (
               <StyledFlatButton
+                key={practitionerRole.organization.reference}
                 component={Link}
                 to={`${MANAGE_USER_REGISTRATION}/${this.state.practitioner.logicalId}?resourceType=Practitioner&orgId=${practitionerRole.organization.reference.split('/').pop()}`}
               >

@@ -14,6 +14,8 @@ const ManageUserFormGrid = Grid.extend`
     "password"
     "repeatPassword"
     "assignPermissionGroup"
+    "organization"
+    "group"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -26,6 +28,8 @@ const ManageUserFormGrid = Grid.extend`
       "password password"
       "repeatPassword repeatPassword"
       "assignPermissionGroup assignPermissionGroup"
+      "organization organization"
+      "group group"
       "buttonGroup .";
   }
 
@@ -37,7 +41,8 @@ const ManageUserFormGrid = Grid.extend`
       "username username username username . . . . . . . ."
       "password password password password repeatPassword repeatPassword repeatPassword repeatPassword . . . ."
       "assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle"
-      "assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup"
+      "organization organization organization organization organization . . . . . . ."
+      "group group group group group . . . . . . ."
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;

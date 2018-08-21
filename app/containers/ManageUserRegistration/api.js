@@ -38,16 +38,15 @@ export function saveUser(userFormData) {
 }
 
 export function mapToBackendDto(userFormData) {
-  const { username, password, resourceType, resourceId, roles } = userFormData;
-  const ORG_REFERENCE_SEPARATOR = '/';
+  const { username, password, resourceType, resourceId, organization, group } = userFormData;
   return {
     resource: resourceType,
     username,
     password,
     resourceId,
-    roles: roles.map((role) => ({
-      orgId: role.organization.reference.split(ORG_REFERENCE_SEPARATOR).pop(),
-      role: role.group.id,
-    })),
+    roles: [{
+      orgId: organization,
+      role: group,
+    }],
   };
 }

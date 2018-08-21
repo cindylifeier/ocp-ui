@@ -54,11 +54,13 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
     const { user, groups, location, uaaUser } = this.props;
     const queryObj = queryString.parse(location.search);
     const resourceType = queryObj.resourceType;
+    const organization = queryObj.orgId;
     const manageUserProps = {
       groups,
       user,
       resourceType,
       uaaUser,
+      organization,
     };
     return (
       <Page>
