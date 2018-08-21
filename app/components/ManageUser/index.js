@@ -25,6 +25,32 @@ function ManageUser(props) {
     username: uaaUser && uaaUser[0] && uaaUser[0].username,
     organization,
   };
+
+  const createUserValidationScheme = yup.object().shape({
+    username: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    password: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .matches(passwordPattern, <FormattedMessage {...messages.validation.passwordPattern} />),
+    repeatPassword: yup.string()
+      .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    group: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    organization: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+  });
+
+  const updateUserValidationScheme = yup.object().shape({
+    username: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    group: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    organization: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+
+  });
+
   return (
     <div>
       <Formik
@@ -32,21 +58,7 @@ function ManageUser(props) {
         onSubmit={(values, actions) => {
           onSave(values, actions);
         }}
-        validationSchema={yup.object().shape({
-          username: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          password: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
-            .matches(passwordPattern, <FormattedMessage {...messages.validation.passwordPattern} />),
-          repeatPassword: yup.string()
-            .oneOf([yup.ref('password')], <FormattedMessage {...messages.validation.notMatch} />)
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          group: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          organization: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-
-        })}
+        validationSchema={isEditing ? updateUserValidationScheme : createUserValidationScheme}
         render={(formikProps) => <ManageUserForm {...formikProps} {...formData} />}
       />
     </div>

@@ -13,6 +13,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import queryString from 'query-string';
 import merge from 'lodash/merge';
+import pull from 'lodash/pull';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -55,6 +56,15 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
     const queryObj = queryString.parse(location.search);
     const resourceType = queryObj.resourceType;
     const organization = queryObj.orgId;
+    const orgIdString = `"orgId":["${organization}"]`;
+    if (uaaUser) {
+      uaaUser.map((selectUser) => {
+        if (!selectUser.info.includes(orgIdString)) {
+          pull(uaaUser, selectUser);
+        }
+        return uaaUser;
+      });
+    }
     const manageUserProps = {
       groups,
       user,

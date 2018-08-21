@@ -40,8 +40,7 @@ const ManageUserFormGrid = Grid.extend`
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
       "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."
-      "username username username username . . . . . . . ."
-      "resetPassword resetPassword resetPassword resetPassword . . . . . . . ."
+      "username username username username resetPassword resetPassword resetPassword resetPassword . . . ."
       "password password password password repeatPassword repeatPassword repeatPassword repeatPassword . . . ."
       "assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle"
       "organization organization organization organization organization . . . . . . ."

@@ -88,9 +88,10 @@ class ManageUserForm extends React.Component {
               name="username"
               hintText={<FormattedMessage {...messages.hintText.username} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.username} />}
+              disabled={isEditing}
             />
           </Cell>
-          {!isEditing && <div><Cell area="password">
+          {!isEditing && <Cell area="password">
             <TextField
               fullWidth
               name="password"
@@ -98,16 +99,16 @@ class ManageUserForm extends React.Component {
               hintText={<FormattedMessage {...messages.hintText.password} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.password} />}
             />
-          </Cell>
-            <Cell area="repeatPassword">
-              <TextField
-                fullWidth
-                name="repeatPassword"
-                type="password"
-                hintText={<FormattedMessage {...messages.hintText.confirmPassword} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.confirmPassword} />}
-              />
-            </Cell></div>}
+          </Cell>}
+          {!isEditing && <Cell area="repeatPassword">
+            <TextField
+              fullWidth
+              name="repeatPassword"
+              type="password"
+              hintText={<FormattedMessage {...messages.hintText.confirmPassword} />}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.confirmPassword} />}
+            />
+          </Cell>}
           {isEditing &&
           <Cell area="resetPassword">
             <StyledRaisedButton onClick={() => this.handleOpenResetPasswordModal()}>
