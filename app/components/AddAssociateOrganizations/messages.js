@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'ocpui.components.AddAssociateOrganizations.title',
     defaultMessage: 'Search Organization',
   },
+  closeButton: {
+    id: 'ocpui.components.AddAssociateOrganizations.closeButton',
+    defaultMessage: 'Close',
+  },
 });
