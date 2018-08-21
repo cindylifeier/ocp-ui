@@ -18,7 +18,7 @@ function ManageUser(props) {
   const passwordPattern = new RegExp('^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@!#$]).*$');
   const { user, groups, onSave, resourceType, uaaUser, organization } = props;
   const isEditing = (uaaUser.length > 0);
-  const formData = { user, groups, resourceType, isEditing };
+  const formData = { user, groups, resourceType, isEditing, uaaUser };
   const initialValues = {
     firstName: user.name[0].firstName,
     lastName: user.name[0].lastName,
