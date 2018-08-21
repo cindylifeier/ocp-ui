@@ -52,12 +52,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import {
-  makeSelectCurrentPage,
-  makeSelectOrganizations,
-  makeSelectPractitioner,
-  makeSelectTotalNumberOfPages,
-} from './selectors';
+import { makeSelectOrganizations, makeSelectPractitioner } from './selectors';
 
 export class ManagePractitionerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -111,7 +106,7 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
   render() {
     const {
       match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles,
-      providerSpecialties, selectedPractitioner, organizations, currentPage, totalNumberOfPages,
+      providerSpecialties, selectedPractitioner, organizations,
       newPractitionerExists, newPractitionerQueryParameters,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
@@ -140,8 +135,6 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
       editMode,
       practitioner,
       organizations,
-      currentPage,
-      totalNumberOfPages,
       initialNewPractitionerValue,
     };
     return (
@@ -192,11 +185,11 @@ ManagePractitionerPage.propTypes = {
   onSaveForm: PropTypes.func,
   initializeManagePractitioner: PropTypes.func,
   getOrganizations: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
   }),
   initializeOrganizations: PropTypes.func.isRequired,
   newPractitionerExists: PropTypes.bool,
@@ -217,8 +210,6 @@ const mapStateToProps = createStructuredSelector({
   providerSpecialties: makeSelectProviderSpecialties(),
   selectedPractitioner: makeSelectPractitioner(),
   organizations: makeSelectOrganizations(),
-  currentPage: makeSelectCurrentPage(),
-  totalNumberOfPages: makeSelectTotalNumberOfPages(),
   newPractitionerQueryParameters: makeSelectNewPractitionerQueryParameters(),
   newPractitionerExists: makeSelectNewPractitionerExists(),
 });

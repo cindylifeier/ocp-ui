@@ -71,7 +71,7 @@ class ManagePractitionerForm extends React.Component {
     const {
       isSubmitting, dirty, isValid, values, errors,
       uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
-      organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
+      organizations, onSearch, onPageClick,
     } = this.props;
 
     const addAddressesProps = {
@@ -186,8 +186,6 @@ class ManagePractitionerForm extends React.Component {
                             onSearch={onSearch}
                             onPageClick={onPageClick}
                             organizations={organizations}
-                            currentPage={currentPage}
-                            totalNumberOfPages={totalNumberOfPages}
                           />
                         </WideDialog>
                         <Table>
@@ -323,11 +321,11 @@ ManagePractitionerForm.propTypes = {
   onPageClick: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   initialSearchOrganizationResult: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
   }),
   values: PropTypes.object,
   errors: PropTypes.object,
