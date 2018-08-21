@@ -42,7 +42,7 @@ class PractitionerRoleForOrganizationTable extends React.Component {
   }
 
   render() {
-    const { organizations, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = this.props;
+    const { organizations, onAddPractitionerRole, existingOrganizations, onCloseDialog, roleType, specialtyType } = this.props;
     const roleSuggestions = roleType
       .filter((entry) => (entry.code !== null) && (entry.display !== null))
       .map((entry) => ({
@@ -77,13 +77,13 @@ class PractitionerRoleForOrganizationTable extends React.Component {
             onSubmit={(values, actions) => {
               const { code, specialty } = values;
               actions.setSubmitting(false);
-              onAddAssociateOrganization({
+              onAddPractitionerRole({
                 organization: { reference: `Organization/${org.id}`, display: `${org.name}` },
                 code,
                 specialty,
                 active: true,
               });
-              callback();
+              onCloseDialog();
             }}
             validationSchema={yup.object().shape({
               code: yup.string()
@@ -155,9 +155,9 @@ PractitionerRoleForOrganizationTable.propTypes = {
     id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
   })).isRequired,
-  onAddAssociateOrganization: PropTypes.func,
+  onAddPractitionerRole: PropTypes.func,
   existingOrganizations: PropTypes.array,
-  callback: PropTypes.func,
+  onCloseDialog: PropTypes.func,
   roleType: PropTypes.array,
   specialtyType: PropTypes.array,
 };

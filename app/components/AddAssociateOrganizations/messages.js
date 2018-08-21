@@ -22,4 +22,8 @@ export default defineMessages({
     id: 'ocpui.components.AddAssociateOrganizations.closeButton',
     defaultMessage: 'Close',
   },
+  noOrganizationsFound: {
+    id: 'ocpui.components.AddPractitionerRole.noOrganizationsFound',
+    defaultMessage: 'No organizations found.',
+  },
 });

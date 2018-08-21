@@ -44,7 +44,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const { onSearch } = this.props;
+    const { onSearch, onChangePage, organizations, roleType, specialtyType, existingOrganizations } = this.props;
     return (
       <div>
         <FormSubtitle margin="1vh 0 0 0">
@@ -56,7 +56,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
         </AddNewItemButton>
         <FieldArray
           name="practitionerRoles"
-          render={() => (
+          render={(arrayHelpers) => (
             <div>
               <StyledDialog maxWidth="md" fullWidth open={this.state.dialogOpen}>
                 <DialogTitle>
@@ -75,7 +75,14 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
                 </DialogTitle>
                 <DialogContent>
                   <AddPractitionerRole
+                    onCloseDialog={this.handleCloseDialog}
                     onSearch={onSearch}
+                    onChangePage={onChangePage}
+                    onAddPractitionerRole={arrayHelpers.push}
+                    organizations={organizations}
+                    existingOrganizations={existingOrganizations}
+                    roleType={roleType}
+                    specialtyType={specialtyType}
                   />
                 </DialogContent>
               </StyledDialog>
@@ -89,6 +96,16 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
 
 AddAssociateOrganizations.propTypes = {
   onSearch: PropTypes.func.isRequired,
+  onChangePage: PropTypes.func.isRequired,
+  organizations: PropTypes.shape({
+    data: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+  }),
+  existingOrganizations: PropTypes.array,
+  roleType: PropTypes.array,
+  specialtyType: PropTypes.array,
 };
 
 export default AddAssociateOrganizations;
