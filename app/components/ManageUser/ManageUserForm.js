@@ -156,7 +156,7 @@ class ManageUserForm extends React.Component {
                 return (
                   <MenuItem
                     key={group.id}
-                    value={group}
+                    value={group.id}
                     primaryText={Util.deCamelize(displayName)}
                   />);
               })}

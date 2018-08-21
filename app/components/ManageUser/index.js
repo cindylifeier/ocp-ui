@@ -24,6 +24,7 @@ function ManageUser(props) {
     lastName: user.name[0].lastName,
     username: uaaUser && uaaUser[0] && uaaUser[0].username,
     organization,
+    group: uaaUser && uaaUser[0] && uaaUser[0].groupId,
   };
 
   const createUserValidationScheme = yup.object().shape({

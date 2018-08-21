@@ -46,7 +46,7 @@ export function mapToBackendDto(userFormData) {
     resourceId,
     roles: [{
       orgId: organization,
-      role: group.id,
+      role: group,
     }],
   };
 }
