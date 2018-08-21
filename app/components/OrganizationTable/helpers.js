@@ -1,4 +1,3 @@
-import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 import identity from 'lodash/identity';
 
@@ -6,13 +5,12 @@ import Util from 'utils/Util';
 import { EMAIL_SYSTEM, PHONE_SYSTEM } from 'utils/constants';
 import { combineAddress } from 'containers/App/helpers';
 
-export function flattenFirstContact(contacts) {
+export function flattenContact(contact) {
   let flattenedContact = null;
-  if (!isEmpty(contacts)) {
-    const firstContact = head(contacts);
-    const { name: { firstName, lastName }, telecoms, address } = firstContact;
+  if (!isEmpty(contact)) {
+    const { name: { firstName, lastName }, telecoms, address } = contact;
     flattenedContact = {
-      ...firstContact,
+      ...contact,
       name: `${firstName} ${lastName}`,
       telecoms: combineTelecoms(telecoms),
       address: combineAddress(address),

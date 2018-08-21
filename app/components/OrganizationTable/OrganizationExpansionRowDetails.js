@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
+import { Cell } from 'styled-css-grid';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
 import ExpansionRowDetailsGrid from './ExpansionRowDetailsGrid';
-import { flattenFirstContact } from './helpers';
+import ContactsTable from './ContactsTable';
 import messages from './messages';
 
 function OrganizationExpansionRowDetails({ organization }) {
   const { addresses, name, identifiers, telecoms, contacts, active } = organization;
-  const contact = flattenFirstContact(contacts);
   return (
     <InfoSection>
       <ExpansionRowDetailsGrid>
@@ -49,33 +48,8 @@ function OrganizationExpansionRowDetails({ organization }) {
           />
         </Cell>
       </ExpansionRowDetailsGrid>
-      {contact &&
-      <Grid columns={4}>
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.contactPeople.name} />}
-            text={contact.name}
-          />
-        </Cell>
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.contactPeople.purpose} />}
-            text={contact.purposeDisplay}
-          />
-        </Cell>
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.contactPeople.address} />}
-            text={contact.address}
-          />
-        </Cell>
-        <Cell>
-          <TextLabelGroup
-            label={<FormattedMessage {...messages.contactPeople.telecoms} />}
-            text={contact.telecoms}
-          />
-        </Cell>
-      </Grid>
+      {contacts &&
+      <ContactsTable contacts={contacts} />
       }
     </InfoSection>
   );
