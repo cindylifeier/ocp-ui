@@ -24,7 +24,7 @@ import messages from './messages';
 import SearchBarForm from './SearchBarForm';
 
 function SearchBar(props) {
-  const { minimumLength, onSearch, searchField, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
+  const { onSearch, searchField, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   const composedSearchFields = getToDoSpecificSearchField(searchField, showToDoSpecificFilters);
   const searchFormProps = { searchField: composedSearchFields, showToDoSpecificFilters, showUserRegistrationRoleSelection };
 
@@ -78,11 +78,8 @@ function SearchBar(props) {
           actions.setSubmitting(false);
         }}
         validationSchema={yup.object().shape({
-          searchValue: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
-            .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          searchType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
+          searchValue: yup.string(),
+          searchType: yup.string(),
           showInactive: yup.boolean(),
         })}
         render={(formikProps) => <SearchBarForm {...formikProps} {...searchFormProps} />}
@@ -92,7 +89,6 @@ function SearchBar(props) {
 }
 
 SearchBar.propTypes = {
-  minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
   showUserRegistrationRoleSelection: PropTypes.bool,
