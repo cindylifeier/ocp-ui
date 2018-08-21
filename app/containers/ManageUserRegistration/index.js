@@ -22,7 +22,7 @@ import PageHeader from 'components/PageHeader';
 import reducer from './reducer';
 import saga from './saga';
 import { getGroups, getUser, initializeUserRegistration, saveUser } from './actions';
-import { makeSelectGroups, makeSelectUser } from './selectors';
+import { makeSelectGroups, makeSelectUser, makeSelectFhirResource } from './selectors';
 import messages from './messages';
 
 export class ManageUserRegistration extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -51,13 +51,14 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
   }
 
   render() {
-    const { user, groups, location } = this.props;
+    const { user, groups, location, uaaUser } = this.props;
     const queryObj = queryString.parse(location.search);
     const resourceType = queryObj.resourceType;
     const manageUserProps = {
       groups,
       user,
       resourceType,
+      uaaUser,
     };
     return (
       <Page>
@@ -80,6 +81,7 @@ ManageUserRegistration.propTypes = {
   match: PropTypes.object,
   location: PropTypes.object,
   user: PropTypes.object,
+  uaaUser: PropTypes.array,
   groups: PropTypes.array,
   getUser: PropTypes.func,
   getGroups: PropTypes.func,
@@ -89,7 +91,8 @@ ManageUserRegistration.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   groups: makeSelectGroups(),
-  user: makeSelectUser(),
+  user: makeSelectFhirResource(),
+  uaaUser: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -6,13 +6,14 @@ import { goBack } from 'react-router-redux';
 import { showNotification } from 'containers/Notification/actions';
 import { getGroups } from 'containers/PermissionsGroups/api';
 import { GET_GROUPS, GET_USER, SAVE_USER } from './constants';
-import { getUser, saveUser } from './api';
+import { getUser, saveUser, getFhirResource } from './api';
 import { getUserError, getUserSuccess, getGroupsSuccess, getGroupsError } from './actions';
 
 export function* getUserSaga(action) {
   try {
+    const fhirResource = yield call(getFhirResource, action.resourceType, action.resourceId);
     const user = yield call(getUser, action.resourceType, action.resourceId);
-    yield put(getUserSuccess(user));
+    yield put(getUserSuccess(fhirResource, user));
   } catch (err) {
     yield put(getUserError(err));
     yield put(showNotification(`Failed to users: ${getErrorDetail(err)}`));

@@ -5,13 +5,14 @@ import {
   getEndpoint,
 } from 'utils/endpointService';
 import request from 'utils/request';
+import queryString from 'utils/queryString';
 
 
 const baseUsersEndpoint = getEndpoint(BASE_USERS_API_URL);
 const basePractitionerEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
 const basePatientEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
 
-export function getUser(resourceType, resourceId) {
+export function getFhirResource(resourceType, resourceId) {
   if (resourceType === 'Practitioner') {
     const requestURL = `${basePractitionerEndpoint}/${resourceId}`;
     return request(requestURL);
@@ -19,6 +20,11 @@ export function getUser(resourceType, resourceId) {
 
   const requestURL = `${basePatientEndpoint}/${resourceId}`;
   return request(requestURL);
+}
+
+export function getUser(resourceType, resourceId) {
+  const params = queryString({ resource: resourceType, resourceId });
+  return request(`${baseUsersEndpoint}${params}`);
 }
 
 export function saveUser(userFormData) {

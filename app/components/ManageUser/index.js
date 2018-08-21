@@ -16,12 +16,12 @@ import ManageUserForm from './ManageUserForm';
 
 function ManageUser(props) {
   const passwordPattern = new RegExp('^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@!#$]).*$');
-  const { user, groups, onSave, resourceType } = props;
+  const { user, groups, onSave, resourceType, uaaUser } = props;
   const formData = { user, groups, resourceType };
   const initialValues = {
     firstName: user.name[0].firstName,
     lastName: user.name[0].lastName,
-    username: user.userName,
+    username: uaaUser && uaaUser[0] && uaaUser[0].username,
   };
   return (
     <div>
@@ -52,6 +52,7 @@ ManageUser.propTypes = {
   user: PropTypes.object,
   resourceType: PropTypes.string,
   groups: PropTypes.array,
+  uaaUser: PropTypes.array,
   onSave: PropTypes.func,
 };
 
