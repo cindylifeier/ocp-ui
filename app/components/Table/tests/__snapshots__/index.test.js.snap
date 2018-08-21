@@ -4,7 +4,9 @@ exports[`<Table /> should match snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Table__Table>
+  Symbol(enzyme.__unrendered__): <Table__Table
+    margin="10px"
+  >
     <TableHeader
       relativeTop={0}
       sticky={true}

@@ -12,11 +12,11 @@ export default defineMessages({
   },
   addContactsButton: {
     id: 'ocpui.components.AddMultipleContacts.addContactsButton',
-    defaultMessage: 'Add People',
+    defaultMessage: 'Add Personnel',
   },
   title: {
     id: 'ocpui.components.AddMultipleContacts.title',
-    defaultMessage: 'Add Contact People',
+    defaultMessage: 'Add Contact Personnel',
   },
   saveButton: {
     id: 'ocpui.components.AddMultipleContacts.saveButton',

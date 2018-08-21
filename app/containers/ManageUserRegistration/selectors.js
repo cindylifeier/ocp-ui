@@ -19,10 +19,16 @@ const makeSelectManageUserRegistration = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const makeSelectFhirResource = () => createSelector(
+  selectManageUserRegistrationDomain,
+  (substate) => substate && substate.get('fhirResource') && substate.get('fhirResource').toJS(),
+);
+
 const makeSelectUser = () => createSelector(
   selectManageUserRegistrationDomain,
   (substate) => substate && substate.get('user') && substate.get('user').toJS(),
 );
+
 const makeSelectGroups = () => createSelector(
   selectManageUserRegistrationDomain,
   (substate) => substate && substate.get('groups').toJS(),
@@ -33,4 +39,5 @@ export {
   selectManageUserRegistrationDomain,
   makeSelectUser,
   makeSelectGroups,
+  makeSelectFhirResource,
 };
