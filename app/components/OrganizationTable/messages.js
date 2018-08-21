@@ -66,22 +66,22 @@ export default defineMessages({
     id: 'ocpui.components.OrganizationTable.noOrganizationsFound',
     defaultMessage: 'No organizations found.',
   },
-  contactPeople: {
-    name: {
+  contactsTable: {
+    tableHeaderName: {
       id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.name',
-      defaultMessage: 'Contact People Name',
+      defaultMessage: 'Name Of Personnel',
     },
-    purpose: {
+    tableHeaderPurpose: {
       id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.purpose',
-      defaultMessage: 'Contact People Purpose',
+      defaultMessage: 'Purpose',
     },
-    address: {
+    tableHeaderAddress: {
       id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.address',
-      defaultMessage: 'Contact People Address',
+      defaultMessage: 'Address',
     },
-    telecoms: {
+    tableHeaderTelecoms: {
       id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.telecoms',
-      defaultMessage: 'Contact People Telecoms',
+      defaultMessage: 'Contact Detail(s)',
     },
   },
 });
