@@ -110,7 +110,7 @@ ShallowWrapper {
           addNewItem={
             Object {
               "labelName": <FormattedMessage
-                defaultMessage="Create New"
+                defaultMessage="New Care Team"
                 id="ocpui.containers.CareTeams.buttonLabelCreateNew"
                 values={Object {}}
               />,
@@ -228,7 +228,7 @@ ShallowWrapper {
         "props": Object {
           "addNewItem": Object {
             "labelName": <FormattedMessage
-              defaultMessage="Create New"
+              defaultMessage="New Care Team"
               id="ocpui.containers.CareTeams.buttonLabelCreateNew"
               values={Object {}}
             />,
@@ -720,7 +720,7 @@ ShallowWrapper {
             addNewItem={
               Object {
                 "labelName": <FormattedMessage
-                  defaultMessage="Create New"
+                  defaultMessage="New Care Team"
                   id="ocpui.containers.CareTeams.buttonLabelCreateNew"
                   values={Object {}}
                 />,
@@ -838,7 +838,7 @@ ShallowWrapper {
           "props": Object {
             "addNewItem": Object {
               "labelName": <FormattedMessage
-                defaultMessage="Create New"
+                defaultMessage="New Care Team"
                 id="ocpui.containers.CareTeams.buttonLabelCreateNew"
                 values={Object {}}
               />,
