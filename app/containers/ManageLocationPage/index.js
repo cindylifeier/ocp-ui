@@ -4,18 +4,10 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import isUndefined from 'lodash/isUndefined';
-import merge from 'lodash/merge';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { FormattedMessage } from 'react-intl';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import ManageLocation from 'components/ManageLocation';
+import Page from 'components/Page';
+import PageContent from 'components/PageContent';
+import PageHeader from 'components/PageHeader';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   ADDRESSUSE,
@@ -26,6 +18,7 @@ import {
   TELECOMUSE,
   USPSSTATES,
 } from 'containers/App/constants';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import {
   makeSelectAddressUses,
   makeSelectLocationIdentifierSystems,
@@ -35,16 +28,23 @@ import {
   makeSelectTelecomUses,
   makeSelectUspsStates,
 } from 'containers/App/lookupSelectors';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
-import ManageLocation from 'components/ManageLocation';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 import { createLocation, getLocation, updateLocation } from './actions';
-import { makeSelectLocation, makeSelectSaveLocationError } from './selectors';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import { makeSelectLocation, makeSelectSaveLocationError } from './selectors';
 
 
 export class ManageLocationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -63,6 +63,14 @@ export class ManageLocationPage extends React.Component { // eslint-disable-line
 
   handleSaveLocation(location) {
     const logicalId = this.props.match.params.id;
+    const { physicalType } = location;
+    let code;
+    if (!isUndefined(physicalType)) {
+      code = physicalType;
+      const selectedPhysicalType = find(this.props.locationPhysicalTypes, { code });
+      merge(location, { physicalType: selectedPhysicalType });
+    }
+
     if (logicalId && location) {
       const mergedLocation = merge(location, { logicalId });
       this.props.updateLocation(mergedLocation, this.props.organization.logicalId);
@@ -142,7 +150,7 @@ ManageLocationPage.propTypes = {
     logicalId: PropTypes.string.isRequired,
     managingLocationLogicalId: PropTypes.string,
     status: PropTypes.string,
-    physicalType: PropTypes.string,
+    physicalType: PropTypes.object,
     name: PropTypes.string,
     address: PropTypes.shape({
       line1: PropTypes.string,

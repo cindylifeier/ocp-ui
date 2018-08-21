@@ -48,7 +48,7 @@ export default defineMessages({
   },
   tableColumnHeaderLocationType: {
     id: 'ocpui.components.AssignLocationTable.tableColumnHeaderLocationType',
-    defaultMessage: 'Location Type',
+    defaultMessage: 'Location Physical Type',
   },
   labelActive: {
     id: 'ocpui.components.AssignLocationTable.labelActive',

@@ -20,7 +20,7 @@ export default defineMessages({
   },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.PractitionerTable.TableColumnHeader.Telecom',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact Detail(s)',
   },
   tableHeaderColumnIdentifier: {
     id: 'ocpui.components.PractitionerTable.tableHeaderColumnIdentifier',
@@ -60,7 +60,11 @@ export default defineMessages({
   },
   expansionRowDetailsTelecoms: {
     id: 'ocpui.components.PractitionerTable.expansionRowDetailsTelecoms',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact Detail(s)',
+  },
+  expansionRowDetailsOrg: {
+    id: 'ocpui.components.PractitionerTable.expansionRowDetailsOrg',
+    defaultMessage: 'Associated Organization(s)',
   },
   NoPractitionersFound: {
     id: 'ocpui.components.PractitionerTable.noPractitionersFound',

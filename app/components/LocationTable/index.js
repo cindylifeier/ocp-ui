@@ -123,7 +123,7 @@ LocationTable.propTypes = {
       managingLocationLogicalId: PropTypes.string,
       logicalId: PropTypes.string.isRequired,
       status: PropTypes.string,
-      physicalType: PropTypes.string,
+      physicalType: PropTypes.object,
       address: PropTypes.shape({
         line1: PropTypes.string,
         line2: PropTypes.string,

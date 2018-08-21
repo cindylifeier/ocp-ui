@@ -9,8 +9,8 @@ import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import ErrorText from 'components/ErrorText';
 import { Form } from 'formik';
-import uniqueId from 'lodash/uniqueId';
 import MenuItem from 'material-ui/MenuItem';
+import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -18,9 +18,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import { mapToPatientName } from 'utils/PatientUtils';
 import Util from 'utils/Util';
 import messages from './messages';
-
 import SelectedParticipants from './SelectedParticipants';
-
 
 class ManageAppointmentForm extends React.Component {
 
@@ -29,9 +27,8 @@ class ManageAppointmentForm extends React.Component {
     this.startDateTime = null;
     this.endDateTime = null;
     this.state = {
+      // open: false,
       isEndDateBeforeStartDate: false,
-      // startDateTime: null,
-      // endDateTime: null,
     };
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
@@ -86,17 +83,20 @@ class ManageAppointmentForm extends React.Component {
       editMode,
       appointmentTypes,
       appointmentStatuses,
-      handleOpen,
       selectedParticipants,
       initialSelectedParticipants,
       removeParticipant,
       patient,
+      appointmentParticipantRequired,
+      getReferenceTypeFromReference,
+      handleDialogOpen,
     } = this.props;
-
     const selectedParticipantsProps = {
       selectedParticipants,
       removeParticipant,
+      getReferenceTypeFromReference,
     };
+
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
@@ -116,13 +116,19 @@ class ManageAppointmentForm extends React.Component {
                 <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
               </InfoSection>
             </Cell>
-            <Cell area="description">
-              <TextField
+            <Cell area="addParticipant">
+              <StyledRaisedButton
                 fullWidth
-                name="description"
-                hintText={<FormattedMessage {...messages.hintText.description} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
-              />
+                onClick={() => {
+                  handleDialogOpen();
+                }
+                }
+              >
+                <FormattedMessage {...messages.addParticipantBtnLabel} />
+              </StyledRaisedButton>
+            </Cell>
+            <Cell area="selectedParticipants">
+              <SelectedParticipants {...selectedParticipantsProps} />
             </Cell>
             <Cell area="appointmentType">
               <SelectField
@@ -133,9 +139,25 @@ class ManageAppointmentForm extends React.Component {
               >
                 {appointmentTypes && appointmentTypes.map((appointmentType) =>
                   (<MenuItem
-                    key={appointmentType.code}
+                    key={uniqueId()}
                     value={appointmentType.code}
                     primaryText={appointmentType.display}
+                  />),
+                )}
+              </SelectField>
+            </Cell>
+            <Cell area="appointmentRequired">
+              <SelectField
+                fullWidth
+                name="creatorRequired"
+                hintText={<FormattedMessage {...messages.hintText.appointmentRequired} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentRequired} />}
+              >
+                {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
+                  (<MenuItem
+                    key={uniqueId()}
+                    value={entry.code}
+                    primaryText={entry.display}
                   />),
                 )}
               </SelectField>
@@ -177,6 +199,15 @@ class ManageAppointmentForm extends React.Component {
               }
             </Cell>
 
+            <Cell area="description">
+              <TextField
+                fullWidth
+                name="description"
+                hintText={<FormattedMessage {...messages.hintText.description} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
+              />
+            </Cell>
+
             {editMode &&
             <Cell area="appointmentStatus">
               <SelectField
@@ -187,7 +218,7 @@ class ManageAppointmentForm extends React.Component {
               >
                 {appointmentStatuses && appointmentStatuses.map((appointmentStatus) =>
                   (<MenuItem
-                    key={appointmentStatus.code}
+                    key={uniqueId()}
                     value={appointmentStatus.code}
                     primaryText={appointmentStatus.display}
                   />),
@@ -196,22 +227,6 @@ class ManageAppointmentForm extends React.Component {
             </Cell>
             }
 
-            <Cell area="participantSubtitle">
-              <FormSubtitle margin="0">
-                <FormattedMessage {...messages.participantTitle} />
-              </FormSubtitle>
-            </Cell>
-            <Cell area="addParticipant">
-              <StyledRaisedButton
-                fullWidth
-                onClick={handleOpen}
-              >
-                <FormattedMessage {...messages.addParticipantBtnLabel} />
-              </StyledRaisedButton>
-            </Cell>
-            <Cell area="selectedParticipants">
-              <SelectedParticipants {...selectedParticipantsProps} />
-            </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>
                 <Cell>
@@ -240,7 +255,7 @@ ManageAppointmentForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   editMode: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
+  getReferenceTypeFromReference: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -254,13 +269,15 @@ ManageAppointmentForm.propTypes = {
   })),
   appointmentStatuses: PropTypes.array,
   appointment: PropTypes.object,
+  appointmentParticipantRequired: PropTypes.array,
+  handleDialogOpen: PropTypes.func,
 };
 
 export default ManageAppointmentForm;
 
 function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
   let isDirty = dirty;
-  const identityOfArray = 'memberId';
+  const identityOfArray = 'reference';
   if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
     isDirty = true;
   }

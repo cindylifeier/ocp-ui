@@ -8,11 +8,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.components.AddMultipleTelecoms.header',
-    defaultMessage: 'Contacts',
+    defaultMessage: 'Contact Details',
   },
   addTelecomsButton: {
     id: 'ocpui.components.AddMultipleTelecoms.addTelecomsButton',
-    defaultMessage: 'Add Contact',
+    defaultMessage: 'Add Detail',
   },
   saveButton: {
     id: 'ocpui.components.AddMultipleTelecoms.saveButton',
@@ -39,11 +39,11 @@ export default defineMessages({
     },
     value: {
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.hintText.value',
-      defaultMessage: 'Contact',
+      defaultMessage: 'Detail',
     },
     use: {
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.hintText.use',
-      defaultMessage: 'Contact Purpose',
+      defaultMessage: 'Contact Use',
     },
   },
   floatingLabelText: {
@@ -53,11 +53,11 @@ export default defineMessages({
     },
     value: {
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.floatingLabelText.value',
-      defaultMessage: 'Contact',
+      defaultMessage: 'Detail',
     },
     use: {
       id: 'ocpui.components.AddMultipleTelecoms.addTelecomsForm.floatingLabelText.use',
-      defaultMessage: 'Contact Purpose',
+      defaultMessage: 'Contact Use',
     },
   },
   addedTelecomsTable: {
@@ -67,11 +67,11 @@ export default defineMessages({
     },
     tableHeaderValue: {
       id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderValue',
-      defaultMessage: 'Contact',
+      defaultMessage: 'Detail(s)',
     },
     tableHeaderUse: {
       id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderUse',
-      defaultMessage: 'Contact Purpose',
+      defaultMessage: 'Contact Use',
     },
     tableHeaderAction: {
       id: 'ocpui.components.AddMultipleTelecoms.addedTelecomsTable.tableHeaderAction',

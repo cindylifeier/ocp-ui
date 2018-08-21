@@ -49,6 +49,9 @@ import {
   USPSSTATES,
   EOC_STATUS,
   EOC_TYPE,
+  FM_STATUS,
+  COVERAGE_TYPE,
+  POLICYHOLDER_RELATIONSHIP,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { getPatient, getSubscriberOptions } from 'containers/App/contextActions';
@@ -248,7 +251,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(savePatient(patientFormData, handleSubmitting));
     },
     getLookUpFormData: () => dispatch(getLookupsAction([USPSSTATES, PATIENTIDENTIFIERSYSTEM, ADMINISTRATIVEGENDER,
-      USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE, TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY, EOC_TYPE, EOC_STATUS])),
+      POLICYHOLDER_RELATIONSHIP, FM_STATUS, COVERAGE_TYPE, USCORERACE, USCOREETHNICITY, USCOREBIRTHSEX, LANGUAGE,
+      TELECOMSYSTEM, TELECOMUSE, FLAG_STATUS, FLAG_CATEGORY, EOC_TYPE, EOC_STATUS])),
     getPatient: (id) => dispatch(getPatient(id)),
     getPractitioners: (organizationId) => dispatch(getPractitioners(organizationId)),
     getSubscriberOptions: (patientId) => dispatch(getSubscriberOptions(patientId)),

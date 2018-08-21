@@ -24,8 +24,33 @@ const makeSelectSelectedAppointmentParticipants = () => createSelector(
   (subState) => subState && subState.get('selectedParticipants').toJS()
 );
 
+
+const makeSelectHealthcareServiceReferences = () => createSelector(
+  selectSearchAppointmentParticipantDomain,
+  (subState) => subState && subState.get('healthcareServices'),
+);
+
+const makeSelectLocationReferences = () => createSelector(
+  selectSearchAppointmentParticipantDomain,
+  (subState) => subState && subState.get('locations'),
+);
+
+const makeSelectPractitionerReferences = () => createSelector(
+  selectSearchAppointmentParticipantDomain,
+  (subState) => subState && subState.get('practitioners'),
+);
+
+const makeSelectCareTeamReferences = () => createSelector(
+  selectSearchAppointmentParticipantDomain,
+  (subState) => subState && subState.get('careTeams'),
+);
+
 export {
   selectSearchAppointmentParticipantDomain,
   makeSelectSearchAppointmentParticipantResults,
   makeSelectSelectedAppointmentParticipants,
+  makeSelectHealthcareServiceReferences,
+  makeSelectLocationReferences,
+  makeSelectPractitionerReferences,
+  makeSelectCareTeamReferences,
 };

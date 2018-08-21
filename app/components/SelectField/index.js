@@ -12,13 +12,16 @@ import { Field } from 'formik';
 
 
 function SelectFieldBridge(props) {
-  const { field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, children, ...rest } = props;
+  const { field: { name, value }, form: { setFieldValue, setFieldTouched, errors }, children, onChange, ...rest } = props;
   return (
     <MUISelectField
       name={name}
       value={value}
       onChange={(event, key, newValue) => {
         setFieldValue(name, newValue);
+        if (onChange) {
+          onChange(newValue);
+        }
       }}
       onClick={() => setFieldTouched(name)}
       errorText={errors[name]}
@@ -43,6 +46,7 @@ SelectFieldBridge.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.any,
   }).isRequired,
+  onChange: PropTypes.func,
   form: PropTypes.shape({
     setFieldValue: PropTypes.func.isRequired,
     setFieldTouched: PropTypes.func.isRequired,

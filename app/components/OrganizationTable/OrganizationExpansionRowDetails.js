@@ -1,42 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
+import { Cell } from 'styled-css-grid';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import ExpansionRowDetailsGrid from './ExpansionRowDetailsGrid';
+import ContactsTable from './ContactsTable';
 import messages from './messages';
 
 function OrganizationExpansionRowDetails({ organization }) {
-  const { addresses, name, identifiers, telecoms, active } = organization;
+  const { addresses, name, identifiers, telecoms, contacts, active } = organization;
   return (
     <InfoSection>
-      <Grid columns={'60% 40%'} justifyContent="space-between">
-        <Cell>
+      <ExpansionRowDetailsGrid>
+        <Cell area="name">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderOrganization} />}
             text={name}
           />
         </Cell>
-        <Cell>
+        <Cell area="identifier">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderId} />}
             text={identifiers}
           />
         </Cell>
-        <Cell>
+        <Cell area="addresses">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderAddress} />}
             text={addresses}
           />
         </Cell>
-        <Cell>
+        <Cell area="telecoms">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderTelecom} />}
             text={telecoms}
           />
         </Cell>
-        <Cell>
+        <Cell area="status">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderStatus} />}
             text={active ?
@@ -45,7 +47,10 @@ function OrganizationExpansionRowDetails({ organization }) {
             }
           />
         </Cell>
-      </Grid>
+      </ExpansionRowDetailsGrid>
+      {contacts &&
+      <ContactsTable contacts={contacts} />
+      }
     </InfoSection>
   );
 }
@@ -58,6 +63,12 @@ OrganizationExpansionRowDetails.propTypes = {
     name: PropTypes.string.isRequired,
     addresses: PropTypes.string,
     telecoms: PropTypes.string,
+    contacts: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.object,
+      purposeDisplay: PropTypes.string,
+      telecoms: PropTypes.array,
+      address: PropTypes.object,
+    })),
   }).isRequired,
 };
 

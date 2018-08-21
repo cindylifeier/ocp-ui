@@ -48,6 +48,6 @@ function mapToBffLocation(rawlocation) {
   }];
   location.telecoms = rawlocation.telecoms;
   const { line1, line2, city, stateCode, postalCode, use } = rawlocation;
-  location.address = { line1, line2, city, stateCode, postalCode, use, countryCode: 'US' };
+  location.address = { line1, line2, city, stateCode, postalCode, use, countryCode: 'USA' };
   return location;
 }

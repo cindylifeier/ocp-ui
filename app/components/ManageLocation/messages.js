@@ -36,7 +36,7 @@ export default defineMessages({
   },
   locationPhysicalType: {
     id: 'ocpui.components.ManageLocation.locationPhysicalType',
-    defaultMessage: 'Location Type',
+    defaultMessage: 'Location Physical Type',
   },
   managingLocationLogicalIdFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.managingLocationLogicalIdFloatingLabelText',
@@ -46,21 +46,25 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.identifierSystemTypeFloatingLabelText',
     defaultMessage: 'Identifier System',
   },
+  addressHeader: {
+    id: 'ocpui.components.ManageLocation.addressHeader',
+    defaultMessage: 'Address',
+  },
   address1HintText: {
     id: 'ocpui.components.ManageLocation.address1HintText',
-    defaultMessage: 'Address 1',
+    defaultMessage: 'Address Line 1',
   },
   address1FloatingLabelText: {
     id: 'ocpui.components.ManageLocation.address1FloatingLabelText',
-    defaultMessage: 'Address 1',
+    defaultMessage: 'Address Line 1',
   },
   address2HintText: {
     id: 'ocpui.components.ManageLocation.address2HintText',
-    defaultMessage: 'Address 2',
+    defaultMessage: 'Address Line 2',
   },
   address2FloatingLabelText: {
     id: 'ocpui.components.ManageLocation.address2FloatingLabelText',
-    defaultMessage: 'Address 2',
+    defaultMessage: 'Address Line 2',
   },
   addressUseFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.addressUseFloatingLabelText',
@@ -96,7 +100,7 @@ export default defineMessages({
   },
   saveLocationError: {
     id: 'ocpui.components.ManageLocation.saveLocationError',
-    defaultMessage: 'Error in saving location!',
+    defaultMessage: 'Error in saving the location!',
   },
   validation: {
     minLength: {

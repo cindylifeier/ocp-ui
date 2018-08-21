@@ -6,7 +6,8 @@ import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import identity from 'lodash/identity';
 
-import { PHONE_SYSTEM } from 'utils/constants';
+import { EMAIL_SYSTEM, PHONE_SYSTEM } from 'utils/constants';
+import Util from 'utils/Util';
 import {
   ADMIN_WORKSPACE,
   BENEFITS_SPECIALIST_ROLE_CODE,
@@ -64,7 +65,14 @@ export function mapToTelecoms(telecoms) {
 
 export function mapToPhone(telecoms) {
   return telecoms && telecoms
-    .filter((telecom) => telecom.system === PHONE_SYSTEM)
+    .filter((telecom) => Util.equalsIgnoreCase(telecom.system, PHONE_SYSTEM))
+    .map((telecom) => telecom.value)
+    .join(NEW_LINE_CHARACTER);
+}
+
+export function mapToEmail(telecoms) {
+  return telecoms && telecoms
+    .filter((telecom) => Util.equalsIgnoreCase(telecom.system, EMAIL_SYSTEM))
     .map((telecom) => telecom.value)
     .join(NEW_LINE_CHARACTER);
 }
@@ -76,16 +84,10 @@ export function mapToAddresses(addresses) {
 }
 
 export function combineAddress(address) {
-  const addressStr = [];
-  addressStr.push(address.line1 || '');
-  addressStr.push(address.line2 || '');
-  addressStr.push(address.city || '');
-  addressStr.push(address.stateCode || '');
-  addressStr.push(address.postalCode || '');
-  addressStr.push(address.countryCode || '');
-  return addressStr
-    .filter((field) => field !== '')
-    .join(', ');
+  const { line1, line2, city, stateCode, postalCode, countryCode } = address;
+  const firstLineAddress = [line1, line2].filter(identity).join(', ');
+  const secondLineAddress = [city, stateCode, postalCode, countryCode].filter(identity).join(', ');
+  return [firstLineAddress, secondLineAddress].filter(identity).join(NEW_LINE_CHARACTER);
 }
 
 export function getLinkUrlByRole(role) {
@@ -196,4 +198,16 @@ export function flattenLocationData(location) {
     address: combineAddress(location.address),
     identifiers: mapToIdentifiers(location.identifiers),
   };
+}
+
+export function getLogicalIdFromReference(reference) {
+  const referenceArray = reference && reference.split('/');
+  const logicalId = referenceArray && referenceArray.length > 0 && referenceArray[1];
+  return logicalId;
+}
+
+export function getReferenceTypeFromReference(reference) {
+  const referenceArray = reference && reference.split('/');
+  const referenceType = referenceArray && referenceArray.length > 0 && referenceArray[0];
+  return referenceType;
 }

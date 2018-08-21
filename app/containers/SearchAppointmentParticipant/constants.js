@@ -17,6 +17,16 @@ export const REMOVE_APPOINTMENT_PARTICIPANT = 'ocpui/SearchAppointmentParticipan
 export const INITIALIZE_SEARCH_APPOINTMENT_PARTICIPANT_RESULT = 'ocpui/SearchAppointmentParticipant/INITIALIZE_SEARCH_APPOINTMENT_PARTICIPANT_RESULT';
 
 
+export const GET_HEALTHCARE_SERVICE_REFERENCES = 'ocpui/SearchAppointmentParticipant/GET_HEALTHCARE_SERVICE_REFERENCES';
+export const GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS = 'ocpui/SearchAppointmentParticipant/GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS';
+export const GET_LOCATION_REFERENCES_SUCCESS = 'ocpui/SearchAppointmentParticipant/GET_LOCATION_REFERENCES_SUCCESS';
+export const GET_LOCATION_REFERENCES = 'ocpui/SearchAppointmentParticipant/GET_LOCATION_REFERENCES';
+export const GET_PRACTITIONER_REFERENCES_SUCCESS = 'ocpui/SearchAppointmentParticipant/GET_PRACTITIONER_REFERENCES_SUCCESS';
+export const GET_PRACTITIONER_REFERENCES = 'ocpui/SearchAppointmentParticipant/GET_PRACTITIONER_REFERENCES';
+export const GET_CARE_TEAM_REFERENCES = 'ocpui/SearchAppointmentParticipant/GET_CARE_TEAM_REFERENCES';
+export const GET_CARE_TEAM_REFERENCES_SUCCESS = 'ocpui/SearchAppointmentParticipant/GET_CARE_TEAM_REFERENCES_SUCCESS';
+export const GET_ADD_PARTICIPANTS = 'ocpui/SearchAppointmentParticipant/GET_ADD_PARTICIPANTS';
+
 /**
 *  Other constants
 *
