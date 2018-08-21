@@ -12,11 +12,11 @@ export default defineMessages({
   },
   createTitle: {
     id: 'ocpui.containers.ManageAppointmentPage.createTitle',
-    defaultMessage: 'Create Appointment',
+    defaultMessage: 'Add New Appointment',
   },
   updateTitle: {
     id: 'ocpui.containers.ManageAppointmentPage.updateTitle',
-    defaultMessage: 'Update Appointment',
+    defaultMessage: 'Edit Appointment',
   },
   generalInfoTitle: {
     id: 'ocpui.containers.ManageAppointmentPage.generalInfoTitle',

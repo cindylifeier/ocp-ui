@@ -39,7 +39,7 @@ export function* getFilterToDoSaga(action) {
     const toDos = yield call(getFilterToDos, action.patientId, action.practitionerId, action.definition, action.dateRange);
     yield put(getFilterToDoSuccess(toDos));
   } catch (error) {
-    yield put(showNotification(<FormattedMessage {...messages.noFilterToDoError} />));
+    yield put(showNotification(<FormattedMessage {...messages.noToDosFound} />));
     yield put(getFilterToDoError(error));
   }
 }

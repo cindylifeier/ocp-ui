@@ -12,11 +12,11 @@ export default defineMessages({
   },
   createModeTitle: {
     id: 'ocpui.containers.ManageCommunicationPage.createModeTitle',
-    defaultMessage: 'Create Communications',
+    defaultMessage: 'Add New Communication',
   },
   updateModeTitle: {
     id: 'ocpui.containers.ManageCommunicationPage.updateModeTitle',
-    defaultMessage: 'Update Communications',
+    defaultMessage: 'Edit Communication',
   },
   subtitle: {
     id: 'ocpui.containers.ManageCommunicationPage.subtitle',
