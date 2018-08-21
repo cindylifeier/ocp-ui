@@ -39,7 +39,7 @@ function PatientExpansionRowDetails({ patient }) {
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.status} />}
+            label={<FormattedMessage {...messages.expansionRowDetails.eocStatus} />}
             text={episodeOfCares && episodeOfCares.map((eoc) => (
                 `${eoc.typeDisplay} - ${eoc.statusDisplay}`
               )

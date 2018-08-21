@@ -123,9 +123,9 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
       defaultMessage: 'Contact Detail(s)',
     },
-    status: {
-      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
-      defaultMessage: 'Status',
+    eocStatus: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.eocStatus',
+      defaultMessage: 'Episode(s) of Care',
     },
     dob: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.dob',
