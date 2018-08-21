@@ -102,7 +102,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
         }
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.birthDate}</TableRowColumn>
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.genderCode}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.genderDisplayString}</TableRowColumn>
         {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{getIdentifiers(patient.identifier)}</TableRowColumn>
         }
