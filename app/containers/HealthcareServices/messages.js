@@ -40,6 +40,6 @@ export default defineMessages({
   },
   buttonLabelCreateNew: {
     id: 'ocpui.containers.HealthcareServices.buttonLabelCreateNew',
-    defaultMessage: 'Create New',
+    defaultMessage: 'New Healthcare Service',
   },
 });
