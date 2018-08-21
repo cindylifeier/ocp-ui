@@ -1,16 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import { FieldArray, Form } from 'formik';
+import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-
-import AddPractitionerRoleForOrganization from 'components/AddPractitionerRoleForOrganization';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
@@ -19,17 +12,13 @@ import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import ErrorText from 'components/ErrorText';
-import WideDialog from 'components/WideDialog';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import NavigationIconMenu from 'components/NavigationIconMenu';
+import AddAssociateOrganizations from 'components/AddAssociateOrganizations';
 import GoBackButton from 'components/GoBackButton';
-import teal from 'material-ui-next/colors/teal';
-import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
-import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
-import messages from './messages';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
-import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS, EMAIL, PHONE } from './constants';
+import { EMAIL, PHONE } from './constants';
+import messages from './messages';
 
 class ManagePractitionerForm extends React.Component {
 
@@ -84,6 +73,16 @@ class ManagePractitionerForm extends React.Component {
       telecomUses,
       errors,
       telecoms: values.telecoms,
+    };
+    const addAssociateOrganizationsProps = {
+      organizations,
+      onSearch,
+      roleType: providerRoles,
+      specialtyType: providerSpecialties,
+      existingOrganizations: values.practitionerRoles,
+      onChangePage: onPageClick,
+      practitionerRoles: values.practitionerRoles,
+      errors,
     };
     return (
       <div>
@@ -155,116 +154,7 @@ class ManagePractitionerForm extends React.Component {
               }
             </Cell>
             <Cell area="associateOrganizationSection">
-              <div>
-                <Cell>
-                  <FormSubtitle margin="1vh 0 0 0">
-                    <FormattedMessage {...messages.associateOrganizations.subtitle} />
-                  </FormSubtitle>
-                </Cell>
-                <Cell>
-                  <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleAddOrganizations}>
-                    <StyledAddCircleIcon color={teal['500']} />
-                    <FormattedMessage {...messages.associateOrganizations.addButtonLabel} />
-                  </AddNewItemButton>
-                </Cell>
-                <Cell>
-                  <FieldArray
-                    name="practitionerRoles"
-                    render={(arrayHelpers) => (
-                      <div>
-                        <WideDialog
-                          open={this.state.searchOrganizationDialogOpen}
-                          autoScrollBodyContent
-                        >
-                          <AddPractitionerRoleForOrganization
-                            arrayHelpers={arrayHelpers}
-                            onAddAssociateOrganization={arrayHelpers.push}
-                            callback={this.handleDialogCallback}
-                            roleType={providerRoles}
-                            specialtyType={providerSpecialties}
-                            existingOrganizations={values.practitionerRoles}
-                            onSearch={onSearch}
-                            onPageClick={onPageClick}
-                            organizations={organizations}
-                          />
-                        </WideDialog>
-                        <Table>
-                          <TableHeader columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnAction} /></TableHeaderColumn>
-                          </TableHeader>
-                          {errors && errors.practitionerRoles &&
-                          <ErrorText>{errors.practitionerRoles}</ErrorText>}
-                          {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
-                            const { organization, logicalId } = pr;
-                            const menuItems = [{
-                              primaryText: <FormattedMessage {...messages.associateOrganizations.tableActionRemove} />,
-                              disabled: logicalId !== undefined,
-                              onClick: () => arrayHelpers.remove(index),
-                            }];
-                            return (
-                              <TableRow key={organization && organization.reference} columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
-                                <TableRowColumn>{organization.display}</TableRowColumn>
-                                <TableRowColumn>
-                                  <SelectField
-                                    fullWidth
-                                    name={`practitionerRoles.${index}.code`}
-                                    hintText={<FormattedMessage {...messages.hintText.roleType} />}
-                                  >
-                                    {providerRoles && providerRoles.map((roleType) =>
-                                      (<MenuItem
-                                        key={roleType.code}
-                                        value={roleType.code}
-                                        primaryText={roleType.display}
-                                      />),
-                                    )}
-                                  </SelectField>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                  <SelectField
-                                    fullWidth
-                                    name={`practitionerRoles.${index}.specialty`}
-                                    hintText={<FormattedMessage {...messages.hintText.specialty} />}
-                                  >
-                                    {providerSpecialties && providerSpecialties.map((roleType) =>
-                                      (<MenuItem
-                                        key={roleType.code}
-                                        value={roleType.code}
-                                        primaryText={roleType.display}
-                                      />),
-                                    )}
-                                  </SelectField>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                  <SelectField
-                                    fullWidth
-                                    name={`practitionerRoles.${index}.active`}
-                                    hintText={<FormattedMessage {...messages.hintText.active} />}
-                                  >
-                                    <MenuItem
-                                      value
-                                      primaryText="Active"
-                                    />
-                                    <MenuItem
-                                      value={false}
-                                      primaryText="Inactive"
-                                    />
-                                  </SelectField>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                  <NavigationIconMenu menuItems={menuItems} />
-                                </TableRowColumn>
-                              </TableRow>
-                            );
-                          })}
-                        </Table>
-                      </div>)}
-                  />
-                </Cell>
-              </div>
+              <AddAssociateOrganizations {...addAssociateOrganizationsProps} />
             </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>

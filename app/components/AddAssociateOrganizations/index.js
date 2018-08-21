@@ -20,6 +20,7 @@ import StyledDialog from 'components/StyledDialog';
 import StyledTooltip from 'components/StyledTooltip';
 import StyledIconButton from 'components/StyledIconButton';
 import AddPractitionerRole from './AddPractitionerRole';
+import AddedOrganizationsTable from './AddedOrganizationsTable';
 import messages from './messages';
 
 
@@ -44,7 +45,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const { onSearch, onChangePage, organizations, roleType, specialtyType, existingOrganizations } = this.props;
+    const { onSearch, onChangePage, organizations, roleType, specialtyType, existingOrganizations, practitionerRoles, errors } = this.props;
     return (
       <div>
         <FormSubtitle margin="1vh 0 0 0">
@@ -86,6 +87,12 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
                   />
                 </DialogContent>
               </StyledDialog>
+              <AddedOrganizationsTable
+                roleType={roleType}
+                specialtyType={specialtyType}
+                errors={errors}
+                practitionerRoles={practitionerRoles}
+              />
             </div>
           )}
         />
@@ -106,6 +113,8 @@ AddAssociateOrganizations.propTypes = {
   existingOrganizations: PropTypes.array,
   roleType: PropTypes.array,
   specialtyType: PropTypes.array,
+  practitionerRoles: PropTypes.array,
+  errors: PropTypes.object,
 };
 
 export default AddAssociateOrganizations;

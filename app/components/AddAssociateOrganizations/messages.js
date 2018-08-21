@@ -26,4 +26,34 @@ export default defineMessages({
     id: 'ocpui.components.AddPractitionerRole.noOrganizationsFound',
     defaultMessage: 'No organizations found.',
   },
+  addedOrganizationsTable: {
+    tableColumnName: {
+      id: 'ocpui.components.AddedOrganizationsTable.tableColumnName',
+      defaultMessage: 'Name',
+    },
+    tableColumnCode: {
+      id: 'ocpui.components.AddedOrganizationsTable.tableColumnCode',
+      defaultMessage: 'Role',
+    },
+    tableColumnSpecialty: {
+      id: 'ocpui.components.AddedOrganizationsTable.tableColumnSpecialty',
+      defaultMessage: 'Specialty',
+    },
+    tableColumnActive: {
+      id: 'ocpui.components.AddedOrganizationsTable.tableColumnActive',
+      defaultMessage: 'Active',
+    },
+    roleTypeLabel: {
+      id: 'ocpui.components.AddedOrganizationsTable.roleTypeLabel',
+      defaultMessage: 'Role',
+    },
+    activeLabel: {
+      id: 'ocpui.components.AddedOrganizationsTable.activeLabel',
+      defaultMessage: 'Active',
+    },
+    specialtyLabel: {
+      id: 'ocpui.components.AddedOrganizationsTable.specialtyLabel',
+      defaultMessage: 'Specialty',
+    },
+  },
 });
