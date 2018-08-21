@@ -6,7 +6,11 @@
 
 
 import { fromJS } from 'immutable';
-import { GET_APPOINTMENT_SUCCESS, INITIALIZE_MANAGE_APPOINTMENT } from './constants';
+
+import {
+  GET_APPOINTMENT_SUCCESS,
+  INITIALIZE_MANAGE_APPOINTMENT,
+} from './constants';
 
 const initialState = fromJS({
   patient: null,

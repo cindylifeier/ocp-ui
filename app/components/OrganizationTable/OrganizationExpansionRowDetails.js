@@ -5,38 +5,41 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import ExpansionRowDetailsGrid from './ExpansionRowDetailsGrid';
+import { flattenFirstContact } from './helpers';
 import messages from './messages';
 
 function OrganizationExpansionRowDetails({ organization }) {
-  const { addresses, name, identifiers, telecoms, active } = organization;
+  const { addresses, name, identifiers, telecoms, contacts, active } = organization;
+  const contact = flattenFirstContact(contacts);
   return (
     <InfoSection>
-      <Grid columns={'60% 40%'} justifyContent="space-between">
-        <Cell>
+      <ExpansionRowDetailsGrid>
+        <Cell area="name">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderOrganization} />}
             text={name}
           />
         </Cell>
-        <Cell>
+        <Cell area="identifier">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderId} />}
             text={identifiers}
           />
         </Cell>
-        <Cell>
+        <Cell area="addresses">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderAddress} />}
             text={addresses}
           />
         </Cell>
-        <Cell>
+        <Cell area="telecoms">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderTelecom} />}
             text={telecoms}
           />
         </Cell>
-        <Cell>
+        <Cell area="status">
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderStatus} />}
             text={active ?
@@ -45,7 +48,35 @@ function OrganizationExpansionRowDetails({ organization }) {
             }
           />
         </Cell>
+      </ExpansionRowDetailsGrid>
+      {contact &&
+      <Grid columns={4}>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.contactPeople.name} />}
+            text={contact.name}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.contactPeople.purpose} />}
+            text={contact.purposeDisplay}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.contactPeople.address} />}
+            text={contact.address}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.contactPeople.telecoms} />}
+            text={contact.telecoms}
+          />
+        </Cell>
       </Grid>
+      }
     </InfoSection>
   );
 }
@@ -58,6 +89,12 @@ OrganizationExpansionRowDetails.propTypes = {
     name: PropTypes.string.isRequired,
     addresses: PropTypes.string,
     telecoms: PropTypes.string,
+    contacts: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.object,
+      purposeDisplay: PropTypes.string,
+      telecoms: PropTypes.array,
+      address: PropTypes.object,
+    })),
   }).isRequired,
 };
 

@@ -1,9 +1,10 @@
 import { isEmpty } from 'lodash';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
-import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
+import {
+  BASE_APPOINTMENTS_API_URL,
+  getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
-
 const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
 const headers = {
   'Content-Type': 'application/json',
@@ -51,8 +52,12 @@ function updateAppointment(appointmentFormData) {
 }
 
 function mapToBackendAppointment(appointmentFormData, isCreate) {
-  const { appointmentStatus, appointmentType, date, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
+  const { appointmentStatus, appointmentType, date, creatorRequired, description, startTime, endTime, participants, patientId, patientName, practitionerId, practitionerName } = appointmentFormData;
   const appointmentDataToSubmit = {};
+  if (!isUndefined(creatorRequired)) {
+    appointmentDataToSubmit.creatorRequired = creatorRequired;
+  }
+
   if (!isUndefined(description)) {
     appointmentDataToSubmit.description = description;
   }
@@ -101,17 +106,17 @@ function mapToBffParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        participationTypeCode: participant.participationType.code,
-        participationTypeDisplay: participant.participationType.display,
-        participationTypeSystem: participant.participationType.system,
-        participantRequiredCode: participant.required.code,
-        participantRequiredDisplay: participant.required.display,
-        participantRequiredSystem: participant.required.system,
-        participationStatusCode: participant.status.code,
-        participationStatusDisplay: participant.status.display,
-        participationStatusSystem: participant.status.system,
-        actorReference: `${participant.memberType}/${participant.memberId}`,
-        actorName: participant.name,
+        participationTypeCode: participant.participationTypeCode,
+        participationTypeDisplay: participant.participationTypeDisplay,
+        participationTypeSystem: participant.participationTypeSystem,
+        participantRequiredCode: participant.participantRequiredCode,
+        participantRequiredDisplay: participant.participantRequiredDisplay,
+        participantRequiredSystem: participant.participantRequiredSystem,
+        participationStatusCode: participant.participationStatusCode,
+        participationStatusDisplay: participant.participationStatusDisplay,
+        participationStatusSystem: participant.participationStatusSystem,
+        actorReference: participant.reference,
+        actorName: participant.display,
       }));
   }
   return [];
@@ -121,21 +126,14 @@ export function mapToEditParticipants(participants) {
   if (!isEmpty(participants)) {
     return participants
       .map((participant) => ({
-        participationType: {
-          code: participant.participationTypeCode,
-          display: participant.participationTypeDisplay,
-        },
-        required: {
-          code: participant.participantRequiredCode,
-          display: participant.participantRequiredCode,
-        },
-        status: {
-          code: participant.participationStatusCode,
-          display: participant.participationStatusCode,
-        },
-        memberType: participant.actorReference.substr(0, participant.actorReference.indexOf('/')),
-        memberId: participant.actorReference.substr(participant.actorReference.indexOf('/') + 1),
-        name: participant.actorName,
+        display: participant.actorName,
+        participationTypeCode: participant.participationTypeCode,
+        participationTypeDisplay: participant.participationTypeDisplay,
+        participantRequiredCode: participant.participantRequiredCode,
+        participationStatusCode: participant.participationStatusCode,
+        participationStatusDisplay: participant.participationStatusDisplay,
+        participantRequiredDisplay: participant.participantRequiredDisplay,
+        reference: participant.actorReference,
       }));
   }
   return [];

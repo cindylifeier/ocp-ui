@@ -104,20 +104,24 @@ function AddMultipleAddressesForm(props) {
                 <TextField
                   fullWidth
                   name="countryCode"
+                  defaultValue="United States"
+                  disabled
                   hintText={<FormattedMessage {...messages.hintText.countryCode} />}
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.countryCode} />}
                 />
               </Cell>
               <Cell>
-                <StyledRaisedButton
-                  type="submit"
-                  disabled={!dirty || isSubmitting || !isValid}
-                >
-                  <FormattedMessage {...messages.saveAddressButton} />
-                </StyledRaisedButton>
-                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
-                  <FormattedMessage {...messages.cancelButton} />
-                </StyledFlatButton>
+                <Grid columns={2}>
+                  <StyledRaisedButton
+                    type="submit"
+                    disabled={!dirty || isSubmitting || !isValid}
+                  >
+                    <FormattedMessage {...messages.saveAddressButton} />
+                  </StyledRaisedButton>
+                  <StyledFlatButton type="reset" onClick={handleCloseDialog}>
+                    <FormattedMessage {...messages.cancelButton} />
+                  </StyledFlatButton>
+                </Grid>
               </Cell>
             </Grid>
           </Form>

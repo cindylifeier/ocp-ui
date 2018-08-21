@@ -8,7 +8,7 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, active, birthDate, genderCode, birthSex, activityTypes } = patient;
+  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderCode, birthSex, activityTypes, organization } = patient;
 
   return (
     <InfoSection>
@@ -40,10 +40,10 @@ function PatientExpansionRowDetails({ patient }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.status} />}
-            text={active ?
-              <FormattedMessage {...messages.active} /> :
-              <FormattedMessage {...messages.inactive} />
-            }
+            text={episodeOfCares && episodeOfCares.map((eoc) => (
+                `${eoc.typeDisplay} - ${eoc.statusDisplay}`
+              )
+            ).join('\n ')}
           />
         </Cell>
         <Cell>
@@ -66,11 +66,17 @@ function PatientExpansionRowDetails({ patient }) {
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.activityType} />}
+            label={<FormattedMessage {...messages.expansionRowDetails.activeTasks} />}
             text={activityTypes && activityTypes.map((type) => (
-                `${type}  `
+                `${type}`
               )
-            )}
+            ).join('\n ')}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.managingOrganization} />}
+            text={organization && organization.display}
           />
         </Cell>
       </Grid>

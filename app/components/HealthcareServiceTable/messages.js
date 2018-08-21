@@ -38,6 +38,10 @@ export default defineMessages({
     id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderStatus',
     defaultMessage: 'Status',
   },
+  tableColumnHeaderAction: {
+    id: 'ocpui.components.HealthcareServiceTable.tableColumnHeaderAction',
+    defaultMessage: 'Action',
+  },
   expansionRowDetailsTelecoms: {
     id: 'ocpui.components.HealthcareServiceTable.expansionRowDetailsTelecoms',
     defaultMessage: 'Contacts',
