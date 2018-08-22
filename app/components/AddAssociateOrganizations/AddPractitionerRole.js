@@ -8,7 +8,6 @@ import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import PractitionerRoleForOrganizationTable from 'components/PractitionerRoleForOrganizationTable';
-import { fromBackendToFrontendOrganization } from 'components/OrganizationTable/mappings';
 import messages from './messages';
 
 
@@ -27,7 +26,7 @@ function AddPractitionerRole(props) {
       {!loading && data && data.length > 0 &&
       <div>
         <PractitionerRoleForOrganizationTable
-          organizations={data.map(fromBackendToFrontendOrganization)}
+          organizations={data}
           existingOrganizations={existingOrganizations}
           roleType={roleType}
           specialtyType={specialtyType}

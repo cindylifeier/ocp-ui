@@ -21,27 +21,10 @@ import { EMAIL, PHONE } from './constants';
 import messages from './messages';
 
 class ManagePractitionerForm extends React.Component {
-
-  static initialState = {
-    searchOrganizationDialogOpen: false,
-  };
-
   constructor(props) {
     super(props);
-    this.state = { ...ManagePractitionerForm.initialState };
-    this.handleDialogCallback = this.handleDialogCallback.bind(this);
-    this.handleAddOrganizations = this.handleAddOrganizations.bind(this);
     this.hasEmailContact = this.hasEmailContact.bind(this);
     this.hasTelephoneContact = this.hasTelephoneContact.bind(this);
-  }
-
-  handleDialogCallback() {
-    this.setState({ ...ManagePractitionerForm.initialState });
-    this.props.initialSearchOrganizationResult();
-  }
-
-  handleAddOrganizations() {
-    this.setState({ searchOrganizationDialogOpen: true });
   }
 
   hasEmailContact() {
@@ -60,7 +43,7 @@ class ManagePractitionerForm extends React.Component {
     const {
       isSubmitting, dirty, isValid, values, errors,
       uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
-      organizations, onSearch, onPageClick,
+      organizations, onSearch, onPageClick, initialSearchOrganizationResult,
     } = this.props;
 
     const addAddressesProps = {
@@ -81,6 +64,7 @@ class ManagePractitionerForm extends React.Component {
       specialtyType: providerSpecialties,
       existingOrganizations: values.practitionerRoles,
       onChangePage: onPageClick,
+      initialSearchOrganizationResult,
       practitionerRoles: values.practitionerRoles,
       errors,
     };

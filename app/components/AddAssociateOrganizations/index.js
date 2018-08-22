@@ -35,6 +35,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
   }
 
   handleOpenDialog() {
+    this.props.initialSearchOrganizationResult();
     this.setState({ dialogOpen: true });
   }
 
@@ -104,6 +105,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
 AddAssociateOrganizations.propTypes = {
   onSearch: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  initialSearchOrganizationResult: PropTypes.func.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,

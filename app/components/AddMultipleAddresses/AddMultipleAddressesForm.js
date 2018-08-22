@@ -51,8 +51,6 @@ function AddMultipleAddressesForm(props) {
           postalCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
-          countryCode: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
