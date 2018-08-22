@@ -7,7 +7,6 @@ import {
   MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL,
   OCP_ADMIN_ROLE_CODE,
   ORGANIZATION_ADMIN_ROLE_CODE,
-  MANAGE_PRACTITIONER_URL,
 } from 'containers/App/constants';
 import NewPractitionerResource from 'containers/NewPractitionerResource';
 import PanelToolbar from 'components/PanelToolbar';
@@ -42,7 +41,7 @@ class DefaultViewComponent extends React.Component {
   render() {
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_PRACTITIONER_URL,
+      onClick: this.handleOpenModal,
     };
     const { onSearch, flattenPractitionerData, practitionersData, isOcpAdminRole } = this.props;
     return (
