@@ -55,7 +55,7 @@ class PractitionerTable extends React.Component {
   }
 
   render() {
-    const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, manageUserEnabled, assignLocationUrl } = this.props;
+    const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, manageUserEnabled, assignLocationUrl, isOcpAdminRole } = this.props;
     const { setSelectedPractitioner } = practitionersData;
     const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
@@ -107,6 +107,11 @@ class PractitionerTable extends React.Component {
                     menuItems = [{
                       primaryText: <FormattedMessage {...messages.manageUser} />,
                       onClick: () => this.handleOpenDialog(practitioner),
+                    }];
+                  } else if (isOcpAdminRole) {
+                    menuItems = [{
+                      primaryText: <FormattedMessage {...messages.edit} />,
+                      linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
                     }];
                   } else {
                     menuItems = [{
@@ -212,6 +217,7 @@ PractitionerTable.propTypes = {
   combineAddress: PropTypes.func.isRequired,
   mapToTelecoms: PropTypes.func.isRequired,
   manageUserEnabled: PropTypes.bool,
+  isOcpAdminRole: PropTypes.bool,
 };
 
 export default sizeMeHOC(PractitionerTable);
