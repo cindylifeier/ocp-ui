@@ -4,46 +4,40 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import AddCoverageDialog from 'components/AddCoverageDialog';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import PanelToolbar from 'components/PanelToolbar';
 import CoverageTable from 'components/CoverageTable';
+import PanelToolbar from 'components/PanelToolbar';
 import { getLookupsAction } from 'containers/App/actions';
-import { composePatientReference, getPatientFullName } from 'containers/App/helpers';
 import {
-  POLICYHOLDER_RELATIONSHIP,
-  FM_STATUS,
+  BENEFITS_SPECIALIST_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
   COVERAGE_TYPE,
-  PATIENT_ROLE_CODE,
-  CARE_COORDINATOR_ROLE_CODE,
   DEFAULT_START_PAGE_NUMBER,
+  FM_STATUS,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  POLICYHOLDER_RELATIONSHIP,
 } from 'containers/App/constants';
-import {
-  makeSelectCoverageType,
-  makeSelectCoverageFmStatus,
-  makeSelectPolicyHolderRelationship,
-} from 'containers/App/lookupSelectors';
 import { getSubscriberOptions } from 'containers/App/contextActions';
 import { makeSelectPatient, makeSelectSubscriptionOptions } from 'containers/App/contextSelectors';
+import { composePatientReference, getPatientFullName } from 'containers/App/helpers';
+import {
+  makeSelectCoverageFmStatus,
+  makeSelectCoverageType,
+  makeSelectPolicyHolderRelationship,
+} from 'containers/App/lookupSelectors';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { getCoverageAction, getSaveCoverageAction } from './actions';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import {
-  getSaveCoverageAction,
-  getCoverageAction,
-} from './actions';
-import {
-  makeSelectCoverages,
-  makeSelectCoverageLoading,
-} from './selectors';
+import { makeSelectCoverageLoading, makeSelectCoverages } from './selectors';
 
 export class Coverages extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -75,10 +69,12 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
   handleDialogClose() {
     this.setState({ open: false });
   }
+
   handleSaveCoverage(coverageData, actions) {
     this.props.onSaveCoverage(coverageData, () => actions.setSubmitting(false));
     this.setState({ open: false });
   }
+
   render() {
     const {
       coverageType,
@@ -113,7 +109,7 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
       <div>
         <PanelToolbar
           {...addNewItem}
-          allowedAddNewItemRoles={[PATIENT_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
+          allowedAddNewItemRoles={[CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, BENEFITS_SPECIALIST_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
@@ -123,8 +119,10 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
           coverageData={data}
           loading={loading}
           handleChangePage={this.handlePageClick}
-        ></CoverageTable>
-        <AddCoverageDialog {...addCoverageDialogProps}></AddCoverageDialog>
+        >
+        </CoverageTable>
+        <AddCoverageDialog {...addCoverageDialogProps}>
+        </AddCoverageDialog>
       </div>
     );
   }

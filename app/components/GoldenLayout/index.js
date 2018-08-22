@@ -108,7 +108,7 @@ GoldenLayout.propTypes = {
       content: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string.isRequired,
         content: PropTypes.arrayOf(PropTypes.shape({
-          title: PropTypes.string.isRequired,
+          title: PropTypes.string,
           type: PropTypes.string.isRequired,
           componentName: PropTypes.string,
         })),
