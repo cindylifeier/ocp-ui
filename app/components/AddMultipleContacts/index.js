@@ -39,6 +39,7 @@ class AddMultipleContacts extends React.Component { // eslint-disable-line react
   handleCloseDialog() {
     this.setState({
       dialogOpen: false,
+      editingContact: null,
     });
   }
 
