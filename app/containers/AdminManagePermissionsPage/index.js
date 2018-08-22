@@ -70,7 +70,7 @@ export const initialStateMetadata =
           reorderEnabled: true,
         },
         {
-          title: 'Manage Users',
+          title: 'Manage OCP Users',
           type: 'component',
           componentName: 'userRegistration',
           isClosable: true,
