@@ -10,13 +10,11 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
-import { Link } from 'react-router-dom';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import StyledDialog from 'components/StyledDialog';
-import StyledFlatButton from 'components/StyledFlatButton';
-import { MANAGE_PRACTITIONER_URL, MANAGE_USER_REGISTRATION } from 'containers/App/constants';
+import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
@@ -29,6 +27,7 @@ import NavigationIconMenu from 'components/NavigationIconMenu';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
+import OrganizationSelectForm from './OrganizationSelectForm';
 
 class PractitionerTable extends React.Component {
 
@@ -39,12 +38,19 @@ class PractitionerTable extends React.Component {
       practitioner: {},
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
-
   handleOpenDialog(practitioner) {
     this.setState({
       isOrgSelectDialogOpen: true,
       practitioner,
+    });
+  }
+
+
+  handleCloseDialog() {
+    this.setState({
+      isOrgSelectDialogOpen: false,
     });
   }
 
@@ -62,7 +68,7 @@ class PractitionerTable extends React.Component {
     return (
       <div>
         <StyledDialog
-          maxWidth={'md'}
+          fullWidth
           open={this.state.isOrgSelectDialogOpen}
         >
           <DialogTitle>
@@ -70,16 +76,7 @@ class PractitionerTable extends React.Component {
           </DialogTitle>
 
           <DialogContent>
-            {this.state.practitioner && this.state.practitioner.practitionerRoles && this.state.practitioner.practitionerRoles.map((practitionerRole) => (
-              <StyledFlatButton
-                key={practitionerRole.organization.reference}
-                component={Link}
-                to={`${MANAGE_USER_REGISTRATION}/${this.state.practitioner.logicalId}?resourceType=Practitioner&orgId=${practitionerRole.organization.reference.split('/').pop()}`}
-              >
-                {practitionerRole.organization.display}
-              </StyledFlatButton>
-            ))}
-
+            <OrganizationSelectForm handleCloseDialog={this.handleCloseDialog} practitioner={this.state.practitioner} />
           </DialogContent>
         </StyledDialog>
         {practitionersData.loading && <RefreshIndicatorLoading />}
