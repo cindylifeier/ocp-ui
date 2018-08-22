@@ -28,7 +28,7 @@ function ExpansionDetails({ patient }) {
       <Cell>
         <InfoSection>
           <StyledFlatButton component={Link} to={`${MANAGE_PATIENT_URL}/${patient.id}`}>
-            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Add icon'}>
+            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Edit Icon'}>
               <Edit color={'#004747'} />
             </StyledIconButton>
             <FormattedMessage {...messages.edit} />
