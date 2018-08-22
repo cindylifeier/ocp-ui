@@ -86,9 +86,17 @@ export default defineMessages({
     id: 'ocpui.components.ManageLocation.postalCodeHintText',
     defaultMessage: 'Zip Code',
   },
+  countryHintText: {
+    id: 'ocpui.components.ManageLocation.countryHintText',
+    defaultMessage: 'Country',
+  },
   postalCodeFloatingLabelText: {
     id: 'ocpui.components.ManageLocation.postalCodeFloatingLabelText',
     defaultMessage: 'Zip Code',
+  },
+  countryFloatingLabelText: {
+    id: 'ocpui.components.ManageLocation.countryFloatingLabelText',
+    defaultMessage: 'Country',
   },
   identifierValueHintText: {
     id: 'ocpui.components.ManageLocation.identifierValueHintText',

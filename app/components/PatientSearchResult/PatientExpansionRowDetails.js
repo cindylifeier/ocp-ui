@@ -8,7 +8,7 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderCode, birthSex, activityTypes, organization } = patient;
+  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization } = patient;
 
   return (
     <InfoSection>
@@ -39,7 +39,7 @@ function PatientExpansionRowDetails({ patient }) {
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.status} />}
+            label={<FormattedMessage {...messages.expansionRowDetails.eocStatus} />}
             text={episodeOfCares && episodeOfCares.map((eoc) => (
                 `${eoc.typeDisplay} - ${eoc.statusDisplay}`
               )
@@ -55,7 +55,7 @@ function PatientExpansionRowDetails({ patient }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.gender} />}
-            text={genderCode}
+            text={genderDisplayString}
           />
         </Cell>
         <Cell>
@@ -93,7 +93,7 @@ PatientExpansionRowDetails.propTypes = {
     addresses: PropTypes.string,
     telecoms: PropTypes.string,
     birthDate: PropTypes.string,
-    genderCode: PropTypes.string,
+    genderDisplayString: PropTypes.string,
     birthSex: PropTypes.string,
     activityTypes: PropTypes.array,
   }).isRequired,

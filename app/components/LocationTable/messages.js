@@ -48,7 +48,7 @@ export default defineMessages({
   },
   actionLabelAssignHealthCareService: {
     id: 'ocpui.components.LocationTable.actionLabelAssignHealthCareService',
-    defaultMessage: 'Assign HealthCare Service',
+    defaultMessage: 'Assign Healthcare Service',
   },
   noLocationsFound: {
     id: 'ocpui.containers.Locations.noLocationsFound',
