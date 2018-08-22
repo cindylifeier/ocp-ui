@@ -75,7 +75,7 @@ class PatientDetails extends React.Component {
           </Cell>
           <Cell middle>
             <StyledText>
-              <FormattedMessage {...messages.contacts} />
+              <FormattedMessage {...messages.phone} />
               <StyledText whiteSpace fontWeight="700">
                 {phones}
               </StyledText>

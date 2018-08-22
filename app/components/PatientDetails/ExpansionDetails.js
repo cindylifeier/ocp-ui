@@ -66,7 +66,7 @@ function ExpansionDetails({ patient }) {
             </Cell>
             <Cell>
               <TextLabelGroup
-                label={<FormattedMessage {...messages.contacts} />}
+                label={<FormattedMessage {...messages.contactDetails} />}
                 text={telecoms}
               />
             </Cell>
