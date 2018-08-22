@@ -26,12 +26,15 @@ import messages from './messages';
 const columns = 'repeat(4, 1fr) .5fr';
 
 function PractitionerLookupResult(props) {
-  const { practitionerLookup: { loading, practitioner, exists, error } } = props;
+  const { practitionerLookup: { loading, practitioner, exists, error }, isOrgAdmin } = props;
   const managePractitionerUrl = '/ocp-ui/manage-practitioner';
 
   function renderPractitionerTable() {
     const flattenedPractitioner = flattenPractitioner(practitioner);
-    const menuItems = [{
+    const menuItems = isOrgAdmin ? [{
+      primaryText: <FormattedMessage {...messages.associateCurrentOrganization} />,
+      linkTo: `${managePractitionerUrl}/${practitioner.logicalId}`,
+    }] : [{
       primaryText: <FormattedMessage {...messages.edit} />,
       linkTo: `${managePractitionerUrl}/${practitioner.logicalId}`,
     }];
@@ -102,6 +105,7 @@ PractitionerLookupResult.propTypes = {
       PropTypes.bool,
     ]),
   }).isRequired,
+  isOrgAdmin: PropTypes.bool.isRequired,
 };
 
 export default PractitionerLookupResult;

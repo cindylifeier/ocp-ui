@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
+
+import ShowHideWrapper from 'containers/ShowHideWrapper';
+import { OCP_ADMIN_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE } from 'containers/App/constants';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
@@ -12,10 +15,11 @@ import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import ErrorText from 'components/ErrorText';
+import GoBackButton from 'components/GoBackButton';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
 import AddAssociateOrganizations from 'components/AddAssociateOrganizations';
-import GoBackButton from 'components/GoBackButton';
+import AddAssociateRole from 'components/AddAssociateRole';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
 import { EMAIL, PHONE } from './constants';
 import messages from './messages';
@@ -43,7 +47,7 @@ class ManagePractitionerForm extends React.Component {
     const {
       isSubmitting, dirty, isValid, values, errors,
       uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
-      organizations, onSearch, onPageClick, initialSearchOrganizationResult,
+      organizations, organizationContext, onSearch, onPageClick, initialSearchOrganizationResult,
     } = this.props;
 
     const addAddressesProps = {
@@ -65,6 +69,13 @@ class ManagePractitionerForm extends React.Component {
       existingOrganizations: values.practitionerRoles,
       onChangePage: onPageClick,
       initialSearchOrganizationResult,
+      practitionerRoles: values.practitionerRoles,
+      errors,
+    };
+    const addAssociateRoleProps = {
+      roleType: providerRoles,
+      specialtyType: providerSpecialties,
+      organizationContext,
       practitionerRoles: values.practitionerRoles,
       errors,
     };
@@ -126,19 +137,26 @@ class ManagePractitionerForm extends React.Component {
             </Cell>
             <Cell area="contacts">
               <AddMultipleTelecoms {...addTelecomsProps} />
-              { this.hasEmailContact() ? '' :
-              <ErrorText>
-                <FormattedMessage {...messages.validation.emailContact} /><br />
-              </ErrorText>
+              {this.hasEmailContact() ?
+                '' :
+                <ErrorText>
+                  <FormattedMessage {...messages.validation.emailContact} /><br />
+                </ErrorText>
               }
-              { this.hasTelephoneContact() ? '' :
-              <ErrorText>
-                <FormattedMessage {...messages.validation.phoneContact} />
-              </ErrorText>
+              {this.hasTelephoneContact() ?
+                '' :
+                <ErrorText>
+                  <FormattedMessage {...messages.validation.phoneContact} />
+                </ErrorText>
               }
             </Cell>
             <Cell area="associateOrganizationSection">
-              <AddAssociateOrganizations {...addAssociateOrganizationsProps} />
+              <ShowHideWrapper allowedRoles={OCP_ADMIN_ROLE_CODE}>
+                <AddAssociateOrganizations {...addAssociateOrganizationsProps} />
+              </ShowHideWrapper>
+              <ShowHideWrapper allowedRoles={ORGANIZATION_ADMIN_ROLE_CODE}>
+                <AddAssociateRole {...addAssociateRoleProps} />
+              </ShowHideWrapper>
             </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>
@@ -200,6 +218,13 @@ ManagePractitionerForm.propTypes = {
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalNumberOfPages: PropTypes.number.isRequired,
+  }),
+  organizationContext: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    identifiers: PropTypes.array,
+    addresses: PropTypes.array,
+    logicalId: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
   }),
   values: PropTypes.object,
   errors: PropTypes.object,
