@@ -15,7 +15,7 @@ export function searchResources(searchType, searchValue, resourceType, showInact
       showInactive,
       size: DEFAULT_PAGE_SIZE,
       page,
-      showAll: true,
+      showAll: false,
     });
     requestURL = `${basePractitionerEndpoint}/search${params}`;
   } else {
@@ -25,7 +25,7 @@ export function searchResources(searchType, searchValue, resourceType, showInact
       showInactive,
       size: DEFAULT_PAGE_SIZE,
       page,
-      showAll: true,
+      showAll: false,
     });
     requestURL = `${basePatientEndpoint}/search${params}`;
   }
