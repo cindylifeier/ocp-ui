@@ -9,7 +9,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization } = patient;
+  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization, active } = patient;
 
   let birthSexDisplay = 'Not Available';
   if (!isUndefined(birthSex) && birthSex !== null) {
@@ -49,11 +49,11 @@ function PatientExpansionRowDetails({ patient }) {
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.eocStatus} />}
-            text={episodeOfCares && episodeOfCares.map((eoc) => (
-                `${eoc.typeDisplay} - ${eoc.statusDisplay}`
-              ),
-            ).join('\n ')}
+            label={<FormattedMessage {...messages.expansionRowDetails.patientStatus} />}
+            text={active ?
+              <FormattedMessage {...messages.active} /> :
+              <FormattedMessage {...messages.inactive} />
+            }
           />
         </Cell>
         <Cell>
@@ -72,6 +72,15 @@ function PatientExpansionRowDetails({ patient }) {
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.birthSex} />}
             text={birthSexDisplay}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.eocStatus} />}
+            text={episodeOfCares && episodeOfCares.map((eoc) => (
+                `${eoc.typeDisplay} - ${eoc.statusDisplay}`
+              ),
+            ).join('\n ')}
           />
         </Cell>
         <Cell>
