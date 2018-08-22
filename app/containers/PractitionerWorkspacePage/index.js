@@ -4,7 +4,6 @@
  *
  */
 
-import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';
@@ -18,6 +17,7 @@ import {
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
+import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderLocationsComponent from 'containers/Locations/render';
@@ -236,26 +236,34 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         content: [
           {
             type: 'row',
-            content: [
-              {
-                title: 'TO DO',
-                type: 'component',
-                componentName: 'toDos',
-                isClosable: true,
-                reorderEnabled: true,
-              }, {
-                title: 'Upcoming Appointments',
-                type: 'component',
-                componentName: 'upcomingAppointments',
-                isClosable: true,
-                reorderEnabled: true,
-              }, {
-                title: 'Upcoming tasks',
-                type: 'component',
-                componentName: 'upcomingTasks',
-                isClosable: true,
-                reorderEnabled: true,
-              },
+            content: [{
+              type: 'column',
+              content: [{
+                type: 'stack',
+                content: [
+                  {
+                    title: 'TO DO',
+                    type: 'component',
+                    componentName: 'toDos',
+                    isClosable: true,
+                    reorderEnabled: true,
+                  },
+                  {
+                    title: 'Upcoming tasks',
+                    type: 'component',
+                    componentName: 'upcomingTasks',
+                    isClosable: true,
+                    reorderEnabled: true,
+                  },
+                ],
+              }],
+            }, {
+              title: 'Upcoming Appointments',
+              type: 'component',
+              componentName: 'upcomingAppointments',
+              isClosable: true,
+              reorderEnabled: true,
+            },
             ],
           }, {
             type: 'row',
