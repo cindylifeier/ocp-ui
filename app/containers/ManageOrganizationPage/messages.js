@@ -12,6 +12,6 @@ export default defineMessages({
   },
   updateModeTitle: {
     id: 'ocpui.containers.ManageOrganizationPage.updateModeTitle',
-    defaultMessage: 'Update Organization',
+    defaultMessage: 'Edit Organization',
   },
 });

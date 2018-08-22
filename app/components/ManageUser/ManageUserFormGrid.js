@@ -11,9 +11,12 @@ const ManageUserFormGrid = Grid.extend`
     "firstName"
     "lastName"
     "username"
+    "resetPassword"
     "password"
     "repeatPassword"
-    "assignPermissionGroup"
+    "assignPermissionGroupSubtitle"
+    "organization"
+    "group"
     "buttonGroup";
 
   @media only screen and (min-width: 768px) {
@@ -23,9 +26,12 @@ const ManageUserFormGrid = Grid.extend`
       "firstName firstName"
       "lastName lastName"
       "username username"
+      "resetPassword resetPassword"
       "password password"
       "repeatPassword repeatPassword"
-      "assignPermissionGroup assignPermissionGroup"
+      "assignPermissionGroupSubtitle assignPermissionGroupSubtitle"
+      "organization organization"
+      "group group"
       "buttonGroup .";
   }
 
@@ -34,10 +40,11 @@ const ManageUserFormGrid = Grid.extend`
     grid-template-areas:
       "generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle generalInformationSubtitle"
       "firstName firstName firstName firstName lastName lastName lastName lastName . . . ."
-      "username username username username . . . . . . . ."
+      "username username username username resetPassword resetPassword resetPassword resetPassword . . . ."
       "password password password password repeatPassword repeatPassword repeatPassword repeatPassword . . . ."
       "assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle assignPermissionGroupSubtitle"
-      "assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup assignPermissionGroup"
+      "organization organization organization organization organization . . . . . . ."
+      "group group group group group . . . . . . ."
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . .";
   }
 `;

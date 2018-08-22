@@ -27,6 +27,7 @@ function manageUserRegistrationReducer(state = initialState, action) {
     case GET_USER_SUCCESS:
       return state
         .set('loading', false)
+        .set('fhirResource', fromJS(action.fhirResource))
         .set('user', fromJS(action.user));
     case GET_USER_ERROR:
       return state

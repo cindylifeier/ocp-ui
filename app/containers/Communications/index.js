@@ -16,6 +16,7 @@ import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contex
 import { getCommunications } from 'containers/Communications/actions';
 import {
   CARE_COORDINATOR_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_COMMUNICATION_URL,
 } from 'containers/App/constants';
@@ -78,7 +79,7 @@ export class Communications extends React.Component { // eslint-disable-line rea
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}

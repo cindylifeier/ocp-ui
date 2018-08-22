@@ -52,7 +52,7 @@ export default defineMessages({
   },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Telecom',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact Detail(s)',
   },
   race: {
     id: 'ocpui.components.PatientSearchResult.race',
@@ -121,11 +121,11 @@ export default defineMessages({
     },
     telecoms: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
-      defaultMessage: 'Contact',
+      defaultMessage: 'Contact Detail(s)',
     },
-    status: {
-      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
-      defaultMessage: 'Status',
+    eocStatus: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.eocStatus',
+      defaultMessage: 'Episode(s) of Care',
     },
     dob: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.dob',

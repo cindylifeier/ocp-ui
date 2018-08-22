@@ -16,7 +16,7 @@ import isEqual from 'lodash/isEqual';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { CARE_COORDINATOR_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_CODE, TASK_STATUS, TO_DO_DEFINITION } from 'containers/App/constants';
+import { CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_CODE, TASK_STATUS, TO_DO_DEFINITION } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Card from 'components/Card';
@@ -154,7 +154,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       <Card minWidth={'auto'}>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
