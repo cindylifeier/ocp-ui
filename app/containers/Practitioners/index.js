@@ -13,8 +13,8 @@ import isEqual from 'lodash/isEqual';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { DEFAULT_START_PAGE_NUMBER, OCP_ADMIN_ROLE_CODE } from 'containers/App/constants';
+import { makeSelectOrganization, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectLocation } from 'containers/App/selectors';
 import { isAdminWorkspace } from 'containers/App/helpers';
 import { setPractitioner } from 'containers/App/contextActions';
@@ -89,7 +89,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const { practitioners, setSelectedPractitioner, ...rest } = this.props;
+    const { practitioners, setSelectedPractitioner, user, ...rest } = this.props;
     const practitionersData = {
       loading: practitioners.loading,
       data: practitioners.data,
@@ -104,6 +104,7 @@ export class Practitioners extends React.Component { // eslint-disable-line reac
     const viewComponentProps = {
       onSearch: this.handleSearch,
       onPractitionerSelect: this.props.onPractitionerSelect,
+      isOcpAdminRole: user.role === OCP_ADMIN_ROLE_CODE,
       flattenPractitionerData,
       practitionersData,
       ...rest,
@@ -163,6 +164,9 @@ Practitioners.propTypes = {
   searchPractitioners: PropTypes.func.isRequired,
   initializePractitioners: PropTypes.func,
   location: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string,
+  }),
 };
 
 Practitioners.defaultProps = {
@@ -173,6 +177,7 @@ const mapStateToProps = createStructuredSelector({
   organization: makeSelectOrganization(),
   practitioners: makeSelectPractitioners(),
   location: makeSelectLocation(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
