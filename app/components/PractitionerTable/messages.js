@@ -70,4 +70,26 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.noPractitionersFound',
     defaultMessage: 'No practitioners found.',
   },
+  selectOrganization: {
+    id: 'ocpui.components.PractitionerTable.selectOrganization',
+    defaultMessage: 'Please select organization: ',
+  },
+  organization: {
+    id: 'ocpui.components.PractitionerTable.organization',
+    defaultMessage: 'Organization: ',
+  },
+  validation: {
+    required: {
+      id: 'ocpui.components.PractitionerTable.validation.required',
+      defaultMessage: 'Required',
+    },
+  },
+  submitButton: {
+    id: 'ocpui.components.PractitionerTable.submitButton',
+    defaultMessage: 'Submit',
+  },
+  cancelButton: {
+    id: 'ocpui.components.PractitionerTable.cancelButton',
+    defaultMessage: 'Cancel',
+  },
 });

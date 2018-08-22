@@ -47,6 +47,7 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.onSize = this.onSize.bind(this);
+    this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
   }
   componentDidMount() {
     this.props.initializeUserRegistration();

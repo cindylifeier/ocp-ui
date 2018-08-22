@@ -19,6 +19,7 @@ const ManageLocationFormGrid = Grid.extend`
     "city"
     "state"
     "postalCode"
+    "countryCode"
     "addressUse"
     "buttonGroup"
     "errorMessage";
@@ -35,8 +36,8 @@ const ManageLocationFormGrid = Grid.extend`
       "contact contact"
       "addressSubtitle addressSubtitle"
       "address1 address2"
-      "city state"
-      "postalCode addressUse"
+      "city state postalCode"
+      "countryCode addressUse"
       "buttonGroup ."
       "errorMessage errorMessage";
   }
@@ -52,7 +53,7 @@ const ManageLocationFormGrid = Grid.extend`
       "addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle addressSubtitle"
       "address1 address1 address1 address1 address2 address2 address2 address2 . . . ."
       "city city city city state state state postalCode postalCode . . ."
-      "addressUse addressUse addressUse addressUse . . . . . . . ."
+      "countryCode countryCode countryCode addressUse addressUse addressUse . . . . . ."
       "buttonGroup buttonGroup buttonGroup buttonGroup . . . . . . . ."
       "errorMessage errorMessage . . . . . . . . . .";
   }
