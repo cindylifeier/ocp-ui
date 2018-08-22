@@ -72,7 +72,6 @@ function ManageCareTeam(props) {
                   .required((<FormattedMessage {...messages.validation.required} />))
                   .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
                 endDate: yup.date()
-                  .required((<FormattedMessage {...messages.validation.required} />))
                   .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
               });
             })}
