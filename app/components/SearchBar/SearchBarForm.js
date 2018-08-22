@@ -16,7 +16,7 @@ import SearchContainerGrid from './SearchContainerGrid';
 import StyledTextField from './StyledTextField';
 import messages from './messages';
 function SearchBarForm(props) {
-  const { isSubmitting, dirty, isValid, searchField: { searchTypes, resourceTypes, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
+  const { isSubmitting, searchField: { searchTypes, resourceTypes, searchValueHintText }, showToDoSpecificFilters, showUserRegistrationRoleSelection } = props;
   return (
     <Form>
       <SearchSection>
@@ -48,7 +48,7 @@ function SearchBarForm(props) {
           <StyledBarActionButton
             fullWidth
             type="submit"
-            disabled={!dirty || isSubmitting || !isValid}
+            disabled={isSubmitting}
           >
             <FormattedMessage {...messages.searchButton} />
           </StyledBarActionButton>
@@ -102,10 +102,8 @@ function SearchBarForm(props) {
 
 SearchBarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
-  dirty: PropTypes.bool.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
   showUserRegistrationRoleSelection: PropTypes.bool,
-  isValid: PropTypes.bool.isRequired,
   searchField: PropTypes.shape({
     searchTypes: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,

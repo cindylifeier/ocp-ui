@@ -164,32 +164,39 @@ export const orgAdminStateMetadata =
       content: [
         {
           type: 'row',
-          height: 40,
-          content: [
-            {
-              title: 'Patient\'s Tasks',
-              type: 'component',
-              componentName: 'tasks',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Patient\'s Care teams',
-              type: 'component',
-              componentName: 'careTeams',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Patient\'s TO DO',
-              type: 'component',
-              componentName: 'toDos',
-              isClosable: true,
-              reorderEnabled: true,
-            },
+          height: 50,
+          content: [{
+            type: 'column',
+            content: [{
+              type: 'stack',
+              content: [
+                {
+                  title: 'Patient\'s Tasks',
+                  type: 'component',
+                  componentName: 'tasks',
+                  isClosable: true,
+                  reorderEnabled: true,
+                },
+                {
+                  title: 'Patient\'s TO DO',
+                  type: 'component',
+                  componentName: 'toDos',
+                  isClosable: true,
+                  reorderEnabled: true,
+                },
+              ],
+            }],
+          }, { title: 'Patient\'s Care teams',
+            type: 'component',
+            componentName: 'careTeams',
+            isClosable: true,
+            reorderEnabled: true,
+          },
           ],
         },
         {
           type: 'row',
-          height: 60,
+          height: 50,
           content: [
             {
               title: 'Patient\'s Communications',

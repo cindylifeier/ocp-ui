@@ -164,6 +164,16 @@ function ManageLocationForm(props) {
             floatingLabelText={<FormattedMessage {...messages.postalCodeFloatingLabelText} />}
           />
         </Cell>
+        <Cell area="countryCode">
+          <TextField
+            name="countryCode"
+            fullWidth
+            disabled
+            hintText={<FormattedMessage {...messages.countryHintText} />}
+            floatingLabelText={<FormattedMessage {...messages.countryFloatingLabelText} />}
+            defaultValue="United States"
+          />
+        </Cell>
         <Cell area="addressUse">
           <SelectField
             fullWidth

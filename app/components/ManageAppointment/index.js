@@ -142,7 +142,7 @@ ManageAppointment.propTypes = {
   handleSelectLocation: PropTypes.func.isRequired,
   handleDialogOpen: PropTypes.func.isRequired,
   getReferenceTypeFromReference: PropTypes.func.isRequired,
-  handleAddParticipant: PropTypes.func.isRequired,
+  handleAddParticipant: PropTypes.func,
   handleSelectPractitioner: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
