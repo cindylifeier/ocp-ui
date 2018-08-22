@@ -1,15 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import toLower from 'lodash/toLower';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
   const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization } = patient;
 
+  let birthSexDisplay = 'Unknown';
+  if (toLower(birthSex) === 'f' || toLower(birthSex) === 'female') {
+    birthSexDisplay = 'Female';
+  } else if (toLower(birthSex) === 'm' || toLower(birthSex) === 'male') {
+    birthSexDisplay = 'Male';
+  }
   return (
     <InfoSection>
       <Grid columns={'60% 40%'} justifyContent="space-between">
@@ -42,7 +48,7 @@ function PatientExpansionRowDetails({ patient }) {
             label={<FormattedMessage {...messages.expansionRowDetails.eocStatus} />}
             text={episodeOfCares && episodeOfCares.map((eoc) => (
                 `${eoc.typeDisplay} - ${eoc.statusDisplay}`
-              )
+              ),
             ).join('\n ')}
           />
         </Cell>
@@ -61,7 +67,7 @@ function PatientExpansionRowDetails({ patient }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.birthSex} />}
-            text={birthSex}
+            text={birthSexDisplay}
           />
         </Cell>
         <Cell>
@@ -69,7 +75,7 @@ function PatientExpansionRowDetails({ patient }) {
             label={<FormattedMessage {...messages.expansionRowDetails.activeTasks} />}
             text={activityTypes && activityTypes.map((type) => (
                 `${type}`
-              )
+              ),
             ).join('\n ')}
           />
         </Cell>
