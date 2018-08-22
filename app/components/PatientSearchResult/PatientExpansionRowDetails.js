@@ -1,5 +1,6 @@
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import isUndefined from 'lodash/isUndefined';
 import toLower from 'lodash/toLower';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -10,12 +11,15 @@ import messages from './messages';
 function PatientExpansionRowDetails({ patient }) {
   const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization } = patient;
 
-  let birthSexDisplay = 'Unknown';
-  if (toLower(birthSex) === 'f' || toLower(birthSex) === 'female') {
-    birthSexDisplay = 'Female';
-  } else if (toLower(birthSex) === 'm' || toLower(birthSex) === 'male') {
-    birthSexDisplay = 'Male';
+  let birthSexDisplay = 'Not Available';
+  if (!isUndefined(birthSex) && birthSex !== null) {
+    if (toLower(birthSex) === 'f' || toLower(birthSex) === 'female') {
+      birthSexDisplay = 'Female';
+    } else if (toLower(birthSex) === 'm' || toLower(birthSex) === 'male') {
+      birthSexDisplay = 'Male';
+    }
   }
+
   return (
     <InfoSection>
       <Grid columns={'60% 40%'} justifyContent="space-between">
