@@ -23,7 +23,7 @@ export default defineMessages({
     defaultMessage: 'Inactive',
   },
   buttonLabelCreateNew: {
-    id: 'ocpui.containers.Practitioners.checkbox.inactive',
+    id: 'ocpui.containers.Practitioners.buttonLabelCreateNew',
     defaultMessage: 'New Practitioner/Resource',
   },
 });
