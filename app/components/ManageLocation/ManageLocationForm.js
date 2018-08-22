@@ -1,4 +1,13 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { Form } from 'formik';
+import MenuItem from 'material-ui/MenuItem';
+import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
+
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
+import Padding from 'components/Padding';
 import ErrorText from 'components/ErrorText';
 import FieldGroupGrid from 'components/FieldGroupGrid';
 import MainCell from 'components/FieldGroupGrid/MainCell';
@@ -8,15 +17,8 @@ import GoBackButton from 'components/GoBackButton';
 import InlineLabel from 'components/InlineLabel';
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-
 import TextField from 'components/TextField';
-import { Form } from 'formik';
-import uniqueId from 'lodash/uniqueId';
-import MenuItem from 'material-ui/MenuItem';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
+import AutoSuggestionField from 'components/AutoSuggestion';
 import ManageLocationFormGrid from './ManageLocationFormGrid';
 import messages from './messages';
 
@@ -45,6 +47,12 @@ function ManageLocationForm(props) {
     errors,
     telecoms: values.telecoms,
   };
+  const stateSuggestions = uspsStates
+    .filter((entry) => (entry.code !== null) && (entry.display !== null))
+    .map((entry) => ({
+      value: entry.code,
+      label: entry.display,
+    }));
   return (
     <Form>
       <ManageLocationFormGrid gap="1vw">
@@ -146,15 +154,15 @@ function ManageLocationForm(props) {
           />
         </Cell>
         <Cell area="state">
-          <SelectField
-            name="stateCode"
-            fullWidth
-            floatingLabelText={<FormattedMessage {...messages.statesFloatingLabelText} />}
-          >
-            {uspsStates && uspsStates.map((uspsState) => (
-              <MenuItem key={uniqueId()} value={uspsState.code} primaryText={uspsState.display} />
-            ))}
-          </SelectField>
+          <Padding top={25}>
+            <AutoSuggestionField
+              name="stateCode"
+              isRequired
+              placeholder={<FormattedMessage {...messages.statesFloatingLabelText} />}
+              suggestions={stateSuggestions}
+              {...props}
+            />
+          </Padding>
         </Cell>
         <Cell area="postalCode">
           <TextField
@@ -171,7 +179,6 @@ function ManageLocationForm(props) {
             disabled
             hintText={<FormattedMessage {...messages.countryHintText} />}
             floatingLabelText={<FormattedMessage {...messages.countryFloatingLabelText} />}
-            defaultValue="United States"
           />
         </Cell>
         <Cell area="addressUse">
