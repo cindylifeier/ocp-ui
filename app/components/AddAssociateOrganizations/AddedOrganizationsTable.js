@@ -10,6 +10,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import CustomErrorText from 'components/CustomErrorText';
+import AutoSuggestionField from 'components/AutoSuggestion';
 import SelectField from 'components/SelectField';
 import messages from './messages';
 
@@ -22,6 +23,19 @@ function AddedOrganizationsTable(props) {
     specialtyType,
     errors,
   } = props;
+  const roleSuggestions = roleType
+    .filter((entry) => (entry.code !== null) && (entry.display !== null))
+    .map((entry) => ({
+      value: entry.code,
+      label: entry.display,
+    }));
+
+  const specialtySuggestions = specialtyType
+    .filter((entry) => (entry.code !== null) && (entry.display !== null))
+    .map((entry) => ({
+      value: entry.code,
+      label: entry.display,
+    }));
 
   return (
     <Table>
@@ -40,34 +54,22 @@ function AddedOrganizationsTable(props) {
           <TableRow key={uniqueId()} columns={tableColumns}>
             <TableRowColumn>{organization.display}</TableRowColumn>
             <TableRowColumn>
-              <SelectField
-                fullWidth
+              <AutoSuggestionField
                 name={`practitionerRoles.${index}.code`}
-                hintText={<FormattedMessage {...messages.addedOrganizationsTable.roleTypeLabel} />}
-              >
-                {roleType && roleType.map((role) =>
-                  (<MenuItem
-                    key={role.code}
-                    value={role.code}
-                    primaryText={role.display}
-                  />),
-                )}
-              </SelectField>
+                isRequired
+                placeholder={<FormattedMessage {...messages.addedOrganizationsTable.roleTypeLabel} />}
+                suggestions={roleSuggestions}
+                {...props}
+              />
             </TableRowColumn>
             <TableRowColumn>
-              <SelectField
-                fullWidth
+              <AutoSuggestionField
                 name={`practitionerRoles.${index}.specialty`}
-                hintText={<FormattedMessage {...messages.addedOrganizationsTable.specialtyLabel} />}
-              >
-                {specialtyType && specialtyType.map((specialty) =>
-                  (<MenuItem
-                    key={specialty.code}
-                    value={specialty.code}
-                    primaryText={specialty.display}
-                  />),
-                )}
-              </SelectField>
+                isRequired
+                placeholder={<FormattedMessage {...messages.addedOrganizationsTable.specialtyLabel} />}
+                suggestions={specialtySuggestions}
+                {...props}
+              />
             </TableRowColumn>
             <TableRowColumn>
               <SelectField
