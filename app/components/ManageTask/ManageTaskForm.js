@@ -113,7 +113,6 @@ function ManageTaskForm(props) {
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.authoredOn} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.authoredOn} />}
           />
         </Cell>
         <Cell area="lastModifiedDate">
@@ -125,7 +124,6 @@ function ManageTaskForm(props) {
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.lastModifiedDate} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastModifiedDate} />}
           />
         </Cell>
         <Cell area="status">
@@ -204,7 +202,6 @@ function ManageTaskForm(props) {
             disabled
             name="partOf"
             hintText={<FormattedMessage {...messages.hintText.partOf} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.partOf} />}
           >
             {tasksByPatient && tasksByPatient.map((partOf) =>
               <MenuItem key={uniqueId()} value={partOf.reference} primaryText={partOf.display} />,
@@ -218,7 +215,6 @@ function ManageTaskForm(props) {
             name="taskStart"
             mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
           />
         </Cell>
         <Cell area="taskEnd">
@@ -228,7 +224,6 @@ function ManageTaskForm(props) {
             minDate={today}
             mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskEnd} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskEnd} />}
           />
         </Cell>
         <Cell area="description">
@@ -238,7 +233,6 @@ function ManageTaskForm(props) {
             multiLine
             rows={2}
             hintText={<FormattedMessage {...messages.hintText.description} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
           />
         </Cell>
         <Cell area="comments">
@@ -248,7 +242,6 @@ function ManageTaskForm(props) {
             multiLine
             rows={2}
             hintText={<FormattedMessage {...messages.hintText.comments} />}
-            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
         </Cell>
         {isMainTask && <Cell area="subTasksSection">

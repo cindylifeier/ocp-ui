@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
 import MenuItem from 'material-ui/MenuItem';
+import merge from 'lodash/merge';
 
 import { PHONE_PATTERN, POSTAL_CODE_PATTERN } from 'containers/App/constants';
 import Padding from 'components/Padding';
@@ -36,6 +37,13 @@ function AddMultipleContactsForm(props) {
       label: entry.display,
     }));
 
+  function setInitialValue() {
+    if (initialValues) {
+      return merge(initialValues, { contact: { countryCode: 'US' } }).contact;
+    }
+    return { contact: { countryCode: 'US' } }.contact;
+  }
+
   return (
     <div>
       <Formik
@@ -46,7 +54,7 @@ function AddMultipleContactsForm(props) {
           onAddContact(values);
           onCloseDialog();
         }}
-        initialValues={{ ...(initialValues || {}).contact }}
+        initialValues={setInitialValue()}
         validationSchema={yup.object().shape({
           firstName: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),

@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.components.AddMultipleContacts.header',
-    defaultMessage: 'Contact People',
+    defaultMessage: 'Contact Personnel',
   },
   addContactsButton: {
     id: 'ocpui.components.AddMultipleContacts.addContactsButton',
@@ -63,11 +63,11 @@ export default defineMessages({
     },
     line1: {
       id: 'ocpui.components.AddMultipleContacts.hintText.line1',
-      defaultMessage: 'Line 1',
+      defaultMessage: 'Address Line 1',
     },
     line2: {
       id: 'ocpui.components.AddMultipleContacts.hintText.line2',
-      defaultMessage: 'Line 2',
+      defaultMessage: 'Address Line 2',
     },
     city: {
       id: 'ocpui.components.AddMultipleContacts.hintText.city',
@@ -109,11 +109,11 @@ export default defineMessages({
     },
     line1: {
       id: 'ocpui.components.AddMultipleContacts.floatingLabelText.line1',
-      defaultMessage: 'Line 1',
+      defaultMessage: 'Address Line 1',
     },
     line2: {
       id: 'ocpui.components.AddMultipleContacts.floatingLabelText.line2',
-      defaultMessage: 'Line 2',
+      defaultMessage: 'Address Line 2',
     },
     city: {
       id: 'ocpui.components.AddMultipleContacts.floatingLabelText.city',
