@@ -39,9 +39,9 @@ function AddMultipleContactsForm(props) {
 
   function setInitialValue() {
     if (initialValues) {
-      return merge(initialValues, { contact: { countryCode: 'US' } }).contact;
+      return merge(initialValues, { contact: { countryCode: 'United States' } }).contact;
     }
-    return { contact: { countryCode: 'US' } }.contact;
+    return { contact: { countryCode: 'United States' } }.contact;
   }
 
   return (

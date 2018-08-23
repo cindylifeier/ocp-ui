@@ -1,16 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import { FieldArray, Form } from 'formik';
+import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
-import AddPractitionerRoleForOrganization from 'components/AddPractitionerRoleForOrganization';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
@@ -19,40 +13,20 @@ import FieldGroupGrid from 'components/FieldGroupGrid';
 import PrefixCell from 'components/FieldGroupGrid/PrefixCell';
 import MainCell from 'components/FieldGroupGrid/MainCell';
 import ErrorText from 'components/ErrorText';
-import WideDialog from 'components/WideDialog';
+import GoBackButton from 'components/GoBackButton';
 import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
 import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import GoBackButton from 'components/GoBackButton';
-import teal from 'material-ui-next/colors/teal';
-import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
-import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
-import messages from './messages';
+import AddAssociateOrganizations from 'components/AddAssociateOrganizations';
+import AddAssociateRole from 'components/AddAssociateRole';
 import ManagePractitionerFormGrid from './ManagePractitionerFormGrid';
-import { ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS, EMAIL, PHONE } from './constants';
+import { EMAIL, PHONE } from './constants';
+import messages from './messages';
 
 class ManagePractitionerForm extends React.Component {
-
-  static initialState = {
-    searchOrganizationDialogOpen: false,
-  };
-
   constructor(props) {
     super(props);
-    this.state = { ...ManagePractitionerForm.initialState };
-    this.handleDialogCallback = this.handleDialogCallback.bind(this);
-    this.handleAddOrganizations = this.handleAddOrganizations.bind(this);
     this.hasEmailContact = this.hasEmailContact.bind(this);
     this.hasTelephoneContact = this.hasTelephoneContact.bind(this);
-  }
-
-  handleDialogCallback() {
-    this.setState({ ...ManagePractitionerForm.initialState });
-    this.props.initialSearchOrganizationResult();
-  }
-
-  handleAddOrganizations() {
-    this.setState({ searchOrganizationDialogOpen: true });
   }
 
   hasEmailContact() {
@@ -71,7 +45,7 @@ class ManagePractitionerForm extends React.Component {
     const {
       isSubmitting, dirty, isValid, values, errors,
       uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties,
-      organizations, currentPage, totalNumberOfPages, onSearch, onPageClick,
+      organizations, organizationContext, isOcpAdmin, onSearch, onPageClick, initialSearchOrganizationResult,
     } = this.props;
 
     const addAddressesProps = {
@@ -84,6 +58,22 @@ class ManagePractitionerForm extends React.Component {
       telecomUses,
       errors,
       telecoms: values.telecoms,
+    };
+    const addAssociateOrganizationsProps = {
+      organizations,
+      onSearch,
+      roleType: providerRoles,
+      specialtyType: providerSpecialties,
+      existingOrganizations: values.practitionerRoles,
+      onChangePage: onPageClick,
+      initialSearchOrganizationResult,
+      errors,
+    };
+    const addAssociateRoleProps = {
+      roleType: providerRoles,
+      specialtyType: providerSpecialties,
+      organizationContext,
+      errors,
     };
     return (
       <div>
@@ -143,130 +133,24 @@ class ManagePractitionerForm extends React.Component {
             </Cell>
             <Cell area="contacts">
               <AddMultipleTelecoms {...addTelecomsProps} />
-              { this.hasEmailContact() ? '' :
-              <ErrorText>
-                <FormattedMessage {...messages.validation.emailContact} /><br />
-              </ErrorText>
+              {this.hasEmailContact() ?
+                '' :
+                <ErrorText>
+                  <FormattedMessage {...messages.validation.emailContact} /><br />
+                </ErrorText>
               }
-              { this.hasTelephoneContact() ? '' :
-              <ErrorText>
-                <FormattedMessage {...messages.validation.phoneContact} />
-              </ErrorText>
+              {this.hasTelephoneContact() ?
+                '' :
+                <ErrorText>
+                  <FormattedMessage {...messages.validation.phoneContact} />
+                </ErrorText>
               }
             </Cell>
             <Cell area="associateOrganizationSection">
-              <div>
-                <Cell>
-                  <FormSubtitle margin="1vh 0 0 0">
-                    <FormattedMessage {...messages.associateOrganizations.subtitle} />
-                  </FormSubtitle>
-                </Cell>
-                <Cell>
-                  <AddNewItemButton color="primary" fontWeight="bold" fontSize="15px" onClick={this.handleAddOrganizations}>
-                    <StyledAddCircleIcon color={teal['500']} />
-                    <FormattedMessage {...messages.associateOrganizations.addButtonLabel} />
-                  </AddNewItemButton>
-                </Cell>
-                <Cell>
-                  <FieldArray
-                    name="practitionerRoles"
-                    render={(arrayHelpers) => (
-                      <div>
-                        <WideDialog
-                          open={this.state.searchOrganizationDialogOpen}
-                          autoScrollBodyContent
-                        >
-                          <AddPractitionerRoleForOrganization
-                            arrayHelpers={arrayHelpers}
-                            onAddAssociateOrganization={arrayHelpers.push}
-                            callback={this.handleDialogCallback}
-                            roleType={providerRoles}
-                            specialtyType={providerSpecialties}
-                            existingOrganizations={values.practitionerRoles}
-                            onSearch={onSearch}
-                            onPageClick={onPageClick}
-                            organizations={organizations}
-                            currentPage={currentPage}
-                            totalNumberOfPages={totalNumberOfPages}
-                          />
-                        </WideDialog>
-                        <Table>
-                          <TableHeader columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnName} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnCode} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnSpecialty} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnActive} /></TableHeaderColumn>
-                            <TableHeaderColumn><FormattedMessage {...messages.associateOrganizations.tableColumnAction} /></TableHeaderColumn>
-                          </TableHeader>
-                          {errors && errors.practitionerRoles &&
-                          <ErrorText>{errors.practitionerRoles}</ErrorText>}
-                          {values.practitionerRoles && values.practitionerRoles.map((pr, index) => {
-                            const { organization, logicalId } = pr;
-                            const menuItems = [{
-                              primaryText: <FormattedMessage {...messages.associateOrganizations.tableActionRemove} />,
-                              disabled: logicalId !== undefined,
-                              onClick: () => arrayHelpers.remove(index),
-                            }];
-                            return (
-                              <TableRow key={organization && organization.reference} columns={ASSOCIATE_ORGANIZATIONS_TABLE_COLUMNS}>
-                                <TableRowColumn>{organization.display}</TableRowColumn>
-                                <TableRowColumn>
-                                  <SelectField
-                                    fullWidth
-                                    name={`practitionerRoles.${index}.code`}
-                                    hintText={<FormattedMessage {...messages.hintText.roleType} />}
-                                  >
-                                    {providerRoles && providerRoles.map((roleType) =>
-                                      (<MenuItem
-                                        key={roleType.code}
-                                        value={roleType.code}
-                                        primaryText={roleType.display}
-                                      />),
-                                    )}
-                                  </SelectField>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                  <SelectField
-                                    fullWidth
-                                    name={`practitionerRoles.${index}.specialty`}
-                                    hintText={<FormattedMessage {...messages.hintText.specialty} />}
-                                  >
-                                    {providerSpecialties && providerSpecialties.map((roleType) =>
-                                      (<MenuItem
-                                        key={roleType.code}
-                                        value={roleType.code}
-                                        primaryText={roleType.display}
-                                      />),
-                                    )}
-                                  </SelectField>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                  <SelectField
-                                    fullWidth
-                                    name={`practitionerRoles.${index}.active`}
-                                    hintText={<FormattedMessage {...messages.hintText.active} />}
-                                  >
-                                    <MenuItem
-                                      value
-                                      primaryText="Active"
-                                    />
-                                    <MenuItem
-                                      value={false}
-                                      primaryText="Inactive"
-                                    />
-                                  </SelectField>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                  <NavigationIconMenu menuItems={menuItems} />
-                                </TableRowColumn>
-                              </TableRow>
-                            );
-                          })}
-                        </Table>
-                      </div>)}
-                  />
-                </Cell>
-              </div>
+              {isOcpAdmin ?
+                <AddAssociateOrganizations {...addAssociateOrganizationsProps} /> :
+                <AddAssociateRole {...addAssociateRoleProps} />
+              }
             </Cell>
             <Cell area="buttonGroup">
               <Grid columns={2}>
@@ -323,12 +207,20 @@ ManagePractitionerForm.propTypes = {
   onPageClick: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   initialSearchOrganizationResult: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
   }),
+  organizationContext: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    identifiers: PropTypes.array,
+    addresses: PropTypes.array,
+    logicalId: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+  }),
+  isOcpAdmin: PropTypes.bool.isRequired,
   values: PropTypes.object,
   errors: PropTypes.object,
 };

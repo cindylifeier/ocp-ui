@@ -38,7 +38,7 @@ function ManageUsersTable(props) {
           onClick: () => onOpenResetPasswordModal(user),
         }];
         const { givenName, familyName, displayName, role } = user;
-        const roleDisplay = role && role.map((roleCode) => roleCode.display).join('');
+        const roleDisplay = role && role.map((roleCode) => roleCode.display).join('\n');
         const permissionGroupName = displayName && displayName.split('.').pop();
         return (
           <TableRow key={user.id} columns={columns}>

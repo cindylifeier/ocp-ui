@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import { LinearProgress } from 'material-ui-next/Progress';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
@@ -17,7 +18,6 @@ import StyledDialog from 'components/StyledDialog';
 import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
@@ -40,6 +40,7 @@ class PractitionerTable extends React.Component {
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
+
   handleOpenDialog(practitioner) {
     this.setState({
       isOrgSelectDialogOpen: true,
@@ -79,96 +80,96 @@ class PractitionerTable extends React.Component {
             <OrganizationSelectForm handleCloseDialog={this.handleCloseDialog} practitioner={this.state.practitioner} />
           </DialogContent>
         </StyledDialog>
-        {practitionersData.loading && <RefreshIndicatorLoading />}
-        {(!practitionersData.loading && practitionersData.data &&
-          practitionersData.data.length > 0 ?
-            <div>
-              <Table>
-                <TableHeader columns={columns} relativeTop={relativeTop}>
-                  <TableHeaderColumn />
-                  <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
+        {practitionersData.loading && <LinearProgress />}
+
+        {!practitionersData.loading && practitionersData.data && practitionersData.data.length === 0 &&
+        <NoResultsFoundText><FormattedMessage {...messages.NoPractitionersFound} /></NoResultsFoundText>
+        }
+        {!practitionersData.loading && practitionersData.data && practitionersData.data.length > 0 &&
+        <div>
+          <Table>
+            <TableHeader columns={columns} relativeTop={relativeTop}>
+              <TableHeaderColumn />
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+              }
+              <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+              }
+              <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
+            </TableHeader>
+            {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
+              const { logicalId, name, active, addresses, telecoms } = practitioner;
+              const flattenedPractitioner = flattenPractitionerData(practitioner);
+              const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
+              const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
+              let menuItems;
+              if (manageUserEnabled) {
+                menuItems = [{
+                  primaryText: <FormattedMessage {...messages.manageUser} />,
+                  onClick: () => this.handleOpenDialog(practitioner),
+                }];
+              } else if (isOcpAdminRole) {
+                menuItems = [{
+                  primaryText: <FormattedMessage {...messages.edit} />,
+                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                }];
+              } else {
+                menuItems = [{
+                  primaryText: <FormattedMessage {...messages.edit} />,
+                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                }, {
+                  primaryText: <FormattedMessage {...messages.assignLocation} />,
+                  linkTo: `${assignLocationUrl}/${practitioner.logicalId}`,
+                },
+                ];
+              }
+              return (
+                <ExpansionTableRow
+                  expansionTableRowDetails={<PractitionerExpansionRowDetails
+                    practitioner={flattenedPractitioner}
+                  />}
+                  columns={columns}
+                  key={logicalId}
+                  onClick={() => setSelectedPractitioner && setSelectedPractitioner(practitioner)}
+                >
+                  <TableRowColumn>{renderFullName(name)}</TableRowColumn>
+                  {isExpanded ?
+                    <TableRowColumn>{address}</TableRowColumn> : null
+                  }
+                  <TableRowColumn>{contact}</TableRowColumn>
+                  <TableRowColumn>
+                    {active ?
+                      <FormattedMessage {...messages.active} /> :
+                      <FormattedMessage {...messages.inactive} />
+                    }
+                  </TableRowColumn>
                   {isExpanded &&
-                  <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+                  <TableRowColumn>{flattenedPractitioner.identifiers}</TableRowColumn>
                   }
-                  <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
-                  <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
-                  {isExpanded &&
-                  <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
-                  }
-                  <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
-                </TableHeader>
-                {!isEmpty(practitionersData.data) && practitionersData.data.map((practitioner) => {
-                  const { logicalId, name, active, addresses, telecoms } = practitioner;
-                  const flattenedPractitioner = flattenPractitionerData(practitioner);
-                  const address = addresses && addresses.length > 0 ? combineAddress(addresses[0]) : '';
-                  const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
-                  let menuItems;
-                  if (manageUserEnabled) {
-                    menuItems = [{
-                      primaryText: <FormattedMessage {...messages.manageUser} />,
-                      onClick: () => this.handleOpenDialog(practitioner),
-                    }];
-                  } else if (isOcpAdminRole) {
-                    menuItems = [{
-                      primaryText: <FormattedMessage {...messages.edit} />,
-                      linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
-                    }];
-                  } else {
-                    menuItems = [{
-                      primaryText: <FormattedMessage {...messages.edit} />,
-                      linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
-                    }, {
-                      primaryText: <FormattedMessage {...messages.assignLocation} />,
-                      linkTo: `${assignLocationUrl}/${practitioner.logicalId}`,
-                    },
-                    ];
-                  }
-                  return (
-                    <ExpansionTableRow
-                      expansionTableRowDetails={<PractitionerExpansionRowDetails
-                        practitioner={flattenedPractitioner}
-                      />}
-                      columns={columns}
-                      key={logicalId}
-                      onClick={() => setSelectedPractitioner && setSelectedPractitioner(practitioner)}
-                    >
-                      <TableRowColumn>{renderFullName(name)}</TableRowColumn>
-                      {isExpanded ?
-                        <TableRowColumn>{address}</TableRowColumn> : null
-                      }
-                      <TableRowColumn>{contact}</TableRowColumn>
-                      <TableRowColumn>
-                        {active ?
-                          <FormattedMessage {...messages.active} /> :
-                          <FormattedMessage {...messages.inactive} />
-                        }
-                      </TableRowColumn>
-                      {isExpanded &&
-                      <TableRowColumn>{flattenedPractitioner.identifiers}</TableRowColumn>
-                      }
-                      <TableRowColumn>
-                        <NavigationIconMenu menuItems={menuItems} />
-                      </TableRowColumn>
-                    </ExpansionTableRow>
-                  );
-                })}
-              </Table>
-              <CenterAlignedUltimatePagination
-                currentPage={practitionersData.currentPage}
-                totalPages={practitionersData.totalNumberOfPages}
-                onChange={practitionersData.handleChangePage}
-              />
-              <RecordsRange
-                currentPage={practitionersData.currentPage}
-                totalPages={practitionersData.totalNumberOfPages}
-                totalElements={practitionersData.totalElements}
-                currentPageSize={practitionersData.currentPageSize}
-              />
-            </div> :
-            (
-              <NoResultsFoundText><FormattedMessage {...messages.NoPractitionersFound} /></NoResultsFoundText>
-            )
-        )}
+                  <TableRowColumn>
+                    <NavigationIconMenu menuItems={menuItems} />
+                  </TableRowColumn>
+                </ExpansionTableRow>
+              );
+            })}
+          </Table>
+          <CenterAlignedUltimatePagination
+            currentPage={practitionersData.currentPage}
+            totalPages={practitionersData.totalNumberOfPages}
+            onChange={practitionersData.handleChangePage}
+          />
+          <RecordsRange
+            currentPage={practitionersData.currentPage}
+            totalPages={practitionersData.totalNumberOfPages}
+            totalElements={practitionersData.totalElements}
+            currentPageSize={practitionersData.currentPageSize}
+          />
+        </div>
+        }
       </div>
     );
   }
@@ -212,7 +213,7 @@ PractitionerTable.propTypes = {
         use: PropTypes.string,
       })),
       practitionerRoles: PropTypes.array,
-    })).isRequired,
+    })),
   }),
   combineAddress: PropTypes.func.isRequired,
   mapToTelecoms: PropTypes.func.isRequired,

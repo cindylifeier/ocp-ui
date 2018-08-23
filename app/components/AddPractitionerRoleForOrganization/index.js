@@ -22,7 +22,7 @@ import messages from './messages';
 
 
 function AddPractitionerRoleForOrgnaization(props) {
-  const { organizations, currentPage, totalNumberOfPages, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
+  const { organizations, onSearch, onPageClick, onAddAssociateOrganization, existingOrganizations, callback, roleType, specialtyType } = props;
   return (
     <div>
       <StyledTooltip title="Close">
@@ -47,13 +47,14 @@ function AddPractitionerRoleForOrgnaization(props) {
 
           />
           <CenterAlignedUltimatePagination
-            currentPage={currentPage}
-            totalPages={totalNumberOfPages}
+            currentPage={organizations.currentPage}
+            totalPages={organizations.totalNumberOfPages}
             onChange={onPageClick}
           />
         </div>
       ) ||
-      ((!organizations.loading && organizations.data && organizations.data.length === 0 && <NoResultsFoundText><FormattedMessage {...messages.noOrganizationsFound} /></NoResultsFoundText>
+      ((!organizations.loading && organizations.data && organizations.data.length === 0 &&
+        <NoResultsFoundText><FormattedMessage {...messages.noOrganizationsFound} /></NoResultsFoundText>
       ))
       }
     </div>
@@ -64,11 +65,11 @@ AddPractitionerRoleForOrgnaization.propTypes = {
   onPageClick: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   onAddAssociateOrganization: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
   }),
   existingOrganizations: PropTypes.array,
   callback: PropTypes.func,
