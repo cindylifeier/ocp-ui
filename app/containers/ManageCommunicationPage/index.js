@@ -17,8 +17,7 @@ import makeSelectCommunications from 'containers/Communications/selectors';
 import { makeSelectEpisodeOfCares, makeSelectPractitioner } from 'containers/ManageCommunicationPage/selectors';
 import { makeSelectPatientAppointments } from 'containers/PatientAppointments/selectors';
 import SearchRecipient from 'containers/SearchRecipient';
-import { initializeListOfRecipients, initializeSearchRecipients, removeSelectedRecipient, setInitialRecipients } from 'containers/SearchRecipient/actions';
-import { makeSelectSelectedRecipients } from 'containers/SearchRecipient/selectors';
+import { removeSelectedRecipient } from 'containers/SearchRecipient/actions';
 import { makeSelectTasks } from 'containers/Tasks/selectors';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
@@ -52,24 +51,16 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
   }
 
   componentDidMount() {
-    const { user, selectedPatient, organization, communications } = this.props;
+    const { user, selectedPatient, organization } = this.props;
     const practitionerId = getPractitionerIdByRole(user);
     if (practitionerId) {
       this.props.getPractitioner(practitionerId);
     }
     this.props.getLookups();
     this.props.getEpisodeOfCares(selectedPatient.id, organization.logicalId);
-    this.props.initializeSearchRecipients();
-    const logicalId = this.props.match.params.id;
-    const communication = find(communications.data.elements, { logicalId });
-    if (communication && communication.recipient) {
-      const recipients = communication.recipient;
-      this.props.setInitialRecipients(recipients);
-    }
   }
 
   handleOpen() {
-    this.props.initializeListOfRecipients();
     this.setState({ open: true });
   }
 
@@ -101,7 +92,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
       communicationNotDoneReasons,
       communicationMedia,
       episodeOfCares,
-      selectedRecipients,
       selectedPatient,
       location,
       tasks,
@@ -110,11 +100,7 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     } = this.props;
     const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
-    let initialSelectedRecipients = [];
     const communication = find(communications.data.elements, { logicalId });
-    if (communication && communication.recipient) {
-      initialSelectedRecipients = communication.recipient;
-    }
     let selectedTask = null;
     if (location && location.search && tasks && tasks.data && tasks.data.elements) {
       const queryObj = queryString.parse(location.search);
@@ -135,11 +121,9 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
       communicationNotDoneReasons,
       communicationMedia,
       episodeOfCares,
-      selectedRecipients,
       selectedPatient,
       communication,
       practitioner,
-      initialSelectedRecipients,
       editMode,
       selectedTask,
       selectedAppointment,
@@ -166,7 +150,6 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
           >
           </ManageCommunication>
           <SearchRecipient
-            initialSelectedRecipients={initialSelectedRecipients}
             communicationId={logicalId}
             isOpen={this.state.open}
             handleOpen={this.handleOpen}
@@ -193,14 +176,10 @@ ManageCommunicationPage.propTypes = {
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
-  selectedRecipients: PropTypes.array,
   tasks: PropTypes.object,
   appointments: PropTypes.object,
   communications: PropTypes.object,
   getEpisodeOfCares: PropTypes.func.isRequired,
-  initializeSearchRecipients: PropTypes.func.isRequired,
-  initializeListOfRecipients: PropTypes.func.isRequired,
-  setInitialRecipients: PropTypes.func.isRequired,
   user: PropTypes.object,
   practitioner: PropTypes.object.isRequired,
   organization: PropTypes.object.isRequired,
@@ -213,7 +192,6 @@ const mapStateToProps = createStructuredSelector({
   communicationNotDoneReasons: makeSelectCommunicationNotDoneReasons(),
   communicationMedia: makeSelectCommunicationMedia(),
   episodeOfCares: makeSelectEpisodeOfCares(),
-  selectedRecipients: makeSelectSelectedRecipients(),
   practitioner: makeSelectPractitioner(),
   communications: makeSelectCommunications(),
   tasks: makeSelectTasks(),
@@ -230,9 +208,6 @@ function mapDispatchToProps(dispatch) {
     getEpisodeOfCares: (patientId, organizationId) => dispatch(getEpisodeOfCares(patientId, organizationId)),
     removeSelectedRecipient: (checked, recipientReference) => dispatch(removeSelectedRecipient(checked, recipientReference)),
     getPractitioner: (practitionerId) => dispatch(getPractitioner(practitionerId)),
-    initializeSearchRecipients: () => dispatch(initializeSearchRecipients()),
-    initializeListOfRecipients: () => dispatch(initializeListOfRecipients()),
-    setInitialRecipients: (selectedRecipients) => dispatch(setInitialRecipients(selectedRecipients)),
   };
 }
 
