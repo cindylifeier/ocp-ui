@@ -17,7 +17,7 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  data: [],
+  data: null,
   currentPage: 0,
   totalNumberOfPages: 0,
   error: false,
