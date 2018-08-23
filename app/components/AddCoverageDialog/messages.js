@@ -7,23 +7,23 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   addCoverageDialogCancelBtnLabel: {
-    id: 'ocpui.containers.AddCoverageDialog.addCoverageDialogCancelBtnLabel',
+    id: 'ocpui.components.AddCoverageDialog.addCoverageDialogCancelBtnLabel',
     defaultMessage: 'Cancel',
   },
   addCoverageDialogTitle: {
-    id: 'ocpui.containers.AddCoverageDialog.addCoverageDialogTitle',
+    id: 'ocpui.components.AddCoverageDialog.addCoverageDialogTitle',
     defaultMessage: 'Coverage',
   },
   saveButton: {
-    id: 'ocpui.containers.AddCoverageDialog.saveButton',
+    id: 'ocpui.components.AddCoverageDialog.saveButton',
     defaultMessage: 'Save',
   },
   cancelButton: {
-    id: 'ocpui.containers.AddCoverageDialog.cancelButton',
+    id: 'ocpui.components.AddCoverageDialog.cancelButton',
     defaultMessage: 'Cancel',
   },
   addCoverageDialogSaveBtnLabel: {
-    id: 'ocpui.containers.AddCoverageDialog.addCoverageDialogSaveBtnLabel',
+    id: 'ocpui.components.AddCoverageDialog.addCoverageDialogSaveBtnLabel',
     defaultMessage: 'Save',
   },
   validation: {
