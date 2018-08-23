@@ -111,7 +111,7 @@ DefaultViewComponent.propTypes = {
         use: PropTypes.string,
       })),
       practitionerRoles: PropTypes.array,
-    })).isRequired,
+    })),
   }),
 };
 
