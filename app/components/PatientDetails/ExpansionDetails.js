@@ -9,7 +9,7 @@ import drop from 'lodash/drop';
 
 
 import { Link } from 'react-router-dom';
-import AddCircle from '@material-ui/icons/AddCircle';
+import Edit from '@material-ui/icons/Edit';
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
 import AdvisoryDetails from './AdvisoryDetails';
@@ -28,8 +28,8 @@ function ExpansionDetails({ patient }) {
       <Cell>
         <InfoSection>
           <StyledFlatButton component={Link} to={`${MANAGE_PATIENT_URL}/${patient.id}`}>
-            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Add icon'}>
-              <AddCircle color={'#004747'} />
+            <StyledIconButton size="x-small" svgIconSize="small" disableIconHover aria-label={'Edit Icon'}>
+              <Edit color={'#004747'} />
             </StyledIconButton>
             <FormattedMessage {...messages.edit} />
           </StyledFlatButton>
@@ -66,7 +66,7 @@ function ExpansionDetails({ patient }) {
             </Cell>
             <Cell>
               <TextLabelGroup
-                label={<FormattedMessage {...messages.contacts} />}
+                label={<FormattedMessage {...messages.contactDetails} />}
                 text={telecoms}
               />
             </Cell>
