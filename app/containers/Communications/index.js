@@ -4,31 +4,32 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import isEqual from 'lodash/isEqual';
+import Card from 'components/Card';
+import CommunicationsTable from 'components/CommunicationsTable';
+import PanelToolbar from 'components/PanelToolbar';
+import {
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_COMMUNICATION_URL,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+} from 'containers/App/constants';
 
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getCommunications } from 'containers/Communications/actions';
-import {
-  CARE_COORDINATOR_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE,
-  DEFAULT_START_PAGE_NUMBER,
-  MANAGE_COMMUNICATION_URL,
-} from 'containers/App/constants';
-import Card from 'components/Card';
-import PanelToolbar from 'components/PanelToolbar';
-import CommunicationsTable from 'components/CommunicationsTable';
-import injectSaga from 'utils/injectSaga';
+import isEqual from 'lodash/isEqual';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import makeSelectCommunications from './selectors';
+import injectSaga from 'utils/injectSaga';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import makeSelectCommunications from './selectors';
 
 export class Communications extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -79,7 +80,7 @@ export class Communications extends React.Component { // eslint-disable-line rea
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
+          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}

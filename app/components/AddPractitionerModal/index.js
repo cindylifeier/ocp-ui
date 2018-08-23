@@ -21,7 +21,7 @@ import messages from './messages';
 
 class AddPractitionerModal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { modalOpen, onModalClose, identifierSystems, practitionerLookup, onCheckExisting } = this.props;
+    const { modalOpen, onModalClose, isOrgAdmin, identifierSystems, practitionerLookup, onCheckExisting } = this.props;
     return (
       <div>
         <StyledDialog fullWidth maxWidth="md" open={modalOpen}>
@@ -41,7 +41,7 @@ class AddPractitionerModal extends React.Component { // eslint-disable-line reac
           </DialogTitle>
           <DialogContent>
             <CreatePractitionerForm identifierSystems={identifierSystems} onCheckExisting={onCheckExisting} />
-            <PractitionerLookupResult practitionerLookup={practitionerLookup} />
+            <PractitionerLookupResult practitionerLookup={practitionerLookup} isOrgAdmin={isOrgAdmin} />
           </DialogContent>
         </StyledDialog>
       </div>
@@ -58,6 +58,7 @@ AddPractitionerModal.propTypes = {
     oid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   })).isRequired,
+  isOrgAdmin: PropTypes.bool.isRequired,
   practitionerLookup: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     exists: PropTypes.bool.isRequired,

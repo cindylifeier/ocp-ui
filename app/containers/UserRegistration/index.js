@@ -10,13 +10,14 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { PanelToolbar } from 'components/PanelToolbar';
+import { push } from 'react-router-redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
 import { flattenPractitionerData } from 'containers/Practitioners/helpers';
 import { makeSelectUsCoreEthnicities, makeSelectUsCoreRaces } from 'containers/App/lookupSelectors';
-import { USCOREETHNICITY, USCORERACE } from 'containers/App/constants';
+import { MANAGE_USER_REGISTRATION, USCOREETHNICITY, USCORERACE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import { flattenPatientData } from 'containers/Patients/helpers';
 import PatientSearchResult from 'components/PatientSearchResult';
@@ -29,6 +30,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { searchResources, initializeUserRegistration } from './actions';
 import { PRACTITIONER, PATIENT } from './constants';
+
 
 export class UserRegistration extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -48,6 +50,7 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
     this.handleSearch = this.handleSearch.bind(this);
     this.onSize = this.onSize.bind(this);
     this.handleChangeSearchPage = this.handleChangeSearchPage.bind(this);
+    this.handlePatientClick = this.handlePatientClick.bind(this);
   }
   componentDidMount() {
     this.props.initializeUserRegistration();
@@ -67,6 +70,11 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
 
   handleChangeSearchPage(currentPage) {
     this.props.searchResources(this.state.search.searchType, this.state.search.searchValue, this.state.search.resourceType, this.state.search.includeInactive, currentPage);
+  }
+
+  handlePatientClick(patient) {
+    const url = `${MANAGE_USER_REGISTRATION}/${patient.id}?resourceType=Patient&orgId=${patient.organization.reference.split('/').pop()}`;
+    this.props.manageUser(url);
   }
 
   render() {
@@ -116,6 +124,8 @@ export class UserRegistration extends React.Component { // eslint-disable-line r
             mapToTelecoms={mapToTelecoms}
             combineAddress={combineAddress}
             manageUserEnabled
+            ablePatientClick
+            onPatientClick={this.handlePatientClick}
           />
           {!!resourcesData.data && !!resourcesData.currentPage && !resourcesData.loading &&
           <div>
@@ -164,6 +174,7 @@ UserRegistration.propTypes = {
   })),
   getLookUpData: PropTypes.func.isRequired,
   initializeUserRegistration: PropTypes.func.isRequired,
+  manageUser: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -175,6 +186,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     initializeUserRegistration: () => dispatch(initializeUserRegistration()),
+    manageUser: (url) => dispatch(push(url)),
     getLookUpData: () => dispatch(getLookupsAction([USCORERACE, USCOREETHNICITY])),
     searchResources: (searchType, searchValue, resourceType, includeInactive, currentPage, organization) => dispatch(searchResources(searchType, searchValue, resourceType, includeInactive, currentPage, organization)),
   };

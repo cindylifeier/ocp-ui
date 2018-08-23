@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import createHistory from 'history/createBrowserHistory';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -13,8 +13,7 @@ import StyledFlatButton from 'components/StyledFlatButton';
 import messages from './messages';
 
 export function GoBackButton(props) {
-  const history = createHistory();
-  const { label, disabled } = props;
+  const { history, label, disabled } = props;
   return (
     <div>
       <StyledFlatButton
@@ -31,6 +30,9 @@ export function GoBackButton(props) {
 GoBackButton.propTypes = {
   label: PropTypes.node.isRequired,
   disabled: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 GoBackButton.defaultProps = {
@@ -38,5 +40,5 @@ GoBackButton.defaultProps = {
   disabled: false,
 };
 
-export default GoBackButton;
+export default withRouter(GoBackButton);
 
